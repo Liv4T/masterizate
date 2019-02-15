@@ -8,8 +8,7 @@
       </div>
     </div>  
       
-    <task-component > 
-    </task-component>
+    <user-component></user-component>
     <pagination-component></pagination-component>
     </div>
 </div>

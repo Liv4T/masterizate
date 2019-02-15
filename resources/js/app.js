@@ -25,7 +25,7 @@ Vue.component('task-component', require('./components/TaskComponent.vue').defaul
 Vue.component('category-component', require('./components/CategoryComponent.vue').default);
 Vue.component('pagination-component', require('./components/PaginationComponent.vue').default);
 Vue.component('select2', require('./components/Select2.vue').default);
-
+Vue.component('user-component', require('./components/UserComponent.vue').default);
 
 const app = new Vue({
     el: '#app',

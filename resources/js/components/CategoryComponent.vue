@@ -40,27 +40,6 @@
                 </button>  
             </div>
             <div class="modal-body">
-                <!--<div class="form-group">
-                        <label for="" class="col-md-3">
-                            Categorias:
-                        </label>
-                        <div class="col-md-9">
-                            <select2 :options="categories" v-model="Category" @input="getSubcategories">
-                                
-                            </select2>
-                        </div>
-                        
-                    </div>
-                    <div class="form-group">
-                        <label for="" class="col-md-3">
-                            Subcategorias:
-                        </label>
-                        <div class="col-md-9">
-                            <select2 :options="subcategories" v-model="Subcategory">
-                                
-                            </select2>
-                        </div>
-                    </div>-->
                 <label for="keep">Categoria</label>
                 <input type="text" name="name_category" class="form-control" v-model="newName_category">
                 <label for="keep">Subcategoria</label>
@@ -184,15 +163,9 @@ export default {
             axios.get(urlCat).then(response=> {
                 this.names_c = response.data.categories.data
             });
-         },
+         }
     
-        getSubcategories(){
-            
-            var urlse = 'GetSubcategories/'+this.category;
-            axios.get(urlse).then((response)=>{
-                this.subcategories = response.data;  
-            });
-        }
+      
    }
 };
 

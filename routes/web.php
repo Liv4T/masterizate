@@ -14,6 +14,9 @@
 Route::get('/', function () {
     return view('home');
 });
+Route::get('/user', function () {
+    return view('home');
+});
 Route::get('/task', function () {
     return view('home');
 });
@@ -22,8 +25,9 @@ Route::get('/category', function () {
 });
 Route::get('GetCategories','CategoryController@GetCategories');
 Route::get('GetSubcategories/{id}','CategoryController@GetSubcategories');
-
+Route::get('/home', 'HomeController@index')->name('home');
 Auth::routes();
+
 Route::resource('tasks', 'TaskController', ['except'=> 'show','create','edit']);;
 Route::resource('categories', 'CategoryController', ['except'=> 'show','create','edit']);;
-Route::get('/home', 'HomeController@index')->name('home');
+Route::resource('users', 'UserController', ['except'=> 'show','create','edit']);;
