@@ -17,17 +17,19 @@ Route::get('/', function () {
 Route::get('/user', function () {
     return view('home');
 });
-Route::get('/task', function () {
-    return view('home');
+Route::get('/type', function () {
+    return view('welcome');
 });
 Route::get('/category', function () {
     return view('category');
 });
 Route::get('GetCategories','CategoryController@GetCategories');
+Route::get('GetTypeU','CategoryController@GetTypeU');
 Route::get('GetSubcategories/{id}','CategoryController@GetSubcategories');
 Route::get('/home', 'HomeController@index')->name('home');
 Auth::routes();
 
+Route::resource('types', 'TypeUserController', ['except'=> 'show','create','edit']);;
 Route::resource('tasks', 'TaskController', ['except'=> 'show','create','edit']);;
 Route::resource('categories', 'CategoryController', ['except'=> 'show','create','edit']);;
 Route::resource('users', 'UserController', ['except'=> 'show','create','edit']);;

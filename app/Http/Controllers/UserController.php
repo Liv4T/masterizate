@@ -60,6 +60,7 @@ class UserController extends Controller
             'id_number'=>'required'
             */
         ]);
+        //console.log($request);
         User::create($request->all());
         return;
     }

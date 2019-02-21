@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Category;
 use App\Subcategory;
+use App\TypeUser;
 
 class CategoryController extends Controller
 {
@@ -21,7 +22,22 @@ class CategoryController extends Controller
                 'id'   => $value->id,
                 'text' => $value->name_category,
             ];
-            # code...
+        }
+        return response()->json($data);
+    }
+    public function GetTypeU()
+    {
+        $typeUsers = TypeUser::all();
+        $data = [];
+        $data[0] = [
+            'id'   => 0,
+            'text' =>'Seleccione',
+        ];
+        foreach ($typeUsers as $key => $value) {
+            $data[$key+1] =[
+                'id'   => $value->id,
+                'text' => $value->name,
+            ];
         }
         return response()->json($data);
     }
@@ -67,7 +83,7 @@ class CategoryController extends Controller
         $this->validate($request, [
         
             'name_category'=>'required',
-               ]);
+        ]);
         Category::create($request->all());
         return;
     }

@@ -39,8 +39,8 @@ export default {
         }
     },
     created() {
-    this.getPage();
-  },
+        this.getPage();
+    },
     //metodos para determinar si la pagina esta activa y cual es la pagina
     computed: {
         isActived() {
@@ -68,17 +68,17 @@ export default {
     },
     mounted() {
     console.log("Component mounted.");
-  },
+    },
     methods: { //metodos del CRUD
-    getPage(page) {
-      var urlKeeps = "tasks?page=" + page;
-      axios.get(urlKeeps).then(response => {
-          (this.pagination = response.data.pagination);
-      });
-     },
-            changePage(page) {
-                this.pagination.current_page = page;
-            },
+        getPage(page) {
+            var urlKeeps = "tasks?page=" + page;
+             axios.get(urlKeeps).then(response => {
+                (this.pagination = response.data.pagination);
+            });
+        },
+        changePage(page) {
+            this.pagination.current_page = page;
+        },
 
     }
 }

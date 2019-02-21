@@ -5,7 +5,7 @@
     </div>
     <div class="col-sm-7">
       <a href="#" class="btn btn-primary float-right" data-toggle="modal"
-        data-target="#create">Nueva tarea</a>
+        data-target="#create">Agregar</a>
         <table class="table table-hover table-striped">
           <thead>
             <tr>
@@ -15,14 +15,14 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="keep in keeps">
-              <td width="10px">{{ keep.id }}</td>
-              <td>{{ keep.keep }}</td>
+            <tr v-for="type in types">
+              <td width="10px">{{ type.id }}</td>
+              <td>{{ type.name }}</td>
               <td width="10px">
-                <a href="#" class="btn btn-warning btn-sm" v-on:click.prevent="editKeep(keep)">Editar</a>
+                <a href="#" class="btn btn-warning btn-sm" v-on:click.prevent="editType(type)">Editar</a>
               </td>
               <td width="10px">
-                <a href="#" class="btn btn-danger btn-sm" v-on:click.prevent="deleteKeep(keep)"
+                <a href="#" class="btn btn-danger btn-sm" v-on:click.prevent="deleteType(type)"
                 >Eliminar</a>
               </td>
             </tr>
@@ -39,12 +39,12 @@
               </button>  
             </div>
             <div class="modal-body">
-              <label for="keep">Nuevo Tipo</label>
-              <input type="text" name="keep" class="form-control" v-model="newKeep">
+              <label for="type">Nuevo Tipo</label>
+              <input type="text" name="type" class="form-control" v-model="newType">
               <span v-for="error in errors" class="text-danger">{{ error }}</span>
             </div>
             <div class="modal-footer">
-              <input type="submit" @click="createKeep" class="btn btn-primary" value="Guardar">
+              <input type="submit" @click="createType" class="btn btn-primary" value="Guardar">
             </div>
           </div>
         </div>
@@ -60,11 +60,11 @@
             </div>
             <div class="modal-body">
                  <label for="keep">Actualizar Tipo</label>
-                <input type="text" name="keep" class="form-control" v-model="fillKeep.keep">
+                <input type="text" name="keep" class="form-control" v-model="fillType.name">
                 <span v-for="error in errors" class="text-danger">{{ error }}</span>
             </div>
             <div class="modal-footer">
-                <input type="submit" @click="updateKeep(fillKeep.id)" class="btn btn-primary" value="Actualizar">
+                <input type="submit" @click="updateType(fillType.id)" class="btn btn-primary" value="Actualizar">
             </div>
           </div>
       </div>
@@ -77,37 +77,38 @@ export default {
   //arreglos para editar y crear
   data() {
     return {
-      keeps: [],
-      newKeep: "",
-      fillKeep: { id: "", keep: "" },
+      types: [],
+      newType: "",
+      fillType: { id: "", name: "" },
       errors: []
     };
   },
   created() {
-    this.getKeeps();
+    this.getTypes();
   },
   
   mounted() {
     console.log("Component mounted.");
   },
   methods: {//metodos del CRUD
-    getKeeps(page) {
-      var urlKeeps = "tasks?page=" + page;
-      axios.get(urlKeeps).then(response => {
-        (this.keeps = response.data.tasks.data);
+    getTypes(page) {
+      var urlTypes = "types?page=" + page;
+      axios.get(urlTypes).then(response => {
+        (this.types = response.data.typeUsers.data);
+        this.pagination = response.data.pagination
          
       });
     },
-    editKeep(keep) {
-      this.fillKeep.id = keep.id;
-      this.fillKeep.keep = keep.keep;
+    editType(type) {
+      this.fillType.id = type.id;
+      this.fillType.name = type.name;
       $("#edit").modal("show");
     },
-    updateKeep(id) {
-      var url = "tasks/" + id;
-      axios.put(url, this.fillKeep).then(response => {
-        this.getKeeps();
-        this.fillKeep = { id: "", keep: "" };
+    updateType(id) {
+      var url = "types/" + id;
+      axios.put(url, this.fillType).then(response => {
+        this.getTypes();
+        this.fillType = { id: "", name: "" };
         this.errors = [];
         $("#edit").modal("hide");
         toastr.success('Tipo de usuario editado con exito');
@@ -115,30 +116,34 @@ export default {
         this.errors = error.response.data
         });
     },
-    deleteKeep(keep) {
-      var url = "tasks/" + keep.id;
+    deleteType(type) {
+      var url = "types/" + type.id;
       axios.delete(url).then(response => {
         // eliminar
-        this.getKeeps(); //lista
+        this.getTypes(); //lista
         toastr.success("Eliminado correctamente"); //mensaje
       });
     },
-    createKeep() {
-      var url = "tasks";
+    createType() {
+      var url = "types";
       axios
         .post(url, {
-          keep: this.newKeep
+          name: this.newType
         })
         .then(response => {
-          this.getKeeps();
-          this.newKeep = "";
+          this.getTypes();
+          this.newType = "";
           this.errors = [];
           $("#create").modal("hide");
            toastr.success('Nuevo tipo de usuario creado con exito');
            }).catch(error => {
            this.errors = error.response.data
            });
-    }
+    },
+    changePage(page) {
+      this.pagination.current_page = page;
+      this.getTypes(page);
+    },
   }
 };
 </script>
