@@ -1850,6 +1850,7 @@ __webpack_require__.r(__webpack_exports__);
       names_c: [],
       newName_category: '',
       newName_subcategory: '',
+      newName_id_Category: '',
       fillNamec: {
         'id': '',
         'name_category': ''

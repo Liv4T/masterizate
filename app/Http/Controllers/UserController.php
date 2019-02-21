@@ -16,13 +16,13 @@ class UserController extends Controller
     {
         $users = User::orderBy('id','DESC')->paginate(4);
      return [
-         'pagination' => [
-            'total' => $users->total(),
+         'pagination'      => [
+            'total'        => $users->total(),
             'current_page' => $users->currentPage(),
-            'per_page' => $users->perPage(),
-            'last_page' => $users->lastPage(),
-            'from' => $users->firstItem(),
-            'to' => $users->lastItem(),
+            'per_page'     => $users->perPage(),
+            'last_page'    => $users->lastPage(),
+            'from'         => $users->firstItem(),
+            'to'           => $users->lastItem(),
          ],
          'users' => $users
      ];

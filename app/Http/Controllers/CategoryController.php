@@ -50,13 +50,13 @@ class CategoryController extends Controller
     {
         $categories = Category::orderBy('id','DESC')->paginate(4);
         return [
-            'pagination' => [
-               'total' => $categories->total(),
+            'pagination'      => [
+               'total'        => $categories->total(),
                'current_page' => $categories->currentPage(),
-               'per_page' => $categories->perPage(),
-               'last_page' => $categories->lastPage(),
-               'from' => $categories->firstItem(),
-               'to' => $categories->lastItem(),
+               'per_page'     => $categories->perPage(),
+               'last_page'    => $categories->lastPage(),
+               'from'         => $categories->firstItem(),
+               'to'           => $categories->lastItem(),
             ],
             'categories' => $categories
         ];

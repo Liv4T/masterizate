@@ -17,13 +17,13 @@ class TaskController extends Controller
     {
      $tasks = Task::orderBy('id','DESC')->paginate(4);
      return [
-         'pagination' => [
-            'total' => $tasks->total(),
+         'pagination'      => [
+            'total'        => $tasks->total(),
             'current_page' => $tasks->currentPage(),
-            'per_page' => $tasks->perPage(),
-            'last_page' => $tasks->lastPage(),
-            'from' => $tasks->firstItem(),
-            'to' => $tasks->lastItem(),
+            'per_page'     => $tasks->perPage(),
+            'last_page'    => $tasks->lastPage(),
+            'from'         => $tasks->firstItem(),
+            'to'           => $tasks->lastItem(),
          ],
          'tasks' => $tasks
      ];

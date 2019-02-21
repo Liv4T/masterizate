@@ -17,13 +17,13 @@ class TypeUserController extends Controller
     {
      $typeUsers = TypeUser::orderBy('id','DESC')->paginate(4);
      return [
-         'pagination' => [
-            'total' => $typeUsers->total(),
+         'pagination'      => [
+            'total'        => $typeUsers->total(),
             'current_page' => $typeUsers->currentPage(),
-            'per_page' => $typeUsers->perPage(),
-            'last_page' => $typeUsers->lastPage(),
-            'from' => $typeUsers->firstItem(),
-            'to' => $typeUsers->lastItem(),
+            'per_page'     => $typeUsers->perPage(),
+            'last_page'    => $typeUsers->lastPage(),
+            'from'         => $typeUsers->firstItem(),
+            'to'           => $typeUsers->lastItem(),
          ],
          'typeUsers' => $typeUsers
      ];
@@ -37,7 +37,7 @@ class TypeUserController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name'=>'required'
+            'name' => 'required'
 
         ]);
         TypeUser::create($request->all());
