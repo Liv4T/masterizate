@@ -85,11 +85,11 @@ class CategoryController extends Controller
             'name_category'=>'required',
             'name_subcategory'=>'required',
         ]);
+        //return $request;
         $data = $request->all();
         $category = Category::create([
             'name_category' => $data['name_category']
         ]);
-
         $subCategory = Subcategory::create([
             'name_subcategory' => $data['name_subcategory'],
             'id_category' => $category->id

@@ -7,7 +7,8 @@
 require('./bootstrap');
 
 window.Vue = require('vue');
-window.toastr = require('toastr')
+window.toastr = require('toastr');
+
 
 /**
  * The following block of code may be used to automatically register your
@@ -32,7 +33,7 @@ Vue.component('typeuser-component', require('./components/TypeUserComponent.vue'
 
 const app = new Vue({
   
-
+ 
     el: '#app',
-    
+
 });

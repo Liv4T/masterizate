@@ -133,22 +133,26 @@
             var url = 'categories/' + namec.id;
             axios.delete(url).then(response=>{ // eliminamos
                 this.getNamec(); //listamos
-                toastr.success('Eliminado correctamente');//mensaje
+                toastr.success('Category deleted');//mensaje
             });
         },
         createNamec() {
             var url = 'categories';
+            
             axios.post(url, {
                 name_category: this.newName_category,
+                name_subcategory: this.newName_subcategory,
                 }).then(response => {
                     this.getNamec();
                     this.newName_category= '';
+                    this.newName_subcategory= '';
                     this.errors = [];
                 $('#createc').modal('hide');
-                toastr.success('Nueva categoria creada con exito');
+                toastr.success('New category created');
                 }).catch(error => {
                 this.errors = error.response.data
             });
+            console.log(this.name_category);
         },
         changePage(page) {
             this.pagination.current_page = page;
