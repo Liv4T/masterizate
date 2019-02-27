@@ -39,10 +39,26 @@
                             </button>  
                         </div>
                         <div class="modal-body">
-                            <label for="keep">Categoria</label>
-                            <input type="text" name="name_category" class="form-control" v-model="newName_category">
+                            <div class="form-group row">
+                                <div class="col-9">
+                                    <label for="keep">Categoria</label>
+                                    <input type="text" name="name_category" class="form-control" v-model="newName_category">
+                                </div>
+                            </div>
                             <label for="keep">Subcategoria</label>
-                            <input type="text" name="name_subcategory" class="form-control" v-model="newName_subcategory">
+                            <div class="form-group row" v-for="(input,k) in inputs" :key="k">
+                                <div  class="col-9">
+                                    <input type="text" class="form-control" v-model="input.name">
+                                   
+                                </div>
+                                <div class="col">
+                                    <span>
+                                        <button class="btn btn-danger" @click="remove(k)" v-show="k || ( !k && inputs.length > 1)">-</button>
+                                        <button class="btn btn-primary" @click="add(k)" v-show="k == inputs.length-1">+</button>
+                                    </span>
+                                </div>
+                            </div>
+                            
                             <span v-for="error in errors" class="text-danger">{{ error }}</span>
                         </div>
                         <div class="modal-footer">
@@ -80,10 +96,11 @@
     import "toastr/toastr.scss";
     export default {
     data() {
+        
         return { 
             names_c:[],
             newName_category: '',
-            newName_subcategory: '',
+            newName_subcategory: [],
             newName_id_Category: '',
             fillNamec: {'id': '', 'name_category': ''},
             errors: [],
@@ -92,6 +109,11 @@
             Subcategory: '',
             categories:[],
             subcategories : [],
+            inputs: [
+            {
+                name: ''
+            }
+            ]
         }
     },
     mounted() {
@@ -138,7 +160,15 @@
         },
         createNamec() {
             var url = 'categories';
-            
+         console.log(this.inputs.length);
+            if (this.inputs.length>=1){
+                console.log(this.inputs.length);
+                   for ( let i=0; i < this.inputs.length; i++) {
+                       this.newName_subcategory.push(this.inputs[i].name);
+                    
+                   }
+                  console.log(this.newName_subcategory);
+            }
             axios.post(url, {
                 name_category: this.newName_category,
                 name_subcategory: this.newName_subcategory,
@@ -152,7 +182,7 @@
                 }).catch(error => {
                 this.errors = error.response.data
             });
-            console.log(this.name_category);
+            
         },
         changePage(page) {
             this.pagination.current_page = page;
@@ -163,6 +193,13 @@
             axios.get(urlCat).then(response=> {
                 this.names_c = response.data.categories.data
             });
+        },
+        add(index) {
+            this.inputs.push({ name: '' });
+           
+        },
+        remove(index) {
+            this.inputs.splice(index, 1);
         }
    }
 };

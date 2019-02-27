@@ -87,6 +87,7 @@ class CategoryController extends Controller
         ]);
         //return $request;
         $data = $request->all();
+        return $request;
         $category = Category::create([
             'name_category' => $data['name_category']
         ]);

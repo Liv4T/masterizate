@@ -36,95 +36,103 @@
         <div class="modal fade" id="createu">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <div class="modal-header">
-                        <h4>Crear</h4>
-                        <button type="button" class="close" data-dismiss="modal">
-                        <span>&times;</span>
-                        </button>  
-                    </div>
-                    <div class="modal-body">
-                        <div class="form-group row"> 
-                            <div class="col"> 
-                                <label for="name">Nombre</label>
-                                <input type="text" name="name" v-model="newName" v-validate="'{required: true, min: 2}'" class="form-control">
-                               
+                    <form class="needs-validation" novalidate>
+                        <div class="modal-header">
+                            <h4>Crear</h4>
+                            <button type="button" class="close" data-dismiss="modal">
+                            <span>&times;</span>
+                            </button>  
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group row"> 
+                                <div class="col"> 
+                                    <label for="name">Nombre</label>
+                                    <input type="text" name="name" v-model="newName" class="form-control" required>
+                                    <div class = " invalid-feedback ">Please fill out this field </div>
+                                </div>
+                                <div class="col"> 
+                                    <label for="last_name">Apellido</label>
+                                    <input type="text" name="last_name"  class="form-control" v-model="newLastName" required>
+                                    <div class = " invalid-feedback ">Please fill out this field </div>
+                                </div>
                             </div>
-                            <div class="col"> 
-                                <label for="last_name">Apellido</label>
-                                <input type="text" name="last_name" class="form-control" v-model="newLastName">
+                            <div class="form-group row"> 
+                                <div class="col"> 
+                                    <label for="name">Email</label>
+                                    <input type="text" name="email" class="form-control" v-model="newEmail" required>
+                                    <div class = " invalid-feedback ">Please fill out this field </div>
+                                </div>
+                                <div class="col"> 
+                                    <label for="name">Nombre de Usuario</label>
+                                    <input type="text" name="user_name" class="form-control" maxlength="20" v-model="newUserName" required>
+                                    <div class = " invalid-feedback ">Please fill out this field, the user name may not be greater than 20 characters. </div>
+                                </div>
+                            </div>
+                            <div class="form-group row"> 
+                                <div class="col"> 
+                                    <label for="name">Fecha de Nacimiento</label>
+                                    <input type="date" name="birthday" class="form-control" v-model="newBirthday" required>
+                                    <div class = " invalid-feedback ">Please fill out this field </div>
+                                </div>
+                                <div class="col"> 
+                                    <label for="name">Edad</label>
+                                    <input type="text" name="age" id="disabledTextInput" class="form-control" :placeholder= "age" v-model="newAge" disabled>
+                                 </div>
+                            </div>
+                            <div class="form-group row"> 
+                                <div class="col"> 
+                                    <label for="">Categorias</label>
+                                    <select2 :options="categories" v-model="Category" @input="getSubcategories" required></select2>
+                                </div>
+                                <div class="col"> 
+                                    <label for="">Subcategorias</label>
+                                    <select2 :options="subcategories" v-model="newId_subcategories" required></select2>
+                                </div>
+                            </div>
+                            <div class="form-group row"> 
+                                <div class="col"> 
+                                    <label for="">Tipo de Usuario</label>
+                                    <select2 :options="TypeUsers" v-model="newType_user" required></select2>
+                                </div>
+                                <div class="col"> 
+                                    <label for="name">Teléfono</label>
+                                    <input type="text" name="phone" class="form-control" v-model="newPhone" required>
+                                    <div class = " invalid-feedback ">Please fill out this field </div>
+                                </div>
+                            </div>
+                            <div class="form-group row"> 
+                                <div class="col"> 
+                                    <label for="name">Número de Identificación</label>
+                                    <input type="text" name="id_number" class="form-control" maxlength="15" v-model="newId_number" required>
+                                    <div class = " invalid-feedback ">Please fill out this field </div>
+                                </div>
+                                <div class="col"> 
+                                    <label for="name">Foto</label>
+                                    <input type="file" name="picture" class="form-control" @change="onFileChange" required>
+                                </div>
+                            </div>
+                            <div class="form-group row"> 
+                                <div class="col"> 
+                                    <label for="name">Contraseña</label>
+                                    <input type="password" name="password" class="form-control" v-model="newPassword" required>
+                                </div>
+                                <div class="col"> 
+                                    <label for="name">Confirmar contraseña</label>
+                                    <input type="password" name="Cpassword" class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="form-group row"> 
+                                <div class="col"> 
+                                    <label for="name">Dirección</label>
+                                    <input type="text" name="address"  id="validationDefault03" class="form-control" v-model="newAddress" required>
+                                    <div class = " invalid-feedback ">Please fill out this field </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="form-group row"> 
-                            <div class="col"> 
-                                <label for="name">Email</label>
-                                <input type="text" name="email" class="form-control" v-model="newEmail">
-                            </div>
-                            <div class="col"> 
-                                <label for="name">Nombre de Usuario</label>
-                                <input type="text" name="user_name" class="form-control" v-model="newUserName">
-                            </div>
+                        <div class="modal-footer">
+                            <input type="submit" @click="createNames" class="btn btn-primary" value="Guardar"> 
                         </div>
-                        <div class="form-group row"> 
-                            <div class="col"> 
-                                <label for="name">Fecha de Nacimiento</label>
-                                <input type="date" name="birthday" class="form-control" v-model="newBirthday">
-                            </div>
-                            <div class="col"> 
-                                <label for="name">Edad</label>
-                                <input type="text" name="age" id="disabledTextInput" class="form-control" :placeholder= "age" v-model="newAge" disabled>
-                             </div>
-                        </div>
-                        <div class="form-group row"> 
-                            <div class="col"> 
-                                <label for="">Categorias:</label>
-                                <select2 :options="categories" v-model="Category" v-on:change="newId_categories" @input="getSubcategories"></select2>
-                            </div>
-                            <div class="col"> 
-                                <label for="">Subcategorias:</label>
-                                <select2 :options="subcategories" v-model="newId_subcategories"></select2>
-                            </div>
-                        </div>
-                        <div class="form-group row"> 
-                            <div class="col"> 
-                                <label for="">Tipo de Usuario:</label>
-                                <select2 :options="TypeUsers" v-model="newType_user"></select2>
-                            </div>
-                            <div class="col"> 
-                                <label for="name">Teléfono</label>
-                                <input type="text" name="phone" class="form-control" v-model="newPhone">
-                            </div>
-                        </div>
-                       <div class="form-group row"> 
-                            <div class="col"> 
-                                <label for="name">Número de Identificacion</label>
-                                <input type="text" name="id_number" class="form-control" maxlength="15" v-model="newId_number">
-                            </div>
-                            <div class="col"> 
-                                <label for="name">Foto</label>
-                                <input type="file" name="picture" class="form-control" @change="onFileChange">
-                            </div>
-                        </div>
-                        <div class="form-group row"> 
-                            <div class="col"> 
-                                <label for="name">Contraseña</label>
-                                <input type="password" name="password" class="form-control" v-model="newPassword">
-                            </div>
-                            <div class="col"> 
-                                <label for="name">Confirmar contraseña</label>
-                                <input type="password" name="Cpassword" class="form-control">
-                            </div>
-                        </div>
-                        <div class="form-group row"> 
-                            <div class="col"> 
-                                <label for="name">Dirección</label>
-                                <input type="text" name="address" class="form-control" v-model="newAddress">
-                            </div>
-                        </div>
-                        <span v-for="error in errors" class="text-danger">{{ error }}</span>
-                    </div>
-                    <div class="modal-footer">
-                        <input type="submit" @click="createNames" class="btn btn-primary" value="Guardar"> 
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -189,7 +197,7 @@
                                 <input type="text" name="phone" class="form-control" v-model="fillNames.phone">
                             </div>
                             <div class="col"> 
-                                <label for="name">Número de Identificacion</label>
+                                <label for="name">Número de Identificación</label>
                                 <input type="text" name="id_number" class="form-control" v-model="fillNames.id_number">
                             </div>
                         </div>
@@ -215,9 +223,23 @@
 </template>
 <script>
     import "toastr/toastr.scss";
-    import VeeValidate from 'vee-validate';      
-    Vue.use(VeeValidate);
-
+    (function() {
+        'use strict';
+        window.addEventListener('load', function() {
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = document.getElementsByClassName('needs-validation');
+            // Loop over them and prevent submission
+            var validation = Array.prototype.filter.call(forms, function(form) {
+            form.addEventListener('submit', function(event) {
+                if (form.checkValidity() === false) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+                form.classList.add('was-validated');
+                }, false);
+            });
+        }, false);
+    })();
     export default {
          
         data() {
@@ -265,22 +287,22 @@
               } else {
                   this.edad = dateNow.getFullYear() - birthday.getFullYear();
               }
-              } else {
+            } else {
                 this.edad = dateNow.getFullYear() - birthday.getFullYear();
               }
-               if(this.edad) return `${this.edad}`;
-                }
+              if(this.edad) return `${this.edad}`;
+        }
     },
     mounted() {
-         var urlsel = 'GetCategories';
-            axios.get(urlsel).then((response)=>{
+        var urlsel = 'GetCategories';
+        axios.get(urlsel).then((response)=>{
             this.categories = response.data;
-            });
-             var urlsel = 'GetTypeU';
-            axios.get(urlsel).then((response)=>{
+        });
+        var urlsel = 'GetTypeU';
+        axios.get(urlsel).then((response)=>{
             this.TypeUsers = response.data;
-            });
-         console.log("Component mounted.");
+        });
+        console.log("Component mounted.");
     },
     methods: { //metodos del CRUD
            getNames(page){
@@ -388,16 +410,7 @@
                   vm.newPicture = e.target.result;
                 };
                 reader.readAsDataURL(file);
-            }, 
-            handleSubmit(e) {
-                this.submitted = true;
-                this.$validator.validate().then(valid => {
-                    if (valid) {
-                        alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.user))
-                    }
-                });
-             }
-                     
+            },                     
     }
  }
 
