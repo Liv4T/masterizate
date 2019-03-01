@@ -127,6 +127,14 @@
                                     <input type="text" name="address"  id="validationDefault03" class="form-control" v-model="newAddress" required>
                                     <div class = " invalid-feedback ">Please fill out this field </div>
                                 </div>
+                                <div class="form-group">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="gridCheck" required>
+                                        <label class="form-check-label" for="gridCheck">
+                                         Acepto terminos y condiciones.
+                                        </label>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="modal-footer">
