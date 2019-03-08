@@ -28,6 +28,8 @@ Vue.component('pagination-component', require('./components/PaginationComponent.
 Vue.component('select2', require('./components/Select2.vue').default);
 Vue.component('user-component', require('./components/UserComponent.vue').default);
 Vue.component('typeuser-component', require('./components/TypeUserComponent.vue').default);
+Vue.component('resume-component', require('./components/ResumeComponent.vue').default);
+Vue.component('checkbox', require('./components/Checkbox.vue').default);
 
 
 

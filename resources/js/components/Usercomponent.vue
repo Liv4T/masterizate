@@ -77,7 +77,7 @@
                                 <div class="col"> 
                                     <label for="name">Edad</label>
                                     <input type="text" name="age" id="disabledTextInput" class="form-control" :placeholder= "age" v-model="newAge" disabled>
-                                 </div>
+                                </div>
                             </div>
                             <div class="form-group row"> 
                                 <div class="col"> 
@@ -127,16 +127,17 @@
                                     <input type="text" name="address"  id="validationDefault03" class="form-control" v-model="newAddress" required>
                                     <div class = " invalid-feedback ">Please fill out this field </div>
                                 </div>
-                                <div class="form-group">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" id="gridCheck" required>
-                                        <label class="form-check-label" for="gridCheck">
+                            </div>
+                            <div class="form-group row">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="gridCheck" required>
+                                    <label class="form-check-label" for="gridCheck">
                                          Acepto terminos y condiciones.
-                                        </label>
-                                    </div>
+                                    </label>
                                 </div>
                             </div>
                         </div>
+                        
                         <div class="modal-footer">
                             <input type="submit" @click="createNames" class="btn btn-primary" value="Guardar"> 
                         </div>
@@ -147,6 +148,7 @@
         <div class="modal fade" id="editu">
             <div class="modal-dialog">
                 <div class="modal-content">
+                    <form class="needs-validation" novalidate>
                     <div class="modal-header">
                         <h4>Editar</h4>
                         <button type="button" class="close" data-dismiss="modal">
@@ -163,60 +165,78 @@
                             <div class="col"> 
                                 <label for="name">Nombre</label>
                                 <input type="text" name="name" class="form-control" v-model="fillNames.name">
+                                <div class = " invalid-feedback ">Please fill out this field </div>
                             </div>
                             <div class="col"> 
                                 <label for="name">Apellido</label>
                                 <input type="text" name="last_name" class="form-control" v-model="fillNames.last_name">
+                                <div class = " invalid-feedback ">Please fill out this field </div>
                             </div>
                         </div>
+                          <div class="form-group row"> 
+                            <div class="col"> 
+                                <label for="name">Email</label>
+                                <input type="text" name="email" class="form-control" v-model="fillNames.email">
+                                <div class = " invalid-feedback ">Please fill out this field </div>
+                            </div>
+                            <div class="col"> 
+                                <label for="name">Nombre de Usuario</label>
+                                <input type="text" name="user_name" class="form-control" maxlength="20" v-model="fillNames.user_name" required>
+                                <div class = " invalid-feedback ">Please fill out this field, the user name may not be greater than 20 characters. </div>
+                            </div>
+                          </div>
                         <div class="form-group row"> 
                             <div class="col"> 
                                 <label for="name">Fecha de Nacimiento</label>
                                 <input type="date" name="birthday" class="form-control" v-model="fillNames.birthday">
+                                <div class = " invalid-feedback ">Please fill out this field </div>
                             </div>
                             <div class="col"> 
                                 <label for="name">Edad</label>
-                                <input type="text" name="age" class="form-control" v-model="fillNames.age" :placeholder= "age" disabled>
+                                <input type="text" name="age" id="disabledTextInput" class="form-control" v-model="fillNames.age" :placeholder= "age" disabled>
                             </div>
                         </div>
                         <div class="form-group row"> 
                             <div class="col"> 
                                 <label for="name">Categoria</label>
                                 <input type="text" name="id_categories" class="form-control" v-model="fillNames.id_categories">
+                                <div class = " invalid-feedback "></div>
                             </div>
                             <div class="col"> 
                                 <label for="name">Subcategoria</label>
                                 <input type="text" name="id_subcategories" class="form-control" v-model="fillNames.id_subcategories">
+                                <div class = " invalid-feedback "></div>
                             </div>
                         </div>
                         <div class="form-group row"> 
                             <div class="col"> 
                                 <label for="name">Tipo de Usuario</label>
                                 <input type="text" name="type_user" class="form-control" v-model="fillNames.type_user">
+                                <div class = " invalid-feedback "></div>
                             </div>
-                            <div class="col"> 
-                                <label for="name">Dirección</label>
-                                <input type="text" name="address" class="form-control" v-model="fillNames.address">
+                            <div class="col-md-6"> 
+                                <label for="name">Foto</label>
+                                <input type="file" name="picture" class="form-control"  v-on:change="onFileChange">
+                                <!--<div class = " invalid-feedback ">Please fill out this field </div>-->
                             </div>
                         </div>
                         <div class="form-group row"> 
                             <div class="col"> 
                                 <label for="name">Teléfono</label>
                                 <input type="text" name="phone" class="form-control" v-model="fillNames.phone">
+                                <div class = " invalid-feedback ">Please fill out this field </div>
                             </div>
                             <div class="col"> 
                                 <label for="name">Número de Identificación</label>
                                 <input type="text" name="id_number" class="form-control" v-model="fillNames.id_number">
+                                <div class = " invalid-feedback ">Please fill out this field </div>
                             </div>
                         </div>
                         <div class="form-group row"> 
-                            <div class="col"> 
-                                <label for="name">Email</label>
-                                <input type="text" name="email" class="form-control" v-model="fillNames.email">
-                            </div>
-                            <div class="col"> 
-                                <label for="name">Foto</label>
-                                <input type="file" name="picture" class="form-control"  v-on:change="onFileChange">
+                            <div class="col-md-6"> 
+                                <label for="name">Dirección</label>
+                                <input type="text" name="address" class="form-control" v-model="fillNames.address">
+                                <div class = " invalid-feedback ">Please fill out this field </div>
                             </div>
                         </div>
                          <span v-for="error in errors" class="text-danger">{{ error }}</span>
@@ -224,6 +244,7 @@
                     <div class="modal-footer">
                         <input type="submit" @click="updateNames" class="btn btn-primary" value="Actualizar">
                     </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -271,15 +292,15 @@
         Category: '',
         Subcategory: '',
         Type: '',
-        categories:[],
-        subcategories:[],
+        categories: [],
+        subcategories: [],
         TypeUsers: [],
         edad:'',
         offset: 3
         }
     },
     created() {
-    this.getNames();
+        this.getNames();
     },
     computed:{
         age() {
@@ -359,7 +380,7 @@
             },
             createNames() {
                 var url = 'users';
-               this.newAge= this.age;
+                this.newAge= this.age;
                 axios.post(url, {
                     name: this.newName,
                     last_name: this.newLastName,
@@ -421,5 +442,4 @@
             },                     
     }
  }
-
 </script>

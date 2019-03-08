@@ -23,6 +23,9 @@ Route::get('/type', function () {
 Route::get('/category', function () {
     return view('category');
 });
+Route::get('/task', function () {
+    return view('resume');
+});
 Route::get('GetCategories','CategoryController@GetCategories');
 Route::get('GetTypeU','CategoryController@GetTypeU');
 Route::get('GetSubcategories/{id}','CategoryController@GetSubcategories');
