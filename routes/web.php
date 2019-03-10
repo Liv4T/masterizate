@@ -26,6 +26,10 @@ Route::get('/category', function () {
 Route::get('/task', function () {
     return view('resume');
 });
+
+/*login personalizado permite verificar suscripcion*/
+Route::post('/login2', 'UserController@loginWeb')->name('login2');
+
 Route::get('GetCategories','CategoryController@GetCategories');
 Route::get('GetTypeU','CategoryController@GetTypeU');
 Route::get('GetSubcategories/{id}','CategoryController@GetSubcategories');
@@ -36,3 +40,5 @@ Route::resource('types', 'TypeUserController', ['except'=> 'show','create','edit
 Route::resource('tasks', 'TaskController', ['except'=> 'show','create','edit']);;
 Route::resource('categories', 'CategoryController', ['except'=> 'show','create','edit']);;
 Route::resource('users', 'UserController', ['except'=> 'show','create','edit']);;
+
+Route::get('testsendemail/{email}', 'TestingController@sendemail');

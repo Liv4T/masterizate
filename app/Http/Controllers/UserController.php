@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use Auth;
 
 class UserController extends Controller
 {
@@ -27,6 +28,20 @@ class UserController extends Controller
          'users' => $users
      ];
     }
+
+    /**
+     * login  
+     */
+    public function loginWeb (Request $request) {
+        $user_name = $request->input('user_name');
+        $password = $request->input('password');
+        if (Auth::attempt(['user_name' => $user_name, 'password' => $password], false)) {
+          $user = Auth::user();
+          return redirect('/');
+        } else {
+          return redirect('/login')->with('status', 'Usuario no encontrado!');
+        }
+      }
 
     /**
      * Show the form for creating a new resource.
@@ -62,6 +77,10 @@ class UserController extends Controller
         ]);
         //console.log($request);
         User::create($request->all());
+        /* Send email register */
+        Mail::send('emails.register', $request->all(), function($msj){
+            $msj->to(request()->email)->subject('Falta sólo un paso más');
+         });
         return;
     }
 

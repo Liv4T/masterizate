@@ -90,11 +90,15 @@ class CategoryController extends Controller
         $category = Category::create([
             'name_category' => $data['name_category']
         ]);
-        return;
-        $subCategory = Subcategory::create([
-            'name_subcategory' => $data['name_subcategory'],
-            'id_category' => $category->id
-        ]);
+
+        $subCategories = $data['name_subcategory'];
+
+        foreach($subCategories as $index => $subCategory) { 
+            $subCate = Subcategory::create([
+                'name_subcategory' => $subCategory[$index]['name_subcategory'],
+                'id_category' => $category->id
+            ]);
+        }
         return;
     }
     public function GetSubcategories($id)
