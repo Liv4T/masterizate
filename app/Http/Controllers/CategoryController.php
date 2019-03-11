@@ -80,13 +80,13 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
+     
         $this->validate($request, [
         
             'name_category'=>'required',
             'name_subcategory'=>'required',
         ]);
         $data = $request->all();
-      
         $category = Category::create([
             'name_category' => $data['name_category']
         ]);
@@ -95,7 +95,7 @@ class CategoryController extends Controller
 
         foreach($subCategories as $index => $subCategory) { 
             $subCate = Subcategory::create([
-                'name_subcategory' => $subCategory[$index]['name_subcategory'],
+                'name_subcategory' => $subCategory[$index],
                 'id_category' => $category->id
             ]);
         }

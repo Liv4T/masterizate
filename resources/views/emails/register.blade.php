@@ -35,16 +35,16 @@
 </head>
 <body>
 <hr style="color: #000000;" />
-	<p align=center><a href="http://revistaescala.com/"><img src="{{ asset('images/LOGO-ESCALA.png') }}" alt="Revista Escala" height="100" width="105" align="center"></a></p>
+	<p align=center><a href="http://revistaescala.com/"><img src="{{ asset('images/LOGO-ESCALA.png') }}" alt="Life4teach" height="100" width="105" align="center"></a></p>
 
 	<table style="margin:0;padding:0;width:100%" width="100%" cellpadding="0" cellspacing="0">
 		<tr>
 			<td style="padding:25px 0;text-align:center; font-family:Arial,Helvetica ">
 				<h2 style="font-family:Arial,Helvetica" >¡Hola!</h2>
 
-				<p align="justify">¡Te damos las gracias por registrarte en la Revista Escala!<p> 
-                <p align="justify">Ya estas a un sólo de paso de adquirir nuestra suscripción<p>
-                <p align="justify">así podrás disfrutar de contenido exclusivo de nuestra revista<p>
+				<p align="justify">¡Te damos las gracias por registrarte en Life4teach!<p> 
+                <p align="justify">Ya estas a un sólo de paso de completar el proceso<p>
+                <p align="justify">así podrás disfrutar de contenido exclusivo de nuestra plataforma<p>
                 <p align="justify">que esperas no lo pienses más y se parte de esta comunidad<p>
 
 				<form method="post" action="/page2">

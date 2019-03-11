@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use App\User;
 use Auth;
 
@@ -61,6 +62,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+      
      $this->validate($request, [
         
             'name'=>'required',
@@ -75,11 +77,10 @@ class UserController extends Controller
             'id_number'=>'required'
             */
         ]);
-        //console.log($request);
         User::create($request->all());
         /* Send email register */
         Mail::send('emails.register', $request->all(), function($msj){
-            $msj->to(request()->email)->subject('Falta sólo un paso más');
+            $msj->to($request->email)->subject('Falta sólo un paso más');
          });
         return;
     }

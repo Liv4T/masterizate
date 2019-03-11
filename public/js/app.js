@@ -2179,6 +2179,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var toastr_toastr_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! toastr/toastr.scss */ "./node_modules/toastr/toastr.scss");
+/* harmony import */ var toastr_toastr_scss__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(toastr_toastr_scss__WEBPACK_IMPORTED_MODULE_0__);
 //
 //
 //
@@ -2455,6 +2457,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+
 $(function () {
   // Get the form fields and hidden div
   var checkbox = $("#gridCheck1");
@@ -2644,12 +2648,12 @@ $(function () {
   },
   methods: {
     //metodos del CRUD
-    getResumes: function getResumes(page) {
+    getResumes: function getResumes() {
       var _this = this;
 
-      var urlr = 'resumes?page=' + page;
+      var urlr = 'resumes';
       axios.get(urlr).then(function (response) {
-        _this.resumen = response.data.resumes.data, _this.pagination = response.data.pagination;
+        _this.resumen = response.data.resumes.data;
       });
     },
     editResumes: function editResumes(resume) {
@@ -2756,6 +2760,7 @@ $(function () {
       var _this4 = this;
 
       var url = 'resumes';
+      this.newId_user = 36;
       axios.post(url, {
         id_user: this.newId_user,
         description: this.newDescription,
@@ -2781,9 +2786,9 @@ $(function () {
         countryM: this.newCountryM,
         countryD: this.newCountryO,
         countryO: this.newCountryO,
-        jobTitle: this.newJobTitle,
-        jobTitle1: this.newJobTitle1,
-        jobTitle2: this.newJobTitle2,
+        jobTitle: this.newJobtitle,
+        jobTitle1: this.newJobtitle1,
+        jobTitle2: this.newJobtitle2,
         company: this.newCompany,
         company1: this.newCompany1,
         company2: this.newCompany2,
@@ -2818,9 +2823,9 @@ $(function () {
         _this4.newCountryM = '';
         _this4.newCountryO = '';
         _this4.newCountryO = '';
-        _this4.newJobTitle = '';
-        _this4.newJobTitle1 = '';
-        _this4.newJobTitle2 = '';
+        _this4.newJobtitle = '';
+        _this4.newJobtitle2 = '';
+        _this4.newJobtitle2 = '';
         _this4.newCompany = '';
         _this4.newCompany1 = '';
         _this4.newCompany2 = '';
@@ -2829,7 +2834,6 @@ $(function () {
         _this4.newTime2 = '';
         _this4.newOther = '';
         _this4.errors = [];
-        $('#createu').modal('hide');
         toastr.success('Nuevo resume Creado con exito');
       }).catch(function (error) {
         _this4.errors = error.response.data;
@@ -46191,75 +46195,86 @@ var render = function() {
             { staticClass: "needs-validation", attrs: { novalidate: "" } },
             [
               _c("div", { staticClass: "card-body" }, [
-                _c("div", { staticClass: "form-group row" }, [
-                  _c("div", { staticClass: "col" }, [
-                    _c("label", { attrs: { for: "description" } }, [
-                      _vm._v("Perfil profesional")
-                    ]),
-                    _vm._v(" "),
-                    _c("textarea", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.newDescription,
-                          expression: "newDescription"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      attrs: {
-                        name: "description",
-                        maxlength: "200",
-                        required: ""
-                      },
-                      domProps: { value: _vm.newDescription },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.newDescription = $event.target.value
-                        }
-                      }
+                _c(
+                  "div",
+                  { staticClass: "form-group row" },
+                  [
+                    _vm._l(_vm.errors, function(error) {
+                      return _c("span", { staticClass: "text-danger" }, [
+                        _vm._v(_vm._s(error))
+                      ])
                     }),
                     _vm._v(" "),
-                    _c("div", { staticClass: " invalid-feedback " }, [
-                      _vm._v("Please fill out this field ")
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col" }, [
-                    _c("label", { attrs: { for: "language" } }, [
-                      _vm._v("Idioma")
+                    _c("div", { staticClass: "col" }, [
+                      _c("label", { attrs: { for: "description" } }, [
+                        _vm._v("Perfil profesional")
+                      ]),
+                      _vm._v(" "),
+                      _c("textarea", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.newDescription,
+                            expression: "newDescription"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: {
+                          name: "description",
+                          maxlength: "200",
+                          required: ""
+                        },
+                        domProps: { value: _vm.newDescription },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.newDescription = $event.target.value
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("div", { staticClass: " invalid-feedback " }, [
+                        _vm._v("Please fill out this field ")
+                      ])
                     ]),
                     _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.newLanguage,
-                          expression: "newLanguage"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      attrs: { type: "text", name: "language", required: "" },
-                      domProps: { value: _vm.newLanguage },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
+                    _c("div", { staticClass: "col" }, [
+                      _c("label", { attrs: { for: "language" } }, [
+                        _vm._v("Idioma")
+                      ]),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.newLanguage,
+                            expression: "newLanguage"
                           }
-                          _vm.newLanguage = $event.target.value
+                        ],
+                        staticClass: "form-control",
+                        attrs: { type: "text", name: "language", required: "" },
+                        domProps: { value: _vm.newLanguage },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.newLanguage = $event.target.value
+                          }
                         }
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("div", { staticClass: " invalid-feedback " }, [
-                      _vm._v("Please fill out this field ")
+                      }),
+                      _vm._v(" "),
+                      _c("div", { staticClass: " invalid-feedback " }, [
+                        _vm._v("Please fill out this field ")
+                      ])
                     ])
-                  ])
-                ]),
+                  ],
+                  2
+                ),
                 _vm._v(" "),
                 _c("div", { staticClass: "container" }, [
                   _vm._m(0),
@@ -46395,11 +46410,7 @@ var render = function() {
                             }
                           ],
                           staticClass: "form-control",
-                          attrs: {
-                            type: "text",
-                            name: "institution",
-                            required: ""
-                          },
+                          attrs: { type: "text", name: "institution" },
                           domProps: { value: _vm.newInstitutionT },
                           on: {
                             input: function($event) {
@@ -46431,7 +46442,7 @@ var render = function() {
                             }
                           ],
                           staticClass: "form-control",
-                          attrs: { type: "date", name: "date", required: "" },
+                          attrs: { type: "date", name: "date" },
                           domProps: { value: _vm.newDateT },
                           on: {
                             input: function($event) {
@@ -46463,11 +46474,7 @@ var render = function() {
                             }
                           ],
                           staticClass: "form-control",
-                          attrs: {
-                            type: "text",
-                            name: "country",
-                            required: ""
-                          },
+                          attrs: { type: "text", name: "country" },
                           domProps: { value: _vm.newCountryT },
                           on: {
                             input: function($event) {
@@ -46505,11 +46512,7 @@ var render = function() {
                             }
                           ],
                           staticClass: "form-control",
-                          attrs: {
-                            type: "text",
-                            name: "institution",
-                            required: ""
-                          },
+                          attrs: { type: "text", name: "institution" },
                           domProps: { value: _vm.newInstitutionP },
                           on: {
                             input: function($event) {
@@ -46541,7 +46544,7 @@ var render = function() {
                             }
                           ],
                           staticClass: "form-control",
-                          attrs: { type: "date", name: "date", required: "" },
+                          attrs: { type: "date", name: "date" },
                           domProps: { value: _vm.newDateP },
                           on: {
                             input: function($event) {
@@ -46573,11 +46576,7 @@ var render = function() {
                             }
                           ],
                           staticClass: "form-control",
-                          attrs: {
-                            type: "text",
-                            name: "country",
-                            required: ""
-                          },
+                          attrs: { type: "text", name: "country" },
                           domProps: { value: _vm.newCountryP },
                           on: {
                             input: function($event) {
@@ -46615,11 +46614,7 @@ var render = function() {
                             }
                           ],
                           staticClass: "form-control",
-                          attrs: {
-                            type: "text",
-                            name: "institution",
-                            required: ""
-                          },
+                          attrs: { type: "text", name: "institution" },
                           domProps: { value: _vm.newInstitutionE },
                           on: {
                             input: function($event) {
@@ -46651,7 +46646,7 @@ var render = function() {
                             }
                           ],
                           staticClass: "form-control",
-                          attrs: { type: "date", name: "date", required: "" },
+                          attrs: { type: "date", name: "date" },
                           domProps: { value: _vm.newDateE },
                           on: {
                             input: function($event) {
@@ -46683,11 +46678,7 @@ var render = function() {
                             }
                           ],
                           staticClass: "form-control",
-                          attrs: {
-                            type: "text",
-                            name: "country",
-                            required: ""
-                          },
+                          attrs: { type: "text", name: "country" },
                           domProps: { value: _vm.newCountryE },
                           on: {
                             input: function($event) {
@@ -46725,11 +46716,7 @@ var render = function() {
                             }
                           ],
                           staticClass: "form-control",
-                          attrs: {
-                            type: "text",
-                            name: "institution",
-                            required: ""
-                          },
+                          attrs: { type: "text", name: "institution" },
                           domProps: { value: _vm.newInstitutionM },
                           on: {
                             input: function($event) {
@@ -46761,7 +46748,7 @@ var render = function() {
                             }
                           ],
                           staticClass: "form-control",
-                          attrs: { type: "date", name: "date", required: "" },
+                          attrs: { type: "date", name: "date" },
                           domProps: { value: _vm.newDateM },
                           on: {
                             input: function($event) {
@@ -46793,11 +46780,7 @@ var render = function() {
                             }
                           ],
                           staticClass: "form-control",
-                          attrs: {
-                            type: "text",
-                            name: "country",
-                            required: ""
-                          },
+                          attrs: { type: "text", name: "country" },
                           domProps: { value: _vm.newCountryM },
                           on: {
                             input: function($event) {
@@ -46835,11 +46818,7 @@ var render = function() {
                             }
                           ],
                           staticClass: "form-control",
-                          attrs: {
-                            type: "text",
-                            name: "institution",
-                            required: ""
-                          },
+                          attrs: { type: "text", name: "institution" },
                           domProps: { value: _vm.newInstitutionD },
                           on: {
                             input: function($event) {
@@ -46871,7 +46850,7 @@ var render = function() {
                             }
                           ],
                           staticClass: "form-control",
-                          attrs: { type: "date", name: "date", required: "" },
+                          attrs: { type: "date", name: "date" },
                           domProps: { value: _vm.newDateD },
                           on: {
                             input: function($event) {
@@ -46903,11 +46882,7 @@ var render = function() {
                             }
                           ],
                           staticClass: "form-control",
-                          attrs: {
-                            type: "text",
-                            name: "country",
-                            required: ""
-                          },
+                          attrs: { type: "text", name: "country" },
                           domProps: { value: _vm.newCountryD },
                           on: {
                             input: function($event) {
@@ -46941,11 +46916,7 @@ var render = function() {
                             }
                           ],
                           staticClass: "form-control",
-                          attrs: {
-                            type: "text",
-                            name: "institution",
-                            required: ""
-                          },
+                          attrs: { type: "text", name: "institution" },
                           domProps: { value: _vm.newOther },
                           on: {
                             input: function($event) {
@@ -46979,11 +46950,7 @@ var render = function() {
                             }
                           ],
                           staticClass: "form-control",
-                          attrs: {
-                            type: "text",
-                            name: "institution",
-                            required: ""
-                          },
+                          attrs: { type: "text", name: "institution" },
                           domProps: { value: _vm.newInstitutionO },
                           on: {
                             input: function($event) {
@@ -47015,7 +46982,7 @@ var render = function() {
                             }
                           ],
                           staticClass: "form-control",
-                          attrs: { type: "date", name: "date", required: "" },
+                          attrs: { type: "date", name: "date" },
                           domProps: { value: _vm.newDateO },
                           on: {
                             input: function($event) {
@@ -47047,11 +47014,7 @@ var render = function() {
                             }
                           ],
                           staticClass: "form-control",
-                          attrs: {
-                            type: "text",
-                            name: "country",
-                            required: ""
-                          },
+                          attrs: { type: "text", name: "country" },
                           domProps: { value: _vm.newCountryO },
                           on: {
                             input: function($event) {
@@ -47090,7 +47053,7 @@ var render = function() {
                           }
                         ],
                         staticClass: "form-control",
-                        attrs: { type: "text", name: "jobtitle", required: "" },
+                        attrs: { type: "text", name: "jobTitle", required: "" },
                         domProps: { value: _vm.newJobtitle },
                         on: {
                           input: function($event) {
@@ -47178,7 +47141,7 @@ var render = function() {
                           }
                         ],
                         staticClass: "form-control",
-                        attrs: { type: "text", name: "jobtitle" },
+                        attrs: { type: "text", name: "jobTitle" },
                         domProps: { value: _vm.newJobtitle1 },
                         on: {
                           input: function($event) {
@@ -47397,7 +47360,7 @@ var staticRenderFns = [
           [
             _c("input", {
               staticClass: "custom-control-input",
-              attrs: { type: "checkbox", id: "gridCheck2", required: "" }
+              attrs: { type: "checkbox", id: "gridCheck2" }
             }),
             _vm._v(" "),
             _c(
@@ -47419,7 +47382,7 @@ var staticRenderFns = [
           [
             _c("input", {
               staticClass: "custom-control-input",
-              attrs: { type: "checkbox", id: "gridCheck3", required: "" }
+              attrs: { type: "checkbox", id: "gridCheck3" }
             }),
             _vm._v(" "),
             _c(
@@ -47441,7 +47404,7 @@ var staticRenderFns = [
           [
             _c("input", {
               staticClass: "custom-control-input",
-              attrs: { type: "checkbox", id: "gridCheck4", required: "" }
+              attrs: { type: "checkbox", id: "gridCheck4" }
             }),
             _vm._v(" "),
             _c(
@@ -47463,7 +47426,7 @@ var staticRenderFns = [
           [
             _c("input", {
               staticClass: "custom-control-input",
-              attrs: { type: "checkbox", id: "gridCheck5", required: "" }
+              attrs: { type: "checkbox", id: "gridCheck5" }
             }),
             _vm._v(" "),
             _c(
@@ -47485,7 +47448,7 @@ var staticRenderFns = [
           [
             _c("input", {
               staticClass: "custom-control-input",
-              attrs: { type: "checkbox", id: "gridCheck6", required: "" }
+              attrs: { type: "checkbox", id: "gridCheck6" }
             }),
             _vm._v(" "),
             _c(
@@ -47507,7 +47470,7 @@ var staticRenderFns = [
           [
             _c("input", {
               staticClass: "custom-control-input",
-              attrs: { type: "checkbox", id: "gridCheck7", required: "" }
+              attrs: { type: "checkbox", id: "gridCheck7" }
             }),
             _vm._v(" "),
             _c(

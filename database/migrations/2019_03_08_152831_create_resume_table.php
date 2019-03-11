@@ -13,7 +13,7 @@ class CreateResumeTable extends Migration
      */
     public function up()
     {
-        Schema::create('resume', function (Blueprint $table) {
+        Schema::create('resumes', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('id_user');
             $table->string('description');
@@ -60,6 +60,6 @@ class CreateResumeTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('resume');
+        Schema::dropIfExists('resumes');
     }
 }

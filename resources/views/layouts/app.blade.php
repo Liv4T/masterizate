@@ -57,7 +57,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/task">Tipos de usuario</a>
+              <a class="nav-link" href="/resume">Tipos de usuario</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="/"></a>

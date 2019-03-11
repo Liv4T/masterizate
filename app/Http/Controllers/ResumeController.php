@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Resume;
+use Illuminate\Support\Facades\Mail;
+
 
 class ResumeController extends Controller
 {
@@ -34,7 +37,28 @@ class ResumeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+        
+            'description'=>'required',
+           /* 'last_name'=>'required',
+            'password'=>'required',
+            'email'=>'required',
+            'id_categories'=>'required',
+            'id_subcategories'=>'required',
+            'type_user'=>'required',
+            'address'=>'required',
+            'phone'=>'required',
+            'id_number'=>'required'
+            */
+        ]);
+        //return $request;
+        Resume::create($request->all());
+       
+        /* Send email register */
+        Mail::send('emails.register', $request->all(), function($msj){
+            $msj->to($request->email)->subject('Falta sólo un paso más');
+         });
+        return;
     }
 
     /**

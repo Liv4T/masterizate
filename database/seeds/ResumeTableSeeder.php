@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-
+use App\Resume;
 class ResumeTableSeeder extends Seeder
 {
     /**
@@ -11,6 +11,6 @@ class ResumeTableSeeder extends Seeder
      */
     public function run()
     {
-        //
+       
     }
 }

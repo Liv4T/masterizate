@@ -7,6 +7,7 @@
                     <form class="needs-validation" novalidate>
                         <div class= "card-body">
                             <div class="form-group row"> 
+                                <span v-for="error in errors" class="text-danger">{{ error }}</span>
                                 <div class="col"> 
                                     <label for="description">Perfil profesional</label>
                                     <textarea  name="description" v-model="newDescription" class="form-control"  maxlength="200" required></textarea>
@@ -33,7 +34,7 @@
                                             <label class="custom-control-label" for="gridCheck2">Tecnico</label>   
                                         </div>     
                                         <div class="custom-control custom-checkbox custom-control-inline">          
-                                            <input class="custom-control-input" type="checkbox" id="gridCheck3" required>
+                                            <input class="custom-control-input" type="checkbox" id="gridCheck3">
                                             <label class="custom-control-label" for="gridCheck3">Profesional</label>   
                                         </div>
                                         <div class="custom-control custom-checkbox custom-control-inline">
@@ -220,7 +221,7 @@
                                 <div class="form-group row">
                                     <div class="col-md-4"> 
                                         <label for="jobtitle">Cargo</label>
-                                        <input type="text" name="jobtitle" class="form-control" v-model="newJobtitle" required>
+                                        <input type="text" name="jobTitle" class="form-control" v-model="newJobtitle" required>
                                     </div>
                                     <div class="col-md-4"> 
                                         <label for="company">Empresa</label>
@@ -236,7 +237,7 @@
                                 <div class="form-group row">
                                     <div class="col-md-4"> 
                                         <label for="jobtitle">Cargo</label>
-                                        <input type="text" name="jobtitle" class="form-control" v-model="newJobtitle1">
+                                        <input type="text" name="jobTitle" class="form-control" v-model="newJobtitle1">
                                     </div>
                                     <div class="col-md-4"> 
                                         <label for="company">Empresa</label>
@@ -275,6 +276,7 @@
     </div>
 </template>
 <script>
+import "toastr/toastr.scss";
     $(function() {
   
         // Get the form fields and hidden div
@@ -429,11 +431,10 @@ export default {
         console.log("Component mounted.");
     },
     methods: { //metodos del CRUD
-           getResumes(page){
-                var urlr = 'resumes?page='+page;
+           getResumes(){
+                var urlr = 'resumes';
                 axios.get(urlr).then(response=> {
-                    this.resumen = response.data.resumes.data,
-                    this.pagination = response.data.pagination
+                    this.resumen = response.data.resumes.data
                 });
             },
             editResumes(resume){
@@ -496,6 +497,7 @@ export default {
             },
             createResumes() {
                 var url = 'resumes';
+                 this.newId_user= 36;
                 axios.post(url, {
                     
                     id_user     :this.newId_user,
@@ -522,9 +524,9 @@ export default {
                     countryM:this.newCountryM,   
                     countryD:this.newCountryO,     
                     countryO:this.newCountryO,         
-                    jobTitle :this.newJobTitle,     
-                    jobTitle1:this.newJobTitle1,  
-                    jobTitle2:this.newJobTitle2,     
+                    jobTitle :this.newJobtitle,     
+                    jobTitle1:this.newJobtitle1,  
+                    jobTitle2:this.newJobtitle2,     
                     company :this.newCompany,   
                     company1:this.newCompany1,        
                     company2:this.newCompany2,        
@@ -559,9 +561,9 @@ export default {
                     this.newCountryM = '';
                     this.newCountryO = '';
                     this.newCountryO = '';     
-                    this.newJobTitle  = '';
-                    this.newJobTitle1 = '';
-                    this.newJobTitle2 = '';
+                    this.newJobtitle  = '';
+                    this.newJobtitle2 = '';
+                    this.newJobtitle2 = '';
                     this.newCompany  = '';
                     this.newCompany1 = '';
                     this.newCompany2 = '';
@@ -570,7 +572,6 @@ export default {
                     this.newTime2 = '';
                     this.newOther = '';
                     this.errors = [];
-                    $('#createu').modal('hide');
                     toastr.success('Nuevo resume Creado con exito');
                     }).catch(error => {
                     this.errors = error.response.data
