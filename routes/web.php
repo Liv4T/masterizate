@@ -24,7 +24,7 @@ Route::get('/category', function () {
     return view('category');
 });
 Route::get('/task', function () {
-    return view('resume');
+    return view('class');
 });
 Route::get('/resume', function () {
     return view('resume');

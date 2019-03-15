@@ -30,6 +30,7 @@ Vue.component('user-component', require('./components/UserComponent.vue').defaul
 Vue.component('typeuser-component', require('./components/TypeUserComponent.vue').default);
 Vue.component('resume-component', require('./components/ResumeComponent.vue').default);
 Vue.component('checkbox', require('./components/Checkbox.vue').default);
+Vue.component('class-component', require('./components/ClassComponent.vue').default);
 
 
 

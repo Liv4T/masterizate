@@ -80,7 +80,7 @@
                             <label for="keep">Categoria</label>
                             <input type="text" name="name_category" class="form-control" v-model="fillNamec.name_category">
                             <label for="keep">Subcategoria</label>
-                            <input type="text" name="name_subcategory" class="form-control" v-model="fillNamec.name_subcategory">
+                            <input type="text" name="name_subcategory" class="form-control" v-for="subcategory in subcategories" v-model="fillNamec.name_subcategory">
                             <span v-for="error in errors" class="text-danger">{{ error }}</span>
                         </div>
                         <div class="modal-footer">
@@ -102,7 +102,7 @@
             newName_category: '',
             newName_subcategory: [],
             newName_id_Category: '',
-            fillNamec: {'id': '', 'name_category': ''},
+            fillNamec: {'id': '', 'name_category': '', 'name_subcategory': ''},
             errors: [],
             offset: 3,
             Category: '',
@@ -135,9 +135,21 @@
             });
         },
         editNamec(namec){
+            var urlse = 'GetSubcategories/'+namec.id;
+            axios.get(urlse).then((response)=>{
+                this.subcategories = response.data;  
+            });
+             if (this.subcategories.length>=1){
+                console.log(this.subcategories.length);
+                   for ( let i=0; i < this.subcategories.length; i++) {
+                    this.fillNamec.name_subcategory =this.subcategories[i].text;
+                    this.inputs.push({ name: '' });
+                   }
+             }
             this.fillNamec.id = namec.id;
             this.fillNamec.name_category = namec.name_category;
-            $('#editc').modal('show');
+              $('#editc').modal('show');
+           
         },
         updateNamec(id) {
             var url = 'categories/'+ id;
@@ -160,7 +172,7 @@
         },
         createNamec() {
             var url = 'categories';
-         console.log(this.inputs.length);
+            console.log(this.inputs.length);
             if (this.inputs.length>=1){
                 console.log(this.inputs.length);
                    for ( let i=0; i < this.inputs.length; i++) {
@@ -175,7 +187,7 @@
                 }).then(response => {
                     this.getNamec();
                     this.newName_category= '';
-                    this.newName_subcategory= '';
+                    this.newName_subcategory= [];
                     this.errors = [];
                 $('#createc').modal('hide');
                 toastr.success('New category created');

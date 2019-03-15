@@ -295,7 +295,6 @@ import "toastr/toastr.scss";
         var hidden5   = $("#hidden_fields6");
         var hidden6   = $("#hidden_fields7");
  
-  
         hidden.hide();
         hidden1.hide();
         hidden2.hide();
@@ -432,9 +431,9 @@ export default {
     },
     methods: { //metodos del CRUD
            getResumes(){
-                var urlr = 'resumes';
+                var urlr = 'resumes/';
                 axios.get(urlr).then(response=> {
-                    this.resumen = response.data.resumes.data
+                    this.resumen = response.data.resum.data
                 });
             },
             editResumes(resume){
@@ -473,8 +472,6 @@ export default {
                 this.fillResumes.time1 = name.time1;
                 this.fillResumes.time2 = name.time2;
                 this.fillResumes.other = name.other;
-
-                $('#editu').modal('show');
             },
             updateResumes(id) {
                 var url = 'resumes/'+ id;
@@ -499,7 +496,6 @@ export default {
                 var url = 'resumes';
                  this.newId_user= 36;
                 axios.post(url, {
-                    
                     id_user     :this.newId_user,
                     description :this.newDescription,
                     language    :this.newLanguage,
@@ -534,7 +530,6 @@ export default {
                     time1:this.newTime1,    
                     time2:this.newTime2,
                     other:this.newOther,
-                    
                 }).then(response => {
                     this.getResumes();
                     this.newDescription = '';
@@ -577,7 +572,6 @@ export default {
                     this.errors = error.response.data
                });
             },
-     }
-       
+     }    
 }
 </script>

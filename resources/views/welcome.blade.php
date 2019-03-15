@@ -8,7 +8,7 @@
       </div>
     </div>  
       
-    <typeuser-component></typeuser-component>
+    <class-component></typeuser-component>
     <pagination-component></pagination-component>
     </div>
 </div>

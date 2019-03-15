@@ -16,7 +16,8 @@ class ResumeController extends Controller
      */
     public function index()
     {
-        //
+        // $resumes = Resume::orderBy('id','DESC')->get();
+         //return view('resume.blade', ['resumes' => $resumes->toArray()]);
     }
 
     /**

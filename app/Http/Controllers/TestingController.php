@@ -27,33 +27,14 @@ class TestingController extends Controller
 public function sendemail(Request $request, string $id)
     {
         // $data = $request->json()->all();
-        // $event_id = $id;
-            $name = 'cesar';
+            $name = 'Mildred';
             $surname = 'prueba';
         $data = [
             'namwe' => $name,
             'surname' => $surname,
         ];
-        // $eventuser->email = "felipe.martinez@mocionsoft.com";
-        // $email = "felipe.martinez@mocionsoft.com";
-        // $image = "https://storage.googleapis.com/herba-images/evius/events/8KOZm7ZxYVst444wIK7V9tuELDRTRwqDUUDAnWzK.png";
-        // $message = "mensaje";
-        // $subject = "[Invitación Máxim] kraken en Colombia";
-
-        // Mail::to($email)
-        //     ->send(
-        //         new BookingConfirmed($eventuser)
-        //     );
-        // return "ok";
-        
-
-    // var_dump($mail->build());
-    // Mail::to('cesar.torres@mocionsoft.com')
-    // ->send('emails.register', $name,$surname);
-    // var_dump(Mail::failures());
-
     Mail::send('emails.register', $data, function($msj){
-        $msj->to('cesar.torres@mocionsoft.com')->subject('Falta sólo un paso más');
+        $msj->to('desarrollador.sr@dybcatering.com')->subject('Theres only one more step to go');
      });
     return "ok";
 

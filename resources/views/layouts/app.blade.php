@@ -57,16 +57,19 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/resume">Tipos de usuario</a>
+              <a class="nav-link" href="/type">Tipos de usuario</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/"></a>
+                <a class="nav-link" href="/task">Class1</a>
+              </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/resume">Curriculum</a>
             </li>
           </ul>
-          <form class="form-inline my-2 my-lg-0">
+          <!--<form class="form-inline my-2 my-lg-0">
             <input class="form-control mr-sm-2" type="search" placeholder="Search">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-          </form>
+          </form>-->
         </div>
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
