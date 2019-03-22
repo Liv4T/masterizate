@@ -15,18 +15,8 @@ class TypeUserController extends Controller
      */
     public function index(Request $request)
     {
-     $typeUsers = TypeUser::orderBy('id','DESC')->paginate(4);
-     return [
-         'pagination'      => [
-            'total'        => $typeUsers->total(),
-            'current_page' => $typeUsers->currentPage(),
-            'per_page'     => $typeUsers->perPage(),
-            'last_page'    => $typeUsers->lastPage(),
-            'from'         => $typeUsers->firstItem(),
-            'to'           => $typeUsers->lastItem(),
-         ],
-         'typeUsers' => $typeUsers
-     ];
+     $typeUsers = TypeUser::all();
+     return $typeUsers;
     }
     /**
      * Store a newly created resource in storage.

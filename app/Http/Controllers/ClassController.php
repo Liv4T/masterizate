@@ -1,13 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Classes;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Mail;
-use App\User;
-use Auth;
 
-class UserController extends Controller
+class ClassController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,34 +13,9 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::all();
-        return $users;
-     /*[
-         'pagination'      => [
-            'total'        => $users->total(),
-            'current_page' => $users->currentPage(),
-            'per_page'     => $users->perPage(),
-            'last_page'    => $users->lastPage(),
-            'from'         => $users->firstItem(),
-            'to'           => $users->lastItem(),
-         ],
-         'users' => $users
-     ];*/
+        $clases = Classes::all();
+        return $clases;
     }
-
-    /**
-     * login  
-     */
-    public function loginWeb (Request $request) {
-        $user_name = $request->input('user_name');
-        $password = $request->input('password');
-        if (Auth::attempt(['user_name' => $user_name, 'password' => $password], false)) {
-          $user = Auth::user();
-          return redirect('/');
-        } else {
-          return redirect('/login')->with('status', 'Usuario no encontrado!');
-        }
-      }
 
     /**
      * Show the form for creating a new resource.
@@ -63,10 +35,9 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-      
-     $this->validate($request, [
+        $this->validate($request, [
         
-            'name'=>'required',
+            'description'=>'required',
            /* 'last_name'=>'required',
             'password'=>'required',
             'email'=>'required',
@@ -78,11 +49,8 @@ class UserController extends Controller
             'id_number'=>'required'
             */
         ]);
-        User::create($request->all());
-        /* Send email register */
-        Mail::send('emails.register', $request->all(), function($msj){
-            $msj->to($request->email)->subject('Falta sólo un paso más');
-         });
+        //return $request;
+        Classes::create($request->all());
         return;
     }
 
@@ -118,9 +86,9 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'name' => 'required'
+            'description' => 'required'
         ]);
-        User::find($id)->update($request->all());
+        Classes::find($id)->update($request->all());
         return;
     }
 
@@ -132,7 +100,7 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        $users = User::findOrFail($id);
-        $users->delete();
+        $clases = Classes::findOrFail($id);
+        $clases->delete();
     }
 }

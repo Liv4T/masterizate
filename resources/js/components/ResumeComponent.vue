@@ -7,7 +7,6 @@
                     <form class="needs-validation" novalidate>
                         <div class= "card-body">
                             <div class="form-group row"> 
-                                <span v-for="error in errors" class="text-danger">{{ error }}</span>
                                 <div class="col"> 
                                     <label for="description">Perfil profesional</label>
                                     <textarea  name="description" v-model="newDescription" class="form-control"  maxlength="200" required></textarea>

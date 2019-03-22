@@ -1,37 +1,41 @@
 <template>
-   <div id="crud" class="row">
+   <div id="crud" class="row justify-content-center">
        <div class="col-sm-12">
-            <h1 class="page-header">CRUD Usuarios</h1>
-        </div>
-        <div class="col-sm-7">
-            <a href="#" class="btn btn-primary float-right" data-toggle="modal" data-target="#createu">Agregar</a>
-            <table class="table table-hover table-striped">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Nombre</th>
-                        <th>Apellido</th>
-                        <th>Identificación</th>
-                        <th colspan="2">
-                            &nbsp;
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr v-for="name in names">
-                        <td width="10px">{{ name.id }}</td>
-                        <td>{{ name.name }}</td>
-                        <td>{{ name.last_name }}</td>
-                        <td>{{ name.id_number }}</td>
-                        <td width="10px">
-                            <a href="#" class="btn btn-warning btn-sm" v-on:click.prevent="editNames(name)">Editar</a>
-                        </td>
-                        <td width="10px">
-                            <a href="#" class="btn btn-danger btn-sm" v-on:click.prevent="deleteNames(name)">Eliminar</a>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="card">
+                <h1 class="card-header">Usuarios</h1>
+                <div class= "card-body">
+                    <a href="#" class="btn btn-primary float-right" data-toggle="modal" data-target="#createu">Agregar</a>
+                    <table class="table table-hover table-striped">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nombre</th>
+                                <th>Apellido</th>
+                                <th>Identificación</th>
+                                <th>Email</th>
+                                <th colspan="2">
+                                    &nbsp;
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="name in names">
+                                <td width="10px">{{ name.id }}</td>
+                                <td>{{ name.name }}</td>
+                                <td>{{ name.last_name }}</td>
+                                <td>{{ name.id_number }}</td>
+                                <td>{{ name.email }}</td>
+                                <td width="10px">
+                                    <a href="#" class="btn btn-warning btn-sm" v-on:click.prevent="editNames(name)">/</a>
+                                </td>
+                                <td width="10px">
+                                    <a href="#" class="btn btn-danger btn-sm" v-on:click.prevent="deleteNames(name)">-</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
         <div class="modal fade" id="createu">
             <div class="modal-dialog">
@@ -108,7 +112,7 @@
                                 </div>
                                 <div class="col"> 
                                     <label for="name">Foto</label>
-                                    <input type="file" name="picture" class="form-control" @change="onFileChange" required>
+                                    <input type="file" name="picture" class="form-control" @change="onFileChange"  accept="image/*" required>
                                 </div>
                             </div>
                             <div class="form-group row"> 
@@ -144,7 +148,7 @@
                     </form>
                 </div>
             </div>
-        </div>
+        </div>     
         <div class="modal fade" id="editu">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -239,7 +243,7 @@
                                 <div class = " invalid-feedback ">Please fill out this field </div>
                             </div>
                         </div>
-                         <span v-for="error in errors" class="text-danger">{{ error }}</span>
+                         <!--<span v-for="error in errors" class="text-danger">{{ error }}</span>-->
                     </div>
                     <div class="modal-footer">
                         <input type="submit" @click="updateNames" class="btn btn-primary" value="Actualizar">
@@ -334,11 +338,10 @@
         console.log("Component mounted.");
     },
     methods: { //metodos del CRUD
-           getNames(page){
-                var urlUsers = 'users?page='+page;
+           getNames(){
+                var urlUsers = 'users';
                 axios.get(urlUsers).then(response=> {
-                    this.names = response.data.users.data,
-                    this.pagination = response.data.pagination
+                    this.names = response.data
                 });
             },
             editNames(name){
@@ -366,7 +369,7 @@
                     this.fillNames = {'id': '', 'name': '','last_name': '','age':'', 'birthday':'', 'password': '','email': '', 'user_name': '','id_categories': '','id_subcategories': '','type_user': '','address': '','picture': '','phone': '', 'id_number': ''};
                     this.errors = [];
                     $('#editu').modal('hide');
-                    toastr.success('Usuario editado con exito');
+                    toastr.success('User successfully edited');
                     }).catch(error => {
                     this.errors = error.response.data
                     });
@@ -375,10 +378,11 @@
                 var url = 'users/' + name.id;
                 axios.delete(url).then(response=>{ // eliminamos
                     this.getNames(); //listamos
-                    toastr.success('Eliminado correctamente');//mensaje
+                    toastr.success('Successfully removed');//mensaje
                 });
             },
             createNames() {
+                console.log(this.newPicture);
                 var url = 'users';
                 this.newAge= this.age;
                 axios.post(url, {
@@ -393,7 +397,7 @@
                     id_subcategories: this.newId_subcategories,
                     type_user: this.newType_user,
                     address: this.newAddress,
-                    picture: this.newAddress,
+                    picture: this.newPicture,
                     phone: this.newPhone,
                     id_number: this.newId_number,
                 }).then(response => {
@@ -413,7 +417,7 @@
                     this.newId_number = '';
                     this.errors = [];
                     $('#createu').modal('hide');
-                    toastr.success('Nuevo usuario Creado con exito');
+                    toastr.success('New user created successfully');
                     }).catch(error => {
                     this.errors = error.response.data
                });

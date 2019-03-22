@@ -48,7 +48,9 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::orderBy('id','DESC')->paginate(4);
+        $categories = Category::all();
+        return $categories;
+        /*$categories = Category::orderBy('id','DESC')->paginate(4);
         return [
             'pagination'      => [
                'total'        => $categories->total(),
@@ -59,7 +61,7 @@ class CategoryController extends Controller
                'to'           => $categories->lastItem(),
             ],
             'categories' => $categories
-        ];
+        ];*/
     }
 
     /**
@@ -95,7 +97,7 @@ class CategoryController extends Controller
 
         foreach($subCategories as $index => $subCategory) { 
             $subCate = Subcategory::create([
-                'name_subcategory' => $subCategory[$index],
+                'name_subcategory' => $subCategory,
                 'id_category' => $category->id
             ]);
         }

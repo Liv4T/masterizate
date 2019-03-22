@@ -29,6 +29,9 @@ Route::get('/task', function () {
 Route::get('/resume', function () {
     return view('resume');
 });
+Route::get('/class', function () {
+        return view('class');
+});
 
 /*login personalizado permite verificar suscripcion*/
 Route::post('/login2', 'UserController@loginWeb')->name('login2');
@@ -37,6 +40,7 @@ Route::get('GetCategories','CategoryController@GetCategories');
 Route::get('GetTypeU','CategoryController@GetTypeU');
 Route::get('GetSubcategories/{id}','CategoryController@GetSubcategories');
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('testsendemail/{email}', 'TestingController@sendemail');
 Auth::routes();
 
 Route::resource('types', 'TypeUserController', ['except'=> 'show','create','edit']);;
@@ -44,5 +48,4 @@ Route::resource('tasks', 'TaskController', ['except'=> 'show','create','edit']);
 Route::resource('categories', 'CategoryController', ['except'=> 'show','create','edit']);;
 Route::resource('users', 'UserController', ['except'=> 'show','create','edit']);;
 Route::resource('resumes', 'ResumeController', ['except'=> 'show','create','edit']);;
-
-Route::get('testsendemail/{email}', 'TestingController@sendemail');
+Route::resource('classes', 'ClassController', ['except'=> 'show','create','edit']);;

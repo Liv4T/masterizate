@@ -60,8 +60,8 @@
               <a class="nav-link" href="/type">Tipos de usuario</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/task">Class1</a>
-              </li>
+              <a class="nav-link" href="/class">Clase</a>
+            </li>
             <li class="nav-item">
               <a class="nav-link" href="/resume">Curriculum</a>
             </li>
