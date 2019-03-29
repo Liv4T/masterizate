@@ -1,4 +1,5 @@
 <template>
+<auto-responsive>
     <div class="container">
         <div class="row">
             <div id="crud" class="col-xl-12">
@@ -6,7 +7,7 @@
                     <h1 class="card-header">Clase</h1>
                     <div class= "card-body">
                         <a href="#" class="btn btn-primary float-right" data-toggle="modal" data-target="#create">Nueva Clase</a>
-                        <table class="table table-hover table-striped">
+                        <table class="table table-responsive table-hover table-striped">
                             <thead>
                                 <tr>
                                     <th>N°</th>
@@ -24,72 +25,21 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td width="10px">1</td>
-                                    <td>15/03/2019-22/03/2019</td>
-                                    <td>zsfdffxgdfh</td>
-                                    <td>Matematica</td>
-                                    <td>Matematica 1</td>
-                                    <td>Ecuaciones</td>
-                                    <td>dsfdsfrf sfrfgsdffds</td>
-                                    <td width="10px">20</td>
-                                    <td>Quiz</td>
+                                <tr v-for="clas in classes">
+                                    <td width="10px">{{ clas.id }}</td>
+                                    <td>{{ clas.fromW }}/{{ clas.toW }}</td>
+                                    <td>{{ clas.name }}</td>
+                                    <td>{{ clas.id_category }}</td>
+                                    <td>{{ clas.subject }}</td>
+                                    <td>{{ clas.objetive }}</td>
+                                    <td>{{ clas.indicator }}</td>
+                                    <td width="10px">{{ clas.percent }}</td>
+                                    <td>{{ clas.quiz }}</td>
                                     <td width="10px">
-                                        <a href="#" class="btn btn-warning btn-sm">/</a>
+                                        <a href="#" class="btn btn-warning btn-sm"  v-on:click.prevent="editClasses(clas)">/</a>
                                     </td>
                                     <td width="10px">
-                                        <a href="#" class="btn btn-danger btn-sm" >-</a>
-                                    </td>
-                                </tr>
-                                <tr >
-                                    <td width="10px">2</td>
-                                    <td>15/04/2019-22/04/2019</td>
-                                    <td>zsfdffxgdfh</td>
-                                    <td>Matematica</td>
-                                    <td>Matematica 1</td>
-                                    <td>Ecuaciones</td>
-                                    <td>dsfdsfrf sfrfgsdffds</td>
-                                    <td width="10px">20</td>
-                                    <td>Quiz</td>
-                                    <td width="10px">
-                                        <a href="#" class="btn btn-warning btn-sm" >/</a>
-                                    </td>
-                                    <td width="10px">
-                                        <a href="#" class="btn btn-danger btn-sm" >-</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td width="10px">3</td>
-                                    <td>15/05/2019-22/05/2019</td>
-                                    <td>zsfdffxgdfh</td>
-                                    <td>Matematica</td>
-                                    <td>Matematica 1</td>
-                                    <td>Ecuaciones</td>
-                                    <td>dsfdsfrf sfrfgsdffds</td>
-                                    <td width="10px">20</td>
-                                    <td>Quiz</td>
-                                    <td width="10px">
-                                        <a href="#" class="btn btn-warning btn-sm" v-on:click.prevent="editClasses(classes)">/</a>
-                                    </td>
-                                    <td width="10px">
-                                        <a href="#" class="btn btn-danger btn-sm"  v-on:click.prevent="deleteClasses(classes)">-</a>
-                                    </td>
-                                </tr>
-                                <tr >
-                                    <td width="10px">4</td>
-                                    <td>15/06/2019-22/06/2019</td>
-                                    <td>zsfdffxgdfh</td>
-                                    <td>Matematica</td>
-                                    <td>Matematica 1</td>
-                                    <td>Ecuaciones</td>
-                                    <td>dsfdsfrf sfrfgsdffds</td>
-                                    <td width="10px">20</td>
-                                    <td>Quiz</td>
-                                    <td width="10px">
-                                        <a href="#" class="btn btn-warning btn-sm" >/</a>
-                                    </td>
-                                    <td width="10px">
-                                        <a href="#" class="btn btn-danger btn-sm" >-</a>
+                                        <a href="#" class="btn btn-danger btn-sm" v-on:click.prevent="deleteClasses(clas)" >-</a>
                                     </td>
                                 </tr>
                             </tbody>
@@ -111,22 +61,30 @@
                             <div class= "card-body">
                                  <div class="form-group row"> 
                                     <div class="col">                        
-                                        <div class="custom-control custom-checkbox custom-control-inline">
+                                        <!--<div class="custom-control custom-checkbox custom-control-inline">
                                             <input class="custom-control-input" type="checkbox" id="gridCheck1" v-model="newLocal" required>
                                             <label class="custom-control-label" for="gridCheck1">Local</label>
-                                        </div>
+                                        </div>-->
                                         <div class="custom-control custom-checkbox custom-control-inline">
-                                            <input class="custom-control-input" type="checkbox" id="gridCheck2" v-model="newRegional">
-                                            <label class="custom-control-label" for="gridCheck2">Regional</label>   
+                                            <input class="custom-control-input" type="checkbox" id="gridCheck1" v-model="newRegional">
+                                            <label class="custom-control-label" for="gridCheck1">Regional</label>   
                                         </div>     
                                         <div class="custom-control custom-checkbox custom-control-inline">          
                                             <input class="custom-control-input" type="checkbox" id="gridCheck3" v-model="newWorld">
                                             <label class="custom-control-label" for="gridCheck3">Mundial</label>   
                                         </div>
                                     </div>
-                                 </div>   
+                                 </div> 
+                                 <div id="hidden_fields1">     
+                                    <div class="form-group row"> 
+                                        <div class="col-md-6"> 
+                                            <label for="">Pais</label>
+                                            <select2 :options="myCountries" v-model="newContry"></select2>
+                                            <div class = " invalid-feedback ">Please fill out this field </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="form-group row"> 
-                                <!--<span v-for="error in errors" class="text-danger">{{ error }}</span>-->
                                     <div class="col"> 
                                         <label for="name">Nombre</label>
                                         <input type="text" name="name"  class="form-control" v-model="newName" required>
@@ -157,15 +115,15 @@
                                     <div class="col-md-6" v-for="(input,k) in inputs" :key="k"> 
                                         <label for="objetive">Objetivo del tema</label>
                                         <span>
-                                            <button class="badge badge-danger" @click.prevent="remove(k)" v-show="k || ( !k && inputs.length > 1)">-</button>
-                                            <button class="badge badge-primary" @click.prevent="add(k)" v-show="k == inputs.length-1">+</button>
+                                            <a href="#" class="badge badge-danger" @click.prevent="remove(k)" v-show="k || ( !k && inputs.length > 1)">-</a>
+                                            <a href="#" class="badge badge-primary" @click.prevent="add(k)" v-show="k == inputs.length-1">+</a>
                                         </span>
                                         <input type="text" name="objetive" class="form-control" v-model="newObjetive" required>
                                         <div class = " invalid-feedback ">Please fill out this field</div>
                                     </div>
                                 </div>
-                                <div  class="form-group row"> 
-                                    <div  class="col"> 
+                                <div class="form-group row"> 
+                                    <div class="col"> 
                                         <strong>Semana</strong>
                                     </div>
                                     <div class="col"> 
@@ -185,31 +143,27 @@
                                     </div>
                                     <div class="col-md-3"> 
                                         <label for="">Desde</label>
-                                        <select2 :options="subcategories" v-model="newHour" required></select2>
+                                        <select2 :options="myOptions" v-model="newFromH" required></select2>
                                         <div class = " invalid-feedback ">Please fill out this field</div>
                                     </div>
                                     <div class="col-md-3"> 
                                         <label for="">Hasta</label>
-                                        <select2 :options="subcategories" v-model="newFromH" required></select2>
+                                        <select2 :options="myOptions" v-model="newToH" required></select2>
                                         <div class = " invalid-feedback ">Please fill out this field</div>
                                     </div>
                                 </div>
-                                <div class="form-group row">
-                                    <div class="col-md-6" v-for="(input,k) in inputs1" :key="k"> 
+                                <div class="form-group row" v-for="(input,k) in inputs1" :key="k">
+                                    <div class="col-md-6"> 
                                         <label for="quiz">Medicion</label>
                                         <span>
-                                            <button class="badge badge-danger" @click.prevent="remove1(k)" v-show="k || ( !k && inputs1.length > 1)">-</button>
-                                            <button class="badge badge-primary" @click.prevent="add1(k)" v-show="k == inputs1.length-1">+</button>
+                                            <a href="#" class="badge badge-danger" @click.prevent="remove1(k)" v-show="k || ( !k && inputs1.length > 1)">-</a>
+                                            <a href="#" class="badge badge-primary" @click.prevent="add1(k)" v-show="k == inputs1.length-1">+</a>
                                         </span>
                                         <input type="text" name="quiz" class="form-control" v-model="newQuiz" required>
                                         <div class = " invalid-feedback ">Please fill out this field</div>
                                     </div> 
-                                    <div class="col-md-4" v-for="(input,k) in inputs2" :key="k" > 
+                                    <div class="col-md-4"> 
                                         <label for="indicator">Indicadores</label>
-                                        <span>
-                                            <button class="badge badge-danger" border-color="blue" @click.prevent="remove2(k)" v-show="k || ( !k && inputs2.length > 1)">-</button>
-                                            <button class="badge badge-primary" @click.prevent="add2(k)" v-show="k == inputs2.length-1">+</button>
-                                        </span>
                                         <input type="text" name="indicator" class="form-control" v-model="newIndicator" required>
                                         <div class = " invalid-feedback ">Please fill out this field</div>
                                     </div>
@@ -220,8 +174,9 @@
                                     </div>
                                 </div>
                                 <div class="modal-footer">
-                                    <input type="submit" @click="createClasses" class="btn btn-primary" value="Guardar"> 
+                                    <input type="submit" @click.prevent="createClasses" class="btn btn-primary" value="Guardar"> 
                                 </div>
+                                <!--<span v-for="error in errors" class="text-danger">{{ error }}</span>-->
                             </div>
                         </form>
                     </div>
@@ -241,22 +196,30 @@
                             <div class= "card-body">
                                  <div class="form-group row"> 
                                     <div class="col">                        
-                                        <div class="custom-control custom-checkbox custom-control-inline">
+                                        <!--<div class="custom-control custom-checkbox custom-control-inline">
                                             <input class="custom-control-input" type="checkbox" id="gridCheck1" v-model="fillC.local" required>
                                             <label class="custom-control-label" for="gridCheck1">Local</label>
-                                        </div>
+                                        </div>-->
                                         <div class="custom-control custom-checkbox custom-control-inline">
-                                            <input class="custom-control-input" type="checkbox" id="gridCheck2" v-model="fillC.reginal">
-                                            <label class="custom-control-label" for="gridCheck2">Regional</label>   
+                                            <input class="custom-control-input" type="checkbox" id="gridCheck1" v-model="fillC.reginal">
+                                            <label class="custom-control-label" for="gridCheck1">Regional</label>   
                                         </div>     
                                         <div class="custom-control custom-checkbox custom-control-inline">          
                                             <input class="custom-control-input" type="checkbox" id="gridCheck3" v-model="fillC.world">
                                             <label class="custom-control-label" for="gridCheck3">Mundial</label>   
                                         </div>
                                     </div>
-                                 </div>   
+                                 </div> 
+                                 <div id="hidden_fields1">     
+                                    <div class="form-group row"> 
+                                        <div class="col-md-6"> 
+                                             <label for="">Pais</label>
+                                        <select2 :options="subcategories" v-model="fillC.regional" required></select2>
+                                            <div class = " invalid-feedback ">Please fill out this field </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="form-group row"> 
-                                <!--<span v-for="error in errors" class="text-danger">{{ error }}</span>-->
                                     <div class="col"> 
                                         <label for="name">Nombre</label>
                                         <input type="text" name="name"  class="form-control" v-model="fillC.name" required>
@@ -287,14 +250,14 @@
                                     <div class="col-md-6" v-for="(input,k) in inputs" :key="k"> 
                                         <label for="objetive">Objetivo del tema</label>
                                         <span>
-                                            <button class="badge badge-danger" @click.prevent="remove(k)" v-show="k || ( !k && inputs.length > 1)">-</button>
-                                            <button class="badge badge-primary" @click.prevent="add(k)" v-show="k == inputs.length-1">+</button>
+                                            <a href="#" class="badge badge-danger" @click.prevent="remove(k)" v-show="k || ( !k && inputs.length > 1)">-</a>
+                                            <a href="#" class="badge badge-primary" @click.prevent="add(k)" v-show="k == inputs.length-1">+</a>
                                         </span>
                                         <input type="text" name="objetive" class="form-control" v-model="fillC.objetive" required>
                                         <div class = " invalid-feedback ">Please fill out this field</div>
                                     </div>
                                 </div>
-                                <div  class="form-group row"> 
+                                <div class="form-group row"> 
                                     <div  class="col"> 
                                         <strong>Semana</strong>
                                     </div>
@@ -315,31 +278,27 @@
                                     </div>
                                     <div class="col-md-3"> 
                                         <label for="">Desde</label>
-                                        <select2 :options="subcategories" v-model="fillC.fromH" required></select2>
+                                        <select2 :options="myOptions" v-model="fillC.fromH" required></select2>
                                         <div class = " invalid-feedback ">Please fill out this field</div>
                                     </div>
                                     <div class="col-md-3"> 
                                         <label for="">Hasta</label>
-                                        <select2 :options="subcategories" v-model="fillC.toH" required></select2>
+                                        <select2 :options="myOptions" v-model="fillC.toH" required></select2>
                                         <div class = " invalid-feedback ">Please fill out this field</div>
                                     </div>
                                 </div>
-                                <div class="form-group row">
-                                    <div class="col-md-6" v-for="(input,k) in inputs1" :key="k"> 
+                                <div class="form-group row" v-for="(input,k) in inputs1" :key="k">
+                                    <div class="col-md-6"> 
                                         <label for="quiz">Medicion</label>
                                         <span>
-                                            <button class="badge badge-danger" @click.prevent="remove1(k)" v-show="k || ( !k && inputs1.length > 1)">-</button>
-                                            <button class="badge badge-primary" @click.prevent="add1(k)" v-show="k == inputs1.length-1">+</button>
+                                            <a href="#" class="badge badge-danger" @click.prevent="remove1(k)" v-show="k || ( !k && inputs1.length > 1)">-</a>
+                                            <a href="#" class="badge badge-primary" @click.prevent="add1(k)" v-show="k == inputs1.length-1">+</a>
                                         </span>
                                         <input type="text" name="quiz" class="form-control" v-model="fillC.quiz" required>
                                         <div class = " invalid-feedback ">Please fill out this field</div>
                                     </div> 
-                                    <div class="col-md-4" v-for="(input,k) in inputs2" :key="k" > 
+                                    <div class="col-md-4"> 
                                         <label for="indicator">Indicadores</label>
-                                        <span>
-                                            <button class="badge badge-danger" border-color="blue" @click.prevent="remove2(k)" v-show="k || ( !k && inputs2.length > 1)">-</button>
-                                            <button class="badge badge-primary" @click.prevent="add2(k)" v-show="k == inputs2.length-1">+</button>
-                                        </span>
                                         <input type="text" name="indicator" class="form-control" v-model="fillC.indicator" required>
                                         <div class = " invalid-feedback ">Please fill out this field</div>
                                     </div>
@@ -359,6 +318,7 @@
             </div>
         </div>
     </div>
+</auto-responsive>
 </template>
 <script>
 (function() {
@@ -378,6 +338,29 @@
             });
         }, false);
 })();
+    $(function() {
+  
+        // Get the form fields and hidden div
+        var checkbox  = $("#gridCheck1");
+      
+        var hidden    = $("#hidden_fields1");
+        
+ 
+        hidden.hide();
+        
+        checkbox.change(function() {
+            if (checkbox.is(':checked')) {
+            // Show the hidden fields.
+            hidden.show();
+        } else {
+            hidden.hide();
+        }
+        });
+});
+import AutoResponsive from 'autoresponsive-vue';
+
+Vue.use(AutoResponsive);
+
 export default {
    data() {
         
@@ -392,35 +375,36 @@ export default {
                 name: ''
             }
             ],
-              inputs2: [
-            {
-                name: ''
-            }
-            ],
             categories: [],
             subcategories: [],
             TypeUsers: [],
-             classes: [],
-        newDescription: '',
-        newName: '',
-        newId_subcategories: '',
-        newSubject: '',
-        newObjetive: '',
-        newFromW: '',
-        newToW: '',
-        newFormH: '',
-        newToH: '',
-        newQuiz: '',
-        newIndicator: '',
-        newPercent: '',
-        newLocal: '',
-        newRegional: '',
-        newWorld: '',
-        newId_user:'',
-        fillC: {'id': '', 'name': '','description': '','id_user':'', 'id_category':'', 'id_subcategory':'','subject':'', 'objetive':'', 'fromW':'', 'toW':'', 'fromH':'', 'toH':'', 'quiz':'',  'indicator': '', 'percent': '', 'local': '', 'regional': '', 'world': ''},
-        errors: [],
+            classes: [],
+            myOptions:['1:00','1:30','2:00','2:30','3:00','3:30','4:00','4:30','5:00','5:30','6:00','6:30','7:00','7:30','8:00','8:30','9:00','9:30','10:00','10:30','11:00','11:30','12:00','12:30','13:00','13:30','14:00','14:30','15:00','15:30','16:00','16:30','17:00','17:30','18:00','18:30','19:00','19:30','20:00','20:30','21:00','21:30','22:00','22:30','23:00','23:30','0:00','0:30'],
+            myCountries:['Afghanistan','Albania','Algeria','Andorra','Angola','Antigua and Barbuda','Argentina','Armenia','Australia','Austria','Azerbaijan','The Bahamas','Bahrain','Bangladesh','Barbados','Belarus','Belgium','Belize','Benin','Bhutan','Bolivia','Bosnia','Botswana','Brazil','Brunei','Bulgaria','Burkina Faso','Burundi','Cabo Verde','Cambodia','Cameroon','Canada','Central African Republic','Chad','Chile','China','Colombia','Comoros','Congo','Costa Rica','Cote d’Ivoire','Croatia','Cuba','Cyprus','Czech Republic','Denmark','Djibouti','Dominica','Dominican Republic','East Timor (Timor-Leste)','Ecuador','Egypt','El Salvador','Equatorial Guinea','Eritrea','Estonia','Eswatini','Ethiopia','Fiji','Finland','France','Gabon','The Gambia','Georgia','Germany','Ghana','Greece','Grenada','Guatemala','Guinea','Guinea-Bissau','Guyana','Haiti','Honduras','Hungary','Iceland','India','Indonesia','Iran','Iraq','Ireland','Israel','Italy','Jamaica','Japan','Jordan','Kazakhstan','Kenya','Kiribati','Korea North','Korea South','Kosovo','Kuwait','Kyrgyzstan','Laos','Latvia','Lebanon','Lesotho','Liberia','Libya','Liechtenstein','Lithuania','Luxembourg','Madagascar','Malawi','Malaysia','Maldives','Mali','Malta','Marshall Islands','Mauritania','Mauritius','Mexico','Moldova','Monaco','Mongolia','Montenegro','Morocco','Mozambique','Myanmar (Burma)','Namibia','Nauru','Nepal','Netherlands','New Zealand','Nicaragua','Niger','Nigeria','North Macedonia','Norway','Oman','Pakistan','Palau','Panama','Papua New Guinea','Paraguay','Peru','Philippines','Poland','Portugal','Qatar','Romania','Russia','Rwanda','Saint Kitts and Nevis','Saint Lucia','Saint Vincent and the Grenadines','Samoa','San Marino','Sao Tome and Principe','Saudi Arabia','Senegal','Serbia','Seychelles','Sierra Leone','Singapore','Slovakia','Slovenia','Solomon Islands','Somalia','South Africa','Spain','Sri Lanka','Sudan','Sudan South','Suriname','Sweden','Switzerland','Syria','Taiwan','Tajikistan','Tanzania','Thailand','Togo','Tonga','Trinidad and Tobago','Tunisia','Turkey','Turkmenistan','Tuvalu','Uganda','Ukraine','United Arab Emirates','United Kingdom','United States','Uruguay','Uzbekistan','Vanuatu','Vatican City','Venezuela','Vietnam','Yemen','Zambia','Zimbabwe'],
+            newDescription: '',
+            newName: '',
+            newId_subcategories: '',
+            newSubject: '',
+            newObjetive: '',
+            newFromW: '',
+            newToW: '',
+            newFromH: '',
+            newToH: '',
+            newQuiz: '',
+            newIndicator: '',
+            newPercent: '',
+            newLocal: '',
+            newRegional: '',
+            newContry:'',
+            newWorld: '',
+            newId_user:'',
+            fillC: {'id': '', 'name': '','description': '','id_user':'', 'id_category':'', 'id_subcategory':'','subject':'', 'objetive':'', 'fromW':'', 'toW':'', 'fromH':'', 'toH':'', 'quiz':'',  'indicator': '', 'percent': '', 'local': '', 'regional': '', 'world': ''},
+            errors: [],
         }
         
+    },
+    created() {
+        this.getClasses();
     },
     mounted() {
         var urlsel = 'GetCategories';
@@ -448,38 +432,32 @@ export default {
         remove1(index) {
             this.inputs1.splice(index, 1);
         },
-         add2(index) {
-            this.inputs2.push({ name: '' });
-           
-        },
-        remove2(index) {
-            this.inputs2.splice(index, 1);
-        },
         getClasses(){
-            var urlr = 'classes/';
+            var urlr = 'classes';
             axios.get(urlr).then(response=> {
-                this.classes = response.data.classes.data
+                this.classes = response.data
             });
         },
-        editClasses(classes){
-            this.fillC.id = name.id;
-            this.fillC.description = name.description;
-            this.fillC.name = name.name;
-            this.fillC.id_user = name.id_user;
-            this.fillC.id_category = name.id_category;
-            this.fillC.id_subcategory = name.id_subcategory;
-            this.fillC.subject = name.subject;
-            this.fillC.objetive = name.objetive;
-            this.fillC.fromW = name.fromW;
-            this.fillC.toW = name.toW;
-            this.fillC.fromH = name.fromH;
-            this.fillC.toH = name.toH;
-            this.fillC.quiz = name.quiz;
-            this.fillC.indicator = name.indicator;
-            this.fillC.percent = name.percent;
-            this.fillC.local = name.local;
-            this.fillC.regional = name.regional;
-            this.fillC.world = name.world;
+        editClasses(clas){
+            this.fillC.id = clas.id;
+            this.fillC.description = clas.description;
+            this.fillC.name = clas.name;
+            this.fillC.id_user = clas.id_user;
+            this.fillC.id_category = clas.id_category;
+            this.fillC.id_subcategory = clas.id_subcategory;
+            this.fillC.subject = clas.subject;
+            this.fillC.objetive = clas.objetive;
+            this.fillC.fromW = clas.fromW;
+            this.fillC.toW = clas.toW;
+            this.fillC.fromH = clas.fromH;
+            this.fillC.toH = clas.toH;
+            this.fillC.quiz = clas.quiz;
+            this.fillC.indicator = clas.indicator;
+            this.fillC.percent = clas.percent;
+            this.fillC.local = clas.local;
+            this.fillC.regional = clas.regional;
+            this.fillC.world = clas.world;
+            $('#edit').modal('show');
         },
         updateClasses(id) {
             var url = 'classes/'+ id;
@@ -493,10 +471,10 @@ export default {
                 this.errors = error.response.data
                 });
         },
-        deleteClasses(classes) {
-            var url = 'classes/' + name.id;
-            axios.delete(url).then(response=>{ // eliminamos
-                this.getResumes(); //listamos
+        deleteClasses(clas) {
+            var url = 'classes/' + clas.id;
+            axios.delete(url).then(response=>{ // eliminar
+                this.getClasses(); //lista
                 toastr.success('Successfully removed');//mensaje
             });
         },
@@ -513,7 +491,7 @@ export default {
                 objetive:this.newObjetive, 
                 fromW:this.newFromW,
                 toW:this.newToW,
-                fromH:this.newFormH,
+                fromH:this.newFromH,
                 toH:this.newToH,   
                 quiz:this.newQuiz,
                 indicator:this.newIndicator,
@@ -522,7 +500,7 @@ export default {
                 regional:this.newRegional,
                 world:this.newWorld
             }).then(response => {
-                this.getResumes();
+                this.getClasses();
                 this.newDescription = '';
                 this.newId_user = '';
                 this.newName = '';
@@ -538,8 +516,10 @@ export default {
                 this.newPercent = '';
                 this.newLocal = '';
                 this.newRegional = '';
+                this.newContry= '';
                 this.newWorld = '';
                 this.errors = [];
+                $('#create').modal('hide');
                 toastr.success('New class created successfully');
                 }).catch(error => {
                 this.errors = error.response.data

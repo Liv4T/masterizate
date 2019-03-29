@@ -21,8 +21,8 @@ class CreateClassTable extends Migration
             $table->string('id_category');
             $table->string('id_subcategory');
             $table->string('subject');
-            $table->string('fromW');
-            $table->string('toW');
+            $table->date('fromW');
+            $table->date('toW');
             $table->string('fromH');
             $table->string('toH');
             $table->string('objetive');
@@ -30,7 +30,7 @@ class CreateClassTable extends Migration
             $table->string('indicator');
             $table->string('percent');
             $table->boolean('local');
-            $table->boolean('regional');
+            $table->string('regional');
             $table->boolean('world');
             $table->timestamps();
         });

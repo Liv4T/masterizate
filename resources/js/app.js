@@ -31,6 +31,7 @@ Vue.component('typeuser-component', require('./components/TypeUserComponent.vue'
 Vue.component('resume-component', require('./components/ResumeComponent.vue').default);
 Vue.component('checkbox', require('./components/Checkbox.vue').default);
 Vue.component('class-component', require('./components/ClassComponent.vue').default);
+Vue.component('chat-message', require('./components/ChatMessage.vue').default);
 
 
 

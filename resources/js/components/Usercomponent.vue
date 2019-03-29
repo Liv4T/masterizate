@@ -1,11 +1,11 @@
 <template>
    <div id="crud" class="row justify-content-center">
-       <div class="col-sm-12">
+       <div class="col-sm-10">
             <div class="card">
                 <h1 class="card-header">Usuarios</h1>
                 <div class= "card-body">
                     <a href="#" class="btn btn-primary float-right" data-toggle="modal" data-target="#createu">Agregar</a>
-                    <table class="table table-hover table-striped">
+                    <table class="table table-responsive table-hover table-striped">
                         <thead>
                             <tr>
                                 <th>ID</th>
@@ -126,6 +126,10 @@
                                 </div>
                             </div>
                             <div class="form-group row"> 
+                                <div class="col">   
+                                    <label for="">Pais</label>
+                                    <select2 :options="myCountries" v-model="newCountry" required></select2>
+                                </div>
                                 <div class="col"> 
                                     <label for="name">Dirección</label>
                                     <input type="text" name="address"  id="validationDefault03" class="form-control" v-model="newAddress" required>
@@ -237,6 +241,10 @@
                             </div>
                         </div>
                         <div class="form-group row"> 
+                            <div class="col-md-6">   
+                                <label for="">Pais</label>
+                                <select2 :options="myCountries" v-model="fillNames.country" required></select2>
+                            </div>
                             <div class="col-md-6"> 
                                 <label for="name">Dirección</label>
                                 <input type="text" name="address" class="form-control" v-model="fillNames.address">
@@ -291,11 +299,14 @@
         newPicture: '',
         newPhone:'',
         newId_number:'',
-        fillNames: {'id': '', 'name': '','last_name': '', 'age':'', 'birthday':'','password': '','email': '', 'user_name': '','id_categories': '','id_subcategories': '','type_user': '','address': '','picture': '','phone': '', 'id_number': ''},
+        newCountry:'',
+        fillNames: {'id': '', 'name': '','last_name': '', 'age':'', 'birthday':'','password': '','email': '', 'user_name': '','id_categories': '','id_subcategories': '','type_user': '','address': '','picture': '','phone': '', 'id_number': '','country': ''},
+        myCountries:['Afghanistan','Albania','Algeria','Andorra','Angola','Antigua and Barbuda','Argentina','Armenia','Australia','Austria','Azerbaijan','The Bahamas','Bahrain','Bangladesh','Barbados','Belarus','Belgium','Belize','Benin','Bhutan','Bolivia','Bosnia','Botswana','Brazil','Brunei','Bulgaria','Burkina Faso','Burundi','Cabo Verde','Cambodia','Cameroon','Canada','Central African Republic','Chad','Chile','China','Colombia','Comoros','Congo','Costa Rica','Cote d’Ivoire','Croatia','Cuba','Cyprus','Czech Republic','Denmark','Djibouti','Dominica','Dominican Republic','East Timor (Timor-Leste)','Ecuador','Egypt','El Salvador','Equatorial Guinea','Eritrea','Estonia','Eswatini','Ethiopia','Fiji','Finland','France','Gabon','The Gambia','Georgia','Germany','Ghana','Greece','Grenada','Guatemala','Guinea','Guinea-Bissau','Guyana','Haiti','Honduras','Hungary','Iceland','India','Indonesia','Iran','Iraq','Ireland','Israel','Italy','Jamaica','Japan','Jordan','Kazakhstan','Kenya','Kiribati','Korea North','Korea South','Kosovo','Kuwait','Kyrgyzstan','Laos','Latvia','Lebanon','Lesotho','Liberia','Libya','Liechtenstein','Lithuania','Luxembourg','Madagascar','Malawi','Malaysia','Maldives','Mali','Malta','Marshall Islands','Mauritania','Mauritius','Mexico','Moldova','Monaco','Mongolia','Montenegro','Morocco','Mozambique','Myanmar (Burma)','Namibia','Nauru','Nepal','Netherlands','New Zealand','Nicaragua','Niger','Nigeria','North Macedonia','Norway','Oman','Pakistan','Palau','Panama','Papua New Guinea','Paraguay','Peru','Philippines','Poland','Portugal','Qatar','Romania','Russia','Rwanda','Saint Kitts and Nevis','Saint Lucia','Saint Vincent and the Grenadines','Samoa','San Marino','Sao Tome and Principe','Saudi Arabia','Senegal','Serbia','Seychelles','Sierra Leone','Singapore','Slovakia','Slovenia','Solomon Islands','Somalia','South Africa','Spain','Sri Lanka','Sudan','Sudan South','Suriname','Sweden','Switzerland','Syria','Taiwan','Tajikistan','Tanzania','Thailand','Togo','Tonga','Trinidad and Tobago','Tunisia','Turkey','Turkmenistan','Tuvalu','Uganda','Ukraine','United Arab Emirates','United Kingdom','United States','Uruguay','Uzbekistan','Vanuatu','Vatican City','Venezuela','Vietnam','Yemen','Zambia','Zimbabwe'],
         errors: [],
         Category: '',
         Subcategory: '',
         Type: '',
+        newContry:'',
         categories: [],
         subcategories: [],
         TypeUsers: [],
@@ -360,13 +371,14 @@
                 this.fillNames.picture = name.picture;
                 this.fillNames.phone = name.phone;
                 this.fillNames.id_number = name.id_number;
+                this.fillNames.country = name.country;
                 $('#editu').modal('show');
             },
             updateNames(id) {
                 var url = 'users/'+ id;
                 axios.put(url, this.fillNames).then(response=> {
                     this.getNames();
-                    this.fillNames = {'id': '', 'name': '','last_name': '','age':'', 'birthday':'', 'password': '','email': '', 'user_name': '','id_categories': '','id_subcategories': '','type_user': '','address': '','picture': '','phone': '', 'id_number': ''};
+                    this.fillNames = {'id': '', 'name': '','last_name': '','age':'', 'birthday':'', 'password': '','email': '', 'user_name': '','id_categories': '','id_subcategories': '','type_user': '','address': '','picture': '','phone': '', 'id_number': '','country': ''};
                     this.errors = [];
                     $('#editu').modal('hide');
                     toastr.success('User successfully edited');
@@ -400,6 +412,7 @@
                     picture: this.newPicture,
                     phone: this.newPhone,
                     id_number: this.newId_number,
+                    country: this.newCountry,
                 }).then(response => {
                     this.getNames();
                     this.newName = '';
@@ -415,6 +428,7 @@
                     this.newPicture = '';
                     this.newPhone = '';
                     this.newId_number = '';
+                    this.newCountry= '';
                     this.errors = [];
                     $('#createu').modal('hide');
                     toastr.success('New user created successfully');

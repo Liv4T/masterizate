@@ -1,11 +1,11 @@
 <template>
     <div id="crud" class="row justify-content-center">
-        <div class="col-sm-8">
+        <div class="col-sm-7">
             <div class="card">
                 <h1 class="card-header">Categorias</h1>
                 <div class= "card-body">
                     <a href="#" class="btn btn-primary float-right" data-toggle="modal" data-target="#createc">Agregar</a>
-                    <table class="table table-hover table-striped">
+                    <table class="table table-responsive table-hover table-striped">
                         <thead>
                             <tr>
                                 <th>ID</th>
