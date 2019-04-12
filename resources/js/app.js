@@ -8,7 +8,7 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 window.toastr = require('toastr');
-
+import CKEditor from '@ckeditor/ckeditor5-vue';
 
 /**
  * The following block of code may be used to automatically register your
@@ -32,12 +32,34 @@ Vue.component('resume-component', require('./components/ResumeComponent.vue').de
 Vue.component('checkbox', require('./components/Checkbox.vue').default);
 Vue.component('class-component', require('./components/ClassComponent.vue').default);
 Vue.component('chat-message', require('./components/ChatMessage.vue').default);
-
-
+Vue.component('chat-log', require('./components/ChatLog.vue').default);
+Vue.component('chat-composer', require('./components/Chatcomposer.vue').default);
+Vue.component('blog-component', require('./components/BlogComponent.vue').default);
+Vue.component('draw-c', require('./components/draw.vue').default)
+Vue.use( CKEditor );
 
 const app = new Vue({
   
  
     el: '#app',
+    data: {
+        messages: []
+    },
+    methods: {
+        addMessage(message) {
+            // Add to existing messages
+            this.messages.push(message);
+
+            // Persist to the database etc
+            axios.post('/messages', message).then(response => {
+                // Do whatever;
+            })
+        },
+        created() {
+            axios.get('/messages').then(response => {
+                this.messages = response.data;
+            });
+        }
+    },
 
 });

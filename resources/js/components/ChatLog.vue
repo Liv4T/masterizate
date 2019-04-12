@@ -1,7 +1,7 @@
 <template>
-  <div class="chat-log">
-      <chat-message v-for="message in messages" :message="message"></chat-message>
-  </div>
+    <div class="chat-log">
+        <chat-message v-for="message in messages" :message="message"></chat-message>
+    </div>
 </template>
 
 <script>
@@ -11,7 +11,7 @@ export default {
 </script>
 
 <style>
-.chat-log .chat-message:nth-child(even) {
-    background-color: #ccc;
+    .chat-log .chat-message:nth-child(even) {
+        background-color: #ccc;
 }
 </style>

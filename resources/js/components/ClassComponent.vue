@@ -201,11 +201,11 @@
                                             <label class="custom-control-label" for="gridCheck1">Local</label>
                                         </div>-->
                                         <div class="custom-control custom-checkbox custom-control-inline">
-                                            <input class="custom-control-input" type="checkbox" id="gridCheck1" v-model="fillC.reginal">
+                                            <input class="custom-control-input" type="checkbox" id="gridCheck1" v-model="newRegional">
                                             <label class="custom-control-label" for="gridCheck1">Regional</label>   
                                         </div>     
                                         <div class="custom-control custom-checkbox custom-control-inline">          
-                                            <input class="custom-control-input" type="checkbox" id="gridCheck3" v-model="fillC.world">
+                                            <input class="custom-control-input" type="checkbox" id="gridCheck3" v-model="newWorld">
                                             <label class="custom-control-label" for="gridCheck3">Mundial</label>   
                                         </div>
                                     </div>
@@ -214,7 +214,7 @@
                                     <div class="form-group row"> 
                                         <div class="col-md-6"> 
                                              <label for="">Pais</label>
-                                        <select2 :options="subcategories" v-model="fillC.regional" required></select2>
+                                        <select2 :options="myCountries" v-model="fillC.country" ></select2>
                                             <div class = " invalid-feedback ">Please fill out this field </div>
                                         </div>
                                     </div>
