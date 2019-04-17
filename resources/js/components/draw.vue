@@ -1,4 +1,6 @@
 <template>
+  <div class="container">
+        
   <div class="canvas-wrapper" ref="canvasWrapper">
     <div class="draw-area">
       <canvas id="canvas" ref="canvas" :width="width" :height="height"></canvas>
@@ -19,8 +21,10 @@
       </li>
     </ul>
   </div>
+        </div>
 </template>
 <script>
+
 export default {
   name: 'CanvasDraw',
   props: {
@@ -66,6 +70,9 @@ export default {
   },
   methods: {
     setCanvas() {
+      var height = window.innerHeight;
+      var ratio = canvas.width/canvas.height;
+	    var width = height * ratio;
       this.$refs.canvasWrapper.style.gridTemplateColumns = `${this.width}px 30px`;
       this.$refs.canvasWrapper.style.width = `${this.width + 30}px`;
       this.$refs.canvasWrapper.style.height = `${this.height}px`;
@@ -75,6 +82,9 @@ export default {
       this.canvasContext.lineWidth = this.brushSize;
       this.canvasContext.strokeStyle = this.tools[this.selectedToolIdx].color;
       this.cursorContext = this.$refs.cursor.getContext('2d');
+      this.canvas.style.width = `${this.width}px`;
+	    this.canvas.style.height =`${this.height}px`;
+
     },
     bindEvents() {
       this.$refs.canvas.addEventListener('mousedown', (event) => {
@@ -165,6 +175,7 @@ export default {
   position: absolute;
   left: 0;
   top: 0;
+  margin: 0 auto;
   border: 2px solid #c8c8c8;
   border-radius: 10px 0 10px 10px;
 }

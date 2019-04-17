@@ -4401,6 +4401,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'CanvasDraw',
   props: {
@@ -4443,6 +4446,9 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     setCanvas: function setCanvas() {
+      var height = window.innerHeight;
+      var ratio = canvas.width / canvas.height;
+      var width = height * ratio;
       this.$refs.canvasWrapper.style.gridTemplateColumns = "".concat(this.width, "px 30px");
       this.$refs.canvasWrapper.style.width = "".concat(this.width + 30, "px");
       this.$refs.canvasWrapper.style.height = "".concat(this.height, "px");
@@ -4452,6 +4458,8 @@ __webpack_require__.r(__webpack_exports__);
       this.canvasContext.lineWidth = this.brushSize;
       this.canvasContext.strokeStyle = this.tools[this.selectedToolIdx].color;
       this.cursorContext = this.$refs.cursor.getContext('2d');
+      this.canvas.style.width = "".concat(this.width, "px");
+      this.canvas.style.height = "".concat(this.height, "px");
     },
     bindEvents: function bindEvents() {
       var _this = this;
@@ -9095,7 +9103,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.canvas-wrapper[data-v-6e7bfe0f] {\r\n  display: grid;\r\n  position: relative;\n}\n#canvas[data-v-6e7bfe0f] {\r\n  background-color: #f9f9f9;\r\n  z-index: 0;\n}\n#cursor[data-v-6e7bfe0f] {\r\n  z-index: 1;\r\n  pointer-events: none;\n}\n.active[data-v-6e7bfe0f] {\r\n  background-color: #ffffff !important;\n}\n.tools[data-v-6e7bfe0f] {\r\n  margin: 0;\r\n  padding: 0;\n}\n.tools li[data-v-6e7bfe0f]{\r\n  padding: 4px;\r\n  background-color: #c8c8c8;\r\n  border-left: 1px solid #abaaaa;\n}\n.tools li[data-v-6e7bfe0f]:not(:last-child) {\r\n  border-bottom: 1px solid #abaaaa;\n}\n.draw-area canvas[data-v-6e7bfe0f] {\r\n  position: absolute;\r\n  left: 0;\r\n  top: 0;\r\n  border: 2px solid #c8c8c8;\r\n  border-radius: 10px 0 10px 10px;\n}\r\n", ""]);
+exports.push([module.i, "\n.canvas-wrapper[data-v-6e7bfe0f] {\r\n  display: grid;\r\n  position: relative;\n}\n#canvas[data-v-6e7bfe0f] {\r\n  background-color: #f9f9f9;\r\n  z-index: 0;\n}\n#cursor[data-v-6e7bfe0f] {\r\n  z-index: 1;\r\n  pointer-events: none;\n}\n.active[data-v-6e7bfe0f] {\r\n  background-color: #ffffff !important;\n}\n.tools[data-v-6e7bfe0f] {\r\n  margin: 0;\r\n  padding: 0;\n}\n.tools li[data-v-6e7bfe0f]{\r\n  padding: 4px;\r\n  background-color: #c8c8c8;\r\n  border-left: 1px solid #abaaaa;\n}\n.tools li[data-v-6e7bfe0f]:not(:last-child) {\r\n  border-bottom: 1px solid #abaaaa;\n}\n.draw-area canvas[data-v-6e7bfe0f] {\r\n  position: absolute;\r\n  left: 0;\r\n  top: 0;\r\n  margin: 0 auto;\r\n  border: 2px solid #c8c8c8;\r\n  border-radius: 10px 0 10px 10px;\n}\r\n", ""]);
 
 // exports
 
@@ -52133,94 +52141,96 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { ref: "canvasWrapper", staticClass: "canvas-wrapper" }, [
-    _c("div", { staticClass: "draw-area" }, [
-      _c("canvas", {
-        ref: "canvas",
-        attrs: { id: "canvas", width: _vm.width, height: _vm.height }
-      }),
+  return _c("div", { staticClass: "container" }, [
+    _c("div", { ref: "canvasWrapper", staticClass: "canvas-wrapper" }, [
+      _c("div", { staticClass: "draw-area" }, [
+        _c("canvas", {
+          ref: "canvas",
+          attrs: { id: "canvas", width: _vm.width, height: _vm.height }
+        }),
+        _vm._v(" "),
+        _c("canvas", {
+          ref: "cursor",
+          attrs: { id: "cursor", width: _vm.width, height: _vm.height }
+        })
+      ]),
       _vm._v(" "),
-      _c("canvas", {
-        ref: "cursor",
-        attrs: { id: "cursor", width: _vm.width, height: _vm.height }
-      })
-    ]),
-    _vm._v(" "),
-    _c("ul", { staticClass: "tools" }, [
-      _c(
-        "li",
-        {
-          class: { active: _vm.selectedToolIdx === 0 },
-          attrs: { id: "tool-pencil" },
-          on: {
-            click: function($event) {
-              return _vm.changeTool(0)
+      _c("ul", { staticClass: "tools" }, [
+        _c(
+          "li",
+          {
+            class: { active: _vm.selectedToolIdx === 0 },
+            attrs: { id: "tool-pencil" },
+            on: {
+              click: function($event) {
+                return _vm.changeTool(0)
+              }
             }
-          }
-        },
-        [
-          _c("img", {
-            attrs: { src: "https://img.icons8.com/nolan/20/000000/paint.png" }
-          })
-        ]
-      ),
-      _vm._v(" "),
-      _c(
-        "li",
-        {
-          class: { active: _vm.selectedToolIdx === 1 },
-          attrs: { id: "tool-eraser" },
-          on: {
-            click: function($event) {
-              return _vm.changeTool(1)
+          },
+          [
+            _c("img", {
+              attrs: { src: "https://img.icons8.com/nolan/20/000000/paint.png" }
+            })
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "li",
+          {
+            class: { active: _vm.selectedToolIdx === 1 },
+            attrs: { id: "tool-eraser" },
+            on: {
+              click: function($event) {
+                return _vm.changeTool(1)
+              }
             }
-          }
-        },
-        [
-          _c("img", {
-            attrs: { src: "https://img.icons8.com/nolan/20/000000/erase.png" }
-          })
-        ]
-      ),
-      _vm._v(" "),
-      _c(
-        "li",
-        {
-          attrs: { id: "tool-color-palette" },
-          on: {
-            click: function($event) {
-              return _vm.showColorPalette()
+          },
+          [
+            _c("img", {
+              attrs: { src: "https://img.icons8.com/nolan/20/000000/erase.png" }
+            })
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "li",
+          {
+            attrs: { id: "tool-color-palette" },
+            on: {
+              click: function($event) {
+                return _vm.showColorPalette()
+              }
             }
-          }
-        },
-        [
-          _c("img", {
-            attrs: {
-              src: "https://img.icons8.com/nolan/20/000000/paint-palette.png"
+          },
+          [
+            _c("img", {
+              attrs: {
+                src: "https://img.icons8.com/nolan/20/000000/paint-palette.png"
+              }
+            })
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "li",
+          {
+            attrs: { id: "tool-download" },
+            on: {
+              click: function($event) {
+                return _vm.download()
+              }
             }
-          })
-        ]
-      ),
-      _vm._v(" "),
-      _c(
-        "li",
-        {
-          attrs: { id: "tool-download" },
-          on: {
-            click: function($event) {
-              return _vm.download()
-            }
-          }
-        },
-        [
-          _c("img", {
-            attrs: {
-              src:
-                "https://img.icons8.com/nolan/20/000000/downloading-updates.png"
-            }
-          })
-        ]
-      )
+          },
+          [
+            _c("img", {
+              attrs: {
+                src:
+                  "https://img.icons8.com/nolan/20/000000/downloading-updates.png"
+              }
+            })
+          ]
+        )
+      ])
     ])
   ])
 }
@@ -65416,15 +65426,14 @@ __webpack_require__.r(__webpack_exports__);
 /*!******************************************!*\
   !*** ./resources/js/components/draw.vue ***!
   \******************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _draw_vue_vue_type_template_id_6e7bfe0f_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./draw.vue?vue&type=template&id=6e7bfe0f&scoped=true& */ "./resources/js/components/draw.vue?vue&type=template&id=6e7bfe0f&scoped=true&");
 /* harmony import */ var _draw_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./draw.vue?vue&type=script&lang=js& */ "./resources/js/components/draw.vue?vue&type=script&lang=js&");
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _draw_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _draw_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-/* harmony import */ var _draw_vue_vue_type_style_index_0_id_6e7bfe0f_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./draw.vue?vue&type=style&index=0&id=6e7bfe0f&scoped=true&lang=css& */ "./resources/js/components/draw.vue?vue&type=style&index=0&id=6e7bfe0f&scoped=true&lang=css&");
+/* empty/unused harmony star reexport *//* harmony import */ var _draw_vue_vue_type_style_index_0_id_6e7bfe0f_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./draw.vue?vue&type=style&index=0&id=6e7bfe0f&scoped=true&lang=css& */ "./resources/js/components/draw.vue?vue&type=style&index=0&id=6e7bfe0f&scoped=true&lang=css&");
 /* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -65456,7 +65465,7 @@ component.options.__file = "resources/js/components/draw.vue"
 /*!*******************************************************************!*\
   !*** ./resources/js/components/draw.vue?vue&type=script&lang=js& ***!
   \*******************************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
