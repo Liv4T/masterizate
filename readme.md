@@ -1,3 +1,11 @@
+
+PHP > 7
+NPM V-6.5.0
+COMPOSER INSTALL
+KEY GENERATOR
+
+
+
 <p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
 
 <p align="center">

@@ -31,9 +31,9 @@ Vue.component('typeuser-component', require('./components/TypeUserComponent.vue'
 Vue.component('resume-component', require('./components/ResumeComponent.vue').default);
 Vue.component('checkbox', require('./components/Checkbox.vue').default);
 Vue.component('class-component', require('./components/ClassComponent.vue').default);
-Vue.component('chat-message', require('./components/ChatMessage.vue').default);
-Vue.component('chat-log', require('./components/ChatLog.vue').default);
-Vue.component('chat-composer', require('./components/Chatcomposer.vue').default);
+Vue.component('chat-message', require('./components/ChatMessageComponent.vue').default);
+Vue.component('chat-log', require('./components/ChatLogComponent.vue').default);
+Vue.component('chat-composer', require('./components/ChatcomposerComponent.vue').default);
 Vue.component('blog-component', require('./components/BlogComponent.vue').default);
 Vue.component('draw-c', require('./components/draw.vue').default)
 Vue.use( CKEditor );
@@ -42,24 +42,37 @@ const app = new Vue({
   
  
     el: '#app',
-    data: {
-        messages: []
-    },
-    methods: {
-        addMessage(message) {
-            // Add to existing messages
-            this.messages.push(message);
+    data:{
+        messages:[],
+        baseurl:window.baseurl,
+        user:null
+},
+init(){
+        var container = this.$el.querySelector("#container");
+        container.scrollTop = container.scrollHeight;
+},
+methods:{
+    addMessage(message){
+        this.messages.push(message);
+        axios.post('http://127.0.0.1:8000/message',message).then(response=>{
 
-            // Persist to the database etc
-            axios.post('/messages', message).then(response => {
-                // Do whatever;
-            })
-        },
-        created() {
-            axios.get('/messages').then(response => {
-                this.messages = response.data;
-            });
-        }
+            
+        });
     },
+    getMessages(){
+        
+        axios.get('http://127.0.0.1:8000/messages').then(response=>{
+            this.messages = response.data.messages;
+            var container = this.$el.querySelector("#container");
+            container.scrollTop = container.scrollHeight;
 
+        });         
+    }
+},
+created(){
+    axios.get('http://127.0.0.1:8000/messages').then(response=>{
+        this.messages = response.data.messages;
+        this.user = response.data.user;
+    });
+}
 });

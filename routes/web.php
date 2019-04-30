@@ -1,5 +1,7 @@
 <?php
-
+use App\Message;
+use App\User;
+use App\Events\MessagePosted;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -39,7 +41,7 @@ Route::post('/login2', 'UserController@loginWeb')->name('login2');
 Route::get('GetCategories','CategoryController@GetCategories');
 Route::get('GetTypeU','CategoryController@GetTypeU');
 Route::get('GetSubcategories/{id}','CategoryController@GetSubcategories');
-Route::get('/home', 'HomeController@index')->name('home');
+//Route::get('/home', 'HomeController@index')->name('home');
 Route::get('testsendemail/{email}', 'TestingController@sendemail');
 Auth::routes();
 
@@ -49,3 +51,25 @@ Route::resource('categories', 'CategoryController', ['except'=> 'show','create',
 Route::resource('users', 'UserController', ['except'=> 'show','create','edit']);;
 Route::resource('resumes', 'ResumeController', ['except'=> 'show','create','edit']);;
 Route::resource('classes', 'ClassController', ['except'=> 'show','create','edit']);;
+Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/messages',function(){
+
+	return response()->json([
+	    'messages' => Message::with('user')->get(),
+	    'user' => Auth::user()
+	]);
+	
+
+})->middleware('auth');
+Route::post('/message',function(){
+	
+	$user = Auth::user();
+	
+	$message = $user->message()->create([
+		'message' => request()->get('message')
+	]);
+
+	broadcast(new MessagePosted($message,$user));
+
+	return ['status' => 'OK'];
+})->middleware('auth');

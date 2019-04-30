@@ -1,6 +1,4 @@
-<template>
-  <div class="container">
-        
+<template>   
   <div class="canvas-wrapper" ref="canvasWrapper">
     <div class="draw-area">
       <canvas id="canvas" ref="canvas" :width="width" :height="height"></canvas>
@@ -21,7 +19,6 @@
       </li>
     </ul>
   </div>
-        </div>
 </template>
 <script>
 
@@ -70,20 +67,19 @@ export default {
   },
   methods: {
     setCanvas() {
-      var height = window.innerHeight;
-      var ratio = canvas.width/canvas.height;
-	    var width = height * ratio;
+      
       this.$refs.canvasWrapper.style.gridTemplateColumns = `${this.width}px 30px`;
       this.$refs.canvasWrapper.style.width = `${this.width + 30}px`;
       this.$refs.canvasWrapper.style.height = `${this.height}px`;
+      var height = window.innerHeight;
+      var ratio = canvas.width/canvas.height;
+	    var width = height * ratio;
       this.canvasContext = this.$refs.canvas.getContext('2d');
       this.canvasContext.lineJoin = 'round';
       this.canvasContext.lineCap = 'round';
       this.canvasContext.lineWidth = this.brushSize;
       this.canvasContext.strokeStyle = this.tools[this.selectedToolIdx].color;
       this.cursorContext = this.$refs.cursor.getContext('2d');
-      this.canvas.style.width = `${this.width}px`;
-	    this.canvas.style.height =`${this.height}px`;
 
     },
     bindEvents() {
