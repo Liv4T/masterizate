@@ -1,8 +1,9 @@
 <template>
+<div class="background1">
     <div id="crud" class="row justify-content-center">
         <div class="col-sm-7">
-            <div class="card">
-                <h1 class="card-header">Categorias</h1>
+            <div class="card text-center">
+                <h3 class="card-header">Categorias</h3>
                 <div class= "card-body">
                     <a href="#" class="btn btn-primary float-right" data-toggle="modal" data-target="#createc">Agregar</a>
                     <table class="table table-responsive table-hover table-striped">
@@ -21,7 +22,7 @@
                             <tr v-for="namec in names_c">
                                 <td width="10px">{{ namec.id }}</td>
                                 <td>{{ namec.name_category }}</td>
-                                 <td>{{ namec.name_subcategory }}</td>
+                                <td>{{ namec.name_subcategory }}</td>
                                 <td width="10px">
                                     <a href="#" class="btn btn-warning btn-sm" v-on:click.prevent="editNamec(namec)">/</a>
                                 </td>
@@ -91,6 +92,7 @@
                 </div>
             </div>
         </div>
+    </div>
     </div>
 </template>
 <script>
@@ -218,3 +220,9 @@
 };
 
 </script>
+<style>
+.background1{
+  background: url(http://localhost/Life4teach_project/resources/js/assets/img/Fondo1.jpg);
+  background-attachment: fixed;
+}
+</style>

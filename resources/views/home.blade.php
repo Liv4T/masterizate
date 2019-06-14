@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
+<home></home>
 <div class="container">
-    <user-component></user-component>
     
     <div class="row justify-content-center">
       <div class="card-body"> @if (session('status'))

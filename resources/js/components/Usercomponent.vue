@@ -1,8 +1,9 @@
 <template>
+<div class="background1">
    <div id="crud" class="row justify-content-center">
        <div class="col-sm-10">
-            <div class="card">
-                <h1 class="card-header">Usuarios</h1>
+            <div class="card text-center">
+                <h3 class="card-header">Usuarios</h3>
                 <div class= "card-body">
                     <a href="#" class="btn btn-primary float-right" data-toggle="modal" data-target="#createu">Agregar</a>
                     <table class="table table-responsive table-hover table-striped">
@@ -261,6 +262,7 @@
             </div>
         </div>
     </div>
+    </div>
 </template>
 <script>
     import "toastr/toastr.scss";
@@ -461,3 +463,16 @@
     }
  }
 </script>
+<style>
+.background1{
+  background: url(http://localhost/Life4teach_project/resources/js/assets/img/Fondo1.jpg);
+  background-attachment: fixed;
+}
+.card{
+    background: url(http://localhost/Life4teach_project/resources/js/assets/img/Fondo4.jpg);;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+     position: relative;
+}
+</style>

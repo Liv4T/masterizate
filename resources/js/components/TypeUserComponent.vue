@@ -1,8 +1,9 @@
 <template>
+<div class="background1">
   <div id="crud" class="row justify-content-center">
     <div class="col-sm-6">
-       <div class="card">
-          <h1 class="card-header">Tipo de usuario</h1>
+       <div class="card text-center">
+          <h3 class="card-header">Tipo de usuario</h3>
           <div class= "card-body">
             <a href="#" class="btn btn-primary float-right" data-toggle="modal"
              data-target="#create">Agregar</a>
@@ -69,6 +70,7 @@
       </div>
     </div>
   </div>
+</div>
 </template>
 <script>
 import "toastr/toastr.scss";
@@ -140,4 +142,11 @@ export default {
   }
 };
 </script>
+<style>
+.background1{
+  background: url(http://localhost/Life4teach_project/resources/js/assets/img/Fondo1.jpg);
+  background-attachment: fixed;
+}
+</style>
+
 

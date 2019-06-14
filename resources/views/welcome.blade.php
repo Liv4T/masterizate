@@ -1,13 +1,18 @@
 @extends('layouts.app')
 
 @section('content')
+<!--<formstyle></formstyle>-->
+<list-component></list-component>
+  <footers></footers>
+
   <div class="container">
       @if (session('status'))
       <div class="alert alert-success">
            {{ session('status') }}
       </div>
       @endif
-    <div class="row ">
+      
+    <!--<div class="row ">
       <div class="col-md-7">
         <div class="card">
             <div class = " card-header ">Board</div>
@@ -39,6 +44,6 @@
             </div>
         </div>
       </div>
-  </div>  
+  </div>-->  
 </div>
 @endsection

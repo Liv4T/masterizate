@@ -1,24 +1,22 @@
 <template>
 <auto-responsive>
-    <div class="container">
+    <div class="background1">
         <div class="row">
             <div id="crud" class="col-xl-12">
-                <div class="card">
-                    <h1 class="card-header">Clase</h1>
+                <div class="card text-center">
+                    <h3 class="card-header">Clase</h3>
                     <div class= "card-body">
-                        <a href="#" class="btn btn-primary float-right" data-toggle="modal" data-target="#create">Nueva Clase</a>
+                        <a href="/course" class="btn btn-primary float-right">Curso Especializado</a>
+                        <a href="/free" class="btn btn-primary float-right">FREE</a>
                         <table class="table table-responsive table-hover table-striped">
                             <thead>
                                 <tr>
                                     <th>N°</th>
-                                    <th>Semana</th>
-                                    <th>Nombre</th>
+                                    <th>Nombre del curso</th>
                                     <th>Categoria</th>
-                                    <th>Tema</th>
-                                    <th>Objetivo</th>
-                                    <th>Indicador</th>
-                                    <th>%</th>
-                                    <th>Medicion</th>
+                                    <th>Cantidad de unidades</th>
+                                    <th>Metodologia</th>
+                                    <th>Intensidad Horaria TV</th>
                                     <th colspan="2">
                                         &nbsp;
                                     </th>
@@ -32,9 +30,7 @@
                                     <td>{{ clas.id_category }}</td>
                                     <td>{{ clas.subject }}</td>
                                     <td>{{ clas.objetive }}</td>
-                                    <td>{{ clas.indicator }}</td>
-                                    <td width="10px">{{ clas.percent }}</td>
-                                    <td>{{ clas.quiz }}</td>
+                                   
                                     <td width="10px">
                                         <a href="#" class="btn btn-warning btn-sm"  v-on:click.prevent="editClasses(clas)">/</a>
                                     </td>
@@ -535,3 +531,9 @@ export default {
     
 }
 </script>
+<style>
+.background1{
+  background: url(http://localhost/Life4teach_project/resources/js/assets/img/Fondo1.jpg);
+  background-attachment: fixed;
+}
+</style>

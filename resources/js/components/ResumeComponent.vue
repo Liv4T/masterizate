@@ -1,9 +1,9 @@
 <template>
-    <div class="container">
+    <div class="backgroun1">
         <div class="row justify-content-center">
             <div id="crud" class="col-md-11">
-                <div class="card">
-                    <h1 class="card-header">Curriculum</h1>
+                <div class="card text-center">
+                    <h3 class="card-header">Curriculum</h3>
                     <form class="needs-validation" novalidate>
                         <div class= "card-body">
                             <div class="form-group row"> 
@@ -574,3 +574,9 @@ export default {
      }    
 }
 </script>
+<style>
+.background1{
+  background: url(http://localhost/Life4teach_project/resources/js/assets/img/Fondo1.jpg);
+  background-attachment: fixed;
+}
+</style>
