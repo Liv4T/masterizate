@@ -3,24 +3,17 @@
         <div class="row justify-content-center">
             <div id="crud" class="col-md-11">
                 <div class="card text-center">
-                    <h3 class="card-header">Curriculum</h3>
+                    <h3 class="card-header">Hoja de vida</h3>
                     <form class="needs-validation" novalidate>
                         <div class= "card-body">
-                            <div class="form-group row"> 
-                                <div class="col"> 
-                                    <label for="description">Perfil profesional</label>
-                                    <textarea  name="description" v-model="newDescription" class="form-control"  maxlength="200" required></textarea>
-                                    <div class = " invalid-feedback ">Please fill out this field </div>
-                                </div>
-                                <div class="col"> 
-                                    <label for="language">Idioma</label>
-                                    <input type="text" name="language"  class="form-control" v-model="newLanguage" required>
-                                    <div class = " invalid-feedback ">Please fill out this field </div>
-                                </div>
+                           <div class="form-group mx-auto"> 
+                                <strong>Perfil profesional</strong>
+                                <textarea  name="description" v-model="newDescription" class="form-control"  maxlength="200" required></textarea>
+                                <div class = " invalid-feedback ">Please fill out this field </div>
                             </div>
                             <div class="container">
-                                <div class="form-group row"> 
-                                    <h5 >Nivel Educativo</h5>
+                                <div class="form-group mx-auto"> 
+                                     <strong>Formacion Academica</strong>
                                 </div>
                                 <div class="form-group row"> 
                                     <div class="col">                        
@@ -48,10 +41,6 @@
                                             <input class="custom-control-input" type="checkbox" id="gridCheck6" >
                                             <label class="custom-control-label" for="gridCheck6">Doctorado</label>   
                                         </div>
-                                        <div class="custom-control custom-checkbox custom-control-inline">
-                                            <input class="custom-control-input" type="checkbox" id="gridCheck7">
-                                            <label class="custom-control-label" for="gridCheck7">Otro</label>
-                                        </div>
                                     </div>
                                 </div>   
                                 <div id="hidden_fields1">
@@ -59,132 +48,174 @@
                                         <strong>Bachiller</strong>
                                     </div>       
                                     <div class="form-group row"> 
-                                        <div class="col-md-4"> 
-                                            <label for="institution">Institución</label>
-                                            <input type="text" name="institution" class="form-control" v-model="newInstitutionB" required>
-                                            <div class = " invalid-feedback ">Please fill out this field </div>
-                                        </div>
-                                        <div class="col-md-4"> 
-                                            <label for="date">Fecha del titulo</label>
-                                            <input type="date" name="date" class="form-control" v-model="newDateB" required>
-                                            <div class = " invalid-feedback ">Please fill out this field</div>
-                                        </div>
-                                        <div class="col-md-4"> 
-                                            <label for="country">Pais</label>
+                                        <div class="col-md-6"> 
+                                            <label for="country">Modalidad Academica</label>
                                             <input type="text" name="country" class="form-control" v-model="newCountryB" required>
                                             <div class = " invalid-feedback ">Please fill out this field </div>
                                         </div>  
+                                        <div class="col-md-6"> 
+                                            <label for="institution">Titulo Obtenido</label>
+                                            <input type="text" name="c" class="form-control" v-model="newInstitutionB" required>
+                                            <div class = " invalid-feedback ">Please fill out this field </div>
+                                        </div>
                                     </div>
+                                    <div class="form-group row">
+                                        <div class="col-md-6"> 
+                                            <label for="country">Institución</label>
+                                            <input type="text" name="institution" class="form-control" v-model="newCountryB" required>
+                                            <div class = " invalid-feedback ">Please fill out this field </div>
+                                        </div>
+                                        <div class="col-md-6"> 
+                                            <label for="date">Fecha del titulo</label>
+                                            <input type="date" name="date" class="form-control" v-model="newDateB" required>
+                                            <div class = " invalid-feedback ">Please fill out this field</div>
+                                        </div>  
+                                    </div> 
                                 </div>
                                 <div id="hidden_fields2">
                                     <div  class="form-group row"> 
                                         <strong>Tecnico</strong>
                                     </div>
                                     <div class="form-group row"> 
-                                        <div class="col-md-4"> 
-                                            <label for="institution">Institución</label>
-                                            <input type="text" name="institution" class="form-control" v-model="newInstitutionT">
-                                            <div class = " invalid-feedback ">Please fill out this field </div>
-                                        </div>
-                                        <div class="col-md-4"> 
-                                            <label for="date">Fecha del titulo</label>
-                                            <input type="date" name="date" class="form-control" v-model="newDateT">
-                                            <div class = " invalid-feedback ">Please fill out this field</div>
-                                        </div>
-                                        <div class="col-md-4"> 
-                                            <label for="country">Pais</label>
-                                            <input type="text" name="country" class="form-control" v-model="newCountryT">
+                                        <div class="col-md-6"> 
+                                            <label for="country">Modalidad Academica</label>
+                                            <input type="text" name="country" class="form-control" v-model="newCountryB" required>
                                             <div class = " invalid-feedback ">Please fill out this field </div>
                                         </div>  
+                                        <div class="col-md-6"> 
+                                            <label for="institution">Titulo Obtenido</label>
+                                            <input type="text" name="c" class="form-control" v-model="newInstitutionB" required>
+                                            <div class = " invalid-feedback ">Please fill out this field </div>
+                                        </div>
                                     </div>
+                                    <div class="form-group row">
+                                        <div class="col-md-6"> 
+                                            <label for="country">Institución</label>
+                                            <input type="text" name="institution" class="form-control" v-model="newCountryB" required>
+                                            <div class = " invalid-feedback ">Please fill out this field </div>
+                                        </div>
+                                        <div class="col-md-6"> 
+                                            <label for="date">Fecha del titulo</label>
+                                            <input type="date" name="date" class="form-control" v-model="newDateB" required>
+                                            <div class = " invalid-feedback ">Please fill out this field</div>
+                                        </div>  
+                                    </div> 
                                 </div>
                                 <div id="hidden_fields3">
                                     <div  class="form-group row"> 
                                         <strong>Profesional</strong>
                                     </div>
-                                    <div class="form-group row"> 
-                                        <div class="col-md-4"> 
-                                            <label for="institution">Institución</label>
-                                            <input type="text" name="institution" class="form-control" v-model="newInstitutionP">
-                                            <div class = " invalid-feedback ">Please fill out this field </div>
-                                        </div>
-                                        <div class="col-md-4"> 
-                                            <label for="date">Fecha del titulo</label>
-                                            <input type="date" name="date" class="form-control" v-model="newDateP">
-                                            <div class = " invalid-feedback ">Please fill out this field</div>
-                                        </div>
-                                        <div class="col-md-4"> 
-                                            <label for="country">Pais</label>
-                                            <input type="text" name="country" class="form-control" v-model="newCountryP">
+                                     <div class="form-group row"> 
+                                        <div class="col-md-6"> 
+                                            <label for="country">Modalidad Academica</label>
+                                            <input type="text" name="country" class="form-control" v-model="newCountryB" required>
                                             <div class = " invalid-feedback ">Please fill out this field </div>
                                         </div>  
+                                        <div class="col-md-6"> 
+                                            <label for="institution">Titulo Obtenido</label>
+                                            <input type="text" name="c" class="form-control" v-model="newInstitutionB" required>
+                                            <div class = " invalid-feedback ">Please fill out this field </div>
+                                        </div>
                                     </div>
+                                    <div class="form-group row">
+                                        <div class="col-md-6"> 
+                                            <label for="country">Institución</label>
+                                            <input type="text" name="institution" class="form-control" v-model="newCountryB" required>
+                                            <div class = " invalid-feedback ">Please fill out this field </div>
+                                        </div>
+                                        <div class="col-md-6"> 
+                                            <label for="date">Fecha del titulo</label>
+                                            <input type="date" name="date" class="form-control" v-model="newDateB" required>
+                                            <div class = " invalid-feedback ">Please fill out this field</div>
+                                        </div>  
+                                    </div> 
                                 </div>
                                  <div id="hidden_fields4">
                                     <div  class="form-group row"> 
                                         <strong>Especializado</strong>
                                     </div>
-                                    <div class="form-group row">
-                                        <div class="col-md-4"> 
-                                            <label for="institution">Institución</label>
-                                            <input type="text" name="institution" class="form-control" v-model="newInstitutionE">
-                                            <div class = " invalid-feedback ">Please fill out this field </div>
-                                        </div>
-                                        <div class="col-md-4"> 
-                                            <label for="date">Fecha del titulo</label>
-                                            <input type="date" name="date" class="form-control" v-model="newDateE">
-                                            <div class = " invalid-feedback ">Please fill out this field</div>
-                                        </div>
-                                        <div class="col-md-4"> 
-                                            <label for="country">Pais</label>
-                                            <input type="text" name="country" class="form-control" v-model="newCountryE">
+                                    <div class="form-group row"> 
+                                        <div class="col-md-6"> 
+                                            <label for="country">Modalidad Academica</label>
+                                            <input type="text" name="country" class="form-control" v-model="newCountryB" required>
                                             <div class = " invalid-feedback ">Please fill out this field </div>
                                         </div>  
+                                        <div class="col-md-6"> 
+                                            <label for="institution">Titulo Obtenido</label>
+                                            <input type="text" name="c" class="form-control" v-model="newInstitutionB" required>
+                                            <div class = " invalid-feedback ">Please fill out this field </div>
+                                        </div>
                                     </div>
+                                    <div class="form-group row">
+                                        <div class="col-md-6"> 
+                                            <label for="country">Institución</label>
+                                            <input type="text" name="institution" class="form-control" v-model="newCountryB" required>
+                                            <div class = " invalid-feedback ">Please fill out this field </div>
+                                        </div>
+                                        <div class="col-md-6"> 
+                                            <label for="date">Fecha del titulo</label>
+                                            <input type="date" name="date" class="form-control" v-model="newDateB" required>
+                                            <div class = " invalid-feedback ">Please fill out this field</div>
+                                        </div>  
+                                    </div> 
                                 </div>
                                 <div id="hidden_fields5">
                                     <div  class="form-group row"> 
                                         <strong>Maestria</strong>
                                     </div>
                                     <div class="form-group row"> 
-                                        <div class="col-md-4"> 
-                                            <label for="institution">Institución</label>
-                                            <input type="text" name="institution" class="form-control" v-model="newInstitutionM">
-                                            <div class = " invalid-feedback ">Please fill out this field </div>
-                                        </div>
-                                        <div class="col-md-4"> 
-                                            <label for="date">Fecha del titulo</label>
-                                            <input type="date" name="date" class="form-control" v-model="newDateM">
-                                            <div class = " invalid-feedback ">Please fill out this field</div>
-                                        </div>
-                                        <div class="col-md-4"> 
-                                            <label for="country">Pais</label>
-                                            <input type="text" name="country" class="form-control" v-model="newCountryM">
+                                        <div class="col-md-6"> 
+                                            <label for="country">Modalidad Academica</label>
+                                            <input type="text" name="country" class="form-control" v-model="newCountryB" required>
                                             <div class = " invalid-feedback ">Please fill out this field </div>
                                         </div>  
+                                        <div class="col-md-6"> 
+                                            <label for="institution">Titulo Obtenido</label>
+                                            <input type="text" name="c" class="form-control" v-model="newInstitutionB" required>
+                                            <div class = " invalid-feedback ">Please fill out this field </div>
+                                        </div>
                                     </div>
+                                    <div class="form-group row">
+                                        <div class="col-md-6"> 
+                                            <label for="institution">Institución</label>
+                                            <input type="text" name="institution" class="form-control" v-model="newCountryB" required>
+                                            <div class = " invalid-feedback ">Please fill out this field </div>
+                                        </div>
+                                        <div class="col-md-6"> 
+                                            <label for="date">Fecha del titulo</label>
+                                            <input type="date" name="date" class="form-control" v-model="newDateB" required>
+                                            <div class = " invalid-feedback ">Please fill out this field</div>
+                                        </div>  
+                                    </div> 
                                 </div>
                                 <div id="hidden_fields6">
                                     <div  class="form-group row"> 
                                         <strong>Doctorado</strong>
                                     </div>
-                                    <div class="form-group row"> 
-                                        <div class="col-md-4"> 
-                                            <label for="institution">Institución</label>
-                                            <input type="text" name="institution" class="form-control" v-model="newInstitutionD">
-                                            <div class = " invalid-feedback ">Please fill out this field </div>
-                                        </div>
-                                        <div class="col-md-4"> 
-                                            <label for="date">Fecha del titulo</label>
-                                            <input type="date" name="date" class="form-control" v-model="newDateD">
-                                            <div class = " invalid-feedback ">Please fill out this field</div>
-                                        </div>
-                                        <div class="col-md-4"> 
-                                            <label for="country">Pais</label>
-                                            <input type="text" name="country" class="form-control" v-model="newCountryD">
+                                     <div class="form-group row"> 
+                                        <div class="col-md-6"> 
+                                            <label for="country">Modalidad Academica</label>
+                                            <input type="text" name="country" class="form-control" v-model="newCountryB" required>
                                             <div class = " invalid-feedback ">Please fill out this field </div>
                                         </div>  
+                                        <div class="col-md-6"> 
+                                            <label for="institution">Titulo Obtenido</label>
+                                            <input type="text" name="c" class="form-control" v-model="newInstitutionB" required>
+                                            <div class = " invalid-feedback ">Please fill out this field </div>
+                                        </div>
                                     </div>
+                                    <div class="form-group row">
+                                        <div class="col-md-6"> 
+                                            <label for="country">Institución</label>
+                                            <input type="text" name="institution" class="form-control" v-model="newCountryB" required>
+                                            <div class = " invalid-feedback ">Please fill out this field </div>
+                                        </div>
+                                        <div class="col-md-6"> 
+                                            <label for="date">Fecha del titulo</label>
+                                            <input type="date" name="date" class="form-control" v-model="newDateB" required>
+                                            <div class = " invalid-feedback ">Please fill out this field</div>
+                                        </div>  
+                                    </div> 
                                 </div>
                                 <div id="hidden_fields7">
                                     <div  class="form-group row"> 
@@ -194,73 +225,176 @@
                                             <div class = " invalid-feedback ">Please fill out this field </div>
                                         </div>
                                     </div>
-                                    <div class="form-group row"> 
-                                        <div class="col-md-4"> 
-                                            <label for="institution">Institución</label>
-                                            <input type="text" name="institution" class="form-control" v-model="newInstitutionO">
-                                            <div class = " invalid-feedback ">Please fill out this field </div>
-                                        </div>
-                                        <div class="col-md-4"> 
-                                            <label for="date">Fecha del titulo</label>
-                                            <input type="date" name="date" class="form-control" v-model="newDateO">
-                                            <div class = " invalid-feedback ">Please fill out this field</div>
-                                        </div>
-                                        <div class="col-md-4"> 
-                                            <label for="country">Pais</label>
-                                            <input type="text" name="country" class="form-control" v-model="newCountryO">
+                                     <div class="form-group row"> 
+                                        <div class="col-md-6"> 
+                                            <label for="country">Modalidad Academica</label>
+                                            <input type="text" name="country" class="form-control" v-model="newCountryB" required>
                                             <div class = " invalid-feedback ">Please fill out this field </div>
                                         </div>  
+                                        <div class="col-md-6"> 
+                                            <label for="institution">Titulo Obtenido</label>
+                                            <input type="text" name="c" class="form-control" v-model="newInstitutionB" required>
+                                            <div class = " invalid-feedback ">Please fill out this field </div>
+                                        </div>
                                     </div>
+                                    <div class="form-group row">
+                                        <div class="col-md-6"> 
+                                            <label for="country">Institución</label>
+                                            <input type="text" name="institution" class="form-control" v-model="newCountryB" required>
+                                            <div class = " invalid-feedback ">Please fill out this field </div>
+                                        </div>
+                                        <div class="col-md-6"> 
+                                            <label for="date">Fecha del titulo</label>
+                                            <input type="date" name="date" class="form-control" v-model="newDateB" required>
+                                            <div class = " invalid-feedback ">Please fill out this field</div>
+                                        </div>  
+                                    </div> 
                                 </div>
                             </div>
                             <div class="container">
-                                <div class="form-group row">
-                                    <h5>Experiencia laboral</h5>
+                                <div class="form-group mx-auto">
+                                    <strong>Experiencia Profesional Docente</strong>
                                 </div>
                                 <div class="form-group row">
-                                    <div class="col-md-4"> 
+                                    <div class="col-md-6"> 
+                                        <label for="jobtitle">Entidad</label>
+                                        <input type="text" name="jobTitle" class="form-control" v-model="newJobtitle" required>
+                                    </div>
+                                    <div class="col-md-6"> 
                                         <label for="jobtitle">Cargo</label>
                                         <input type="text" name="jobTitle" class="form-control" v-model="newJobtitle" required>
                                     </div>
-                                    <div class="col-md-4"> 
-                                        <label for="company">Empresa</label>
+                                </div>
+                                <div class="form-group row"> 
+                                        <div class="col-md-6"> 
+                                        <label for="company">Actividades desarrolladas</label>
                                         <input type="text" name="company" class="form-control" v-model="newCompany" required>
                                     </div>
-                                    <div class="col-md-4"> 
-                                        <label for="time">Tiempo</label>
+                                    <div class="col-md-6"> 
+                                        <label for="time">Año</label>
                                         <input type="text" name="time" class="form-control" v-model="newTime" required>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="container">
                                 <div class="form-group row">
-                                    <div class="col-md-4"> 
+                                    <div class="col-md-6"> 
+                                        <label for="jobtitle">Entidad</label>
+                                        <input type="text" name="jobTitle" class="form-control" v-model="newJobtitle" required>
+                                    </div>
+                                    <div class="col-md-6"> 
                                         <label for="jobtitle">Cargo</label>
-                                        <input type="text" name="jobTitle" class="form-control" v-model="newJobtitle1">
-                                    </div>
-                                    <div class="col-md-4"> 
-                                        <label for="company">Empresa</label>
-                                        <input type="text" name="company" class="form-control" v-model="newCompany1">
-                                    </div>
-                                    <div class="col-md-4"> 
-                                        <label for="time">Tiempo</label>
-                                        <input type="text" name="time" class="form-control" v-model="newTime1">
+                                        <input type="text" name="jobTitle" class="form-control" v-model="newJobtitle" required>
                                     </div>
                                 </div>
+                                <div class="form-group row"> 
+                                        <div class="col-md-6"> 
+                                        <label for="company">Actividades desarrolladas</label>
+                                        <input type="text" name="company" class="form-control" v-model="newCompany" required>
+                                    </div>
+                                    <div class="col-md-6"> 
+                                        <label for="time">Año</label>
+                                        <input type="text" name="time" class="form-control" v-model="newTime" required>
+                                    </div>
+                                </div> 
                             </div>
-                            <div class="container">
+                             <div class="container">
+                                <div class="form-group mx-auto">
+                                    <strong>Experiencia Profesional No Docente</strong>
+                                </div>
                                 <div class="form-group row">
-                                    <div class="col-md-4"> 
+                                    <div class="col-md-6"> 
+                                        <label for="jobtitle">Entidad</label>
+                                        <input type="text" name="jobTitle" class="form-control" v-model="newJobtitle" required>
+                                    </div>
+                                    <div class="col-md-6"> 
                                         <label for="jobtitle">Cargo</label>
-                                        <input type="text" name="jobtitle" class="form-control" v-model="newJobtitle2">
+                                        <input type="text" name="jobTitle" class="form-control" v-model="newJobtitle" required>
                                     </div>
-                                    <div class="col-md-4"> 
-                                        <label for="company">Empresa</label>
-                                        <input type="text" name="company" class="form-control" v-model="newCompany2">
+                                </div>
+                                <div class="form-group row"> 
+                                        <div class="col-md-6"> 
+                                        <label for="company">Actividades desarrolladas</label>
+                                        <input type="text" name="company" class="form-control" v-model="newCompany" required>
                                     </div>
-                                    <div class="col-md-4"> 
-                                        <label for="time">Tiempo</label>
-                                        <input type="text" name="time" class="form-control" v-model="newTime2">
+                                    <div class="col-md-6"> 
+                                        <label for="time">Año</label>
+                                        <input type="text" name="time" class="form-control" v-model="newTime" required>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-md-6"> 
+                                        <label for="jobtitle">Entidad</label>
+                                        <input type="text" name="jobTitle" class="form-control" v-model="newJobtitle" required>
+                                    </div>
+                                    <div class="col-md-6"> 
+                                        <label for="jobtitle">Cargo</label>
+                                        <input type="text" name="jobTitle" class="form-control" v-model="newJobtitle" required>
+                                    </div>
+                                </div>
+                                <div class="form-group row"> 
+                                        <div class="col-md-6"> 
+                                        <label for="company">Actividades desarrolladas</label>
+                                        <input type="text" name="company" class="form-control" v-model="newCompany" required>
+                                    </div>
+                                    <div class="col-md-6"> 
+                                        <label for="time">Año</label>
+                                        <input type="text" name="time" class="form-control" v-model="newTime" required>
+                                    </div>
+                                </div> 
+                            </div>
+                             <div class="container">
+                                <div class="form-group mx-auto">
+                                    <strong>Cursos y seminarios</strong>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-md-6"> 
+                                        <label for="jobtitle">Entidad</label>
+                                        <input type="text" name="jobTitle" class="form-control" v-model="newJobtitle" required>
+                                    </div>
+                                    <div class="col-md-6"> 
+                                        <label for="jobtitle">Nombre</label>
+                                        <input type="text" name="jobTitle" class="form-control" v-model="newJobtitle" required>
+                                    </div>
+                                </div>
+                                <div class="form-group row"> 
+                                        <div class="col-md-6"> 
+                                        <label for="company">Descripción</label>
+                                        <input type="text" name="company" class="form-control" v-model="newCompany" required>
+                                    </div>
+                                    <div class="col-md-6"> 
+                                        <label for="time">Año</label>
+                                        <input type="text" name="time" class="form-control" v-model="newTime" required>
+                                    </div>
+                                    </div>
+                                    <div class="form-group row">
+                                    <div class="col-md-6"> 
+                                        <label for="jobtitle">Entidad</label>
+                                        <input type="text" name="jobTitle" class="form-control" v-model="newJobtitle" required>
+                                    </div>
+                                    <div class="col-md-6"> 
+                                        <label for="jobtitle">Nombre</label>
+                                        <input type="text" name="jobTitle" class="form-control" v-model="newJobtitle" required>
+                                    </div>
+                                </div>
+                                <div class="form-group row"> 
+                                        <div class="col-md-6"> 
+                                        <label for="company">Actividades desarrolladas</label>
+                                        <input type="text" name="company" class="form-control" v-model="newCompany" required>
+                                    </div>
+                                    <div class="col-md-6"> 
+                                        <label for="time">Año</label>
+                                        <input type="text" name="time" class="form-control" v-model="newTime" required>
+                                    </div>
+                                </div> 
+                                <div class="form-group row">                        
+                                    <div class="custom-control custom-checkbox custom-control-inline">
+                                        <input class="custom-control-input" type="checkbox" id="gridCheck1" required>
+                                        <label class="custom-control-label" for="gridCheck1">Para todos los efectos legales, certifico que todas las respuestas e información anotadas por mí, en la presente hoja de vida son veraces (C. S. T.)  Art. 62 Núm. 1°  Régimen Laboral Colombiano § 1057 (Legis).</label>
+                                    </div>
+                                </div>
+                                <div class="form-group mx-auto">                        
+                                    <div class="custom-control custom-checkbox custom-control-inline">
+                                        <input class="custom-control-input" type="checkbox" id="gridCheck1" required>
+                                        <label class="custom-control-label" for="gridCheck1">Voluntaria y expresamente autorizo a ILive4Teach, a verificar mis antecedentes disciplinarios y judiciales.</label>
                                     </div>
                                 </div>
                             </div>
@@ -576,7 +710,7 @@ export default {
 </script>
 <style>
 .background1{
-  background: url(http://localhost/Life4teach_project/resources/js/assets/img/Fondo1.jpg);
+  background: url(http://localhost/Life4teach_project/resources/js/assets/img/Fondo5.jpg);
   background-attachment: fixed;
 }
 </style>

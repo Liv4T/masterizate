@@ -65,10 +65,26 @@ Route::get('/payments', function () {
 Route::get('/ccourse', function () {
     return view('list');
 });
+Route::get('/listactivity', function () {
+    return view('lista');
+});
+Route::get('/activity', function () {
+    return view('activity');
+});
+Route::get('/sincro', function () {
+    return view('sincro');
+});
+Route::get('/evaluation', function () {
+    return view('evaluation');
+});
+Route::get('/vcourse', function () {
+    return view('view');
+});
+
 
 /*login personalizado permite verificar suscripcion*/
 Route::post('/login2', 'UserController@loginWeb')->name('login2');
-
+Route::get('GetCourses','CourseController@GetCourses');
 Route::get('GetCategories','CategoryController@GetCategories');
 Route::get('GetTypeU','CategoryController@GetTypeU');
 Route::get('GetSubcategories/{id}','CategoryController@GetSubcategories');
@@ -81,7 +97,8 @@ Route::resource('tasks', 'TaskController', ['except'=> 'show','create','edit']);
 Route::resource('categories', 'CategoryController', ['except'=> 'show','create','edit']);;
 Route::resource('users', 'UserController', ['except'=> 'show','create','edit']);;
 Route::resource('resumes', 'ResumeController', ['except'=> 'show','create','edit']);;
-Route::resource('classes', 'ClassController', ['except'=> 'show','create','edit']);;
+Route::resource('courses', 'courseController', ['except'=> 'show','create','edit']);;
+Route::resource('course_unit', 'Course_unitController', ['except'=> 'show','create','edit']);;
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/messages',function(){
 

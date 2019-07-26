@@ -31,4 +31,35 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Message');
     }
+    public function isModerator()
+    {
+        return $this->type_user === '2';
+    }
+
+    /**
+     * Returns whether a user has a role of 'admin'
+     *
+     * @return boolean
+     */
+    public function isAdmin()
+    {
+        return $this->type_user === '1';
+    }
+
+    /**
+     * Returns whether a user has a role of 'moderator' or 'admin'
+     *
+     * @return boolean
+     */
+   
+
+    /**
+     * Returns a user's role
+     *
+     * @return string
+     */
+    public function role()
+    {
+        return $this->type_user;
+    }
 }

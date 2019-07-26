@@ -2,7 +2,7 @@
 
 @section('content')
 <!--<formstyle></formstyle>-->
-<list-component></list-component>
+<list-activity></list-activity>
   <footers></footers>
 
   <div class="container">

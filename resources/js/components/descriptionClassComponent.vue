@@ -1,160 +1,174 @@
 <template>
-  <div class="background1">
-    <div class="card text-center">
-      <h3 class="card-header">Cursos</h3>
-      <div class="card-body">
-        <table align="center">
-          <tr>
-            <td>
-              <label for>Class1</label>
-            </td>
-            <td>
-              <div class="ec-stars-wrapper">
-                <a href="#" data-value="1" title="Votar con 1 estrellas">&#9733;</a>
-                <a href="#" data-value="2" title="Votar con 2 estrellas">&#9733;</a>
-                <a href="#" data-value="3" title="Votar con 3 estrellas">&#9733;</a>
-                <a href="#" data-value="4" title="Votar con 4 estrellas">&#9733;</a>
-                <a href="#" data-value="5" title="Votar con 5 estrellas">&#9733;</a>
-              </div>
-            </td>
-            <td>
-              <figure class="figure">
+<div>
+  <head>
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.8.2/css/solid.css"
+      integrity="sha384-ioUrHig76ITq4aEJ67dHzTvqjsAP/7IzgwE7lgJcg2r7BRNGYSK0LwSmROzYtgzs"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.8.2/css/brands.css"
+      integrity="sha384-i2PyM6FMpVnxjRPi0KW/xIS7hkeSznkllv+Hx/MtYDaHA5VcF0yL3KVlvzp8bWjQ"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.8.2/css/fontawesome.css"
+      integrity="sha384-sri+NftO+0hcisDKgr287Y/1LVnInHJ1l+XC7+FOabmTTIK0HnE2ID+xxvJ21c5J"
+      crossorigin="anonymous"
+    />
+  </head>
+  <vueper-slides :touchable="false" :slide-ratio="0.3" :fixed-height="true">
+    <vueper-slide
+      v-for="(slide, i) in slides"
+      :key="i"
+      :image="slide.image"
+      :title="slide.title"
+      :content="slide.content"
+    ></vueper-slide>
+  </vueper-slides>
+  <div class="container">
+    <div class="form-group row">
+      <h3 class="hola">APP INVENTOR 2 BASICO</h3>
+    </div>
+    <div class="form-group row">
+      <label
+        class="hola2"
+        for
+      >El curso está diseñado utilizando una metodología interactiva a través de esta permite aprender de manera autónoma y propicia los conceptos más relevantes en sobre la programación móvil.</label>
+    </div>
+    <div class="form-group row">
+      <div class="ec-stars-wrapper1">
+        <a href="#" data-value="1" title="Votar con 1 estrellas">&#9733;</a>
+        <a href="#" data-value="2" title="Votar con 2 estrellas">&#9733;</a>
+        <a href="#" data-value="3" title="Votar con 3 estrellas">&#9733;</a>
+        <a href="#" data-value="4" title="Votar con 4 estrellas">&#9733;</a>
+        <a href="#" data-value="5" title="Votar con 5 estrellas">&#9733;</a>
+      </div>
+    </div>
+  </div>
+
+  <!--<figure class="figure">
                 <img
                   src="http://localhost/Life4teach_project/resources/js/assets/img/avatar.png"
                   class="figure-img img-fluid rounded"
                   alt="A generic square placeholder image with rounded corners in a figure."
                   height="100px"
                   width="100px"
-                >
+                />
                 <figcaption class="figure-caption" href="#">
                   <a href="/resume">Nombre del Tutor</a>
                 </figcaption>
-              </figure>
-            </td>
-          </tr>
-        </table>
-        <div class="form-group row">
-          <div class="col">
-            <label for="description">Intensidad horaria tutoria virtual</label>
-            <input type="text" name="ihourt" v-model="newDescription" class="form-control" disabled>
-            <div class="invalid-feedback">Please fill out this field</div>
-          </div>
-          <div class="col-md-6">
-            <label for="subject">Intensidad horaria acompañamiento</label>
-            <input type="text" name="subject" class="form-control" v-model="newSubject" disabled>
-            <div class="invalid-feedback">Please fill out this field</div>
-          </div>
+  </figure>-->
+  <div class="card text-center">
+    <div class="card-body">
+      <i class="fas fa-bullhorn fa-3x hola2"></i>
+      <h5 class="hola">Objetivos del curso</h5>
+      <label
+        class="hola2"
+        for
+      >El objetivo del curso es que se dé a conocer los aspectos que hay en las ventanas de app inventor con cada una de sus funcionalidades y poder diseñar un modelo para una app, para lo que veremos conceptos básicos.</label>
+    </div>
+  </div>
+  <div class="card bg-light text-center">
+    <div class="card-body">
+      <h5 class="hola">Temario</h5>
+      <div class="form-group row">
+        <div class="col">
+          <li class="hola2">tema 1</li>
+          <li class="hola2">tema 3</li>
         </div>
-        <div class="form-group row">
-          <div class="col-md-6">
-            <label for="subject">Intensidad horaria trabajo autónomo</label>
-            <input type="text" name="subject" class="form-control" v-model="newSubject" disabled>
-            <div class="invalid-feedback">Please fill out this field</div>
-          </div>
-          <div class="col">
-            <label for>Metodología</label>
-            <input
-              type="text"
-              name="subject"
-              class="form-control"
-              v-model="newSubject"
-              placeholder="Virtual"
-              disabled
-            >
-          </div>
+        <div class="col">
+          <li class="hola2">tema 2</li>
+          <li class="hola2">tema 4</li>
         </div>
-        <div class="form-group mx-auto">
-          <div align="center">
-            <strong>Bienvenida</strong>
-          </div>
-          <textarea
-            name="welcome"
-            class="form-control"
-            v-model="newFromW"
-            placeholder="Es un texto redactado de manera cordial, cálida, precisa y breve cumpliendo como objetivo dar la bienvenida al curso e invitar al estudiante a su recorrido y cumplimiento de los objetivos propuestos."
-            disabled
-          ></textarea>
-          <div class="invalid-feedback">Please fill out this field</div>
-        </div>
-        <div class="form-group mx-auto">
-          <div align="center">
-            <strong>Intencion educativa</strong>
-          </div>
-          <textarea
-            name="intentioned"
-            class="form-control"
-            v-model="newFromW"
-            placeholder="Se refiere al espacio en el cual se da a conocer el proposito y objetivos del curso; debe ser escrita mediante un texto corto."
-            disabled
-          ></textarea>
-          <div class="invalid-feedback">Please fill out this field</div>
-        </div>
-        <div class="form-group mx-auto">
-          <div align="center">
-            <strong>Competencias</strong>
-          </div>
-          <textarea
-            name="competences"
-            class="form-control"
-            v-model="newfg"
-            placeholder="Competencias conceptuales, procedimentales y actitudinales."
-            disabled
-          ></textarea>
-          <div class="invalid-feedback">Please fill out this field</div>
-        </div>
-        <div class="form-group mx-auto">
-          <div align="center">
-            <strong>Mapa tematico</strong>
-          </div>
-          <textarea
-            name="map"
-            class="form-control"
-            v-model="newFr"
-            placeholder="Consiste en una representacion grafica, clara, precisa y sintetica de los temas que componen el modulo de aprendizaje."
-            disabled
-          ></textarea>
-          <div class="invalid-feedback">Please fill out this field</div>
-        </div>
-        <div class="form-group mx-auto">
-          <div align="center">
-            <strong>Unidades</strong>
-          </div>
-          <div class="form-group row">
-            <div class="col">
-              <a href="/unit">
-                Unidad 1
-                <br>Nombre de la unidad
-              </a>
-            </div>
-            <div class="col">
-              <a href="/unit">
-                Unidad 2
-                <br>Nombre de la unidad
-              </a>
-            </div>
-            <div class="col">
-              <a href="/unit">
-                Unidad 3
-                <br>Nombre de la unidad
-              </a>
-            </div>
-          </div>
-        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="form-group row justify-content-center">
+      <h4 class="hola">Requisitos</h4>
+    </div>
+    <div class="form-group row justify-content-center">
+      <label class="hola2" for>asdfsdfsgddfrgdr del curso</label>
+    </div>
+    <div class="form-group row justify-content-center">
+      <div class="ec-stars-wrapper1">
+        <a href="#" data-value="1" title="Votar con 1 estrellas">&#9733;</a>
+        <a href="#" data-value="2" title="Votar con 2 estrellas">&#9733;</a>
+        <a href="#" data-value="3" title="Votar con 3 estrellas">&#9733;</a>
+        <a href="#" data-value="4" title="Votar con 4 estrellas">&#9733;</a>
+        <a href="#" data-value="5" title="Votar con 5 estrellas">&#9733;</a>
+      </div>
+      <label href class="hola">(240 estudiantes)</label>
+    </div>
+  </div>
+  <div class="card bg-light text-center">
+    <div class="card-body">
+      <h5 class="hola">Comentarios Usuarios</h5>
+      <div class="form-group row">
+        <label href class="hola">
+          <i class="fas fa-user-circle"></i>Nombre
+        </label>
 
-        <div class="form-group mx-auto">
-          <div align="center">
-            <strong>Metodologia general del curso</strong>
-          </div>
-          <textarea
-            name="metodology"
-            class="form-control"
-            v-model="newFro"
-            placeholder="Debe contener la descripcion de la metodologia, las estrategias de aprendizaje, herramientas de interaccion y explicacion de acceso a los mismos y las reglas de convivencia virtual del curso."
-            disabled
-          ></textarea>
-          <div class="invalid-feedback">Please fill out this field</div>
+        <div class="ec-stars-wrapper1">
+          <a href="#" data-value="1" title="Votar con 1 estrellas">&#9733;</a>
+          <a href="#" data-value="2" title="Votar con 2 estrellas">&#9733;</a>
+          <a href="#" data-value="3" title="Votar con 3 estrellas">&#9733;</a>
+          <a href="#" data-value="4" title="Votar con 4 estrellas">&#9733;</a>
+          <a href="#" data-value="5" title="Votar con 5 estrellas">&#9733;</a>
         </div>
-        <!--<div class="form-group mx-auto">
+      </div>
+      <div class="form-group row">
+        <label for>Comentario</label>
+      </div>
+
+      <div class="form-group row">
+        <label href class="hola">
+          <i class="fas fa-user-circle"></i>Nombre
+        </label>
+        <div class="ec-stars-wrapper1">
+          <a href="#" data-value="1" title="Votar con 1 estrellas">&#9733;</a>
+          <a href="#" data-value="2" title="Votar con 2 estrellas">&#9733;</a>
+          <a href="#" data-value="3" title="Votar con 3 estrellas">&#9733;</a>
+          <a href="#" data-value="4" title="Votar con 4 estrellas">&#9733;</a>
+          <a href="#" data-value="5" title="Votar con 5 estrellas">&#9733;</a>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for>Comentario</label>
+      </div>
+    </div>
+  </div>
+
+  <!-- <div class="form-group mx-auto">
+      <div align="center">
+        <strong>Unidades</strong>
+      </div>
+      <div class="form-group row">
+        <div class="col">
+          <a href="/unit">
+            Unidad 1
+            <br />Nombre de la unidad
+          </a>
+        </div>
+        <div class="col">
+          <a href="/unit">
+            Unidad 2
+            <br />Nombre de la unidad
+          </a>
+        </div>
+        <div class="col">
+          <a href="/unit">
+            Unidad 3
+            <br />Nombre de la unidad
+          </a>
+        </div>
+      </div>
+    </div>
+  <div class="form-group mx-auto">
           <div align="center">
             <strong>Objetos de Aprendizaje</strong>
           </div>
@@ -166,18 +180,305 @@
             disabled
           ></textarea>
           <div class="invalid-feedback">Please fill out this field</div>
-        </div>-->
-        <div class="modal-footer">
-          <a href="/payments" class="btn btn-primary float-right">Comprar</a>
+  </div>-->
+  <div class="modal-footer">
+    <a href="/payments" class="btn btn-danger float-right">Comprar</a>
+  </div>
+  <div class="container-fluid">
+    <h4 class="text-center hola">Cursos Relacionados</h4>
+    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+      <div class="carousel-inner row w-100 mx-auto">
+        <div class="carousel-item col-md-3 active">
+          <div class="card">
+            <img
+              class="card-img-top img-fluid"
+              src="http://placehold.it/800x600/f44242/fff"
+              alt="Card image cap"
+            />
+            <div class="card-body">
+              <h4 class="card-title">Card 1</h4>
+              <p
+                class="card-text"
+              >This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+              <p class="card-text">
+                <small class="text-muted">Last updated 3 mins ago</small>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="carousel-item col-md-3">
+          <div class="card">
+            <img
+              class="card-img-top img-fluid"
+              src="http://placehold.it/800x600/418cf4/fff"
+              alt="Card image cap"
+            />
+            <div class="card-body">
+              <h4 class="card-title">Card 2</h4>
+              <p
+                class="card-text"
+              >This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+              <p class="card-text">
+                <small class="text-muted">Last updated 3 mins ago</small>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="carousel-item col-md-3">
+          <div class="card">
+            <img
+              class="card-img-top img-fluid"
+              src="http://placehold.it/800x600/3ed846/fff"
+              alt="Card image cap"
+            />
+            <div class="card-body">
+              <h4 class="card-title">Card 3</h4>
+              <p
+                class="card-text"
+              >This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+              <p class="card-text">
+                <small class="text-muted">Last updated 3 mins ago</small>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="carousel-item col-md-3">
+          <div class="card">
+            <img
+              class="card-img-top img-fluid"
+              src="http://placehold.it/800x600/42ebf4/fff"
+              alt="Card image cap"
+            />
+            <div class="card-body">
+              <h4 class="card-title">Card 4</h4>
+              <p
+                class="card-text"
+              >This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+              <p class="card-text">
+                <small class="text-muted">Last updated 3 mins ago</small>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="carousel-item col-md-3">
+          <div class="card">
+            <img
+              class="card-img-top img-fluid"
+              src="http://placehold.it/800x600/f49b41/fff"
+              alt="Card image cap"
+            />
+            <div class="card-body">
+              <h4 class="card-title">Card 5</h4>
+              <p
+                class="card-text"
+              >This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+              <p class="card-text">
+                <small class="text-muted">Last updated 3 mins ago</small>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="carousel-item col-md-3">
+          <div class="card">
+            <img
+              class="card-img-top img-fluid"
+              src="http://placehold.it/800x600/f4f141/fff"
+              alt="Card image cap"
+            />
+            <div class="card-body">
+              <h4 class="card-title">Card 6</h4>
+              <p
+                class="card-text"
+              >This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+              <p class="card-text">
+                <small class="text-muted">Last updated 3 mins ago</small>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="carousel-item col-md-3">
+          <div class="card">
+            <img
+              class="card-img-top img-fluid"
+              src="http://placehold.it/800x600/8e41f4/fff"
+              alt="Card image cap"
+            />
+            <div class="card-body">
+              <h4 class="card-title">Card 7</h4>
+              <p
+                class="card-text"
+              >This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+              <p class="card-text">
+                <small class="text-muted">Last updated 3 mins ago</small>
+              </p>
+            </div>
+          </div>
         </div>
       </div>
+      <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+      </a>
     </div>
   </div>
+</div>
 </template>
 <script>
-export default {};
+import { VueperSlides, VueperSlide } from "vueperslides";
+import "vueperslides/dist/vueperslides.css";
+import Vue from "vue";
+import BootstrapVue from "bootstrap-vue";
+import VueMaterial from "vue-material";
+import "vue-material/dist/vue-material.min.css";
+import VueMouseParallax from "vue-mouse-parallax";
+import { BCard } from "bootstrap-vue/es/components";
+
+Vue.component("b-card", BCard);
+Vue.use(VueMouseParallax);
+Vue.use(VueMaterial);
+$(document).ready(function() {
+  $("#myCarousel").on("slide.bs.carousel", function(e) {
+    var $e = $(e.relatedTarget);
+    var idx = $e.index();
+    var itemsPerSlide = 4;
+    var totalItems = $(".carousel-item").length;
+
+    if (idx >= totalItems - (itemsPerSlide - 1)) {
+      var it = itemsPerSlide - (totalItems - idx);
+      for (var i = 0; i < it; i++) {
+        // append slides to end
+        if (e.direction == "left") {
+          $(".carousel-item")
+            .eq(i)
+            .appendTo(".carousel-inner");
+        } else {
+          $(".carousel-item")
+            .eq(0)
+            .appendTo($(this).find(".carousel-inner"));
+        }
+      }
+    }
+  });
+});
+export default {
+  components: { VueperSlides, VueperSlide },
+  data() {
+    return {
+      name: null,
+      email: null,
+      message: null,
+      slides: [
+        {
+          content:
+            '<b style="font-size: 1.3em;color: white">UNA FORMA DIFERENTE DE APRENDER</b>',
+          image: require("../assets/img/PORTADAweb.jpg")
+        }
+      ]
+    };
+  }
+};
 </script>
 <style>
+@media (min-width: 768px) {
+  /* show 4 items */
+  .carousel-inner .active,
+  .carousel-inner .active + .carousel-item,
+  .carousel-inner .active + .carousel-item + .carousel-item,
+  .carousel-inner .active + .carousel-item + .carousel-item + .carousel-item {
+    display: block;
+  }
+  .carousel-item {
+    margin-right: auto !important;
+  }
+  .carousel-inner
+    .carousel-item.active:not(.carousel-item-right):not(.carousel-item-left),
+  .carousel-inner
+    .carousel-item.active:not(.carousel-item-right):not(.carousel-item-left)
+    + .carousel-item,
+  .carousel-inner
+    .carousel-item.active:not(.carousel-item-right):not(.carousel-item-left)
+    + .carousel-item
+    + .carousel-item,
+  .carousel-inner
+    .carousel-item.active:not(.carousel-item-right):not(.carousel-item-left)
+    + .carousel-item
+    + .carousel-item
+    + .carousel-item {
+    transition: none;
+  }
+
+  .carousel-inner .carousel-item-next,
+  .carousel-inner .carousel-item-prev {
+    position: relative;
+    transform: translate3d(0, 0, 0);
+  }
+
+  .carousel-inner
+    .active.carousel-item
+    + .carousel-item
+    + .carousel-item
+    + .carousel-item
+    + .carousel-item {
+    position: absolute;
+    top: 0;
+    right: -25%;
+    z-index: -1;
+    display: block;
+    visibility: visible;
+  }
+
+  /* left or forward direction */
+  .active.carousel-item-left + .carousel-item-next.carousel-item-left,
+  .carousel-item-next.carousel-item-left + .carousel-item,
+  .carousel-item-next.carousel-item-left + .carousel-item + .carousel-item,
+  .carousel-item-next.carousel-item-left
+    + .carousel-item
+    + .carousel-item
+    + .carousel-item,
+  .carousel-item-next.carousel-item-left
+    + .carousel-item
+    + .carousel-item
+    + .carousel-item
+    + .carousel-item {
+    position: relative;
+    transform: translate3d(-100%, 0, 0);
+    visibility: visible;
+  }
+
+  /* farthest right hidden item must be absolue position for animations */
+  .carousel-inner .carousel-item-prev.carousel-item-right {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    display: block;
+    visibility: visible;
+  }
+
+  /* right or prev direction */
+  .active.carousel-item-right + .carousel-item-prev.carousel-item-right,
+  .carousel-item-prev.carousel-item-right + .carousel-item,
+  .carousel-item-prev.carousel-item-right + .carousel-item + .carousel-item,
+  .carousel-item-prev.carousel-item-right
+    + .carousel-item
+    + .carousel-item
+    + .carousel-item,
+  .carousel-item-prev.carousel-item-right
+    + .carousel-item
+    + .carousel-item
+    + .carousel-item
+    + .carousel-item {
+    position: relative;
+    transform: translate3d(100%, 0, 0);
+    visibility: visible;
+    display: block;
+    visibility: visible;
+  }
+}
 .ec-stars-wrapper {
   /* Espacio entre los inline-block (los hijos, los `a`) 
 	   http://ksesocss.blogspot.com/2012/03/display-inline-block-y-sus-empeno-en.html */
@@ -188,24 +489,14 @@ export default {};
 		también se esté haciendo hover a alguna estrella */
   display: inline-block;
 }
-.ec-stars-wrapper a {
+.ec-stars-wrapper1 a {
   text-decoration: none;
   display: inline-block;
   /* Volver a dar tamaño al texto */
   font-size: 32px;
   font-size: 2rem;
 
-  color: #888;
-}
-
-.ec-stars-wrapper:hover a {
   color: rgb(255, 214, 32);
-}
-/*
- * El selector de hijo, es necesario para aumentar la especifidad
- */
-.ec-stars-wrapper > a:hover ~ a {
-  color: #888;
 }
 table,
 th,
@@ -216,5 +507,13 @@ th,
 td {
   padding: 20px;
 }
+.hola {
+  color: black;
+  font-weight: bold;
+}
+.hola2 {
+  color: black;
+}
+@import url(http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css);
 </style>
 

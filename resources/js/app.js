@@ -88,6 +88,7 @@ Vue.component(
     "delete-report",
     require("./components/ModeratorDeleteReportButtonComponent.vue")
 );
+
 Vue.component("messaging", require("./components/UserMessagingComponent.vue"));
 Vue.component("home", require("./components/home.vue").default);
 Vue.component("board", require("./components/board.vue").default);
@@ -114,6 +115,7 @@ Vue.component(
     "course-component",
     require("./components/courseComponent.vue").default
 );
+Vue.component("course-view", require("./components/courseView.vue").default);
 Vue.component(
     "courseu-component",
     require("./components/courseUnitComponet.vue").default
@@ -122,7 +124,27 @@ Vue.component(
     "list-component",
     require("./components/listClassComponent.vue").default
 );
-
+Vue.component(
+    "list-activity",
+    require("./components/listActivity.vue").default
+);
+Vue.component(
+    "activity-component",
+    require("./components/activityUnit.vue").default
+);
+Vue.component(
+    "sincro-component",
+    require("./components/sincroEvent.vue").default
+);
+Vue.component(
+    "cuestionario-component",
+    require("./components/cuestionario.vue").default
+);
+Vue.component("hangman-component", require("./components/hangman.vue").default);
+Vue.component(
+    "evaluation-component",
+    require("./components/EvaluationComponent.vue").default
+);
 Vue.use(CKEditor);
 Vue.use(CKEditor);
 

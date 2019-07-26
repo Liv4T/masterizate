@@ -6,7 +6,7 @@
           <div class="card text-center">
             <h3 class="card-header">Cursos</h3>
             <div class="card-body">
-              <table align="center">
+              <table align="center" class="different">
                 <tr>
                   <td>
                     <label for>
@@ -29,14 +29,14 @@
           <div class="card text-center">
             <h3 class="card-header">Resumen</h3>
             <div class="card-body">
-              <table align="center">
+              <table align="center" class="different">
                 <tr>
                   <td>
                     <label for>Subtotal</label>
                     <br>
                     <a href="#">Codigo Promocional</a>
                   </td>
-                  <td>$subtotal</td>
+                  <td class="dif">$subtotal</td>
                 </tr>
                 <tr>
                   <td>Total</td>
@@ -55,10 +55,10 @@
         <div class="card">
           <h3 class="card-header text-center">Método de Pago</h3>
           <div class="card-body">
-            <table>
+            <table with="100%" class="different">
               <tbody>
                 <tr>
-                  <th>
+                  <th class="dif">
                     <div class="custom-control custom-checkbox custom-control-inline">
                       <input
                         class="custom-control-input"
@@ -71,7 +71,7 @@
                   </th>
                 </tr>
                 <tr>
-                  <th>
+                  <th class="dif">
                     <div class="custom-control custom-checkbox custom-control-inline">
                       <input
                         class="custom-control-input"
@@ -124,15 +124,12 @@ export default {};
 .ec-stars-wrapper > a:hover ~ a {
   color: #888;
 }
-table,
-th,
-td {
+table.different,
+th.dif,
+td.dif {
   border-collapse: collapse;
   border-bottom: 1px solid #ddd;
   width: -webkit-fill-available;
-}
-th,
-td {
   padding: 20px;
 }
 </style>

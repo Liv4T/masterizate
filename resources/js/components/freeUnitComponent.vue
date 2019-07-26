@@ -1,9 +1,9 @@
 <template>
 <auto-responsive>
-    <div class="background1">
+    <div class="background2">
         <div class="row">
             <div class="col-md-11 mx-auto">
-                    <div class="card text-center">
+                    <div class="custom-card text-center">
                         <h3 class="card-header">Curso-Unidad
                         </h3>
                         <form class="needs-validation" novalidate>
@@ -19,514 +19,571 @@
                                             <input class="custom-control-input" type="checkbox" id="gridCheck2" v-model="newRegional">
                                             <label class="custom-control-label" for="gridCheck2">2</label>   
                                         </div>     
-                                        <div class="custom-control custom-checkbox custom-control-inline">          
-                                            <input class="custom-control-input" type="checkbox" id="gridCheck3" v-model="newWorld">
-                                            <label class="custom-control-label" for="gridCheck3">3</label>   
-                                        </div>
                                     </div>
                                 </div>
-                                 <div id="hidden_fields1">
+                                <div id="hidden_fields1">
                                      <div class="form-group mx-auto col-md-6"> 
                                         <strong>Nombre de la unidad (1)</strong>
-                                        <input type="text" name="name"  class="form-control" v-model="newName" required>
+                                        <input type="text" name="name"  class="form-control" v-model="newName1" required>
                                         <div class = " invalid-feedback ">Please fill out this field</div>
                                     </div>
-                                <div class="form-group mx-auto">
-                                    <div align="center">
-                                        <strong>Presentación de la unidad</strong>
-                                    </div>
-                                        <textarea name="welcome" class="form-control" v-model="newFromW" placeholder=" Se refiere al espacio en el cual se da a conocer el proposito de la unidad; debe ser escrita mediante un texto corto." required></textarea>
+                                    <div class="form-group mx-auto">
+                                        <div align="center">
+                                            <strong>Presentación de la unidad</strong>
+                                        </div>
+                                        <textarea name="presentation" class="form-control" v-model="newPresentation" placeholder=" Se refiere al espacio en el cual se da a conocer el proposito de la unidad; debe ser escrita mediante un texto corto." required></textarea>
                                         <div class = " invalid-feedback ">Please fill out this field</div>
-                                </div>
-                                <div class="form-group mx-auto">
-                                    <div align="center">
-                                        <strong>Conocimientos, habilidades y requisitos para el desarrollo de la unidad</strong>
                                     </div>
-                                         <textarea name="welcome" class="form-control" v-model="newFromW" placeholder="Se presentan los conocimientos previos al aprendizaje que corresponden al desarrollo de la unidad" required></textarea>
+                                    <div class="form-group mx-auto">
+                                        <div align="center">
+                                            <strong>Conocimientos, habilidades y requisitos para el desarrollo de la unidad</strong>
+                                        </div>
+                                        <textarea name="hability" class="form-control" v-model="newHability" placeholder="Se presentan los conocimientos previos al aprendizaje que corresponden al desarrollo de la unidad" required></textarea>
                                         <div class = " invalid-feedback ">Please fill out this field</div>
-                                </div>
-                                <div class="form-group mx-auto"> 
-                                    <div align="center">
-                                        <strong>Aprenda preguntandose preguntas</strong>
                                     </div>
-                                         <textarea name="welcome" class="form-control" v-model="newFromW" placeholder="En este espacio se hace una invitacion al estudiante para que este realice preguntas que el desearia que resolviera con el tema o programa a cursar." required></textarea>
-                                </div>
-                                <div class="form-group mx-auto"> 
-                                    <div align="center">
-                                        <strong>Aprenda alistándose</strong>
+                                    <div class="form-group mx-auto"> 
+                                        <div align="center">
+                                            <strong>Aprenda preguntandose preguntas</strong>
+                                        </div>
+                                        <textarea name="question" class="form-control" v-model="newQuestion" placeholder="En este espacio se hace una invitacion al estudiante para que este realice preguntas que el desearia que resolviera con el tema o programa a cursar." required></textarea>
                                     </div>
-                                    <textarea name="intentioned" class="form-control" v-model="newFromW" placeholder="Redacte un problema, caso, entre otros que le sirvan al estudiante como reflexion y diagnostico de sus competencias actuales y le motivaran en su proceso de formacion." required></textarea>
-                                    <div class = " invalid-feedback ">Please fill out this field</div>
-                                </div>
-                                 <div align="center">
+                                    <div class="form-group mx-auto"> 
+                                        <div align="center">
+                                            <strong>Aprenda alistándose</strong>
+                                        </div>
+                                        <textarea name="alistandose" class="form-control" v-model="newReady" placeholder="Redacte un problema, caso, entre otros que le sirvan al estudiante como reflexion y diagnostico de sus competencias actuales y le motivaran en su proceso de formacion." required></textarea>
+                                        <div class = " invalid-feedback ">Please fill out this field</div>
+                                    </div>
+                                    <div align="center">
                                         <strong>Aprenda de las fuentes</strong>
                                     </div>
-                                  <div class="form-group row mx-auto"> 
-                                     <div class="col"> 
-                                       <label for="name">Contenido de la unidad</label>
-                                        <textarea name="competences" class="form-control" v-model="newfg" placeholder="Es la explicacion o sintesis de la tematica a abordar en la unidad de estudio." required></textarea>
-                                        <div class = " invalid-feedback ">Please fill out this field</div>
+                                    <div class="form-group row mx-auto" v-for="(input,k) in inputs" :key="k">
+                                        <div class="col-md-6">
+                                            <label for="name">Tema</label>
+                                            <span>
+                                                <a
+                                                  href="#"
+                                                  class="badge badge-danger"
+                                                  @click.prevent="remove(k)"
+                                                  v-show="k || ( !k && inputs.length > 1)"
+                                                >-</a>
+                                                <a
+                                                  href="#"
+                                                  class="badge badge-primary"
+                                                  @click.prevent="add(k)"
+                                                  v-show="k == inputs.length-1"
+                                                >+</a>
+                                            </span>
+                                            <div>
+                                                <input
+                                                  type="text"
+                                                  name="objetive1"
+                                                  class="form-control"
+                                                  v-model="Topic"
+                                                  placeholder="Nombre del Tema"
+                                                  required
+                                                />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="name">Contenido</label>
+                                            <textarea
+                                              name="competences"
+                                              class="form-control"
+                                              v-model="newContent"
+                                              placeholder="Es la explicacion o sintesis de la tematica a abordar en la unidad de estudio."
+                                              required
+                                            ></textarea>
+                                            <div class="invalid-feedback">Please fill out this field</div>
+                                        </div>
                                     </div>
-                                    <div class="col"> 
-                                       <label for="name">Master class</label>
-                                       <input type="file" name="picture" class="form-control" @change="onFileChange"  accept="image/*" required>
-                                        <div class = " invalid-feedback ">Please fill out this field</div>
+                                    <div class="form-group row" v-for="(input,k) in inputs1" :key="k">
+                                        <div class="col-md-6">
+                                            <label for="name">Master class (MC)</label>
+                                            <span>
+                                              <a
+                                                href="#"
+                                                class="badge badge-danger"
+                                                @click.prevent="remove1(k)"
+                                                v-show="k || ( !k && inputs1.length > 1)"
+                                              >-</a>
+                                              <a
+                                                href="#"
+                                                class="badge badge-primary"
+                                                @click.prevent="add1(k)"
+                                                v-show="k == inputs1.length-1"
+                                              >+</a>
+                                            </span>
+                                        <div>
+                                            <input
+                                              type="text"
+                                              name="objetive"
+                                              class="form-control"
+                                              v-model="newObjetive1"
+                                              placeholder="Nombre de la clase"
+                                              required
+                                            />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="name">Video MC</label>
+                                        <input
+                                          type="file"
+                                          name="picture"
+                                          class="form-control"
+                                          accept="image/*"
+                                          required
+                                        />
+                                        <div class="invalid-feedback">Please fill out this field</div>
                                     </div>
                                 </div>
-                                <div class="form-group row mx-auto"> 
-                                     <div class="col"> 
-                                       <label for="name">Video de apoyo</label>
-                                        <input type="file" name="picture" class="form-control" @change="onFileChange"  accept="image/*" required>
-                                        <div class = " invalid-feedback ">Please fill out this field</div>
+                                <div class="form-group row mx-auto">
+                                    <div class="col-md-6" v-for="(input,k) in inputs2" :key="k">
+                                        <label for="name">Video de apoyo</label>
+                                        <span>
+                                          <a
+                                            href="#"
+                                            class="badge badge-danger"
+                                            @click.prevent="remove2(k)"
+                                            v-show="k || ( !k && inputs2.length > 1)"
+                                          >-</a>
+                                          <a
+                                            href="#"
+                                            class="badge badge-primary"
+                                            @click.prevent="add2(k)"
+                                            v-show="k == inputs2.length-1"
+                                          >+</a>
+                                        </span>
+                                        <input
+                                          type="text"
+                                          name="objetive1"
+                                          class="form-control"
+                                          v-model="newObjetive"
+                                          placeholder="Nombre del Video"
+                                          required
+                                        />
+                                        <input
+                                          type="file"
+                                          name="picture2"
+                                          class="form-control"
+                                          accept="image/*"
+                                          required
+                                        />
+                                        <div class="invalid-feedback">Please fill out this field</div>
                                     </div>
-                                    <div class="col"> 
-                                       <label for="name">Bibliografia complementaria</label>
-                                        <textarea name="competences" class="form-control" v-model="newfg" placeholder="Competencias conceptuales, procedimentales y actitudinales" required></textarea>
-                                        <div class = " invalid-feedback ">Please fill out this field</div>
+                                    <div class="col">
+                                        <label for="name">Bibliografia complementaria</label>
+                                        <textarea
+                                          name="competences"
+                                          class="form-control"
+                                          v-model="newBibliography"
+                                          placeholder="Competencias conceptuales, procedimentales y actitudinales"
+                                          required
+                                        ></textarea>
+                                        <div class="invalid-feedback">Please fill out this field</div>
                                     </div>
                                 </div>
                                 <div class="form-group mx-auto"> 
                                     <div align="center">
                                         <strong>Aprenda haciendo</strong>
                                     </div>
-                                    <textarea name="gold" class="form-control" v-model="newF" placeholder="Los logros se conciben como las metas a alcanzar al culminar el curso." required></textarea>
+                                    <textarea name="haciendo" class="form-control" v-model="newDoing" placeholder="Los logros se conciben como las metas a alcanzar al culminar el curso." required></textarea>
                                     <div class = " invalid-feedback ">Please fill out this field</div>
                                 </div>
                                 <div class="form-group mx-auto"> 
                                     <div align="center">
                                         <strong>Aprenda poniéndose retos</strong>
                                     </div>
-                                    <textarea name="map" class="form-control" v-model="newFr" placeholder="Consiste en una representacion grafica, clara, precisa y sintetica de los temas que componen el modulo de aprendizaje" required></textarea>
+                                    <textarea name="reto" class="form-control" v-model="newChallenge" placeholder="Consiste en una representacion grafica, clara, precisa y sintetica de los temas que componen el modulo de aprendizaje" required></textarea>
                                     <div class = " invalid-feedback ">Please fill out this field</div>
                                 </div> 
                                 <div class="form-group mx-auto"> 
                                     <div align="center">
                                         <strong>Aprenda proyectándose</strong>
                                     </div>
-                                    <textarea name="metodology" class="form-control" v-model="newFro" placeholder="Debe contener la descripcion de la metodologia, las estrategias de aprendizaje, herramientas de interaccion y explicacion de acceso a los mismos y las reglas de convivencia virtual del curso" required></textarea>
+                                    <textarea name="proyectandose" class="form-control" v-model="newProjecting" placeholder="Debe contener la descripcion de la metodologia, las estrategias de aprendizaje, herramientas de interaccion y explicacion de acceso a los mismos y las reglas de convivencia virtual del curso" required></textarea>
                                     <div class = " invalid-feedback ">Please fill out this field</div>
                                 </div>
                                 <div class="modal-footer">
                                     <a href="/freeUnit" class="btn btn-primary float-right">Guardar</a>
                                 </div>
+                            </div>
+                            <div id="hidden_fields2">
+                                <div class="form-group mx-auto col-md-6"> 
+                                    <strong>Nombre de la unidad (1)</strong>
+                                    <input type="text" name="name"  class="form-control" v-model="newName21" required>
+                                    <div class = " invalid-feedback ">Please fill out this field</div>
+                                </div>
+                                <div class="form-group mx-auto">
+                                    <div align="center">
+                                        <strong>Presentación de la unidad</strong>
+                                    </div>
+                                    <textarea name="presentation" class="form-control" v-model="newPresentation21" placeholder=" Se refiere al espacio en el cual se da a conocer el proposito de la unidad; debe ser escrita mediante un texto corto." required></textarea>
+                                    <div class = " invalid-feedback ">Please fill out this field</div>
+                                </div>
+                                <div class="form-group mx-auto">
+                                    <div align="center">
+                                        <strong>Conocimientos, habilidades y requisitos para el desarrollo de la unidad</strong>
+                                    </div>
+                                    <textarea name="hability" class="form-control" v-model="newHability21" placeholder="Se presentan los conocimientos previos al aprendizaje que corresponden al desarrollo de la unidad" required></textarea>
+                                    <div class = " invalid-feedback ">Please fill out this field</div>
+                                </div>
+                                <div class="form-group mx-auto"> 
+                                    <div align="center">
+                                        <strong>Aprenda preguntandose preguntas</strong>
+                                    </div>
+                                    <textarea name="question" class="form-control" v-model="newQuestion21" placeholder="En este espacio se hace una invitacion al estudiante para que este realice preguntas que el desearia que resolviera con el tema o programa a cursar." required></textarea>
+                                </div>
+                                <div class="form-group mx-auto"> 
+                                    <div align="center">
+                                        <strong>Aprenda alistándose</strong>
+                                    </div>
+                                    <textarea name="intentioned" class="form-control" v-model="newReady21" placeholder="Redacte un problema, caso, entre otros que le sirvan al estudiante como reflexion y diagnostico de sus competencias actuales y le motivaran en su proceso de formacion." required></textarea>
+                                    <div class = " invalid-feedback ">Please fill out this field</div>
+                                </div>
+                                 <div align="center">
+                                        <strong>Aprenda de las fuentes</strong>
+                                </div>
+                                <div class="form-group row mx-auto" v-for="(input,k) in inputs3" :key="k">
+                                    <div class="col-md-6">
+                                        <label for="name">Tema</label>
+                                        <span>
+                                          <a
+                                            href="#"
+                                            class="badge badge-danger"
+                                            @click.prevent="remove3(k)"
+                                            v-show="k || ( !k && inputs3.length > 1)"
+                                          >-</a>
+                                          <a
+                                            href="#"
+                                            class="badge badge-primary"
+                                            @click.prevent="add3(k)"
+                                            v-show="k == inputs3.length-1"
+                                          >+</a>
+                                        </span>
+                                    <div>
+                                        <input
+                                          type="text"
+                                          name="objetive1"
+                                          class="form-control"
+                                          v-model="Topic"
+                                          placeholder="Nombre del Tema"
+                                          required
+                                        />
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="name">Contenido</label>
+                                    <textarea
+                                      name="competences"
+                                      class="form-control"
+                                      v-model="newContent"
+                                      placeholder="Es la explicacion o sintesis de la tematica a abordar en la unidad de estudio."
+                                      required
+                                    ></textarea>
+                                    <div class="invalid-feedback">Please fill out this field</div>
+                                </div>
+                            </div>
+                            <div class="form-group row" v-for="(input,k) in inputs4" :key="k">
+                                <div class="col-md-6">
+                                    <label for="name">Master class (MC)</label>
+                                    <span>
+                                      <a
+                                        href="#"
+                                        class="badge badge-danger"
+                                        @click.prevent="remove4(k)"
+                                        v-show="k || ( !k && inputs4.length > 1)"
+                                      >-</a>
+                                      <a
+                                        href="#"
+                                        class="badge badge-primary"
+                                        @click.prevent="add4(k)"
+                                        v-show="k == inputs4.length-1"
+                                      >+</a>
+                                    </span>
+                                <div>
+                                    <input
+                                      type="text"
+                                      name="objetive"
+                                      class="form-control"
+                                      v-model="newObjetive1"
+                                      placeholder="Nombre de la clase"
+                                      required
+                                    />
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                              <label for="name">Video MC</label>
+                              <input
+                                type="file"
+                                name="picture"
+                                class="form-control"
+                                accept="image/*"
+                                required
+                              />
+                              <div class="invalid-feedback">Please fill out this field</div>
+                            </div>
                         </div>
-                <div id="hidden_fields2">
-                  <div class="form-group mx-auto col-md-6"> 
-                                       <strong>Nombre de la unidad (1)</strong>
-                                        <input type="text" name="name"  class="form-control" v-model="newName" required>
-                                        <div class = " invalid-feedback ">Please fill out this field</div>
-                                    </div>
-                                <div class="form-group mx-auto">
-                                    <div align="center">
-                                        <strong>Presentación de la unidad</strong>
-                                    </div>
-                                        <textarea name="welcome" class="form-control" v-model="newFromW" placeholder=" Se refiere al espacio en el cual se da a conocer el proposito de la unidad; debe ser escrita mediante un texto corto." required></textarea>
-                                        <div class = " invalid-feedback ">Please fill out this field</div>
-                                </div>
-                                <div class="form-group mx-auto">
-                                    <div align="center">
-                                        <strong>Conocimientos, habilidades y requisitos para el desarrollo de la unidad</strong>
-                                    </div>
-                                         <textarea name="welcome" class="form-control" v-model="newFromW" placeholder="Se presentan los conocimientos previos al aprendizaje que corresponden al desarrollo de la unidad" required></textarea>
-                                        <div class = " invalid-feedback ">Please fill out this field</div>
-                                </div>
-                                <div class="form-group mx-auto"> 
-                                    <div align="center">
-                                        <strong>Aprenda preguntandose preguntas</strong>
-                                    </div>
-                                         <textarea name="welcome" class="form-control" v-model="newFromW" placeholder="En este espacio se hace una invitacion al estudiante para que este realice preguntas que el desearia que resolviera con el tema o programa a cursar." required></textarea>
-                                </div>
-                                <div class="form-group mx-auto"> 
-                                    <div align="center">
-                                        <strong>Aprenda alistándose</strong>
-                                    </div>
-                                    <textarea name="intentioned" class="form-control" v-model="newFromW" placeholder="Redacte un problema, caso, entre otros que le sirvan al estudiante como reflexion y diagnostico de sus competencias actuales y le motivaran en su proceso de formacion." required></textarea>
-                                    <div class = " invalid-feedback ">Please fill out this field</div>
-                                </div>
-                                 <div align="center">
-                                        <strong>Aprenda de las fuentes</strong>
-                                    </div>
-                                  <div class="form-group row mx-auto"> 
-                                     <div class="col"> 
-                                       <label for="name">Contenido de la unidad</label>
-                                        <textarea name="competences" class="form-control" v-model="newfg" placeholder="Es la explicacion o sintesis de la tematica a abordar en la unidad de estudio." required></textarea>
-                                        <div class = " invalid-feedback ">Please fill out this field</div>
-                                    </div>
-                                    <div class="col"> 
-                                       <label for="name">Master class</label>
-                                       <input type="file" name="picture" class="form-control" @change="onFileChange"  accept="image/*" required>
-                                        <div class = " invalid-feedback ">Please fill out this field</div>
-                                    </div>
-                                </div>
-                                <div class="form-group row mx-auto"> 
-                                     <div class="col"> 
-                                       <label for="name">Video de apoyo</label>
-                                        <input type="file" name="picture" class="form-control" @change="onFileChange"  accept="image/*" required>
-                                        <div class = " invalid-feedback ">Please fill out this field</div>
-                                    </div>
-                                    <div class="col"> 
-                                       <label for="name">Bibliografia complementaria</label>
-                                        <textarea name="competences" class="form-control" v-model="newfg" placeholder="Competencias conceptuales, procedimentales y actitudinales" required></textarea>
-                                        <div class = " invalid-feedback ">Please fill out this field</div>
-                                    </div>
-                                </div>
+                        <div class="form-group row mx-auto">
+                            <div class="col-md-6" v-for="(input,k) in inputs5" :key="k">
+                                <label for="name">Video de apoyo</label>
+                                <span>
+                                  <a
+                                    href="#"
+                                    class="badge badge-danger"
+                                    @click.prevent="remove5(k)"
+                                    v-show="k || ( !k && inputs5.length > 1)"
+                                  >-</a>
+                                  <a
+                                    href="#"
+                                    class="badge badge-primary"
+                                    @click.prevent="add5(k)"
+                                    v-show="k == inputs5.length-1"
+                                  >+</a>
+                                </span>
+                                <input
+                                  type="text"
+                                  name="objetive1"
+                                  class="form-control"
+                                  v-model="newObjetive"
+                                  placeholder="Nombre del Video"
+                                  required
+                                />
+                                <input
+                                  type="file"
+                                  name="picture2"
+                                  class="form-control"
+                                  accept="image/*"
+                                  required
+                                />
+                                <div class="invalid-feedback">Please fill out this field</div>
+                            </div>
+                            <div class="col">
+                                <label for="name">Bibliografia complementaria</label>
+                                <textarea
+                                  name="competences"
+                                  class="form-control"
+                                  v-model="newBibliography21"
+                                  placeholder="Competencias conceptuales, procedimentales y actitudinales"
+                                  required
+                                ></textarea>
+                                <div class="invalid-feedback">Please fill out this field</div>
+                            </div>
+                        </div>
                                 <div class="form-group mx-auto"> 
                                     <div align="center">
                                         <strong>Aprenda haciendo</strong>
                                     </div>
-                                    <textarea name="gold" class="form-control" v-model="newF" placeholder="Los logros se conciben como las metas a alcanzar al culminar el curso." required></textarea>
+                                    <textarea name="haciendo" class="form-control" v-model="newDoing21" placeholder="Los logros se conciben como las metas a alcanzar al culminar el curso." required></textarea>
                                     <div class = " invalid-feedback ">Please fill out this field</div>
                                 </div>
                                 <div class="form-group mx-auto"> 
                                     <div align="center">
                                         <strong>Aprenda poniéndose retos</strong>
                                     </div>
-                                    <textarea name="map" class="form-control" v-model="newFr" placeholder="Consiste en una representacion grafica, clara, precisa y sintetica de los temas que componen el modulo de aprendizaje" required></textarea>
+                                    <textarea name="reto" class="form-control" v-model="newChallenge21" placeholder="Consiste en una representacion grafica, clara, precisa y sintetica de los temas que componen el modulo de aprendizaje" required></textarea>
                                     <div class = " invalid-feedback ">Please fill out this field</div>
                                 </div> 
                                 <div class="form-group mx-auto"> 
                                     <div align="center">
                                         <strong>Aprenda proyectándose</strong>
                                     </div>
-                                    <textarea name="metodology" class="form-control" v-model="newFro" placeholder="Debe contener la descripcion de la metodologia, las estrategias de aprendizaje, herramientas de interaccion y explicacion de acceso a los mismos y las reglas de convivencia virtual del curso" required></textarea>
+                                    <textarea name="proyecting" class="form-control" v-model="newProjecting21" placeholder="Debe contener la descripcion de la metodologia, las estrategias de aprendizaje, herramientas de interaccion y explicacion de acceso a los mismos y las reglas de convivencia virtual del curso" required></textarea>
                                     <div class = " invalid-feedback ">Please fill out this field</div>
                                 </div>
                                 <div class="form-group mx-auto col-md-6"> 
-                                       <strong>Nombre de la unidad (2)</strong>
-                                        <input type="text" name="name"  class="form-control" v-model="newName" required>
-                                        <div class = " invalid-feedback ">Please fill out this field</div>
-                                    </div>
+                                    <strong>Nombre de la unidad (2)</strong>
+                                    <input type="text" name="name"  class="form-control" v-model="newName22" required>
+                                    <div class = " invalid-feedback ">Please fill out this field</div>
+                                </div>
                                 <div class="form-group mx-auto">
                                     <div align="center">
                                         <strong>Presentación de la unidad</strong>
                                     </div>
-                                        <textarea name="welcome" class="form-control" v-model="newFromW" placeholder=" Se refiere al espacio en el cual se da a conocer el proposito de la unidad; debe ser escrita mediante un texto corto." required></textarea>
-                                        <div class = " invalid-feedback ">Please fill out this field</div>
+                                    <textarea name="presentation" class="form-control" v-model="newPresentation22" placeholder=" Se refiere al espacio en el cual se da a conocer el proposito de la unidad; debe ser escrita mediante un texto corto." required></textarea>
+                                    <div class = " invalid-feedback ">Please fill out this field</div>
                                 </div>
                                 <div class="form-group mx-auto">
                                     <div align="center">
                                         <strong>Conocimientos, habilidades y requisitos para el desarrollo de la unidad</strong>
                                     </div>
-                                         <textarea name="welcome" class="form-control" v-model="newFromW" placeholder="Se presentan los conocimientos previos al aprendizaje que corresponden al desarrollo de la unidad" required></textarea>
-                                        <div class = " invalid-feedback ">Please fill out this field</div>
+                                    <textarea name="hability" class="form-control" v-model="newHability22" placeholder="Se presentan los conocimientos previos al aprendizaje que corresponden al desarrollo de la unidad" required></textarea>
+                                    <div class = " invalid-feedback ">Please fill out this field</div>
                                 </div>
                                 <div class="form-group mx-auto"> 
                                     <div align="center">
                                         <strong>Aprenda preguntandose preguntas</strong>
                                     </div>
-                                         <textarea name="welcome" class="form-control" v-model="newFromW" placeholder="En este espacio se hace una invitacion al estudiante para que este realice preguntas que el desearia que resolviera con el tema o programa a cursar." required></textarea>
+                                    <textarea name="question" class="form-control" v-model="newQuestion22" placeholder="En este espacio se hace una invitacion al estudiante para que este realice preguntas que el desearia que resolviera con el tema o programa a cursar." required></textarea>
                                 </div>
                                 <div class="form-group mx-auto"> 
                                     <div align="center">
                                         <strong>Aprenda alistándose</strong>
                                     </div>
-                                    <textarea name="intentioned" class="form-control" v-model="newFromW" placeholder="Redacte un problema, caso, entre otros que le sirvan al estudiante como reflexion y diagnostico de sus competencias actuales y le motivaran en su proceso de formacion." required></textarea>
+                                    <textarea name="alistandose" class="form-control" v-model="newReady22" placeholder="Redacte un problema, caso, entre otros que le sirvan al estudiante como reflexion y diagnostico de sus competencias actuales y le motivaran en su proceso de formacion." required></textarea>
                                     <div class = " invalid-feedback ">Please fill out this field</div>
                                 </div>
                                  <div align="center">
                                         <strong>Aprenda de las fuentes</strong>
-                                    </div>
-                                  <div class="form-group row mx-auto"> 
-                                     <div class="col"> 
-                                       <label for="name">Contenido de la unidad</label>
-                                        <textarea name="competences" class="form-control" v-model="newfg" placeholder="Es la explicacion o sintesis de la tematica a abordar en la unidad de estudio." required></textarea>
-                                        <div class = " invalid-feedback ">Please fill out this field</div>
-                                    </div>
-                                    <div class="col"> 
-                                       <label for="name">Master class</label>
-                                       <input type="file" name="picture" class="form-control" @change="onFileChange"  accept="image/*" required>
-                                        <div class = " invalid-feedback ">Please fill out this field</div>
-                                    </div>
                                 </div>
-                                <div class="form-group row mx-auto"> 
-                                     <div class="col"> 
-                                       <label for="name">Video de apoyo</label>
-                                        <input type="file" name="picture" class="form-control" @change="onFileChange"  accept="image/*" required>
-                                        <div class = " invalid-feedback ">Please fill out this field</div>
-                                    </div>
-                                    <div class="col"> 
-                                       <label for="name">Bibliografia complementaria</label>
-                                        <textarea name="competences" class="form-control" v-model="newfg" placeholder="Competencias conceptuales, procedimentales y actitudinales" required></textarea>
-                                        <div class = " invalid-feedback ">Please fill out this field</div>
-                                    </div>
-                                </div>
-                                <div class="form-group mx-auto"> 
-                                    <div align="center">
-                                        <strong>Aprenda haciendo</strong>
-                                    </div>
-                                    <textarea name="gold" class="form-control" v-model="newF" placeholder="Los logros se conciben como las metas a alcanzar al culminar el curso." required></textarea>
-                                    <div class = " invalid-feedback ">Please fill out this field</div>
-                                </div>
-                                <div class="form-group mx-auto"> 
-                                    <div align="center">
-                                        <strong>Aprenda poniéndose retos</strong>
-                                    </div>
-                                    <textarea name="map" class="form-control" v-model="newFr" placeholder="Consiste en una representacion grafica, clara, precisa y sintetica de los temas que componen el modulo de aprendizaje" required></textarea>
-                                    <div class = " invalid-feedback ">Please fill out this field</div>
-                                </div> 
-                                <div class="form-group mx-auto"> 
-                                    <div align="center">
-                                        <strong>Aprenda proyectándose</strong>
-                                    </div>
-                                    <textarea name="metodology" class="form-control" v-model="newFro" placeholder="Debe contener la descripcion de la metodologia, las estrategias de aprendizaje, herramientas de interaccion y explicacion de acceso a los mismos y las reglas de convivencia virtual del curso" required></textarea>
-                                    <div class = " invalid-feedback ">Please fill out this field</div>
-                                </div>
-                                <div class="modal-footer">
-                                    <a href="/freeUnit" class="btn btn-primary float-right">Guardar</a>
+                                <div class="form-group row mx-auto" v-for="(input,k) in inputs6" :key="k">
+                                  <div class="col-md-6">
+                                    <label for="name">Tema</label>
+                                    <span>
+                                      <a
+                                        href="#"
+                                        class="badge badge-danger"
+                                        @click.prevent="remove6(k)"
+                                        v-show="k || ( !k && inputs6.length > 1)"
+                                      >-</a>
+                                      <a
+                                        href="#"
+                                        class="badge badge-primary"
+                                        @click.prevent="add6(k)"
+                                        v-show="k == inputs6.length-1"
+                                      >+</a>
+                                    </span>
+                                <div>
+                                  <input
+                                    type="text"
+                                    name="objetive1"
+                                    class="form-control"
+                                    v-model="Topic"
+                                    placeholder="Nombre del Tema"
+                                    required
+                                  />
                                 </div>
                             </div>
-                <div id="hidden_fields3">
-                    <div class="form-group mx-auto col-md-6"> 
-                          <strong>Nombre de la unidad (1)</strong>
-                                        <input type="text" name="name"  class="form-control" v-model="newName" required>
-                                        <div class = " invalid-feedback ">Please fill out this field</div>
-                                    </div>
-                                <div class="form-group mx-auto">
-                                    <div align="center">
-                                        <strong>Presentación de la unidad</strong>
-                                    </div>
-                                        <textarea name="welcome" class="form-control" v-model="newFromW" placeholder=" Se refiere al espacio en el cual se da a conocer el proposito de la unidad; debe ser escrita mediante un texto corto." required></textarea>
-                                        <div class = " invalid-feedback ">Please fill out this field</div>
-                                </div>
-                                <div class="form-group mx-auto">
-                                    <div align="center">
-                                        <strong>Conocimientos, habilidades y requisitos para el desarrollo de la unidad</strong>
-                                    </div>
-                                         <textarea name="welcome" class="form-control" v-model="newFromW" placeholder="Se presentan los conocimientos previos al aprendizaje que corresponden al desarrollo de la unidad" required></textarea>
-                                        <div class = " invalid-feedback ">Please fill out this field</div>
-                                </div>
-                                <div class="form-group mx-auto"> 
-                                    <div align="center">
-                                        <strong>Aprenda preguntandose preguntas</strong>
-                                    </div>
-                                         <textarea name="welcome" class="form-control" v-model="newFromW" placeholder="En este espacio se hace una invitacion al estudiante para que este realice preguntas que el desearia que resolviera con el tema o programa a cursar." required></textarea>
-                                </div>
-                                <div class="form-group mx-auto"> 
-                                    <div align="center">
-                                        <strong>Aprenda alistándose</strong>
-                                    </div>
-                                    <textarea name="intentioned" class="form-control" v-model="newFromW" placeholder="Redacte un problema, caso, entre otros que le sirvan al estudiante como reflexion y diagnostico de sus competencias actuales y le motivaran en su proceso de formacion." required></textarea>
-                                    <div class = " invalid-feedback ">Please fill out this field</div>
-                                </div>
-                                 <div align="center">
-                                        <strong>Aprenda de las fuentes</strong>
-                                    </div>
-                                  <div class="form-group row mx-auto"> 
-                                     <div class="col"> 
-                                       <label for="name">Contenido de la unidad</label>
-                                        <textarea name="competences" class="form-control" v-model="newfg" placeholder="Es la explicacion o sintesis de la tematica a abordar en la unidad de estudio." required></textarea>
-                                        <div class = " invalid-feedback ">Please fill out this field</div>
-                                    </div>
-                                    <div class="col"> 
-                                       <label for="name">Master class</label>
-                                       <input type="file" name="picture" class="form-control" @change="onFileChange"  accept="image/*" required>
-                                        <div class = " invalid-feedback ">Please fill out this field</div>
-                                    </div>
-                                </div>
-                                <div class="form-group row mx-auto"> 
-                                     <div class="col"> 
-                                       <label for="name">Video de apoyo</label>
-                                        <input type="file" name="picture" class="form-control" @change="onFileChange"  accept="image/*" required>
-                                        <div class = " invalid-feedback ">Please fill out this field</div>
-                                    </div>
-                                    <div class="col"> 
-                                       <label for="name">Bibliografia complementaria</label>
-                                        <textarea name="competences" class="form-control" v-model="newfg" placeholder="Competencias conceptuales, procedimentales y actitudinales" required></textarea>
-                                        <div class = " invalid-feedback ">Please fill out this field</div>
-                                    </div>
-                                </div>
-                                <div class="form-group mx-auto"> 
-                                    <div align="center">
-                                        <strong>Aprenda haciendo</strong>
-                                    </div>
-                                    <textarea name="gold" class="form-control" v-model="newF" placeholder="Los logros se conciben como las metas a alcanzar al culminar el curso." required></textarea>
-                                    <div class = " invalid-feedback ">Please fill out this field</div>
-                                </div>
-                                <div class="form-group mx-auto"> 
-                                    <div align="center">
-                                        <strong>Aprenda poniéndose retos</strong>
-                                    </div>
-                                    <textarea name="map" class="form-control" v-model="newFr" placeholder="Consiste en una representacion grafica, clara, precisa y sintetica de los temas que componen el modulo de aprendizaje" required></textarea>
-                                    <div class = " invalid-feedback ">Please fill out this field</div>
-                                </div> 
-                                <div class="form-group mx-auto"> 
-                                    <div align="center">
-                                        <strong>Aprenda proyectándose</strong>
-                                    </div>
-                                    <textarea name="metodology" class="form-control" v-model="newFro" placeholder="Debe contener la descripcion de la metodologia, las estrategias de aprendizaje, herramientas de interaccion y explicacion de acceso a los mismos y las reglas de convivencia virtual del curso" required></textarea>
-                                    <div class = " invalid-feedback ">Please fill out this field</div>
-                                </div>
-                                <div class="form-group mx-auto col-md-6"> 
-                                       <strong>Nombre de la unidad (2)</strong>
-                                        <input type="text" name="name"  class="form-control" v-model="newName" required>
-                                        <div class = " invalid-feedback ">Please fill out this field</div>
-                                    </div>
-                                <div class="form-group mx-auto">
-                                    <div align="center">
-                                        <strong>Presentación de la unidad</strong>
-                                    </div>
-                                        <textarea name="welcome" class="form-control" v-model="newFromW" placeholder=" Se refiere al espacio en el cual se da a conocer el proposito de la unidad; debe ser escrita mediante un texto corto." required></textarea>
-                                        <div class = " invalid-feedback ">Please fill out this field</div>
-                                </div>
-                                <div class="form-group mx-auto">
-                                    <div align="center">
-                                        <strong>Conocimientos, habilidades y requisitos para el desarrollo de la unidad</strong>
-                                    </div>
-                                         <textarea name="welcome" class="form-control" v-model="newFromW" placeholder="Se presentan los conocimientos previos al aprendizaje que corresponden al desarrollo de la unidad" required></textarea>
-                                        <div class = " invalid-feedback ">Please fill out this field</div>
-                                </div>
-                                <div class="form-group mx-auto"> 
-                                    <div align="center">
-                                        <strong>Aprenda preguntandose preguntas</strong>
-                                    </div>
-                                         <textarea name="welcome" class="form-control" v-model="newFromW" placeholder="En este espacio se hace una invitacion al estudiante para que este realice preguntas que el desearia que resolviera con el tema o programa a cursar." required></textarea>
-                                </div>
-                                <div class="form-group mx-auto"> 
-                                    <div align="center">
-                                        <strong>Aprenda alistándose</strong>
-                                    </div>
-                                    <textarea name="intentioned" class="form-control" v-model="newFromW" placeholder="Redacte un problema, caso, entre otros que le sirvan al estudiante como reflexion y diagnostico de sus competencias actuales y le motivaran en su proceso de formacion." required></textarea>
-                                    <div class = " invalid-feedback ">Please fill out this field</div>
-                                </div>
-                                 <div align="center">
-                                        <strong>Aprenda de las fuentes</strong>
-                                    </div>
-                                  <div class="form-group row mx-auto"> 
-                                     <div class="col"> 
-                                       <label for="name">Contenido de la unidad</label>
-                                        <textarea name="competences" class="form-control" v-model="newfg" placeholder="Es la explicacion o sintesis de la tematica a abordar en la unidad de estudio." required></textarea>
-                                        <div class = " invalid-feedback ">Please fill out this field</div>
-                                    </div>
-                                    <div class="col"> 
-                                       <label for="name">Master class</label>
-                                       <input type="file" name="picture" class="form-control" @change="onFileChange"  accept="image/*" required>
-                                        <div class = " invalid-feedback ">Please fill out this field</div>
-                                    </div>
-                                </div>
-                                <div class="form-group row mx-auto"> 
-                                     <div class="col"> 
-                                       <label for="name">Video de apoyo</label>
-                                        <input type="file" name="picture" class="form-control" @change="onFileChange"  accept="image/*" required>
-                                        <div class = " invalid-feedback ">Please fill out this field</div>
-                                    </div>
-                                    <div class="col"> 
-                                       <label for="name">Bibliografia complementaria</label>
-                                        <textarea name="competences" class="form-control" v-model="newfg" placeholder="Competencias conceptuales, procedimentales y actitudinales" required></textarea>
-                                        <div class = " invalid-feedback ">Please fill out this field</div>
-                                    </div>
-                                </div>
-                                <div class="form-group mx-auto"> 
-                                    <div align="center">
-                                        <strong>Aprenda haciendo</strong>
-                                    </div>
-                                    <textarea name="gold" class="form-control" v-model="newF" placeholder="Los logros se conciben como las metas a alcanzar al culminar el curso." required></textarea>
-                                    <div class = " invalid-feedback ">Please fill out this field</div>
-                                </div>
-                                <div class="form-group mx-auto"> 
-                                    <div align="center">
-                                        <strong>Aprenda poniéndose retos</strong>
-                                    </div>
-                                    <textarea name="map" class="form-control" v-model="newFr" placeholder="Consiste en una representacion grafica, clara, precisa y sintetica de los temas que componen el modulo de aprendizaje" required></textarea>
-                                    <div class = " invalid-feedback ">Please fill out this field</div>
-                                </div> 
-                                <div class="form-group mx-auto"> 
-                                    <div align="center">
-                                        <strong>Aprenda proyectándose</strong>
-                                    </div>
-                                    <textarea name="metodology" class="form-control" v-model="newFro" placeholder="Debe contener la descripcion de la metodologia, las estrategias de aprendizaje, herramientas de interaccion y explicacion de acceso a los mismos y las reglas de convivencia virtual del curso" required></textarea>
-                                    <div class = " invalid-feedback ">Please fill out this field</div>
-                                </div>
-                                <div class="form-group mx-auto col-md-6"> 
-                                       <strong>Nombre de la unidad (3)</strong>
-                                        <input type="text" name="name"  class="form-control" v-model="newName" required>
-                                        <div class = " invalid-feedback ">Please fill out this field</div>
-                                    </div>
-                                <div class="form-group mx-auto">
-                                    <div align="center">
-                                        <strong>Presentación de la unidad</strong>
-                                    </div>
-                                        <textarea name="welcome" class="form-control" v-model="newFromW" placeholder=" Se refiere al espacio en el cual se da a conocer el proposito de la unidad; debe ser escrita mediante un texto corto." required></textarea>
-                                        <div class = " invalid-feedback ">Please fill out this field</div>
-                                </div>
-                                <div class="form-group mx-auto">
-                                    <div align="center">
-                                        <strong>Conocimientos, habilidades y requisitos para el desarrollo de la unidad</strong>
-                                    </div>
-                                         <textarea name="welcome" class="form-control" v-model="newFromW" placeholder="Se presentan los conocimientos previos al aprendizaje que corresponden al desarrollo de la unidad" required></textarea>
-                                        <div class = " invalid-feedback ">Please fill out this field</div>
-                                </div>
-                                <div class="form-group mx-auto"> 
-                                    <div align="center">
-                                        <strong>Aprenda preguntandose preguntas</strong>
-                                    </div>
-                                         <textarea name="welcome" class="form-control" v-model="newFromW" placeholder="En este espacio se hace una invitacion al estudiante para que este realice preguntas que el desearia que resolviera con el tema o programa a cursar." required></textarea>
-                                </div>
-                                <div class="form-group mx-auto"> 
-                                    <div align="center">
-                                        <strong>Aprenda alistándose</strong>
-                                    </div>
-                                    <textarea name="intentioned" class="form-control" v-model="newFromW" placeholder="Redacte un problema, caso, entre otros que le sirvan al estudiante como reflexion y diagnostico de sus competencias actuales y le motivaran en su proceso de formacion." required></textarea>
-                                    <div class = " invalid-feedback ">Please fill out this field</div>
-                                </div>
-                                 <div align="center">
-                                        <strong>Aprenda de las fuentes</strong>
-                                    </div>
-                                  <div class="form-group row mx-auto"> 
-                                     <div class="col"> 
-                                       <label for="name">Contenido de la unidad</label>
-                                        <textarea name="competences" class="form-control" v-model="newfg" placeholder="Es la explicacion o sintesis de la tematica a abordar en la unidad de estudio." required></textarea>
-                                        <div class = " invalid-feedback ">Please fill out this field</div>
-                                    </div>
-                                    <div class="col"> 
-                                       <label for="name">Master class</label>
-                                       <input type="file" name="picture" class="form-control" @change="onFileChange"  accept="image/*" required>
-                                        <div class = " invalid-feedback ">Please fill out this field</div>
-                                    </div>
-                                </div>
-                                <div class="form-group row mx-auto"> 
-                                     <div class="col"> 
-                                       <label for="name">Video de apoyo</label>
-                                        <input type="file" name="picture" class="form-control" @change="onFileChange"  accept="image/*" required>
-                                        <div class = " invalid-feedback ">Please fill out this field</div>
-                                    </div>
-                                    <div class="col"> 
-                                       <label for="name">Bibliografia complementaria</label>
-                                        <textarea name="competences" class="form-control" v-model="newfg" placeholder="Competencias conceptuales, procedimentales y actitudinales" required></textarea>
-                                        <div class = " invalid-feedback ">Please fill out this field</div>
-                                    </div>
-                                </div>
-                                <div class="form-group mx-auto"> 
-                                    <div align="center">
-                                        <strong>Aprenda haciendo</strong>
-                                    </div>
-                                    <textarea name="gold" class="form-control" v-model="newF" placeholder="Los logros se conciben como las metas a alcanzar al culminar el curso." required></textarea>
-                                    <div class = " invalid-feedback ">Please fill out this field</div>
-                                </div>
-                                <div class="form-group mx-auto"> 
-                                    <div align="center">
-                                        <strong>Aprenda poniéndose retos</strong>
-                                    </div>
-                                    <textarea name="map" class="form-control" v-model="newFr" placeholder="Consiste en una representacion grafica, clara, precisa y sintetica de los temas que componen el modulo de aprendizaje" required></textarea>
-                                    <div class = " invalid-feedback ">Please fill out this field</div>
-                                </div> 
-                                <div class="form-group mx-auto"> 
-                                    <div align="center">
-                                        <strong>Aprenda proyectándose</strong>
-                                    </div>
-                                    <textarea name="metodology" class="form-control" v-model="newFro" placeholder="Debe contener la descripcion de la metodologia, las estrategias de aprendizaje, herramientas de interaccion y explicacion de acceso a los mismos y las reglas de convivencia virtual del curso" required></textarea>
-                                    <div class = " invalid-feedback ">Please fill out this field</div>
-                                </div>
-                                <div class="modal-footer">
-                                    <a href="/freeUnit" class="btn btn-primary float-right">Guardar</a>
-                                </div>
+                            <div class="col-md-6">
+                              <label for="name">Contenido</label>
+                              <textarea
+                                name="competences"
+                                class="form-control"
+                                v-model="newContent"
+                                placeholder="Es la explicacion o sintesis de la tematica a abordar en la unidad de estudio."
+                                required
+                              ></textarea>
+                              <div class="invalid-feedback">Please fill out this field</div>
                             </div>
+                          </div>
+                        <div class="form-group row" v-for="(input,k) in inputs7" :key="k">
+                          <div class="col-md-6">
+                            <label for="name">Master class (MC)</label>
+                            <span>
+                              <a
+                                href="#"
+                                class="badge badge-danger"
+                                @click.prevent="remove7(k)"
+                                v-show="k || ( !k && inputs7.length > 1)"
+                              >-</a>
+                              <a
+                                href="#"
+                                class="badge badge-primary"
+                                @click.prevent="add7(k)"
+                                v-show="k == inputs7.length-1"
+                              >+</a>
+                            </span>
+                            <div>
+                              <input
+                                type="text"
+                                name="objetive"
+                                class="form-control"
+                                v-model="newObjetive1"
+                                placeholder="Nombre de la clase"
+                                required
+                              />
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <label for="name">Video MC</label>
+                            <input
+                              type="file"
+                              name="picture"
+                              class="form-control"
+                              accept="image/*"
+                              required
+                            />
+                            <div class="invalid-feedback">Please fill out this field</div>
+                          </div>
+                        </div>
+                        <div class="form-group row mx-auto">
+                          <div class="col-md-6" v-for="(input,k) in inputs8" :key="k">
+                          <label for="name">Video de apoyo</label>
+                          <span>
+                            <a
+                              href="#"
+                              class="badge badge-danger"
+                              @click.prevent="remove8(k)"
+                              v-show="k || ( !k && inputs8.length > 1)"
+                            >-</a>
+                            <a
+                              href="#"
+                              class="badge badge-primary"
+                              @click.prevent="add8(k)"
+                              v-show="k == inputs8.length-1"
+                            >+</a>
+                          </span>
+                          <input
+                            type="text"
+                            name="objetive1"
+                            class="form-control"
+                            v-model="newObjetive"
+                            placeholder="Nombre del Video"
+                            required
+                          />
+                          <input
+                            type="file"
+                            name="picture2"
+                            class="form-control"
+                            accept="image/*"
+                            required
+                          />
+                          <div class="invalid-feedback">Please fill out this field</div>
+                        </div>
+                          <div class="col">
+                            <label for="name">Bibliografia complementaria</label>
+                            <textarea
+                              name="competences"
+                              class="form-control"
+                              v-model="newBibliography22"
+                              placeholder="Competencias conceptuales, procedimentales y actitudinales"
+                              required
+                            ></textarea>
+                            <div class="invalid-feedback">Please fill out this field</div>
+                          </div>
+                        </div>
+                        <div class="form-group mx-auto"> 
+                            <div align="center">
+                                <strong>Aprenda haciendo</strong>
+                            </div>
+                            <textarea name="haciendo" class="form-control" v-model="newDoing22" placeholder="Los logros se conciben como las metas a alcanzar al culminar el curso." required></textarea>
+                            <div class = " invalid-feedback ">Please fill out this field</div>
+                        </div>
+                        <div class="form-group mx-auto"> 
+                            <div align="center">
+                                <strong>Aprenda poniéndose retos</strong>
+                            </div>
+                            <textarea name="map" class="form-control" v-model="newChallenge22" placeholder="Consiste en una representacion grafica, clara, precisa y sintetica de los temas que componen el modulo de aprendizaje" required></textarea>
+                            <div class = " invalid-feedback ">Please fill out this field</div>
+                        </div> 
+                        <div class="form-group mx-auto"> 
+                            <div align="center">
+                                <strong>Aprenda proyectándose</strong>
+                            </div>
+                            <textarea name="metodology" class="form-control" v-model="newProjecting22" placeholder="Debe contener la descripcion de la metodologia, las estrategias de aprendizaje, herramientas de interaccion y explicacion de acceso a los mismos y las reglas de convivencia virtual del curso" required></textarea>
+                            <div class = " invalid-feedback ">Please fill out this field</div>
+                        </div>
+                        <div class="modal-footer">
+                            <a href="/freeUnit" class="btn btn-primary float-right">Guardar</a>
+                        </div>
+                      </div>
                                 <!--<span v-for="error in errors" class="text-danger">{{ error }}</span>-->
-                            </div>
-                        </form>
                     </div>
-                    </div>
-                    </div>
+                  </form>
                 </div>
+            </div>
+          </div>
+        </div>
 </auto-responsive>
 </template>
 <script>
@@ -606,6 +663,41 @@ export default {
                 name: ''
             }
             ],
+                 inputs2: [
+            {
+                name: ''
+            }
+            ],
+                 inputs3: [
+            {
+                name: ''
+            }
+            ],
+                 inputs4: [
+            {
+                name: ''
+            }
+            ],
+                 inputs5: [
+            {
+                name: ''
+            }
+            ],
+                 inputs6: [
+            {
+                name: ''
+            }
+            ],
+                 inputs7: [
+            {
+                name: ''
+            }
+            ],
+                 inputs8: [
+            {
+                name: ''
+            }
+            ],
             Uoptions: ['1','2','3','4'],
             subcategories: [],
             TypeUsers: [],
@@ -658,6 +750,55 @@ export default {
         },
         remove1(index) {
             this.inputs1.splice(index, 1);
+        },
+           add2(index) {
+            this.inputs2.push({ name: '' });
+           
+        },
+        remove2(index) {
+            this.inputs2.splice(index, 1);
+        },
+         add3(index) {
+            this.inputs3.push({ name: '' });
+           
+        },
+        remove3(index) {
+            this.inputs3.splice(index, 1);
+        },
+           add4(index) {
+            this.inputs4.push({ name: '' });
+           
+        },
+        remove4(index) {
+            this.inputs4.splice(index, 1);
+        },
+         add5(index) {
+            this.inputs5.push({ name: '' });
+           
+        },
+        remove5(index) {
+            this.inputs5.splice(index, 1);
+        },
+           add6(index) {
+            this.inputs6.push({ name: '' });
+           
+        },
+        remove6(index) {
+            this.inputs6.splice(index, 1);
+        },
+         add7(index) {
+            this.inputs7.push({ name: '' });
+           
+        },
+        remove7(index) {
+            this.inputs7.splice(index, 1);
+        },
+           add8(index) {
+            this.inputs8.push({ name: '' });
+           
+        },
+        remove8(index) {
+            this.inputs8.splice(index, 1);
         },
         editClasses(clas){
             this.fillC.id = clas.id;
@@ -757,8 +898,17 @@ export default {
 }
 </script>
 <style>
-.background1{
-  background: url(http://localhost/Life4teach_project/resources/js/assets/img/Fondo1.jpg);
-  background-attachment: fixed;
+.background2{
+    background: url(http://localhost/Life4teach_project/resources/js/assets/img/Fondo5.jpg);
+    background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  position: relative;
+}
+text-area.form-control{
+    height: 197px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    width: -webkit-fill-available;
 }
 </style>

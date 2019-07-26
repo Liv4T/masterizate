@@ -19,15 +19,22 @@
       <!-- Styles -->
       <link href="{{ asset('css/app.css') }}" rel="stylesheet">
       <link href="{{ asset('css/design.css') }}" rel="stylesheet">
-      
+      <script>
+      window.Forum = <?php echo json_encode([
+            'auth' => Auth::check(),
+            'user_id' => Auth::check() ? Auth::user()->id : -1,
+            'role' => Config::get('type_user')
+        ]); ?>
+      </script>
   </head>
   <body>
+      
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('Life4teach', 'Live4teach') }}
-                    <b-img thumbnail fluid src="http://localhost/Life4teach_project/resources/js/assets/img/LOGO-L4T-web.png" rounded="circle" width="75" height="75" alt="Image 3"></b-img>
+                    <b-img thumbnail fluid src="{{asset('images/LOGO-L4T-web.png')}}" rounded="circle" width="75" height="75" alt="4"></b-img>
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -35,11 +42,14 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                    @if (Auth::check())
+                        @if (Auth::user()->type_user == '1')
                         <li class="nav-item">
                             <a class="nav-link" href="/user">
                                 Usuarios
                             </a>
                         </li>
+                        
                         <li class="nav-item">
                             <a class="nav-link" href="/category">
                                 Categorias
@@ -52,13 +62,40 @@
                             <a class="nav-link" href="/board">Aula Virtual</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/class">Clase</a>
+                            <a class="nav-link" href="/class">Curso</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/resume">Curriculum</a>
+                            <a class="nav-link" href="/resume">Hoja de Vida</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/evaluation">Evaluación</a>
                         </li>
                     </ul>
-                     
+                    @endif
+                     @if (Auth::user()->type_user == '2')
+                        <li class="nav-item">
+                            <a class="nav-link" href="/resume">Hoja de Vida</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/board">Aula Virtual</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/class">Curso</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/evaluation">Evaluación</a>
+                        </li>
+                        
+                     @endif
+                         @if (Auth::user()->type_user == '3')
+                        <li class="nav-item">
+                            <a class="nav-link" href="/type">Curso</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/board">Aula Virtual</a>
+                        </li>                        
+                     @endif
+                @endif
                 <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
                     <!-- Authentication Links -->

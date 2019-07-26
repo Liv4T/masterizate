@@ -2,7 +2,7 @@
 
 @section('content')
 <formstyle></formstyle>
-<category-component ></category-component>
+<cuestionario-component ></cuestionario-component>
   <footers></footers>
 <div class="container">
     

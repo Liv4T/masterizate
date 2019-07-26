@@ -1,9 +1,9 @@
 <template>
   <auto-responsive>
-    <div class="background1">
+    <div class="background2">
       <div class="row">
         <div class="col-md-11 mx-auto">
-          <div class="card text-center">
+          <div class="custom-card text-center">
             <h3 class="card-header">Unidad 1</h3>
             <form class="needs-validation" novalidate>
               <div class="card-body">
@@ -36,7 +36,33 @@
                   ></textarea>
                   <div class="invalid-feedback">Please fill out this field</div>
                 </div>
-
+                <div class="form-group mx-auto">
+                  <div align="center">
+                    <strong>Temas</strong>
+                  </div>
+                  <div class="form-group mx-auto">
+                    <div class="form-group row">
+                      <div class="col">
+                        <a href="/listactivity">
+                          Tema 1
+                          <br />Nombre del tema
+                        </a>
+                      </div>
+                      <div class="col">
+                        <a href="/listactivity">
+                          Tema 2
+                          <br />Nombre del tema
+                        </a>
+                      </div>
+                      <div class="col">
+                        <a href="/listactivity">
+                          Tema 3
+                          <br />Nombre del tema
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
                 <div class="modal-footer">
                   <a href="/ccourse" class="btn btn-primary float-right">Volver</a>
                 </div>
@@ -315,8 +341,11 @@ export default {
 };
 </script>
 <style>
-.background1 {
-  background: url(http://localhost/Life4teach_project/resources/js/assets/img/Fondo1.jpg);
-  background-attachment: fixed;
+.background2 {
+  background: url(http://localhost/Life4teach_project/resources/js/assets/img/Fondo5.jpg);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  position: relative;
 }
 </style>

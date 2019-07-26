@@ -1,539 +1,823 @@
 <template>
-<auto-responsive>
-    <div class="background1">
-        <div class="row">
-            <div id="crud" class="col-xl-12">
-                <div class="card text-center">
-                    <h3 class="card-header">Clase</h3>
-                    <div class= "card-body">
-                        <a href="/course" class="btn btn-primary float-right">Curso Especializado</a>
-                        <a href="/free" class="btn btn-primary float-right">FREE</a>
-                        <table class="table table-responsive table-hover table-striped">
-                            <thead>
-                                <tr>
-                                    <th>N°</th>
-                                    <th>Nombre del curso</th>
-                                    <th>Categoria</th>
-                                    <th>Cantidad de unidades</th>
-                                    <th>Metodologia</th>
-                                    <th>Intensidad Horaria TV</th>
-                                    <th colspan="2">
-                                        &nbsp;
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr v-for="clas in classes">
-                                    <td width="10px">{{ clas.id }}</td>
-                                    <td>{{ clas.fromW }}/{{ clas.toW }}</td>
-                                    <td>{{ clas.name }}</td>
-                                    <td>{{ clas.id_category }}</td>
-                                    <td>{{ clas.subject }}</td>
-                                    <td>{{ clas.objetive }}</td>
-                                   
-                                    <td width="10px">
-                                        <a href="#" class="btn btn-warning btn-sm"  v-on:click.prevent="editClasses(clas)">/</a>
-                                    </td>
-                                    <td width="10px">
-                                        <a href="#" class="btn btn-danger btn-sm" v-on:click.prevent="deleteClasses(clas)" >-</a>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+  <auto-responsive>
+    <div class="background2">
+      <div class="row justify-content-center">
+        <div id="crud" class="col-sm-10">
+          <div class="custom-card text-center">
+            <h3 class="card-header">Cursos</h3>
+            <div class="card-body">
+              <div class="form-group row float-right">
+                <div class="col-md-3">
+                  <a href="/free" class="btn btn-primary">Free</a>
                 </div>
-            </div>
-        </div>
-        <div class="modal fade bd-example-modal-xl" id="create">
-            <div class="modal-dialog modal-xl">
-                <div class="modal-content">
-                    <div class="card">
-                        <h1 class="card-header">Clase
-                            <button type="button" class="close" data-dismiss="modal">
-                                <span>&times;</span>
-                            </button> 
-                        </h1>
-                        <form class="needs-validation" novalidate>
-                            <div class= "card-body">
-                                 <div class="form-group row"> 
-                                    <div class="col">                        
-                                        <!--<div class="custom-control custom-checkbox custom-control-inline">
-                                            <input class="custom-control-input" type="checkbox" id="gridCheck1" v-model="newLocal" required>
-                                            <label class="custom-control-label" for="gridCheck1">Local</label>
-                                        </div>-->
-                                        <div class="custom-control custom-checkbox custom-control-inline">
-                                            <input class="custom-control-input" type="checkbox" id="gridCheck1" v-model="newRegional">
-                                            <label class="custom-control-label" for="gridCheck1">Regional</label>   
-                                        </div>     
-                                        <div class="custom-control custom-checkbox custom-control-inline">          
-                                            <input class="custom-control-input" type="checkbox" id="gridCheck3" v-model="newWorld">
-                                            <label class="custom-control-label" for="gridCheck3">Mundial</label>   
-                                        </div>
-                                    </div>
-                                 </div> 
-                                 <div id="hidden_fields1">     
-                                    <div class="form-group row"> 
-                                        <div class="col-md-6"> 
-                                            <label for="">Pais</label>
-                                            <select2 :options="myCountries" v-model="newContry"></select2>
-                                            <div class = " invalid-feedback ">Please fill out this field </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group row"> 
-                                    <div class="col"> 
-                                        <label for="name">Nombre</label>
-                                        <input type="text" name="name"  class="form-control" v-model="newName" required>
-                                        <div class = " invalid-feedback ">Please fill out this field</div>
-                                    </div>
-                                    <div class="col"> 
-                                        <label for="description">Descripción</label>
-                                        <textarea  name="description" v-model="newDescription" class="form-control"  maxlength="200" required></textarea>
-                                        <div class = " invalid-feedback ">Please fill out this field</div>
-                                    </div>
-                                </div>
-                                <div class="form-group row"> 
-                                    <div class="col"> 
-                                        <label for="">Categorias</label>
-                                        <select2 :options="categories" v-model="Category" @input="getSubcategories" required></select2>
-                                    </div>
-                                    <div class="col"> 
-                                        <label for="">Subcategorias</label>
-                                        <select2 :options="subcategories" v-model="newId_subcategories" required></select2>
-                                    </div>  
-                                </div>
-                                <div class="form-group row">
-                                    <div class="col-md-6"> 
-                                        <label for="subject">Tema</label>
-                                        <input type="text" name="subject" class="form-control" v-model="newSubject" required>
-                                        <div class = " invalid-feedback ">Please fill out this field</div>
-                                    </div>
-                                    <div class="col-md-6" v-for="(input,k) in inputs" :key="k"> 
-                                        <label for="objetive">Objetivo del tema</label>
-                                        <span>
-                                            <a href="#" class="badge badge-danger" @click.prevent="remove(k)" v-show="k || ( !k && inputs.length > 1)">-</a>
-                                            <a href="#" class="badge badge-primary" @click.prevent="add(k)" v-show="k == inputs.length-1">+</a>
-                                        </span>
-                                        <input type="text" name="objetive" class="form-control" v-model="newObjetive" required>
-                                        <div class = " invalid-feedback ">Please fill out this field</div>
-                                    </div>
-                                </div>
-                                <div class="form-group row"> 
-                                    <div class="col"> 
-                                        <strong>Semana</strong>
-                                    </div>
-                                    <div class="col"> 
-                                        <strong>Horario</strong>
-                                    </div>
-                                </div>
-                                <div class="form-group row"> 
-                                    <div class="col-md-3"> 
-                                        <label for="fromW">Desde</label>
-                                        <input type="date" name="fromW" class="form-control" v-model="newFromW" required>
-                                        <div class = " invalid-feedback ">Please fill out this field</div>
-                                    </div>
-                                    <div class="col-md-3"> 
-                                        <label for="toW">Hasta</label>
-                                        <input type="date" name="toW" class="form-control" v-model="newToW" required>
-                                        <div class = " invalid-feedback ">Please fill out this field</div>
-                                    </div>
-                                    <div class="col-md-3"> 
-                                        <label for="">Desde</label>
-                                        <select2 :options="myOptions" v-model="newFromH" required></select2>
-                                        <div class = " invalid-feedback ">Please fill out this field</div>
-                                    </div>
-                                    <div class="col-md-3"> 
-                                        <label for="">Hasta</label>
-                                        <select2 :options="myOptions" v-model="newToH" required></select2>
-                                        <div class = " invalid-feedback ">Please fill out this field</div>
-                                    </div>
-                                </div>
-                                <div class="form-group row" v-for="(input,k) in inputs1" :key="k">
-                                    <div class="col-md-6"> 
-                                        <label for="quiz">Medicion</label>
-                                        <span>
-                                            <a href="#" class="badge badge-danger" @click.prevent="remove1(k)" v-show="k || ( !k && inputs1.length > 1)">-</a>
-                                            <a href="#" class="badge badge-primary" @click.prevent="add1(k)" v-show="k == inputs1.length-1">+</a>
-                                        </span>
-                                        <input type="text" name="quiz" class="form-control" v-model="newQuiz" required>
-                                        <div class = " invalid-feedback ">Please fill out this field</div>
-                                    </div> 
-                                    <div class="col-md-4"> 
-                                        <label for="indicator">Indicadores</label>
-                                        <input type="text" name="indicator" class="form-control" v-model="newIndicator" required>
-                                        <div class = " invalid-feedback ">Please fill out this field</div>
-                                    </div>
-                                    <div class="col-md-2"> 
-                                        <label for="percent">%</label>
-                                        <input type="number" name="percent" class="form-control" v-model="newPercent" required>
-                                        <div class = " invalid-feedback ">Please fill out this field</div>
-                                    </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <input type="submit" @click.prevent="createClasses" class="btn btn-primary" value="Guardar"> 
-                                </div>
-                                <!--<span v-for="error in errors" class="text-danger">{{ error }}</span>-->
-                            </div>
-                        </form>
-                    </div>
+                <div class="col-md-7">
+                  <a href="/course" class="btn btn-primary">Especializado</a>
                 </div>
+              </div>
+              <table class="table table-responsive table-hover table-striped center">
+                <thead>
+                  <tr>
+                    <th>N°</th>
+                    <th>Nombre del curso</th>
+                    <th>Categoria</th>
+                    <th>Tipo de curso</th>
+                    <th>Estado</th>
+                    <th>Publicado</th>
+                    <th colspan="3">&nbsp;</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="cour in courses">
+                    <td width="10px">{{ cour.id }}</td>
+                    <td>{{ cour.name }}</td>
+                    <td>{{ cour.id_category }}</td>
+                    <td>{{ cour.type }}</td>
+                    <td>{{ cour.state }}</td>
+                    <td>{{ cour.publish }}</td>
+                    <td width="10px">
+                      <a
+                        href="#"
+                        class="btn btn-warning btn-sm"
+                        v-on:click.prevent="editClasses(cour)"
+                      >/</a>
+                    </td>
+                    <td width="10px">
+                      <a
+                        href="#"
+                        class="btn btn-danger btn-sm"
+                        v-on:click.prevent="deleteClasses(cour)"
+                      >-</a>
+                    </td>
+                    <td width="10px">
+                      <a href="/vcourse" class="btn btn-info btn-sm">v</a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
+          </div>
         </div>
-        <div class="modal fade bd-example-modal-xl" id="edit">
-            <div class="modal-dialog modal-xl">
-                <div class="modal-content">
-                    <div class="card">
-                        <h1 class="card-header">Clase
-                            <button type="button" class="close" data-dismiss="modal">
-                                <span>&times;</span>
-                            </button> 
-                        </h1>
-                        <form class="needs-validation" novalidate>
-                            <div class= "card-body">
-                                 <div class="form-group row"> 
-                                    <div class="col">                        
-                                        <!--<div class="custom-control custom-checkbox custom-control-inline">
-                                            <input class="custom-control-input" type="checkbox" id="gridCheck1" v-model="fillC.local" required>
-                                            <label class="custom-control-label" for="gridCheck1">Local</label>
-                                        </div>-->
-                                        <div class="custom-control custom-checkbox custom-control-inline">
-                                            <input class="custom-control-input" type="checkbox" id="gridCheck1" v-model="newRegional">
-                                            <label class="custom-control-label" for="gridCheck1">Regional</label>   
-                                        </div>     
-                                        <div class="custom-control custom-checkbox custom-control-inline">          
-                                            <input class="custom-control-input" type="checkbox" id="gridCheck3" v-model="newWorld">
-                                            <label class="custom-control-label" for="gridCheck3">Mundial</label>   
-                                        </div>
-                                    </div>
-                                 </div> 
-                                 <div id="hidden_fields1">     
-                                    <div class="form-group row"> 
-                                        <div class="col-md-6"> 
-                                             <label for="">Pais</label>
-                                        <select2 :options="myCountries" v-model="fillC.country" ></select2>
-                                            <div class = " invalid-feedback ">Please fill out this field </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group row"> 
-                                    <div class="col"> 
-                                        <label for="name">Nombre</label>
-                                        <input type="text" name="name"  class="form-control" v-model="fillC.name" required>
-                                        <div class = " invalid-feedback ">Please fill out this field</div>
-                                    </div>
-                                    <div class="col"> 
-                                        <label for="description">Descripción</label>
-                                        <textarea  name="description" v-model="fillC.description" class="form-control"  maxlength="200" required></textarea>
-                                        <div class = " invalid-feedback ">Please fill out this field</div>
-                                    </div>
-                                </div>
-                                <div class="form-group row"> 
-                                    <div class="col"> 
-                                        <label for="">Categorias</label>
-                                        <select2 :options="categories" v-model="Category" @input="getSubcategories" required></select2>
-                                    </div>
-                                    <div class="col"> 
-                                        <label for="">Subcategorias</label>
-                                        <select2 :options="subcategories" v-model="newId_subcategories" required></select2>
-                                    </div>  
-                                </div>
-                                <div class="form-group row">
-                                    <div class="col-md-6"> 
-                                        <label for="subject">Tema</label>
-                                        <input type="text" name="subject" class="form-control" v-model="fillC.subject" required>
-                                        <div class = " invalid-feedback ">Please fill out this field</div>
-                                    </div>
-                                    <div class="col-md-6" v-for="(input,k) in inputs" :key="k"> 
-                                        <label for="objetive">Objetivo del tema</label>
-                                        <span>
-                                            <a href="#" class="badge badge-danger" @click.prevent="remove(k)" v-show="k || ( !k && inputs.length > 1)">-</a>
-                                            <a href="#" class="badge badge-primary" @click.prevent="add(k)" v-show="k == inputs.length-1">+</a>
-                                        </span>
-                                        <input type="text" name="objetive" class="form-control" v-model="fillC.objetive" required>
-                                        <div class = " invalid-feedback ">Please fill out this field</div>
-                                    </div>
-                                </div>
-                                <div class="form-group row"> 
-                                    <div  class="col"> 
-                                        <strong>Semana</strong>
-                                    </div>
-                                    <div class="col"> 
-                                        <strong>Horario</strong>
-                                    </div>
-                                </div>
-                                <div class="form-group row"> 
-                                    <div class="col-md-3"> 
-                                        <label for="fromW">Desde</label>
-                                        <input type="date" name="fromW" class="form-control" v-model="fillC.fromW" required>
-                                        <div class = " invalid-feedback ">Please fill out this field</div>
-                                    </div>
-                                    <div class="col-md-3"> 
-                                        <label for="toW">Hasta</label>
-                                        <input type="date" name="toW" class="form-control" v-model="fillC.toW" required>
-                                        <div class = " invalid-feedback ">Please fill out this field</div>
-                                    </div>
-                                    <div class="col-md-3"> 
-                                        <label for="">Desde</label>
-                                        <select2 :options="myOptions" v-model="fillC.fromH" required></select2>
-                                        <div class = " invalid-feedback ">Please fill out this field</div>
-                                    </div>
-                                    <div class="col-md-3"> 
-                                        <label for="">Hasta</label>
-                                        <select2 :options="myOptions" v-model="fillC.toH" required></select2>
-                                        <div class = " invalid-feedback ">Please fill out this field</div>
-                                    </div>
-                                </div>
-                                <div class="form-group row" v-for="(input,k) in inputs1" :key="k">
-                                    <div class="col-md-6"> 
-                                        <label for="quiz">Medicion</label>
-                                        <span>
-                                            <a href="#" class="badge badge-danger" @click.prevent="remove1(k)" v-show="k || ( !k && inputs1.length > 1)">-</a>
-                                            <a href="#" class="badge badge-primary" @click.prevent="add1(k)" v-show="k == inputs1.length-1">+</a>
-                                        </span>
-                                        <input type="text" name="quiz" class="form-control" v-model="fillC.quiz" required>
-                                        <div class = " invalid-feedback ">Please fill out this field</div>
-                                    </div> 
-                                    <div class="col-md-4"> 
-                                        <label for="indicator">Indicadores</label>
-                                        <input type="text" name="indicator" class="form-control" v-model="fillC.indicator" required>
-                                        <div class = " invalid-feedback ">Please fill out this field</div>
-                                    </div>
-                                    <div class="col-md-2"> 
-                                        <label for="percent">%</label>
-                                        <input type="number" name="percent" class="form-control" v-model="fillC.percent" required>
-                                        <div class = " invalid-feedback ">Please fill out this field</div>
-                                    </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <input type="submit" @click="updateClasses" class="btn btn-primary" value="Actualizar"> 
-                                </div>
-                            </div>
-                        </form>
+      </div>
+      <div class="modal fade bd-example-modal-xl" id="edit">
+        <div class="modal-dialog modal-xl">
+          <div class="modal-content">
+            <div class="card">
+              <h1 class="card-header">
+                Editar Curso
+                <button type="button" class="close" data-dismiss="modal">
+                  <span>&times;</span>
+                </button>
+              </h1>
+              <form class="needs-validation" novalidate>
+                <div class="card-body">
+                  <div class="form-group row">
+                    <div class="col-md-6">
+                      <label for="name">Nombre del curso</label>
+                      <input
+                        type="text"
+                        name="name"
+                        class="form-control"
+                        v-model="fillC.name"
+                        required
+                      />
+                      <div class="invalid-feedback">Please fill out this field</div>
                     </div>
+                    <div class="col-md-6">
+                      <label for="subject">Intensidad horaria acompañamiento dirigido</label>
+                      <input
+                        type="text"
+                        name="subject"
+                        class="form-control"
+                        v-model="fillC.intensityAC"
+                        required
+                      />
+                      <div class="invalid-feedback">Please fill out this field</div>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <div class="col-md-6">
+                      <label for="subject">Intensidad horaria trabajo autónomo</label>
+                      <input
+                        type="text"
+                        name="subject"
+                        class="form-control"
+                        v-model="fillC.intensityTA"
+                        required
+                      />
+                      <div class="invalid-feedback">Please fill out this field</div>
+                    </div>
+                    <div class="col">
+                      <label for>Metodología</label>
+                      <select2 :options="myOptions" v-model="metodology" required></select2>
+                    </div>
+                  </div>
+                  <div class="form-group mx-auto">
+                    <div align="center">
+                      <strong>Bienvenida</strong>
+                      <a
+                        tabindex="0"
+                        class="badge badge-info"
+                        role="button"
+                        data-toggle="popover"
+                        data-trigger="focus"
+                        title="Bienvenida"
+                        data-content="Es un texto redactado de manera cordial, cálida, precisa y breve cumpliendo como objetivo dar la bienvenida al curso e invitar al estudiante a su recorrido y cumplimiento de los objetivos propuestos."
+                      >
+                        <i class="fas fa-question"></i>
+                      </a>
+                    </div>
+                    <textarea name="welcome" class="form-control" v-model="fillC.welcome" required></textarea>
+                    <div class="invalid-feedback">Please fill out this field</div>
+                  </div>
+                  <div class="form-group mx-auto">
+                    <div align="center">
+                      <strong>Presentación del tutor</strong>
+                      <a
+                        tabindex="0"
+                        class="badge badge-info"
+                        role="button"
+                        data-toggle="popover"
+                        data-trigger="focus"
+                        title="Presentación del tutor"
+                        data-content="Se refiere al espacio en el cual se da a conocer los aspectos generales del autor/tutor del curso, trayectoria, experiencia y aspectos relevantes que generen credibilidad y calidad."
+                      >
+                        <i class="fas fa-question"></i>
+                      </a>
+                    </div>
+                    <textarea
+                      name="intentioned"
+                      class="form-control"
+                      v-model="fillC.presentation"
+                      required
+                    ></textarea>
+                    <div class="invalid-feedback">Please fill out this field</div>
+                  </div>
+                  <div class="form-group mx-auto">
+                    <div align="center">
+                      <strong>Intencion educativa</strong>
+                      <a
+                        tabindex="0"
+                        class="badge badge-info"
+                        role="button"
+                        data-toggle="popover"
+                        data-trigger="focus"
+                        title="Intencion educativa"
+                        data-content="Se refiere al espacio en el cual se da a conocer el proposito y objetivos del curso; debe ser escrita mediante un texto corto."
+                      >
+                        <i class="fas fa-question"></i>
+                      </a>
+                    </div>
+                    <textarea
+                      name="intentioned"
+                      class="form-control"
+                      v-model="fillC.intention"
+                      required
+                    ></textarea>
+                    <div class="invalid-feedback">Please fill out this field</div>
+                  </div>
+                  <div class="form-group mx-auto">
+                    <div align="center">
+                      <strong>Competencias</strong>
+                      <a
+                        tabindex="0"
+                        class="badge badge-info"
+                        role="button"
+                        data-toggle="popover"
+                        data-trigger="focus"
+                        title="Competencias"
+                        data-content="Competencias conceptuales, procedimentales y actitudinales."
+                      >
+                        <i class="fas fa-question"></i>
+                      </a>
+                    </div>
+                    <textarea
+                      name="competences"
+                      class="form-control"
+                      v-model="fillC.competences"
+                      required
+                    ></textarea>
+                    <div class="invalid-feedback">Please fill out this field</div>
+                  </div>
+                  <div class="form-group mx-auto">
+                    <div align="center">
+                      <strong>Logros</strong>
+                      <a
+                        tabindex="0"
+                        class="badge badge-info"
+                        role="button"
+                        data-toggle="popover"
+                        data-trigger="focus"
+                        title="Logros"
+                        data-content="Los logros se conciben como las metas a alcanzar al culminar el curso."
+                      >
+                        <i class="fas fa-question"></i>
+                      </a>
+                    </div>
+                    <textarea
+                      name="achievement"
+                      class="form-control"
+                      v-model="fillC.achievements"
+                      required
+                    ></textarea>
+                    <div class="invalid-feedback">Please fill out this field</div>
+                  </div>
+                  <div class="form-group mx-auto">
+                    <div align="center">
+                      <strong>Indicadores de Logro</strong>
+                      <a
+                        tabindex="0"
+                        class="badge badge-info"
+                        role="button"
+                        data-toggle="popover"
+                        data-trigger="focus"
+                        title="Indicadores de Logro"
+                        data-content="Los indicadores deben ser medibles y observables a través de los desempeños y correspondientes con la formulación de cada logro."
+                      >
+                        <i class="fas fa-question"></i>
+                      </a>
+                    </div>
+                    <textarea name="gold" class="form-control" v-model="fillC.indicatorA" required></textarea>
+                    <div class="invalid-feedback">Please fill out this field</div>
+                  </div>
+                  <div class="form-group mx-auto">
+                    <div align="center">
+                      <strong>Mapa tematico</strong>
+                      <a
+                        tabindex="0"
+                        class="badge badge-info"
+                        role="button"
+                        data-toggle="popover"
+                        data-trigger="focus"
+                        title="Mapa tematico"
+                        data-content="Consiste en una representacion grafica, clara, precisa y sintetica de los temas que componen el modulo de aprendizaje."
+                      >
+                        <i class="fas fa-question"></i>
+                      </a>
+                    </div>
+                    <input
+                      type="file"
+                      name="picture2"
+                      class="form-control"
+                      accept="image/*"
+                      required
+                    />
+                    <div class="invalid-feedback">Please fill out this field</div>
+                  </div>
+                  <div class="form-group mx-auto">
+                    <div align="center">
+                      <strong>Metodologia general del curso</strong>
+                      <a
+                        tabindex="0"
+                        class="badge badge-info"
+                        role="button"
+                        data-toggle="popover"
+                        data-trigger="focus"
+                        title="Metodologia general del curso"
+                        data-content="Debe contener la descripcion de la metodologia, las estrategias de aprendizaje, herramientas de interaccion y explicacion de acceso a los mismos y las reglas de convivencia virtual del curso."
+                      >
+                        <i class="fas fa-question"></i>
+                      </a>
+                    </div>
+                    <textarea
+                      name="metodology"
+                      class="form-control"
+                      v-model="fillC.metodologyG"
+                      required
+                    ></textarea>
+                    <div class="invalid-feedback">Please fill out this field</div>
+                  </div>
+                  <div class="form-group mx-auto">
+                    <div align="center">
+                      <strong>Descripción de las guías de actividades</strong>
+                      <a
+                        tabindex="0"
+                        class="badge badge-info"
+                        role="button"
+                        data-toggle="popover"
+                        data-trigger="focus"
+                        title="Descripción de las guías de actividades"
+                        data-content="Descripción general de las actividades que se van a desarrollar en las unidades"
+                      >
+                        <i class="fas fa-question"></i>
+                      </a>
+                    </div>
+                    <textarea
+                      name="objects"
+                      class="form-control"
+                      v-model="fillC.description"
+                      required
+                    ></textarea>
+                    <div class="invalid-feedback">Please fill out this field</div>
+                  </div>
+                  <div class="form-group mx-auto">
+                    <div align="center">
+                      <strong>Descripción de los objetos de evaluativos</strong>
+                      <a
+                        tabindex="0"
+                        class="badge badge-info"
+                        role="button"
+                        data-toggle="popover"
+                        data-trigger="focus"
+                        title="Descripción de los objetos de evaluativos"
+                        data-content="Descripción general de los objetos evaluativos en las actividades planteadas (vClass, Foro, Screen Casts, Webinars) que se van a desarrollar en las unidades"
+                      >
+                        <i class="fas fa-question"></i>
+                      </a>
+                    </div>
+                    <textarea
+                      name="objects"
+                      class="form-control"
+                      v-model="fillC.descriptionO"
+                      required
+                    ></textarea>
+                    <div class="invalid-feedback">Please fill out this field</div>
+                  </div>
+                  <div class="modal-footer">
+                    <input
+                      type="submit"
+                      @click.prevent="createCourses"
+                      class="btn btn-primary"
+                      value="Guardar"
+                    />
+                  </div>
                 </div>
+              </form>
             </div>
+          </div>
         </div>
+      </div>
     </div>
-</auto-responsive>
+  </auto-responsive>
 </template>
 <script>
 (function() {
-        'use strict';
-        window.addEventListener('load', function() {
-            // Fetch all the forms we want to apply custom Bootstrap validation styles to
-            var forms = document.getElementsByClassName('needs-validation');
-            // Loop over them and prevent submission
-            var validation = Array.prototype.filter.call(forms, function(form) {
-            form.addEventListener('submit', function(event) {
-                if (form.checkValidity() === false) {
-                    event.preventDefault();
-                    event.stopPropagation();
-                }
-                form.classList.add('was-validated');
-                }, false);
-            });
-        }, false);
+  "use strict";
+  window.addEventListener(
+    "load",
+    function() {
+      // Fetch all the forms we want to apply custom Bootstrap validation styles to
+      var forms = document.getElementsByClassName("needs-validation");
+      // Loop over them and prevent submission
+      var validation = Array.prototype.filter.call(forms, function(form) {
+        form.addEventListener(
+          "submit",
+          function(event) {
+            if (form.checkValidity() === false) {
+              event.preventDefault();
+              event.stopPropagation();
+            }
+            form.classList.add("was-validated");
+          },
+          false
+        );
+      });
+    },
+    false
+  );
 })();
-    $(function() {
-  
-        // Get the form fields and hidden div
-        var checkbox  = $("#gridCheck1");
-      
-        var hidden    = $("#hidden_fields1");
-        
- 
-        hidden.hide();
-        
-        checkbox.change(function() {
-            if (checkbox.is(':checked')) {
-            // Show the hidden fields.
-            hidden.show();
-        } else {
-            hidden.hide();
-        }
-        });
+$(function() {
+  // Get the form fields and hidden div
+  var checkbox = $("#gridCheck1");
+
+  var hidden = $("#hidden_fields1");
+
+  hidden.hide();
+
+  checkbox.change(function() {
+    if (checkbox.is(":checked")) {
+      // Show the hidden fields.
+      hidden.show();
+    } else {
+      hidden.hide();
+    }
+  });
 });
-import AutoResponsive from 'autoresponsive-vue';
+import AutoResponsive from "autoresponsive-vue";
 
 Vue.use(AutoResponsive);
 
 export default {
-   data() {
-        
-        return { 
-            inputs: [
-            {
-                name: ''
-            }
-            ],
-              inputs1: [
-            {
-                name: ''
-            }
-            ],
-            categories: [],
-            subcategories: [],
-            TypeUsers: [],
-            classes: [],
-            myOptions:['1:00','1:30','2:00','2:30','3:00','3:30','4:00','4:30','5:00','5:30','6:00','6:30','7:00','7:30','8:00','8:30','9:00','9:30','10:00','10:30','11:00','11:30','12:00','12:30','13:00','13:30','14:00','14:30','15:00','15:30','16:00','16:30','17:00','17:30','18:00','18:30','19:00','19:30','20:00','20:30','21:00','21:30','22:00','22:30','23:00','23:30','0:00','0:30'],
-            myCountries:['Afghanistan','Albania','Algeria','Andorra','Angola','Antigua and Barbuda','Argentina','Armenia','Australia','Austria','Azerbaijan','The Bahamas','Bahrain','Bangladesh','Barbados','Belarus','Belgium','Belize','Benin','Bhutan','Bolivia','Bosnia','Botswana','Brazil','Brunei','Bulgaria','Burkina Faso','Burundi','Cabo Verde','Cambodia','Cameroon','Canada','Central African Republic','Chad','Chile','China','Colombia','Comoros','Congo','Costa Rica','Cote d’Ivoire','Croatia','Cuba','Cyprus','Czech Republic','Denmark','Djibouti','Dominica','Dominican Republic','East Timor (Timor-Leste)','Ecuador','Egypt','El Salvador','Equatorial Guinea','Eritrea','Estonia','Eswatini','Ethiopia','Fiji','Finland','France','Gabon','The Gambia','Georgia','Germany','Ghana','Greece','Grenada','Guatemala','Guinea','Guinea-Bissau','Guyana','Haiti','Honduras','Hungary','Iceland','India','Indonesia','Iran','Iraq','Ireland','Israel','Italy','Jamaica','Japan','Jordan','Kazakhstan','Kenya','Kiribati','Korea North','Korea South','Kosovo','Kuwait','Kyrgyzstan','Laos','Latvia','Lebanon','Lesotho','Liberia','Libya','Liechtenstein','Lithuania','Luxembourg','Madagascar','Malawi','Malaysia','Maldives','Mali','Malta','Marshall Islands','Mauritania','Mauritius','Mexico','Moldova','Monaco','Mongolia','Montenegro','Morocco','Mozambique','Myanmar (Burma)','Namibia','Nauru','Nepal','Netherlands','New Zealand','Nicaragua','Niger','Nigeria','North Macedonia','Norway','Oman','Pakistan','Palau','Panama','Papua New Guinea','Paraguay','Peru','Philippines','Poland','Portugal','Qatar','Romania','Russia','Rwanda','Saint Kitts and Nevis','Saint Lucia','Saint Vincent and the Grenadines','Samoa','San Marino','Sao Tome and Principe','Saudi Arabia','Senegal','Serbia','Seychelles','Sierra Leone','Singapore','Slovakia','Slovenia','Solomon Islands','Somalia','South Africa','Spain','Sri Lanka','Sudan','Sudan South','Suriname','Sweden','Switzerland','Syria','Taiwan','Tajikistan','Tanzania','Thailand','Togo','Tonga','Trinidad and Tobago','Tunisia','Turkey','Turkmenistan','Tuvalu','Uganda','Ukraine','United Arab Emirates','United Kingdom','United States','Uruguay','Uzbekistan','Vanuatu','Vatican City','Venezuela','Vietnam','Yemen','Zambia','Zimbabwe'],
-            newDescription: '',
-            newName: '',
-            newId_subcategories: '',
-            newSubject: '',
-            newObjetive: '',
-            newFromW: '',
-            newToW: '',
-            newFromH: '',
-            newToH: '',
-            newQuiz: '',
-            newIndicator: '',
-            newPercent: '',
-            newLocal: '',
-            newRegional: '',
-            newContry:'',
-            newWorld: '',
-            newId_user:'',
-            fillC: {'id': '', 'name': '','description': '','id_user':'', 'id_category':'', 'id_subcategory':'','subject':'', 'objetive':'', 'fromW':'', 'toW':'', 'fromH':'', 'toH':'', 'quiz':'',  'indicator': '', 'percent': '', 'local': '', 'regional': '', 'world': ''},
-            errors: [],
+  data() {
+    return {
+      inputs: [
+        {
+          name: ""
         }
-        
+      ],
+      inputs1: [
+        {
+          name: ""
+        }
+      ],
+      categories: [],
+      subcategories: [],
+      TypeUsers: [],
+      courses: [],
+      myOptions: [
+        "1:00",
+        "1:30",
+        "2:00",
+        "2:30",
+        "3:00",
+        "3:30",
+        "4:00",
+        "4:30",
+        "5:00",
+        "5:30",
+        "6:00",
+        "6:30",
+        "7:00",
+        "7:30",
+        "8:00",
+        "8:30",
+        "9:00",
+        "9:30",
+        "10:00",
+        "10:30",
+        "11:00",
+        "11:30",
+        "12:00",
+        "12:30",
+        "13:00",
+        "13:30",
+        "14:00",
+        "14:30",
+        "15:00",
+        "15:30",
+        "16:00",
+        "16:30",
+        "17:00",
+        "17:30",
+        "18:00",
+        "18:30",
+        "19:00",
+        "19:30",
+        "20:00",
+        "20:30",
+        "21:00",
+        "21:30",
+        "22:00",
+        "22:30",
+        "23:00",
+        "23:30",
+        "0:00",
+        "0:30"
+      ],
+      myCountries: [
+        "Afghanistan",
+        "Albania",
+        "Algeria",
+        "Andorra",
+        "Angola",
+        "Antigua and Barbuda",
+        "Argentina",
+        "Armenia",
+        "Australia",
+        "Austria",
+        "Azerbaijan",
+        "The Bahamas",
+        "Bahrain",
+        "Bangladesh",
+        "Barbados",
+        "Belarus",
+        "Belgium",
+        "Belize",
+        "Benin",
+        "Bhutan",
+        "Bolivia",
+        "Bosnia",
+        "Botswana",
+        "Brazil",
+        "Brunei",
+        "Bulgaria",
+        "Burkina Faso",
+        "Burundi",
+        "Cabo Verde",
+        "Cambodia",
+        "Cameroon",
+        "Canada",
+        "Central African Republic",
+        "Chad",
+        "Chile",
+        "China",
+        "Colombia",
+        "Comoros",
+        "Congo",
+        "Costa Rica",
+        "Cote d’Ivoire",
+        "Croatia",
+        "Cuba",
+        "Cyprus",
+        "Czech Republic",
+        "Denmark",
+        "Djibouti",
+        "Dominica",
+        "Dominican Republic",
+        "East Timor (Timor-Leste)",
+        "Ecuador",
+        "Egypt",
+        "El Salvador",
+        "Equatorial Guinea",
+        "Eritrea",
+        "Estonia",
+        "Eswatini",
+        "Ethiopia",
+        "Fiji",
+        "Finland",
+        "France",
+        "Gabon",
+        "The Gambia",
+        "Georgia",
+        "Germany",
+        "Ghana",
+        "Greece",
+        "Grenada",
+        "Guatemala",
+        "Guinea",
+        "Guinea-Bissau",
+        "Guyana",
+        "Haiti",
+        "Honduras",
+        "Hungary",
+        "Iceland",
+        "India",
+        "Indonesia",
+        "Iran",
+        "Iraq",
+        "Ireland",
+        "Israel",
+        "Italy",
+        "Jamaica",
+        "Japan",
+        "Jordan",
+        "Kazakhstan",
+        "Kenya",
+        "Kiribati",
+        "Korea North",
+        "Korea South",
+        "Kosovo",
+        "Kuwait",
+        "Kyrgyzstan",
+        "Laos",
+        "Latvia",
+        "Lebanon",
+        "Lesotho",
+        "Liberia",
+        "Libya",
+        "Liechtenstein",
+        "Lithuania",
+        "Luxembourg",
+        "Madagascar",
+        "Malawi",
+        "Malaysia",
+        "Maldives",
+        "Mali",
+        "Malta",
+        "Marshall Islands",
+        "Mauritania",
+        "Mauritius",
+        "Mexico",
+        "Moldova",
+        "Monaco",
+        "Mongolia",
+        "Montenegro",
+        "Morocco",
+        "Mozambique",
+        "Myanmar (Burma)",
+        "Namibia",
+        "Nauru",
+        "Nepal",
+        "Netherlands",
+        "New Zealand",
+        "Nicaragua",
+        "Niger",
+        "Nigeria",
+        "North Macedonia",
+        "Norway",
+        "Oman",
+        "Pakistan",
+        "Palau",
+        "Panama",
+        "Papua New Guinea",
+        "Paraguay",
+        "Peru",
+        "Philippines",
+        "Poland",
+        "Portugal",
+        "Qatar",
+        "Romania",
+        "Russia",
+        "Rwanda",
+        "Saint Kitts and Nevis",
+        "Saint Lucia",
+        "Saint Vincent and the Grenadines",
+        "Samoa",
+        "San Marino",
+        "Sao Tome and Principe",
+        "Saudi Arabia",
+        "Senegal",
+        "Serbia",
+        "Seychelles",
+        "Sierra Leone",
+        "Singapore",
+        "Slovakia",
+        "Slovenia",
+        "Solomon Islands",
+        "Somalia",
+        "South Africa",
+        "Spain",
+        "Sri Lanka",
+        "Sudan",
+        "Sudan South",
+        "Suriname",
+        "Sweden",
+        "Switzerland",
+        "Syria",
+        "Taiwan",
+        "Tajikistan",
+        "Tanzania",
+        "Thailand",
+        "Togo",
+        "Tonga",
+        "Trinidad and Tobago",
+        "Tunisia",
+        "Turkey",
+        "Turkmenistan",
+        "Tuvalu",
+        "Uganda",
+        "Ukraine",
+        "United Arab Emirates",
+        "United Kingdom",
+        "United States",
+        "Uruguay",
+        "Uzbekistan",
+        "Vanuatu",
+        "Vatican City",
+        "Venezuela",
+        "Vietnam",
+        "Yemen",
+        "Zambia",
+        "Zimbabwe"
+      ],
+      newDescription: "",
+      newName: "",
+      newId_category: "",
+      newId_subcategories: "",
+      newMethodologyG: "",
+      newType: "",
+      newIntensityAC: "",
+      newIndicatorA: "",
+      newIntensityTA: "",
+      newWelcome: "",
+      newPresentation: "",
+      newIntention: "",
+      newCompetences: "",
+      newAchievement: "",
+      newMap: "",
+      newDescriptionO: "",
+      metodology: "",
+      newState: "",
+      newPublish: "",
+      fillC: {
+        id: "",
+        name: "",
+        description: "",
+        id_user: "",
+        id_category: "",
+        id_subcategory: "",
+        intensityAC: "",
+        intensityTA: "",
+        methodology: "",
+        methodologyG: "",
+        welcome: "",
+        presentation: "",
+        intention: "",
+        competences: "",
+        achievement: "",
+        indicatorA: "",
+        map: "",
+        type: "",
+        descriptionO: "",
+        state: "",
+        publish: ""
+      },
+      errors: []
+    };
+  },
+  created() {
+    this.getClasses();
+  },
+  mounted() {
+    var urlsel = "GetCategories";
+    axios.get(urlsel).then(response => {
+      this.categories = response.data;
+    });
+    var urlsel = "GetTypeU";
+    axios.get(urlsel).then(response => {
+      this.TypeUsers = response.data;
+    });
+    console.log("Component mounted.");
+  },
+  methods: {
+    add(index) {
+      this.inputs.push({ name: "" });
     },
-    created() {
-        this.getClasses();
+    remove(index) {
+      this.inputs.splice(index, 1);
     },
-    mounted() {
-        var urlsel = 'GetCategories';
-        axios.get(urlsel).then((response)=>{
-            this.categories = response.data;
+    add1(index) {
+      this.inputs1.push({ name: "" });
+    },
+    remove1(index) {
+      this.inputs1.splice(index, 1);
+    },
+    getClasses() {
+      var urlr = "courses";
+      axios.get(urlr).then(response => {
+        this.courses = response.data;
+      });
+    },
+    editClasses(cour) {
+      this.fillC.id = cour.id;
+      this.fillC.name = cour.name;
+      this.fillC.intensityAC = cour.intensityAC;
+      this.fillC.intensityTA = cour.intensityTA;
+      this.fillC.welcome = cour.welcome;
+      this.fillC.presentation = cour.presentation;
+      this.fillC.intention = cour.intention;
+      this.fillC.competences = cour.competences;
+      this.fillC.achievement = cour.achievement;
+      this.fillC.indicatorA = cour.indicatorA;
+      this.fillC.methodologyG = cour.methodologyG;
+      this.fillC.description = cour.description;
+      this.fillC.descriptionO = cour.descriptionO;
+      $("#edit").modal("show");
+    },
+    updateClasses(id) {
+      var url = "courses/" + id;
+      axios
+        .put(url, this.fillC)
+        .then(response => {
+          this.getClasses();
+          (this.fillC = {
+            id: "",
+            name: "",
+            description: "",
+            id_user: "",
+            id_category: "",
+            id_subcategory: "",
+            intensityAC: "",
+            intensityTA: "",
+            methodology: "",
+            methodologyG: "",
+            welcome: "",
+            presentation: "",
+            intention: "",
+            competences: "",
+            achievement: "",
+            indicatorA: "",
+            map: "",
+            type: "",
+            descriptionO: "",
+            state: "",
+            publish: ""
+          }),
+            (this.errors = []);
+          $("#edit").modal("hide");
+          toastr.success("curso editado exitosamente");
+        })
+        .catch(error => {
+          this.errors = error.response.data;
         });
-        var urlsel = 'GetTypeU';
-        axios.get(urlsel).then((response)=>{
-            this.TypeUsers = response.data;
-        });
-        console.log("Component mounted.");
     },
-    methods: {
-        add(index) {
-            this.inputs.push({ name: '' });
-           
-        },
-        remove(index) {
-            this.inputs.splice(index, 1);
-        },
-         add1(index) {
-            this.inputs1.push({ name: '' });
-           
-        },
-        remove1(index) {
-            this.inputs1.splice(index, 1);
-        },
-        getClasses(){
-            var urlr = 'classes';
-            axios.get(urlr).then(response=> {
-                this.classes = response.data
-            });
-        },
-        editClasses(clas){
-            this.fillC.id = clas.id;
-            this.fillC.description = clas.description;
-            this.fillC.name = clas.name;
-            this.fillC.id_user = clas.id_user;
-            this.fillC.id_category = clas.id_category;
-            this.fillC.id_subcategory = clas.id_subcategory;
-            this.fillC.subject = clas.subject;
-            this.fillC.objetive = clas.objetive;
-            this.fillC.fromW = clas.fromW;
-            this.fillC.toW = clas.toW;
-            this.fillC.fromH = clas.fromH;
-            this.fillC.toH = clas.toH;
-            this.fillC.quiz = clas.quiz;
-            this.fillC.indicator = clas.indicator;
-            this.fillC.percent = clas.percent;
-            this.fillC.local = clas.local;
-            this.fillC.regional = clas.regional;
-            this.fillC.world = clas.world;
-            $('#edit').modal('show');
-        },
-        updateClasses(id) {
-            var url = 'classes/'+ id;
-            axios.put(url, this.fillC).then(response=> {
-                this.getClasses();
-                this.fillC= {'id': '', 'name': '','description': '','id_user':'','id_category':'', 'id_subcategory':'','subject':'', 'objetive':'', 'fromW':'', 'toW':'', 'fromH':'', 'toH':'', 'quiz':'',  'indicator': '', 'percent': '', 'local': '', 'regional': '', 'world': ''},
-                this.errors = [];
-                $('#edit').modal('hide');
-                toastr.success('Class successfully edited');
-                }).catch(error => {
-                this.errors = error.response.data
-                });
-        },
-        deleteClasses(clas) {
-            var url = 'classes/' + clas.id;
-            axios.delete(url).then(response=>{ // eliminar
-                this.getClasses(); //lista
-                toastr.success('Successfully removed');//mensaje
-            });
-        },
-        createClasses() {
-            var url = 'classes';
-            this.newId_user= 36;
-            axios.post(url, {
-                id_user     :this.newId_user,
-                description :this.newDescription,
-                name    :this.newName,
-                id_category:this.Category,
-                id_subcategory:this.newId_subcategories,
-                subject:this.newSubject,
-                objetive:this.newObjetive, 
-                fromW:this.newFromW,
-                toW:this.newToW,
-                fromH:this.newFromH,
-                toH:this.newToH,   
-                quiz:this.newQuiz,
-                indicator:this.newIndicator,
-                percent:this.newPercent,
-                local:this.newLocal,
-                regional:this.newRegional,
-                world:this.newWorld
-            }).then(response => {
-                this.getClasses();
-                this.newDescription = '';
-                this.newId_user = '';
-                this.newName = '';
-                this.newId_subcategories = '';
-                this.newSubject = '';
-                this.newObjetive = '';
-                this.newToW = '';
-                this.newFromW= '';
-                this.newFormH = '';
-                this.newToH = '';
-                this.newQuiz = '';
-                this.newIndicator = '';
-                this.newPercent = '';
-                this.newLocal = '';
-                this.newRegional = '';
-                this.newContry= '';
-                this.newWorld = '';
-                this.errors = [];
-                $('#create').modal('hide');
-                toastr.success('New class created successfully');
-                }).catch(error => {
-                this.errors = error.response.data
-                });
-            },
-            getSubcategories(){
-                var urlse = 'GetSubcategories/'+this.Category;
-                axios.get(urlse).then((response)=>{
-                this.subcategories = response.data;  
-                });
-            },
- }
-    
-}
+    deleteClasses(cour) {
+      var url = "courses/" + cour.id;
+      this.fillC.state = "Edited";
+      axios.put(url, this.fillC).then(response => {
+        // eliminar
+        this.getClasses(); //lista
+        (this.fillC = {
+          description: "",
+          state: ""
+        }),
+          toastr.success("Successfully removed"); //mensaje
+      });
+    },
+    getSubcategories() {
+      var urlse = "GetSubcategories/" + this.Category;
+      axios.get(urlse).then(response => {
+        this.subcategories = response.data;
+      });
+    }
+  }
+};
 </script>
 <style>
-.background1{
-  background: url(http://localhost/Life4teach_project/resources/js/assets/img/Fondo1.jpg);
-  background-attachment: fixed;
+.background2 {
+  background: url(http://localhost/Life4teach_project/resources/js/assets/img/Fondo5.jpg);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  position: relative;
 }
 </style>
