@@ -12,7 +12,7 @@
       </vueper-slides>
     </div>
     <div align="center">
-      <img src="http://localhost/Life4teach_project/resources/js/assets/img/Computer1.png">
+      <img src="http://localhost/Life4teach_project/resources/js/assets/img/Computer1.png" />
       <h1>AULA VIRTUAL</h1>
       <b-container fluid class="p-4 bg-light">
         <b-row>
@@ -20,7 +20,7 @@
             <b-img
               thumbnail
               fluid
-              src="http://localhost/Life4teach_project/resources/js/assets/img/Icono_chat.png"
+              src="http://localhost/Life4teach_project/resources/js/assets/img/Chat-icono.png"
               rounded="circle"
               width="75"
               height="75"
@@ -31,7 +31,7 @@
             <b-img
               thumbnail
               fluid
-              src="http://localhost/Life4teach_project/resources/js/assets/img/Icono1_video.png"
+              src="http://localhost/Life4teach_project/resources/js/assets/img/VIdeo-icono.png"
               rounded="circle"
               width="75"
               height="75"
@@ -42,7 +42,7 @@
             <b-img
               thumbnail
               fluid
-              src="http://localhost/Life4teach_project/resources/js/assets/img/Icono_foro.png"
+              src="http://localhost/Life4teach_project/resources/js/assets/img/Icono_foro1.png"
               rounded="circle"
               width="75"
               height="75"
@@ -53,7 +53,7 @@
             <b-img
               thumbnail
               fluid
-              src="http://localhost/Life4teach_project/resources/js/assets/img/Icono_Pizarra.png"
+              src="http://localhost/Life4teach_project/resources/js/assets/img/Icono_Pizarra1.png"
               rounded="circle"
               width="85"
               height="85"

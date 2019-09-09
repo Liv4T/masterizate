@@ -1,9 +1,9 @@
 <template>
   <auto-responsive>
-    <div class="background1">
+    <div class="back">
       <div class="row">
         <div class="col-md-11 mx-auto">
-          <div class="card text-center">
+          <div class="custom-card text-center">
             <h3 class="card-header">Cuestionario</h3>
             <form class="needs-validation" novalidate>
               <div class="card-body">
@@ -73,7 +73,7 @@
                         />
                       </div>
                       <div class="col">
-                        <strong>Respuesta Correcta</strong>
+                        <label>Respuesta Correcta</label>
                         <br />
                         <div class="custom-control custom-checkbox custom-control-inline">
                           <input
@@ -96,6 +96,83 @@
                         </div>
                       </div>
                       <div class="invalid-feedback">Please fill out this field</div>
+                    </div>
+                  </div>
+                  <div
+                    v-show="newActivity=='Cuestionario 4 opciones'"
+                    v-for="(input,k) in inputs"
+                    :key="k"
+                  >
+                    <div class="form-group row mx-auto">
+                      <div class="col-md-6">
+                        <label for="name">Pregunta</label>
+                        <span>
+                          <a
+                            href="#"
+                            class="badge badge-danger"
+                            @click.prevent="remove(k)"
+                            v-show="k || ( !k && inputs.length > 1)"
+                          >-</a>
+                          <a
+                            href="#"
+                            class="badge badge-primary"
+                            @click.prevent="add(k)"
+                            v-show="k == inputs.length-1"
+                          >+</a>
+                        </span>
+                        <input
+                          type="text"
+                          name="objetive1"
+                          class="form-control"
+                          v-model="input.name"
+                          required
+                        />
+                      </div>
+                      <div class="col-md-6">
+                        <label>Respuesta Correcta</label>
+                        <input
+                          type="text"
+                          name="objetive1"
+                          class="form-control"
+                          v-model="input.name"
+                          required
+                        />
+                      </div>
+                      <div class="invalid-feedback">Please fill out this field</div>
+                    </div>
+                    <div class="form-group row mx-auto">
+                      <div class="col-md-6">
+                        <label for>Opción 1</label>
+                        <input
+                          type="text"
+                          name="objetive1"
+                          class="form-control"
+                          v-model="input.name"
+                          required
+                        />
+                      </div>
+                      <div class="col-md-6">
+                        <label for>Opción 2</label>
+                        <input
+                          type="text"
+                          name="objetive1"
+                          class="form-control"
+                          v-model="input.name"
+                          required
+                        />
+                      </div>
+                    </div>
+                    <div class="form-group row mx-auto">
+                      <div class="col-md-6">
+                        <label for>Opción 3</label>
+                        <input
+                          type="text"
+                          name="objetive1"
+                          class="form-control"
+                          v-model="input.name"
+                          required
+                        />
+                      </div>
                     </div>
                   </div>
                   <div class="modal-footer">
@@ -136,38 +213,6 @@
     false
   );
 })();
-$(function() {
-  // Get the form fields and hidden div
-  var checkbox = $("#gridCheck1");
-  var checkbox1 = $("#gridCheck2");
-
-  var hidden = $("#hidden_fields1");
-  var hidden1 = $("#hidden_fields2");
-
-  hidden.hide();
-  hidden1.hide();
-
-  checkbox.change(function() {
-    if (checkbox.is(":checked")) {
-      // Show the hidden fields.
-
-      hidden.show();
-    } else {
-      hidden.hide();
-      checkbox1.show();
-    }
-  });
-  checkbox1.change(function() {
-    if (checkbox.is(":checked")) {
-      // Show the hidden fields.
-      checkbox.disabled = false;
-      hidden.show();
-    } else {
-      hidden.hide();
-      checkbox.show();
-    }
-  });
-});
 import AutoResponsive from "autoresponsive-vue";
 
 Vue.use(AutoResponsive);
@@ -378,8 +423,4 @@ export default {
 };
 </script>
 <style>
-.background1 {
-  background: url(http://localhost/Life4teach_project/resources/js/assets/img/Fondo5.jpg);
-  background-attachment: fixed;
-}
 </style>

@@ -7,11 +7,11 @@
             <h3 class="card-header">Actividad</h3>
             <div class="card-body">
               <div class="form-group row float-right">
-                <div class="col-md-3">
+                <div class="col-md-4">
                   <a href="/listactivity" class="btn btn-primary">Crear</a>
                 </div>
                 <div class="col-md-7">
-                  <a href="#" class="btn btn-primary">Crear Cuestionario</a>
+                  <a href="/category" class="btn btn-primary">Cuestionario</a>
                 </div>
               </div>
               <table class="table table-responsive table-hover table-striped center">
@@ -19,7 +19,7 @@
                   <tr>
                     <th>N°</th>
                     <th>Nombre del curso</th>
-                    <th>Nombre de la actividad</th>
+                    <th>Tema</th>
                     <th>Tipo de Actividad</th>
                     <th>Fecha de entrega limite</th>
                     <th>Fecha de retroalimentación</th>

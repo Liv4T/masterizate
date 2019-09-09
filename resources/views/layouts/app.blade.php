@@ -30,10 +30,13 @@
   <body>
       
     <div id="app">
+        <nav class="navbar bg-warning">
+            <a class="mx-auto" href="/ccourse">Oferta del mes:Adquiere tu curso de marketing digital por $150.000</a>  
+        </nav>
         <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('Life4teach', 'Live4teach') }}
+                    {{ config('Life4teach') }}
                     <b-img thumbnail fluid src="{{asset('images/LOGO-L4T-web.png')}}" rounded="circle" width="75" height="75" alt="4"></b-img>
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -58,9 +61,7 @@
                         <li class="nav-item">
                             <a class="nav-link" href="/type">Tipos</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/board">Aula Virtual</a>
-                        </li>
+                       
                         <li class="nav-item">
                             <a class="nav-link" href="/class">Curso</a>
                         </li>
@@ -68,7 +69,13 @@
                             <a class="nav-link" href="/resume">Hoja de Vida</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" href="/vactivity">Actividad</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="/evaluation">Evaluación</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/consult">Consultas</a>
                         </li>
                     </ul>
                     @endif
@@ -83,6 +90,9 @@
                             <a class="nav-link" href="/class">Curso</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" href="/vactivity">Actividad</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="/evaluation">Evaluación</a>
                         </li>
                         
@@ -91,6 +101,7 @@
                         <li class="nav-item">
                             <a class="nav-link" href="/type">Curso</a>
                         </li>
+                        <!-- En modificacion el aula virtual con el webinar y las actividades-->
                         <li class="nav-item">
                             <a class="nav-link" href="/board">Aula Virtual</a>
                         </li>                        
@@ -141,5 +152,14 @@
     position: sticky;
     top: 0;
     z-index: 1020;
+}
+
+.navbar a {
+  float: left;
+  display: block;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
 }
 </style>

@@ -38,19 +38,18 @@
                         type="text"
                         name="name"
                         class="form-control"
-                        v-model="newName"
+                        v-model="newPlataform"
                         required
                       />
                       <div class="invalid-feedback">Please fill out this field</div>
                     </div>
                     <div class="col" align="center">
                       <strong>Duracion estimada trabajo autonomo</strong>
-
                       <input
                         type="text"
                         name="name"
                         class="form-control"
-                        v-model="newName"
+                        v-model="newWork"
                         required
                       />
                       <div class="invalid-feedback">Please fill out this field</div>
@@ -59,27 +58,37 @@
                   <div class="form-group mx-auto">
                     <div align="center">
                       <strong>Contextualizacion del tema</strong>
+                      <a
+                        tabindex="0"
+                        class="badge badge-info"
+                        role="button"
+                        data-toggle="popover"
+                        data-trigger="focus"
+                        title="Contextualizacion del tema"
+                        data-content="Redactar la contextualización del tema a la que se va a referir la actividad planteada"
+                      >
+                        <i class="fas fa-question"></i>
+                      </a>
                     </div>
-                    <textarea
-                      name="welcome"
-                      class="form-control"
-                      v-model="newFromW"
-                      placeholder=" Se refiere al espacio en el cual se da a conocer el proposito de la unidad; debe ser escrita mediante un texto corto."
-                      required
-                    ></textarea>
+                    <textarea name="welcome" class="form-control" v-model="newFromW" required></textarea>
                     <div class="invalid-feedback">Please fill out this field</div>
                   </div>
                   <div class="form-group mx-auto">
                     <div align="center">
                       <strong>Actividad</strong>
+                      <a
+                        tabindex="0"
+                        class="badge badge-info"
+                        role="button"
+                        data-toggle="popover"
+                        data-trigger="focus"
+                        title="Actividad"
+                        data-content="Describir de forma clara y sencilla la actividad que debe realizar de acuerdo con el tema y el propósito a evaluar. (referir cuales son los recursos con los que cuenta el estudiante, Ej. Videos, lecturas, vClass y otros)"
+                      >
+                        <i class="fas fa-question"></i>
+                      </a>
                     </div>
-                    <textarea
-                      name="welcome"
-                      class="form-control"
-                      v-model="newFromW"
-                      placeholder=" Se refiere al espacio en el cual se da a conocer el proposito de la unidad; debe ser escrita mediante un texto corto."
-                      required
-                    ></textarea>
+                    <textarea name="welcome" class="form-control" v-model="newFromW" required></textarea>
                     <div class="invalid-feedback">Please fill out this field</div>
                   </div>
                   <div align="center">
@@ -93,7 +102,7 @@
                         name="name"
                         class="form-control"
                         placeholder="TR 1."
-                        v-model="newName"
+                        v-model="newTR1"
                         required
                       />
                       <input
@@ -101,7 +110,7 @@
                         name="name"
                         class="form-control"
                         placeholder="TR 2."
-                        v-model="newName"
+                        v-model="newTR2"
                         required
                       />
                       <input
@@ -109,7 +118,7 @@
                         name="name"
                         class="form-control"
                         placeholder="TR 3."
-                        v-model="newName"
+                        v-model="newTR3"
                         required
                       />
                       <div class="invalid-feedback">Please fill out this field</div>
@@ -121,7 +130,7 @@
                         name="name"
                         class="form-control"
                         placeholder="OR 1."
-                        v-model="newName"
+                        v-model="newOR1"
                         required
                       />
                       <input
@@ -129,7 +138,7 @@
                         name="name"
                         class="form-control"
                         placeholder="OR 2."
-                        v-model="newName"
+                        v-model="newOR2"
                         required
                       />
                       <input
@@ -137,7 +146,7 @@
                         name="name"
                         class="form-control"
                         placeholder="OR 3."
-                        v-model="newName"
+                        v-model="newOR3"
                         required
                       />
                       <div class="invalid-feedback">Please fill out this field</div>
@@ -146,14 +155,19 @@
                   <div class="form-group mx-auto">
                     <div align="center">
                       <strong>Entregables</strong>
+                      <a
+                        tabindex="0"
+                        class="badge badge-info"
+                        role="button"
+                        data-toggle="popover"
+                        data-trigger="focus"
+                        title="Entregables"
+                        data-content="Describir de forma clara y sencilla los entregables que debe enviar el estudiante al tutor de acuerdo con el tema y el propósito a evaluar."
+                      >
+                        <i class="fas fa-question"></i>
+                      </a>
                     </div>
-                    <textarea
-                      name="welcome"
-                      class="form-control"
-                      v-model="newFromW"
-                      placeholder=" Se refiere al espacio en el cual se da a conocer el proposito de la unidad; debe ser escrita mediante un texto corto."
-                      required
-                    ></textarea>
+                    <textarea name="welcome" class="form-control" v-model="newFromW" required></textarea>
                     <div class="invalid-feedback">Please fill out this field</div>
                   </div>
 
@@ -169,7 +183,7 @@
                             name="name"
                             class="form-control"
                             placeholder="CE 1."
-                            v-model="newName"
+                            v-model="newCE1"
                             required
                           />
                         </td>
@@ -177,8 +191,8 @@
                           <textarea
                             name="welcome"
                             class="form-control"
-                            placeholder="RA 1."
-                            v-model="newFromW"
+                            placeholder="EA 1."
+                            v-model="newEA1"
                             required
                           ></textarea>
                         </th>
@@ -190,7 +204,7 @@
                             name="name"
                             class="form-control"
                             placeholder="CE 2."
-                            v-model="newName"
+                            v-model="newCE2"
                             required
                           />
                         </td>
@@ -202,7 +216,7 @@
                             name="name"
                             class="form-control"
                             placeholder="CE 3."
-                            v-model="newName"
+                            v-model="newCE3"
                             required
                           />
                         </td>

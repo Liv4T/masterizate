@@ -20,7 +20,7 @@
       crossorigin="anonymous"
     />
   </head>
-  <div class="background2">
+  <div class="back">
     <div class="row">
       <div class="col-md-11 mx-auto">
         <div class="custom-card text-center">
@@ -95,7 +95,7 @@
                         data-toggle="popover"
                         data-trigger="focus"
                         title="Bienvenida"
-                        data-content="Es un texto redactado de manera cordial, cálida, precisa y breve cumpliendo como objetivo dar la bienvenida al curso e invitar al estudiante a su recorrido y cumplimiento de los objetivos propuestos."
+                        data-content="Es un texto redactado de manera cordial, cálida, precisa y breve cumpliendo como objetivo dar la bienvenida al curso e invitar al estudiante a su recorrido y cumplimiento de los objetivos propuestos. Parte importante del mismo es hacer explícita la disposición del tutor en colaborar, apoyar y acompañar el proceso educativo."
                       >
                         <i class="fas fa-question"></i>
                       </a>
@@ -136,7 +136,7 @@
                         data-toggle="popover"
                         data-trigger="focus"
                         title="Intencion educativa"
-                        data-content="Se refiere al espacio en el cual se da a conocer el proposito y objetivos del curso; debe ser escrita mediante un texto corto."
+                        data-content="Se refiere al espacio en el cual se da a conocer el propósito y objetivos del curso; debe ser escrita mediante un texto corto. La intención educativa describe el plan de formación que ha sido proyectado por el tutor y qué se alcanza satisfactoriamente cuando se haya cumplido en su totalidad, así como su aplicación tanto a la vida profesional como personal."
                       >
                         <i class="fas fa-question"></i>
                       </a>
@@ -159,7 +159,7 @@
                         data-toggle="popover"
                         data-trigger="focus"
                         title="Competencias"
-                        data-content="Competencias conceptuales, procedimentales y actitudinales."
+                        data-content="Competencias conceptuales, procedimentales y actitudinales. Redacción: Verbo + Objeto + Condición. Ejemplo: Crear + producciones electrónicas de radio, cine y televisión + para el público en general y específico."
                       >
                         <i class="fas fa-question"></i>
                       </a>
@@ -182,7 +182,7 @@
                         data-toggle="popover"
                         data-trigger="focus"
                         title="Logros"
-                        data-content="Los logros se conciben como las metas a alcanzar al culminar el curso."
+                        data-content="Los logros se conciben como las metas a alcanzar al culminar el curso, por ello deben ser  “logrables” y “enseñables-alcanzables”.Redacción: Sujeto (la persona a la que se va a evaluar) + Verbo + Complemento. Ejemplo: El estudiante + clasifica + los números.Redactar el  logro o logros para cada competencia enunciada."
                       >
                         <i class="fas fa-question"></i>
                       </a>
@@ -205,7 +205,7 @@
                         data-toggle="popover"
                         data-trigger="focus"
                         title="Indicadores de Logro"
-                        data-content="Los indicadores deben ser medibles y observables a través de los desempeños y correspondientes con la formulación de cada logro."
+                        data-content="Los indicadores deben ser medibles y observables a través de los desempeños y correspondientes con la formulación de cada logro.Redacción: Sujeto + Verbo expresivo + Complemento del verbo expresivo + Verbo pedagógico + Complemento del verbo pedagógico + Contexto de la tarea + Criterio de valoración de la acción.Ejemplo: El estudiante  + elabora + en forma clara y resumida + en un esquema + los hechos que llevaron a la concepción de las expresiones algebraicas + ordenándolos + cronológicamente.Redactar el indicador o indicadores para cada logro enunciado."
                       >
                         <i class="fas fa-question"></i>
                       </a>
@@ -328,7 +328,7 @@
                       data-toggle="popover"
                       data-trigger="focus"
                       title="Presentación de la unidad"
-                      data-content=" Se refiere al espacio en el cual se da a conocer el proposito de la unidad; debe ser escrita mediante un texto corto."
+                      data-content="Se refiere al espacio en el cual se da a conocer el propósito de la unidad; debe ser escrita mediante un texto corto. La intención educativa describe el plan de formación que ha sido proyectado por el tutor y qué se alcanza satisfactoriamente cuando se haya cumplido en su totalidad, así como su aplicación tanto a la vida profesional como personal."
                     >
                       <i class="fas fa-question"></i>
                     </a>
@@ -2548,11 +2548,4 @@ export default {
 };
 </script>
 <style>
-.background2 {
-  background: url(http://localhost/Life4teach_project/resources/js/assets/img/Fondo5.jpg);
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  position: relative;
-}
 </style>

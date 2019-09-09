@@ -62,7 +62,7 @@
                       type="text"
                       name="activity"
                       class="form-control"
-                      v-model="newActivity"
+                      v-model="newEvidense"
                       required
                     />
                     <div class="invalid-feedback">Please fill out this field</div>
@@ -73,7 +73,7 @@
                       type="text"
                       name="activity"
                       class="form-control"
-                      v-model="newActivity"
+                      v-model="newSend"
                       required
                     />
                     <div class="invalid-feedback">Please fill out this field</div>
@@ -82,12 +82,12 @@
                 <div class="form-group row mx-auto">
                   <div class="col" align="center">
                     <strong>Actor interviniente en la evaluación</strong>
-                    <input type="text" name="name" class="form-control" v-model="newName" required />
+                    <input type="text" name="name" class="form-control" v-model="newActor" required />
                     <div class="invalid-feedback">Please fill out this field</div>
                   </div>
                   <div class="col" align="center">
                     <strong>Fecha de retroalimentación</strong>
-                    <input type="date" name="name" class="form-control" v-model="newName" required />
+                    <input type="date" name="name" class="form-control" v-model="newRetro" required />
                     <div class="invalid-feedback">Please fill out this field</div>
                   </div>
                 </div>

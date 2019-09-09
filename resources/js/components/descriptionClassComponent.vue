@@ -20,7 +20,61 @@
       crossorigin="anonymous"
     />
   </head>
-  <vueper-slides :touchable="false" :slide-ratio="0.3" :fixed-height="true">
+  <div class="form-group">
+    <div style="position: absolute; top:330px; z-index:100;" class="back">
+      <div class="custom-card">
+        <div class="card-header">
+          <div align="center">
+            <h5>APRENDE LO QUE QUIERAS</h5>
+          </div>
+          <div class="form-group row">
+            <div class="col-md-10">
+              <div>
+                <TextInput value placeholder="Nombre" @inputEvent="inputEvent"></TextInput>
+              </div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col-md-10">
+              <div>
+                <TextInput value placeholder="Apellido" @inputEvent="inputEvent"></TextInput>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="form-group row">
+              <div class="col-md-10">
+                <div>
+                  <TextInput value placeholder="Email" @inputEvent="inputEvent"></TextInput>
+                </div>
+              </div>
+            </div>
+            <div class="form-group row">
+              <div class="col-md-10">
+                <select2 class="selectc" v-model="selected">
+                  <option disabled value>Programa</option>
+                  <option>Estudiante</option>
+                  <option>Tutor</option>
+                </select2>
+              </div>
+              <div
+                class="invalid-feedback"
+              >Please fill out this field, the user name may not be greater than 20 characters.</div>
+            </div>
+            <div align="center">
+              <i class="fab fa-facebook-f"></i>
+              <i class="fab fa-instagram"></i>
+              <i class="fas fa-envelope-square"></i>
+            </div>
+            <div class="text-center">
+              <a href="/register" class="btn btn-danger">INGRESA</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <vueper-slides :touchable="false" :slide-ratio="0.3" fixed-height="500px">
     <vueper-slide
       v-for="(slide, i) in slides"
       :key="i"
@@ -196,7 +250,7 @@
               alt="Card image cap"
             />
             <div class="card-body">
-              <h4 class="card-title">Card 1</h4>
+              <h4 class="card-title">Curso 1</h4>
               <p
                 class="card-text"
               >This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
@@ -214,7 +268,7 @@
               alt="Card image cap"
             />
             <div class="card-body">
-              <h4 class="card-title">Card 2</h4>
+              <h4 class="card-title">Curso 2</h4>
               <p
                 class="card-text"
               >This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
@@ -232,7 +286,7 @@
               alt="Card image cap"
             />
             <div class="card-body">
-              <h4 class="card-title">Card 3</h4>
+              <h4 class="card-title">Curso 3</h4>
               <p
                 class="card-text"
               >This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
@@ -250,7 +304,7 @@
               alt="Card image cap"
             />
             <div class="card-body">
-              <h4 class="card-title">Card 4</h4>
+              <h4 class="card-title">Curso 4</h4>
               <p
                 class="card-text"
               >This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
@@ -268,7 +322,7 @@
               alt="Card image cap"
             />
             <div class="card-body">
-              <h4 class="card-title">Card 5</h4>
+              <h4 class="card-title">Curso 5</h4>
               <p
                 class="card-text"
               >This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
@@ -286,7 +340,7 @@
               alt="Card image cap"
             />
             <div class="card-body">
-              <h4 class="card-title">Card 6</h4>
+              <h4 class="card-title">Curso 6</h4>
               <p
                 class="card-text"
               >This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
@@ -304,7 +358,7 @@
               alt="Card image cap"
             />
             <div class="card-body">
-              <h4 class="card-title">Card 7</h4>
+              <h4 class="card-title">Curso 7</h4>
               <p
                 class="card-text"
               >This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
@@ -336,6 +390,7 @@ import VueMaterial from "vue-material";
 import "vue-material/dist/vue-material.min.css";
 import VueMouseParallax from "vue-mouse-parallax";
 import { BCard } from "bootstrap-vue/es/components";
+import TextInput from "./TextInput.vue";
 
 Vue.component("b-card", BCard);
 Vue.use(VueMouseParallax);
@@ -365,7 +420,7 @@ $(document).ready(function() {
   });
 });
 export default {
-  components: { VueperSlides, VueperSlide },
+  components: { VueperSlides, VueperSlide, TextInput },
   data() {
     return {
       name: null,
@@ -379,6 +434,11 @@ export default {
         }
       ]
     };
+  },
+  methods: {
+    inputEvent(e) {
+      console.log(e);
+    }
   }
 };
 </script>
@@ -515,5 +575,15 @@ td {
   color: black;
 }
 @import url(http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css);
+.card-header {
+  background-color: #e9ecefb5;
+}
+.selectc {
+  background-color: #e9ecef00;
+  border-color: rgba(0, 0, 0, 0);
+  border-bottom-color: rgb(92, 91, 91);
+  font-size: 1em;
+  border-bottom-width: medium;
+}
 </style>
 

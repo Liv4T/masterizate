@@ -35,6 +35,9 @@
                     <td>{{ cour.state }}</td>
                     <td>{{ cour.publish }}</td>
                     <td width="10px">
+                      <a href="/vcourse" class="btn btn-info btn-sm">v</a>
+                    </td>
+                    <td width="10px">
                       <a
                         href="#"
                         class="btn btn-warning btn-sm"
@@ -47,9 +50,6 @@
                         class="btn btn-danger btn-sm"
                         v-on:click.prevent="deleteClasses(cour)"
                       >-</a>
-                    </td>
-                    <td width="10px">
-                      <a href="/vcourse" class="btn btn-info btn-sm">v</a>
                     </td>
                   </tr>
                 </tbody>

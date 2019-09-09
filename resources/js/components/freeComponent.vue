@@ -20,7 +20,7 @@
       crossorigin="anonymous"
     />
   </head>
-  <div class="background2">
+  <div class="back">
     <div class="row">
       <div class="col-md-11 mx-auto">
         <div class="custom-card text-center">
@@ -1600,11 +1600,4 @@ export default {
 };
 </script>
 <style>
-.background2 {
-  background: url(http://localhost/Life4teach_project/resources/js/assets/img/Fondo5.jpg);
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  position: relative;
-}
 </style>

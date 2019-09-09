@@ -55,16 +55,16 @@ class MessagesController extends Controller
      */
     public function create (Request $request, User $user)
     {
-        $recipient = $user;
+        /*$recipient = $user;
 
         $message = $request->user()->sentMessages()->create([
             'recipient_id' => $recipient->id,
             'content' => $request->content,
         ]);
 
-        broadcast(new UserSentMessage($message))->toOthers();
+        /*broadcast(new UserSentMessage($message))->toOthers();
 
-        return response()->json(null, 200);
+        return response()->json(null, 200);*/
     }
 
 }

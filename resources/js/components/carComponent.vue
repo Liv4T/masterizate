@@ -11,7 +11,7 @@
                   <td>
                     <label for>
                       Nombre del curso
-                      <br>Descripción
+                      <br />Descripción
                     </label>
                   </td>
                   <td>
@@ -33,7 +33,7 @@
                 <tr>
                   <td>
                     <label for>Subtotal</label>
-                    <br>
+                    <br />
                     <a href="#">Codigo Promocional</a>
                   </td>
                   <td class="dif">$subtotal</td>
@@ -44,13 +44,13 @@
                 </tr>
               </table>
               <div class="modal-footer">
-                <a href="/" class="btn btn-success float-right">Completar pago</a>
+                <a href="/mycourse" class="btn btn-success float-right">Completar pago</a>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <br>
+      <br />
       <div class="form-group">
         <div class="card">
           <h3 class="card-header text-center">Método de Pago</h3>
@@ -65,7 +65,7 @@
                         type="checkbox"
                         id="gridCheck1"
                         v-model="newRegional"
-                      >
+                      />
                       <label class="custom-control-label" for="gridCheck1">Tarjeta de credito</label>
                     </div>
                   </th>
@@ -78,7 +78,7 @@
                         type="checkbox"
                         id="gridCheck2"
                         v-model="newRegional"
-                      >
+                      />
                       <label class="custom-control-label" for="gridCheck2">Tarjeta de debito</label>
                     </div>
                   </th>

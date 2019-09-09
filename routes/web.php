@@ -80,7 +80,18 @@ Route::get('/evaluation', function () {
 Route::get('/vcourse', function () {
     return view('view');
 });
-
+Route::get('/vactivity', function () {
+    return view('activ');
+});
+Route::get('/consult', function () {
+    return view('consult');
+});
+Route::get('/cuestions', function () {
+    return view('cuestions');
+});
+Route::get('/mycourse', function () {
+    return view('mycourse');
+});
 
 /*login personalizado permite verificar suscripcion*/
 Route::post('/login2', 'UserController@loginWeb')->name('login2');
@@ -100,7 +111,7 @@ Route::resource('resumes', 'ResumeController', ['except'=> 'show','create','edit
 Route::resource('courses', 'courseController', ['except'=> 'show','create','edit']);;
 Route::resource('course_unit', 'Course_unitController', ['except'=> 'show','create','edit']);;
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/messages',function(){
+/*Route::get('/messages',function(){
 
 	return response()->json([
 	    'messages' => Message::with('user')->get(),
@@ -108,8 +119,8 @@ Route::get('/messages',function(){
 	]);
 	
 
-})->middleware('auth');
-Route::post('/message',function(){
+})->middleware('auth');*/
+/*Route::post('/message',function(){
 	
 	$user = Auth::user();
 	
@@ -120,7 +131,7 @@ Route::post('/message',function(){
 	broadcast(new MessagePosted($message,$user));
 
 	return ['status' => 'OK'];
-})->middleware('auth');
+})->middleware('auth');*/
 /*forum 
 // log.activity middleware logs the time of user activity that any inclusive routes are hit
 Route::group(['middleware' => ['log.activity']], function() {

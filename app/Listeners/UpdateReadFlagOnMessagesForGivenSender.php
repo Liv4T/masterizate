@@ -27,11 +27,11 @@ class UpdateReadFlagOnMessagesForGivenSender
      */
     public function handle(UserHasViewedMessagesFromSender $event)
     {
-        foreach ($event->currentUser->receivedMessagesFromSender($event->sender) as $message) {
+       /*foreach ($event->currentUser->receivedMessagesFromSender($event->sender) as $message) {
             $message->update([
                 'read' => 1,
             ]);
             $message->save();
-        }
+        }*/
     }
 }

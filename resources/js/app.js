@@ -145,6 +145,27 @@ Vue.component(
     "evaluation-component",
     require("./components/EvaluationComponent.vue").default
 );
+Vue.component(
+    "activ-component",
+    require("./components/ActivityComponent.vue").default
+);
+Vue.component(
+    "mycourse-component",
+    require("./components/MyCourseComponent.vue").default
+);
+Vue.component(
+    "consult-component",
+    require("./components/ConsultComponent.vue").default
+);
+Vue.component(
+    "frecuent-cuestions",
+    require("./components/FrecuentCuestions.vue").default
+);
+Vue.component(
+    "register-component",
+    require("./components/RegisterComponent.vue").default
+);
+Vue.component("TextInput", require("./components/TextInput.vue").default);
 Vue.use(CKEditor);
 Vue.use(CKEditor);
 
@@ -160,7 +181,7 @@ const app = new Vue({
         container.scrollTop = container.scrollHeight;
     },
     methods: {
-        addMessage(message) {
+        /*addMessage(message) {
             this.messages.push(message);
             axios
                 .post("http://127.0.0.1:8000/message", message)
@@ -172,12 +193,12 @@ const app = new Vue({
                 var container = this.$el.querySelector("#container");
                 container.scrollTop = container.scrollHeight;
             });
-        }
+        }*/
     },
     created() {
-        axios.get("http://127.0.0.1:8000/messages").then(response => {
+        /*axios.get("http://127.0.0.1:8000/messages").then(response => {
             this.messages = response.data.messages;
             this.user = response.data.user;
-        });
+        });*/
     }
 });

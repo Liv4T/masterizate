@@ -20,8 +20,21 @@
       crossorigin="anonymous"
     />
   </head>
+  <div class="sticky">
+    <button class="btn btn-primary text-nowrap" type="button">
+      <a href>
+        <img
+          src="https://media.giphy.com/media/dAIeGiCfE8XOjetwiJ/giphy.gif"
+          alt="x"
+          style="height:90px;"
+        />
+        <br />Crea tu propio curso
+      </a>
+    </button>
+  </div>
+
   <div class="form-group">
-    <div style="position: absolute; top:170px; z-index:100;" class="back">
+    <div style="position: absolute; left:250px; top:420px; z-index:100;" class="back">
       <div class="custom-card">
         <div class="card-header">
           <div align="center">
@@ -29,45 +42,42 @@
           </div>
           <div class="form-group row">
             <div class="col-md-10">
-              <label for="name">Nombre</label>
-              <input type="text" name="name" v-model="newName" class="form-control" required />
-              <div class="invalid-feedback">Please fill out this field</div>
+              <div>
+                <TextInput value placeholder="Nombre" @inputEvent="inputEvent"></TextInput>
+              </div>
             </div>
           </div>
           <div class="form-group row">
             <div class="col-md-10">
-              <label for="last_name">Apellido</label>
-              <input
-                type="text"
-                name="last_name"
-                class="form-control"
-                v-model="newLastName"
-                required
-              />
-              <div class="invalid-feedback">Please fill out this field</div>
+              <div>
+                <TextInput value placeholder="Apellido" @inputEvent="inputEvent"></TextInput>
+              </div>
             </div>
           </div>
           <div>
             <div class="form-group row">
               <div class="col-md-10">
-                <label for="name">Email</label>
-                <input type="text" name="email" class="form-control" v-model="newEmail" required />
-                <div class="invalid-feedback">Please fill out this field</div>
+                <div>
+                  <TextInput value placeholder="Email" @inputEvent="inputEvent"></TextInput>
+                </div>
               </div>
             </div>
             <div class="form-group row">
               <div class="col-md-10">
-                <label for="name">Programa</label>
-                <select2 v-model="selected">
-                  <option disabled value>Seleccione una opcion</option>
+                <select2 class="selectc" v-model="selected">
+                  <option disabled value>Programa</option>
                   <option>Estudiante</option>
                   <option>Tutor</option>
                 </select2>
               </div>
-
               <div
                 class="invalid-feedback"
               >Please fill out this field, the user name may not be greater than 20 characters.</div>
+            </div>
+            <div align="center">
+              <i class="fab fa-facebook-f"></i>
+              <i class="fab fa-instagram"></i>
+              <i class="fas fa-envelope-square"></i>
             </div>
             <div class="text-center">
               <a href="/register" class="btn btn-danger">INGRESA</a>
@@ -86,9 +96,8 @@
       :content="slide.content"
     ></vueper-slide>
   </vueper-slides>
-
   <div class="background1">
-    <div class="section page-header header-filter">
+    <div class="section page-header header-filter" id="live4teach">
       <div class="containerheader">
         <div class="container m-5 mx-auto">
           <b-card>
@@ -101,7 +110,7 @@
                     <img
                       thumbnail
                       fluid
-                      src="http://localhost/Life4teach_project/resources/js/assets/img/Icono_chat.png"
+                      src="http://localhost/Life4teach_project/resources/js/assets/img/Icono-audio.png"
                       width="75"
                       height="75"
                       alt="Image 1"
@@ -111,7 +120,7 @@
                     <img
                       thumbnail
                       fluid
-                      src="http://localhost/Life4teach_project/resources/js/assets/img/Icono1_video.png"
+                      src="http://localhost/Life4teach_project/resources/js/assets/img/Chat-icono.png"
                       width="75"
                       height="75"
                       alt="Image 2"
@@ -121,7 +130,7 @@
                     <img
                       thumbnail
                       fluid
-                      src="http://localhost/Life4teach_project/resources/js/assets/img/Icono_foro.png"
+                      src="http://localhost/Life4teach_project/resources/js/assets/img/VIdeo-icono.png"
                       width="75"
                       height="75"
                       alt="Image 3"
@@ -140,15 +149,14 @@
               <b-card>
                 <b-card-text>Todos nuestros programas son virtuales para mayor acceso y facilidad, ademas de asesoria personal, grupal y empresarial.</b-card-text>
               </b-card>
-              <div style="position: absolute; left: 40px; z-index:1;">
+              <!--div style="position: absolute; left: 40px; z-index:1;">
                 <b-container class="p-4">
                   <b-row class="text-center">
                     <b-col>
                       <img
                         thumbnail
                         fluid
-                        src="http://localhost/Life4teach_project/resources/js/assets/img/Icono-audio.png"
-                        rounded="circle"
+                        src=""
                         width="75"
                         height="75"
                         alt="Image 1"
@@ -158,8 +166,7 @@
                       <img
                         thumbnail
                         fluid
-                        src="http://localhost/Life4teach_project/resources/js/assets/img/Chat-icono.png"
-                        rounded="circle"
+                        src=""
                         width="75"
                         height="75"
                         alt="Image 2"
@@ -169,8 +176,7 @@
                       <img
                         thumbnail
                         fluid
-                        src="http://localhost/Life4teach_project/resources/js/assets/img/VIdeo-icono.png"
-                        rounded="circle"
+                        src=""
                         width="75"
                         height="75"
                         alt="Image 3"
@@ -178,7 +184,7 @@
                     </b-col>
                   </b-row>
                 </b-container>
-              </div>
+              </div-->
             </div>
           </div>
           <div class="col">
@@ -190,7 +196,7 @@
       </div>
     </div>
   </div>
-  <parallax-container class="horizontal-card centered-card">
+  <parallax-container class="horizontal-card centered-card" id="conviertete">
     <parallax-element class="background-image" :parallaxStrength="10" :type="'rotation'">
       <img src="http://localhost/Life4teach_project/resources/js/assets/img/SLIDERweb.jpg" />
     </parallax-element>
@@ -205,19 +211,21 @@
   <div class="main main-raised">
     <div class="section2">
       <div class="row">
-        <div class="col">
+        <div class="col-md-6">
           <div align="left">
             <img
-              width="90%"
-              height="90%"
-              src="http://localhost/Life4teach_project/resources/js/assets/img/TABLET_CEL.jpg"
+              width="80%"
+              height="80%"
+              src="http://localhost/Life4teach_project/resources/js/assets/img/CEL.png"
             />
           </div>
         </div>
-        <div class="col">
-          <div class="card2">
-            <b-card>
-              <b-card-text>Los usuarios tendran una plataforma para fines educativos y de aprendizaje de manera didactica las 24 hrs del dia, facilitando el acceso a traves de una herramienta flexible, novedosa y lo mejor desde cualquier parte del mundo.</b-card-text>
+        <div class="col-md-5">
+          <div class="card">
+            <b-card align="center">
+              <b-card-text
+                id="regiones"
+              >Los usuarios tendran una plataforma para fines educativos y de aprendizaje de manera didactica las 24 hrs del dia, facilitando el acceso a traves de una herramienta flexible, novedosa y lo mejor desde cualquier parte del mundo.</b-card-text>
             </b-card>
           </div>
         </div>
@@ -257,7 +265,7 @@
           </b-row>
         </div>
       </b-container>
-      <div class="mx-auto">
+      <div class="mx-auto" id="destacados">
         <div class="card3">
           <b-card align="center">
             <b-card-text>Live4teach es una plataforma virtual educativa donde las personas podremos enseñar nuestras habilidades, conocimientos a aquellos que requieran de una apoyo especializado, educativo, actividad diaria o entretenimiento.</b-card-text>
@@ -265,147 +273,204 @@
         </div>
         <div align="center">
           <h4>
-            <strong>OFERTAS DEL MES</strong>
+            <strong>DESTACADOS DEL MES</strong>
           </h4>
         </div>
-        <div align="center">
-          <div class="card-deck row">
-            <div class="card col">
-              <b-img
-                class="card-img-top"
-                src="http://localhost/Life4teach_project/resources/js/assets/img/2918.jpg"
-                alt="Card image cap"
-              ></b-img>
-              <div class="card-body">
-                <a class="hola3" href="/ccourse">App Inventor 2 Basico</a>
-                <div class="card-text">
-                  <div class="ec-stars-wrapper">
-                    <a data-value="1">&#9733;</a>
-                    <a data-value="2">&#9733;</a>
-                    <a data-value="3">&#9733;</a>
-                    <a data-value="4">&#9733;</a>
-                    <a data-value="5">&#9733;</a>
+        <div class="container-fluid">
+          <div id="myCarousel" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner row w-100 mx-auto">
+              <div class="carousel-item col-md-3 active">
+                <div class="card">
+                  <img
+                    class="card-img-top"
+                    src="http://localhost/Life4teach_project/resources/js/assets/img/programador-web_23-2147502079.jpg"
+                    alt="Card image cap"
+                  />
+                  <div class="card-body">
+                    <a class="hola3" href="/ccourse">App Inventor 2 Basico</a>
+                    <div class="card-text">
+                      <div class="ec-stars-wrapper1">
+                        <a data-value="1">&#9733;</a>
+                        <a data-value="2">&#9733;</a>
+                        <a data-value="3">&#9733;</a>
+                        <a data-value="4">&#9733;</a>
+                        <a data-value="5">&#9733;</a>
+                      </div>
+                    </div>
+                    <p class="card-text">
+                      <small class="text-muted">Agregado hace 3 mins</small>
+                    </p>
                   </div>
                 </div>
-                <p class="card-text">
-                  <small class="text-muted">Agregado hace 3 mins</small>
-                </p>
               </div>
-            </div>
-            <div class="card col">
-              <img
-                class="card-img-top"
-                src="http://localhost/Life4teach_project/resources/js/assets/img/2314404.jpg"
-                alt="Card image cap"
-              />
-              <div class="card-body">
-                <h5 class="card-title">Titulo</h5>
-                <div class="card-text">
-                  <div class="ec-stars-wrapper">
-                    <a data-value="1">&#9733;</a>
-                    <a data-value="2">&#9733;</a>
-                    <a data-value="3">&#9733;</a>
-                    <a data-value="4">&#9733;</a>
-                    <a data-value="5">&#9733;</a>
+              <div class="carousel-item col-md-3">
+                <div class="card">
+                  <img
+                    class="card-img-top"
+                    src="http://localhost/Life4teach_project/resources/js/assets/img/2314404.jpg"
+                    alt="Card image cap"
+                  />
+                  <div class="card-body">
+                    <a class="hola3" href="/ccourse">Curso 2</a>
+                    <div class="card-text">
+                      <div class="ec-stars-wrapper1">
+                        <a data-value="1">&#9733;</a>
+                        <a data-value="2">&#9733;</a>
+                        <a data-value="3">&#9733;</a>
+                        <a data-value="4">&#9733;</a>
+                        <a data-value="5">&#9733;</a>
+                      </div>
+                    </div>
+                    <p class="card-text">
+                      <small class="text-muted">Agregado hace 3 mins</small>
+                    </p>
                   </div>
                 </div>
-                <p class="card-text">
-                  <small class="text-muted">Agregado hace 3 mins</small>
-                </p>
               </div>
-            </div>
-            <div class="card col">
-              <img
-                class="card-img-top"
-                src="http://localhost/Life4teach_project/resources/js/assets/img/2371004.jpg"
-                alt="Card image cap"
-              />
-              <div class="card-body">
-                <h5 class="card-title">Titulo</h5>
-                <div class="card-text">
-                  <div class="ec-stars-wrapper">
-                    <a data-value="1">&#9733;</a>
-                    <a data-value="2">&#9733;</a>
-                    <a data-value="3">&#9733;</a>
-                    <a data-value="4">&#9733;</a>
-                    <a data-value="5">&#9733;</a>
+              <div class="carousel-item col-md-3">
+                <div class="card">
+                  <img
+                    class="card-img-top"
+                    src="http://localhost/Life4teach_project/resources/js/assets/img/2371004.jpg"
+                    alt="Card image cap"
+                  />
+                  <div class="card-body">
+                    <a class="hola3" href="/ccourse">Curso 3</a>
+                    <div class="card-text">
+                      <div class="ec-stars-wrapper1">
+                        <a data-value="1">&#9733;</a>
+                        <a data-value="2">&#9733;</a>
+                        <a data-value="3">&#9733;</a>
+                        <a data-value="4">&#9733;</a>
+                        <a data-value="5">&#9733;</a>
+                      </div>
+                    </div>
+                    <p class="card-text">
+                      <small class="text-muted">Agregado hace 3 mins</small>
+                    </p>
                   </div>
                 </div>
-                <p class="card-text">
-                  <small class="text-muted">Agregado hace 3 mins</small>
-                </p>
               </div>
-            </div>
-          </div>
-        </div>
-        <br />
-        <div align="center">
-          <div class="card-deck row">
-            <div class="card col">
-              <img
-                class="card-img-top"
-                src="http://localhost/Life4teach_project/resources/js/assets/img/OMHWPH0.jpg"
-                alt="Card image cap"
-                width="100px"
-              />
-              <div class="card-body">
-                <h5 class="card-title">Titulo</h5>
-                <div class="card-text">
-                  <div class="ec-stars-wrapper">
-                    <a data-value="1">&#9733;</a>
-                    <a data-value="2">&#9733;</a>
-                    <a data-value="3">&#9733;</a>
-                    <a data-value="4">&#9733;</a>
-                    <a data-value="5">&#9733;</a>
+              <div class="carousel-item col-md-3">
+                <div class="card">
+                  <img
+                    class="card-img-top"
+                    src="http://localhost/Life4teach_project/resources/js/assets/img/OMHWPH0.jpg"
+                    alt="Card image cap"
+                    width="100px"
+                  />
+                  <div class="card-body">
+                    <a class="hola3" href="/ccourse">Curso 4</a>
+                    <div class="card-text">
+                      <div class="ec-stars-wrapper1">
+                        <a data-value="1">&#9733;</a>
+                        <a data-value="2">&#9733;</a>
+                        <a data-value="3">&#9733;</a>
+                        <a data-value="4">&#9733;</a>
+                        <a data-value="5">&#9733;</a>
+                      </div>
+                    </div>
+                    <p class="card-text">
+                      <small class="text-muted">Agregado hace 3 mins</small>
+                    </p>
                   </div>
                 </div>
-                <p class="card-text">
-                  <small class="text-muted">Agregado hace 3 mins</small>
-                </p>
               </div>
-            </div>
-            <div class="card col">
-              <img
-                class="card-img-top"
-                src="http://localhost/Life4teach_project/resources/js/assets/img/LOGO-L4T-web.png"
-                alt="Card image cap"
-              />
-              <div class="card-body">
-                <h5 class="card-title">Titulo</h5>
-                <div class="card-text">
-                  <div class="ec-stars-wrapper">
-                    <a data-value="1">&#9733;</a>
-                    <a data-value="2">&#9733;</a>
-                    <a data-value="3">&#9733;</a>
-                    <a data-value="4">&#9733;</a>
-                    <a data-value="5">&#9733;</a>
+              <div class="carousel-item col-md-3">
+                <div class="card">
+                  <img
+                    class="card-img-top"
+                    src="http://localhost/Life4teach_project/resources/js/assets/img/programmer-working-computer_23-2147505689.jpg"
+                    alt="Card image cap"
+                  />
+                  <div class="card-body">
+                    <a class="hola3" href="/ccourse">Curso 5</a>
+                    <div class="card-text">
+                      <div class="ec-stars-wrapper1">
+                        <a data-value="1">&#9733;</a>
+                        <a data-value="2">&#9733;</a>
+                        <a data-value="3">&#9733;</a>
+                        <a data-value="4">&#9733;</a>
+                        <a data-value="5">&#9733;</a>
+                      </div>
+                    </div>
+                    <p class="card-text">
+                      <small class="text-muted">Agregado hace 3 mins</small>
+                    </p>
                   </div>
                 </div>
-                <p class="card-text">
-                  <small class="text-muted">Agregado hace 3 mins</small>
-                </p>
               </div>
-            </div>
-            <div class="card col">
-              <img
-                class="card-img-top"
-                src="http://localhost/Life4teach_project/resources/js/assets/img/LOGO-L4T-web.png"
-                alt="Card image cap"
-              />
-              <div class="card-body">
-                <h5 class="card-title">Titulo</h5>
-                <div class="card-text">
-                  <div class="ec-stars-wrapper">
-                    <a data-value="1">&#9733;</a>
-                    <a data-value="2">&#9733;</a>
-                    <a data-value="3">&#9733;</a>
-                    <a data-value="4">&#9733;</a>
-                    <a data-value="5">&#9733;</a>
+              <div class="carousel-item col-md-3">
+                <div class="card">
+                  <img
+                    class="card-img-top"
+                    src="http://localhost/Life4teach_project/resources/js/assets/img/2918.jpg"
+                    alt="Card image cap"
+                  />
+                  <div class="card-body">
+                    <a class="hola3" href="/ccourse">Curso 6</a>
+                    <div class="card-text">
+                      <div class="ec-stars-wrapper1">
+                        <a data-value="1">&#9733;</a>
+                        <a data-value="2">&#9733;</a>
+                        <a data-value="3">&#9733;</a>
+                        <a data-value="4">&#9733;</a>
+                        <a data-value="5">&#9733;</a>
+                      </div>
+                    </div>
+                    <p class="card-text">
+                      <small class="text-muted">Agregado hace 3 mins</small>
+                    </p>
                   </div>
                 </div>
-                <p class="card-text">
-                  <small class="text-muted">Agregado hace 3 mins</small>
-                </p>
+              </div>
+              <div class="carousel-item col-md-3">
+                <div class="card">
+                  <img
+                    class="card-img-top"
+                    src="http://localhost/Life4teach_project/resources/js/assets/img/418.jpg"
+                    alt="Card image cap"
+                  />
+                  <div class="card-body">
+                    <a class="hola3" href="/ccourse">Curso 7</a>
+                    <div class="card-text">
+                      <div class="ec-stars-wrapper1">
+                        <a data-value="1">&#9733;</a>
+                        <a data-value="2">&#9733;</a>
+                        <a data-value="3">&#9733;</a>
+                        <a data-value="4">&#9733;</a>
+                        <a data-value="5">&#9733;</a>
+                      </div>
+                    </div>
+                    <p class="card-text">
+                      <small class="text-muted">Agregado hace 3 mins</small>
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="carousel-item col-md-3">
+                <div class="card">
+                  <img
+                    class="card-img-top"
+                    src="http://localhost/Life4teach_project/resources/js/assets/img/125063-OQT3VV-312.jpg"
+                    alt="Card image cap"
+                  />
+                  <div class="card-body">
+                    <a class="hola3" href="/ccourse">Curso 8</a>
+                    <div class="card-text">
+                      <div class="ec-stars-wrapper1">
+                        <a data-value="1">&#9733;</a>
+                        <a data-value="2">&#9733;</a>
+                        <a data-value="3">&#9733;</a>
+                        <a data-value="4">&#9733;</a>
+                        <a data-value="5">&#9733;</a>
+                      </div>
+                    </div>
+                    <p class="card-text">
+                      <small class="text-muted">Agregado hace 3 mins</small>
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -413,21 +478,58 @@
       </div>
     </div>
   </div>
-  <footer class="text-center footer-style">
-    <div class="row footer-row">
+  <footer class="footer-style">
+    <div class="row footer-row mx-auto">
       <div class="col footer-col">
-        <p>
+        <!-- <p>
           Direccion:
           <br />AC 100#8A-55
           Bogotá, Colombia.
-        </p>
+        </p-->
+        <ul class="fa-ul">
+          <li class="fas fa-chevron-right">
+            <a href="#top">Inicio</a>
+          </li>
+          <li class="fas fa-chevron-right">
+            <a href="#live4teach">Live4Teach</a>
+          </li>
+          <li class="fas fa-chevron-right">
+            <a href="#conviertete">Conviertete en un experto</a>
+          </li>
+          <li class="fas fa-chevron-right">
+            <a href="#regiones">20 Regiones</a>
+          </li>
+          <li class="fas fa-chevron-right">
+            <a href="#destacados">Destacados del mes</a>
+          </li>
+          <li class="fas fa-chevron-right">
+            <a href="/cuestions">Preguntas frecuentes</a>
+          </li>
+        </ul>
       </div>
-      <div class="col footer-col">
-        <i class="fab fa-facebook fa-2x"></i>
-        <i class="fab fa-google-plus fa-2x"></i>
-        <i class="fab fa-twitter fa-2x"></i>
-        <i class="fab fa-linkedin fa-2x"></i>
-        <i class="fab fa-dribbble fa-2x"></i>
+      <div class="col footer-col" align="right">
+        <a href="#top" class="icons">
+          <i class="fas fa-chevron-circle-up fa-4x"></i>
+        </a>
+      </div>
+    </div>
+    <div class="row footer-row mx-auto">
+      <div class="col footer-col" align="center">
+        <a href class="icons">
+          <i class="fab fa-facebook fa-2x"></i>
+        </a>
+        <a href class="icons">
+          <i class="fab fa-google-plus fa-2x"></i>
+        </a>
+        <a href class="icons">
+          <i class="fab fa-twitter fa-2x"></i>
+        </a>
+        <a href class="icons">
+          <i class="fab fa-linkedin fa-2x"></i>
+        </a>
+        <!--a href class="icons">
+          <i class="fab fa-dribbble fa-2x"></i>
+        </a-->
       </div>
     </div>
   </footer>
@@ -443,12 +545,13 @@ import VueMaterial from "vue-material";
 import "vue-material/dist/vue-material.min.css";
 import VueMouseParallax from "vue-mouse-parallax";
 import { BCard } from "bootstrap-vue/es/components";
+import TextInput from "./TextInput.vue";
 
 Vue.component("b-card", BCard);
 Vue.use(VueMouseParallax);
 Vue.use(VueMaterial);
 export default {
-  components: { VueperSlides, VueperSlide },
+  components: { VueperSlides, VueperSlide, TextInput },
   bodyClass: "landing-page",
   props: {
     header: {
@@ -488,7 +591,12 @@ export default {
       ]
     };
   },
-  computed: {}
+  computed: {},
+  methods: {
+    inputEvent(e) {
+      console.log(e);
+    }
+  }
 };
 </script>
 
@@ -607,7 +715,7 @@ a {
   width: "197px";
   height: "160px";
 }
-.ec-stars-wrapper {
+.ec-stars-wrapper1 {
   /* Espacio entre los inline-block (los hijos, los `a`) 
 	   http://ksesocss.blogspot.com/2012/03/display-inline-block-y-sus-empeno-en.html */
   font-size: 0;
@@ -617,12 +725,12 @@ a {
 		también se esté haciendo hover a alguna estrella */
   display: inline-block;
 }
-.ec-stars-wrapper a {
+.ec-stars-wrapper1 a {
   text-decoration: none;
   display: inline-block;
   /* Volver a dar tamaño al texto */
-  font-size: 32px;
-  font-size: 2rem;
+  font-size: 30px;
+  font-size: 1.5rem;
 
   color: rgb(255, 214, 32);
 }
@@ -631,5 +739,32 @@ a {
 }
 .hola3 {
   color: black;
+}
+.selectc {
+  background-color: #e9ecef00;
+  border-color: rgba(0, 0, 0, 0);
+  border-bottom-color: rgb(92, 91, 91);
+  font-size: 1em;
+  border-bottom-width: medium;
+}
+.icons:not(.md-button):hover {
+  text-decoration: underline;
+  color: #ff4700;
+}
+.fa-chevron-right {
+  display: block;
+  padding-bottom: 10px;
+}
+.fa-chevron-right::before {
+  padding-right: 10px;
+}
+.sticky {
+  padding: 0px;
+  margin: 0px;
+  position: fixed;
+  right: 0px;
+  top: 230px;
+  width: 210px;
+  z-index: 1100;
 }
 </style>

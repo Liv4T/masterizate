@@ -1,5 +1,5 @@
 <template>
-  <div class="background2">
+  <div class="b">
     <div class="custom-card text-center">
       <h3 class="card-header">Evaluación</h3>
       <div class="card-body">
@@ -41,8 +41,8 @@
         </div>
         <!--Foro-------------------------------------------------------------------->
         <div v-show="newActivity=='Foro'" class="Foro">
-          <table class="table table-responsive table-hover table-striped">
-            <thead>
+          <table class="table table-responsive table-hover table-striped" style="border:double;">
+            <thead style="background-color:coral;">
               <tr>
                 <th>Aspectos a evaluar</th>
                 <th>Competente sobresaliente(10)</th>
@@ -306,7 +306,7 @@
                       maxlength="2"
                       size="4"
                       type="text"
-                      v-model="newWord1"
+                      v-model="newRWord1"
                       placeholder="%"
                     />
                   </div>
@@ -968,8 +968,8 @@
         </div>
         <!--Ensayo------------------------------------------------------------------------>
         <div v-if="newActivity=='Ensayo'" class="Ensayo">
-          <table class="table table-responsive table-hover table-striped">
-            <thead>
+          <table class="table table-responsive table-hover table-striped" style="border:double;">
+            <thead style="background-color:coral;">
               <tr>
                 <th>Aspectos a evaluar</th>
                 <th>Competente sobresaliente(10)</th>
@@ -1571,8 +1571,8 @@
         </div>
         <!--Mapa Conceptual------------------------------------------------------------------>
         <div v-show="newActivity=='Mapa Conceptual'" class="Mapa Conceptual">
-          <table class="table table-responsive table-hover table-striped">
-            <thead>
+          <table class="table table-responsive table-hover table-striped" style="border:double;">
+            <thead style="background-color:coral;">
               <th>Aspectos a evaluar</th>
               <th>Competente sobresaliente(10)</th>
               <th>Competente avanzado(9)</th>
@@ -2172,8 +2172,8 @@
         </div>
         <!--Cuestionario-------------------------------------------------------------------->
         <div v-show="newActivity=='Cuestionario'" class="Cuestionario">
-          <table class="table table-responsive table-hover table-striped">
-            <thead>
+          <table class="table table-responsive table-hover table-striped" style="border:double;">
+            <thead style="background-color:coral;">
               <th>Aspectos a evaluar</th>
               <th>Competente sobresaliente(10)</th>
               <th>Competente avanzado(9)</th>
@@ -2530,8 +2530,8 @@
         </div>
         <!--Estudio Caso-------------------------------------------------------------->
         <div v-show="newActivity=='Estudio de Caso'" class="Estudio de caso">
-          <table class="table table-responsive table-hover table-striped">
-            <thead>
+          <table class="table table-responsive table-hover table-striped" style="border:double;">
+            <thead style="background-color:coral;">
               <th>Aspectos a evaluar</th>
               <th>Competente sobresaliente(10)</th>
               <th>Competente avanzado(9)</th>
@@ -3050,8 +3050,8 @@
         </div>
         <!--Chat---------------------------------------------------------------------------------->
         <div v-show="newActivity=='Chat'" class="Chat">
-          <table class="table table-responsive table-hover table-striped">
-            <thead>
+          <table class="table table-responsive table-hover table-striped" style="border:double;">
+            <thead style="background-color:coral;">
               <th>Aspectos a evaluar</th>
               <th>Competente sobresaliente(10)</th>
               <th>Competente avanzado(9)</th>
@@ -3975,8 +3975,8 @@
         </div>
         <!--Ejercicios--------------------------------------------------------------------->
         <div v-show="newActivity=='Ejercicios'" class="Ejercicios">
-          <table class="table table-responsive table-hover table-striped">
-            <thead>
+          <table class="table table-responsive table-hover table-striped" style="border:double;">
+            <thead style="background-color:coral;">
               <th>Aspectos a evaluar</th>
               <th>Competente sobresaliente(10)</th>
               <th>Competente avanzado(9)</th>
@@ -4200,26 +4200,294 @@ export default {
       newId_Teacher: "",
       newLast_date: "",
       newDate: "",
+      newActitud1: "",
       newActitud10: "",
       newActitud9: "",
       newActitud8: "",
       newActitud7: "",
       newActitud6: "",
+      newCapacity1: "",
       newCapacity10: "",
       newCapacity9: "",
       newCapacity8: "",
       newCapacity7: "",
       newCapacity6: "",
+      newRespect1: "",
       newRespect10: "",
       newRespect9: "",
       newRespect8: "",
       newRespect7: "",
       newRespect6: "",
-      newWord10: "",
-      newWord9: "",
-      newWord8: "",
-      newWord7: "",
-      newWord6: "",
+      newRWord1: "",
+      newRWord10: "",
+      newRWord9: "",
+      newRWord8: "",
+      newRWord7: "",
+      newRWord6: "",
+      newVocabulary1: "",
+      newVocabulary10: "",
+      newVocabulary9: "",
+      newVocabulary8: "",
+      newVocabulary7: "",
+      newVocabulary6: "",
+      newFluid1: "",
+      newFluid10: "",
+      newFluid9: "",
+      newFluid8: "",
+      newFluid7: "",
+      newFluid6: "",
+      newArgument1: "",
+      newArgument10: "",
+      newArgument9: "",
+      newArgument8: "",
+      newArgument7: "",
+      newArgument6: "",
+      newCono1: "",
+      newCono10: "",
+      newCono9: "",
+      newCono8: "",
+      newCono7: "",
+      newCono6: "",
+      newRefe1: "",
+      newRefe10: "",
+      newRefe9: "",
+      newRefe8: "",
+      newRefe7: "",
+      newRefe6: "",
+      newTono1: "",
+      newTono10: "",
+      newTono9: "",
+      newTono8: "",
+      newTono7: "",
+      newTono6: "",
+      newConclus1: "",
+      newConclus10: "",
+      newConclus9: "",
+      newConclus8: "",
+      newConclus7: "",
+      newConclus6: "",
+      newExten1: "",
+      newExten10: "",
+      newExten9: "",
+      newExten8: "",
+      newExten7: "",
+      newExten6: "",
+      newIdea1: "",
+      newIdea10: "",
+      newIdea9: "",
+      newIdea8: "",
+      newIdea7: "",
+      newIdea6: "",
+      newDesa1: "",
+      newDesa10: "",
+      newDesa9: "",
+      newDesa8: "",
+      newDesa7: "",
+      newDesa6: "",
+      newClari1: "",
+      newClari10: "",
+      newClari9: "",
+      newClari8: "",
+      newClari7: "",
+      newClari6: "",
+      newCita1: "",
+      newCita10: "",
+      newCita9: "",
+      newCita8: "",
+      newCita7: "",
+      newCita6: "",
+      newGrama1: "",
+      newGrama10: "",
+      newGrama9: "",
+      newGrama8: "",
+      newGrama7: "",
+      newGrama6: "",
+      newFuente1: "",
+      newFuente10: "",
+      newFuente9: "",
+      newFuente8: "",
+      newFuente7: "",
+      newFuente6: "",
+      newContent1: "",
+      newContent10: "",
+      newContent9: "",
+      newContent8: "",
+      newContent7: "",
+      newContent6: "",
+      newJera1: "",
+      newJera10: "",
+      newJera9: "",
+      newJera8: "",
+      newJera7: "",
+      newJera6: "",
+      newExamp1: "",
+      newExamp10: "",
+      newExamp9: "",
+      newExamp8: "",
+      newExamp7: "",
+      newExamp6: "",
+      newUnion1: "",
+      newUnion10: "",
+      newUnion9: "",
+      newUnion8: "",
+      newUnion7: "",
+      newUnion6: "",
+      newPropo1: "",
+      newPropo10: "",
+      newPropo9: "",
+      newPropo8: "",
+      newPropo7: "",
+      newPropo6: "",
+      newConex1: "",
+      newConex10: "",
+      newConex9: "",
+      newConex8: "",
+      newConex7: "",
+      newConex6: "",
+      newEnla1: "",
+      newEnla10: "",
+      newEnla9: "",
+      newEnla8: "",
+      newEnla7: "",
+      newEnla6: "",
+      newPreci1: "",
+      newPreci10: "",
+      newPreci9: "",
+      newPreci8: "",
+      newPreci7: "",
+      newPreci6: "",
+      newConfi1: "",
+      newConfi10: "",
+      newConfi9: "",
+      newConfi8: "",
+      newConfi7: "",
+      newConfi6: "",
+      newCumpli1: "",
+      newCumpli10: "",
+      newCumpli9: "",
+      newCumpli8: "",
+      newCumpli7: "",
+      newCumpli6: "",
+      newOrtog1: "",
+      newOrtog10: "",
+      newOrtog9: "",
+      newOrtog8: "",
+      newOrtog7: "",
+      newOrtog6: "",
+      newDefi1: "",
+      newDefi10: "",
+      newDefi9: "",
+      newDefi8: "",
+      newDefi7: "",
+      newDefi6: "",
+      newInfo1: "",
+      newInfo10: "",
+      newInfo9: "",
+      newInfo8: "",
+      newInfo7: "",
+      newInfo6: "",
+      newSolu1: "",
+      newSolu10: "",
+      newSolu9: "",
+      newSolu8: "",
+      newSolu7: "",
+      newSolu6: "",
+      newEstra1: "",
+      newEstra10: "",
+      newEstra9: "",
+      newEstra8: "",
+      newEstra7: "",
+      newEstra6: "",
+      newWork1: "",
+      newWork10: "",
+      newWork9: "",
+      newWork8: "",
+      newWork7: "",
+      newWork6: "",
+      newForta1: "",
+      newForta10: "",
+      newForta9: "",
+      newForta8: "",
+      newForta7: "",
+      newForta6: "",
+      newActi1: "",
+      newActi10: "",
+      newActi9: "",
+      newActi8: "",
+      newActi7: "",
+      newActi6: "",
+      newCapaci1: "",
+      newCapaci10: "",
+      newCapaci9: "",
+      newCapaci8: "",
+      newCapaci7: "",
+      newCapaci6: "",
+      newRespec1: "",
+      newRespec10: "",
+      newRespec9: "",
+      newRespec8: "",
+      newRespec7: "",
+      newRespec6: "",
+      newRespep1: "",
+      newRespep10: "",
+      newRespep9: "",
+      newRespep8: "",
+      newRespep7: "",
+      newRespep6: "",
+      newVoca1: "",
+      newVoca10: "",
+      newVoca9: "",
+      newVoca8: "",
+      newVoca7: "",
+      newVoca6: "",
+      newFlui1: "",
+      newFlui10: "",
+      newFlui9: "",
+      newFlui8: "",
+      newFlui7: "",
+      newFlui6: "",
+      newArgu1: "",
+      newArgu10: "",
+      newArgu9: "",
+      newArgu8: "",
+      newArgu7: "",
+      newArgu6: "",
+      newConoc1: "",
+      newConoc10: "",
+      newConoc9: "",
+      newConoc8: "",
+      newConoc7: "",
+      newConoc6: "",
+      newRefer1: "",
+      newRefer10: "",
+      newRefer9: "",
+      newRefer8: "",
+      newRefer7: "",
+      newRefer6: "",
+      newVoz1: "",
+      newVoz10: "",
+      newVoz9: "",
+      newVoz8: "",
+      newVoz7: "",
+      newVoz6: "",
+      newConclu1: "",
+      newConclu10: "",
+      newConclu9: "",
+      newConclu8: "",
+      newConclu7: "",
+      newConclu6: "",
+      newEjer1: "",
+      newEjer10: "",
+      newEjer9: "",
+      newEjer8: "",
+      newEjer7: "",
+      newEjer6: "",
+      newProce1: "",
+      newProce10: "",
+      newProce9: "",
+      newProce8: "",
+      newProce7: "",
+      newProce6: "",
 
       fillC: {
         id: "",
@@ -4342,12 +4610,20 @@ export default {
 };
 </script>
 <style>
-.background2 {
-  background: url(http://localhost/Life4teach_project/resources/js/assets/img/Fondo5.jpg);
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  position: relative;
+.btn-primary {
+  color: #fff;
+  background-color: #ff4700;
+  border-color: #ff4700;
+}
+.btn-primary:not(:disabled):not(.disabled):active {
+  color: #fff;
+  background-color: coral;
+  border-color: coral;
+}
+.btn-primary:hover {
+  color: #fff;
+  background-color: coral;
+  border-color: coral;
 }
 </style>
 

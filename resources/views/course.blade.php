@@ -2,6 +2,7 @@
 
 @section('content')
 <course-component></course-component>
+ <footers></footers>
 <div class="container">
     
     <div class="row justify-content-center">
