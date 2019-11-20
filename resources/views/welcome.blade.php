@@ -2,7 +2,7 @@
 
 @section('content')
 <!--<formstyle></formstyle>-->
-<type-component></type-component>
+<hangman-component></hangman-component>
   <footers></footers>
 
   <div class="container">

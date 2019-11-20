@@ -20,7 +20,7 @@
       crossorigin="anonymous"
     />
   </head>
-  <div class="sticky">
+  <!--div class="sticky">
     <button class="btn btn-primary text-nowrap" type="button">
       <a href>
         <img
@@ -31,7 +31,7 @@
         <br />Crea tu propio curso
       </a>
     </button>
-  </div>
+  </div-->
 
   <div class="form-group">
     <div style="position: absolute; left:250px; top:420px; z-index:100;" class="back">
@@ -110,30 +110,9 @@
                     <img
                       thumbnail
                       fluid
-                      src="http://localhost/Life4teach_project/resources/js/assets/img/Icono-audio.png"
-                      width="75"
-                      height="75"
+                      src="http://localhost/Life4teach_project/resources/js/assets/img/googleplay.png"
+                      width="200px"
                       alt="Image 1"
-                    />
-                  </b-col>
-                  <b-col>
-                    <img
-                      thumbnail
-                      fluid
-                      src="http://localhost/Life4teach_project/resources/js/assets/img/Chat-icono.png"
-                      width="75"
-                      height="75"
-                      alt="Image 2"
-                    />
-                  </b-col>
-                  <b-col>
-                    <img
-                      thumbnail
-                      fluid
-                      src="http://localhost/Life4teach_project/resources/js/assets/img/VIdeo-icono.png"
-                      width="75"
-                      height="75"
-                      alt="Image 3"
                     />
                   </b-col>
                 </b-row>
@@ -208,6 +187,9 @@
       </div>
     </div>
   </parallax-container>
+
+  <!--vue-flux :options="fluxOptions" :images="fluxImages" :transitions="vfTransitions" ref="slider"></vue-flux-->
+  <!--button @click="$refs.slider.showImage('next')">NEXT</button-->
   <div class="main main-raised">
     <div class="section2">
       <div class="row">
@@ -230,6 +212,36 @@
           </div>
         </div>
       </div>
+      <vue-flux
+        :options="vfOptions"
+        :images="vfImages"
+        :transitions="vfTransitions"
+        :captions="vfCaptions"
+        ref="slider"
+      >
+        <template v-slot:preloader>
+          <flux-preloader />
+        </template>
+
+        <template v-slot:caption>
+          <flux-caption />
+          <a href>
+            <strong>dfkgnkfdsg</strong>
+          </a>
+        </template>
+
+        <template v-slot:controls>
+          <flux-controls />
+        </template>
+
+        <template v-slot:pagination>
+          <flux-pagination />
+        </template>
+
+        <template v-slot:index>
+          <flux-index />
+        </template>
+      </vue-flux>
       <b-container fluid class="p-4 bg-light2">
         <div align="center">
           <b-row>
@@ -478,6 +490,125 @@
       </div>
     </div>
   </div>
+  <!--Cursos disponibles--->
+  <br />
+  <div class="text-center">
+    <a href="/courseSt" class="btn btn-warning">Cargar mas</a>
+  </div>
+  <!--Seccion de comentarios -->
+  <br />
+  <b-container fluid class="p-4 bg-light">
+    <div align="center">
+      <b-row>
+        <b-col>
+          <img
+            src="http://localhost/Life4teach_project/resources/js/assets/img/circulo1.png"
+            width="70px;"
+            alt
+          />
+        </b-col>
+        <b-col>
+          <img
+            src="http://localhost/Life4teach_project/resources/js/assets/img/circulo2.png"
+            width="70px;"
+            alt
+          />
+        </b-col>
+        <b-col>
+          <img
+            src="http://localhost/Life4teach_project/resources/js/assets/img/circulo3.png"
+            width="70px;"
+            alt
+          />
+        </b-col>
+      </b-row>
+      <b-row>
+        <b-col>
+          <div class="card-text">Comentario 1</div>
+        </b-col>
+        <b-col>
+          <div class="card-text">Comentario 2</div>
+        </b-col>
+        <b-col>
+          <div class="card-text">Comentario 3</div>
+        </b-col>
+      </b-row>
+    </div>
+  </b-container>
+  <!--Seccion de contactenos -->
+  <br />
+  <div class="row">
+    <div class="col-md-6 text-center">
+      <h4>Contáctanos</h4>
+      <label for>info@l4t.com</label>
+      <h5>Síguenos</h5>
+      <div align="center">
+        <i class="fab fa-facebook-f fa-4x"></i>
+        <i class="fab fa-instagram fa-4x"></i>
+      </div>
+    </div>
+    <div class="col-md-5">
+      <div class="custom-card">
+        <div class="card-header">
+          <div class="form-group row">
+            <div class="col-md-12">
+              <input
+                type="text"
+                name="subject"
+                required="required"
+                placeholder="Nombre"
+                class="form-control"
+              />
+            </div>
+          </div>
+          <div>
+            <div class="form-group row">
+              <div class="col-md-12">
+                <input
+                  type="text"
+                  name="subject"
+                  required="required"
+                  placeholder="Email"
+                  class="form-control"
+                />
+              </div>
+            </div>
+            <div class="form-group row">
+              <div class="col-md-12">
+                <input
+                  type="text"
+                  name="subject"
+                  required="required"
+                  placeholder="Asunto"
+                  class="form-control"
+                />
+              </div>
+              <div
+                class="invalid-feedback"
+              >Please fill out this field, the user name may not be greater than 20 characters.</div>
+            </div>
+            <div class="form-group row">
+              <div class="col-md-12">
+                <textarea
+                  name="objects"
+                  class="form-control"
+                  v-model="description"
+                  placeholder="Mensaje"
+                  required
+                ></textarea>
+              </div>
+              <div
+                class="invalid-feedback"
+              >Please fill out this field, the user name may not be greater than 200 characters.</div>
+            </div>
+            <div class="text-center">
+              <a href="/register" class="btn btn-danger">Enviar</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
   <footer class="footer-style">
     <div class="row footer-row mx-auto">
       <div class="col footer-col">
@@ -519,7 +650,7 @@
           <i class="fab fa-facebook fa-2x"></i>
         </a>
         <a href class="icons">
-          <i class="fab fa-google-plus fa-2x"></i>
+          <i class="fab fa-instagram fa-2x"></i>
         </a>
         <a href class="icons">
           <i class="fab fa-twitter fa-2x"></i>
@@ -546,12 +677,31 @@ import "vue-material/dist/vue-material.min.css";
 import VueMouseParallax from "vue-mouse-parallax";
 import { BCard } from "bootstrap-vue/es/components";
 import TextInput from "./TextInput.vue";
+import {
+  VueFlux,
+  FluxCaption,
+  FluxControls,
+  FluxIndex,
+  FluxPagination,
+  FluxPreloader
+} from "vue-flux";
 
 Vue.component("b-card", BCard);
 Vue.use(VueMouseParallax);
 Vue.use(VueMaterial);
 export default {
-  components: { VueperSlides, VueperSlide, TextInput },
+  components: {
+    VueperSlides,
+    VueperSlide,
+    TextInput,
+    VueFlux,
+    FluxCaption,
+    FluxControls,
+    FluxIndex,
+    FluxPagination,
+    FluxPreloader
+  },
+
   bodyClass: "landing-page",
   props: {
     header: {
@@ -588,6 +738,20 @@ export default {
         },
         { image: require("../assets/img/PORTADAweb2.jpg") },
         { image: require("../assets/img/PORTADAweb3.jpg") }
+      ],
+      vfOptions: {
+        autoplay: true
+      },
+      vfImages: [
+        "http://localhost/Life4teach_project/resources/js/assets/img/SLIDERweb.jpg",
+        "http://localhost/Life4teach_project/resources/js/assets/img/Fondo2.jpg",
+        "http://localhost/Life4teach_project/resources/js/assets/img/Fondo1.jpg"
+      ],
+      vfTransitions: ["fade", "cube", "book", "wave"],
+      vfCaptions: [
+        "Caption for image 1",
+        "Caption for image 2",
+        "Caption for image 3"
       ]
     };
   },

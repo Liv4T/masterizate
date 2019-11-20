@@ -165,6 +165,26 @@ Vue.component(
     "register-component",
     require("./components/RegisterComponent.vue").default
 );
+Vue.component(
+    "mycourses-component",
+    require("./components/MycoursesComponent.vue").default
+);
+Vue.component(
+    "coursest-component",
+    require("./components/CoursesStComponent.vue").default
+);
+Vue.component(
+    "evaluationst-component",
+    require("./components/EvaluationStComponent.vue").default
+);
+Vue.component(
+    "activityst-component",
+    require("./components/ActivityStComponent.vue").default
+);
+Vue.component(
+    "listevaluationst-component",
+    require("./components/listevaluationStComponent.vue").default
+);
 Vue.component("TextInput", require("./components/TextInput.vue").default);
 Vue.use(CKEditor);
 Vue.use(CKEditor);

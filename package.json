@@ -46,6 +46,7 @@
         "twilio-video": "^2.0.0-beta9",
         "vee-validate": "^2.1.7",
         "vue-carousel-3d": "^0.2.0",
+        "vue-flux": "^6.0.0-beta.26",
         "vue-form-wizard": "^0.8.4",
         "vue-games": "^0.2.2",
         "vue-material": "^1.0.0-beta-11",

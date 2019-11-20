@@ -1,160 +1,413 @@
 <template>
-  <div class="background1">
-    <div class="card text-center">
-      <h3 class="card-header">Cursos</h3>
+<div class="row justify-content-center">
+  <head>
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.8.2/css/solid.css"
+      integrity="sha384-ioUrHig76ITq4aEJ67dHzTvqjsAP/7IzgwE7lgJcg2r7BRNGYSK0LwSmROzYtgzs"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.8.2/css/brands.css"
+      integrity="sha384-i2PyM6FMpVnxjRPi0KW/xIS7hkeSznkllv+Hx/MtYDaHA5VcF0yL3KVlvzp8bWjQ"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.8.2/css/fontawesome.css"
+      integrity="sha384-sri+NftO+0hcisDKgr287Y/1LVnInHJ1l+XC7+FOabmTTIK0HnE2ID+xxvJ21c5J"
+      crossorigin="anonymous"
+    />
+  </head>
+  <div class="col-sm-10">
+    <div class="custom-card text-center">
+      <h3 class="card-header">Cursos disponibles</h3>
       <div class="card-body">
-        <div class="form-group row">
-          <div class="col">
-            <label for>Categorias</label>
-            <select2 :options="categories" v-model="Category" @input="getSubcategories" required></select2>
+        <div class="card-deck">
+          <div class="card">
+            <img
+              src="http://localhost/Life4teach_project/resources/js/assets/img/OMHWPH0.jpg"
+              class="card-img-top"
+              alt
+            />
+            <div class="card-body">
+              <a href="/ccourse">
+                <h5 class="card-title">Card title 1</h5>
+              </a>
+              <div class="card-text">
+                <div class="ec-stars-wrapper2">
+                  <a data-value="1">&#9733;</a>
+                  <a data-value="2">&#9733;</a>
+                  <a data-value="3">&#9733;</a>
+                  <a data-value="4">&#9733;</a>
+                  <a data-value="5">&#9733;</a>
+                </div>
+              </div>
+              <p
+                class="card-text"
+              >This is a longer card with supporting text below as a natural lead-in to additional content.</p>
+              <p class="card-text">
+                <small class="text-muted">$99.900</small>
+              </p>
+            </div>
           </div>
-          <div class="col">
-            <label for>Subcategorias</label>
-            <select2 :options="subcategories" v-model="newId_subcategories" required></select2>
+          <div class="card">
+            <img
+              src="http://localhost/Life4teach_project/resources/js/assets/img/2918.jpg"
+              class="card-img-top"
+              alt
+            />
+            <div class="card-body">
+              <a href="/ccourse">
+                <h5 class="card-title">Card title 2</h5>
+              </a>
+              <div class="card-text">
+                <div class="ec-stars-wrapper2">
+                  <a data-value="1">&#9733;</a>
+                  <a data-value="2">&#9733;</a>
+                  <a data-value="3">&#9733;</a>
+                  <a data-value="4">&#9733;</a>
+                  <a data-value="5">&#9733;</a>
+                </div>
+              </div>
+              <p
+                class="card-text"
+              >This card has supporting text below as a natural lead-in to additional content.</p>
+              <p class="card-text">
+                <small class="text-muted">$99.900</small>
+              </p>
+            </div>
+          </div>
+          <div class="card">
+            <img
+              src="http://localhost/Life4teach_project/resources/js/assets/img/418.jpg"
+              class="card-img-top"
+              alt
+            />
+            <div class="card-body">
+              <a href="/ccourse">
+                <h5 class="card-title">Card title 3</h5>
+              </a>
+              <div class="card-text">
+                <div class="ec-stars-wrapper2">
+                  <a data-value="1">&#9733;</a>
+                  <a data-value="2">&#9733;</a>
+                  <a data-value="3">&#9733;</a>
+                  <a data-value="4">&#9733;</a>
+                  <a data-value="5">&#9733;</a>
+                </div>
+              </div>
+              <p
+                class="card-text"
+              >This card has supporting text below as a natural lead-in to additional content.</p>
+              <p class="card-text">
+                <small class="text-muted">$99.900</small>
+              </p>
+            </div>
+          </div>
+          <div class="card">
+            <img
+              src="http://localhost/Life4teach_project/resources/js/assets/img/125063-OQT3VV-312.jpg"
+              class="card-img-top"
+              alt
+            />
+            <div class="card-body">
+              <a href="/ccourse">
+                <h5 class="card-title">Card title 4</h5>
+              </a>
+              <div class="card-text">
+                <div class="ec-stars-wrapper2">
+                  <a data-value="1">&#9733;</a>
+                  <a data-value="2">&#9733;</a>
+                  <a data-value="3">&#9733;</a>
+                  <a data-value="4">&#9733;</a>
+                  <a data-value="5">&#9733;</a>
+                </div>
+              </div>
+              <p
+                class="card-text"
+              >This is a wider card with supporting text below as a natural lead-in to additional content.</p>
+              <p class="card-text">
+                <small class="text-muted">$99.900</small>
+              </p>
+            </div>
           </div>
         </div>
-        <table align="center">
-          <tr>
-            <td>
-              <a href="/ccourse">Class1</a>
-            </td>
-            <td>
-              <div class="ec-stars-wrapper">
-                <a href="#" data-value="1" title="Votar con 1 estrellas">&#9733;</a>
-                <a href="#" data-value="2" title="Votar con 2 estrellas">&#9733;</a>
-                <a href="#" data-value="3" title="Votar con 3 estrellas">&#9733;</a>
-                <a href="#" data-value="4" title="Votar con 4 estrellas">&#9733;</a>
-                <a href="#" data-value="5" title="Votar con 5 estrellas">&#9733;</a>
+        <br />
+        <div class="card-deck">
+          <div class="card">
+            <img
+              src="http://localhost/Life4teach_project/resources/js/assets/img/2371004.jpg"
+              class="card-img-top"
+              alt
+            />
+            <div class="card-body">
+              <a href="/ccourse">
+                <h5 class="card-title">Card title 1</h5>
+              </a>
+              <div class="card-text">
+                <div class="ec-stars-wrapper2">
+                  <a data-value="1">&#9733;</a>
+                  <a data-value="2">&#9733;</a>
+                  <a data-value="3">&#9733;</a>
+                  <a data-value="4">&#9733;</a>
+                  <a data-value="5">&#9733;</a>
+                </div>
               </div>
-            </td>
-            <td>
-              <label for>Class2</label>
-            </td>
-            <td>
-              <div class="ec-stars-wrapper">
-                <a href="#" data-value="1" title="Votar con 1 estrellas">&#9733;</a>
-                <a href="#" data-value="2" title="Votar con 2 estrellas">&#9733;</a>
-                <a href="#" data-value="3" title="Votar con 3 estrellas">&#9733;</a>
-                <a href="#" data-value="4" title="Votar con 4 estrellas">&#9733;</a>
-                <a href="#" data-value="5" title="Votar con 5 estrellas">&#9733;</a>
+              <p
+                class="card-text"
+              >This is a longer card with supporting text below as a natural lead-in to additional content.</p>
+              <p class="card-text">
+                <small class="text-muted">$99.900</small>
+              </p>
+            </div>
+          </div>
+          <div class="card">
+            <img
+              src="http://localhost/Life4teach_project/resources/js/assets/img/programmer-working-computer_23-2147505689.jpg"
+              class="card-img-top"
+              alt
+            />
+            <div class="card-body">
+              <a href="/ccourse">
+                <h5 class="card-title">Card title 2</h5>
+              </a>
+              <div class="card-text">
+                <div class="ec-stars-wrapper2">
+                  <a data-value="1">&#9733;</a>
+                  <a data-value="2">&#9733;</a>
+                  <a data-value="3">&#9733;</a>
+                  <a data-value="4">&#9733;</a>
+                  <a data-value="5">&#9733;</a>
+                </div>
               </div>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <label for>Class3</label>
-            </td>
-            <td>
-              <div class="ec-stars-wrapper">
-                <a href="#" data-value="1" title="Votar con 1 estrellas">&#9733;</a>
-                <a href="#" data-value="2" title="Votar con 2 estrellas">&#9733;</a>
-                <a href="#" data-value="3" title="Votar con 3 estrellas">&#9733;</a>
-                <a href="#" data-value="4" title="Votar con 4 estrellas">&#9733;</a>
-                <a href="#" data-value="5" title="Votar con 5 estrellas">&#9733;</a>
+              <p
+                class="card-text"
+              >This card has supporting text below as a natural lead-in to additional content.</p>
+              <p class="card-text">
+                <small class="text-muted">$99.900</small>
+              </p>
+            </div>
+          </div>
+          <div class="card">
+            <img
+              src="http://localhost/Life4teach_project/resources/js/assets/img/programador-web_23-2147502079.jpg"
+              class="card-img-top"
+              alt
+            />
+            <div class="card-body">
+              <a href="/ccourse">
+                <h5 class="card-title">Card title 3</h5>
+              </a>
+              <div class="card-text">
+                <div class="ec-stars-wrapper2">
+                  <a data-value="1">&#9733;</a>
+                  <a data-value="2">&#9733;</a>
+                  <a data-value="3">&#9733;</a>
+                  <a data-value="4">&#9733;</a>
+                  <a data-value="5">&#9733;</a>
+                </div>
               </div>
-            </td>
-            <td>
-              <label for>Class4</label>
-            </td>
-            <td>
-              <div class="ec-stars-wrapper">
-                <a href="#" data-value="1" title="Votar con 1 estrellas">&#9733;</a>
-                <a href="#" data-value="2" title="Votar con 2 estrellas">&#9733;</a>
-                <a href="#" data-value="3" title="Votar con 3 estrellas">&#9733;</a>
-                <a href="#" data-value="4" title="Votar con 4 estrellas">&#9733;</a>
-                <a href="#" data-value="5" title="Votar con 5 estrellas">&#9733;</a>
+              <p
+                class="card-text"
+              >This card has supporting text below as a natural lead-in to additional content.</p>
+              <p class="card-text">
+                <small class="text-muted">$99.900</small>
+              </p>
+            </div>
+          </div>
+          <div class="card">
+            <img
+              src="http://localhost/Life4teach_project/resources/js/assets/img/2371004.jpg"
+              class="card-img-top"
+              alt
+            />
+            <div class="card-body">
+              <a href="/ccourse">
+                <h5 class="card-title">Card title 4</h5>
+              </a>
+              <div class="card-text">
+                <div class="ec-stars-wrapper2">
+                  <a data-value="1">&#9733;</a>
+                  <a data-value="2">&#9733;</a>
+                  <a data-value="3">&#9733;</a>
+                  <a data-value="4">&#9733;</a>
+                  <a data-value="5">&#9733;</a>
+                </div>
               </div>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <label for>Class5</label>
-            </td>
-            <td>
-              <div class="ec-stars-wrapper">
-                <a href="#" data-value="1" title="Votar con 1 estrellas">&#9733;</a>
-                <a href="#" data-value="2" title="Votar con 2 estrellas">&#9733;</a>
-                <a href="#" data-value="3" title="Votar con 3 estrellas">&#9733;</a>
-                <a href="#" data-value="4" title="Votar con 4 estrellas">&#9733;</a>
-                <a href="#" data-value="5" title="Votar con 5 estrellas">&#9733;</a>
+              <p
+                class="card-text"
+              >This is a wider card with supporting text below as a natural lead-in to additional content.</p>
+              <p class="card-text">
+                <small class="text-muted">$99.900</small>
+              </p>
+            </div>
+          </div>
+        </div>
+        <br />
+        <div class="card-deck">
+          <div class="card">
+            <img
+              src="http://localhost/Life4teach_project/resources/js/assets/img/OMHWPH0.jpg"
+              class="card-img-top"
+              alt
+            />
+            <div class="card-body">
+              <a href="/ccourse">
+                <h5 class="card-title">Card title 1</h5>
+              </a>
+              <div class="card-text">
+                <div class="ec-stars-wrapper2">
+                  <a data-value="1">&#9733;</a>
+                  <a data-value="2">&#9733;</a>
+                  <a data-value="3">&#9733;</a>
+                  <a data-value="4">&#9733;</a>
+                  <a data-value="5">&#9733;</a>
+                </div>
               </div>
-            </td>
-            <td>
-              <label for>Class6</label>
-            </td>
-            <td>
-              <div class="ec-stars-wrapper">
-                <a href="#" data-value="1" title="Votar con 1 estrellas">&#9733;</a>
-                <a href="#" data-value="2" title="Votar con 2 estrellas">&#9733;</a>
-                <a href="#" data-value="3" title="Votar con 3 estrellas">&#9733;</a>
-                <a href="#" data-value="4" title="Votar con 4 estrellas">&#9733;</a>
-                <a href="#" data-value="5" title="Votar con 5 estrellas">&#9733;</a>
+              <p
+                class="card-text"
+              >This is a longer card with supporting text below as a natural lead-in to additional content.</p>
+              <p class="card-text">
+                <small class="text-muted">$99.900</small>
+              </p>
+            </div>
+          </div>
+          <div class="card">
+            <img
+              src="http://localhost/Life4teach_project/resources/js/assets/img/2918.jpg"
+              class="card-img-top"
+              alt
+            />
+            <div class="card-body">
+              <a href="/ccourse">
+                <h5 class="card-title">Card title 2</h5>
+              </a>
+              <div class="card-text">
+                <div class="ec-stars-wrapper2">
+                  <a data-value="1">&#9733;</a>
+                  <a data-value="2">&#9733;</a>
+                  <a data-value="3">&#9733;</a>
+                  <a data-value="4">&#9733;</a>
+                  <a data-value="5">&#9733;</a>
+                </div>
               </div>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <label for>Class7</label>
-            </td>
-            <td>
-              <div class="ec-stars-wrapper">
-                <a href="#" data-value="1" title="Votar con 1 estrellas">&#9733;</a>
-                <a href="#" data-value="2" title="Votar con 2 estrellas">&#9733;</a>
-                <a href="#" data-value="3" title="Votar con 3 estrellas">&#9733;</a>
-                <a href="#" data-value="4" title="Votar con 4 estrellas">&#9733;</a>
-                <a href="#" data-value="5" title="Votar con 5 estrellas">&#9733;</a>
+              <p
+                class="card-text"
+              >This card has supporting text below as a natural lead-in to additional content.</p>
+              <p class="card-text">
+                <small class="text-muted">$99.900</small>
+              </p>
+            </div>
+          </div>
+          <div class="card">
+            <img
+              src="http://localhost/Life4teach_project/resources/js/assets/img/418.jpg"
+              class="card-img-top"
+              alt
+            />
+            <div class="card-body">
+              <a href="/ccourse">
+                <h5 class="card-title">Card title 3</h5>
+              </a>
+              <div class="card-text">
+                <div class="ec-stars-wrapper2">
+                  <a data-value="1">&#9733;</a>
+                  <a data-value="2">&#9733;</a>
+                  <a data-value="3">&#9733;</a>
+                  <a data-value="4">&#9733;</a>
+                  <a data-value="5">&#9733;</a>
+                </div>
               </div>
-            </td>
-            <td>
-              <label for>Class8</label>
-            </td>
-            <td>
-              <div class="ec-stars-wrapper">
-                <a href="#" data-value="1" title="Votar con 1 estrellas">&#9733;</a>
-                <a href="#" data-value="2" title="Votar con 2 estrellas">&#9733;</a>
-                <a href="#" data-value="3" title="Votar con 3 estrellas">&#9733;</a>
-                <a href="#" data-value="4" title="Votar con 4 estrellas">&#9733;</a>
-                <a href="#" data-value="5" title="Votar con 5 estrellas">&#9733;</a>
+              <p
+                class="card-text"
+              >This card has supporting text below as a natural lead-in to additional content.</p>
+              <p class="card-text">
+                <small class="text-muted">$99.900</small>
+              </p>
+            </div>
+          </div>
+          <div class="card">
+            <img
+              src="http://localhost/Life4teach_project/resources/js/assets/img/125063-OQT3VV-312.jpg"
+              class="card-img-top"
+              alt
+            />
+            <div class="card-body">
+              <a href="/ccourse">
+                <h5 class="card-title">Card title 4</h5>
+              </a>
+              <div class="card-text">
+                <div class="ec-stars-wrapper2">
+                  <a data-value="1">&#9733;</a>
+                  <a data-value="2">&#9733;</a>
+                  <a data-value="3">&#9733;</a>
+                  <a data-value="4">&#9733;</a>
+                  <a data-value="5">&#9733;</a>
+                </div>
               </div>
-            </td>
-          </tr>
-        </table>
+              <p
+                class="card-text"
+              >This is a wider card with supporting text below as a natural lead-in to additional content.</p>
+              <p class="card-text">
+                <small class="text-muted">$99.900</small>
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
+</div>
 </template>
 <script>
-export default {};
+import BootstrapVue from "bootstrap-vue";
+import VueMaterial from "vue-material";
+import "vue-material/dist/vue-material.min.css";
+import { BCard } from "bootstrap-vue/es/components";
+import TextInput from "./TextInput.vue";
+
+Vue.component("b-card", BCard);
+Vue.use(VueMaterial);
+
+export default {
+  components: { TextInput },
+  data() {
+    return {
+      name: null,
+      email: null,
+      message: null
+    };
+  },
+  methods: {
+    inputEvent(e) {
+      console.log(e);
+    },
+    openNav() {
+      document.getElementById("mySidenav").style.width = "250px";
+      document.getElementById("main").style.marginLeft = "250px";
+    },
+
+    closeNav() {
+      document.getElementById("mySidenav").style.width = "0";
+      document.getElementById("main").style.marginLeft = "0";
+    }
+  }
+};
 </script>
 <style>
-.ec-stars-wrapper {
-  /* Espacio entre los inline-block (los hijos, los `a`) 
-	   http://ksesocss.blogspot.com/2012/03/display-inline-block-y-sus-empeno-en.html */
+.ec-stars-wrapper2 {
   font-size: 0;
-  /* Podríamos quitarlo, 
-		pero de esta manera (siempre que no le demos padding), 
-		sólo aplicará la regla .ec-stars-wrapper:hover a cuando
-		también se esté haciendo hover a alguna estrella */
   display: inline-block;
+  color: rgb(255, 214, 32);
 }
-.ec-stars-wrapper a {
+.ec-stars-wrapper2 a {
   text-decoration: none;
   display: inline-block;
   /* Volver a dar tamaño al texto */
   font-size: 32px;
   font-size: 2rem;
-
-  color: #888;
-}
-
-.ec-stars-wrapper:hover a {
-  color: rgb(255, 214, 32);
-}
-/*
- * El selector de hijo, es necesario para aumentar la especifidad
- */
-.ec-stars-wrapper > a:hover ~ a {
-  color: #888;
 }
 table,
 th,
@@ -165,5 +418,22 @@ th,
 td {
   padding: 20px;
 }
+.hola {
+  color: black;
+  font-weight: bold;
+}
+.hola2 {
+  color: black;
+}
+@import url(http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css);
+.card-header {
+  background-color: #e9ecefb5;
+}
+#accordion1 li.panel {
+  margin-bottom: 0px;
+}
+.bg-light3 {
+  background: linear-gradient(#c078d6, #91328c);
+  margin: 0%;
+}
 </style>
-

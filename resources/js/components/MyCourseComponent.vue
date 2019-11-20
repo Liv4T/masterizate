@@ -31,10 +31,29 @@
   <div class="card text-center">
     <div class="card-body">
       <h3 class="hola">Nombre del curso</h3>
+      <div class="ec-stars-wrapper1">
+        <a data-value="1">&#9733;</a>
+        <a data-value="2">&#9733;</a>
+        <a data-value="3">&#9733;</a>
+        <a data-value="4">&#9733;</a>
+        <a data-value="5">&#9733;</a>
+      </div>
+      <div class="progress">
+        <div
+          class="progress-bar"
+          role="progressbar"
+          style="width: 25%;"
+          aria-valuenow="25"
+          aria-valuemin="0"
+          aria-valuemax="100"
+        >25%</div>
+      </div>
       <label
         class="hola2"
         for
       >El curso está diseñado utilizando una metodología interactiva a través de esta permite aprender de manera autónoma y propicia los conceptos más relevantes en sobre la programación móvil.</label>
+      <br />
+      <strong for>Recuerde que el curso inicia:--/--/---- y finaliza:--/--/----</strong>
     </div>
   </div>
   <form-wizard title subtitle>
@@ -46,14 +65,22 @@
             <div class="panel list-group">
               <!-- panel class must be in -->
               <a
-                href="#web_dev"
+                href
                 data-parent="#accordion"
+                data-target="#collapseOne"
+                aria-expanded="true"
+                aria-controls="collapseOne"
                 data-toggle="collapse"
                 class="list-group-item"
               >
                 <h6>Tema 1</h6>
               </a>
-              <div class="collapse" id="web_dev">
+              <div
+                id="collapseOne"
+                class="collapse show"
+                aria-labelledby="headingOne"
+                data-parent="#accordion"
+              >
                 <ul class="list-group-item-text">
                   <li>Javascript</li>
                   <li>PHP</li>
@@ -62,14 +89,22 @@
                 </ul>
               </div>
               <a
-                href="#desktop"
+                href
                 data-parent="#accordion"
                 data-toggle="collapse"
+                data-target="#collapseTwo"
+                aria-expanded="true"
+                aria-controls="collapseTwo"
                 class="list-group-item"
               >
                 <h6>Tema 2</h6>
               </a>
-              <div class="collapse" id="desktop">
+              <div
+                id="collapseTwo"
+                class="collapse"
+                aria-labelledby="headingTwo"
+                data-parent="#accordion"
+              >
                 <ul class="list-group-item-text">
                   <li>C#</li>
                   <li>Java</li>
@@ -77,14 +112,22 @@
                 </ul>
               </div>
               <a
-                href="#mobile"
+                href
                 data-parent="#accordion"
                 data-toggle="collapse"
+                data-target="#collapseThree"
+                aria-expanded="true"
+                aria-controls="collapseThree"
                 class="list-group-item"
               >
                 <h6>Tema 3</h6>
               </a>
-              <div class="collapse" id="mobile">
+              <div
+                id="collapseThree"
+                class="collapse"
+                aria-labelledby="headingThree"
+                data-parent="#accordion"
+              >
                 <ul class="list-group-item-text">
                   <li>Android</li>
                   <li>IOS</li>
@@ -93,14 +136,22 @@
                 </ul>
               </div>
               <a
-                href="#web"
+                href
                 data-parent="#accordion"
                 data-toggle="collapse"
+                data-target="#collapseFour"
+                aria-expanded="true"
+                aria-controls="collapseFour"
                 class="list-group-item"
               >
                 <h6>Tema 4</h6>
               </a>
-              <div class="collapse" id="web">
+              <div
+                id="collapseFour"
+                class="collapse"
+                aria-labelledby="headingFour"
+                data-parent="#accordion"
+              >
                 <ul class="list-group-item-text">
                   <li>Android</li>
                   <li>IOS</li>
@@ -114,204 +165,321 @@
       </div>
     </tab-content>
     <tab-content title="Nombre Unidad">
-      <!-- Accordion Using List Group -->
-      <div>
-        <div id="accordion">
-          <div class="panel list-group">
-            <!-- panel class must be in -->
-            <a
-              href="#web_dev"
-              data-parent="#accordion"
-              data-toggle="collapse"
-              class="list-group-item"
-            >
-              <h6>Tema 2.1</h6>
-            </a>
-            <div class="collapse" id="web_dev">
-              <ul class="list-group-item-text">
-                <li>Javascript</li>
-                <li>PHP</li>
-                <li>Wordpress</li>
-                <li>MYSQL</li>
-              </ul>
-            </div>
-            <a
-              href="#desktop"
-              data-parent="#accordion"
-              data-toggle="collapse"
-              class="list-group-item"
-            >
-              <h6>Tema 2.2</h6>
-            </a>
-            <div class="collapse" id="desktop">
-              <ul class="list-group-item-text">
-                <li>C#</li>
-                <li>Java</li>
-                <li>Python</li>
-              </ul>
-            </div>
-            <a
-              href="#mobile"
-              data-parent="#accordion"
-              data-toggle="collapse"
-              class="list-group-item"
-            >
-              <h6>Tema 2.3</h6>
-            </a>
-            <div class="collapse" id="mobile">
-              <ul class="list-group-item-text">
-                <li>Android</li>
-                <li>IOS</li>
-                <li>Windows</li>
-                <li>Linux</li>
-              </ul>
-            </div>
-            <a href="#web" data-parent="#accordion" data-toggle="collapse" class="list-group-item">
-              <h6>Tema 2.4</h6>
-            </a>
-            <div class="collapse" id="web">
-              <ul class="list-group-item-text">
-                <li>Android</li>
-                <li>IOS</li>
-                <li>Windows</li>
-                <li>Linux</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-    </tab-content>
-    <tab-content title="Nombre Unidad">
-      <!-- Accordion Using List Group -->
-      <div>
-        <div id="accordion">
-          <div class="panel list-group">
-            <!-- panel class must be in -->
-            <a
-              href="#web_dev"
-              data-parent="#accordion"
-              data-toggle="collapse"
-              class="list-group-item"
-            >
-              <h6>Tema 3.1</h6>
-            </a>
-            <div class="collapse" id="web_dev">
-              <ul class="list-group-item-text">
-                <li>Javascript</li>
-                <li>PHP</li>
-                <li>Wordpress</li>
-                <li>MYSQL</li>
-              </ul>
-            </div>
-            <a
-              href="#desktop"
-              data-parent="#accordion"
-              data-toggle="collapse"
-              class="list-group-item"
-            >
-              <h6>Tema 3.2</h6>
-            </a>
-            <div class="collapse" id="desktop">
-              <ul class="list-group-item-text">
-                <li>C#</li>
-                <li>Java</li>
-                <li>Python</li>
-              </ul>
-            </div>
-            <a
-              href="#mobile"
-              data-parent="#accordion"
-              data-toggle="collapse"
-              class="list-group-item"
-            >
-              <h6>Tema 3.3</h6>
-            </a>
-            <div class="collapse" id="mobile">
-              <ul class="list-group-item-text">
-                <li>Android</li>
-                <li>IOS</li>
-                <li>Windows</li>
-                <li>Linux</li>
-              </ul>
-            </div>
-            <a href="#web" data-parent="#accordion" data-toggle="collapse" class="list-group-item">
-              <h6>Tema 3.4</h6>
-            </a>
-            <div class="collapse" id="web">
-              <ul class="list-group-item-text">
-                <li>Android</li>
-                <li>IOS</li>
-                <li>Windows</li>
-                <li>Linux</li>
-              </ul>
+      <div class="card-body">
+        <!-- Accordion Using List Group -->
+        <div>
+          <div id="accordion1">
+            <div class="panel list-group">
+              <!-- panel class must be in -->
+              <a
+                href
+                data-parent="#accordion1"
+                data-target="#collapseOne"
+                aria-expanded="true"
+                aria-controls="collapseOne"
+                data-toggle="collapse"
+                class="list-group-item"
+              >
+                <h6>Tema 2.1</h6>
+              </a>
+              <div
+                id="collapseOne"
+                class="collapse show"
+                aria-labelledby="headingOne"
+                data-parent="#accordion1"
+              >
+                <ul class="list-group-item-text">
+                  <li>Javascript</li>
+                  <li>PHP</li>
+                  <li>Wordpress</li>
+                  <li>MYSQL</li>
+                </ul>
+              </div>
+              <a
+                href
+                data-parent="#accordion1"
+                data-toggle="collapse"
+                data-target="#collapseTwo"
+                aria-expanded="false"
+                aria-controls="collapseTwo"
+                class="list-group-item"
+              >
+                <h6>Tema 2.2</h6>
+              </a>
+              <div
+                id="collapseTwo"
+                class="collapse"
+                aria-labelledby="headingTwo"
+                data-parent="#accordion1"
+              >
+                <ul class="list-group-item-text">
+                  <li>C#</li>
+                  <li>Java</li>
+                  <li>Python</li>
+                </ul>
+              </div>
+              <a
+                href
+                data-parent="#accordion1"
+                data-toggle="collapse"
+                data-target="#collapseThree"
+                aria-expanded="false"
+                aria-controls="collapseThree"
+                class="list-group-item"
+              >
+                <h6>Tema 2.3</h6>
+              </a>
+              <div
+                id="collapseThree"
+                class="collapse"
+                aria-labelledby="headingThree"
+                data-parent="#accordion1"
+              >
+                <ul class="list-group-item-text">
+                  <li>Android</li>
+                  <li>IOS</li>
+                  <li>Windows</li>
+                  <li>Linux</li>
+                </ul>
+              </div>
+              <a
+                href
+                data-parent="#accordion1"
+                data-toggle="collapse"
+                data-target="#collapseFour"
+                aria-expanded="false"
+                aria-controls="collapseFour"
+                class="list-group-item"
+              >
+                <h6>Tema 2.4</h6>
+              </a>
+              <div
+                id="collapseFour"
+                class="collapse"
+                aria-labelledby="headingFour"
+                data-parent="#accordion1"
+              >
+                <ul class="list-group-item-text">
+                  <li>Android</li>
+                  <li>IOS</li>
+                  <li>Windows</li>
+                  <li>Linux</li>
+                </ul>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </tab-content>
     <tab-content title="Nombre Unidad">
-      <!-- Accordion Using List Group -->
-      <div>
-        <div id="accordion">
-          <div class="panel list-group">
-            <!-- panel class must be in -->
-            <a
-              href="#web_dev"
-              data-parent="#accordion"
-              data-toggle="collapse"
-              class="list-group-item"
-            >
-              <h6>Tema 4.1</h6>
-            </a>
-            <div class="collapse" id="web_dev">
-              <ul class="list-group-item-text">
-                <li>Javascript</li>
-                <li>PHP</li>
-                <li>Wordpress</li>
-                <li>MYSQL</li>
-              </ul>
+      <div class="card-body">
+        <!-- Accordion Using List Group -->
+        <div>
+          <div id="accordion2">
+            <div class="panel list-group">
+              <!-- panel class must be in -->
+              <a
+                href
+                data-parent="#accordion2"
+                data-target="#collapseOne"
+                aria-expanded="true"
+                aria-controls="collapseOne"
+                data-toggle="collapse"
+                class="list-group-item"
+              >
+                <h6>Tema 3.1</h6>
+              </a>
+              <div
+                id="collapseOne"
+                class="collapse show"
+                aria-labelledby="headingOne"
+                data-parent="#accordion2"
+              >
+                <ul class="list-group-item-text">
+                  <li>Javascript</li>
+                  <li>PHP</li>
+                  <li>Wordpress</li>
+                  <li>MYSQL</li>
+                </ul>
+              </div>
+              <a
+                href
+                data-parent="#accordion2"
+                data-toggle="collapse"
+                data-target="#collapseTwo"
+                aria-expanded="false"
+                aria-controls="collapseTwo"
+                class="list-group-item"
+              >
+                <h6>Tema 3.2</h6>
+              </a>
+              <div
+                id="collapseTwo"
+                class="collapse"
+                aria-labelledby="headingTwo"
+                data-parent="#accordion2"
+              >
+                <ul class="list-group-item-text">
+                  <li>C#</li>
+                  <li>Java</li>
+                  <li>Python</li>
+                </ul>
+              </div>
+              <a
+                href
+                data-parent="#accordion2"
+                data-toggle="collapse"
+                data-target="#collapseThree"
+                aria-expanded="false"
+                aria-controls="collapseThree"
+                class="list-group-item"
+              >
+                <h6>Tema 3.3</h6>
+              </a>
+              <div
+                id="collapseThree"
+                class="collapse"
+                aria-labelledby="headingThree"
+                data-parent="#accordion2"
+              >
+                <ul class="list-group-item-text">
+                  <li>Android</li>
+                  <li>IOS</li>
+                  <li>Windows</li>
+                  <li>Linux</li>
+                </ul>
+              </div>
+              <a
+                href
+                data-parent="#accordion2"
+                data-toggle="collapse"
+                data-target="#collapseFour"
+                aria-expanded="false"
+                aria-controls="collapseFour"
+                class="list-group-item"
+              >
+                <h6>Tema 3.4</h6>
+              </a>
+              <div
+                id="collapseFour"
+                class="collapse"
+                aria-labelledby="headingFour"
+                data-parent="#accordion2"
+              >
+                <ul class="list-group-item-text">
+                  <li>Android</li>
+                  <li>IOS</li>
+                  <li>Windows</li>
+                  <li>Linux</li>
+                </ul>
+              </div>
             </div>
-            <a
-              href="#desktop"
-              data-parent="#accordion"
-              data-toggle="collapse"
-              class="list-group-item"
-            >
-              <h6>Tema 4.2</h6>
-            </a>
-            <div class="collapse" id="desktop">
-              <ul class="list-group-item-text">
-                <li>C#</li>
-                <li>Java</li>
-                <li>Python</li>
-              </ul>
-            </div>
-            <a
-              href="#mobile"
-              data-parent="#accordion"
-              data-toggle="collapse"
-              class="list-group-item"
-            >
-              <h6>Tema 4.3</h6>
-            </a>
-            <div class="collapse" id="mobile">
-              <ul class="list-group-item-text">
-                <li>Android</li>
-                <li>IOS</li>
-                <li>Windows</li>
-                <li>Linux</li>
-              </ul>
-            </div>
-            <a href="#web" data-parent="#accordion" data-toggle="collapse" class="list-group-item">
-              <h6>Tema 4.4</h6>
-            </a>
-            <div class="collapse" id="web">
-              <ul class="list-group-item-text">
-                <li>Android</li>
-                <li>IOS</li>
-                <li>Windows</li>
-                <li>Linux</li>
-              </ul>
+          </div>
+        </div>
+      </div>
+    </tab-content>
+    <tab-content title="Nombre Unidad">
+      <div class="card-body">
+        <!-- Accordion Using List Group -->
+        <div>
+          <div id="accordion3">
+            <div class="panel list-group">
+              <!-- panel class must be in -->
+              <a
+                href
+                data-parent="#accordion3"
+                data-target="#collapseOne"
+                aria-expanded="false"
+                aria-controls="collapseOne"
+                data-toggle="collapse"
+                class="list-group-item"
+              >
+                <h6>Tema 4.1</h6>
+              </a>
+              <div
+                id="collapseOne"
+                class="collapse show"
+                aria-labelledby="headingOne"
+                data-parent="#accordion3"
+              >
+                <ul class="list-group-item-text">
+                  <li>Javascript</li>
+                  <li>PHP</li>
+                  <li>Wordpress</li>
+                  <li>MYSQL</li>
+                </ul>
+              </div>
+              <a
+                href
+                data-parent="#accordion3"
+                data-toggle="collapse"
+                data-target="#collapseTwo"
+                aria-expanded="false"
+                aria-controls="collapseTwo"
+                class="list-group-item"
+              >
+                <h6>Tema 4.2</h6>
+              </a>
+              <div
+                id="collapseTwo"
+                class="collapse"
+                aria-labelledby="headingTwo"
+                data-parent="#accordion3"
+              >
+                <ul class="list-group-item-text">
+                  <li>C#</li>
+                  <li>Java</li>
+                  <li>Python</li>
+                </ul>
+              </div>
+              <a
+                href
+                data-parent="#accordion3"
+                data-toggle="collapse"
+                data-target="#collapseThree"
+                aria-expanded="false"
+                aria-controls="collapseThree"
+                class="list-group-item"
+              >
+                <h6>Tema 4.3</h6>
+              </a>
+              <div
+                id="collapseThree"
+                class="collapse"
+                aria-labelledby="headingThree"
+                data-parent="#accordion3"
+              >
+                <ul class="list-group-item-text">
+                  <li>Android</li>
+                  <li>IOS</li>
+                  <li>Windows</li>
+                  <li>Linux</li>
+                </ul>
+              </div>
+              <a
+                href
+                data-parent="#accordion3"
+                data-toggle="collapse"
+                data-target="#collapseFour"
+                aria-expanded="false"
+                aria-controls="collapseFour"
+                class="list-group-item"
+              >
+                <h6>Tema 4.4</h6>
+              </a>
+              <div
+                id="collapseFour"
+                class="collapse"
+                aria-labelledby="headingFour"
+                data-parent="#accordion3"
+              >
+                <ul class="list-group-item-text">
+                  <li>Android</li>
+                  <li>IOS</li>
+                  <li>Windows</li>
+                  <li>Linux</li>
+                </ul>
+              </div>
             </div>
           </div>
         </div>
@@ -325,7 +493,7 @@
       </a>
       <div class="form-group row">
         <div class="col-md-6">
-          <a href>
+          <a href="/activitySt">
             <img
               src="http://localhost/Life4teach_project/resources/js/assets/img/Icono_foro1.png"
               alt
@@ -413,119 +581,17 @@ export default {
 };
 </script>
 <style>
-@media (min-width: 768px) {
-  /* show 4 items */
-  .carousel-inner .active,
-  .carousel-inner .active + .carousel-item,
-  .carousel-inner .active + .carousel-item + .carousel-item,
-  .carousel-inner .active + .carousel-item + .carousel-item + .carousel-item {
-    display: block;
-  }
-  .carousel-item {
-    margin-right: auto !important;
-  }
-  .carousel-inner
-    .carousel-item.active:not(.carousel-item-right):not(.carousel-item-left),
-  .carousel-inner
-    .carousel-item.active:not(.carousel-item-right):not(.carousel-item-left)
-    + .carousel-item,
-  .carousel-inner
-    .carousel-item.active:not(.carousel-item-right):not(.carousel-item-left)
-    + .carousel-item
-    + .carousel-item,
-  .carousel-inner
-    .carousel-item.active:not(.carousel-item-right):not(.carousel-item-left)
-    + .carousel-item
-    + .carousel-item
-    + .carousel-item {
-    transition: none;
-  }
-
-  .carousel-inner .carousel-item-next,
-  .carousel-inner .carousel-item-prev {
-    position: relative;
-    transform: translate3d(0, 0, 0);
-  }
-
-  .carousel-inner
-    .active.carousel-item
-    + .carousel-item
-    + .carousel-item
-    + .carousel-item
-    + .carousel-item {
-    position: absolute;
-    top: 0;
-    right: -25%;
-    z-index: -1;
-    display: block;
-    visibility: visible;
-  }
-
-  /* left or forward direction */
-  .active.carousel-item-left + .carousel-item-next.carousel-item-left,
-  .carousel-item-next.carousel-item-left + .carousel-item,
-  .carousel-item-next.carousel-item-left + .carousel-item + .carousel-item,
-  .carousel-item-next.carousel-item-left
-    + .carousel-item
-    + .carousel-item
-    + .carousel-item,
-  .carousel-item-next.carousel-item-left
-    + .carousel-item
-    + .carousel-item
-    + .carousel-item
-    + .carousel-item {
-    position: relative;
-    transform: translate3d(-100%, 0, 0);
-    visibility: visible;
-  }
-
-  /* farthest right hidden item must be absolue position for animations */
-  .carousel-inner .carousel-item-prev.carousel-item-right {
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: -1;
-    display: block;
-    visibility: visible;
-  }
-
-  /* right or prev direction */
-  .active.carousel-item-right + .carousel-item-prev.carousel-item-right,
-  .carousel-item-prev.carousel-item-right + .carousel-item,
-  .carousel-item-prev.carousel-item-right + .carousel-item + .carousel-item,
-  .carousel-item-prev.carousel-item-right
-    + .carousel-item
-    + .carousel-item
-    + .carousel-item,
-  .carousel-item-prev.carousel-item-right
-    + .carousel-item
-    + .carousel-item
-    + .carousel-item
-    + .carousel-item {
-    position: relative;
-    transform: translate3d(100%, 0, 0);
-    visibility: visible;
-    display: block;
-    visibility: visible;
-  }
-}
-.ec-stars-wrapper {
-  /* Espacio entre los inline-block (los hijos, los `a`) 
-	   http://ksesocss.blogspot.com/2012/03/display-inline-block-y-sus-empeno-en.html */
+.ec-stars-wrapper1 {
   font-size: 0;
-  /* Podríamos quitarlo, 
-		pero de esta manera (siempre que no le demos padding), 
-		sólo aplicará la regla .ec-stars-wrapper:hover a cuando
-		también se esté haciendo hover a alguna estrella */
   display: inline-block;
+  color: rgb(255, 214, 32);
 }
 .ec-stars-wrapper1 a {
   text-decoration: none;
   display: inline-block;
   /* Volver a dar tamaño al texto */
-  font-size: 32px;
-  font-size: 2rem;
-
+  font-size: 30px;
+  font-size: 1.5rem;
   color: rgb(255, 214, 32);
 }
 table,

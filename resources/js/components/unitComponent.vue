@@ -64,7 +64,7 @@
                   </div>
                 </div>
                 <div class="modal-footer">
-                  <a href="/ccourse" class="btn btn-primary float-right">Volver</a>
+                  <a href="/vcourse" class="btn btn-primary float-right">Volver</a>
                 </div>
               </div>
             </form>

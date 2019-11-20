@@ -135,12 +135,7 @@
             </div>
           </div>
           <div class="modal-footer">
-            <input
-              type="submit"
-              @click.prevent="createCourses"
-              class="btn btn-primary"
-              value="Guardar"
-            />
+            <a href="/class" class="btn btn-primary float-right">Volver</a>
           </div>
         </div>
       </form>

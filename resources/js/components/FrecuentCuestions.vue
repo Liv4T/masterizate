@@ -1,6 +1,6 @@
 <template>
   <div class="card">
-    <h3 class="card-header text-center">Preguntas frecuentes</h3>
+    <h3 class="card-header text-center">Preguntas Frecuentes</h3>
     <div class="card-body">
       <div class="accordion" id="accordionExample">
         <div class="card">

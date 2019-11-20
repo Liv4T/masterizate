@@ -92,18 +92,24 @@
         class="hola2"
         for
       >El curso está diseñado utilizando una metodología interactiva a través de esta permite aprender de manera autónoma y propicia los conceptos más relevantes en sobre la programación móvil.</label>
+      <br />
+      <label for>Fecha de inicio:--/--/---- fecha final:--/--/----</label>
     </div>
     <div class="form-group row">
-      <div class="ec-stars-wrapper1">
-        <a href="#" data-value="1" title="Votar con 1 estrellas">&#9733;</a>
-        <a href="#" data-value="2" title="Votar con 2 estrellas">&#9733;</a>
-        <a href="#" data-value="3" title="Votar con 3 estrellas">&#9733;</a>
-        <a href="#" data-value="4" title="Votar con 4 estrellas">&#9733;</a>
-        <a href="#" data-value="5" title="Votar con 5 estrellas">&#9733;</a>
+      <div class="col-md-6">
+        <div class="ec-stars-wrapper1">
+          <a href="#" data-value="1" title="Votar con 1 estrellas">&#9733;</a>
+          <a href="#" data-value="2" title="Votar con 2 estrellas">&#9733;</a>
+          <a href="#" data-value="3" title="Votar con 3 estrellas">&#9733;</a>
+          <a href="#" data-value="4" title="Votar con 4 estrellas">&#9733;</a>
+          <a href="#" data-value="5" title="Votar con 5 estrellas">&#9733;</a>
+        </div>
+      </div>
+      <div class="col-md-3 text-right">
+        <strong>$99.900</strong>
       </div>
     </div>
   </div>
-
   <!--<figure class="figure">
                 <img
                   src="http://localhost/Life4teach_project/resources/js/assets/img/avatar.png"
@@ -245,17 +251,28 @@
         <div class="carousel-item col-md-3 active">
           <div class="card">
             <img
-              class="card-img-top img-fluid"
-              src="http://placehold.it/800x600/f44242/fff"
-              alt="Card image cap"
+              src="http://localhost/Life4teach_project/resources/js/assets/img/OMHWPH0.jpg"
+              class="card-img-top"
+              alt
             />
             <div class="card-body">
-              <h4 class="card-title">Curso 1</h4>
+              <a href="/ccourse">
+                <h5 class="card-title">Card title 1</h5>
+              </a>
+              <div class="card-text">
+                <div class="ec-stars-wrapper2">
+                  <a data-value="1">&#9733;</a>
+                  <a data-value="2">&#9733;</a>
+                  <a data-value="3">&#9733;</a>
+                  <a data-value="4">&#9733;</a>
+                  <a data-value="5">&#9733;</a>
+                </div>
+              </div>
               <p
                 class="card-text"
-              >This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+              >This is a longer card with supporting text below as a natural lead-in to additional content.</p>
               <p class="card-text">
-                <small class="text-muted">Last updated 3 mins ago</small>
+                <small class="text-muted">$99.900</small>
               </p>
             </div>
           </div>
@@ -263,17 +280,28 @@
         <div class="carousel-item col-md-3">
           <div class="card">
             <img
-              class="card-img-top img-fluid"
-              src="http://placehold.it/800x600/418cf4/fff"
-              alt="Card image cap"
+              src="http://localhost/Life4teach_project/resources/js/assets/img/2918.jpg"
+              class="card-img-top"
+              alt
             />
             <div class="card-body">
-              <h4 class="card-title">Curso 2</h4>
+              <a href="/ccourse">
+                <h5 class="card-title">Card title 1</h5>
+              </a>
+              <div class="card-text">
+                <div class="ec-stars-wrapper2">
+                  <a data-value="1">&#9733;</a>
+                  <a data-value="2">&#9733;</a>
+                  <a data-value="3">&#9733;</a>
+                  <a data-value="4">&#9733;</a>
+                  <a data-value="5">&#9733;</a>
+                </div>
+              </div>
               <p
                 class="card-text"
-              >This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+              >This is a longer card with supporting text below as a natural lead-in to additional content.</p>
               <p class="card-text">
-                <small class="text-muted">Last updated 3 mins ago</small>
+                <small class="text-muted">$99.900</small>
               </p>
             </div>
           </div>
@@ -281,17 +309,28 @@
         <div class="carousel-item col-md-3">
           <div class="card">
             <img
-              class="card-img-top img-fluid"
-              src="http://placehold.it/800x600/3ed846/fff"
-              alt="Card image cap"
+              src="http://localhost/Life4teach_project/resources/js/assets/img/418.jpg"
+              class="card-img-top"
+              alt
             />
             <div class="card-body">
-              <h4 class="card-title">Curso 3</h4>
+              <a href="/ccourse">
+                <h5 class="card-title">Card title 1</h5>
+              </a>
+              <div class="card-text">
+                <div class="ec-stars-wrapper2">
+                  <a data-value="1">&#9733;</a>
+                  <a data-value="2">&#9733;</a>
+                  <a data-value="3">&#9733;</a>
+                  <a data-value="4">&#9733;</a>
+                  <a data-value="5">&#9733;</a>
+                </div>
+              </div>
               <p
                 class="card-text"
-              >This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+              >This is a longer card with supporting text below as a natural lead-in to additional content.</p>
               <p class="card-text">
-                <small class="text-muted">Last updated 3 mins ago</small>
+                <small class="text-muted">$99.900</small>
               </p>
             </div>
           </div>
@@ -299,17 +338,28 @@
         <div class="carousel-item col-md-3">
           <div class="card">
             <img
-              class="card-img-top img-fluid"
-              src="http://placehold.it/800x600/42ebf4/fff"
-              alt="Card image cap"
+              src="http://localhost/Life4teach_project/resources/js/assets/img/125063-OQT3VV-312.jpg"
+              class="card-img-top"
+              alt
             />
             <div class="card-body">
-              <h4 class="card-title">Curso 4</h4>
+              <a href="/ccourse">
+                <h5 class="card-title">Card title 1</h5>
+              </a>
+              <div class="card-text">
+                <div class="ec-stars-wrapper2">
+                  <a data-value="1">&#9733;</a>
+                  <a data-value="2">&#9733;</a>
+                  <a data-value="3">&#9733;</a>
+                  <a data-value="4">&#9733;</a>
+                  <a data-value="5">&#9733;</a>
+                </div>
+              </div>
               <p
                 class="card-text"
-              >This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+              >This is a longer card with supporting text below as a natural lead-in to additional content.</p>
               <p class="card-text">
-                <small class="text-muted">Last updated 3 mins ago</small>
+                <small class="text-muted">$99.900</small>
               </p>
             </div>
           </div>
@@ -317,17 +367,28 @@
         <div class="carousel-item col-md-3">
           <div class="card">
             <img
-              class="card-img-top img-fluid"
-              src="http://placehold.it/800x600/f49b41/fff"
-              alt="Card image cap"
+              src="http://localhost/Life4teach_project/resources/js/assets/img/2371004.jpg"
+              class="card-img-top"
+              alt
             />
             <div class="card-body">
-              <h4 class="card-title">Curso 5</h4>
+              <a href="/ccourse">
+                <h5 class="card-title">Card title 1</h5>
+              </a>
+              <div class="card-text">
+                <div class="ec-stars-wrapper2">
+                  <a data-value="1">&#9733;</a>
+                  <a data-value="2">&#9733;</a>
+                  <a data-value="3">&#9733;</a>
+                  <a data-value="4">&#9733;</a>
+                  <a data-value="5">&#9733;</a>
+                </div>
+              </div>
               <p
                 class="card-text"
-              >This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+              >This is a longer card with supporting text below as a natural lead-in to additional content.</p>
               <p class="card-text">
-                <small class="text-muted">Last updated 3 mins ago</small>
+                <small class="text-muted">$99.900</small>
               </p>
             </div>
           </div>
@@ -335,17 +396,28 @@
         <div class="carousel-item col-md-3">
           <div class="card">
             <img
-              class="card-img-top img-fluid"
-              src="http://placehold.it/800x600/f4f141/fff"
-              alt="Card image cap"
+              src="http://localhost/Life4teach_project/resources/js/assets/img/programmer-working-computer_23-2147505689.jpg"
+              class="card-img-top"
+              alt
             />
             <div class="card-body">
-              <h4 class="card-title">Curso 6</h4>
+              <a href="/ccourse">
+                <h5 class="card-title">Card title 1</h5>
+              </a>
+              <div class="card-text">
+                <div class="ec-stars-wrapper2">
+                  <a data-value="1">&#9733;</a>
+                  <a data-value="2">&#9733;</a>
+                  <a data-value="3">&#9733;</a>
+                  <a data-value="4">&#9733;</a>
+                  <a data-value="5">&#9733;</a>
+                </div>
+              </div>
               <p
                 class="card-text"
-              >This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+              >This is a longer card with supporting text below as a natural lead-in to additional content.</p>
               <p class="card-text">
-                <small class="text-muted">Last updated 3 mins ago</small>
+                <small class="text-muted">$99.900</small>
               </p>
             </div>
           </div>
@@ -353,17 +425,28 @@
         <div class="carousel-item col-md-3">
           <div class="card">
             <img
-              class="card-img-top img-fluid"
-              src="http://placehold.it/800x600/8e41f4/fff"
-              alt="Card image cap"
+              src="http://localhost/Life4teach_project/resources/js/assets/img/programador-web_23-2147502079.jpg"
+              class="card-img-top"
+              alt
             />
             <div class="card-body">
-              <h4 class="card-title">Curso 7</h4>
+              <a href="/ccourse">
+                <h5 class="card-title">Card title 1</h5>
+              </a>
+              <div class="card-text">
+                <div class="ec-stars-wrapper2">
+                  <a data-value="1">&#9733;</a>
+                  <a data-value="2">&#9733;</a>
+                  <a data-value="3">&#9733;</a>
+                  <a data-value="4">&#9733;</a>
+                  <a data-value="5">&#9733;</a>
+                </div>
+              </div>
               <p
                 class="card-text"
-              >This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+              >This is a longer card with supporting text below as a natural lead-in to additional content.</p>
               <p class="card-text">
-                <small class="text-muted">Last updated 3 mins ago</small>
+                <small class="text-muted">$99.900</small>
               </p>
             </div>
           </div>

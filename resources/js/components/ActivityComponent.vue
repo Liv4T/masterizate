@@ -32,8 +32,8 @@
                     <td>{{ cour.name }}</td>
                     <td>{{ cour.id_category }}</td>
                     <td>{{ cour.type }}</td>
-                    <td>{{ cour.state }}</td>
-                    <td>{{ cour.publish }}</td>
+                    <td>25/11/2019</td>
+                    <td>1/1/2020</td>
                     <td width="10px">
                       <a href="/vcourse" class="btn btn-info btn-sm">v</a>
                     </td>

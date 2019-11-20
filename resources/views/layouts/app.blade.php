@@ -45,6 +45,7 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                     <!-- Menu Administrador -->
                     @if (Auth::check())
                         @if (Auth::user()->type_user == '1')
                         <li class="nav-item">
@@ -79,6 +80,7 @@
                         </li>
                     </ul>
                     @endif
+                    <!-- Menu Tutor -->
                      @if (Auth::user()->type_user == '2')
                         <li class="nav-item">
                             <a class="nav-link" href="/resume">Hoja de Vida</a>
@@ -87,24 +89,31 @@
                             <a class="nav-link" href="/board">Aula Virtual</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/class">Curso</a>
+                            <a class="nav-link" href="/class">Mis cursos</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/vactivity">Actividad</a>
+                            <a class="nav-link" href="/vactivity">Mis actividades</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/evaluation">Evaluación</a>
+                            <a class="nav-link" href="/calification">Mis calificaciones</a>
+                            <!-- Listado de calificaciones-->
                         </li>
-                        
+                         <li class="nav-item">
+                            <a class="nav-link" href="/consult">Consultas</a>
+                        </li>
                      @endif
-                         @if (Auth::user()->type_user == '3')
+                      <!-- Menu Estudiante -->
+                     @if (Auth::user()->type_user == '3')
                         <li class="nav-item">
-                            <a class="nav-link" href="/type">Curso</a>
+                            <a class="nav-link" href="/courseSt">Cursos disponbles</a>
                         </li>
                         <!-- En modificacion el aula virtual con el webinar y las actividades-->
                         <li class="nav-item">
-                            <a class="nav-link" href="/board">Aula Virtual</a>
-                        </li>                        
+                            <a class="nav-link" href="/mycourses">Mis cursos</a>
+                        </li>     
+                        <li class="nav-item">
+                            <a class="nav-link" href="/calificationSt">Mis Calificaciones</a>
+                        </li>                                           
                      @endif
                 @endif
                 <!-- Right Side Of Navbar -->

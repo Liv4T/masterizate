@@ -92,7 +92,21 @@ Route::get('/cuestions', function () {
 Route::get('/mycourse', function () {
     return view('mycourse');
 });
-
+Route::get('/mycourses', function () {
+    return view('mycourses');
+});
+Route::get('/courseSt', function () {
+    return view('coursesSt');
+});
+Route::get('/calificationSt', function () {
+    return view('calificationSt');
+});
+Route::get('/activitySt', function () {
+    return view('activitySt');
+});
+Route::get('/calification', function () {
+    return view('listevaluationSt');
+});
 /*login personalizado permite verificar suscripcion*/
 Route::post('/login2', 'UserController@loginWeb')->name('login2');
 Route::get('GetCourses','CourseController@GetCourses');
