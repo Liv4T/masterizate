@@ -222,22 +222,18 @@
         <template v-slot:preloader>
           <flux-preloader />
         </template>
-
         <template v-slot:caption>
           <flux-caption />
           <a href>
             <strong>dfkgnkfdsg</strong>
           </a>
         </template>
-
         <template v-slot:controls>
           <flux-controls />
         </template>
-
         <template v-slot:pagination>
           <flux-pagination />
         </template>
-
         <template v-slot:index>
           <flux-index />
         </template>

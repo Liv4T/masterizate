@@ -107,6 +107,9 @@ Route::get('/activitySt', function () {
 Route::get('/calification', function () {
     return view('listevaluationSt');
 });
+Route::get('/plan', function () {
+    return view('plan');
+});
 /*login personalizado permite verificar suscripcion*/
 Route::post('/login2', 'UserController@loginWeb')->name('login2');
 Route::get('GetCourses','CourseController@GetCourses');

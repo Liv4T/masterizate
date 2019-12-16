@@ -45,6 +45,12 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                    <li class="nav-item">
+                            <a class="nav-link" href="/plan">
+                                <i class="fas fa-shopping-cart"></i>
+                            </a>
+                        </li>
+                   
                      <!-- Menu Administrador -->
                     @if (Auth::check())
                         @if (Auth::user()->type_user == '1')
@@ -98,6 +104,9 @@
                             <a class="nav-link" href="/calification">Mis calificaciones</a>
                             <!-- Listado de calificaciones-->
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/#">Conferencias</a>
+                        </li>   
                          <li class="nav-item">
                             <a class="nav-link" href="/consult">Consultas</a>
                         </li>
@@ -113,7 +122,10 @@
                         </li>     
                         <li class="nav-item">
                             <a class="nav-link" href="/calificationSt">Mis Calificaciones</a>
-                        </li>                                           
+                        </li>  
+                        <li class="nav-item">
+                            <a class="nav-link" href="/#">Conferencias</a>
+                        </li>                                         
                      @endif
                 @endif
                 <!-- Right Side Of Navbar -->
