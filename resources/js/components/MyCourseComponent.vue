@@ -495,7 +495,7 @@
         <div class="col-md-6">
           <a href="/activitySt">
             <img
-              src="http://localhost/Life4teach_project/resources/js/assets/img/Icono_foro1.png"
+              src="../assets/img/Icono_foro1.png"
               alt
             />
           </a>
@@ -503,7 +503,7 @@
         <div class="col-md-6">
           <a href>
             <img
-              src="http://localhost/Life4teach_project/resources/js/assets/img/Icono_foro1.png"
+              src="../assets/img/Icono_foro1.png"
               alt
             />
           </a>
@@ -513,7 +513,7 @@
         <div class="col-md-6">
           <a href>
             <img
-              src="http://localhost/Life4teach_project/resources/js/assets/img/Icono_foro1.png"
+              src="../assets/img/Icono_foro1.png"
               alt
             />
           </a>
@@ -521,7 +521,7 @@
         <div class="col-md-6">
           <a href>
             <img
-              src="http://localhost/Life4teach_project/resources/js/assets/img/Icono_foro1.png"
+              src="../assets/img/Icono_foro1.png"
               alt
             />
           </a>

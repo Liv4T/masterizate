@@ -11,8 +11,8 @@
                                     <img
                                         thumbnail
                                         fluid
-                                        src="http://localhost/Life4teach_project/resources/js/assets/img/CATEGORIA1.png"
-                                        width="200px"
+                                        src="../assets/img/CATEGORIA1.png"
+                                        width="300px"
                                         alt="Image 1"
                                     />
                                 </b-col>
@@ -20,8 +20,8 @@
                                     <img
                                         thumbnail
                                         fluid
-                                        src="http://localhost/Life4teach_project/resources/js/assets/img/CATEGORIA2.png"
-                                        width="200px"
+                                        src="../assets/img/CATEGORIA2.png"
+                                        width="300px"
                                         alt="Image 1"
                                     />
                                 </b-col>
@@ -29,8 +29,8 @@
                                     <img
                                         thumbnail
                                         fluid
-                                        src="http://localhost/Life4teach_project/resources/js/assets/img/CATEGORIA3.png"
-                                        width="200px"
+                                        src="../assets/img/CATEGORIA3.png"
+                                        width="300px"
                                         alt="Image 1"
                                     />
                                 </b-col>
@@ -42,7 +42,7 @@
                                     <div class="row justify-content-center">
                                         <div class="col-md-3">
                                             <img
-                                                src="http://localhost/Life4teach_project/resources/js/assets/img/ICONO_PLAN1.png"
+                                                src="../assets/img/ICONO_PLAN1.png"
                                                 width="70px"
                                             />
                                         </div>
@@ -91,7 +91,7 @@
                                     <div class="row justify-content-center">
                                         <div class="col-md-3">
                                             <img
-                                                src="http://localhost/Life4teach_project/resources/js/assets/img/ICONO_PLAN2.png"
+                                                src="../assets/img/ICONO_PLAN2.png"
                                                 width="70px"
                                             />
                                         </div>
@@ -140,7 +140,7 @@
                                     <div class="row justify-content-center">
                                         <div class="col-md-3">
                                             <img
-                                                src="http://localhost/Life4teach_project/resources/js/assets/img/ICONO_PLAN3.png"
+                                                src="../assets/img/ICONO_PLAN3.png"
                                                 width="70px"
                                             />
                                         </div>
@@ -194,9 +194,7 @@
                                 class="background-image"
                                 :parallaxStrength="10"
                             >
-                                <img
-                                    src="http://localhost/Life4teach_project/resources/js/assets/img/PORTADAweb.jpg"
-                                />
+                                <img src="../assets/img/PORTADAweb.jpg" />
                             </parallax-element>
                             <div class="inparallax">
                                 <div align="center">
@@ -207,6 +205,34 @@
                                 </div>
                             </div>
                         </parallax-container>
+                        <!--div class="section comentarios">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <img src="" alt="section comentarios" />
+                                </div>
+                                <div class="col-md-6">
+                                    <input
+                                        type="text"
+                                        name="section comentarios"
+                                        id=""
+                                    />
+                                </div>
+                            </div>
+                        </div-->
+                        <!--div class="section email">
+                            <div class="row">
+                                <label for="">Email</label>
+                                <input
+                                    type="text"
+                                    name=""
+                                    id=""
+                                    placeholder="email"
+                                />
+                                <button class="btn btn-warning">
+                                    SUSCRIBIRSE
+                                </button>
+                            </div>
+                        </div-->
                     </div>
                 </div>
             </div>

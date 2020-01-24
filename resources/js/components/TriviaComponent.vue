@@ -13,9 +13,7 @@
                                 class="background-image"
                                 :parallaxStrength="10"
                             >
-                                <img
-                                    src="http://localhost/Life4teach_project/resources/js/assets/img/PORTADAweb.jpg"
-                                />
+                                <img src="../assets/img/PORTADAweb.jpg" />
                             </parallax-element>
                             <div class="inparallax">
                                 <div align="center">
@@ -33,7 +31,7 @@
                                     <img
                                         thumbnail
                                         fluid
-                                        src="http://localhost/Life4teach_project/resources/js/assets/img/googleplay.png"
+                                        src="../assets/img/googleplay.png"
                                         width="200px"
                                         alt="Image 1"
                                     />

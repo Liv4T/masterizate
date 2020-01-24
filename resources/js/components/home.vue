@@ -34,7 +34,7 @@
   </div-->
 
   <div class="form-group">
-    <div style="position: absolute; left:250px; top:420px; z-index:100;" class="back">
+    <div style="position: absolute; left:100px; top:320px; z-index:100;" class="back">
       <div class="custom-card">
         <div class="card-header">
           <div align="center">
@@ -70,9 +70,9 @@
                   <option>Tutor</option>
                 </select2>
               </div>
-              <div
-                class="invalid-feedback"
-              >Please fill out this field, the user name may not be greater than 20 characters.</div>
+              <div class="invalid-feedback">
+                  Please fill out this field, the user name may not be greater than 20 characters.
+              </div>
             </div>
             <div align="center">
               <i class="fab fa-facebook-f"></i>
@@ -105,12 +105,13 @@
             <b-card-text>Es una plataforma para fines educativos que, de manera didáctica y creativa facilitara el aprendizaje a traves de herramientas flexibles y novedosas.</b-card-text>
             <div style="position: absolute; left: 10px; right:10px; z-index:100;">
               <b-container class="p-4 bg-light">
+                  <h6 align="center"><strong>Descarga nuestra app</strong></h6>
                 <b-row class="text-center">
                   <b-col>
                     <img
                       thumbnail
                       fluid
-                      src="http://localhost/Life4teach_project/resources/js/assets/img/googleplay.png"
+                      src="../assets/img/googleplay.png"
                       width="200px"
                       alt="Image 1"
                     />
@@ -120,13 +121,15 @@
             </div>
           </b-card>
         </div>
-        <br />
-        <br />
         <div class="row">
-          <div class="col">
+          <div class="col" style="padding: 40px">
             <div class="card2">
-              <b-card>
-                <b-card-text>Todos nuestros programas son virtuales para mayor acceso y facilidad, ademas de asesoria personal, grupal y empresarial.</b-card-text>
+              <b-card class="text-center">
+                  <img src="../assets/img/computer-.png" width="200px">
+                <b-card-text>Todos nuestros programas son virtuales para mayor acceso y facilidad. <br>
+                    Aprende de manera didáctica las  24hs a través de una herramienta flexible, 
+                    novedosa y lo mejor desde cualquier parte del mundo.
+                </b-card-text>
               </b-card>
               <!--div style="position: absolute; left: 40px; z-index:1;">
                 <b-container class="p-4">
@@ -168,16 +171,122 @@
           </div>
           <div class="col">
             <div align="right">
-              <img src="http://localhost/Life4teach_project/resources/js/assets/img/Computer.png" />
+              <img src="../assets/img/Computer.png" />
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <parallax-container class="horizontal-card centered-card" id="conviertete">
+  <!--parallax-container class="horizontal-card centered-card" id="conviertete">
     <parallax-element class="background-image" :parallaxStrength="10" :type="'rotation'">
-      <img src="http://localhost/Life4teach_project/resources/js/assets/img/SLIDERweb.jpg" />
+      <img src="../assets/img/SLIDERweb.jpg" />
+    </parallax-element>
+    <div class="textin">
+      <div align="center">
+        <i class="fas fa-chalkboard-teacher fa-2x"></i>
+        <h5>CONVIERTETE EN UN EXPERTO</h5>
+        <a href="/register" class="btn btn-danger">INSCRÍBETE</a>
+      </div>
+    </div>
+  </parallax-container-->
+    <b-container fluid class="p-4 bg-info">
+        <div align="center">
+          <b-row>
+            <b-col>
+              <img
+                src="../assets/img/ICONO_COLOMBIA.png"
+                alt
+              />
+            </b-col>
+            <b-col class="separator">
+              <img
+                src="../assets/img/ICONO_BIRRETE.png"
+                alt
+              />
+            </b-col>
+            <b-col class="separator">
+              <img
+                src="../assets/img/ICONO_BOARD.png"
+                alt
+              />
+            </b-col>
+          </b-row>
+          <b-row>
+            <b-col>
+              <b-link class="etiqueta">20 Regiones</b-link>
+            </b-col>
+            <b-col>
+              <b-link class="etiqueta">+500 Estudiantes</b-link>
+            </b-col>
+            <b-col>
+              <b-link class="etiqueta">+200 Programas</b-link>
+            </b-col>
+          </b-row>
+        </div>
+      </b-container>
+    <div align="center" style="padding: 40px">
+      <h3>CATEGORIAS GENERALES</h3>
+    </div>
+    <div class="card text-center">
+      <div class="container-fluid mx-auto">
+        <div class="row">
+          <div class="col-md-3" align="left">
+            <button type="submit" class="btn btn-default" style="padding: 35px"><img   width="70px"
+              height="70px" src="../assets/img/ADMON-EMPRESAS.png" />&nbsp; <strong>Adm. de empresas</strong></button>
+          </div>
+          <div class="col-md-3" align="left" style="padding: 35px">
+            <button type="submit" class="btn btn-default"><img   width="70px"
+              height="70px" src="../assets/img/ANTROPOLOGIA.png" />&nbsp; <strong>Antropologia</strong></button>
+          </div>
+          <div class="col-md-3" align="left" style="padding: 35px">
+            <button type="submit" class="btn btn-default"><img   width="70px"
+              height="70px" src="../assets/img/BIOLOGIA.png" />&nbsp; <strong>Biologia</strong></button>
+          </div>
+          <div class="col-md-3" align="left" style="padding: 35px">
+            <button type="submit" class="btn btn-default"><img   width="70px"
+              height="70px" src="../assets/img/CIENCIAS-POLITICAS.png" />&nbsp; <strong>Ciencias politicas</strong></button>
+          </div>
+        </div>
+        <div class="row">
+           <div class="col-md-3" align="left">
+            <button type="submit" class="btn btn-default" style="padding: 35px"><img   width="70px"
+              height="70px" src="../assets/img/COMUNICACION.png" />&nbsp; <strong>Comunicación</strong> </button>
+          </div>
+          <div class="col-md-3" align="left">
+            <button type="submit" class="btn btn-default" style="padding: 35px"><img   width="70px"
+              height="70px" src="../assets/img/CONTADURIA.png" />&nbsp; <strong>Contaduria</strong></button>
+          </div>
+          <div class="col-md-3" align="left" style="padding: 35px">
+            <button type="submit" class="btn btn-default"><img   width="70px"
+              height="70px" src="../assets/img/DERECHO.png" />&nbsp; <strong>Derecho</strong></button>
+          </div>
+          <div class="col-md-3" align="left" style="padding: 35px">
+            <button type="submit" class="btn btn-default"><img   width="70px"
+              height="70px" src="../assets/img/ECONOMIA.png" />&nbsp; <strong>Economía</strong></button>
+          </div>
+          <div class="col-md-3" align="left" style="padding: 35px">
+            <button type="submit" class="btn btn-default"><img   width="70px"
+              height="70px" src="../assets/img/ELECTRONICA.png" />&nbsp; <strong>Electronica</strong></button>
+          </div>
+          <div class="col-md-3" align="left" style="padding: 35px">
+            <button type="submit" class="btn btn-default"><img   width="70px"
+              height="70px" src="../assets/img/FILOSOFIA.png" />&nbsp; <strong>Fisiologia</strong></button>
+          </div>
+          <div class="col-md-3" align="left" style="padding: 35px">
+            <button type="submit" class="btn btn-default"><img   width="70px"
+              height="70px" src="../assets/img/FISICA.png" />&nbsp; <strong>Física</strong></button>
+          </div>
+          <div class="col-md-3" align="left" style="padding: 35px">
+            <button type="submit" class="btn btn-default"><img   width="70px"
+              height="70px" src="../assets/img/FISIOTERAPIA.png" />&nbsp; <strong>Fisioterapia</strong></button>
+          </div>
+        </div>
+      </div>
+  </div>
+  <parallax-container class="horizontal-card centered-card" id="conviertete" style="padding-top: 35px" >
+    <parallax-element class="background-image" :parallaxStrength="10" :type="'rotation'">
+      <img src="../assets/img/SLIDERweb.jpg" />
     </parallax-element>
     <div class="textin">
       <div align="center">
@@ -187,18 +296,17 @@
       </div>
     </div>
   </parallax-container>
-
   <!--vue-flux :options="fluxOptions" :images="fluxImages" :transitions="vfTransitions" ref="slider"></vue-flux-->
   <!--button @click="$refs.slider.showImage('next')">NEXT</button-->
-  <div class="main main-raised">
+  <div class="main main-raised" style="padding-top: 40px">
     <div class="section2">
-      <div class="row">
+      <div class="row" style="padding-bottom: 40px">
         <div class="col-md-6">
-          <div align="left">
+          <div align="center">
             <img
-              width="80%"
-              height="80%"
-              src="http://localhost/Life4teach_project/resources/js/assets/img/CEL.png"
+              width="50%"
+              height="50%"
+              src="../assets/img/Computer1.png"
             />
           </div>
         </div>
@@ -212,7 +320,7 @@
           </div>
         </div>
       </div>
-      <vue-flux
+      <!--vue-flux
         :options="vfOptions"
         :images="vfImages"
         :transitions="vfTransitions"
@@ -237,43 +345,43 @@
         <template v-slot:index>
           <flux-index />
         </template>
-      </vue-flux>
+      </vue-flux-->
       <b-container fluid class="p-4 bg-light2">
         <div align="center">
           <b-row>
             <b-col>
               <img
-                src="http://localhost/Life4teach_project/resources/js/assets/img/ICONO_COLOMBIA.png"
+                src="../assets/img/ICONO_COLOMBIA.png"
                 alt
               />
             </b-col>
-            <b-col>
+            <b-col class="separator">
               <img
-                src="http://localhost/Life4teach_project/resources/js/assets/img/ICONO_BIRRETE.png"
+                src="../assets/img/ICONO_BIRRETE.png"
                 alt
               />
             </b-col>
-            <b-col>
+            <b-col class="separator">
               <img
-                src="http://localhost/Life4teach_project/resources/js/assets/img/ICONO_BOARD.png"
+                src="../assets/img/ICONO_BOARD.png"
                 alt
               />
             </b-col>
           </b-row>
           <b-row>
             <b-col>
-              <b-link>20 Regiones</b-link>
+              <b-link class="etiqueta">20 Regiones</b-link>
             </b-col>
             <b-col>
-              <b-link>+500 Estudiantes</b-link>
+              <b-link class="etiqueta">+500 Estudiantes</b-link>
             </b-col>
             <b-col>
-              <b-link>+200 Programas</b-link>
+              <b-link class="etiqueta">+200 Programas</b-link>
             </b-col>
           </b-row>
         </div>
       </b-container>
-      <div class="mx-auto" id="destacados">
+      <div class="mx-auto" id="destacados" style="padding-top: 40px">
         <div class="card3">
           <b-card align="center">
             <b-card-text>Live4teach es una plataforma virtual educativa donde las personas podremos enseñar nuestras habilidades, conocimientos a aquellos que requieran de una apoyo especializado, educativo, actividad diaria o entretenimiento.</b-card-text>
@@ -291,11 +399,11 @@
                 <div class="card">
                   <img
                     class="card-img-top"
-                    src="http://localhost/Life4teach_project/resources/js/assets/img/programador-web_23-2147502079.jpg"
+                    src="../assets/img/programador-web_23-2147502079.jpg"
                     alt="Card image cap"
                   />
                   <div class="card-body">
-                    <a class="hola3" href="/ccourse">App Inventor 2 Basico</a>
+                    <a class="etiqueta" href="/ccourse">App Inventor 2 Basico</a>
                     <div class="card-text">
                       <div class="ec-stars-wrapper1">
                         <a data-value="1">&#9733;</a>
@@ -315,11 +423,11 @@
                 <div class="card">
                   <img
                     class="card-img-top"
-                    src="http://localhost/Life4teach_project/resources/js/assets/img/2314404.jpg"
+                    src="../assets/img/2314404.jpg"
                     alt="Card image cap"
                   />
                   <div class="card-body">
-                    <a class="hola3" href="/ccourse">Curso 2</a>
+                    <a class="etiqueta" href="/ccourse">Curso 2</a>
                     <div class="card-text">
                       <div class="ec-stars-wrapper1">
                         <a data-value="1">&#9733;</a>
@@ -339,11 +447,11 @@
                 <div class="card">
                   <img
                     class="card-img-top"
-                    src="http://localhost/Life4teach_project/resources/js/assets/img/2371004.jpg"
+                    src="../assets/img/2371004.jpg"
                     alt="Card image cap"
                   />
                   <div class="card-body">
-                    <a class="hola3" href="/ccourse">Curso 3</a>
+                    <a class="etiqueta" href="/ccourse">Curso 3</a>
                     <div class="card-text">
                       <div class="ec-stars-wrapper1">
                         <a data-value="1">&#9733;</a>
@@ -363,12 +471,12 @@
                 <div class="card">
                   <img
                     class="card-img-top"
-                    src="http://localhost/Life4teach_project/resources/js/assets/img/OMHWPH0.jpg"
+                    src="../assets/img/OMHWPH0.jpg"
                     alt="Card image cap"
                     width="100px"
                   />
                   <div class="card-body">
-                    <a class="hola3" href="/ccourse">Curso 4</a>
+                    <a class="etiqueta" href="/ccourse">Curso 4</a>
                     <div class="card-text">
                       <div class="ec-stars-wrapper1">
                         <a data-value="1">&#9733;</a>
@@ -388,11 +496,11 @@
                 <div class="card">
                   <img
                     class="card-img-top"
-                    src="http://localhost/Life4teach_project/resources/js/assets/img/programmer-working-computer_23-2147505689.jpg"
+                    src="../assets/img/programmer-working-computer_23-2147505689.jpg"
                     alt="Card image cap"
                   />
                   <div class="card-body">
-                    <a class="hola3" href="/ccourse">Curso 5</a>
+                    <a class="etiqueta" href="/ccourse">Curso 5</a>
                     <div class="card-text">
                       <div class="ec-stars-wrapper1">
                         <a data-value="1">&#9733;</a>
@@ -412,11 +520,11 @@
                 <div class="card">
                   <img
                     class="card-img-top"
-                    src="http://localhost/Life4teach_project/resources/js/assets/img/2918.jpg"
+                    src="../assets/img/2918.jpg"
                     alt="Card image cap"
                   />
                   <div class="card-body">
-                    <a class="hola3" href="/ccourse">Curso 6</a>
+                    <a class="etiqueta" href="/ccourse">Curso 6</a>
                     <div class="card-text">
                       <div class="ec-stars-wrapper1">
                         <a data-value="1">&#9733;</a>
@@ -436,11 +544,11 @@
                 <div class="card">
                   <img
                     class="card-img-top"
-                    src="http://localhost/Life4teach_project/resources/js/assets/img/418.jpg"
+                    src="../assets/img/418.jpg"
                     alt="Card image cap"
                   />
                   <div class="card-body">
-                    <a class="hola3" href="/ccourse">Curso 7</a>
+                    <a class="etiqueta" href="/ccourse">Curso 7</a>
                     <div class="card-text">
                       <div class="ec-stars-wrapper1">
                         <a data-value="1">&#9733;</a>
@@ -460,11 +568,11 @@
                 <div class="card">
                   <img
                     class="card-img-top"
-                    src="http://localhost/Life4teach_project/resources/js/assets/img/125063-OQT3VV-312.jpg"
+                    src="../assets/img/125063-OQT3VV-312.jpg"
                     alt="Card image cap"
                   />
                   <div class="card-body">
-                    <a class="hola3" href="/ccourse">Curso 8</a>
+                    <a class="etiqueta" href="/ccourse">Curso 8</a>
                     <div class="card-text">
                       <div class="ec-stars-wrapper1">
                         <a data-value="1">&#9733;</a>
@@ -488,7 +596,7 @@
   </div>
   <!--Cursos disponibles--->
   <br />
-  <div class="text-center">
+  <div class="text-center" style="padding: 40px">
     <a href="/courseSt" class="btn btn-warning">Cargar mas</a>
   </div>
   <!--Seccion de comentarios -->
@@ -498,21 +606,21 @@
       <b-row>
         <b-col>
           <img
-            src="http://localhost/Life4teach_project/resources/js/assets/img/circulo1.png"
+            src="../assets/img/circulo1.png"
             width="70px;"
             alt
           />
         </b-col>
         <b-col>
           <img
-            src="http://localhost/Life4teach_project/resources/js/assets/img/circulo2.png"
+            src="../assets/img/circulo2.png"
             width="70px;"
             alt
           />
         </b-col>
         <b-col>
           <img
-            src="http://localhost/Life4teach_project/resources/js/assets/img/circulo3.png"
+            src="../assets/img/circulo3.png"
             width="70px;"
             alt
           />
@@ -533,12 +641,12 @@
   </b-container>
   <!--Seccion de contactenos -->
   <br />
-  <div class="row">
+  <div class="row" style="padding-top: 40px">
     <div class="col-md-6 text-center">
       <h4>Contáctanos</h4>
       <label for>info@l4t.com</label>
       <h5>Síguenos</h5>
-      <div align="center">
+      <div align="center" class="contactanos">
         <i class="fab fa-facebook-f fa-4x"></i>
         <i class="fab fa-instagram fa-4x"></i>
       </div>
@@ -729,8 +837,8 @@ export default {
       slides: [
         {
           content:
-            '<b style="font-size: 1.3em;color: white">Orientado a primera infacia, adolescentes, adultos y adultos mayores</b>',
-          image: require("../assets/img/PORTADAweb.jpg")
+            '<b style="font-size: 2.3em;color: white;">Orientado a primera infacia, adolescentes, adultos y adultos mayores</b>',
+            image: require("../assets/img/PORTADAweb.jpg")
         },
         { image: require("../assets/img/PORTADAweb2.jpg") },
         { image: require("../assets/img/PORTADAweb3.jpg") }
@@ -739,9 +847,9 @@ export default {
         autoplay: true
       },
       vfImages: [
-        "http://localhost/Life4teach_project/resources/js/assets/img/SLIDERweb.jpg",
-        "http://localhost/Life4teach_project/resources/js/assets/img/Fondo2.jpg",
-        "http://localhost/Life4teach_project/resources/js/assets/img/Fondo1.jpg"
+        "../assets/img/SLIDERweb.jpg",
+        "../assets/img/Fondo2.jpg",
+        "../assets/img/Fondo1.jpg"
       ],
       vfTransitions: ["fade", "cube", "book", "wave"],
       vfCaptions: [
@@ -803,7 +911,7 @@ export default {
   position: absolute;
   height: 400px;
   padding-top: 50px;
-  background: url(http://localhost/Life4teach_project/resources/js/assets/img/Footer_web.jpg);
+  background: url(../assets/img/Footer_web.jpg);
   background-repeat: no-repeat;
   background-size: 100% 100%;
 }
@@ -830,7 +938,7 @@ footer .footer-col {
   padding-top: 10px;
 }
 .background1 {
-  background: url(http://localhost/Life4teach_project/resources/js/assets/img/Fondo1.jpg);
+  background: url(../assets/img/Fondo1.jpg);
   background-attachment: fixed;
 }
 .card {
@@ -845,15 +953,15 @@ footer .footer-col {
   background: transparent;
 }
 .bg-light2 {
-  background: linear-gradient(#c18259, #c15959);
+  background: rgb(199, 199, 199);
   margin: 0%;
 }
 .section2 {
-  background: url(http://localhost/Life4teach_project/resources/js/assets/img/Fondo2.jpg);
+  background: url(../assets/img/Fondo2.jpg);
   background-attachment: fixed;
 }
 h4 {
-  color: #045376;
+  color: #000000;
   font-family: "Century Gothic";
   font-weight: bold;
   font-size: 30px;
@@ -897,7 +1005,7 @@ a {
 .card-header {
   background-color: #e9ecefb5;
 }
-.hola3 {
+.etiqueta {
   color: black;
 }
 .selectc {
@@ -926,5 +1034,11 @@ a {
   top: 230px;
   width: 210px;
   z-index: 1100;
+}
+.contactanos{
+    color: #ff4700;
+}
+.separator{
+    border-left-style: solid;
 }
 </style>

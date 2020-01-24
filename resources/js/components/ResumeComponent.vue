@@ -710,7 +710,7 @@ export default {
 </script>
 <style>
 .background1{
-  background: url(http://localhost/Life4teach_project/resources/js/assets/img/Fondo5.jpg);
+  background: url(../assets/img/Fondo5.jpg);
   background-attachment: fixed;
 }
 </style>

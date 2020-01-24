@@ -27,7 +27,7 @@
         <div class="card-deck">
           <div class="card">
             <img
-              src="http://localhost/Life4teach_project/resources/js/assets/img/OMHWPH0.jpg"
+              src="../assets/img/OMHWPH0.jpg"
               class="card-img-top"
               alt
             />
@@ -52,7 +52,7 @@
           </div>
           <div class="card">
             <img
-              src="http://localhost/Life4teach_project/resources/js/assets/img/2918.jpg"
+              src="../assets/img/2918.jpg"
               class="card-img-top"
               alt
             />
@@ -70,7 +70,7 @@
           </div>
           <div class="card">
             <img
-              src="http://localhost/Life4teach_project/resources/js/assets/img/418.jpg"
+              src="../assets/img/418.jpg"
               class="card-img-top"
               alt
             />
@@ -95,7 +95,7 @@
           </div>
           <div class="card">
             <img
-              src="http://localhost/Life4teach_project/resources/js/assets/img/125063-OQT3VV-312.jpg"
+              src="../assets/img/125063-OQT3VV-312.jpg"
               class="card-img-top"
               alt
             />
@@ -123,7 +123,7 @@
         <div class="card-deck">
           <div class="card">
             <img
-              src="http://localhost/Life4teach_project/resources/js/assets/img/2371004.jpg"
+              src="../assets/img/2371004.jpg"
               class="card-img-top"
               alt
             />
@@ -148,7 +148,7 @@
           </div>
           <div class="card">
             <img
-              src="http://localhost/Life4teach_project/resources/js/assets/img/programmer-working-computer_23-2147505689.jpg"
+              src="../assets/img/programmer-working-computer_23-2147505689.jpg"
               class="card-img-top"
               alt
             />
@@ -173,7 +173,7 @@
           </div>
           <div class="card">
             <img
-              src="http://localhost/Life4teach_project/resources/js/assets/img/programador-web_23-2147502079.jpg"
+              src="../assets/img/programador-web_23-2147502079.jpg"
               class="card-img-top"
               alt
             />
@@ -198,7 +198,7 @@
           </div>
           <div class="card">
             <img
-              src="http://localhost/Life4teach_project/resources/js/assets/img/2371004.jpg"
+              src="../assets/img/2371004.jpg"
               class="card-img-top"
               alt
             />
@@ -226,7 +226,7 @@
         <div class="card-deck">
           <div class="card">
             <img
-              src="http://localhost/Life4teach_project/resources/js/assets/img/OMHWPH0.jpg"
+              src="../assets/img/OMHWPH0.jpg"
               class="card-img-top"
               alt
             />
@@ -251,7 +251,7 @@
           </div>
           <div class="card">
             <img
-              src="http://localhost/Life4teach_project/resources/js/assets/img/2918.jpg"
+              src="../assets/img/2918.jpg"
               class="card-img-top"
               alt
             />
@@ -276,7 +276,7 @@
           </div>
           <div class="card">
             <img
-              src="http://localhost/Life4teach_project/resources/js/assets/img/418.jpg"
+              src="../assets/img/418.jpg"
               class="card-img-top"
               alt
             />
@@ -301,7 +301,7 @@
           </div>
           <div class="card">
             <img
-              src="http://localhost/Life4teach_project/resources/js/assets/img/125063-OQT3VV-312.jpg"
+              src="../assets/img/125063-OQT3VV-312.jpg"
               class="card-img-top"
               alt
             />
