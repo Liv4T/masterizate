@@ -110,6 +110,9 @@ Route::get('/calification', function () {
 Route::get('/plan', function () {
     return view('plan');
 });
+Route::get('/changePassword', function () {
+    return view('changepassword');
+});
 /*login personalizado permite verificar suscripcion*/
 Route::post('/login2', 'UserController@loginWeb')->name('login2');
 Route::get('GetCourses','CourseController@GetCourses');

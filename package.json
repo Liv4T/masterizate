@@ -43,8 +43,9 @@
         "postcss-loader": "^3.0.0",
         "raw-loader": "^0.5.1",
         "select2": "^4.0.6-rc.1",
+        "simple-vue-validator": "^0.16.0",
         "twilio-video": "^2.0.0-beta9",
-        "vee-validate": "^2.1.7",
+        "vee-validate": "^2.2.15",
         "vue-carousel-3d": "^0.2.0",
         "vue-flux": "^6.0.0-beta.26",
         "vue-form-wizard": "^0.8.4",
@@ -54,6 +55,7 @@
         "vue-nouislider": "^1.0.1",
         "vue-parallaxy": "^1.1.1",
         "vue-simplemde": "^0.5.1",
-        "vue-toastr": "^2.0.16"
+        "vue-toastr": "^2.0.16",
+        "vuelidate": "^0.7.5"
     }
 }

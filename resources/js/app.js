@@ -189,6 +189,10 @@ Vue.component(
     "plan-component",
     require("./components/PlanComponent.vue").default
 );
+Vue.component(
+    "changepassword-component",
+    require("./components/changepassword.vue").default
+);
 Vue.component("TextInput", require("./components/TextInput.vue").default);
 Vue.use(CKEditor);
 Vue.use(CKEditor);
