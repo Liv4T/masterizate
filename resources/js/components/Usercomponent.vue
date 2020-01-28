@@ -41,7 +41,7 @@
         <div class="modal fade" id="createu">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <form class="needs-validation" novalidate>
+                    <form class="needs-validation" v-on:submit.prevent="createNames" novalidate>
                         <div class="modal-header">
                             <h4>Crear</h4>
                             <button type="button" class="close" data-dismiss="modal">
@@ -148,7 +148,7 @@
                         </div>
                         
                         <div class="modal-footer">
-                            <input type="submit" @click="createNames" class="btn btn-primary" value="Guardar"> 
+                            <input type="submit"  class="btn btn-primary" value="Guardar"> 
                         </div>
                     </form>
                 </div>
@@ -396,9 +396,12 @@
                 });
             },
             createNames() {
+                console.log('sent form')
                 console.log(this.newPicture);
-                var url = 'users';
+                var url = 'users_save';
                 this.newAge= this.age;
+                console.log('send info user url, '+url);
+
                 axios.post(url, {
                     name: this.newName,
                     last_name: this.newLastName,
@@ -416,7 +419,8 @@
                     id_number: this.newId_number,
                     country: this.newCountry,
                 }).then(response => {
-                    this.getNames();
+                 console.log('response: ', response)
+                 this.getNames();
                     this.newName = '';
                     this.newLastName = '';
                     this.newPassword = '';
@@ -436,7 +440,7 @@
                     toastr.success('New user created successfully');
                     }).catch(error => {
                     this.errors = error.response.data
-               });
+                });
             },
             getSubcategories(){
                 var urlse = 'GetSubcategories/'+this.Category;

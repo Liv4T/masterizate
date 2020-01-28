@@ -25,7 +25,7 @@
       <div class="col-md-11 mx-auto">
         <div class="custom-card text-center">
           <h3 class="card-header">Registro</h3>
-          <form class="needs-validation" novalidate>
+          <form class="needs-validation" v-on:submit.prevent="createNames" novalidate>
             <form-wizard title subtitle>
               <tab-content title="Datos personales" icon="fas fa-user">
                 <div class="card-body">
@@ -267,184 +267,146 @@ import "vue-form-wizard/dist/vue-form-wizard.min.css";
 Vue.use(VueFormWizard);
 Vue.use(AutoResponsive);
 
-export default {
-  data() {
-    return {
-      inputs: [
-        {
-          name: ""
+ export default {
+         
+        data() {
+            return { 
+        names: [],
+        newName: '',
+        newLastName: '',
+        newAge: '',
+        newBirthday: '',
+        newPassword: '',
+        newEmail: '',
+        newUserName: '',
+        newId_subcategories: '',
+        newType_user: '',
+        newAddress: '',
+        newPicture: '',
+        newPhone:'',
+        newId_number:'',
+        newCountry:'',
+        fillNames: {'id': '', 'name': '','last_name': '', 'age':'', 'birthday':'','password': '','email': '', 'user_name': '','id_categories': '','id_subcategories': '','type_user': '','address': '','picture': '','phone': '', 'id_number': '','country': ''},
+        myCountries:['Afghanistan','Albania','Algeria','Andorra','Angola','Antigua and Barbuda','Argentina','Armenia','Australia','Austria','Azerbaijan','The Bahamas','Bahrain','Bangladesh','Barbados','Belarus','Belgium','Belize','Benin','Bhutan','Bolivia','Bosnia','Botswana','Brazil','Brunei','Bulgaria','Burkina Faso','Burundi','Cabo Verde','Cambodia','Cameroon','Canada','Central African Republic','Chad','Chile','China','Colombia','Comoros','Congo','Costa Rica','Cote d’Ivoire','Croatia','Cuba','Cyprus','Czech Republic','Denmark','Djibouti','Dominica','Dominican Republic','East Timor (Timor-Leste)','Ecuador','Egypt','El Salvador','Equatorial Guinea','Eritrea','Estonia','Eswatini','Ethiopia','Fiji','Finland','France','Gabon','The Gambia','Georgia','Germany','Ghana','Greece','Grenada','Guatemala','Guinea','Guinea-Bissau','Guyana','Haiti','Honduras','Hungary','Iceland','India','Indonesia','Iran','Iraq','Ireland','Israel','Italy','Jamaica','Japan','Jordan','Kazakhstan','Kenya','Kiribati','Korea North','Korea South','Kosovo','Kuwait','Kyrgyzstan','Laos','Latvia','Lebanon','Lesotho','Liberia','Libya','Liechtenstein','Lithuania','Luxembourg','Madagascar','Malawi','Malaysia','Maldives','Mali','Malta','Marshall Islands','Mauritania','Mauritius','Mexico','Moldova','Monaco','Mongolia','Montenegro','Morocco','Mozambique','Myanmar (Burma)','Namibia','Nauru','Nepal','Netherlands','New Zealand','Nicaragua','Niger','Nigeria','North Macedonia','Norway','Oman','Pakistan','Palau','Panama','Papua New Guinea','Paraguay','Peru','Philippines','Poland','Portugal','Qatar','Romania','Russia','Rwanda','Saint Kitts and Nevis','Saint Lucia','Saint Vincent and the Grenadines','Samoa','San Marino','Sao Tome and Principe','Saudi Arabia','Senegal','Serbia','Seychelles','Sierra Leone','Singapore','Slovakia','Slovenia','Solomon Islands','Somalia','South Africa','Spain','Sri Lanka','Sudan','Sudan South','Suriname','Sweden','Switzerland','Syria','Taiwan','Tajikistan','Tanzania','Thailand','Togo','Tonga','Trinidad and Tobago','Tunisia','Turkey','Turkmenistan','Tuvalu','Uganda','Ukraine','United Arab Emirates','United Kingdom','United States','Uruguay','Uzbekistan','Vanuatu','Vatican City','Venezuela','Vietnam','Yemen','Zambia','Zimbabwe'],
+        errors: [],
+        Category: '',
+        Subcategory: '',
+        Type: '',
+        newContry:'',
+        categories: [],
+        subcategories: [],
+        TypeUsers: [],
+        edad:'',
+        offset: 3
         }
-      ],
-      categories: [],
-      subcategories: [],
-      TypeUsers: [],
-      classes: [],
-      myOptions: ["e-learning", "b-learning"],
-      edad: "",
-      newAge: "",
-      newBirthday: "",
-
-      fillC: {
-        id: "",
-        name: "",
-        description: "",
-        id_user: "",
-        id_category: "",
-        id_subcategory: "",
-        intensityAC: "",
-        intensityTA: "",
-        methodology: "",
-        methodologyG: ""
-      },
-      newName1: "",
-      newId_subcategories: "",
-      newId_category: "",
-      newId_course: "",
-      newPresentationU: "",
-
-      newChallenge: "",
-      newProjecting: "",
-      newTopic: "",
-      newNameM: "",
-      newNameV: "",
-      newUnit: "",
-      fillU: {
-        id: "",
-        unit: "",
-        name: "",
-        type: "",
-        id_course: "",
-        topic: "",
-        nameM: "",
-        nameV: ""
-      },
-      errors: []
-    };
-  },
-  computed: {
-    age() {
-      const birthday = new Date(this.newBirthday);
-      const dateNow = new Date();
-
-      if (dateNow.getMonth() + 1 < birthday.getMonth() + 1) {
-        this.edad = dateNow.getFullYear() - birthday.getFullYear() - 1;
-      } else if (dateNow.getMonth() + 1 == birthday.getMonth() + 1) {
-        if (dateNow.getDate() < birthday.getDate()) {
-          console.log(dateNow.getDate() < birthday.getDate());
-          this.edad = dateNow.getFullYear() - birthday.getFullYear() - 1;
-        } else {
-          this.edad = dateNow.getFullYear() - birthday.getFullYear();
+    },
+    computed:{
+        age() {
+            const birthday = new Date(this.newBirthday);
+            const dateNow = new Date();
+    
+            if(dateNow.getMonth() + 1< birthday.getMonth() + 1){
+                 this.edad = dateNow.getFullYear() - birthday.getFullYear() - 1;
+            } else if (dateNow.getMonth() + 1 == birthday.getMonth() + 1){
+              if(dateNow.getDate()<birthday.getDate()){
+                console.log(dateNow.getDate()<birthday.getDate())
+                  this.edad = dateNow.getFullYear() - birthday.getFullYear() - 1;
+              } else {
+                  this.edad = dateNow.getFullYear() - birthday.getFullYear();
+              }
+            } else {
+                this.edad = dateNow.getFullYear() - birthday.getFullYear();
+              }
+              if(this.edad) return `${this.edad}`;
         }
-      } else {
-        this.edad = dateNow.getFullYear() - birthday.getFullYear();
-      }
-      if (this.edad) return `${this.edad}`;
-    }
-  },
-  mounted() {
-    var urlsel = "GetCategories";
-    axios.get(urlsel).then(response => {
-      this.categories = response.data;
-    });
-    var urlsel = "GetTypeU";
-    axios.get(urlsel).then(response => {
-      this.TypeUsers = response.data;
-    });
-    console.log("Component mounted.");
-  },
-  methods: {
-    getCourses() {
-      var urlr = "courses";
-      axios.get(urlr).then(response => {
-        this.course = response.data;
-      });
     },
-    add(index) {
-      this.inputs.push({ name: "" });
-    },
-    remove(index) {
-      this.inputs.splice(index, 1);
-    },
-
-    deleteClasses(clas) {
-      var url = "classes/" + clas.id;
-      axios.delete(url).then(response => {
-        // eliminar
-        this.getClasses(); //lista
-        toastr.success("Successfully removed"); //mensaje
-      });
-    },
-    createCourses() {
-      var url = "courses";
-      this.newId_user = 36;
-      this.newType = "specialized";
-      axios
-        .post(url, {
-          id_user: this.newId_user,
-          description: this.newDescription,
-          name: this.newName,
-          id_category: this.Category,
-          id_subcategory: this.newId_subcategories,
-          intensityAC: this.newIntensityAC
-        })
-        .then(response => {
-          this.getCourses();
-          this.errors = [];
-
-          toastr.success("Nuevo curso creado exitosamente");
-        })
-        .catch(error => {
-          this.errors = error.response.data;
+    mounted() {
+        var urlsel = 'GetCategories';
+        axios.get(urlsel).then((response)=>{
+            this.categories = response.data;
         });
-    },
-    createCourseUnit() {
-      var url = "course_unit";
-      this.newId_course = 36;
-      this.newType = "specialized";
-      this.newUnit = "1";
-      this.newState = "up";
-      this.newPublish = "not publish";
-      axios
-        .post(url, {
-          id_course: this.newId_course,
-          name: this.newName1,
-          presentation: this.newPresentationU,
-          hability: this.newHability,
-          challenge: this.newChallenge,
-          projecting: this.newProjecting,
-          topic: this.newTopic,
-          unit: this.newUnit,
-          ready: this.newReady,
-          type: this.newType,
-          state: this.newState,
-          publish: this.publish
-        })
-        .then(response => {
-          this.getCourses();
-          this.newName1 = "";
-          this.newPresentationU = "";
-          this.newMaster = "";
-          this.newVideo = "";
-          this.newNameM = "";
-          this.newNameV = "";
-          this.newBibliography = "";
-          this.newDoing = "";
-          this.newChallenge = "";
-          this.newProjecting = "";
-          this.newTopic = "";
-          this.newUnit = "";
-          this.newType = "";
-          this.newReady = "";
-          this.errors = [];
-
-          toastr.success("Nueva unidad guardada exitosamente");
-        })
-        .catch(error => {
-          this.errors = error.response.data;
+        var urlsel = 'GetTypeU';
+        axios.get(urlsel).then((response)=>{
+            this.TypeUsers = response.data;
         });
+        console.log("Component mounted.");
+    },
+    methods: { //metodos del CRUD
+           getNames(){
+                var urlUsers = '/login';
+                axios.get(urlUsers).then(response=> { 
+                });
+            },
+            createNames() {
+                console.log('sent form')
+                console.log(this.newPicture);
+                var url = 'users_save';
+                this.newAge= this.age;
+                console.log('send info user url, '+url);
+
+                axios.post(url, {
+                    name: this.newName,
+                    last_name: this.newLastName,
+                    age: this.newAge,
+                    birthday: this.newBirthday,
+                    password: this.newPassword,
+                    user_name: this.newUserName,
+                    email : this.newEmail,
+                    id_categories: this.Category,
+                    id_subcategories: this.newId_subcategories,
+                    type_user: this.newType_user,
+                    address: this.newAddress,
+                    picture: this.newPicture,
+                    phone: this.newPhone,
+                    id_number: this.newId_number,
+                    country: this.newCountry,
+                }).then(response => {
+                 console.log('response: ', response)
+                 this.getNames();
+                    this.newName = '';
+                    this.newLastName = '';
+                    this.newPassword = '';
+                    this.newAge = '';
+                    this.newBirthday = '';
+                    this.newEmail = '';
+                    this.newUserName = '';
+                    this.newId_subcategories = '';
+                    this.newType_user = '';
+                    this.newAddress = '';
+                    this.newPicture = '';
+                    this.newPhone = '';
+                    this.newId_number = '';
+                    this.newCountry= '';
+                    this.errors = [];
+                    toastr.success('New user created successfully');
+                    }).catch(error => {
+                    this.errors = error.response.data
+                });
+            },
+            getSubcategories(){
+                var urlse = 'GetSubcategories/'+this.Category;
+                axios.get(urlse).then((response)=>{
+                this.subcategories = response.data;  
+                });
+            },
+            onFileChange(e) {
+                var files = e.target.files || e.dataTransfer.files;
+                if (!files.length)
+                  return;
+                this.createImage(files[0]);
+            },
+            createImage(file) {
+                var newPicture = new Image();
+                var reader = new FileReader();
+                var vm = this;
+
+                reader.onload = (e) => {
+                  vm.newPicture = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            },                     
     }
-  }
-};
+ }
 </script>
 <style>
 </style>

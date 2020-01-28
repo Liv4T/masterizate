@@ -113,8 +113,12 @@ Route::get('/plan', function () {
 Route::get('/changePassword', function () {
     return view('changepassword');
 });
+Route::get('/miPerfil', function () {
+    return view('perfil');
+});
 /*login personalizado permite verificar suscripcion*/
 Route::post('/login2', 'UserController@loginWeb')->name('login2');
+Route::post('users_save', 'UserController@store')->name('users_save');
 Route::get('GetCourses','CourseController@GetCourses');
 Route::get('GetCategories','CategoryController@GetCategories');
 Route::get('GetTypeU','CategoryController@GetTypeU');

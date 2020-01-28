@@ -193,6 +193,10 @@ Vue.component(
     "changepassword-component",
     require("./components/changepassword.vue").default
 );
+Vue.component(
+    "perfil-component",
+    require("./components/PerfilComponent.vue").default
+);
 Vue.component("TextInput", require("./components/TextInput.vue").default);
 Vue.use(CKEditor);
 Vue.use(CKEditor);

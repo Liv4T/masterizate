@@ -4,15 +4,15 @@
 <register-component></register-component>
   <footers></footers>
 <!--div class="container">
-    <div class="row justify-content-center">
+    <div class="custom-card text-center">
+     <h3 class="card-header">Registro</h3>
         <div class="col-md-8">
-            <div class="card">
                 <div class="card-header">{{ __('Register') }}</div>
-
-                <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}">
+                    <form method="POST" action="{{ route('users_save') }}">
                         @csrf
-
+                        <form-wizard title subtitle>
+                        <tab-content title="Datos personales" icon="fas fa-user">
+                        <div class="card-body">
                         <div class="form-group row">
                             <div class="col">
                                 <label for="name">{{ __('Nombre') }}</label>
@@ -80,7 +80,8 @@
                                     @endif
                                 </div>
                              </div>
-                   
+                   </tab-content>
+                   <tab-content title="Información adicional" icon="fas fa-id-card">
                         <div class="form-group row">
                             <div class="col">
                                     <label for="age">{{ __('Edad') }}</label>
@@ -184,9 +185,11 @@
                                 </button>
                             </div>
                         </div>
+                        </div>
+                         </tab-content>
+                        </form-wizard>
                     </form>
-                </div>
-            </div>
+            
         </div>
     </div>
 </div-->

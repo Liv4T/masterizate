@@ -190,41 +190,11 @@
       </div>
     </div>
   </parallax-container-->
-    <b-container fluid class="p-4 bg-info">
-        <div align="center">
-          <b-row>
-            <b-col>
-              <img
-                src="../assets/img/ICONO_COLOMBIA.png"
-                alt
-              />
-            </b-col>
-            <b-col class="separator">
-              <img
-                src="../assets/img/ICONO_BIRRETE.png"
-                alt
-              />
-            </b-col>
-            <b-col class="separator">
-              <img
-                src="../assets/img/ICONO_BOARD.png"
-                alt
-              />
-            </b-col>
-          </b-row>
-          <b-row>
-            <b-col>
-              <b-link class="etiqueta">20 Regiones</b-link>
-            </b-col>
-            <b-col>
-              <b-link class="etiqueta">+500 Estudiantes</b-link>
-            </b-col>
-            <b-col>
-              <b-link class="etiqueta">+200 Programas</b-link>
-            </b-col>
-          </b-row>
-        </div>
-      </b-container>
+  <parallax-container class="horizontal-card centered-card" id="categorias web">
+    <parallax-element class="background-image" :parallaxStrength="10" :type="'rotation'">
+      <img src="../assets/img/categorias-web.png" />
+    </parallax-element>
+  </parallax-container>
     <div align="center" style="padding: 40px">
       <h3>CATEGORIAS GENERALES</h3>
     </div>
@@ -286,13 +256,14 @@
   </div>
   <parallax-container class="horizontal-card centered-card" id="conviertete" style="padding-top: 35px" >
     <parallax-element class="background-image" :parallaxStrength="10" :type="'rotation'">
-      <img src="../assets/img/SLIDERweb.jpg" />
+      <img src="../assets/img/Slider3.jpg" />
     </parallax-element>
     <div class="textin">
       <div align="center">
-        <i class="fas fa-chalkboard-teacher fa-2x"></i>
-        <h5>CONVIERTETE EN UN EXPERTO</h5>
-        <a href="/register" class="btn btn-danger">INSCRÍBETE</a>
+        <i class="fas fa-chalkboard-teacher fa-2x etiqueta"></i>
+        <h5 class="etiqueta">Economía para emprendimientos 1</h5>
+        <a href="/register" class="btn btn-danger">INSCRÍBETE</a><br>
+        <strong class="etiqueta">50% de descuento para usuarios premium</strong>
       </div>
     </div>
   </parallax-container>
@@ -313,9 +284,13 @@
         <div class="col-md-5">
           <div class="card">
             <b-card align="center">
-              <b-card-text
-                id="regiones"
-              >Los usuarios tendran una plataforma para fines educativos y de aprendizaje de manera didactica las 24 hrs del dia, facilitando el acceso a traves de una herramienta flexible, novedosa y lo mejor desde cualquier parte del mundo.</b-card-text>
+              <b-card-text id="regiones">
+                <img src="../assets/img/icono_home2.png" width="200px"><br>
+                Los usuarios tendran una plataforma para fines educativos y de aprendizaje de manera didactica las 24 hrs del dia, facilitando el acceso a traves de una herramienta flexible, novedosa y lo mejor desde cualquier parte del mundo.
+              </b-card-text>
+              <b-card-text>
+                <b-link class="btn btn-outline-dark etiqueta">TRABAJA CON NOSOTROS</b-link>
+              </b-card-text>
             </b-card>
           </div>
         </div>
