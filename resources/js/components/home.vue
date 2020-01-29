@@ -122,7 +122,7 @@
           </b-card>
         </div>
         <div class="row">
-          <div class="col" style="padding: 40px">
+          <div class="col-md-6" style="padding: 40px">
             <div class="card2">
               <b-card class="text-center">
                   <img src="../assets/img/computer-.png" width="200px">
@@ -169,7 +169,7 @@
               </div-->
             </div>
           </div>
-          <div class="col">
+          <div class="col-md-6">
             <div align="right">
               <img src="../assets/img/Computer.png" />
             </div>
@@ -191,7 +191,7 @@
     </div>
   </parallax-container-->
   <parallax-container class="horizontal-card centered-card" id="categorias web">
-    <parallax-element class="background-image" :parallaxStrength="10" :type="'rotation'">
+    <parallax-element class="background-image" :parallaxStrength="10" :type="'translation'">
       <img src="../assets/img/categorias-web.png" />
     </parallax-element>
   </parallax-container>
@@ -255,7 +255,7 @@
       </div>
   </div>
   <parallax-container class="horizontal-card centered-card" id="conviertete" style="padding-top: 35px" >
-    <parallax-element class="background-image" :parallaxStrength="10" :type="'rotation'">
+    <parallax-element class="background-image" :parallaxStrength="10" :type="'depth'">
       <img src="../assets/img/Slider3.jpg" />
     </parallax-element>
     <div class="textin">
@@ -947,7 +947,7 @@ a {
 }
 .textin {
   position: absolute;
-  top: 50%;
+  top: 60%;
   left: 80%;
   transform: translate(-50%, -50%);
   color: white;

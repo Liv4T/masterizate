@@ -168,8 +168,8 @@
                   <div class="col">
                     <label for="name">Contraseña</label>
                     <input
+                    id="password1"
                       type="password"
-                      name="password"
                       class="form-control"
                       v-model="newPassword"
                       required
@@ -177,7 +177,8 @@
                   </div>
                   <div class="col">
                     <label for="name">Confirmar contraseña</label>
-                    <input type="password" name="Cpassword" class="form-control" required />
+                    <input type="password"  id="password2" class="form-control" required />
+                    <p class="alertaPass" id="validate-status"></p>
                   </div>
                 </div>
                 <div class="form-group row">
@@ -261,6 +262,20 @@ $(function() {
     }
   });
 });
+$(document).ready(function() {
+    $("#password2").keyup(validate);
+});
+
+function validate() {
+    var password1 = $("#password1").val();
+    var password2 = $("#password2").val();
+
+    if (password1 == password2) {
+        $("#validate-status").text("");
+    } else {
+        $("#validate-status").text("La contraseña no coincide");
+    }
+}
 import AutoResponsive from "autoresponsive-vue";
 import VueFormWizard from "vue-form-wizard";
 import "vue-form-wizard/dist/vue-form-wizard.min.css";
@@ -409,4 +424,7 @@ Vue.use(AutoResponsive);
  }
 </script>
 <style>
+.alertaPass {
+    color: red;
+}
 </style>
