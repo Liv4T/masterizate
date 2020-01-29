@@ -139,6 +139,7 @@
     </div>
 </template>
 <script>
+import "toastr/toastr.scss";
 export default {
     data() {
         return {
@@ -159,7 +160,8 @@ export default {
                 phone: "",
                 id_number: "",
                 country: ""
-            }
+            },
+            dataU: []
         };
     },
     computed: {
@@ -183,32 +185,29 @@ export default {
             if (this.edad) return `${this.edad}`;
         }
     },
+    created() {
+        this.getNames();
+    },
     methods: {
         //metodos del CRUD
-        getNames(name) {
-            var urlUsers = "users" + name;
+        getNames() {
+            var urlUsers = "info_user";
             axios.get(urlUsers).then(response => {
-                this.names = response.data;
+                this.dataU = response.data;
+                this.fillNames = this.dataU;
+                this.editNames();
             });
         },
-        editNames(name) {
-            this.fillNames.id = name.id;
-            this.fillNames.name = name.name;
-            this.fillNames.last_name = name.last_name;
-            this.fillNames.age = name.age;
-            this.fillNames.birthday = name.birthday;
-            this.fillNames.password = name.password;
-            this.fillNames.email = name.email;
-            this.fillNames.user_name = name.user_name;
-            this.fillNames.id_categories = name.id_categories;
-            this.fillNames.id_subcategories = name.id_subcategories;
-            this.fillNames.type_user = name.type_user;
-            this.fillNames.address = name.address;
-            this.fillNames.picture = name.picture;
-            this.fillNames.phone = name.phone;
-            this.fillNames.id_number = name.id_number;
-            this.fillNames.country = name.country;
-            $("#editu").modal("show");
+        editNames() {
+            this.fillNames.id = this.fillNames.user.id;
+            this.fillNames.name = this.fillNames.user.name;
+            this.fillNames.last_name = this.fillNames.user.last_name;
+            this.fillNames.age = this.fillNames.user.age;
+            this.fillNames.birthday = this.fillNames.user.birthday;
+            this.fillNames.address = this.fillNames.user.address;
+            this.fillNames.picture = this.fillNames.user.picture;
+            this.fillNames.phone = this.fillNames.user.phone;
+            this.fillNames.id_number = this.fillNames.user.id_number;
         },
         onFileChange(e) {
             var files = e.target.files || e.dataTransfer.files;
@@ -224,6 +223,29 @@ export default {
                 vm.newPicture = e.target.result;
             };
             reader.readAsDataURL(file);
+        },
+        updateNames() {
+            var url = "users/" + this.fillNames.id;
+            axios
+                .put(url, this.fillNames)
+                .then(response => {
+                    toastr.success("User successfully edited");
+                    this.getNames();
+                    this.fillNames = {
+                        name: "",
+                        last_name: "",
+                        age: "",
+                        birthday: "",
+                        address: "",
+                        picture: "",
+                        phone: "",
+                        id_number: ""
+                    };
+                    this.errors = [];
+                })
+                .catch(error => {
+                    this.errors = error.response.data;
+                });
         }
     }
 };

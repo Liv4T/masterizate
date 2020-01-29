@@ -92,9 +92,6 @@
                             <a class="nav-link" href="/resume">Hoja de Vida</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/board">Aula Virtual</a>
-                        </li>
-                        <li class="nav-item">
                             <a class="nav-link" href="/class">Mis cursos</a>
                         </li>
                         <li class="nav-item">
