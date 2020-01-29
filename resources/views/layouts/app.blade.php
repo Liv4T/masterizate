@@ -92,9 +92,6 @@
                             <a class="nav-link" href="/resume">Hoja de Vida</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/board">Aula Virtual</a>
-                        </li>
-                        <li class="nav-item">
                             <a class="nav-link" href="/class">Mis cursos</a>
                         </li>
                         <li class="nav-item">
@@ -151,6 +148,7 @@
                             </a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="/miPerfil">Mi Perfil</a>
+                                 <a class="dropdown-item" href="/changePassword">Cambiar Contraseña</a>
                                 <a class="dropdown-item" href="{{ route('logout') }}"
                                    onclick="event.preventDefault();
                                                  document.getElementById('logout-form').submit();">

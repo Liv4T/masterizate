@@ -1,89 +1,79 @@
 <template>
-    <div class="card text-center">
-        <h3 class="card-header">Cambiar contraseña</h3>
-        <div class="card-body">
-            <div
-                class="form-group"
-                :class="{ error: validation.hasError('password') }"
-            >
-                <div class="label">Contraseña</div>
-                <div class="content">
-                    <input
-                        type="password"
-                        class="form-control"
-                        v-model="password"
-                    />
-                </div>
-                <div class="message">
-                    {{ validation.firstError("password") }}
-                </div>
-            </div>
-            <div
-                class="form-group"
-                :class="{ error: validation.hasError('repeat') }"
-            >
-                <div class="label">Confirmar contraseña</div>
-                <div class="content">
-                    <input
-                        type="password"
-                        class="form-control"
-                        v-model="repeat"
-                    />
-                </div>
-                <div class="message">{{ validation.firstError("repeat") }}</div>
-            </div>
-            <div class="form-group">
-                <div class="actions">
-                    <button
-                        type="button"
-                        class="btn btn-primary"
-                        @click="submit"
-                    >
-                        Submit
-                    </button>
+    <div class="row justify-content-center">
+        <div class="col-sm-10">
+            <div class="card text-center">
+                <h3 class="card-header">Cambiar contraseña</h3>
+                <div class="card-body">
+                    <div class="form-group row justify-content-center">
+                        <div class="col-md-6">
+                            <label for="name">Nombre de Usuario</label>
+                            <input
+                                type="text"
+                                name="user_name"
+                                class="form-control"
+                                maxlength="20"
+                                v-model="newUserName"
+                                required
+                            />
+                            <div class=" invalid-feedback ">
+                                Please fill out this field, the user name may
+                                not be greater than 20 characters.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col">
+                            <label for="name">Contraseña</label>
+                            <input
+                                type="password"
+                                id="password1"
+                                class="form-control"
+                                v-model="newPassword"
+                                required
+                            />
+                        </div>
+                        <div class="col">
+                            <label for="name">Confirmar contraseña</label>
+                            <input
+                                type="password"
+                                id="password2"
+                                class="form-control"
+                                required
+                            />
+                            <p class="alertaPass" id="validate-status"></p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </template>
 <script>
-import SimpleVueValidation from "simple-vue-validator";
-const Validator = SimpleVueValidation.Validator;
+$(document).ready(function() {
+    $("#password2").keyup(validate);
+});
 
-Vue.use(SimpleVueValidation);
+function validate() {
+    var password1 = $("#password1").val();
+    var password2 = $("#password2").val();
+
+    if (password1 == password2) {
+        $("#validate-status").text("");
+    } else {
+        $("#validate-status").text("La contraseña no coincide");
+    }
+}
 
 export default {
     data: function() {
-        return {
-            password: "",
-            repeat: "",
-            submitted: false
-        };
-    },
-    validators: {
-        password: function(value) {
-            return Validator.value(value)
-                .required()
-                .minLength(6);
-        },
-        "repeat, password": function(repeat, password) {
-            if (this.submitted || this.validation.isTouched("repeat")) {
-                return Validator.value(repeat)
-                    .required()
-                    .match(password);
-            }
-        }
+        return {};
     },
 
-    methods: {
-        submit: function() {
-            this.submitted = true;
-            this.$validate().then(function(success) {
-                if (success) {
-                    alert("Validation succeeded!");
-                }
-            });
-        }
-    }
+    methods: {}
 };
 </script>
+<style>
+.alertaPass {
+    color: red;
+}
+</style>

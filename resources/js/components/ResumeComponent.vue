@@ -387,14 +387,14 @@
                                 </div> 
                                 <div class="form-group row">                        
                                     <div class="custom-control custom-checkbox custom-control-inline">
-                                        <input class="custom-control-input" type="checkbox" id="gridCheck1" required>
-                                        <label class="custom-control-label" for="gridCheck1">Para todos los efectos legales, certifico que todas las respuestas e información anotadas por mí, en la presente hoja de vida son veraces (C. S. T.)  Art. 62 Núm. 1°  Régimen Laboral Colombiano § 1057 (Legis).</label>
+                                        <input class="custom-control-input" type="checkbox" id="gridCheck12" required>
+                                        <label class="custom-control-label" for="gridCheck12">Para todos los efectos legales, certifico que todas las respuestas e información anotadas por mí, en la presente hoja de vida son veraces (C. S. T.)  Art. 62 Núm. 1°  Régimen Laboral Colombiano § 1057 (Legis).</label>
                                     </div>
                                 </div>
                                 <div class="form-group mx-auto">                        
                                     <div class="custom-control custom-checkbox custom-control-inline">
-                                        <input class="custom-control-input" type="checkbox" id="gridCheck1" required>
-                                        <label class="custom-control-label" for="gridCheck1">Voluntaria y expresamente autorizo a ILive4Teach, a verificar mis antecedentes disciplinarios y judiciales.</label>
+                                        <input class="custom-control-input" type="checkbox" id="gridCheck13" required>
+                                        <label class="custom-control-label" for="gridCheck13">Voluntaria y expresamente autorizo a ILive4Teach, a verificar mis antecedentes disciplinarios y judiciales.</label>
                                     </div>
                                 </div>
                             </div>
