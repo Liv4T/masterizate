@@ -30,7 +30,7 @@ class courseController extends Controller
     public function index()
     {
          $course = Courses::all();
-        return $course;
+        return response()->json(['course' => $course]);
     }
 
     /**
@@ -54,20 +54,10 @@ class courseController extends Controller
         $this->validate($request, [
         
             'state'=>'required',
-           /* 'last_name'=>'required',
-            'password'=>'required',
-            'email'=>'required',
-            'id_categories'=>'required',
-            'id_subcategories'=>'required',
-            'type_user'=>'required',
-            'address'=>'required',
-            'phone'=>'required',
-            'id_number'=>'required'
-            */
         ]);
         //return $request;
         Courses::create($request->all());
-        return;
+        return response()->json([true]);
     }
 
     /**

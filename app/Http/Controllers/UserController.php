@@ -63,21 +63,20 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-    //     dd($request);
       
-    //  $this->validate($request, [
+     $this->validate($request, [
         
-    //         'name'=>'required',
-    //        'last_name'=>'required',
-    //         'password'=>'required',
-    //         'email'=>'required',
-    //         'id_categories'=>'required',
-    //         'id_subcategories'=>'required',
-    //         'type_user'=>'required',
-    //         'address'=>'required',
-    //         'phone'=>'required',
-    //         'id_number'=>'required'
-    //     ]);
+            'name'=>'required',
+           'last_name'=>'required',
+            'password'=>'required',
+            'email'=>'required',
+            'id_categories'=>'required',
+            'id_subcategories'=>'required',
+            'type_user'=>'required',
+            'address'=>'required',
+            'phone'=>'required',
+            'id_number'=>'required'
+        ]);
         // User::create($request->all());
            $data = $request->all();
            $user = new User;
@@ -99,10 +98,12 @@ class UserController extends Controller
                 $user->save();
             }
         /* Send email register */
-        Mail::send('emails.register', $data, function($msj){
-            $msj->to('mildredfigueroaq@gmail.com')->subject('Falta sólo un paso más');
-         });
-        return;
+        if (isset($data['email'])) {
+            Mail::send('emails.register', $data, function ($msj) {
+                $msj->to($data['email'])->subject('Falta sólo un paso más');
+            });
+        }
+        return response()->json([true]);
     }
 
     /**
@@ -157,7 +158,7 @@ class UserController extends Controller
     }
      public function saveImg($file,$width,$height)
     {
-        $file = base64_decode($file);
+        $file = base64_encode(file_get_contents($file));
         $random = str_random(10);
         $nombre = $random.'-'.$file;
         $path   = base_path('../uploads/images/'.$nombre);
