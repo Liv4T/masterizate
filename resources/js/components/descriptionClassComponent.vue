@@ -257,7 +257,7 @@
             />
             <div class="card-body">
               <a href="/ccourse">
-                <h5 class="card-title">Card title 1</h5>
+                <h5 class="card-title hola">Card title 1</h5>
               </a>
               <div class="card-text">
                 <div class="ec-stars-wrapper2">
@@ -286,7 +286,7 @@
             />
             <div class="card-body">
               <a href="/ccourse">
-                <h5 class="card-title">Card title 1</h5>
+                <h5 class="card-title hola">Card title 1</h5>
               </a>
               <div class="card-text">
                 <div class="ec-stars-wrapper2">
@@ -315,7 +315,7 @@
             />
             <div class="card-body">
               <a href="/ccourse">
-                <h5 class="card-title">Card title 1</h5>
+                <h5 class="card-title hola">Card title 1</h5>
               </a>
               <div class="card-text">
                 <div class="ec-stars-wrapper2">
@@ -344,7 +344,7 @@
             />
             <div class="card-body">
               <a href="/ccourse">
-                <h5 class="card-title">Card title 1</h5>
+                <h5 class="card-title hola">Card title 1</h5>
               </a>
               <div class="card-text">
                 <div class="ec-stars-wrapper2">
@@ -373,7 +373,7 @@
             />
             <div class="card-body">
               <a href="/ccourse">
-                <h5 class="card-title">Card title 1</h5>
+                <h5 class="card-title hola">Card title 1</h5>
               </a>
               <div class="card-text">
                 <div class="ec-stars-wrapper2">
@@ -402,7 +402,7 @@
             />
             <div class="card-body">
               <a href="/ccourse">
-                <h5 class="card-title">Card title 1</h5>
+                <h5 class="card-title hola">Card title 1</h5>
               </a>
               <div class="card-text">
                 <div class="ec-stars-wrapper2">
@@ -431,7 +431,7 @@
             />
             <div class="card-body">
               <a href="/ccourse">
-                <h5 class="card-title">Card title 1</h5>
+                <h5 class="card-title hola">Card title 1</h5>
               </a>
               <div class="card-text">
                 <div class="ec-stars-wrapper2">

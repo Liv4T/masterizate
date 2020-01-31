@@ -85,6 +85,23 @@
                       <select2 :options="myOptions" v-model="metodology" required></select2>
                     </div>
                   </div>
+                  <div class="form-group row">
+                    <div class="col-md-6">
+                      <label for="subject">Precio del curso</label>
+                      <input
+                        type="text"
+                        name="subject"
+                        class="form-control"
+                        v-model="sdf"
+                        required
+                      />
+                      <div class="invalid-feedback">Please fill out this field</div>
+                    </div>
+                    <!--div class="col">
+                      <label for>Cantidad de estudiantes</label>
+                      <select2 :options="myOptions" v-model="metodology" required></select2>
+                    </div-->
+                  </div>
                   <div class="form-group mx-auto">
                     <div align="center">
                       <strong>Bienvenida</strong>
@@ -260,6 +277,24 @@
                     ></textarea>
                     <div class="invalid-feedback">Please fill out this field</div>
                   </div>
+                   <div class="form-group mx-auto">
+                    <div align="center">
+                      <strong>Video de presentación del curso</strong>
+                      <a
+                        tabindex="0"
+                        class="badge badge-info"
+                        role="button"
+                        data-toggle="popover"
+                        data-trigger="focus"
+                        title="Video Presentación"
+                        data-content="Video en el cual se da a conocer los aspectos generales del curso"
+                      >
+                        <i class="fas fa-question"></i>
+                      </a>
+                    </div>
+                    <input type="file" name="videoCurso" class="form-control" id="">
+                    <div class="invalid-feedback">Please fill out this field</div>
+                  </div>
                   <div class="form-group mx-auto">
                     <div align="center">
                       <strong>Descripción de las guías de actividades</strong>
@@ -317,7 +352,6 @@
                   <input type="text" name="name" class="form-control" v-model="newName1" required />
                   <div class="invalid-feedback">Please fill out this field</div>
                 </div>
-
                 <div class="form-group mx-auto">
                   <div align="center">
                     <strong>Presentación de la unidad</strong>
@@ -684,7 +718,6 @@
                       />
                     </div>
                   </div>
-
                   <div class="col-md-6">
                     <label for="name">Contenido</label>
                     <textarea
@@ -1323,7 +1356,6 @@
                     <div class="invalid-feedback">Please fill out this field</div>
                   </div>
                 </div>
-
                 <div class="form-group mx-auto">
                   <div align="center">
                     <strong>Aprenda haciendo</strong>
@@ -1759,7 +1791,6 @@
                       />
                     </div>
                   </div>
-
                   <div class="col-md-6">
                     <label for="name">Contenido</label>
                     <textarea

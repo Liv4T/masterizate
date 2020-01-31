@@ -198,6 +198,14 @@ Vue.component(
     require("./components/PerfilComponent.vue").default
 );
 Vue.component("TextInput", require("./components/TextInput.vue").default);
+Vue.component(
+    "video-component",
+    require("./components/VideoCoursesComponent.vue").default
+);
+Vue.component(
+    "resetpass",
+    require("./components/ResetPassComponent.vue").default
+);
 Vue.use(CKEditor);
 Vue.use(CKEditor);
 
