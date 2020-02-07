@@ -690,7 +690,7 @@
                 <div align="center">
                   <strong>Aprenda de las fuentes</strong>
                 </div>
-                <div class="form-group row mx-auto" v-for="(input,k) in inputs" :key="k">
+                <div class="form-group row mx-auto"  v-for="(input,k) in inputs" :key=k >
                   <div class="col-md-6">
                     <label for="name">Tema</label>
                     <span>
@@ -712,7 +712,7 @@
                         type="text"
                         name="objetive1"
                         class="form-control"
-                        v-model="newTopic"
+                        v-model="input.name"
                         placeholder="Nombre del Tema"
                         required
                       />
@@ -723,14 +723,14 @@
                     <textarea
                       name="competences"
                       class="form-control"
-                      v-model="newContent"
+                      v-model="input.contenido"
                       placeholder="Es la explicacion o sintesis de la tematica a abordar en la unidad de estudio."
                       required
                     ></textarea>
                     <div class="invalid-feedback">Please fill out this field</div>
                   </div>
                 </div>
-                <div class="form-group row" v-for="(input,k) in inputs1" :key="k">
+                <div class="form-group row" v-for="(input1,k) in inputs1" :key="k">
                   <div class="col-md-6">
                     <label for="name">Master class (MC)</label>
                     <span>
@@ -752,7 +752,7 @@
                         type="text"
                         name="objetive"
                         class="form-control"
-                        v-model="newNameM"
+                        v-model="input1.name"
                         placeholder="Nombre de la clase"
                         required
                       />
@@ -771,22 +771,8 @@
                   </div>
                 </div>
                 <div class="form-group row mx-auto">
-                  <div class="col-md-6" v-for="(input,k) in inputs2" :key="k">
+                  <div class="col-md-6" >
                     <label for="name">Video de apoyo</label>
-                    <span>
-                      <a
-                        href="#"
-                        class="badge badge-danger"
-                        @click.prevent="remove2(k)"
-                        v-show="k || ( !k && inputs2.length > 1)"
-                      >-</a>
-                      <a
-                        href="#"
-                        class="badge badge-primary"
-                        @click.prevent="add2(k)"
-                        v-show="k == inputs2.length-1"
-                      >+</a>
-                    </span>
                     <input
                       type="text"
                       name="objetive1"
@@ -2013,12 +1999,14 @@ export default {
     return {
       inputs: [
         {
-          name: ""
+          name: "",
+          contenido:""
         }
       ],
       inputs1: [
         {
-          name: ""
+          name: "",
+          video:""
         }
       ],
       inputs2: [
@@ -2195,14 +2183,14 @@ export default {
       newCompeR43: "",
       newQuestion: "",
       newReady: "",
-      newContent: "",
+      newContent: [],
       newMaster: "",
       newVideo: "",
       newBibliography: "",
       newDoing: "",
       newChallenge: "",
       newProjecting: "",
-      newTopic: "",
+      newTopic: [],
       newNameM: "",
       newNameV: "",
       newUnit: "",
@@ -2274,12 +2262,14 @@ export default {
     },
     add(index) {
       this.inputs.push({ name: "" });
+      this.inputs.push({ contenido: "" });
     },
     remove(index) {
       this.inputs.splice(index, 1);
     },
     add1(index) {
       this.inputs1.push({ name: "" });
+      this.inputs1.push({ video: "" });
     },
     remove1(index) {
       this.inputs1.splice(index, 1);
@@ -2410,8 +2400,9 @@ export default {
       var url = "courses";
       this.newId_user = 36;
       this.newType = "specialized";
-      axios
-        .post(url, {
+      this.newState = "up";
+      
+      axios.post(url, {
             //Cursos generales
           name: this.newName,
           id_category: this.Category,
@@ -2435,6 +2426,7 @@ export default {
           publish: this.publish,
           image:this.newimage, 
           video_presentation:this.newVideo_presentation,
+          state:this.newState,
           //Cursos unidades
           id_course: this.newId_course,
           name: this.newName1,
@@ -2508,12 +2500,21 @@ export default {
         });
     },
     createCourseUnit() {
-      var url = "course_unit";
+      var url = "courses";
       this.newId_course = 36;
       this.newType = "specialized";
       this.newUnit = "1";
       this.newState = "up";
       this.newPublish = "not publish";
+       if (this.inputs.length >= 1) {
+                console.log(this.inputs.length);
+                for (let i = 0; i < this.inputs.length; i++) {
+                    this.newTopic.push(this.inputs[i].name);
+                    this.newContent.push(this.inputs[i].contenido);
+                }
+                console.log(this.newTopic);
+                console.log(this.newContent);
+            }
       axios
         .post(url, {
          
