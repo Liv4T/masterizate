@@ -206,6 +206,10 @@ Vue.component(
     "resetpass",
     require("./components/ResetPassComponent.vue").default
 );
+Vue.component(
+    "trivia-component",
+    require("./components/TriviaComponent.vue").default
+);
 Vue.use(CKEditor);
 Vue.use(CKEditor);
 

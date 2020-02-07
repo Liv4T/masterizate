@@ -2161,7 +2161,9 @@ export default {
         type: "",
         descriptionO: "",
         state: "",
-        publish: ""
+        publish: "",
+        image:"",
+        video_presentation:""
       },
       newName1: "",
       newId_subcategories: "",
@@ -2204,6 +2206,8 @@ export default {
       newNameM: "",
       newNameV: "",
       newUnit: "",
+      newimage:"",
+      newVideo_presentation:"",
       fillU: {
         id: "",
         unit: "",
@@ -2408,60 +2412,30 @@ export default {
       this.newType = "specialized";
       axios
         .post(url, {
-          id_user: this.newId_user,
-          description: this.newDescription,
+            //Cursos generales
           name: this.newName,
           id_category: this.Category,
           id_subcategory: this.newId_subcategories,
-          intensityAC: this.newIntensityAC,
-
-          methodology: this.metodology,
+          id_user: this.newId_user,
           welcome: this.newWelcome,
-          presentation: this.newPresentation,
+          methodology: this.metodology,
           intention: this.newIntention,
+          intensityAC: this.newIntensityAC,
           competences: this.newCompetences,
+          description: this.newDescription,
+          intensityTA: this.newIntensityTA,
           achievement: this.newAchievement,
           indicatorA: this.newIndicatorA,
           map: this.newMap,
           methodologyG: this.newMethodologyG,
           type: this.newType,
+          presentation: this.newPresentation,
           descriptionO: this.newDescriptionO,
-          intensityTA: this.newIntensityTA
-        })
-        .then(response => {
-          this.getCourses();
-          /*this.newDescription = "";
-          this.newId_user = "";
-          this.newName = "";
-          this.newId_subcategories = "";
-          this.newIntensityAC = "";
-          this.newIntensityTA = "";
-          this.newMethodologyG = "";
-          this.newType = "";
-          this.newWelcome = "";
-          this.newPresentation = "";
-          this.newIndicatorA = "";
-          this.newMap = "";
-          this.newCompetences = "";
-          this.newIntention = "";
-          this.newDescriptionO = "";*/
-          this.errors = [];
-
-          toastr.success("Nuevo curso creado exitosamente");
-        })
-        .catch(error => {
-          this.errors = error.response.data;
-        });
-    },
-    createCourseUnit() {
-      var url = "course_unit";
-      this.newId_course = 36;
-      this.newType = "specialized";
-      this.newUnit = "1";
-      this.newState = "up";
-      this.newPublish = "not publish";
-      axios
-        .post(url, {
+          state: this.newState,
+          publish: this.publish,
+          image:this.newimage, 
+          video_presentation:this.newVideo_presentation,
+          //Cursos unidades
           id_course: this.newId_course,
           name: this.newName1,
           presentation: this.newPresentationU,
@@ -2498,12 +2472,51 @@ export default {
           doing: this.newDoing,
           challenge: this.newChallenge,
           projecting: this.newProjecting,
-          topic: this.newTopic,
           unit: this.newUnit,
           ready: this.newReady,
           type: this.newType,
-          state: this.newState,
-          publish: this.publish
+          //temas
+           topic: this.newTopic,
+           //videos
+           
+          
+          
+        })
+        .then(response => {
+          this.getCourses();
+          /*this.newDescription = "";
+          this.newId_user = "";
+          this.newName = "";
+          this.newId_subcategories = "";
+          this.newIntensityAC = "";
+          this.newIntensityTA = "";
+          this.newMethodologyG = "";
+          this.newType = "";
+          this.newWelcome = "";
+          this.newPresentation = "";
+          this.newIndicatorA = "";
+          this.newMap = "";
+          this.newCompetences = "";
+          this.newIntention = "";
+          this.newDescriptionO = "";*/
+          this.errors = [];
+
+          toastr.success("Nuevo curso creado exitosamente");
+        })
+        .catch(error => {
+          this.errors = error.response.data;
+        });
+    },
+    createCourseUnit() {
+      var url = "course_unit";
+      this.newId_course = 36;
+      this.newType = "specialized";
+      this.newUnit = "1";
+      this.newState = "up";
+      this.newPublish = "not publish";
+      axios
+        .post(url, {
+         
         })
         .then(response => {
           this.getCourses();

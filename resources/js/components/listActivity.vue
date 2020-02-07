@@ -6,6 +6,8 @@
           <div class="custom-card text-center">
             <h3 class="card-header">Actividad</h3>
             <form class="needs-validation" novalidate>
+                <form-wizard title subtitle>
+              <tab-content>
               <div class="card-body">
                 <div class="form-group row">
                   <div class="col-md-6">
@@ -27,7 +29,7 @@
                     <select2 :options="myActivities" v-model="newActivity" required></select2>
                   </div>
                 </div>
-                <!-----------Foro---------------------------------------------------------------------------->
+                <!-----------Actividades---------------------------------------------------------------------------->
                 <div
                   v-show="newActivity=='Foro'||newActivity=='Chat'||newActivity=='Cuestionario V-F'||newActivity=='Cuestionario 4 opciones'||newActivity=='Mapa conceptual'||newActivity=='Ensayo'||newActivity=='Estudio de Caso'||newActivity=='Ejercicios'"
                 >
@@ -70,7 +72,7 @@
                         <i class="fas fa-question"></i>
                       </a>
                     </div>
-                    <textarea name="welcome" class="form-control" v-model="newFromW" required></textarea>
+                    <textarea name="welcome" class="form-control" v-model="newTema" required></textarea>
                     <div class="invalid-feedback">Please fill out this field</div>
                   </div>
                   <div class="form-group mx-auto">
@@ -88,7 +90,7 @@
                         <i class="fas fa-question"></i>
                       </a>
                     </div>
-                    <textarea name="welcome" class="form-control" v-model="newFromW" required></textarea>
+                    <textarea name="welcome" class="form-control" v-model="newDescription" required></textarea>
                     <div class="invalid-feedback">Please fill out this field</div>
                   </div>
                   <div align="center">
@@ -170,7 +172,6 @@
                     <textarea name="welcome" class="form-control" v-model="newFromW" required></textarea>
                     <div class="invalid-feedback">Please fill out this field</div>
                   </div>
-
                   <div align="center">
                     <strong>Criterios de evaluacion / Evidencias asociadas (desempeño, producto y conocimiento)</strong>
                   </div>
@@ -229,6 +230,926 @@
                   </div>
                 </div>
               </div>
+              </tab-content>
+              <tab-content title="Planeación didáctica">
+                  <div class="form-group row mx-auto">
+                                    <div class="col-md-6">
+                                        <strong>Tiempo de trabajo</strong>
+                                        <input
+                                            type="text"
+                                            name="timeWork"
+                                            class="form-control"
+                                            v-model="newTimeWork"
+                                            disabled
+                                        />
+                                        <div class="invalid-feedback">
+                                            Please fill out this field
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <strong>Actividad</strong>
+                                        <input
+                                            type="text"
+                                            name="activity"
+                                            class="form-control"
+                                            v-model="newActivity"
+                                            disabled
+                                        />
+                                        <div class="invalid-feedback">
+                                            Please fill out this field
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col">
+                                        <strong>Momento de Evaluacion</strong>
+                                    </div>
+                                    <div class="col">
+                                        <strong>Evidencia</strong>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-md-3">
+                                        <label for="fromW">Desde</label>
+                                        <input
+                                            type="date"
+                                            name="fromW"
+                                            class="form-control"
+                                            v-model="newFromW"
+                                            required
+                                        />
+                                        <div class="invalid-feedback">
+                                            Please fill out this field
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label for="toW">Hasta</label>
+                                        <input
+                                            type="date"
+                                            name="toW"
+                                            class="form-control"
+                                            v-model="newToW"
+                                            required
+                                        />
+                                        <div class="invalid-feedback">
+                                            Please fill out this field
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label for>Evidencia</label>
+                                        <input
+                                            type="text"
+                                            name="activity"
+                                            class="form-control"
+                                            v-model="newEvidence"
+                                            required
+                                        />
+                                        <div class="invalid-feedback">
+                                            Please fill out this field
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label for>Envío</label>
+                                        <input
+                                            type="text"
+                                            name="activity"
+                                            class="form-control"
+                                            v-model="newSend"
+                                            required
+                                        />
+                                        <div class="invalid-feedback">
+                                            Please fill out this field
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row mx-auto">
+                                    <div class="col" align="center">
+                                        <strong
+                                            >Actor interviniente en la
+                                            evaluación</strong
+                                        >
+                                        <input
+                                            type="text"
+                                            name="name"
+                                            class="form-control"
+                                            v-model="newActor"
+                                            required
+                                        />
+                                        <div class="invalid-feedback">
+                                            Please fill out this field
+                                        </div>
+                                    </div>
+                                    <div class="col" align="center">
+                                        <strong
+                                            >Fecha de retroalimentación</strong
+                                        >
+                                        <input
+                                            type="date"
+                                            name="name"
+                                            class="form-control"
+                                            v-model="newRetro"
+                                            required
+                                        />
+                                        <div class="invalid-feedback">
+                                            Please fill out this field
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <a
+                                        href="/sincro"
+                                        class="btn btn-primary float-right"
+                                        >Guardar</a
+                                    >
+                                </div>
+              </tab-content>
+               <tab-content title="Encuentros sincronicos">
+                   <div class="form-group row">
+                  <div class="col">
+                    <strong>Cantidad de encuentros sincronicos</strong>
+                    <br />
+                    <div class="custom-control custom-checkbox custom-control-inline">
+                      <input
+                        class="custom-control-input"
+                        type="checkbox"
+                        id="gridCheck1"
+                        v-model="newRegional"
+                      />
+                      <label class="custom-control-label" for="gridCheck1">1</label>
+                    </div>
+                    <div class="custom-control custom-checkbox custom-control-inline">
+                      <input
+                        class="custom-control-input"
+                        type="checkbox"
+                        id="gridCheck2"
+                        v-model="newWorld"
+                      />
+                      <label class="custom-control-label" for="gridCheck2">2</label>
+                    </div>
+                    <div class="custom-control custom-checkbox custom-control-inline">
+                      <input
+                        class="custom-control-input"
+                        type="checkbox"
+                        id="gridCheck3"
+                        v-model="newWor"
+                      />
+                      <label class="custom-control-label" for="gridCheck3">3</label>
+                    </div>
+                    <div class="custom-control custom-checkbox custom-control-inline">
+                      <input
+                        class="custom-control-input"
+                        type="checkbox"
+                        id="gridCheck4"
+                        v-model="newW"
+                      />
+                      <label class="custom-control-label" for="gridCheck4">4</label>
+                    </div>
+                    <div class="custom-control custom-checkbox custom-control-inline">
+                      <input
+                        class="custom-control-input"
+                        type="checkbox"
+                        id="gridCheck5"
+                        v-model="newWo"
+                      />
+                      <label class="custom-control-label" for="gridCheck5">5</label>
+                    </div>
+                  </div>
+                </div>
+                <div id="hidden_fields1">
+                  <strong>Primer encuentro</strong>
+                  <div class="form-group row mx-auto">
+                    <div class="col-md-6">
+                      <strong>Nombre del encuentro sincronico</strong>
+                      <input
+                        type="text"
+                        name="name"
+                        class="form-control"
+                        v-model="newName"
+                        disabled
+                      />
+                      <div class="invalid-feedback">Please fill out this field</div>
+                    </div>
+                    <div class="col-md-6">
+                      <strong>Temas que se abarcan</strong>
+                      <input
+                        type="text"
+                        name="name"
+                        class="form-control"
+                        v-model="newTopics"
+                        disabled
+                      />
+                      <div class="invalid-feedback">Please fill out this field</div>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <div class="col-md-6">
+                      <label for="fromW">Fecha</label>
+                      <input
+                        type="date"
+                        name="fromW"
+                        class="form-control"
+                        v-model="newDate"
+                        required
+                      />
+                      <div class="invalid-feedback">Please fill out this field</div>
+                    </div>
+                    <div class="col-md-3">
+                      <label for="toW">Hora inicio</label>
+                      <input type="date" name="toW" class="form-control" v-model="newHFrom" required />
+                      <div class="invalid-feedback">Please fill out this field</div>
+                    </div>
+                    <div class="col-md-3">
+                      <label for>Hora final</label>
+                      <select2 :options="myOptions" v-model="newToH" required></select2>
+                      <div class="invalid-feedback">Please fill out this field</div>
+                    </div>
+                  </div>
+                </div>
+                <div id="hidden_fields2">
+                  <strong>Primer encuentro</strong>
+                  <div class="form-group row mx-auto">
+                    <div class="col-md-6">
+                      <strong>Nombre del encuentro sincronico</strong>
+                      <input
+                        type="text"
+                        name="name"
+                        class="form-control"
+                        v-model="newName"
+                        disabled
+                      />
+                      <div class="invalid-feedback">Please fill out this field</div>
+                    </div>
+                    <div class="col-md-6">
+                      <strong>Temas que se abarcan</strong>
+                      <input
+                        type="text"
+                        name="name"
+                        class="form-control"
+                        v-model="newTopic"
+                        disabled
+                      />
+                      <div class="invalid-feedback">Please fill out this field</div>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <div class="col-md-6">
+                      <label for="fromW">Fecha</label>
+                      <input
+                        type="date"
+                        name="fromW"
+                        class="form-control"
+                        v-model="newDate"
+                        required
+                      />
+                      <div class="invalid-feedback">Please fill out this field</div>
+                    </div>
+                    <div class="col-md-3">
+                      <label for="toW">Hora inicio</label>
+                      <input type="date" name="toW" class="form-control" v-model="newToH" required />
+                      <div class="invalid-feedback">Please fill out this field</div>
+                    </div>
+                    <div class="col-md-3">
+                      <label for>Hora final</label>
+                      <select2 :options="myOptions" v-model="newFromH" required></select2>
+                      <div class="invalid-feedback">Please fill out this field</div>
+                    </div>
+                  </div>
+                  <strong>Segundo encuentro</strong>
+                  <div class="form-group row mx-auto">
+                    <div class="col-md-6">
+                      <strong>Nombre del encuentro sincronico</strong>
+                      <input
+                        type="text"
+                        name="name"
+                        class="form-control"
+                        v-model="newName"
+                        disabled
+                      />
+                      <div class="invalid-feedback">Please fill out this field</div>
+                    </div>
+                    <div class="col-md-6">
+                      <strong>Temas que se abarcan</strong>
+                      <input
+                        type="text"
+                        name="name"
+                        class="form-control"
+                        v-model="newTopic"
+                        disabled
+                      />
+                      <div class="invalid-feedback">Please fill out this field</div>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <div class="col-md-6">
+                      <label for="fromW">Fecha</label>
+                      <input
+                        type="date"
+                        name="fromW"
+                        class="form-control"
+                        v-model="newDate"
+                        required
+                      />
+                      <div class="invalid-feedback">Please fill out this field</div>
+                    </div>
+                    <div class="col-md-3">
+                      <label for="toW">Hora inicio</label>
+                      <input type="date" name="toW" class="form-control" v-model="newFromH" required />
+                      <div class="invalid-feedback">Please fill out this field</div>
+                    </div>
+                    <div class="col-md-3">
+                      <label for>Hora final</label>
+                      <select2 :options="myOptions" v-model="newToH" required></select2>
+                      <div class="invalid-feedback">Please fill out this field</div>
+                    </div>
+                  </div>
+                </div>
+                <div id="hidden_fields3">
+                  <strong>Primer encuentro</strong>
+                  <div class="form-group row mx-auto">
+                    <div class="col-md-6">
+                      <strong>Nombre del encuentro sincronico</strong>
+                      <input
+                        type="text"
+                        name="name"
+                        class="form-control"
+                        v-model="newName"
+                        disabled
+                      />
+                      <div class="invalid-feedback">Please fill out this field</div>
+                    </div>
+                    <div class="col-md-6">
+                      <strong>Temas que se abarcan</strong>
+                      <input
+                        type="text"
+                        name="name"
+                        class="form-control"
+                        v-model="newTopic"
+                        disabled
+                      />
+                      <div class="invalid-feedback">Please fill out this field</div>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <div class="col-md-6">
+                      <label for="fromW">Fecha</label>
+                      <input
+                        type="date"
+                        name="fromW"
+                        class="form-control"
+                        v-model="newDate"
+                        required
+                      />
+                      <div class="invalid-feedback">Please fill out this field</div>
+                    </div>
+                    <div class="col-md-3">
+                      <label for="toW">Hora inicio</label>
+                      <input type="date" name="toW" class="form-control" v-model="newFromH" required />
+                      <div class="invalid-feedback">Please fill out this field</div>
+                    </div>
+                    <div class="col-md-3">
+                      <label for>Hora final</label>
+                      <select2 :options="myOptions" v-model="newToH" required></select2>
+                      <div class="invalid-feedback">Please fill out this field</div>
+                    </div>
+                  </div>
+                  <strong>Segundo encuentro</strong>
+                  <div class="form-group row mx-auto">
+                    <div class="col-md-6">
+                      <strong>Nombre del encuentro sincronico</strong>
+                      <input
+                        type="text"
+                        name="name"
+                        class="form-control"
+                        v-model="newName"
+                        disabled
+                      />
+                      <div class="invalid-feedback">Please fill out this field</div>
+                    </div>
+                    <div class="col-md-6">
+                      <strong>Temas que se abarcan</strong>
+                      <input
+                        type="text"
+                        name="name"
+                        class="form-control"
+                        v-model="newTopic"
+                        disabled
+                      />
+                      <div class="invalid-feedback">Please fill out this field</div>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <div class="col-md-6">
+                      <label for="fromW">Fecha</label>
+                      <input
+                        type="date"
+                        name="fromW"
+                        class="form-control"
+                        v-model="newDate"
+                        required
+                      />
+                      <div class="invalid-feedback">Please fill out this field</div>
+                    </div>
+                    <div class="col-md-3">
+                      <label for="toW">Hora inicio</label>
+                      <input type="date" name="toW" class="form-control" v-model="newFromH" required />
+                      <div class="invalid-feedback">Please fill out this field</div>
+                    </div>
+                    <div class="col-md-3">
+                      <label for>Hora final</label>
+                      <select2 :options="myOptions" v-model="newToH" required></select2>
+                      <div class="invalid-feedback">Please fill out this field</div>
+                    </div>
+                  </div>
+                  <strong>Tercero encuentro</strong>
+                  <div class="form-group row mx-auto">
+                    <div class="col-md-6">
+                      <strong>Nombre del encuentro sincronico</strong>
+                      <input
+                        type="text"
+                        name="name"
+                        class="form-control"
+                        v-model="newName"
+                        disabled
+                      />
+                      <div class="invalid-feedback">Please fill out this field</div>
+                    </div>
+                    <div class="col-md-6">
+                      <strong>Temas que se abarcan</strong>
+                      <input
+                        type="text"
+                        name="name"
+                        class="form-control"
+                        v-model="newTopic"
+                        disabled
+                      />
+                      <div class="invalid-feedback">Please fill out this field</div>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <div class="col-md-6">
+                      <label for="fromW">Fecha</label>
+                      <input
+                        type="date"
+                        name="fromW"
+                        class="form-control"
+                        v-model="newDate"
+                        required
+                      />
+                      <div class="invalid-feedback">Please fill out this field</div>
+                    </div>
+                    <div class="col-md-3">
+                      <label for="toW">Hora inicio</label>
+                      <input type="date" name="toW" class="form-control" v-model="newToH" required />
+                      <div class="invalid-feedback">Please fill out this field</div>
+                    </div>
+                    <div class="col-md-3">
+                      <label for>Hora final</label>
+                      <select2 :options="myOptions" v-model="newFromH" required></select2>
+                      <div class="invalid-feedback">Please fill out this field</div>
+                    </div>
+                  </div>
+                </div>
+                <div id="hidden_fields4">
+                  <strong>Primer encuentro</strong>
+                  <div class="form-group row mx-auto">
+                    <div class="col-md-6">
+                      <strong>Nombre del encuentro sincronico</strong>
+                      <input
+                        type="text"
+                        name="name"
+                        class="form-control"
+                        v-model="newName"
+                        disabled
+                      />
+                      <div class="invalid-feedback">Please fill out this field</div>
+                    </div>
+                    <div class="col-md-6">
+                      <strong>Temas que se abarcan</strong>
+                      <input
+                        type="text"
+                        name="name"
+                        class="form-control"
+                        v-model="newTopic"
+                        disabled
+                      />
+                      <div class="invalid-feedback">Please fill out this field</div>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <div class="col-md-6">
+                      <label for="fromW">Fecha</label>
+                      <input
+                        type="date"
+                        name="fromW"
+                        class="form-control"
+                        v-model="newDate"
+                        required
+                      />
+                      <div class="invalid-feedback">Please fill out this field</div>
+                    </div>
+                    <div class="col-md-3">
+                      <label for="toW">Hora inicio</label>
+                      <input type="date" name="toW" class="form-control" v-model="newFromH" required />
+                      <div class="invalid-feedback">Please fill out this field</div>
+                    </div>
+                    <div class="col-md-3">
+                      <label for>Hora final</label>
+                      <select2 :options="myOptions" v-model="newToH" required></select2>
+                      <div class="invalid-feedback">Please fill out this field</div>
+                    </div>
+                  </div>
+                  <strong>Segundo encuentro</strong>
+                  <div class="form-group row mx-auto">
+                    <div class="col-md-6">
+                      <strong>Nombre del encuentro sincronico</strong>
+                      <input
+                        type="text"
+                        name="name"
+                        class="form-control"
+                        v-model="newName"
+                        disabled
+                      />
+                      <div class="invalid-feedback">Please fill out this field</div>
+                    </div>
+                    <div class="col-md-6">
+                      <strong>Temas que se abarcan</strong>
+                      <input
+                        type="text"
+                        name="name"
+                        class="form-control"
+                        v-model="newTopic"
+                        disabled
+                      />
+                      <div class="invalid-feedback">Please fill out this field</div>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <div class="col-md-6">
+                      <label for="Date">Fecha</label>
+                      <input
+                        type="date"
+                        name="Date"
+                        class="form-control"
+                        v-model="nesDate"
+                        required
+                      />
+                      <div class="invalid-feedback">Please fill out this field</div>
+                    </div>
+                    <div class="col-md-3">
+                      <label for="toW">Hora inicio</label>
+                      <input type="date" name="toW" class="form-control" v-model="newToH" required />
+                      <div class="invalid-feedback">Please fill out this field</div>
+                    </div>
+                    <div class="col-md-3">
+                      <label for>Hora final</label>
+                      <select2 :options="myOptions" v-model="newFromH" required></select2>
+                      <div class="invalid-feedback">Please fill out this field</div>
+                    </div>
+                  </div>
+                  <strong>Tercero encuentro</strong>
+                  <div class="form-group row mx-auto">
+                    <div class="col-md-6">
+                      <strong>Nombre del encuentro sincronico</strong>
+                      <input
+                        type="text"
+                        name="name"
+                        class="form-control"
+                        v-model="newName"
+                        disabled
+                      />
+                      <div class="invalid-feedback">Please fill out this field</div>
+                    </div>
+                    <div class="col-md-6">
+                      <strong>Temas que se abarcan</strong>
+                      <input
+                        type="text"
+                        name="name"
+                        class="form-control"
+                        v-model="newTopic"
+                        disabled
+                      />
+                      <div class="invalid-feedback">Please fill out this field</div>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <div class="col-md-6">
+                      <label for="Date">Fecha</label>
+                      <input
+                        type="date"
+                        name="Date"
+                        class="form-control"
+                        v-model="newDate"
+                        required
+                      />
+                      <div class="invalid-feedback">Please fill out this field</div>
+                    </div>
+                    <div class="col-md-3">
+                      <label for="toW">Hora inicio</label>
+                      <input type="date" name="toW" class="form-control" v-model="newFromH" required />
+                      <div class="invalid-feedback">Please fill out this field</div>
+                    </div>
+                    <div class="col-md-3">
+                      <label for>Hora final</label>
+                      <select2 :options="myOptions" v-model="newToH" required></select2>
+                      <div class="invalid-feedback">Please fill out this field</div>
+                    </div>
+                  </div>
+                  <strong>Cuarto encuentro</strong>
+                  <div class="form-group row mx-auto">
+                    <div class="col-md-6">
+                      <strong>Nombre del encuentro sincronico</strong>
+                      <input
+                        type="text"
+                        name="name"
+                        class="form-control"
+                        v-model="newName"
+                        disabled
+                      />
+                      <div class="invalid-feedback">Please fill out this field</div>
+                    </div>
+                    <div class="col-md-6">
+                      <strong>Temas que se abarcan</strong>
+                      <input
+                        type="text"
+                        name="name"
+                        class="form-control"
+                        v-model="newTopic"
+                        disabled
+                      />
+                      <div class="invalid-feedback">Please fill out this field</div>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <div class="col-md-6">
+                      <label for="Date">Fecha</label>
+                      <input
+                        type="date"
+                        name="Date"
+                        class="form-control"
+                        v-model="newDate"
+                        required
+                      />
+                      <div class="invalid-feedback">Please fill out this field</div>
+                    </div>
+                    <div class="col-md-3">
+                      <label for="toW">Hora inicio</label>
+                      <input type="date" name="toW" class="form-control" v-model="newToH" required />
+                      <div class="invalid-feedback">Please fill out this field</div>
+                    </div>
+                    <div class="col-md-3">
+                      <label for>Hora final</label>
+                      <select2 :options="myOptions" v-model="newFromH" required></select2>
+                      <div class="invalid-feedback">Please fill out this field</div>
+                    </div>
+                  </div>
+                </div>
+                <div id="hidden_fields5">
+                  <strong>Primer encuentro</strong>
+                  <div class="form-group row mx-auto">
+                    <div class="col-md-6">
+                      <strong>Nombre del encuentro sincronico</strong>
+                      <input
+                        type="text"
+                        name="name"
+                        class="form-control"
+                        v-model="newName"
+                        disabled
+                      />
+                      <div class="invalid-feedback">Please fill out this field</div>
+                    </div>
+                    <div class="col-md-6">
+                      <strong>Temas que se abarcan</strong>
+                      <input
+                        type="text"
+                        name="name"
+                        class="form-control"
+                        v-model="newTopic"
+                        disabled
+                      />
+                      <div class="invalid-feedback">Please fill out this field</div>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <div class="col-md-6">
+                      <label for="Date">Fecha</label>
+                      <input
+                        type="date"
+                        name="Date"
+                        class="form-control"
+                        v-model="newDate"
+                        required
+                      />
+                      <div class="invalid-feedback">Please fill out this field</div>
+                    </div>
+                    <div class="col-md-3">
+                      <label for="toW">Hora inicio</label>
+                      <input type="date" name="toW" class="form-control" v-model="newToH" required />
+                      <div class="invalid-feedback">Please fill out this field</div>
+                    </div>
+                    <div class="col-md-3">
+                      <label for>Hora final</label>
+                      <select2 :options="myOptions" v-model="newFromH" required></select2>
+                      <div class="invalid-feedback">Please fill out this field</div>
+                    </div>
+                  </div>
+                  <strong>Segundo encuentro</strong>
+                  <div class="form-group row mx-auto">
+                    <div class="col-md-6">
+                      <strong>Nombre del encuentro sincronico</strong>
+                      <input
+                        type="text"
+                        name="name"
+                        class="form-control"
+                        v-model="newName"
+                        disabled
+                      />
+                      <div class="invalid-feedback">Please fill out this field</div>
+                    </div>
+                    <div class="col-md-6">
+                      <strong>Temas que se abarcan</strong>
+                      <input
+                        type="text"
+                        name="name"
+                        class="form-control"
+                        v-model="newTopic"
+                        disabled
+                      />
+                      <div class="invalid-feedback">Please fill out this field</div>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <div class="col-md-6">
+                      <label for="Date">Fecha</label>
+                      <input
+                        type="date"
+                        name="Date"
+                        class="form-control"
+                        v-model="newDate"
+                        required
+                      />
+                      <div class="invalid-feedback">Please fill out this field</div>
+                    </div>
+                    <div class="col-md-3">
+                      <label for="toW">Hora inicio</label>
+                      <input type="date" name="toW" class="form-control" v-model="newToW" required />
+                      <div class="invalid-feedback">Please fill out this field</div>
+                    </div>
+                    <div class="col-md-3">
+                      <label for>Hora final</label>
+                      <select2 :options="myOptions" v-model="newFromH" required></select2>
+                      <div class="invalid-feedback">Please fill out this field</div>
+                    </div>
+                  </div>
+                  <strong>Tercero encuentro</strong>
+                  <div class="form-group row mx-auto">
+                    <div class="col-md-6">
+                      <strong>Nombre del encuentro sincronico</strong>
+                      <input
+                        type="text"
+                        name="name"
+                        class="form-control"
+                        v-model="newName"
+                        disabled
+                      />
+                      <div class="invalid-feedback">Please fill out this field</div>
+                    </div>
+                    <div class="col-md-6">
+                      <strong>Temas que se abarcan</strong>
+                      <input
+                        type="text"
+                        name="name"
+                        class="form-control"
+                        v-model="newTopic"
+                        disabled
+                      />
+                      <div class="invalid-feedback">Please fill out this field</div>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <div class="col-md-6">
+                      <label for="Date">Fecha</label>
+                      <input
+                        type="date"
+                        name="Date"
+                        class="form-control"
+                        v-model="newDate"
+                        required
+                      />
+                      <div class="invalid-feedback">Please fill out this field</div>
+                    </div>
+                    <div class="col-md-3">
+                      <label for="toW">Hora inicio</label>
+                      <input type="date" name="toW" class="form-control" v-model="newToW" required />
+                      <div class="invalid-feedback">Please fill out this field</div>
+                    </div>
+                    <div class="col-md-3">
+                      <label for>Hora final</label>
+                      <select2 :options="myOptions" v-model="newFromH" required></select2>
+                      <div class="invalid-feedback">Please fill out this field</div>
+                    </div>
+                  </div>
+                  <strong>Cuarto encuentro</strong>
+                  <div class="form-group row mx-auto">
+                    <div class="col-md-6">
+                      <strong>Nombre del encuentro sincronico</strong>
+                      <input
+                        type="text"
+                        name="name"
+                        class="form-control"
+                        v-model="newName"
+                        disabled
+                      />
+                      <div class="invalid-feedback">Please fill out this field</div>
+                    </div>
+                    <div class="col-md-6">
+                      <strong>Temas que se abarcan</strong>
+                      <input
+                        type="text"
+                        name="name"
+                        class="form-control"
+                        v-model="newTopic"
+                        disabled
+                      />
+                      <div class="invalid-feedback">Please fill out this field</div>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <div class="col-md-6">
+                      <label for="Date">Fecha</label>
+                      <input
+                        type="date"
+                        name="Date"
+                        class="form-control"
+                        v-model="newDate"
+                        required
+                      />
+                      <div class="invalid-feedback">Please fill out this field</div>
+                    </div>
+                    <div class="col-md-3">
+                      <label for="toW">Hora inicio</label>
+                      <input type="date" name="toW" class="form-control" v-model="newToW" required />
+                      <div class="invalid-feedback">Please fill out this field</div>
+                    </div>
+                    <div class="col-md-3">
+                      <label for>Hora final</label>
+                      <select2 :options="myOptions" v-model="newFromH" required></select2>
+                      <div class="invalid-feedback">Please fill out this field</div>
+                    </div>
+                  </div>
+                  <strong>Quinto encuentro</strong>
+                  <div class="form-group row mx-auto">
+                    <div class="col-md-6">
+                      <strong>Nombre del encuentro sincronico</strong>
+                      <input
+                        type="text"
+                        name="name"
+                        class="form-control"
+                        v-model="newName"
+                        disabled
+                      />
+                      <div class="invalid-feedback">Please fill out this field</div>
+                    </div>
+                    <div class="col-md-6">
+                      <strong>Temas que se abarcan</strong>
+                      <input
+                        type="text"
+                        name="name"
+                        class="form-control"
+                        v-model="newTopic"
+                        disabled
+                      />
+                      <div class="invalid-feedback">Please fill out this field</div>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <div class="col-md-6">
+                      <label for="Date">Fecha</label>
+                      <input
+                        type="date"
+                        name="Date"
+                        class="form-control"
+                        v-model="newDate"
+                        required
+                      />
+                      <div class="invalid-feedback">Please fill out this field</div>
+                    </div>
+                    <div class="col-md-3">
+                      <label for="toW">Hora inicio</label>
+                      <input type="date" name="toW" class="form-control" v-model="newToW" required />
+                      <div class="invalid-feedback">Please fill out this field</div>
+                    </div>
+                    <div class="col-md-3">
+                      <label for>Hora final</label>
+                      <select2 :options="myOptions" v-model="newFromH" required></select2>
+                      <div class="invalid-feedback">Please fill out this field</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <a href="/freeUnit" class="btn btn-primary float-right">Guardar</a>
+                </div>
+                    </tab-content>
+                </form-wizard>
             </form>
           </div>
         </div>
@@ -311,6 +1232,8 @@ export default {
           name: ""
         }
       ],
+      newPlataform:"",
+
       Uoptions: ["3", "4"],
       subcategories: [],
       TypeUsers: [],
@@ -390,69 +1313,6 @@ export default {
     },
     remove1(index) {
       this.inputs1.splice(index, 1);
-    },
-    editClasses(clas) {
-      this.fillC.id = clas.id;
-      this.fillC.description = clas.description;
-      this.fillC.name = clas.name;
-      this.fillC.id_user = clas.id_user;
-      this.fillC.id_category = clas.id_category;
-      this.fillC.id_subcategory = clas.id_subcategory;
-      this.fillC.subject = clas.subject;
-      this.fillC.objetive = clas.objetive;
-      this.fillC.fromW = clas.fromW;
-      this.fillC.toW = clas.toW;
-      this.fillC.fromH = clas.fromH;
-      this.fillC.toH = clas.toH;
-      this.fillC.quiz = clas.quiz;
-      this.fillC.indicator = clas.indicator;
-      this.fillC.percent = clas.percent;
-      this.fillC.local = clas.local;
-      this.fillC.regional = clas.regional;
-      this.fillC.world = clas.world;
-      $("#edit").modal("show");
-    },
-    updateClasses(id) {
-      var url = "classes/" + id;
-      axios
-        .put(url, this.fillC)
-        .then(response => {
-          this.getClasses();
-          (this.fillC = {
-            id: "",
-            name: "",
-            description: "",
-            id_user: "",
-            id_category: "",
-            id_subcategory: "",
-            subject: "",
-            objetive: "",
-            fromW: "",
-            toW: "",
-            fromH: "",
-            toH: "",
-            quiz: "",
-            indicator: "",
-            percent: "",
-            local: "",
-            regional: "",
-            world: ""
-          }),
-            (this.errors = []);
-          $("#edit").modal("hide");
-          toastr.success("Class successfully edited");
-        })
-        .catch(error => {
-          this.errors = error.response.data;
-        });
-    },
-    deleteClasses(clas) {
-      var url = "classes/" + clas.id;
-      axios.delete(url).then(response => {
-        // eliminar
-        this.getClasses(); //lista
-        toastr.success("Successfully removed"); //mensaje
-      });
     },
     createClasses() {
       var url = "classes";

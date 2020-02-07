@@ -237,6 +237,8 @@ export default {
       myOptions: ["Cuestionario V-F", "Cuestionario 4 opciones"],
       newDescription: "",
       newName: "",
+      newRespuestas:[],
+      newQuestion:[],
       newId_subcategories: "",
       newSubject: "",
       newObjetive: "",
@@ -256,22 +258,7 @@ export default {
       fillC: {
         id: "",
         name: "",
-        description: "",
-        id_user: "",
-        id_category: "",
-        id_subcategory: "",
-        subject: "",
-        objetive: "",
-        fromW: "",
-        toW: "",
-        fromH: "",
-        toH: "",
-        quiz: "",
-        indicator: "",
-        percent: "",
-        local: "",
-        regional: "",
-        world: ""
+        
       },
       errors: []
     };
@@ -300,118 +287,33 @@ export default {
     remove1(index) {
       this.inputs1.splice(index, 1);
     },
-    editClasses(clas) {
-      this.fillC.id = clas.id;
-      this.fillC.description = clas.description;
-      this.fillC.name = clas.name;
-      this.fillC.id_user = clas.id_user;
-      this.fillC.id_category = clas.id_category;
-      this.fillC.id_subcategory = clas.id_subcategory;
-      this.fillC.subject = clas.subject;
-      this.fillC.objetive = clas.objetive;
-      this.fillC.fromW = clas.fromW;
-      this.fillC.toW = clas.toW;
-      this.fillC.fromH = clas.fromH;
-      this.fillC.toH = clas.toH;
-      this.fillC.quiz = clas.quiz;
-      this.fillC.indicator = clas.indicator;
-      this.fillC.percent = clas.percent;
-      this.fillC.local = clas.local;
-      this.fillC.regional = clas.regional;
-      this.fillC.world = clas.world;
-      $("#edit").modal("show");
-    },
-    updateClasses(id) {
-      var url = "classes/" + id;
-      axios
-        .put(url, this.fillC)
-        .then(response => {
-          this.getClasses();
-          (this.fillC = {
-            id: "",
-            name: "",
-            description: "",
-            id_user: "",
-            id_category: "",
-            id_subcategory: "",
-            subject: "",
-            objetive: "",
-            fromW: "",
-            toW: "",
-            fromH: "",
-            toH: "",
-            quiz: "",
-            indicator: "",
-            percent: "",
-            local: "",
-            regional: "",
-            world: ""
-          }),
-            (this.errors = []);
-          $("#edit").modal("hide");
-          toastr.success("Class successfully edited");
-        })
-        .catch(error => {
-          this.errors = error.response.data;
-        });
-    },
-    deleteClasses(clas) {
-      var url = "classes/" + clas.id;
-      axios.delete(url).then(response => {
-        // eliminar
-        this.getClasses(); //lista
-        toastr.success("Successfully removed"); //mensaje
-      });
-    },
-    createClasses() {
-      var url = "classes";
-      this.newId_user = 36;
-      axios
-        .post(url, {
-          id_user: this.newId_user,
-          description: this.newDescription,
-          name: this.newName,
-          id_category: this.Category,
-          id_subcategory: this.newId_subcategories,
-          subject: this.newSubject,
-          objetive: this.newObjetive,
-          fromW: this.newFromW,
-          toW: this.newToW,
-          fromH: this.newFromH,
-          toH: this.newToH,
-          quiz: this.newQuiz,
-          indicator: this.newIndicator,
-          percent: this.newPercent,
-          local: this.newLocal,
-          regional: this.newRegional,
-          world: this.newWorld
-        })
-        .then(response => {
-          this.getClasses();
-          this.newDescription = "";
-          this.newId_user = "";
-          this.newName = "";
-          this.newId_subcategories = "";
-          this.newSubject = "";
-          this.newObjetive = "";
-          this.newToW = "";
-          this.newFromW = "";
-          this.newFormH = "";
-          this.newToH = "";
-          this.newQuiz = "";
-          this.newIndicator = "";
-          this.newPercent = "";
-          this.newLocal = "";
-          this.newRegional = "";
-          this.newContry = "";
-          this.newWorld = "";
-          this.errors = [];
-          $("#create").modal("hide");
-          toastr.success("New class created successfully");
-        })
-        .catch(error => {
-          this.errors = error.response.data;
-        });
+   
+       createClasses() {
+      var url = "categories";
+            console.log(this.inputs.length);
+            if (this.inputs.length >= 1) {
+                console.log(this.inputs.length);
+                for (let i = 0; i < this.inputs.length; i++) {
+                    this.newQuestion.push(this.inputs[i].name);
+                }
+                console.log(this.newRespuestas);
+            }
+            axios
+                .post(url, {
+                    qustion: this.newQuestion,
+                    answer: this.newRespuestas,
+                })
+                .then(response => {
+                    this.getNamec();
+                    this.newName_category = "";
+                    this.newName_subcategory = [];
+                    this.errors = [];
+                    $("#createc").modal("hide");
+                    toastr.success("New category created successfully");
+                })
+                .catch(error => {
+                    this.errors = error.response.data;
+                });
     },
     getSubcategories() {
       var urlse = "GetSubcategories/" + this.Category;
