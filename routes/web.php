@@ -118,7 +118,10 @@ Route::get('/miPerfil', function () {
 });
 /*login personalizado permite verificar suscripcion*/
 Route::post('/login2', 'UserController@loginWeb')->name('login2');
+Route::post('/resetPassword', 'UserController@resetPassword')->name('resetPassword');
+
 Route::post('users_save', 'UserController@store')->name('users_save');
+
 Route::get('info_user', 'UserController@show')->name('info_user');
 Route::get('GetCourses','CourseController@GetCourses');
 Route::get('GetCategories','CategoryController@GetCategories');

@@ -168,4 +168,7 @@ class UserController extends Controller
         return $url;
     
     }
+    public function resetPassword($email){
+        User::where('email',$email)->first();
+    }
 }

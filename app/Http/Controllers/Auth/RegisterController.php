@@ -92,5 +92,12 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password'])
             
         ]);
+        /* Send email register */
+        if (isset($data['email'])) {
+            Mail::send('emails.register', $data, function ($msj) {
+                $msj->to($data['email'])->subject('Falta sólo un paso más');
+            });
+        }
+        return response()->json([true]);
     }
 }
