@@ -128,10 +128,10 @@
                 <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
                     <!-- Authentication Links -->
-                        <form class="form-inline my-2 my-lg-0">
-                            <input class="form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="Search">
-                            <button class="btn btn-danger my-2 my-sm-0" type="submit">Buscar</button>
-                        </form>
+                        <li class="form-inline">
+                            <input class="form-control" type="search" placeholder="Buscar" aria-label="Search">
+                            <button class="btn btn-danger" type="submit">Buscar</button>
+                        </li>
                         @guest
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>

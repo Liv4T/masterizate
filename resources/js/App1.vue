@@ -1,4 +1,4 @@
-<template>
+<!--template>
   <div class="container-fluid chat_container" id="app">
     <div class="row" v-if="authenticated">
       <Rooms />

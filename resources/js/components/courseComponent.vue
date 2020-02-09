@@ -85,6 +85,23 @@
                       <select2 :options="myOptions" v-model="metodology" required></select2>
                     </div>
                   </div>
+                  <div class="form-group row">
+                    <div class="col-md-6">
+                      <label for="subject">Precio del curso</label>
+                      <input
+                        type="text"
+                        name="subject"
+                        class="form-control"
+                        v-model="sdf"
+                        required
+                      />
+                      <div class="invalid-feedback">Please fill out this field</div>
+                    </div>
+                    <!--div class="col">
+                      <label for>Cantidad de estudiantes</label>
+                      <select2 :options="myOptions" v-model="metodology" required></select2>
+                    </div-->
+                  </div>
                   <div class="form-group mx-auto">
                     <div align="center">
                       <strong>Bienvenida</strong>
@@ -260,6 +277,24 @@
                     ></textarea>
                     <div class="invalid-feedback">Please fill out this field</div>
                   </div>
+                   <div class="form-group mx-auto">
+                    <div align="center">
+                      <strong>Video de presentación del curso</strong>
+                      <a
+                        tabindex="0"
+                        class="badge badge-info"
+                        role="button"
+                        data-toggle="popover"
+                        data-trigger="focus"
+                        title="Video Presentación"
+                        data-content="Video en el cual se da a conocer los aspectos generales del curso"
+                      >
+                        <i class="fas fa-question"></i>
+                      </a>
+                    </div>
+                    <input type="file" name="videoCurso" class="form-control" id="">
+                    <div class="invalid-feedback">Please fill out this field</div>
+                  </div>
                   <div class="form-group mx-auto">
                     <div align="center">
                       <strong>Descripción de las guías de actividades</strong>
@@ -317,7 +352,6 @@
                   <input type="text" name="name" class="form-control" v-model="newName1" required />
                   <div class="invalid-feedback">Please fill out this field</div>
                 </div>
-
                 <div class="form-group mx-auto">
                   <div align="center">
                     <strong>Presentación de la unidad</strong>
@@ -656,7 +690,7 @@
                 <div align="center">
                   <strong>Aprenda de las fuentes</strong>
                 </div>
-                <div class="form-group row mx-auto" v-for="(input,k) in inputs" :key="k">
+                <div class="form-group row mx-auto"  v-for="(input,k) in inputs" :key=k >
                   <div class="col-md-6">
                     <label for="name">Tema</label>
                     <span>
@@ -678,26 +712,25 @@
                         type="text"
                         name="objetive1"
                         class="form-control"
-                        v-model="newTopic"
+                        v-model="input.name"
                         placeholder="Nombre del Tema"
                         required
                       />
                     </div>
                   </div>
-
                   <div class="col-md-6">
                     <label for="name">Contenido</label>
                     <textarea
                       name="competences"
                       class="form-control"
-                      v-model="newContent"
+                      v-model="input.contenido"
                       placeholder="Es la explicacion o sintesis de la tematica a abordar en la unidad de estudio."
                       required
                     ></textarea>
                     <div class="invalid-feedback">Please fill out this field</div>
                   </div>
                 </div>
-                <div class="form-group row" v-for="(input,k) in inputs1" :key="k">
+                <div class="form-group row" v-for="(input1,k) in inputs1" :key="k">
                   <div class="col-md-6">
                     <label for="name">Master class (MC)</label>
                     <span>
@@ -719,7 +752,7 @@
                         type="text"
                         name="objetive"
                         class="form-control"
-                        v-model="newNameM"
+                        v-model="input1.name"
                         placeholder="Nombre de la clase"
                         required
                       />
@@ -738,22 +771,8 @@
                   </div>
                 </div>
                 <div class="form-group row mx-auto">
-                  <div class="col-md-6" v-for="(input,k) in inputs2" :key="k">
+                  <div class="col-md-6" >
                     <label for="name">Video de apoyo</label>
-                    <span>
-                      <a
-                        href="#"
-                        class="badge badge-danger"
-                        @click.prevent="remove2(k)"
-                        v-show="k || ( !k && inputs2.length > 1)"
-                      >-</a>
-                      <a
-                        href="#"
-                        class="badge badge-primary"
-                        @click.prevent="add2(k)"
-                        v-show="k == inputs2.length-1"
-                      >+</a>
-                    </span>
                     <input
                       type="text"
                       name="objetive1"
@@ -1323,7 +1342,6 @@
                     <div class="invalid-feedback">Please fill out this field</div>
                   </div>
                 </div>
-
                 <div class="form-group mx-auto">
                   <div align="center">
                     <strong>Aprenda haciendo</strong>
@@ -1759,7 +1777,6 @@
                       />
                     </div>
                   </div>
-
                   <div class="col-md-6">
                     <label for="name">Contenido</label>
                     <textarea
@@ -1982,12 +1999,14 @@ export default {
     return {
       inputs: [
         {
-          name: ""
+          name: "",
+          contenido:""
         }
       ],
       inputs1: [
         {
-          name: ""
+          name: "",
+          video:""
         }
       ],
       inputs2: [
@@ -2130,7 +2149,9 @@ export default {
         type: "",
         descriptionO: "",
         state: "",
-        publish: ""
+        publish: "",
+        image:"",
+        video_presentation:""
       },
       newName1: "",
       newId_subcategories: "",
@@ -2162,17 +2183,19 @@ export default {
       newCompeR43: "",
       newQuestion: "",
       newReady: "",
-      newContent: "",
+      newContent: [],
       newMaster: "",
       newVideo: "",
       newBibliography: "",
       newDoing: "",
       newChallenge: "",
       newProjecting: "",
-      newTopic: "",
+      newTopic: [],
       newNameM: "",
       newNameV: "",
       newUnit: "",
+      newimage:"",
+      newVideo_presentation:"",
       fillU: {
         id: "",
         unit: "",
@@ -2239,12 +2262,14 @@ export default {
     },
     add(index) {
       this.inputs.push({ name: "" });
+      this.inputs.push({ contenido: "" });
     },
     remove(index) {
       this.inputs.splice(index, 1);
     },
     add1(index) {
       this.inputs1.push({ name: "" });
+      this.inputs1.push({ video: "" });
     },
     remove1(index) {
       this.inputs1.splice(index, 1);
@@ -2375,62 +2400,34 @@ export default {
       var url = "courses";
       this.newId_user = 36;
       this.newType = "specialized";
-      axios
-        .post(url, {
-          id_user: this.newId_user,
-          description: this.newDescription,
+      this.newState = "up";
+      
+      axios.post(url, {
+            //Cursos generales
           name: this.newName,
           id_category: this.Category,
           id_subcategory: this.newId_subcategories,
-          intensityAC: this.newIntensityAC,
-
-          methodology: this.metodology,
+          id_user: this.newId_user,
           welcome: this.newWelcome,
-          presentation: this.newPresentation,
+          methodology: this.metodology,
           intention: this.newIntention,
+          intensityAC: this.newIntensityAC,
           competences: this.newCompetences,
+          description: this.newDescription,
+          intensityTA: this.newIntensityTA,
           achievement: this.newAchievement,
           indicatorA: this.newIndicatorA,
           map: this.newMap,
           methodologyG: this.newMethodologyG,
           type: this.newType,
+          presentation: this.newPresentation,
           descriptionO: this.newDescriptionO,
-          intensityTA: this.newIntensityTA
-        })
-        .then(response => {
-          this.getCourses();
-          /*this.newDescription = "";
-          this.newId_user = "";
-          this.newName = "";
-          this.newId_subcategories = "";
-          this.newIntensityAC = "";
-          this.newIntensityTA = "";
-          this.newMethodologyG = "";
-          this.newType = "";
-          this.newWelcome = "";
-          this.newPresentation = "";
-          this.newIndicatorA = "";
-          this.newMap = "";
-          this.newCompetences = "";
-          this.newIntention = "";
-          this.newDescriptionO = "";*/
-          this.errors = [];
-
-          toastr.success("Nuevo curso creado exitosamente");
-        })
-        .catch(error => {
-          this.errors = error.response.data;
-        });
-    },
-    createCourseUnit() {
-      var url = "course_unit";
-      this.newId_course = 36;
-      this.newType = "specialized";
-      this.newUnit = "1";
-      this.newState = "up";
-      this.newPublish = "not publish";
-      axios
-        .post(url, {
+          state: this.newState,
+          publish: this.publish,
+          image:this.newimage, 
+          video_presentation:this.newVideo_presentation,
+          state:this.newState,
+          //Cursos unidades
           id_course: this.newId_course,
           name: this.newName1,
           presentation: this.newPresentationU,
@@ -2467,12 +2464,60 @@ export default {
           doing: this.newDoing,
           challenge: this.newChallenge,
           projecting: this.newProjecting,
-          topic: this.newTopic,
           unit: this.newUnit,
           ready: this.newReady,
           type: this.newType,
-          state: this.newState,
-          publish: this.publish
+          //temas
+           topic: this.newTopic,
+           //videos
+           
+          
+          
+        })
+        .then(response => {
+          this.getCourses();
+          /*this.newDescription = "";
+          this.newId_user = "";
+          this.newName = "";
+          this.newId_subcategories = "";
+          this.newIntensityAC = "";
+          this.newIntensityTA = "";
+          this.newMethodologyG = "";
+          this.newType = "";
+          this.newWelcome = "";
+          this.newPresentation = "";
+          this.newIndicatorA = "";
+          this.newMap = "";
+          this.newCompetences = "";
+          this.newIntention = "";
+          this.newDescriptionO = "";*/
+          this.errors = [];
+
+          toastr.success("Nuevo curso creado exitosamente");
+        })
+        .catch(error => {
+          this.errors = error.response.data;
+        });
+    },
+    createCourseUnit() {
+      var url = "courses";
+      this.newId_course = 36;
+      this.newType = "specialized";
+      this.newUnit = "1";
+      this.newState = "up";
+      this.newPublish = "not publish";
+       if (this.inputs.length >= 1) {
+                console.log(this.inputs.length);
+                for (let i = 0; i < this.inputs.length; i++) {
+                    this.newTopic.push(this.inputs[i].name);
+                    this.newContent.push(this.inputs[i].contenido);
+                }
+                console.log(this.newTopic);
+                console.log(this.newContent);
+            }
+      axios
+        .post(url, {
+         
         })
         .then(response => {
           this.getCourses();

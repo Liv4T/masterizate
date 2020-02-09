@@ -116,6 +116,12 @@ Route::get('/changePassword', function () {
 Route::get('/miPerfil', function () {
     return view('perfil');
 });
+Route::get('/resetPass', function () {
+    return view('resetPass');
+});
+Route::get('/video', function () {
+    return view('videochat');
+});
 /*login personalizado permite verificar suscripcion*/
 Route::post('/login2', 'UserController@loginWeb')->name('login2');
 Route::post('/resetPassword', 'UserController@resetPassword')->name('resetPassword');

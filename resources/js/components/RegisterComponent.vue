@@ -281,7 +281,7 @@ import VueFormWizard from "vue-form-wizard";
 import "vue-form-wizard/dist/vue-form-wizard.min.css";
 Vue.use(VueFormWizard);
 Vue.use(AutoResponsive);
-
+import "toastr/toastr.scss";
  export default {
          
         data() {
@@ -358,7 +358,6 @@ Vue.use(AutoResponsive);
                 var url = 'users_save';
                 this.newAge= this.age;
                 console.log('send info user url, '+url);
-
                 axios.post(url, {
                     name: this.newName,
                     last_name: this.newLastName,
@@ -376,8 +375,6 @@ Vue.use(AutoResponsive);
                     id_number: this.newId_number,
                     country: this.newCountry,
                 }).then(response => {
-                 console.log('response: ', response)
-                 this.getNames();
                     this.newName = '';
                     this.newLastName = '';
                     this.newPassword = '';
@@ -394,6 +391,7 @@ Vue.use(AutoResponsive);
                     this.newCountry= '';
                     this.errors = [];
                     toastr.success('New user created successfully');
+                    this.getNames();
                     }).catch(error => {
                     this.errors = error.response.data
                 });
@@ -419,7 +417,19 @@ Vue.use(AutoResponsive);
                   vm.newPicture = e.target.result;
                 };
                 reader.readAsDataURL(file);
-            },                     
+            },           
+            /*createNames() {
+                console.log('sent form')
+                console.log(this.user.newPicture);
+                var url = 'users_save';
+                this.user.newAge= this.age;
+                console.log('send info user url, '+url);
+                console.log(this.user);
+                axios.post(url, this.user).then(response => toastr.success('New user created successfully'))
+                .catch(error => {
+                    this.errors = error.response.data
+                });
+            },*/          
     }
  }
 </script>

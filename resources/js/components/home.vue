@@ -281,7 +281,7 @@
             />
           </div>
         </div>
-        <div class="col-md-5">
+        <div class="col-md-6">
           <div class="card">
             <b-card align="center">
               <b-card-text id="regiones">

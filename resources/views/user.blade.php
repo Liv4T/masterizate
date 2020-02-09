@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-<formstyle></formstyle>
-  <user-component></user-component>
-  <footers></footers>
+<!--formstyle></formstyle-->
+  <trivia-component></trivia-component>
+  <!--footers></footers-->
 <div class="container">
    
     
