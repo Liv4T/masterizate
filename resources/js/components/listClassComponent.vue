@@ -20,10 +20,69 @@
       crossorigin="anonymous"
     />
   </head>
-  <div class="col-sm-10">
+  <div class="col-md-12">
     <div class="custom-card text-center">
-      <h3 class="card-header">Cursos disponibles</h3>
+      
       <div class="card-body">
+         <div align="center" style="padding: 40px">
+      <h3>CATEGORIAS GENERALES</h3>
+    </div>
+    <div class="card text-center">
+      <div class="container-fluid mx-auto">
+        <div class="row">
+          <div class="col-md-3" align="left">
+            <button type="submit" class="btn btn-default" style="padding: 35px"><img   width="70px"
+              height="70px" src="../assets/img/ADMON-EMPRESAS.png" />&nbsp; <strong>Adm. empresas</strong></button>
+          </div>
+          <div class="col-md-3" align="left" style="padding: 35px">
+            <button type="submit" class="btn btn-default"><img   width="70px"
+              height="70px" src="../assets/img/ANTROPOLOGIA.png" />&nbsp; <strong>Antropologia</strong></button>
+          </div>
+          <div class="col-md-3" align="left" style="padding: 35px">
+            <button type="submit" class="btn btn-default"><img   width="70px"
+              height="70px" src="../assets/img/BIOLOGIA.png" />&nbsp; <strong>Biologia</strong></button>
+          </div>
+          <div class="col-md-3" align="left" style="padding: 35px">
+            <button type="submit" class="btn btn-default"><img   width="70px"
+              height="70px" src="../assets/img/CIENCIAS-POLITICAS.png" />&nbsp; <strong>Ciencias politicas</strong></button>
+          </div>
+        </div>
+        <div class="row">
+           <div class="col-md-3" align="left">
+            <button type="submit" class="btn btn-default" style="padding: 35px"><img   width="70px"
+              height="70px" src="../assets/img/COMUNICACION.png" />&nbsp; <strong>Comunicación</strong> </button>
+          </div>
+          <div class="col-md-3" align="left">
+            <button type="submit" class="btn btn-default" style="padding: 35px"><img   width="70px"
+              height="70px" src="../assets/img/CONTADURIA.png" />&nbsp; <strong>Contaduria</strong></button>
+          </div>
+          <div class="col-md-3" align="left" style="padding: 35px">
+            <button type="submit" class="btn btn-default"><img   width="70px"
+              height="70px" src="../assets/img/DERECHO.png" />&nbsp; <strong>Derecho</strong></button>
+          </div>
+          <div class="col-md-3" align="left" style="padding: 35px">
+            <button type="submit" class="btn btn-default"><img   width="70px"
+              height="70px" src="../assets/img/ECONOMIA.png" />&nbsp; <strong>Economía</strong></button>
+          </div>
+          <div class="col-md-3" align="left" style="padding: 35px">
+            <button type="submit" class="btn btn-default"><img   width="70px"
+              height="70px" src="../assets/img/ELECTRONICA.png" />&nbsp; <strong>Electronica</strong></button>
+          </div>
+          <div class="col-md-3" align="left" style="padding: 35px">
+            <button type="submit" class="btn btn-default"><img   width="70px"
+              height="70px" src="../assets/img/FILOSOFIA.png" />&nbsp; <strong>Fisiologia</strong></button>
+          </div>
+          <div class="col-md-3" align="left" style="padding: 35px">
+            <button type="submit" class="btn btn-default"><img   width="70px"
+              height="70px" src="../assets/img/FISICA.png" />&nbsp; <strong>Física</strong></button>
+          </div>
+          <div class="col-md-3" align="left" style="padding: 35px">
+            <button type="submit" class="btn btn-default"><img   width="70px"
+              height="70px" src="../assets/img/FISIOTERAPIA.png" />&nbsp; <strong>Fisioterapia</strong></button>
+          </div>
+        </div>
+      </div>
+  </div>
         <div class="card-deck">
           <div class="card">
             <img

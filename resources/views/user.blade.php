@@ -2,7 +2,7 @@
 
 @section('content')
 <!--formstyle></formstyle-->
-  <trivia-component></trivia-component>
+  <user-component></user-component>
   <!--footers></footers-->
 <div class="container">
    

@@ -103,8 +103,7 @@
           <b-card>
             <b-card-text>Live4teach es una herramienta educativa enfocada en programas tanto tecnicos como profesionales en diferentes areas de conocimiento.</b-card-text>
             <b-card-text>Es una plataforma para fines educativos que, de manera didáctica y creativa facilitara el aprendizaje a traves de herramientas flexibles y novedosas.</b-card-text>
-            <div style="position: absolute; left: 10px; right:10px; z-index:100;">
-              <b-container class="p-4 bg-light">
+            <div style="position: absolute; left: 30px; right:10px; z-index:100;">
                   <h6 align="center"><strong>Descarga nuestra app</strong></h6>
                 <b-row class="text-center">
                   <b-col>
@@ -117,7 +116,6 @@
                     />
                   </b-col>
                 </b-row>
-              </b-container>
             </div>
           </b-card>
         </div>
@@ -170,7 +168,7 @@
             </div>
           </div>
           <div class="col-md-6">
-            <div align="right">
+            <div align="center">
               <img src="../assets/img/Computer.png" />
             </div>
           </div>
@@ -178,18 +176,6 @@
       </div>
     </div>
   </div>
-  <!--parallax-container class="horizontal-card centered-card" id="conviertete">
-    <parallax-element class="background-image" :parallaxStrength="10" :type="'rotation'">
-      <img src="../assets/img/SLIDERweb.jpg" />
-    </parallax-element>
-    <div class="textin">
-      <div align="center">
-        <i class="fas fa-chalkboard-teacher fa-2x"></i>
-        <h5>CONVIERTETE EN UN EXPERTO</h5>
-        <a href="/register" class="btn btn-danger">INSCRÍBETE</a>
-      </div>
-    </div>
-  </parallax-container-->
   <parallax-container class="horizontal-card centered-card" id="categorias web">
     <parallax-element class="background-image" :parallaxStrength="10" :type="'translation'">
       <img src="../assets/img/categorias-web.png" />

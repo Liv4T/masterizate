@@ -336,14 +336,6 @@
                     ></textarea>
                     <div class="invalid-feedback">Please fill out this field</div>
                   </div>
-                  <div class="modal-footer">
-                    <input
-                      type="submit"
-                      @click.prevent="createCourses"
-                      class="btn btn-primary"
-                      value="Guardar"
-                    />
-                  </div>
                 </div>
               </tab-content>
               <tab-content title="Unidad 1">
@@ -367,7 +359,7 @@
                       <i class="fas fa-question"></i>
                     </a>
                   </div>
-                  <textarea name="welcome" class="form-control" v-model="newPresentationU" required></textarea>
+                  <textarea name="welcome" class="form-control" v-model="newPresentationU1" required></textarea>
                   <div class="invalid-feedback">Please fill out this field</div>
                 </div>
                 <div class="form-group mx-auto">
@@ -385,7 +377,7 @@
                       <i class="fas fa-question"></i>
                     </a>
                   </div>
-                  <textarea name="welcome" class="form-control" v-model="newHability" required></textarea>
+                  <textarea name="welcome" class="form-control" v-model="newHability1" required></textarea>
                   <div class="invalid-feedback">Please fill out this field</div>
                 </div>
                 <div align="center">
@@ -399,7 +391,7 @@
                       name="name"
                       class="form-control"
                       placeholder="CE 1."
-                      v-model="newCompetences_E1"
+                      v-model="newCompetences1_E1"
                       required
                     />
                     <input
@@ -407,7 +399,7 @@
                       name="name"
                       class="form-control"
                       placeholder="CE 2."
-                      v-model="newCompetences_E2"
+                      v-model="newCompetences1_E2"
                       required
                     />
                     <input
@@ -415,7 +407,7 @@
                       name="name"
                       class="form-control"
                       placeholder="CE 3."
-                      v-model="newCompetences_E3"
+                      v-model="newCompetences1_E3"
                       required
                     />
                     <div class="invalid-feedback">Please fill out this field</div>
@@ -427,7 +419,7 @@
                       name="name"
                       class="form-control"
                       placeholder="CT 1."
-                      v-model="newCompetences_T1"
+                      v-model="newCompetences1_T1"
                       required
                     />
                     <input
@@ -435,7 +427,7 @@
                       name="name"
                       class="form-control"
                       placeholder="CT 2."
-                      v-model="newCompetences_T2"
+                      v-model="newCompetences1_T2"
                       required
                     />
                     <input
@@ -443,7 +435,7 @@
                       name="name"
                       class="form-control"
                       placeholder="CT 3."
-                      v-model="newCompetences_T3"
+                      v-model="newCompetences1_T3"
                       required
                     />
                     <div class="invalid-feedback">Please fill out this field</div>
@@ -460,7 +452,7 @@
                           name="welcome"
                           class="form-control"
                           placeholder="RA 1."
-                          v-model="newResult_1"
+                          v-model="newResult1_1"
                           required
                         ></textarea>
                       </th>
@@ -470,7 +462,7 @@
                           name="name"
                           class="form-control"
                           placeholder="CE 1."
-                          v-model="newCompeR11"
+                          v-model="newCompe1_R11"
                           required
                         />
                       </td>
@@ -482,7 +474,7 @@
                           name="name"
                           class="form-control"
                           placeholder="CE 2."
-                          v-model="newCompeR12"
+                          v-model="newCompe1_R12"
                           required
                         />
                       </td>
@@ -494,7 +486,7 @@
                           name="name"
                           class="form-control"
                           placeholder="CE 3."
-                          v-model="newCompeR13"
+                          v-model="newCompe1_R13"
                           required
                         />
                       </td>
@@ -510,7 +502,7 @@
                           name="welcome"
                           class="form-control"
                           placeholder="RA 2."
-                          v-model="newResult_2"
+                          v-model="newResult1_2"
                           required
                         ></textarea>
                       </th>
@@ -520,7 +512,7 @@
                           name="name"
                           class="form-control"
                           placeholder="CE 1."
-                          v-model="newCompeR21"
+                          v-model="newCompe1_R21"
                           required
                         />
                       </td>
@@ -532,7 +524,7 @@
                           name="name"
                           class="form-control"
                           placeholder="CE 2."
-                          v-model="newCompeR22"
+                          v-model="newCompe1_R22"
                           required
                         />
                       </td>
@@ -544,7 +536,7 @@
                           name="name"
                           class="form-control"
                           placeholder="CE 3."
-                          v-model="newCompeR23"
+                          v-model="newCompe1_R23"
                           required
                         />
                       </td>
@@ -560,7 +552,7 @@
                           name="welcome"
                           class="form-control"
                           placeholder="RA 3."
-                          v-model="newResult_3"
+                          v-model="newResult1_3"
                           required
                         ></textarea>
                       </th>
@@ -570,7 +562,7 @@
                           name="name"
                           class="form-control"
                           placeholder="CE 1."
-                          v-model="newCompeR31"
+                          v-model="newCompe1_R31"
                           required
                         />
                       </td>
@@ -582,7 +574,7 @@
                           name="name"
                           class="form-control"
                           placeholder="CE 2."
-                          v-model="newCompeR32"
+                          v-model="newCompe1_R32"
                           required
                         />
                       </td>
@@ -594,7 +586,7 @@
                           name="name"
                           class="form-control"
                           placeholder="CE 3."
-                          v-model="newCompeR33"
+                          v-model="newCompe1_R33"
                           required
                         />
                       </td>
@@ -610,7 +602,7 @@
                           name="welcome"
                           class="form-control"
                           placeholder="RA 4."
-                          v-model="newResult_4"
+                          v-model="newResult1_4"
                           required
                         ></textarea>
                       </th>
@@ -620,7 +612,7 @@
                           name="name"
                           class="form-control"
                           placeholder="CE 1."
-                          v-model="newCompeR41"
+                          v-model="newCompe1_R41"
                           required
                         />
                       </td>
@@ -632,7 +624,7 @@
                           name="name"
                           class="form-control"
                           placeholder="CE 2."
-                          v-model="newCompeR42"
+                          v-model="newCompe1_R42"
                           required
                         />
                       </td>
@@ -644,7 +636,7 @@
                           name="name"
                           class="form-control"
                           placeholder="CE 3."
-                          v-model="newCompeR43"
+                          v-model="newCompe1_R43"
                           required
                         />
                       </td>
@@ -667,7 +659,7 @@
                       <i class="fas fa-question"></i>
                     </a>
                   </div>
-                  <textarea name="welcome" class="form-control" v-model="newQuestion" required></textarea>
+                  <textarea name="welcome" class="form-control" v-model="newQuestion1" required></textarea>
                 </div>
                 <div class="form-group mx-auto">
                   <div align="center">
@@ -684,7 +676,7 @@
                       <i class="fas fa-question"></i>
                     </a>
                   </div>
-                  <textarea name="intentioned" class="form-control" v-model="newReady" required></textarea>
+                  <textarea name="intentioned" class="form-control" v-model="newReady1" required></textarea>
                   <div class="invalid-feedback">Please fill out this field</div>
                 </div>
                 <div align="center">
@@ -777,7 +769,7 @@
                       type="text"
                       name="objetive1"
                       class="form-control"
-                      v-model="newNameV"
+                      v-model="newNameV1"
                       placeholder="Nombre del Video"
                       required
                     />
@@ -795,7 +787,7 @@
                     <textarea
                       name="competences"
                       class="form-control"
-                      v-model="newBibliography"
+                      v-model="newBibliography1"
                       placeholder="Competencias conceptuales, procedimentales y actitudinales"
                       required
                     ></textarea>
@@ -817,7 +809,7 @@
                       <i class="fas fa-question"></i>
                     </a>
                   </div>
-                  <textarea name="doing" class="form-control" v-model="newDoing" required></textarea>
+                  <textarea name="doing" class="form-control" v-model="newDoing1" required></textarea>
                   <div class="invalid-feedback">Please fill out this field</div>
                 </div>
                 <div class="form-group mx-auto">
@@ -835,7 +827,7 @@
                       <i class="fas fa-question"></i>
                     </a>
                   </div>
-                  <textarea name="map" class="form-control" v-model="newChallenge" required></textarea>
+                  <textarea name="map" class="form-control" v-model="newChallenge1" required></textarea>
                   <div class="invalid-feedback">Please fill out this field</div>
                 </div>
                 <div class="form-group mx-auto">
@@ -853,22 +845,14 @@
                       <i class="fas fa-question"></i>
                     </a>
                   </div>
-                  <textarea name="metodology" class="form-control" v-model="newProjecting" required></textarea>
+                  <textarea name="metodology" class="form-control" v-model="newProjecting1" required></textarea>
                   <div class="invalid-feedback">Please fill out this field</div>
-                </div>
-                <div class="modal-footer">
-                  <input
-                    type="submit"
-                    @click.prevent="createCourseUnit"
-                    class="btn btn-primary"
-                    value="Guardar"
-                  />
                 </div>
               </tab-content>
               <tab-content title="Unidad 2">
                 <div class="form-group mx-auto col-md-6">
                   <strong>Nombre de la unidad (2)</strong>
-                  <input type="text" name="name" class="form-control" v-model="newName1" required />
+                  <input type="text" name="name" class="form-control" v-model="newName2" required />
                   <div class="invalid-feedback">Please fill out this field</div>
                 </div>
                 <div class="form-group mx-auto">
@@ -886,7 +870,7 @@
                       <i class="fas fa-question"></i>
                     </a>
                   </div>
-                  <textarea name="welcome" class="form-control" v-model="newPresentationU" required></textarea>
+                  <textarea name="welcome" class="form-control" v-model="newPresentationU2" required></textarea>
                   <div class="invalid-feedback">Please fill out this field</div>
                 </div>
                 <div class="form-group mx-auto">
@@ -904,7 +888,7 @@
                       <i class="fas fa-question"></i>
                     </a>
                   </div>
-                  <textarea name="welcome" class="form-control" v-model="newHability" required></textarea>
+                  <textarea name="welcome" class="form-control" v-model="newHability2" required></textarea>
                   <div class="invalid-feedback">Please fill out this field</div>
                 </div>
                 <div align="center">
@@ -918,7 +902,7 @@
                       name="name"
                       class="form-control"
                       placeholder="CE 1."
-                      v-model="newCompetences_E1"
+                      v-model="newCompetences2_E1"
                       required
                     />
                     <input
@@ -926,7 +910,7 @@
                       name="name"
                       class="form-control"
                       placeholder="CE 2."
-                      v-model="newCompetences_E2"
+                      v-model="newCompetences2_E2"
                       required
                     />
                     <input
@@ -934,7 +918,7 @@
                       name="name"
                       class="form-control"
                       placeholder="CE 3."
-                      v-model="newCompetences_E3"
+                      v-model="newCompetences2_E3"
                       required
                     />
                     <div class="invalid-feedback">Please fill out this field</div>
@@ -946,7 +930,7 @@
                       name="name"
                       class="form-control"
                       placeholder="CT 1."
-                      v-model="newCompetences_T1"
+                      v-model="newCompetences2_T1"
                       required
                     />
                     <input
@@ -954,7 +938,7 @@
                       name="name"
                       class="form-control"
                       placeholder="CT 2."
-                      v-model="newCompetences_T2"
+                      v-model="newCompetences2_T2"
                       required
                     />
                     <input
@@ -962,7 +946,7 @@
                       name="name"
                       class="form-control"
                       placeholder="CT 3."
-                      v-model="newCompetences_T3"
+                      v-model="newCompetences2_T3"
                       required
                     />
                     <div class="invalid-feedback">Please fill out this field</div>
@@ -979,7 +963,7 @@
                           name="welcome"
                           class="form-control"
                           placeholder="RA 1."
-                          v-model="newResult_1"
+                          v-model="newResult2_1"
                           required
                         ></textarea>
                       </th>
@@ -989,7 +973,7 @@
                           name="name"
                           class="form-control"
                           placeholder="CE 1."
-                          v-model="newCompeR11"
+                          v-model="newCompe2_R11"
                           required
                         />
                       </td>
@@ -1001,7 +985,7 @@
                           name="name"
                           class="form-control"
                           placeholder="CE 2."
-                          v-model="newCompeR12"
+                          v-model="newCompe2_R12"
                           required
                         />
                       </td>
@@ -1013,7 +997,7 @@
                           name="name"
                           class="form-control"
                           placeholder="CE 3."
-                          v-model="newCompeR13"
+                          v-model="newCompe2_R13"
                           required
                         />
                       </td>
@@ -1029,7 +1013,7 @@
                           name="welcome"
                           class="form-control"
                           placeholder="RA 2."
-                          v-model="newResult_2"
+                          v-model="newResult2_2"
                           required
                         ></textarea>
                       </th>
@@ -1039,7 +1023,7 @@
                           name="name"
                           class="form-control"
                           placeholder="CE 1."
-                          v-model="newCompeR21"
+                          v-model="newCompe2_R21"
                           required
                         />
                       </td>
@@ -1051,7 +1035,7 @@
                           name="name"
                           class="form-control"
                           placeholder="CE 2."
-                          v-model="newCompeR22"
+                          v-model="newCompe2_R22"
                           required
                         />
                       </td>
@@ -1063,7 +1047,7 @@
                           name="name"
                           class="form-control"
                           placeholder="CE 3."
-                          v-model="newCompeR23"
+                          v-model="newCompe2_R23"
                           required
                         />
                       </td>
@@ -1079,7 +1063,7 @@
                           name="welcome"
                           class="form-control"
                           placeholder="RA 3."
-                          v-model="newResult_3"
+                          v-model="newResult2_3"
                           required
                         ></textarea>
                       </th>
@@ -1089,7 +1073,7 @@
                           name="name"
                           class="form-control"
                           placeholder="CE 1."
-                          v-model="newCompeR31"
+                          v-model="newCompe2_R31"
                           required
                         />
                       </td>
@@ -1101,7 +1085,7 @@
                           name="name"
                           class="form-control"
                           placeholder="CE 2."
-                          v-model="newCompeR32"
+                          v-model="newCompe2_R32"
                           required
                         />
                       </td>
@@ -1113,7 +1097,7 @@
                           name="name"
                           class="form-control"
                           placeholder="CE 3."
-                          v-model="newCompeR33"
+                          v-model="newCompe2_R33"
                           required
                         />
                       </td>
@@ -1129,7 +1113,7 @@
                           name="welcome"
                           class="form-control"
                           placeholder="RA 4."
-                          v-model="newResult_4"
+                          v-model="newResult2_4"
                           required
                         ></textarea>
                       </th>
@@ -1139,7 +1123,7 @@
                           name="name"
                           class="form-control"
                           placeholder="CE 1."
-                          v-model="newCompeR41"
+                          v-model="newCompe2_R41"
                           required
                         />
                       </td>
@@ -1151,7 +1135,7 @@
                           name="name"
                           class="form-control"
                           placeholder="CE 2."
-                          v-model="newCompeR42"
+                          v-model="newCompe2_R42"
                           required
                         />
                       </td>
@@ -1163,7 +1147,7 @@
                           name="name"
                           class="form-control"
                           placeholder="CE 3."
-                          v-model="newCompeR43"
+                          v-model="newCompe2_R43"
                           required
                         />
                       </td>
@@ -1186,7 +1170,7 @@
                       <i class="fas fa-question"></i>
                     </a>
                   </div>
-                  <textarea name="welcome" class="form-control" v-model="newQuestion" required></textarea>
+                  <textarea name="welcome" class="form-control" v-model="newQuestion2" required></textarea>
                 </div>
                 <div class="form-group mx-auto">
                   <div align="center">
@@ -1206,7 +1190,7 @@
                   <textarea
                     name="intentioned"
                     class="form-control"
-                    v-model="newReady"
+                    v-model="newReady2"
                     placeholder="Redacte un problema, caso, entre otros que le sirvan al estudiante como reflexion y diagnostico de sus competencias actuales y le motivaran en su proceso de formacion."
                     required
                   ></textarea>
@@ -1215,9 +1199,49 @@
                 <div align="center">
                   <strong>Aprenda de las fuentes</strong>
                 </div>
-                <div class="form-group row mx-auto" v-for="(input,k) in inputs3" :key="k">
+                <div class="form-group row mx-auto"  v-for="(input2,k) in inputs2" :key=k >
                   <div class="col-md-6">
                     <label for="name">Tema</label>
+                    <span>
+                      <a
+                        href="#"
+                        class="badge badge-danger"
+                        @click.prevent="remove2(k)"
+                        v-show="k || ( !k && inputs2.length > 1)"
+                      >-</a>
+                      <a
+                        href="#"
+                        class="badge badge-primary"
+                        @click.prevent="add2(k)"
+                        v-show="k == inputs2.length-1"
+                      >+</a>
+                    </span>
+                    <div>
+                      <input
+                        type="text"
+                        name="objetive1"
+                        class="form-control"
+                        v-model="input2.name"
+                        placeholder="Nombre del Tema"
+                        required
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <label for="name">Contenido</label>
+                    <textarea
+                      name="competences"
+                      class="form-control"
+                      v-model="input2.contenido"
+                      placeholder="Es la explicacion o sintesis de la tematica a abordar en la unidad de estudio."
+                      required
+                    ></textarea>
+                    <div class="invalid-feedback">Please fill out this field</div>
+                  </div>
+                </div>                
+                <div class="form-group row" v-for="(inputs3,k) in inputs3" :key="k">
+                  <div class="col-md-6">
+                    <label for="name">Master class (MC)</label>
                     <span>
                       <a
                         href="#"
@@ -1235,50 +1259,9 @@
                     <div>
                       <input
                         type="text"
-                        name="objetive1"
-                        class="form-control"
-                        v-model="Topic"
-                        placeholder="Nombre del Tema"
-                        required
-                      />
-                    </div>
-                  </div>
-
-                  <div class="col-md-6">
-                    <label for="name">Contenido</label>
-                    <textarea
-                      name="competences"
-                      class="form-control"
-                      v-model="newContent"
-                      placeholder="Es la explicacion o sintesis de la tematica a abordar en la unidad de estudio."
-                      required
-                    ></textarea>
-                    <div class="invalid-feedback">Please fill out this field</div>
-                  </div>
-                </div>
-                <div class="form-group row" v-for="(input,k) in inputs4" :key="k">
-                  <div class="col-md-6">
-                    <label for="name">Master class (MC)</label>
-                    <span>
-                      <a
-                        href="#"
-                        class="badge badge-danger"
-                        @click.prevent="remove4(k)"
-                        v-show="k || ( !k && inputs4.length > 1)"
-                      >-</a>
-                      <a
-                        href="#"
-                        class="badge badge-primary"
-                        @click.prevent="add4(k)"
-                        v-show="k == inputs4.length-1"
-                      >+</a>
-                    </span>
-                    <div>
-                      <input
-                        type="text"
                         name="objetive"
                         class="form-control"
-                        v-model="newNameM"
+                        v-model="newNameM2"
                         placeholder="Nombre de la clase"
                         required
                       />
@@ -1297,27 +1280,13 @@
                   </div>
                 </div>
                 <div class="form-group row mx-auto">
-                  <div class="col-md-6" v-for="(input,k) in inputs5" :key="k">
+                  <div class="col-md-6">
                     <label for="name">Video de apoyo</label>
-                    <span>
-                      <a
-                        href="#"
-                        class="badge badge-danger"
-                        @click.prevent="remove5(k)"
-                        v-show="k || ( !k && inputs5.length > 1)"
-                      >-</a>
-                      <a
-                        href="#"
-                        class="badge badge-primary"
-                        @click.prevent="add5(k)"
-                        v-show="k == inputs5.length-1"
-                      >+</a>
-                    </span>
                     <input
                       type="text"
                       name="objetive1"
                       class="form-control"
-                      v-model="newNameV"
+                      v-model="newNameV2"
                       placeholder="Nombre del Video"
                       required
                     />
@@ -1335,7 +1304,7 @@
                     <textarea
                       name="competences"
                       class="form-control"
-                      v-model="newBibliography"
+                      v-model="newBibliography2"
                       placeholder="Competencias conceptuales, procedimentales y actitudinales"
                       required
                     ></textarea>
@@ -1357,7 +1326,7 @@
                       <i class="fas fa-question"></i>
                     </a>
                   </div>
-                  <textarea name="doing" class="form-control" v-model="newDoing" required></textarea>
+                  <textarea name="doing" class="form-control" v-model="newDoing2" required></textarea>
                   <div class="invalid-feedback">Please fill out this field</div>
                 </div>
                 <div class="form-group mx-auto">
@@ -1375,7 +1344,7 @@
                       <i class="fas fa-question"></i>
                     </a>
                   </div>
-                  <textarea name="map" class="form-control" v-model="newChallenge" required></textarea>
+                  <textarea name="map" class="form-control" v-model="newChallenge2" required></textarea>
                   <div class="invalid-feedback">Please fill out this field</div>
                 </div>
                 <div class="form-group mx-auto">
@@ -1393,22 +1362,14 @@
                       <i class="fas fa-question"></i>
                     </a>
                   </div>
-                  <textarea name="metodology" class="form-control" v-model="newProjecting" required></textarea>
+                  <textarea name="metodology" class="form-control" v-model="newProjecting2" required></textarea>
                   <div class="invalid-feedback">Please fill out this field</div>
-                </div>
-                <div class="modal-footer">
-                  <input
-                    type="submit"
-                    @click.prevent="createCourseUnit"
-                    class="btn btn-primary"
-                    value="Guardar"
-                  />
                 </div>
               </tab-content>
               <tab-content title="Unidad 3">
                 <div class="form-group mx-auto col-md-6">
                   <strong>Nombre de la unidad (3)</strong>
-                  <input type="text" name="name" class="form-control" v-model="newName1" required />
+                  <input type="text" name="name" class="form-control" v-model="newName3" required />
                   <div class="invalid-feedback">Please fill out this field</div>
                 </div>
                 <div class="form-group mx-auto">
@@ -1426,7 +1387,7 @@
                       <i class="fas fa-question"></i>
                     </a>
                   </div>
-                  <textarea name="welcome" class="form-control" v-model="newPresentationU" required></textarea>
+                  <textarea name="welcome" class="form-control" v-model="newPresentationU3" required></textarea>
                   <div class="invalid-feedback">Please fill out this field</div>
                 </div>
                 <div class="form-group mx-auto">
@@ -1444,7 +1405,7 @@
                       <i class="fas fa-question"></i>
                     </a>
                   </div>
-                  <textarea name="welcome" class="form-control" v-model="newHability" required></textarea>
+                  <textarea name="welcome" class="form-control" v-model="newHability3" required></textarea>
                   <div class="invalid-feedback">Please fill out this field</div>
                 </div>
                 <div align="center">
@@ -1458,7 +1419,7 @@
                       name="name"
                       class="form-control"
                       placeholder="CE 1."
-                      v-model="newCompetences_E1"
+                      v-model="newCompetences3_E1"
                       required
                     />
                     <input
@@ -1466,7 +1427,7 @@
                       name="name"
                       class="form-control"
                       placeholder="CE 2."
-                      v-model="newCompetences_E2"
+                      v-model="newCompetences3_E2"
                       required
                     />
                     <input
@@ -1474,7 +1435,7 @@
                       name="name"
                       class="form-control"
                       placeholder="CE 3."
-                      v-model="newCompetences_E3"
+                      v-model="newCompetences3_E3"
                       required
                     />
                     <div class="invalid-feedback">Please fill out this field</div>
@@ -1486,7 +1447,7 @@
                       name="name"
                       class="form-control"
                       placeholder="CT 1."
-                      v-model="newCompetences_T1"
+                      v-model="newCompetences3_T1"
                       required
                     />
                     <input
@@ -1494,7 +1455,7 @@
                       name="name"
                       class="form-control"
                       placeholder="CT 2."
-                      v-model="newCompetences_T2"
+                      v-model="newCompetences3_T2"
                       required
                     />
                     <input
@@ -1502,7 +1463,7 @@
                       name="name"
                       class="form-control"
                       placeholder="CT 3."
-                      v-model="newCompetences_T3"
+                      v-model="newCompetences3_T3"
                       required
                     />
                     <div class="invalid-feedback">Please fill out this field</div>
@@ -1519,7 +1480,7 @@
                           name="welcome"
                           class="form-control"
                           placeholder="RA 1."
-                          v-model="newResult_1"
+                          v-model="newResult3_1"
                           required
                         ></textarea>
                       </th>
@@ -1529,7 +1490,7 @@
                           name="name"
                           class="form-control"
                           placeholder="CE 1."
-                          v-model="newCompeR11"
+                          v-model="newCompe3_R11"
                           required
                         />
                       </td>
@@ -1541,7 +1502,7 @@
                           name="name"
                           class="form-control"
                           placeholder="CE 2."
-                          v-model="newCompeR12"
+                          v-model="newCompe3_R12"
                           required
                         />
                       </td>
@@ -1553,7 +1514,7 @@
                           name="name"
                           class="form-control"
                           placeholder="CE 3."
-                          v-model="newCompeR13"
+                          v-model="newCompe3_R13"
                           required
                         />
                       </td>
@@ -1569,7 +1530,7 @@
                           name="welcome"
                           class="form-control"
                           placeholder="RA 2."
-                          v-model="newResult_2"
+                          v-model="newResult3_2"
                           required
                         ></textarea>
                       </th>
@@ -1579,7 +1540,7 @@
                           name="name"
                           class="form-control"
                           placeholder="CE 1."
-                          v-model="newCompeR21"
+                          v-model="newCompe3_R21"
                           required
                         />
                       </td>
@@ -1591,7 +1552,7 @@
                           name="name"
                           class="form-control"
                           placeholder="CE 2."
-                          v-model="newCompeR22"
+                          v-model="newCompe3_R22"
                           required
                         />
                       </td>
@@ -1603,7 +1564,7 @@
                           name="name"
                           class="form-control"
                           placeholder="CE 3."
-                          v-model="newCompeR23"
+                          v-model="newCompe3_R23"
                           required
                         />
                       </td>
@@ -1619,7 +1580,7 @@
                           name="welcome"
                           class="form-control"
                           placeholder="RA 3."
-                          v-model="newResult_3"
+                          v-model="newResult3_3"
                           required
                         ></textarea>
                       </th>
@@ -1629,7 +1590,7 @@
                           name="name"
                           class="form-control"
                           placeholder="CE 1."
-                          v-model="newCompeR31"
+                          v-model="newCompe3_R31"
                           required
                         />
                       </td>
@@ -1641,7 +1602,7 @@
                           name="name"
                           class="form-control"
                           placeholder="CE 2."
-                          v-model="newCompeR32"
+                          v-model="newCompe3_R32"
                           required
                         />
                       </td>
@@ -1653,7 +1614,7 @@
                           name="name"
                           class="form-control"
                           placeholder="CE 3."
-                          v-model="newCompeR33"
+                          v-model="newCompe3_R33"
                           required
                         />
                       </td>
@@ -1669,7 +1630,7 @@
                           name="welcome"
                           class="form-control"
                           placeholder="RA 4."
-                          v-model="newResult_4"
+                          v-model="newResult3_4"
                           required
                         ></textarea>
                       </th>
@@ -1679,7 +1640,7 @@
                           name="name"
                           class="form-control"
                           placeholder="CE 1."
-                          v-model="newCompeR41"
+                          v-model="newCompe3_R41"
                           required
                         />
                       </td>
@@ -1691,7 +1652,7 @@
                           name="name"
                           class="form-control"
                           placeholder="CE 2."
-                          v-model="newCompeR42"
+                          v-model="newCompe3_R42"
                           required
                         />
                       </td>
@@ -1703,7 +1664,7 @@
                           name="name"
                           class="form-control"
                           placeholder="CE 3."
-                          v-model="newCompeR43"
+                          v-model="newCompe3_R43"
                           required
                         />
                       </td>
@@ -1726,7 +1687,7 @@
                       <i class="fas fa-question"></i>
                     </a>
                   </div>
-                  <textarea name="welcome" class="form-control" v-model="newQuestion" required></textarea>
+                  <textarea name="welcome" class="form-control" v-model="newQuestion3" required></textarea>
                 </div>
                 <div class="form-group mx-auto">
                   <div align="center">
@@ -1743,27 +1704,27 @@
                       <i class="fas fa-question"></i>
                     </a>
                   </div>
-                  <textarea name="intentioned" class="form-control" v-model="newReady" required></textarea>
+                  <textarea name="intentioned" class="form-control" v-model="newReady3" required></textarea>
                   <div class="invalid-feedback">Please fill out this field</div>
                 </div>
                 <div align="center">
                   <strong>Aprenda de las fuentes</strong>
                 </div>
-                <div class="form-group row mx-auto" v-for="(input,k) in inputs6" :key="k">
+                <div class="form-group row mx-auto"  v-for="(input4,k) in inputs4" :key=k >
                   <div class="col-md-6">
                     <label for="name">Tema</label>
                     <span>
                       <a
                         href="#"
                         class="badge badge-danger"
-                        @click.prevent="remove6(k)"
-                        v-show="k || ( !k && inputs6.length > 1)"
+                        @click.prevent="remove4(k)"
+                        v-show="k || ( !k && inputs4.length > 1)"
                       >-</a>
                       <a
                         href="#"
                         class="badge badge-primary"
-                        @click.prevent="add6(k)"
-                        v-show="k == inputs6.length-1"
+                        @click.prevent="add4(k)"
+                        v-show="k == inputs4.length-1"
                       >+</a>
                     </span>
                     <div>
@@ -1771,7 +1732,7 @@
                         type="text"
                         name="objetive1"
                         class="form-control"
-                        v-model="Topic"
+                        v-model="input4.name"
                         placeholder="Nombre del Tema"
                         required
                       />
@@ -1782,14 +1743,14 @@
                     <textarea
                       name="competences"
                       class="form-control"
-                      v-model="newContent"
+                      v-model="input4.contenido"
                       placeholder="Es la explicacion o sintesis de la tematica a abordar en la unidad de estudio."
                       required
                     ></textarea>
                     <div class="invalid-feedback">Please fill out this field</div>
                   </div>
                 </div>
-                <div class="form-group row" v-for="(input,k) in inputs7" :key="k">
+                <div class="form-group row" v-for="(input,k) in inputs5" :key="k">
                   <div class="col-md-6">
                     <label for="name">Master class (MC)</label>
                     <span>
@@ -1797,13 +1758,13 @@
                         href="#"
                         class="badge badge-danger"
                         @click.prevent="remove7(k)"
-                        v-show="k || ( !k && inputs7.length > 1)"
+                        v-show="k || ( !k && inputs5.length > 1)"
                       >-</a>
                       <a
                         href="#"
                         class="badge badge-primary"
                         @click.prevent="add7(k)"
-                        v-show="k == inputs7.length-1"
+                        v-show="k == inputs5.length-1"
                       >+</a>
                     </span>
                     <div>
@@ -1811,7 +1772,7 @@
                         type="text"
                         name="objetive"
                         class="form-control"
-                        v-model="newNameM"
+                        v-model="newNameM3"
                         placeholder="Nombre de la clase"
                         required
                       />
@@ -1830,27 +1791,13 @@
                   </div>
                 </div>
                 <div class="form-group row mx-auto">
-                  <div class="col-md-6" v-for="(input,k) in inputs8" :key="k">
+                  <div class="col-md-6">
                     <label for="name">Video de apoyo</label>
-                    <span>
-                      <a
-                        href="#"
-                        class="badge badge-danger"
-                        @click.prevent="remove8(k)"
-                        v-show="k || ( !k && inputs8.length > 1)"
-                      >-</a>
-                      <a
-                        href="#"
-                        class="badge badge-primary"
-                        @click.prevent="add8(k)"
-                        v-show="k == inputs8.length-1"
-                      >+</a>
-                    </span>
                     <input
                       type="text"
                       name="objetive1"
                       class="form-control"
-                      v-model="newNameV"
+                      v-model="newNameV3"
                       placeholder="Nombre del Video"
                       required
                     />
@@ -1868,7 +1815,7 @@
                     <textarea
                       name="competences"
                       class="form-control"
-                      v-model="newBibliography"
+                      v-model="newBibliography3"
                       placeholder="Competencias conceptuales, procedimentales y actitudinales"
                       required
                     ></textarea>
@@ -1890,7 +1837,7 @@
                       <i class="fas fa-question"></i>
                     </a>
                   </div>
-                  <textarea name="doing" class="form-control" v-model="newDoing" required></textarea>
+                  <textarea name="doing" class="form-control" v-model="newDoing3" required></textarea>
                   <div class="invalid-feedback">Please fill out this field</div>
                 </div>
                 <div class="form-group mx-auto">
@@ -1908,7 +1855,7 @@
                       <i class="fas fa-question"></i>
                     </a>
                   </div>
-                  <textarea name="map" class="form-control" v-model="newChallenge" required></textarea>
+                  <textarea name="map" class="form-control" v-model="newChallenge3" required></textarea>
                   <div class="invalid-feedback">Please fill out this field</div>
                 </div>
                 <div class="form-group mx-auto">
@@ -1926,17 +1873,17 @@
                       <i class="fas fa-question"></i>
                     </a>
                   </div>
-                  <textarea name="metodology" class="form-control" v-model="newProjecting" required></textarea>
+                  <textarea name="metodology" class="form-control" v-model="newProjecting3" required></textarea>
                   <div class="invalid-feedback">Please fill out this field</div>
                 </div>
                 <div class="modal-footer">
-                  <input
-                    type="submit"
-                    @click.prevent="createCourseUnit"
-                    class="btn btn-primary"
-                    value="Guardar"
-                  />
-                </div>
+                    <input
+                      type="submit"
+                      @click.prevent="createCourses"
+                      class="btn btn-primary"
+                      value="Guardar"
+                    />
+                  </div>
               </tab-content>
             </form-wizard>
           </form>
@@ -2000,7 +1947,8 @@ export default {
       inputs: [
         {
           name: "",
-          contenido:""
+          contenido:"",
+          unit:""
         }
       ],
       inputs1: [
@@ -2011,7 +1959,10 @@ export default {
       ],
       inputs2: [
         {
-          name: ""
+          
+          name: "",
+          contenido:"",
+          unit:""
         }
       ],
       inputs3: [
@@ -2021,7 +1972,10 @@ export default {
       ],
       inputs4: [
         {
-          name: ""
+
+          name: "",
+          contenido:"",
+          unit:""
         }
       ],
       inputs5: [
@@ -2030,76 +1984,6 @@ export default {
         }
       ],
       inputs6: [
-        {
-          name: ""
-        }
-      ],
-      inputs7: [
-        {
-          name: ""
-        }
-      ],
-      inputs8: [
-        {
-          name: ""
-        }
-      ],
-      inputs9: [
-        {
-          name: ""
-        }
-      ],
-      inputs10: [
-        {
-          name: ""
-        }
-      ],
-      inputs11: [
-        {
-          name: ""
-        }
-      ],
-      inputs12: [
-        {
-          name: ""
-        }
-      ],
-      inputs13: [
-        {
-          name: ""
-        }
-      ],
-      inputs14: [
-        {
-          name: ""
-        }
-      ],
-      inputs15: [
-        {
-          name: ""
-        }
-      ],
-      inputs16: [
-        {
-          name: ""
-        }
-      ],
-      inputs17: [
-        {
-          name: ""
-        }
-      ],
-      inputs18: [
-        {
-          name: ""
-        }
-      ],
-      inputs19: [
-        {
-          name: ""
-        }
-      ],
-      inputs20: [
         {
           name: ""
         }
@@ -2153,46 +2037,111 @@ export default {
         image:"",
         video_presentation:""
       },
-      newName1: "",
       newId_subcategories: "",
       newId_category: "",
-      newId_course: "",
-      newPresentationU: "",
-      newHability: "",
-      newCompetences_E1: "",
-      newCompetences_E2: "",
-      newCompetences_E3: "",
-      newCompetences_T1: "",
-      newCompetences_T2: "",
-      newCompetences_T3: "",
-      newResult_1: "",
-      newResult_2: "",
-      newResult_3: "",
-      newResult_4: "",
-      newCompeR11: "",
-      newCompeR12: "",
-      newCompeR13: "",
-      newCompeR21: "",
-      newCompeR22: "",
-      newCompeR23: "",
-      newCompeR31: "",
-      newCompeR32: "",
-      newCompeR33: "",
-      newCompeR41: "",
-      newCompeR42: "",
-      newCompeR43: "",
-      newQuestion: "",
-      newReady: "",
+      newName1: "",
+      newName2: "",
+      newName3: "",
+      newPresentationU1: "",
+      newPresentationU2: "",
+      newPresentationU3: "",
+      newHability1: "",
+      newHability2: "",
+      newHability3: "",
+      newCompetences1_E1: "",
+      newCompetences1_E2: "",
+      newCompetences1_E3: "",
+      newCompetences1_T1: "",
+      newCompetences1_T2: "",
+      newCompetences1_T3: "",
+      newCompetences2_E1: "",
+      newCompetences2_E2: "",
+      newCompetences2_E3: "",
+      newCompetences2_T1: "",
+      newCompetences2_T2: "",
+      newCompetences2_T3: "",
+      newCompetences3_E1: "",
+      newCompetences3_E2: "",
+      newCompetences3_E3: "",
+      newCompetences3_T1: "",
+      newCompetences3_T2: "",
+      newCompetences3_T3: "",
+      newResult1_1: "",
+      newResult1_2: "",
+      newResult1_3: "",
+      newResult1_4: "",
+      newResult2_1: "",
+      newResult2_2: "",
+      newResult2_3: "",
+      newResult2_4: "",
+      newResult3_1: "",
+      newResult3_2: "",
+      newResult3_3: "",
+      newResult3_4: "",
+      newCompe1_R11: "",
+      newCompe1_R12: "",
+      newCompe1_R13: "",
+      newCompe1_R21: "",
+      newCompe1_R22: "",
+      newCompe1_R23: "",
+      newCompe1_R31: "",
+      newCompe1_R32: "",
+      newCompe1_R33: "",
+      newCompe1_R41: "",
+      newCompe1_R42: "",
+      newCompe1_R43: "",
+      newCompe2_R11: "",
+      newCompe2_R12: "",
+      newCompe2_R13: "",
+      newCompe2_R21: "",
+      newCompe2_R22: "",
+      newCompe2_R23: "",
+      newCompe2_R31: "",
+      newCompe2_R32: "",
+      newCompe2_R33: "",
+      newCompe2_R41: "",
+      newCompe2_R42: "",
+      newCompe2_R43: "",
+      newCompe3_R11: "",
+      newCompe3_R12: "",
+      newCompe3_R13: "",
+      newCompe3_R21: "",
+      newCompe3_R22: "",
+      newCompe3_R23: "",
+      newCompe3_R31: "",
+      newCompe3_R32: "",
+      newCompe3_R33: "",
+      newCompe3_R41: "",
+      newCompe3_R42: "",
+      newCompe3_R43: "",
+      newQuestion1: "",
+      newQuestion2: "",
+      newQuestion3: "",
+      newReady1: "",
+      newReady2: "",
+      newReady3: "",
       newContent: [],
       newMaster: "",
       newVideo: "",
-      newBibliography: "",
-      newDoing: "",
-      newChallenge: "",
-      newProjecting: "",
+      newBibliography1: "",
+      newBibliography2: "",
+      newBibliography3: "",
+      newDoing1: "",
+      newDoing2: "",
+      newDoing3: "",
+      newChallenge1: "",
+      newChallenge2: "",
+      newChallenge3: "",
+      newProjecting1: "",
+      newProjecting2: "",
+      newProjecting3: "",
       newTopic: [],
-      newNameM: "",
-      newNameV: "",
+      newNameM1: "",
+      newNameM2: "",
+      newNameM3: "",
+      newNameV1: "",
+      newNameV2: "",
+      newNameV3: "",
       newUnit: "",
       newimage:"",
       newVideo_presentation:"",
@@ -2263,19 +2212,20 @@ export default {
     add(index) {
       this.inputs.push({ name: "" });
       this.inputs.push({ contenido: "" });
+      this.inputs.push({ unit:"" });
     },
     remove(index) {
       this.inputs.splice(index, 1);
     },
     add1(index) {
-      this.inputs1.push({ name: "" });
-      this.inputs1.push({ video: "" });
-    },
+       },
     remove1(index) {
       this.inputs1.splice(index, 1);
     },
     add2(index) {
       this.inputs2.push({ name: "" });
+      this.inputs2.push({ video: "" });
+      this.inputs2.push({ unit: ths.newName2 });
     },
     remove2(index) {
       this.inputs2.splice(index, 1);
@@ -2287,7 +2237,10 @@ export default {
       this.inputs3.splice(index, 1);
     },
     add4(index) {
-      this.inputs4.push({ name: "" });
+     this.inputs4.push({ name: "" });
+      this.inputs4.push({ video: "" });
+      this.inputs4.push({ unit: this.newName3 });
+   
     },
     remove4(index) {
       this.inputs4.splice(index, 1);
@@ -2304,110 +2257,37 @@ export default {
     remove6(index) {
       this.inputs6.splice(index, 1);
     },
-    add7(index) {
-      this.inputs7.push({ name: "" });
-    },
-    remove7(index) {
-      this.inputs7.splice(index, 1);
-    },
-    add8(index) {
-      this.inputs8.push({ name: "" });
-    },
-    remove8(index) {
-      this.inputs8.splice(index, 1);
-    },
-    add9(index) {
-      this.inputs9.push({ name: "" });
-    },
-    remove9(index) {
-      this.inputs9.splice(index, 1);
-    },
-    add10(index) {
-      this.inputs10.push({ name: "" });
-    },
-    remove10(index) {
-      this.inputs10.splice(index, 1);
-    },
-    add11(index) {
-      this.inputs11.push({ name: "" });
-    },
-    remove11(index) {
-      this.inputs11.splice(index, 1);
-    },
-    add12(index) {
-      this.inputs12.push({ name: "" });
-    },
-    remove12(index) {
-      this.inputs12.splice(index, 1);
-    },
-    add13(index) {
-      this.inputs13.push({ name: "" });
-    },
-    remove13(index) {
-      this.inputs13.splice(index, 1);
-    },
-    add14(index) {
-      this.inputs14.push({ name: "" });
-    },
-    remove14(index) {
-      this.inputs14.splice(index, 1);
-    },
-    remove15(index) {
-      this.inputs15.splice(index, 1);
-    },
-    add15(index) {
-      this.inputs15.push({ name: "" });
-    },
-    remove16(index) {
-      this.inputs16.splice(index, 1);
-    },
-    add16(index) {
-      this.inputs16.push({ name: "" });
-    },
-    remove17(index) {
-      this.inputs17.splice(index, 1);
-    },
-    add17(index) {
-      this.inputs17.push({ name: "" });
-    },
-    remove18(index) {
-      this.inputs18.splice(index, 1);
-    },
-    add18(index) {
-      this.inputs18.push({ name: "" });
-    },
-    remove19(index) {
-      this.inputs19.splice(index, 1);
-    },
-    add19(index) {
-      this.inputs19.push({ name: "" });
-    },
-    remove20(index) {
-      this.inputs20.splice(index, 1);
-    },
-    add20(index) {
-      this.inputs20.push({ name: "" });
-    },
-    deleteClasses(clas) {
-      var url = "classes/" + clas.id;
-      axios.delete(url).then(response => {
-        // eliminar
-        this.getClasses(); //lista
-        toastr.success("Successfully removed"); //mensaje
-      });
-    },
     createCourses() {
       var url = "courses";
-      this.newId_user = 36;
       this.newType = "specialized";
       this.newState = "up";
-      
+    if (this.inputs.length >= 1) {
+               for (let i = 0; i < this.inputs.length; i++) {
+                   this.inputs[i].unit= this.newName1;
+                    this.newTopic.push(this.inputs[i]);
+                    // this.newContent.push(this.inputs[i].contenido);
+                }
+    }
+    if (this.inputs2.length >= 1) {
+              for (let i = 0; i < this.inputs2.length; i++) {
+                  this.inputs2[i].unit= this.newName2;
+                    this.newTopic.push(this.inputs2[i]);
+                    // this.newContent.push(this.inputs[i].contenido);
+                }
+    }  
+    if (this.inputs4.length >= 1) {
+                for (let i = 0; i < this.inputs4.length; i++) {
+                   this.inputs4[i].unit= this.newName3;
+                   this.newTopic.push(this.inputs4[i]);
+                    // this.newContent.push(this.inputs[i].contenido);
+                }
+                console.log(this.newTopic)
+}
       axios.post(url, {
             //Cursos generales
           name: this.newName,
           id_category: this.Category,
           id_subcategory: this.newId_subcategories,
-          id_user: this.newId_user,
           welcome: this.newWelcome,
           methodology: this.metodology,
           intention: this.newIntention,
@@ -2428,7 +2308,6 @@ export default {
           video_presentation:this.newVideo_presentation,
           state:this.newState,
           //Cursos unidades
-          id_course: this.newId_course,
           name: this.newName1,
           presentation: this.newPresentationU,
           hability: this.newHability,
@@ -2494,90 +2373,6 @@ export default {
           this.errors = [];
 
           toastr.success("Nuevo curso creado exitosamente");
-        })
-        .catch(error => {
-          this.errors = error.response.data;
-        });
-    },
-    createCourseUnit() {
-      var url = "courses";
-      this.newId_course = 36;
-      this.newType = "specialized";
-      this.newUnit = "1";
-      this.newState = "up";
-      this.newPublish = "not publish";
-       if (this.inputs.length >= 1) {
-                console.log(this.inputs.length);
-                for (let i = 0; i < this.inputs.length; i++) {
-                    this.newTopic.push(this.inputs[i].name);
-                    this.newContent.push(this.inputs[i].contenido);
-                }
-                console.log(this.newTopic);
-                console.log(this.newContent);
-            }
-      axios
-        .post(url, {
-         
-        })
-        .then(response => {
-          this.getCourses();
-          this.newName1 = "";
-          this.newPresentationU = "";
-          this.newHability = "";
-          this.newCompetences_E1 = "";
-          this.newCompetences_E2 = "";
-          this.newCompetences_E3 = "";
-          this.newCompetences_T1 = "";
-          this.newCompetences_T2 = "";
-          this.newCompetences_T3 = "";
-          this.newResult_1 = "";
-          this.newResult_2 = "";
-          this.newResult_3 = "";
-          this.newResult_4 = "";
-          this.newCompeR11 = "";
-          this.newCompeR12 = "";
-          this.newCompeR13 = "";
-          this.newCompeR21 = "";
-          this.newCompeR22 = "";
-          this.newCompeR23 = "";
-          this.newCompeR31 = "";
-          this.newCompeR31 = "";
-          this.newCompeR33 = "";
-          this.newCompeR41 = "";
-          this.newCompeR42 = "";
-          this.newCompeR43 = "";
-          this.newQuestion = "";
-          this.newContent = "";
-          this.newMaster = "";
-          this.newVideo = "";
-          this.newNameM = "";
-          this.newNameV = "";
-          this.newBibliography = "";
-          this.newDoing = "";
-          this.newChallenge = "";
-          this.newProjecting = "";
-          this.newTopic = "";
-          this.newUnit = "";
-          this.newType = "";
-          this.newReady = "";
-          /*this.newDescription = "";
-          this.newId_user = "";
-          this.newName = "";
-          this.newId_subcategories = "";
-          this.newIntensityAC = "";
-          this.newIntensityTA = "";
-          this.newMethodologyG = "";
-          this.newType = "";
-          this.newWelcome = "";
-          this.newPresentation = "";
-          this.newIndicatorA = "";
-          this.newMap = "";
-          this.newCompetences = "";
-          this.newIntention = "";
-          this.newDescriptionO = "";*/
-          this.errors = [];
-
-          toastr.success("Nueva unidad guardada exitosamente");
         })
         .catch(error => {
           this.errors = error.response.data;

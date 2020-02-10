@@ -40,7 +40,7 @@
                         type="text"
                         name="name"
                         class="form-control"
-                        v-model="newPlataform"
+                        v-model="activities.newPlataform"
                         required
                       />
                       <div class="invalid-feedback">Please fill out this field</div>
@@ -51,7 +51,7 @@
                         type="text"
                         name="name"
                         class="form-control"
-                        v-model="newWork"
+                        v-model="activities.newWork"
                         required
                       />
                       <div class="invalid-feedback">Please fill out this field</div>
@@ -72,7 +72,7 @@
                         <i class="fas fa-question"></i>
                       </a>
                     </div>
-                    <textarea name="welcome" class="form-control" v-model="newTema" required></textarea>
+                    <textarea name="welcome" class="form-control" v-model="activities.newTema" required></textarea>
                     <div class="invalid-feedback">Please fill out this field</div>
                   </div>
                   <div class="form-group mx-auto">
@@ -90,7 +90,7 @@
                         <i class="fas fa-question"></i>
                       </a>
                     </div>
-                    <textarea name="welcome" class="form-control" v-model="newDescription" required></textarea>
+                    <textarea name="welcome" class="form-control" v-model="activities.newDescription" required></textarea>
                     <div class="invalid-feedback">Please fill out this field</div>
                   </div>
                   <div align="center">
@@ -104,7 +104,7 @@
                         name="name"
                         class="form-control"
                         placeholder="TR 1."
-                        v-model="newTR1"
+                        v-model="activities.newTR1"
                         required
                       />
                       <input
@@ -112,7 +112,7 @@
                         name="name"
                         class="form-control"
                         placeholder="TR 2."
-                        v-model="newTR2"
+                        v-model="activities.newTR2"
                         required
                       />
                       <input
@@ -120,7 +120,7 @@
                         name="name"
                         class="form-control"
                         placeholder="TR 3."
-                        v-model="newTR3"
+                        v-model="activities.newTR3"
                         required
                       />
                       <div class="invalid-feedback">Please fill out this field</div>
@@ -132,7 +132,7 @@
                         name="name"
                         class="form-control"
                         placeholder="OR 1."
-                        v-model="newOR1"
+                        v-model="activities.newOR1"
                         required
                       />
                       <input
@@ -140,7 +140,7 @@
                         name="name"
                         class="form-control"
                         placeholder="OR 2."
-                        v-model="newOR2"
+                        v-model="activities.newOR2"
                         required
                       />
                       <input
@@ -148,7 +148,7 @@
                         name="name"
                         class="form-control"
                         placeholder="OR 3."
-                        v-model="newOR3"
+                        v-model="activities.newOR3"
                         required
                       />
                       <div class="invalid-feedback">Please fill out this field</div>
@@ -184,7 +184,7 @@
                             name="name"
                             class="form-control"
                             placeholder="CE 1."
-                            v-model="newCE1"
+                            v-model="activities.newCE1"
                             required
                           />
                         </td>
@@ -193,7 +193,7 @@
                             name="welcome"
                             class="form-control"
                             placeholder="EA 1."
-                            v-model="newEA1"
+                            v-model="activities.newEA1"
                             required
                           ></textarea>
                         </th>
@@ -205,7 +205,7 @@
                             name="name"
                             class="form-control"
                             placeholder="CE 2."
-                            v-model="newCE2"
+                            v-model="activities.newCE2"
                             required
                           />
                         </td>
@@ -217,16 +217,13 @@
                             name="name"
                             class="form-control"
                             placeholder="CE 3."
-                            v-model="newCE3"
+                            v-model="activities.newCE3"
                             required
                           />
                         </td>
                       </tr>
                     </table>
                     <div class="invalid-feedback">Please fill out this field</div>
-                  </div>
-                  <div class="modal-footer">
-                    <a href="/activity" class="btn btn-primary float-right">Guardar</a>
                   </div>
                 </div>
               </div>
@@ -239,7 +236,7 @@
                                             type="text"
                                             name="timeWork"
                                             class="form-control"
-                                            v-model="newTimeWork"
+                                            v-model="activities.newTimeWork"
                                             disabled
                                         />
                                         <div class="invalid-feedback">
@@ -252,7 +249,7 @@
                                             type="text"
                                             name="activity"
                                             class="form-control"
-                                            v-model="newActivity"
+                                            v-model="activities.newActivity1"
                                             disabled
                                         />
                                         <div class="invalid-feedback">
@@ -275,7 +272,7 @@
                                             type="date"
                                             name="fromW"
                                             class="form-control"
-                                            v-model="newFromW"
+                                            v-model="activities.newFromW"
                                             required
                                         />
                                         <div class="invalid-feedback">
@@ -288,7 +285,7 @@
                                             type="date"
                                             name="toW"
                                             class="form-control"
-                                            v-model="newToW"
+                                            v-model="activities.newToW"
                                             required
                                         />
                                         <div class="invalid-feedback">
@@ -301,7 +298,7 @@
                                             type="text"
                                             name="activity"
                                             class="form-control"
-                                            v-model="newEvidence"
+                                            v-model="activities.newEvidence"
                                             required
                                         />
                                         <div class="invalid-feedback">
@@ -314,7 +311,7 @@
                                             type="text"
                                             name="activity"
                                             class="form-control"
-                                            v-model="newSend"
+                                            v-model="activities.newSend"
                                             required
                                         />
                                         <div class="invalid-feedback">
@@ -332,7 +329,7 @@
                                             type="text"
                                             name="name"
                                             class="form-control"
-                                            v-model="newActor"
+                                            v-model="activities.newActor"
                                             required
                                         />
                                         <div class="invalid-feedback">
@@ -347,7 +344,7 @@
                                             type="date"
                                             name="name"
                                             class="form-control"
-                                            v-model="newRetro"
+                                            v-model="activities.newRetro"
                                             required
                                         />
                                         <div class="invalid-feedback">
@@ -355,15 +352,17 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="modal-footer">
-                                    <a
-                                        href="/sincro"
-                                        class="btn btn-primary float-right"
-                                        >Guardar</a
-                                    >
-                                </div>
+                                
+                <div class="modal-footer">
+                    <input
+                      type="submit"
+                      @click.prevent="createActivity"
+                      class="btn btn-primary"
+                      value="Guardar"
+                    />
+                  </div>
               </tab-content>
-               <tab-content title="Encuentros sincronicos">
+               <!--tab-content title="Encuentros sincronicos">
                    <div class="form-group row">
                   <div class="col">
                     <strong>Cantidad de encuentros sincronicos</strong>
@@ -1148,7 +1147,7 @@
                 <div class="modal-footer">
                   <a href="/freeUnit" class="btn btn-primary float-right">Guardar</a>
                 </div>
-                    </tab-content>
+                    </tab-content-->
                 </form-wizard>
             </form>
           </div>
@@ -1249,7 +1248,9 @@ export default {
         "Estudio de Caso",
         "Ejercicios"
       ],
-      newDescription: "",
+      newActivity: "",
+      activities: {
+newDescription: "",
       newName: "",
       newId_subcategories: "",
       newSubject: "",
@@ -1266,7 +1267,31 @@ export default {
       newContry: "",
       newWorld: "",
       newId_user: "",
-      newActivity: "",
+      
+      newPlataform: "",
+      newWork: "",
+      newTema: "",
+      newDescription: "", 
+      newTR1: "",          
+      newTR2: "",                
+      newTR3: "",              
+      newOR1: "",              
+      newOR2: "",                  
+      newOR3: "",
+      newFromW: "",            
+      newCE1: "",                  
+      newEA1: "",                     
+      newCE2: "",                 
+      newCE3: "",                                     
+      newTimeWork: "",                                  
+      newActivity1: "",                                                             
+      newFromW: "",                                    
+      newToW: "",                                  
+      newEvidence: "",                             
+      newSend: "",                          
+      newActor: "",                               
+      newRetro: "",
+      },
       fillC: {
         id: "",
         name: "",
@@ -1314,51 +1339,13 @@ export default {
     remove1(index) {
       this.inputs1.splice(index, 1);
     },
-    createClasses() {
-      var url = "classes";
-      this.newId_user = 36;
-      axios
-        .post(url, {
-          id_user: this.newId_user,
-          description: this.newDescription,
-          name: this.newName,
-          id_category: this.Category,
-          id_subcategory: this.newId_subcategories,
-          subject: this.newSubject,
-          objetive: this.newObjetive,
-          fromW: this.newFromW,
-          toW: this.newToW,
-          fromH: this.newFromH,
-          toH: this.newToH,
-          quiz: this.newQuiz,
-          indicator: this.newIndicator,
-          percent: this.newPercent,
-          local: this.newLocal,
-          regional: this.newRegional,
-          world: this.newWorld
-        })
+    createActivity() {
+      var url = "activity";
+      console.log(this.activities);
+          axios
+        .post(url, this.activities)
         .then(response => {
-          this.getClasses();
-          this.newDescription = "";
-          this.newId_user = "";
-          this.newName = "";
-          this.newId_subcategories = "";
-          this.newSubject = "";
-          this.newObjetive = "";
-          this.newToW = "";
-          this.newFromW = "";
-          this.newFormH = "";
-          this.newToH = "";
-          this.newQuiz = "";
-          this.newIndicator = "";
-          this.newPercent = "";
-          this.newLocal = "";
-          this.newRegional = "";
-          this.newContry = "";
-          this.newWorld = "";
-          this.errors = [];
-          $("#create").modal("hide");
-          toastr.success("New class created successfully");
+          toastr.success("New activity created successfully");
         })
         .catch(error => {
           this.errors = error.response.data;

@@ -27,13 +27,13 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr v-for="cour in courses">
-                    <td width="10px">{{ cour.id }}</td>
-                    <td>{{ cour.name }}</td>
-                    <td>{{ cour.id_category }}</td>
-                    <td>{{ cour.type }}</td>
-                    <td>{{ cour.state }}</td>
-                    <td>{{ cour.publish }}</td>
+                  <tr v-for="cour, i in courses">
+                    <td width="10px">{{ cour[i].id }}</td>
+                    <td>{{ cour[i].name }}</td>
+                    <td>{{ cour[i].id_category }}</td>
+                    <td>{{ cour[i].type }}</td>
+                    <td>{{ cour[i].state }}</td>
+                    <td>{{ cour[i].publish }}</td>
                     <td width="10px">
                       <a href="/vcourse" class="btn btn-info btn-sm">v</a>
                     </td>

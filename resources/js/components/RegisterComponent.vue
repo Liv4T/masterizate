@@ -348,9 +348,7 @@ import "toastr/toastr.scss";
     },
     methods: { //metodos del CRUD
            getNames(){
-                var urlUsers = '/login';
-                axios.get(urlUsers).then(response=> { 
-                });
+                window.location = "/login";
             },
             createNames() {
                 console.log('sent form')
@@ -358,6 +356,7 @@ import "toastr/toastr.scss";
                 var url = 'users_save';
                 this.newAge= this.age;
                 console.log('send info user url, '+url);
+                 
                 axios.post(url, {
                     name: this.newName,
                     last_name: this.newLastName,
@@ -395,6 +394,7 @@ import "toastr/toastr.scss";
                     }).catch(error => {
                     this.errors = error.response.data
                 });
+                
             },
             getSubcategories(){
                 var urlse = 'GetSubcategories/'+this.Category;

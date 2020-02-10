@@ -101,9 +101,9 @@
                             <a class="nav-link" href="/calification">Mis calificaciones</a>
                             <!-- Listado de calificaciones-->
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/#">Conferencias</a>
-                        </li>   
+                        <!--li class="nav-item">
+                            <!--a class="nav-link" href="/#">Conferencias</a>
+                        </li-->   
                          <li class="nav-item">
                             <a class="nav-link" href="/consult">Consultas</a>
                         </li>
@@ -120,9 +120,9 @@
                         <li class="nav-item">
                             <a class="nav-link" href="/calificationSt">Mis Calificaciones</a>
                         </li>  
-                        <li class="nav-item">
-                            <a class="nav-link" href="/#">Conferencias</a>
-                        </li>                                         
+                        <!--li class="nav-item">
+                            <!--a class="nav-link" href="/#">Conferencias</a>
+                        </li-->                                         
                      @endif
                 @endif
                 <!-- Right Side Of Navbar -->

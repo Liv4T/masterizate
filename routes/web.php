@@ -122,6 +122,9 @@ Route::get('/resetPass', function () {
 Route::get('/video', function () {
     return view('videochat');
 });
+Route::get('/trivia', function () {
+    return view('trivia');
+});
 /*login personalizado permite verificar suscripcion*/
 Route::post('/login2', 'UserController@loginWeb')->name('login2');
 Route::post('/resetPassword', 'UserController@resetPassword')->name('resetPassword');
