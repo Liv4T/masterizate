@@ -94,7 +94,7 @@ class ActivitiesController extends Controller
     public function show(String $id)
     {
         $activity = Activities::findOrFail($id);
-        return response()->json([$activity]);
+        return $activity;
     }
 
     /**

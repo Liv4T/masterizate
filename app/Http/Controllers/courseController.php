@@ -33,7 +33,7 @@ class courseController extends Controller
     public function index()
     {
         $course = Courses::all();
-        return response()->json([$course]);
+        return $course;
     }
 
     /**
@@ -179,9 +179,10 @@ class courseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(String $id)
     {
-        //
+        $course = Courses::findOrFail($id);
+        return $course;
     }
 
     /**
