@@ -103,7 +103,8 @@ class UserController extends Controller
                 $msj->to($data['email'])->subject('Falta sólo un paso más');
             });
         }
-        return response()->json([true]);
+        return redirect()->route('/');
+        // return response()->json([true]);
     }
 
     /**

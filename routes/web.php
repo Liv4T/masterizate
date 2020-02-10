@@ -133,10 +133,14 @@ Route::get('GetCourses','CourseController@GetCourses');
 Route::get('GetCategories','CategoryController@GetCategories');
 Route::get('GetTypeU','CategoryController@GetTypeU');
 Route::get('GetSubcategories/{id}','CategoryController@GetSubcategories');
+/* Get unit and topic */
+Route::get('GetUnits/{id}','courseController@GetUnits');
+Route::get('GetTopics/{id}','courseController@GetTopics');
 //Route::get('/home', 'HomeController@index')->name('home');
 Route::get('testsendemail/{email}', 'TestingController@sendemail');
 Auth::routes();
 
+Route::resource('activities', 'ActivitiesController', ['except'=> 'show','create','edit']);;
 Route::resource('types', 'TypeUserController', ['except'=> 'show','create','edit']);;
 Route::resource('tasks', 'TaskController', ['except'=> 'show','create','edit']);;
 Route::resource('categories', 'CategoryController', ['except'=> 'show','create','edit']);;
