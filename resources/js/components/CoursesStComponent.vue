@@ -1,43 +1,42 @@
 <template>
-    <auto-responsive>
-        <div class="background2">
-            <div class="row justify-content-center">
-                <div id="crud" class="col-sm-10">
-                    <div class="custom-card text-center">
-                        <h3 class="card-header">Mis Cursos</h3>
-                        <div class="card-body">
-                            <table
-                                class="table table-responsive table-hover table-striped center"
-                            >
-                                <thead>
-                                    <tr>
-                                        <th>N°</th>
-                                        <th>Nombre del curso</th>
-                                        <th>Categoria</th>
-                                        <th>Tipo de curso</th>
-                                        <th>Modalidad de curso</th>
-                                        <th>Estado</th>
-                                        <th>Avance</th>
-                                        <th colspan="3">&nbsp;</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr v-for="(cour, i) in courses">
-                                        <td width="10px">{{ cour[i].id }}</td>
-                                        <td>{{ cour[i].name }}</td>
-                                        <td>{{ cour[i].id_category }}</td>
-                                        <td>{{ cour[i].type }}</td>
-                                        <td>{{ cour[i].type }}</td>
-                                        <td>{{ cour[i].state }}</td>
-                                        <td>20%</td>
-                                        <td width="5px">
-                                            <a
-                                                href="/mycourse"
-                                                class="btn btn-info btn-sm"
-                                                >v</a
-                                            >
-                                        </td>
-                                        <!--td width="10px">
+    <div class="background2">
+        <div class="row justify-content-center">
+            <div id="crud" class="col-sm-10">
+                <div class="custom-card text-center">
+                    <h3 class="card-header">Mis Cursos</h3>
+                    <div class="card-body">
+                        <table
+                            class="table table-responsive table-hover table-striped center"
+                        >
+                            <thead>
+                                <tr>
+                                    <th>N°</th>
+                                    <th>Nombre del curso</th>
+                                    <th>Categoria</th>
+                                    <th>Tipo de curso</th>
+                                    <th>Modalidad de curso</th>
+                                    <th>Estado</th>
+                                    <th>Avance</th>
+                                    <th colspan="3">&nbsp;</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="cour in courses">
+                                    <td width="10px">{{ cour.id }}</td>
+                                    <td>{{ cour.name }}</td>
+                                    <td>{{ cour.id_category }}</td>
+                                    <td>{{ cour.type }}</td>
+                                    <td>{{ cour.type }}</td>
+                                    <td>{{ cour.state }}</td>
+                                    <td>20%</td>
+                                    <td width="5px">
+                                        <a
+                                            href="/mycourse"
+                                            class="btn btn-info btn-sm"
+                                            >v</a
+                                        >
+                                    </td>
+                                    <!--td width="10px">
                       <a
                         href="#"
                         class="btn btn-warning btn-sm"
@@ -51,15 +50,14 @@
                         v-on:click.prevent="deleteClasses(cour)"
                       >-</a>
                     </td-->
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
         </div>
-    </auto-responsive>
+    </div>
 </template>
 <script>
 (function() {
@@ -104,10 +102,6 @@ $(function() {
         }
     });
 });
-import AutoResponsive from "autoresponsive-vue";
-
-Vue.use(AutoResponsive);
-
 export default {
     data() {
         return {
@@ -202,72 +196,7 @@ export default {
             var urlr = "courses";
             axios.get(urlr).then(response => {
                 this.courses = response.data;
-            });
-        },
-        editClasses(cour) {
-            this.fillC.id = cour.id;
-            this.fillC.name = cour.name;
-            this.fillC.intensityAC = cour.intensityAC;
-            this.fillC.intensityTA = cour.intensityTA;
-            this.fillC.welcome = cour.welcome;
-            this.fillC.presentation = cour.presentation;
-            this.fillC.intention = cour.intention;
-            this.fillC.competences = cour.competences;
-            this.fillC.achievement = cour.achievement;
-            this.fillC.indicatorA = cour.indicatorA;
-            this.fillC.methodologyG = cour.methodologyG;
-            this.fillC.description = cour.description;
-            this.fillC.descriptionO = cour.descriptionO;
-            $("#edit").modal("show");
-        },
-        updateClasses(id) {
-            var url = "courses/" + id;
-            axios
-                .put(url, this.fillC)
-                .then(response => {
-                    this.getClasses();
-                    (this.fillC = {
-                        id: "",
-                        name: "",
-                        description: "",
-                        id_user: "",
-                        id_category: "",
-                        id_subcategory: "",
-                        intensityAC: "",
-                        intensityTA: "",
-                        methodology: "",
-                        methodologyG: "",
-                        welcome: "",
-                        presentation: "",
-                        intention: "",
-                        competences: "",
-                        achievement: "",
-                        indicatorA: "",
-                        map: "",
-                        type: "",
-                        descriptionO: "",
-                        state: "",
-                        publish: ""
-                    }),
-                        (this.errors = []);
-                    $("#edit").modal("hide");
-                    toastr.success("curso editado exitosamente");
-                })
-                .catch(error => {
-                    this.errors = error.response.data;
-                });
-        },
-        deleteClasses(cour) {
-            var url = "courses/" + cour.id;
-            this.fillC.state = "Edited";
-            axios.put(url, this.fillC).then(response => {
-                // eliminar
-                this.getClasses(); //lista
-                (this.fillC = {
-                    description: "",
-                    state: ""
-                }),
-                    toastr.success("Successfully removed"); //mensaje
+                console.log(this.courses);
             });
         },
         getSubcategories() {

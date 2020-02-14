@@ -236,7 +236,26 @@
     </div>
 </template>
 <script>
-export default {};
+export default {
+    data() {
+        return {
+            activities: []
+        };
+    },
+    mounted() {
+        console.log("mounted");
+        var urlr = "activities";
+        axios.get(urlr).then(response => {
+            this.activities = response.data;
+            console.log(this.activities);
+        });
+    },
+    methods: {
+        inputEvent(e) {
+            console.log(e);
+        }
+    }
+};
 </script>
 <style>
 .texttrivia {

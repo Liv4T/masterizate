@@ -52,10 +52,10 @@
                 </div>
                 <label class="hola2" for> {{ cour[i].description }}</label>
                 <br />
-                <strong for
+                <!--strong for
                     >Recuerde que el curso inicia:--/--/---- y
                     finaliza:--/--/----</strong
-                >
+                -->
             </div>
         </div>
         <video-component></video-component>
