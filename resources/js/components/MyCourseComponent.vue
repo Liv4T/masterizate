@@ -29,8 +29,8 @@
             </div>
         </b-container>
         <div class="card text-center">
-            <div class="card-body" v-for="(cour, i) in courses">
-                <h3 class="hola">{{ cour[i].name }}</h3>
+            <div class="card-body" v-for="cour in courses">
+                <h3 class="etiqueta">{{ cour.name }}</h3>
                 <div class="ec-stars-wrapper1">
                     <a data-value="1">&#9733;</a>
                     <a data-value="2">&#9733;</a>
@@ -50,7 +50,7 @@
                         25%
                     </div>
                 </div>
-                <label class="hola2" for> {{ cour[i].description }}</label>
+                <label class="etiquetaB" for> {{ cour.description }}</label>
                 <br />
                 <!--strong for
                     >Recuerde que el curso inicia:--/--/---- y
@@ -62,13 +62,13 @@
         <div class="card text-center">
             <div class="card-body">
                 <a href>
-                    <h4>Actividades</h4>
+                    <h4 class="etiquetaB">Actividades</h4>
                 </a>
                 <div class="form-group row">
                     <div class="col-md-6">
                         <a href="/activitySt">
                             <img
-                                src="../assets/img/Icono_foro1.png"
+                                src="../assets/img/trivia_icono.png"
                                 width="90px"
                                 alt
                             />
@@ -78,7 +78,7 @@
                     <div class="col-md-6">
                         <a href>
                             <img
-                                src="../assets/img/Icono_foro1.png"
+                                src="../assets/img/trivia_icono.png"
                                 width="90px"
                                 alt
                             />
@@ -90,7 +90,7 @@
                     <div class="col-md-6">
                         <a href>
                             <img
-                                src="../assets/img/Icono_foro1.png"
+                                src="../assets/img/trivia_icono.png"
                                 width="90px"
                                 alt
                             />
@@ -100,7 +100,7 @@
                     <div class="col-md-6">
                         <a href>
                             <img
-                                src="../assets/img/Icono_foro1.png"
+                                src="../assets/img/trivia_icono.png"
                                 width="90px"
                                 alt
                             />
@@ -193,11 +193,11 @@ th,
 td {
     padding: 20px;
 }
-.hola {
+.etiquetaB {
     color: black;
     font-weight: bold;
 }
-.hola2 {
+.etiqueta {
     color: black;
 }
 @import url(http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css);

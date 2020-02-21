@@ -12,7 +12,7 @@
                                         <strong>Nombre del curso</strong>
                                         <select2
                                             :options="myOptions"
-                                            v-model="NewCourse"
+                                            v-model="newCourse"
                                             required
                                         ></select2>
                                     </div>
@@ -133,7 +133,7 @@
                                                 <a
                                                     href="#"
                                                     class="badge badge-danger"
-                                                    @click.prevent="remove(k)"
+                                                    @click.prevent="remove1(k)"
                                                     v-show="
                                                         k ||
                                                             (!k &&
@@ -145,7 +145,7 @@
                                                 <a
                                                     href="#"
                                                     class="badge badge-primary"
-                                                    @click.prevent="add(k)"
+                                                    @click.prevent="add1(k)"
                                                     v-show="
                                                         k == inputs1.length - 1
                                                     "
@@ -269,7 +269,7 @@ export default {
                 }
             ],
             Uoptions: ["3", "4"],
-            myOptions: ["Cuestionario V-F", "Cuestionario 4 opciones"],
+            myOptions: ["Cuestionario 4 opciones"],
             newName: "",
             newQuiz: [],
             newActivity: "",
