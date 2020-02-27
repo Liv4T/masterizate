@@ -29,7 +29,7 @@
             </div>
         </b-container>
         <div class="card text-center">
-            <div class="card-body" v-for="cour in courses">
+            <div class="card-body" v-for="cour in courses" :key="cour">
                 <h3 class="etiqueta">{{ cour.name }}</h3>
                 <div class="ec-stars-wrapper1">
                     <a data-value="1">&#9733;</a>

@@ -383,7 +383,7 @@
                                                 type="file"
                                                 name="videoCurso"
                                                 class="form-control"
-                                                id=""
+                                                @change="onFileChange"
                                             />
                                             <div class="invalid-feedback">
                                                 Please fill out this field
@@ -1733,7 +1733,6 @@
                                                 type="file"
                                                 name="picture2"
                                                 class="form-control"
-                                                accept="image/*"
                                                 required
                                             />
                                             <div class="invalid-feedback">
@@ -2637,6 +2636,7 @@ export default {
                     name: ""
                 }
             ],
+            file: "",
             categories: [],
             subcategories: [],
             TypeUsers: [],
@@ -2644,6 +2644,7 @@ export default {
             myOptions: ["e-learning", "b-learning"],
             newDescription: "",
             newName: "",
+            newPicture: "",
             newId_category: "",
             newId_subcategories: "",
             newMethodologyG: "",
@@ -2795,6 +2796,7 @@ export default {
             newUnit: "",
             newimage: "",
             newVideo_presentation: "",
+            unit: "",
             fillU: {
                 id: "",
                 unit: "",
@@ -3029,6 +3031,24 @@ export default {
             axios.get(urlse).then(response => {
                 this.subcategories = response.data;
             });
+        },
+
+        onFileChange(e) {
+            var files = e.target.files || e.dataTransfer.files;
+            if (!files.length) return;
+            this.createImage(files[0]);
+        },
+        createImage(file) {
+            var newVideo_presentation = new FormData();
+            var reader = new FileReader();
+            var vm = this;
+
+            reader.onload = e => {
+                vm.newVideo_presentation = e.target.result;
+            };
+            reader.readAsDataURL(file);
+            vm.newVideo_presentation = file;
+            console.log(vm.newVideo_presentation);
         }
     }
 };
