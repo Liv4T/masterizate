@@ -6,14 +6,14 @@
                     <h3 class="card-header">Actividad</h3>
                     <form class="needs-validation" novalidate>
                         <form-wizard title subtitle>
-                            <tab-content>
+                            <tab-content title="Actividad general">
                                 <div class="card-body">
                                     <div class="form-group row">
                                         <div class="col-md-6">
                                             <strong>Nombre del curso</strong>
                                             <select2
-                                                :options="myOptions"
-                                                v-model="metodology"
+                                                :options="classes"
+                                                v-model="id_course"
                                                 required
                                             ></select2>
                                         </div>
@@ -21,7 +21,7 @@
                                             <strong>Unidad</strong>
                                             <select2
                                                 :options="myOptions"
-                                                v-model="metodology"
+                                                v-model="unit"
                                                 required
                                             ></select2>
                                         </div>
@@ -31,7 +31,7 @@
                                             <strong>Temas</strong>
                                             <select2
                                                 :options="myOptions"
-                                                v-model="metodology"
+                                                v-model="topic"
                                                 required
                                             ></select2>
                                         </div>
@@ -45,7 +45,7 @@
                                         </div>
                                     </div>
                                     <!-----------Actividades---------------------------------------------------------------------------->
-                                    <div
+                                    <!--div
                                         v-show="
                                             newActivity == 'Foro' ||
                                                 newActivity == 'Chat' ||
@@ -60,272 +60,264 @@
                                                     'Estudio de Caso' ||
                                                 newActivity == 'Ejercicios'
                                         "
-                                    >
-                                        <div class="form-group row mx-auto">
-                                            <div class="col" align="center">
-                                                <strong
-                                                    >Duracion estimada en
-                                                    plataforma</strong
-                                                >
-                                                <input
-                                                    type="text"
-                                                    name="name"
-                                                    class="form-control"
-                                                    v-model="
-                                                        activities.newPlataform
-                                                    "
-                                                    required
-                                                />
-                                                <div class="invalid-feedback">
-                                                    Please fill out this field
-                                                </div>
-                                            </div>
-                                            <div class="col" align="center">
-                                                <strong
-                                                    >Duracion estimada trabajo
-                                                    autonomo</strong
-                                                >
-                                                <input
-                                                    type="text"
-                                                    name="name"
-                                                    class="form-control"
-                                                    v-model="activities.newWork"
-                                                    required
-                                                />
-                                                <div class="invalid-feedback">
-                                                    Please fill out this field
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group mx-auto">
-                                            <div align="center">
-                                                <strong
-                                                    >Contextualizacion del
-                                                    tema</strong
-                                                >
-                                                <a
-                                                    tabindex="0"
-                                                    class="badge badge-info"
-                                                    role="button"
-                                                    data-toggle="popover"
-                                                    data-trigger="focus"
-                                                    title="Contextualizacion del tema"
-                                                    data-content="Redactar la contextualización del tema a la que se va a referir la actividad planteada"
-                                                >
-                                                    <i
-                                                        class="fas fa-question"
-                                                    ></i>
-                                                </a>
-                                            </div>
-                                            <textarea
-                                                name="welcome"
-                                                class="form-control"
-                                                v-model="activities.newTema"
-                                                required
-                                            ></textarea>
-                                            <div class="invalid-feedback">
-                                                Please fill out this field
-                                            </div>
-                                        </div>
-                                        <div class="form-group mx-auto">
-                                            <div align="center">
-                                                <strong>Actividad</strong>
-                                                <a
-                                                    tabindex="0"
-                                                    class="badge badge-info"
-                                                    role="button"
-                                                    data-toggle="popover"
-                                                    data-trigger="focus"
-                                                    title="Actividad"
-                                                    data-content="Describir de forma clara y sencilla la actividad que debe realizar de acuerdo con el tema y el propósito a evaluar. (referir cuales son los recursos con los que cuenta el estudiante, Ej. Videos, lecturas, vClass y otros)"
-                                                >
-                                                    <i
-                                                        class="fas fa-question"
-                                                    ></i>
-                                                </a>
-                                            </div>
-                                            <textarea
-                                                name="welcome"
+                                    -->
+                                    <div class="form-group row mx-auto">
+                                        <div class="col" align="center">
+                                            <strong
+                                                >Duracion estimada en
+                                                plataforma</strong
+                                            >
+                                            <input
+                                                type="text"
+                                                name="name"
                                                 class="form-control"
                                                 v-model="
-                                                    activities.newDescription
+                                                    activities.newPlataform
                                                 "
                                                 required
-                                            ></textarea>
+                                            />
                                             <div class="invalid-feedback">
                                                 Please fill out this field
                                             </div>
                                         </div>
-                                        <div align="center">
+                                        <div class="col" align="center">
                                             <strong
-                                                >Recursos necesarios para la
-                                                actividad</strong
+                                                >Duracion estimada trabajo
+                                                autonomo</strong
                                             >
-                                        </div>
-                                        <div class="form-group row">
-                                            <div class="col">
-                                                <label for="name"
-                                                    >Tipo de recursos</label
-                                                >
-                                                <input
-                                                    type="text"
-                                                    name="name"
-                                                    class="form-control"
-                                                    placeholder="TR 1."
-                                                    v-model="activities.newTR1"
-                                                    required
-                                                />
-                                                <input
-                                                    type="text"
-                                                    name="name"
-                                                    class="form-control"
-                                                    placeholder="TR 2."
-                                                    v-model="activities.newTR2"
-                                                    required
-                                                />
-                                                <input
-                                                    type="text"
-                                                    name="name"
-                                                    tabindex=""
-                                                    class="form-control"
-                                                    placeholder="TR 3."
-                                                    v-model="activities.newTR3"
-                                                    required
-                                                />
-                                                <div class="invalid-feedback">
-                                                    Please fill out this field
-                                                </div>
-                                            </div>
-                                            <div class="col">
-                                                <label for="name"
-                                                    >Origen del recurso</label
-                                                >
-                                                <input
-                                                    type="text"
-                                                    name="name"
-                                                    class="form-control"
-                                                    placeholder="OR 1."
-                                                    v-model="activities.newOR1"
-                                                    required
-                                                />
-                                                <input
-                                                    type="text"
-                                                    name="name"
-                                                    class="form-control"
-                                                    placeholder="OR 2."
-                                                    v-model="activities.newOR2"
-                                                    required
-                                                />
-                                                <input
-                                                    type="text"
-                                                    name="name"
-                                                    class="form-control"
-                                                    placeholder="OR 3."
-                                                    v-model="activities.newOR3"
-                                                    required
-                                                />
-                                                <div class="invalid-feedback">
-                                                    Please fill out this field
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group mx-auto">
-                                            <div align="center">
-                                                <strong>Entregables</strong>
-                                                <a
-                                                    tabindex="0"
-                                                    class="badge badge-info"
-                                                    role="button"
-                                                    data-toggle="popover"
-                                                    data-trigger="focus"
-                                                    title="Entregables"
-                                                    data-content="Describir de forma clara y sencilla los entregables que debe enviar el estudiante al tutor de acuerdo con el tema y el propósito a evaluar."
-                                                >
-                                                    <i
-                                                        class="fas fa-question"
-                                                    ></i>
-                                                </a>
-                                            </div>
-                                            <textarea
-                                                name="welcome"
+                                            <input
+                                                type="text"
+                                                name="name"
                                                 class="form-control"
-                                                v-model="newFromW"
+                                                v-model="activities.newWork"
                                                 required
-                                            ></textarea>
-                                            <div class="invalid-feedback">
-                                                Please fill out this field
-                                            </div>
-                                        </div>
-                                        <div align="center">
-                                            <strong
-                                                >Criterios de evaluacion /
-                                                Evidencias asociadas (desempeño,
-                                                producto y conocimiento)</strong
-                                            >
-                                        </div>
-                                        <div class="form-group mx-auto">
-                                            <table style="width:100%">
-                                                <tr>
-                                                    <td>
-                                                        <input
-                                                            type="text"
-                                                            name="name"
-                                                            class="form-control"
-                                                            placeholder="CE 1."
-                                                            v-model="
-                                                                activities.newCE1
-                                                            "
-                                                            required
-                                                        />
-                                                    </td>
-                                                    <th rowspan="3">
-                                                        <textarea
-                                                            name="welcome"
-                                                            class="form-control"
-                                                            placeholder="EA 1."
-                                                            v-model="
-                                                                activities.newEA1
-                                                            "
-                                                            required
-                                                        ></textarea>
-                                                    </th>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <input
-                                                            type="text"
-                                                            name="name"
-                                                            class="form-control"
-                                                            placeholder="CE 2."
-                                                            v-model="
-                                                                activities.newCE2
-                                                            "
-                                                            required
-                                                        />
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <input
-                                                            type="text"
-                                                            name="name"
-                                                            class="form-control"
-                                                            placeholder="CE 3."
-                                                            v-model="
-                                                                activities.newCE3
-                                                            "
-                                                            required
-                                                        />
-                                                    </td>
-                                                </tr>
-                                            </table>
-
+                                            />
                                             <div class="invalid-feedback">
                                                 Please fill out this field
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="form-group mx-auto">
+                                        <div align="center">
+                                            <strong
+                                                >Contextualizacion del
+                                                tema</strong
+                                            >
+                                            <a
+                                                tabindex="0"
+                                                class="badge badge-info"
+                                                role="button"
+                                                data-toggle="popover"
+                                                data-trigger="focus"
+                                                title="Contextualizacion del tema"
+                                                data-content="Redactar la contextualización del tema a la que se va a referir la actividad planteada"
+                                            >
+                                                <i class="fas fa-question"></i>
+                                            </a>
+                                        </div>
+                                        <textarea
+                                            name="welcome"
+                                            class="form-control"
+                                            v-model="activities.newTema"
+                                            required
+                                        ></textarea>
+                                        <div class="invalid-feedback">
+                                            Please fill out this field
+                                        </div>
+                                    </div>
+                                    <div class="form-group mx-auto">
+                                        <div align="center">
+                                            <strong>Actividad</strong>
+                                            <a
+                                                tabindex="0"
+                                                class="badge badge-info"
+                                                role="button"
+                                                data-toggle="popover"
+                                                data-trigger="focus"
+                                                title="Actividad"
+                                                data-content="Describir de forma clara y sencilla la actividad que debe realizar de acuerdo con el tema y el propósito a evaluar. (referir cuales son los recursos con los que cuenta el estudiante, Ej. Videos, lecturas, vClass y otros)"
+                                            >
+                                                <i class="fas fa-question"></i>
+                                            </a>
+                                        </div>
+                                        <textarea
+                                            name="welcome"
+                                            class="form-control"
+                                            v-model="activities.newDescription"
+                                            required
+                                        ></textarea>
+                                        <div class="invalid-feedback">
+                                            Please fill out this field
+                                        </div>
+                                    </div>
+                                    <div align="center">
+                                        <strong
+                                            >Recursos necesarios para la
+                                            actividad</strong
+                                        >
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col">
+                                            <label for="name"
+                                                >Tipo de recursos</label
+                                            >
+                                            <input
+                                                type="text"
+                                                name="name"
+                                                class="form-control"
+                                                placeholder="TR 1."
+                                                v-model="activities.newTR1"
+                                                required
+                                            />
+                                            <input
+                                                type="text"
+                                                name="name"
+                                                class="form-control"
+                                                placeholder="TR 2."
+                                                v-model="activities.newTR2"
+                                                required
+                                            />
+                                            <input
+                                                type="text"
+                                                name="name"
+                                                tabindex=""
+                                                class="form-control"
+                                                placeholder="TR 3."
+                                                v-model="activities.newTR3"
+                                                required
+                                            />
+                                            <div class="invalid-feedback">
+                                                Please fill out this field
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <label for="name"
+                                                >Origen del recurso</label
+                                            >
+                                            <input
+                                                type="text"
+                                                name="name"
+                                                class="form-control"
+                                                placeholder="OR 1."
+                                                v-model="activities.newOR1"
+                                                required
+                                            />
+                                            <input
+                                                type="text"
+                                                name="name"
+                                                class="form-control"
+                                                placeholder="OR 2."
+                                                v-model="activities.newOR2"
+                                                required
+                                            />
+                                            <input
+                                                type="text"
+                                                name="name"
+                                                class="form-control"
+                                                placeholder="OR 3."
+                                                v-model="activities.newOR3"
+                                                required
+                                            />
+                                            <div class="invalid-feedback">
+                                                Please fill out this field
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group mx-auto">
+                                        <div align="center">
+                                            <strong>Entregables</strong>
+                                            <a
+                                                tabindex="0"
+                                                class="badge badge-info"
+                                                role="button"
+                                                data-toggle="popover"
+                                                data-trigger="focus"
+                                                title="Entregables"
+                                                data-content="Describir de forma clara y sencilla los entregables que debe enviar el estudiante al tutor de acuerdo con el tema y el propósito a evaluar."
+                                            >
+                                                <i class="fas fa-question"></i>
+                                            </a>
+                                        </div>
+                                        <textarea
+                                            name="welcome"
+                                            class="form-control"
+                                            v-model="activities.newFromE"
+                                            required
+                                        ></textarea>
+                                        <div class="invalid-feedback">
+                                            Please fill out this field
+                                        </div>
+                                    </div>
+                                    <div align="center">
+                                        <strong
+                                            >Criterios de evaluacion /
+                                            Evidencias asociadas (desempeño,
+                                            producto y conocimiento)</strong
+                                        >
+                                    </div>
+                                    <div class="form-group mx-auto">
+                                        <table style="width:100%">
+                                            <tr>
+                                                <td>
+                                                    <input
+                                                        type="text"
+                                                        name="name"
+                                                        class="form-control"
+                                                        placeholder="CE 1."
+                                                        v-model="
+                                                            activities.newCE1
+                                                        "
+                                                        required
+                                                    />
+                                                </td>
+                                                <th rowspan="3">
+                                                    <textarea
+                                                        name="welcome"
+                                                        class="form-control"
+                                                        placeholder="EA 1."
+                                                        v-model="
+                                                            activities.newEA1
+                                                        "
+                                                        required
+                                                    ></textarea>
+                                                </th>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <input
+                                                        type="text"
+                                                        name="name"
+                                                        class="form-control"
+                                                        placeholder="CE 2."
+                                                        v-model="
+                                                            activities.newCE2
+                                                        "
+                                                        required
+                                                    />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <input
+                                                        type="text"
+                                                        name="name"
+                                                        class="form-control"
+                                                        placeholder="CE 3."
+                                                        v-model="
+                                                            activities.newCE3
+                                                        "
+                                                        required
+                                                    />
+                                                </td>
+                                            </tr>
+                                        </table>
+
+                                        <div class="invalid-feedback">
+                                            Please fill out this field
+                                        </div>
+                                    </div>
                                 </div>
+                                <!--/div-->
                             </tab-content>
                             <tab-content title="Planeación didáctica">
                                 <div class="form-group row mx-auto">
@@ -461,106 +453,96 @@
                                     />
                                 </div>
                             </tab-content>
-                            <tab-content title="Encuentros sincronicos">
+                            <!--tab-content title="Encuentros sincronicos">
                                 <div
-                                    class="form-group row"
+                                    class="form-group row mx-auto"
                                     v-for="(input1, k) in inputs1"
                                     :key="k"
                                 >
-                                    <strong>Primer encuentro</strong>
-                                    <div class="form-group row mx-auto">
-                                        <div class="col-md-6">
-                                            <strong
-                                                >Nombre del encuentro
-                                                sincronico</strong
+                                    <div class="col-md-6">
+                                        <strong
+                                            >Nombre del encuentro
+                                            sincronico</strong
+                                        >
+                                        <span>
+                                            <a
+                                                href="#"
+                                                class="badge badge-danger"
+                                                @click.prevent="remove1(k)"
+                                                v-show="
+                                                    k ||
+                                                        (!k &&
+                                                            inputs1.length > 1)
+                                                "
+                                                >-</a
                                             >
-                                            <span>
-                                                <a
-                                                    href="#"
-                                                    class="badge badge-danger"
-                                                    @click.prevent="remove1(k)"
-                                                    v-show="
-                                                        k ||
-                                                            (!k &&
-                                                                inputs1.length >
-                                                                    1)
-                                                    "
-                                                    >-</a
-                                                >
-                                                <a
-                                                    href="#"
-                                                    class="badge badge-primary"
-                                                    @click.prevent="add1(k)"
-                                                    v-show="
-                                                        k == inputs1.length - 1
-                                                    "
-                                                    >+</a
-                                                >
-                                            </span>
-                                            <input
-                                                type="text"
-                                                name="name"
-                                                class="form-control"
-                                                v-model="inputs1.name"
-                                                disabled
-                                            />
-                                            <div class="invalid-feedback">
-                                                Please fill out this field
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <strong
-                                                >Temas que se abarcan</strong
+                                            <a
+                                                href="#"
+                                                class="badge badge-primary"
+                                                @click.prevent="add1(k)"
+                                                v-show="k == inputs1.length - 1"
+                                                >+</a
                                             >
-                                            <input
-                                                type="text"
-                                                name="name"
-                                                class="form-control"
-                                                v-model="inputs1.topics"
-                                                disabled
-                                            />
-                                            <div class="invalid-feedback">
-                                                Please fill out this field
-                                            </div>
+                                        </span>
+                                        <input
+                                            type="text"
+                                            name="name"
+                                            class="form-control"
+                                            v-model="inputs1.name"
+                                            required
+                                        />
+                                        <div class="invalid-feedback">
+                                            Please fill out this field
                                         </div>
                                     </div>
-                                    <div class="form-group row">
-                                        <div class="col-md-6">
-                                            <label for="fromW">Fecha</label>
-                                            <input
-                                                type="date"
-                                                name="fromW"
-                                                class="form-control"
-                                                v-model="inputs1.date"
-                                                required
-                                            />
-                                            <div class="invalid-feedback">
-                                                Please fill out this field
-                                            </div>
+                                    <div class="col-md-6">
+                                        <strong>Tema que se abarca</strong>
+                                        <select2
+                                            :options="myOptions"
+                                            v-model="topic"
+                                            required
+                                        ></select2>
+                                        <div class="invalid-feedback">
+                                            Please fill out this field
                                         </div>
-                                        <div class="col-md-3">
-                                            <label for="toW">Hora inicio</label>
-                                            <input
-                                                type="date"
-                                                name="toW"
-                                                class="form-control"
-                                                v-model="inputs1.hourI"
-                                                required
-                                            />
-                                            <div class="invalid-feedback">
-                                                Please fill out this field
-                                            </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-md-6">
+                                        <label for="fromW">Fecha</label>
+                                        <input
+                                            type="date"
+                                            name="fromW"
+                                            class="form-control"
+                                            v-model="inputs1.date"
+                                            required
+                                        />
+                                        <div class="invalid-feedback">
+                                            Please fill out this field
                                         </div>
-                                        <div class="col-md-3">
-                                            <label for>Hora final</label>
-                                            <select2
-                                                :options="myOptions"
-                                                v-model="inputs1.hourF"
-                                                required
-                                            ></select2>
-                                            <div class="invalid-feedback">
-                                                Please fill out this field
-                                            </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label for="toW">Hora inicio</label>
+                                        <input
+                                            type="date"
+                                            name="toW"
+                                            class="form-control"
+                                            v-model="inputs1.hourI"
+                                            required
+                                        />
+                                        <div class="invalid-feedback">
+                                            Please fill out this field
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label for>Hora final</label>
+                                        <select2
+                                            :options="myOptions"
+                                            v-model="inputs1.hourF"
+                                            required
+                                        ></select2>
+                                        <div class="invalid-feedback">
+                                            Please fill out this field
                                         </div>
                                     </div>
                                 </div>
@@ -571,7 +553,7 @@
                                         >Guardar</a
                                     >
                                 </div>
-                            </tab-content>
+                            </tab-content-->
                         </form-wizard>
                     </form>
                 </div>
@@ -650,6 +632,9 @@ export default {
                 }
             ],
             newPlataform: "",
+            id_course: "",
+            topic: "",
+            unit: "",
             Uoptions: ["3", "4"],
             subcategories: [],
             TypeUsers: [],
@@ -679,13 +664,13 @@ export default {
                 newOR2: "",
                 newOR3: "",
                 newFromW: "",
+                newFromE: "",
                 newCE1: "",
                 newEA1: "",
                 newCE2: "",
                 newCE3: "",
                 newTimeWork: "",
                 newActivity1: "",
-                newFromW: "",
                 newToW: "",
                 newEvidence: "",
                 newSend: "",
