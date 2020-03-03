@@ -303,11 +303,14 @@ export default {
             this.inputs.splice(index, 1);
         },
         add1(index) {
-            this.inputs1.push({ question: "" });
-            this.inputs1.push({ answer_correct: "" });
-            this.inputs1.push({ answer1: "" });
-            this.inputs1.push({ answer2: "" });
-            this.inputs1.push({ answer3: "" });
+            this.inputs1.push({
+                question: "",
+                answer_correct: "",
+                answer1: "",
+                answer2: "",
+                answer2: "",
+                answer3: ""
+            });
         },
         remove1(index) {
             this.inputs1.splice(index, 1);

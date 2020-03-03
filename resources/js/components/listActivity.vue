@@ -14,14 +14,16 @@
                                             <select2
                                                 :options="classes"
                                                 v-model="id_course"
+                                                @input="getUnits"
                                                 required
                                             ></select2>
                                         </div>
                                         <div class="col-md-6">
                                             <strong>Unidad</strong>
                                             <select2
-                                                :options="myOptions"
-                                                v-model="unit"
+                                                :options="units"
+                                                v-model="id_unit"
+                                                @input="getTopics"
                                                 required
                                             ></select2>
                                         </div>
@@ -30,8 +32,8 @@
                                         <div class="col-md-6">
                                             <strong>Temas</strong>
                                             <select2
-                                                :options="myOptions"
-                                                v-model="topic"
+                                                :options="topics"
+                                                v-model="id_topic"
                                                 required
                                             ></select2>
                                         </div>
@@ -633,11 +635,11 @@ export default {
             ],
             newPlataform: "",
             id_course: "",
-            topic: "",
-            unit: "",
-            Uoptions: ["3", "4"],
+            id_topic: "",
+            id_unit: "",
+            units: [],
             subcategories: [],
-            TypeUsers: [],
+            topics: [],
             classes: [],
             myOptions: ["On-Line", "Virtual"],
             myActivities: [
@@ -677,39 +679,11 @@ export default {
                 newActor: "",
                 newRetro: ""
             },
-            fillC: {
-                id: "",
-                name: "",
-                description: "",
-                id_user: "",
-                id_category: "",
-                id_subcategory: "",
-                subject: "",
-                objetive: "",
-                fromW: "",
-                toW: "",
-                fromH: "",
-                toH: "",
-                quiz: "",
-                indicator: "",
-                percent: "",
-                local: "",
-                regional: "",
-                world: ""
-            },
             errors: []
         };
     },
     mounted() {
-        var urlsel = "GetCategories";
-        axios.get(urlsel).then(response => {
-            this.categories = response.data;
-        });
-        var urlsel = "GetTypeU";
-        axios.get(urlsel).then(response => {
-            this.TypeUsers = response.data;
-        });
-        var url = "courses";
+        var url = "GetCourses";
         axios.get(url).then(response => {
             this.classes = response.data;
         });
@@ -717,11 +691,13 @@ export default {
     },
     methods: {
         add1(index) {
-            this.inputs1.push({ name: "" });
-            this.inputs1.push({ topics: "" });
-            this.inputs1.push({ hourI: "" });
-            this.inputs1.push({ hourF: "" });
-            this.inputs1.push({ date: "" });
+            this.inputs1.push({
+                name: "",
+                topics: "",
+                hourI: "",
+                hourF: "",
+                date: ""
+            });
         },
         remove1(index) {
             this.inputs1.splice(index, 1);
@@ -738,10 +714,16 @@ export default {
                     this.errors = error.response.data;
                 });
         },
-        getSubcategories() {
-            var urlse = "GetSubcategories/" + this.Category;
-            axios.get(urlse).then(response => {
-                this.subcategories = response.data;
+        getUnits() {
+            var url = "GetUnits/" + this.id_course;
+            axios.get(url).then(response => {
+                this.units = response.data;
+            });
+        },
+        getTopics() {
+            var url = "GetTopics/" + this.id_unit;
+            axios.get(url).then(response => {
+                this.topics = response.data;
             });
         }
     }

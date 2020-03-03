@@ -379,12 +379,24 @@
                                                     ></i>
                                                 </a>
                                             </div>
-                                            <input
-                                                type="file"
-                                                name="videoCurso"
-                                                class="form-control"
-                                                @change="onFileChange"
-                                            />
+                                            <div v-if="!image">
+                                                <input
+                                                    type="file"
+                                                    name="videoCurso"
+                                                    class="form-control"
+                                                    @change="onFileChange"
+                                                />
+                                            </div>
+
+                                            <div v-else>
+                                                <video controls>
+                                                    <source
+                                                        :src="image"
+                                                        type="video/mp4"
+                                                    />
+                                                </video>
+                                            </div>
+
                                             <div class="invalid-feedback">
                                                 Please fill out this field
                                             </div>
@@ -912,8 +924,8 @@
                                     </div>
                                     <div
                                         class="form-group row mx-auto"
-                                        v-for="(input, k) in inputs"
-                                        :key="k"
+                                        v-for="(input, t) in inputs"
+                                        :key="t"
                                     >
                                         <div class="col-md-6">
                                             <label for="name">Tema</label>
@@ -921,10 +933,10 @@
                                                 <a
                                                     href="#"
                                                     class="badge badge-danger"
-                                                    @click.prevent="remove(k)"
+                                                    @click.prevent="remove(t)"
                                                     v-show="
-                                                        k ||
-                                                            (!k &&
+                                                        t ||
+                                                            (!t &&
                                                                 inputs.length >
                                                                     1)
                                                     "
@@ -933,9 +945,9 @@
                                                 <a
                                                     href="#"
                                                     class="badge badge-primary"
-                                                    @click.prevent="add(k)"
+                                                    @click.prevent="add(t)"
                                                     v-show="
-                                                        k == inputs.length - 1
+                                                        t == inputs.length - 1
                                                     "
                                                     >+</a
                                                 >
@@ -967,8 +979,8 @@
                                     </div>
                                     <div
                                         class="form-group row"
-                                        v-for="(input1, k) in inputs1"
-                                        :key="k"
+                                        v-for="(input1, d) in inputs1"
+                                        :key="d"
                                     >
                                         <div class="col-md-6">
                                             <label for="name"
@@ -978,10 +990,10 @@
                                                 <a
                                                     href="#"
                                                     class="badge badge-danger"
-                                                    @click.prevent="remove1(k)"
+                                                    @click.prevent="remove1(d)"
                                                     v-show="
-                                                        k ||
-                                                            (!k &&
+                                                        d ||
+                                                            (!d &&
                                                                 inputs1.length >
                                                                     1)
                                                     "
@@ -990,9 +1002,9 @@
                                                 <a
                                                     href="#"
                                                     class="badge badge-primary"
-                                                    @click.prevent="add1(k)"
+                                                    @click.prevent="add1(d)"
                                                     v-show="
-                                                        k == inputs1.length - 1
+                                                        d == inputs1.length - 1
                                                     "
                                                     >+</a
                                                 >
@@ -1015,6 +1027,7 @@
                                                 name="picture"
                                                 class="form-control"
                                                 accept="image/*"
+                                                v-bind="input1.video"
                                                 required
                                             />
                                             <div class="invalid-feedback">
@@ -1606,8 +1619,8 @@
                                     </div>
                                     <div
                                         class="form-group row mx-auto"
-                                        v-for="(input2, k) in inputs2"
-                                        :key="k"
+                                        v-for="(input2, m) in inputs2"
+                                        :key="m"
                                     >
                                         <div class="col-md-6">
                                             <label for="name">Tema</label>
@@ -1615,10 +1628,10 @@
                                                 <a
                                                     href="#"
                                                     class="badge badge-danger"
-                                                    @click.prevent="remove2(k)"
+                                                    @click.prevent="remove2(m)"
                                                     v-show="
-                                                        k ||
-                                                            (!k &&
+                                                        m ||
+                                                            (!m &&
                                                                 inputs2.length >
                                                                     1)
                                                     "
@@ -1627,9 +1640,9 @@
                                                 <a
                                                     href="#"
                                                     class="badge badge-primary"
-                                                    @click.prevent="add2(k)"
+                                                    @click.prevent="add2(m)"
                                                     v-show="
-                                                        k == inputs2.length - 1
+                                                        m == inputs2.length - 1
                                                     "
                                                     >+</a
                                                 >
@@ -1661,8 +1674,8 @@
                                     </div>
                                     <div
                                         class="form-group row"
-                                        v-for="(inputs3, k) in inputs3"
-                                        :key="k"
+                                        v-for="(input3, l) in inputs3"
+                                        :key="l"
                                     >
                                         <div class="col-md-6">
                                             <label for="name"
@@ -1672,10 +1685,10 @@
                                                 <a
                                                     href="#"
                                                     class="badge badge-danger"
-                                                    @click.prevent="remove3(k)"
+                                                    @click.prevent="remove3(l)"
                                                     v-show="
-                                                        k ||
-                                                            (!k &&
+                                                        l ||
+                                                            (!l &&
                                                                 inputs3.length >
                                                                     1)
                                                     "
@@ -1684,9 +1697,9 @@
                                                 <a
                                                     href="#"
                                                     class="badge badge-primary"
-                                                    @click.prevent="add3(k)"
+                                                    @click.prevent="add3(l)"
                                                     v-show="
-                                                        k == inputs3.length - 1
+                                                        l == inputs3.length - 1
                                                     "
                                                     >+</a
                                                 >
@@ -1696,7 +1709,7 @@
                                                     type="text"
                                                     name="objetive"
                                                     class="form-control"
-                                                    v-model="unit.newNameM2"
+                                                    v-model="input3.name"
                                                     placeholder="Nombre de la clase"
                                                     required
                                                 />
@@ -2298,8 +2311,8 @@
                                     </div>
                                     <div
                                         class="form-group row mx-auto"
-                                        v-for="(input4, k) in inputs4"
-                                        :key="k"
+                                        v-for="(input4, h) in inputs4"
+                                        :key="h"
                                     >
                                         <div class="col-md-6">
                                             <label for="name">Tema</label>
@@ -2307,10 +2320,10 @@
                                                 <a
                                                     href="#"
                                                     class="badge badge-danger"
-                                                    @click.prevent="remove4(k)"
+                                                    @click.prevent="remove4(h)"
                                                     v-show="
-                                                        k ||
-                                                            (!k &&
+                                                        h ||
+                                                            (!h &&
                                                                 inputs4.length >
                                                                     1)
                                                     "
@@ -2319,9 +2332,9 @@
                                                 <a
                                                     href="#"
                                                     class="badge badge-primary"
-                                                    @click.prevent="add4(k)"
+                                                    @click.prevent="add4(h)"
                                                     v-show="
-                                                        k == inputs4.length - 1
+                                                        h == inputs4.length - 1
                                                     "
                                                     >+</a
                                                 >
@@ -2353,8 +2366,8 @@
                                     </div>
                                     <div
                                         class="form-group row"
-                                        v-for="(input, k) in inputs5"
-                                        :key="k"
+                                        v-for="(input5, g) in inputs5"
+                                        :key="g"
                                     >
                                         <div class="col-md-6">
                                             <label for="name"
@@ -2364,10 +2377,10 @@
                                                 <a
                                                     href="#"
                                                     class="badge badge-danger"
-                                                    @click.prevent="remove7(k)"
+                                                    @click.prevent="remove5(g)"
                                                     v-show="
-                                                        k ||
-                                                            (!k &&
+                                                        g ||
+                                                            (!g &&
                                                                 inputs5.length >
                                                                     1)
                                                     "
@@ -2376,9 +2389,9 @@
                                                 <a
                                                     href="#"
                                                     class="badge badge-primary"
-                                                    @click.prevent="add7(k)"
+                                                    @click.prevent="add5(g)"
                                                     v-show="
-                                                        k == inputs5.length - 1
+                                                        g == inputs5.length - 1
                                                     "
                                                     >+</a
                                                 >
@@ -2388,7 +2401,7 @@
                                                     type="text"
                                                     name="objetive"
                                                     class="form-control"
-                                                    v-model="unit.newNameM3"
+                                                    v-model="input5.name"
                                                     placeholder="Nombre de la clase"
                                                     required
                                                 />
@@ -2690,113 +2703,116 @@ export default {
             },
             newId_subcategories: "",
             newId_category: "",
-            newName1: "",
-            newName2: "",
-            newName3: "",
-            newPresentationU1: "",
-            newPresentationU2: "",
-            newPresentationU3: "",
-            newHability1: "",
-            newHability2: "",
-            newHability3: "",
-            newCompetences1_E1: "",
-            newCompetences1_E2: "",
-            newCompetences1_E3: "",
-            newCompetences1_T1: "",
-            newCompetences1_T2: "",
-            newCompetences1_T3: "",
-            newCompetences2_E1: "",
-            newCompetences2_E2: "",
-            newCompetences2_E3: "",
-            newCompetences2_T1: "",
-            newCompetences2_T2: "",
-            newCompetences2_T3: "",
-            newCompetences3_E1: "",
-            newCompetences3_E2: "",
-            newCompetences3_E3: "",
-            newCompetences3_T1: "",
-            newCompetences3_T2: "",
-            newCompetences3_T3: "",
-            newResult1_1: "",
-            newResult1_2: "",
-            newResult1_3: "",
-            newResult1_4: "",
-            newResult2_1: "",
-            newResult2_2: "",
-            newResult2_3: "",
-            newResult2_4: "",
-            newResult3_1: "",
-            newResult3_2: "",
-            newResult3_3: "",
-            newResult3_4: "",
-            newCompe1_R11: "",
-            newCompe1_R12: "",
-            newCompe1_R13: "",
-            newCompe1_R21: "",
-            newCompe1_R22: "",
-            newCompe1_R23: "",
-            newCompe1_R31: "",
-            newCompe1_R32: "",
-            newCompe1_R33: "",
-            newCompe1_R41: "",
-            newCompe1_R42: "",
-            newCompe1_R43: "",
-            newCompe2_R11: "",
-            newCompe2_R12: "",
-            newCompe2_R13: "",
-            newCompe2_R21: "",
-            newCompe2_R22: "",
-            newCompe2_R23: "",
-            newCompe2_R31: "",
-            newCompe2_R32: "",
-            newCompe2_R33: "",
-            newCompe2_R41: "",
-            newCompe2_R42: "",
-            newCompe2_R43: "",
-            newCompe3_R11: "",
-            newCompe3_R12: "",
-            newCompe3_R13: "",
-            newCompe3_R21: "",
-            newCompe3_R22: "",
-            newCompe3_R23: "",
-            newCompe3_R31: "",
-            newCompe3_R32: "",
-            newCompe3_R33: "",
-            newCompe3_R41: "",
-            newCompe3_R42: "",
-            newCompe3_R43: "",
-            newQuestion1: "",
-            newQuestion2: "",
-            newQuestion3: "",
-            newReady1: "",
-            newReady2: "",
-            newReady3: "",
-            newContent: [],
-            newMaster: "",
-            newVideo: "",
-            newBibliography1: "",
-            newBibliography2: "",
-            newBibliography3: "",
-            newDoing1: "",
-            newDoing2: "",
-            newDoing3: "",
-            newChallenge1: "",
-            newChallenge2: "",
-            newChallenge3: "",
-            newProjecting1: "",
-            newProjecting2: "",
-            newProjecting3: "",
+            unit: {
+                newName1: "",
+                newName2: "",
+                newName3: "",
+                newPresentationU1: "",
+                newPresentationU2: "",
+                newPresentationU3: "",
+                newHability1: "",
+                newHability2: "",
+                newHability3: "",
+                newCompetences1_E1: "",
+                newCompetences1_E2: "",
+                newCompetences1_E3: "",
+                newCompetences1_T1: "",
+                newCompetences1_T2: "",
+                newCompetences1_T3: "",
+                newCompetences2_E1: "",
+                newCompetences2_E2: "",
+                newCompetences2_E3: "",
+                newCompetences2_T1: "",
+                newCompetences2_T2: "",
+                newCompetences2_T3: "",
+                newCompetences3_E1: "",
+                newCompetences3_E2: "",
+                newCompetences3_E3: "",
+                newCompetences3_T1: "",
+                newCompetences3_T2: "",
+                newCompetences3_T3: "",
+                newResult1_1: "",
+                newResult1_2: "",
+                newResult1_3: "",
+                newResult1_4: "",
+                newResult2_1: "",
+                newResult2_2: "",
+                newResult2_3: "",
+                newResult2_4: "",
+                newResult3_1: "",
+                newResult3_2: "",
+                newResult3_3: "",
+                newResult3_4: "",
+                newCompe1_R11: "",
+                newCompe1_R12: "",
+                newCompe1_R13: "",
+                newCompe1_R21: "",
+                newCompe1_R22: "",
+                newCompe1_R23: "",
+                newCompe1_R31: "",
+                newCompe1_R32: "",
+                newCompe1_R33: "",
+                newCompe1_R41: "",
+                newCompe1_R42: "",
+                newCompe1_R43: "",
+                newCompe2_R11: "",
+                newCompe2_R12: "",
+                newCompe2_R13: "",
+                newCompe2_R21: "",
+                newCompe2_R22: "",
+                newCompe2_R23: "",
+                newCompe2_R31: "",
+                newCompe2_R32: "",
+                newCompe2_R33: "",
+                newCompe2_R41: "",
+                newCompe2_R42: "",
+                newCompe2_R43: "",
+                newCompe3_R11: "",
+                newCompe3_R12: "",
+                newCompe3_R13: "",
+                newCompe3_R21: "",
+                newCompe3_R22: "",
+                newCompe3_R23: "",
+                newCompe3_R31: "",
+                newCompe3_R32: "",
+                newCompe3_R33: "",
+                newCompe3_R41: "",
+                newCompe3_R42: "",
+                newCompe3_R43: "",
+                newQuestion1: "",
+                newQuestion2: "",
+                newQuestion3: "",
+                newReady1: "",
+                newReady2: "",
+                newReady3: "",
+                newContent: [],
+                newMaster: "",
+                newVideo: "",
+                newBibliography1: "",
+                newBibliography2: "",
+                newBibliography3: "",
+                newDoing1: "",
+                newDoing2: "",
+                newDoing3: "",
+                newChallenge1: "",
+                newChallenge2: "",
+                newChallenge3: "",
+                newProjecting1: "",
+                newProjecting2: "",
+                newProjecting3: "",
+                newNameM1: "",
+                newNameM2: "",
+                newNameM3: "",
+                newNameV1: "",
+                newNameV2: "",
+                newNameV3: ""
+            },
+
             newTopic: [],
-            newNameM1: "",
-            newNameM2: "",
-            newNameM3: "",
-            newNameV1: "",
-            newNameV2: "",
-            newNameV3: "",
             newUnit: "",
             newimage: "",
             newVideo_presentation: "",
-            unit: "",
+            image: "",
             fillU: {
                 id: "",
                 unit: "",
@@ -2862,21 +2878,19 @@ export default {
             });
         },
         add(index) {
-            this.inputs.push({ name: "" });
-            this.inputs.push({ contenido: "" });
-            this.inputs.push({ unit: "" });
+            this.inputs.push({ name: "", contenido: "", unit: "" });
         },
         remove(index) {
             this.inputs.splice(index, 1);
         },
-        add1(index) {},
+        add1(index) {
+            this.inputs1.push({ name: "" });
+        },
         remove1(index) {
             this.inputs1.splice(index, 1);
         },
         add2(index) {
-            this.inputs2.push({ name: "" });
-            this.inputs2.push({ video: "" });
-            this.inputs2.push({ unit: ths.newName2 });
+            this.inputs2.push({ name: "", contenido: "", unit: "" });
         },
         remove2(index) {
             this.inputs2.splice(index, 1);
@@ -2888,9 +2902,7 @@ export default {
             this.inputs3.splice(index, 1);
         },
         add4(index) {
-            this.inputs4.push({ name: "" });
-            this.inputs4.push({ video: "" });
-            this.inputs4.push({ unit: this.newName3 });
+            this.inputs4.push({ name: "", contenido: "", unit: "" });
         },
         remove4(index) {
             this.inputs4.splice(index, 1);
@@ -2959,44 +2971,7 @@ export default {
                     video_presentation: this.newVideo_presentation,
                     state: this.newState,
                     //Cursos unidades
-                    name: this.newName1,
-                    presentation: this.newPresentationU,
-                    hability: this.newHability,
-                    competences_e1: this.newCompetences_E1,
-                    competences_e2: this.newCompetences_E2,
-                    competences_e3: this.newCompetences_E3,
-                    competences_t1: this.newCompetences_T1,
-                    competences_t2: this.newCompetences_T2,
-                    competences_t3: this.newCompetences_T3,
-                    result1: this.newResult_1,
-                    result2: this.newResult_2,
-                    result3: this.newResult_3,
-                    result4: this.newResult_4,
-                    comper11: this.newCompeR11,
-                    comper12: this.newCompeR12,
-                    comper13: this.newCompeR13,
-                    comper21: this.newCompeR21,
-                    comper22: this.newCompeR22,
-                    comper23: this.newCompeR23,
-                    comper31: this.newCompeR31,
-                    comper32: this.newCompeR31,
-                    comper33: this.newCompeR33,
-                    comper41: this.newCompeR41,
-                    comper42: this.newCompeR42,
-                    comper43: this.newCompeR43,
-                    question: this.newQuestion,
-                    content: this.newContent,
-                    master: this.newMaster,
-                    video: this.newVideo,
-                    nameM: this.newNameM,
-                    nameV: this.newNameV,
-                    bibliography: this.newBibliography,
-                    doing: this.newDoing,
-                    challenge: this.newChallenge,
-                    projecting: this.newProjecting,
-                    unit: this.newUnit,
-                    ready: this.newReady,
-                    type: this.newType,
+                    unit: this.unit,
                     //temas
                     topic: this.newTopic
                     //videos
@@ -3032,23 +3007,21 @@ export default {
                 this.subcategories = response.data;
             });
         },
-
         onFileChange(e) {
             var files = e.target.files || e.dataTransfer.files;
             if (!files.length) return;
             this.createImage(files[0]);
         },
         createImage(file) {
-            var newVideo_presentation = new FormData();
+            var image = new Image();
             var reader = new FileReader();
             var vm = this;
 
             reader.onload = e => {
-                vm.newVideo_presentation = e.target.result;
+                vm.image = e.target.result;
             };
             reader.readAsDataURL(file);
-            vm.newVideo_presentation = file;
-            console.log(vm.newVideo_presentation);
+            this.newVideo_presentation = vm.image;
         }
     }
 };
