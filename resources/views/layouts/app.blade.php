@@ -82,7 +82,7 @@
                             <a class="nav-link" href="/evaluation">Evaluación</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/consult">Consultas</a>
+                            <a class="nav-link" href="/consult">Tutorias</a>
                         </li>
                     </ul>
                     @endif
@@ -105,7 +105,7 @@
                             <!--a class="nav-link" href="/#">Conferencias</a>
                         </li-->   
                          <li class="nav-item">
-                            <a class="nav-link" href="/consult">Consultas</a>
+                            <a class="nav-link" href="/consult">Mis tutorias</a>
                         </li>
                      @endif
                       <!-- Menu Estudiante -->
@@ -128,10 +128,6 @@
                 <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
                     <!-- Authentication Links -->
-                        <li class="form-inline">
-                            <input class="form-control" type="search" placeholder="Buscar" aria-label="Search">
-                            <button class="btn btn-danger" type="submit">Buscar</button>
-                        </li>
                         @guest
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>

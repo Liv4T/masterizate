@@ -871,7 +871,7 @@
         <div class="row" style="padding-top: 40px">
             <div class="col-md-6 text-center">
                 <h4>Contáctanos</h4>
-                <label for>info@l4t.com</label>
+                <label for>info@liv4t.com</label>
                 <h5>Síguenos</h5>
                 <div align="center" class="contactanos">
                     <i class="fab fa-facebook-f fa-4x"></i>
