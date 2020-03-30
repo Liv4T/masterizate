@@ -37,7 +37,7 @@
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('Life4teach') }}
-                    <b-img thumbnail fluid src="{{asset('images/LOGO-L4T-web.png')}}" rounded="circle" width="75" height="75" alt="4"></b-img>
+                    <img thumbnail fluid src="{{asset('images/LOGO-L4T-web.png')}}" rounded="circle" width="75" height="75" alt="4"></img>
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -45,6 +45,11 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                    <li class="nav-item">
+                            <a class="nav-link" href="https://clases.liv4t.com/">
+                                Clases Online
+                            </a>
+                        </li>
                     <li class="nav-item">
                             <a class="nav-link" href="/plan">
                                 <i class="fas fa-shopping-cart"></i>
@@ -82,7 +87,7 @@
                             <a class="nav-link" href="/evaluation">Evaluación</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/consult">Consultas</a>
+                            <a class="nav-link" href="/consult">Tutorias</a>
                         </li>
                     </ul>
                     @endif
@@ -105,7 +110,7 @@
                             <!--a class="nav-link" href="/#">Conferencias</a>
                         </li-->   
                          <li class="nav-item">
-                            <a class="nav-link" href="/consult">Consultas</a>
+                            <a class="nav-link" href="/consult">Mis tutorias</a>
                         </li>
                      @endif
                       <!-- Menu Estudiante -->
@@ -128,10 +133,6 @@
                 <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
                     <!-- Authentication Links -->
-                        <li class="form-inline">
-                            <input class="form-control" type="search" placeholder="Buscar" aria-label="Search">
-                            <button class="btn btn-danger" type="submit">Buscar</button>
-                        </li>
                         @guest
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>

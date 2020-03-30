@@ -142,7 +142,7 @@
                                 <h6 align="center">
                                     <strong>Descarga nuestra app</strong>
                                 </h6>
-                                <b-row class="text-center">
+                                <div class="text-center">
                                     <b-col>
                                         <img
                                             thumbnail
@@ -152,7 +152,7 @@
                                             alt="Image 1"
                                         />
                                     </b-col>
-                                </b-row>
+                                </div>
                             </div>
                         </b-card>
                     </div>
@@ -452,7 +452,7 @@
           <flux-index />
         </template>
       </vue-flux-->
-                <b-container fluid class="p-4 bg-light2">
+                <!--b-container fluid class="p-4 bg-light2">
                     <div align="center">
                         <b-row>
                             <b-col>
@@ -485,7 +485,7 @@
                             </b-col>
                         </b-row>
                     </div>
-                </b-container>
+                </b-container-->
                 <div class="mx-auto" id="destacados" style="padding-top: 40px">
                     <div class="card3">
                         <b-card align="center">
@@ -828,50 +828,50 @@
         </div>
         <!--Seccion de comentarios -->
         <br />
-        <b-container fluid class="p-4 bg-light">
+        <div fluid class="p-4 bg-light">
             <div align="center">
-                <b-row>
-                    <b-col>
+                <div class="row">
+                    <div class="col">
                         <img
                             src="../assets/img/circulo1.png"
                             width="70px;"
                             alt
                         />
-                    </b-col>
-                    <b-col>
+                    </div>
+                    <div class="col">
                         <img
                             src="../assets/img/circulo2.png"
                             width="70px;"
                             alt
                         />
-                    </b-col>
-                    <b-col>
+                    </div>
+                    <div class="col">
                         <img
                             src="../assets/img/circulo3.png"
                             width="70px;"
                             alt
                         />
-                    </b-col>
-                </b-row>
-                <b-row>
-                    <b-col>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
                         <div class="card-text">Comentario 1</div>
-                    </b-col>
-                    <b-col>
+                    </div>
+                    <div class="col">
                         <div class="card-text">Comentario 2</div>
-                    </b-col>
-                    <b-col>
+                    </div>
+                    <div class="col">
                         <div class="card-text">Comentario 3</div>
-                    </b-col>
-                </b-row>
+                    </div>
+                </div>
             </div>
-        </b-container>
+        </div>
         <!--Seccion de contactenos -->
         <br />
         <div class="row" style="padding-top: 40px">
             <div class="col-md-6 text-center">
                 <h4>Contáctanos</h4>
-                <label for>info@l4t.com</label>
+                <label for>info@liv4t.com</label>
                 <h5>Síguenos</h5>
                 <div align="center" class="contactanos">
                     <i class="fab fa-facebook-f fa-4x"></i>
@@ -1010,7 +1010,7 @@ import BootstrapVue from "bootstrap-vue";
 import VueMaterial from "vue-material";
 import "vue-material/dist/vue-material.min.css";
 import VueMouseParallax from "vue-mouse-parallax";
-import { BCard } from "bootstrap-vue/es/components";
+
 import TextInput from "./TextInput.vue";
 import {
     VueFlux,
@@ -1021,7 +1021,7 @@ import {
     FluxPreloader
 } from "vue-flux";
 
-Vue.component("b-card", BCard);
+
 Vue.use(VueMouseParallax);
 Vue.use(VueMaterial);
 export default {

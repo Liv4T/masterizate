@@ -10,7 +10,7 @@
                         <div class="form-group row">
                             <div class="col">
                                 <img
-                                    src="../assets/img/avatar.png"
+                                    src="../assets/img/Perfil-gral1.jpg"
                                     class="rounded float-right"
                                     height="70"
                                     width="90"
@@ -161,7 +161,8 @@ export default {
                 id_number: "",
                 country: ""
             },
-            dataU: []
+            dataU: [],
+            image: ""
         };
     },
     computed: {

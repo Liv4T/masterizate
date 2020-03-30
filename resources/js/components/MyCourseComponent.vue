@@ -113,13 +113,12 @@
     </div>
 </template>
 <script>
-import BootstrapVue from "bootstrap-vue";
+
 import VueMaterial from "vue-material";
 import "vue-material/dist/vue-material.min.css";
-import { BCard } from "bootstrap-vue/es/components";
+
 import TextInput from "./TextInput.vue";
 
-Vue.component("b-card", BCard);
 Vue.use(VueMaterial);
 $(document).ready(function() {
     $("#myCarousel").on("slide.bs.carousel", function(e) {

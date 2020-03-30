@@ -1,7 +1,12 @@
 <template>
         <div id="app">
             <ckeditor :editor="editor" v-model="editorData" @ready="onReady"></ckeditor>
-
+             <input
+                                    type="submit"
+                                    @click="createBoard"
+                                    class="btn btn-primary"
+                                    value="Guardar"
+                                />
         </div>
 </template>
 
@@ -14,6 +19,7 @@
             return {
                 editor: DecoupledEditor,
                 editorData: '<p>Rich-text editor content.</p>',
+                dataBoard:{}
                 // ...
             };
         },
@@ -24,7 +30,21 @@
                     editor.ui.view.toolbar.element,
                     editor.ui.getEditableElement()
                 );
-            }
+            },
+             createBoard() {
+                 console.log("data: ", this.editorData);
+            var url = "savePrintDoc";
+
+            axios
+                .post(url, {
+                    dataBoard:this.editorData})
+                .then(response => {
+                    console.log("response: ", response);
+                })
+                .catch(error => {
+                    this.errors = error.response.data;
+                });
+        },
         }
     }
 </script>

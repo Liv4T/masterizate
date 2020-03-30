@@ -131,6 +131,8 @@ Route::post('/resetPassword', 'UserController@resetPassword')->name('resetPasswo
 
 Route::post('users_save', 'UserController@store')->name('users_save');
 
+Route::post('savePrintDoc', 'HomeController@savePrintDoc')->name('savePrintDoc');
+
 Route::get('info_user', 'UserController@show')->name('info_user');
 Route::get('GetCourses','CourseController@GetCourses');
 Route::get('GetCategories','CategoryController@GetCategories');

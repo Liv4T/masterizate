@@ -25,9 +25,7 @@ import BootstrapVue from "bootstrap-vue";
 import VueMaterial from "vue-material";
 import "vue-material/dist/vue-material.min.css";
 import VueMouseParallax from "vue-mouse-parallax";
-import { BCard } from "bootstrap-vue/es/components";
 
-Vue.component("b-card", BCard);
 Vue.use(VueMouseParallax);
 Vue.use(VueMaterial);
 export default {

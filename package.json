@@ -25,6 +25,7 @@
         "stylus-loader": "^3.0.2",
         "toastr": "^2.1.4",
         "vue": "^2.6.10",
+        "vue-template-compiler": "^2.6.11",
         "vueperslides": "^1.17.4"
     },
     "dependencies": {
