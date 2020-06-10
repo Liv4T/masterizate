@@ -21,7 +21,7 @@
                     <th>Nombre del estudiante</th>
                     <th>Tema</th>
                     <th>Tipo de consulta</th>
-                    <th>Fecha limite de respuesta</th>
+                    <th>Fecha límite de respuesta</th>
                     <th colspan="3">&nbsp;</th>
                   </tr>
                 </thead>

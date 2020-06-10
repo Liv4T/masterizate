@@ -25,7 +25,7 @@
         </div>
         <div class="form-group row">
           <div class="col">
-            <label for>Fecha limite de entrega</label>
+            <label for>Fecha límite de entrega</label>
             <input class="form-control" v-model="newLast_date" type="date" name id />
           </div>
           <div class="col">

@@ -26,11 +26,7 @@
       <div class="card-body">
         <div class="card-deck">
           <div class="card">
-            <img
-              src="../assets/img/OMHWPH0.jpg"
-              class="card-img-top"
-              alt
-            />
+            <img src="../assets/img/OMHWPH0.jpg" class="card-img-top" alt />
             <div class="card-body">
               <a href="/ccourse">
                 <h5 class="card-title">Nombre del curso 1</h5>
@@ -51,11 +47,7 @@
             </div>
           </div>
           <div class="card">
-            <img
-              src="../assets/img/2918.jpg"
-              class="card-img-top"
-              alt
-            />
+            <img src="../assets/img/2918.jpg" class="card-img-top" alt />
             <div class="card-body">
               <a href="/ccourse">
                 <h5 class="card-title">Nombre del curso 2</h5>
@@ -69,11 +61,7 @@
             </div>
           </div>
           <div class="card">
-            <img
-              src="../assets/img/418.jpg"
-              class="card-img-top"
-              alt
-            />
+            <img src="../assets/img/418.jpg" class="card-img-top" alt />
             <div class="card-body">
               <a href="/ccourse">
                 <h5 class="card-title">Nombre del curso 3</h5>
@@ -94,11 +82,7 @@
             </div>
           </div>
           <div class="card">
-            <img
-              src="../assets/img/125063-OQT3VV-312.jpg"
-              class="card-img-top"
-              alt
-            />
+            <img src="../assets/img/125063-OQT3VV-312.jpg" class="card-img-top" alt />
             <div class="card-body">
               <a href="/ccourse">
                 <h5 class="card-title">Nombre del curso 4</h5>
@@ -122,11 +106,7 @@
         <br />
         <div class="card-deck">
           <div class="card">
-            <img
-              src="../assets/img/2371004.jpg"
-              class="card-img-top"
-              alt
-            />
+            <img src="../assets/img/2371004.jpg" class="card-img-top" alt />
             <div class="card-body">
               <a href="/ccourse">
                 <h5 class="card-title">Card title 1</h5>
@@ -172,11 +152,7 @@
             </div>
           </div>
           <div class="card">
-            <img
-              src="../assets/img/programador-web_23-2147502079.jpg"
-              class="card-img-top"
-              alt
-            />
+            <img src="../assets/img/programador-web_23-2147502079.jpg" class="card-img-top" alt />
             <div class="card-body">
               <a href="/ccourse">
                 <h5 class="card-title">Card title 3</h5>
@@ -197,11 +173,7 @@
             </div>
           </div>
           <div class="card">
-            <img
-              src="../assets/img/2371004.jpg"
-              class="card-img-top"
-              alt
-            />
+            <img src="../assets/img/2371004.jpg" class="card-img-top" alt />
             <div class="card-body">
               <a href="/ccourse">
                 <h5 class="card-title">Card title 4</h5>
@@ -225,11 +197,7 @@
         <br />
         <div class="card-deck">
           <div class="card">
-            <img
-              src="../assets/img/OMHWPH0.jpg"
-              class="card-img-top"
-              alt
-            />
+            <img src="../assets/img/OMHWPH0.jpg" class="card-img-top" alt />
             <div class="card-body">
               <a href="/ccourse">
                 <h5 class="card-title">Card title 1</h5>
@@ -250,11 +218,7 @@
             </div>
           </div>
           <div class="card">
-            <img
-              src="../assets/img/2918.jpg"
-              class="card-img-top"
-              alt
-            />
+            <img src="../assets/img/2918.jpg" class="card-img-top" alt />
             <div class="card-body">
               <a href="/ccourse">
                 <h5 class="card-title">Card title 2</h5>
@@ -275,11 +239,7 @@
             </div>
           </div>
           <div class="card">
-            <img
-              src="../assets/img/418.jpg"
-              class="card-img-top"
-              alt
-            />
+            <img src="../assets/img/418.jpg" class="card-img-top" alt />
             <div class="card-body">
               <a href="/ccourse">
                 <h5 class="card-title">Nombre del curso 3</h5>
@@ -300,11 +260,7 @@
             </div>
           </div>
           <div class="card">
-            <img
-              src="../assets/img/125063-OQT3VV-312.jpg"
-              class="card-img-top"
-              alt
-            />
+            <img src="../assets/img/125063-OQT3VV-312.jpg" class="card-img-top" alt />
             <div class="card-body">
               <a href="/ccourse">
                 <h5 class="card-title">Card title 4</h5>
@@ -462,11 +418,11 @@ export default {
   }
 }
 .ec-stars-wrapper1 {
-  /* Espacio entre los inline-block (los hijos, los `a`) 
+  /* Espacio entre los inline-block (los hijos, los `a`)
 	   http://ksesocss.blogspot.com/2012/03/display-inline-block-y-sus-empeno-en.html */
   font-size: 0;
-  /* Podríamos quitarlo, 
-		pero de esta manera (siempre que no le demos padding), 
+  /* Podríamos quitarlo,
+		pero de esta manera (siempre que no le demos padding),
 		sólo aplicará la regla .ec-stars-wrapper:hover a cuando
 		también se esté haciendo hover a alguna estrella */
   display: inline-block;
@@ -496,7 +452,7 @@ td {
 .hola2 {
   color: black;
 }
-@import url(http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css);
+@import url(https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css);
 .card-header {
   background-color: #e9ecefb5;
 }

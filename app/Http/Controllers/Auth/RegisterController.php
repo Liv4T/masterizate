@@ -55,15 +55,11 @@ class RegisterController extends Controller
             'name'              => ['required', 'string', 'max:120'],
             'last_name'         => ['required', 'string', 'max:120'],
             'user_name'         => ['required', 'string', 'max:20', 'unique:users'],
-            'age'               => ['required', 'string', 'max:3'],
-            'birthday'          => ['required', 'date', 'max:120'],
-            'id_categories'     => ['required', 'string', 'max:120'],
-            'id_subcategories'  => ['required', 'string', 'max:120'],
             'type_user'         => ['required', 'string', 'max:120'],
             'address'           => ['required', 'string', 'max:120'],
             'picture'           => ['required', 'string', 'max:120'],
             'phone'             => ['required', 'string', 'max:120'],
-            'id_number'         => ['required', 'string', 'max:15'], 
+            'id_number'         => ['required', 'string', 'max:15'],
         ]);
     }
 
@@ -78,11 +74,7 @@ class RegisterController extends Controller
         return User::create([
             'name' => $data['name'],
             'last_name'  => $data['last_name'],
-            'user_name'=> $data['user_name'],
-            'age' => $data['age'],
-            'birthday' => $data['birthday'],
-            'id_categories' => $data['name'],
-            'id_subcategories'  => $data['name'],
+            'user_name' => $data['user_name'],
             'type_user'  => $data['name'],
             'address'  => $data['address'],
             'picture'  => $data['picture'],
@@ -90,7 +82,7 @@ class RegisterController extends Controller
             'id_number'  => $data['id_number'],
             'email' => $data['email'],
             'password' => Hash::make($data['password'])
-            
+
         ]);
         /* Send email register */
         if (isset($data['email'])) {

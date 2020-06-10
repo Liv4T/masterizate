@@ -1,4 +1,5 @@
 <?php
+
 use App\Message;
 use App\User;
 use App\Events\MessagePosted;
@@ -20,11 +21,11 @@ Route::get('/', function () {
 Route::get('/user', function () {
     return view('user');
 });
-Route::get('/type', function () {
+Route::get('/board', function () {
     return view('welcome');
 });
-Route::get('/category', function () {
-    return view('category');
+Route::get('/memoria', function () {
+    return view('memory');
 });
 Route::get('/task', function () {
     return view('class');
@@ -33,17 +34,24 @@ Route::get('/resume', function () {
     return view('resume');
 });
 Route::get('/class', function () {
-        return view('class');
+    return view('class');
 });
-Route::get('/board', function () {
-    return view('board');
+Route::get('/Clases', function () {
+    return view('clasesSt');
 });
-Route::get('/boards', function () {
-    return view('dboard');
+Route::get('/notas_d', function () {
+    return view('notasDocente');
 });
-Route::get('/chat', function () {
-    return view('chat');
+Route::get('/actividad_docente', function () {
+    return view('actividadVD');
 });
+// Route::get('/board', function () {
+//     return view('board');
+// });
+// Route::get('/boards', function () {
+//      return view('dboard');
+// });
+
 Route::get('/free', function () {
     return view('free');
 });
@@ -53,8 +61,11 @@ Route::get('/freeUnit', function () {
 Route::get('/course', function () {
     return view('course');
 });
-Route::get('/courseUnit', function () {
-    return view('courseU');
+Route::get('/crear_semana', function () {
+    return view('semanal');
+});
+Route::get('/act_semana', function () {
+    return view('semanalAct');
 });
 Route::get('/unit', function () {
     return view('unit');
@@ -68,8 +79,8 @@ Route::get('/ccourse', function () {
 Route::get('/listactivity', function () {
     return view('lista');
 });
-Route::get('/activity', function () {
-    return view('activity');
+Route::get('/actividad_g', function () {
+    return view('actividadgd');
 });
 Route::get('/sincro', function () {
     return view('sincro');
@@ -86,7 +97,7 @@ Route::get('/vactivity', function () {
 Route::get('/consult', function () {
     return view('consult');
 });
-Route::get('/cuestions', function () {
+Route::get('/manual', function () {
     return view('cuestions');
 });
 Route::get('/mycourse', function () {
@@ -119,151 +130,210 @@ Route::get('/miPerfil', function () {
 Route::get('/resetPass', function () {
     return view('resetPass');
 });
-Route::get('/video', function () {
-    return view('videochat');
-});
+
 Route::get('/trivia', function () {
     return view('trivia');
 });
+Route::get('/triviaimg', function () {
+    return view('triviaimg');
+});
+Route::get('/quiz', function () {
+    return view('quizopen');
+});
+Route::get('/sentence', function () {
+    return view('quiz');
+});
+Route::get('/mensajes', function () {
+    return view('mensajes');
+});
+Route::get('/Actividad', function () {
+    return view('actividad');
+});
+Route::get('/notas', function () {
+    return view('notas');
+});
+Route::get('/boletin', function () {
+    return view('boletin');
+});
+Route::get('/calendar', function () {
+    return view('calendar');
+});
+Route::get('/perfil_d', function () {
+    return view('perfild');
+});
+Route::get('/anuncio_d', function () {
+    return view('anunciod');
+});
+Route::get('/anuncio_mc', function () {
+    return view('anunciomc');
+});
+Route::get('/inicio', function () {
+    return view('inicio');
+});
+Route::get('/juegos', function () {
+    return view('juegos');
+});
+Route::get('/redactar', function () {
+    return view('redactar');
+});
+Route::get('/vmensaje', function () {
+    return view('vistamensaje');
+});
+Route::get('/clases_d', function () {
+    return view('clasesDocente');
+});
+Route::get('/crear_clase', function () {
+    return view('crearClase');
+});
+Route::get('/general_adm', function () {
+    return view('cursosAdm');
+});
+Route::get('/semana_adm', function () {
+    return view('semanaAdm');
+});
+Route::get('/planificacion', function () {
+    return view('vplanAdm');
+});
+Route::get('/planeacion', function () {
+    return view('planificacionAdm');
+});
+Route::get('/plan_adm', function () {
+    return view('planAdm');
+});
+Route::get('/estudiante_adm', function () {
+    return view('estudianteAdm');
+});
+Route::get('/docente_adm', function () {
+    return view('docenteAdm');
+});
+Route::get('/reportes', function () {
+    return view('reportesAdm');
+});
+Route::get('/chat', 'HomeController@CreateGroup')->name('chat');
+// Lessons
+Route::delete('lessons/destroy', 'LessonsController@massDestroy')->name('lessons.massDestroy');
+Route::resource('lessons', 'LessonsController');
+
+// School Classes
+Route::delete('school-classes/destroy', 'SchoolClassesController@massDestroy')->name('school-classes.massDestroy');
+Route::resource('school-classes', 'SchoolClassesController');
+
+Route::get('horario', 'CalendarController@index')->name('calendar.index');
 /*login personalizado permite verificar suscripcion*/
 Route::post('/login2', 'UserController@loginWeb')->name('login2');
 Route::post('/resetPassword', 'UserController@resetPassword')->name('resetPassword');
+Route::put('/changePassword', 'UserController@changePassword')->name('changePassword');
+
 
 Route::post('users_save', 'UserController@store')->name('users_save');
+Route::get('showUser', 'UserController@show')->name('users_save');
+Route::post('users_save', 'UserController@store')->name('users_save');
+Route::post('img_user', 'UserController@uploadFile')->name('img_user');
 
 Route::post('savePrintDoc', 'HomeController@savePrintDoc')->name('savePrintDoc');
+Route::get('downloadFile', 'HomeController@downloadFile')->name('downloadFile');
+
 
 Route::get('info_user', 'UserController@show')->name('info_user');
-Route::get('GetCourses','CourseController@GetCourses');
-Route::get('GetCategories','CategoryController@GetCategories');
-Route::get('GetTypeU','CategoryController@GetTypeU');
-Route::get('GetSubcategories/{id}','CategoryController@GetSubcategories');
+Route::get('GetCourses', 'CourseController@GetCourses');
+Route::get('GetCategories', 'CategoryController@GetCategories');
+Route::get('GetTypeU', 'CategoryController@GetTypeU');
+Route::get('GetSubcategories/{id}', 'CategoryController@GetSubcategories');
 /* Get unit and topic */
-Route::get('GetUnits/{id}','courseController@GetUnits');
-Route::get('GetTopics/{id}','courseController@GetTopics');
+Route::get('GetUnits/{id}', 'courseController@GetUnits');
+Route::get('GetTopics/{id}', 'courseController@GetTopics');
 //Route::get('/home', 'HomeController@index')->name('home');
 Route::get('testsendemail/{email}', 'TestingController@sendemail');
 Auth::routes();
 
-Route::resource('activities', 'ActivitiesController', ['except'=> 'show','create','edit']);;
-Route::resource('types', 'TypeUserController', ['except'=> 'show','create','edit']);;
-Route::resource('tasks', 'TaskController', ['except'=> 'show','create','edit']);;
-Route::resource('categories', 'CategoryController', ['except'=> 'show','create','edit']);;
-Route::resource('users', 'UserController', ['except'=> 'show','create','edit']);;
-Route::resource('resumes', 'ResumeController', ['except'=> 'show','create','edit']);;
-Route::resource('courses', 'courseController', ['except'=> 'show','create','edit']);;
-Route::resource('course_unit', 'Course_unitController', ['except'=> 'show','create','edit']);;
+Route::resource('activities', 'ActivitiesController', ['except' => 'show', 'create', 'edit']);;
+Route::resource('types', 'TypeUserController', ['except' => 'show', 'create', 'edit']);;
+Route::resource('tasks', 'TaskController', ['except' => 'show', 'create', 'edit']);;
+Route::resource('categories', 'CategoryController', ['except' => 'show', 'create', 'edit']);;
+Route::resource('users', 'UserController', ['except' => 'show', 'create', 'edit']);;
+Route::resource('resumes', 'ResumeController', ['except' => 'show', 'create', 'edit']);;
+Route::resource('courses', 'courseController', ['except' => 'show', 'create', 'edit']);
+Route::resource('Courses', 'CoursesController', ['except' => 'show', 'create', 'edit']);
+Route::resource('Class', 'ClassController', ['except' => 'show', 'create', 'edit']);
+Route::get('GetClass', 'ClassController@getClass');
+Route::get('showClass/{id}', 'ClassController@show')->name('showClass');
+Route::resource('Activity', 'ActivityController', ['except' => 'show', 'create', 'edit']);
+Route::get('trivia/getAllQuestions/{id}', 'ActivityController@getAllQuestions');
+Route::get('trivia/{id}', 'ActivityController@activityId');
+Route::post('actividad_d/Activity', 'ActivityController@store');
+Route::get('showTrivia/{id}', 'ActivityController@showTrivia');
+
+
+
+Route::post('createEvent', 'EventsController@createEvent')->name('createEvent');
+Route::get('/getAllEvents', 'EventsController@indexEvents')->name('getAllEvents');
+
+
+Route::get('/actividad_d/{id}', 'ClassController@activityWeekId')->name('actividad_d');
+Route::get('/actividad_d/getClass/{id}', 'ClassController@getClassId')->name('getClass');
+Route::post('courseWeekly', 'CoursesController@courseWeekly')->name('courseWeekly');
+Route::get('GetWeek', 'CoursesController@getWeek');
+Route::get('editGetWeek', 'CoursesController@editGetWeek');
+Route::get('viewGetWeek', 'CoursesController@viewGetWeek');
+Route::get('showWeek/{id}', 'CoursesController@showWeek');
+Route::put('updateCourseWeekly', 'CoursesController@updateCourseWeekly');
+Route::resource('course_unit', 'Course_unitController', ['except' => 'show', 'create', 'edit']);;
 Route::get('/home', 'HomeController@index')->name('home');
-/*Route::get('/messages',function(){
 
-	return response()->json([
-	    'messages' => Message::with('user')->get(),
-	    'user' => Auth::user()
-	]);
-	
+// Chat
+Route::resource('groups', 'GroupController');
 
-})->middleware('auth');*/
-/*Route::post('/message',function(){
-	
-	$user = Auth::user();
-	
-	$message = $user->message()->create([
-		'message' => request()->get('message')
-	]);
+Route::resource('conversations', 'ConversationController');
 
-	broadcast(new MessagePosted($message,$user));
+/* Capturar los mensahe de una conversacion */
+Route::get('conversation/{id}', 'ConversationController@getConversation')->name('conversation');
 
-	return ['status' => 'OK'];
-})->middleware('auth');*/
-/*forum 
-// log.activity middleware logs the time of user activity that any inclusive routes are hit
-Route::group(['middleware' => ['log.activity']], function() {
+Route::post('fileUpload', 'ConversationController@uploadFile')->name('fileUpload');
 
-    // use profile
-    Route::get('/user/profile/@{user}', 'ProfileController@index')->name('user.profile.index');
 
-    // auth routing
-    Route::group(['middleware' => ['auth']], function () {
+Route::post('fileDocument', 'ClassController@uploadFile')->name('fileDocument');
+// Save audio Blop
+Route::post('fileUploadAudio', 'ConversationController@saveAudio')->name('fileUploadAudio');
 
-        // general auth routing
-        Route::get('/home', 'HomeController@index')->name('home.index');
+//Rutas foro
 
-        Route::group(['prefix' => 'forum'], function() {
-            // auth forum routes
-            // topics
-            Route::get('/topics/create', 'TopicsController@showCreateForm')->name('forum.topics.create.form');
-            Route::post('/topics/create', 'TopicsController@create')->name('forum.topics.create.submit');
+Route::get('/questions', 'QuestionController@index')->name('questions');
 
-            // subscriptions
-            Route::get('/topics/{topic}/subscription/status', 'SubscriptionsController@getSubscriptionStatus')->name('forum.topics.topic.subscription.status');
-            Route::post('/topics/{topic}/subscription', 'SubscriptionsController@handleSubscription')->name('forum.topics.topic.subscription.submit');
+Auth::routes();
 
-            // posts
-            Route::post('/topics/{topic}/posts/create', 'PostsController@create')->name('forum.topics.posts.create.submit');
-            Route::get('/topics/{topic}/posts/{post}/edit', 'PostsController@edit')->name('forum.topics.topic.posts.post.edit');
-            Route::post('/topics/{topic}/posts/{post}/update', 'PostsController@update')->name('forum.topics.topic.posts.post.update');
-            Route::delete('/topics/{topic}/posts/{post}/delete', 'PostsController@destroy')->name('forum.topics.topic.posts.post.delete');
+// Route::get('/home', 'HomeController@index')->name('home');
 
-            // reports
-            Route::post('/topics/{topic}/report', 'TopicsReportController@report')->name('forum.topics.topic.report.report');
-            Route::post('/topics/{topic}/posts/{post}/report', 'PostsReportController@report')->name('forum.topics.topic.posts.post.report.report');
+// Route::resource('/questions_source', 'QuestionController');
+Route::get('createQuestion', 'QuestionController@create')->name('createQuestion');
 
-            // auth.elevated refers to moderator || admin roles
-            Route::group(['middleware' => ['auth.elevated']], function() {
-                Route::delete('/topics/{topic}', 'TopicsController@destroy')->name('forum.topics.topic.delete');
-            });
-        });
+Route::post('storeQuestion', 'QuestionController@store')->name('storeQuestion');
+Route::get('showQuestion/{id}', 'QuestionController@show')->name('showQuestion');
 
-        // user routing
-        Route::group(['prefix' => 'user'], function() {
+Route::get('editQuestion/{id}', 'QuestionController@edit')->name('editQuestion');
+Route::post('updateQuestion', 'QuestionController@update')->name('updateQuestion');
 
-            Route::group(['prefix' => 'chat/threads'], function() {
-                // user messaging
-                Route::get('/', 'MessagesThreadController@index')->name('user.chat.threads.index');
-                Route::post('/create', 'MessagesThreadController@create')->name('user.chat.threads.create');
+Route::post('deleteQuestion/{id}', 'QuestionController@destroy')->name('deleteQuestion');
+// route set for all answer for a particular question
+// ---------------------------------------------------
+Route::resource('/questions.answers', 'AnswerController')->except(['index', 'create', 'show']);
 
-                Route::get('/@{user}/messages', 'MessagesController@index')->name('user.chat.threads.thread.messages.index');
-                Route::get('/@{user}/messages/fetch', 'MessagesController@fetchMessages')->name('user.chat.threads.thread.messages.fetch');
-                Route::post('/@{user}/messages', 'MessagesController@create')->name('user.chat.threads.thread.messages.create');
-            });
+Route::post('storeAnswer', 'AnswerController@store')->name('storeAnswer');
 
-            Route::group(['prefix' => 'profile'], function() {
-                // user profile
-                Route::get('/@{user}/settings', 'ProfileSettingsController@index')->name('user.profile.settings.index');
-                Route::post('/@{user}/settings/update/', 'ProfileSettingsController@update')->name('user.profile.settings.update');
-            });
+// route set for favorite answer
+// -------------------------------
+Route::post('/answers/{answer}/accept', 'AcceptAnswerController')->name('answers.accept');
 
-        });
+// route set for favorite question mark
+// -----------------------------------
 
-        // admin routing
-        Route::group(['prefix' => 'admin', 'middleware' => ['auth.admin']], function () {
-            // admin dashboard
-            Route::get('/dashboard', 'AdministratorDashboardController@index')->name('admin.dashboard.index');
-            Route::post('/dashboard/update', 'AdministratorDashboardController@update')->name('admin.dashboard.update');
-            Route::post('/dashboard/invite', 'AdministratorDashboardController@invite')->name('admin.dashboard.invite');
+Route::post('/questions/{question}/favorite', 'FavoriteQuestionController@store')->name('questions.favorite');
+Route::delete('/questions/{question}/favorite', 'FavoriteQuestionController@destroy')->name('questions.favorite');
 
-            Route::delete('/dashboard/users/{user}', 'AdministratorDashboardController@destroy')->name('admin.dashboard.user.destroy');
-        });
+// voting the question
+// --------------------
 
-        // moderator dashboard, also accessible by admin (auth.elevated)
-        Route::group(['prefix' => 'moderator', 'middleware' => ['auth.elevated']], function() {
-            Route::get('/dashboard', 'ModeratorDashboardController@index')->name('moderator.dashboard.index');
-            Route::delete('/dashboard/reports/{report}', 'ModeratorDashboardController@destroy')->name('moderator.dashboard.reports.report.destroy');
-        });
+Route::post('/questions/{question}/vote', 'VoteQuestionController')->name('questions.vote');
 
-    });
-
-    // public forum routing
-    Route::group(['prefix' => 'forum'], function() {
-        // view topics and topic posts
-        Route::get('/', 'TopicsController@index')->name('forum.topics.index');
-        Route::get('/topics/{topic}', 'TopicsController@show')->name('forum.topics.topic.show');
-
-        // check status of content, in relation to reporting
-        Route::get('/topics/{topic}/report/status', 'TopicsReportController@status')->name('forum.topics.topic.report.status');
-        Route::get('/topics/{topic}/posts/{post}/report/status', 'PostsReportController@status')->name('forum.topics.topic.posts.post.report.status');
-    });
-
-});
-*/
-
+// voting the answer
+// --------------------
+Route::post('/answers/{answer}/vote', 'VoteAnswerController')->name('answers.vote');

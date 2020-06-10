@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\User;
+use Illuminate\Support\Facades\Hash;
 use Auth;
 
 class UserController extends Controller
@@ -18,7 +19,7 @@ class UserController extends Controller
     {
         $users = User::all();
         return $users;
-     /*[
+        /*[
          'pagination'      => [
             'total'        => $users->total(),
             'current_page' => $users->currentPage(),
@@ -32,18 +33,19 @@ class UserController extends Controller
     }
 
     /**
-     * login  
+     * login
      */
-    public function loginWeb (Request $request) {
+    public function loginWeb(Request $request)
+    {
         $user_name = $request->input('user_name');
         $password = $request->input('password');
         if (Auth::attempt(['user_name' => $user_name, 'password' => $password], false)) {
-          $user = Auth::user();
-          return redirect('/');
+            $user = Auth::user();
+            return redirect('/inicio');
         } else {
-          return redirect('/login')->with('status', 'Usuario no encontrado!');
+            return redirect('/login')->with('status', 'Usuario no encontrado!');
         }
-      }
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -63,40 +65,37 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-      
-     $this->validate($request, [
-        
-            'name'=>'required',
-           'last_name'=>'required',
-            'password'=>'required',
-            'email'=>'required',
-            'id_categories'=>'required',
-            'id_subcategories'=>'required',
-            'type_user'=>'required',
-            'address'=>'required',
-            'phone'=>'required',
-            'id_number'=>'required'
+        $this->validate($request, [
+
+            'name' => 'required',
+            'last_name' => 'required',
+            'password' => 'required',
+            'email' => 'required',
+            'type_user' => 'required',
+            'address' => 'required',
+            'phone' => 'required',
+            'id_number' => 'required'
         ]);
+
         // User::create($request->all());
-           $data = $request->all();
-           $user = new User;
-           $user->name = isset($data['name']) ? $data['name'] : "";
-           $user->last_name = isset($data['last_name']) ? $data['last_name'] : "";
-           $user->email = isset($data['email']) ? $data['email'] : "";
-           $user->user_name = isset($data['user_name']) ? $data['user_name'] : "";
-           $user->birthday = isset($data['birthday']) ? $data['birthday'] : "";
-           $user->phone = isset($data['phone']) ? $data['phone'] : "";
-           $user->id_number = isset($data['id_number']) ? $data['id_number'] : "";
-           $user->password = isset($data['Cpassword']) ? $data['Cpassword'] : $data['password'];
-           $user->address = isset($data['address']) ? $data['address'] : "";
-           $user->id_categories = isset($data['id_categories']) ? $data['id_categories'] : "";
-           $user->id_subcategories = isset($data['id_subcategories']) ? $data['id_subcategories'] : ""; 
-           $user->save();
-            if($data['picture']){
-                $img = $this->saveImg($data['picture'],1360,765);
-                $user->picture = $img;
-                $user->save();
-            }
+        $data = $request->all();
+        $url = url()->current();
+        $url = explode("/", $url);
+        $url = $url[0] . "//" . $url[2];
+
+        $user = new User;
+        $user->name = isset($data['name']) ? $data['name'] : "";
+        $user->last_name = isset($data['last_name']) ? $data['last_name'] : "";
+        $user->email = isset($data['email']) ? $data['email'] : "";
+        $user->user_name = isset($data['user_name']) ? $data['user_name'] : "";
+        $user->phone = isset($data['phone']) ? $data['phone'] : "";
+        $user->id_number = isset($data['id_number']) ? $data['id_number'] : "";
+        $user->password = isset($data['Cpassword']) ? Hash::make($data['Cpassword']) : Hash::make($data['password']);
+        $user->address = isset($data['address']) ? $data['address'] : "";
+        $user->type_user = isset($data['type_user']) ? $data['type_user'] : "";
+        $user->picture = isset($data['user_name']) ? $url . "/uploads/images/" . $data['user_name'] . ".png" : "";
+        $user->save();
+
         /* Send email register */
         if (isset($data['email'])) {
             Mail::send('emails.register', $data, function ($msj) use ($data) {
@@ -157,19 +156,54 @@ class UserController extends Controller
         $users = User::findOrFail($id);
         $users->delete();
     }
-     public function saveImg($file,$width,$height)
+    public function uploadFile(Request $request)
     {
-        $file = base64_encode(file_get_contents($file));
-        $random = str_random(10);
-        $nombre = $random.'-'.$file;
-        $path   = base_path('../uploads/images/'.$nombre);
-        $url    = 'images/'.$nombre;
-        file_put_contents(base_path('../uploads/images/'.$nombre), $file);
-        // $image->save($path);
-        return $url;
-    
+        // return $request;
+        $file = request('file');
+        // dd($file);
+        if (!empty($file)) {
+            $fileName = request('user_name');
+            // file with path
+            $filePath = url('uploads/images/' . $fileName . ".png");
+            //Move Uploaded File
+            $destinationPath = 'uploads/images';
+            if ($file->move($destinationPath, $fileName . ".png")) {
+                return "ok";
+            }
+        }
     }
-    public function resetPassword($email){
-        User::where('email',$email)->first();
+    public function resetPassword(Request $request)
+    {
+        $user = User::where('email', $request->email)->first();
+        if ($user) {
+            $password = time() . $user->id;
+            $data = [
+                'user' => $user,
+                'password' => $password,
+                'email' => $user->email,
+            ];
+
+            Mail::send('emails.forgotPassword', $data, function ($msj) use ($data) {
+                $msj->to($data['email'])->subject('Olvidé Contraseña');
+            });
+
+            $user->password = Hash::make($password);
+            $user->save();
+            return view('home');
+        } else {
+            return redirect()->back()->withErrors(['error' => 'Las credenciales ingresadas no coinciden en nuestros registros']);
+        }
+    }
+    public function changePassword(Request $request)
+    {
+        $user = Auth::user();
+        $password = $request->password;
+        if ($user) {
+            $user->password = Hash::make($password);
+            $user->save();
+            return 'ok';
+        } else {
+            return 'false';
+        }
     }
 }

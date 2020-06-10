@@ -1,13 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
-<formstyle></formstyle>
 <div class="container">
     <div class="row justify-content-center">
         <div class="card-body"> @if (session('status'))
           <div class="alert alert-success" role="alert">{{ session('status') }}</div>@endif
         </div>
-    </div> 
+    </div>
     <div class = " col-md-5 col-md-offset-2 mx-auto ">
         <div class="card">
             <h3 class = " card-header ">Chat Room</h3>
