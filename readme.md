@@ -30,9 +30,10 @@ L4T requiere [Node.js](https://nodejs.org/) V-12.10.0.
 Instale las dependencias e inicie el servidor
 
 ```sh
-$ cd Live4Teach
-$ npm install V-6.10.3
-$ Key generate
+$ cd Liv4TtS
+$ npm install
+$ composer install
+$ php artisan key:generate
 $ .env BD hostinger
 ```
 
