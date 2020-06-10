@@ -1,7 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Classes;
+use App\Files;
 use Illuminate\Http\Request;
 
 class ClassController extends Controller
@@ -35,23 +37,23 @@ class ClassController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-        
-            'description'=>'required',
-           /* 'last_name'=>'required',
-            'password'=>'required',
-            'email'=>'required',
-            'id_categories'=>'required',
-            'id_subcategories'=>'required',
-            'type_user'=>'required',
-            'address'=>'required',
-            'phone'=>'required',
-            'id_number'=>'required'
-            */
+        $data = $request->all();
+        $video = Files::where('unit', $data['name'])->where('type', 2)->first();
+        $documento = Files::where('unit', $data['name'])->where('type', 1)->first();
+        $courses = Classes::create([
+            'description' => $data['description'],
+            'id_weekly_plan' => $data['id_weekly_plan'],
+            'name' => $data['name'],
+            'name_document' => $data['name_document'],
+            'url'    => $data['url'],
+            'document' => $documento->path,
+            'video'  => $video->path,
         ]);
-        //return $request;
-        Classes::create($request->all());
-        return;
+        return 'ok';
+        $arch = Files::findOrFail($documento->id);
+        $arch->delete();
+        $vid = Files::findOrFail($video->id);
+        $vid->delete();
     }
 
     /**
@@ -60,9 +62,10 @@ class ClassController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, String $id)
     {
-        //
+        $clase = Classes::where('id_weekly_plan', $id)->get();
+        return $clase;
     }
 
     /**
@@ -100,7 +103,86 @@ class ClassController extends Controller
      */
     public function destroy($id)
     {
-        $clases = Classes::findOrFail($id);
-        $clases->delete();
+    }
+    public function uploadFile(Request $request)
+    {
+        // return $request;
+        $file = request('file');
+        // dd($file);
+        if (!empty($file)) {
+            $fileName = $file->getClientOriginalName();
+            $div_file_name = explode(".", $fileName);
+            $div_file_name = end($div_file_name);
+            $extension = $div_file_name;
+            $fileName_1 = request('name');
+            $fileName = strtr($fileName_1, " ", "_");
+            // file with path
+            $filePath = url('uploads/clases/' . $fileName . "." . $extension);
+            //Move Uploaded File
+            $destinationPath = 'uploads/clases/';
+            if ($extension == "flv" || $extension == "mp4" || $extension == "m3u8" || $extension == "ts" || $extension == "3gp" || $extension == "mov" || $extension == "avi" || $extension == "wmv") {
+                $type = 2;
+            } else {
+                $type = 1;
+            }
+            if ($file->move($destinationPath, $fileName . "." . $extension)) {
+                $file = Files::create([
+                    'path' => $filePath,
+                    'unit' => $fileName_1,
+                    'type' => $type,
+                ]);
+                return "ok";
+            }
+            return "error";
+        }
+    }
+    public function getClass()
+    {
+
+        $Classes = Classes::all();
+        $data = [];
+        $data[0] = [
+            'id'   => 0,
+            'text' => 'Seleccione',
+        ];
+        foreach ($Classes as $key => $class) {
+            $data[$key + 1] = [
+                'id'   => $class->id,
+                'text' => $class->name,
+            ];
+        }
+        return response()->json($data);
+    }
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getClassId(Request $request, String $id)
+    {
+
+        $Classes = Classes::where('id_weekly_plan', $id)->get();
+        $data = [];
+        $data[0] = [
+            'id'   => 0,
+            'text' => 'Seleccione',
+        ];
+        foreach ($Classes as $key => $class) {
+            $data[$key + 1] = [
+                'id'   => $class->id,
+                'text' => $class->name,
+            ];
+        }
+        return response()->json($data);
+    }
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function activityWeekId(Request $request, String $id)
+    {
+        $week = $id;
+        return view("activity", compact("week"));;
     }
 }

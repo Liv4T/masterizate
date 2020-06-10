@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 use Response;
+use Auth;
+use App\User;
+use App\Group;
 
 class HomeController extends Controller
 {
@@ -24,7 +28,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return 1;   
+        return 1;
         return view('home');
     }
 
@@ -50,12 +54,13 @@ class HomeController extends Controller
 
         $section->addText('');
 
-        \PhpOffice\PhpWord\Shared\Html::addHtml($section, 
-        "<html>
+        \PhpOffice\PhpWord\Shared\Html::addHtml(
+            $section,
+            "<html>
         <head>
         <style>
         h2{
-            font-size: 1.5em; 
+            font-size: 1.5em;
             font-weight: bolder;
             color: #FF0000;
         }
@@ -65,13 +70,36 @@ class HomeController extends Controller
         $content
         </body>
         </html>
-        ", true, true);
+        ",
+            true,
+            true
+        );
 
         header('Content-Type: text/html');
         header("Content-disposition: attachment; filename=" . date("Y-m-d") . ".docx");
 
         $objectWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'Word2007');
-        $objectWriter->save('example_doc3.docx');
+        $name_doc = "liv4tskool-" . Auth::user()->id . ".docx";
+        $objectWriter->save($name_doc);
+    }
+    public function downloadFile()
+    {
+        $name_doc = "liv4tskool-" . Auth::user()->id . ".docx";
+        $pathtoFile = public_path() . '/' . $name_doc;
+        // var_dump($pathtoFile);
+        // die;
+        return (env('APP_STAGE') == "DEV") ? env('APP_URL_DEV') . $name_doc : env('APP_URL_PROD') . $name_doc;
+        // return response()->download($pathtoFile, 'Benjamin_Gakami_CV.docx', $headers);
+        // return Redirect::to($pathtoFile);
+    }
+    public function CreateGroup()
+    {
+        $groups = auth()->user()->groups;
+
+        $users = User::where('id', '<>', auth()->user()->id)->get();
+        $user = User::find(auth()->user()->id);
+        // $user = auth()->user()->id;
+        // $user = $user->id;
+        return view('grupos', ['groups' => $groups, 'users' => $users, 'user' => $user->id]);
     }
 }
-

@@ -36,14 +36,15 @@ class ActivitiesController extends Controller
      */
     public function store(Request $request)
     {
+        return $request;
         $data = $request->all();
         $activities = new Activities;
 
-        $activities->id_courser = $data["id_courser"];
+        // $activities->id_courser = $data["id_courser"];
         $activities->newDescription = $data["newDescription"];
-        $activities->newName = $data["newName"];
-        $activities->newId_subcategories = $data["newId_subcategories"];
-        $activities->newSubject = $data["newSubject"];
+        // $activities->newName = $data["newName"];
+        // $activities->newId_subcategories = $data["newId_subcategories"];
+        // $activities->newSubject = $data["newSubject"];
         $activities->newObjetive = $data["newObjetive"];
         $activities->newFromW = $data["newFromW"];
         $activities->newToW = $data["newToW"];
@@ -78,9 +79,9 @@ class ActivitiesController extends Controller
         $activities->newRetro = $data["newRetro"];
         $activities->save();
 
-        if($activities->save()){
+        if ($activities->save()) {
             return response()->json([true]);
-        }else{
+        } else {
             return response()->json([false]);
         }
     }

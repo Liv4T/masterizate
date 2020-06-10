@@ -12,7 +12,7 @@
             font-family:inherit !important;
             font-weight:inherit !important;
             line-height:inherit !important;
-        }       
+        }
         body {-webkit-text-size-adjust:none; -ms-text-size-adjust:none;}
         body {margin:0; padding:0;}
         .yshortcuts a {border-bottom: none !important;}
@@ -69,11 +69,11 @@
         .rnb-social-align{float:right!important;}
 
         /* Ul Li outlook extra spacing fix */
-        li{mso-margin-top-alt: 0; mso-margin-bottom-alt: 0;}       
+        li{mso-margin-top-alt: 0; mso-margin-bottom-alt: 0;}
 
         /* Outlook fix */
         table {mso-table-lspace:0pt; mso-table-rspace:0pt;}
-   
+
         /* Outlook fix */
         table, tr, td {border-collapse: collapse;}
 
@@ -301,12 +301,12 @@
         <td align="center" valign="top">
 
             <div style="background-color: rgb(255, 255, 255); border-radius: 0px;">
-               
+
                 <!--[if mso]>
                 <table align="center" border="0" cellspacing="0" cellpadding="0" width="100%" style="width:100%;">
                 <tr>
                 <![endif]-->
-               
+
                 <!--[if mso]>
                 <td valign="top" width="590" style="width:590px;">
                 <![endif]-->
@@ -342,28 +342,28 @@
             <!--[if mso]>
                 </td>
                 <![endif]-->
-               
+
                 <!--[if mso]>
                 </tr>
                 </table>
                 <![endif]-->
-           
+
         </div></td>
     </tr><tr>
 
         <td align="center" valign="top">
 
             <div style="background-color: rgb(255, 255, 255); border-radius: 0px;">
-               
+
                 <!--[if mso]>
                 <table align="center" border="0" cellspacing="0" cellpadding="0" width="100%" style="width:100%;">
                 <tr>
                 <![endif]-->
-               
+
                 <!--[if mso]>
                 <td valign="top" width="590" style="width:590px;">
                 <![endif]-->
-           
+
                 <table width="100%" cellpadding="0" border="0" cellspacing="0" name="Layout_" id="Layout_"><tbody><tr>
                     <td align="center" valign="top"><table border="0" width="100%" cellpadding="0" cellspacing="0" class="rnb-container" bgcolor="#ffffff" style="height: 0px; background-color: rgb(255, 255, 255); border-radius: 0px; border-collapse: separate; padding-top: 20px; padding-left: 20px; padding-right: 20px;"><tbody><tr>
                                 <td class="rnb-container-padding" style="font-size: px;font-family: ; color: ;">
@@ -402,24 +402,24 @@
             </tbody></table><!--[if mso]>
                 </td>
                 <![endif]-->
-               
+
                 <!--[if mso]>
                 </tr>
                 </table>
                 <![endif]-->
-           
+
         </div></td>
     </tr><tr>
 
         <td align="center" valign="top">
 
             <div style="background-color: rgb(255, 255, 255); border-radius: 0px;">
-           
+
                 <!--[if mso]>
                 <table align="center" border="0" cellspacing="0" cellpadding="0" width="100%" style="width:100%;">
                 <tr>
                 <![endif]-->
-               
+
                 <!--[if mso]>
                 <td valign="top" width="590" style="width:590px;">
                 <![endif]-->
@@ -458,7 +458,7 @@
             </tbody></table><!--[if mso]>
                 </td>
                 <![endif]-->
-               
+
                 <!--[if mso]>
                 </tr>
                 </table>
@@ -470,12 +470,12 @@
         <td align="center" valign="top">
 
             <div style="background-color: rgb(255, 255, 255); border-radius: 0px;">
-               
+
                 <!--[if mso]>
                 <table align="center" border="0" cellspacing="0" cellpadding="0" width="100%" style="width:100%;">
                 <tr>
                 <![endif]-->
-               
+
                 <!--[if mso]>
                 <td valign="top" width="590" style="width:590px;">
                 <![endif]-->
@@ -516,7 +516,7 @@
                                                         <td height="10" class="col_td_gap" style="font-size:1px; line-height:0px; mso-hide: all;">&nbsp;</td>
                                                     </tr><tr>
                                                         <td style="font-size:24px; font-family:Arial,Helvetica,sans-serif; color:#3c4858; text-align:left;">
-                                                            <span style="color:#3c4858; "><strong><span style="font-size:18px;">Hola NOMBRE USUARIO</span></strong></span></td>
+                                                            <span style="color:#3c4858; "><strong><span style="font-size:18px;">Hola</span></strong></span></td>
                                                     </tr><tr>
                                                         <td height="10" class="col_td_gap" style="font-size:1px; line-height:0px; mso-hide: all;">&nbsp;</td>
                                                     </tr><tr>
@@ -542,109 +542,27 @@
             </tbody></table><!--[if mso]>
                 </td>
                 <![endif]-->
-               
+
                 <!--[if mso]>
                 </tr>
                 </table>
                 <![endif]-->
-               
+
             </div></td>
     </tr><tr>
 
         <td align="center" valign="top">
 
             <div style="background-color: rgb(255, 255, 255); border-radius: 0px;">
-               
+
                 <!--[if mso]>
                 <table align="center" border="0" cellspacing="0" cellpadding="0" width="100%" style="width:100%;">
                 <tr>
                 <![endif]-->
-               
+
                 <!--[if mso]>
                 <td valign="top" width="590" style="width:590px;">
                 <![endif]-->
-           
-                <table width="100%" cellpadding="0" border="0" cellspacing="0" name="Layout_7" id="Layout_7"><tbody><tr>
-                    <td align="center" valign="top"><table border="0" width="100%" cellpadding="0" cellspacing="0" class="rnb-container" bgcolor="#ffffff" style="height: 0px; background-color: rgb(255, 255, 255); border-radius: 0px; border-collapse: separate; padding-left: 20px; padding-right: 20px;"><tbody><tr>
-                                <td class="rnb-container-padding" style="font-size: px;font-family: ; color: ;">
 
-                                    <table border="0" cellpadding="0" cellspacing="0" class="rnb-columns-container" align="center" style="margin:auto;">
-                                        <tbody><tr>
 
-                                            <th class="rnb-force-col" align="center" style="text-align: center; font-weight: normal">
-
-                                                <table border="0" cellspacing="0" cellpadding="0" align="center" class="rnb-col-1">
-
-                                                    <tbody><tr>
-                                                        <td height="10"></td>
-                                                    </tr>
-
-                                                    <tr>
-                                                        <td class="content-spacing" style="font-family:Arial,Helvetica,sans-serif; color:#3c4858; text-align:center;">
-
-                                                            <span style="color:#3c4858;"><strong><span style="font-size:24px;">Cursos complementarios que te pueden interesar!</span></strong></span>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td height="10"></td>
-                                                    </tr>
-                                                    </tbody></table>
-                                                </th></tr>
-                                    </tbody></table></td>
-                            </tr>
-
-                        </tbody></table>
-
-                    </td>
-                </tr>
-
-            </tbody></table><!--[if mso]>
-                </td>
-                <![endif]-->
-               
-                <!--[if mso]>
-                </tr>
-                </table>
-                <![endif]-->
-           
-        </div></td>
-    </tr><tr>
-
-        <td align="center" valign="top">
-
-            <div style="background-color: rgb(255, 255, 255); border-radius: 1px;">
-               
-                <!--[if mso]>
-                <table align="center" border="0" cellspacing="0" cellpadding="0" width="100%" style="width:100%;">
-                <tr>
-                <![endif]-->
-               
-                <!--[if mso]>
-                <td valign="top" width="590" style="width:590px;">
-                <![endif]-->
-                <table class="rnb-del-min-width" width="100%" cellpadding="0" border="0" cellspacing="0" style="min-width:100%;" name="Layout_" id="Layout_">
-                <tbody><tr>
-                    <td class="rnb-del-min-width" align="center" valign="top">
-                        <table width="100%" border="0" cellpadding="0" cellspacing="0" class="rnb-container" bgcolor="#ffffff" style="max-width: 100%; min-width: 100%; table-layout: fixed; background-color: rgb(255, 255, 255); border-radius: 1px; border-collapse: separate; padding-left: 20px; padding-right: 20px;">
-                            <tbody><tr>
-                                <td height="20" style="font-size:1px; line-height:0px; mso-hide: all;">&nbsp;</td>
-                            </tr>
-                            <tr>
-                                <td valign="top" class="rnb-container-padding" align="left">
-
-                                    <table width="100%" border="0" cellpadding="0" cellspacing="0" class="rnb-columns-container">
-                                        <tbody><tr>
-                                            <th class="rnb-force-col" style="text-align: left; font-weight: normal; padding-right: 20px;" width="265" valign="top">
-                                                <table border="0" valign="top" cellspacing="0" cellpadding="0" align="left" class="rnb-col-2" width="265">
-                                                    <tbody><tr>
-                                                        <td width="100%" class="img-block-center" valign="top" align="left">
-                                                            <table width="100%" cellspacing="0" cellpadding="0" border="0">
-                                                            <tbody>
-                                                                <tr>
-                                                                    <td width="100%" valign="top" align="left" class="img-block-center">
-                                                                        <table style="display: inline-block;" cellspacing="0" cellpadding="0" border="0">
-                                                                            <tbody><tr>
-                                                                                <td>
-                                                                                    <div style="border-top:0px None #000;border-right:0px None #000;border-bottom:0px None #000;border-left:0px None #000;display:inline-block;"><div><img border="0" width="258" hspace="0" vspace="0" alt="" class="rnb-col-2-img" src="https://img.mailinblue.com/2666804/images/rnb/original/5e40529107d6581105674ad0.jpg" style="vertical-align: top; max-width: 264px; float: left;"></div><div style="clear:both;"></div>
-                                                     
 	</html>

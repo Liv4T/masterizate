@@ -4,12 +4,18 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 require("./bootstrap");
-
 window.Vue = require("vue");
+window.Bus = new Vue();
 window.toastr = require("toastr");
 import CKEditor from "@ckeditor/ckeditor5-vue";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-vue/dist/bootstrap-vue.css";
+import fullCalendar from "vue-fullcalendar";
+import Game from "./components/Game";
+import store from "./vuex/store";
+
+// the main entrance
+/* eslint-disable no-new */
 
 /**
  * The following block of code may be used to automatically register your
@@ -22,227 +28,100 @@ import "bootstrap-vue/dist/bootstrap-vue.css";
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-Vue.component(
-    "example-component",
-    require("./components/ExampleComponent.vue").default
-);
-//Vue.component('task-component', require('./components/TaskComponent.vue').default);
-Vue.component(
-    "category-component",
-    require("./components/CategoryComponent.vue").default
-);
-Vue.component(
-    "pagination-component",
-    require("./components/PaginationComponent.vue").default
-);
-Vue.component("select2", require("./components/Select2.vue").default);
-Vue.component(
-    "user-component",
-    require("./components/UserComponent.vue").default
-);
-Vue.component(
-    "type-component",
-    require("./components/TypeUserComponent.vue").default
-);
-Vue.component(
-    "resume-component",
-    require("./components/ResumeComponent.vue").default
-);
-Vue.component("checkbox", require("./components/Checkbox.vue").default);
-Vue.component(
-    "class-component",
-    require("./components/ClassComponent.vue").default
-);
-Vue.component(
-    "chat-message",
-    require("./components/ChatMessageComponent.vue").default
-);
-Vue.component("chat-log", require("./components/ChatLogComponent.vue").default);
-Vue.component(
-    "chat-composer",
-    require("./components/ChatcomposerComponent.vue").default
-);
-Vue.component(
-    "blog-component",
-    require("./components/BlogComponent.vue").default
-);
-Vue.component("draw-c", require("./components/draw.vue").default);
-Vue.component("app-vue", require("./App1.vue").default);
-Vue.component(
-    "modify-users",
-    require("./components/AdminModifyUsersComponent.vue")
-);
-Vue.component(
-    "subscribe-button",
-    require("./components/SubscribeButtonComponent.vue")
-);
-Vue.component(
-    "report-topic-button",
-    require("./components/ReportTopicComponent.vue")
-);
-Vue.component(
-    "report-post-button",
-    require("./components/ReportPostComponent.vue")
-);
-Vue.component(
-    "delete-report",
-    require("./components/ModeratorDeleteReportButtonComponent.vue")
-);
+Vue.component("example-component", require("./components/ExampleComponent.vue").default);
+// Vue.component('task-component', require('./components/TaskComponent.vue').default);
+Vue.component("category-component", require("./components/CategoryComponent.vue").default);
 
-Vue.component("messaging", require("./components/UserMessagingComponent.vue"));
+Vue.component("select2", require("./components/Select2.vue").default);
+Vue.component("user-component", require("./components/UserComponent.vue").default);
+Vue.component("type-component", require("./components/TypeUserComponent.vue").default);
+Vue.component("resume-component", require("./components/ResumeComponent.vue").default);
+Vue.component("checkbox", require("./components/Checkbox.vue").default);
+Vue.component("class-component", require("./components/ClassComponent.vue").default);
+
+Vue.component("blog-component", require("./components/BlogComponent.vue").default);
+Vue.component("draw-c", require("./components/draw.vue").default);
+
 Vue.component("home", require("./components/home.vue").default);
 Vue.component("board", require("./components/board.vue").default);
-Vue.component("formstyle", require("./components/formstyle.vue").default);
 Vue.component("footers", require("./components/footer.vue").default);
-Vue.component(
-    "car-component",
-    require("./components/carComponent.vue").default
-);
-Vue.component(
-    "description-class",
-    require("./components/descriptionClassComponent.vue").default
-);
 Vue.component("unit-class", require("./components/unitComponent.vue").default);
-Vue.component(
-    "free-component",
-    require("./components/freeComponent.vue").default
-);
-Vue.component(
-    "freeu-component",
-    require("./components/freeUnitComponent.vue").default
-);
-Vue.component(
-    "course-component",
-    require("./components/courseComponent.vue").default
-);
+Vue.component("free-component", require("./components/freeComponent.vue").default);
+Vue.component("freeu-component", require("./components/freeUnitComponent.vue").default);
+Vue.component("course-component", require("./components/courseComponent.vue").default);
 Vue.component("course-view", require("./components/courseView.vue").default);
-Vue.component(
-    "courseu-component",
-    require("./components/courseUnitComponet.vue").default
-);
-Vue.component(
-    "list-component",
-    require("./components/listClassComponent.vue").default
-);
-Vue.component(
-    "list-activity",
-    require("./components/listActivity.vue").default
-);
-Vue.component(
-    "activity-component",
-    require("./components/activityUnit.vue").default
-);
-Vue.component(
-    "sincro-component",
-    require("./components/sincroEvent.vue").default
-);
-Vue.component(
-    "cuestionario-component",
-    require("./components/cuestionario.vue").default
-);
+Vue.component("semanal-component", require("./components/courseSemanalComponet.vue").default);
+Vue.component("semanalact-component", require("./components/courseSemanalAct.vue").default);
+Vue.component("list-component", require("./components/listClassComponent.vue").default);
+Vue.component("list-activity", require("./components/listActivity.vue").default);
+Vue.component("actividad-docente", require("./components/ActividadDocente.vue").default);
+Vue.component("sincro-component", require("./components/sincroEvent.vue").default);
+Vue.component("cuestionario-component", require("./components/cuestionario.vue").default);
 Vue.component("hangman-component", require("./components/hangman.vue").default);
-Vue.component(
-    "evaluation-component",
-    require("./components/EvaluationComponent.vue").default
-);
-Vue.component(
-    "activ-component",
-    require("./components/ActivityComponent.vue").default
-);
-Vue.component(
-    "mycourse-component",
-    require("./components/MyCourseComponent.vue").default
-);
-Vue.component(
-    "consult-component",
-    require("./components/ConsultComponent.vue").default
-);
-Vue.component(
-    "frecuent-cuestions",
-    require("./components/FrecuentCuestions.vue").default
-);
-Vue.component(
-    "register-component",
-    require("./components/RegisterComponent.vue").default
-);
-Vue.component(
-    "mycourses-component",
-    require("./components/MycoursesComponent.vue").default
-);
-Vue.component(
-    "coursest-component",
-    require("./components/CoursesStComponent.vue").default
-);
-Vue.component(
-    "evaluationst-component",
-    require("./components/EvaluationStComponent.vue").default
-);
-Vue.component(
-    "activityst-component",
-    require("./components/ActivityStComponent.vue").default
-);
-Vue.component(
-    "listevaluationst-component",
-    require("./components/listevaluationStComponent.vue").default
-);
-Vue.component(
-    "plan-component",
-    require("./components/PlanComponent.vue").default
-);
-Vue.component(
-    "changepassword-component",
-    require("./components/changepassword.vue").default
-);
-Vue.component(
-    "perfil-component",
-    require("./components/PerfilComponent.vue").default
-);
+Vue.component("evaluation-component", require("./components/EvaluationComponent.vue").default);
+Vue.component("activ-component", require("./components/ActivityComponent.vue").default);
+Vue.component("mycourse-component", require("./components/MyCourseComponent.vue").default);
+Vue.component("consult-component", require("./components/ConsultComponent.vue").default);
+Vue.component("frecuent-cuestions", require("./components/FrecuentCuestions.vue").default);
+Vue.component("register-component", require("./components/RegisterComponent.vue").default);
+Vue.component("mycourses-component", require("./components/MycoursesComponent.vue").default);
+Vue.component("coursest-component", require("./components/CoursesStComponent.vue").default);
+Vue.component("evaluationst-component", require("./components/EvaluationStComponent.vue").default);
+Vue.component("activityst-component", require("./components/ActivityStComponent.vue").default);
+Vue.component("listevaluationst-component", require("./components/listevaluationStComponent.vue").default);
+Vue.component("plan-component", require("./components/PlanComponent.vue").default);
+Vue.component("changepassword-component", require("./components/changepassword.vue").default);
+Vue.component("perfil-component", require("./components/PerfilComponent.vue").default);
 Vue.component("TextInput", require("./components/TextInput.vue").default);
-Vue.component(
-    "video-component",
-    require("./components/VideoCoursesComponent.vue").default
-);
-Vue.component(
-    "resetpass",
-    require("./components/ResetPassComponent.vue").default
-);
-Vue.component(
-    "trivia-component",
-    require("./components/TriviaComponent.vue").default
-);
+
+Vue.component("resetpass", require("./components/ResetPassComponent.vue").default);
+Vue.component("trivia-component", require("./components/TriviaComponent.vue").default);
+Vue.component("quiz-component", require("./components/QuizActivity.vue").default);
+Vue.component("complete-component", require("./components/CompleteSentence.vue").default);
+Vue.component("open-component", require("./components/QuizOpen.vue").default);
+Vue.component("menu-lateral", require("./components/menulateral.vue").default);
+Vue.component("mensajes-component", require("./components/mensajes.vue").default);
+Vue.component("actividad-component", require("./components/tareas.vue").default);
+Vue.component("notas-component", require("./components/notas.vue").default);
+Vue.component("boletin-component", require("./components/boletin.vue").default);
+Vue.component("menu-docente", require("./components/menudocente.vue").default);
+Vue.component("perfil-docente", require("./components/perfildocente.vue").default);
+Vue.component("anuncio-docente", require("./components/anunciodocente.vue").default);
+Vue.component("actividadg-docente", require("./components/actividadGDocente.vue").default);
+Vue.component("anunciomc-component", require("./components/anunciomc.vue").default);
+Vue.component("full-component", require("./components/fullCalendar.vue").default);
+Vue.component("redactar-component", require("./components/redactar.vue").default);
+Vue.component("vmensaje-component", require("./components/vistamensaje.vue").default);
+
+Vue.component("game-component", require("./components/Game.vue").default);
+Vue.component("juegos-component", require("./components/juegos.vue").default);
+Vue.component("groups", require("./components/Groups.vue").default);
+Vue.component("create-group", require("./components/CreateGroup.vue").default);
+Vue.component("group-chat", require("./components/GroupChat.vue").default);
+Vue.component("clasesst-component", require("./components/clasesSt.vue").default);
+Vue.component("notasd-component", require("./components/notasDocente.vue").default);
+Vue.component("actividadvd-component", require("./components/actividadVDocente.vue").default);
+Vue.component("clasesd-component", require("./components/clasesDocente.vue").default);
+Vue.component("crearc-component", require("./components/crearClase.vue").default);
+Vue.component("inicio-component", require("./components/inicio.vue").default);
+Vue.component("userinfo", require("./components/UserInfo").default);
+Vue.component("answer", require("./components/Answer").default);
+Vue.component("favoritequestion", require("./components/FavoriteQuestion").default);
+Vue.component("acceptanswer", require("./components/AcceptAnswer").default);
+Vue.component("answervote", require("./components/AnswerVote").default);
+Vue.component("questionvote", require("./components/QuestionVote").default);
+Vue.component("emoji-text", require("./components/text-emoji.vue").default);
+
+Vue.component("estudiante-adm", require("./components/estudianteAdm.vue").default);
+Vue.component("docente-adm", require("./components/docenteAdm.vue").default);
+Vue.component("cursos-adm", require("./components/cursosAdm.vue").default);
+Vue.component("semana-adm", require("./components/semanaAdm.vue").default);
+Vue.component("plan-adm", require("./components/planAdm.vue").default);
+Vue.component("planificacion-adm", require("./components/planificacionAdm.vue").default);
+Vue.component("vplan-adm", require("./components/vplanAdm.vue").default);
+Vue.component("reportes-adm", require("./components/reportesAdm.vue").default);
+Vue.component("menu-adm", require("./components/menuAdm.vue").default);
 Vue.use(CKEditor);
 Vue.use(CKEditor);
 
-const app = new Vue({
-    el: "#app",
-    data: {
-        messages: [],
-        baseurl: window.baseurl,
-        user: null
-    },
-    init() {
-        var container = this.$el.querySelector("#container");
-        container.scrollTop = container.scrollHeight;
-    },
-    methods: {
-        /*addMessage(message) {
-            this.messages.push(message);
-            axios
-                .post("http://127.0.0.1:8000/message", message)
-                .then(response => {});
-        },
-        getMessages() {
-            axios.get("http://127.0.0.1:8000/messages").then(response => {
-                this.messages = response.data.messages;
-                var container = this.$el.querySelector("#container");
-                container.scrollTop = container.scrollHeight;
-            });
-        }*/
-    },
-    created() {
-        /*axios.get("http://127.0.0.1:8000/messages").then(response => {
-            this.messages = response.data.messages;
-            this.user = response.data.user;
-        });*/
-    }
-});
+const app = new Vue({el: "#app", data: {}, store});
