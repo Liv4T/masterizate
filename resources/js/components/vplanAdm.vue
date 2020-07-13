@@ -37,6 +37,11 @@
                       >Actualizar semana</a>
                     </div>
                   </td>
+                  <td>
+                    <div id="accordion" class="collapse">
+                      <a v-show="semanal==true" href="/vclases_adm" class="btn btn-warning">Clases</a>
+                    </div>
+                  </td>
                   <!-- <td>
                     <div id="accordion" class="collapse">
                       <a

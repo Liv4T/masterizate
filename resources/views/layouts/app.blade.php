@@ -3,7 +3,6 @@
   <head>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
-
       <!-- CSRF Token -->
       <meta name="csrf-token" content="{{ csrf_token() }}">
 
@@ -111,6 +110,7 @@
                             </a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="/changePassword">Cambiar Contraseña</a>
+                                 <a class="dropdown-item" href="/manual">Ayuda</a>
                                 <a class="dropdown-item" href="{{ route('logout') }}"
                                    onclick="event.preventDefault();
                                                  document.getElementById('logout-form').submit();">
@@ -129,12 +129,12 @@
 
         <main class="py-3">
             @yield('content')
+
         </main>
     </div>
             @yield('scripts')
   </body>
 </html>
-
 <style>
 .navbar{
     position: -webkit-sticky;
@@ -153,3 +153,7 @@
 }
 
 </style>
+   @if(isset($usersChart))
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js" charset="utf-8"></script>
+{!! $usersChart->script() !!}
+@endif

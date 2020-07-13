@@ -25,7 +25,7 @@
       <div class="col-md-11 mx-auto">
         <div class="custom-card text-center">
           <h3 class="card-header fondo">Planificación general</h3>
-          <form class="needs-validation" novalidate v-show="trimestre==false">
+          <form class="needs-validation" novalidate v-show="trimestre == false">
             <form-wizard
               title
               subtitle
@@ -36,48 +36,120 @@
               @on-complete="createCourses"
             >
               <tab-content title="Anual">
-                <div class="form-group mx-auto">
+                <div class="form-group mx-auto" v-for="(input, t) in inputs" :key="t">
                   <div align="center">
-                    <strong>Logro 1</strong>
-                    <!-- <a
-                      tabindex="0"
-                      class="badge badge-info"
-                      role="button"
-                      data-toggle="popover"
-                      data-trigger="focus"
-                      title="Logro"
-                      data-content="Es un texto redactado de manera cordial, cálida, precisa y breve cumpliendo como objetivo dar la bienvenida al curso e invitar al estudiante a su recorrido y cumplimiento de los objetivos propuestos. Parte importante del mismo es hacer explícita la disposición del tutor en colaborar, apoyar y acompañar el proceso educativo."
-                    >
-                      <i class="fas fa-question"></i>
-                    </a>-->
+                    <strong>
+                      Logro
+                      <input type="number" style="width:50px;" />%
+                      <span>
+                        <a
+                          href="#"
+                          class="badge badge-danger"
+                          @click.prevent="
+                                                            remove(t)
+                                                        "
+                          v-show="
+                                                            t ||
+                                                                (!t &&
+                                                                    inputs.length >
+                                                                        1)
+                                                        "
+                        >-</a>
+                        <a
+                          href="#"
+                          class="badge badge-primary"
+                          @click.prevent="add(t)"
+                          v-show="
+                                                            t ==
+                                                                inputs.length -
+                                                                    1
+                                                        "
+                        >+</a>
+                      </span>
+                    </strong>
                   </div>
                   <textarea name="welcome" class="form-control" v-model="newLogro1" required></textarea>
                   <div class="invalid-feedback">Please fill out this field</div>
                 </div>
-                <div class="form-group mx-auto">
-                  <div align="center">
-                    <strong>Logro 2</strong>
+              </tab-content>
+              <tab-content title="Porcentaje de notas">
+                <div class="card-body">
+                  <div class="accordion" id="accordionExample">
+                    <div class="card">
+                      <div class="card-header">
+                        <h2 class="mb-0">
+                          <button
+                            class="btn btn-link"
+                            type="button"
+                            data-toggle="collapse"
+                            data-target="#collapse"
+                            aria-expanded="true"
+                            aria-controls="collapse"
+                          >
+                            <strong>
+                              Logro
+                              <input type="number" style="width:50px;" />%
+                            </strong>
+                          </button>
+                        </h2>
+                      </div>
+                      <div
+                        id="collapse"
+                        class="collapse show"
+                        aria-labelledby="heading"
+                        data-parent="#accordionExample"
+                      >
+                        <div class="card-body">
+                          <table class="table table-responsive-xl table-hover table-striped center">
+                            <tbody>
+                              <tr>
+                                <td>Actividad</td>
+                                <td>Cantidad</td>
+                                <td>Porcentaje</td>
+                                <td>Acciones</td>
+                              </tr>
+                              <tr>
+                                <td>Quiz</td>
+                                <td>5</td>
+                                <td>20%</td>
+                                <td>
+                                  <a class="btn btn-sm" href="#" style="color: grey;">
+                                    <i class="fa fa-eye"></i>
+                                  </a>
+                                  <a class="btn btn-sm" href="#" style="color: grey;">
+                                    <i class="fa fa-edit"></i>
+                                  </a>
+
+                                  <a class="btn btn-sm" href="#" style="color: grey;">
+                                    <i class="fa fa-trash"></i>
+                                  </a>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                          <div align="right">
+                            <a
+                              class="btn btn-warning"
+                              v-on:click.prevent="
+                                                                    editNames()
+                                                                "
+                            >Agregar</a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                  <textarea name="intentioned" class="form-control" v-model="newLogro2" required></textarea>
-                  <div class="invalid-feedback">Please fill out this field</div>
-                </div>
-                <div class="form-group mx-auto">
-                  <div align="center">
-                    <strong>Logro 3</strong>
-                  </div>
-                  <textarea name="intentioned" class="form-control" v-model="newLogro3" required></textarea>
-                  <div class="invalid-feedback">Please fill out this field</div>
-                </div>
-                <div class="form-group mx-auto">
-                  <div align="center">
-                    <strong>Logro 4</strong>
-                  </div>
-                  <textarea name="competences" class="form-control" v-model="newLogro4" required></textarea>
-                  <div class="invalid-feedback">Please fill out this field</div>
                 </div>
               </tab-content>
               <tab-content title="Trimestral">
                 <div class="form-group row mx-auto" v-for="(input, t) in inputs" :key="t">
+                  <div class="col-md-7 mx-auto">
+                    <label for>Logro:</label>
+                    <select class="form-control" ref="seleccionado" required>
+                      <option value="1">Logro1</option>
+                    </select>
+                  </div>
+
                   <div class="col-md-6">
                     <label for="name">Unidad</label>
                     <span>
@@ -130,7 +202,7 @@
               </tab-content>
             </form-wizard>
           </form>
-          <form v-show="trimestre==true">
+          <form v-show="trimestre == true">
             <form-wizard
               title
               subtitle
@@ -144,28 +216,40 @@
                 <div>
                   <div class="form-group mx-auto">
                     <div align="center">
-                      <strong>Logro 1</strong>
+                      <strong>
+                        Logro 1
+                        <input type="number" style="width:50px;" disabled />%
+                      </strong>
                     </div>
                     <textarea name="welcome" class="form-control" v-model="logro_1" disabled></textarea>
                     <div class="invalid-feedback">Please fill out this field</div>
                   </div>
                   <div class="form-group mx-auto">
                     <div align="center">
-                      <strong>Logro 2</strong>
+                      <strong>
+                        Logro 2
+                        <input type="number" style="width:50px;" disabled />%
+                      </strong>
                     </div>
                     <textarea name="welcome" class="form-control" v-model="logro_2" disabled></textarea>
                     <div class="invalid-feedback">Please fill out this field</div>
                   </div>
                   <div class="form-group mx-auto">
                     <div align="center">
-                      <strong>Logro 3</strong>
+                      <strong>
+                        Logro 3
+                        <input type="number" style="width:50px;" disabled />%
+                      </strong>
                     </div>
                     <textarea name="welcome" class="form-control" v-model="logro_3" disabled></textarea>
                     <div class="invalid-feedback">Please fill out this field</div>
                   </div>
                   <div class="form-group mx-auto">
                     <div align="center">
-                      <strong>Logro 4</strong>
+                      <strong>
+                        Logro 4
+                        <input type="number" style="width:50px;" disabled />%
+                      </strong>
                     </div>
                     <textarea name="welcome" class="form-control" v-model="logro_4" disabled></textarea>
                     <div class="invalid-feedback">Please fill out this field</div>
@@ -205,6 +289,72 @@
               </tab-content>
             </form-wizard>
           </form>
+        </div>
+      </div>
+      <div class="modal fade" id="createZ">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="card">
+              <h3 class="card-header fondo text-center">
+                Porcentaje
+                <button type="button" class="close" data-dismiss="modal">
+                  <span>&times;</span>
+                </button>
+              </h3>
+              <div class="card-body">
+                <form class="needs-validation" v-on:submit.prevent novalidate>
+                  <div class="form-group row mx-auto">
+                    <div class="col-md-8 text-center mx-auto">
+                      <label for="name">Tipo de actividad</label>
+                      <div>
+                        <input
+                          type="text"
+                          name="objetive1"
+                          class="form-control"
+                          v-model="name"
+                          style="background: gainsboro;"
+                          required
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group row mx-auto">
+                    <div class="col-md-8 text-center mx-auto">
+                      <label for="name">Cantidad</label>
+                      <div>
+                        <input
+                          type="number"
+                          name="objetive1"
+                          class="form-control"
+                          v-model="name"
+                          style="background: gainsboro;"
+                          required
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group row mx-auto">
+                    <div class="col-md-8 text-center mx-auto">
+                      <label for="name">Porcentaje total</label>
+                      <div>
+                        <input
+                          type="number"
+                          name="objetive1"
+                          class="form-control"
+                          v-model="name"
+                          style="background: gainsboro;"
+                          required
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <input type="submit" class="btn btn-warning" value="Guardar" />
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -339,9 +489,15 @@ export default {
     },
     updateCourses() {
       window.location = "/actividad_g";
+    },
+    editNames(clas) {
+      //   var urlr = "showClass/" + clas;
+      //   axios.get(urlr).then(response => {
+      //     this.fillS = response.data;
+      //   });
+      $("#createZ").modal("show");
     }
   }
 };
 </script>
-<style>
-</style>
+<style></style>

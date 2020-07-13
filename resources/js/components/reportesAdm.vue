@@ -8,162 +8,75 @@
             <table class="table table-responsive-xl table-hover table-striped center">
               <tbody>
                 <tr data-toggle="collapse" data-target="#accordion" class="clickable">
-                  <td>Docente</td>
+                  <td>Notas</td>
                   <td></td>
                   <td></td>
 
                   <td class="float-right">
                     <a class="btn btn-sm" href="#" style="color: grey;">
-                      <i class="fa fa-eye"></i>
-                    </a>
-                    <a class="btn btn-sm" href="#" style="color: grey;">
-                      <i class="fa fa-edit"></i>
-                    </a>
-
-                    <a class="btn btn-sm" href="#" style="color: grey;">
-                      <i class="fa fa-trash"></i>
+                      <i class="fas fa-download"></i>
                     </a>
                   </td>
                 </tr>
                 <tr>
                   <td>
                     <div id="accordion" class="collapse">
-                      <a class="btn btn-warning" v-on:click.prevent="createS()">Notas</a>
-                    </div>
-                  </td>
-                  <td>
-                    <div id="accordion" class="collapse">
-                      <a class="btn btn-warning" v-on:click.prevent="createS()">Planeación</a>
-                    </div>
-                  </td>
-                  <td>
-                    <div id="accordion" class="collapse">
-                      <a class="btn btn-warning" v-on:click.prevent="createS()">Recuperación</a>
-                    </div>
-                  </td>
-                  <td>
-                    <div id="accordion" class="collapse">
-                      <a class="btn btn-warning" v-on:click.prevent="createS()">Exámenes</a>
+                      <a class="btn btn-warning" v-on:click.prevent="createE()">Generar</a>
                     </div>
                   </td>
                 </tr>
                 <tr data-toggle="collapse" data-target="#accordion2" class="clickable">
-                  <td>Estudiantes</td>
+                  <td>Planeación</td>
                   <td></td>
                   <td></td>
 
                   <td class="float-right">
                     <a class="btn btn-sm" href="#" style="color: grey;">
-                      <i class="fa fa-eye"></i>
-                    </a>
-                    <a class="btn btn-sm" href="#" style="color: grey;">
-                      <i class="fa fa-edit"></i>
-                    </a>
-
-                    <a class="btn btn-sm" href="#" style="color: grey;">
-                      <i class="fa fa-trash"></i>
+                      <i class="fas fa-download"></i>
                     </a>
                   </td>
                 </tr>
                 <tr>
                   <td>
                     <div id="accordion2" class="collapse">
-                      <a class="btn btn-warning" href="/docente_adm">Notas</a>
-                    </div>
-                  </td>
-                  <td>
-                    <div id="accordion2" class="collapse">
-                      <a class="btn btn-warning" href="/estudiante_adm">Planeación</a>
-                    </div>
-                  </td>
-                  <td>
-                    <div id="accordion2" class="collapse">
-                      <a class="btn btn-warning" href="/estudiante_adm">Recuperación</a>
-                    </div>
-                  </td>
-                  <td>
-                    <div id="accordion2" class="collapse">
-                      <a class="btn btn-warning" href="/estudiante_adm">Exámenes</a>
+                      <a class="btn btn-warning" v-on:click.prevent="createPlanificacion()">Generar</a>
                     </div>
                   </td>
                 </tr>
-                <tr data-toggle="collapse" data-target="#accordion3" class="clickable">
-                  <td>Cursos</td>
+                <tr data-toggle="collapse" data-target="#accordion7" class="clickable">
+                  <td>Asistencia</td>
                   <td></td>
                   <td></td>
 
                   <td class="float-right">
                     <a class="btn btn-sm" href="#" style="color: grey;">
-                      <i class="fa fa-eye"></i>
-                    </a>
-                    <a class="btn btn-sm" href="#" style="color: grey;">
-                      <i class="fa fa-edit"></i>
-                    </a>
-
-                    <a class="btn btn-sm" href="#" style="color: grey;">
-                      <i class="fa fa-trash"></i>
+                      <i class="fas fa-download"></i>
                     </a>
                   </td>
                 </tr>
                 <tr>
                   <td>
-                    <div id="accordion3" class="collapse">
-                      <a class="btn btn-warning" href="/docente_adm">Notas</a>
-                    </div>
-                  </td>
-                  <td>
-                    <div id="accordion3" class="collapse">
-                      <a class="btn btn-warning" href="/estudiante_adm">Planeación</a>
-                    </div>
-                  </td>
-                  <td>
-                    <div id="accordion3" class="collapse">
-                      <a class="btn btn-warning" href="/estudiante_adm">Recuperación</a>
-                    </div>
-                  </td>
-                  <td>
-                    <div id="accordion3" class="collapse">
-                      <a class="btn btn-warning" href="/estudiante_adm">Exámenes</a>
+                    <div id="accordion7" class="collapse">
+                      <a class="btn btn-warning" v-on:click.prevent="createAsistencia()">Generar</a>
                     </div>
                   </td>
                 </tr>
+
                 <tr data-toggle="collapse" data-target="#accordion4" class="clickable">
-                  <td>Materias</td>
+                  <td>Psicologia</td>
                   <td></td>
                   <td></td>
 
                   <td class="float-right">
                     <a class="btn btn-sm" href="#" style="color: grey;">
-                      <i class="fa fa-eye"></i>
-                    </a>
-                    <a class="btn btn-sm" href="#" style="color: grey;">
-                      <i class="fa fa-edit"></i>
-                    </a>
-
-                    <a class="btn btn-sm" href="#" style="color: grey;">
-                      <i class="fa fa-trash"></i>
+                      <i class="fas fa-download"></i>
                     </a>
                   </td>
                 </tr>
                 <tr>
                   <td>
                     <div id="accordion4" class="collapse">
-                      <a class="btn btn-warning" href="/docente_adm">Notas</a>
-                    </div>
-                  </td>
-                  <td>
-                    <div id="accordion4" class="collapse">
-                      <a class="btn btn-warning" href="/estudiante_adm">Planeación</a>
-                    </div>
-                  </td>
-                  <td>
-                    <div id="accordion4" class="collapse">
-                      <a class="btn btn-warning" href="/estudiante_adm">Recuperación</a>
-                    </div>
-                  </td>
-                  <td>
-                    <div id="accordion4" class="collapse">
-                      <a class="btn btn-warning" href="/estudiante_adm">Exámenes</a>
+                      <a class="btn btn-warning" v-on:click.prevent="createPsicologia()">Generar</a>
                     </div>
                   </td>
                 </tr>
@@ -172,7 +85,7 @@
           </div>
         </div>
       </div>
-      <div class="modal fade" id="createSalon">
+      <div class="modal fade" id="createNotas">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="card">
@@ -184,47 +97,406 @@
               </h3>
               <div class="card-body">
                 <form class="needs-validation" v-on:submit.prevent novalidate>
-                  <div class="form-group row">
-                    <select
-                      class="form-control"
-                      ref="seleccionado"
-                      style="background: gainsboro;"
-                      required
-                    >
-                      <option value="2">Fecha</option>
-                      <option value="3">Estudiante</option>
-                      <option value="3">Administrador</option>
-                    </select>
+                  <div class="form-group row mx-auto">
+                    <div class="col-md-8 text-center mx-auto">
+                      <Label>Año</Label>
+                      <select
+                        class="form-control"
+                        ref="seleccionado"
+                        style="background: gainsboro;"
+                        required
+                      >
+                        <option value="2">2020</option>
+                        <option value="3">2019</option>
+                        <option value="3">2018</option>
+                      </select>
+                    </div>
                   </div>
-                  <div class="form-group row">
-                    <select
-                      class="form-control"
-                      ref="seleccionado"
-                      style="background: gainsboro;"
-                      required
-                    >
-                      <option value="2">Estudiante</option>
-                      <option value="3">Estudiante</option>
-                      <option value="3">Administrador</option>
-                    </select>
+                  <div class="form-group row mx-auto">
+                    <div class="col-md-8 text-center mx-auto">
+                      <Label>Acumulado</Label>
+                      <select
+                        class="form-control"
+                        ref="seleccionado"
+                        style="background: gainsboro;"
+                        required
+                      >
+                        <option value="2">Acumulado</option>
+                        <option value="3">Estudiante</option>
+                        <option value="3">Administrador</option>
+                      </select>
+                    </div>
                   </div>
-                  <div class="form-group row">
-                    <select
-                      class="form-control"
-                      ref="seleccionado"
-                      style="background: gainsboro;"
-                      required
-                    >
-                      <option value="2">Docente</option>
-                      <option value="3">Estudiante</option>
-                      <option value="3">Administrador</option>
-                    </select>
+                  <div class="form-group row mx-auto">
+                    <div class="col-md-8 text-center mx-auto">
+                      <Label>Periodo</Label>
+                      <select
+                        class="form-control"
+                        ref="seleccionado"
+                        style="background: gainsboro;"
+                        required
+                      >
+                        <option value="2">Periodo</option>
+                        <option value="3">Estudiante</option>
+                        <option value="3">Administrador</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-group row mx-auto">
+                    <div class="col-md-8 text-center mx-auto">
+                      <Label>Curso</Label>
+                      <select
+                        class="form-control"
+                        ref="seleccionado"
+                        style="background: gainsboro;"
+                        required
+                      >
+                        <option value="2">Curso</option>
+                        <option value="3">Estudiante</option>
+                        <option value="3">Administrador</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-group row mx-auto">
+                    <div class="col-md-8 text-center mx-auto">
+                      <Label>Estado</Label>
+                      <select
+                        class="form-control"
+                        ref="seleccionado"
+                        style="background: gainsboro;"
+                        required
+                      >
+                        <option value="2">Estado</option>
+                        <option value="3">Estudiante</option>
+                        <option value="3">Administrador</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-group row mx-auto">
+                    <div class="col-md-8 text-center mx-auto">
+                      <Label>Materias</Label>
+                      <select
+                        class="form-control"
+                        ref="seleccionado"
+                        style="background: gainsboro;"
+                        required
+                      >
+                        <option value="2">Química</option>
+                        <option value="3">Físisca</option>
+                        <option value="3">Español</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-group row mx-auto">
+                    <div class="col-md-8 text-center mx-auto">
+                      <Label>Ranking</Label>
+                      <select
+                        class="form-control"
+                        ref="seleccionado"
+                        style="background: gainsboro;"
+                        required
+                      >
+                        <option value="2">Top 10</option>
+                        <option value="3">Estudiante</option>
+                        <option value="3">Administrador</option>
+                      </select>
+                    </div>
                   </div>
                   <div class="modal-footer">
                     <input type="submit" class="btn btn-warning" value="Exportar" />
                   </div>
                 </form>
               </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal fade" id="createPsico">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="card">
+              <h3 class="card-header fondo text-center">
+                Reporte de psicologia
+                <button type="button" class="close" data-dismiss="modal">
+                  <span>&times;</span>
+                </button>
+              </h3>
+              <div class="card-body">
+                <form class="needs-validation" v-on:submit.prevent novalidate>
+                  <div class="form-group row mx-auto">
+                    <div class="col-md-8 text-center mx-auto">
+                      <Label>Año</Label>
+                      <select
+                        class="form-control"
+                        ref="seleccionado"
+                        style="background: gainsboro;"
+                        required
+                      >
+                        <option value="2">2020</option>
+                        <option value="3">2019</option>
+                        <option value="3">2018</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-group row mx-auto">
+                    <div class="col-md-8 text-center mx-auto">
+                      <Label>Acumulado</Label>
+                      <select
+                        class="form-control"
+                        ref="seleccionado"
+                        style="background: gainsboro;"
+                        required
+                      >
+                        <option value="2">Acumulado</option>
+                        <option value="3">Estudiante</option>
+                        <option value="3">Administrador</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-group row mx-auto">
+                    <div class="col-md-8 text-center mx-auto">
+                      <Label>Periodo</Label>
+                      <select
+                        class="form-control"
+                        ref="seleccionado"
+                        style="background: gainsboro;"
+                        required
+                      >
+                        <option value="2">Periodo</option>
+                        <option value="3">Estudiante</option>
+                        <option value="3">Administrador</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-group row mx-auto">
+                    <div class="col-md-8 text-center mx-auto">
+                      <Label>Cursos</Label>
+                      <select
+                        class="form-control"
+                        ref="seleccionado"
+                        style="background: gainsboro;"
+                        required
+                      >
+                        <option value="2">Todos</option>
+                        <option value="3">Estudiante</option>
+                        <option value="3">Administrador</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-group row mx-auto">
+                    <div class="col-md-8 text-center mx-auto">
+                      <Label>Estudiantes</Label>
+                      <select
+                        class="form-control"
+                        ref="seleccionado"
+                        style="background: gainsboro;"
+                        required
+                      >
+                        <option value="2">Todos</option>
+                        <option value="3">Estudiante</option>
+                        <option value="3">Administrador</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <input type="submit" class="btn btn-warning" value="Exportar" />
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="createAsis">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="card">
+            <h3 class="card-header fondo text-center">
+              Reporte de Asistencia
+              <button type="button" class="close" data-dismiss="modal">
+                <span>&times;</span>
+              </button>
+            </h3>
+            <div class="card-body">
+              <form class="needs-validation" v-on:submit.prevent novalidate>
+                <div class="form-group row mx-auto">
+                  <div class="col-md-8 text-center mx-auto">
+                    <Label>Año</Label>
+                    <select
+                      class="form-control"
+                      ref="seleccionado"
+                      style="background: gainsboro;"
+                      required
+                    >
+                      <option value="2">2020</option>
+                      <option value="3">2019</option>
+                      <option value="3">2018</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-group row mx-auto">
+                  <div class="col-md-8 text-center mx-auto">
+                    <Label>Acumulado</Label>
+                    <select
+                      class="form-control"
+                      ref="seleccionado"
+                      style="background: gainsboro;"
+                      required
+                    >
+                      <option value="2">Acumulado</option>
+                      <option value="3">Estudiante</option>
+                      <option value="3">Administrador</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-group row mx-auto">
+                  <div class="col-md-8 text-center mx-auto">
+                    <Label>Periodo</Label>
+                    <select
+                      class="form-control"
+                      ref="seleccionado"
+                      style="background: gainsboro;"
+                      required
+                    >
+                      <option value="2">Periodo</option>
+                      <option value="3">Estudiante</option>
+                      <option value="3">Administrador</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-group row mx-auto">
+                  <div class="col-md-8 text-center mx-auto">
+                    <Label>Curso</Label>
+                    <select
+                      class="form-control"
+                      ref="seleccionado"
+                      style="background: gainsboro;"
+                      required
+                    >
+                      <option value="2">Curso</option>
+                      <option value="3">Estudiante</option>
+                      <option value="3">Administrador</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-group row mx-auto">
+                  <div class="col-md-8 text-center mx-auto">
+                    <Label>Estado</Label>
+                    <select
+                      class="form-control"
+                      ref="seleccionado"
+                      style="background: gainsboro;"
+                      required
+                    >
+                      <option value="2">Estado</option>
+                      <option value="3">Estudiante</option>
+                      <option value="3">Administrador</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="form-group row mx-auto">
+                  <div class="col-md-8 text-center mx-auto">
+                    <Label>Ranking</Label>
+                    <select
+                      class="form-control"
+                      ref="seleccionado"
+                      style="background: gainsboro;"
+                      required
+                    >
+                      <option value="2">Top 10</option>
+                      <option value="3">Estudiante</option>
+                      <option value="3">Administrador</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <input type="submit" class="btn btn-warning" value="Exportar" />
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="createPlan">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="card">
+            <h3 class="card-header fondo text-center">
+              Reporte de Planificación
+              <button type="button" class="close" data-dismiss="modal">
+                <span>&times;</span>
+              </button>
+            </h3>
+            <div class="card-body">
+              <form class="needs-validation" v-on:submit.prevent novalidate>
+                <div class="form-group row mx-auto">
+                  <div class="col-md-8 text-center mx-auto">
+                    <Label>Año</Label>
+                    <select
+                      class="form-control"
+                      ref="seleccionado"
+                      style="background: gainsboro;"
+                      required
+                    >
+                      <option value="2">2020</option>
+                      <option value="3">2019</option>
+                      <option value="3">2018</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-group row mx-auto">
+                  <div class="col-md-8 text-center mx-auto">
+                    <Label>Docente</Label>
+                    <select
+                      class="form-control"
+                      ref="seleccionado"
+                      style="background: gainsboro;"
+                      required
+                    >
+                      <option value="2">Todos</option>
+                      <option value="3">Estudiante</option>
+                      <option value="3">Administrador</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-group row mx-auto">
+                  <div class="col-md-8 text-center mx-auto">
+                    <Label>Periodo</Label>
+                    <select
+                      class="form-control"
+                      ref="seleccionado"
+                      style="background: gainsboro;"
+                      required
+                    >
+                      <option value="2">Periodo</option>
+                      <option value="3">Estudiante</option>
+                      <option value="3">Administrador</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-group row mx-auto">
+                  <div class="col-md-8 text-center mx-auto">
+                    <Label>Cursos</Label>
+                    <select
+                      class="form-control"
+                      ref="seleccionado"
+                      style="background: gainsboro;"
+                      required
+                    >
+                      <option value="2">Todos</option>
+                      <option value="3">Estudiante</option>
+                      <option value="3">Administrador</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="modal-footer">
+                  <input type="submit" class="btn btn-warning" value="Exportar" />
+                </div>
+              </form>
             </div>
           </div>
         </div>
@@ -261,26 +533,33 @@ export default {
     console.log("Component mounted.");
   },
   methods: {
-    editNames(clas) {
+    createPlanificacion(clas) {
       //   var urlr = "showClass/" + clas;
       //   axios.get(urlr).then(response => {
       //     this.fillS = response.data;
       //   });
-      $("#createZ").modal("show");
+      $("#createPlan").modal("show");
     },
-    createS(clas) {
+    createE(clas) {
       //   var urlr = "showClass/" + clas;
       //   axios.get(urlr).then(response => {
       //     this.fillS = response.data;
       //   });
-      $("#createSalon").modal("show");
+      $("#createNotas").modal("show");
     },
-    createM(clas) {
+    createPsicologia(clas) {
       //   var urlr = "showClass/" + clas;
       //   axios.get(urlr).then(response => {
       //     this.fillS = response.data;
       //   });
-      $("#createMat").modal("show");
+      $("#createPsico").modal("show");
+    },
+    createAsistencia(clas) {
+      //   var urlr = "showClass/" + clas;
+      //   axios.get(urlr).then(response => {
+      //     this.fillS = response.data;
+      //   });
+      $("#createAsis").modal("show");
     },
     add(index) {
       this.inputs.push({

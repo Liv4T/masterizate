@@ -3,6 +3,7 @@
 use App\Message;
 use App\User;
 use App\Events\MessagePosted;
+use App\Exports\ProductsExport;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -194,6 +195,9 @@ Route::get('/semana_adm', function () {
 Route::get('/planificacion', function () {
     return view('vplanAdm');
 });
+Route::get('/vclases_adm', function () {
+    return view('vclasesAdm');
+});
 Route::get('/planeacion', function () {
     return view('planificacionAdm');
 });
@@ -208,6 +212,27 @@ Route::get('/docente_adm', function () {
 });
 Route::get('/reportes', function () {
     return view('reportesAdm');
+});
+Route::get('/instituciones_adm', function () {
+    return view('institucionesAdm');
+});
+Route::get('/instituciones_crear', function () {
+    return view('crearinstitucion');
+});
+Route::get('/perfil_asignar', function () {
+    return view('asignarPerfil');
+});
+Route::get('/coordinador_adm', function () {
+    return view('coordinadorAdm');
+});
+Route::get('/salon_adm', function () {
+    return view('salonAdm');
+});
+Route::get('/asistencia', function () {
+    return view('asistencia');
+});
+Route::get('/matricula', function () {
+    return view('matricula');
 });
 Route::get('/chat', 'HomeController@CreateGroup')->name('chat');
 // Lessons
@@ -235,6 +260,7 @@ Route::get('downloadFile', 'HomeController@downloadFile')->name('downloadFile');
 
 
 Route::get('info_user', 'UserController@show')->name('info_user');
+Route::get('actividad_d/Courses', 'CoursesController@index');
 Route::get('GetCourses', 'CourseController@GetCourses');
 Route::get('GetCategories', 'CategoryController@GetCategories');
 Route::get('GetTypeU', 'CategoryController@GetTypeU');
@@ -337,3 +363,20 @@ Route::post('/questions/{question}/vote', 'VoteQuestionController')->name('quest
 // voting the answer
 // --------------------
 Route::post('/answers/{answer}/vote', 'VoteAnswerController')->name('answers.vote');
+
+// excel
+Route::get('/excel', function () {
+    return Excel::download(new ProductsExport(2020), 'users.xlsx');
+});
+// chart
+Route::get('chart', 'UserChartController@index');
+
+//pdf
+Route::get('pdfview', array('as' => 'pdfview', 'uses' => 'BestInterviewQuestionController@pdfview'));
+
+//importacion
+
+$router->get('import', 'ImportController@import');
+Route::get('/importar_adm', function () {
+    return view('imports.importB');
+});

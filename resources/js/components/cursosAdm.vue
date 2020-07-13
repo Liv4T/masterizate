@@ -5,15 +5,20 @@
         <div class="card text-center">
           <h3 class="card-header fondo">General</h3>
           <div class="card-body">
+            <a class="btn btn-warning" v-on:click.prevent="createG()">Crear grado</a>
             <a class="btn btn-warning" v-on:click.prevent="createS()">Crear salón</a>
-            <a class="btn btn-warning" v-on:click.prevent="createM()">Crear materia</a>
-            <a class="btn btn-warning" v-on:click.prevent="editNames()">Crear usuarios</a>
+            <!-- <a
+                            class="btn btn-warning"
+                            v-on:click.prevent="createM()"
+                            >Crear materia</a
+            >
+            <a class="btn btn-warning" v-on:click.prevent="editNames()">Crear usuarios</a>-->
             <br />
             <br />
             <table class="table table-responsive-xl table-hover table-striped center">
               <tbody>
                 <tr data-toggle="collapse" data-target="#accordion" class="clickable">
-                  <td>601</td>
+                  <td>Sexto</td>
                   <td></td>
                   <td></td>
 
@@ -33,14 +38,10 @@
                 <tr>
                   <td>
                     <div id="accordion" class="collapse">
-                      <a class="btn btn-warning" href="/docente_adm">Docentes</a>
+                      <a class="btn btn-warning" v-on:click.prevent="createM()">Crear materia</a>
                     </div>
                   </td>
-                  <td>
-                    <div id="accordion" class="collapse">
-                      <a class="btn btn-warning" href="/estudiante_adm">Estudiantes</a>
-                    </div>
-                  </td>
+
                   <!-- <td>
                     <div id="accordion" class="collapse">
                       <a class="btn btn-warning" v-on:click.prevent="editNames(actividad)">Semana 2</a>
@@ -69,6 +70,22 @@
               </h3>
               <div class="card-body">
                 <form class="needs-validation" v-on:submit.prevent novalidate>
+                  <div class="form-group row mx-auto">
+                    <div class="col-md-8 text-center mx-auto">
+                      <label for>Grado</label>
+                      <div>
+                        <select
+                          class="form-control"
+                          ref="seleccionado"
+                          style="background: gainsboro;"
+                          required
+                        >
+                          <option value="2">Sexto</option>
+                          <option value="3">Septimo</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
                   <div class="form-group row mx-auto" v-for="(input, t) in inputs" :key="t">
                     <div class="col-md-8 text-center mx-auto">
                       <label for="name">Nombre</label>
@@ -201,7 +218,7 @@
                         >
                           <option value="2">Docente</option>
                           <option value="3">Estudiante</option>
-                          <option value="3">Administrador</option>
+                          <option value="3">Coordinador</option>
                         </select>
                       </div>
                     </div>
@@ -321,6 +338,80 @@
           </div>
         </div>
       </div>
+      <div class="modal fade" id="createGrad">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="card">
+              <h3 class="card-header fondo text-center">
+                Grado
+                <button type="button" class="close" data-dismiss="modal">
+                  <span>&times;</span>
+                </button>
+              </h3>
+              <div class="card-body">
+                <form class="needs-validation" v-on:submit.prevent novalidate>
+                  <div class="form-group row mx-auto">
+                    <div class="col-md-8 text-center mx-auto">
+                      <label for>Sección</label>
+                      <div>
+                        <select
+                          class="form-control"
+                          ref="seleccionado"
+                          style="background: gainsboro;"
+                          required
+                        >
+                          <option value="2">Preescolar</option>
+                          <option value="3">Primaria</option>
+                          <option value="3">Secundaria</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group row mx-auto" v-for="(input, t) in inputs" :key="t">
+                    <div class="col-md-8 text-center mx-auto">
+                      <label for="name">Grado</label>
+                      <span>
+                        <a
+                          href="#"
+                          class="badge badge-danger"
+                          @click.prevent="remove(t)"
+                          v-show="
+                                                        t ||
+                                                            (!t &&
+                                                                inputs.length >
+                                                                    1)
+                                                    "
+                        >-</a>
+                        <a
+                          href="#"
+                          class="badge badge-primary"
+                          @click.prevent="add(t)"
+                          v-show="
+                                                        t == inputs.length - 1
+                                                    "
+                        >+</a>
+                      </span>
+                      <div>
+                        <input
+                          type="text"
+                          name="objetive1"
+                          class="form-control"
+                          v-model="input.name"
+                          style="background: gainsboro;"
+                          required
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <input type="submit" class="btn btn-warning" value="Guardar" />
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -373,6 +464,13 @@ export default {
       //     this.fillS = response.data;
       //   });
       $("#createMat").modal("show");
+    },
+    createG(clas) {
+      //   var urlr = "showClass/" + clas;
+      //   axios.get(urlr).then(response => {
+      //     this.fillS = response.data;
+      //   });
+      $("#createGrad").modal("show");
     },
     add(index) {
       this.inputs.push({

@@ -82,13 +82,12 @@
                   </div>
                   <div class="col-md-6">
                     <label for="name">Logro</label>
-                    <textarea
-                      name="competences"
-                      class="form-control"
-                      v-model="newLogro"
-                      placeholder="Es la explicacion o sintesis de la unidad."
-                      required
-                    ></textarea>
+                    <select class="form-control" v-for="logr in logros.courses" required>
+                      <option :value="logr.achievement_1">{{logr.achievement_1}}</option>
+                      <option :value="logr.achievement_2">{{logr.achievement_2}}</option>
+                      <option :value="logr.achievement_3">{{logr.achievement_3}}</option>
+                      <option :value="logr.achievement_4">{{logr.achievement_4}}</option>
+                    </select>
                     <div class="invalid-feedback">Please fill out this field</div>
                   </div>
                 </div>
@@ -262,6 +261,7 @@ export default {
 
       myOptions: [],
       optionA: "Cuestionario 4 opciones",
+      logros: [],
       newActivity: "",
       newDescription: "",
       newName: "",
@@ -284,6 +284,11 @@ export default {
     var urlsel = "getClass/" + this.week;
     axios.get(urlsel).then(response => {
       this.myOptions = response.data;
+    });
+    var urln = "Courses";
+    axios.get(urln).then(response => {
+      this.logros = response.data;
+      console.log(this.logros.courses);
     });
   },
   methods: {

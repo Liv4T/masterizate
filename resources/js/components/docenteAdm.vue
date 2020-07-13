@@ -36,6 +36,9 @@
                 </tr>
               </tbody>
             </table>
+            <div class="modal-footer">
+              <a class="btn btn-warning" href="/excel">Exportar</a>
+            </div>
           </div>
         </div>
       </div>

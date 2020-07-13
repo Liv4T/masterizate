@@ -21,7 +21,11 @@
                       <div class="col-md-6">
                         <label for>Semana:</label>
                         <select class="form-control" ref="seleccionado" required>
-                          <option :value="option.id" v-for="option in myOptions">{{option.text}}</option>
+                          <option :value="option.id" v-for="option in myOptions">
+                            {{
+                            option.text
+                            }}
+                          </option>
                         </select>
                       </div>
                     </div>
@@ -51,7 +55,7 @@
                       <div class="invalid-feedback">Please fill out this field</div>
                     </div>
                   </div>
-                  <div v-show="nameUnit!=''">
+                  <div v-show="nameUnit != ''">
                     <div class="form-group mx-auto">Material de apoyo</div>
                     <div class="form-group row">
                       <div class="col-md-6">
@@ -96,6 +100,18 @@
                           required
                         />
                         {{ messageVideo }}
+                      </div>
+                      <div class="col-md-6">
+                        <label for="name">Intensidad horaria de trabajo</label>
+                        <div>
+                          <input
+                            type="number"
+                            name="objetive1"
+                            class="form-control"
+                            v-model="numero"
+                            required
+                          />
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -168,6 +184,7 @@ export default {
       semanal: false,
       newVideo: [],
       messageVideo: "",
+      numero: "",
       errors: []
     };
   },
@@ -180,7 +197,7 @@ export default {
   },
   methods: {
     getMenu() {
-      window.location = "/actividad_g";
+      window.location = "/clases_d";
     },
     createSemanal() {
       var url = "Class";
@@ -274,5 +291,4 @@ export default {
   }
 };
 </script>
-<style>
-</style>
+<style></style>
