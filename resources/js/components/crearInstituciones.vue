@@ -13,7 +13,7 @@
                 next-button-text="Siguiente"
                 back-button-text="Atrás"
                 finish-button-text="Guardar y enviar"
-                @on-complete="createSemanal"
+                @on-complete="createInstitution"
               >
                 <tab-content title="Institución">
                   <div class="form-group mx-auto">
@@ -24,7 +24,7 @@
                           type="text"
                           name="objetive1"
                           class="form-control"
-                          v-model="nameUnit"
+                          v-model="name"
                           required
                         />
                       </div>
@@ -34,15 +34,15 @@
                     <div class="col-md-6">
                       <label for="name">Departamento</label>
                       <div>
-                        <select class="form-control" ref="seleccionado" required>
+                        <select class="form-control" v-model="state" @input="getCity" required>
                           <option :value="option.id" v-for="option in myOptions">{{ option.text }}</option>
                         </select>
                       </div>
                     </div>
                     <div class="col-md-6">
                       <label for="name">Municipio/Ciudad</label>
-                      <select class="form-control" ref="seleccionado" required>
-                        <option :value="option.id" v-for="option in myOptions">{{ option.text }}</option>
+                      <select class="form-control" v-model="city" required>
+                        <option :value="option.id" v-for="option in myOptions2">{{ option.text }}</option>
                       </select>
                       <div class="invalid-feedback">Please fill out this field</div>
                     </div>
@@ -54,7 +54,7 @@
                         type="text"
                         name="objetive1"
                         class="form-control"
-                        v-model="nameFile"
+                        v-model="address"
                         required
                       />
                     </div>
@@ -85,7 +85,7 @@
                         type="text"
                         name="objetive1"
                         class="form-control"
-                        v-model="nameUrl"
+                        v-model="input.name"
                         required
                       />
                     </div>
@@ -158,7 +158,7 @@
                         type="date"
                         name="objetive1"
                         class="form-control"
-                        v-model="input1.name"
+                        v-model="input1.from"
                         required
                       />
                     </div>
@@ -168,7 +168,7 @@
                         type="date"
                         name="objetive1"
                         class="form-control"
-                        v-model="input1.name"
+                        v-model="input1.to"
                         required
                       />
                     </div>
@@ -212,22 +212,7 @@
     false
   );
 })();
-$(function() {
-  // Get the form fields and hidden div
-  var checkbox = $("#gridCheck1");
-  var hidden = $("#hidden_fields1");
 
-  hidden.hide();
-
-  checkbox.change(function() {
-    if (checkbox.is(":checked")) {
-      // Show the hidden fields.
-      hidden.show();
-    } else {
-      hidden.hide();
-    }
-  });
-});
 import VueFormWizard from "vue-form-wizard";
 import "vue-form-wizard/dist/vue-form-wizard.min.css";
 Vue.use(VueFormWizard);
@@ -235,18 +220,19 @@ export default {
   data() {
     return {
       myOptions: [],
-      nameUnit: "",
-      description: "",
-      nameFile: "",
-      nameUrl: "",
-      newDocument: [],
+      myOptions2: [],
+      name: "",
+      city: "",
+      state: "",
+      address: "",
+      streaming: "",
       semanal: false,
-      newVideo: [],
-      messageVideo: "",
       seleccionadoStreaming: "",
       textoM: "",
       errors: [],
       year: "",
+      section: [],
+      period: [],
       inputs: [
         {
           name: ""
@@ -254,17 +240,19 @@ export default {
       ],
       inputs1: [
         {
-          name: ""
-        }
-      ],
-      inputs2: [
-        {
-          name: ""
+          name: "",
+          from: "",
+          to: ""
         }
       ]
     };
   },
-  mounted() {},
+  mounted() {
+    var urlsel = "GetState";
+    axios.get(urlsel).then(response => {
+      this.myOptions = response.data;
+    });
+  },
   methods: {
     getMenu() {
       window.location = "/instituciones_adm";
@@ -278,71 +266,43 @@ export default {
         this.textoM = "";
       }
     },
-    createSemanal() {
-      var url = "Class";
+
+    createInstitution() {
+      var url = "save";
       this.seleccionado = this.$refs.seleccionado.value;
+      if (this.inputs.length >= 1) {
+        for (let i = 0; i < this.inputs.length; i++) {
+          this.section.push(this.inputs[i]);
+        }
+      }
+      if (this.inputs1.length >= 1) {
+        for (let i = 0; i < this.inputs1.length; i++) {
+          this.period.push(this.inputs1[i]);
+        }
+      }
       axios
         .post(url, {
           //Cursos generales
-          id_weekly_plan: this.seleccionado,
-          name: this.nameUnit,
-          description: this.description,
-          name_document: this.nameFile,
-          document: this.newDocument,
-          url: this.nameUrl,
-          video: this.newVideo
+          name: this.name,
+          state: this.state,
+          city: this.city,
+          streaming: this.streaming,
+          year: this.year,
+          address: this.address,
+          section: this.section,
+          period: this.period
         })
         .then(response => {
           this.errors = [];
 
-          toastr.success("Nueva clase creada exitosamente");
+          toastr.success("Nueva institución creada exitosamente");
           this.getMenu();
         })
         .catch(error => {
           this.errors = error.response.data;
         });
     },
-    onFlieChange(file) {
-      let files = file.target.files || file.dataTransfer.files;
-      let data = new FormData();
-      if (files.length > 0) {
-        let file = files[0];
 
-        // if uploaded file is valid with validation rules
-
-        data.append("file", files[0]);
-        data.append("name", this.nameUnit);
-        this.newDocument = data;
-
-        axios.post("/fileDocument", data).then(response => {
-          this.emitMessage(response);
-        });
-      }
-    },
-    videoFile(file) {
-      let files = file.target.files || file.dataTransfer.files;
-      let data = new FormData();
-      if (files.length > 0) {
-        let file = files[0];
-        this.messageVideo = "Espere estamos cargando el video";
-        // if uploaded file is valid with validation rules
-
-        data.append("file", files[0]);
-        data.append("name", this.nameUnit);
-        this.newVideo = data;
-
-        axios.post("/fileDocument", data).then(response => {
-          console.log(response.data);
-
-          if (response.data == "ok") {
-            this.messageVideo = "Video cargado";
-          } else {
-            this.messageVideo =
-              "El video excede el límite, por favor reducir su peso";
-          }
-        });
-      }
-    },
     add(index) {
       this.inputs.push({
         name: ""
@@ -359,13 +319,11 @@ export default {
     remove1(index) {
       this.inputs1.splice(index, 1);
     },
-    add2(index) {
-      this.inputs2.push({
-        name: ""
+    getCity() {
+      var urlse = "GetCity/" + this.state;
+      axios.get(urlse).then(response => {
+        this.myOptions2 = response.data;
       });
-    },
-    remove2(index) {
-      this.inputs2.splice(index, 1);
     }
   }
 };

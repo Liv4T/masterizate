@@ -69,14 +69,14 @@
                 </button>
               </h3>
               <div class="card-body">
-                <form class="needs-validation" v-on:submit.prevent novalidate>
+                <form class="needs-validation" v-on:submit.prevent="createSalon()" novalidate>
                   <div class="form-group row mx-auto">
                     <div class="col-md-8 text-center mx-auto">
                       <label for>Grado</label>
                       <div>
                         <select
                           class="form-control"
-                          ref="seleccionado"
+                          v-model="grado"
                           style="background: gainsboro;"
                           required
                         >
@@ -142,14 +142,14 @@
                 </button>
               </h3>
               <div class="card-body">
-                <form class="needs-validation" v-on:submit.prevent novalidate>
+                <form class="needs-validation" v-on:submit.prevent="createMateria()" novalidate>
                   <div class="form-group row mx-auto">
                     <div class="col-md-8 text-center mx-auto">
                       <label for="name">Grado</label>
                       <div>
                         <select
                           class="form-control"
-                          ref="seleccionado"
+                          v-model="grado"
                           style="background: gainsboro;"
                           required
                         >
@@ -205,156 +205,7 @@
           </div>
         </div>
       </div>
-      <div class="modal fade" id="createZ">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="card">
-              <h3 class="card-header fondo text-center">
-                Usuarios
-                <button type="button" class="close" data-dismiss="modal">
-                  <span>&times;</span>
-                </button>
-              </h3>
-              <div class="card-body">
-                <form class="needs-validation" v-on:submit.prevent novalidate>
-                  <div class="form-group row mx-auto">
-                    <div class="col-md-8 text-center mx-auto">
-                      <label for="name">
-                        <img
-                          width="35px"
-                          src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/MI-PERFIL.png?alt=media&token=317fc013-8cce-448f-9af9-54e2981274d0"
-                          alt
-                        />Rol
-                      </label>
-                      <div>
-                        <select
-                          class="form-control"
-                          ref="seleccionado"
-                          style="background: gainsboro;"
-                          required
-                        >
-                          <option value="2">Docente</option>
-                          <option value="3">Estudiante</option>
-                          <option value="3">Coordinador</option>
-                        </select>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="form-group row mx-auto">
-                    <div class="col-md-8 text-center mx-auto">
-                      <label for="name">
-                        <img
-                          width="35px"
-                          src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/MI-PERFIL.png?alt=media&token=317fc013-8cce-448f-9af9-54e2981274d0"
-                          alt
-                        />Nombres
-                      </label>
-                      <div>
-                        <input
-                          type="text"
-                          name="objetive1"
-                          class="form-control"
-                          v-model="name"
-                          style="background: gainsboro;"
-                          required
-                        />
-                      </div>
-                    </div>
-                  </div>
-                  <div class="form-group row mx-auto">
-                    <div class="col-md-8 text-center mx-auto">
-                      <label for="name">
-                        <img
-                          width="35px"
-                          src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/MI-PERFIL.png?alt=media&token=317fc013-8cce-448f-9af9-54e2981274d0"
-                          alt
-                        />Apellidos
-                      </label>
-                      <div>
-                        <input
-                          type="text"
-                          name="objetive1"
-                          class="form-control"
-                          v-model="name"
-                          style="background: gainsboro;"
-                          required
-                        />
-                      </div>
-                    </div>
-                  </div>
-                  <div class="form-group row mx-auto">
-                    <div class="col-md-8 text-center mx-auto">
-                      <label for="name">
-                        <img
-                          width="35px"
-                          src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/MI-MENSAJES_naranja.png?alt=media&token=317fc013-8cce-448f-9af9-54e2981274d0"
-                          alt
-                        />Correo
-                      </label>
-                      <div>
-                        <input
-                          type="text"
-                          name="objetive1"
-                          class="form-control"
-                          v-model="name"
-                          style="background: gainsboro;"
-                          required
-                        />
-                      </div>
-                    </div>
-                  </div>
-                  <div class="form-group row mx-auto">
-                    <div class="col-md-8 text-center mx-auto">
-                      <label for="name">
-                        <img
-                          width="35px"
-                          src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/MIS-CURSOS.png?alt=media&token=317fc013-8cce-448f-9af9-54e2981274d0"
-                          alt
-                        />Curso
-                      </label>
-                      <div>
-                        <select
-                          class="form-control"
-                          ref="seleccionado"
-                          style="background: gainsboro;"
-                          required
-                        >
-                          <option value="2">601</option>
-                          <option value="3">602</option>
-                        </select>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="form-group row mx-auto">
-                    <div class="col-md-8 text-center mx-auto">
-                      <label for="name">
-                        <img
-                          width="35px"
-                          src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/MI-PERFIL.png?alt=media&token=317fc013-8cce-448f-9af9-54e2981274d0"
-                          alt
-                        />Acudiente
-                      </label>
-                      <div>
-                        <input
-                          type="text"
-                          name="objetive1"
-                          class="form-control"
-                          v-model="name"
-                          style="background: gainsboro;"
-                          required
-                        />
-                      </div>
-                    </div>
-                  </div>
-                  <div class="modal-footer">
-                    <input type="submit" class="btn btn-warning" value="Guardar" />
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+
       <div class="modal fade" id="createGrad">
         <div class="modal-dialog">
           <div class="modal-content">
@@ -366,14 +217,14 @@
                 </button>
               </h3>
               <div class="card-body">
-                <form class="needs-validation" v-on:submit.prevent novalidate>
+                <form class="needs-validation" v-on:submit.prevent="createGrado()" novalidate>
                   <div class="form-group row mx-auto">
                     <div class="col-md-8 text-center mx-auto">
                       <label for>Sección</label>
                       <div>
                         <select
                           class="form-control"
-                          ref="seleccionado"
+                          v-model="section"
                           style="background: gainsboro;"
                           required
                         >
@@ -440,9 +291,7 @@ export default {
       descripcion: "",
       logro: "",
       name: "",
-      fechaE: "",
-      fechaR: "",
-      id_act: "",
+      grado: "",
       errors: [],
       fillS: [],
       inputs: [
@@ -496,6 +345,63 @@ export default {
     },
     remove(index) {
       this.inputs.splice(index, 1);
+    },
+    createSalon() {
+      var url = "save";
+
+      axios
+        .post(url, {
+          //Cursos generales
+          name: this.name,
+          grade: this.grado
+        })
+        .then(response => {
+          this.errors = [];
+
+          toastr.success("Nuevo salon creado exitosamente");
+          this.getMenu();
+        })
+        .catch(error => {
+          this.errors = error.response.data;
+        });
+    },
+    createGrado() {
+      var url = "save";
+
+      axios
+        .post(url, {
+          //Cursos generales
+          name: this.name,
+          section: this.section
+        })
+        .then(response => {
+          this.errors = [];
+
+          toastr.success("Nuevo grado creado exitosamente");
+          this.getMenu();
+        })
+        .catch(error => {
+          this.errors = error.response.data;
+        });
+    },
+    createMateria() {
+      var url = "save";
+
+      axios
+        .post(url, {
+          //Cursos generales
+          name: this.name,
+          grade: this.grado
+        })
+        .then(response => {
+          this.errors = [];
+
+          toastr.success("Nueva materia creada exitosamente");
+          this.getMenu();
+        })
+        .catch(error => {
+          this.errors = error.response.data;
+        });
     }
   }
 };
