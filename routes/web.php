@@ -345,6 +345,24 @@ Route::resource('/questions.answers', 'AnswerController')->except(['index', 'cre
 
 Route::post('storeAnswer', 'AnswerController@store')->name('storeAnswer');
 
+/* Enviar correo en la mesajería 
+ */
+Route::post('sendMessages', 'MessagingController@store')->name('sendMessages');
+
+/* Rutas del administrador 
+ */
+
+Route::post('createInstitution', 'AdministratorController@createInstitution')->name('createInstitution');
+Route::get('findInstitution/{id}', 'AdministratorController@findInstitution')->name('findInstitution');
+Route::put('updateInstitution', 'AdministratorController@updateInstitution')->name('updateInstitution');
+
+Route::post('createGrade', 'AdministratorController@createGrade')->name('createGrade');
+
+Route::post('createClassroom', 'AdministratorController@createClassroom')->name('createClassroom');
+
+Route::post('createArea', 'AdministratorController@createArea')->name('createArea');
+
+
 // route set for favorite answer
 // -------------------------------
 Route::post('/answers/{answer}/accept', 'AcceptAnswerController')->name('answers.accept');

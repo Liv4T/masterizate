@@ -42,14 +42,15 @@ class MessagingController extends Controller
         //
         $data = $request->all();
         $message = New Messaging;
+        $user = Auth::user();
 
-        $message->id_emisor = $data['id_emisor'];
+        $message->id_emisor = $user->id;
         $message->message = $data['message'];
         $message->subject = $data['subject'];
 
         $message->save();
         if($message->save()){
-            foreach($data['id_receptor'] as $receptor){
+            foreach($data['receptor'] as $receptor){
                 $receptor_message = New ReceptorMessage;
                 $receptor_message->id_user = $receptor;
                 $receptor_message->status = 0;
@@ -59,14 +60,18 @@ class MessagingController extends Controller
 
             $emails = [];
             $count = 0;
-            foreach($data['id_receptor'] as $receptor){
+            foreach($data['receptor'] as $receptor){
                 $user[$count] = User::findOrFail($receptor); 
                 $emails[$count] = $user[$count]->email;
                 $count++;
             }
+            $data_email=[
+                'message' => $data['message'],
+                'subject' => $data['subject'],
+            ];
 
-            Mail::send('emails.register', $data, function ($msj) use ($message,$emails) {
-                $msj->subject($message->subject)
+            Mail::send('emails.sendMessages', $data_email, function ($msj) use ($data_email,$emails) {
+                $msj->subject($data_email['subject'])
                 ->bcc($emails);
             });
         }
