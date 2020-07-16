@@ -137,7 +137,7 @@
                           width="35px"
                           src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/MIS-CURSOS.png?alt=media&token=317fc013-8cce-448f-9af9-54e2981274d0"
                           alt
-                        />Sección
+                        />Institución
                       </label>
                       <div>
                         <select
@@ -146,7 +146,7 @@
                           style="background: gainsboro;"
                           required
                         >
-                          <option value="2">Primaria</option>
+                          <option value="2">in 1</option>
                           <option value="3">Secundaria</option>
                         </select>
                       </div>
