@@ -9,6 +9,8 @@ use App\Period;
 use App\Grade;
 use App\Classroom;
 use App\Area;
+use App\City;
+use App\State;
 use App\User;
 use Auth;
 
@@ -22,6 +24,42 @@ class AdministratorController extends Controller
     public function index()
     {
         //
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getAllState()
+    {
+        $departamentos = State::all();
+
+        return $departamentos;
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function findCity(String $id)
+    {
+        $municipios = [];
+        $Municipios = City::where('id_state',$id)->get();
+        foreach ($Municipios as $key => $value) {
+            $municipios[$key+1] =[
+                'id'   => $value->id_state,
+                'text' => $value->name,
+            ];
+        };
+
+        $data = [];
+        $data = [
+            'states' => $municipios,
+        ];
+
+        return $data;
     }
 
     /**

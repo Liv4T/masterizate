@@ -352,6 +352,8 @@ Route::post('sendMessages', 'MessagingController@store')->name('sendMessages');
 /* Rutas del administrador 
  */
 
+Route::get('getState', 'AdministratorController@getAllState')->name('getState');
+Route::get('getCity/{id}', 'AdministratorController@findCity')->name('getCity');
 Route::post('createInstitution', 'AdministratorController@createInstitution')->name('createInstitution');
 Route::get('findInstitution/{id}', 'AdministratorController@findInstitution')->name('findInstitution');
 Route::put('updateInstitution', 'AdministratorController@updateInstitution')->name('updateInstitution');
