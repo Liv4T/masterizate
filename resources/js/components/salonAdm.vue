@@ -121,6 +121,22 @@
               </h3>
               <div class="card-body">
                 <form class="needs-validation" v-on:submit.prevent novalidate>
+                  <div class="form-group row mx-auto">
+                    <div class="col-md-8 text-center mx-auto">
+                      <div>
+                        <select
+                          class="form-control"
+                          ref="seleccionado"
+                          style="background: gainsboro;"
+                          required
+                        >
+                          <option value="2">Sexto</option>
+                          <option value="3">Primaria</option>
+                          <option value="3">Secundaria</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
                   <div class="form-group row mx-auto" v-for="(input, t) in inputs" :key="t">
                     <div class="col-md-8 text-center mx-auto">
                       <label for="name">Nombre</label>

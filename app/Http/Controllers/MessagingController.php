@@ -41,16 +41,16 @@ class MessagingController extends Controller
     {
         //
         $data = $request->all();
-        $message = New Messaging;
+        $message = new Messaging;
 
         $message->id_emisor = $data['id_emisor'];
         $message->message = $data['message'];
         $message->subject = $data['subject'];
 
         $message->save();
-        if($message->save()){
-            foreach($data['id_receptor'] as $receptor){
-                $receptor_message = New ReceptorMessage;
+        if ($message->save()) {
+            foreach ($data['id_receptor'] as $receptor) {
+                $receptor_message = new ReceptorMessage;
                 $receptor_message->id_user = $receptor;
                 $receptor_message->status = 0;
                 $receptor_message->id_message = $message->id;
@@ -59,15 +59,15 @@ class MessagingController extends Controller
 
             $emails = [];
             $count = 0;
-            foreach($data['id_receptor'] as $receptor){
-                $user[$count] = User::findOrFail($receptor); 
+            foreach ($data['id_receptor'] as $receptor) {
+                $user[$count] = User::findOrFail($receptor);
                 $emails[$count] = $user[$count]->email;
                 $count++;
             }
 
-            Mail::send('emails.register', $data, function ($msj) use ($message,$emails) {
+            Mail::send('emails.register', $data, function ($msj) use ($message, $emails) {
                 $msj->subject($message->subject)
-                ->bcc($emails);
+                    ->bcc($emails);
             });
         }
     }
@@ -82,18 +82,16 @@ class MessagingController extends Controller
     {
         //
         $message = Messaging::findOrFail($id);
-        if($message){
+        if ($message) {
             $user = User::findOrFail($message->id_emisor);
-            $message->emisor = $user->name." ".$user->last_name;
+            $message->emisor = $user->name . " " . $user->last_name;
 
-            $user_message = ReceptorMessage::where('id_message',$message->id)->get();
+            $user_message = ReceptorMessage::where('id_message', $message->id)->get();
             $user_message->status = 1;
             $user_message->save();
 
             return $message;
         }
-
-
     }
 
 
@@ -106,22 +104,20 @@ class MessagingController extends Controller
     public function showSentMessage()
     {
         $user = Auth::user();
-        $message = Messaging::where('id_emisor',$user->id)->get();
-        if($message){
+        $message = Messaging::where('id_emisor', $user->id)->get();
+        if ($message) {
             $receivers = [];
-            $user_messages = ReceptorMessage::where('id_message',$message->id)->get();
-            foreach($user_messages as $receiver){
+            $user_messages = ReceptorMessage::where('id_message', $message->id)->get();
+            foreach ($user_messages as $receiver) {
                 $user_sent = User::find($receiver);
-                $receivers =+ [
+                $receivers = +[
                     $user->email,
                 ];
             }
             $message->receivers = $receivers;
-            
+
             return $message;
         }
-
-
     }
 
     /**
@@ -134,20 +130,17 @@ class MessagingController extends Controller
     {
         $user = Auth::user();
         $messages = [];
-        $messagesReceivers = ReceptorMessage::where('id_user',$user->id)->get();
-        foreach($messagesReceivers as $messagesReceiver){
+        $messagesReceivers = ReceptorMessage::where('id_user', $user->id)->get();
+        foreach ($messagesReceivers as $messagesReceiver) {
             $message = Messaging::find($messagesReceiver->id_message);
             $user = User::find($message->id_emisor);
-            $message->emisor = $user->name." ".$user->last_name;
-            $messages =+ [
+            $message->emisor = $user->name . " " . $user->last_name;
+            $messages = +[
                 $message,
             ];
         }
-        
+
         return $messages;
-            
-
-
     }
 
     /**
@@ -179,9 +172,9 @@ class MessagingController extends Controller
         $message->subject = $data['subject'];
 
         $message->save();
-        if($message->save()){
-            foreach($data['id_receptor'] as $receptor){
-                $receptor_message = ReceptorMessage::where('id_message',$data['id_message'])->get();
+        if ($message->save()) {
+            foreach ($data['id_receptor'] as $receptor) {
+                $receptor_message = ReceptorMessage::where('id_message', $data['id_message'])->get();
                 $receptor_message->id_user = $receptor;
                 $receptor_message->status = 0;
                 $receptor_message->save();
@@ -189,15 +182,15 @@ class MessagingController extends Controller
 
             $emails = [];
             $count = 0;
-            foreach($data['id_receptor'] as $receptor){
-                $user[$count] = User::findOrFail($receptor); 
+            foreach ($data['id_receptor'] as $receptor) {
+                $user[$count] = User::findOrFail($receptor);
                 $emails[$count] = $user[$count]->email;
                 $count++;
             }
 
-            Mail::send('emails.register', $data, function ($msj) use ($message,$emails) {
+            Mail::send('emails.register', $data, function ($msj) use ($message, $emails) {
                 $msj->subject($message->subject)
-                ->bcc($emails);
+                    ->bcc($emails);
             });
         }
     }
