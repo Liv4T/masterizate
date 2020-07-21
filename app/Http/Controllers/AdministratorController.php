@@ -197,6 +197,71 @@ class AdministratorController extends Controller
     }
 
     /**
+     *Find some resource fron DB.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function findGrade()
+    {
+        $institution = Institution::all();
+        $grades = [];
+
+        foreach ($institution as $key => $value){
+            $grade = Grade::where('id_institution',$value->id)->get();
+            foreach ($grade as $key => $val) {
+                $grades[$key + 1] = [
+                    'grade' => $val->name,
+                    'institution' => $value->name,
+                ];
+            }
+        }
+        return $grades;
+    }
+        /**
+     *Find some resource fron DB.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function findArea()
+    {
+        $institution = Institution::all();
+        $areas = [];
+
+        foreach ($institution as $key => $value){
+            $area = Area::where('id_institution',$value->id)->get();
+            foreach ($area as $key => $val) {
+                $areas[$key + 1] = [
+                    'area' => $val->name,
+                    'institution' => $value->name,
+                ];
+            }
+        }
+        return $areas;
+    }
+
+        /**
+     *Find some resource fron DB.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function findClassroom()
+    {
+        $institution = Institution::all();
+        $Classrooms = [];
+
+        foreach ($institution as $key => $value){
+            $Classroom = Classroom::where('id_institution',$value->id)->get();
+            foreach ($Classroom as $key => $val) {
+                $Classrooms[$key + 1] = [
+                    'clasroom' => $val->name,
+                    'institution' => $value->name,
+                ];
+            }
+        }
+        return $Classrooms;
+    }
+
+    /**
      *Create and store new grade resource.
      *
      * @return \Illuminate\Http\Response

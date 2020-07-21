@@ -357,12 +357,12 @@ Route::get('getCity/{id}', 'AdministratorController@findCity')->name('getCity');
 Route::post('createInstitution', 'AdministratorController@createInstitution')->name('createInstitution');
 Route::get('findInstitution/{id}', 'AdministratorController@findInstitution')->name('findInstitution');
 Route::put('updateInstitution', 'AdministratorController@updateInstitution')->name('updateInstitution');
-
 Route::post('createGrade', 'AdministratorController@createGrade')->name('createGrade');
-
 Route::post('createClassroom', 'AdministratorController@createClassroom')->name('createClassroom');
-
 Route::post('createArea', 'AdministratorController@createArea')->name('createArea');
+Route::get('getGrade', 'AdministratorController@findGrade')->name('getGrade');
+Route::get('getArea', 'AdministratorController@findArea')->name('getArea');
+Route::get('getClassroom', 'AdministratorController@findClassroom')->name('getClassroom');
 
 
 // route set for favorite answer
