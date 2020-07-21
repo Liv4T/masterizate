@@ -34,8 +34,17 @@
                     <div class="col-md-6">
                       <label for="name">Departamento</label>
                       <div>
-                        <select class="form-control" v-model="state" @input="getCity" required>
-                          <option :value="option.id" v-for="option in myOptions">{{ option.text }}</option>
+                        <select
+                          class="form-control"
+                          ref="state1"
+                          v-model="state"
+                          @input="getCity()"
+                          required
+                        >
+                          <option
+                            :value="option.id_state"
+                            v-for="option in myOptions"
+                          >{{ option.name }}</option>
                         </select>
                       </div>
                     </div>
@@ -96,6 +105,7 @@
                       <select
                         class="form-control"
                         ref="seleccionadoStreaming"
+                        v-model="streaming"
                         @change="mensaje()"
                         required
                       >
@@ -111,7 +121,7 @@
                     <div class="col-md-6">
                       <label for="name">Año</label>
                       <input
-                        type="text"
+                        type="number"
                         name="objetive1"
                         class="form-control"
                         v-model="year"
@@ -158,7 +168,7 @@
                         type="date"
                         name="objetive1"
                         class="form-control"
-                        v-model="input1.from"
+                        v-model="input1.date_from"
                         required
                       />
                     </div>
@@ -168,7 +178,7 @@
                         type="date"
                         name="objetive1"
                         class="form-control"
-                        v-model="input1.to"
+                        v-model="input1.date_to"
                         required
                       />
                     </div>
@@ -241,16 +251,17 @@ export default {
       inputs1: [
         {
           name: "",
-          from: "",
-          to: ""
+          date_from: "",
+          date_to: ""
         }
       ]
     };
   },
   mounted() {
-    var urlsel = "GetState";
+    var urlsel = "getState";
     axios.get(urlsel).then(response => {
       this.myOptions = response.data;
+      console.log(this.myOptions);
     });
   },
   methods: {
@@ -268,8 +279,8 @@ export default {
     },
 
     createInstitution() {
-      var url = "save";
-      this.seleccionado = this.$refs.seleccionado.value;
+      var url = "createInstitution";
+
       if (this.inputs.length >= 1) {
         for (let i = 0; i < this.inputs.length; i++) {
           this.section.push(this.inputs[i]);
@@ -280,6 +291,7 @@ export default {
           this.period.push(this.inputs1[i]);
         }
       }
+
       axios
         .post(url, {
           //Cursos generales
@@ -289,8 +301,8 @@ export default {
           streaming: this.streaming,
           year: this.year,
           address: this.address,
-          section: this.section,
-          period: this.period
+          sections: this.section,
+          periods: this.period
         })
         .then(response => {
           this.errors = [];
@@ -320,9 +332,10 @@ export default {
       this.inputs1.splice(index, 1);
     },
     getCity() {
-      var urlse = "GetCity/" + this.state;
+      var urlse = "getCity/" + this.$refs.state1.value;
       axios.get(urlse).then(response => {
         this.myOptions2 = response.data;
+        console.log(this.myOptions2);
       });
     }
   }

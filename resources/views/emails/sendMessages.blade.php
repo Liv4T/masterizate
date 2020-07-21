@@ -2,7 +2,7 @@
 <html>
 <body>
     <div>
-        {!! $message !!}
+        {!! $body !!}
     </div>
 </body>
 </html>

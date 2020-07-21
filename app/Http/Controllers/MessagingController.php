@@ -39,9 +39,8 @@ class MessagingController extends Controller
      */
     public function store(Request $request)
     {
-        //
         $data = $request->all();
-        $message = New Messaging;
+        $message = new Messaging;
         $user = Auth::user();
 
         $message->id_emisor = $user->id;
@@ -49,9 +48,9 @@ class MessagingController extends Controller
         $message->subject = $data['subject'];
 
         $message->save();
-        if($message->save()){
-            foreach($data['receptor'] as $receptor){
-                $receptor_message = New ReceptorMessage;
+        if ($message->save()) {
+            foreach ($data['receptor'] as $receptor) {
+                $receptor_message = new ReceptorMessage;
                 $receptor_message->id_user = $receptor;
                 $receptor_message->status = 0;
                 $receptor_message->id_message = $message->id;
@@ -60,20 +59,26 @@ class MessagingController extends Controller
 
             $emails = [];
             $count = 0;
-            foreach($data['receptor'] as $receptor){
-                $user[$count] = User::findOrFail($receptor); 
-                $emails[$count] = $user[$count]->email;
-                $count++;
+            foreach ($data['receptor'] as $key => $value) {
+                // dd($receptor);
+                $user = User::findOrFail($value);
+                $emails[$key] = [
+                    $user->email
+                ];
             }
-            $data_email=[
-                'message' => $data['message'],
+            $data_email = [
+                'body' => $data['message'],
                 'subject' => $data['subject'],
+                'mails' => $emails,
             ];
+            // return $data_email;
+            foreach ($emails as $email) {
 
-            Mail::send('emails.sendMessages', $data_email, function ($msj) use ($data_email,$emails) {
-                $msj->subject($data_email['subject'])
-                ->bcc($emails);
-            });
+                Mail::send('emails.sendMessages', $data_email, function ($msj) use ($data_email, $email) {
+                    $msj->subject($data_email['subject'])
+                        ->bcc($email);
+                });
+            }
         }
     }
 

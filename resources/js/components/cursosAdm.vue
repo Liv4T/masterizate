@@ -347,18 +347,19 @@ export default {
       this.inputs.splice(index, 1);
     },
     createSalon() {
-      var url = "save";
+      var url = "createClassroom";
 
       axios
         .post(url, {
           //Cursos generales
           name: this.name,
-          grade: this.grado
+          id_grade: this.grado
         })
         .then(response => {
           this.errors = [];
-
+          (this.name = ""), (this.grado = "");
           toastr.success("Nuevo salon creado exitosamente");
+
           this.getMenu();
         })
         .catch(error => {
@@ -366,17 +367,17 @@ export default {
         });
     },
     createGrado() {
-      var url = "save";
+      var url = "createGrade";
 
       axios
         .post(url, {
           //Cursos generales
           name: this.name,
-          section: this.section
+          id_section: this.section
         })
         .then(response => {
           this.errors = [];
-
+          (this.name = ""), (this.section = "");
           toastr.success("Nuevo grado creado exitosamente");
           this.getMenu();
         })
@@ -385,17 +386,17 @@ export default {
         });
     },
     createMateria() {
-      var url = "save";
+      var url = "createArea";
 
       axios
         .post(url, {
           //Cursos generales
           name: this.name,
-          grade: this.grado
+          id_grade: this.grado
         })
         .then(response => {
           this.errors = [];
-
+          (this.name = ""), (this.grado = "");
           toastr.success("Nueva materia creada exitosamente");
           this.getMenu();
         })

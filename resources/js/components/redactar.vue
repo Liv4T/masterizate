@@ -200,7 +200,7 @@ export default {
     },
     saveM() {
       console.log("data: ", this.editorData);
-      var url = "save";
+      var url = "sendMessages";
       if (this.cacudiente.length >= 1) {
         for (let i = 0; i < this.cacudiente.length; i++) {
           this.correos.push(this.cacudiente[i].id);
@@ -222,7 +222,11 @@ export default {
           subject: this.asunto,
           message: this.editorData
         })
-        .then(response)
+        .then(response => {
+          this.errors = [];
+
+          toastr.success("Mensaje enviado");
+        })
         .catch(error => {});
     }
   }

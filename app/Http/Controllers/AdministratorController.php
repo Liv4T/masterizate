@@ -46,9 +46,9 @@ class AdministratorController extends Controller
     public function findCity(String $id)
     {
         $municipios = [];
-        $Municipios = City::where('id_state',$id)->get();
+        $Municipios = City::where('id_state', $id)->get();
         foreach ($Municipios as $key => $value) {
-            $municipios[$key+1] =[
+            $municipios[$key + 1] = [
                 'id'   => $value->id_state,
                 'text' => $value->name,
             ];
@@ -59,7 +59,7 @@ class AdministratorController extends Controller
             'states' => $municipios,
         ];
 
-        return $data;
+        return $municipios;
     }
 
     /**
@@ -70,10 +70,10 @@ class AdministratorController extends Controller
     public function createInstitution(Request $request)
     {
         $data = $request->all();
-        $institution = New Institution;
+        $institution = new Institution;
         $user = Auth::user();
 
-     /* Save the new institution */
+        /* Save the new institution */
         $institution->id_user = $user->id;
         $institution->name = $data['name'];
         $institution->state = $data['state'];
@@ -86,7 +86,7 @@ class AdministratorController extends Controller
         /* Save the new section */
         $sections = $data['sections'];
 
-        foreach($sections as $index => $section) { 
+        foreach ($sections as $index => $section) {
             $sectiones = Section::create([
                 'name' => $section['name'],
                 'id_institution' => $institution->id,
@@ -96,7 +96,7 @@ class AdministratorController extends Controller
         /* Save the new period */
         $periods = $data['periods'];
 
-        foreach($periods as $index => $period) { 
+        foreach ($periods as $index => $period) {
             $periodos = Period::create([
                 'name' => $period['name'],
                 'date_from' => $period['date_from'],
@@ -116,17 +116,17 @@ class AdministratorController extends Controller
         $sections = [];
         $periods = [];
         $institution = Institution::findOrFail($id);
-        $Sections = Section::where('id_institution',$id)->get();
+        $Sections = Section::where('id_institution', $id)->get();
         foreach ($Sections as $key => $value) {
-            $sections[$key+1] =[
+            $sections[$key + 1] = [
                 'id'   => $value->id,
                 'name' => $value->name,
                 'id_institution' => $id,
             ];
         };
-        $Periodos = Period::where('id_institution',$id)->get();
+        $Periodos = Period::where('id_institution', $id)->get();
         foreach ($Periodos as $key => $value) {
-            $periods[$key+1] =[
+            $periods[$key + 1] = [
                 'id'   => $value->id,
                 'name' => $value->name,
                 'date_to' => $value->date_to,
@@ -157,7 +157,7 @@ class AdministratorController extends Controller
         $institution = Institution::findOrFail($data['id_institution']);
         $user = Auth::user();
 
-     /* Save the new institution */
+        /* Save the new institution */
         $institution->id_user = $user->id;
         $institution->name = $data['name'];
         $institution->state = $data['state'];
@@ -170,7 +170,7 @@ class AdministratorController extends Controller
         /* Save the new section */
         $sections = $data['sections'];
 
-        foreach($sections as $sec){
+        foreach ($sections as $sec) {
 
             $section = Section::findOrFail($sec['id']);
 
@@ -183,7 +183,7 @@ class AdministratorController extends Controller
         /* Save the new period */
         $periods = $data['periods'];
 
-        foreach($periods as $per){
+        foreach ($periods as $per) {
 
             $period = Period::findOrFail($sec['id']);
 
@@ -204,11 +204,11 @@ class AdministratorController extends Controller
     public function createGrade(Request $request)
     {
         $data = $request->all();
-        $grade = New Grade;
+        $grade = new Grade;
 
         $section = Section::findOrFail($data['id_section']);
 
-     /* Save the new institution */
+        /* Save the new institution */
         $grade->name = $data['name'];
         $grade->id_section = $section->id;
         $grade->id_institution = $section->id_institution;
@@ -224,11 +224,11 @@ class AdministratorController extends Controller
     public function createClassroom(Request $request)
     {
         $data = $request->all();
-        $class = New Classroom;
+        $class = new Classroom;
 
         $grade = Grade::findOrFail($data['id_grade']);
 
-     /* Save the new institution */
+        /* Save the new institution */
         $class->name = $data['name'];
         $class->id_section = $grade->id;
         $class->id_institution = $grade->id_institution;
@@ -243,11 +243,11 @@ class AdministratorController extends Controller
     public function createArea(Request $request)
     {
         $data = $request->all();
-        $area = New Area;
+        $area = new Area;
 
         $grade = Grade::findOrFail($data['id_grade']);
 
-     /* Save the new institution */
+        /* Save the new institution */
         $area->name = $data['name'];
         $area->id_section = $grade->id;
         $area->id_institution = $grade->id_institution;
