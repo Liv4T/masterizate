@@ -345,11 +345,13 @@ Route::resource('/questions.answers', 'AnswerController')->except(['index', 'cre
 
 Route::post('storeAnswer', 'AnswerController@store')->name('storeAnswer');
 
-/* Enviar correo en la mesajería
+/* Rutas de la mesajería
  */
 Route::post('sendMessages', 'MessagingController@store')->name('sendMessages');
 Route::get('getReceivedMessage', 'MessagingController@showReceivedMessage')->name('showReceivedMessage');
 Route::get('getSentMessage', 'MessagingController@showSentMessage')->name('showSentMessage');
+Route::get('getMessage/{id}', 'MessagingController@showMessage')->name('getMessage');
+
 /* Rutas del administrador
  */
 

@@ -90,13 +90,13 @@ class MessagingController extends Controller
      */
     public function showMessage($id)
     {
-        //
+        $user_auth = Auth::user();
         $message = Messaging::findOrFail($id);
         if ($message) {
             $user = User::findOrFail($message->id_emisor);
             $message->emisor = $user->name . " " . $user->last_name;
 
-            $user_message = ReceptorMessage::where('id_message', $message->id)->get();
+            $user_message = ReceptorMessage::where('id_message', $message->id)->where('id_user',$user_auth->id)->get();
             $user_message->status = 1;
             $user_message->save();
 
@@ -197,8 +197,13 @@ class MessagingController extends Controller
 
         $message->save();
         if ($message->save()) {
+            $users_receptors = ReceptorMessage::where('id_message', $data['id_message'])->get();
+            foreach($users_receptors as $users_receptor){
+                $users_receptor->delete();
+            }
             foreach ($data['id_receptor'] as $receptor) {
-                $receptor_message = ReceptorMessage::where('id_message', $data['id_message'])->get();
+                $receptor_message = new ReceptorMessage;
+                $receptor_message->id_message = $message->id;
                 $receptor_message->id_user = $receptor;
                 $receptor_message->status = 0;
                 $receptor_message->save();

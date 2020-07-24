@@ -21,9 +21,11 @@ class AdministratorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function indexInstitution()
     {
-        //
+        $institutions = Institution::all();
+
+        return $institutions;
     }
 
     /**
@@ -201,6 +203,29 @@ class AdministratorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function findSection()
+    {
+        $institution = Institution::all();
+        $sections = [];
+
+        foreach ($institution as $key => $value) {
+            $section = Section::where('id_institution', $value->id)->get();
+            foreach ($section as $key => $val) {
+                $sections[$key + 1] = [
+                    'id' => $val->id,
+                    'id' => $val->id,
+                    'section' => $val->name,
+                    'institution' => $value->name,
+                ];
+            }
+        }
+        return $sections;
+    }
+    /**
+     *Find some resource fron DB.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function findGrade()
     {
         $institution = Institution::all();
@@ -210,6 +235,7 @@ class AdministratorController extends Controller
             $grade = Grade::where('id_institution', $value->id)->get();
             foreach ($grade as $key => $val) {
                 $grades[$key + 1] = [
+                    'id' => $val->id,
                     'grade' => $val->name,
                     'institution' => $value->name,
                 ];
@@ -217,6 +243,7 @@ class AdministratorController extends Controller
         }
         return $grades;
     }
+
     /**
      *Find some resource fron DB.
      *
@@ -231,6 +258,7 @@ class AdministratorController extends Controller
             $area = Area::where('id_institution', $value->id)->get();
             foreach ($area as $key => $val) {
                 $areas[$key + 1] = [
+                    'id' => $val->id,
                     'area' => $val->name,
                     'institution' => $value->name,
                 ];
@@ -253,6 +281,7 @@ class AdministratorController extends Controller
             $Classroom = Classroom::where('id_institution', $value->id)->get();
             foreach ($Classroom as $key => $val) {
                 $Classrooms[$key + 1] = [
+                    'id' => $val->id,
                     'clasroom' => $val->name,
                     'institution' => $value->name,
                 ];
@@ -271,13 +300,16 @@ class AdministratorController extends Controller
         $data = $request->all();
         $grade = new Grade;
 
-        $section = Section::findOrFail($data['id_section']);
+        $section = Section::findOrFail($data['section']);
 
-        /* Save the new institution */
-        $grade->name = $data['name'];
-        $grade->id_section = $section->id;
-        $grade->id_institution = $section->id_institution;
-        $grade->save();
+        $grades = $data['grade'];
+        foreach($grades as $grad){
+            /* Save the new grade */
+            $grade->name = $grad;
+            $grade->id_section = $section->id;
+            $grade->id_institution = $section->id_institution;
+            $grade->save();
+        }
     }
 
 
@@ -291,13 +323,15 @@ class AdministratorController extends Controller
         $data = $request->all();
         $class = new Classroom;
 
-        $grade = Grade::findOrFail($data['id_grade']);
+        $grade = Grade::findOrFail($data['grade']);
 
-        /* Save the new institution */
-        $class->name = $data['name'];
-        $class->id_section = $grade->id;
-        $class->id_institution = $grade->id_institution;
-        $class->save();
+        foreach($data['class'] as $clas){
+            /* Save the new classroom */
+            $class->name = $clas;
+            $class->id_section = $grade->id;
+            $class->id_institution = $grade->id_institution;
+            $class->save();
+        }
     }
 
     /**
@@ -310,13 +344,16 @@ class AdministratorController extends Controller
         $data = $request->all();
         $area = new Area;
 
-        $grade = Grade::findOrFail($data['id_grade']);
+        $grade = Grade::findOrFail($data['grade']);
 
-        /* Save the new institution */
-        $area->name = $data['name'];
-        $area->id_grade = $grade->id;
-        $area->id_institution = $grade->id_institution;
-        $area->save();
+        foreach($data['area'] as $are){
+            /* Save the new area */
+            $area->name = $are;
+            $area->id_grade = $grade->id;
+            $area->id_institution = $grade->id_institution;
+            $area->save();
+        }
+
     }
 
     /**
