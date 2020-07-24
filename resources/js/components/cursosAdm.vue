@@ -3,7 +3,7 @@
     <div class="row justify-content-center">
       <div id="crud" class="col-sm-10">
         <div class="card text-center">
-          <h3 class="card-header fondo">General</h3>
+          <h3 class="card-header fondo">Grados</h3>
           <div class="card-body">
             <a class="btn btn-warning" v-on:click.prevent="createG()">Crear grado</a>
             <a class="btn btn-warning" v-on:click.prevent="createS()">Crear salón</a>
@@ -16,9 +16,9 @@
             <br />
             <br />
             <table class="table table-responsive-xl table-hover table-striped center">
-              <tbody>
+              <tbody v-for="(option,k) in fillG" :key="k">
                 <tr data-toggle="collapse" data-target="#accordion" class="clickable">
-                  <td>Sexto</td>
+                  <td>{{ option.grade}}</td>
                   <td></td>
                   <td></td>
 
@@ -80,8 +80,7 @@
                           style="background: gainsboro;"
                           required
                         >
-                          <option value="2">Sexto</option>
-                          <option value="3">Septimo</option>
+                          <option :value="option.id" v-for="option in fillG">{{ option.grade }}</option>
                         </select>
                       </div>
                     </div>
@@ -153,9 +152,7 @@
                           style="background: gainsboro;"
                           required
                         >
-                          <option value="2">Sexto</option>
-                          <option value="3">Primaria</option>
-                          <option value="3">Secundaria</option>
+                          <option :value="option.id" v-for="option in fillG">{{ option.grade }}</option>
                         </select>
                       </div>
                     </div>
@@ -228,9 +225,10 @@
                           style="background: gainsboro;"
                           required
                         >
-                          <option value="2">Preescolar</option>
-                          <option value="3">Primaria</option>
-                          <option value="3">Secundaria</option>
+                          <option
+                            :value="option.id"
+                            v-for="option in fillS.sections"
+                          >{{ option.name}}</option>
                         </select>
                       </div>
                     </div>
@@ -264,7 +262,7 @@
                           type="text"
                           name="objetive1"
                           class="form-control"
-                          v-model="input.name"
+                          v-model="name"
                           style="background: gainsboro;"
                           required
                         />
@@ -291,9 +289,12 @@ export default {
       descripcion: "",
       logro: "",
       name: "",
-      grado: "",
+      grado: [],
       errors: [],
       fillS: [],
+      section: "",
+      materia: [],
+      fillG: [],
       inputs: [
         {
           name: ""
@@ -303,39 +304,35 @@ export default {
   },
   created() {},
   mounted() {
-    var urlr = "viewGetWeek";
+    var urlr = "getGrade";
     axios.get(urlr).then(response => {
-      this.clases = response.data;
+      this.fillG = response.data;
     });
     console.log("Component mounted.");
   },
   methods: {
     editNames(clas) {
-      //   var urlr = "showClass/" + clas;
-      //   axios.get(urlr).then(response => {
-      //     this.fillS = response.data;
-      //   });
       $("#createZ").modal("show");
     },
     createS(clas) {
-      //   var urlr = "showClass/" + clas;
-      //   axios.get(urlr).then(response => {
-      //     this.fillS = response.data;
-      //   });
+      var urlr = "getGrade";
+      axios.get(urlr).then(response => {
+        this.fillG = response.data;
+      });
       $("#createSalon").modal("show");
     },
     createM(clas) {
-      //   var urlr = "showClass/" + clas;
-      //   axios.get(urlr).then(response => {
-      //     this.fillS = response.data;
-      //   });
+      var urlr = "getGrade";
+      axios.get(urlr).then(response => {
+        this.fillG = response.data;
+      });
       $("#createMat").modal("show");
     },
     createG(clas) {
-      //   var urlr = "showClass/" + clas;
-      //   axios.get(urlr).then(response => {
-      //     this.fillS = response.data;
-      //   });
+      var urlr = "findInstitution/8" + clas;
+      axios.get(urlr).then(response => {
+        this.fillS = response.data;
+      });
       $("#createGrad").modal("show");
     },
     add(index) {
@@ -368,7 +365,11 @@ export default {
     },
     createGrado() {
       var url = "createGrade";
-
+      //   if (this.inputs.length >= 1) {
+      //     for (let i = 0; i < this.inputs.length; i++) {
+      //       this.name.push(this.inputs[i]);
+      //     }
+      //   }
       axios
         .post(url, {
           //Cursos generales
@@ -387,11 +388,15 @@ export default {
     },
     createMateria() {
       var url = "createArea";
-
+      if (this.inputs.length >= 1) {
+        for (let i = 0; i < this.inputs.length; i++) {
+          this.materia.push(this.inputs[i]);
+        }
+      }
       axios
         .post(url, {
           //Cursos generales
-          name: this.name,
+          name: this.materia,
           id_grade: this.grado
         })
         .then(response => {

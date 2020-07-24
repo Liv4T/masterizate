@@ -68,13 +68,6 @@
                         alt
                       /> Psicología
                     </a>
-                    <a href="#">
-                      <img
-                        width="35px"
-                        src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/MANUAL-DE-USUARIO_naranja.png?alt=media&token=93ec6b97-e5a6-4eca-891e-b63bf2a352ad"
-                        alt
-                      /> Notificación padres
-                    </a>
                   </div>
                 </li>
               </a>
@@ -96,7 +89,7 @@
                         width="35px"
                         src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/MIS-CURSOS.png?alt=media&token=93ec6b97-e5a6-4eca-891e-b63bf2a352ad"
                         alt
-                      /> Mis cursos
+                      /> Planificación
                     </a>
                     <a href="/clases_d">
                       <img

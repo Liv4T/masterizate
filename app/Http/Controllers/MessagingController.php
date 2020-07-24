@@ -114,19 +114,29 @@ class MessagingController extends Controller
     public function showSentMessage()
     {
         $user = Auth::user();
-        $message = Messaging::where('id_emisor', $user->id)->get();
-        if ($message) {
+        $messages = Messaging::where('id_emisor', $user->id)->get();
+        if (isset($messages)) {
             $receivers = [];
-            $user_messages = ReceptorMessage::where('id_message', $message->id)->get();
-            foreach ($user_messages as $receiver) {
-                $user_sent = User::find($receiver);
-                $receivers = +[
-                    $user->email,
+            $received_messages = [];
+            foreach ($messages as $key => $message) {
+                $user_messages = ReceptorMessage::where('id_message', $message->id)->get();
+                foreach ($user_messages as $index => $receiver) {
+                    $user_sent = User::find($receiver->id_user);
+                    $receivers[$index]  = [
+                        'email' => $user_sent->email,
+                    ];
+                }
+                $received_messages[$key] = [
+                    'asunto' => $message->subject,
+                    'destinatarios' => $receivers,
+                    'fecha'  => $message->created_at,
+                    'id'     => $message->id
                 ];
             }
             $message->receivers = $receivers;
 
-            return $message;
+
+            return $received_messages;
         }
     }
 
@@ -139,14 +149,18 @@ class MessagingController extends Controller
     public function showReceivedMessage()
     {
         $user = Auth::user();
+        // return $user->id;
         $messages = [];
         $messagesReceivers = ReceptorMessage::where('id_user', $user->id)->get();
-        foreach ($messagesReceivers as $messagesReceiver) {
+        foreach ($messagesReceivers as $key => $messagesReceiver) {
             $message = Messaging::find($messagesReceiver->id_message);
             $user = User::find($message->id_emisor);
             $message->emisor = $user->name . " " . $user->last_name;
-            $messages = +[
-                $message,
+            $messages[$key] = [
+                'asunto' => $message->subject,
+                'emisor' => $message->emisor,
+                'fecha'  => $message->created_at,
+                'id'     => $message->id
             ];
         }
 

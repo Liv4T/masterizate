@@ -12,7 +12,7 @@
             <table class="table table-responsive-xl table-hover table-striped center">
               <tbody>
                 <tr data-toggle="collapse" data-target="#accordion" class="clickable">
-                  <td>Institucion 1</td>
+                  <td>Institución</td>
                   <td></td>
                   <td></td>
 
@@ -124,7 +124,7 @@ export default {
       fechaR: "",
       id_act: "",
       errors: [],
-      fillS: [],
+      fillI: [],
       inputs: [
         {
           name: ""

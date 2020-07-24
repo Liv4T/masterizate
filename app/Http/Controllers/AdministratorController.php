@@ -206,8 +206,8 @@ class AdministratorController extends Controller
         $institution = Institution::all();
         $grades = [];
 
-        foreach ($institution as $key => $value){
-            $grade = Grade::where('id_institution',$value->id)->get();
+        foreach ($institution as $key => $value) {
+            $grade = Grade::where('id_institution', $value->id)->get();
             foreach ($grade as $key => $val) {
                 $grades[$key + 1] = [
                     'grade' => $val->name,
@@ -217,7 +217,7 @@ class AdministratorController extends Controller
         }
         return $grades;
     }
-        /**
+    /**
      *Find some resource fron DB.
      *
      * @return \Illuminate\Http\Response
@@ -227,8 +227,8 @@ class AdministratorController extends Controller
         $institution = Institution::all();
         $areas = [];
 
-        foreach ($institution as $key => $value){
-            $area = Area::where('id_institution',$value->id)->get();
+        foreach ($institution as $key => $value) {
+            $area = Area::where('id_institution', $value->id)->get();
             foreach ($area as $key => $val) {
                 $areas[$key + 1] = [
                     'area' => $val->name,
@@ -239,7 +239,7 @@ class AdministratorController extends Controller
         return $areas;
     }
 
-        /**
+    /**
      *Find some resource fron DB.
      *
      * @return \Illuminate\Http\Response
@@ -249,8 +249,8 @@ class AdministratorController extends Controller
         $institution = Institution::all();
         $Classrooms = [];
 
-        foreach ($institution as $key => $value){
-            $Classroom = Classroom::where('id_institution',$value->id)->get();
+        foreach ($institution as $key => $value) {
+            $Classroom = Classroom::where('id_institution', $value->id)->get();
             foreach ($Classroom as $key => $val) {
                 $Classrooms[$key + 1] = [
                     'clasroom' => $val->name,
@@ -314,7 +314,7 @@ class AdministratorController extends Controller
 
         /* Save the new institution */
         $area->name = $data['name'];
-        $area->id_section = $grade->id;
+        $area->id_grade = $grade->id;
         $area->id_institution = $grade->id_institution;
         $area->save();
     }
