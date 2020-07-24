@@ -91,12 +91,13 @@ class MessagingController extends Controller
     public function showMessage($id)
     {
         $user_auth = Auth::user();
-        $message = Messaging::findOrFail($id);
+        $id_user = $user_auth->id;
+        $message = Messaging::find($id);
         if ($message) {
             $user = User::findOrFail($message->id_emisor);
             $message->emisor = $user->name . " " . $user->last_name;
 
-            $user_message = ReceptorMessage::where('id_message', $message->id)->where('id_user',$user_auth->id)->get();
+            $user_message = ReceptorMessage::where('id_message', $message->id)->where('id_user', $id_user)->first();
             $user_message->status = 1;
             $user_message->save();
 
@@ -198,7 +199,7 @@ class MessagingController extends Controller
         $message->save();
         if ($message->save()) {
             $users_receptors = ReceptorMessage::where('id_message', $data['id_message'])->get();
-            foreach($users_receptors as $users_receptor){
+            foreach ($users_receptors as $users_receptor) {
                 $users_receptor->delete();
             }
             foreach ($data['id_receptor'] as $receptor) {

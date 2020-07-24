@@ -298,14 +298,15 @@ class AdministratorController extends Controller
     public function createGrade(Request $request)
     {
         $data = $request->all();
-        $grade = new Grade;
 
         $section = Section::findOrFail($data['section']);
 
         $grades = $data['grade'];
-        foreach($grades as $grad){
+
+        foreach ($grades as $grad) {
             /* Save the new grade */
-            $grade->name = $grad;
+            $grade = new Grade;
+            $grade->name = $grad['name'];
             $grade->id_section = $section->id;
             $grade->id_institution = $section->id_institution;
             $grade->save();
@@ -321,14 +322,14 @@ class AdministratorController extends Controller
     public function createClassroom(Request $request)
     {
         $data = $request->all();
-        $class = new Classroom;
 
         $grade = Grade::findOrFail($data['grade']);
 
-        foreach($data['class'] as $clas){
+        foreach ($data['class'] as $clas) {
             /* Save the new classroom */
-            $class->name = $clas;
-            $class->id_section = $grade->id;
+            $class = new Classroom;
+            $class->name = $clas['name'];
+            $class->id_grade = $grade->id;
             $class->id_institution = $grade->id_institution;
             $class->save();
         }
@@ -342,18 +343,17 @@ class AdministratorController extends Controller
     public function createArea(Request $request)
     {
         $data = $request->all();
-        $area = new Area;
 
         $grade = Grade::findOrFail($data['grade']);
 
-        foreach($data['area'] as $are){
+        foreach ($data['area'] as $are) {
+            $area = new Area;
             /* Save the new area */
-            $area->name = $are;
+            $area->name = $are['name'];
             $area->id_grade = $grade->id;
             $area->id_institution = $grade->id_institution;
             $area->save();
         }
-
     }
 
     /**
