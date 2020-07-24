@@ -55,6 +55,55 @@ class AdministratorController extends Controller
         return $users;
     }
 
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function indexStudentsTeachersAssigned()
+    {
+        /* aqui hace falta editar la consulta cuando sea por institucion */
+        $studentAssigned = ClassroomStudent::all();
+
+        $students = [];
+
+        foreach($studentAssigned as $key => $studen){
+            $user = User::findOrFail($studen->id_user);
+            $nombre = $user->name." ".$user->last_name;
+            $Classroom = Classroom::findOrFail($studen->id_classroom);
+            $salon = $Classroom->name;
+
+            $students[$key] =[
+                'student_name'   => $nombre,
+                'classroom_name' => $salon,
+                'type'           => 'Estudiantes',
+            ];
+        }
+
+        $teachersAssigned = ClassroomTeacher::all();
+        $teachers = [];
+
+        foreach($teachersAssigned as $key => $teacher){
+            $user = User::findOrFail($teacher->id_user);
+            $nombre = $user->name." ".$user->last_name;
+            $Classroom = Classroom::findOrFail($teacher->id_classroom);
+            $salon = $Classroom->name;
+
+            $teachers[$key] =[
+                'student_name'   => $nombre,
+                'classroom_name' => $salon,
+                'type'           => 'Profesores',
+            ];
+        }
+        $data =[
+            $students,
+            $teachers
+        ];
+
+        return $data;
+    }
+
     /**
      * Display a listing of the resource.
      *

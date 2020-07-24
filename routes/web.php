@@ -358,6 +358,7 @@ Route::get('getMessage/{id}', 'MessagingController@showMessage')->name('getMessa
 Route::get('getUsers', 'AdministratorController@indexUsers')->name('getUsers');
 Route::get('getStudents', 'AdministratorController@indexStudents')->name('getStudents');
 Route::get('getTeachers', 'AdministratorController@indexTeachers')->name('getTeachers');
+Route::get('getUsersAssigned', 'AdministratorController@indexStudentsTeachersAssigned')->name('getUsersAssigned');
 Route::post('assignStudents', 'AdministratorController@assignStudents')->name('assignStudents');
 Route::post('assignTeachers', 'AdministratorController@assignTeachers')->name('assignTeachers');
 Route::get('getState', 'AdministratorController@getAllState')->name('getState');
