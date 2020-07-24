@@ -355,6 +355,11 @@ Route::get('getMessage/{id}', 'MessagingController@showMessage')->name('getMessa
 /* Rutas del administrador
  */
 
+Route::get('getUsers', 'AdministratorController@indexUsers')->name('getUsers');
+Route::get('getStudents', 'AdministratorController@indexStudents')->name('getStudents');
+Route::get('getTeachers', 'AdministratorController@indexTeachers')->name('getTeachers');
+Route::post('assignStudents', 'AdministratorController@assignStudents')->name('assignStudents');
+Route::post('assignTeachers', 'AdministratorController@assignTeachers')->name('assignTeachers');
 Route::get('getState', 'AdministratorController@getAllState')->name('getState');
 Route::get('getInstitution', 'AdministratorController@indexInstitution')->name('getInstitution');
 Route::get('getCity/{id}', 'AdministratorController@findCity')->name('getCity');

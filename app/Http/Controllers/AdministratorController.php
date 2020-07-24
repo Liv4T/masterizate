@@ -12,6 +12,8 @@ use App\Area;
 use App\City;
 use App\State;
 use App\User;
+use App\ClassroomStudent;
+use App\ClassroomTeacher;
 use Auth;
 
 class AdministratorController extends Controller
@@ -26,6 +28,74 @@ class AdministratorController extends Controller
         $institutions = Institution::all();
 
         return $institutions;
+    }
+
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function indexUsers()
+    {
+        $users = User::all();
+
+        return $users;
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function indexStudents()
+    {
+        $users = User::where('type_user',3)->get();
+
+        return $users;
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function indexTeachers()
+    {
+        $users = User::where('type_user',2)->get();
+
+        return $users;
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function assignStudents(Request $request)
+    {
+
+        $data = $request->all();
+        $ClassroomStudent = New ClassroomStudent;
+
+        $ClassroomStudent->id_classroom = $data['id_classroom'];
+        $ClassroomStudent->id_user = $data['id_user'];
+        $ClassroomStudent->save();
+
+    }
+
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function assignTeachers(Request $request)
+    {
+
+        $data = $request->all();
+        $ClassroomTeacher = New ClassroomTeacher;
+
     }
 
     /**
