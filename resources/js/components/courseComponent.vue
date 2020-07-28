@@ -578,19 +578,19 @@ export default {
         };
     },
     mounted() {
-        var urlsel = "Courses";
-        axios.get(urlsel).then(response => {
-            this.fillC = response.data;
-            if (this.fillC.courses.length > 0) {
-                this.trimestre = true;
-                for (let i = 0; i < this.fillC.courses.length; i++) {
-                    this.logro_1 = this.fillC.courses[i].achievement_1;
-                    this.logro_2 = this.fillC.courses[i].achievement_2;
-                    this.logro_3 = this.fillC.courses[i].achievement_3;
-                    this.logro_4 = this.fillC.courses[i].achievement_4;
-                }
-            }
-        });
+        // var urlsel = "Courses";
+        // axios.get(urlsel).then(response => {
+        //     this.fillC = response.data;
+        //     if (this.fillC.courses.length > 0) {
+        //         this.trimestre = true;
+        //         for (let i = 0; i < this.fillC.courses.length; i++) {
+        //             this.logro_1 = this.fillC.courses[i].achievement_1;
+        //             this.logro_2 = this.fillC.courses[i].achievement_2;
+        //             this.logro_3 = this.fillC.courses[i].achievement_3;
+        //             this.logro_4 = this.fillC.courses[i].achievement_4;
+        //         }
+        //     }
+        // });
     },
     methods: {
         getMenu() {

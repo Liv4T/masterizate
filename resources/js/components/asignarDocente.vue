@@ -18,64 +18,55 @@
                                 <tab-content>
                                     <div class="form-group row mx-auto">
                                         <div class="col-md-6">
-                                            <label for>Rol:</label>
+                                            <label for>Docente:</label>
                                             <select
                                                 class="form-control"
-                                                ref="seleccionado"
+                                                v-model="user_id"
                                                 required
                                             >
-                                                <option value="4"
-                                                    >Coordinador</option
-                                                >
-                                                <option value="2"
-                                                    >Docente</option
-                                                >
-                                                <option value="3"
-                                                    >Estudiante</option
+                                                <option
+                                                    :value="option.id"
+                                                    v-for="option in myOptions"
+                                                    >{{ option.name }}</option
                                                 >
                                             </select>
                                         </div>
 
                                         <div class="col-md-6">
-                                            <label for="name">Salon</label>
+                                            <label for="name">Salones</label>
+
                                             <div>
-                                                <select
-                                                    class="form-control"
-                                                    v-model="seccion"
-                                                    required
-                                                >
-                                                    <option
-                                                        :value="option.id"
-                                                        v-for="option in myOptions"
-                                                        >{{
-                                                            option.clasroom
-                                                        }}</option
-                                                    >
-                                                </select>
+                                                <multiselect
+                                                    v-model="salon"
+                                                    :options="optionse"
+                                                    tag-placeholder="Add this as new tag"
+                                                    placeholder="Search or add a tag"
+                                                    label="clasroom"
+                                                    track-by="id"
+                                                    :multiple="true"
+                                                    :taggable="true"
+                                                    @tag="addTage"
+                                                ></multiselect>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
-                                            <label for="name">Nombre</label>
+                                            <label for="name">Materias</label>
                                             <multiselect
-                                                v-model="cestudiante"
-                                                :options="optionse"
+                                                v-model="materia"
+                                                :options="materias"
                                                 tag-placeholder="Add this as new tag"
                                                 placeholder="Search or add a tag"
-                                                label="name"
+                                                label="area"
                                                 track-by="id"
                                                 :multiple="true"
                                                 :taggable="true"
-                                                @tag="addTage"
+                                                @tag="addTagM"
                                             ></multiselect>
                                             <div class="invalid-feedback">
                                                 Please fill out this field
                                             </div>
                                         </div>
                                     </div>
-
-                                    <!-- <div class="modal-footer">
-                    <a href="#" class="btn btn-warning float-right">Guardar</a>
-                  </div>-->
                                 </tab-content>
                             </form-wizard>
                         </form>
@@ -135,22 +126,20 @@ Vue.component("multiselect", Multiselect);
 export default {
     data() {
         return {
-            myOptions: [],
-            optionse: [],
+            materia: [],
+            salon: [],
             nameUnit: "",
             description: "",
-            nameFile: "",
-            nameUrl: "",
-            newDocument: [],
-            semanal: false,
-            newVideo: [],
-            messageVideo: "",
-            seleccionadoStreaming: "",
             textoM: "",
             errors: [],
             seccion: "",
-            cestudiante: [],
-            estudiantes: [],
+            salones: [],
+            materias: [],
+            area: [],
+            classroom: [],
+            user_id: "",
+            myOptions: [],
+            optionse: [],
             inputs: [
                 {
                     name: ""
@@ -159,49 +148,65 @@ export default {
         };
     },
     mounted() {
-        var urlUsers = "getStudents";
-        axios.get(urlUsers).then(response => {
-            this.optionse = response.data;
-        });
-        var urlUsers = "getClassroom";
-        axios.get(urlUsers).then(response => {
+        var urlUs = "getTeachers";
+        axios.get(urlUs).then(response => {
             this.myOptions = response.data;
+        });
+        var urlUsers = "getArea";
+        axios.get(urlUsers).then(response => {
+            this.materias = response.data;
+        });
+        var urlUser = "getClassroom";
+        axios.get(urlUser).then(response => {
+            this.optionse = response.data;
         });
     },
     methods: {
+        add(index) {
+            this.inputs.push({
+                name: ""
+            });
+        },
+        remove(index) {
+            this.inputs.splice(index, 1);
+        },
         addTage(newTag) {
             const tag = {
-                name: newTag,
+                clasroom: newTag,
                 id: newTag
             };
             this.optionse.push(tag);
         },
+        addTagM(newTag) {
+            const tag = {
+                area: newTag,
+                id: newTag
+            };
+            this.materias.push(tag);
+        },
         getMenu() {
             window.location = "/instituciones_adm";
         },
-        mensaje() {
-            this.seleccionadoStreaming = this.$refs.seleccionadoStreaming.value;
-            if (this.seleccionadoStreaming != 1) {
-                this.textoM =
-                    "Recomendamos el uso de Google Meet como streaming";
-                console.log("aqui");
-            } else {
-                this.textoM = "";
-            }
-        },
+
         createAs() {
             var url = "assignStudents";
 
-            if (this.cestudiante.length >= 1) {
-                for (let i = 0; i < this.cestudiante.length; i++) {
-                    this.estudiantes.push(this.cestudiante[i].id);
+            if (this.materia.length >= 1) {
+                for (let i = 0; i < this.materia.length; i++) {
+                    this.area.push(this.materia[i].id);
+                }
+            }
+            if (this.salon.length >= 1) {
+                for (let i = 0; i < this.salon.length; i++) {
+                    this.classroom.push(this.salon[i].id);
                 }
             }
             axios
                 .post(url, {
                     //Cursos generales
-                    students: this.estudiantes,
-                    id_classroom: this.seccion
+                    classroom: this.classroom,
+                    areas: this.area,
+                    id_teacher: this.user_id
                 })
                 .then(response => {
                     this.errors = [];

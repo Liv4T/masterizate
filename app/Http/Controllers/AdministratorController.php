@@ -50,7 +50,7 @@ class AdministratorController extends Controller
      */
     public function indexStudents()
     {
-        $users = User::where('type_user',3)->get();
+        $users = User::where('type_user', 3)->get();
 
         return $users;
     }
@@ -68,13 +68,13 @@ class AdministratorController extends Controller
 
         $students = [];
 
-        foreach($studentAssigned as $key => $studen){
+        foreach ($studentAssigned as $key => $studen) {
             $user = User::findOrFail($studen->id_user);
-            $nombre = $user->name." ".$user->last_name;
+            $nombre = $user->name . " " . $user->last_name;
             $Classroom = Classroom::findOrFail($studen->id_classroom);
             $salon = $Classroom->name;
 
-            $students[$key] =[
+            $students[$key] = [
                 'student_name'   => $nombre,
                 'classroom_name' => $salon,
                 'type'           => 'Estudiantes',
@@ -84,19 +84,19 @@ class AdministratorController extends Controller
         $teachersAssigned = ClassroomTeacher::all();
         $teachers = [];
 
-        foreach($teachersAssigned as $key => $teacher){
+        foreach ($teachersAssigned as $key => $teacher) {
             $user = User::findOrFail($teacher->id_user);
-            $nombre = $user->name." ".$user->last_name;
+            $nombre = $user->name . " " . $user->last_name;
             $Classroom = Classroom::findOrFail($teacher->id_classroom);
             $salon = $Classroom->name;
 
-            $teachers[$key] =[
+            $teachers[$key] = [
                 'student_name'   => $nombre,
                 'classroom_name' => $salon,
                 'type'           => 'Profesores',
             ];
         }
-        $data =[
+        $data = [
             $students,
             $teachers
         ];
@@ -111,7 +111,7 @@ class AdministratorController extends Controller
      */
     public function indexTeachers()
     {
-        $users = User::where('type_user',2)->get();
+        $users = User::where('type_user', 2)->get();
 
         return $users;
     }
@@ -125,12 +125,11 @@ class AdministratorController extends Controller
     {
 
         $data = $request->all();
-        $ClassroomStudent = New ClassroomStudent;
+        $ClassroomStudent = new ClassroomStudent;
 
         $ClassroomStudent->id_classroom = $data['id_classroom'];
         $ClassroomStudent->id_user = $data['id_user'];
         $ClassroomStudent->save();
-
     }
 
 
@@ -143,8 +142,7 @@ class AdministratorController extends Controller
     {
 
         $data = $request->all();
-        $ClassroomTeacher = New ClassroomTeacher;
-
+        $ClassroomTeacher = new ClassroomTeacher;
     }
 
     /**
@@ -376,7 +374,7 @@ class AdministratorController extends Controller
         foreach ($institution as $key => $value) {
             $area = Area::where('id_institution', $value->id)->get();
             foreach ($area as $key => $val) {
-                $areas[$key + 1] = [
+                $areas[] = [
                     'id' => $val->id,
                     'area' => $val->name,
                     'institution' => $value->name,
@@ -399,7 +397,7 @@ class AdministratorController extends Controller
         foreach ($institution as $key => $value) {
             $Classroom = Classroom::where('id_institution', $value->id)->get();
             foreach ($Classroom as $key => $val) {
-                $Classrooms[$key + 1] = [
+                $Classrooms[] = [
                     'id' => $val->id,
                     'clasroom' => $val->name,
                     'institution' => $value->name,

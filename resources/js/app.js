@@ -294,6 +294,10 @@ Vue.component(
 Vue.component("salon-adm", require("./components/salonAdm.vue").default);
 Vue.component("matricula", require("./components/matricula.vue").default);
 Vue.component("aperfil-adm", require("./components/AsignarPerfil.vue").default);
+Vue.component(
+    "adocente-adm",
+    require("./components/asignarDocente.vue").default
+);
 Vue.component("importar-adm", require("./components/importAdm.vue").default);
 Vue.component("asistencia-adm", require("./components/asistencia.vue").default);
 Vue.use(CKEditor);
