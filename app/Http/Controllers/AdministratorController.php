@@ -273,16 +273,13 @@ class AdministratorController extends Controller
     public function updateInstitution(Request $request)
     {
         $data = $request->all();
-        $institution = Institution::findOrFail($data['id_institution']);
+        $institution = Institution::findOrFail($data['id']);
         $user = Auth::user();
 
         /* Save the new institution */
         $institution->id_user = $user->id;
         $institution->name = $data['name'];
-        $institution->state = $data['state'];
-        $institution->city = $data['city'];
         $institution->address = $data['address'];
-        $institution->streaming = $data['streaming'];
         $institution->year = $data['year'];
         $institution->save();
 
@@ -293,7 +290,7 @@ class AdministratorController extends Controller
 
             $section = Section::findOrFail($sec['id']);
 
-            $section->name = $sec['section'];
+            $section->name = $sec['name'];
             $section->id_institution = $institution->id;
             $section->save();
         }
@@ -304,7 +301,7 @@ class AdministratorController extends Controller
 
         foreach ($periods as $per) {
 
-            $period = Period::findOrFail($sec['id']);
+            $period = Period::findOrFail($per['id']);
 
             $period->name = $per['name'];
             $period->date_from = $per['date_from'];

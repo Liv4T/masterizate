@@ -29,6 +29,9 @@
                                             class="btn btn-sm"
                                             href="#"
                                             style="color: grey;"
+                                            v-on:click.prevent="
+                                                editInsti(insti.id)
+                                            "
                                         >
                                             <i class="fa fa-eye"></i>
                                         </a>
@@ -54,12 +57,12 @@
                     </div>
                 </div>
             </div>
-            <div class="modal fade" id="createSalon">
-                <div class="modal-dialog">
+            <div class="modal fade" id="createInsti">
+                <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                         <div class="card">
                             <h3 class="card-header fondo text-center">
-                                Salón
+                                Institución
                                 <button
                                     type="button"
                                     class="close"
@@ -69,62 +72,134 @@
                                 </button>
                             </h3>
                             <div class="card-body">
-                                <form
-                                    class="needs-validation"
-                                    v-on:submit.prevent
-                                    novalidate
-                                >
-                                    <div
-                                        class="form-group row mx-auto"
-                                        v-for="(input, t) in inputs"
-                                        :key="t"
+                                <form class="needs-validation" novalidate>
+                                    <form-wizard
+                                        title
+                                        subtitle
+                                        color="#c1e9eb"
+                                        next-button-text="Siguiente"
+                                        back-button-text="Atrás"
+                                        finish-button-text="Guardar y enviar"
+                                        @on-complete="createInstitution"
                                     >
-                                        <div
-                                            class="col-md-8 text-center mx-auto"
-                                        >
-                                            <label for="name">Nombre</label>
-                                            <span>
-                                                <a
-                                                    href="#"
-                                                    class="badge badge-danger"
-                                                    @click.prevent="remove(t)"
-                                                    v-show="
-                                                        t ||
-                                                            (!t &&
-                                                                inputs.length >
-                                                                    1)
-                                                    "
-                                                    >-</a
+                                        <tab-content title="Institución">
+                                            <div
+                                                class="form-group row mx-auto "
+                                            >
+                                                <div class="col-md-6">
+                                                    <label for>Nombre:</label>
+                                                    <input
+                                                        type="text"
+                                                        name="objetive1"
+                                                        class="form-control"
+                                                        v-model="name"
+                                                        required
+                                                    />
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <label for="name"
+                                                        >Dirección de
+                                                        sede</label
+                                                    >
+                                                    <input
+                                                        type="text"
+                                                        name="objetive1"
+                                                        class="form-control"
+                                                        v-model="address"
+                                                        required
+                                                    />
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="name"
+                                                        >Año</label
+                                                    >
+                                                    <input
+                                                        type="number"
+                                                        name="objetive1"
+                                                        class="form-control"
+                                                        v-model="year"
+                                                        required
+                                                    />
+                                                </div>
+                                                <div
+                                                    class="col-md-6"
+                                                    v-for="input in fillSection"
+                                                    v-if="input.name != ''"
                                                 >
-                                                <a
-                                                    href="#"
-                                                    class="badge badge-primary"
-                                                    @click.prevent="add(t)"
-                                                    v-show="
-                                                        t == inputs.length - 1
-                                                    "
-                                                    >+</a
-                                                >
-                                            </span>
-                                            <div>
-                                                <input
-                                                    type="text"
-                                                    name="objetive1"
-                                                    class="form-control"
-                                                    v-model="input.name"
-                                                    style="background: gainsboro;"
-                                                    required
-                                                />
+                                                    <label for="name"
+                                                        >Sección</label
+                                                    >
+
+                                                    <input
+                                                        type="text"
+                                                        name="objetive1"
+                                                        class="form-control"
+                                                        v-model="input.name"
+                                                        required
+                                                    />
+                                                </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <input
-                                            type="submit"
-                                            class="btn btn-warning"
-                                            value="Guardar"
-                                        />
-                                    </div>
+
+                                            <div
+                                                class="form-group row mx-auto"
+                                                v-for="input1 in fillPeriod"
+                                            >
+                                                <div
+                                                    class="col-md-6"
+                                                    v-if="input1.name != ''"
+                                                >
+                                                    <label for="name"
+                                                        >Periodos</label
+                                                    >
+
+                                                    <input
+                                                        type="text"
+                                                        name="objetive1"
+                                                        class="form-control"
+                                                        v-model="input1.name"
+                                                        required
+                                                    />
+                                                </div>
+                                                <div
+                                                    class="col-md-6"
+                                                    v-if="input1.name != ''"
+                                                >
+                                                    <label for="name"
+                                                        >Desde</label
+                                                    >
+                                                    <input
+                                                        type="date"
+                                                        name="objetive1"
+                                                        class="form-control"
+                                                        v-model="
+                                                            input1.date_from
+                                                        "
+                                                        required
+                                                    />
+                                                </div>
+                                                <div
+                                                    class="col-md-6"
+                                                    v-if="input1.name != ''"
+                                                >
+                                                    <label for="name"
+                                                        >Hasta</label
+                                                    >
+                                                    <input
+                                                        type="date"
+                                                        name="objetive1"
+                                                        class="form-control"
+                                                        v-model="input1.date_to"
+                                                        required
+                                                    />
+                                                </div>
+                                            </div>
+
+                                            <!-- <div class="modal-footer">
+                    <a href="#" class="btn btn-warning float-right">Guardar</a>
+                  </div>-->
+                                        </tab-content>
+                                    </form-wizard>
                                 </form>
                             </div>
                         </div>
@@ -139,17 +214,34 @@ export default {
     data() {
         return {
             institutions: [],
-            descripcion: "",
-            logro: "",
-            name: "",
-            fechaE: "",
-            fechaR: "",
-            id_act: "",
             errors: [],
             fillI: [],
-            inputs: [
+            name: "",
+            city: "",
+            state: "",
+            address: "",
+            streaming: "",
+            semanal: false,
+            seleccionadoStreaming: "",
+            textoM: "",
+            errors: [],
+            year: "",
+            section: [],
+            period: [],
+            id: "",
+            fillSection: [
                 {
-                    name: ""
+                    id: "",
+                    name: "",
+                    id_institution: ""
+                }
+            ],
+            fillPeriod: [
+                {
+                    id: "",
+                    name: "",
+                    date_from: "",
+                    date_to: ""
                 }
             ]
         };
@@ -163,34 +255,32 @@ export default {
         console.log("Component mounted.");
     },
     methods: {
-        editNames(clas) {
-            //   var urlr = "showClass/" + clas;
-            //   axios.get(urlr).then(response => {
-            //     this.fillS = response.data;
-            //   });
-            $("#createZ").modal("show");
+        editInsti(insti) {
+            var urlr = "findInstitution/" + insti;
+            axios.get(urlr).then(response => {
+                this.fillI = response.data;
+                this.fillSection = [];
+                this.fillPeriod = [];
+                for (var prop in response.data.sections) {
+                    if (response.data.sections.hasOwnProperty(prop)) {
+                        // console.log(response.data.sections[prop]);
+                        this.fillSection.push(response.data.sections[prop]);
+                    }
+                }
+                for (var i in response.data.periods) {
+                    if (response.data.sections.hasOwnProperty(i)) {
+                        // console.log(response.data.sections[prop]);
+                        this.fillPeriod.push(response.data.periods[i]);
+                    }
+                }
+                this.id = this.fillI.institution.id;
+                this.name = this.fillI.institution.name;
+                this.year = this.fillI.institution.year;
+                this.address = this.fillI.institution.address;
+            });
+            $("#createInsti").modal("show");
         },
-        createS(clas) {
-            //   var urlr = "showClass/" + clas;
-            //   axios.get(urlr).then(response => {
-            //     this.fillS = response.data;
-            //   });
-            $("#createSalon").modal("show");
-        },
-        createM(clas) {
-            //   var urlr = "showClass/" + clas;
-            //   axios.get(urlr).then(response => {
-            //     this.fillS = response.data;
-            //   });
-            $("#createMat").modal("show");
-        },
-        createG(clas) {
-            //   var urlr = "showClass/" + clas;
-            //   axios.get(urlr).then(response => {
-            //     this.fillS = response.data;
-            //   });
-            $("#createGrad").modal("show");
-        },
+
         add(index) {
             this.inputs.push({
                 name: ""
@@ -198,6 +288,42 @@ export default {
         },
         remove(index) {
             this.inputs.splice(index, 1);
+        },
+        createInstitution() {
+            var url = "updateInstitution";
+
+            if (this.fillSection.length >= 1) {
+                for (let i = 0; i < this.fillSection.length; i++) {
+                    this.section.push(this.fillSection[i]);
+                }
+            }
+            console.log(this.fillSection);
+            if (this.fillPeriod.length >= 1) {
+                for (let i = 0; i < this.fillPeriod.length; i++) {
+                    this.period.push(this.fillPeriod[i]);
+                }
+            }
+            axios
+                .put(url, {
+                    //Cursos generales
+                    id: this.id,
+                    name: this.name,
+                    year: this.year,
+                    address: this.address,
+                    sections: this.section,
+                    periods: this.period
+                })
+                .then(response => {
+                    this.errors = [];
+
+                    toastr.success(
+                        "Nueva institución actualizada exitosamente"
+                    );
+                    this.getMenu();
+                })
+                .catch(error => {
+                    this.errors = error.response.data;
+                });
         }
     }
 };
