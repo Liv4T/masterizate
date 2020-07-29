@@ -190,6 +190,10 @@ Vue.component(
     require("./components/mensajes.vue").default
 );
 Vue.component(
+    "mensajesenv-component",
+    require("./components/mensajesEnv.vue").default
+);
+Vue.component(
     "actividad-component",
     require("./components/tareas.vue").default
 );

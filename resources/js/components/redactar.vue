@@ -103,6 +103,12 @@
                             <a
                                 href="#"
                                 class="btn btn-warning float-right"
+                                @click="getMenu()"
+                                >Cancelar</a
+                            >
+                            <a
+                                href="#"
+                                class="btn btn-warning float-right"
                                 @click="saveM()"
                                 >Enviar</a
                             >
@@ -167,6 +173,9 @@ export default {
         });
     },
     methods: {
+        getMenu() {
+            window.location = "/enviados";
+        },
         addTaga(newTag) {
             const tag = {
                 name: newTag,
@@ -246,6 +255,7 @@ export default {
                     this.errors = [];
 
                     toastr.success("Mensaje enviado");
+                    this.getMenu();
                 })
                 .catch(error => {});
         }
@@ -267,7 +277,7 @@ export default {
 }
 
 .input-mensaje {
-    width: 480px;
+    width: 580px;
     height: 27px;
     background: #f5f5f5;
     border: 2px solid #f6f6f6;

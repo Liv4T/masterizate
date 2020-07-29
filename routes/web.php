@@ -348,10 +348,13 @@ Route::post('storeAnswer', 'AnswerController@store')->name('storeAnswer');
 /* Rutas de la mesajería
  */
 Route::post('sendMessages', 'MessagingController@store')->name('sendMessages');
+Route::put('updateMessages', 'MessagingController@update')->name('updateMessages');
 Route::get('getReceivedMessage', 'MessagingController@showReceivedMessage')->name('showReceivedMessage');
 Route::get('getSentMessage', 'MessagingController@showSentMessage')->name('showSentMessage');
 Route::get('getMessage/{id}', 'MessagingController@showMessage')->name('getMessage');
-
+Route::get('/enviados', function () {
+    return view('mensajeEnv');
+});
 /* Rutas del administrador
  */
 
