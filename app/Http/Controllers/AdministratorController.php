@@ -142,7 +142,16 @@ class AdministratorController extends Controller
     {
 
         $data = $request->all();
-        $ClassroomTeacher = new ClassroomTeacher;
+        
+        foreach($data['classroom'] as $class){
+            foreach($data['area'] as $area){
+                $ClassroomTeacher = new ClassroomTeacher;
+                $ClassroomTeacher->id_user = $data['id_teacher'];
+                $ClassroomTeacher->id_area = $area;
+                $ClassroomTeacher->id_classroom = $class;
+                $ClassroomTeacher->save();
+            }
+        }
     }
 
     /**
