@@ -42,7 +42,7 @@
                                 <tab-content title="Anual">
                                     <div
                                         class="form-group mx-auto"
-                                        v-for="(input, t) in inputs"
+                                        v-for="(input1, t) in inputs1"
                                         :key="t"
                                     >
                                         <div align="center">
@@ -51,18 +51,19 @@
                                                 <input
                                                     type="number"
                                                     style="width:50px;"
+                                                    v-model="input.porcentaje"
                                                 />%
                                                 <span>
                                                     <a
                                                         href="#"
                                                         class="badge badge-danger"
                                                         @click.prevent="
-                                                            remove(t)
+                                                            remove1(t)
                                                         "
                                                         v-show="
                                                             t ||
                                                                 (!t &&
-                                                                    inputs.length >
+                                                                    inputs1.length >
                                                                         1)
                                                         "
                                                         >-</a
@@ -70,10 +71,10 @@
                                                     <a
                                                         href="#"
                                                         class="badge badge-primary"
-                                                        @click.prevent="add(t)"
+                                                        @click.prevent="add1(t)"
                                                         v-show="
                                                             t ==
-                                                                inputs.length -
+                                                                inputs1.length -
                                                                     1
                                                         "
                                                         >+</a
@@ -84,7 +85,7 @@
                                         <textarea
                                             name="welcome"
                                             class="form-control"
-                                            v-model="newLogro1"
+                                            v-model="input1.logro"
                                             required
                                         ></textarea>
                                         <div class="invalid-feedback">
@@ -560,12 +561,19 @@ export default {
                     contenido: ""
                 }
             ],
+            inputs1: [
+                {
+                    name: "",
+                    porcentaje: ""
+                }
+            ],
             newTrimestre: [],
             newLogro1: "",
             newLogro2: "",
             newLogro3: "",
             newLogro4: "",
             newTrimestre: [],
+            newLogro: [],
             trimestre: false,
             logro_1: "",
             logro_2: "",
@@ -602,6 +610,12 @@ export default {
         remove(index) {
             this.inputs.splice(index, 1);
         },
+        add1(index) {
+            this.inputs1.push({ name: "", porcentaje: "" });
+        },
+        remove1(index) {
+            this.inputs1.splice(index, 1);
+        },
 
         createCourses() {
             var url = "Courses";
@@ -611,15 +625,17 @@ export default {
                     this.newTrimestre.push(this.inputs[i]);
                 }
             }
+            if (this.inputs1.length >= 1) {
+                for (let i = 0; i < this.inputs1.length; i++) {
+                    this.newLogro.push(this.inputs1[i]);
+                }
+            }
 
             axios
                 .post(url, {
                     //Cursos generales
                     materia: "1",
-                    logro1: this.newLogro1,
-                    logro2: this.newLogro2,
-                    logro3: this.newLogro3,
-                    logro4: this.newLogro4,
+                    logro: this.newLogro,
                     trimestre: this.newTrimestre
                 })
                 .then(response => {
