@@ -222,6 +222,12 @@ Route::get('/instituciones_crear', function () {
 Route::get('/perfil_asignar', function () {
     return view('asignarPerfil');
 });
+Route::get('/docente_asignar', function () {
+    return view('asignarDocente');
+});
+Route::get('/estudiante_asignar', function () {
+    return view('asignarEstudiante');
+});
 Route::get('/coordinador_adm', function () {
     return view('coordinadorAdm');
 });
@@ -366,6 +372,7 @@ Route::post('assignStudents', 'AdministratorController@assignStudents')->name('a
 Route::post('assignTeachers', 'AdministratorController@assignTeachers')->name('assignTeachers');
 Route::get('getState', 'AdministratorController@getAllState')->name('getState');
 Route::get('getInstitution', 'AdministratorController@indexInstitution')->name('getInstitution');
+Route::get('getSections', 'AdministratorController@getSections')->name('getSections');
 Route::get('getCity/{id}', 'AdministratorController@findCity')->name('getCity');
 Route::post('createInstitution', 'AdministratorController@createInstitution')->name('createInstitution');
 Route::get('findInstitution/{id}', 'AdministratorController@findInstitution')->name('findInstitution');

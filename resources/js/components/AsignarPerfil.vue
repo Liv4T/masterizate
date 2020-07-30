@@ -21,23 +21,17 @@
                                             <label for>Rol:</label>
                                             <select
                                                 class="form-control"
-                                                ref="seleccionado"
+                                                v-model="Newrol"
                                                 required
                                             >
                                                 <option value="4"
                                                     >Coordinador</option
                                                 >
-                                                <option value="2"
-                                                    >Docente</option
-                                                >
-                                                <option value="3"
-                                                    >Estudiante</option
-                                                >
                                             </select>
                                         </div>
 
                                         <div class="col-md-6">
-                                            <label for="name">Salon</label>
+                                            <label for="name">Sección</label>
                                             <div>
                                                 <select
                                                     class="form-control"
@@ -46,9 +40,9 @@
                                                 >
                                                     <option
                                                         :value="option.id"
-                                                        v-for="option in myOptions"
+                                                        v-for="option in myOptions.sections"
                                                         >{{
-                                                            option.clasroom
+                                                            option.name
                                                         }}</option
                                                     >
                                                 </select>
@@ -143,9 +137,7 @@ export default {
             nameUrl: "",
             newDocument: [],
             semanal: false,
-            newVideo: [],
-            messageVideo: "",
-            seleccionadoStreaming: "",
+            Newrol: "",
             textoM: "",
             errors: [],
             seccion: "",
@@ -163,9 +155,10 @@ export default {
         axios.get(urlUsers).then(response => {
             this.optionse = response.data;
         });
-        var urlUsers = "getClassroom";
+        var urlUsers = "getSections";
         axios.get(urlUsers).then(response => {
             this.myOptions = response.data;
+            console.log(this.myOptions);
         });
     },
     methods: {
@@ -179,18 +172,9 @@ export default {
         getMenu() {
             window.location = "/instituciones_adm";
         },
-        mensaje() {
-            this.seleccionadoStreaming = this.$refs.seleccionadoStreaming.value;
-            if (this.seleccionadoStreaming != 1) {
-                this.textoM =
-                    "Recomendamos el uso de Google Meet como streaming";
-                console.log("aqui");
-            } else {
-                this.textoM = "";
-            }
-        },
+
         createAs() {
-            var url = "assignStudents";
+            var url = "aisgn";
 
             if (this.cestudiante.length >= 1) {
                 for (let i = 0; i < this.cestudiante.length; i++) {
@@ -199,9 +183,9 @@ export default {
             }
             axios
                 .post(url, {
-                    //Cursos generales
-                    students: this.estudiantes,
-                    id_classroom: this.seccion
+                    rol: this.Newrol,
+                    users: this.estudiantes,
+                    id_secction: this.seccion
                 })
                 .then(response => {
                     this.errors = [];

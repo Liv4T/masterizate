@@ -185,11 +185,11 @@ export default {
             this.materias.push(tag);
         },
         getMenu() {
-            window.location = "/instituciones_adm";
+            window.location = "/salon_adm";
         },
 
         createAs() {
-            var url = "assignStudents";
+            var url = "assignTeachers";
 
             if (this.materia.length >= 1) {
                 for (let i = 0; i < this.materia.length; i++) {
@@ -211,7 +211,7 @@ export default {
                 .then(response => {
                     this.errors = [];
 
-                    toastr.success("Nueva asignacion creada exitosamente");
+                    toastr.success("Nueva asignación creada exitosamente");
                     this.getMenu();
                 })
                 .catch(error => {

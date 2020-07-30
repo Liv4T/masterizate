@@ -33,13 +33,6 @@
                                                 editInsti(insti.id)
                                             "
                                         >
-                                            <i class="fa fa-eye"></i>
-                                        </a>
-                                        <a
-                                            class="btn btn-sm"
-                                            href="#"
-                                            style="color: grey;"
-                                        >
                                             <i class="fa fa-edit"></i>
                                         </a>
 

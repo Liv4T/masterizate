@@ -50,8 +50,12 @@ class AdministratorController extends Controller
      */
     public function indexStudents()
     {
-        $users = User::where('type_user', 3)->get();
-
+        $students = [];
+        $studentAssigned = ClassroomStudent::all();
+        foreach ($studentAssigned as $key => $stud) {
+            $students[$key] = $stud->id_user;
+        }
+        $users = User::where('type_user', 3)->whereNotIn('id', $students)->get();
         return $users;
     }
 
@@ -64,8 +68,8 @@ class AdministratorController extends Controller
     public function indexStudentsTeachersAssigned()
     {
         /* aqui hace falta editar la consulta cuando sea por institucion */
-        $studentAssigned = ClassroomStudent::all();
 
+        $studentAssigned = ClassroomStudent::all();
         $students = [];
 
         foreach ($studentAssigned as $key => $studen) {
@@ -94,11 +98,12 @@ class AdministratorController extends Controller
                 'student_name'   => $nombre,
                 'classroom_name' => $salon,
                 'type'           => 'Profesores',
+                'area'           => $teacher->id_area,
             ];
         }
         $data = [
-            $students,
-            $teachers
+            'estudiantes' => $students,
+            'profesores'  => $teachers
         ];
 
         return $data;
@@ -125,11 +130,15 @@ class AdministratorController extends Controller
     {
 
         $data = $request->all();
-        $ClassroomStudent = new ClassroomStudent;
 
-        $ClassroomStudent->id_classroom = $data['id_classroom'];
-        $ClassroomStudent->id_user = $data['id_user'];
-        $ClassroomStudent->save();
+        $students = $data['users'];
+
+        foreach ($students as $student) {
+            $ClassroomStudent = new ClassroomStudent;
+            $ClassroomStudent->id_classroom = $data['id_classroom'];
+            $ClassroomStudent->id_user = $student;
+            $ClassroomStudent->save();
+        }
     }
 
 
@@ -142,9 +151,9 @@ class AdministratorController extends Controller
     {
 
         $data = $request->all();
-        
-        foreach($data['classroom'] as $class){
-            foreach($data['area'] as $area){
+
+        foreach ($data['classroom'] as $class) {
+            foreach ($data['areas'] as $area) {
                 $ClassroomTeacher = new ClassroomTeacher;
                 $ClassroomTeacher->id_user = $data['id_teacher'];
                 $ClassroomTeacher->id_area = $area;
@@ -273,6 +282,33 @@ class AdministratorController extends Controller
         return $data;
     }
 
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getSections()
+    {
+        $sections = [];
+        $institutions = Institution::all();
+        foreach ($institutions as $institution) {
+            $Sections = Section::where('id_institution', $institution->id)->get();
+            foreach ($Sections as $key => $value) {
+                $sections[$key + 1] = [
+                    'id'   => $value->id,
+                    'name' => $value->name,
+                    'id_institution' => $institution->id,
+                ];
+            }
+        }
+
+        $data = [];
+        $data = [
+            'sections' => $sections,
+        ];
+
+        return $data;
+    }
 
     /**
      *Create and store new institutotion resource.

@@ -302,6 +302,10 @@ Vue.component(
     "adocente-adm",
     require("./components/asignarDocente.vue").default
 );
+Vue.component(
+    "aestudiante-adm",
+    require("./components/asignarEstudiante.vue").default
+);
 Vue.component("importar-adm", require("./components/importAdm.vue").default);
 Vue.component("asistencia-adm", require("./components/asistencia.vue").default);
 Vue.use(CKEditor);

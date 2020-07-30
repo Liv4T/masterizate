@@ -2,7 +2,7 @@
 
 @section('content')
 <menu-adm></menu-adm>
-<adocente-adm></adocente-adm>
+<aperfil-adm></aperfil-adm>
  <footers></footers>
 <div class="container">
 

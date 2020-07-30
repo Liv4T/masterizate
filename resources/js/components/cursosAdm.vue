@@ -7,16 +7,19 @@
                     <div class="card-body">
                         <a
                             class="btn btn-warning"
+                            href="#"
                             v-on:click.prevent="createG()"
                             >Crear grado</a
                         >
                         <a
                             class="btn btn-warning"
+                            href="#"
                             v-on:click.prevent="createS()"
                             >Crear salón</a
                         >
                         <a
                             class="btn btn-warning"
+                            href="#"
                             v-on:click.prevent="createM()"
                             >Crear materia</a
                         >
