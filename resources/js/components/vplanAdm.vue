@@ -19,6 +19,7 @@
                       <a href="/plan_adm" class="btn btn-warning">General</a>
                     </div>
                   </td>
+
                   <td>
                     <div id="accordion" class="collapse">
                       <a
@@ -61,7 +62,7 @@
   </div>
 </template>
 <script>
-$(".collapse").on("show.bs.collapse", function() {
+$(".collapse").on("show.bs.collapse", function () {
   $(".collapse.in").collapse("hide");
 });
 
@@ -71,20 +72,20 @@ export default {
       week: [],
       semanal: false,
       general: false,
-      anual: []
+      anual: [],
     };
   },
 
   mounted() {
     var urlsel = "editGetWeek";
-    axios.get(urlsel).then(response => {
+    axios.get(urlsel).then((response) => {
       this.week = response.data;
       if (this.week.length > 0) {
         this.semanal = true;
       }
     });
     var urlsl = "Courses";
-    axios.get(urlsl).then(response => {
+    axios.get(urlsl).then((response) => {
       this.anual = response.data;
       console.log(this.anual);
       if (this.anual.courses.length > 0) {
@@ -92,7 +93,7 @@ export default {
       }
     });
   },
-  methods: {}
+  methods: {},
 };
 </script>
 <style>

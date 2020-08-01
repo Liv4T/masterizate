@@ -3,7 +3,7 @@
     <div class="row justify-content-center">
       <div id="crud" class="col-sm-10">
         <div class="card text-center">
-          <h3 class="card-header fondo">Mis cursos</h3>
+          <h3 class="card-header fondo">Planificación General</h3>
           <div class="card-body">
             <table class="table table-responsive-xl table-striped center">
               <tbody>
@@ -23,11 +23,21 @@
                     <div id="accordion" class="collapse">
                       <a
                         v-show="general==true"
+                        href="/porcentaje"
+                        class="btn btn-warning"
+                      >Porcentaje de notas</a>
+                    </div>
+                  </td>
+                  <td>
+                    <div id="accordion" class="collapse">
+                      <a
+                        v-show="general==true"
                         href="/crear_semana"
                         class="btn btn-warning"
                       >Crear Semana</a>
                     </div>
                   </td>
+
                   <td>
                     <div id="accordion" class="collapse">
                       <a
@@ -56,7 +66,7 @@
   </div>
 </template>
 <script>
-$(".collapse").on("show.bs.collapse", function() {
+$(".collapse").on("show.bs.collapse", function () {
   $(".collapse.in").collapse("hide");
 });
 
@@ -66,20 +76,20 @@ export default {
       week: [],
       semanal: false,
       general: false,
-      anual: []
+      anual: [],
     };
   },
 
   mounted() {
     var urlsel = "editGetWeek";
-    axios.get(urlsel).then(response => {
+    axios.get(urlsel).then((response) => {
       this.week = response.data;
       if (this.week.length > 0) {
         this.semanal = true;
       }
     });
     var urlsl = "Courses";
-    axios.get(urlsl).then(response => {
+    axios.get(urlsl).then((response) => {
       this.anual = response.data;
       console.log(this.anual);
       if (this.anual.courses.length > 0) {
@@ -87,7 +97,7 @@ export default {
       }
     });
   },
-  methods: {}
+  methods: {},
 };
 </script>
 <style>

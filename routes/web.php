@@ -240,6 +240,9 @@ Route::get('/asistencia', function () {
 Route::get('/matricula', function () {
     return view('matricula');
 });
+Route::get('/porcentaje', function () {
+    return view('porcentajeNotas');
+});
 Route::get('/chat', 'HomeController@CreateGroup')->name('chat');
 // Lessons
 Route::delete('lessons/destroy', 'LessonsController@massDestroy')->name('lessons.massDestroy');

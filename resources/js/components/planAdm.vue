@@ -29,7 +29,7 @@
             <form-wizard
               title
               subtitle
-              color="#c1e9eb"
+              color="#ffc107"
               next-button-text="Siguiente"
               back-button-text="Atrás"
               finish-button-text="Guardar y enviar"
@@ -134,7 +134,7 @@
             <form-wizard
               title
               subtitle
-              color="#c1e9eb"
+              color="#ffc107"
               next-button-text="Siguiente"
               back-button-text="Atrás"
               finish-button-text="Guardar"
@@ -312,18 +312,18 @@
 </div>
 </template>
 <script>
-(function() {
+(function () {
   "use strict";
   window.addEventListener(
     "load",
-    function() {
+    function () {
       // Fetch all the forms we want to apply custom Bootstrap validation styles to
       var forms = document.getElementsByClassName("needs-validation");
       // Loop over them and prevent submission
-      var validation = Array.prototype.filter.call(forms, function(form) {
+      var validation = Array.prototype.filter.call(forms, function (form) {
         form.addEventListener(
           "submit",
-          function(event) {
+          function (event) {
             if (form.checkValidity() === false) {
               event.preventDefault();
               event.stopPropagation();
@@ -337,14 +337,14 @@
     false
   );
 })();
-$(function() {
+$(function () {
   // Get the form fields and hidden div
   var checkbox = $("#gridCheck1");
   var hidden = $("#hidden_fields1");
 
   hidden.hide();
 
-  checkbox.change(function() {
+  checkbox.change(function () {
     if (checkbox.is(":checked")) {
       // Show the hidden fields.
       hidden.show();
@@ -363,8 +363,8 @@ export default {
         {
           name: "",
           contenido: "",
-          observation: ""
-        }
+          observation: "",
+        },
       ],
       newTrimestre: [],
       observation: "",
@@ -381,12 +381,12 @@ export default {
       fillC: [],
       anual: [],
       newAnual: [],
-      errors: []
+      errors: [],
     };
   },
   mounted() {
     var urlsel = "Courses";
-    axios.get(urlsel).then(response => {
+    axios.get(urlsel).then((response) => {
       this.fillC = response.data;
       if (this.fillC.courses.length > 0) {
         this.trimestre = true;
@@ -427,22 +427,22 @@ export default {
           logro2: this.newLogro2,
           logro3: this.newLogro3,
           logro4: this.newLogro4,
-          trimestre: this.newTrimestre
+          trimestre: this.newTrimestre,
         })
-        .then(response => {
+        .then((response) => {
           this.errors = [];
 
           toastr.success("Nuevo plan general creado exitosamente");
           this.getMenu();
         })
-        .catch(error => {
+        .catch((error) => {
           this.errors = error.response.data;
         });
     },
     updateCourses() {
       window.location = "/planificacion";
-    }
-  }
+    },
+  },
 };
 </script>
 <style>
