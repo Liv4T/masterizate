@@ -5,6 +5,12 @@ namespace App\Http\Controllers;
 use App\Courses;
 use App\Quarterly;
 use App\Weekly;
+use App\Area;
+use App\User;
+use App\Grade;
+use App\Classroom;
+use App\ClassroomStudent;
+use App\ClassroomTeacher;
 use Illuminate\Http\Request;
 use Auth;
 
@@ -37,6 +43,42 @@ class CoursesController extends Controller
         ];
 
         return response()->json($data);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getAreaByUser()
+    {
+        //
+        $auth = Auth::user();
+
+        $user = User::find($auth->id);
+        $areas = [];
+        if($user->type_user == 2){
+            $user_asinated = ClassroomTeacher::where('id_user',$user->id)->get();
+            foreach($user_asinated as $key => $area){
+                $class = Area::find($area->id_area);
+                $areas[$key] = [
+                    'id' => $class->id,
+                    'text' => $class->nmae,
+                ];
+            }
+        }elseif($user->type_user == 3){
+            $user_asinated = ClassroomStudent::where('id_user',$user->id)->get();
+            $classroom = Classroom::find($user_asinated->id_classroom);
+            $class = Area::where('id_grade',$classroom->id_grade)->get();
+            foreach($class as $key => $area){
+                $areas[$key] = [
+                    'id' => $area->id,
+                    'text' => $area->nmae,
+                ];
+            }
+        }
+
+        return response()->json($areas);
     }
 
     /**

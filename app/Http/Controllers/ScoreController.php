@@ -4,6 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Indicator;
+use App\ScoreAnual;
+use App\Courses;
+use App\ScoreCumulative;
+
 class ScoreController extends Controller
 {
     /**
