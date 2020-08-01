@@ -6,21 +6,21 @@
           <h3 class="card-header fondo">Planificación General</h3>
           <div class="card-body">
             <table class="table table-responsive-xl table-striped center">
-              <tbody>
-                <tr data-toggle="collapse" data-target="#accordion" class="clickable">
-                  <td>Química</td>
+              <tbody v-for="(area,t) in areas" :key="t">
+                <tr data-toggle="collapse" :data-target="'#accordion'+t" class="clickable">
+                  <td>{{ area.text }}</td>
                   <td></td>
                   <td></td>
                   <td></td>
                 </tr>
                 <tr>
                   <td>
-                    <div id="accordion" class="collapse">
+                    <div :id="'accordion'+t" class="collapse">
                       <a href="/course" class="btn btn-warning">General</a>
                     </div>
                   </td>
                   <td>
-                    <div id="accordion" class="collapse">
+                    <div :id="'accordion'+t" class="collapse">
                       <a
                         v-show="general==true"
                         href="/porcentaje"
@@ -29,7 +29,7 @@
                     </div>
                   </td>
                   <td>
-                    <div id="accordion" class="collapse">
+                    <div :id="'accordion'+t" class="collapse">
                       <a
                         v-show="general==true"
                         href="/crear_semana"
@@ -39,7 +39,7 @@
                   </td>
 
                   <td>
-                    <div id="accordion" class="collapse">
+                    <div :id="'accordion'+t" class="collapse">
                       <a
                         v-show="semanal==true"
                         href="/act_semana"
@@ -77,10 +77,15 @@ export default {
       semanal: false,
       general: false,
       anual: [],
+      areas: [],
     };
   },
 
   mounted() {
+    var url = "GetArearByUser";
+    axios.get(url).then((response) => {
+      this.areas = response.data;
+    });
     var urlsel = "editGetWeek";
     axios.get(urlsel).then((response) => {
       this.week = response.data;

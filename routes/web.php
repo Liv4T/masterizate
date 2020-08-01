@@ -307,6 +307,7 @@ Route::get('/getAllEvents', 'EventsController@indexEvents')->name('getAllEvents'
 Route::get('/actividad_d/{id}', 'ClassController@activityWeekId')->name('actividad_d');
 Route::get('/actividad_d/getClass/{id}', 'ClassController@getClassId')->name('getClass');
 Route::post('courseWeekly', 'CoursesController@courseWeekly')->name('courseWeekly');
+Route::get('GetArearByUser', 'CoursesController@getAreaByUser')->name('GetArearByUser');
 Route::get('GetWeek', 'CoursesController@getWeek');
 Route::get('editGetWeek', 'CoursesController@editGetWeek');
 Route::get('viewGetWeek', 'CoursesController@viewGetWeek');

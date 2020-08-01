@@ -57,24 +57,30 @@ class CoursesController extends Controller
 
         $user = User::find($auth->id);
         $areas = [];
-        if($user->type_user == 2){
-            $user_asinated = ClassroomTeacher::where('id_user',$user->id)->get();
-            foreach($user_asinated as $key => $area){
-                $class = Area::find($area->id_area);
-                $areas[$key] = [
-                    'id' => $class->id,
-                    'text' => $class->nmae,
-                ];
+        if ($user->type_user == 2) {
+            $user_asignated = ClassroomTeacher::where('id_user', $user->id)->get();
+            if (isset($user_asignated)) {
+                foreach ($user_asignated as $key => $area) {
+                    $class = Area::find($area->id_area);
+                    $areas[$key] = [
+                        'id' => $class->id,
+                        'text' => $class->name,
+                    ];
+                }
             }
-        }elseif($user->type_user == 3){
-            $user_asinated = ClassroomStudent::where('id_user',$user->id)->get();
-            $classroom = Classroom::find($user_asinated->id_classroom);
-            $class = Area::where('id_grade',$classroom->id_grade)->get();
-            foreach($class as $key => $area){
-                $areas[$key] = [
-                    'id' => $area->id,
-                    'text' => $area->nmae,
-                ];
+        } elseif ($user->type_user == 3) {
+            $user_asignateds = ClassroomStudent::where('id_user', $user->id)->get();
+            if (isset($user_asignateds)) {
+                foreach ($user_asignateds as $key => $user_asignated) {
+                    $classroom = Classroom::find($user_asignated->id_classroom);
+                    $class = Area::where('id_grade', $classroom->id_grade)->get();
+                    foreach ($class as $key => $area) {
+                        $areas[$key] = [
+                            'id' => $area->id,
+                            'text' => $area->name,
+                        ];
+                    }
+                }
             }
         }
 
