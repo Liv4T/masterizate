@@ -128,18 +128,18 @@
   </div>
 </template>
 <script>
-(function() {
+(function () {
   "use strict";
   window.addEventListener(
     "load",
-    function() {
+    function () {
       // Fetch all the forms we want to apply custom Bootstrap validation styles to
       var forms = document.getElementsByClassName("needs-validation");
       // Loop over them and prevent submission
-      var validation = Array.prototype.filter.call(forms, function(form) {
+      var validation = Array.prototype.filter.call(forms, function (form) {
         form.addEventListener(
           "submit",
-          function(event) {
+          function (event) {
             if (form.checkValidity() === false) {
               event.preventDefault();
               event.stopPropagation();
@@ -153,14 +153,14 @@
     false
   );
 })();
-$(function() {
+$(function () {
   // Get the form fields and hidden div
   var checkbox = $("#gridCheck1");
   var hidden = $("#hidden_fields1");
 
   hidden.hide();
 
-  checkbox.change(function() {
+  checkbox.change(function () {
     if (checkbox.is(":checked")) {
       // Show the hidden fields.
       hidden.show();
@@ -185,12 +185,12 @@ export default {
       newVideo: [],
       messageVideo: "",
       numero: "",
-      errors: []
+      errors: [],
     };
   },
   mounted() {
     var urlsel = "editGetWeek";
-    axios.get(urlsel).then(response => {
+    axios.get(urlsel).then((response) => {
       this.myOptions = response.data;
     });
     this.messageVideo = "";
@@ -211,15 +211,16 @@ export default {
           name_document: this.nameFile,
           document: this.newDocument,
           url: this.nameUrl,
-          video: this.newVideo
+          video: this.newVideo,
+          hourly_intensity: this.numero,
         })
-        .then(response => {
+        .then((response) => {
           this.errors = [];
 
           toastr.success("Nueva clase creada exitosamente");
           this.getMenu();
         })
-        .catch(error => {
+        .catch((error) => {
           this.errors = error.response.data;
         });
     },
@@ -235,7 +236,7 @@ export default {
         data.append("name", this.nameUnit);
         this.newDocument = data;
 
-        axios.post("/fileDocument", data).then(response => {
+        axios.post("/fileDocument", data).then((response) => {
           this.emitMessage(response);
         });
       }
@@ -252,7 +253,7 @@ export default {
         data.append("name", this.nameUnit);
         this.newVideo = data;
 
-        axios.post("/fileDocument", data).then(response => {
+        axios.post("/fileDocument", data).then((response) => {
           console.log(response.data);
 
           if (response.data == "ok") {
@@ -276,19 +277,19 @@ export default {
         .put(url, {
           //Cursos generales
           id_materia: "1",
-          semana: this.newSemanal
+          semana: this.newSemanal,
         })
-        .then(response => {
+        .then((response) => {
           this.errors = [];
 
           toastr.success("Actualizado plan semanal exitosamente");
           this.getMenu();
         })
-        .catch(error => {
+        .catch((error) => {
           this.errors = error.response.data;
         });
-    }
-  }
+    },
+  },
 };
 </script>
 <style></style>

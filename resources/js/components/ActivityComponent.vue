@@ -5,27 +5,53 @@
         <div class="card text-center">
           <h3 class="card-header fondo">Actividad</h3>
           <div class="card-body">
-            <table class="table table-responsive table-hover table-striped center">
-              <thead>
-                <tr>
-                  <th colspan="1">&nbsp;</th>
-                  <th>N°</th>
-                  <th>Nombre de la materia</th>
-                  <th>Tipo de Actividad</th>
-                  <th>Fecha de entrega límite</th>
-                  <th>Fecha de retroalimentación</th>
+            <table class="table table-responsive-xl table-hover table-striped center">
+              <tbody v-for="(area,t) in areas" :key="t">
+                <tr
+                  data-toggle="collapse"
+                  :data-target="'#accordion'+t"
+                  class="clickable"
+                  @click="semanas(area.id, area.id_classroom)"
+                >
+                  <td>{{ area.text}}</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
                 </tr>
-              </thead>
-              <tbody>
-                <tr v-for="(actividad, t) in activities" :key="t">
-                  <td width="10px">
-                    <a class="btn btn-warning btn-sm" v-on:click.prevent="editNames(actividad)">v</a>
+                <tr>
+                  <td>
+                    <div :id="'accordion'+t" class="collapse">
+                      <table class="table table-responsive table-hover table-striped center">
+                        <thead>
+                          <tr>
+                            <th colspan="1">&nbsp;</th>
+
+                            <th>Nombre de la materia</th>
+                            <th>Tipo de Actividad</th>
+                            <th>Fecha de entrega límite</th>
+                            <th>Fecha de retroalimentación</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr v-for="(actividad, k) in activities" :key="k">
+                            <td width="10px">
+                              <a
+                                class="btn btn-warning btn-sm"
+                                v-on:click.prevent="editNames(actividad.id)"
+                              >v</a>
+                            </td>
+
+                            <td>{{actividad.activity_name }}</td>
+                            <td>{{ actividad.activity_type }}</td>
+                            <td>{{actividad.deliver_date}}</td>
+                            <td>{{actividad.feedback_date}}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
                   </td>
-                  <td>{{t+1}}</td>
-                  <td>Química</td>
-                  <td>Trivia</td>
-                  <td>{{actividad.deliver_date}}</td>
-                  <td>{{actividad.feedback_date}}</td>
                 </tr>
               </tbody>
             </table>
@@ -164,42 +190,46 @@ export default {
   data() {
     return {
       activities: [],
+      activity: [],
       descripcion: "",
       logro: "",
       fechaE: "",
       fechaR: "",
       id_act: "",
-      errors: []
+      areas: [],
+      errors: [],
     };
   },
   created() {},
   mounted() {
-    var urlr = "Activity";
-    axios.get(urlr).then(response => {
-      this.activities = response.data;
+    var url = "GetArearByUser";
+    axios.get(url).then((response) => {
+      this.areas = response.data;
     });
+
     console.log("Component mounted.");
   },
   methods: {
-    editNames(actividad) {
-      var urlr = "Activity";
-      axios.get(urlr).then(response => {
+    semanas(id, classroom) {
+      var urlr = "getActivity/" + id + "/" + classroom;
+      axios.get(urlr).then((response) => {
         this.activities = response.data;
-        console.log(this.activities.length);
+      });
+    },
+    editNames(actividad) {
+      var urlr = "getActivityById/" + actividad;
+      axios.get(urlr).then((response) => {
+        this.activity = response.data;
 
-        for (let i = 0; i < this.activities.length; i++) {
-          if (actividad.id == this.activities[i].id) {
-            this.id_act = this.activities[i].id;
-            this.descripcion = this.activities[i].activity_desc;
-            this.logro = this.activities[i].achievement;
-            this.fechaE = this.activities[i].deliver_date;
-            this.fechaR = this.activities[i].feedback_date;
-          }
-        }
+        this.id_act = this.activity.id;
+        this.descripcion = this.activity.activity_desc;
+        this.logro = this.activity.achievement;
+        this.fechaE = this.activity.deliver_date;
+        this.fechaR = this.activity.feedback_date;
       });
       $("#editu").modal("show");
-    }
-  }
+    },
+  },
 };
 </script>
 <style>

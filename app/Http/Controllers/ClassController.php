@@ -4,7 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Classes;
 use App\Files;
+use App\Courses;
+use App\Weekly;
+use App\CoursesAchievement;
 use Illuminate\Http\Request;
+use Auth;
 
 class ClassController extends Controller
 {
@@ -46,6 +50,7 @@ class ClassController extends Controller
             'name' => $data['name'],
             'name_document' => $data['name_document'],
             'url'    => $data['url'],
+            'hourly_intensity'    => $data['hourly_intensity'],
             'document' => $documento->path,
             'video'  => $video->path,
         ]);
@@ -65,7 +70,22 @@ class ClassController extends Controller
     public function show(Request $request, String $id)
     {
         $clase = Classes::where('id_weekly_plan', $id)->get();
-        return $clase;
+        $week = Weekly::find($id);
+        $user = Auth::user();
+        $achievements = [];
+        if ($user->type_user == 3) {
+            $Courses = Courses::where('id_area', $week->id_area)->where('id_classroom', $week->id_classroom)->first();
+        } elseif ($user->type_user == 2) {
+            $Courses = Courses::where('id_teacher', $user->id)->where('id_area', $week->id_area)->where('id_classroom', $week->id_classroom)->first();
+        }
+        if (isset($Courses)) {
+            $achievements = CoursesAchievement::where('id_planification', $Courses->id)->get();
+        }
+        $data = [
+            'clase' => $clase,
+            'achievements' => $achievements
+        ];
+        return $data;
     }
 
     /**
@@ -162,17 +182,26 @@ class ClassController extends Controller
     {
 
         $Classes = Classes::where('id_weekly_plan', $id)->get();
-        $data = [];
-        $data[0] = [
+        $clase = [];
+        $clase[0] = [
             'id'   => 0,
             'text' => 'Seleccione',
         ];
         foreach ($Classes as $key => $class) {
-            $data[$key + 1] = [
+            $clase[$key + 1] = [
                 'id'   => $class->id,
                 'text' => $class->name,
             ];
         }
+        $week = Weekly::find($id);
+        $Courses = Courses::where('id_teacher', Auth::user()->id)->where('id_area', $week->id_area)->where('id_classroom', $week->id_classroom)->first();
+        if (isset($Courses)) {
+            $achievements = CoursesAchievement::where('id_planification', $Courses->id)->get();
+        }
+        $data = [
+            'clase' => $clase,
+            'achievements' => $achievements
+        ];
         return response()->json($data);
     }
     /**

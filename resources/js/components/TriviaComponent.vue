@@ -127,10 +127,11 @@
             <p class="subtitle">
               Total score: {{ score() }} /
               {{ quiz.questions.length }}
+              {{ createnota() }}
             </p>
             <br />
-            <a class="button" href="/juegos">
-              restart
+            <a class="button" href="/Actividad">
+              Volver
               <i class="fa fa-refresh"></i>
             </a>
             <!--/resultTitleBlock-->
@@ -151,12 +152,13 @@ export default {
       quiz: {},
       questionIndex: 0,
       userResponses: {},
-      isActive: false
+      isActive: false,
+      nota: "",
     };
   },
   mounted() {
     var urlsel = "getAllQuestions/" + this.trivia;
-    axios.get(urlsel).then(response => {
+    axios.get(urlsel).then((response) => {
       this.quiz = response.data;
       this.userResponses = Array(this.quiz.questions.length).fill(null);
       console.log(this.quiz.questions);
@@ -164,31 +166,31 @@ export default {
     });
   },
   filters: {
-    charIndex: function(i) {
+    charIndex: function (i) {
       return String.fromCharCode(97 + i);
-    }
+    },
   },
   methods: {
     shuffle() {
       this.quiz.questions.responses = _.shuffle(this.quiz.questions.responses);
     },
-    restart: function() {
+    restart: function () {
       this.questionIndex = 0;
       this.userResponses = Array(this.quiz.questions.length).fill(null);
     },
-    selectOption: function(index) {
+    selectOption: function (index) {
       Vue.set(this.userResponses, this.questionIndex, index);
       console.log(this.userResponses);
     },
-    next: function() {
+    next: function () {
       if (this.questionIndex < this.quiz.questions.length) this.questionIndex++;
     },
 
-    prev: function() {
+    prev: function () {
       if (this.quiz.questions.length > 0) this.questionIndex--;
     },
     // Return "true" count in userResponses
-    score: function() {
+    score: function () {
       var score = 0;
       for (let i = 0; i < this.userResponses.length; i++) {
         if (
@@ -199,11 +201,33 @@ export default {
           score = score + 1;
         }
       }
+      this.nota = score;
       return score;
 
       //return this.userResponses.filter(function(val) { return val }).length;
-    }
-  }
+    },
+    createnota() {
+      var url = window.location.origin + "/saveScore";
+
+      axios
+        .post(url, {
+          id_activity: this.trivia,
+          score: this.nota,
+        })
+        .then((response) => {
+          this.errors = [];
+
+          toastr.success("Actividad realizada exitosamente");
+          this.getMenu();
+        })
+        .catch((error) => {
+          this.errors = error.response.data;
+        });
+    },
+    getMenu() {
+      window.location = "/Actividad";
+    },
+  },
 };
 </script>
 <style lang="scss">

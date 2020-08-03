@@ -75,13 +75,6 @@
 
               <tab-content title="Trimestral">
                 <div class="form-group row mx-auto" v-for="(input, t) in inputs" :key="t">
-                  <div class="col-md-7 mx-auto">
-                    <label for>Logro:</label>
-                    <select class="form-control" ref="seleccionado" required>
-                      <option value="1">Logro1</option>
-                    </select>
-                  </div>
-
                   <div class="col-md-6">
                     <label for="name">Unidad</label>
                     <span>
@@ -146,44 +139,24 @@
             >
               <tab-content title="Anual">
                 <div>
-                  <div class="form-group mx-auto">
+                  <div class="form-group mx-auto" v-for="(option,k) in fillC.achievements" :key="k">
                     <div align="center">
                       <strong>
-                        Logro 1
-                        <input type="number" style="width:50px;" disabled />%
+                        Logro {{ k+1 }}
+                        <input
+                          type="number"
+                          style="width:50px;"
+                          v-model="option.percentage"
+                          disabled
+                        />%
                       </strong>
                     </div>
-                    <textarea name="welcome" class="form-control" v-model="logro_1" disabled></textarea>
-                    <div class="invalid-feedback">Please fill out this field</div>
-                  </div>
-                  <div class="form-group mx-auto">
-                    <div align="center">
-                      <strong>
-                        Logro 2
-                        <input type="number" style="width:50px;" disabled />%
-                      </strong>
-                    </div>
-                    <textarea name="welcome" class="form-control" v-model="logro_2" disabled></textarea>
-                    <div class="invalid-feedback">Please fill out this field</div>
-                  </div>
-                  <div class="form-group mx-auto">
-                    <div align="center">
-                      <strong>
-                        Logro 3
-                        <input type="number" style="width:50px;" disabled />%
-                      </strong>
-                    </div>
-                    <textarea name="welcome" class="form-control" v-model="logro_3" disabled></textarea>
-                    <div class="invalid-feedback">Please fill out this field</div>
-                  </div>
-                  <div class="form-group mx-auto">
-                    <div align="center">
-                      <strong>
-                        Logro 4
-                        <input type="number" style="width:50px;" disabled />%
-                      </strong>
-                    </div>
-                    <textarea name="welcome" class="form-control" v-model="logro_4" disabled></textarea>
+                    <textarea
+                      name="welcome"
+                      class="form-control"
+                      v-model="option.achievement"
+                      disabled
+                    ></textarea>
                     <div class="invalid-feedback">Please fill out this field</div>
                   </div>
                 </div>
@@ -273,6 +246,7 @@ import VueFormWizard from "vue-form-wizard";
 import "vue-form-wizard/dist/vue-form-wizard.min.css";
 Vue.use(VueFormWizard);
 export default {
+  props: ["id_area", "id_classroom"],
   data() {
     return {
       inputs: [
@@ -283,7 +257,7 @@ export default {
       ],
       inputs1: [
         {
-          name: "",
+          logro: "",
           porcentaje: "",
         },
       ],
@@ -306,19 +280,21 @@ export default {
     };
   },
   mounted() {
-    // var urlsel = "Courses";
-    // axios.get(urlsel).then(response => {
-    //     this.fillC = response.data;
-    //     if (this.fillC.courses.length > 0) {
-    //         this.trimestre = true;
-    //         for (let i = 0; i < this.fillC.courses.length; i++) {
-    //             this.logro_1 = this.fillC.courses[i].achievement_1;
-    //             this.logro_2 = this.fillC.courses[i].achievement_2;
-    //             this.logro_3 = this.fillC.courses[i].achievement_3;
-    //             this.logro_4 = this.fillC.courses[i].achievement_4;
-    //         }
-    //     }
-    // });
+    var urlsel =
+      window.location.origin +
+      "/coursePlanification/" +
+      this.id_area +
+      "/" +
+      this.id_classroom;
+    axios.get(urlsel).then((response) => {
+      this.fillC = response.data;
+      console.log(this.trimestre);
+      if (this.fillC.quaterly.length > 0) {
+        this.trimestre = true;
+      } else {
+        this.trimestre = false;
+      }
+    });
   },
   methods: {
     getMenu() {
@@ -331,14 +307,14 @@ export default {
       this.inputs.splice(index, 1);
     },
     add1(index) {
-      this.inputs1.push({ name: "", porcentaje: "" });
+      this.inputs1.push({ logro: "", porcentaje: "" });
     },
     remove1(index) {
       this.inputs1.splice(index, 1);
     },
 
     createCourses() {
-      var url = "Courses";
+      var url = window.location.origin + "/Courses";
 
       if (this.inputs.length >= 1) {
         for (let i = 0; i < this.inputs.length; i++) {
@@ -354,9 +330,10 @@ export default {
       axios
         .post(url, {
           //Cursos generales
-          materia: "1",
-          logro: this.newLogro,
-          trimestre: this.newTrimestre,
+          id_area: this.id_area,
+          id_classroom: this.id_classroom,
+          logros: this.newLogro,
+          trimestres: this.newTrimestre,
         })
         .then((response) => {
           this.errors = [];

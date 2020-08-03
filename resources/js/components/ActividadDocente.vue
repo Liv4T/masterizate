@@ -41,7 +41,7 @@
                     <div class="col-md-6">
                       <label for>Clase:</label>
                       <select class="form-control" ref="seleccionado" required>
-                        <option :value="option.id" v-for="option in myOptions">{{option.text}}</option>
+                        <option :value="option.id" v-for="option in myOptions.clase">{{option.text}}</option>
                       </select>
                     </div>
                   </div>
@@ -82,11 +82,26 @@
                   </div>
                   <div class="col-md-6">
                     <label for="name">Logro</label>
-                    <select class="form-control" v-for="logr in logros.courses" required>
-                      <option :value="logr.achievement_1">{{logr.achievement_1}}</option>
-                      <option :value="logr.achievement_2">{{logr.achievement_2}}</option>
-                      <option :value="logr.achievement_3">{{logr.achievement_3}}</option>
-                      <option :value="logr.achievement_4">{{logr.achievement_4}}</option>
+                    <select
+                      class="form-control"
+                      v-model="newLogro"
+                      @change="Indicator(newLogro)"
+                      required
+                    >
+                      <option
+                        :value="logr.id"
+                        v-for="logr in myOptions.achievements"
+                      >{{logr.achievement}}</option>
+                    </select>
+                    <div class="invalid-feedback">Please fill out this field</div>
+                  </div>
+                  <div class="col-md-6">
+                    <label for="name">Indicador</label>
+                    <select class="form-control" v-model="newIndicator" required>
+                      <option
+                        :value="opt.id"
+                        v-for="opt in fillI"
+                      >{{opt.type_activity +" - "+ opt.activity_rate+"%" }}</option>
                     </select>
                     <div class="invalid-feedback">Please fill out this field</div>
                   </div>
@@ -201,18 +216,18 @@
 </div>
 </template>
 <script>
-(function() {
+(function () {
   "use strict";
   window.addEventListener(
     "load",
-    function() {
+    function () {
       // Fetch all the forms we want to apply custom Bootstrap validation styles to
       var forms = document.getElementsByClassName("needs-validation");
       // Loop over them and prevent submission
-      var validation = Array.prototype.filter.call(forms, function(form) {
+      var validation = Array.prototype.filter.call(forms, function (form) {
         form.addEventListener(
           "submit",
-          function(event) {
+          function (event) {
             if (form.checkValidity() === false) {
               event.preventDefault();
               event.stopPropagation();
@@ -226,14 +241,14 @@
     false
   );
 })();
-$(function() {
+$(function () {
   // Get the form fields and hidden div
   var checkbox = $("#gridCheck1");
   var hidden = $("#hidden_fields1");
 
   hidden.hide();
 
-  checkbox.change(function() {
+  checkbox.change(function () {
     if (checkbox.is(":checked")) {
       // Show the hidden fields.
       hidden.show();
@@ -255,8 +270,8 @@ export default {
           correct_answer: "",
           answer_1: "",
           answer_2: "",
-          answer_3: ""
-        }
+          answer_3: "",
+        },
       ],
 
       myOptions: [],
@@ -271,24 +286,21 @@ export default {
       newSemana: "",
       newTrivia: [],
       seleccionado: "",
+      newIndicator: "",
+      fillI: [],
 
       fillC: {
         id: "",
         name: "",
-        description: ""
+        description: "",
       },
-      errors: []
+      errors: [],
     };
   },
   mounted() {
     var urlsel = "getClass/" + this.week;
-    axios.get(urlsel).then(response => {
+    axios.get(urlsel).then((response) => {
       this.myOptions = response.data;
-    });
-    var urln = "Courses";
-    axios.get(urln).then(response => {
-      this.logros = response.data;
-      console.log(this.logros.courses);
     });
   },
   methods: {
@@ -298,14 +310,14 @@ export default {
         correct_answer: "",
         answer_1: "",
         answer_2: "",
-        answer_3: ""
+        answer_3: "",
       });
     },
     remove(index) {
       this.inputs.splice(index, 1);
     },
     getMenu() {
-      window.location = "/actividad_g";
+      window.location = "/clases_d";
     },
     createActivity() {
       var url = "Activity";
@@ -319,7 +331,6 @@ export default {
 
       axios
         .post(url, {
-          //Cursos generales
           activity_name: this.newName,
           activity_desc: this.newDescription,
           achievement: this.newLogro,
@@ -327,19 +338,26 @@ export default {
           feedback_date: this.newDateR,
           id_weekly_plan: this.seleccionado,
           activity_type: this.newActivity,
-          trivia: this.newTrivia
+          id_indicator: this.newIndicator,
+          trivia: this.newTrivia,
         })
-        .then(response => {
+        .then((response) => {
           this.errors = [];
 
           toastr.success("Nueva actividad creada exitosamente");
           this.getMenu();
         })
-        .catch(error => {
+        .catch((error) => {
           this.errors = error.response.data;
         });
-    }
-  }
+    },
+    Indicator(id) {
+      var urli = window.location.origin + "/getIndicator/" + id;
+      axios.get(urli).then((response) => {
+        this.fillI = response.data;
+      });
+    },
+  },
 };
 </script>
 <style>

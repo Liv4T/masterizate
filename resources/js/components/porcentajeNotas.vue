@@ -32,33 +32,39 @@
               color="#ffc107"
               next-button-text="Siguiente"
               back-button-text="Atrás"
-              finish-button-text="Guardar y enviar"
-              @on-complete="createCourses"
+              finish-button-text="Guardar"
+              @on-complete="updateCourses"
             >
               <tab-content title="Porcentaje de notas">
                 <div class="card-body">
                   <div class="accordion" id="accordionExample">
-                    <div class="card">
+                    <div class="card" v-for="(option,t) in fillC.achievements" :key="t">
                       <div class="card-header">
                         <h2 class="mb-0">
                           <button
                             class="btn btn-link"
                             type="button"
                             data-toggle="collapse"
-                            data-target="#collapse"
-                            aria-expanded="true"
+                            :data-target="'#collapse'+t"
+                            aria-expanded="false"
+                            @click.prevent="indicador(option.id)"
                             aria-controls="collapse"
                           >
                             <strong>
-                              Logro
-                              <input type="number" style="width:50px;" />%
+                              {{ option.achievement }}
+                              <input
+                                type="number"
+                                style="width:50px;"
+                                v-model="option.percentage"
+                                disabled
+                              />%
                             </strong>
                           </button>
                         </h2>
                       </div>
                       <div
-                        id="collapse"
-                        class="collapse show"
+                        :id="'collapse'+t"
+                        class="collapse hide"
                         aria-labelledby="heading"
                         data-parent="#accordionExample"
                       >
@@ -67,26 +73,13 @@
                             <tbody>
                               <tr>
                                 <td>Actividad</td>
-                                <td>Cantidad</td>
-                                <td>Porcentaje</td>
-                                <td>Acciones</td>
-                              </tr>
-                              <tr>
-                                <td>Quiz</td>
-                                <td>5</td>
-                                <td>20%</td>
-                                <td>
-                                  <a class="btn btn-sm" href="#" style="color: grey;">
-                                    <i class="fa fa-eye"></i>
-                                  </a>
-                                  <a class="btn btn-sm" href="#" style="color: grey;">
-                                    <i class="fa fa-edit"></i>
-                                  </a>
 
-                                  <a class="btn btn-sm" href="#" style="color: grey;">
-                                    <i class="fa fa-trash"></i>
-                                  </a>
-                                </td>
+                                <td>Porcentaje</td>
+                              </tr>
+                              <tr v-for="opt in fillI">
+                                <td>{{ opt.type_activity }}</td>
+
+                                <td>{{ opt.activity_rate }}</td>
                               </tr>
                             </tbody>
                           </table>
@@ -94,7 +87,7 @@
                             <a
                               class="btn btn-warning"
                               v-on:click.prevent="
-                                                                    editNames()
+                                                                    editNames(option.id,option.id_planification)
                                                                 "
                             >Agregar</a>
                           </div>
@@ -128,28 +121,14 @@
                           type="text"
                           name="objetive1"
                           class="form-control"
-                          v-model="name"
+                          v-model="tipo_act"
                           style="background: gainsboro;"
                           required
                         />
                       </div>
                     </div>
                   </div>
-                  <div class="form-group row mx-auto">
-                    <div class="col-md-8 text-center mx-auto">
-                      <label for="name">Cantidad</label>
-                      <div>
-                        <input
-                          type="number"
-                          name="objetive1"
-                          class="form-control"
-                          v-model="name"
-                          style="background: gainsboro;"
-                          required
-                        />
-                      </div>
-                    </div>
-                  </div>
+
                   <div class="form-group row mx-auto">
                     <div class="col-md-8 text-center mx-auto">
                       <label for="name">Porcentaje total</label>
@@ -158,7 +137,7 @@
                           type="number"
                           name="objetive1"
                           class="form-control"
-                          v-model="name"
+                          v-model="porcentaje"
                           style="background: gainsboro;"
                           required
                         />
@@ -166,7 +145,12 @@
                     </div>
                   </div>
                   <div class="modal-footer">
-                    <input type="submit" class="btn btn-warning" value="Guardar" />
+                    <input
+                      type="submit"
+                      class="btn btn-warning"
+                      v-on:click.prevent="createIndicator()"
+                      value="Guardar"
+                    />
                   </div>
                 </form>
               </div>
@@ -224,6 +208,7 @@ import VueFormWizard from "vue-form-wizard";
 import "vue-form-wizard/dist/vue-form-wizard.min.css";
 Vue.use(VueFormWizard);
 export default {
+  props: ["id_area", "id_classroom"],
   data() {
     return {
       inputs: [
@@ -239,10 +224,9 @@ export default {
         },
       ],
       newTrimestre: [],
-      newLogro1: "",
-      newLogro2: "",
-      newLogro3: "",
-      newLogro4: "",
+      tipo_act: "",
+      porcentaje: "",
+
       newTrimestre: [],
       newLogro: [],
       trimestre: false,
@@ -251,29 +235,34 @@ export default {
       logro_3: "",
       logro_4: "",
       fillC: [],
+      fillI: [],
       anual: [],
       newAnual: [],
       errors: [],
+      id_logro: "",
     };
   },
   mounted() {
-    // var urlsel = "Courses";
-    // axios.get(urlsel).then(response => {
-    //     this.fillC = response.data;
-    //     if (this.fillC.courses.length > 0) {
-    //         this.trimestre = true;
-    //         for (let i = 0; i < this.fillC.courses.length; i++) {
-    //             this.logro_1 = this.fillC.courses[i].achievement_1;
-    //             this.logro_2 = this.fillC.courses[i].achievement_2;
-    //             this.logro_3 = this.fillC.courses[i].achievement_3;
-    //             this.logro_4 = this.fillC.courses[i].achievement_4;
-    //         }
-    //     }
-    // });
+    var urlsel =
+      window.location.origin +
+      "/coursePlanification/" +
+      this.id_area +
+      "/" +
+      this.id_classroom;
+    axios.get(urlsel).then((response) => {
+      this.fillC = response.data;
+    });
   },
   methods: {
     getMenu() {
       window.location = "/actividad_g";
+    },
+    indicador(id) {
+      var urli = window.location.origin + "/getIndicator/" + id;
+      axios.get(urli).then((response) => {
+        this.fillI = response.data;
+        console.log(this.fillI);
+      });
     },
     add(index) {
       this.inputs.push({ name: "", contenido: "" });
@@ -288,32 +277,22 @@ export default {
       this.inputs1.splice(index, 1);
     },
 
-    createCourses() {
-      var url = "Courses";
-
-      if (this.inputs.length >= 1) {
-        for (let i = 0; i < this.inputs.length; i++) {
-          this.newTrimestre.push(this.inputs[i]);
-        }
-      }
-      if (this.inputs1.length >= 1) {
-        for (let i = 0; i < this.inputs1.length; i++) {
-          this.newLogro.push(this.inputs1[i]);
-        }
-      }
+    createIndicator() {
+      var url = window.location.origin + "/saveIndicator";
 
       axios
         .post(url, {
           //Cursos generales
-          materia: "1",
-          logro: this.newLogro,
-          trimestre: this.newTrimestre,
+          type_activity: this.tipo_act,
+          id_annual: this.id_annual,
+          id_achievement: this.id_logro,
+          activity_rate: this.porcentaje,
         })
         .then((response) => {
           this.errors = [];
 
-          toastr.success("Nuevo plan general creado exitosamente");
-          this.getMenu();
+          toastr.success("Nueva actividad creada exitosamente");
+          this.indicador();
         })
         .catch((error) => {
           this.errors = error.response.data;
@@ -322,11 +301,13 @@ export default {
     updateCourses() {
       window.location = "/actividad_g";
     },
-    editNames(clas) {
+    editNames(id, clas) {
       //   var urlr = "showClass/" + clas;
       //   axios.get(urlr).then(response => {
       //     this.fillS = response.data;
       //   });
+      this.id_annual = clas;
+      this.id_logro = id;
       $("#createZ").modal("show");
     },
   },

@@ -59,11 +59,11 @@ Route::get('/free', function () {
 Route::get('/freeUnit', function () {
     return view('freeU');
 });
-Route::get('/course', function () {
-    return view('course');
+Route::get('/course/{id_area}/{id_classroom}', function (String $id_area, String $id_classroom) {
+    return view('course')->with('id_area', $id_area)->with('id_classroom', $id_classroom);
 });
-Route::get('/crear_semana', function () {
-    return view('semanal');
+Route::get('/crear_semana/{id_area}/{id_classroom}', function (String $id_area, String $id_classroom) {
+    return view('semanal')->with('id_area', $id_area)->with('id_classroom', $id_classroom);
 });
 Route::get('/act_semana', function () {
     return view('semanalAct');
@@ -92,9 +92,7 @@ Route::get('/evaluation', function () {
 Route::get('/vcourse', function () {
     return view('view');
 });
-Route::get('/vactivity', function () {
-    return view('activ');
-});
+
 Route::get('/consult', function () {
     return view('consult');
 });
@@ -148,7 +146,7 @@ Route::get('/mensajes', function () {
     return view('mensajes');
 });
 Route::get('/Actividad', function () {
-    return view('actividad');
+    return view('activ');
 });
 Route::get('/notas', function () {
     return view('notas');
@@ -240,8 +238,9 @@ Route::get('/asistencia', function () {
 Route::get('/matricula', function () {
     return view('matricula');
 });
-Route::get('/porcentaje', function () {
-    return view('porcentajeNotas');
+
+Route::get('/porcentaje/{id_area}/{id_classroom}', function (String $id_area, String $id_classroom) {
+    return view('porcentajeNotas')->with('id_area', $id_area)->with('id_classroom', $id_classroom);
 });
 Route::get('/chat', 'HomeController@CreateGroup')->name('chat');
 // Lessons
@@ -269,7 +268,7 @@ Route::get('downloadFile', 'HomeController@downloadFile')->name('downloadFile');
 
 
 Route::get('info_user', 'UserController@show')->name('info_user');
-Route::get('actividad_d/Courses', 'CoursesController@index');
+Route::get('coursePlanification/{id_area}/{id_classroom}', 'CoursesController@index');
 Route::get('GetCourses', 'CourseController@GetCourses');
 Route::get('GetCategories', 'CategoryController@GetCategories');
 Route::get('GetTypeU', 'CategoryController@GetTypeU');
@@ -292,6 +291,8 @@ Route::resource('Courses', 'CoursesController', ['except' => 'show', 'create', '
 Route::resource('Class', 'ClassController', ['except' => 'show', 'create', 'edit']);
 Route::get('GetClass', 'ClassController@getClass');
 Route::get('showClass/{id}', 'ClassController@show')->name('showClass');
+Route::get('getActivity/{id_1}/{id_2}', 'ActivityController@indexActivityByArea')->name('getActivity');
+Route::get('getActivityById/{id}', 'ActivityController@getActivityById')->name('getActivityById');
 Route::resource('Activity', 'ActivityController', ['except' => 'show', 'create', 'edit']);
 Route::get('trivia/getAllQuestions/{id}', 'ActivityController@getAllQuestions');
 Route::get('trivia/{id}', 'ActivityController@activityId');
@@ -310,11 +311,19 @@ Route::post('courseWeekly', 'CoursesController@courseWeekly')->name('courseWeekl
 Route::get('GetArearByUser', 'CoursesController@getAreaByUser')->name('GetArearByUser');
 Route::get('GetWeek', 'CoursesController@getWeek');
 Route::get('editGetWeek', 'CoursesController@editGetWeek');
-Route::get('viewGetWeek', 'CoursesController@viewGetWeek');
+Route::get('viewGetWeek/{id_area}/{id_classrom}', 'CoursesController@viewGetWeek')->name('viewGetWeek');
 Route::get('showWeek/{id}', 'CoursesController@showWeek');
 Route::put('updateCourseWeekly', 'CoursesController@updateCourseWeekly');
 Route::resource('course_unit', 'Course_unitController', ['except' => 'show', 'create', 'edit']);;
 Route::get('/home', 'HomeController@index')->name('home');
+
+//Almacenar las notas
+
+
+Route::post('saveIndicator', 'ScoreController@saveIndicator')->name('saveIndicator');
+Route::get('getIndicator/{id}', 'ScoreController@getIndicator')->name('getIndicator');
+Route::post('saveScore', 'ScoreController@store')->name('saveScore');
+Route::get('StudentsByArea/{id_1}/{id_2}', 'ScoreController@getStudentByArea')->name('StudentsByArea');
 
 // Chat
 Route::resource('groups', 'GroupController');

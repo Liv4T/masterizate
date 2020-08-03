@@ -16,7 +16,11 @@
                   <td></td>
                 </tr>
                 <tr>
-                  <td v-for="(clas, k) in clases" :key="k">
+                  <td
+                    v-for="(clas, k) in clases"
+                    :key="k"
+                    v-if="clas.id_classroom==area.id_classroom && clas.id_area==area.id"
+                  >
                     <div :id="'accordion'+t" class="collapse">
                       <a
                         class="btn btn-warning"
@@ -202,7 +206,7 @@ export default {
     editNames(clas) {
       var urlr = "showClass/" + clas;
       axios.get(urlr).then((response) => {
-        this.fillS = response.data;
+        this.fillS = response.data.clase;
       });
       $("#editu").modal("show");
     },

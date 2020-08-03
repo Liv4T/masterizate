@@ -11,7 +11,7 @@
   @if (Auth::user()->type_user == '1')
     <menu-adm></menu-adm>
  @endif
-<semanal-component></semanal-component>
+<semanal-component :id_area="{{ $id_area }}" :id_classroom="{{ $id_classroom }}"></semanal-component>
 <div class="container">
     <div class="row justify-content-center">
       <div class="card-body"> @if (session('status'))

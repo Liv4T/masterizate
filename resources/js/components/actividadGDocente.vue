@@ -7,7 +7,12 @@
           <div class="card-body">
             <table class="table table-responsive-xl table-striped center">
               <tbody v-for="(area,t) in areas" :key="t">
-                <tr data-toggle="collapse" :data-target="'#accordion'+t" class="clickable">
+                <tr
+                  data-toggle="collapse"
+                  :data-target="'#accordion'+t"
+                  class="clickable"
+                  @click.prevent="botones(area.id, area.id_classroom)"
+                >
                   <td>{{ area.text }}</td>
                   <td></td>
                   <td></td>
@@ -16,14 +21,17 @@
                 <tr>
                   <td>
                     <div :id="'accordion'+t" class="collapse">
-                      <a href="/course" class="btn btn-warning">General</a>
+                      <a
+                        :href="'/course/'+ area.id +'/'+ area.id_classroom"
+                        class="btn btn-warning"
+                      >General</a>
                     </div>
                   </td>
                   <td>
                     <div :id="'accordion'+t" class="collapse">
                       <a
                         v-show="general==true"
-                        href="/porcentaje"
+                        :href="'/porcentaje/'+ area.id +'/'+ area.id_classroom"
                         class="btn btn-warning"
                       >Porcentaje de notas</a>
                     </div>
@@ -32,7 +40,7 @@
                     <div :id="'accordion'+t" class="collapse">
                       <a
                         v-show="general==true"
-                        href="/crear_semana"
+                        :href="'/crear_semana/'+ area.id +'/'+ area.id_classroom"
                         class="btn btn-warning"
                       >Crear Semana</a>
                     </div>
@@ -41,7 +49,7 @@
                   <td>
                     <div :id="'accordion'+t" class="collapse">
                       <a
-                        v-show="semanal==true"
+                        v-show="general==true"
                         href="/act_semana"
                         class="btn btn-warning"
                       >Actualizar semana</a>
@@ -78,6 +86,8 @@ export default {
       general: false,
       anual: [],
       areas: [],
+      id_area: "",
+      id_classroom: "",
     };
   },
 
@@ -86,23 +96,35 @@ export default {
     axios.get(url).then((response) => {
       this.areas = response.data;
     });
-    var urlsel = "editGetWeek";
-    axios.get(urlsel).then((response) => {
-      this.week = response.data;
-      if (this.week.length > 0) {
-        this.semanal = true;
-      }
-    });
-    var urlsl = "Courses";
-    axios.get(urlsl).then((response) => {
-      this.anual = response.data;
-      console.log(this.anual);
-      if (this.anual.courses.length > 0) {
-        this.general = true;
-      }
-    });
   },
-  methods: {},
+  methods: {
+    botones(area, classroom) {
+      var urlsl =
+        window.location.origin +
+        "/coursePlanification/" +
+        area +
+        "/" +
+        classroom;
+      axios.get(urlsl).then((response) => {
+        this.anual = response.data;
+        if (this.anual.quaterly.length > 0) {
+          this.general = true;
+        } else {
+          this.general = false;
+        }
+      });
+      var urlsel = "editGetWeek";
+      axios.get(urlsel).then((response) => {
+        this.week = response.data;
+
+        if (this.week.id_area == area && this.week.id_classroom == classroom) {
+          this.semanal = true;
+        } else {
+          this.semanal = false;
+        }
+      });
+    },
+  },
 };
 </script>
 <style>

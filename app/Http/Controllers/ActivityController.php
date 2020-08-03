@@ -5,7 +5,12 @@ namespace App\Http\Controllers;
 use App\Activity;
 use App\Trivia;
 use App\Answer;
+use App\Area;
+use App\Courses;
+use App\Indicator;
+use App\Classroom;
 use Illuminate\Http\Request;
+use Auth;
 
 class ActivityController extends Controller
 {
@@ -14,9 +19,41 @@ class ActivityController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function indexActivityByArea(String $id_area, String $id_classroom)
+    {
+        $user = Auth::user();
+        if ($user->type_user == 3) {
+            $Course = Courses::where('id_area', $id_area)->where('id_classroom', $id_classroom)->first();
+        } elseif ($user->type_user == 2) {
+            $Course = Courses::where('id_teacher', $user->id)->where('id_area', $id_area)->where('id_classroom', $id_classroom)->first();
+        }
+        if (isset($Course)) {
+            $indicators = Indicator::where('id_annual', $Course->id)->get();
+            $activities = [];
+            foreach ($indicators as $key => $indicator) {
+                $activity = Activity::where('id_indicator', $indicator->id)->get();
+                foreach ($activity as $num => $act) {
+                    $activities[$key] = [
+                        'id' => $act->id,
+                        'activity_name' => $act->activity_name,
+                        'activity_type' => $act->activity_type,
+                        'deliver_date' => $act->deliver_date,
+                        'feedback_date' => $act->feedback_date,
+                    ];
+                }
+            }
+            return response()->json($activities);
+        }
+        return null;
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index()
     {
-        //
         $Activity = Activity::all();
 
         return response()->json($Activity);
@@ -31,6 +68,15 @@ class ActivityController extends Controller
     {
         $quiz = $id;
         return view("trivia", compact("quiz"));;
+    }
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getActivityById(String $id)
+    {
+        return Activity::find($id);
     }
 
     /**
@@ -94,6 +140,7 @@ class ActivityController extends Controller
             'deliver_date'  => $data['deliver_date'],
             'feedback_date' => $data['feedback_date'],
             'id_weekly_plan' => $data['id_weekly_plan'],
+            'id_indicator' => $data['id_indicator'],
         ]);
 
         $Trivias = $data['trivia'];

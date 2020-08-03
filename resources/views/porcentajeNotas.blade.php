@@ -11,7 +11,7 @@
   @if (Auth::user()->type_user == '1')
     <menu-adm></menu-adm>
  @endif
-    <porcentaje-component></porcentaje-component>
+    <porcentaje-component :id_area="{{ $id_area }}" :id_classroom="{{ $id_classroom }}"></porcentaje-component>
 
 
 <div class="container">

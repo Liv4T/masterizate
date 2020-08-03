@@ -6,31 +6,23 @@
           <h3 class="card-header fondo">Notas</h3>
 
           <div class="card-body">
-            <div class="form-group row">
-              <div class="col-md-4">
-                <label for>Periodo:</label>
-                <select class="form-control">
-                  <option value>Primer periodo</option>
-                </select>
-              </div>
-            </div>
-
             <table class="table table-responsive-xl table-hover table-striped center">
               <thead>
                 <tr>
                   <th colspan="1">&nbsp;</th>
                   <th>Nombre de la materia</th>
-                  <th>Completado</th>
                   <th>Observación</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody v-for="(area,t) in areas" :key="t">
                 <tr>
                   <td width="10px">
-                    <a class="btn btn-warning btn-sm" v-on:click.prevent="editNames()">v</a>
+                    <a
+                      class="btn btn-warning btn-sm"
+                      v-on:click.prevent="editNames(area.id, area.id_classroom)"
+                    >v</a>
                   </td>
-                  <td>Química</td>
-                  <td>10%</td>
+                  <td>{{ area.text}}</td>
                   <td>-</td>
                 </tr>
               </tbody>
@@ -56,15 +48,14 @@
                   <thead>
                     <tr>
                       <th>Alumno</th>
-                      <th>Tipo de Actividad</th>
+
                       <th>Nota</th>
                     </tr>
                   </thead>
-                  <tbody>
+                  <tbody v-for="stud in students">
                     <tr>
-                      <td>Maggy Stanley</td>
-                      <td>Trivia</td>
-                      <td>Nota</td>
+                      <td>{{ stud.name}}</td>
+                      <td>{{stud.score}}</td>
                     </tr>
                   </tbody>
                 </table>
@@ -79,30 +70,29 @@
 <script>
 export default {
   data() {
-    return {};
+    return {
+      students: [],
+      areas: [],
+    };
   },
   created() {},
-  mounted() {},
-  methods: {
-    editNames() {
-      var urlr = "";
-      axios.get(urlr).then(response => {
-        this.activities = response.data;
-        console.log(this.activities.length);
+  mounted() {
+    var url = "GetArearByUser";
+    axios.get(url).then((response) => {
+      this.areas = response.data;
+    });
 
-        for (let i = 0; i < this.activities.length; i++) {
-          if (actividad.id == this.activities[i].id) {
-            this.id_act = this.activities[i].id;
-            this.descripcion = this.activities[i].activity_desc;
-            this.logro = this.activities[i].achievement;
-            this.fechaE = this.activities[i].deliver_date;
-            this.fechaR = this.activities[i].feedback_date;
-          }
-        }
+    console.log("Component mounted.");
+  },
+  methods: {
+    editNames(area, clas) {
+      var urlr = "StudentsByArea/" + area + "/" + clas;
+      axios.get(urlr).then((response) => {
+        this.students = response.data;
       });
       $("#editu").modal("show");
-    }
-  }
+    },
+  },
 };
 </script>
 <style>

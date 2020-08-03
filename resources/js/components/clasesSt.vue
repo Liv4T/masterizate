@@ -6,9 +6,14 @@
           <h3 class="card-header fondo">Mis clases</h3>
           <div class="card-body">
             <table class="table table-responsive-xl table-hover table-striped center">
-              <tbody>
-                <tr data-toggle="collapse" data-target="#accordion" class="clickable">
-                  <td>Química</td>
+              <tbody v-for="(area,t) in areas" :key="t">
+                <tr
+                  data-toggle="collapse"
+                  :data-target="'#accordion'+t"
+                  class="clickable"
+                  @click="semanas(area.id, area.id_classroom)"
+                >
+                  <td>{{ area.text}}</td>
                   <td></td>
                   <td></td>
                   <td></td>
@@ -16,24 +21,14 @@
                   <td></td>
                 </tr>
                 <tr>
-                  <td v-for="(clas, t) in clases" :key="t">
-                    <div id="accordion" class="collapse">
+                  <td v-for="(clas, k) in clases" :key="k">
+                    <div :id="'accordion'+t" class="collapse">
                       <a
                         class="btn btn-warning"
                         v-on:click.prevent="editNames(clas.id)"
                       >Semana {{ t+1 }}</a>
                     </div>
                   </td>
-                  <!-- <td>
-                    <div id="accordion" class="collapse">
-                      <a class="btn btn-warning" v-on:click.prevent="editNames(actividad)">Semana 2</a>
-                    </div>
-                  </td>
-                  <td>
-                    <div id="accordion" class="collapse">
-                      <a class="btn btn-warning" v-on:click.prevent="editNames(actividad)">Semana 3</a>
-                    </div>
-                  </td>-->
                 </tr>
               </tbody>
             </table>
@@ -136,26 +131,35 @@ export default {
       fechaR: "",
       id_act: "",
       errors: [],
-      fillS: []
+      fillS: [],
+      areas: [],
     };
   },
   created() {},
   mounted() {
-    var urlr = "viewGetWeek";
-    axios.get(urlr).then(response => {
-      this.clases = response.data;
+    var url = "GetArearByUser";
+    axios.get(url).then((response) => {
+      this.areas = response.data;
     });
+
     console.log("Component mounted.");
   },
   methods: {
+    semanas(id, classroom) {
+      var urlr = "viewGetWeek/" + id + "/" + classroom;
+      axios.get(urlr).then((response) => {
+        this.clases = response.data;
+        console.log(this.clases);
+      });
+    },
     editNames(clas) {
       var urlr = "showClass/" + clas;
-      axios.get(urlr).then(response => {
-        this.fillS = response.data;
+      axios.get(urlr).then((response) => {
+        this.fillS = response.data.clase;
       });
       $("#editu").modal("show");
-    }
-  }
+    },
+  },
 };
 </script>
 <style>

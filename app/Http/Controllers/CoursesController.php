@@ -8,6 +8,7 @@ use App\Weekly;
 use App\Area;
 use App\User;
 use App\Grade;
+use App\CoursesAchievement;
 use App\Classroom;
 use App\ClassroomStudent;
 use App\ClassroomTeacher;
@@ -21,25 +22,40 @@ class CoursesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(String $id_area, String $id_classroom)
     {
         //
-        $Courses = Courses::where('id_teacher', Auth::user()->id)->get();
-        $Quarterlies = Quarterly::where('id_teacher', Auth::user()->id)->get();
+        $user = Auth::user();
         $quaterly = [];
-        // $data[0] = [
-        //     'id'   => 0,
-        //     'text' => 'Seleccione',
-        // ];
-        foreach ($Quarterlies as $key => $Quarterly) {
-            $quaterly[$key] = [
-                'content' => $Quarterly->content,
-                'unit_name' => $Quarterly->unit_name
-            ];
+        $achievements = [];
+        if ($user->type_user == 1) {
+            $Courses = Courses::where('id_area', $id_area)->where('id_classroom', $id_classroom)->first();
+        } elseif ($user->type_user == 2) {
+            $Courses = Courses::where('id_teacher', $user->id)->where('id_area', $id_area)->where('id_classroom', $id_classroom)->first();
+        }
+        if (isset($Courses)) {
+            $achievements = CoursesAchievement::where('id_planification', $Courses->id)->get();
+            if ($user->type_user == 1) {
+                $Quarterlies = Quarterly::where('id_area', $id_area)->where('id_classroom', $id_classroom)->get();
+            } elseif ($user->type_user == 2) {
+                $Quarterlies = Quarterly::where('id_teacher', $user->id)->where('id_area', $id_area)->where('id_classroom', $id_classroom)->get();
+            }
+            // $data[0] = [
+            //     'id'   => 0,
+            //     'text' => 'Seleccione',
+            // ];
+            $Courses->achievements = $achievements;
+            foreach ($Quarterlies as $key => $Quarterly) {
+                $quaterly[$key] = [
+                    'content' => $Quarterly->content,
+                    'unit_name' => $Quarterly->unit_name
+                ];
+            }
         }
         $data = [
             'quaterly' =>  $quaterly,
-            'courses' => $Courses
+            'courses' => $Courses,
+            'achievements' => $achievements
         ];
 
         return response()->json($data);
@@ -57,14 +73,32 @@ class CoursesController extends Controller
 
         $user = User::find($auth->id);
         $areas = [];
-        if ($user->type_user == 2) {
+        if ($user->type_user == 1) {
+            $users = User::where('type_user', 2)->get();
+            foreach ($users as $key => $userT) {
+                $user_asignated = ClassroomTeacher::where('id_user', $userT->id)->get();
+                if (isset($user_asignated)) {
+                    foreach ($user_asignated as $key => $area) {
+                        $classroom = Classroom::find($area->id_classroom);
+                        $class = Area::find($area->id_area);
+                        $areas[$key] = [
+                            'id'           => $class->id,
+                            'text'         => $class->name . " - " . $classroom->name,
+                            'id_classroom' => $classroom->id,
+                        ];
+                    }
+                }
+            }
+        } elseif ($user->type_user == 2) {
             $user_asignated = ClassroomTeacher::where('id_user', $user->id)->get();
             if (isset($user_asignated)) {
                 foreach ($user_asignated as $key => $area) {
+                    $classroom = Classroom::find($area->id_classroom);
                     $class = Area::find($area->id_area);
                     $areas[$key] = [
-                        'id' => $class->id,
-                        'text' => $class->name,
+                        'id'           => $class->id,
+                        'text'         => $class->name . " - " . $classroom->name,
+                        'id_classroom' => $classroom->id,
                     ];
                 }
             }
@@ -78,6 +112,7 @@ class CoursesController extends Controller
                         $areas[$key] = [
                             'id' => $area->id,
                             'text' => $area->name,
+                            'id_classroom' => $user_asignated->id_classroom,
                         ];
                     }
                 }
@@ -105,23 +140,30 @@ class CoursesController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
-        $courses = Courses::create([
-            'achievement_1' => $data['logro1'],
-            'achievement_2' => $data['logro2'],
-            'achievement_3' => $data['logro3'],
-            'achievement_4' => $data['logro4'],
-            'id_materia'    => $data['materia'],
+        $course = Courses::create([
+            'id_area'    => $data['id_area'],
+            'id_classroom'  => $data['id_classroom'],
             'id_teacher'     =>  Auth::user()->id,
         ]);
 
+        $achievements = $data['logros'];
 
-        $Quarterlies = $data['trimestre'];
+        foreach ($achievements as $index => $achievement) {
+            $logro = CoursesAchievement::create([
+                'achievement'       => $achievement['logro'],
+                'percentage'        => $achievement['porcentaje'],
+                'id_planification'  => $course->id,
+            ]);
+        }
+
+        $Quarterlies = $data['trimestres'];
 
         foreach ($Quarterlies as $index => $Quarterly) {
             $subCate = Quarterly::create([
                 'content' => $Quarterly['contenido'],
                 'unit_name' => $Quarterly['name'],
-                'id_materia'    => $data['materia'],
+                'id_area'    => $data['id_area'],
+                'id_classroom'    => $data['id_classroom'],
                 'id_teacher'     =>  Auth::user()->id,
             ]);
         }
@@ -147,7 +189,8 @@ class CoursesController extends Controller
                 'driving_question' => $week['driving_question'],
                 'class_development' => $week['class_development'],
                 'observation' => $week['observation'],
-                'id_materia'    => $data['id_materia'],
+                'id_area'    => $data['id_area'],
+                'id_classroom'    => $data['id_classroom'],
                 'week'    => $count,
                 'id_teacher'     =>  Auth::user()->id,
             ]);
@@ -243,8 +286,8 @@ class CoursesController extends Controller
 
     public function editGetWeek()
     {
-
-        $Weeks = Weekly::where('id_teacher', Auth::user()->id)->get();
+        $user = Auth::user();
+        $Weeks = Weekly::where('id_teacher', $user->id)->get();
         $data = [];
         // $data[0] = [
         //     'id'   => 0,
@@ -256,25 +299,24 @@ class CoursesController extends Controller
                 'text' => $week->driving_question,
                 'class' => $week->class_development,
                 'observation' => $week->observation,
+                'id_area' =>  $week->id_area,
+                'id_classroom' =>  $week->id_classroom,
             ];
         }
         return response()->json($data);
     }
-    public function viewGetWeek()
+    public function viewGetWeek(String $id_area, String $id_classroom)
     {
-
-        $Weeks = Weekly::where('id_teacher', 254)->get();
+        $Weeks = Weekly::where('id_area', $id_area)->where('id_classroom', $id_classroom)->get();
         $data = [];
-        // $data[0] = [
-        //     'id'   => 0,
-        //     'text' => 'Seleccione',
-        // ];
         foreach ($Weeks as $key => $week) {
             $data[$key] = [
                 'id'   => $week->id,
                 'text' => $week->driving_question,
                 'class' => $week->class_development,
                 'observation' => $week->observation,
+                'id_area' =>  $week->id_area,
+                'id_classroom' =>  $week->id_classroom,
             ];
         }
         return response()->json($data);

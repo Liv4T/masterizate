@@ -6,41 +6,18 @@
           <h3 class="card-header fondo">Notas</h3>
 
           <div class="card-body">
-            <div class="form-group row">
-              <div class="col-md-4">
-                <label for>Periodo:</label>
-                <select class="form-control">
-                  <option value>Primer periodo</option>
-                </select>
-              </div>
-            </div>
-
             <table class="table table-responsive-xl table-hover table-striped center">
               <thead>
                 <tr>
                   <th>Nombre de la materia</th>
-                  <th>Completado</th>
-                  <th>Nota</th>
+
                   <th>Observación</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody v-for="(area,t) in areas" :key="t">
                 <tr>
-                  <td>Química</td>
-                  <td>60%</td>
-                  <td>6</td>
-                  <td>-</td>
-                </tr>
-                <tr>
-                  <td>Biología</td>
-                  <td>60%</td>
-                  <td>6</td>
-                  <td>-</td>
-                </tr>
-                <tr>
-                  <td>Física</td>
-                  <td>60%</td>
-                  <td>6</td>
+                  <td>{{ area.text}}</td>
+
                   <td>-</td>
                 </tr>
               </tbody>
@@ -61,7 +38,7 @@ export default {
   },
   created() {},
   mounted() {},
-  methods: {}
+  methods: {},
 };
 </script>
 <style>
