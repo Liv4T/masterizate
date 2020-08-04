@@ -74,20 +74,16 @@ class CoursesController extends Controller
         $user = User::find($auth->id);
         $areas = [];
         if ($user->type_user == 1) {
-            $users = User::where('type_user', 2)->get();
-            foreach ($users as $key => $userT) {
-                $user_asignated = ClassroomTeacher::where('id_user', $userT->id)->get();
-                if (isset($user_asignated)) {
-                    foreach ($user_asignated as $key => $area) {
-                        $classroom = Classroom::find($area->id_classroom);
-                        $class = Area::find($area->id_area);
-                        $areas[$key] = [
-                            'id'           => $class->id,
-                            'text'         => $class->name . " - " . $classroom->name,
-                            'id_classroom' => $classroom->id,
-                        ];
-                    }
-                }
+            $user_asigneds = ClassroomTeacher::all();
+            foreach ($user_asigneds as $key => $user_asigned) {
+                $user = User::find($user_asigned->id_user);
+                $classroom = Classroom::find($user_asigned->id_classroom);
+                $class = Area::find($user_asigned->id_area);
+                $areas[$key] = [
+                    'id' => $class->id,
+                    'text' => $class->name . " - " . $classroom->name,
+                    'id_classroom' => $classroom->id,
+                ];
             }
         } elseif ($user->type_user == 2) {
             $user_asignated = ClassroomTeacher::where('id_user', $user->id)->get();

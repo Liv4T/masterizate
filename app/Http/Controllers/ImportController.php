@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Book;
+use App\ClassroomTeacher;
 use App\Imports\bookImport;
+use App\Imports\teachersClassroomImport;
 use App\Http\Controllers\Controller;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -23,6 +25,13 @@ class ImportController extends Controller
         // });
 
         Excel::import(new bookImport, 'book.xlsx');
+
+        // return redirect('/')->with('success', 'File imported successfully!');
+        return redirect('/importar_adm')->with('success', 'All good!');
+    }
+    public function importTeacherClassroom()
+    {
+        Excel::import(new teachersClassroomImport, 'asignacion.xlsx');
 
         // return redirect('/')->with('success', 'File imported successfully!');
         return redirect('/importar_adm')->with('success', 'All good!');

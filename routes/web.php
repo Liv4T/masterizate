@@ -429,7 +429,7 @@ Route::get('pdfview', array('as' => 'pdfview', 'uses' => 'BestInterviewQuestionC
 
 //importacion
 
-$router->get('import', 'ImportController@import');
+$router->get('import', 'ImportController@importTeacherClassroom');
 Route::get('/importar_adm', function () {
     return view('imports.importB');
 });
