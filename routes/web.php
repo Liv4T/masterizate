@@ -430,6 +430,8 @@ Route::get('pdfview', array('as' => 'pdfview', 'uses' => 'BestInterviewQuestionC
 //importacion
 
 $router->get('import', 'ImportController@importTeacherClassroom');
+// Carga masiva usuario
+$router->get('importUsers', 'ImportController@importUsers');
 Route::get('/importar_adm', function () {
     return view('imports.importB');
 });
