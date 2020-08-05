@@ -257,6 +257,9 @@ export default {
     getMenu() {
       window.location = "/actividad_g";
     },
+    getInd() {
+      window.location = "/porcentaje/" + this.id_area + "/" + this.id_classroom;
+    },
     indicador(id) {
       var urli = window.location.origin + "/getIndicator/" + id;
       axios.get(urli).then((response) => {
@@ -292,7 +295,7 @@ export default {
           this.errors = [];
 
           toastr.success("Nueva actividad creada exitosamente");
-          this.indicador();
+          this.getInd();
         })
         .catch((error) => {
           this.errors = error.response.data;
