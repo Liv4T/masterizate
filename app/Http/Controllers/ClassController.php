@@ -9,6 +9,7 @@ use App\Weekly;
 use App\CoursesAchievement;
 use Illuminate\Http\Request;
 use Auth;
+use PhpParser\Node\Stmt\Foreach_;
 
 class ClassController extends Controller
 {
@@ -42,17 +43,31 @@ class ClassController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
-        $video = Files::where('unit', $data['name'])->where('type', 2)->first();
-        $documento = Files::where('unit', $data['name'])->where('type', 1)->first();
+        $videos = Files::where('unit', $data['name'])->where('type', 2)->orderBy('id', 'ASC')->get();
+        $url_video = [];
+        foreach ($videos as $key => $video) {
+            $url_video[$key] = $video->path;
+        }
+        $documentos = Files::where('unit', $data['name'])->where('type', 1)->orderBy('id', 'ASC')->get();
+        $url_documento = [];
+        foreach ($documentos as $key => $documento) {
+            $url_documento[$key] = $documento->path;
+        }
         $courses = Classes::create([
             'description' => $data['description'],
             'id_weekly_plan' => $data['id_weekly_plan'],
             'name' => $data['name'],
             'name_document' => $data['name_document'],
             'url'    => $data['url'],
+            'url1'    => $data['url1'],
+            'url2'    => $data['url2'],
             'hourly_intensity'    => $data['hourly_intensity'],
-            'document' => $documento->path,
-            'video'  => $video->path,
+            'document' => isset($url_documento[0]) ? $url_documento[0] : '',
+            'document1' => isset($url_documento[1]) ? $url_documento[1] : '',
+            'document2' => isset($url_documento[2]) ? $url_documento[2] : '',
+            'video'  => isset($url_video[0]) ? $url_video[0] : '',
+            'video1'  => isset($url_video[1]) ? $url_video[1] : '',
+            'video2'  => isset($url_video[2]) ? $url_video[2] : '',
         ]);
         return 'ok';
         $arch = Files::findOrFail($documento->id);
@@ -135,9 +150,10 @@ class ClassController extends Controller
             $div_file_name = end($div_file_name);
             $extension = $div_file_name;
             $fileName_1 = request('name');
+            $number = request('count');
             $fileName = strtr($fileName_1, " ", "_");
             // file with path
-            $filePath = url('uploads/clases/' . $fileName . "." . $extension);
+            $filePath = url('uploads/clases/' . $fileName . $number . "." . $extension);
             //Move Uploaded File
             $destinationPath = 'uploads/clases/';
             if ($extension == "flv" || $extension == "mp4" || $extension == "m3u8" || $extension == "ts" || $extension == "3gp" || $extension == "mov" || $extension == "avi" || $extension == "wmv") {
@@ -145,7 +161,7 @@ class ClassController extends Controller
             } else {
                 $type = 1;
             }
-            if ($file->move($destinationPath, $fileName . "." . $extension)) {
+            if ($file->move($destinationPath, $fileName . $number . "." . $extension)) {
                 $file = Files::create([
                     'path' => $filePath,
                     'unit' => $fileName_1,

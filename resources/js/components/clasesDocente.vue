@@ -7,16 +7,16 @@
           <div class="card-body">
             <table class="table table-responsive-xl table-hover table-striped center">
               <tbody v-for="(area,t) in areas" :key="t">
-                <tr data-toggle="collapse" :data-target="'#accordion'+t" class="clickable">
-                  <td>{{ area.text}}</td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
+                <tr>
+                  <td
+                    data-toggle="collapse"
+                    :data-target="'#accordion'+t"
+                    class="clickable"
+                  >{{ area.text}}</td>
                 </tr>
                 <tr>
                   <td
+                    style="display: inline-grid;"
                     v-for="(clas, k) in clases"
                     :key="k"
                     v-if="clas.id_classroom==area.id_classroom && clas.id_area==area.id"
@@ -27,9 +27,14 @@
                         v-on:click.prevent="
                                                     editNames(clas.id)
                                                 "
-                      >Semana {{ k + 1 }}</a>
+                        style="text-overflow: ellipsis;
+                                width: 170px;
+                                white-space: nowrap;
+                                overflow: hidden;"
+                      >{{ clas.text }}</a>
                     </div>
                   </td>
+
                   <!-- <td>
                     <div id="accordion" class="collapse">
                       <a class="btn btn-warning" v-on:click.prevent="editNames(actividad)">Semana 2</a>
@@ -63,80 +68,81 @@
               <div class="card-body">
                 <div class="accordion" id="accordionExample">
                   <div class="card" v-for="(clas, t) in fillS" :key="t">
-                    <div class="card-header" :id="'heading' + t">
+                    <div class="card-header" :id="'heading' +t">
                       <h2 class="mb-0">
                         <button
                           class="btn btn-link"
                           type="button"
                           data-toggle="collapse"
-                          :data-target="
-                                                        '#collapse' + t
-                                                    "
+                          :data-target="'#collapse' +t"
                           aria-expanded="true"
-                          :aria-controls="
-                                                        'collapse' + t
-                                                    "
-                        >Clase {{ t + 1 }}</button>
+                          :aria-controls="'collapse' +t"
+                        >Clase {{ t+1 }}</button>
                       </h2>
                     </div>
                     <div
-                      :id="'collapse' + t"
+                      :id="'collapse' +t"
                       class="collapse show"
-                      :aria-labelledby="'heading' + t"
+                      :aria-labelledby="'heading' +t"
                       data-parent="#accordionExample"
                     >
                       <div class="card-body">
-                        <div class="form-group row mx-auto">
-                          <div class="col-md-6">
-                            <label for="name">Nombre</label>
-                            <div>{{ clas.name }}</div>
-                          </div>
-                          <div class="col-md-6">
-                            <label for="name">Descripción</label>
-                            <p>
-                              {{
-                              clas.description
-                              }}
-                            </p>
-                          </div>
-                          <div class="col-md-6">
-                            <label for="name">Documento</label>
-                            <div>
-                              {{
-                              clas.name_document
-                              }}
-                              <br />
-                              <a
-                                :href="
-                                                                    clas.document
-                                                                "
-                                download
-                              >
-                                <a
-                                  :href="
-                                                                        clas.document
-                                                                    "
-                                  download
-                                >
-                                  <i class="fas fa-file-word fa-2x" style="color: grey;"></i>
-                                  <span style="color:grey">Descargar</span>
-                                  <!-- {{ conversation.file_name }} -->
-                                </a>
+                        <div class="form-group text-center">
+                          <strong for="name">Nombre</strong>
+                          <div style="font-weight: bold;">{{ clas.name }}</div>
+                        </div>
+                        <div class="form-group text-center">
+                          <strong for="name">Descripción</strong>
+
+                          <p>{{clas.description }}</p>
+                        </div>
+                        <div class="form-group text-center">
+                          <strong for="name">Documento</strong>
+
+                          <div>
+                            {{ clas.name_document }}
+                            <a :href="clas.document" download>
+                              <a :href="clas.document" download>
+                                <i class="fas fa-file-download fa-2x" style="color: grey;"></i>
+                                <span style="color:grey">Descargar</span>
+                                <!-- {{ conversation.file_name }} -->
                               </a>
-                            </div>
+                            </a>
                           </div>
-                          <div class="col-md-6">
-                            <label for="name">
-                              Enlace de
-                              apoyo
-                            </label>
-                            <div>
-                              <a :href="clas.url" style="color:blue">
-                                {{
-                                clas.url
-                                }}
+                          <br />
+                          <div v-show="clas.document1!= ''">
+                            Documento adicional:
+                            <a :href="clas.document1" download>
+                              <a :href="clas.document1" download>
+                                <i class="fas fa-file-download fa-2x" style="color: grey;"></i>
+                                <span style="color:grey">Descargar</span>
+                                <!-- {{ conversation.file_name }} -->
                               </a>
-                            </div>
+                            </a>
+                          </div>
+                          <br />
+                          <div v-show="clas.document2!= ''">
+                            Documento adicional:
+                            <a :href="clas.document2" download>
+                              <a :href="clas.document2" download>
+                                <i class="fas fa-file-download fa-2x" style="color: grey;"></i>
+                                <span style="color:grey">Descargar</span>
+                                <!-- {{ conversation.file_name }} -->
+                              </a>
+                            </a>
+                          </div>
+                        </div>
+                        <div class="form-group text-center">
+                          <strong for="name">Enlace de apoyo</strong>
+
+                          <div>
+                            <a :href="clas.url" style="color:blue">{{ clas.url }}</a>
+                          </div>
+                          <div>
+                            <a :href="clas.url1" style="color:blue">{{ clas.url1 }}</a>
+                          </div>
+                          <div>
+                            <a :href="clas.url2" style="color:blue">{{ clas.url2 }}</a>
                           </div>
                         </div>
                         <div class="form-group text-center">
@@ -145,13 +151,21 @@
                         <div class="form-group text-center">
                           <div>
                             <video controls>
-                              <source
-                                :src="
-                                                                    clas.video
-                                                                "
-                              />
+                              <source :src="clas.video" />
                             </video>
                             <!-- <iframe class="embed-responsive-item" :src="clas.video"></iframe> -->
+                          </div>
+                          <br />
+                          <div v-show="clas.video1!= ''">
+                            <video controls>
+                              <source :src="clas.video1" />
+                            </video>
+                          </div>
+                          <br />
+                          <div v-show="clas.video2!= ''">
+                            <video controls>
+                              <source :src="clas.video2" />
+                            </video>
                           </div>
                         </div>
                         <div class="modal-footer">
@@ -208,6 +222,7 @@ export default {
       axios.get(urlr).then((response) => {
         this.fillS = response.data.clase;
       });
+      console.log(this.fillS);
       $("#editu").modal("show");
     },
   },

@@ -50,15 +50,19 @@
                             @click.prevent="indicador(option.id)"
                             aria-controls="collapse"
                           >
-                            <strong>
-                              {{ option.achievement }}
-                              <input
-                                type="number"
-                                style="width:50px;"
-                                v-model="option.percentage"
-                                disabled
-                              />%
-                            </strong>
+                            <label
+                              style="text-overflow: ellipsis;
+                                width: 450px;
+                                white-space: nowrap;
+                                overflow: hidden;"
+                            >{{ option.achievement }}</label>
+                            <input
+                              type="number"
+                              style="width:50px;"
+                              v-model="option.percentage"
+                              disabled
+                            />
+                            %
                           </button>
                         </h2>
                       </div>

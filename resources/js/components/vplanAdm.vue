@@ -14,9 +14,6 @@
                   @click.prevent="botones(area.id, area.id_classroom)"
                 >
                   <td>{{ area.text }}</td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
                 </tr>
                 <!-- <tr>
                   <td>
@@ -66,7 +63,7 @@
 
                   <td>
                     <div :id="'accordion'+t" class="collapse">
-                      <a href="/act_semana" class="btn btn-warning">Actualizar semana</a>
+                      <a href="/clases_d" class="btn btn-warning">Clases</a>
                     </div>
                   </td>
                   <!-- <td>

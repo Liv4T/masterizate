@@ -215,7 +215,7 @@ Route::get('/instituciones_adm', function () {
     return view('institucionesAdm');
 });
 Route::get('/instituciones_crear', function () {
-    return view('crearinstitucion');
+    return view('crearInstitucion');
 });
 Route::get('/perfil_asignar', function () {
     return view('asignarPerfil');
@@ -310,7 +310,7 @@ Route::get('/actividad_d/getClass/{id}', 'ClassController@getClassId')->name('ge
 Route::post('courseWeekly', 'CoursesController@courseWeekly')->name('courseWeekly');
 Route::get('GetArearByUser', 'CoursesController@getAreaByUser')->name('GetArearByUser');
 Route::get('GetWeek', 'CoursesController@getWeek');
-Route::get('editGetWeek', 'CoursesController@editGetWeek');
+Route::get('editGetWeek/{id_area}/{id_classroom}', 'CoursesController@editGetWeek')->name('editGetWeek');
 Route::get('viewGetWeek/{id_area}/{id_classrom}', 'CoursesController@viewGetWeek')->name('viewGetWeek');
 Route::get('showWeek/{id}', 'CoursesController@showWeek');
 Route::put('updateCourseWeekly', 'CoursesController@updateCourseWeekly');

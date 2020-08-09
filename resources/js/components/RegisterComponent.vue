@@ -8,7 +8,7 @@
             <form-wizard
               title
               subtitle
-              color="#c1e9eb"
+              color="#ffc107"
               next-button-text="Siguiente"
               back-button-text="Atrás"
               finish-button-text="Guardar y enviar"
@@ -166,18 +166,18 @@
   </div>
 </template>
 <script>
-(function() {
+(function () {
   "use strict";
   window.addEventListener(
     "load",
-    function() {
+    function () {
       // Fetch all the forms we want to apply custom Bootstrap validation styles to
       var forms = document.getElementsByClassName("needs-validation");
       // Loop over them and prevent submission
-      var validation = Array.prototype.filter.call(forms, function(form) {
+      var validation = Array.prototype.filter.call(forms, function (form) {
         form.addEventListener(
           "submit",
-          function(event) {
+          function (event) {
             if (form.checkValidity() === false) {
               event.preventDefault();
               event.stopPropagation();
@@ -191,14 +191,14 @@
     false
   );
 })();
-$(function() {
+$(function () {
   // Get the form fields and hidden div
   var checkbox = $("#gridCheck1");
   var hidden = $("#hidden_fields1");
 
   hidden.hide();
 
-  checkbox.change(function() {
+  checkbox.change(function () {
     if (checkbox.is(":checked")) {
       // Show the hidden fields.
       hidden.show();
@@ -207,7 +207,7 @@ $(function() {
     }
   });
 });
-$(document).ready(function() {
+$(document).ready(function () {
   $("#password2").keyup(validate);
 });
 
@@ -241,7 +241,7 @@ export default {
       newPhone: "",
       newId_number: "",
       errors: [],
-      seleccionado: ""
+      seleccionado: "",
     };
   },
   computed: {},
@@ -272,9 +272,9 @@ export default {
           address: this.newAddress,
           picture: this.newPicture,
           phone: this.newPhone,
-          id_number: this.newId_number
+          id_number: this.newId_number,
         })
-        .then(response => {
+        .then((response) => {
           this.newName = "";
           this.newLastName = "";
           this.newPassword = "";
@@ -289,7 +289,7 @@ export default {
           toastr.success("Nuevo usuario creado");
           this.getNames();
         })
-        .catch(error => {
+        .catch((error) => {
           this.errors = error.response.data;
         });
     },
@@ -308,7 +308,7 @@ export default {
           data.append("user_name", this.newUserName);
           this.newPicture = data;
 
-          axios.post("/img_user", data).then(response => {
+          axios.post("/img_user", data).then((response) => {
             this.emitMessage(response);
           });
         }
@@ -324,7 +324,7 @@ export default {
         title: title,
         text: message,
         type: "error",
-        confirmButtonText: "Ok"
+        confirmButtonText: "Ok",
       });
     },
     /**
@@ -333,10 +333,7 @@ export default {
      * @return {string}
      */
     findExtension(filename) {
-      return filename
-        .split(".")
-        .pop()
-        .toLowerCase();
+      return filename.split(".").pop().toLowerCase();
     },
     /**
      * to validate file size
@@ -392,15 +389,15 @@ export default {
           image_path: $("#default_image").val(), //user.image_path,
           type: message.type,
           file_path: message.file_path,
-          file_name: message.file_name
+          file_name: message.file_name,
         });
         console.log(message.file_path);
       }
     },
     chooseFile() {
       $("#file").click();
-    }
-  }
+    },
+  },
 };
 </script>
 <style>

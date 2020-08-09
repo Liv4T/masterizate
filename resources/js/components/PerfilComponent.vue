@@ -32,22 +32,6 @@
                     <label for="name">{{dataU.name}}</label>
                   </div>
                 </div>
-                <div class="form-group row">
-                  <div class="col-md-3">
-                    <label for="name">Código</label>
-                  </div>
-                  <div class="col-md-6">
-                    <label for="name">234567</label>
-                  </div>
-                </div>
-                <div class="form-group row">
-                  <div class="col-md-3">
-                    <label for="name">Curso</label>
-                  </div>
-                  <div class="col-md-6">
-                    <label for="name">6A</label>
-                  </div>
-                </div>
 
                 <div class="form-group row">
                   <h6>INFORMACIÓN DE CONTACTO</h6>
@@ -100,17 +84,17 @@ export default {
         picture: "",
         phone: "",
         id_number: "",
-        country: ""
+        country: "",
       },
 
       dataU: [],
-      image: ""
+      image: "",
     };
   },
   created() {},
   mounted() {
     var urlUsers = "showUser";
-    axios.get(urlUsers).then(response => {
+    axios.get(urlUsers).then((response) => {
       this.dataU = response.data;
     });
   },
@@ -127,7 +111,7 @@ export default {
       var reader = new FileReader();
       var vm = this;
 
-      reader.onload = e => {
+      reader.onload = (e) => {
         vm.newPicture = e.target.result;
       };
       reader.readAsDataURL(file);
@@ -136,7 +120,7 @@ export default {
       var url = "users/" + this.fillNames.id;
       axios
         .put(url, this.fillNames)
-        .then(response => {
+        .then((response) => {
           toastr.success("User successfully edited");
           this.getNames();
           this.fillNames = {
@@ -147,15 +131,15 @@ export default {
             address: "",
             picture: "",
             phone: "",
-            id_number: ""
+            id_number: "",
           };
           this.errors = [];
         })
-        .catch(error => {
+        .catch((error) => {
           this.errors = error.response.data;
         });
-    }
-  }
+    },
+  },
 };
 </script>
 <style>

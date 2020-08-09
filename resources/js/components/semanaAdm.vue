@@ -9,7 +9,7 @@
               <form-wizard
                 title
                 subtitle
-                color="#c1e9eb"
+                color="#ffc107"
                 next-button-text="Siguiente"
                 back-button-text="Atrás"
                 finish-button-text="Actualizar y enviar"
@@ -74,18 +74,18 @@
   </div>
 </template>
 <script>
-(function() {
+(function () {
   "use strict";
   window.addEventListener(
     "load",
-    function() {
+    function () {
       // Fetch all the forms we want to apply custom Bootstrap validation styles to
       var forms = document.getElementsByClassName("needs-validation");
       // Loop over them and prevent submission
-      var validation = Array.prototype.filter.call(forms, function(form) {
+      var validation = Array.prototype.filter.call(forms, function (form) {
         form.addEventListener(
           "submit",
-          function(event) {
+          function (event) {
             if (form.checkValidity() === false) {
               event.preventDefault();
               event.stopPropagation();
@@ -99,14 +99,14 @@
     false
   );
 })();
-$(function() {
+$(function () {
   // Get the form fields and hidden div
   var checkbox = $("#gridCheck1");
   var hidden = $("#hidden_fields1");
 
   hidden.hide();
 
-  checkbox.change(function() {
+  checkbox.change(function () {
     if (checkbox.is(":checked")) {
       // Show the hidden fields.
       hidden.show();
@@ -125,8 +125,8 @@ export default {
         {
           driving_question: "",
           class_development: "",
-          observation: ""
-        }
+          observation: "",
+        },
       ],
       newSemanal: [],
       fillS: [
@@ -134,16 +134,16 @@ export default {
           id: "",
           driving_question: "",
           class_development: "",
-          observation: ""
-        }
+          observation: "",
+        },
       ],
       semanal: false,
-      errors: []
+      errors: [],
     };
   },
   mounted() {
     var urlsel = "editGetWeek";
-    axios.get(urlsel).then(response => {
+    axios.get(urlsel).then((response) => {
       this.fillS = response.data;
       if (this.fillS.length > 0) {
         this.semanal = true;
@@ -155,7 +155,7 @@ export default {
       this.inputs.push({
         driving_question: "",
         class_development: "",
-        observation: ""
+        observation: "",
       });
     },
     remove(index) {
@@ -176,15 +176,15 @@ export default {
         .post(url, {
           //Cursos generales
           id_materia: "1",
-          semana: this.newSemanal
+          semana: this.newSemanal,
         })
-        .then(response => {
+        .then((response) => {
           this.errors = [];
 
           toastr.success("Nueva semana creada exitosamente");
           this.getMenu();
         })
-        .catch(error => {
+        .catch((error) => {
           this.errors = error.response.data;
         });
     },
@@ -200,19 +200,19 @@ export default {
         .put(url, {
           //Cursos generales
           id_materia: "1",
-          semana: this.newSemanal
+          semana: this.newSemanal,
         })
-        .then(response => {
+        .then((response) => {
           this.errors = [];
 
           toastr.success("Actualizado plan semanal exitosamente");
           this.getMenu();
         })
-        .catch(error => {
+        .catch((error) => {
           this.errors = error.response.data;
         });
-    }
-  }
+    },
+  },
 };
 </script>
 <style>

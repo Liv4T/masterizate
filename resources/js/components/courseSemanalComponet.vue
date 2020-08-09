@@ -9,7 +9,7 @@
               <form-wizard
                 title
                 subtitle
-                color="#c1e9eb"
+                color="#ffc107"
                 next-button-text="Siguiente"
                 back-button-text="Atrás"
                 finish-button-text="Guardar y enviar"
