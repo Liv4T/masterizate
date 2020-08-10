@@ -5,68 +5,52 @@
         <div class="card text-center">
           <h3 class="card-header fondo">Planificación General</h3>
           <div class="card-body">
-            <table class="table table-responsive-xl table-striped center">
-              <tbody v-for="(area,t) in areas" :key="t">
-                <tr
-                  data-toggle="collapse"
-                  :data-target="'#accordion'+t"
-                  class="clickable"
-                  @click.prevent="botones(area.id, area.id_classroom)"
+            <div class="accordion" id="accordionExample">
+              <div class="card" v-for="(area,t) in areas" :key="t">
+                <div class="card-header">
+                  <h2 class="mb-0">
+                    <button
+                      class="btn btn-link"
+                      style="color:grey"
+                      type="button"
+                      data-toggle="collapse"
+                      :data-target="'#collapse'+t"
+                      aria-expanded="false"
+                      @click.prevent="botones(area.id, area.id_classroom)"
+                      aria-controls="collapse"
+                    >
+                      <label>{{ area.text }}</label>
+                    </button>
+                  </h2>
+                </div>
+                <div
+                  :id="'collapse'+t"
+                  class="collapse hide"
+                  aria-labelledby="heading"
+                  data-parent="#accordionExample"
                 >
-                  <td>{{ area.text }}</td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                </tr>
-                <tr>
-                  <td>
-                    <div :id="'accordion'+t" class="collapse">
-                      <a
-                        :href="'/course/'+ area.id +'/'+ area.id_classroom"
-                        class="btn btn-warning"
-                      >General</a>
-                    </div>
-                  </td>
-                  <td>
-                    <div :id="'accordion'+t" class="collapse">
-                      <a
-                        v-show="general==true"
-                        :href="'/porcentaje/'+ area.id +'/'+ area.id_classroom"
-                        class="btn btn-warning"
-                      >Porcentaje de notas</a>
-                    </div>
-                  </td>
-                  <td>
-                    <div :id="'accordion'+t" class="collapse">
-                      <a
-                        v-show="general==true"
-                        :href="'/crear_semana/'+ area.id +'/'+ area.id_classroom"
-                        class="btn btn-warning"
-                      >Crear Semana</a>
-                    </div>
-                  </td>
-
-                  <td>
-                    <div :id="'accordion'+t" class="collapse">
-                      <a
-                        v-show="general==true"
-                        href="/act_semana"
-                        class="btn btn-warning"
-                      >Actualizar semana</a>
-                    </div>
-                  </td>
-                  <!-- <td>
-                    <div id="accordion" class="collapse">
-                      <a
-                        v-show="semanal==true"
-                        href="/actividad_d"
-                        class="btn btn-warning"
-                      >Actividad</a>
-                    </div>
-                  </td>-->
-                </tr>
-              </tbody>
-            </table>
+                  <a
+                    :href="'/course/'+ area.id +'/'+ area.id_classroom"
+                    class="btn btn-warning"
+                  >General</a>
+                  <a
+                    v-show="general==true"
+                    :href="'/porcentaje/'+ area.id +'/'+ area.id_classroom"
+                    class="btn btn-warning"
+                  >Porcentaje de notas</a>
+                  <a
+                    v-show="general==true"
+                    :href="'/crear_semana/'+ area.id +'/'+ area.id_classroom"
+                    class="btn btn-warning"
+                  >Crear Semana</a>
+                  <a
+                    v-show="general==true"
+                    href="/act_semana"
+                    class="btn btn-warning"
+                  >Actualizar semana</a>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -113,7 +97,7 @@ export default {
           this.general = false;
         }
       });
-      var urlsel = "editGetWeek";
+      var urlsel = "editGetWeek" + area + "/" + classroom;
       axios.get(urlsel).then((response) => {
         this.week = response.data;
 

@@ -5,23 +5,36 @@
         <div class="card text-center">
           <h3 class="card-header fondo">Mis clases</h3>
           <div class="card-body">
-            <table class="table table-responsive-xl table-hover table-striped center">
-              <tbody v-for="(area,t) in areas" :key="t">
-                <tr>
-                  <td
-                    data-toggle="collapse"
-                    :data-target="'#accordion'+t"
-                    class="clickable"
-                  >{{ area.text}}</td>
-                </tr>
-                <tr>
-                  <td
-                    style="display: inline-grid;"
-                    v-for="(clas, k) in clases"
-                    :key="k"
-                    v-if="clas.id_classroom==area.id_classroom && clas.id_area==area.id"
-                  >
-                    <div :id="'accordion'+t" class="collapse">
+            <div class="accordion" id="accordionExample">
+              <div class="card" v-for="(area,t) in areas" :key="t">
+                <div class="card-header">
+                  <h2 class="mb-0">
+                    <button
+                      class="btn btn-link"
+                      type="button"
+                      data-toggle="collapse"
+                      :data-target="'#collapse'+t"
+                      aria-expanded="false"
+                      @click.prevent="botones(area.id, area.id_classroom)"
+                      aria-controls="collapse"
+                    >
+                      <label>{{ area.text }}</label>
+                    </button>
+                  </h2>
+                </div>
+                <div
+                  :id="'collapse'+t"
+                  class="collapse hide"
+                  aria-labelledby="heading"
+                  data-parent="#accordionExample"
+                >
+                  <tr>
+                    <td
+                      v-for="(clas, k) in clases"
+                      :key="k"
+                      v-if="clas.id_classroom==area.id_classroom && clas.id_area==area.id"
+                      style="display: inline-grid;"
+                    >
                       <a
                         class="btn btn-warning"
                         v-on:click.prevent="
@@ -30,24 +43,14 @@
                         style="text-overflow: ellipsis;
                                 width: 170px;
                                 white-space: nowrap;
-                                overflow: hidden;"
+                                overflow: hidden;
+                                "
                       >{{ clas.text }}</a>
-                    </div>
-                  </td>
-
-                  <!-- <td>
-                    <div id="accordion" class="collapse">
-                      <a class="btn btn-warning" v-on:click.prevent="editNames(actividad)">Semana 2</a>
-                    </div>
-                  </td>
-                  <td>
-                    <div id="accordion" class="collapse">
-                      <a class="btn btn-warning" v-on:click.prevent="editNames(actividad)">Semana 3</a>
-                    </div>
-                  </td>-->
-                </tr>
-              </tbody>
-            </table>
+                    </td>
+                  </tr>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -56,7 +59,7 @@
           <div class="modal-content">
             <div class="card">
               <h3 class="card-header fondo text-center">
-                Semana
+                Ciclo
                 <button type="button" class="close" data-dismiss="modal">
                   <span>&times;</span>
                 </button>
@@ -210,10 +213,7 @@ export default {
     axios.get(url).then((response) => {
       this.areas = response.data;
     });
-    var urlr = "editGetWeek";
-    axios.get(urlr).then((response) => {
-      this.clases = response.data;
-    });
+
     console.log("Component mounted.");
   },
   methods: {
@@ -224,6 +224,12 @@ export default {
       });
       console.log(this.fillS);
       $("#editu").modal("show");
+    },
+    botones(area, classroom) {
+      var urlsel = "editGetWeek/" + area + "/" + classroom;
+      axios.get(urlsel).then((response) => {
+        this.clases = response.data;
+      });
     },
   },
 };

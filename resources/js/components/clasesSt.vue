@@ -5,32 +5,52 @@
         <div class="card text-center">
           <h3 class="card-header fondo">Mis clases</h3>
           <div class="card-body">
-            <table class="table table-responsive-xl table-hover table-striped center">
-              <tbody v-for="(area,t) in areas" :key="t">
-                <tr
-                  data-toggle="collapse"
-                  :data-target="'#accordion'+t"
-                  class="clickable"
-                  @click="semanas(area.id, area.id_classroom)"
+            <div class="accordion" id="accordionExample">
+              <div class="card" v-for="(area,t) in areas" :key="t">
+                <div class="card-header">
+                  <h2 class="mb-0">
+                    <button
+                      class="btn btn-link"
+                      type="button"
+                      data-toggle="collapse"
+                      :data-target="'#collapse'+t"
+                      aria-expanded="false"
+                      @click.prevent="semanas(area.id, area.id_classroom)"
+                      aria-controls="collapse"
+                    >
+                      <label>{{ area.text }}</label>
+                    </button>
+                  </h2>
+                </div>
+                <div
+                  :id="'collapse'+t"
+                  class="collapse hide"
+                  aria-labelledby="heading"
+                  data-parent="#accordionExample"
                 >
-                  <td>{{ area.text}}</td>
-                </tr>
-                <tr>
-                  <td v-for="(clas, k) in clases" :key="k" style="display: inline-grid;">
-                    <div :id="'accordion'+t" class="collapse">
+                  <tr>
+                    <td
+                      v-for="(clas, k) in clases"
+                      :key="k"
+                      v-if="clas.id_classroom==area.id_classroom && clas.id_area==area.id"
+                      style="display: inline-grid;"
+                    >
                       <a
                         class="btn btn-warning"
-                        v-on:click.prevent="editNames(clas.id)"
+                        v-on:click.prevent="
+                                                    editNames(clas.id)
+                                                "
                         style="text-overflow: ellipsis;
                                 width: 170px;
                                 white-space: nowrap;
-                                overflow: hidden;"
+                                overflow: hidden;
+                                "
                       >{{ clas.text }}</a>
-                    </div>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+                    </td>
+                  </tr>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -39,7 +59,7 @@
           <div class="modal-content">
             <div class="card">
               <h3 class="card-header fondo text-center">
-                Semana
+                Ciclo
                 <button type="button" class="close" data-dismiss="modal">
                   <span>&times;</span>
                 </button>

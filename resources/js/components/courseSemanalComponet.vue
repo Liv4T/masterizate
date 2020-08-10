@@ -15,13 +15,10 @@
                 finish-button-text="Guardar y enviar"
                 @on-complete="createSemana"
               >
-                <tab-content title="Semanal">
+                <tab-content title="Ciclo">
                   <div class="form-group row mx-auto" v-for="(input, t) in inputs" :key="t">
                     <div class="col-md-6">
-                      <label for="name">
-                        Pregunta conductora
-                        Semana
-                      </label>
+                      <label for="name">Pregunta conductora o nombre</label>
                       <span>
                         <a
                           href="#"

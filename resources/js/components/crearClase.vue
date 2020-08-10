@@ -19,7 +19,7 @@
                   <div class="form-group mx-auto">
                     <div align="center">
                       <div class="col-md-6">
-                        <label for>Semana:</label>
+                        <label for>Ciclo:</label>
                         <select class="form-control" ref="seleccionado" required>
                           <option :value="option.id" v-for="option in myOptions">
                             {{

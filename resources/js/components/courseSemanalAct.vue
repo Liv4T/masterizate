@@ -15,10 +15,10 @@
                 finish-button-text="Actualizar y enviar"
                 @on-complete="updateSemanal"
               >
-                <tab-content title="Semanal">
+                <tab-content title="Ciclo">
                   <div class="form-group row mx-auto" v-for="(act, t) in fillS" :key="t">
                     <div class="col-md-6">
-                      <label for="name">Pregunta conductora Semana {{t+1}}</label>
+                      <label for="name">Pregunta conductora o nombre {{t+1}}</label>
                       <div>
                         <input
                           type="text"
