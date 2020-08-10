@@ -11,7 +11,6 @@
                   <h2 class="mb-0">
                     <button
                       class="btn btn-link"
-                      style="color:grey"
                       type="button"
                       data-toggle="collapse"
                       :data-target="'#collapse'+t"
@@ -45,7 +44,7 @@
                   >Crear Semana</a>
                   <a
                     v-show="general==true"
-                    href="/act_semana"
+                    :href="'/act_semana/'+ area.id +'/'+ area.id_classroom"
                     class="btn btn-warning"
                   >Actualizar semana</a>
                 </div>
