@@ -14,11 +14,6 @@
                   @click="semanas(area.id, area.id_classroom)"
                 >
                   <td>{{ area.text}}</td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
                 </tr>
                 <tr>
                   <td>
@@ -26,27 +21,27 @@
                       <table class="table table-responsive table-hover table-striped center">
                         <thead>
                           <tr>
-                            <th colspan="1">&nbsp;</th>
-
                             <th>Nombre de la materia</th>
                             <th>Tipo de Actividad</th>
                             <th>Fecha de entrega límite</th>
                             <th>Fecha de retroalimentación</th>
+                            <th colspan="1">&nbsp;</th>
                           </tr>
                         </thead>
                         <tbody>
                           <tr v-for="(actividad, k) in activities" :key="k">
-                            <td width="10px">
-                              <a
-                                class="btn btn-warning btn-sm"
-                                v-on:click.prevent="editNames(actividad.id)"
-                              >v</a>
-                            </td>
-
                             <td>{{actividad.activity_name }}</td>
                             <td>{{ actividad.activity_type }}</td>
                             <td>{{actividad.deliver_date}}</td>
                             <td>{{actividad.feedback_date}}</td>
+                            <td width="10px">
+                              <a
+                                class="btn btn-warning btn-sm"
+                                v-on:click.prevent="editNames(actividad.id)"
+                              >
+                                <i class="fa fa-eye"></i>
+                              </a>
+                            </td>
                           </tr>
                         </tbody>
                       </table>

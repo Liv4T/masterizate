@@ -29,7 +29,7 @@
             <form-wizard
               title
               subtitle
-              color="#c1e9eb"
+              color="#ffc107"
               next-button-text="Siguiente"
               back-button-text="Atrás"
               finish-button-text="Guardar y enviar"
@@ -76,7 +76,7 @@
               <tab-content title="Trimestral">
                 <div class="form-group row mx-auto" v-for="(input, t) in inputs" :key="t">
                   <div class="col-md-6">
-                    <label for="name">Unidad</label>
+                    <label for="name">Indicador</label>
                     <span>
                       <a
                         href="#"
@@ -131,7 +131,7 @@
             <form-wizard
               title
               subtitle
-              color="#c1e9eb"
+              color="#ffc107"
               next-button-text="Siguiente"
               back-button-text="Atrás"
               finish-button-text="Volver"

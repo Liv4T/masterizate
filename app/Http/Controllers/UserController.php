@@ -206,4 +206,11 @@ class UserController extends Controller
             return 'false';
         }
     }
+    public function logOut()
+    {
+        // Cerramos la sesión
+        Auth::logout();
+        // Volvemos al login y mostramos un mensaje indicando que se cerró la sesión
+        return Redirect::to('login');
+    }
 }

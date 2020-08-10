@@ -99,9 +99,10 @@ class MessagingController extends Controller
             $message->emisor = $user->name . " " . $user->last_name;
 
             $user_message = ReceptorMessage::where('id_message', $message->id)->where('id_user', $id_user)->first();
-            $user_message->status = 1;
-            $user_message->save();
-
+            if (isset($user_message)) {
+                $user_message->status = 1;
+                $user_message->save();
+            }
 
             $user_messages = ReceptorMessage::where('id_message', $message->id)->get();
             foreach ($user_messages as $index => $receiver) {

@@ -23,7 +23,7 @@
                         v-on:click.prevent="
                                                     editNames(clas.id)
                                                 "
-                      >Semana {{ t + 1 }}</a>
+                      >Ciclo {{ t + 1 }}</a>
                     </div>
                   </td>
                   <!-- <td>
@@ -198,13 +198,13 @@ export default {
       fechaR: "",
       id_act: "",
       errors: [],
-      fillS: []
+      fillS: [],
     };
   },
   created() {},
   mounted() {
     var urlr = "editGetWeek";
-    axios.get(urlr).then(response => {
+    axios.get(urlr).then((response) => {
       this.clases = response.data;
     });
     console.log("Component mounted.");
@@ -212,12 +212,12 @@ export default {
   methods: {
     editNames(clas) {
       var urlr = "showClass/" + clas;
-      axios.get(urlr).then(response => {
+      axios.get(urlr).then((response) => {
         this.fillS = response.data;
       });
       $("#editu").modal("show");
-    }
-  }
+    },
+  },
 };
 </script>
 <style>

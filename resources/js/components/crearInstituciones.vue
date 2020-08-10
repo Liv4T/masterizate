@@ -9,7 +9,7 @@
               <form-wizard
                 title
                 subtitle
-                color="#c1e9eb"
+                color="#ffc107"
                 next-button-text="Siguiente"
                 back-button-text="Atrás"
                 finish-button-text="Guardar y enviar"
@@ -197,18 +197,18 @@
   </div>
 </template>
 <script>
-(function() {
+(function () {
   "use strict";
   window.addEventListener(
     "load",
-    function() {
+    function () {
       // Fetch all the forms we want to apply custom Bootstrap validation styles to
       var forms = document.getElementsByClassName("needs-validation");
       // Loop over them and prevent submission
-      var validation = Array.prototype.filter.call(forms, function(form) {
+      var validation = Array.prototype.filter.call(forms, function (form) {
         form.addEventListener(
           "submit",
-          function(event) {
+          function (event) {
             if (form.checkValidity() === false) {
               event.preventDefault();
               event.stopPropagation();
@@ -245,21 +245,21 @@ export default {
       period: [],
       inputs: [
         {
-          name: ""
-        }
+          name: "",
+        },
       ],
       inputs1: [
         {
           name: "",
           date_from: "",
-          date_to: ""
-        }
-      ]
+          date_to: "",
+        },
+      ],
     };
   },
   mounted() {
     var urlsel = "getState";
-    axios.get(urlsel).then(response => {
+    axios.get(urlsel).then((response) => {
       this.myOptions = response.data;
       console.log(this.myOptions);
     });
@@ -302,22 +302,22 @@ export default {
           year: this.year,
           address: this.address,
           sections: this.section,
-          periods: this.period
+          periods: this.period,
         })
-        .then(response => {
+        .then((response) => {
           this.errors = [];
 
           toastr.success("Nueva institución creada exitosamente");
           this.getMenu();
         })
-        .catch(error => {
+        .catch((error) => {
           this.errors = error.response.data;
         });
     },
 
     add(index) {
       this.inputs.push({
-        name: ""
+        name: "",
       });
     },
     remove(index) {
@@ -325,7 +325,7 @@ export default {
     },
     add1(index) {
       this.inputs1.push({
-        name: ""
+        name: "",
       });
     },
     remove1(index) {
@@ -333,12 +333,12 @@ export default {
     },
     getCity() {
       var urlse = "getCity/" + this.$refs.state1.value;
-      axios.get(urlse).then(response => {
+      axios.get(urlse).then((response) => {
         this.myOptions2 = response.data;
         console.log(this.myOptions2);
       });
-    }
-  }
+    },
+  },
 };
 </script>
 <style></style>

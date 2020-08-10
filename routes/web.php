@@ -15,10 +15,8 @@ use App\Exports\ProductsExport;
 |
 */
 
-
-Route::get('/', function () {
-    return view('home');
-});
+// Route::group(['middleware' => 'auth', function () {
+//add all your routes here
 Route::get('/user', function () {
     return view('user');
 });
@@ -65,9 +63,10 @@ Route::get('/course/{id_area}/{id_classroom}', function (String $id_area, String
 Route::get('/crear_semana/{id_area}/{id_classroom}', function (String $id_area, String $id_classroom) {
     return view('semanal')->with('id_area', $id_area)->with('id_classroom', $id_classroom);
 });
-Route::get('/act_semana', function () {
-    return view('semanalAct');
+Route::get('/act_semana/{id_area}/{id_classroom}', function (String $id_area, String $id_classroom) {
+    return view('semanalAct')->with('id_area', $id_area)->with('id_classroom', $id_classroom);
 });
+
 Route::get('/unit', function () {
     return view('unit');
 });
@@ -215,7 +214,7 @@ Route::get('/instituciones_adm', function () {
     return view('institucionesAdm');
 });
 Route::get('/instituciones_crear', function () {
-    return view('crearinstitucion');
+    return view('crearInstitucion');
 });
 Route::get('/perfil_asignar', function () {
     return view('asignarPerfil');
@@ -252,15 +251,10 @@ Route::delete('school-classes/destroy', 'SchoolClassesController@massDestroy')->
 Route::resource('school-classes', 'SchoolClassesController');
 
 Route::get('horario', 'CalendarController@index')->name('calendar.index');
-/*login personalizado permite verificar suscripcion*/
-Route::post('/login2', 'UserController@loginWeb')->name('login2');
-Route::post('/resetPassword', 'UserController@resetPassword')->name('resetPassword');
 Route::put('/changePassword', 'UserController@changePassword')->name('changePassword');
 
 
-Route::post('users_save', 'UserController@store')->name('users_save');
 Route::get('showUser', 'UserController@show')->name('users_save');
-Route::post('users_save', 'UserController@store')->name('users_save');
 Route::post('img_user', 'UserController@uploadFile')->name('img_user');
 
 Route::post('savePrintDoc', 'HomeController@savePrintDoc')->name('savePrintDoc');
@@ -310,7 +304,8 @@ Route::get('/actividad_d/getClass/{id}', 'ClassController@getClassId')->name('ge
 Route::post('courseWeekly', 'CoursesController@courseWeekly')->name('courseWeekly');
 Route::get('GetArearByUser', 'CoursesController@getAreaByUser')->name('GetArearByUser');
 Route::get('GetWeek', 'CoursesController@getWeek');
-Route::get('editGetWeek', 'CoursesController@editGetWeek');
+Route::get('editGetWeek/{id_area}/{id_classroom}', 'CoursesController@editGetWeek')->name('editGetWeek');
+Route::get('editOneWeek/{id_area}/{id_classroom}', 'CoursesController@editOneWeek')->name('editOneWeek');
 Route::get('viewGetWeek/{id_area}/{id_classrom}', 'CoursesController@viewGetWeek')->name('viewGetWeek');
 Route::get('showWeek/{id}', 'CoursesController@showWeek');
 Route::put('updateCourseWeekly', 'CoursesController@updateCourseWeekly');
@@ -365,7 +360,7 @@ Route::resource('/questions.answers', 'AnswerController')->except(['index', 'cre
 Route::post('storeAnswer', 'AnswerController@store')->name('storeAnswer');
 
 /* Rutas de la mesajería
- */
+     */
 Route::post('sendMessages', 'MessagingController@store')->name('sendMessages');
 Route::put('updateMessages', 'MessagingController@update')->name('updateMessages');
 Route::get('getReceivedMessage', 'MessagingController@showReceivedMessage')->name('showReceivedMessage');
@@ -375,7 +370,7 @@ Route::get('/enviados', function () {
     return view('mensajeEnv');
 });
 /* Rutas del administrador
- */
+     */
 
 Route::get('getUsers', 'AdministratorController@indexUsers')->name('getUsers');
 Route::get('getStudents', 'AdministratorController@indexStudents')->name('getStudents');
@@ -435,3 +430,20 @@ $router->get('importUsers', 'ImportController@importUsers');
 Route::get('/importar_adm', function () {
     return view('imports.importB');
 });
+// }]);
+
+
+/*login personalizado permite verificar suscripcion*/
+Route::get('/', function () {
+    return view('home');
+});
+Route::get('/loginNew', function () {
+    return view('auth.login');
+})->name('loginNew');
+Route::get('/registerNew', function () {
+    return view('auth.register');
+})->name('registerNew');
+Route::post('/login2', 'UserController@loginWeb')->name('login2');
+Route::post('/resetPassword', 'UserController@resetPassword')->name('resetPassword');
+Route::post('users_save', 'UserController@store')->name('users_save');
+Route::get('/logout2', 'UserController@logOut')->name('logout2');

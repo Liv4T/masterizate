@@ -147,22 +147,6 @@
                       />
                       Notas
                     </a>
-                    <a href="/boletin">
-                      <img
-                        width="35px"
-                        src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/BOLETIN_naranja.png?alt=media&token=93ec6b97-e5a6-4eca-891e-b63bf2a352ad"
-                        alt
-                      />
-                      Boletín de notas
-                    </a>
-                    <a href="/horario">
-                      <img
-                        width="35px"
-                        src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/HORARIO_narnja.png?alt=media&token=93ec6b97-e5a6-4eca-891e-b63bf2a352ad"
-                        alt
-                      />
-                      Horario
-                    </a>
                   </div>
                 </li>
               </a>

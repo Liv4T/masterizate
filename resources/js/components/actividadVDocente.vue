@@ -5,7 +5,7 @@
         <div class="card text-center">
           <h3 class="card-header fondo">Mis actividades</h3>
           <div class="card-body">
-             <table class="table table-responsive-xl table-hover table-striped center">
+            <table class="table table-responsive-xl table-hover table-striped center">
               <tbody v-for="(area,t) in areas" :key="t">
                 <tr
                   data-toggle="collapse"
@@ -26,27 +26,27 @@
                       <table class="table table-responsive table-hover table-striped center">
                         <thead>
                           <tr>
-                            <th colspan="1">&nbsp;</th>
-
                             <th>Nombre de la materia</th>
                             <th>Tipo de Actividad</th>
                             <th>Fecha de entrega límite</th>
                             <th>Fecha de retroalimentación</th>
+                            <th colspan="1">&nbsp;</th>
                           </tr>
                         </thead>
                         <tbody>
                           <tr v-for="(actividad, k) in activities" :key="k">
-                            <td width="10px">
-                              <a
-                                class="btn btn-warning btn-sm"
-                                v-on:click.prevent="editNames(actividad.id)"
-                              >v</a>
-                            </td>
-
                             <td>{{actividad.activity_name }}</td>
                             <td>{{ actividad.activity_type }}</td>
                             <td>{{actividad.deliver_date}}</td>
                             <td>{{actividad.feedback_date}}</td>
+                            <td width="10px">
+                              <a
+                                class="btn btn-warning btn-sm"
+                                v-on:click.prevent="editNames(actividad.id)"
+                              >
+                                <i class="fa fa-eye"></i>
+                              </a>
+                            </td>
                           </tr>
                         </tbody>
                       </table>
@@ -180,37 +180,39 @@
                       <div class="card-body">
                         <div v-for="(question, k) in formulario" :key="k">
                           <div class="form-group row mx-auto">
-
-                              <label for="name">Pregunta {{ k+1 }}</label>
+                            <label for="name">Pregunta {{ k+1 }}</label>
+                            <input
+                              type="text"
+                              name="objetive1"
+                              class="form-control"
+                              v-model="question.questions"
+                              disabled
+                            />
+                          </div>
+                          <div
+                            class="form-group row"
+                            v-for="(res, t) in question.responses"
+                            :key="t"
+                          >
+                            <div class="col" v-if="res.correct==true">
+                              <label>Respuesta Correcta</label>
                               <input
                                 type="text"
                                 name="objetive1"
                                 class="form-control"
-                                v-model="question.questions"
+                                v-model="res.answer"
                                 disabled
                               />
                             </div>
-                            <div   class="form-group row" v-for="(res, t) in question.responses" :key="t">
-                              <div class="col" v-if="res.correct==true">
-                                <label>Respuesta Correcta</label>
-                                <input
-                                  type="text"
-                                  name="objetive1"
-                                  class="form-control"
-                                  v-model="res.answer"
-                                  disabled
-                                />
-                              </div>
-                              <div class="col" v-else>
-                                <label for>Opción {{ t+1 }} </label>
-                                <input
-                                  type="text"
-                                  name="objetive1"
-                                  class="form-control"
-                                  v-model="res.answer"
-                                  disabled
-                                />
-                              </div>
+                            <div class="col" v-else>
+                              <label for>Opción {{ t+1 }}</label>
+                              <input
+                                type="text"
+                                name="objetive1"
+                                class="form-control"
+                                v-model="res.answer"
+                                disabled
+                              />
                             </div>
                           </div>
                         </div>
@@ -231,7 +233,7 @@ export default {
   data() {
     return {
       activities: [],
-      activity:[],
+      activity: [],
       formulario: [],
       descripcion: "",
       logro: "",
@@ -239,13 +241,13 @@ export default {
       fechaR: "",
       id_act: "",
       id_t: "",
-      areas:[],
-      errors: []
+      areas: [],
+      errors: [],
     };
   },
   created() {},
   mounted() {
-   var url = "GetArearByUser";
+    var url = "GetArearByUser";
     axios.get(url).then((response) => {
       this.areas = response.data;
     });
@@ -253,16 +255,15 @@ export default {
     console.log("Component mounted.");
   },
   methods: {
-        semanas(id, classroom) {
+    semanas(id, classroom) {
       var urlr = "getActivity/" + id + "/" + classroom;
       axios.get(urlr).then((response) => {
         this.activities = response.data;
       });
     },
     editNames(actividad) {
-      var urlr = "getActivityById/"+actividad;
-      axios.get(urlr).then(response => {
-
+      var urlr = "getActivityById/" + actividad;
+      axios.get(urlr).then((response) => {
         this.activity = response.data;
 
         this.id_act = this.activity.id;
@@ -270,18 +271,16 @@ export default {
         this.logro = this.activity.achievement;
         this.fechaE = this.activity.deliver_date;
         this.fechaR = this.activity.feedback_date;
-})
-            var urls = "showTrivia/" + actividad;
-            axios.get(urls).then(response => {
-              this.formulario = response.data;
-              console.log(this.formulario);
-            });
-
-
+      });
+      var urls = "showTrivia/" + actividad;
+      axios.get(urls).then((response) => {
+        this.formulario = response.data;
+        console.log(this.formulario);
+      });
 
       $("#editu").modal("show");
     },
-  }
+  },
 };
 </script>
 <style>

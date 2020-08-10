@@ -9,7 +9,7 @@
               <form-wizard
                 title
                 subtitle
-                color="#c1e9eb"
+                color="#ffc107"
                 next-button-text="Siguiente"
                 back-button-text="Atrás"
                 finish-button-text="Guardar y enviar"
@@ -19,7 +19,7 @@
                   <div class="form-group mx-auto">
                     <div align="center">
                       <div class="col-md-6">
-                        <label for>Semana:</label>
+                        <label for>Ciclo:</label>
                         <select class="form-control" ref="seleccionado" required>
                           <option :value="option.id" v-for="option in myOptions">
                             {{
@@ -32,7 +32,7 @@
                   </div>
                   <div class="form-group row mx-auto">
                     <div class="col-md-6">
-                      <label for="name">Nombre</label>
+                      <label for="name">*Nombre</label>
                       <div>
                         <input
                           type="text"
@@ -44,7 +44,7 @@
                       </div>
                     </div>
                     <div class="col-md-6">
-                      <label for="name">Descripción</label>
+                      <label for="name">*Descripción</label>
                       <textarea
                         name="competences"
                         class="form-control"
@@ -59,7 +59,7 @@
                     <div class="form-group mx-auto">Material de apoyo</div>
                     <div class="form-group row">
                       <div class="col-md-6">
-                        <label for="name">Nombre del documento</label>
+                        <label for="name">*Nombre del documento</label>
                         <input
                           type="text"
                           name="objetive1"
@@ -69,7 +69,7 @@
                         />
                       </div>
                       <div class="col-md-6">
-                        <label for="name">Documento</label>
+                        <label for="name">*Documento</label>
                         <input
                           type="file"
                           name="document"
@@ -78,10 +78,28 @@
                           required
                         />
                       </div>
+                      <div class="col-md-6">
+                        <label for="name">Documento</label>
+                        <input
+                          type="file"
+                          name="document"
+                          class="form-control"
+                          @change="onFlieChange1"
+                        />
+                      </div>
+                      <div class="col-md-6">
+                        <label for="name">Documento</label>
+                        <input
+                          type="file"
+                          name="document"
+                          class="form-control"
+                          @change="onFlieChange2"
+                        />
+                      </div>
                     </div>
                     <div class="form-group row">
                       <div class="col-md-6">
-                        <label for="name">Url</label>
+                        <label for="name">*Enlace</label>
                         <input
                           type="text"
                           name="objetive1"
@@ -91,7 +109,15 @@
                         />
                       </div>
                       <div class="col-md-6">
-                        <label for="name">Video</label>
+                        <label for="name">Enlace</label>
+                        <input type="text" name="objetive1" class="form-control" v-model="nameUrl1" />
+                      </div>
+                      <div class="col-md-6">
+                        <label for="name">Enlace</label>
+                        <input type="text" name="objetive1" class="form-control" v-model="nameUrl2" />
+                      </div>
+                      <div class="col-md-6">
+                        <label for="name">*Video</label>
                         <input
                           type="file"
                           name="video"
@@ -100,6 +126,16 @@
                           required
                         />
                         {{ messageVideo }}
+                      </div>
+                      <div class="col-md-6">
+                        <label for="name">Video</label>
+                        <input type="file" name="video" class="form-control" @change="videoFile1" />
+                        {{ messageVideo1 }}
+                      </div>
+                      <div class="col-md-6">
+                        <label for="name">Video</label>
+                        <input type="file" name="video" class="form-control" @change="videoFile2" />
+                        {{ messageVideo2 }}
                       </div>
                       <div class="col-md-6">
                         <label for="name">Intensidad horaria de trabajo</label>
@@ -115,6 +151,7 @@
                       </div>
                     </div>
                   </div>
+                  <strong>* Campos requeridos</strong>
                   <!-- <div class="modal-footer">
                     <a href="#" class="btn btn-warning float-right">Guardar</a>
                   </div>-->
@@ -153,22 +190,7 @@
     false
   );
 })();
-$(function () {
-  // Get the form fields and hidden div
-  var checkbox = $("#gridCheck1");
-  var hidden = $("#hidden_fields1");
 
-  hidden.hide();
-
-  checkbox.change(function () {
-    if (checkbox.is(":checked")) {
-      // Show the hidden fields.
-      hidden.show();
-    } else {
-      hidden.hide();
-    }
-  });
-});
 import VueFormWizard from "vue-form-wizard";
 import "vue-form-wizard/dist/vue-form-wizard.min.css";
 Vue.use(VueFormWizard);
@@ -180,10 +202,18 @@ export default {
       description: "",
       nameFile: "",
       nameUrl: "",
+      nameUrl1: "",
+      nameUrl2: "",
       newDocument: [],
+      newDocument1: [],
+      newDocument2: [],
       semanal: false,
       newVideo: [],
+      newVideo1: [],
+      newVideo2: [],
       messageVideo: "",
+      messageVideo1: "",
+      messageVideo2: "",
       numero: "",
       errors: [],
     };
@@ -210,8 +240,14 @@ export default {
           description: this.description,
           name_document: this.nameFile,
           document: this.newDocument,
+          document1: this.newDocument1,
+          document2: this.newDocument2,
           url: this.nameUrl,
+          url1: this.nameUrl1,
+          url2: this.nameUrl2,
           video: this.newVideo,
+          video1: this.newVideo1,
+          video2: this.newVideo2,
           hourly_intensity: this.numero,
         })
         .then((response) => {
@@ -234,7 +270,44 @@ export default {
 
         data.append("file", files[0]);
         data.append("name", this.nameUnit);
+        data.append("count", 1);
         this.newDocument = data;
+
+        axios.post("/fileDocument", data).then((response) => {
+          this.emitMessage(response);
+        });
+      }
+    },
+    onFlieChange1(file) {
+      let files = file.target.files || file.dataTransfer.files;
+      let data = new FormData();
+      if (files.length > 0) {
+        let file = files[0];
+
+        // if uploaded file is valid with validation rules
+
+        data.append("file", files[0]);
+        data.append("name", this.nameUnit);
+        data.append("count", 2);
+        this.newDocument1 = data;
+
+        axios.post("/fileDocument", data).then((response) => {
+          this.emitMessage(response);
+        });
+      }
+    },
+    onFlieChange2(file) {
+      let files = file.target.files || file.dataTransfer.files;
+      let data = new FormData();
+      if (files.length > 0) {
+        let file = files[0];
+
+        // if uploaded file is valid with validation rules
+
+        data.append("file", files[0]);
+        data.append("name", this.nameUnit);
+        data.append("count", 3);
+        this.newDocument2 = data;
 
         axios.post("/fileDocument", data).then((response) => {
           this.emitMessage(response);
@@ -251,6 +324,7 @@ export default {
 
         data.append("file", files[0]);
         data.append("name", this.nameUnit);
+        data.append("count", 1);
         this.newVideo = data;
 
         axios.post("/fileDocument", data).then((response) => {
@@ -260,6 +334,56 @@ export default {
             this.messageVideo = "Video cargado";
           } else {
             this.messageVideo =
+              "El video excede el límite, por favor reducir su peso";
+          }
+        });
+      }
+    },
+    videoFile1(file) {
+      let files = file.target.files || file.dataTransfer.files;
+      let data = new FormData();
+      if (files.length > 0) {
+        let file = files[0];
+        this.messageVideo1 = "Espere estamos cargando el video";
+        // if uploaded file is valid with validation rules
+
+        data.append("file", files[0]);
+        data.append("name", this.nameUnit);
+        data.append("count", 2);
+        this.newVideo1 = data;
+
+        axios.post("/fileDocument", data).then((response) => {
+          console.log(response.data);
+
+          if (response.data == "ok") {
+            this.messageVideo1 = "Video cargado";
+          } else {
+            this.messageVideo1 =
+              "El video excede el límite, por favor reducir su peso";
+          }
+        });
+      }
+    },
+    videoFile2(file) {
+      let files = file.target.files || file.dataTransfer.files;
+      let data = new FormData();
+      if (files.length > 0) {
+        let file = files[0];
+        this.messageVideo2 = "Espere estamos cargando el video";
+        // if uploaded file is valid with validation rules
+
+        data.append("file", files[0]);
+        data.append("name", this.nameUnit);
+        data.append("count", 3);
+        this.newVideo2 = data;
+
+        axios.post("/fileDocument", data).then((response) => {
+          console.log(response.data);
+
+          if (response.data == "ok") {
+            this.messageVideo2 = "Video cargado";
+          } else {
+            this.messageVideo2 =
               "El video excede el límite, por favor reducir su peso";
           }
         });
