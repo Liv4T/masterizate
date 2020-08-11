@@ -195,6 +195,7 @@ import VueFormWizard from "vue-form-wizard";
 import "vue-form-wizard/dist/vue-form-wizard.min.css";
 Vue.use(VueFormWizard);
 export default {
+  props: ["id_area", "id_classroom"],
   data() {
     return {
       myOptions: [],
@@ -219,7 +220,7 @@ export default {
     };
   },
   mounted() {
-    var urlsel = "editGetWeek";
+    var urlsel = "editGetWeek/0/0";
     axios.get(urlsel).then((response) => {
       this.myOptions = response.data;
     });

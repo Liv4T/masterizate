@@ -29,17 +29,20 @@ class ActivityController extends Controller
         }
         if (isset($Course)) {
             $indicators = Indicator::where('id_annual', $Course->id)->get();
+            // return $indicators;
             $activities = [];
+            $index = 0;
             foreach ($indicators as $key => $indicator) {
                 $activity = Activity::where('id_indicator', $indicator->id)->get();
                 foreach ($activity as $num => $act) {
-                    $activities[$key] = [
+                    $activities[$index] = [
                         'id' => $act->id,
                         'activity_name' => $act->activity_name,
                         'activity_type' => $act->activity_type,
                         'deliver_date' => $act->deliver_date,
                         'feedback_date' => $act->feedback_date,
                     ];
+                    $index = $index + 1;
                 }
             }
             return response()->json($activities);

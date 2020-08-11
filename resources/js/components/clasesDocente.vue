@@ -218,6 +218,7 @@ export default {
   },
   methods: {
     editNames(clas) {
+      this.fillS = [];
       var urlr = "showClass/" + clas;
       axios.get(urlr).then((response) => {
         this.fillS = response.data.clase;

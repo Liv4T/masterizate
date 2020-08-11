@@ -41,12 +41,12 @@
                     v-show="general==true"
                     :href="'/crear_semana/'+ area.id +'/'+ area.id_classroom"
                     class="btn btn-warning"
-                  >Crear Semana</a>
+                  >Crear Ciclo</a>
                   <a
                     v-show="general==true"
                     :href="'/act_semana/'+ area.id +'/'+ area.id_classroom"
                     class="btn btn-warning"
-                  >Actualizar semana</a>
+                  >Actualizar Ciclo</a>
                 </div>
               </div>
             </div>

@@ -96,6 +96,20 @@ class ClassController extends Controller
         if (isset($Courses)) {
             $achievements = CoursesAchievement::where('id_planification', $Courses->id)->get();
         }
+        foreach ($clase as $key => $class) {
+            if (is_null($clase[$key]->video2) || $clase[$key]->video2 == "") {
+                $clase[$key]->video2 = "";
+            }
+            if (is_null($clase[$key]->video1) || $clase[$key]->video1 == "") {
+                $clase[$key]->video1 = "";
+            }
+            if (is_null($clase[$key]->document1) || $clase[$key]->document1 == "") {
+                $clase[$key]->document1 = "";
+            }
+            if (is_null($clase[$key]->document2) || $clase[$key]->document2 == "") {
+                $clase[$key]->document2 = "";
+            }
+        }
         $data = [
             'clase' => $clase,
             'achievements' => $achievements

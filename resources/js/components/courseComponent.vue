@@ -164,7 +164,7 @@
               <tab-content title="Trimestral">
                 <div class="form-group row mx-auto" v-for="(input, t) in fillC.quaterly" :key="t">
                   <div class="col-md-6">
-                    <label for="name">Unidad</label>
+                    <label for="name">Indicador</label>
                     <div>
                       <input
                         type="text"
