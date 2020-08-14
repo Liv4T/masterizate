@@ -1,7 +1,16 @@
 @extends('layouts.app')
 
 @section('content')
-<menu-lateral></menu-lateral>
+  @if (Auth::user()->type_user == '2')
+        <menu-docente></menu-docente>
+        <inicio-component></inicio-component>
+  @endif
+  @if (Auth::user()->type_user == '3')
+    <menu-lateral></menu-lateral>
+ @endif
+  @if (Auth::user()->type_user == '1')
+    <menu-adm></menu-adm>
+ @endif
   <div class="back">
       @if (session('status'))
       <div class="alert alert-success">

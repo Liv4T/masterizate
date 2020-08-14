@@ -315,7 +315,8 @@ export default {
 
     createCourses() {
       var url = window.location.origin + "/Courses";
-
+      this.newTrimestre = [];
+      this.newLogro = [];
       if (this.inputs.length >= 1) {
         for (let i = 0; i < this.inputs.length; i++) {
           this.newTrimestre.push(this.inputs[i]);
