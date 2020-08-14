@@ -60,6 +60,12 @@ Route::get('/freeUnit', function () {
 Route::get('/course/{id_area}/{id_classroom}', function (String $id_area, String $id_classroom) {
     return view('course')->with('id_area', $id_area)->with('id_classroom', $id_classroom);
 });
+Route::get('/duplicar/{id_area}/{id_classroom}', function (String $id_area, String $id_classroom) {
+    return view('duplicarGeneral')->with('id_area', $id_area)->with('id_classroom', $id_classroom);
+});
+Route::get('/duplicar_semana/{id_area}/{id_classroom}', function (String $id_area, String $id_classroom) {
+    return view('duplicarSemana')->with('id_area', $id_area)->with('id_classroom', $id_classroom);
+});
 Route::get('/crear_semana/{id_area}/{id_classroom}', function (String $id_area, String $id_classroom) {
     return view('semanal')->with('id_area', $id_area)->with('id_classroom', $id_classroom);
 });
@@ -154,7 +160,7 @@ Route::get('/boletin', function () {
     return view('boletin');
 });
 Route::get('/calendar', function () {
-    return view('calendar');
+    return view('calendar')->with('type_user', Auth::user()->type_user);
 });
 Route::get('/perfil_d', function () {
     return view('perfild');
@@ -422,9 +428,10 @@ Route::get('chart', 'UserChartController@index');
 //pdf
 Route::get('pdfview', array('as' => 'pdfview', 'uses' => 'BestInterviewQuestionController@pdfview'));
 
-//importacion
-
+//importacion profesores
 $router->get('import', 'ImportController@importTeacherClassroom');
+//importacion estudiantes
+$router->get('importStudent', 'ImportController@importStudentClassroom');
 // Carga masiva usuario
 $router->get('importUsers', 'ImportController@importUsers');
 Route::get('/importar_adm', function () {
@@ -446,4 +453,5 @@ Route::get('/registerNew', function () {
 Route::post('/login2', 'UserController@loginWeb')->name('login2');
 Route::post('/resetPassword', 'UserController@resetPassword')->name('resetPassword');
 Route::post('users_save', 'UserController@store')->name('users_save');
+Route::get('Courses_save', 'CoursesController@storeNew')->name('Courses_save');
 Route::get('/logout2', 'UserController@logOut')->name('logout2');
