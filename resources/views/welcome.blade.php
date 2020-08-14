@@ -11,7 +11,6 @@
   @if (Auth::user()->type_user == '1')
     <menu-adm></menu-adm>
  @endif
-<menu-lateral></menu-lateral>
   <div class="back">
       @if (session('status'))
       <div class="alert alert-success">
