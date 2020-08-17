@@ -24,7 +24,7 @@
                 </div>
                 <div
                   :id="'collapse'+t"
-                  class="collapse hide"
+                  class="collapse hide accordion-content"
                   aria-labelledby="heading"
                   data-parent="#accordionExample"
                 >
