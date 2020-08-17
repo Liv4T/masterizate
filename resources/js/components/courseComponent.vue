@@ -25,7 +25,7 @@
       <div class="col-md-11 mx-auto">
         <div class="custom-card text-center">
           <h3 class="card-header fondo">Planificación general</h3>
-          <form class="needs-validation" novalidate v-show="trimestre == false">
+          <form class="needs-validation" novalidate>
             <form-wizard
               title
               subtitle
@@ -37,23 +37,24 @@
             >
               <tab-content title="Anual">
                 <div class="form-group mx-auto" v-for="(input1, t) in inputs1" :key="t">
-                  <div align="center">
-                    <strong>
-                      Logro
-                      <input type="number" style="width:50px;" v-model="input1.porcentaje" />%
+                 <div class="row">
+                    <div class="col col-lg-2 text-left"><!-- col -->
+                      <strong>Logro</strong>
+                      <div class="input-group mb-2">
+                        <input type="number" class="form-control"   v-model="input1.porcentaje" v-on:change="annualContentUpdateEvent($event,t)" />
+                        <div class="input-group-prepend">
+                          <div class="input-group-text">%</div>
+                        </div>
+                      </div>
+                      
+                    </div><!-- end col -->
+                     <div class="col col-lg-1 text-left padding-top"><!-- col -->
                       <span>
                         <a
                           href="#"
                           class="badge badge-danger"
-                          @click.prevent="
-                                                            remove1(t)
-                                                        "
-                          v-show="
-                                                            t ||
-                                                                (!t &&
-                                                                    inputs1.length >
-                                                                        1)
-                                                        "
+                          @click.prevent="remove1(t)"
+                          v-show="t ||(!t && inputs1.length > 1)"
                         >-</a>
                         <a
                           href="#"
@@ -66,10 +67,14 @@
                                                         "
                         >+</a>
                       </span>
-                    </strong>
-                  </div>
-                  <textarea name="welcome" class="form-control" v-model="input1.logro" required></textarea>
+                     </div><!-- col -->
+                 </div>
+                <div class="row">
+                    <div class="col col-lg-12">
+                        <textarea name="welcome" class="form-control" v-model="input1.logro" rows="4" v-on:change="annualContentUpdateEvent($event,t)" required></textarea>
                   <div class="invalid-feedback">Please fill out this field</div>
+                    </div>
+                 </div>
                 </div>
               </tab-content>
 
@@ -105,6 +110,7 @@
                         class="form-control"
                         v-model="input.name"
                         placeholder="Nombre de la unidad"
+                        v-on:change="annualContentUpdateEvent($event,t)"
                         required
                       />
                     </div>
@@ -115,6 +121,7 @@
                       name="competences"
                       class="form-control"
                       v-model="input.contenido"
+                      v-on:change="annualContentUpdateEvent($event,t)"
                       placeholder="Es la explicacion o sintesis de la unidad."
                       required
                     ></textarea>
@@ -127,6 +134,7 @@
               </tab-content>
             </form-wizard>
           </form>
+          <!--
           <form v-show="trimestre == true">
             <form-wizard
               title
@@ -188,12 +196,13 @@
                     <div class="invalid-feedback">Please fill out this field</div>
                   </div>
                 </div>
-                <!-- <div class="modal-footer">
+                - <div class="modal-footer">
                   <a submit="createCourses" class="btn btn-warning float-right">Guardar</a>
-                </div>-->
+                </div>-
               </tab-content>
             </form-wizard>
           </form>
+          -->
         </div>
       </div>
     </div>
@@ -249,6 +258,7 @@ export default {
   props: ["id_area", "id_classroom"],
   data() {
     return {
+      serialLocalStorage:'9f284918-f0f6-4369-a368-eaf6321b6807',
       inputs: [
         {
           name: "",
@@ -258,7 +268,7 @@ export default {
       inputs1: [
         {
           logro: "",
-          porcentaje: "",
+          porcentaje: "0",
         },
       ],
       newTrimestre: [],
@@ -280,6 +290,18 @@ export default {
     };
   },
   mounted() {
+
+    //load from localstorage
+    this.serialLocalStorage=this.serialLocalStorage+"-"+this.id_area+"-"+this.id_classroom;
+    if(localStorage.getItem(this.serialLocalStorage))
+    {
+      let savedInputModel=JSON.parse(decodeURIComponent(escape(window.atob(localStorage.getItem(this.serialLocalStorage)))));
+ 
+      this.inputs=savedInputModel.inputs;
+      this.inputs1=savedInputModel.inputs1;
+    }
+
+    //get data from database
     var urlsel =
       window.location.origin +
       "/coursePlanification/" +
@@ -287,16 +309,42 @@ export default {
       "/" +
       this.id_classroom;
     axios.get(urlsel).then((response) => {
+
+
+
       this.fillC = response.data;
-      console.log(this.trimestre);
+
+      //set current data
+      if(response.data.achievements.length>0 && response.data.quaterly.length>0)
+      {
+        this.inputs1=[];
+        response.data.achievements.forEach((e)=>{
+          this.inputs1.push({id_plannification:e.id_planification,id_achievement:e.id, logro: e.achievement, porcentaje: e.percentage });
+        });
+        this.inputs=[];
+        response.data.quaterly.forEach((e)=>{
+          this.inputs.push({ id_quaterly:e.id,name: e.unit_name, contenido: e.content });
+        });
+      }
+     
+
+
+
       if (this.fillC.quaterly.length > 0) {
         this.trimestre = true;
       } else {
         this.trimestre = false;
       }
     });
+
+    
   },
   methods: {
+    annualContentUpdateEvent(e,i){
+      //serialize data on localstorage
+     localStorage.setItem(this.serialLocalStorage, window.btoa(unescape(encodeURIComponent(JSON.stringify({inputs1:this.inputs1,inputs:this.inputs})))));
+      
+    },
     getMenu() {
       window.location = "/actividad_g";
     },
@@ -307,14 +355,16 @@ export default {
       this.inputs.splice(index, 1);
     },
     add1(index) {
-      this.inputs1.push({ logro: "", porcentaje: "" });
+      this.inputs1.push({ logro: "", porcentaje: "0" });
     },
     remove1(index) {
       this.inputs1.splice(index, 1);
     },
-
     createCourses() {
       var url = window.location.origin + "/Courses";
+
+      if(this.inputs.length<1 ||  this.inputs1.length<1)
+        return;
 
       if (this.inputs.length >= 1) {
         for (let i = 0; i < this.inputs.length; i++) {
@@ -326,6 +376,8 @@ export default {
           this.newLogro.push(this.inputs1[i]);
         }
       }
+
+
 
       axios
         .post(url, {
