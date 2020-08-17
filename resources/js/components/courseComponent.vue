@@ -271,6 +271,8 @@ export default {
           porcentaje: "0",
         },
       ],
+      inputs1_saved:[],
+      inputs_saved:[],
       newTrimestre: [],
       newLogro1: "",
       newLogro2: "",
@@ -291,15 +293,7 @@ export default {
   },
   mounted() {
 
-    //load from localstorage
-    this.serialLocalStorage=this.serialLocalStorage+"-"+this.id_area+"-"+this.id_classroom;
-    if(localStorage.getItem(this.serialLocalStorage))
-    {
-      let savedInputModel=JSON.parse(decodeURIComponent(escape(window.atob(localStorage.getItem(this.serialLocalStorage)))));
- 
-      this.inputs=savedInputModel.inputs;
-      this.inputs1=savedInputModel.inputs1;
-    }
+    
 
     //get data from database
     var urlsel =
@@ -321,10 +315,32 @@ export default {
         response.data.achievements.forEach((e)=>{
           this.inputs1.push({id_plannification:e.id_planification,id_achievement:e.id, logro: e.achievement, porcentaje: e.percentage });
         });
+        this.inputs1_saved= this.inputs1;
         this.inputs=[];
         response.data.quaterly.forEach((e)=>{
           this.inputs.push({ id_quaterly:e.id,name: e.unit_name, contenido: e.content });
         });
+        this.inputs_saved= this.inputs;
+      }
+
+
+      //load from localstorage
+      this.serialLocalStorage=this.serialLocalStorage+"-"+this.id_area+"-"+this.id_classroom;
+      if(localStorage.getItem(this.serialLocalStorage))
+      {
+        let savedInputModel=JSON.parse(decodeURIComponent(escape(window.atob(localStorage.getItem(this.serialLocalStorage)))));
+  
+
+        if(JSON.stringify(savedInputModel.inputs)!=JSON.stringify(this.inputs))
+        {
+           this.inputs=savedInputModel.inputs;
+        }
+
+        if(JSON.stringify(savedInputModel.inputs1)!=JSON.stringify(this.inputs1))
+        {
+          this.inputs1=savedInputModel.inputs1;
+        }
+
       }
      
 
