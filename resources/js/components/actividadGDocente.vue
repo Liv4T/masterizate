@@ -105,7 +105,7 @@ export default {
           this.general = false;
         }
       });
-      var urlsel = "editGetWeek" + area + "/" + classroom;
+      var urlsel = "editGetWeek/" + area + "/" + classroom;
       axios.get(urlsel).then((response) => {
         this.week = response.data;
 
