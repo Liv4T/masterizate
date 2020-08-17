@@ -24,7 +24,7 @@
                 </div>
                 <div
                   :id="'collapse'+t"
-                  class="collapse hide"
+                  class="collapse hide accordion-content"
                   aria-labelledby="heading"
                   data-parent="#accordionExample"
                 >
@@ -105,7 +105,7 @@ export default {
           this.general = false;
         }
       });
-      var urlsel = "editGetWeek" + area + "/" + classroom;
+      var urlsel = "editGetWeek/" + area + "/" + classroom;
       axios.get(urlsel).then((response) => {
         this.week = response.data;
 

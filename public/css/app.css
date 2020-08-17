@@ -10887,3 +10887,23 @@ a.text-dark:focus {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
 }
 
+/** CUSTOM ELEMENTS **/
+
+.accordion-content {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}
+
+/***  *CUSTOM BUTTONS * ****/
+
+.btn-warning:hover {
+  text-decoration: none !important;
+}
+
+/** PADDINGS **/
+
+.padding-top {
+  padding-top: 27px !important;
+}
+

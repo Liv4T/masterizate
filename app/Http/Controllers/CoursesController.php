@@ -47,6 +47,7 @@ class CoursesController extends Controller
             $Courses->achievements = $achievements;
             foreach ($Quarterlies as $key => $Quarterly) {
                 $quaterly[$key] = [
+                    'id' => $Quarterly->id,
                     'content' => $Quarterly->content,
                     'unit_name' => $Quarterly->unit_name
                 ];
@@ -135,68 +136,135 @@ class CoursesController extends Controller
      */
     public function store(Request $request)
     {
+
         if (isset($request->duplicate) && $request->duplicate == 1) {
             $data = $request->all();
+
+
+
+
             $course = Courses::create([
                 'id_area'    => $data['id_area'],
                 'id_classroom'  => $data['id_classroom'],
                 'id_teacher'     =>  Auth::user()->id,
             ]);
+        
 
-            $achievements = $data['logros'];
 
-            foreach ($achievements as $achievement) {
-                // dd($achievement);
-                $logro = new CoursesAchievement;
-                $logro->achievement =     $achievement['achievement'];
-                $logro->percentage =      $achievement['percentage'];
-                $logro->id_planification =  $course->id;
-                $logro->save();
-            }
+                    $achievements = $data['logros'];
 
-            $Quarterlies = $data['trimestres'];
+                    foreach ($achievements as $achievement) {
+                        // dd($achievement);
+                        $logro = new CoursesAchievement;
+                        $logro->achievement =     $achievement['achievement'];
+                        $logro->percentage =      $achievement['percentage'];
+                        $logro->id_planification =  $course->id;
+                        $logro->save();
+                    }
 
-            foreach ($Quarterlies as $index => $Quarterly) {
-                $subCate = Quarterly::create([
-                    'content' => $Quarterly['content'],
-                    'unit_name' => $Quarterly['unit_name'],
-                    'id_area'    => $data['id_area'],
-                    'id_classroom'    => $data['id_classroom'],
-                    'id_teacher'     =>  Auth::user()->id,
-                ]);
-            }
-            return "ok";
-        } else {
+                    $Quarterlies = $data['trimestres'];
+
+                    foreach ($Quarterlies as $index => $Quarterly) {
+                        $subCate = Quarterly::create([
+                            'content' => $Quarterly['content'],
+                            'unit_name' => $Quarterly['unit_name'],
+                            'id_area'    => $data['id_area'],
+                            'id_classroom'    => $data['id_classroom'],
+                            'id_teacher'     =>  Auth::user()->id,
+                        ]);
+                    }
+                    return "ok";
+
+        }
+        else // duplicate =false
+        {
+
             $data = $request->all();
-            $course = Courses::create([
-                'id_area'    => $data['id_area'],
-                'id_classroom'  => $data['id_classroom'],
-                'id_teacher'     =>  Auth::user()->id,
-            ]);
 
-            $achievements = $data['logros'];
-
-            foreach ($achievements as $index => $achievement) {
-                $logro = new CoursesAchievement;
-                $logro->achievement =     $achievement['logro'];
-                $logro->percentage =      $achievement['porcentaje'];
-                $logro->id_planification =  $course->id;
-                $logro->save();
-            }
-
-            $Quarterlies = $data['trimestres'];
-
-            foreach ($Quarterlies as $index => $Quarterly) {
-                $subCate = Quarterly::create([
-                    'content' => $Quarterly['contenido'],
-                    'unit_name' => $Quarterly['name'],
+            $courses = Courses::where('id_teacher', Auth::user()->id)->where('id_area', $data['id_area'])->where('id_classroom', $data['id_classroom'])->get();
+    
+            if(!isset($courses))
+            {
+                $course = Courses::create([
                     'id_area'    => $data['id_area'],
-                    'id_classroom'    => $data['id_classroom'],
+                    'id_classroom'  => $data['id_classroom'],
                     'id_teacher'     =>  Auth::user()->id,
                 ]);
             }
+            else
+            {
+                $course=$courses[0];
+            }
+           
+    
+            $achievements = $data['logros'];
+    
+            foreach ($achievements as $index => $achievement) {
+    
+                if(isset($achievement['id_achievement']))
+                {
+                    $achievementUpdatedRowsCount = CoursesAchievement::where('id',$achievement['id_achievement'])->update(array('percentage'=>$achievement['porcentaje'],'achievement'=>$achievement['logro']));
+    
+                    if($achievementUpdatedRowsCount<=0)
+                    {
+                        $logro = CoursesAchievement::create([
+                            'achievement'       => $achievement['logro'],
+                            'percentage'        => $achievement['porcentaje'],
+                            'id_planification'  => $course->id,
+                        ]);
+                    }
+                }
+                else{
+                    $logro = CoursesAchievement::create([
+                        'achievement'       => $achievement['logro'],
+                        'percentage'        => $achievement['porcentaje'],
+                        'id_planification'  => $course->id,
+                    ]);
+                }
+    
+            }
+    
+    
+            $Quarterlies = $data['trimestres'];
+    
+            foreach ($Quarterlies as $index => $Quarterly) {
+    
+                if(isset($Quarterly['id_quaterly']))
+                {
+                    $quarterlyUpdatedRowsCount = Quarterly::where('id',$Quarterly['id_quaterly'])->update(array('content'=>$Quarterly['contenido'],'unit_name'=>$Quarterly['name']));
+    
+                    if($quarterlyUpdatedRowsCount<=0)
+                    {
+                        $subCate = Quarterly::create([
+                            'content' => $Quarterly['contenido'],
+                            'unit_name' => $Quarterly['name'],
+                            'id_area'    => $data['id_area'],
+                            'id_classroom'    => $data['id_classroom'],
+                            'id_teacher'     =>  Auth::user()->id,
+                        ]);
+                    }
+                }
+                else
+                {
+                    $subCate = Quarterly::create([
+                        'content' => $Quarterly['contenido'],
+                        'unit_name' => $Quarterly['name'],
+                        'id_area'    => $data['id_area'],
+                        'id_classroom'    => $data['id_classroom'],
+                        'id_teacher'     =>  Auth::user()->id,
+                    ]);
+                }
+    
+    
+               
+            }
+    
+         
+    
+            
             return "ok";
         }
+
     }
 
 
@@ -209,42 +277,23 @@ class CoursesController extends Controller
     public function courseWeekly(Request $request)
     {
         //
-        if (isset($request->duplicate) && $request->duplicate == 1) {
-            $data = $request->all();
-            $Weeks = $data['semana'];
-            $count = 1;
-            foreach ($Weeks as $index => $week) {
-                $subCate = Weekly::create([
-                    'driving_question' => $week['text'],
-                    'class_development' => $week['class'],
-                    'observation' => $week['observation'],
-                    'id_area'    => $data['id_area'],
-                    'id_classroom'    => $data['id_classroom'],
-                    'week'    => $count,
-                    'id_teacher'     =>  Auth::user()->id,
-                ]);
-                $count = $count + 1;
-            }
-            return "ok";
-        } else {
-            $data = $request->all();
-            $Weeks = $data['semana'];
+        $data = $request->all();
+        $Weeks = $data['semana'];
 
-            $count = 1;
-            foreach ($Weeks as $index => $week) {
-                $subCate = Weekly::create([
-                    'driving_question' => $week['driving_question'],
-                    'class_development' => $week['class_development'],
-                    'observation' => $week['observation'],
-                    'id_area'    => $data['id_area'],
-                    'id_classroom'    => $data['id_classroom'],
-                    'week'    => $count,
-                    'id_teacher'     =>  Auth::user()->id,
-                ]);
-                $count = $count + 1;
-            }
-            return "ok";
+        $count = 1;
+        foreach ($Weeks as $index => $week) {
+            $subCate = Weekly::create([
+                'driving_question' => $week['driving_question'],
+                'class_development' => $week['class_development'],
+                'observation' => $week['observation'],
+                'id_area'    => $data['id_area'],
+                'id_classroom'    => $data['id_classroom'],
+                'week'    => $count,
+                'id_teacher'     =>  Auth::user()->id,
+            ]);
+            $count = $count + 1;
         }
+        return "ok";
     }
 
     /**
@@ -288,7 +337,7 @@ class CoursesController extends Controller
      */
     public function edit(Courses $courses)
     {
-        //
+        
     }
 
     /**
@@ -298,7 +347,7 @@ class CoursesController extends Controller
      * @param  \App\Courses  $courses
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Courses $courses)
+    public function update(Request $request)
     {
         //
     }
