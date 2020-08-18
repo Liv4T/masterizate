@@ -10887,3 +10887,24 @@ a.text-dark:focus {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
 }
 
+/*CUSTOM ELEMENTS*/
+
+.classroom-label {
+  color: #278080;
+  padding: 10px;
+  margin-top: 15px;
+  font-size: 1.2em;
+}
+
+.classroom-planning-section {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+}
+
+.classroom-planning-section > span {
+  margin-left: 20px;
+}
+
