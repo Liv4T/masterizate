@@ -11,18 +11,7 @@
           </div>
           <br />
           <div class="row">
-            <div class="col-md-8">
-              <iframe
-                class="otra"
-                width="700"
-                src="https://calendar.google.com/calendar/embed?src=desarrollo%40liv4t.com&ctz=America%2FBogota"
-                style="border:solid 1px #777;height:700px;;max-width=900px; "
-                frameborder="0"
-                min-width="350px"
-                scrolling="no"
-              ></iframe>
-            </div>
-            <div class="col-md-3">
+            <div class="col-md-11">
               <div class="row justify-content-center">
                 <h4>Clases presenciales</h4>
               </div>
@@ -30,8 +19,9 @@
                 <div class="row justify-content-center">
                   <h5>{{ clas.name }}</h5>
                 </div>
-                <label for>Fecha: {{ clas.date }}</label>
-                <label for>Hora: {{ clas.hour }}</label>
+                <h4 for>Fecha: {{ clas.date }}</h4>
+                <h4 for>Hora: {{ clas.hour }}</h4>
+                <br />
                 <label for>Materia: {{ clas.area }}</label>
                 <label for>Salón: {{ clas.classroom }}</label>
                 <div class="modal-footer">
@@ -87,6 +77,11 @@
                   <datetime format="YYYY-MM-DD H:i:s" v-model="hasta"></datetime>
                   <div class="invalid-feedback"></div>
                 </div>
+                <div class="col-md-6">
+                  <strong for="name">Enlace de Meet</strong>
+                  <input type="text" name="name" class="form-control" v-model="nameMeet" />
+                  <div class="invalid-feedback">Please fill out this field</div>
+                </div>
               </div>
               <div class="modal-footer">
                 <input type="submit" class="btn btn-warning" value="Guardar" />
@@ -109,6 +104,7 @@ export default {
       desde: "",
       hasta: "",
       nameEvent: "",
+      nameMeet: "",
       clases: [],
       myOptions: [],
       materia: "",
@@ -118,10 +114,6 @@ export default {
     datetime,
   },
   mounted() {
-    var urlr = "getAllEvents";
-    axios.get(urlr).then((response) => {
-      this.clases = response.data;
-    });
     var url = window.location.origin + "/GetArearByUser";
     axios.get(url).then((response) => {
       this.myOptions = response.data;
@@ -145,6 +137,7 @@ export default {
           startDateTime: this.desde,
           endDateTime: this.hasta,
           id_area: this.materia,
+          url: this.nameMeet,
         })
         .then((response) => {
           this.getMenu();
