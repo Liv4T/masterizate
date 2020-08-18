@@ -69,12 +69,12 @@ class EventsController extends Controller
         $date =  Carbon::now();
         if ($user->type_user == 2) {
             $eventos_teacher = Eventos::where('id_user', $user->id)->orderBy('date_from', 'ASC')->get();
-            foreach ($eventos_teacher as $evento) {
+            foreach ($eventos_teacher as $index => $evento) {
                 $dateTo = Carbon::parse($evento->date_to);
                 if ($dateTo > $date) {
                     $area = Area::find($evento->id_area);
                     $classroom = Classroom::find($evento->id_classroom);
-                    $eventos[] = [
+                    $eventos[$index] = [
                         "name" => $evento->name,
                         "dateFrom" => $evento->date_from,
                         "dateTo" => $evento->date_to,
@@ -86,13 +86,13 @@ class EventsController extends Controller
             }
         } elseif ($user->type_user == 3) {
             $classroom_student = ClassroomStudent::where('id_user', $user->id)->first();
-            $eventos_student = Eventos::where('id_classroom', $classroom_student->id_classroom)->get();
-            foreach ($eventos_student as $evento) {
+            $eventos_student = Eventos::where('id_classroom', $classroom_student->id_classroom)->orderBy('date_from', 'ASC')->get();
+            foreach ($eventos_student as $index => $evento) {
                 $dateTo = Carbon::parse($evento->date_to);
                 if ($dateTo > $date) {
                     $area = Area::find($evento->id_area);
                     $classroom = Classroom::find($evento->id_classroom);
-                    $eventos[] = [
+                    $eventos[$index] = [
                         "name" => $evento->name,
                         "dateFrom" => $evento->date_from,
                         "dateTo" => $evento->date_to,
@@ -103,13 +103,13 @@ class EventsController extends Controller
                 }
             }
         } elseif ($user->type_user == 1) {
-            $eventos_all = Eventos::all();
-            foreach ($eventos_all as $evento) {
+            $eventos_all = Eventos::orderBy('date_from', 'ASC')->get();
+            foreach ($eventos_all as $index => $evento) {
                 $dateTo = Carbon::parse($evento->date_to);
                 if ($dateTo > $date) {
                     $area = Area::find($evento->id_area);
                     $classroom = Classroom::find($evento->id_classroom);
-                    $eventos[] = [
+                    $eventos[$index] = [
                         "name" => $evento->name,
                         "dateFrom" => $evento->date_from,
                         "dateTo" => $evento->date_to,
