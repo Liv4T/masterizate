@@ -10887,23 +10887,24 @@ a.text-dark:focus {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
 }
 
-/** CUSTOM ELEMENTS **/
+/*CUSTOM ELEMENTS*/
 
-.accordion-content {
+.classroom-label {
+  color: #278080;
+  padding: 10px;
+  margin-top: 15px;
+  font-size: 1.2em;
+}
+
+.classroom-planning-section {
   display: flex;
+  flex-direction: row;
   justify-content: center;
-  padding: 20px;
+  align-items: center;
+  padding: 10px;
 }
 
-/***  *CUSTOM BUTTONS * ****/
-
-.btn-warning:hover {
-  text-decoration: none !important;
-}
-
-/** PADDINGS **/
-
-.padding-top {
-  padding-top: 27px !important;
+.classroom-planning-section > span {
+  margin-left: 20px;
 }
 
