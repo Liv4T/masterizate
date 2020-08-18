@@ -19,9 +19,9 @@
                 <div class="row justify-content-center">
                   <h5>{{ clas.name }}</h5>
                 </div>
-                <h4 for>Fecha: {{ clas.date }}</h4>
-                <h4 for>Hora: {{ clas.hour }}</h4>
-                <br />
+                <h6 for>Desde: {{ clas.dateFrom | moment("LLL") }}</h6>
+                <h6 for>Hasta: {{ clas.dateTo | moment("LLL") }}</h6>
+
                 <label for>Materia: {{ clas.area }}</label>
                 <label for>Salón: {{ clas.classroom }}</label>
                 <div class="modal-footer">
@@ -95,8 +95,10 @@
 </template>
 
 <script>
-import datetime from "vuejs-datetimepicker";
+import Vue from "vue";
 
+import datetime from "vuejs-datetimepicker";
+Vue.use(require("vue-moment"));
 export default {
   props: ["type_u"],
   data() {
@@ -114,6 +116,10 @@ export default {
     datetime,
   },
   mounted() {
+    var urlM = window.location.origin + "/getAllEvents";
+    axios.get(urlM).then((response) => {
+      this.clases = response.data;
+    });
     var url = window.location.origin + "/GetArearByUser";
     axios.get(url).then((response) => {
       this.myOptions = response.data;

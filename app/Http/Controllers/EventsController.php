@@ -45,8 +45,8 @@ class EventsController extends Controller
 
         $evento = new Eventos;
         $evento->name = $request->name;
-        $evento->date_to = $request->startDateTime;
-        $evento->date_from = $request->endDateTime;
+        $evento->date_from = $request->startDateTime;
+        $evento->date_to = $request->endDateTime;
         $evento->id_area = $arrayAreaClassroom[0];
         $evento->id_classroom = $arrayAreaClassroom[1];
         $evento->id_user = Auth::user()->id;
@@ -68,14 +68,14 @@ class EventsController extends Controller
         $user = Auth::user();
         $date =  Carbon::now();
         if ($user->type_user == 2) {
-            $eventos_teacher = Eventos::where('id_user', $user->id)->get();
+            $eventos_teacher = Eventos::where('id_user', $user->id)->orderBy('date_from', 'ASC')->get();
             foreach ($eventos_teacher as $evento) {
                 $dateTo = Carbon::parse($evento->date_to);
                 if ($dateTo > $date) {
                     $area = Area::find($evento->id_area);
                     $classroom = Classroom::find($evento->id_classroom);
                     $eventos[] = [
-                        "name" => $evento->summary,
+                        "name" => $evento->name,
                         "dateFrom" => $evento->date_from,
                         "dateTo" => $evento->date_to,
                         "hangout" => $evento->url,
@@ -93,7 +93,7 @@ class EventsController extends Controller
                     $area = Area::find($evento->id_area);
                     $classroom = Classroom::find($evento->id_classroom);
                     $eventos[] = [
-                        "name" => $evento->summary,
+                        "name" => $evento->name,
                         "dateFrom" => $evento->date_from,
                         "dateTo" => $evento->date_to,
                         "hangout" => $evento->url,
@@ -110,7 +110,7 @@ class EventsController extends Controller
                     $area = Area::find($evento->id_area);
                     $classroom = Classroom::find($evento->id_classroom);
                     $eventos[] = [
-                        "name" => $evento->summary,
+                        "name" => $evento->name,
                         "dateFrom" => $evento->date_from,
                         "dateTo" => $evento->date_to,
                         "hangout" => $evento->url,
