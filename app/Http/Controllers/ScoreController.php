@@ -174,7 +174,10 @@ class ScoreController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = $request->all();
+        Indicator::where('id', $id)->update(array('type_activity'=>$data['type_activity'], 'activity_rate'=>$data['activity_rate']));     
+
+        return 'ok';
     }
 
     /**
