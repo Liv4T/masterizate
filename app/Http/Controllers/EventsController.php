@@ -24,35 +24,36 @@ class EventsController extends Controller
     {
         // return $request;
         // return $request->startDateTime;
-        $event = new Event;
+        // $event = new Event;
 
-        $dateFrom = Carbon::parse($request->startDateTime);
-        $dateFrom2 = $dateFrom;
-        $dateFrom->addHour(5);
-        $dateTo = Carbon::parse($request->endDateTime);
-        $dateTo2 = $dateTo;
-        $dateTo->addHour(5);
+        // $dateFrom = Carbon::parse($request->startDateTime);
+        // $dateFrom2 = $dateFrom;
+        // $dateFrom->addHour(5);
+        // $dateTo = Carbon::parse($request->endDateTime);
+        // $dateTo2 = $dateTo;
+        // $dateTo->addHour(5);
 
-        $event->name = $request->name;
-        $event->startDateTime = $dateFrom;
-        $event->endDateTime = $dateTo;
-        // $event->addAttendee(['email' => 'mildredfigueroaq@gmail.com']);
+        // $event->name = $request->name;
+        // $event->startDateTime = $dateFrom;
+        // $event->endDateTime = $dateTo;
+        // // $event->addAttendee(['email' => 'mildredfigueroaq@gmail.com']);
 
-        $event->save();
+        // $event->save();
 
         $area_classroom = $request->id_area;
         $arrayAreaClassroom = explode("/", $area_classroom);
 
         $evento = new Eventos;
         $evento->name = $request->name;
-        $evento->date_to = $dateFrom2;
-        $evento->date_from = $dateTo2;
+        $evento->date_from = $request->startDateTime;
+        $evento->date_to = $request->endDateTime;
         $evento->id_area = $arrayAreaClassroom[0];
         $evento->id_classroom = $arrayAreaClassroom[1];
         $evento->id_user = Auth::user()->id;
+        $evento->url = $request->url;
         $evento->save();
 
-        return response()->json($event);
+        return response()->json($evento);
     }
 
     /**
@@ -62,84 +63,61 @@ class EventsController extends Controller
      */
     public function indexEvents()
     {
-        $events = Event::get();
+        // $events = Event::get();
         $eventos = [];
         $user = Auth::user();
         $date =  Carbon::now();
         if ($user->type_user == 2) {
-            $eventos_teacher = Eventos::where('id_user', $user->id)->get();
-            foreach ($events as $event) {
-                if (!is_null($event->hangoutLink) && ($event->start->dateTime > $date)) {
-                    foreach ($eventos_teacher as $evento) {
-                        if ($evento->name == $event->summary) {
-                            $dateTime = explode("T", $event->start->dateTime);
-                            $area = Area::find($evento->id_area);
-                            $classroom = Classroom::find($evento->id_classroom);
-                            $dateTimes = $dateTime[0];
-                            $hour = $dateTime[1];
-                            $hourarray = explode("-", $hour);
-                            $hour = $hourarray[0];
-                            $eventos[] = [
-                                "name" => $event->summary,
-                                "date" => $dateTimes,
-                                "hour" => $hour,
-                                "hangout" => $event->hangoutLink,
-                                "area" => $area->name,
-                                "classroom" => $classroom->name,
-                            ];
-                        }
-                    }
+            $eventos_teacher = Eventos::where('id_user', $user->id)->orderBy('date_from', 'ASC')->get();
+            foreach ($eventos_teacher as $index => $evento) {
+                $dateTo = Carbon::parse($evento->date_to);
+                if ($dateTo > $date) {
+                    $area = Area::find($evento->id_area);
+                    $classroom = Classroom::find($evento->id_classroom);
+                    $eventos[$index] = [
+                        "id" => $evento->id,
+                        "name" => $evento->name,
+                        "dateFrom" => $evento->date_from,
+                        "dateTo" => $evento->date_to,
+                        "hangout" => $evento->url,
+                        "area" => $area->name,
+                        "classroom" => $classroom->name,
+                    ];
                 }
             }
         } elseif ($user->type_user == 3) {
             $classroom_student = ClassroomStudent::where('id_user', $user->id)->first();
-            $eventos_student = Eventos::where('id_classroom', $classroom_student->id_classroom)->get();
-            foreach ($events as $event) {
-                if (!is_null($event->hangoutLink) && ($event->start->dateTime > $date)) {
-                    foreach ($eventos_student as $evento) {
-                        if ($evento->name == $event->summary) {
-                            $dateTime = explode("T", $event->start->dateTime);
-                            $area = Area::find($evento->id_area);
-                            $classroom = Classroom::find($evento->id_classroom);
-                            $dateTimes = $dateTime[0];
-                            $hour = $dateTime[1];
-                            $hourarray = explode("-", $hour);
-                            $hour = $hourarray[0];
-                            $eventos[] = [
-                                "name" => $event->summary,
-                                "date" => $dateTimes,
-                                "hour" => $hour,
-                                "hangout" => $event->hangoutLink,
-                                "area" => $area->name,
-                                "classroom" => $classroom->name,
-                            ];
-                        }
-                    }
+            $eventos_student = Eventos::where('id_classroom', $classroom_student->id_classroom)->orderBy('date_from', 'ASC')->get();
+            foreach ($eventos_student as $index => $evento) {
+                $dateTo = Carbon::parse($evento->date_to);
+                if ($dateTo > $date) {
+                    $area = Area::find($evento->id_area);
+                    $classroom = Classroom::find($evento->id_classroom);
+                    $eventos[$index] = [
+                        "name" => $evento->name,
+                        "dateFrom" => $evento->date_from,
+                        "dateTo" => $evento->date_to,
+                        "hangout" => $evento->url,
+                        "area" => $area->name,
+                        "classroom" => $classroom->name,
+                    ];
                 }
             }
         } elseif ($user->type_user == 1) {
-            $eventos_all = Eventos::all();
-            foreach ($events as $event) {
-                if (!is_null($event->hangoutLink) && ($event->start->dateTime > $date)) {
-                    foreach ($eventos_all as $evento) {
-                        if ($evento->name == $event->summary) {
-                            $dateTime = explode("T", $event->start->dateTime);
-                            $area = Area::find($evento->id_area);
-                            $classroom = Classroom::find($evento->id_classroom);
-                            $dateTimes = $dateTime[0];
-                            $hour = $dateTime[1];
-                            $hourarray = explode("-", $hour);
-                            $hour = $hourarray[0];
-                            $eventos[] = [
-                                "name" => $event->summary,
-                                "date" => $dateTimes,
-                                "hour" => $hour,
-                                "hangout" => $event->hangoutLink,
-                                "area" => $area->name,
-                                "classroom" => $classroom->name,
-                            ];
-                        }
-                    }
+            $eventos_all = Eventos::orderBy('date_from', 'ASC')->get();
+            foreach ($eventos_all as $index => $evento) {
+                $dateTo = Carbon::parse($evento->date_to);
+                if ($dateTo > $date) {
+                    $area = Area::find($evento->id_area);
+                    $classroom = Classroom::find($evento->id_classroom);
+                    $eventos[$index] = [
+                        "name" => $evento->name,
+                        "dateFrom" => $evento->date_from,
+                        "dateTo" => $evento->date_to,
+                        "hangout" => $evento->url,
+                        "area" => $area->name,
+                        "classroom" => $classroom->name,
+                    ];
                 }
             }
         }
@@ -196,9 +174,32 @@ class EventsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function updateEvent(Request $request)
     {
-        //
+        $data = $request->all();
+        $eventos = Eventos::findOrFail($data['id']);
+        $user = Auth::user();
+
+        $area_classroom = $data['id_area'];
+        $arrayAreaClassroom = explode("/", $area_classroom);
+        $eventos->name = $data['name'];
+        $eventos->date_from = $data['startDateTime'];
+        $eventos->date_to = $data['endDateTime'];
+        $eventos->id_area = $arrayAreaClassroom[0];
+        $eventos->id_classroom = $arrayAreaClassroom[1];
+        $eventos->id_user = Auth::user()->id;
+        $eventos->url = $data['url'];
+        $eventos->save();
+
+        return 'ok';
+    }
+    public function findEvent(String $id)
+    {
+
+        $eventos = Eventos::findOrFail($id);
+
+
+        return $eventos;
     }
 
     /**
@@ -210,5 +211,7 @@ class EventsController extends Controller
     public function destroy($id)
     {
         //
+        $eventos = Eventos::findOrFail($id);
+        $eventos->delete();
     }
 }

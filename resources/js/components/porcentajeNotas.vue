@@ -79,21 +79,20 @@
                                 <td>Actividad</td>
 
                                 <td>Porcentaje</td>
+
+                                <td>Editar</td>
                               </tr>
                               <tr v-for="opt in fillI">
                                 <td>{{ opt.type_activity }}</td>
 
                                 <td>{{ opt.activity_rate }}</td>
+
+                                <td><button class="btn btn-default btn-sm" v-on:click.prevent="showEdit(opt.id,opt.type_activity,opt.activity_rate)">Editar</button></td>
                               </tr>
                             </tbody>
                           </table>
                           <div align="right">
-                            <a
-                              class="btn btn-warning"
-                              v-on:click.prevent="
-                                                                    editNames(option.id,option.id_planification)
-                                                                "
-                            >Agregar</a>
+                            <a class="btn btn-warning" v-on:click.prevent="editNames(option.id,option.id_planification)">Agregar</a>
                           </div>
                         </div>
                       </div>
@@ -244,6 +243,7 @@ export default {
       newAnual: [],
       errors: [],
       id_logro: "",
+      id_indicator: 0,
     };
   },
   mounted() {
@@ -290,6 +290,7 @@ export default {
       axios
         .post(url, {
           //Cursos generales
+          id_indicator:this.id_indicator,
           type_activity: this.tipo_act,
           id_annual: this.id_annual,
           id_achievement: this.id_logro,
@@ -313,8 +314,19 @@ export default {
       //   axios.get(urlr).then(response => {
       //     this.fillS = response.data;
       //   });
+       this.id_indicator =0;
       this.id_annual = clas;
       this.id_logro = id;
+      $("#createZ").modal("show");
+    },
+    showEdit(id_porcentaje, tipo_act, porcentaje) {
+      //   var urlr = "showClass/" + clas;
+      //   axios.get(urlr).then(response => {
+      //     this.fillS = response.data;
+      //   });
+      this.id_indicator = id_porcentaje;
+      this.tipo_act = tipo_act;
+      this.porcentaje = porcentaje;
       $("#createZ").modal("show");
     },
   },
