@@ -243,7 +243,7 @@ export default {
       newAnual: [],
       errors: [],
       id_logro: "",
-      id_porcentaje: 0,
+      id_indicator: 0,
     };
   },
   mounted() {
@@ -290,6 +290,7 @@ export default {
       axios
         .post(url, {
           //Cursos generales
+          id_indicator:this.id_indicator,
           type_activity: this.tipo_act,
           id_annual: this.id_annual,
           id_achievement: this.id_logro,
@@ -313,6 +314,7 @@ export default {
       //   axios.get(urlr).then(response => {
       //     this.fillS = response.data;
       //   });
+       this.id_indicator =0;
       this.id_annual = clas;
       this.id_logro = id;
       $("#createZ").modal("show");
@@ -322,7 +324,7 @@ export default {
       //   axios.get(urlr).then(response => {
       //     this.fillS = response.data;
       //   });
-      this.id_porcentaje = id_porcentaje;
+      this.id_indicator = id_porcentaje;
       this.tipo_act = tipo_act;
       this.porcentaje = porcentaje;
       $("#createZ").modal("show");
