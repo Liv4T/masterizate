@@ -99,9 +99,9 @@
                             <a class="nav-link" href="{{ route('loginNew') }}">{{ __('Login') }}</a>
                         </li>
                         @if (Route::has('registerNew'))
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('registerNew') }}">{{ __('Register') }}</a>
-                        </li>
+                        <!-- li class="nav-item"-->
+                            <!--a class="nav-link" href="{{ route('registerNew') }}">{{ __('Register') }}</a-->
+                        <!--/li-->
                         @endif
                         @else
                         <li class="nav-item dropdown">
