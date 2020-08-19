@@ -70,13 +70,21 @@ class ScoreController extends Controller
     {
         $data = $request->all();
 
-        $indicator = new Indicator;
+        if(isset($data['id_indicator']) && $data['id_indicator']!=0)
+        {
+            Indicator::where('id', $data['id_indicator'])->update(array('type_activity'=>$data['type_activity'], 'activity_rate'=>$data['activity_rate']));     
+        }
+        else{
+            $indicator = new Indicator;
 
-        $indicator->id_annual = $data['id_annual'];
-        $indicator->id_achievement = $data['id_achievement'];
-        $indicator->type_activity = $data['type_activity'];
-        $indicator->activity_rate = $data['activity_rate'];
-        $indicator->save();
+            $indicator->id_annual = $data['id_annual'];
+            $indicator->id_achievement = $data['id_achievement'];
+            $indicator->type_activity = $data['type_activity'];
+            $indicator->activity_rate = $data['activity_rate'];
+            $indicator->save();
+        }
+
+     
     }
     /**
      * Store a newly created resource in storage.
@@ -174,7 +182,10 @@ class ScoreController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = $request->all();
+        Indicator::where('id', $id)->update(array('type_activity'=>$data['type_activity'], 'activity_rate'=>$data['activity_rate']));     
+
+        return 'ok';
     }
 
     /**
