@@ -75,6 +75,7 @@ class EventsController extends Controller
                     $area = Area::find($evento->id_area);
                     $classroom = Classroom::find($evento->id_classroom);
                     $eventos[$index] = [
+                        "id" => $evento->id,
                         "name" => $evento->name,
                         "dateFrom" => $evento->date_from,
                         "dateTo" => $evento->date_to,
@@ -173,9 +174,32 @@ class EventsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function updateEvent(Request $request)
     {
-        //
+        $data = $request->all();
+        $eventos = Eventos::findOrFail($data['id']);
+        $user = Auth::user();
+
+        $area_classroom = $data['id_area'];
+        $arrayAreaClassroom = explode("/", $area_classroom);
+        $eventos->name = $data['name'];
+        $eventos->date_from = $data['startDateTime'];
+        $eventos->date_to = $data['endDateTime'];
+        $eventos->id_area = $arrayAreaClassroom[0];
+        $eventos->id_classroom = $arrayAreaClassroom[1];
+        $eventos->id_user = Auth::user()->id;
+        $eventos->url = $data['url'];
+        $eventos->save();
+
+        return 'ok';
+    }
+    public function findEvent(String $id)
+    {
+
+        $eventos = Eventos::findOrFail($id);
+
+
+        return $eventos;
     }
 
     /**
@@ -187,5 +211,7 @@ class EventsController extends Controller
     public function destroy($id)
     {
         //
+        $eventos = Eventos::findOrFail($id);
+        $eventos->delete();
     }
 }
