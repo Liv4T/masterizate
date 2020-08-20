@@ -81,13 +81,17 @@
                                 <td>Porcentaje</td>
 
                                 <td>Editar</td>
+
+                                <td>Eliminar</td>
                               </tr>
-                              <tr v-for="opt in fillI">
+                              <tr v-for="(opt,i) in fillI">
                                 <td>{{ opt.type_activity }}</td>
 
                                 <td>{{ opt.activity_rate }}</td>
 
-                                <td><button class="btn btn-default btn-sm" v-on:click.prevent="showEdit(opt.id,opt.type_activity,opt.activity_rate)">Editar</button></td>
+                                <td><a class="fas fa-edit" v-on:click.prevent="showEdit(opt.id,opt.type_activity,opt.activity_rate)"></a></td>
+
+                                <td><a class="fas fa-trash-alt" v-on:click.prevent="removePercentage(i,opt.id)"></a></td>
                               </tr>
                             </tbody>
                           </table>
@@ -153,6 +157,33 @@
                       class="btn btn-warning"
                       v-on:click.prevent="createIndicator()"
                       value="Guardar"
+                    />
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal fade" id="deleteZ">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="card">
+              <h3 class="card-header fondo text-center">
+                Eliminar Indicador
+                <button type="button" class="close" data-dismiss="modal">
+                  <span>&times;</span>
+                </button>
+              </h3>
+              <div class="card-body">
+                <form class="needs-validation" v-on:submit.prevent novalidate>
+                  <label>¿Desea eliminar el indicador?</label>                  
+                  <div class="modal-footer">
+                    <input
+                      type="submit"
+                      class="btn btn-warning"
+                      v-on:click.prevent="deleteIndicator()"
+                      value="Confirmar"
                     />
                   </div>
                 </form>
@@ -244,6 +275,7 @@ export default {
       errors: [],
       id_logro: "",
       id_indicator: 0,
+      index:0
     };
   },
   mounted() {
@@ -314,7 +346,7 @@ export default {
       //   axios.get(urlr).then(response => {
       //     this.fillS = response.data;
       //   });
-       this.id_indicator =0;
+      this.id_indicator = 0;
       this.id_annual = clas;
       this.id_logro = id;
       $("#createZ").modal("show");
@@ -328,6 +360,31 @@ export default {
       this.tipo_act = tipo_act;
       this.porcentaje = porcentaje;
       $("#createZ").modal("show");
+    },
+    removePercentage(index,id_indicator) {
+      this.id_indicator = id_indicator;
+      this.index=index;
+      $("#deleteZ").modal("show");
+    },
+    deleteIndicator() {
+      var url = window.location.origin + "/deleteIndicator";
+      $("#deleteZ").modal("hide");
+
+      axios
+        .post(url, {
+          //Eliminar indicador
+          id_indicator:this.id_indicator,
+        })
+        .then((response) => {
+          this.errors = [];
+
+          toastr.success("Actividad eliminada exitosamente");
+          this.fillI.splice(this.index,1);
+          this.getInd();
+        })
+        .catch((error) => {
+          this.errors = error.response.data;
+        });
     },
   },
 };
