@@ -127,7 +127,6 @@ class CoursesController extends Controller
                 }
             }
         }
-
         return response()->json($areas);
     }
 
@@ -180,10 +179,6 @@ class CoursesController extends Controller
             }
             return "ok";
         } else {
-
-            
-
-
             $data = $request->all();
 
             $courses = Courses::where('id_teacher', Auth::user()->id)->where('id_area', $data['id_area'])->where('id_classroom', $data['id_classroom'])->get();
@@ -199,7 +194,6 @@ class CoursesController extends Controller
             {
                 $course=$courses[0];
             }
-
                  
             $achievements = $data['logros'];
 
@@ -225,9 +219,7 @@ class CoursesController extends Controller
                         'id_planification'  => $course->id,
                     ]);
                 }
-
             }
-
 
             $Quarterlies = $data['trimestres'];
 
@@ -258,15 +250,8 @@ class CoursesController extends Controller
                         'id_teacher'     =>  Auth::user()->id,
                     ]);
                 }
-
             }
-
-
-
-
             return "ok";
-
-
         }
     }
 
@@ -443,6 +428,7 @@ class CoursesController extends Controller
         }
         return response()->json($data);
     }
+
     public function editOneWeek(String $id_area, String $id_classroom)
     {
         $user = Auth::user();
@@ -465,6 +451,7 @@ class CoursesController extends Controller
         }
         return response()->json($data);
     }
+
     public function viewGetWeek(String $id_area, String $id_classroom)
     {
         $Weeks = Weekly::where('id_area', $id_area)->where('id_classroom', $id_classroom)->get();
