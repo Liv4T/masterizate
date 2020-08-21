@@ -5,6 +5,7 @@
         <div class="col-md-11 mx-auto">
           <div class="custom-card text-center">
             <h3 class="card-header fondo">Mis clases</h3>
+            <span class="classroom-label">{{ nameArea }}</span>
             <form class="needs-validation" novalidate>
               <form-wizard
                 title
@@ -216,11 +217,26 @@ export default {
       messageVideo1: "",
       messageVideo2: "",
       numero: "",
+      nameArea: "",
       errors: [],
     };
   },
   mounted() {
-    var urlsel = "editGetWeek/0/0";
+    var url =
+      window.location.origin +
+      "/GetNameArea/" +
+      this.id_area +
+      "/" +
+      this.id_classroom;
+    axios.get(url).then((response) => {
+      this.nameArea = response.data;
+    });
+    var urlsel =
+      window.location.origin +
+      "/editOneWeek/" +
+      this.id_area +
+      "/" +
+      this.id_classroom;
     axios.get(urlsel).then((response) => {
       this.myOptions = response.data;
     });

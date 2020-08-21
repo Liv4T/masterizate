@@ -135,13 +135,28 @@
                           <strong for="name">Enlace de apoyo</strong>
 
                           <div>
-                            <a :href="clas.url" style="color:blue">{{ clas.url }}</a>
+                            <a
+                              :href="clas.url"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              style="color:blue"
+                            >{{ clas.url }}</a>
                           </div>
                           <div>
-                            <a :href="clas.url1" style="color:blue">{{ clas.url1 }}</a>
+                            <a
+                              :href="clas.url1"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              style="color:blue"
+                            >{{ clas.url1 }}</a>
                           </div>
                           <div>
-                            <a :href="clas.url2" style="color:blue">{{ clas.url2 }}</a>
+                            <a
+                              :href="clas.url2"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              style="color:blue"
+                            >{{ clas.url2 }}</a>
                           </div>
                         </div>
                         <div class="form-group text-center">

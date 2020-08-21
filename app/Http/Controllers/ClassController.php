@@ -7,6 +7,8 @@ use App\Files;
 use App\Courses;
 use App\Weekly;
 use App\CoursesAchievement;
+use App\Area;
+use App\Classroom;
 use Illuminate\Http\Request;
 use Auth;
 use PhpParser\Node\Stmt\Foreach_;
@@ -152,6 +154,17 @@ class ClassController extends Controller
      */
     public function destroy($id)
     {
+    }
+    public function getNameArea(String $id_area, String $id_classroom)
+    {
+        $classroom_name = '';
+        $classroom = Classroom::where('id', $id_classroom)->get();
+        $area = Area::where('id', $id_area)->get();
+
+        if (isset($classroom) && count($classroom) > 0 && isset($area) && count($area) > 0) {
+            $classroom_name = $area[0]->name . ' ' . $classroom[0]->name;
+        }
+        return response()->json($classroom_name);
     }
     public function uploadFile(Request $request)
     {

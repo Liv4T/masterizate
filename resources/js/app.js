@@ -48,7 +48,7 @@ Vue.component("footers", require("./components/footer.vue").default);
 Vue.component("unit-class", require("./components/unitComponent.vue").default);
 Vue.component("free-component", require("./components/freeComponent.vue").default);
 Vue.component("freeu-component", require("./components/freeUnitComponent.vue").default);
-Vue.component("course-component", require("./components/courseComponent.vue").default);
+Vue.component("course-component", ()=>import("./components/courseComponent.vue"));
 Vue.component("course-view", require("./components/courseView.vue").default);
 Vue.component("semanal-component", require("./components/courseSemanalComponet.vue").default);
 Vue.component("semanalact-component", require("./components/courseSemanalAct.vue").default);

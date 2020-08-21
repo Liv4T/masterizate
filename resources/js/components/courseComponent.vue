@@ -26,6 +26,7 @@
         <div class="custom-card text-center">
           <h3 class="card-header fondo">Planificación general</h3>
           <span class="classroom-label">{{fillC.classroom_name}}</span>
+          <span v-show="!isSynchronized">(Hay cambios que no han sido guardados)</span>
           <form class="needs-validation" novalidate>
             <form-wizard
               title
@@ -36,35 +37,46 @@
               finish-button-text="Guardar y enviar"
               @on-complete="createCourses"
             >
+              <span
+                class="spinner-border spinner-border"
+                role="status"
+                aria-hidden="true"
+                v-if="isLoading"
+              ></span>
               <tab-content title="Anual">
                 <div class="form-group mx-auto" v-for="(input1, t) in inputs1" :key="t">
                   <div class="classroom-planning-section">
                     <strong>Logro:</strong>
-                      
-                      <input v-on:change="annualContentUpdateEvent($event,t)" class="form-control form-control-sm" type="number" style="width:50px;" v-model="input1.porcentaje" />%
-                      <span>
-                        <a
-                          href="#"
-                          class="badge badge-danger"
-                          @click.prevent="
-                                                            remove1(t)
-                                                        "
-                          v-show="(t>0 && inputs1_saved.length<=t)"
-                        >-</a>
-                        <a
-                          href="#"
-                          class="badge badge-primary"
-                          @click.prevent="add1(t)"
-                          v-show="
-                                                            t ==
-                                                                inputs1.length -
-                                                                    1
-                                                        "
-                        >+</a>
-                      </span>
-                   
+
+                    <input
+                      v-on:change="annualContentUpdateEvent($event,t)"
+                      class="form-control form-control-sm"
+                      type="number"
+                      style="width:50px;"
+                      v-model="input1.porcentaje"
+                    />%
+                    <span>
+                      <a
+                        href="#"
+                        class="badge badge-danger"
+                        @click.prevent="remove1(t)"
+                        v-show="(t>0 && inputs1_saved.length<=t)"
+                      >-</a>
+                      <a
+                        href="#"
+                        class="badge badge-primary"
+                        @click.prevent="add1(t)"
+                        v-show="t == inputs1.length -1"
+                      >+</a>
+                    </span>
                   </div>
-                  <textarea name="welcome" class="form-control" v-model="input1.logro" v-on:change="annualContentUpdateEvent($event,t)" required></textarea>
+                  <textarea
+                    name="welcome"
+                    class="form-control"
+                    v-model="input1.logro"
+                    v-on:change="annualContentUpdateEvent($event,t)"
+                    required
+                  ></textarea>
                   <div class="invalid-feedback">Please fill out this field</div>
                 </div>
               </tab-content>
@@ -84,9 +96,7 @@
                         href="#"
                         class="badge badge-primary"
                         @click.prevent="add(t)"
-                        v-show="
-                                                        t == inputs.length - 1
-                                                    "
+                        v-show="t == inputs.length - 1"
                       >+</a>
                     </span>
                     <div>
@@ -117,7 +127,7 @@
                 <!-- <div class="modal-footer">
                   <a submit="createCourses" class="btn btn-warning float-right">Guardar</a>
                 </div>-->
-              </tab-content>
+              </tab-content>              
             </form-wizard>
           </form>
           <!--
@@ -240,6 +250,7 @@ $(function () {
     }
   });
 });
+
 import VueFormWizard from "vue-form-wizard";
 import "vue-form-wizard/dist/vue-form-wizard.min.css";
 Vue.use(VueFormWizard);
@@ -278,10 +289,16 @@ export default {
       anual: [],
       newAnual: [],
       errors: [],
-      isSynchronized:true
+      isSynchronized:true,
+      isLoading:false
     };
   },
   mounted() {
+
+     //load from localstorage
+     this.serialLocalStorage=this.serialLocalStorage+"-"+this.id_area+"-"+this.id_classroom;
+
+
     var urlsel =
       window.location.origin +
       "/coursePlanification/" +
@@ -307,8 +324,7 @@ export default {
       }
       else
       {
-        //load from localstorage
-        this.serialLocalStorage=this.serialLocalStorage+"-"+this.id_area+"-"+this.id_classroom;
+       
         if(localStorage.getItem(this.serialLocalStorage))
         {
           let savedInputModel=JSON.parse(decodeURIComponent(escape(window.atob(localStorage.getItem(this.serialLocalStorage)))));
@@ -345,6 +361,7 @@ export default {
     },
     getMenu() {
        window.location = "/actividad_g";
+       this.isLoading=false;
     },
     add(index) {
       this.inputs.push({ name: "", contenido: "" });
@@ -358,8 +375,11 @@ export default {
     remove1(index) {
       this.inputs1.splice(index, 1);
     },
-
+    isLoadingEvent(){
+      return this.isLoading;
+    },
     createCourses() {
+      this.isLoading=true;
       var url = window.location.origin + "/Courses";
 
        if(this.inputs.length<1 ||  this.inputs1.length<1)
@@ -388,12 +408,15 @@ export default {
         })
         .then((response) => {
           this.errors = [];
+         
 
           toastr.success("Nuevo plan general creado exitosamente");
           this.getMenu();
+         
         })
         .catch((error) => {
           this.errors = error.response.data;
+          this.isLoading=false;
         });
     },
     updateCourses() {

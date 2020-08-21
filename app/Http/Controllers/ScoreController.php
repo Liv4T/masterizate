@@ -82,10 +82,9 @@ class ScoreController extends Controller
             $indicator->type_activity = $data['type_activity'];
             $indicator->activity_rate = $data['activity_rate'];
             $indicator->save();
-        }
-
-     
+        }     
     }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -194,8 +193,11 @@ class ScoreController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function deleteIndicator(request $request)
     {
-        //
+        $data = $request->all();
+        Indicator::where('id', $data['id_indicator'])->delete();
+
+        return 'ok';
     }
 }
