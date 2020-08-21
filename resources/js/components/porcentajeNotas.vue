@@ -66,12 +66,10 @@
                           </button>
                         </h2>
                       </div>
-                      <div
-                        :id="'collapse'+t"
+                      <div :id="'collapse'+t"
                         class="collapse hide"
                         aria-labelledby="heading"
-                        data-parent="#accordionExample"
-                      >
+                        data-parent="#accordionExample">
                         <div class="card-body">
                           <table class="table table-responsive-xl table-hover table-striped center">
                             <tbody>
@@ -147,7 +145,7 @@
                           v-model="porcentaje"
                           style="background: gainsboro;"
                           required
-                        />
+                        />                        
                       </div>
                     </div>
                   </div>
@@ -275,7 +273,7 @@ export default {
       errors: [],
       id_logro: "",
       id_indicator: 0,
-      index:0
+      index: 0
     };
   },
   mounted() {
@@ -332,6 +330,7 @@ export default {
           this.errors = [];
 
           toastr.success("Nueva actividad creada exitosamente");
+
           this.getInd();
         })
         .catch((error) => {
@@ -349,6 +348,9 @@ export default {
       this.id_indicator = 0;
       this.id_annual = clas;
       this.id_logro = id;
+      this.tipo_act = "";
+      this.porcentaje = "";
+
       $("#createZ").modal("show");
     },
     showEdit(id_porcentaje, tipo_act, porcentaje) {
@@ -388,5 +390,7 @@ export default {
     },
   },
 };
+
+
 </script>
 <style></style>
