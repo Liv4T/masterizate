@@ -24,6 +24,13 @@
 
                 <label for>Materia: {{ clas.area }}</label>
                 <label for>Salón: {{ clas.classroom }}</label>
+                <br />
+                <a
+                  class="btn btn-warning"
+                  :href="clas.hangout"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >Ir a la clase</a>
                 <div class="modal-footer">
                   <a
                     class="btn btn-warning"
@@ -37,12 +44,6 @@
                     href
                     v-on:click.prevent="viewDelete(clas.id,clas.name)"
                   >Eliminar</a>
-                  <a
-                    class="btn btn-warning"
-                    :href="clas.hangout"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >Ir a la clase</a>
                 </div>
               </div>
             </div>

@@ -38,7 +38,7 @@
                       <a
                         class="btn btn-warning"
                         v-on:click.prevent="
-                                                    editNames(clas.id)
+                                                    editNames(clas.id, clas.id_area, clas.id_classroom)
                                                 "
                         style="text-overflow: ellipsis;
                                 width: 170px;
@@ -65,7 +65,10 @@
                 </button>
               </h3>
               <div class="float-right">
-                <a class="btn btn-warning float-right" href="/crear_clase">Crear Clase</a>
+                <a
+                  class="btn btn-warning float-right"
+                  :href="'/crear_clase/'+Iarea+'/'+Iclassroom"
+                >Crear Clase</a>
               </div>
 
               <div class="card-body">
@@ -139,13 +142,28 @@
                           <strong for="name">Enlace de apoyo</strong>
 
                           <div>
-                            <a :href="clas.url" style="color:blue">{{ clas.url }}</a>
+                            <a
+                              :href="clas.url"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              style="color:blue"
+                            >{{ clas.url }}</a>
                           </div>
                           <div>
-                            <a :href="clas.url1" style="color:blue">{{ clas.url1 }}</a>
+                            <a
+                              :href="clas.url1"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              style="color:blue"
+                            >{{ clas.url1 }}</a>
                           </div>
                           <div>
-                            <a :href="clas.url2" style="color:blue">{{ clas.url2 }}</a>
+                            <a
+                              :href="clas.url2"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              style="color:blue"
+                            >{{ clas.url2 }}</a>
                           </div>
                         </div>
                         <div class="form-group text-center">
@@ -205,6 +223,8 @@ export default {
       id_act: "",
       errors: [],
       fillS: [],
+      Iclassroom: "",
+      Iarea: "",
     };
   },
   created() {},
@@ -217,8 +237,10 @@ export default {
     console.log("Component mounted.");
   },
   methods: {
-    editNames(clas) {
+    editNames(clas, area, classroom) {
       this.fillS = [];
+      this.Iarea = area;
+      this.Iclassroom = classroom;
       var urlr = "showClass/" + clas;
       axios.get(urlr).then((response) => {
         this.fillS = response.data.clase;

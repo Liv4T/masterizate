@@ -186,8 +186,9 @@ Route::get('/vmensaje', function () {
 Route::get('/clases_d', function () {
     return view('clasesDocente');
 });
-Route::get('/crear_clase', function () {
-    return view('crearClase');
+
+Route::get('/crear_clase/{id_area}/{id_classroom}', function (String $id_area, String $id_classroom) {
+    return view('crearClase')->with('id_area', $id_area)->with('id_classroom', $id_classroom);
 });
 Route::get('/general_adm', function () {
     return view('cursosAdm');
@@ -291,6 +292,7 @@ Route::resource('Courses', 'CoursesController', ['except' => 'show', 'create', '
 Route::resource('Class', 'ClassController', ['except' => 'show', 'create', 'edit']);
 Route::get('GetClass', 'ClassController@getClass');
 Route::get('showClass/{id}', 'ClassController@show')->name('showClass');
+Route::get('GetNameArea/{id_area}/{id_classroom}', 'ClassController@getNameArea')->name('GetNameArea');
 Route::get('getActivity/{id_1}/{id_2}', 'ActivityController@indexActivityByArea')->name('getActivity');
 Route::get('getActivityById/{id}', 'ActivityController@getActivityById')->name('getActivityById');
 Route::resource('Activity', 'ActivityController', ['except' => 'show', 'create', 'edit']);
