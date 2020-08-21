@@ -323,12 +323,11 @@ Route::resource('course_unit', 'Course_unitController', ['except' => 'show', 'cr
 Route::get('/home', 'HomeController@index')->name('home');
 
 //Almacenar las notas
-
-
 Route::post('saveIndicator', 'ScoreController@saveIndicator')->name('saveIndicator');
 Route::get('getIndicator/{id}', 'ScoreController@getIndicator')->name('getIndicator');
 Route::post('saveScore', 'ScoreController@store')->name('saveScore');
 Route::get('StudentsByArea/{id_1}/{id_2}', 'ScoreController@getStudentByArea')->name('StudentsByArea');
+Route::post('deleteIndicator', 'ScoreController@deleteIndicator')->name('deleteIndicator');
 
 // Chat
 Route::resource('groups', 'GroupController');
