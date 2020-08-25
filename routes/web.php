@@ -193,6 +193,7 @@ Route::get('/crear_clase/{id_area}/{id_classroom}', function (String $id_area, S
 Route::get('/general_adm', function () {
     return view('cursosAdm');
 });
+
 Route::get('/semana_adm', function () {
     return view('semanaAdm');
 });
@@ -458,3 +459,41 @@ Route::post('/resetPassword', 'UserController@resetPassword')->name('resetPasswo
 Route::post('users_save', 'UserController@store')->name('users_save');
 Route::get('Courses_save', 'CoursesController@storeNew')->name('Courses_save');
 Route::get('/logout2', 'UserController@logOut')->name('logout2');
+
+
+
+
+
+//Módulo de electivas usuario Administrador
+Route::get('/admin/lectives', function () { 
+    return view('lectivesAdm');
+});
+Route::get('/admin/lectives-teacher', function () { 
+    return view('lectivesAdmAssingTeacher');
+});
+//Módulo de electivas usuario Docente
+Route::get('/teacher/lectives/planning', function () {
+    return view('lectivesTeacherPlanning');
+});
+Route::get('/teacher/lectives/courses', function () {
+    return view('lectivesTeacherCourses');
+});
+Route::get('/teacher/lectives/students', function () {
+    return view('lectivesTeacherStudentsList');
+});
+Route::get('/teacher/lectives/activities', function () {
+    return view('lectivesTeacherActivities');
+});
+Route::get('/teacher/lectives/notes', function () {
+    return view('lectivesTeacherNotes');
+});
+Route::get('/teacher/lectives/board', function () {
+    return view('lectivesTeacherBoard');
+});
+//Módulo de electivas usuario Estudiante
+Route::get('/student/lectives/courses', function () {
+    return view('lectivesStudentCourses');
+});
+Route::get('/student/lectives/activities', function () {
+    return view('lectivesStudentActivities');
+});
