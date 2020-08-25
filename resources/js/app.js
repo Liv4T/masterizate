@@ -48,7 +48,7 @@ Vue.component("footers", require("./components/footer.vue").default);
 Vue.component("unit-class", require("./components/unitComponent.vue").default);
 Vue.component("free-component", require("./components/freeComponent.vue").default);
 Vue.component("freeu-component", require("./components/freeUnitComponent.vue").default);
-Vue.component("course-component", ()=>import("./components/courseComponent.vue"));
+Vue.component("course-component", () => import ("./components/courseComponent.vue"));
 Vue.component("course-view", require("./components/courseView.vue").default);
 Vue.component("semanal-component", require("./components/courseSemanalComponet.vue").default);
 Vue.component("semanalact-component", require("./components/courseSemanalAct.vue").default);
@@ -106,6 +106,8 @@ Vue.component("notasd-component", require("./components/notasDocente.vue").defau
 Vue.component("actividadvd-component", require("./components/actividadVDocente.vue").default);
 Vue.component("clasesd-component", require("./components/clasesDocente.vue").default);
 Vue.component("crearc-component", require("./components/crearClase.vue").default);
+Vue.component("editarc-component", () => import ("./components/editarClase.vue"));
+
 Vue.component("inicio-component", require("./components/inicio.vue").default);
 Vue.component("userinfo", require("./components/UserInfo").default);
 Vue.component("answer", require("./components/Answer").default);
