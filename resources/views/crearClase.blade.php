@@ -11,7 +11,7 @@
   @if (Auth::user()->type_user == '1')
     <menu-adm></menu-adm>
  @endif
-<crearc-component :id_area="{{ $id_area }}" :id_classroom="{{ $id_classroom }}"></crearc-component>
+<crearc-component :id_area="{{ $id_area }}" :id_classroom="{{ $id_classroom }}" ></crearc-component>
  <footers></footers>
 <div class="container">
 

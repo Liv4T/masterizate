@@ -95,10 +95,13 @@
 
                           <p>{{clas.description }}</p>
                         </div>
-                        <div class="form-group text-center">
+                        <div
+                          class="form-group text-center"
+                          v-show="clas.document!= ''||clas.document1!= ''||clas.document2!= ''"
+                        >
                           <strong for="name">Documento</strong>
 
-                          <div>
+                          <div v-show="clas.document!= ''">
                             {{ clas.name_document }}
                             <a :href="clas.document" download>
                               <a :href="clas.document" download>
@@ -131,7 +134,7 @@
                             </a>
                           </div>
                         </div>
-                        <div class="form-group text-center">
+                        <div class="form-group text-center" v-show="clas.url!='' ">
                           <strong for="name">Enlace de apoyo</strong>
 
                           <div>
@@ -159,27 +162,47 @@
                             >{{ clas.url2 }}</a>
                           </div>
                         </div>
-                        <div class="form-group text-center">
+                        <div
+                          class="form-group text-center"
+                          v-show="clas.video!= ''||clas.video1!= ''||clas.video2!= ''"
+                        >
                           <strong for="name">Video</strong>
                         </div>
                         <div class="form-group text-center">
-                          <div>
-                            <video controls>
+                          <div v-show="clas.video!= ''">
+                            <video controls v-show="clas.video_youtube == ''">
                               <source :src="clas.video" />
                             </video>
-                            <!-- <iframe class="embed-responsive-item" :src="clas.video"></iframe> -->
+                            <iframe
+                              v-show="clas.video_youtube!= ''"
+                              class="embed-responsive-item"
+                              :src="clas.video_youtube"
+                              allowfullscreen
+                            ></iframe>
                           </div>
                           <br />
                           <div v-show="clas.video1!= ''">
-                            <video controls>
+                            <video controls v-show="clas.video1_youtube == ''">
                               <source :src="clas.video1" />
                             </video>
+                            <iframe
+                              v-show="clas.video1_youtube!= ''"
+                              class="embed-responsive-item"
+                              :src="clas.video1_youtube"
+                              allowfullscreen
+                            ></iframe>
                           </div>
                           <br />
                           <div v-show="clas.video2!= ''">
-                            <video controls>
+                            <video controls v-show="clas.video2_youtube == ''">
                               <source :src="clas.video2" />
                             </video>
+                            <iframe
+                              v-show="clas.video2_youtube!= ''"
+                              class="embed-responsive-item"
+                              :src="clas.video2_youtube"
+                              allowfullscreen
+                            ></iframe>
                           </div>
                         </div>
                       </div>

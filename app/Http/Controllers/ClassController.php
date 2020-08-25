@@ -45,10 +45,14 @@ class ClassController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
-        $videos = Files::where('unit', $data['name'])->where('type', 2)->orderBy('id', 'ASC')->get();
-        $url_video = [];
-        foreach ($videos as $key => $video) {
-            $url_video[$key] = $video->path;
+        if (isset($data['video']) && $data['video'] !== "") {
+            $data['video'] = str_replace("watch?v=", "embed/", $data['video']);
+        }
+        if (isset($data['video1']) && $data['video1'] !== "") {
+            $data['video1'] = str_replace("watch?v=", "embed/", $data['video1']);
+        }
+        if (isset($data['video2']) && $data['video2'] !== "") {
+            $data['video2'] = str_replace("watch?v=", "embed/", $data['video2']);
         }
         $documentos = Files::where('unit', $data['name'])->where('type', 1)->orderBy('id', 'ASC')->get();
         $url_documento = [];
@@ -67,9 +71,9 @@ class ClassController extends Controller
             'document' => isset($url_documento[0]) ? $url_documento[0] : '',
             'document1' => isset($url_documento[1]) ? $url_documento[1] : '',
             'document2' => isset($url_documento[2]) ? $url_documento[2] : '',
-            'video'  => isset($url_video[0]) ? $url_video[0] : '',
-            'video1'  => isset($url_video[1]) ? $url_video[1] : '',
-            'video2'  => isset($url_video[2]) ? $url_video[2] : '',
+            'video'  => (isset($data['video']) && $data['video'] !== "") ? $data['video'] : '',
+            'video1'  => (isset($data['video1']) && $data['video1'] !== "") ? $data['video1'] : '',
+            'video2'  => (isset($data['video2']) && $data['video2'] !== "") ? $data['video2'] : '',
         ]);
         return 'ok';
         $arch = Files::findOrFail($documento->id);
@@ -99,11 +103,44 @@ class ClassController extends Controller
             $achievements = CoursesAchievement::where('id_planification', $Courses->id)->get();
         }
         foreach ($clase as $key => $class) {
+            if (is_null($clase[$key]->url) || $clase[$key]->url == "") {
+                $clase[$key]->url = "";
+            }
             if (is_null($clase[$key]->video2) || $clase[$key]->video2 == "") {
                 $clase[$key]->video2 = "";
+            } else {
+                $video2 = $clase[$key]->video2;
+                $type_video2 = strpos($video2, 'youtube');
+                if ($type_video2 == true) {
+                    $clase[$key]->video2_youtube = $video2;
+                } else {
+                    $clase[$key]->video2_youtube = '';
+                }
             }
             if (is_null($clase[$key]->video1) || $clase[$key]->video1 == "") {
                 $clase[$key]->video1 = "";
+            } else {
+                $video1 = $clase[$key]->video1;
+                $type_video1 = strpos($video1, 'youtube');
+                if ($type_video1 == true) {
+                    $clase[$key]->video1_youtube = $video1;
+                } else {
+                    $clase[$key]->video1_youtube = '';
+                }
+            }
+            if (is_null($clase[$key]->video) || $clase[$key]->video == "") {
+                $clase[$key]->video = "";
+            } else {
+                $video = $clase[$key]->video;
+                $type_video = strpos($video, 'youtube');
+                if ($type_video == true) {
+                    $clase[$key]->video_youtube = $video;
+                } else {
+                    $clase[$key]->video_youtube = '';
+                }
+            }
+            if (is_null($clase[$key]->document) || $clase[$key]->document == "") {
+                $clase[$key]->document = "";
             }
             if (is_null($clase[$key]->document1) || $clase[$key]->document1 == "") {
                 $clase[$key]->document1 = "";
@@ -252,6 +289,14 @@ class ClassController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function findClass(String $id)
+    {
+
+        $clases = Classes::findOrFail($id);
+
+
+        return $clases;
+    }
     public function activityWeekId(Request $request, String $id)
     {
         $week = $id;
