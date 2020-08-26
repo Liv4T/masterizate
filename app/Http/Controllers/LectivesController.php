@@ -6,6 +6,8 @@ namespace App\Http\Controllers;
 use App\User;
 use App\Lective;
 use App\LectiveAchievement;
+use App\LectiveClass;
+use App\LectiveClassContent;
 use App\LectivePlanification;
 use App\LectiveQuarterlyPlan;
 use App\LectiveStudent;
@@ -223,4 +225,97 @@ class LectivesController extends Controller
      
       return response()->json($data);
     }
+
+     /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function saveWeeklyPlanification(Request $request)
+    {
+        $data = $request->all();
+
+        $auth = Auth::user();
+
+        $user = User::find($auth->id);
+       
+  
+        foreach ($data['weeklies'] as  $weekly_plan) {
+            if(!empty($weekly_plan['id']))
+            {
+                $update_id=LectiveWeeklyPlan::where('id',$weekly_plan['id'])->update(array('name'=>$weekly_plan['name'],'content'=>$weekly_plan['content'],'order'=>$weekly_plan['order'],'updated_user'=>$user->id));
+            }
+            else{
+                LectiveWeeklyPlan::create([
+                    'id_lective_planification'=>$data['id_planification'],
+                    'content'=>$weekly_plan['content'],
+                    'name'=>$weekly_plan['name'],
+                    'order'=>$weekly_plan['order'],
+                    'observation'=>$weekly_plan['observation'],
+                    'state'=>1,
+                    'deleted'=>0,
+                    'updated_user'=>$user->id
+                ]);
+            }
+        }
+
+     
+      return response()->json($data);
+    }
+
+
+
+    
+     /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getWeeklyPlanificationDetail(int $id_lective_planification,int $id_weekly_plan)
+    {
+        $auth = Auth::user();
+
+        $user = User::find($auth->id);
+
+        $ret_model=[];
+
+        $courses=LectiveClass::where('deleted',0)->where('id_lective_weekly_plan',$id_weekly_plan)->get();
+
+
+
+        foreach ($courses as $key_course => $course) {
+            
+
+            $course_content_data=LectiveClassContent::where('deleted',0)->where('id_lective_class',$course->id)->get();
+
+                $course_content=[];
+
+                foreach ($course_content_data as $key_course_content => $course_content_item) {
+                    array_push($course_content,[
+                        'id_content'=>$course_content_item->id,
+                        'content_type'=>$course_content_item->content_type,
+                        'content'=>$course_content_item->content,
+                        'student_visited_date'=>$course_content_item->student_visited_date,
+                        'state'=>$course_content_item->state
+                    ]);
+                }
+
+
+                array_push($ret_model,[
+                    'id_class'=>$course->id,
+                    'name'=>$course->name,
+                    'description'=>$course->description,
+                    'hourly_intensity'=>$course->hourly_intensity,
+                    'state'=>$course->state,
+                    'content'=>$course_content
+                ]);
+        }
+
+
+
+
+        return response()->json($ret_model);
+
+    }
+
 }

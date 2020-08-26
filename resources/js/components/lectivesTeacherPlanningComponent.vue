@@ -43,7 +43,7 @@
                   >Porcentaje de notas</a>
                   <a
                     v-show="general==true"
-                    :href="'/teacher/lectives/planning/'+plan.id_planification+'/weekly/create'"
+                    :href="'/teacher/lectives/planning/'+plan.id_planification+'/weekly'"
                     class="btn btn-warning"
                   >Gestionar Ciclo</a>
                    <a

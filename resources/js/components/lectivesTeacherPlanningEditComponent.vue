@@ -25,7 +25,7 @@
       <div class="col-md-11 mx-auto">
         <div class="custom-card text-center">
           <h3 class="card-header fondo">Planificación general</h3>
-          <span class="classroom-label">{{planification.lective.name}} quaterly {{planification.period_consecutive}}</span>
+          <span class="classroom-label">{{planification.lective.name}} Trimestre {{planification.period_consecutive}}</span>
           <span v-show="!isSynchronized">(Hay cambios que no han sido guardados)</span>
           <form class="needs-validation" novalidate>
             <form-wizard
@@ -227,7 +227,7 @@ export default {
   mounted() {
 
      //load from localstorage
-     this.serialLocalStorage=this.serialLocalStorage+"-"+this.id_area+"-"+this.id_classroom;
+     this.serialLocalStorage=this.serialLocalStorage+"-"+this.id_lective_planification;
 
 
     var urlsel =      "/api/lectives/planification/"+this.id_lective_planification ;

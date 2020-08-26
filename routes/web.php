@@ -479,8 +479,17 @@ Route::get('/teacher/lectives/planning/{id_lective_planification}', function (in
     return view('lectivesTeacherPlanningEdit')->with('id_lective_planification', $id_lective_planification);
 });
 Route::get('/teacher/lectives/planning/{id_lective_planification}/indicators', function (int $id_lective_planification) {
-    return view('lectivesTeacherIndicators')->with('id_lective_planification', $id_lective_planification);
+    return view('lectivesTeacherWeekly')->with('id_lective_planification', $id_lective_planification);
 });
+
+Route::get('/teacher/lectives/planning/{id_lective_planification}/weekly', function (int $id_lective_planification) {
+    return view('lectivesTeacherWeekly')->with('id_lective_planification', $id_lective_planification);
+});
+
+Route::get('/teacher/lectives/planning/{id_lective_planification}/weekly/{id_weekly_plan}/course', function (int $id_lective_planification,int $id_weekly_plan) {
+    return view('lectivesTeacherCoursesEdit')->with('id_lective_planification', $id_lective_planification)->with('id_weekly_plan', $id_weekly_plan);
+});
+
 
 Route::get('/teacher/lectives/courses', function () {
     return view('lectivesTeacherCourses');
@@ -512,3 +521,5 @@ Route::get('/student/lectives/activities', function () {
 Route::get('/api/lectives', 'LectivesController@getLectives');
 Route::get('/api/lectives/planification/{id_lective_planification}', 'LectivesController@getPlanificationDetail');
 Route::put('/api/lectives/planification', 'LectivesController@savePlanificationDetail');
+Route::put('/api/lectives/planification/{id_lective_planification}/weekly', 'LectivesController@saveWeeklyPlanification');
+Route::get('/api/lectives/planification/{id_lective_planification}/weekly/{id_weekly_plan}/course', 'LectivesController@getWeeklyPlanificationDetail');
