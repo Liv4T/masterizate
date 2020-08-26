@@ -496,4 +496,15 @@ Route::get('/student/lectives/courses', function () {
 });
 Route::get('/student/lectives/activities', function () {
     return view('lectivesStudentActivities');
+//api rest
+Route::get('/api/lectives', 'LectivesController@getLectives');
+Route::get('/api/lectives/planification/{id_lective_planification}', 'LectivesController@getPlanificationDetail');
+Route::put('/api/lectives/planification', 'LectivesController@savePlanificationDetail');
+
+
+Route::get('/teacher/lectives/planning', function () {
+    return view('lectivesTeacherPlanning');
+});
+Route::get('/teacher/lectives/planning/{id_lective_planification}', function (int $id_lective_planification) {
+    return view('lectivesTeacherPlanningEdit')->with('id_lective_planification', $id_lective_planification);
 });

@@ -48,7 +48,7 @@ Vue.component("footers", require("./components/footer.vue").default);
 Vue.component("unit-class", require("./components/unitComponent.vue").default);
 Vue.component("free-component", require("./components/freeComponent.vue").default);
 Vue.component("freeu-component", require("./components/freeUnitComponent.vue").default);
-Vue.component("course-component", require("./components/courseComponent.vue").default);
+Vue.component("course-component", ()=>import("./components/courseComponent.vue"));
 Vue.component("course-view", require("./components/courseView.vue").default);
 Vue.component("semanal-component", require("./components/courseSemanalComponet.vue").default);
 Vue.component("semanalact-component", require("./components/courseSemanalAct.vue").default);
@@ -93,7 +93,8 @@ Vue.component("anunciomc-component", require("./components/anunciomc.vue").defau
 Vue.component("full-component", require("./components/fullCalendar.vue").default);
 Vue.component("redactar-component", require("./components/redactar.vue").default);
 Vue.component("vmensaje-component", require("./components/vistamensaje.vue").default);
-
+Vue.component("duplicar-component", require("./components/duplicarGeneral.vue").default);
+Vue.component("duplicarsemana-component", require("./components/duplicarSemana.vue").default);
 Vue.component("game-component", require("./components/Game.vue").default);
 Vue.component("juegos-component", require("./components/juegos.vue").default);
 Vue.component("groups", require("./components/Groups.vue").default);
@@ -135,6 +136,11 @@ Vue.component("adocente-adm", require("./components/asignarDocente.vue").default
 Vue.component("aestudiante-adm", require("./components/asignarEstudiante.vue").default);
 Vue.component("importar-adm", require("./components/importAdm.vue").default);
 Vue.component("asistencia-adm", require("./components/asistencia.vue").default);
+
+
+Vue.component("lectives-planning-teacher", ()=>import("./components/lectivesTeacherPlanningComponent.vue"));
+Vue.component("lectives-planning-edit-teacher", ()=>import("./components/lectivesTeacherPlanningEditComponent.vue"));
+
 Vue.use(CKEditor);
 Vue.use(CKEditor);
 
