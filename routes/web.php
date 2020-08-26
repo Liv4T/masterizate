@@ -458,3 +458,18 @@ Route::post('/resetPassword', 'UserController@resetPassword')->name('resetPasswo
 Route::post('users_save', 'UserController@store')->name('users_save');
 Route::get('Courses_save', 'CoursesController@storeNew')->name('Courses_save');
 Route::get('/logout2', 'UserController@logOut')->name('logout2');
+
+
+
+//api rest
+Route::get('/api/lectives', 'LectivesController@getLectives');
+Route::get('/api/lectives/planification/{id_lective_planification}', 'LectivesController@getPlanificationDetail');
+Route::put('/api/lectives/planification', 'LectivesController@savePlanificationDetail');
+
+
+Route::get('/teacher/lectives/planning', function () {
+    return view('lectivesTeacherPlanning');
+});
+Route::get('/teacher/lectives/planning/{id_lective_planification}', function (int $id_lective_planification) {
+    return view('lectivesTeacherPlanningEdit')->with('id_lective_planification', $id_lective_planification);
+});
