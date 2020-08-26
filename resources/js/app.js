@@ -138,6 +138,10 @@ Vue.component("aestudiante-adm", require("./components/asignarEstudiante.vue").d
 Vue.component("importar-adm", require("./components/importAdm.vue").default);
 Vue.component("asistencia-adm", require("./components/asistencia.vue").default);
 
+
+Vue.component("lectives-planning-teacher", ()=>import("./components/lectivesTeacherPlanningComponent.vue"));
+Vue.component("lectives-planning-edit-teacher", ()=>import("./components/lectivesTeacherPlanningEditComponent.vue"));
+
 Vue.use(CKEditor);
 Vue.use(CKEditor);
 
