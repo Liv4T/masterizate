@@ -11,7 +11,7 @@
   @if (Auth::user()->type_user == '1')
     <menu-adm></menu-adm>
  @endif
-  <lectives-planning-teacher></lectives-planning-teacher>
+  <lectives-teacher-planning></lectives-teacher-planning>
   <footers></footers>
 <div class="container">
   <!--<app-vue></app-vue>-->

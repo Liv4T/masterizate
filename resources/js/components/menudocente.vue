@@ -136,13 +136,13 @@
                     alt/>
                   <span class="menu">Mis Electivas</span>
                   <div class="dropdown2-content">
-                    <a href="/actividad_g">
+                    <a href="/teacher/lectives/planning">
                       <img
                         width="35px"
                         src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/MIS-CURSOS.png?alt=media&token=93ec6b97-e5a6-4eca-891e-b63bf2a352ad"
                         alt/>Planificación</a>
 
-                    <a href="/clases_d">
+                    <a href="/teacher/lectives/class">
                       <img
                         width="35px"
                         src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/ACTIVIDADES_naranja.png?alt=media&token=93ec6b97-e5a6-4eca-891e-b63bf2a352ad"
@@ -150,14 +150,14 @@
                       />Mis clases
                     </a>
 
-                    <a href="/lectiveCourse">
+                    <a href="/teacher/lectives/students">
                       <img
                         width="35px"
                         src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/ACTIVIDADES_naranja.png?alt=media&token=93ec6b97-e5a6-4eca-891e-b63bf2a352ad"
                         alt/>Mis alumnos
                         </a>
 
-                    <a href="/actividad_docente">
+                    <a href="/teacher/lectives/activities">
                       <img
                         width="35px"
                         src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/ACTIVIDADES_naranja.png?alt=media&token=93ec6b97-e5a6-4eca-891e-b63bf2a352ad"

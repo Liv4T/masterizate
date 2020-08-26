@@ -138,20 +138,23 @@ Vue.component("importar-adm", require("./components/importAdm.vue").default);
 Vue.component("asistencia-adm", require("./components/asistencia.vue").default);
 
 
-Vue.component("lectives-planning-teacher", ()=>import("./components/lectivesTeacherPlanningComponent.vue"));
-Vue.component("lectives-planning-edit-teacher", ()=>import("./components/lectivesTeacherPlanningEditComponent.vue"));
+Vue.component("lectives-adm", ()=>import("./components/lectivesAdmComponent.vue"));
+Vue.component("lectives-adm-assing-teacher", ()=>import("./components/lectivesAdmAssingTeacherComponent.vue"));
+Vue.component("lectives-student-activities", ()=>import("./components/lectivesStudentActivitiesComponent.vue"));
+Vue.component("lectives-student-courses", ()=>import("./components/lectivesStudentCoursesComponent.vue"));
+Vue.component("lectives-teacher-planning", ()=>import("./components/lectivesTeacherPlanningComponent.vue"));
+Vue.component("lectives-teacher-planning-edit", ()=>import("./components/lectivesTeacherPlanningEditComponent.vue"));
+Vue.component("lectives-teacher-indicators", ()=>import("./components/lectivesTeacherIndicatorsComponent.vue"));
+Vue.component("lectives-teacher-activities", ()=>import("./components/lectivesTeacherActivitiesComponent.vue"));
+Vue.component("lectives-teacher-board", ()=>import("./components/lectivesTeacherBoardComponent.vue"));
+Vue.component("lectives-teacher-courses", ()=>import("./components/lectivesTeacherCoursesComponent.vue"));
+Vue.component("lectives-teacher-notes", ()=>import("./components/lectivesTeacherNotesComponent.vue"));
+Vue.component("lectives-teacher-students-list", ()=>import("./components/lectivesTeacherStudentsListComponent.vue"));
+
+
 
 Vue.use(CKEditor);
 Vue.use(CKEditor);
 
 const app = new Vue({el: "#app", data: {}, store});
 
-Vue.component("lectives-adm", require("./components/lectivesAdmComponent.vue").default);
-Vue.component("lectives-adm-assing-teacher", require("./components/lectivesAdmAssingTeacherComponent.vue").default);
-Vue.component("lectives-student-activities", require("./components/lectivesStudentActivitiesComponent.vue").default);
-Vue.component("lectives-student-courses", require("./components/lectivesStudentCoursesComponent.vue").default);
-Vue.component("lectives-teacher-activities", require("./components/lectivesTeacherActivitiesComponent.vue").default);
-Vue.component("lectives-teacher-board", require("./components/lectivesTeacherBoardComponent.vue").default);
-Vue.component("lectives-teacher-courses", require("./components/lectivesTeacherCoursesComponent.vue").default);
-Vue.component("lectives-teacher-notes", require("./components/lectivesTeacherNotesComponent.vue").default);
-Vue.component("lectives-teacher-students-list", require("./components/lectivesTeacherStudentsListComponent.vue").default);
