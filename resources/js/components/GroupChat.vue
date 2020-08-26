@@ -406,12 +406,14 @@ $("#area").keypress(function(event) {
     }
 });
 const init = () => {
-    const tieneSoporteUserMedia = () => !!navigator.mediaDevices.getUserMedia;
+
+ 
+    const tieneSoporteUserMedia = () => navigator.mediaDevices?navigator.mediaDevices.getUserMedia:null;
     // Si no soporta...
     // Amable aviso para que el mundo comience a usar navegadores decentes ;)
     if (typeof MediaRecorder === "undefined" || !tieneSoporteUserMedia())
-        return alert(
-            "Tu navegador web no cumple los requisitos; por favor, actualiza a un navegador decente como Firefox o Google Chrome"
+        return console.log(
+            "Tu navegador web no cumple los requisitos; por favor, actualiza a un navegador como Firefox o Google Chrome"
         );
 
     // Declaración de elementos del DOM
