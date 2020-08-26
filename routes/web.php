@@ -496,6 +496,8 @@ Route::get('/student/lectives/courses', function () {
 });
 Route::get('/student/lectives/activities', function () {
     return view('lectivesStudentActivities');
+}); 
+
 //api rest
 Route::get('/api/lectives', 'LectivesController@getLectives');
 Route::get('/api/lectives/planification/{id_lective_planification}', 'LectivesController@getPlanificationDetail');
