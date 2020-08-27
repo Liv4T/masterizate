@@ -21,7 +21,7 @@
                     <div class="col-md-6">
                       <label for="name">Pregunta conductora o nombre</label>
                       <span>
-                        <a
+                        <!--<a
                           href="#"
                           class="badge badge-danger"
                           @click.prevent="remove(t)"
@@ -31,7 +31,7 @@
                                                                 weekly_plans.length >
                                                                     1)
                                                     "
-                        >-</a>
+                        >-</a>-->
                         <a
                           href="#"
                           class="badge badge-primary"

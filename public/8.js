@@ -285,32 +285,6 @@ var render = function() {
                                       {
                                         name: "show",
                                         rawName: "v-show",
-                                        value:
-                                          t ||
-                                          (!t && _vm.weekly_plans.length > 1),
-                                        expression:
-                                          "\n                                                      t ||\n                                                          (!t &&\n                                                              weekly_plans.length >\n                                                                  1)\n                                                  "
-                                      }
-                                    ],
-                                    staticClass: "badge badge-danger",
-                                    attrs: { href: "#" },
-                                    on: {
-                                      click: function($event) {
-                                        $event.preventDefault()
-                                        return _vm.remove(t)
-                                      }
-                                    }
-                                  },
-                                  [_vm._v("-")]
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "a",
-                                  {
-                                    directives: [
-                                      {
-                                        name: "show",
-                                        rawName: "v-show",
                                         value: t == _vm.weekly_plans.length - 1,
                                         expression:
                                           "\n                                                      t == weekly_plans.length - 1\n                                                  "
