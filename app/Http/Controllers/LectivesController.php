@@ -215,9 +215,9 @@ class LectivesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function getIndicatorByPlanificationAchievement(int $id_lective_achievement){
+    public function getIndicatorByPlanificationAchievement(int $id_lective_planification,int $id_lective_achievement){
         $lectiveIndicators = LectiveIndicator::where('id_lective_achievement', $id_lective_achievement)->where('deleted', 0)->get();
-        return $lectiveIndicators;
+        return response()->json($lectiveIndicators);
     }
 
     /**
@@ -230,9 +230,9 @@ class LectivesController extends Controller
         $data = $request->all();
         $auth = Auth::user();
 
-        if(isset($data['id_lective_indicator']) && $data['id_lective_indicator']!=0)
+        if(isset($data['id_indicator']) && $data['id_indicator']!=0)
         {
-            LectiveIndicator::where('id', $data['id_lective_indicator'])->update(array('type_activity'=>$data['type_activity'], 'rate'=>$data['rate'], 'updated_user'=>$auth->id));     
+            LectiveIndicator::where('id', $data['id_indicator'])->update(array('type_activity'=>$data['type_activity'], 'rate'=>$data['rate'], 'updated_user'=>$auth->id));     
         }
         else{
             LectiveIndicator::create([

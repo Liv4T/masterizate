@@ -24,7 +24,7 @@
     <div class="row">
       <div class="col-md-11 mx-auto">
         <div class="custom-card text-center">
-          <h3 class="card-header fondo">Planificación general de Electiva</h3>
+          <h3 class="card-header fondo">Planificación general {{planification.lective.name}} Trimestre {{planification.period_consecutive}} </h3>
           <form class="needs-validation" novalidate v-show="trimestre == false">
             <form-wizard
               title
@@ -35,10 +35,10 @@
               finish-button-text="Guardar"
               @on-complete="updateCourses"
             >
-              <tab-content title="Porcentaje de notas">
+              <tab-content title="rate de notas">
                 <div class="card-body">
                   <div class="accordion" id="accordionExample">
-                    <div class="card" v-for="(option,t) in fillC.achievements" :key="t">
+                    <div class="card" v-for="(option,t) in planification.achievements" :key="t">
                       <div class="card-header">
                         <h2 class="mb-0">
                           <button
@@ -76,25 +76,25 @@
                               <tr>
                                 <td>Actividad</td>
 
-                                <td>Porcentaje</td>
+                                <td>rate</td>
 
                                 <td>Editar</td>
 
                                 <td>Eliminar</td>
                               </tr>
-                              <tr v-for="(opt,i) in fillI">
+                              <tr v-for="(opt,i) in indicators">
                                 <td>{{ opt.type_activity }}</td>
 
-                                <td>{{ opt.activity_rate }}</td>
+                                <td>{{ opt.rate }}</td>
 
-                                <td><a class="fas fa-edit" v-on:click.prevent="showEdit(opt.id,opt.type_activity,opt.activity_rate)"></a></td>
+                                <td><a class="fas fa-edit" v-on:click.prevent="showEdit(opt.id,opt.type_activity,opt.rate)"></a></td>
 
-                                <td><a class="fas fa-trash-alt" v-on:click.prevent="removePercentage(i,opt.id)"></a></td>
+                                <td><a class="fas fa-trash-alt" v-on:click.prevent="showDeleted(opt.id)"></a></td>
                               </tr>
                             </tbody>
                           </table>
                           <div align="right">
-                            <a class="btn btn-warning" v-on:click.prevent="editNames(option.id,option.id_planification)">Agregar</a>
+                            <a class="btn btn-warning" v-on:click.prevent="showAddModal(option.id)">Agregar</a>
                           </div>
                         </div>
                       </div>
@@ -106,6 +106,7 @@
           </form>
         </div>
       </div>
+
       <div class="modal fade" id="createZ">
         <div class="modal-dialog">
           <div class="modal-content">
@@ -142,7 +143,7 @@
                           type="number"
                           name="objetive1"
                           class="form-control"
-                          v-model="porcentaje"
+                          v-model="rate"
                           style="background: gainsboro;"
                           required
                         />                        
@@ -174,7 +175,7 @@
                 </button>
               </h3>
               <div class="card-body">
-                <form class="needs-validation" v-on:submit.prevent novalidate>
+              
                   <label>¿Desea eliminar el indicador?</label>                  
                   <div class="modal-footer">
                     <input
@@ -184,7 +185,7 @@
                       value="Confirmar"
                     />
                   </div>
-                </form>
+            
               </div>
             </div>
           </div>
@@ -252,13 +253,12 @@ export default {
       inputs1: [
         {
           name: "",
-          porcentaje: "",
+          rate: "",
         },
       ],
       newTrimestre: [],
       tipo_act: "",
-      porcentaje: "",
-
+      rate: "",
       newTrimestre: [],
       newLogro: [],
       trimestre: false,
@@ -266,34 +266,37 @@ export default {
       logro_2: "",
       logro_3: "",
       logro_4: "",
-      fillC: [],
-      fillI: [],
+      planification: {lective:{}},
+      indicators: [],
       anual: [],
       newAnual: [],
       errors: [],
       id_logro: "",
-      id_indicator: 0,
-      index: 0
+      id_indicator:0,
+      index: 0,
+      id_lective_achievement:0
     };
   },
   mounted() {
     var urlsel = "/api/lectives/planification/" + this.id_lective_planification;
     axios.get(urlsel).then((response) => {
-      this.fillC = response.data;
+      this.planification = response.data;
     });
   },
   methods: {
     getMenu() {
       window.location = "/api/lectives/planification";
     },
-    getInd() {
-      window.location = "/api/lectives/planification/" + this.id_lective_planification;
+    returnToHome() {
+      window.location = `/teacher/lectives/planning/${this.id_lective_planification}/indicators`;
     },
     getIndicador(id_achievement) {
+      this.id_lective_achievement=id_achievement;
+      this.indicators = [];
       var urli = "/api/lectives/planification/" + this.id_lective_planification + "/achievement/" + id_achievement;
       axios.get(urli).then((response) => {
-        this.fillI = response.data;
-        console.log(this.fillI);
+        this.indicators = response.data;
+
       });
     },
     add(index) {
@@ -303,30 +306,30 @@ export default {
       this.inputs.splice(index, 1);
     },
     add1(index) {
-      this.inputs1.push({ name: "", porcentaje: "" });
+      this.inputs1.push({ name: "", rate: "" });
     },
     remove1(index) {
       this.inputs1.splice(index, 1);
     },
 
     createIndicator() {
-      var url = "/api/lectives/planification/" + this.id_lective_planification + "/achievement";
-
+ 
       axios
-        .post(url, {
+        .put("/api/lectives/planification/" + this.id_lective_planification + "/achievement", {
           //Cursos generales
-          id_lective_planification:this.id_lective_planification,
+          id_indicator:this.id_indicator,
+          id_lective_achievement:this.id_lective_achievement,
           type_activity: this.tipo_act,
           id_annual: this.id_annual,
           id_achievement: this.id_logro,
-          activity_rate: this.porcentaje,
+          rate: this.rate,
         })
         .then((response) => {
           this.errors = [];
 
           toastr.success("Nueva actividad creada exitosamente");
 
-          this.getInd();
+          this.returnToHome();
         })
         .catch((error) => {
           this.errors = error.response.data;
@@ -335,48 +338,38 @@ export default {
     updateCourses() {
       window.location = "/api/lectives/planification/" + {id_lective_planification} + "/achievement/" + {id_lective_indicator};
     },
-    editNames(id, clas) {
-      //   var urlr = "showClass/" + clas;
-      //   axios.get(urlr).then(response => {
-      //     this.fillS = response.data;
-      //   });
-      this.id_lective_planification = 0;
-      this.id_indicator = 0;
-      this.tipo_act = "";
-      this.porcentaje = "";
-
+    showAddModal(id) {
+       this.id_indicator =0;
+      this.tipo_act = '';
+      this.rate = '';
       $("#createZ").modal("show");
     },
-    showEdit(id_porcentaje, tipo_act, porcentaje) {
+    showEdit(id_rate, tipo_act, rate) {
       //   var urlr = "showClass/" + clas;
       //   axios.get(urlr).then(response => {
       //     this.fillS = response.data;
       //   });
-      this.id_indicator = id_porcentaje;
+      this.id_indicator = id_rate;
       this.tipo_act = tipo_act;
-      this.porcentaje = porcentaje;
+      this.rate = rate;
       $("#createZ").modal("show");
     },
-    removePercentage(index,id_lective_planification) {
-      this.id_lective_planification = id_lective_planification;
-      this.index=index;
+    showDeleted(id_indicator) {
+      this.id_indicator = id_indicator;
+
       $("#deleteZ").modal("show");
     },
     deleteIndicator() {
-      var url = "/api/lectives/planification/{id_lective_planification}/indicator/" + {id_lective_indicator};
-      $("#deleteZ").modal("hide");
 
-      axios
-        .post(url, {
-          //Eliminar indicador
-          id_indicator:this.id_indicator,
-        })
+     
+
+      axios.delete(`/api/lectives/planification/${this.id_lective_planification}/indicator/${this.id_indicator}`, {})
         .then((response) => {
           this.errors = [];
-
+           $("#deleteZ").modal("hide");
           toastr.success("Actividad eliminada exitosamente");
-          this.fillI.splice(this.index,1);
-          this.getInd();
+
+          this.returnToHome();
         })
         .catch((error) => {
           this.errors = error.response.data;

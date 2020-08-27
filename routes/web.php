@@ -479,7 +479,7 @@ Route::get('/teacher/lectives/planning/{id_lective_planification}', function (in
     return view('lectivesTeacherPlanningEdit')->with('id_lective_planification', $id_lective_planification);
 });
 Route::get('/teacher/lectives/planning/{id_lective_planification}/indicators', function (int $id_lective_planification) {
-    return view('lectivesTeacherWeekly')->with('id_lective_planification', $id_lective_planification);
+    return view('lectivesTeacherIndicators')->with('id_lective_planification', $id_lective_planification);
 });
 
 Route::get('/teacher/lectives/planning/{id_lective_planification}/weekly', function (int $id_lective_planification) {
@@ -528,4 +528,4 @@ Route::get('/api/lectives/student/find/{content}', 'LectivesController@findStude
 Route::get('/api/lectives/planification/{id_lective_planification}/achievement/{id_lective_achievement}', 'LectivesController@getIndicatorByPlanificationAchievement');
 Route::put('/api/lectives/planification/{id_lective_planification}/achievement', 'LectivesController@saveIndicator');
 Route::put('/api/lectives/planification/{id_lective_planification}/achievement/{id_lective_indicator}', 'LectivesController@updateIndicator');
-Route::put('/api/lectives/planification/{id_lective_planification}/indicator/{id_lective_indicator}', 'LectivesController@removeIndicator');
+Route::delete('/api/lectives/planification/{id_lective_planification}/indicator/{id_lective_indicator}', 'LectivesController@removeIndicator');
