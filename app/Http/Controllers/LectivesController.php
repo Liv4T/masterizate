@@ -10,6 +10,7 @@ use App\LectivePlanification;
 use App\LectiveQuarterlyPlan;
 use App\LectiveStudent;
 use App\LectiveWeeklyPlan;
+use App\LectiveIndicator;
 use Illuminate\Http\Request;
 use Auth;
 
@@ -22,7 +23,6 @@ class LectivesController extends Controller
      */
     public function getLectives()
     {
-
         $auth = Auth::user();
 
         $user = User::find($auth->id);
@@ -104,15 +104,10 @@ class LectivesController extends Controller
                     }
     
                 }
-            }
-
-          
-
-           
+            }           
         }
         return response()->json($lectives);
     }
-
 
      /**
      * Display a listing of the resource.
@@ -134,13 +129,10 @@ class LectivesController extends Controller
             return response()->json($ret_model);
         }
 
-
         $ret_model['id_planification']=$planification->id;
         $ret_model['period_consecutive']=$planification->period_consecutive;
 
-
         $lective=Lective::find($planification->id_lective);
-
 
         if(!isset($lective))
         {
@@ -150,22 +142,16 @@ class LectivesController extends Controller
         $ret_model['lective']=[
             'id_lective'=>$lective->id,
             'name'=>$lective->name,
-        ];
-  
+        ];  
 
         $ret_model['achievements']=LectiveAchievement::where('id_lective_planification',$planification->id)->where('deleted',0)->get();
 
         $ret_model['quarterlies']=LectiveQuarterlyPlan::where('id_lective_planification',$planification->id)->where('deleted',0)->get();
 
-        $ret_model['weeklies']=LectiveWeeklyPlan::where('id_lective_planification',$planification->id)->where('deleted',0)->get();
-
-      
-
+        $ret_model['weeklies']=LectiveWeeklyPlan::where('id_lective_planification',$planification->id)->where('deleted',0)->get();    
 
         return response()->json($ret_model);
-
     }
-
 
     /**
      * Display a listing of the resource.
@@ -178,8 +164,7 @@ class LectivesController extends Controller
 
         $auth = Auth::user();
 
-        $user = User::find($auth->id);
-       
+        $user = User::find($auth->id);       
   
         foreach ($data['achievements'] as  $achievement) {
             if(!empty($achievement['id']))
@@ -216,11 +201,72 @@ class LectivesController extends Controller
                 ]);
             }
         }
-    
-
-
-
      
       return response()->json($data);
+    }    
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function getIndicatorByPlanificationAchievement(int $id_lective_achievement){
+        $lectiveIndicators = LectiveIndicator::where('id_lective_achievement', $id_lective_achievement)->where('deleted', 0)->get();
+        return $lectiveIndicators;
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function saveIndicator(Request $request,int $id_lective_planification){
+        $data = $request->all();
+        $auth = Auth::user();
+
+        if(isset($data['id_lective_indicator']) && $data['id_lective_indicator']!=0)
+        {
+            LectiveIndicator::where('id', $data['id_lective_indicator'])->update(array('type_activity'=>$data['type_activity'], 'rate'=>$data['rate'], 'updated_user'=>$auth->id));     
+        }
+        else{
+            LectiveIndicator::create([
+                'id_lective_achievement'=>$data['id_lective_achievement'],
+                'type_activity'=>$data['type_activity'],
+                'rate'=>$data['rate'],
+                'state'=>1,
+                'deleted'=>0,
+                'updated_user'=>$auth->id
+            ]);
+        }
+        return 'Ok';
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function updateIndicator(Request $request, $id_lective_indicator){
+        $data = $request->all();
+        Indicator::where('id', $id_lective_indicator)->update(array('type_activity'=>$data['type_activity'], 'rate'=>$data['rate'], 'updated_user'=>$auth->id));     
+
+        return 'ok';
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function removeIndicator(int $id_lective_planification,int $id_lective_indicator){
+        $auth = Auth::user();
+
+        LectiveIndicator::where('id', $id_lective_indicator)->update(array('deleted'=>1,'updated_user'=>$auth->id));
+
+        return;
     }
 }

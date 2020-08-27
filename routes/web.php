@@ -503,12 +503,13 @@ Route::get('/student/lectives/courses', function () {
 });
 Route::get('/student/lectives/activities', function () {
     return view('lectivesStudentActivities');
-}); 
-
-
-
+});
 
 //api rest
 Route::get('/api/lectives', 'LectivesController@getLectives');
 Route::get('/api/lectives/planification/{id_lective_planification}', 'LectivesController@getPlanificationDetail');
 Route::put('/api/lectives/planification', 'LectivesController@savePlanificationDetail');
+Route::get('/api/lectives/planification/{id_lective_planification}/achievement/{id_lective_achievement}', 'LectivesController@getIndicatorByPlanificationAchievement');
+Route::put('/api/lectives/planification/{id_lective_planification}/achievement', 'LectivesController@saveIndicator');
+Route::put('/api/lectives/planification/{id_lective_planification}/achievement/{id_lective_indicator}', 'LectivesController@updateIndicator');
+Route::put('/api/lectives/planification/{id_lective_planification}/indicator/{id_lective_indicator}', 'LectivesController@removeIndicator');
