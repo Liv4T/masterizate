@@ -24,7 +24,7 @@
     <div class="row">
       <div class="col-md-11 mx-auto">
         <div class="custom-card text-center">
-          <h3 class="card-header fondo">Planificación general</h3>
+          <h3 class="card-header fondo">Planificación general de Electiva</h3>
           <form class="needs-validation" novalidate v-show="trimestre == false">
             <form-wizard
               title
@@ -47,7 +47,7 @@
                             data-toggle="collapse"
                             :data-target="'#collapse'+t"
                             aria-expanded="false"
-                            @click.prevent="indicador(option.id)"
+                            @click.prevent="getIndicador(option.id)"
                             aria-controls="collapse"
                           >
                             <label
@@ -55,11 +55,11 @@
                                 width: 450px;
                                 white-space: nowrap;
                                 overflow: hidden;"
-                            >{{ option.achievement }}</label>
+                            >{{ option.content }}</label>
                             <input
                               type="number"
                               style="width:50px;"
-                              v-model="option.percentage"
+                              v-model="option.rate"
                               disabled
                             />
                             %
@@ -240,7 +240,7 @@ import VueFormWizard from "vue-form-wizard";
 import "vue-form-wizard/dist/vue-form-wizard.min.css";
 Vue.use(VueFormWizard);
 export default {
-  props: ["id_area", "id_classroom"],
+  props: ["id_lective_planification"],
   data() {
     return {
       inputs: [
@@ -277,25 +277,20 @@ export default {
     };
   },
   mounted() {
-    var urlsel =
-      window.location.origin +
-      "/coursePlanification/" +
-      this.id_area +
-      "/" +
-      this.id_classroom;
+    var urlsel = "/api/lectives/planification/" + this.id_lective_planification;
     axios.get(urlsel).then((response) => {
       this.fillC = response.data;
     });
   },
   methods: {
     getMenu() {
-      window.location = "/actividad_g";
+      window.location = "/api/lectives/planification";
     },
     getInd() {
-      window.location = "/porcentaje/" + this.id_area + "/" + this.id_classroom;
+      window.location = "/api/lectives/planification/" + this.id_lective_planification;
     },
-    indicador(id) {
-      var urli = window.location.origin + "/getIndicator/" + id;
+    getIndicador(id_achievement) {
+      var urli = "/api/lectives/planification/" + this.id_lective_planification + "/achievement/" + id_achievement;
       axios.get(urli).then((response) => {
         this.fillI = response.data;
         console.log(this.fillI);
@@ -315,12 +310,12 @@ export default {
     },
 
     createIndicator() {
-      var url = window.location.origin + "/saveIndicator";
+      var url = "/api/lectives/planification/" + this.id_lective_planification + "/achievement";
 
       axios
         .post(url, {
           //Cursos generales
-          id_indicator:this.id_indicator,
+          id_lective_planification:this.id_lective_planification,
           type_activity: this.tipo_act,
           id_annual: this.id_annual,
           id_achievement: this.id_logro,
@@ -338,16 +333,15 @@ export default {
         });
     },
     updateCourses() {
-      window.location = "/actividad_g";
+      window.location = "/api/lectives/planification/" + {id_lective_planification} + "/achievement/" + {id_lective_indicator};
     },
     editNames(id, clas) {
       //   var urlr = "showClass/" + clas;
       //   axios.get(urlr).then(response => {
       //     this.fillS = response.data;
       //   });
+      this.id_lective_planification = 0;
       this.id_indicator = 0;
-      this.id_annual = clas;
-      this.id_logro = id;
       this.tipo_act = "";
       this.porcentaje = "";
 
@@ -363,13 +357,13 @@ export default {
       this.porcentaje = porcentaje;
       $("#createZ").modal("show");
     },
-    removePercentage(index,id_indicator) {
-      this.id_indicator = id_indicator;
+    removePercentage(index,id_lective_planification) {
+      this.id_lective_planification = id_lective_planification;
       this.index=index;
       $("#deleteZ").modal("show");
     },
     deleteIndicator() {
-      var url = window.location.origin + "/deleteIndicator";
+      var url = "/api/lectives/planification/{id_lective_planification}/indicator/" + {id_lective_indicator};
       $("#deleteZ").modal("hide");
 
       axios

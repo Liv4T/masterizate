@@ -25,7 +25,7 @@
       <div class="col-md-11 mx-auto">
         <div class="custom-card text-center">
           <h3 class="card-header fondo">Planificación general</h3>
-          <span class="classroom-label">{{planification.lective.name}} quaterly {{planification.period_consecutive}}</span>
+          <span class="classroom-label">{{planification.lective.name}} Trimestre {{planification.period_consecutive}}</span>
           <span v-show="!isSynchronized">(Hay cambios que no han sido guardados)</span>
           <form class="needs-validation" novalidate>
             <form-wizard
@@ -236,11 +236,17 @@ export default {
      this.planification = response.data;
 
         //set current data
-        this.achievements= this.planification.achievements.map(p=>{return {id:p.id,content:p.content,rate:`${p.rate}`};});
-        this.achievements_saved= JSON.parse(JSON.stringify(this.achievements));
-        this.quarterlies=this.planification.quarterlies.map(p=>{return {id:p.id,content:p.content,name:p.name,order:p.order};});
-        this.quarterlies_saved= JSON.parse(JSON.stringify(this.quarterlies));
+        if(this.planification.achievements.length>0)
+        {
+          this.achievements= this.planification.achievements.map(p=>{return {id:p.id,content:p.content,rate:`${p.rate}`};});
+          this.achievements_saved= JSON.parse(JSON.stringify(this.achievements));
+        }
 
+        if(this.planification.quarterlies.length>0)
+        {
+          this.quarterlies=this.planification.quarterlies.map(p=>{return {id:p.id,content:p.content,name:p.name,order:p.order};});
+          this.quarterlies_saved= JSON.parse(JSON.stringify(this.quarterlies));
+        }
    
         if(localStorage.getItem(this.serialLocalStorage))
         {
@@ -258,9 +264,7 @@ export default {
               this.achievements=savedPlanificationModel.achievements;
                this.isSynchronized=false;
             }
-        }
-      
-     
+        }     
 
       if (this.planification.quarterlies.length > 0) {
         this.quaterly = true;
@@ -302,8 +306,7 @@ export default {
 
        if(this.quarterlies.length==0 ||  this.achievements.length==0)
         return;
-
-    
+            
       axios
         .put(url, {
           id_planification: this.planification.id_planification,
