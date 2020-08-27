@@ -336,7 +336,7 @@ export default {
         });
     },
     updateCourses() {
-      window.location = "/api/lectives/planification/" + {id_lective_planification} + "/achievement/" + {id_lective_indicator};
+      this.returnToHome();
     },
     showAddModal(id) {
        this.id_indicator =0;
