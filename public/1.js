@@ -182,8 +182,8 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
     });
   },
   methods: {
-    getMenu: function getMenu() {
-      window.location = "/clases_d";
+    returnPage: function returnPage() {
+      window.location = "/teacher/lectives/courses";
     },
     addResource: function addResource(index, resource_type) {
       this.weekly_plan_detail[index].content.push({
@@ -196,6 +196,8 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
       this.weekly_plan_detail[ix_weekly_plan].content.splice(index, 1);
     },
     saveData: function saveData() {
+      var _this2 = this;
+
       this.weekly_plan_detail.forEach(function (e) {
         if (e.name && !e.id_class) {
           e.id_class = 0;
@@ -210,10 +212,12 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
       axios.put("/api/lectives/planification/".concat(this.id_lective_planification, "/weekly/").concat(this.id_weekly_plan, "/course"), this.weekly_plan_detail).then(function (response) {
         // this.getPlanificationEvent(this.id_lective_planification);
         toastr.success("Clases actualizadas correctamente");
+
+        _this2.returnPage();
       });
     },
     onFileChange: function onFileChange(file, id_weekly_content, item_index) {
-      var _this2 = this;
+      var _this3 = this;
 
       var files = file.target.files || file.dataTransfer.files;
       var data = new FormData();
@@ -228,7 +232,7 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
         var _fileNameSplit = _file.name.split(".");
 
         axios.post("/fileDocument", data).then(function (response) {
-          _this2.weekly_plan_detail[id_weekly_content].content[item_index].content = "".concat(window.location.origin, "/uploads/clases/").concat(_this2.weekly_plan_detail[id_weekly_content].content[item_index].description.split(' ').join('_'), "-lective-class-").concat(id_weekly_content, "-").concat(item_index, ".").concat(_fileNameSplit[_fileNameSplit.length - 1]);
+          _this3.weekly_plan_detail[id_weekly_content].content[item_index].content = "".concat(window.location.origin, "/uploads/clases/").concat(_this3.weekly_plan_detail[id_weekly_content].content[item_index].description.split(' ').join('_'), "-lective-class-").concat(id_weekly_content, "-").concat(item_index, ".").concat(_fileNameSplit[_fileNameSplit.length - 1]);
         });
       }
     },
@@ -250,7 +254,7 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
       }
     },
     onFlieChange2: function onFlieChange2(file) {
-      var _this3 = this;
+      var _this4 = this;
 
       var files = file.target.files || file.dataTransfer.files;
       var data = new FormData();
@@ -263,12 +267,12 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
         data.append("count", 3);
         this.newDocument2 = data;
         axios.post("/fileDocument", data).then(function (response) {
-          _this3.emitMessage(response);
+          _this4.emitMessage(response);
         });
       }
     },
     videoFile: function videoFile(file) {
-      var _this4 = this;
+      var _this5 = this;
 
       var files = file.target.files || file.dataTransfer.files;
       var data = new FormData();
@@ -285,15 +289,15 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
           console.log(response.data);
 
           if (response.data == "ok") {
-            _this4.messageVideo = "Video cargado";
+            _this5.messageVideo = "Video cargado";
           } else {
-            _this4.messageVideo = "El video excede el límite, por favor reducir su peso";
+            _this5.messageVideo = "El video excede el límite, por favor reducir su peso";
           }
         });
       }
     },
     videoFile1: function videoFile1(file) {
-      var _this5 = this;
+      var _this6 = this;
 
       var files = file.target.files || file.dataTransfer.files;
       var data = new FormData();
@@ -310,15 +314,15 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
           console.log(response.data);
 
           if (response.data == "ok") {
-            _this5.messageVideo1 = "Video cargado";
+            _this6.messageVideo1 = "Video cargado";
           } else {
-            _this5.messageVideo1 = "El video excede el límite, por favor reducir su peso";
+            _this6.messageVideo1 = "El video excede el límite, por favor reducir su peso";
           }
         });
       }
     },
     videoFile2: function videoFile2(file) {
-      var _this6 = this;
+      var _this7 = this;
 
       var files = file.target.files || file.dataTransfer.files;
       var data = new FormData();
@@ -335,9 +339,9 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
           console.log(response.data);
 
           if (response.data == "ok") {
-            _this6.messageVideo2 = "Video cargado";
+            _this7.messageVideo2 = "Video cargado";
           } else {
-            _this6.messageVideo2 = "El video excede el límite, por favor reducir su peso";
+            _this7.messageVideo2 = "El video excede el límite, por favor reducir su peso";
           }
         });
       }
