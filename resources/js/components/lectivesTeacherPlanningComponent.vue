@@ -32,10 +32,10 @@
                     :href="'/teacher/lectives/planning/'+ plan.id_planification "
                     class="btn btn-warning"
                   >General</a>
-                  <a
+                 <!-- <a
                     :href="'/teacher/lectives/planning/'+plan.id_planification+'/copy'"
                     class="btn btn-warning"
-                  >Duplicar</a>
+                  >Duplicar</a>-->
                   <a
                     v-show="general==true"
                     :href="'/teacher/lectives/planning/'+plan.id_planification+'/indicators'"
@@ -46,11 +46,11 @@
                     :href="'/teacher/lectives/planning/'+plan.id_planification+'/weekly'"
                     class="btn btn-warning"
                   >Gestionar Ciclo</a>
-                   <a
+                 <!--  <a
                     v-show="general==true"
                     :href="'/teacher/lectives/planning/'+plan.id_planification+'/weekly/copy'"
                     class="btn btn-warning"
-                  >Duplicar Ciclo</a>
+                  >Duplicar Ciclo</a>-->
                   
                 </div>
               </div>

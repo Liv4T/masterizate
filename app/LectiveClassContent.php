@@ -9,6 +9,6 @@ class LectiveClassContent extends Model
     protected $table = 'lective_class_content';
 
     protected $fillable = [
-        'id_lective_class', 'content_type','content','student_visited_date','state','deleted','updated_user'
+        'id_lective_class', 'content_type','content','description','student_visited_date','state','deleted','updated_user'
     ];
 }

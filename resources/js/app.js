@@ -150,9 +150,10 @@ Vue.component("lectives-teacher-courses", ()=>import("./components/lectivesTeach
 Vue.component("lectives-teacher-courses-edit", ()=>import("./components/lectivesTeacherCoursesEditComponent.vue"));
 Vue.component("lectives-teacher-activities", ()=>import("./components/lectivesTeacherActivitiesComponent.vue"));
 Vue.component("lectives-teacher-board", ()=>import("./components/lectivesTeacherBoardComponent.vue"));
+Vue.component("lectives-teacher-students", ()=>import("./components/lectivesTeacherStudentsComponent.vue"));
 
 Vue.component("lectives-teacher-notes", ()=>import("./components/lectivesTeacherNotesComponent.vue"));
-Vue.component("lectives-teacher-students-list", ()=>import("./components/lectivesTeacherStudentsListComponent.vue"));
+
 
 
 

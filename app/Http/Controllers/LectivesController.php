@@ -12,6 +12,8 @@ use App\LectivePlanification;
 use App\LectiveQuarterlyPlan;
 use App\LectiveStudent;
 use App\LectiveWeeklyPlan;
+use App\ClassroomStudent;
+use App\Classroom;
 use Illuminate\Http\Request;
 use Auth;
 
@@ -295,6 +297,7 @@ class LectivesController extends Controller
                         'id_content'=>$course_content_item->id,
                         'content_type'=>$course_content_item->content_type,
                         'content'=>$course_content_item->content,
+                        'description'=>$course_content_item->description,
                         'student_visited_date'=>$course_content_item->student_visited_date,
                         'state'=>$course_content_item->state
                     ]);
@@ -316,6 +319,243 @@ class LectivesController extends Controller
 
         return response()->json($ret_model);
 
+    }
+
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function saveWeeklyPlanificationDetail(Request $request,int $id_lective_planification,int $id_weekly_plan)
+    {
+        $auth = Auth::user();
+
+        $data = $request->all();
+
+        $user = User::find($auth->id);
+
+
+        foreach ($data as $key => $item) {
+
+            
+            if(isset($item['id_class']) && $item['id_class']!=0 )
+            {
+                LectiveClass::where('id',$item['id_class'])->update(array('name'=>$item['name'],'description'=>$item['description'],'hourly_intensity'=>$item['hourly_intensity'],'updated_user'=> $user->id));
+                $id_class=$item['id_class'];
+
+
+                if(isset($id_class)) // es una actualizacion
+                {
+                    foreach ($item['content'] as $key_d => $item_detail) {
+                        if(isset($item_detail['id_content'])&& $item_detail['id_content']!=0)
+                        {
+                            LectiveClassContent::where('id',$item_detail['id_content'])->update(array('content'=>$item_detail['content'],'description'=>$item_detail['description'],'updated_user'=> $user->id));
+                        }
+                        else if(isset($item_detail['id_content']) && $item_detail['id_content']==0)
+                        {
+                            LectiveClassContent::create([
+                                'id_lective_class'=>$id_class,
+                                'content_type'=>$item_detail['content_type'],
+                                'content'=>$item_detail['content'],
+                                'description'=>$item_detail['description'],
+                                'state'=>1,
+                                'deleted'=>0,
+                                'updated_user'=>$user->id
+                            ]);
+                        }
+                    }
+                }
+
+            }
+            else if(isset($item['id_class']) && $item['id_class']==0) // es una creacion
+            {
+                $class=LectiveClass::create([
+                    'id_lective_weekly_plan'=>$id_weekly_plan,
+                    'name'=>$item['name'],
+                    'description'=>$item['description'],
+                    'hourly_intensity'=>$item['hourly_intensity'],
+                    'state'=>1,
+                    'deleted'=>0,
+                    'updated_user'=>$user->id
+                ]);
+
+                $id_class=$class->id;
+
+
+                if(isset($id_class))
+                {
+                    foreach ($item['content'] as $key_d => $item_detail) {
+                        LectiveClassContent::create([
+                                'id_lective_class'=>$id_class,
+                                'content_type'=>$item_detail['content_type'],
+                                'content'=>$item_detail['content'],
+                                'description'=>$item_detail['description'],
+                                'state'=>1,
+                                'deleted'=>0,
+                                'updated_user'=>$user->id
+                            ]);
+                    }
+                }
+            }
+
+            
+
+
+        }
+
+        return;
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getPlanificationStudents(int $id_lective_planification)
+    {
+
+        $auth = Auth::user();
+
+        $user = User::find($auth->id);
+        $students = [];
+
+        $lective_students= LectiveStudent::where('id_lective_planification',$id_lective_planification)->where('deleted',0)->where('state',1)->get();
+      
+        foreach ($lective_students as $key_i => $lective_student) {
+            $user=User::find($lective_student->id_student);
+
+            $user_grade=ClassroomStudent::where('id_user',$lective_student->id_student)->first();
+            if(isset($user_grade)){$classroom=Classroom::find( $user_grade->id_classroom);}else{$classroom=null;}
+      
+
+            
+
+            array_push($students,[
+                'id_user'=>$lective_student->id_student,
+                'identification'=>$user->id_number,
+                'name'=>$user->name,
+                'last_name'=>$user->last_name,
+                'picture'=>$user->picture,
+                'grade'=>$classroom!=null?$classroom->name:''
+            ]);
+
+        }
+
+        return response()->json($students);
+    }
+
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function findStudents(String $content)
+    {
+
+        $auth = Auth::user();
+
+        $user_identification_finded = User::where('type_user',3)->Where('id_number',$content)->take(3)->get();
+        $user_lastname_finded = User::where('type_user',3)->Where('last_name','like',$content.'%')->take(3)->get();
+        $user_name_finded = User::where('type_user',3)->Where('name','like',$content.'%')->take(3)->get();
+
+        $students = [];
+
+
+        foreach ($user_identification_finded as $key_i => $user) {
+           
+
+            array_push($students,[
+                'id_user'=>$user->id,
+                'identification'=>$user->id_number,
+                'name'=>$user->name,
+                'last_name'=>$user->last_name,
+                'selected'=>0
+            ]);
+
+        }
+
+
+        foreach ($user_lastname_finded as $key_i => $user) {
+           
+
+            array_push($students,[
+                'id_user'=>$user->id,
+                'identification'=>$user->id_number,
+                'name'=>$user->name,
+                'last_name'=>$user->last_name,
+                'selected'=>0
+            ]);
+
+        }
+
+
+        
+        foreach ($user_name_finded as $key_i => $user) {
+           
+
+            array_push($students,[
+                'id_user'=>$user->id,
+                'identification'=>$user->id_number,
+                'name'=>$user->name,
+                'last_name'=>$user->last_name,
+                'selected'=>0
+            ]);
+
+        }
+
+        return response()->json($students);
+    }
+
+
+
+      /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function addStudents(Request $request,int $id_lective_planification)
+    {
+
+        $auth = Auth::user();
+
+        $data = $request->all();
+
+
+        $user = User::find($auth->id);
+
+        foreach ($data as $key_i => $student) {
+            $student_exist=LectiveStudent::where('id_lective_planification',$id_lective_planification)->where('deleted',0)->where('id_student',$student['id_user'])->get();
+
+            if(count( $student_exist)==0)
+            {
+                LectiveStudent::create([
+                    'id_lective_planification'=>$id_lective_planification,
+                    'id_student'=>$student['id_user'],
+                    'state'=>1,
+                    'deleted'=>0,
+                    'updated_user'=>$user->id
+                ]);
+            }
+        }
+
+        return;
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function removeStudent(int $id_lective_planification, int $id_student)
+    {
+
+        $auth = Auth::user();
+
+        LectiveStudent::where('id_lective_planification',$id_lective_planification)->where('deleted',0)->where('id_student',$id_student)->update(array('deleted'=>1,'updated_user'=>$auth->id));
+
+        return;
     }
 
 }
