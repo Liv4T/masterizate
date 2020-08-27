@@ -334,11 +334,7 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
       });
     },
     updateCourses: function updateCourses() {
-      window.location = "/api/lectives/planification/" + {
-        id_lective_planification: id_lective_planification
-      } + "/achievement/" + {
-        id_lective_indicator: id_lective_indicator
-      };
+      this.returnToHome();
     },
     showAddModal: function showAddModal(id) {
       this.id_indicator = 0;
