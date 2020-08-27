@@ -127,6 +127,58 @@
                 </li>
               </a>
             </div>
+            <div class="dropdown2">
+              <a>
+                <li class="item-menu">
+                  <img
+                    width="35px"
+                    src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/ANUNCIOS_naranja.png?alt=media&token=539c1428-c480-43bf-a132-73be35386940"
+                    alt/>
+                  <span class="menu">Mis Electivas</span>
+                  <div class="dropdown2-content">
+                    <a href="/teacher/lectives/planning">
+                      <img
+                        width="35px"
+                        src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/MIS-CURSOS.png?alt=media&token=93ec6b97-e5a6-4eca-891e-b63bf2a352ad"
+                        alt/>Planificación</a>
+
+                    <a href="/teacher/lectives/courses">
+                      <img
+                        width="35px"
+                        src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/ACTIVIDADES_naranja.png?alt=media&token=93ec6b97-e5a6-4eca-891e-b63bf2a352ad"
+                        alt
+                      />Mis clases
+                    </a>
+
+                    <a href="/teacher/lectives/students">
+                      <img
+                        width="35px"
+                        src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/ACTIVIDADES_naranja.png?alt=media&token=93ec6b97-e5a6-4eca-891e-b63bf2a352ad"
+                        alt/>Mis alumnos
+                        </a>
+
+                    <a href="/teacher/lectives/activities">
+                      <img
+                        width="35px"
+                        src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/ACTIVIDADES_naranja.png?alt=media&token=93ec6b97-e5a6-4eca-891e-b63bf2a352ad"
+                        alt/>Mis actividades</a>
+
+                    <a href="/notas_d">
+                      <img
+                        width="35px"
+                        src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/NOTAS_naranja.png?alt=media&token=93ec6b97-e5a6-4eca-891e-b63bf2a352ad"
+                        alt
+                      />Notas</a>
+                      
+                    <a href="/board">
+                      <img
+                        width="35px"
+                        src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/NOTAS_naranja.png?alt=media&token=93ec6b97-e5a6-4eca-891e-b63bf2a352ad"
+                        alt/>Pizarra</a>
+                  </div>
+                </li>
+              </a>
+            </div>
             <!-- <div class="dropdown">
               <a href="/actividad_g">
                 <li class="item-menu">
