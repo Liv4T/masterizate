@@ -183,8 +183,8 @@ export default {
 
     },
     methods: {
-        getMenu() {
-            window.location = "/clases_d";
+        returnPage() {
+            window.location = "/teacher/lectives/courses";
         },
         addResource(index,resource_type){
             this.weekly_plan_detail[index].content.push({
@@ -217,6 +217,7 @@ export default {
              
                // this.getPlanificationEvent(this.id_lective_planification);
                 toastr.success("Clases actualizadas correctamente");
+                this.returnPage();
             });
         },
         onFileChange(file,id_weekly_content,item_index) {
