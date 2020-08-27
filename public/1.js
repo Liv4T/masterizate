@@ -643,7 +643,10 @@ var render = function() {
                                 },
                                 [_vm._v(_vm._s(item_content.description))]
                               )
-                            : _c("input", {
+                            : _vm._e(),
+                          _vm._v(" "),
+                          item_content.content_type !== "DOCUMENT"
+                            ? _c("input", {
                                 directives: [
                                   {
                                     name: "model",
@@ -668,6 +671,7 @@ var render = function() {
                                   }
                                 }
                               })
+                            : _vm._e()
                         ])
                       ])
                     }),
