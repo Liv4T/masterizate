@@ -50,7 +50,7 @@
                                         <label v-else-if="item_content.content_type === 'VIDEO'">Enlace</label>
                                         <input v-if="item_content.content_type === 'DOCUMENT'" class="form-control" type="file" @change="onFileChange($event,key_d,key_c)" />
                                         <a v-if="item_content.content_type === 'DOCUMENT' && item_content.content!=''" v-bind:href="item_content.content" target="_blank">{{item_content.description}}</a>
-                                        <input v-else class="form-control" type="text" v-model="item_content.content" />
+                                        <input  v-if="item_content.content_type !== 'DOCUMENT'" class="form-control" type="text" v-model="item_content.content" />
                                     </div>
                                     
                                 </div>
