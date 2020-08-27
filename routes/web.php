@@ -479,14 +479,23 @@ Route::get('/teacher/lectives/planning/{id_lective_planification}', function (in
     return view('lectivesTeacherPlanningEdit')->with('id_lective_planification', $id_lective_planification);
 });
 Route::get('/teacher/lectives/planning/{id_lective_planification}/indicators', function (int $id_lective_planification) {
-    return view('lectivesTeacherIndicators')->with('id_lective_planification', $id_lective_planification);
+    return view('lectivesTeacherWeekly')->with('id_lective_planification', $id_lective_planification);
 });
+
+Route::get('/teacher/lectives/planning/{id_lective_planification}/weekly', function (int $id_lective_planification) {
+    return view('lectivesTeacherWeekly')->with('id_lective_planification', $id_lective_planification);
+});
+
+Route::get('/teacher/lectives/planning/{id_lective_planification}/weekly/{id_weekly_plan}/course', function (int $id_lective_planification,int $id_weekly_plan) {
+    return view('lectivesTeacherCoursesEdit')->with('id_lective_planification', $id_lective_planification)->with('id_weekly_plan', $id_weekly_plan);
+});
+
 
 Route::get('/teacher/lectives/courses', function () {
     return view('lectivesTeacherCourses');
 });
 Route::get('/teacher/lectives/students', function () {
-    return view('lectivesTeacherStudentsList');
+    return view('lectivesTeacherStudents');
 });
 Route::get('/teacher/lectives/activities', function () {
     return view('lectivesTeacherActivities');
@@ -509,6 +518,13 @@ Route::get('/student/lectives/activities', function () {
 Route::get('/api/lectives', 'LectivesController@getLectives');
 Route::get('/api/lectives/planification/{id_lective_planification}', 'LectivesController@getPlanificationDetail');
 Route::put('/api/lectives/planification', 'LectivesController@savePlanificationDetail');
+Route::put('/api/lectives/planification/{id_lective_planification}/weekly', 'LectivesController@saveWeeklyPlanification');
+Route::get('/api/lectives/planification/{id_lective_planification}/weekly/{id_weekly_plan}/course', 'LectivesController@getWeeklyPlanificationDetail');
+Route::put('/api/lectives/planification/{id_lective_planification}/weekly/{id_weekly_plan}/course', 'LectivesController@saveWeeklyPlanificationDetail');
+Route::get('/api/lectives/planification/{id_lective_planification}/student', 'LectivesController@getPlanificationStudents');
+Route::put('/api/lectives/planification/{id_lective_planification}/student', 'LectivesController@addStudents');
+Route::delete('/api/lectives/planification/{id_lective_planification}/student/{id_student}', 'LectivesController@removeStudent');
+Route::get('/api/lectives/student/find/{content}', 'LectivesController@findStudents');
 Route::get('/api/lectives/planification/{id_lective_planification}/achievement/{id_lective_achievement}', 'LectivesController@getIndicatorByPlanificationAchievement');
 Route::put('/api/lectives/planification/{id_lective_planification}/achievement', 'LectivesController@saveIndicator');
 Route::put('/api/lectives/planification/{id_lective_planification}/achievement/{id_lective_indicator}', 'LectivesController@updateIndicator');

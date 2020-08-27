@@ -227,7 +227,7 @@ export default {
   mounted() {
 
      //load from localstorage
-     this.serialLocalStorage=this.serialLocalStorage+"-"+this.id_area+"-"+this.id_classroom;
+     this.serialLocalStorage=this.serialLocalStorage+"-"+this.id_lective_planification;
 
 
     var urlsel =      "/api/lectives/planification/"+this.id_lective_planification ;
