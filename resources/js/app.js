@@ -95,7 +95,6 @@ Vue.component("redactar-component", require("./components/redactar.vue").default
 Vue.component("vmensaje-component", require("./components/vistamensaje.vue").default);
 Vue.component("duplicar-component", require("./components/duplicarGeneral.vue").default);
 Vue.component("duplicarsemana-component", require("./components/duplicarSemana.vue").default);
-
 Vue.component("game-component", require("./components/Game.vue").default);
 Vue.component("juegos-component", require("./components/juegos.vue").default);
 Vue.component("groups", require("./components/Groups.vue").default);
@@ -140,7 +139,28 @@ Vue.component("aestudiante-adm", require("./components/asignarEstudiante.vue").d
 Vue.component("importar-adm", require("./components/importAdm.vue").default);
 Vue.component("asistencia-adm", require("./components/asistencia.vue").default);
 
+
+Vue.component("lectives-adm", ()=>import("./components/lectivesAdmComponent.vue"));
+Vue.component("lectives-adm-assing-teacher", ()=>import("./components/lectivesAdmAssingTeacherComponent.vue"));
+Vue.component("lectives-student-activities", ()=>import("./components/lectivesStudentActivitiesComponent.vue"));
+Vue.component("lectives-student-courses", ()=>import("./components/lectivesStudentCoursesComponent.vue"));
+Vue.component("lectives-teacher-planning", ()=>import("./components/lectivesTeacherPlanningComponent.vue"));
+Vue.component("lectives-teacher-planning-edit", ()=>import("./components/lectivesTeacherPlanningEditComponent.vue"));
+Vue.component("lectives-teacher-indicators", ()=>import("./components/lectivesTeacherIndicatorsComponent.vue"));
+Vue.component("lectives-teacher-weekly", ()=>import("./components/lectivesTeacherWeeklyComponent.vue"));
+Vue.component("lectives-teacher-courses", ()=>import("./components/lectivesTeacherCoursesComponent.vue"));
+Vue.component("lectives-teacher-courses-edit", ()=>import("./components/lectivesTeacherCoursesEditComponent.vue"));
+Vue.component("lectives-teacher-activities", ()=>import("./components/lectivesTeacherActivitiesComponent.vue"));
+Vue.component("lectives-teacher-board", ()=>import("./components/lectivesTeacherBoardComponent.vue"));
+Vue.component("lectives-teacher-students", ()=>import("./components/lectivesTeacherStudentsComponent.vue"));
+
+Vue.component("lectives-teacher-notes", ()=>import("./components/lectivesTeacherNotesComponent.vue"));
+
+
+
+
 Vue.use(CKEditor);
 Vue.use(CKEditor);
 
 const app = new Vue({el: "#app", data: {}, store});
+
