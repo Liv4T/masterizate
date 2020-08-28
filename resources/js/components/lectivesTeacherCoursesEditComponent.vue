@@ -4,7 +4,7 @@
             <div class="row">
                 <div class="col-md-11 mx-auto">
                     <div class="custom-card text-center">
-                        <h3 class="card-header fondo">Mis clases - Lectiva {{planification.lective.name}} Trimestre {{planification.period_consecutive}}</h3>
+                        <h3 class="card-header fondo">Mis clases - Electiva {{planification.lective.name}} Trimestre {{planification.period_consecutive}}</h3>
                     </div>
                     <div class="div-weekly-plan">
                         <div>
