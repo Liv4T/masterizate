@@ -14,7 +14,7 @@
                 next-button-text="Siguiente"
                 back-button-text="Atrás"
                 finish-button-text="Guardar y enviar"
-                @on-complete="createSemanal"
+                @on-complete="updateClass"
               >
                 <tab-content title="Clase">
                   <div class="form-group mx-auto">
@@ -22,7 +22,11 @@
                       <div class="col-md-6">
                         <label for>Ciclo:</label>
                         <select class="form-control" v-model="ciclo" required>
-                          <option :value="option.id" v-for="option in myOptions">{{ option.text }}</option>
+                          <option :value="option.id" v-for="option in myOptions">
+                            {{
+                            option.text
+                            }}
+                          </option>
                         </select>
                       </div>
                     </div>
@@ -56,20 +60,21 @@
                     <div class="form-group mx-auto">Material de apoyo</div>
                     <div class="form-group row">
                       <div class="col-md-6">
-                        <label for="name">
-                          *Nombre del
-                          documento
-                        </label>
+                        <label for="name">Nombre del documento</label>
                         <input type="text" name="objetive1" class="form-control" v-model="nameFile" />
                       </div>
                       <div class="col-md-6">
-                        <label for="name">*Documento</label>
+                        <label for="name">Documento</label>
                         <input
                           type="file"
                           name="document"
                           class="form-control"
                           @change="onFlieChange"
                         />
+                        <span
+                          v-show="urlDocument!=''"
+                          class="classroom-label"
+                        >- Tiene un documento guardado</span>
                       </div>
                       <div class="col-md-6">
                         <label for="name">Documento</label>
@@ -79,6 +84,10 @@
                           class="form-control"
                           @change="onFlieChange1"
                         />
+                        <span
+                          v-show="urlDocument1!=''"
+                          class="classroom-label"
+                        >- Tiene un documento guardado</span>
                       </div>
                       <div class="col-md-6">
                         <label for="name">Documento</label>
@@ -88,11 +97,15 @@
                           class="form-control"
                           @change="onFlieChange2"
                         />
+                        <span
+                          v-show="urlDocument2!=''"
+                          class="classroom-label"
+                        >- Tiene un documento guardado</span>
                       </div>
                     </div>
                     <div class="form-group row">
                       <div class="col-md-6">
-                        <label for="name">*Enlace</label>
+                        <label for="name">Enlace</label>
                         <input
                           type="text"
                           name="objetive1"
@@ -110,11 +123,17 @@
                         <input type="text" name="objetive1" class="form-control" v-model="nameUrl2" />
                       </div>
                       <div class="col-md-6">
-                        <label for="name">Enlace Video (Youtube)</label>
+                        <label for="name">
+                          Enlace Video
+                          (Youtube)
+                        </label>
                         <input type="text" name="objetive1" class="form-control" v-model="newVideo" />
                       </div>
                       <div class="col-md-6">
-                        <label for="name">Enlace Video (Youtube)</label>
+                        <label for="name">
+                          Enlace Video
+                          (Youtube)
+                        </label>
                         <input
                           type="text"
                           name="objetive1"
@@ -123,7 +142,10 @@
                         />
                       </div>
                       <div class="col-md-6">
-                        <label for="name">Enlace Video (Youtube)</label>
+                        <label for="name">
+                          Enlace Video
+                          (Youtube)
+                        </label>
                         <input
                           type="text"
                           name="objetive1"
@@ -148,10 +170,11 @@
                       </div>
                     </div>
                   </div>
-                  <strong>* Campos requeridos</strong>
-                  <!-- <div class="modal-footer">
-                    <a href="#" class="btn btn-warning float-right">Guardar</a>
-                  </div>-->
+                  <strong>* Campos requeridos.</strong>
+                  <br />
+                  <span
+                    class="classroom-label"
+                  >- Los documentos solo se pueden agregar o actualizar.</span>
                 </tab-content>
               </form-wizard>
             </form>
@@ -202,6 +225,9 @@ export default {
       nameUrl: "",
       nameUrl1: "",
       nameUrl2: "",
+      urlDocument: "",
+      urlDocument1: "",
+      urlDocument2: "",
       newDocument: [],
       newDocument1: [],
       newDocument2: [],
@@ -230,6 +256,9 @@ export default {
       this.newVideo = this.clases.video;
       this.newVideo1 = this.clases.video1;
       this.newVideo2 = this.clases.video2;
+      this.urlDocument = this.clases.document;
+      this.urlDocument1 = this.clases.document1;
+      this.urlDocument2 = this.clases.document2;
       this.numero = this.clases.hourly_intensity;
       console.log(this.clases);
     });
@@ -256,12 +285,12 @@ export default {
     getMenu() {
       window.location = "/clases_d";
     },
-    createSemanal() {
-      var url = window.location.origin + "/Class";
+    updateClass() {
+      var url = window.location.origin + "/updateClass";
 
       axios
-        .post(url, {
-          //Cursos generales
+        .put(url, {
+          id: this.id_class,
           id_weekly_plan: this.ciclo,
           name: this.nameUnit,
           description: this.description,
@@ -280,7 +309,7 @@ export default {
         .then((response) => {
           this.errors = [];
 
-          toastr.success("Nueva clase creada exitosamente");
+          toastr.success("Clase actualizada exitosamente");
           this.getMenu();
         })
         .catch((error) => {
@@ -300,7 +329,7 @@ export default {
         data.append("count", 1);
         this.newDocument = data;
 
-        axios.post("/fileDocument", data).then((response) => {
+        axios.post("/fileDocumentUpdate", data).then((response) => {
           this.emitMessage(response);
         });
       }
@@ -318,7 +347,7 @@ export default {
         data.append("count", 2);
         this.newDocument1 = data;
 
-        axios.post("/fileDocument", data).then((response) => {
+        axios.post("/fileDocumentUpdate", data).then((response) => {
           this.emitMessage(response);
         });
       }
@@ -336,35 +365,10 @@ export default {
         data.append("count", 3);
         this.newDocument2 = data;
 
-        axios.post("/fileDocument", data).then((response) => {
+        axios.post("/fileDocumentUpdate", data).then((response) => {
           this.emitMessage(response);
         });
       }
-    },
-
-    updateSemanal() {
-      var url = "updateCourseWeekly";
-
-      if (this.fillS.length >= 1) {
-        for (let i = 0; i < this.fillS.length; i++) {
-          this.newSemanal.push(this.fillS[i]);
-        }
-      }
-      axios
-        .put(url, {
-          //Cursos generales
-          id_materia: "1",
-          semana: this.newSemanal,
-        })
-        .then((response) => {
-          this.errors = [];
-
-          toastr.success("Actualizado plan semanal exitosamente");
-          this.getMenu();
-        })
-        .catch((error) => {
-          this.errors = error.response.data;
-        });
     },
   },
 };

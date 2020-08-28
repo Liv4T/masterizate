@@ -90,17 +90,20 @@ class EventsController extends Controller
             $eventos_student = Eventos::where('id_classroom', $classroom_student->id_classroom)->orderBy('date_from', 'ASC')->get();
             foreach ($eventos_student as $index => $evento) {
                 $dateTo = Carbon::parse($evento->date_to);
+                $dateFrom = Carbon::parse($evento->date_from);
                 if ($dateTo > $date) {
-                    $area = Area::find($evento->id_area);
-                    $classroom = Classroom::find($evento->id_classroom);
-                    $eventos[$index] = [
-                        "name" => $evento->name,
-                        "dateFrom" => $evento->date_from,
-                        "dateTo" => $evento->date_to,
-                        "hangout" => $evento->url,
-                        "area" => $area->name,
-                        "classroom" => $classroom->name,
-                    ];
+                    if (($dateTo->day == $date->day && $dateTo->month == $date->month) || ($dateFrom->day == $date->day && $dateFrom->month == $date->month)) {
+                        $area = Area::find($evento->id_area);
+                        $classroom = Classroom::find($evento->id_classroom);
+                        $eventos[$index] = [
+                            "name" => $evento->name,
+                            "dateFrom" => $evento->date_from,
+                            "dateTo" => $evento->date_to,
+                            "hangout" => $evento->url,
+                            "area" => $area->name,
+                            "classroom" => $classroom->name,
+                        ];
+                    }
                 }
             }
         } elseif ($user->type_user == 1) {

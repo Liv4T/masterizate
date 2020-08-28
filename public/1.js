@@ -176,6 +176,29 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 (function () {
   "use strict";
 
@@ -210,6 +233,9 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
       nameUrl: "",
       nameUrl1: "",
       nameUrl2: "",
+      urlDocument: "",
+      urlDocument1: "",
+      urlDocument2: "",
       newDocument: [],
       newDocument1: [],
       newDocument2: [],
@@ -240,6 +266,9 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
       _this.newVideo = _this.clases.video;
       _this.newVideo1 = _this.clases.video1;
       _this.newVideo2 = _this.clases.video2;
+      _this.urlDocument = _this.clases.document;
+      _this.urlDocument1 = _this.clases.document1;
+      _this.urlDocument2 = _this.clases.document2;
       _this.numero = _this.clases.hourly_intensity;
       console.log(_this.clases);
     });
@@ -256,12 +285,12 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
     getMenu: function getMenu() {
       window.location = "/clases_d";
     },
-    createSemanal: function createSemanal() {
+    updateClass: function updateClass() {
       var _this2 = this;
 
-      var url = window.location.origin + "/Class";
-      axios.post(url, {
-        //Cursos generales
+      var url = window.location.origin + "/updateClass";
+      axios.put(url, {
+        id: this.id_class,
         id_weekly_plan: this.ciclo,
         name: this.nameUnit,
         description: this.description,
@@ -278,7 +307,7 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
         hourly_intensity: this.numero
       }).then(function (response) {
         _this2.errors = [];
-        toastr.success("Nueva clase creada exitosamente");
+        toastr.success("Clase actualizada exitosamente");
 
         _this2.getMenu();
       })["catch"](function (error) {
@@ -298,7 +327,7 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
         data.append("name", this.nameUnit);
         data.append("count", 1);
         this.newDocument = data;
-        axios.post("/fileDocument", data).then(function (response) {
+        axios.post("/fileDocumentUpdate", data).then(function (response) {
           _this3.emitMessage(response);
         });
       }
@@ -316,7 +345,7 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
         data.append("name", this.nameUnit);
         data.append("count", 2);
         this.newDocument1 = data;
-        axios.post("/fileDocument", data).then(function (response) {
+        axios.post("/fileDocumentUpdate", data).then(function (response) {
           _this4.emitMessage(response);
         });
       }
@@ -334,34 +363,10 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
         data.append("name", this.nameUnit);
         data.append("count", 3);
         this.newDocument2 = data;
-        axios.post("/fileDocument", data).then(function (response) {
+        axios.post("/fileDocumentUpdate", data).then(function (response) {
           _this5.emitMessage(response);
         });
       }
-    },
-    updateSemanal: function updateSemanal() {
-      var _this6 = this;
-
-      var url = "updateCourseWeekly";
-
-      if (this.fillS.length >= 1) {
-        for (var i = 0; i < this.fillS.length; i++) {
-          this.newSemanal.push(this.fillS[i]);
-        }
-      }
-
-      axios.put(url, {
-        //Cursos generales
-        id_materia: "1",
-        semana: this.newSemanal
-      }).then(function (response) {
-        _this6.errors = [];
-        toastr.success("Actualizado plan semanal exitosamente");
-
-        _this6.getMenu();
-      })["catch"](function (error) {
-        _this6.errors = error.response.data;
-      });
     }
   }
 });
@@ -411,7 +416,7 @@ var render = function() {
                       "back-button-text": "Atrás",
                       "finish-button-text": "Guardar y enviar"
                     },
-                    on: { "on-complete": _vm.createSemanal }
+                    on: { "on-complete": _vm.updateClass }
                   },
                   [
                     _c("tab-content", { attrs: { title: "Clase" } }, [
@@ -456,7 +461,13 @@ var render = function() {
                                 return _c(
                                   "option",
                                   { domProps: { value: option.id } },
-                                  [_vm._v(_vm._s(option.text))]
+                                  [
+                                    _vm._v(
+                                      "\n                          " +
+                                        _vm._s(option.text) +
+                                        "\n                        "
+                                    )
+                                  ]
                                 )
                               }),
                               0
@@ -558,9 +569,7 @@ var render = function() {
                           _c("div", { staticClass: "form-group row" }, [
                             _c("div", { staticClass: "col-md-6" }, [
                               _c("label", { attrs: { for: "name" } }, [
-                                _vm._v(
-                                  "\n                        *Nombre del\n                        documento\n                      "
-                                )
+                                _vm._v("Nombre del documento")
                               ]),
                               _vm._v(" "),
                               _c("input", {
@@ -588,14 +597,30 @@ var render = function() {
                             _vm._v(" "),
                             _c("div", { staticClass: "col-md-6" }, [
                               _c("label", { attrs: { for: "name" } }, [
-                                _vm._v("*Documento")
+                                _vm._v("Documento")
                               ]),
                               _vm._v(" "),
                               _c("input", {
                                 staticClass: "form-control",
                                 attrs: { type: "file", name: "document" },
                                 on: { change: _vm.onFlieChange }
-                              })
+                              }),
+                              _vm._v(" "),
+                              _c(
+                                "span",
+                                {
+                                  directives: [
+                                    {
+                                      name: "show",
+                                      rawName: "v-show",
+                                      value: _vm.urlDocument != "",
+                                      expression: "urlDocument!=''"
+                                    }
+                                  ],
+                                  staticClass: "classroom-label"
+                                },
+                                [_vm._v("- Tiene un documento guardado")]
+                              )
                             ]),
                             _vm._v(" "),
                             _c("div", { staticClass: "col-md-6" }, [
@@ -607,7 +632,23 @@ var render = function() {
                                 staticClass: "form-control",
                                 attrs: { type: "file", name: "document" },
                                 on: { change: _vm.onFlieChange1 }
-                              })
+                              }),
+                              _vm._v(" "),
+                              _c(
+                                "span",
+                                {
+                                  directives: [
+                                    {
+                                      name: "show",
+                                      rawName: "v-show",
+                                      value: _vm.urlDocument1 != "",
+                                      expression: "urlDocument1!=''"
+                                    }
+                                  ],
+                                  staticClass: "classroom-label"
+                                },
+                                [_vm._v("- Tiene un documento guardado")]
+                              )
                             ]),
                             _vm._v(" "),
                             _c("div", { staticClass: "col-md-6" }, [
@@ -619,14 +660,30 @@ var render = function() {
                                 staticClass: "form-control",
                                 attrs: { type: "file", name: "document" },
                                 on: { change: _vm.onFlieChange2 }
-                              })
+                              }),
+                              _vm._v(" "),
+                              _c(
+                                "span",
+                                {
+                                  directives: [
+                                    {
+                                      name: "show",
+                                      rawName: "v-show",
+                                      value: _vm.urlDocument2 != "",
+                                      expression: "urlDocument2!=''"
+                                    }
+                                  ],
+                                  staticClass: "classroom-label"
+                                },
+                                [_vm._v("- Tiene un documento guardado")]
+                              )
                             ])
                           ]),
                           _vm._v(" "),
                           _c("div", { staticClass: "form-group row" }, [
                             _c("div", { staticClass: "col-md-6" }, [
                               _c("label", { attrs: { for: "name" } }, [
-                                _vm._v("*Enlace")
+                                _vm._v("Enlace")
                               ]),
                               _vm._v(" "),
                               _c("input", {
@@ -714,7 +771,9 @@ var render = function() {
                             _vm._v(" "),
                             _c("div", { staticClass: "col-md-6" }, [
                               _c("label", { attrs: { for: "name" } }, [
-                                _vm._v("Enlace Video (Youtube)")
+                                _vm._v(
+                                  "\n                        Enlace Video\n                        (Youtube)\n                      "
+                                )
                               ]),
                               _vm._v(" "),
                               _c("input", {
@@ -742,7 +801,9 @@ var render = function() {
                             _vm._v(" "),
                             _c("div", { staticClass: "col-md-6" }, [
                               _c("label", { attrs: { for: "name" } }, [
-                                _vm._v("Enlace Video (Youtube)")
+                                _vm._v(
+                                  "\n                        Enlace Video\n                        (Youtube)\n                      "
+                                )
                               ]),
                               _vm._v(" "),
                               _c("input", {
@@ -770,7 +831,9 @@ var render = function() {
                             _vm._v(" "),
                             _c("div", { staticClass: "col-md-6" }, [
                               _c("label", { attrs: { for: "name" } }, [
-                                _vm._v("Enlace Video (Youtube)")
+                                _vm._v(
+                                  "\n                        Enlace Video\n                        (Youtube)\n                      "
+                                )
                               ]),
                               _vm._v(" "),
                               _c("input", {
@@ -835,7 +898,15 @@ var render = function() {
                         ]
                       ),
                       _vm._v(" "),
-                      _c("strong", [_vm._v("* Campos requeridos")])
+                      _c("strong", [_vm._v("* Campos requeridos.")]),
+                      _vm._v(" "),
+                      _c("br"),
+                      _vm._v(" "),
+                      _c("span", { staticClass: "classroom-label" }, [
+                        _vm._v(
+                          "- Los documentos solo se pueden agregar o actualizar."
+                        )
+                      ])
                     ])
                   ],
                   1

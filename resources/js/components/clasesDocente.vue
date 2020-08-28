@@ -84,10 +84,10 @@
                           aria-expanded="true"
                           :aria-controls="'collapse' +t"
                         >Clase {{ t+1 }}</button>
-                        <!-- <a
+                        <a
                           class="btn btn-warning float-right"
                           :href="'/editar_clase/'+clas.id+'/'+Iarea+'/'+Iclassroom"
-                        >Editar</a>-->
+                        >Editar</a>
                       </h2>
                     </div>
                     <div

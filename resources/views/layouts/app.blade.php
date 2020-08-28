@@ -109,6 +109,7 @@
                                 {{ Auth::user()->name }} <span class="caret"></span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                             <a class="dropdown-item" href="/inicio">Ir a clase</a>
                                 <a class="dropdown-item" href="/changePassword">Cambiar Contraseña</a>
                                  <a class="dropdown-item" href="/manual">Ayuda</a>
                                 <a class="dropdown-item" href="{{ route('logout') }}"
