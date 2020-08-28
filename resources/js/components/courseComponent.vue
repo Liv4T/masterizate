@@ -49,7 +49,7 @@
                     <strong>Logro:</strong>
 
                     <input
-                      v-on:change="annualContentUpdateEvent($event,t)"
+                      v-on:change="annualContentUpdateEvent($event,t,'inputs1')"
                       class="form-control form-control-sm"
                       type="number"
                       style="width:50px;"
@@ -74,7 +74,7 @@
                     name="welcome"
                     class="form-control"
                     v-model="input1.logro"
-                    v-on:change="annualContentUpdateEvent($event,t)"
+                    v-on:change="annualContentUpdateEvent($event,t,'inputs1','logro')"
                     required
                   ></textarea>
                   <div class="invalid-feedback">Please fill out this field</div>
@@ -105,7 +105,7 @@
                         name="objetive1"
                         class="form-control"
                         v-model="input.name"
-                        v-on:change="annualContentUpdateEvent($event,t)"
+                        v-on:change="annualContentUpdateEvent($event,t,'inputs','name')"
                         placeholder="Nombre de la unidad"
                         required
                       />
@@ -117,7 +117,7 @@
                       name="competences"
                       class="form-control"
                       v-model="input.contenido"
-                      v-on:change="annualContentUpdateEvent($event,t)"
+                      v-on:change="annualContentUpdateEvent($event,t,'inputs','contenido')"
                       placeholder="Es la explicacion o sintesis de la unidad."
                       required
                     ></textarea>
@@ -130,78 +130,7 @@
               </tab-content>              
             </form-wizard>
           </form>
-          <!--
-          <form v-show="trimestre == true">
-            <form-wizard
-              title
-              subtitle
-              color="#ffc107"
-              next-button-text="Siguiente"
-              back-button-text="Atrás"
-              finish-button-text="Volver"
-              @on-complete="updateCourses"
-            >
-              <tab-content title="Anual">
-                <div>
-                  <div class="form-group mx-auto" v-for="(option,k) in fillC.achievements" :key="k">
-                    <div align="center">
-                      <strong>
-                        Logro {{ k+1 }}
-                        <input
-                          type="number"
-                          style="width:50px;"
-                          v-model="option.percentage"
-                          v-on:change="annualContentUpdateEvent($event,t)"
-                          disabled
-                        />%
-                      </strong>
-                    </div>
-                    <textarea
-                      name="welcome"
-                      class="form-control"
-                      v-model="option.achievement"
-                      v-on:change="annualContentUpdateEvent($event,t)"
-                      disabled
-                    ></textarea>
-                    <div class="invalid-feedback">Please fill out this field</div>
-                  </div>
-                </div>
-              </tab-content>
-              <tab-content title="Trimestral">
-                <div class="form-group row mx-auto" v-for="(input, t) in fillC.quaterly" :key="t">
-                  <div class="col-md-6">
-                    <label for="name">Indicador</label>
-                    <div>
-                      <input
-                        type="text"
-                        name="objetive1"
-                        class="form-control"
-                        v-model="input.unit_name"
-                        v-on:change="annualContentUpdateEvent($event,t)"
-                        placeholder="Nombre de la unidad"
-                        disabled
-                      />
-                    </div>
-                  </div>
-                  <div class="col-md-6">
-                    <label for="name">Contenido</label>
-                    <textarea
-                      name="competences"
-                      class="form-control"
-                      v-on:change="annualContentUpdateEvent($event,t)"
-                      v-model="input.content"
-                      placeholder="Es la explicacion o sintesis de la unidad."
-                      disabled
-                    ></textarea>
-                    <div class="invalid-feedback">Please fill out this field</div>
-                  </div>
-                </div>
-                -- <div class="modal-footer">
-                  <a submit="createCourses" class="btn btn-warning float-right">Guardar</a>
-                </div>- 
-              </tab-content>
-            </form-wizard>
-          </form>-->
+      
         </div>
       </div>
     </div>
@@ -352,7 +281,18 @@ export default {
     });
   },
   methods: {
-    annualContentUpdateEvent(e,i){
+    annualContentUpdateEvent(e,i,type,property=null){
+
+      if(type=='inputs')
+      {
+        this.inputs[i][property]=this.inputs[i][property].replace(/[^a-zA-Z0-9-.ñáéíóú_*+-/=&%$#!()?¡¿ ]/g, "|");
+      }
+      else if (type=='inputs1')
+      {
+        this.inputs1[i][property]=this.inputs1[i][property].replace(/[^a-zA-Z0-9-.ñáéíóú_*+-/=&%$#!()?¡¿ ]/g, "|");
+      }
+    
+       //console.log(l.normalize('NFD').replace(/([^n\u0300-\u036f]|n(?!\u0303(?![\u0300-\u036f])))[\u0300-\u036f]+/gi,"$1"));
       //serialize data on localstorage
      localStorage.setItem(this.serialLocalStorage, window.btoa(unescape(encodeURIComponent(JSON.stringify({inputs1:this.inputs1,inputs:this.inputs})))));
 

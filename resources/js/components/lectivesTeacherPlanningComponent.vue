@@ -3,7 +3,7 @@
     <div class="row justify-content-center">
       <div id="crud" class="col-sm-10">
         <div class="card text-center">
-          <h3 class="card-header fondo">Planificación General de Lectivas</h3>
+          <h3 class="card-header fondo">Planificación General de Electivas</h3>
           <div class="card-body">
             <div class="accordion" id="accordionExample">
               <div class="card" v-for="(plan,t) in planification" :key="t">

@@ -110,15 +110,15 @@
                             <strong v-else-if="item_content.content_type === 'LINK'">Enlace</strong>
                             <strong v-else-if="item_content.content_type === 'VIDEO'">Video</strong>
                             <p>{{item_content.description}}</p>
-                            <a v-if="item_content.content_type === 'DOCUMENT'"  v-bind:href="item_content.content" target="_blank" class="form-control" type="text"><i class="fa fa-file-download"></i> Descargar</a>
-                            <a v-if="item_content.content_type === 'LINK'"  v-bind:href="item_content.content" target="_blank" class="form-control" type="text"><i class="fa fa-link"></i> Abrir</a>
-                            <a v-if="item_content.content_type === 'VIDEO'"  v-bind:href="item_content.content" target="_blank" class="form-control" type="text"><i class="fa fa-link"></i> Abrir youtube</a>
+                            <a v-if="item_content.content_type === 'DOCUMENT' && item_content.content"  v-bind:href="item_content.content" target="_blank" class="form-control" type="text"><i class="fa fa-file-download"></i> Descargar</a>
+                            <a v-if="item_content.content_type === 'LINK' && item_content.content"  v-bind:href="item_content.content" target="_blank" class="form-control" type="text"><i class="fa fa-link"></i> Abrir</a>
+                            <a v-if="item_content.content_type === 'VIDEO' && item_content.content"  v-bind:href="item_content.content" target="_blank" class="form-control" type="text"><i class="fa fa-link"></i> Abrir youtube</a>
                            <!-- <iframe width="100%" v-bind:src="item_content.content" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>-->
                         </div>
                         <div class="modal-footer">
                           <a
                             class="btn btn-warning"
-                            :href="'/actividad_d/'">Crear Actividad</a>
+                            :href="'/teacher/lectives/activities'">Crear Actividad</a>
                         </div><!--END FOOTER-->
                       </div><!--END CART BODY-->
                       
@@ -177,6 +177,9 @@ export default {
 
       axios.get(`/api/lectives/planification/${id_lective_planification}/weekly/${id_weekly_plan}/course`).then((response) => {
         this.courses = response.data;
+
+        
+
           $("#editu").modal("show");
       });
 

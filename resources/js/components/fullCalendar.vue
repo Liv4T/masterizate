@@ -205,6 +205,7 @@ export default {
       delId: "",
       delName: "",
       idUp: "",
+      lective_planification:{}
     };
   },
   components: {
@@ -218,8 +219,30 @@ export default {
     var url = window.location.origin + "/GetArearByUser";
     axios.get(url).then((response) => {
       this.myOptions = response.data;
+
+
+        axios.get("/api/lectives").then((response) => {
+          this.lective_planification= response.data;
+
+
+          response.data.forEach(e=>{
+              this.myOptions.push({
+                  is_lective:true,
+                  id:e.lective.id,
+                  id_classroom:0,
+                  id_planification:e.id_planification,
+                  text:`Electiva ${e.lective.name} Trimestre ${e.period_consecutive}`
+              });
+          });
+        
+        });
+
     });
-    console.log("Component mounted.");
+   
+
+  
+  
+
   },
   methods: {
     getMenu() {
