@@ -8,9 +8,11 @@
   @endif
   @if (Auth::user()->type_user == '3')
     <menu-lateral></menu-lateral>
+    <inicio-component></inicio-component>
  @endif
   @if (Auth::user()->type_user == '1')
     <menu-adm></menu-adm>
+    <inicio-component></inicio-component>
  @endif
 
 <div class="container">

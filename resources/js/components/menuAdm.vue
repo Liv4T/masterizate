@@ -273,6 +273,11 @@
                 <span class="menu">Mis reportes</span>
               </li>
             </a>
+            <a href="../../uploads/Terminos _Condiciones_liv4t.pdf" target="_blank">
+              <li class="item-menu">
+                <span class="menu">Términos y condiciones</span>
+              </li>
+            </a>
             <!-- <a href="/manual">
               <li class="item-menu">
                 <img

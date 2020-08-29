@@ -198,6 +198,11 @@
                 <span class="menu">Manual de usuario</span>
               </li>
             </a>
+            <a href="../../uploads/Terminos _Condiciones_liv4t.pdf" target="_blank">
+              <li class="item-menu">
+                <span class="menu">Términos y condiciones</span>
+              </li>
+            </a>
           </ul>
           <div class="text-center">
             <a href="#" @click.prevent="logout" class="btn btn-warning">X Salir</a>

@@ -327,6 +327,8 @@ Route::get('showWeek/{id}', 'CoursesController@showWeek');
 Route::put('updateCourseWeekly', 'CoursesController@updateCourseWeekly');
 Route::resource('course_unit', 'Course_unitController', ['except' => 'show', 'create', 'edit']);;
 Route::get('/home', 'HomeController@index')->name('home');
+Route::post('/SaveTerms', 'HomeController@UserTerms')->name('SaveTerms');
+Route::get('/getTerms', 'HomeController@getUserTerms')->name('getTerms');
 
 //Almacenar las notas
 Route::post('saveIndicator', 'ScoreController@saveIndicator')->name('saveIndicator');
@@ -347,6 +349,11 @@ Route::post('fileUpload', 'ConversationController@uploadFile')->name('fileUpload
 
 
 Route::post('fileDocument', 'ClassController@uploadFile')->name('fileDocument');
+// actualizar documentos de las clases
+Route::post('fileDocumentUpdate', 'ClassController@uploadFileUpdate')->name('fileDocumentUpdate');
+// Actualizar una clase
+Route::put('updateClass', 'ClassController@updateClass')->name('updateClass');
+
 // Save audio Blop
 Route::post('fileUploadAudio', 'ConversationController@saveAudio')->name('fileUploadAudio');
 

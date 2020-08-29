@@ -8,6 +8,7 @@ use Response;
 use Auth;
 use App\User;
 use App\Group;
+use App\Terms;
 
 class HomeController extends Controller
 {
@@ -100,5 +101,23 @@ class HomeController extends Controller
         // $user = auth()->user()->id;
         // $user = $user->id;
         return view('grupos', ['groups' => $groups, 'users' => $users, 'user' => $user->id]);
+    }
+    public function UserTerms(Request $request)
+    {
+        $data = $request->all();
+
+
+        $user_terms = new Terms();
+
+        $user_terms->id_user = Auth::user()->id;
+        $user_terms->status = $data['status'];
+
+        $user_terms->save();
+        return "ok";
+    }
+    public function getUserTerms()
+    {
+        $terms = Terms::where('id_user', Auth::user()->id)->first();
+        return response()->json($terms);
     }
 }

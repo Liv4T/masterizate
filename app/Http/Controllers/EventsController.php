@@ -75,20 +75,18 @@ class EventsController extends Controller
             foreach ($eventos_teacher as $index => $evento) {
                 $dateTo = Carbon::parse($evento->date_to);
                 if ($dateTo > $date) {
-                    
 
-                    if($evento->id_classroom==0)// is lective
+
+                    if ($evento->id_classroom == 0) // is lective
                     {
                         $classroom = null;
                         $area = Lective::find($evento->id_area);
-                    }
-                    else
-                    {
+                    } else {
                         $classroom = Classroom::find($evento->id_classroom);
                         $area = Area::find($evento->id_area);
                     }
 
-                   
+
                     $eventos[$index] = [
                         "id" => $evento->id,
                         "name" => $evento->name,
@@ -96,7 +94,7 @@ class EventsController extends Controller
                         "dateTo" => $evento->date_to,
                         "hangout" => $evento->url,
                         "area" => $area->name,
-                        "classroom" => $classroom?$classroom->name:'',
+                        "classroom" => $classroom ? $classroom->name : '',
                     ];
                 }
             }
@@ -105,105 +103,94 @@ class EventsController extends Controller
             $eventos_student = Eventos::where('id_classroom', $classroom_student->id_classroom)->orderBy('date_from', 'ASC')->get();
             foreach ($eventos_student as $index => $evento) {
                 $dateTo = Carbon::parse($evento->date_to);
+                $dateFrom = Carbon::parse($evento->date_from);
                 if ($dateTo > $date) {
+                    if (($dateTo->day == $date->day && $dateTo->month == $date->month) || ($dateFrom->day == $date->day && $dateFrom->month == $date->month)) {
 
-                    if($evento->id_classroom==0)// is lective
-                    {
-                        $classroom = null;
-                        $area = Lective::find($evento->id_area);
+                        if ($evento->id_classroom == 0) // is lective
+                        {
+                            $classroom = null;
+                            $area = Lective::find($evento->id_area);
+                        } else {
+                            $classroom = Classroom::find($evento->id_classroom);
+                            $area = Area::find($evento->id_area);
+                        }
+                        //$area = Area::find($evento->id_area);
+                        //$classroom = Classroom::find($evento->id_classroom);
+                        $eventos[$index] = [
+                            "name" => $evento->name,
+                            "dateFrom" => $evento->date_from,
+                            "dateTo" => $evento->date_to,
+                            "hangout" => $evento->url,
+                            "area" => $area->name,
+                            "classroom" =>  $classroom ? $classroom->name : '',
+                        ];
                     }
-                    else
-                    {
-                        $classroom = Classroom::find($evento->id_classroom);
-                        $area = Area::find($evento->id_area);
-                    }
-
-
-                    //$area = Area::find($evento->id_area);
-                    //$classroom = Classroom::find($evento->id_classroom);
-                    $eventos[$index] = [
-                        "name" => $evento->name,
-                        "dateFrom" => $evento->date_from,
-                        "dateTo" => $evento->date_to,
-                        "hangout" => $evento->url,
-                        "area" => $area->name,
-                        "classroom" =>  $classroom?$classroom->name:'',
-                    ];
                 }
             }
 
             //lectives events
-            $plans_student=LectiveStudent::where('id_student', $user->id)->where('deleted',0)->get();
+            $plans_student = LectiveStudent::where('id_student', $user->id)->where('deleted', 0)->get();
             foreach ($plans_student as $i_plan_student => $plan_student) {
-                $planifications= LectivePlanification::where('id',$plan_student->id_lective_planification)->where('deleted',0)->where('state',1)->get();
+                $planifications = LectivePlanification::where('id', $plan_student->id_lective_planification)->where('deleted', 0)->where('state', 1)->get();
 
                 foreach ($planifications as $i_plan => $plan) {
-                    $eventos_student = Eventos::where('id_area', $plan->id_lective)->where('id_classroom',0)->orderBy('date_from', 'ASC')->get();
+                    $eventos_student = Eventos::where('id_area', $plan->id_lective)->where('id_classroom', 0)->orderBy('date_from', 'ASC')->get();
                     foreach ($eventos_student as $index => $evento) {
                         $dateTo = Carbon::parse($evento->date_to);
                         if ($dateTo > $date) {
-        
-                            if($evento->id_classroom==0)// is lective
+
+                            if ($evento->id_classroom == 0) // is lective
                             {
                                 $classroom = null;
                                 $area = Lective::find($evento->id_area);
-                            }
-                            else
-                            {
+                            } else {
                                 $classroom = Classroom::find($evento->id_classroom);
                                 $area = Area::find($evento->id_area);
                             }
-        
-        
+
+
                             //$area = Area::find($evento->id_area);
                             //$classroom = Classroom::find($evento->id_classroom);
-                            array_push($eventos,
+                            array_push(
+                                $eventos,
                                 [
                                     "name" => $evento->name,
                                     "dateFrom" => $evento->date_from,
                                     "dateTo" => $evento->date_to,
                                     "hangout" => $evento->url,
                                     "area" => $area->name,
-                                    "classroom" =>  $classroom?$classroom->name:'',
+                                    "classroom" =>  $classroom ? $classroom->name : '',
                                 ]
                             );
                         }
                     }
-
                 }
-
-
             }
-
-
-            
-            
         } elseif ($user->type_user == 1) {
             $eventos_all = Eventos::orderBy('date_from', 'ASC')->get();
             foreach ($eventos_all as $index => $evento) {
                 $dateTo = Carbon::parse($evento->date_to);
                 if ($dateTo > $date) {
 
-                    if($evento->id_classroom==0)// is lective
+                    if ($evento->id_classroom == 0) // is lective
                     {
                         $classroom = null;
                         $area = Lective::find($evento->id_area);
-                    }
-                    else
-                    {
+                    } else {
                         $classroom = Classroom::find($evento->id_classroom);
                         $area = Area::find($evento->id_area);
                     }
 
                     //$area = Area::find($evento->id_area);
-                   // $classroom = Classroom::find($evento->id_classroom);
+                    // $classroom = Classroom::find($evento->id_classroom);
                     $eventos[$index] = [
                         "name" => $evento->name,
                         "dateFrom" => $evento->date_from,
                         "dateTo" => $evento->date_to,
                         "hangout" => $evento->url,
                         "area" => $area->name,
-                        "classroom" =>  $classroom?$classroom->name:'',
+                        "classroom" =>  $classroom ? $classroom->name : '',
                     ];
                 }
             }

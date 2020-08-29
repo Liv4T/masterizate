@@ -174,13 +174,44 @@ class ClassController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function updateClass(Request $request)
     {
-        $this->validate($request, [
-            'description' => 'required'
-        ]);
-        Classes::find($id)->update($request->all());
-        return;
+        // $this->validate($request, [
+        //     'description' => 'required'
+        // ]);
+        $data = $request->all();
+        if (isset($data['video']) && $data['video'] !== "") {
+            $data['video'] = str_replace("watch?v=", "embed/", $data['video']);
+        }
+        if (isset($data['video1']) && $data['video1'] !== "") {
+            $data['video1'] = str_replace("watch?v=", "embed/", $data['video1']);
+        }
+        if (isset($data['video2']) && $data['video2'] !== "") {
+            $data['video2'] = str_replace("watch?v=", "embed/", $data['video2']);
+        }
+        $documentos = Files::where('unit', $data['name'])->where('type', 1)->orderBy('id', 'DESC')->get();
+        $url_documento = [];
+        foreach ($documentos as $key => $documento) {
+            $url_documento[$key] = $documento->path;
+        }
+        $class = Classes::find($data['id']);
+        $class->description = $data['description'];
+        $class->id_weekly_plan = $data['id_weekly_plan'];
+        $class->name = $data['name'];
+        $class->name_document = $data['name_document'];
+        $class->url    = $data['url'];
+        $class->url1    = $data['url1'];
+        $class->url2    = $data['url2'];
+        $class->hourly_intensity    = $data['hourly_intensity'];
+        $class->document = isset($url_documento[0]) ? $url_documento[0] : $class->document;
+        $class->document1 = isset($url_documento[1]) ? $url_documento[1] : $class->document1;
+        $class->document2 = isset($url_documento[2]) ? $url_documento[2] : $class->document2;
+        $class->video  = $data['video'];
+        $class->video1  = $data['video1'];
+        $class->video2  = $data['video2'];
+        $class->save();
+
+        return 'class update';
     }
 
     /**
@@ -226,6 +257,47 @@ class ClassController extends Controller
                 $type = 1;
             }
             if ($file->move($destinationPath, $fileName . $number . "." . $extension)) {
+                $file = Files::create([
+                    'path' => $filePath,
+                    'unit' => $fileName_1,
+                    'type' => $type,
+                ]);
+                return "ok";
+            }
+            return "error";
+        }
+    }
+    public function uploadFileUpdate(Request $request)
+    {
+        // return $request;
+        $file = request('file');
+        // dd($file);
+        if (!empty($file)) {
+            $fileName = $file->getClientOriginalName();
+            $div_file_name = explode(".", $fileName);
+            $div_file_name = end($div_file_name);
+            $extension = $div_file_name;
+            $fileName_1 = request('name');
+            $number = request('count');
+            $fileName = strtr($fileName_1, " ", "_");
+            // file with path
+            $filePath = url('uploads/clases/' . $fileName . $number . "." . $extension);
+            //Move Uploaded File
+            $destinationPath = 'uploads/clases/';
+            if ($extension == "flv" || $extension == "mp4" || $extension == "m3u8" || $extension == "ts" || $extension == "3gp" || $extension == "mov" || $extension == "avi" || $extension == "wmv") {
+                $type = 2;
+            } else {
+                $type = 1;
+            }
+            //se elimina el archivo anterior
+            $filenameDelete = url('uploads/clases/' . $fileName . $number . "." . $extension);
+            \File::delete($filenameDelete);
+            //se añade el nuevo archivo
+            if ($file->move($destinationPath, $fileName . $number . "." . $extension)) {
+                $files_prevoiusly = Files::where('path', $filePath)->orderBy('id', 'DESC')->first();
+                if (isset($files_prevoiusly)) {
+                    $files_prevoiusly->delete();
+                }
                 $file = Files::create([
                     'path' => $filePath,
                     'unit' => $fileName_1,
