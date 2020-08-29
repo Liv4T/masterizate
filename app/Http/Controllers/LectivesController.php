@@ -502,9 +502,9 @@ class LectivesController extends Controller
 
         $auth = Auth::user();
 
-        $user_identification_finded = User::where('type_user',3)->Where('id_number',$content)->take(3)->get();
-        $user_lastname_finded = User::where('type_user',3)->Where('last_name','like',$content.'%')->take(3)->get();
-        $user_name_finded = User::where('type_user',3)->Where('name','like',$content.'%')->take(3)->get();
+        $user_identification_finded = User::where('type_user',3)->Where('id_number',$content)->get();
+        $user_lastname_finded = User::where('type_user',3)->Where('last_name','like',$content.'%')->get();
+        $user_name_finded = User::where('type_user',3)->Where('name','like',$content.'%')->get();
 
         $students = [];
 

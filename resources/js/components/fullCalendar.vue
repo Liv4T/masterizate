@@ -22,8 +22,9 @@
                 <h6 for>Desde: {{ clas.dateFrom | moment("LLL") }}</h6>
                 <h6 for>Hasta: {{ clas.dateTo | moment("LLL") }}</h6>
 
-                <label for>Materia: {{ clas.area }}</label>
-                <label for>Salón: {{ clas.classroom }}</label>
+                <label v-if="clas.classroom"  for>Materia: {{ clas.area }}</label>
+                 <label v-if="!clas.classroom"  for>Materia: Electiva {{ clas.area }}</label>
+                <label v-if="clas.classroom" for>Salón: {{ clas.classroom }}</label>
                 <br />
                 <a
                   class="btn btn-warning"
@@ -205,6 +206,7 @@ export default {
       delId: "",
       delName: "",
       idUp: "",
+      lective_planification:{}
     };
   },
   components: {
@@ -218,8 +220,30 @@ export default {
     var url = window.location.origin + "/GetArearByUser";
     axios.get(url).then((response) => {
       this.myOptions = response.data;
+
+
+        axios.get("/api/lectives").then((response) => {
+          this.lective_planification= response.data;
+
+
+          response.data.forEach(e=>{
+              this.myOptions.push({
+                  is_lective:true,
+                  id:e.lective.id,
+                  id_classroom:0,
+                  id_planification:e.id_planification,
+                  text:`Electiva ${e.lective.name} Trimestre ${e.period_consecutive}`
+              });
+          });
+        
+        });
+
     });
-    console.log("Component mounted.");
+   
+
+  
+  
+
   },
   methods: {
     getMenu() {
