@@ -22,8 +22,9 @@
                 <h6 for>Desde: {{ clas.dateFrom | moment("LLL") }}</h6>
                 <h6 for>Hasta: {{ clas.dateTo | moment("LLL") }}</h6>
 
-                <label for>Materia: {{ clas.area }}</label>
-                <label for>Salón: {{ clas.classroom }}</label>
+                <label v-if="clas.classroom"  for>Materia: {{ clas.area }}</label>
+                 <label v-if="!clas.classroom"  for>Materia: Electiva {{ clas.area }}</label>
+                <label v-if="clas.classroom" for>Salón: {{ clas.classroom }}</label>
                 <br />
                 <a
                   class="btn btn-warning"
