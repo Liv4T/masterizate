@@ -509,7 +509,7 @@ Route::get('/teacher/lectives/courses', function () {
 Route::get('/teacher/lectives/students', function () {
     return view('lectivesTeacherStudents');
 });
-Route::get('/teacher/lectives/activities', function () {
+Route::get('/teacher/lectives/courses/1/activities', function () {
     return view('lectivesTeacherActivities');
 });
 Route::get('/teacher/lectives/notes', function () {

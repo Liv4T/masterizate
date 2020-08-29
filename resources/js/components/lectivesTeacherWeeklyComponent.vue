@@ -4,7 +4,7 @@
       <div class="row">
         <div class="col-md-11 mx-auto">
           <div class="custom-card text-center">
-            <h3 class="card-header fondo">Mis Lectivas</h3>
+            <h3 class="card-header fondo">Mis Electivas</h3>
               <span class="classroom-label">{{planification.lective.name}} Trimestre {{planification.period_consecutive}}</span>
             <form class="needs-validation" novalidate>
               <form-wizard
@@ -46,6 +46,7 @@
                           type="text"
                           name="objetive1"
                           class="form-control"
+                           v-on:change="contentUpdateEvent(t,'name')"
                           v-model="
                                                         input.name
                                                     "
@@ -58,6 +59,7 @@
                       <textarea
                         name="competences"
                         class="form-control"
+                        v-on:change="contentUpdateEvent(t,'content')"
                         v-model="
                                                     input.content
                                                 "
@@ -161,6 +163,9 @@ export default {
      });
   },
   methods: {
+    contentUpdateEvent(index,property){
+      this.weekly_plans[index][property]=this.weekly_plans[index][property].replace(/[^a-zA-Z0-9-.ñáéíóú_*+-/=&%$#!()?¡¿ ]/g, "|");
+    },
     add(index) {
       this.weekly_plans.push({
         order:this.weekly_plans.length,

@@ -154,77 +154,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 (function () {
   "use strict";
 
@@ -339,8 +268,17 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
     });
   },
   methods: {
-    annualContentUpdateEvent: function annualContentUpdateEvent(e, i) {
+    annualContentUpdateEvent: function annualContentUpdateEvent(e, i, type) {
+      var property = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : null;
+
+      if (type == 'inputs') {
+        this.inputs[i][property] = this.inputs[i][property].replace(/[^a-zA-Z0-9-.ñáéíóú_*+-/=&%$#!()?¡¿ ]/g, "|");
+      } else if (type == 'inputs1') {
+        this.inputs1[i][property] = this.inputs1[i][property].replace(/[^a-zA-Z0-9-.ñáéíóú_*+-/=&%$#!()?¡¿ ]/g, "|");
+      } //console.log(l.normalize('NFD').replace(/([^n\u0300-\u036f]|n(?!\u0303(?![\u0300-\u036f])))[\u0300-\u036f]+/gi,"$1"));
       //serialize data on localstorage
+
+
       localStorage.setItem(this.serialLocalStorage, window.btoa(unescape(encodeURIComponent(JSON.stringify({
         inputs1: this.inputs1,
         inputs: this.inputs
@@ -525,7 +463,8 @@ var render = function() {
                                     change: function($event) {
                                       return _vm.annualContentUpdateEvent(
                                         $event,
-                                        t
+                                        t,
+                                        "inputs1"
                                       )
                                     },
                                     input: function($event) {
@@ -608,7 +547,12 @@ var render = function() {
                               domProps: { value: input1.logro },
                               on: {
                                 change: function($event) {
-                                  return _vm.annualContentUpdateEvent($event, t)
+                                  return _vm.annualContentUpdateEvent(
+                                    $event,
+                                    t,
+                                    "inputs1",
+                                    "logro"
+                                  )
                                 },
                                 input: function($event) {
                                   if ($event.target.composing) {
@@ -713,7 +657,9 @@ var render = function() {
                                     change: function($event) {
                                       return _vm.annualContentUpdateEvent(
                                         $event,
-                                        t
+                                        t,
+                                        "inputs",
+                                        "name"
                                       )
                                     },
                                     input: function($event) {
@@ -757,7 +703,9 @@ var render = function() {
                                   change: function($event) {
                                     return _vm.annualContentUpdateEvent(
                                       $event,
-                                      t
+                                      t,
+                                      "inputs",
+                                      "contenido"
                                     )
                                   },
                                   input: function($event) {

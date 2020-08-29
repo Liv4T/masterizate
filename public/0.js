@@ -504,7 +504,8 @@ var render = function() {
                                       _vm._v(_vm._s(item_content.description))
                                     ]),
                                     _vm._v(" "),
-                                    item_content.content_type === "DOCUMENT"
+                                    item_content.content_type === "DOCUMENT" &&
+                                    item_content.content
                                       ? _c(
                                           "a",
                                           {
@@ -524,7 +525,8 @@ var render = function() {
                                         )
                                       : _vm._e(),
                                     _vm._v(" "),
-                                    item_content.content_type === "LINK"
+                                    item_content.content_type === "LINK" &&
+                                    item_content.content
                                       ? _c(
                                           "a",
                                           {
@@ -544,7 +546,8 @@ var render = function() {
                                         )
                                       : _vm._e(),
                                     _vm._v(" "),
-                                    item_content.content_type === "VIDEO"
+                                    item_content.content_type === "VIDEO" &&
+                                    item_content.content
                                       ? _c(
                                           "a",
                                           {
@@ -572,7 +575,9 @@ var render = function() {
                                   "a",
                                   {
                                     staticClass: "btn btn-warning",
-                                    attrs: { href: "/actividad_d/" }
+                                    attrs: {
+                                      href: "/teacher/lectives/activities"
+                                    }
                                   },
                                   [_vm._v("Crear Actividad")]
                                 )

@@ -276,8 +276,19 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
     });
   },
   methods: {
-    planificationContentUpdateEvent: function planificationContentUpdateEvent(e, i) {
-      //serialize data on localstorage
+    contentUpdateEvent: function contentUpdateEvent(index, property) {
+      this.inputs[index][property] = this.inputs[index][property].replace(/[^a-zA-Z0-9-.ñáéíóú_*+-/=&%$#!()?¡¿ ]/g, "|");
+    },
+    planificationContentUpdateEvent: function planificationContentUpdateEvent(e, i, type) {
+      var property = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : null;
+
+      if (type == 'achievements') {
+        this.achievements[i][property] = this.achievements[i][property].replace(/[^a-zA-Z0-9-.ñáéíóú_*+-/=&%$#!()?¡¿ ]/g, "|");
+      } else if (type == 'quarterlies') {
+        this.quarterlies[i][property] = this.quarterlies[i][property].replace(/[^a-zA-Z0-9-.ñáéíóú_*+-/=&%$#!()?¡¿ ]/g, "|");
+      } //serialize data on localstorage
+
+
       localStorage.setItem(this.serialLocalStorage, window.btoa(unescape(encodeURIComponent(JSON.stringify({
         achievements: this.achievements,
         quarterlies: this.quarterlies
@@ -451,7 +462,9 @@ var render = function() {
                                     change: function($event) {
                                       return _vm.planificationContentUpdateEvent(
                                         $event,
-                                        t
+                                        t,
+                                        "achievements",
+                                        "rate"
                                       )
                                     },
                                     input: function($event) {
@@ -538,7 +551,9 @@ var render = function() {
                                 change: function($event) {
                                   return _vm.planificationContentUpdateEvent(
                                     $event,
-                                    t
+                                    t,
+                                    "achievements",
+                                    "content"
                                   )
                                 },
                                 input: function($event) {
@@ -650,7 +665,9 @@ var render = function() {
                                     change: function($event) {
                                       return _vm.planificationContentUpdateEvent(
                                         $event,
-                                        t
+                                        t,
+                                        "quarterlies",
+                                        "name"
                                       )
                                     },
                                     input: function($event) {
@@ -694,7 +711,9 @@ var render = function() {
                                   change: function($event) {
                                     return _vm.planificationContentUpdateEvent(
                                       $event,
-                                      t
+                                      t,
+                                      "quarterlies",
+                                      "content"
                                     )
                                   },
                                   input: function($event) {

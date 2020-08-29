@@ -422,7 +422,7 @@ var render = function() {
           _c("div", { staticClass: "custom-card text-center" }, [
             _c("h3", { staticClass: "card-header fondo" }, [
               _vm._v(
-                "Mis clases - Lectiva " +
+                "Mis clases - Electiva " +
                   _vm._s(_vm.planification.lective.name) +
                   " Trimestre " +
                   _vm._s(_vm.planification.period_consecutive)

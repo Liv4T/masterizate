@@ -42,7 +42,8 @@
                     </div>
                     <div class="col-md-6">
                       <label for="name">Observación</label>
-                      <textarea name="competences" class="form-control" v-model="act.observation"></textarea>
+                      <textarea name="competences" 
+                      class="form-control" v-model="act.observation"></textarea>
                     </div>
                   </div>
                   <!-- <div class="modal-footer">

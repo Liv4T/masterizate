@@ -49,7 +49,7 @@
                     <strong>Logro:</strong>
 
                     <input
-                      v-on:change="planificationContentUpdateEvent($event,t)"
+                      v-on:change="planificationContentUpdateEvent($event,t,'achievements','rate')"
                       class="form-control form-control-sm"
                       type="number"
                       style="width:50px;"
@@ -74,7 +74,7 @@
                     name="welcome"
                     class="form-control"
                     v-model="achievement.content"
-                    v-on:change="planificationContentUpdateEvent($event,t)"
+                    v-on:change="planificationContentUpdateEvent($event,t,'achievements','content')"
                     required
                   ></textarea>
                   <div class="invalid-feedback">Please fill out this field</div>
@@ -105,7 +105,7 @@
                         name="objetive1"
                         class="form-control"
                         v-model="quarterly.name"
-                        v-on:change="planificationContentUpdateEvent($event,t)"
+                        v-on:change="planificationContentUpdateEvent($event,t,'quarterlies','name')"
                         placeholder="Nombre de la unidad"
                         required
                       />
@@ -117,7 +117,7 @@
                       name="competences"
                       class="form-control"
                       v-model="quarterly.content"
-                      v-on:change="planificationContentUpdateEvent($event,t)"
+                      v-on:change="planificationContentUpdateEvent($event,t,'quarterlies','content')"
                       placeholder="Es la explicacion o sintesis de la unidad."
                       required
                     ></textarea>
@@ -274,7 +274,20 @@ export default {
     });
   },
   methods: {
-    planificationContentUpdateEvent(e,i){
+    contentUpdateEvent(index,property){
+      this.inputs[index][property]=this.inputs[index][property].replace(/[^a-zA-Z0-9-.ñáéíóú_*+-/=&%$#!()?¡¿ ]/g, "|");
+    },
+    planificationContentUpdateEvent(e,i,type,property=null){
+
+      if(type=='achievements')
+      {
+        this.achievements[i][property]=this.achievements[i][property].replace(/[^a-zA-Z0-9-.ñáéíóú_*+-/=&%$#!()?¡¿ ]/g, "|");
+      }
+      else if (type=='quarterlies')
+      {
+        this.quarterlies[i][property]=this.quarterlies[i][property].replace(/[^a-zA-Z0-9-.ñáéíóú_*+-/=&%$#!()?¡¿ ]/g, "|");
+      }
+
       //serialize data on localstorage
      localStorage.setItem(this.serialLocalStorage, window.btoa(unescape(encodeURIComponent(JSON.stringify({achievements:this.achievements,quarterlies:this.quarterlies})))));
 

@@ -98,6 +98,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 (function () {
   "use strict";
 
@@ -168,6 +170,9 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
     });
   },
   methods: {
+    contentUpdateEvent: function contentUpdateEvent(index, property) {
+      this.weekly_plans[index][property] = this.weekly_plans[index][property].replace(/[^a-zA-Z0-9-.ñáéíóú_*+-/=&%$#!()?¡¿ ]/g, "|");
+    },
     add: function add(index) {
       this.weekly_plans.push({
         order: this.weekly_plans.length,
@@ -235,7 +240,7 @@ var render = function() {
         _c("div", { staticClass: "col-md-11 mx-auto" }, [
           _c("div", { staticClass: "custom-card text-center" }, [
             _c("h3", { staticClass: "card-header fondo" }, [
-              _vm._v("Mis Lectivas")
+              _vm._v("Mis Electivas")
             ]),
             _vm._v(" "),
             _c("span", { staticClass: "classroom-label" }, [
@@ -322,6 +327,9 @@ var render = function() {
                                   },
                                   domProps: { value: input.name },
                                   on: {
+                                    change: function($event) {
+                                      return _vm.contentUpdateEvent(t, "name")
+                                    },
                                     input: function($event) {
                                       if ($event.target.composing) {
                                         return
@@ -361,6 +369,9 @@ var render = function() {
                                 },
                                 domProps: { value: input.content },
                                 on: {
+                                  change: function($event) {
+                                    return _vm.contentUpdateEvent(t, "content")
+                                  },
                                   input: function($event) {
                                     if ($event.target.composing) {
                                       return
