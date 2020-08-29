@@ -105,7 +105,7 @@ Vue.component("notasd-component", require("./components/notasDocente.vue").defau
 Vue.component("actividadvd-component", require("./components/actividadVDocente.vue").default);
 Vue.component("clasesd-component", require("./components/clasesDocente.vue").default);
 Vue.component("crearc-component", require("./components/crearClase.vue").default);
-Vue.component("editarc-component", () => import ("./components/editarClase.vue"));
+Vue.component("editarc-component", require("./components/editarClase.vue").default);
 
 Vue.component("inicio-component", require("./components/inicio.vue").default);
 Vue.component("userinfo", require("./components/UserInfo").default);
@@ -140,27 +140,24 @@ Vue.component("importar-adm", require("./components/importAdm.vue").default);
 Vue.component("asistencia-adm", require("./components/asistencia.vue").default);
 
 
-Vue.component("lectives-adm", ()=>import("./components/lectivesAdmComponent.vue"));
-Vue.component("lectives-adm-assing-teacher", ()=>import("./components/lectivesAdmAssingTeacherComponent.vue"));
-Vue.component("lectives-student-activities", ()=>import("./components/lectivesStudentActivitiesComponent.vue"));
-Vue.component("lectives-student-courses", ()=>import("./components/lectivesStudentCoursesComponent.vue"));
-Vue.component("lectives-teacher-planning", ()=>import("./components/lectivesTeacherPlanningComponent.vue"));
-Vue.component("lectives-teacher-planning-edit", ()=>import("./components/lectivesTeacherPlanningEditComponent.vue"));
-Vue.component("lectives-teacher-indicators", ()=>import("./components/lectivesTeacherIndicatorsComponent.vue"));
-Vue.component("lectives-teacher-weekly", ()=>import("./components/lectivesTeacherWeeklyComponent.vue"));
-Vue.component("lectives-teacher-courses", ()=>import("./components/lectivesTeacherCoursesComponent.vue"));
-Vue.component("lectives-teacher-courses-edit", ()=>import("./components/lectivesTeacherCoursesEditComponent.vue"));
-Vue.component("lectives-teacher-activities", ()=>import("./components/lectivesTeacherActivitiesComponent.vue"));
-Vue.component("lectives-teacher-board", ()=>import("./components/lectivesTeacherBoardComponent.vue"));
-Vue.component("lectives-teacher-students", ()=>import("./components/lectivesTeacherStudentsComponent.vue"));
+Vue.component("lectives-adm", () => import ("./components/lectivesAdmComponent.vue"));
+Vue.component("lectives-adm-assing-teacher", () => import ("./components/lectivesAdmAssingTeacherComponent.vue"));
+Vue.component("lectives-student-activities", () => import ("./components/lectivesStudentActivitiesComponent.vue"));
+Vue.component("lectives-student-courses", () => import ("./components/lectivesStudentCoursesComponent.vue"));
+Vue.component("lectives-teacher-planning", () => import ("./components/lectivesTeacherPlanningComponent.vue"));
+Vue.component("lectives-teacher-planning-edit", () => import ("./components/lectivesTeacherPlanningEditComponent.vue"));
+Vue.component("lectives-teacher-indicators", () => import ("./components/lectivesTeacherIndicatorsComponent.vue"));
+Vue.component("lectives-teacher-weekly", () => import ("./components/lectivesTeacherWeeklyComponent.vue"));
+Vue.component("lectives-teacher-courses", () => import ("./components/lectivesTeacherCoursesComponent.vue"));
+Vue.component("lectives-teacher-courses-edit", () => import ("./components/lectivesTeacherCoursesEditComponent.vue"));
+Vue.component("lectives-teacher-activities", () => import ("./components/lectivesTeacherActivitiesComponent.vue"));
+Vue.component("lectives-teacher-board", () => import ("./components/lectivesTeacherBoardComponent.vue"));
+Vue.component("lectives-teacher-students", () => import ("./components/lectivesTeacherStudentsComponent.vue"));
 
-Vue.component("lectives-teacher-notes", ()=>import("./components/lectivesTeacherNotesComponent.vue"));
-
-
+Vue.component("lectives-teacher-notes", () => import ("./components/lectivesTeacherNotesComponent.vue"));
 
 
 Vue.use(CKEditor);
 Vue.use(CKEditor);
 
 const app = new Vue({el: "#app", data: {}, store});
-

@@ -154,29 +154,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 (function () {
   "use strict";
 
@@ -217,32 +194,6 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["id_area", "id_classroom"],
   data: function data() {
-<<<<<<< HEAD
-    return {
-      myOptions: [],
-      nameUnit: "",
-      description: "",
-      nameFile: "",
-      nameUrl: "",
-      nameUrl1: "",
-      nameUrl2: "",
-      urlDocument: "",
-      urlDocument1: "",
-      urlDocument2: "",
-      newDocument: [],
-      newDocument1: [],
-      newDocument2: [],
-      semanal: false,
-      newVideo: "",
-      newVideo1: "",
-      newVideo2: "",
-      numero: "",
-      clases: [],
-      ciclo: "",
-      nameArea: "",
-      errors: []
-    };
-=======
     var _ref;
 
     return _ref = {
@@ -263,41 +214,13 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
       newLogro3: "",
       newLogro4: ""
     }, _defineProperty(_ref, "newTrimestre", []), _defineProperty(_ref, "newLogro", []), _defineProperty(_ref, "trimestre", false), _defineProperty(_ref, "logro_1", ""), _defineProperty(_ref, "logro_2", ""), _defineProperty(_ref, "logro_3", ""), _defineProperty(_ref, "logro_4", ""), _defineProperty(_ref, "fillC", []), _defineProperty(_ref, "anual", []), _defineProperty(_ref, "newAnual", []), _defineProperty(_ref, "errors", []), _defineProperty(_ref, "isSynchronized", true), _defineProperty(_ref, "isLoading", false), _ref;
->>>>>>> 6171abbdc1ced8a6017bf91854f78e2867bcc6dd
   },
   mounted: function mounted() {
     var _this = this;
 
-<<<<<<< HEAD
-    var url = window.location.origin + "/editClass/" + this.id_class;
-    axios.get(url).then(function (response) {
-      _this.clases = response.data;
-      _this.ciclo = _this.clases.id_weekly_plan;
-      _this.nameUnit = _this.clases.name;
-      _this.description = _this.clases.description;
-      _this.nameFile = _this.clases.name_document;
-      _this.nameUrl = _this.clases.url;
-      _this.nameUrl1 = _this.clases.url1;
-      _this.nameUrl2 = _this.clases.url2;
-      _this.newVideo = _this.clases.video;
-      _this.newVideo1 = _this.clases.video1;
-      _this.newVideo2 = _this.clases.video2;
-      _this.urlDocument = _this.clases.document;
-      _this.urlDocument1 = _this.clases.document1;
-      _this.urlDocument2 = _this.clases.document2;
-      _this.numero = _this.clases.hourly_intensity;
-      console.log(_this.clases);
-    });
-    var url = window.location.origin + "/GetNameArea/" + this.id_area + "/" + this.id_classroom;
-    axios.get(url).then(function (response) {
-      _this.nameArea = response.data;
-    });
-    var urlsel = window.location.origin + "/editOneWeek/" + this.id_area + "/" + this.id_classroom;
-=======
     //load from localstorage
     this.serialLocalStorage = this.serialLocalStorage + "-" + this.id_area + "-" + this.id_classroom;
     var urlsel = window.location.origin + "/coursePlanification/" + this.id_area + "/" + this.id_classroom;
->>>>>>> 6171abbdc1ced8a6017bf91854f78e2867bcc6dd
     axios.get(urlsel).then(function (response) {
       _this.fillC = response.data; //set current data
 
@@ -366,72 +289,6 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
       window.location = "/actividad_g";
       this.isLoading = false;
     },
-<<<<<<< HEAD
-    updateClass: function updateClass() {
-      var _this2 = this;
-
-      var url = window.location.origin + "/updateClass";
-      axios.put(url, {
-        id: this.id_class,
-        id_weekly_plan: this.ciclo,
-        name: this.nameUnit,
-        description: this.description,
-        name_document: this.nameFile,
-        document: this.newDocument,
-        document1: this.newDocument1,
-        document2: this.newDocument2,
-        url: this.nameUrl,
-        url1: this.nameUrl1,
-        url2: this.nameUrl2,
-        video: this.newVideo,
-        video1: this.newVideo1,
-        video2: this.newVideo2,
-        hourly_intensity: this.numero
-      }).then(function (response) {
-        _this2.errors = [];
-        toastr.success("Clase actualizada exitosamente");
-
-        _this2.getMenu();
-      })["catch"](function (error) {
-        _this2.errors = error.response.data;
-      });
-    },
-    onFlieChange: function onFlieChange(file) {
-      var _this3 = this;
-
-      var files = file.target.files || file.dataTransfer.files;
-      var data = new FormData();
-
-      if (files.length > 0) {
-        var _file = files[0]; // if uploaded file is valid with validation rules
-
-        data.append("file", files[0]);
-        data.append("name", this.nameUnit);
-        data.append("count", 1);
-        this.newDocument = data;
-        axios.post("/fileDocumentUpdate", data).then(function (response) {
-          _this3.emitMessage(response);
-        });
-      }
-    },
-    onFlieChange1: function onFlieChange1(file) {
-      var _this4 = this;
-
-      var files = file.target.files || file.dataTransfer.files;
-      var data = new FormData();
-
-      if (files.length > 0) {
-        var _file2 = files[0]; // if uploaded file is valid with validation rules
-
-        data.append("file", files[0]);
-        data.append("name", this.nameUnit);
-        data.append("count", 2);
-        this.newDocument1 = data;
-        axios.post("/fileDocumentUpdate", data).then(function (response) {
-          _this4.emitMessage(response);
-        });
-      }
-=======
     add: function add(index) {
       this.inputs.push({
         name: "",
@@ -446,7 +303,6 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
         logro: "",
         porcentaje: "0"
       });
->>>>>>> 6171abbdc1ced8a6017bf91854f78e2867bcc6dd
     },
     remove1: function remove1(index) {
       this.inputs1.splice(index, 1);
@@ -463,16 +319,6 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
       this.newTrimestre = [];
       this.newLogro = [];
 
-<<<<<<< HEAD
-        data.append("file", files[0]);
-        data.append("name", this.nameUnit);
-        data.append("count", 3);
-        this.newDocument2 = data;
-        axios.post("/fileDocumentUpdate", data).then(function (response) {
-          _this5.emitMessage(response);
-        });
-      }
-=======
       if (this.inputs.length >= 1) {
         for (var i = 0; i < this.inputs.length; i++) {
           this.newTrimestre.push(this.inputs[i]);
@@ -510,7 +356,6 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
       //     this.fillS = response.data;
       //   });
       $("#createZ").modal("show");
->>>>>>> 6171abbdc1ced8a6017bf91854f78e2867bcc6dd
     }
   }
 });
@@ -577,11 +422,7 @@ var render = function() {
                       "back-button-text": "Atrás",
                       "finish-button-text": "Guardar y enviar"
                     },
-<<<<<<< HEAD
-                    on: { "on-complete": _vm.updateClass }
-=======
                     on: { "on-complete": _vm.createCourses }
->>>>>>> 6171abbdc1ced8a6017bf91854f78e2867bcc6dd
                   },
                   [
                     _vm.isLoading
@@ -637,37 +478,6 @@ var render = function() {
                                       )
                                     }
                                   }
-<<<<<<< HEAD
-                                }
-                              },
-                              _vm._l(_vm.myOptions, function(option) {
-                                return _c(
-                                  "option",
-                                  { domProps: { value: option.id } },
-                                  [
-                                    _vm._v(
-                                      "\n                          " +
-                                        _vm._s(option.text) +
-                                        "\n                        "
-                                    )
-                                  ]
-                                )
-                              }),
-                              0
-                            )
-                          ])
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "form-group row mx-auto" }, [
-                        _c("div", { staticClass: "col-md-6" }, [
-                          _c("label", { attrs: { for: "name" } }, [
-                            _vm._v("*Nombre")
-                          ]),
-                          _vm._v(" "),
-                          _c("div", [
-                            _c("input", {
-=======
                                 }),
                                 _vm._v("%\r\n                    "),
                                 _c("span", [
@@ -724,7 +534,6 @@ var render = function() {
                             ),
                             _vm._v(" "),
                             _c("textarea", {
->>>>>>> 6171abbdc1ced8a6017bf91854f78e2867bcc6dd
                               directives: [
                                 {
                                   name: "model",
@@ -752,181 +561,6 @@ var render = function() {
                                   _vm.$set(input1, "logro", $event.target.value)
                                 }
                               }
-<<<<<<< HEAD
-                            }
-                          }),
-                          _vm._v(" "),
-                          _c("div", { staticClass: "invalid-feedback" }, [
-                            _vm._v("Please fill out this field")
-                          ])
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        {
-                          directives: [
-                            {
-                              name: "show",
-                              rawName: "v-show",
-                              value: _vm.nameUnit != "",
-                              expression: "nameUnit != ''"
-                            }
-                          ]
-                        },
-                        [
-                          _c("div", { staticClass: "form-group mx-auto" }, [
-                            _vm._v("Material de apoyo")
-                          ]),
-                          _vm._v(" "),
-                          _c("div", { staticClass: "form-group row" }, [
-                            _c("div", { staticClass: "col-md-6" }, [
-                              _c("label", { attrs: { for: "name" } }, [
-                                _vm._v("Nombre del documento")
-                              ]),
-                              _vm._v(" "),
-                              _c("input", {
-                                directives: [
-                                  {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value: _vm.nameFile,
-                                    expression: "nameFile"
-                                  }
-                                ],
-                                staticClass: "form-control",
-                                attrs: { type: "text", name: "objetive1" },
-                                domProps: { value: _vm.nameFile },
-                                on: {
-                                  input: function($event) {
-                                    if ($event.target.composing) {
-                                      return
-                                    }
-                                    _vm.nameFile = $event.target.value
-                                  }
-                                }
-                              })
-                            ]),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "col-md-6" }, [
-                              _c("label", { attrs: { for: "name" } }, [
-                                _vm._v("Documento")
-                              ]),
-                              _vm._v(" "),
-                              _c("input", {
-                                staticClass: "form-control",
-                                attrs: { type: "file", name: "document" },
-                                on: { change: _vm.onFlieChange }
-                              }),
-                              _vm._v(" "),
-                              _c(
-                                "span",
-                                {
-                                  directives: [
-                                    {
-                                      name: "show",
-                                      rawName: "v-show",
-                                      value: _vm.urlDocument != "",
-                                      expression: "urlDocument!=''"
-                                    }
-                                  ],
-                                  staticClass: "classroom-label"
-                                },
-                                [_vm._v("- Tiene un documento guardado")]
-                              )
-                            ]),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "col-md-6" }, [
-                              _c("label", { attrs: { for: "name" } }, [
-                                _vm._v("Documento")
-                              ]),
-                              _vm._v(" "),
-                              _c("input", {
-                                staticClass: "form-control",
-                                attrs: { type: "file", name: "document" },
-                                on: { change: _vm.onFlieChange1 }
-                              }),
-                              _vm._v(" "),
-                              _c(
-                                "span",
-                                {
-                                  directives: [
-                                    {
-                                      name: "show",
-                                      rawName: "v-show",
-                                      value: _vm.urlDocument1 != "",
-                                      expression: "urlDocument1!=''"
-                                    }
-                                  ],
-                                  staticClass: "classroom-label"
-                                },
-                                [_vm._v("- Tiene un documento guardado")]
-                              )
-                            ]),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "col-md-6" }, [
-                              _c("label", { attrs: { for: "name" } }, [
-                                _vm._v("Documento")
-                              ]),
-                              _vm._v(" "),
-                              _c("input", {
-                                staticClass: "form-control",
-                                attrs: { type: "file", name: "document" },
-                                on: { change: _vm.onFlieChange2 }
-                              }),
-                              _vm._v(" "),
-                              _c(
-                                "span",
-                                {
-                                  directives: [
-                                    {
-                                      name: "show",
-                                      rawName: "v-show",
-                                      value: _vm.urlDocument2 != "",
-                                      expression: "urlDocument2!=''"
-                                    }
-                                  ],
-                                  staticClass: "classroom-label"
-                                },
-                                [_vm._v("- Tiene un documento guardado")]
-                              )
-                            ])
-                          ]),
-                          _vm._v(" "),
-                          _c("div", { staticClass: "form-group row" }, [
-                            _c("div", { staticClass: "col-md-6" }, [
-                              _c("label", { attrs: { for: "name" } }, [
-                                _vm._v("Enlace")
-                              ]),
-                              _vm._v(" "),
-                              _c("input", {
-                                directives: [
-                                  {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value: _vm.nameUrl,
-                                    expression: "nameUrl"
-                                  }
-                                ],
-                                staticClass: "form-control",
-                                attrs: {
-                                  type: "text",
-                                  name: "objetive1",
-                                  required: ""
-                                },
-                                domProps: { value: _vm.nameUrl },
-                                on: {
-                                  input: function($event) {
-                                    if ($event.target.composing) {
-                                      return
-                                    }
-                                    _vm.nameUrl = $event.target.value
-                                  }
-                                }
-                              })
-                            ]),
-                            _vm._v(" "),
-=======
                             }),
                             _vm._v(" "),
                             _c("div", { staticClass: "invalid-feedback" }, [
@@ -946,7 +580,6 @@ var render = function() {
                           "div",
                           { key: t, staticClass: "form-group row mx-auto" },
                           [
->>>>>>> 6171abbdc1ced8a6017bf91854f78e2867bcc6dd
                             _c("div", { staticClass: "col-md-6" }, [
                               _c("label", { attrs: { for: "name" } }, [
                                 _vm._v("Indicador")
@@ -997,21 +630,8 @@ var render = function() {
                                         return _vm.add(t)
                                       }
                                     }
-<<<<<<< HEAD
-                                    _vm.nameUrl2 = $event.target.value
-                                  }
-                                }
-                              })
-                            ]),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "col-md-6" }, [
-                              _c("label", { attrs: { for: "name" } }, [
-                                _vm._v(
-                                  "\n                        Enlace Video\n                        (Youtube)\n                      "
-=======
                                   },
                                   [_vm._v("+")]
->>>>>>> 6171abbdc1ced8a6017bf91854f78e2867bcc6dd
                                 )
                               ]),
                               _vm._v(" "),
@@ -1024,37 +644,6 @@ var render = function() {
                                       value: input.name,
                                       expression: "input.name"
                                     }
-<<<<<<< HEAD
-                                    _vm.newVideo = $event.target.value
-                                  }
-                                }
-                              })
-                            ]),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "col-md-6" }, [
-                              _c("label", { attrs: { for: "name" } }, [
-                                _vm._v(
-                                  "\n                        Enlace Video\n                        (Youtube)\n                      "
-                                )
-                              ]),
-                              _vm._v(" "),
-                              _c("input", {
-                                directives: [
-                                  {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value: _vm.newVideo1,
-                                    expression: "newVideo1"
-                                  }
-                                ],
-                                staticClass: "form-control",
-                                attrs: { type: "text", name: "objetive1" },
-                                domProps: { value: _vm.newVideo1 },
-                                on: {
-                                  input: function($event) {
-                                    if ($event.target.composing) {
-                                      return
-=======
                                   ],
                                   staticClass: "form-control",
                                   attrs: {
@@ -1082,7 +671,6 @@ var render = function() {
                                         "name",
                                         $event.target.value
                                       )
->>>>>>> 6171abbdc1ced8a6017bf91854f78e2867bcc6dd
                                     }
                                   }
                                 })
@@ -1091,13 +679,7 @@ var render = function() {
                             _vm._v(" "),
                             _c("div", { staticClass: "col-md-6" }, [
                               _c("label", { attrs: { for: "name" } }, [
-<<<<<<< HEAD
-                                _vm._v(
-                                  "\n                        Enlace Video\n                        (Youtube)\n                      "
-                                )
-=======
                                 _vm._v("Contenido")
->>>>>>> 6171abbdc1ced8a6017bf91854f78e2867bcc6dd
                               ]),
                               _vm._v(" "),
                               _c("textarea", {
@@ -1143,28 +725,11 @@ var render = function() {
                                 _vm._v("Please fill out this field")
                               ])
                             ])
-<<<<<<< HEAD
-                          ])
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c("strong", [_vm._v("* Campos requeridos.")]),
-                      _vm._v(" "),
-                      _c("br"),
-                      _vm._v(" "),
-                      _c("span", { staticClass: "classroom-label" }, [
-                        _vm._v(
-                          "- Los documentos solo se pueden agregar o actualizar."
-                        )
-                      ])
-                    ])
-=======
                           ]
                         )
                       }),
                       0
                     )
->>>>>>> 6171abbdc1ced8a6017bf91854f78e2867bcc6dd
                   ],
                   1
                 )
