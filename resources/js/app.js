@@ -151,6 +151,7 @@ Vue.component("lectives-teacher-weekly", () => import ("./components/lectivesTea
 Vue.component("lectives-teacher-courses", () => import ("./components/lectivesTeacherCoursesComponent.vue"));
 Vue.component("lectives-teacher-courses-edit", () => import ("./components/lectivesTeacherCoursesEditComponent.vue"));
 Vue.component("lectives-teacher-activities", () => import ("./components/lectivesTeacherActivitiesComponent.vue"));
+Vue.component("lectives-teacher-activity", () => import ("./components/lectivesTeacherActivityComponent.vue"));
 Vue.component("lectives-teacher-board", () => import ("./components/lectivesTeacherBoardComponent.vue"));
 Vue.component("lectives-teacher-students", () => import ("./components/lectivesTeacherStudentsComponent.vue"));
 

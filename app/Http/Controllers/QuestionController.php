@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\AskQuestionRequest;
 use App\Question;
 use App\Answers;
+use App\LectiveActivityQuestionAnswer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
@@ -86,5 +87,26 @@ class QuestionController extends Controller
         return redirect()->back()->withInput()->with('error', 'La pregunta no ha sido borrada');
         // }
         // abort(403, 'access denied');
+    }
+
+
+    public function responseQuestiononLective(Request $request,int $id_lective_planification,int $id_weekly_plan,int $id_class,int $id_activity,int $id_question)
+    {
+        $data = $request->all();
+        $auth = Auth::user();
+
+        LectiveActivityQuestionAnswer::where('id_lective_activity_question',$id_question)->where('id_student',$auth->id)->where('deleted',0)->update(array('deleted'=>1,'updated_user'=>$auth->id));
+
+        LectiveActivityQuestionAnswer::create([
+            'id_lective_activity_question'=>$id_question,
+            'id_student'=>$auth->id,
+            'response'=>$data['response'],
+            'is_correct'=>$data['ok'],
+            'state'=>1,
+            'deleted'=>0,
+            'updated_user'=>$auth->id
+        ]);
+
+
     }
 }
