@@ -1,364 +1,275 @@
 <template>
-<div>
-  <head>
-    <link
-      rel="stylesheet"
-      href="https://use.fontawesome.com/releases/v5.8.2/css/solid.css"
-      integrity="sha384-ioUrHig76ITq4aEJ67dHzTvqjsAP/7IzgwE7lgJcg2r7BRNGYSK0LwSmROzYtgzs"
-      crossorigin="anonymous"
-    />
-    <link
-      rel="stylesheet"
-      href="https://use.fontawesome.com/releases/v5.8.2/css/brands.css"
-      integrity="sha384-i2PyM6FMpVnxjRPi0KW/xIS7hkeSznkllv+Hx/MtYDaHA5VcF0yL3KVlvzp8bWjQ"
-      crossorigin="anonymous"
-    />
-    <link
-      rel="stylesheet"
-      href="https://use.fontawesome.com/releases/v5.8.2/css/fontawesome.css"
-      integrity="sha384-sri+NftO+0hcisDKgr287Y/1LVnInHJ1l+XC7+FOabmTTIK0HnE2ID+xxvJ21c5J"
-      crossorigin="anonymous"
-    />
-  </head>
   <div class="back">
-    <div class="row">
-      <div class="col-md-10 mx-auto">
-        <div class="custom-card text-center">
-          <h3 class="card-header fondo">Actividad</h3>
-          <form class="needs-validation" novalidate>
-            <form-wizard
-              title
-              subtitle
-              color="#ffc107"
-              next-button-text="Siguiente"
-              back-button-text="Atrás"
-              finish-button-text="Guardar y enviar"
-              @on-complete="createActivity"
-            >
-              <tab-content title="Descripción">
-                <div class="form-group mx-auto">
-                  <div align="center">
-                    <div class="col-md-6">
-                      <label for>Clase:</label>
-                      <select class="form-control" ref="seleccionado" required>
-                        <option :value="option.id" v-for="option in myOptions.clase">{{option.text}}</option>
-                      </select>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="form-group row mx-auto">
-                  <div class="col-md-6">
-                    <label for="name">Nombre de la actividad</label>
-                    <div>
-                      <input
-                        type="text"
-                        name="objetive1"
-                        class="form-control"
-                        v-model="newName"
-                        placeholder="Nombre de la unidad"
-                        required
-                      />
-                    </div>
-                  </div>
-                  <div class="col-md-6">
-                    <label for="name">Descripción</label>
-                    <textarea
-                      name="competences"
-                      class="form-control"
-                      v-model="newDescription"
-                      placeholder="Es la explicacion o sintesis de la unidad."
-                      required
-                    ></textarea>
-                    <div class="invalid-feedback">Please fill out this field</div>
-                  </div>
-                </div>
-                <div class="form-group row mx-auto">
-                  <div class="col-md-6">
-                    <label>Tipo de actividad</label>
-                    <select class="form-control" required v-model="newActivity">
-                      <option :value="optionA">{{optionA}}</option>
-                    </select>
-                  </div>
-                  <div class="col-md-6">
-                    <label for="name">Logro</label>
-                    <select
-                      class="form-control"
-                      v-model="newLogro"
-                      @change="Indicator(newLogro)"
-                      required
-                    >
-                      <option
-                        :value="logr.id"
-                        v-for="logr in myOptions.achievements"
-                      >{{logr.achievement}}</option>
-                    </select>
-                    <div class="invalid-feedback">Please fill out this field</div>
-                  </div>
-                  <div class="col-md-6">
-                    <label for="name">Indicador</label>
-                    <select class="form-control" v-model="newIndicator" required>
-                      <option
-                        :value="opt.id"
-                        v-for="opt in fillI"
-                      >{{opt.type_activity +" - "+ opt.activity_rate+"%" }}</option>
-                    </select>
-                    <div class="invalid-feedback">Please fill out this field</div>
-                  </div>
-                </div>
-                <div class="form-group row mx-auto">
-                  <div class="col" align="center">
-                    <label for>Fecha de entrega</label>
-                    <input type="date" class="form-control" v-model="newDateE" required />
-                    <div class="invalid-feedback">Please fill out this field</div>
-                  </div>
-                  <div class="col" align="center">
-                    <label>Fecha de retroalimentación</label>
-                    <input type="date" name="name" class="form-control" v-model="newDateR" required />
-                    <div class="invalid-feedback">Please fill out this field</div>
-                  </div>
-                </div>
-              </tab-content>
-              <tab-content title="Formulario">
-                <div
-                  v-show="
-                                        newActivity == 'Cuestionario 4 opciones'
-                                    "
-                  v-for="(input, k) in inputs"
-                  :key="k"
+    <div class="row justify-content-center">
+      <div id="crud" class="col-sm-10">
+        <div class="card text-center">
+          <h3 class="card-header fondo">Mis actividades de electivas</h3>
+          <div class="card-body">
+            <table class="table table-responsive-xl table-hover table-striped center">
+              <tbody v-for="(plan,t) in planifications" :key="t">
+                <tr
+                  data-toggle="collapse"
+                  :data-target="'#accordion'+t"
+                  class="clickable"
+                  @click="getActivities(plan.id_planification)"
                 >
-                  <div class="form-group row mx-auto">
-                    <div class="col-md-6">
-                      <label for="name">Pregunta {{ k+1 }}</label>
-                      <span>
-                        <a
-                          href="#"
-                          class="badge badge-danger"
-                          @click.prevent="remove(k)"
-                          v-show="
-                                                        k ||
-                                                            (!k &&
-                                                                inputs.length >
-                                                                    1)
-                                                    "
-                        >-</a>
-                        <a
-                          href="#"
-                          class="badge badge-primary"
-                          @click.prevent="add(k)"
-                          v-show="
-                                                        k == inputs.length - 1
-                                                    "
-                        >+</a>
-                      </span>
-                      <input
-                        type="text"
-                        name="objetive1"
-                        class="form-control"
-                        v-model="input.question"
-                        required
-                      />
+                  <td>{{ plan.lective.name}} Trimestre {{plan.period_consecutive}}</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>
+                    <div :id="'accordion'+t" class="collapse">
+                      <table class="table table-responsive table-hover table-striped center">
+                        <thead>
+                          <tr>
+                            <th>Nombre de la materia</th>
+                            <th>Tipo de Actividad</th>
+                            <th>Fecha de entrega límite</th>
+                            <th>Fecha de retroalimentación</th>
+                            <th colspan="1">&nbsp;</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr v-for="(actividad, k) in activities" :key="k">
+                            <td>{{actividad.name }}</td>
+                            <td>{{ actividad.activity_type }}</td>
+                            <td>{{actividad.delivery_date}}</td>
+                            <td>{{actividad.feedback_date}}</td>
+                            <td width="10px">
+                              <a
+                                class="btn btn-warning btn-sm"
+                                v-on:click.prevent="showActivity(actividad)"
+                              >
+                                <i class="fa fa-eye"></i>
+                              </a>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
                     </div>
-                    <div class="col-md-6">
-                      <label>Respuesta Correcta</label>
-                      <input
-                        type="text"
-                        name="objetive1"
-                        class="form-control"
-                        v-model="input.correct_answer"
-                        required
-                      />
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="modal fade" id="editu">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="card">
+              <h3 class="card-header fondo text-center">
+                Actividad
+                <button type="button" class="close" data-dismiss="modal">
+                  <span>&times;</span>
+                </button>
+              </h3>
+              <div class="card-body">
+                <div class="accordion" id="accordionExample">
+                  <div class="card">
+                    <div class="card-header" id="headingOne">
+                      <h2 class="mb-0">
+                        <button
+                          class="btn btn-link"
+                          type="button"
+                          data-toggle="collapse"
+                          data-target="#collapseOne"
+                          aria-expanded="true"
+                          aria-controls="collapseOne"
+                        >Descripción de la actividad</button>
+                      </h2>
                     </div>
-                    <div class="invalid-feedback">Please fill out this field</div>
+                    <div
+                      id="collapseOne"
+                      class="collapse show"
+                      aria-labelledby="headingOne"
+                      data-parent="#accordionExample"
+                    >
+                      <div class="card-body">{{activity.description}}</div>
+                    </div>
                   </div>
-                  <div class="form-group row mx-auto">
-                    <div class="col-md-6">
-                      <label for>Opción 1</label>
-                      <input
-                        type="text"
-                        name="objetive1"
-                        class="form-control"
-                        v-model="input.answer_1"
-                        required
-                      />
+                  <div class="card">
+                    <div class="card-header" id="headingTwo">
+                      <h2 class="mb-0">
+                        <button
+                          class="btn btn-link collapsed"
+                          type="button"
+                          data-toggle="collapse"
+                          data-target="#collapseTwo"
+                          aria-expanded="false"
+                          aria-controls="collapseTwo"
+                        >Logro</button>
+                      </h2>
                     </div>
-                    <div class="col-md-6">
-                      <label for>Opción 2</label>
-                      <input
-                        type="text"
-                        name="objetive1"
-                        class="form-control"
-                        v-model="input.answer_2"
-                        required
-                      />
-                    </div>
-                  </div>
-                  <div class="form-group row mx-auto">
-                    <div class="col-md-6">
-                      <label for>Opción 3</label>
-                      <input
-                        type="text"
-                        name="objetive1"
-                        class="form-control"
-                        v-model="input.answer_3"
-                        required
-                      />
+                    <div
+                      id="collapseTwo"
+                      class="collapse"
+                      aria-labelledby="headingTwo"
+                      data-parent="#accordionExample"
+                    >
+                      <div class="card-body">{{activity.achievement.content}} ({{activity.achievement.rate}})%</div>
                     </div>
                   </div>
+                  <div class="card">
+                    <div class="card-header" id="headingThree">
+                      <h2 class="mb-0">
+                        <button
+                          class="btn btn-link collapsed"
+                          type="button"
+                          data-toggle="collapse"
+                          data-target="#collapseThree"
+                          aria-expanded="false"
+                          aria-controls="collapseThree"
+                        >Fecha de entrega</button>
+                      </h2>
+                    </div>
+                    <div
+                      id="collapseThree"
+                      class="collapse"
+                      aria-labelledby="headingThree"
+                      data-parent="#accordionExample"
+                    >
+                      <div class="card-body">{{ activity.delivery_date }}</div>
+                    </div>
+                  </div>
+                  <div class="card">
+                    <div class="card-header" id="headingFour">
+                      <h2 class="mb-0">
+                        <button
+                          class="btn btn-link collapsed"
+                          type="button"
+                          data-toggle="collapse"
+                          data-target="#collapseFour"
+                          aria-expanded="false"
+                          aria-controls="collapseFour"
+                        >Fecha retroalimentación</button>
+                      </h2>
+                    </div>
+                    <div
+                      id="collapseFour"
+                      class="collapse"
+                      aria-labelledby="headingFour"
+                      data-parent="#accordionExample"
+                    >
+                      <div class="card-body">{{ activity.feedback_date }}</div>
+                    </div>
+                  </div>
+                   <div class="card">
+                    <div class="card-header" id="headingFive">
+                      <h2 class="mb-0">
+                        <button
+                          class="btn btn-link collapsed"
+                          type="button"
+                          data-toggle="collapse"
+                          data-target="#collapseFive"
+                          aria-expanded="false"
+                          aria-controls="collapseFive"
+                        >Formulario</button>
+                      </h2>
+                    </div>
+                    <div
+                      id="collapseFive"
+                      class="collapse"
+                      aria-labelledby="headingFive"
+                      data-parent="#accordionExample"
+                    >
+                    <form v-if="activity.activity_type=='ENCUESTA_UNICA_RTA'" class="question-module">
+                      <div class="row" v-for="(question, k_q) in activity.module" >
+                        <div class="col">
+                          <label>{{question.question}}</label>
+                          <div class="row q-option"  v-for="(option, k_op) in question.content.options">
+                            <div class="col">
+                              <span>{{option.content}}</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                    </div>
+                  </div>
+                  
                 </div>
-              </tab-content>
-            </form-wizard>
-          </form>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
 </template>
 <script>
-(function () {
-  "use strict";
-  window.addEventListener(
-    "load",
-    function () {
-      // Fetch all the forms we want to apply custom Bootstrap validation styles to
-      var forms = document.getElementsByClassName("needs-validation");
-      // Loop over them and prevent submission
-      var validation = Array.prototype.filter.call(forms, function (form) {
-        form.addEventListener(
-          "submit",
-          function (event) {
-            if (form.checkValidity() === false) {
-              event.preventDefault();
-              event.stopPropagation();
-            }
-            form.classList.add("was-validated");
-          },
-          false
-        );
-      });
-    },
-    false
-  );
-})();
-$(function () {
-  // Get the form fields and hidden div
-  var checkbox = $("#gridCheck1");
-  var hidden = $("#hidden_fields1");
-
-  hidden.hide();
-
-  checkbox.change(function () {
-    if (checkbox.is(":checked")) {
-      // Show the hidden fields.
-      hidden.show();
-    } else {
-      hidden.hide();
-    }
-  });
-});
-import VueFormWizard from "vue-form-wizard";
-import "vue-form-wizard/dist/vue-form-wizard.min.css";
-Vue.use(VueFormWizard);
 export default {
-  props: ["week"],
   data() {
     return {
-      inputs: [
-        {
-          question: "",
-          correct_answer: "",
-          answer_1: "",
-          answer_2: "",
-          answer_3: "",
-        },
-      ],
-
-      myOptions: [],
-      optionA: "Cuestionario 4 opciones",
-      logros: [],
-      newActivity: "",
-      newDescription: "",
-      newName: "",
-      newLogro: "",
-      newDateR: "",
-      newDateE: "",
-      newSemana: "",
-      newTrivia: [],
-      seleccionado: "",
-      newIndicator: "",
-      fillI: [],
-
-      fillC: {
-        id: "",
-        name: "",
-        description: "",
-      },
+      activities: [],
+      activity:{achievement:{},indicator:{}},
+      formulario: [],
+      descripcion: "",
+      logro: "",
+      fechaE: "",
+      fechaR: "",
+      id_act: "",
+      id_t: "",
+      areas: [],
       errors: [],
+      planifications:[],
+      open_plan:0
     };
   },
+  created() {},
   mounted() {
-    var urlsel = "getClass/" + this.week;
-    axios.get(urlsel).then((response) => {
-      this.myOptions = response.data;
+    axios.get("/api/lectives").then((response) => {
+      this.planifications= response.data;
     });
+
+    console.log("Component mounted.");
   },
   methods: {
-    add(index) {
-      this.inputs.push({
-        question: "",
-        correct_answer: "",
-        answer_1: "",
-        answer_2: "",
-        answer_3: "",
+    getActivities(id_planification) {
+
+      
+
+      if(this.open_plan==id_planification)
+        return;
+
+     this.open_plan=  id_planification; 
+      
+
+      axios.get(`/api/lectives/planification/${id_planification}/activities`).then((response) => {
+        this.activities= response.data;
       });
     },
-    remove(index) {
-      this.inputs.splice(index, 1);
-    },
-    getMenu() {
-      window.location = "/clases_d";
-    },
-    createActivity() {
-      var url = "Activity";
-      this.seleccionado = this.$refs.seleccionado.value;
+    showActivity(activity) {
+      this.activity=activity;
+      $("#editu").modal("show");
+    }
 
-      if (this.inputs.length >= 1) {
-        for (let i = 0; i < this.inputs.length; i++) {
-          this.newTrivia.push(this.inputs[i]);
-        }
-      }
-
-      axios
-        .post(url, {
-          activity_name: this.newName,
-          activity_desc: this.newDescription,
-          achievement: this.newLogro,
-          deliver_date: this.newDateE,
-          feedback_date: this.newDateR,
-          id_weekly_plan: this.seleccionado,
-          activity_type: this.newActivity,
-          id_indicator: this.newIndicator,
-          trivia: this.newTrivia,
-        })
-        .then((response) => {
-          this.errors = [];
-
-          toastr.success("Nueva actividad creada exitosamente");
-          this.getMenu();
-        })
-        .catch((error) => {
-          this.errors = error.response.data;
-        });
-    },
-    Indicator(id) {
-      var urli = window.location.origin + "/getIndicator/" + id;
-      axios.get(urli).then((response) => {
-        this.fillI = response.data;
-      });
-    },
   },
 };
 </script>
 <style>
+.background2 {
+  background: url(../assets/img/Fondo5.jpg);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  position: relative;
+}
+.question-module{
+  padding:10px;
+}
+.question-module label{
+  padding:10px;
+}
+.question-module .q-option{
+  background-color:#f2f2f2;
+  border-radius:5px;
+  padding:5px;
+  margin:5px;
+}
+
 </style>

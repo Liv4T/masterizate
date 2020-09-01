@@ -14,6 +14,9 @@ use App\LectiveStudent;
 use App\LectiveWeeklyPlan;
 use App\ClassroomStudent;
 use App\Classroom;
+use App\LectiveActivity;
+use App\LectiveActivityQuestion;
+use App\LectiveActivityQuestionAnswer;
 use App\LectiveIndicator;
 use Illuminate\Http\Request;
 use Auth;
@@ -603,5 +606,197 @@ class LectivesController extends Controller
 
         return;
     }
+
+
+
+     /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getCourse(int $id_lective_planification,int $id_weekly_plan,int $id_class)
+    {
+        $lective_course=LectiveClass::where('id',$id_class)->where('deleted',0)->where('state',1)->first();
+        return response()->json($lective_course);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function getActivities(int $id_lective_planification,int $id_weekly_plan,int $id_class)
+    {
+        $lective_activities=LectiveActivity::where('id_lective_class',$id_class)->where('deleted',0)->get();
+        return response()->json($lective_activities);   
+    }
+    
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function saveActivity(Request $request,int $id_lective_planification,int $id_weekly_plan,int $id_class){
+        $data = $request->all();
+        $auth = Auth::user();
+
+
+
+     
+           
+            if(isset($data['id_activity']) && $data['id_activity']!=0)
+            {
+                 LectiveActivity::where('id',$data['id_activity'])->update(array(
+                     'activity_type'=>$data['activity_type'],
+                     'name'=>$data['name'],
+                     'description'=>$data['description'],
+                     'delivery_date'=>$data['delivery_date'],
+                     'feedback_date'=>$data['feedback_date']
+                 ));
+
+
+
+                if($data['activity_type']=='ENCUESTA_UNICA_RTA')
+                {
+                    LectiveActivityQuestion::where('id_lective_activity',$data['id_activity'])->update(array('deleted'=>1));
+
+                    foreach ($data['module']['questions'] as $key_q => $question) {
+                        if(isset($question['id']))
+                        {
+                            LectiveActivityQuestion::where('id',$question['id'])->update(array(
+                                'deleted'=>0,
+                                'updated_user'=>$auth->id,
+                                'question'=>$question['content'],
+                                'type_question'=>$data['type_question'],
+                                'content'=>json_encode($question)
+                            ));
+                        }
+                        else
+                        {
+                            $lective_activity_answer= LectiveActivityQuestion::create([
+                                'id_lective_activity'=>$data['id_activity'],
+                                'question'=>$question['content'],
+                                'type_question'=>$data['type_question'],
+                                'content'=>json_encode($question),
+                                'state'=>1,
+                                'deleted'=>0,
+                                'updated_user'=>$auth->id
+                            ]);
+                        }
+                    }
+                }
+
+            }
+            else{
+
+                //crear actividad
+                $lective_activity=LectiveActivity::create([
+                    'id_lective_class'=>$id_class,
+                    'id_lective_indicator'=>$data['indicator']['id'],
+                    'activity_type'=>$data['activity_type'],
+                    'name'=>$data['name'],
+                    'description'=>$data['description'],
+                    'delivery_date'=>$data['delivery_date'],
+                    'feedback_date'=>$data['feedback_date'],
+                    'state'=>1,
+                    'deleted'=>0,
+                    'updated_user'=>$auth->id
+                ]);
+
+                if($data['activity_type']=='ENCUESTA_UNICA_RTA')
+                {
+
+                    foreach ($data['module']['questions'] as $key_q => $question) {
+                       $lective_activity_answer= LectiveActivityQuestion::create([
+                            'id_lective_activity'=>$lective_activity->id,
+                            'question'=>$question['content'],
+                            'type_question'=>$question['type_question'],
+                            'content'=>json_encode($question),
+                            'state'=>1,
+                            'deleted'=>0,
+                            'updated_user'=>$auth->id
+                        ]);
+                    }
+
+                   
+                }
+                
+
+            }
+
+
+
+        return 'Ok';
+    }
+
+
+    
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function getActivitiesByPlan(int $id_lective_planification)
+    {
+        $auth = Auth::user();
+        $activities=[];
+        $weekly_plans=LectiveWeeklyPlan::where('id_lective_planification',$id_lective_planification)->where('deleted',0)->where('state',1)->get();
+            foreach ($weekly_plans as $key_i => $weekly_plan) {
+                $courses=LectiveClass::where('id_lective_weekly_plan',$weekly_plan->id)->where('deleted',0)->where('state',1)->get();
+                    foreach ( $courses as $key_j => $course) {
+                        $activity=LectiveActivity::where('id_lective_class',$course->id)->where('deleted',0)->where('state',1)->first();
+
+                        if(isset($activity))
+                        {
+                            $indicator=LectiveIndicator::find($activity->id_lective_indicator);
+
+                            $achievement=LectiveAchievement::find($indicator->id_lective_achievement);
+
+                            $module=[];
+                            if($activity->activity_type=='ENCUESTA_UNICA_RTA')
+                            {
+                                $questions=LectiveActivityQuestion::where('id_lective_activity',$activity->id)->where('deleted',0)->get();
+
+                                foreach ($questions as $key_q => $question) {
+                                    array_push($module,[
+                                        'id_question'=> $question->id,
+                                        'question'=> $question->question,
+                                        'type_question'=> $question->type_question,
+                                        'content'=> json_decode($question->content),
+                                        'response'=>LectiveActivityQuestionAnswer::where('id_lective_activity_question',$question->id)->where('deleted',0)->where('id_student',$auth->id)->first()
+                                    ]);
+                                }
+                             
+                            }
+
+                            array_push($activities,[
+                                'id_activity'=>$activity->id,
+                                'name'=>$activity->name,
+                                'description'=>$activity->description,
+                                'delivery_date'=>date_format(date_create($activity->delivery_date),'Y-m-d'),
+                                'feedback_date'=>date_format(date_create($activity->feedback_date),'Y-m-d'),
+                                'activity_type'=>$activity->activity_type,
+                                'state'=>$activity->state,
+                                'course'=>$course,
+                                'weekly_plan'=>$weekly_plan,
+                                'indicator'=>$indicator,
+                                'achievement'=> $achievement,
+                                'module'=>$module
+                            ]);   
+                        }
+                       
+                 
+    
+                }
+            }
+
+        return response()->json($activities);   
+    }
+
+
+    
 
 }
