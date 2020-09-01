@@ -11,7 +11,7 @@
   @if (Auth::user()->type_user == '1')
     <menu-adm></menu-adm>
  @endif
-  <lectives-teacher-activities></lectives-teacher-activities>
+  <lectives-teacher-activities :id_lective_planification="{{ $id_lective_planification }}" :id_weekly_plan="{{ $id_weekly_plan }}" :id_course="{{ $id_course }}"></lectives-teacher-activities>
   <footers></footers>
 <div class="container">
   <!--<app-vue></app-vue>-->

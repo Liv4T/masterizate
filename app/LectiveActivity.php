@@ -10,6 +10,6 @@ class LectiveActivity extends Model
 
     protected $fillable = [
         'id_lective_class','id_lective_indicator','activity_type','name','description',
-        'delivery_date','feedback_date','state','deleted','update_user'
+        'delivery_date','feedback_date','state','deleted','updated_user'
     ];
 }

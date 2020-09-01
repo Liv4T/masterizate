@@ -53,7 +53,7 @@
             </div>
           </div>
         </div>
-      </div>3
+      </div>
 
       <div class="modal fade" id="editu">
         <div class="modal-dialog">
@@ -113,12 +113,14 @@
                             <a v-if="item_content.content_type === 'DOCUMENT' && item_content.content"  v-bind:href="item_content.content" target="_blank" class="form-control" type="text"><i class="fa fa-file-download"></i> Descargar</a>
                             <a v-if="item_content.content_type === 'LINK' && item_content.content"  v-bind:href="item_content.content" target="_blank" class="form-control" type="text"><i class="fa fa-link"></i> Abrir</a>
                             <a v-if="item_content.content_type === 'VIDEO' && item_content.content"  v-bind:href="item_content.content" target="_blank" class="form-control" type="text"><i class="fa fa-link"></i> Abrir youtube</a>
-                           <!-- <iframe width="100%" v-bind:src="item_content.content" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>-->
+                            <iframe  v-if="item_content.content_type === 'VIDEO' && item_content.content" width="100%" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen
+                            v-bind:src="'https://www.youtube.com/embed/'+item_content.content">
+                            </iframe>
                         </div>
                         <div class="modal-footer">
+                        
                           <a
-                            class="btn btn-warning"
-                            :href="'/teacher/lectives/activities'">Crear Actividad</a>
+                            class="btn btn-warning"     :href="'/teacher/lectives/planning/'+current_course.id_lective_planification+'/weekly/'+current_course.id_weekly_plan+'/course/'+course.id_class+'/activities'">Crear Actividad</a>
                         </div><!--END FOOTER-->
                       </div><!--END CART BODY-->
                       
@@ -178,10 +180,32 @@ export default {
       axios.get(`/api/lectives/planification/${id_lective_planification}/weekly/${id_weekly_plan}/course`).then((response) => {
         this.courses = response.data;
 
+        this.courses.forEach(c=>{
+          c.content.forEach(cn=>{
+            if(cn.content_type=='VIDEO')
+            {
+              if(cn.content)
+              {
+                let youtubeSplode=cn.content.split('/');
+
+                cn.content=youtubeSplode[youtubeSplode.length-1];
+              }
+            }
+          })
+
+        
+
+        });
+
+
+
         
 
           $("#editu").modal("show");
       });
+
+
+
 
 
     
@@ -202,5 +226,8 @@ export default {
   background-repeat: no-repeat;
   background-position: center;
   position: relative;
+}
+ iframe:not(.md-image){
+    height:300px !important;
 }
 </style>

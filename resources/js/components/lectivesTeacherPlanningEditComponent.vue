@@ -247,6 +247,8 @@ export default {
           this.quarterlies=this.planification.quarterlies.map(p=>{return {id:p.id,content:p.content,name:p.name,order:p.order};});
           this.quarterlies_saved= JSON.parse(JSON.stringify(this.quarterlies));
         }
+
+          console.log(this.achievements);   
    
         if(localStorage.getItem(this.serialLocalStorage))
         {
@@ -264,7 +266,9 @@ export default {
               this.achievements=savedPlanificationModel.achievements;
                this.isSynchronized=false;
             }
-        }     
+        }
+
+        console.log(this.achievements);     
 
       if (this.planification.quarterlies.length > 0) {
         this.quaterly = true;
@@ -295,8 +299,12 @@ export default {
       
     },
     returnToMenu() {
-       window.location = "/teacher/lectives/planning";
-       this.isLoading=false;
+      setTimeout(()=>{
+           this.isLoading=false;
+         window.location = "/teacher/lectives/planning";
+      },2000);
+      
+    
     },
     addQuarterly(index) {
       this.quarterlies.push({ name: "", content: "",order: this.quarterlies.length,observation:''});
