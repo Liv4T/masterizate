@@ -1,9 +1,9 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[8],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/lectivesTeacherPlanningEditComponent.vue?vue&type=script&lang=js&":
-/*!***********************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/lectivesTeacherPlanningEditComponent.vue?vue&type=script&lang=js& ***!
-  \***********************************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/courseComponent.vue?vue&type=script&lang=js&":
+/*!**************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/courseComponent.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -192,151 +192,156 @@ $(function () {
 
 Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["id_lective_planification"],
+  props: ["id_area", "id_classroom"],
   data: function data() {
     var _ref;
 
     return _ref = {
-      serialLocalStorage: '5t284918-f0f6-4369-a368-eaf6321b6855',
-      planification: {
-        lective: {},
-        achievements: [],
-        quarterlies: []
-      },
-      quarterlies: [{
+      serialLocalStorage: '9f284918-f0f6-4369-a368-eaf6321b6807',
+      inputs: [{
         name: "",
-        content: "",
-        order: 1,
-        observation: ''
+        contenido: ""
       }],
-      achievements: [{
-        content: "",
-        rate: 0
+      inputs1: [{
+        logro: "",
+        porcentaje: "0"
       }],
-      achievements_saved: [],
-      quarterlies_saved: [],
-      newquaterly: [],
+      inputs1_saved: [],
+      inputs_saved: [],
+      newTrimestre: [],
       newLogro1: "",
       newLogro2: "",
       newLogro3: "",
       newLogro4: ""
-    }, _defineProperty(_ref, "newquaterly", []), _defineProperty(_ref, "newLogro", []), _defineProperty(_ref, "quaterly", false), _defineProperty(_ref, "logro_1", ""), _defineProperty(_ref, "logro_2", ""), _defineProperty(_ref, "logro_3", ""), _defineProperty(_ref, "logro_4", ""), _defineProperty(_ref, "anual", []), _defineProperty(_ref, "newAnual", []), _defineProperty(_ref, "errors", []), _defineProperty(_ref, "isSynchronized", true), _defineProperty(_ref, "isLoading", false), _ref;
+    }, _defineProperty(_ref, "newTrimestre", []), _defineProperty(_ref, "newLogro", []), _defineProperty(_ref, "trimestre", false), _defineProperty(_ref, "logro_1", ""), _defineProperty(_ref, "logro_2", ""), _defineProperty(_ref, "logro_3", ""), _defineProperty(_ref, "logro_4", ""), _defineProperty(_ref, "fillC", []), _defineProperty(_ref, "anual", []), _defineProperty(_ref, "newAnual", []), _defineProperty(_ref, "errors", []), _defineProperty(_ref, "isSynchronized", true), _defineProperty(_ref, "isLoading", false), _ref;
   },
   mounted: function mounted() {
     var _this = this;
 
     //load from localstorage
-    this.serialLocalStorage = this.serialLocalStorage + "-" + this.id_lective_planification;
-    var urlsel = "/api/lectives/planification/" + this.id_lective_planification;
+    this.serialLocalStorage = this.serialLocalStorage + "-" + this.id_area + "-" + this.id_classroom;
+    var urlsel = window.location.origin + "/coursePlanification/" + this.id_area + "/" + this.id_classroom;
     axios.get(urlsel).then(function (response) {
-      _this.planification = response.data; //set current data
+      _this.fillC = response.data; //set current data
 
-      if (_this.planification.achievements.length > 0) {
-        _this.achievements = _this.planification.achievements.map(function (p) {
-          return {
-            id: p.id,
-            content: p.content,
-            rate: "".concat(p.rate)
-          };
+      if (response.data.achievements.length > 0 && response.data.quaterly.length > 0) {
+        _this.inputs1 = [];
+        response.data.achievements.forEach(function (e) {
+          _this.inputs1.push({
+            id_plannification: e.id_planification,
+            id_achievement: e.id,
+            logro: e.achievement,
+            porcentaje: e.percentage
+          });
         });
-        _this.achievements_saved = JSON.parse(JSON.stringify(_this.achievements));
-      }
-
-      if (_this.planification.quarterlies.length > 0) {
-        _this.quarterlies = _this.planification.quarterlies.map(function (p) {
-          return {
-            id: p.id,
-            content: p.content,
-            name: p.name,
-            order: p.order
-          };
+        _this.inputs1_saved = JSON.parse(JSON.stringify(_this.inputs1));
+        _this.inputs = [];
+        response.data.quaterly.forEach(function (e) {
+          _this.inputs.push({
+            id_quaterly: e.id,
+            name: e.unit_name,
+            contenido: e.content
+          });
         });
-        _this.quarterlies_saved = JSON.parse(JSON.stringify(_this.quarterlies));
-      }
-
-      if (localStorage.getItem(_this.serialLocalStorage)) {
-        var savedPlanificationModel = JSON.parse(decodeURIComponent(escape(window.atob(localStorage.getItem(_this.serialLocalStorage)))));
-
-        if (JSON.stringify(savedPlanificationModel.quarterlies) !== JSON.stringify(_this.quarterlies_saved)) {
-          _this.quarterlies = savedPlanificationModel.quarterlies;
-          _this.isSynchronized = false;
-        }
-
-        if (JSON.stringify(savedPlanificationModel.achievements) !== JSON.stringify(_this.achievements_saved)) {
-          _this.achievements = savedPlanificationModel.achievements;
-          _this.isSynchronized = false;
-        }
-      }
-
-      if (_this.planification.quarterlies.length > 0) {
-        _this.quaterly = true;
+        _this.inputs_saved = JSON.parse(JSON.stringify(_this.inputs));
       } else {
-        _this.quaterly = false;
+        if (localStorage.getItem(_this.serialLocalStorage)) {
+          var savedInputModel = JSON.parse(decodeURIComponent(escape(window.atob(localStorage.getItem(_this.serialLocalStorage)))));
+
+          if (JSON.stringify(savedInputModel.inputs) != JSON.stringify(_this.inputs)) {
+            _this.inputs = savedInputModel.inputs;
+            _this.isSynchronized = false;
+          }
+
+          if (JSON.stringify(savedInputModel.inputs1) != JSON.stringify(_this.inputs1)) {
+            _this.inputs1 = savedInputModel.inputs1;
+            _this.isSynchronized = false;
+          }
+        }
+      }
+
+      if (_this.fillC.quaterly.length > 0) {
+        _this.trimestre = true;
+      } else {
+        _this.trimestre = false;
       }
     });
   },
   methods: {
-    contentUpdateEvent: function contentUpdateEvent(index, property) {
-      this.inputs[index][property] = this.inputs[index][property].replace(/[^a-zA-Z0-9-.ñáéíóú_*+-/=&%$#!()?¡¿ ]/g, "|");
-    },
-    planificationContentUpdateEvent: function planificationContentUpdateEvent(e, i, type) {
+    annualContentUpdateEvent: function annualContentUpdateEvent(e, i, type) {
       var property = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : null;
 
-      if (type == 'achievements') {
-        this.achievements[i][property] = this.achievements[i][property].replace(/[^a-zA-Z0-9-.ñáéíóú_*+-/=&%$#!()?¡¿ ]/g, "|");
-      } else if (type == 'quarterlies') {
-        this.quarterlies[i][property] = this.quarterlies[i][property].replace(/[^a-zA-Z0-9-.ñáéíóú_*+-/=&%$#!()?¡¿ ]/g, "|");
-      } //serialize data on localstorage
+      if (type == 'inputs') {
+        this.inputs[i][property] = this.inputs[i][property].replace(/[^a-zA-Z0-9-.ñáéíóú_*+-/=&%$#!()?¡¿ ]/g, "|");
+      } else if (type == 'inputs1') {
+        this.inputs1[i][property] = this.inputs1[i][property].replace(/[^a-zA-Z0-9-.ñáéíóú_*+-/=&%$#!()?¡¿ ]/g, "|");
+      } //console.log(l.normalize('NFD').replace(/([^n\u0300-\u036f]|n(?!\u0303(?![\u0300-\u036f])))[\u0300-\u036f]+/gi,"$1"));
+      //serialize data on localstorage
 
 
       localStorage.setItem(this.serialLocalStorage, window.btoa(unescape(encodeURIComponent(JSON.stringify({
-        achievements: this.achievements,
-        quarterlies: this.quarterlies
+        inputs1: this.inputs1,
+        inputs: this.inputs
       })))));
       this.isSynchronized = false;
     },
-    returnToMenu: function returnToMenu() {
-      window.location = "/teacher/lectives/planning";
+    getMenu: function getMenu() {
+      window.location = "/actividad_g";
       this.isLoading = false;
     },
-    addQuarterly: function addQuarterly(index) {
-      this.quarterlies.push({
+    add: function add(index) {
+      this.inputs.push({
         name: "",
-        content: "",
-        order: this.quarterlies.length,
-        observation: ''
+        contenido: ""
       });
     },
-    removeQuarterly: function removeQuarterly(index) {
-      this.quarterlies.splice(index, 1);
+    remove: function remove(index) {
+      this.inputs.splice(index, 1);
     },
-    addAchievement: function addAchievement(index) {
-      this.achievements.push({
-        content: '',
-        rate: 0
+    add1: function add1(index) {
+      this.inputs1.push({
+        logro: "",
+        porcentaje: "0"
       });
     },
-    removeAchievement: function removeAchievement(index) {
-      this.achievements.splice(index, 1);
+    remove1: function remove1(index) {
+      this.inputs1.splice(index, 1);
     },
     isLoadingEvent: function isLoadingEvent() {
       return this.isLoading;
     },
-    saveData: function saveData() {
+    createCourses: function createCourses() {
       var _this2 = this;
 
       this.isLoading = true;
-      var url = "/api/lectives/planification";
-      if (this.quarterlies.length == 0 || this.achievements.length == 0) return;
-      axios.put(url, {
-        id_planification: this.planification.id_planification,
-        achievements: this.achievements,
-        quarterlies: this.quarterlies
+      var url = window.location.origin + "/Courses";
+      if (this.inputs.length < 1 || this.inputs1.length < 1) return;
+      this.newTrimestre = [];
+      this.newLogro = [];
+
+      if (this.inputs.length >= 1) {
+        for (var i = 0; i < this.inputs.length; i++) {
+          this.newTrimestre.push(this.inputs[i]);
+        }
+      }
+
+      if (this.inputs1.length >= 1) {
+        for (var _i = 0; _i < this.inputs1.length; _i++) {
+          this.newLogro.push(this.inputs1[_i]);
+        }
+      }
+
+      axios.post(url, {
+        //Cursos generales
+        id_area: this.id_area,
+        id_classroom: this.id_classroom,
+        logros: this.newLogro,
+        trimestres: this.newTrimestre
       }).then(function (response) {
         _this2.errors = [];
         toastr.success("Nuevo plan general creado exitosamente");
 
-        _this2.returnToMenu();
+        _this2.getMenu();
       })["catch"](function (error) {
         _this2.errors = error.response.data;
         _this2.isLoading = false;
@@ -357,10 +362,10 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/lectivesTeacherPlanningEditComponent.vue?vue&type=template&id=da5f3db8&":
-/*!***************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/lectivesTeacherPlanningEditComponent.vue?vue&type=template&id=da5f3db8& ***!
-  \***************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/courseComponent.vue?vue&type=template&id=ee39a2b2&":
+/*!******************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/courseComponent.vue?vue&type=template&id=ee39a2b2& ***!
+  \******************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -384,11 +389,7 @@ var render = function() {
             ]),
             _vm._v(" "),
             _c("span", { staticClass: "classroom-label" }, [
-              _vm._v(
-                _vm._s(_vm.planification.lective.name) +
-                  " Trimestre " +
-                  _vm._s(_vm.planification.period_consecutive)
-              )
+              _vm._v(_vm._s(_vm.fillC.classroom_name))
             ]),
             _vm._v(" "),
             _c(
@@ -421,7 +422,7 @@ var render = function() {
                       "back-button-text": "Atrás",
                       "finish-button-text": "Guardar y enviar"
                     },
-                    on: { "on-complete": _vm.saveData }
+                    on: { "on-complete": _vm.createCourses }
                   },
                   [
                     _vm.isLoading
@@ -434,7 +435,7 @@ var render = function() {
                     _c(
                       "tab-content",
                       { attrs: { title: "Anual" } },
-                      _vm._l(_vm.achievements, function(achievement, t) {
+                      _vm._l(_vm.inputs1, function(input1, t) {
                         return _c(
                           "div",
                           { key: t, staticClass: "form-group mx-auto" },
@@ -450,21 +451,20 @@ var render = function() {
                                     {
                                       name: "model",
                                       rawName: "v-model",
-                                      value: achievement.rate,
-                                      expression: "achievement.rate"
+                                      value: input1.porcentaje,
+                                      expression: "input1.porcentaje"
                                     }
                                   ],
                                   staticClass: "form-control form-control-sm",
                                   staticStyle: { width: "50px" },
                                   attrs: { type: "number" },
-                                  domProps: { value: achievement.rate },
+                                  domProps: { value: input1.porcentaje },
                                   on: {
                                     change: function($event) {
-                                      return _vm.planificationContentUpdateEvent(
+                                      return _vm.annualContentUpdateEvent(
                                         $event,
                                         t,
-                                        "achievements",
-                                        "rate"
+                                        "inputs1"
                                       )
                                     },
                                     input: function($event) {
@@ -472,8 +472,8 @@ var render = function() {
                                         return
                                       }
                                       _vm.$set(
-                                        achievement,
-                                        "rate",
+                                        input1,
+                                        "porcentaje",
                                         $event.target.value
                                       )
                                     }
@@ -490,9 +490,9 @@ var render = function() {
                                           rawName: "v-show",
                                           value:
                                             t > 0 &&
-                                            _vm.achievements_saved.length <= t,
+                                            _vm.inputs1_saved.length <= t,
                                           expression:
-                                            "(t>0 && achievements_saved.length<=t)"
+                                            "(t>0 && inputs1_saved.length<=t)"
                                         }
                                       ],
                                       staticClass: "badge badge-danger",
@@ -500,7 +500,7 @@ var render = function() {
                                       on: {
                                         click: function($event) {
                                           $event.preventDefault()
-                                          return _vm.removeAchievement(t)
+                                          return _vm.remove1(t)
                                         }
                                       }
                                     },
@@ -514,10 +514,8 @@ var render = function() {
                                         {
                                           name: "show",
                                           rawName: "v-show",
-                                          value:
-                                            t == _vm.achievements.length - 1,
-                                          expression:
-                                            "t == achievements.length -1"
+                                          value: t == _vm.inputs1.length - 1,
+                                          expression: "t == inputs1.length -1"
                                         }
                                       ],
                                       staticClass: "badge badge-primary",
@@ -525,7 +523,7 @@ var render = function() {
                                       on: {
                                         click: function($event) {
                                           $event.preventDefault()
-                                          return _vm.addAchievement(t)
+                                          return _vm.add1(t)
                                         }
                                       }
                                     },
@@ -540,31 +538,27 @@ var render = function() {
                                 {
                                   name: "model",
                                   rawName: "v-model",
-                                  value: achievement.content,
-                                  expression: "achievement.content"
+                                  value: input1.logro,
+                                  expression: "input1.logro"
                                 }
                               ],
                               staticClass: "form-control",
                               attrs: { name: "welcome", required: "" },
-                              domProps: { value: achievement.content },
+                              domProps: { value: input1.logro },
                               on: {
                                 change: function($event) {
-                                  return _vm.planificationContentUpdateEvent(
+                                  return _vm.annualContentUpdateEvent(
                                     $event,
                                     t,
-                                    "achievements",
-                                    "content"
+                                    "inputs1",
+                                    "logro"
                                   )
                                 },
                                 input: function($event) {
                                   if ($event.target.composing) {
                                     return
                                   }
-                                  _vm.$set(
-                                    achievement,
-                                    "content",
-                                    $event.target.value
-                                  )
+                                  _vm.$set(input1, "logro", $event.target.value)
                                 }
                               }
                             }),
@@ -581,7 +575,7 @@ var render = function() {
                     _c(
                       "tab-content",
                       { attrs: { title: "Trimestral" } },
-                      _vm._l(_vm.quarterlies, function(quarterly, t) {
+                      _vm._l(_vm.inputs, function(input, t) {
                         return _c(
                           "div",
                           { key: t, staticClass: "form-group row mx-auto" },
@@ -600,10 +594,9 @@ var render = function() {
                                         name: "show",
                                         rawName: "v-show",
                                         value:
-                                          t > 0 &&
-                                          _vm.quarterlies_saved.length <= t,
+                                          t > 0 && _vm.inputs_saved.length <= t,
                                         expression:
-                                          "(t>0 && quarterlies_saved.length<=t)"
+                                          "(t>0 && inputs_saved.length<=t)"
                                       }
                                     ],
                                     staticClass: "badge badge-danger",
@@ -611,7 +604,7 @@ var render = function() {
                                     on: {
                                       click: function($event) {
                                         $event.preventDefault()
-                                        return _vm.removeQuarterly(t)
+                                        return _vm.remove(t)
                                       }
                                     }
                                   },
@@ -625,9 +618,8 @@ var render = function() {
                                       {
                                         name: "show",
                                         rawName: "v-show",
-                                        value: t == _vm.quarterlies.length - 1,
-                                        expression:
-                                          "t == quarterlies.length - 1"
+                                        value: t == _vm.inputs.length - 1,
+                                        expression: "t == inputs.length - 1"
                                       }
                                     ],
                                     staticClass: "badge badge-primary",
@@ -635,7 +627,7 @@ var render = function() {
                                     on: {
                                       click: function($event) {
                                         $event.preventDefault()
-                                        return _vm.addQuarterly(t)
+                                        return _vm.add(t)
                                       }
                                     }
                                   },
@@ -649,8 +641,8 @@ var render = function() {
                                     {
                                       name: "model",
                                       rawName: "v-model",
-                                      value: quarterly.name,
-                                      expression: "quarterly.name"
+                                      value: input.name,
+                                      expression: "input.name"
                                     }
                                   ],
                                   staticClass: "form-control",
@@ -660,13 +652,13 @@ var render = function() {
                                     placeholder: "Nombre de la unidad",
                                     required: ""
                                   },
-                                  domProps: { value: quarterly.name },
+                                  domProps: { value: input.name },
                                   on: {
                                     change: function($event) {
-                                      return _vm.planificationContentUpdateEvent(
+                                      return _vm.annualContentUpdateEvent(
                                         $event,
                                         t,
-                                        "quarterlies",
+                                        "inputs",
                                         "name"
                                       )
                                     },
@@ -675,7 +667,7 @@ var render = function() {
                                         return
                                       }
                                       _vm.$set(
-                                        quarterly,
+                                        input,
                                         "name",
                                         $event.target.value
                                       )
@@ -695,8 +687,8 @@ var render = function() {
                                   {
                                     name: "model",
                                     rawName: "v-model",
-                                    value: quarterly.content,
-                                    expression: "quarterly.content"
+                                    value: input.contenido,
+                                    expression: "input.contenido"
                                   }
                                 ],
                                 staticClass: "form-control",
@@ -706,14 +698,14 @@ var render = function() {
                                     "Es la explicacion o sintesis de la unidad.",
                                   required: ""
                                 },
-                                domProps: { value: quarterly.content },
+                                domProps: { value: input.contenido },
                                 on: {
                                   change: function($event) {
-                                    return _vm.planificationContentUpdateEvent(
+                                    return _vm.annualContentUpdateEvent(
                                       $event,
                                       t,
-                                      "quarterlies",
-                                      "content"
+                                      "inputs",
+                                      "contenido"
                                     )
                                   },
                                   input: function($event) {
@@ -721,8 +713,8 @@ var render = function() {
                                       return
                                     }
                                     _vm.$set(
-                                      quarterly,
-                                      "content",
+                                      input,
+                                      "contenido",
                                       $event.target.value
                                     )
                                   }
@@ -795,17 +787,17 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./resources/js/components/lectivesTeacherPlanningEditComponent.vue":
-/*!**************************************************************************!*\
-  !*** ./resources/js/components/lectivesTeacherPlanningEditComponent.vue ***!
-  \**************************************************************************/
+/***/ "./resources/js/components/courseComponent.vue":
+/*!*****************************************************!*\
+  !*** ./resources/js/components/courseComponent.vue ***!
+  \*****************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _lectivesTeacherPlanningEditComponent_vue_vue_type_template_id_da5f3db8___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./lectivesTeacherPlanningEditComponent.vue?vue&type=template&id=da5f3db8& */ "./resources/js/components/lectivesTeacherPlanningEditComponent.vue?vue&type=template&id=da5f3db8&");
-/* harmony import */ var _lectivesTeacherPlanningEditComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./lectivesTeacherPlanningEditComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/lectivesTeacherPlanningEditComponent.vue?vue&type=script&lang=js&");
+/* harmony import */ var _courseComponent_vue_vue_type_template_id_ee39a2b2___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./courseComponent.vue?vue&type=template&id=ee39a2b2& */ "./resources/js/components/courseComponent.vue?vue&type=template&id=ee39a2b2&");
+/* harmony import */ var _courseComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./courseComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/courseComponent.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -815,9 +807,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _lectivesTeacherPlanningEditComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _lectivesTeacherPlanningEditComponent_vue_vue_type_template_id_da5f3db8___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _lectivesTeacherPlanningEditComponent_vue_vue_type_template_id_da5f3db8___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _courseComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _courseComponent_vue_vue_type_template_id_ee39a2b2___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _courseComponent_vue_vue_type_template_id_ee39a2b2___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -827,38 +819,38 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/components/lectivesTeacherPlanningEditComponent.vue"
+component.options.__file = "resources/js/components/courseComponent.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/components/lectivesTeacherPlanningEditComponent.vue?vue&type=script&lang=js&":
-/*!***************************************************************************************************!*\
-  !*** ./resources/js/components/lectivesTeacherPlanningEditComponent.vue?vue&type=script&lang=js& ***!
-  \***************************************************************************************************/
+/***/ "./resources/js/components/courseComponent.vue?vue&type=script&lang=js&":
+/*!******************************************************************************!*\
+  !*** ./resources/js/components/courseComponent.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_lectivesTeacherPlanningEditComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./lectivesTeacherPlanningEditComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/lectivesTeacherPlanningEditComponent.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_lectivesTeacherPlanningEditComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_courseComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./courseComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/courseComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_courseComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/components/lectivesTeacherPlanningEditComponent.vue?vue&type=template&id=da5f3db8&":
-/*!*********************************************************************************************************!*\
-  !*** ./resources/js/components/lectivesTeacherPlanningEditComponent.vue?vue&type=template&id=da5f3db8& ***!
-  \*********************************************************************************************************/
+/***/ "./resources/js/components/courseComponent.vue?vue&type=template&id=ee39a2b2&":
+/*!************************************************************************************!*\
+  !*** ./resources/js/components/courseComponent.vue?vue&type=template&id=ee39a2b2& ***!
+  \************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_lectivesTeacherPlanningEditComponent_vue_vue_type_template_id_da5f3db8___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./lectivesTeacherPlanningEditComponent.vue?vue&type=template&id=da5f3db8& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/lectivesTeacherPlanningEditComponent.vue?vue&type=template&id=da5f3db8&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_lectivesTeacherPlanningEditComponent_vue_vue_type_template_id_da5f3db8___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_courseComponent_vue_vue_type_template_id_ee39a2b2___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./courseComponent.vue?vue&type=template&id=ee39a2b2& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/courseComponent.vue?vue&type=template&id=ee39a2b2&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_courseComponent_vue_vue_type_template_id_ee39a2b2___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_lectivesTeacherPlanningEditComponent_vue_vue_type_template_id_da5f3db8___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_courseComponent_vue_vue_type_template_id_ee39a2b2___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
