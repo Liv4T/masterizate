@@ -45,6 +45,7 @@
                           type="text"
                           name="objetive1"
                           class="form-control"
+                          v-on:change="contentUpdateEvent(t,'driving_question')"
                           v-model="
                                                         input.driving_question
                                                     "
@@ -61,13 +62,16 @@
                                                     input.class_development
                                                 "
                         placeholder="Es la explicacion o sintesis de la clase."
+                        v-on:change="contentUpdateEvent(t,'class_development')"
                         required
                       ></textarea>
                       <div class="invalid-feedback">Please fill out this field</div>
                     </div>
                     <div class="col-md-6">
                       <label for="name">Observación</label>
-                      <textarea name="competences" class="form-control" v-model="input.observation"></textarea>
+                      <textarea name="competences" 
+                        v-on:change="contentUpdateEvent(t,'observation')"
+                      class="form-control" v-model="input.observation"></textarea>
                     </div>
                   </div>
                   <!-- <div class="modal-footer">
@@ -146,6 +150,9 @@ export default {
   },
   mounted() {},
   methods: {
+    contentUpdateEvent(index,property){
+      this.inputs[index][property]=this.inputs[index][property].replace(/[^a-zA-Z0-9-.ñáéíóú_*+-/=&%$#!()?¡¿ ]/g, "|");
+    },
     add(index) {
       this.inputs.push({
         driving_question: "",

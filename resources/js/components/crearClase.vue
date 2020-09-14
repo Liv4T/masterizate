@@ -5,6 +5,7 @@
         <div class="col-md-11 mx-auto">
           <div class="custom-card text-center">
             <h3 class="card-header fondo">Mis clases</h3>
+            <span class="classroom-label">{{ nameArea }}</span>
             <form class="needs-validation" novalidate>
               <form-wizard
                 title
@@ -21,11 +22,7 @@
                       <div class="col-md-6">
                         <label for>Ciclo:</label>
                         <select class="form-control" ref="seleccionado" required>
-                          <option :value="option.id" v-for="option in myOptions">
-                            {{
-                            option.text
-                            }}
-                          </option>
+                          <option :value="option.id" v-for="option in myOptions">{{ option.text }}</option>
                         </select>
                       </div>
                     </div>
@@ -59,23 +56,19 @@
                     <div class="form-group mx-auto">Material de apoyo</div>
                     <div class="form-group row">
                       <div class="col-md-6">
-                        <label for="name">*Nombre del documento</label>
-                        <input
-                          type="text"
-                          name="objetive1"
-                          class="form-control"
-                          v-model="nameFile"
-                          required
-                        />
+                        <label for="name">
+                          Nombre del
+                          documento
+                        </label>
+                        <input type="text" name="objetive1" class="form-control" v-model="nameFile" />
                       </div>
                       <div class="col-md-6">
-                        <label for="name">*Documento</label>
+                        <label for="name">Documento</label>
                         <input
                           type="file"
                           name="document"
                           class="form-control"
                           @change="onFlieChange"
-                          required
                         />
                       </div>
                       <div class="col-md-6">
@@ -99,7 +92,7 @@
                     </div>
                     <div class="form-group row">
                       <div class="col-md-6">
-                        <label for="name">*Enlace</label>
+                        <label for="name">Enlace</label>
                         <input
                           type="text"
                           name="objetive1"
@@ -117,28 +110,32 @@
                         <input type="text" name="objetive1" class="form-control" v-model="nameUrl2" />
                       </div>
                       <div class="col-md-6">
-                        <label for="name">*Video</label>
+                        <label for="name">Enlace Video (Youtube)</label>
+                        <input type="text" name="objetive1" class="form-control" v-model="newVideo" />
+                      </div>
+                      <div class="col-md-6">
+                        <label for="name">Enlace Video (Youtube)</label>
                         <input
-                          type="file"
-                          name="video"
+                          type="text"
+                          name="objetive1"
                           class="form-control"
-                          @change="videoFile"
-                          required
+                          v-model="newVideo1"
                         />
-                        {{ messageVideo }}
                       </div>
                       <div class="col-md-6">
-                        <label for="name">Video</label>
-                        <input type="file" name="video" class="form-control" @change="videoFile1" />
-                        {{ messageVideo1 }}
+                        <label for="name">Enlace Video (Youtube)</label>
+                        <input
+                          type="text"
+                          name="objetive1"
+                          class="form-control"
+                          v-model="newVideo2"
+                        />
                       </div>
                       <div class="col-md-6">
-                        <label for="name">Video</label>
-                        <input type="file" name="video" class="form-control" @change="videoFile2" />
-                        {{ messageVideo2 }}
-                      </div>
-                      <div class="col-md-6">
-                        <label for="name">Intensidad horaria de trabajo</label>
+                        <label for="name">
+                          Intensidad horaria de
+                          trabajo
+                        </label>
                         <div>
                           <input
                             type="number"
@@ -195,6 +192,7 @@ import VueFormWizard from "vue-form-wizard";
 import "vue-form-wizard/dist/vue-form-wizard.min.css";
 Vue.use(VueFormWizard);
 export default {
+  props: ["id_area", "id_classroom"],
   data() {
     return {
       myOptions: [],
@@ -208,18 +206,30 @@ export default {
       newDocument1: [],
       newDocument2: [],
       semanal: false,
-      newVideo: [],
-      newVideo1: [],
-      newVideo2: [],
-      messageVideo: "",
-      messageVideo1: "",
-      messageVideo2: "",
+      newVideo: "",
+      newVideo1: "",
+      newVideo2: "",
       numero: "",
+      nameArea: "",
       errors: [],
     };
   },
   mounted() {
-    var urlsel = "editGetWeek";
+    var url =
+      window.location.origin +
+      "/GetNameArea/" +
+      this.id_area +
+      "/" +
+      this.id_classroom;
+    axios.get(url).then((response) => {
+      this.nameArea = response.data;
+    });
+    var urlsel =
+      window.location.origin +
+      "/editOneWeek/" +
+      this.id_area +
+      "/" +
+      this.id_classroom;
     axios.get(urlsel).then((response) => {
       this.myOptions = response.data;
     });
@@ -230,8 +240,9 @@ export default {
       window.location = "/clases_d";
     },
     createSemanal() {
-      var url = "Class";
+      var url = window.location.origin + "/Class";
       this.seleccionado = this.$refs.seleccionado.value;
+
       axios
         .post(url, {
           //Cursos generales
@@ -314,81 +325,7 @@ export default {
         });
       }
     },
-    videoFile(file) {
-      let files = file.target.files || file.dataTransfer.files;
-      let data = new FormData();
-      if (files.length > 0) {
-        let file = files[0];
-        this.messageVideo = "Espere estamos cargando el video";
-        // if uploaded file is valid with validation rules
 
-        data.append("file", files[0]);
-        data.append("name", this.nameUnit);
-        data.append("count", 1);
-        this.newVideo = data;
-
-        axios.post("/fileDocument", data).then((response) => {
-          console.log(response.data);
-
-          if (response.data == "ok") {
-            this.messageVideo = "Video cargado";
-          } else {
-            this.messageVideo =
-              "El video excede el límite, por favor reducir su peso";
-          }
-        });
-      }
-    },
-    videoFile1(file) {
-      let files = file.target.files || file.dataTransfer.files;
-      let data = new FormData();
-      if (files.length > 0) {
-        let file = files[0];
-        this.messageVideo1 = "Espere estamos cargando el video";
-        // if uploaded file is valid with validation rules
-
-        data.append("file", files[0]);
-        data.append("name", this.nameUnit);
-        data.append("count", 2);
-        this.newVideo1 = data;
-
-        axios.post("/fileDocument", data).then((response) => {
-          console.log(response.data);
-
-          if (response.data == "ok") {
-            this.messageVideo1 = "Video cargado";
-          } else {
-            this.messageVideo1 =
-              "El video excede el límite, por favor reducir su peso";
-          }
-        });
-      }
-    },
-    videoFile2(file) {
-      let files = file.target.files || file.dataTransfer.files;
-      let data = new FormData();
-      if (files.length > 0) {
-        let file = files[0];
-        this.messageVideo2 = "Espere estamos cargando el video";
-        // if uploaded file is valid with validation rules
-
-        data.append("file", files[0]);
-        data.append("name", this.nameUnit);
-        data.append("count", 3);
-        this.newVideo2 = data;
-
-        axios.post("/fileDocument", data).then((response) => {
-          console.log(response.data);
-
-          if (response.data == "ok") {
-            this.messageVideo2 = "Video cargado";
-          } else {
-            this.messageVideo2 =
-              "El video excede el límite, por favor reducir su peso";
-          }
-        });
-      }
-    },
     updateSemanal() {
       var url = "updateCourseWeekly";
 

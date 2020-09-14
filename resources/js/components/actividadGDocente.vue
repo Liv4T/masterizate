@@ -33,20 +33,29 @@
                     class="btn btn-warning"
                   >General</a>
                   <a
+                    :href="'/duplicar/'+ area.id +'/'+ area.id_classroom"
+                    class="btn btn-warning"
+                  >Duplicar</a>
+                  <a
                     v-show="general==true"
                     :href="'/porcentaje/'+ area.id +'/'+ area.id_classroom"
                     class="btn btn-warning"
                   >Porcentaje de notas</a>
                   <a
                     v-show="general==true"
+                    :href="'/duplicar_semana/'+ area.id +'/'+ area.id_classroom"
+                    class="btn btn-warning"
+                  >Duplicar Ciclo</a>
+                  <a
+                    v-show="general==true"
                     :href="'/crear_semana/'+ area.id +'/'+ area.id_classroom"
                     class="btn btn-warning"
-                  >Crear Semana</a>
+                  >Crear Ciclo</a>
                   <a
                     v-show="general==true"
                     :href="'/act_semana/'+ area.id +'/'+ area.id_classroom"
                     class="btn btn-warning"
-                  >Actualizar semana</a>
+                  >Actualizar Ciclo</a>
                 </div>
               </div>
             </div>
@@ -96,7 +105,7 @@ export default {
           this.general = false;
         }
       });
-      var urlsel = "editGetWeek" + area + "/" + classroom;
+      var urlsel = "editGetWeek/" + area + "/" + classroom;
       axios.get(urlsel).then((response) => {
         this.week = response.data;
 

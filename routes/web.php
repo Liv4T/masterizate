@@ -60,6 +60,12 @@ Route::get('/freeUnit', function () {
 Route::get('/course/{id_area}/{id_classroom}', function (String $id_area, String $id_classroom) {
     return view('course')->with('id_area', $id_area)->with('id_classroom', $id_classroom);
 });
+Route::get('/duplicar/{id_area}/{id_classroom}', function (String $id_area, String $id_classroom) {
+    return view('duplicarGeneral')->with('id_area', $id_area)->with('id_classroom', $id_classroom);
+});
+Route::get('/duplicar_semana/{id_area}/{id_classroom}', function (String $id_area, String $id_classroom) {
+    return view('duplicarSemana')->with('id_area', $id_area)->with('id_classroom', $id_classroom);
+});
 Route::get('/crear_semana/{id_area}/{id_classroom}', function (String $id_area, String $id_classroom) {
     return view('semanal')->with('id_area', $id_area)->with('id_classroom', $id_classroom);
 });
@@ -154,7 +160,7 @@ Route::get('/boletin', function () {
     return view('boletin');
 });
 Route::get('/calendar', function () {
-    return view('calendar');
+    return view('calendar')->with('type_user', Auth::user()->type_user);
 });
 Route::get('/perfil_d', function () {
     return view('perfild');
@@ -180,12 +186,18 @@ Route::get('/vmensaje', function () {
 Route::get('/clases_d', function () {
     return view('clasesDocente');
 });
-Route::get('/crear_clase', function () {
-    return view('crearClase');
+
+Route::get('/crear_clase/{id_area}/{id_classroom}', function (String $id_area, String $id_classroom) {
+    return view('crearClase')->with('id_area', $id_area)->with('id_classroom', $id_classroom);
 });
+Route::get('/editar_clase/{id_class}/{id_area}/{id_classroom}', function (String $id_class, String $id_area, String $id_classroom) {
+    return view('editarClase')->with('id_class', $id_class)->with('id_area', $id_area)->with('id_classroom', $id_classroom);
+});
+
 Route::get('/general_adm', function () {
     return view('cursosAdm');
 });
+
 Route::get('/semana_adm', function () {
     return view('semanaAdm');
 });
@@ -285,6 +297,8 @@ Route::resource('Courses', 'CoursesController', ['except' => 'show', 'create', '
 Route::resource('Class', 'ClassController', ['except' => 'show', 'create', 'edit']);
 Route::get('GetClass', 'ClassController@getClass');
 Route::get('showClass/{id}', 'ClassController@show')->name('showClass');
+Route::get('editClass/{id}', 'ClassController@findClass')->name('editClass');
+Route::get('GetNameArea/{id_area}/{id_classroom}', 'ClassController@getNameArea')->name('GetNameArea');
 Route::get('getActivity/{id_1}/{id_2}', 'ActivityController@indexActivityByArea')->name('getActivity');
 Route::get('getActivityById/{id}', 'ActivityController@getActivityById')->name('getActivityById');
 Route::resource('Activity', 'ActivityController', ['except' => 'show', 'create', 'edit']);
@@ -297,7 +311,9 @@ Route::get('showTrivia/{id}', 'ActivityController@showTrivia');
 
 Route::post('createEvent', 'EventsController@createEvent')->name('createEvent');
 Route::get('/getAllEvents', 'EventsController@indexEvents')->name('getAllEvents');
-
+Route::get('editEvent/{id}', 'EventsController@findEvent')->name('editEvent');
+Route::put('updateEvent', 'EventsController@updateEvent')->name('updateEvent');
+Route::get('deleteEvent/{id}', 'EventsController@destroy')->name('deleteEvent');
 
 Route::get('/actividad_d/{id}', 'ClassController@activityWeekId')->name('actividad_d');
 Route::get('/actividad_d/getClass/{id}', 'ClassController@getClassId')->name('getClass');
@@ -311,14 +327,15 @@ Route::get('showWeek/{id}', 'CoursesController@showWeek');
 Route::put('updateCourseWeekly', 'CoursesController@updateCourseWeekly');
 Route::resource('course_unit', 'Course_unitController', ['except' => 'show', 'create', 'edit']);;
 Route::get('/home', 'HomeController@index')->name('home');
+Route::post('/SaveTerms', 'HomeController@UserTerms')->name('SaveTerms');
+Route::get('/getTerms', 'HomeController@getUserTerms')->name('getTerms');
 
 //Almacenar las notas
-
-
 Route::post('saveIndicator', 'ScoreController@saveIndicator')->name('saveIndicator');
 Route::get('getIndicator/{id}', 'ScoreController@getIndicator')->name('getIndicator');
 Route::post('saveScore', 'ScoreController@store')->name('saveScore');
 Route::get('StudentsByArea/{id_1}/{id_2}', 'ScoreController@getStudentByArea')->name('StudentsByArea');
+Route::post('deleteIndicator', 'ScoreController@deleteIndicator')->name('deleteIndicator');
 
 // Chat
 Route::resource('groups', 'GroupController');
@@ -332,6 +349,11 @@ Route::post('fileUpload', 'ConversationController@uploadFile')->name('fileUpload
 
 
 Route::post('fileDocument', 'ClassController@uploadFile')->name('fileDocument');
+// actualizar documentos de las clases
+Route::post('fileDocumentUpdate', 'ClassController@uploadFileUpdate')->name('fileDocumentUpdate');
+// Actualizar una clase
+Route::put('updateClass', 'ClassController@updateClass')->name('updateClass');
+
 // Save audio Blop
 Route::post('fileUploadAudio', 'ConversationController@saveAudio')->name('fileUploadAudio');
 
@@ -422,9 +444,10 @@ Route::get('chart', 'UserChartController@index');
 //pdf
 Route::get('pdfview', array('as' => 'pdfview', 'uses' => 'BestInterviewQuestionController@pdfview'));
 
-//importacion
-
+//importacion profesores
 $router->get('import', 'ImportController@importTeacherClassroom');
+//importacion estudiantes
+$router->get('importStudent', 'ImportController@importStudentClassroom');
 // Carga masiva usuario
 $router->get('importUsers', 'ImportController@importUsers');
 Route::get('/importar_adm', function () {
@@ -446,4 +469,85 @@ Route::get('/registerNew', function () {
 Route::post('/login2', 'UserController@loginWeb')->name('login2');
 Route::post('/resetPassword', 'UserController@resetPassword')->name('resetPassword');
 Route::post('users_save', 'UserController@store')->name('users_save');
+Route::get('Courses_save', 'CoursesController@storeNew')->name('Courses_save');
 Route::get('/logout2', 'UserController@logOut')->name('logout2');
+
+
+
+
+
+//Módulo de electivas usuario Administrador
+Route::get('/admin/lectives', function () { 
+    return view('lectivesAdm');
+});
+Route::get('/admin/lectives-teacher', function () { 
+    return view('lectivesAdmAssingTeacher');
+});
+//Módulo de electivas usuario Docente
+Route::get('/teacher/lectives/planning', function () {
+    return view('lectivesTeacherPlanning');
+});
+Route::get('/teacher/lectives/planning/{id_lective_planification}', function (int $id_lective_planification) {
+    return view('lectivesTeacherPlanningEdit')->with('id_lective_planification', $id_lective_planification);
+});
+Route::get('/teacher/lectives/planning/{id_lective_planification}/indicators', function (int $id_lective_planification) {
+    return view('lectivesTeacherIndicators')->with('id_lective_planification', $id_lective_planification);
+});
+
+Route::get('/teacher/lectives/planning/{id_lective_planification}/weekly', function (int $id_lective_planification) {
+    return view('lectivesTeacherWeekly')->with('id_lective_planification', $id_lective_planification);
+});
+
+Route::get('/teacher/lectives/planning/{id_lective_planification}/weekly/{id_weekly_plan}/course', function (int $id_lective_planification,int $id_weekly_plan) {
+    return view('lectivesTeacherCoursesEdit')->with('id_lective_planification', $id_lective_planification)->with('id_weekly_plan', $id_weekly_plan);
+});
+Route::get('/teacher/lectives/planning/{id_lective_planification}/weekly/{id_weekly_plan}/course/{id_course}/activities', function (int $id_lective_planification,int $id_weekly_plan,$id_course) {
+    return view('lectivesTeacherActivity')->with('id_lective_planification', $id_lective_planification)->with('id_weekly_plan', $id_weekly_plan)->with('id_course', $id_course);
+});
+
+Route::get('/teacher/lectives/activities', function () {
+    return view('lectivesTeacherActivities');
+});
+
+
+Route::get('/teacher/lectives/courses', function () {
+    return view('lectivesTeacherCourses');
+});
+Route::get('/teacher/lectives/students', function () {
+    return view('lectivesTeacherStudents');
+});
+
+Route::get('/teacher/lectives/notes', function () {
+    return view('lectivesTeacherNotes');
+});
+Route::get('/teacher/lectives/board', function () {
+    return view('lectivesTeacherBoard');
+});
+//Módulo de electivas usuario Estudiante
+Route::get('/student/lectives/courses', function () {
+    return view('lectivesStudentCourses');
+});
+Route::get('/student/lectives/activities', function () {
+    return view('lectivesStudentActivities');
+});
+
+//api rest
+Route::get('/api/lectives', 'LectivesController@getLectives');
+Route::get('/api/lectives/planification/{id_lective_planification}', 'LectivesController@getPlanificationDetail');
+Route::put('/api/lectives/planification', 'LectivesController@savePlanificationDetail');
+Route::put('/api/lectives/planification/{id_lective_planification}/weekly', 'LectivesController@saveWeeklyPlanification');
+Route::get('/api/lectives/planification/{id_lective_planification}/weekly/{id_weekly_plan}/course', 'LectivesController@getWeeklyPlanificationDetail');
+Route::put('/api/lectives/planification/{id_lective_planification}/weekly/{id_weekly_plan}/course', 'LectivesController@saveWeeklyPlanificationDetail');
+Route::get('/api/lectives/planification/{id_lective_planification}/student', 'LectivesController@getPlanificationStudents');
+Route::put('/api/lectives/planification/{id_lective_planification}/student', 'LectivesController@addStudents');
+Route::delete('/api/lectives/planification/{id_lective_planification}/student/{id_student}', 'LectivesController@removeStudent');
+Route::get('/api/lectives/student/find/{content}', 'LectivesController@findStudents');
+Route::get('/api/lectives/planification/{id_lective_planification}/achievement/{id_lective_achievement}', 'LectivesController@getIndicatorByPlanificationAchievement');
+Route::put('/api/lectives/planification/{id_lective_planification}/achievement', 'LectivesController@saveIndicator');
+Route::put('/api/lectives/planification/{id_lective_planification}/achievement/{id_lective_indicator}', 'LectivesController@updateIndicator');
+Route::delete('/api/lectives/planification/{id_lective_planification}/indicator/{id_lective_indicator}', 'LectivesController@removeIndicator');
+Route::get('/api/lectives/planification/{id_lective_planification}/weekly/{id_weekly_plan}/course/{id_class}', 'LectivesController@getCourse');
+Route::put('/api/lectives/planification/{id_lective_planification}/weekly/{id_weekly_plan}/course/{id_class}/activity', 'LectivesController@saveActivity');
+Route::get('/api/lectives/planification/{id_lective_planification}/weekly/{id_weekly_plan}/course/{id_class}/activity', 'LectivesController@getActivities');
+Route::get('/api/lectives/planification/{id_lective_planification}/activities', 'LectivesController@getActivitiesByPlan');
+Route::put('/api/lectives/planification/{id_lective_planification}/weekly/{id_weekly_plan}/course/{id_class}/activity/{id_activity}/module/ENCUESTA_UNICA_RTA/question/{id_question}', 'QuestionController@responseQuestiononLective');

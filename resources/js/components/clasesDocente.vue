@@ -38,7 +38,7 @@
                       <a
                         class="btn btn-warning"
                         v-on:click.prevent="
-                                                    editNames(clas.id)
+                                                    editNames(clas.id, clas.id_area, clas.id_classroom)
                                                 "
                         style="text-overflow: ellipsis;
                                 width: 170px;
@@ -65,7 +65,10 @@
                 </button>
               </h3>
               <div class="float-right">
-                <a class="btn btn-warning float-right" href="/crear_clase">Crear Clase</a>
+                <a
+                  class="btn btn-warning float-right"
+                  :href="'/crear_clase/'+Iarea+'/'+Iclassroom"
+                >Crear Clase</a>
               </div>
 
               <div class="card-body">
@@ -81,6 +84,10 @@
                           aria-expanded="true"
                           :aria-controls="'collapse' +t"
                         >Clase {{ t+1 }}</button>
+                        <a
+                          class="btn btn-warning float-right"
+                          :href="'/editar_clase/'+clas.id+'/'+Iarea+'/'+Iclassroom"
+                        >Editar</a>
                       </h2>
                     </div>
                     <div
@@ -99,10 +106,13 @@
 
                           <p>{{clas.description }}</p>
                         </div>
-                        <div class="form-group text-center">
+                        <div
+                          class="form-group text-center"
+                          v-show="clas.document!= ''||clas.document1!= ''||clas.document2!= ''"
+                        >
                           <strong for="name">Documento</strong>
 
-                          <div>
+                          <div v-show="clas.document!= ''">
                             {{ clas.name_document }}
                             <a :href="clas.document" download>
                               <a :href="clas.document" download>
@@ -135,49 +145,81 @@
                             </a>
                           </div>
                         </div>
-                        <div class="form-group text-center">
+                        <div class="form-group text-center" v-show="clas.url!='' ">
                           <strong for="name">Enlace de apoyo</strong>
 
                           <div>
-                            <a :href="clas.url" style="color:blue">{{ clas.url }}</a>
+                            <a
+                              :href="clas.url"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              style="color:blue"
+                            >{{ clas.url }}</a>
                           </div>
                           <div>
-                            <a :href="clas.url1" style="color:blue">{{ clas.url1 }}</a>
+                            <a
+                              :href="clas.url1"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              style="color:blue"
+                            >{{ clas.url1 }}</a>
                           </div>
                           <div>
-                            <a :href="clas.url2" style="color:blue">{{ clas.url2 }}</a>
+                            <a
+                              :href="clas.url2"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              style="color:blue"
+                            >{{ clas.url2 }}</a>
                           </div>
                         </div>
-                        <div class="form-group text-center">
+                        <div
+                          class="form-group text-center"
+                          v-show="clas.video!= ''||clas.video1!= ''||clas.video2!= ''"
+                        >
                           <strong for="name">Video</strong>
                         </div>
                         <div class="form-group text-center">
-                          <div>
-                            <video controls>
+                          <div v-show="clas.video!= ''">
+                            <video controls v-show="clas.video_youtube == ''">
                               <source :src="clas.video" />
                             </video>
-                            <!-- <iframe class="embed-responsive-item" :src="clas.video"></iframe> -->
+                            <iframe
+                              v-show="clas.video_youtube!= ''"
+                              class="embed-responsive-item"
+                              :src="clas.video_youtube"
+                              allowfullscreen
+                            ></iframe>
                           </div>
                           <br />
                           <div v-show="clas.video1!= ''">
-                            <video controls>
+                            <video controls v-show="clas.video1_youtube == ''">
                               <source :src="clas.video1" />
                             </video>
+                            <iframe
+                              v-show="clas.video1_youtube!= ''"
+                              class="embed-responsive-item"
+                              :src="clas.video1_youtube"
+                              allowfullscreen
+                            ></iframe>
                           </div>
                           <br />
                           <div v-show="clas.video2!= ''">
-                            <video controls>
+                            <video controls v-show="clas.video2_youtube == ''">
                               <source :src="clas.video2" />
                             </video>
+                            <iframe
+                              v-show="clas.video2_youtube!= ''"
+                              class="embed-responsive-item"
+                              :src="clas.video2_youtube"
+                              allowfullscreen
+                            ></iframe>
                           </div>
                         </div>
                         <div class="modal-footer">
                           <a
                             class="btn btn-warning"
-                            :href="
-                                                            '/actividad_d/' +
-                                                                clas.id_weekly_plan
-                                                        "
+                            :href="'/actividad_d/' + clas.id_weekly_plan"
                           >Crear Actividad</a>
                         </div>
                       </div>
@@ -205,6 +247,8 @@ export default {
       id_act: "",
       errors: [],
       fillS: [],
+      Iclassroom: "",
+      Iarea: "",
     };
   },
   created() {},
@@ -217,7 +261,10 @@ export default {
     console.log("Component mounted.");
   },
   methods: {
-    editNames(clas) {
+    editNames(clas, area, classroom) {
+      this.fillS = [];
+      this.Iarea = area;
+      this.Iclassroom = classroom;
       var urlr = "showClass/" + clas;
       axios.get(urlr).then((response) => {
         this.fillS = response.data.clase;

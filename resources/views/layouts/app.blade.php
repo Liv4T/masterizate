@@ -67,7 +67,7 @@
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('Life4teach') }}
-                    <img thumbnail fluid src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/LOGO_LIV4T_SKOOL.png?alt=media&token=e0a74c90-0f0d-4932-863a-827b5f87ed0c" rounded="circle" width="200px" height="250px" alt="4"></img>
+                    <img thumbnail fluid src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/LOGO_LIV4T_SKOOL.png?alt=media&token=e0a74c90-0f0d-4932-863a-827b5f87ed0c" width="200px" alt="4"></img>
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -99,9 +99,9 @@
                             <a class="nav-link" href="{{ route('loginNew') }}">{{ __('Login') }}</a>
                         </li>
                         @if (Route::has('registerNew'))
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('registerNew') }}">{{ __('Register') }}</a>
-                        </li>
+                        <!-- li class="nav-item"-->
+                            <!--a class="nav-link" href="{{ route('registerNew') }}">{{ __('Register') }}</a-->
+                        <!--/li-->
                         @endif
                         @else
                         <li class="nav-item dropdown">
@@ -109,6 +109,7 @@
                                 {{ Auth::user()->name }} <span class="caret"></span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                             <a class="dropdown-item" href="/inicio">Ir a clase</a>
                                 <a class="dropdown-item" href="/changePassword">Cambiar Contraseña</a>
                                  <a class="dropdown-item" href="/manual">Ayuda</a>
                                 <a class="dropdown-item" href="{{ route('logout') }}"

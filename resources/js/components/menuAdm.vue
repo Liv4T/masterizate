@@ -151,6 +151,28 @@
                 </li>
               </a>
             </div>
+            <div class="dropdown2">
+              <a>
+                <li class="item-menu">
+                  <img
+                    width="35px"
+                    src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/ANUNCIOS_naranja.png?alt=media&token=539c1428-c480-43bf-a132-73be35386940"
+                    alt
+                  />
+                  <span class="menu">Electivas</span>
+                  <div class="dropdown2-content">
+                    <a href="/electiveCourse">
+                      <img
+                        width="35px"
+                        src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/MIS-CURSOS.png?alt=media&token=93ec6b97-e5a6-4eca-891e-b63bf2a352ad"
+                        alt
+                      />
+                      Administrar Electivas
+                    </a>
+                  </div>
+                </li>
+              </a>
+            </div>
             <!-- <div class="dropdown">
               <a href="/actividad_g">
                 <li class="item-menu">
@@ -249,6 +271,11 @@
                   alt
                 />
                 <span class="menu">Mis reportes</span>
+              </li>
+            </a>
+            <a href="../../uploads/Terminos _Condiciones_liv4t.pdf" target="_blank">
+              <li class="item-menu">
+                <span class="menu">Términos y condiciones</span>
               </li>
             </a>
             <!-- <a href="/manual">
