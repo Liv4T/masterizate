@@ -176,6 +176,7 @@
                     <select class="form-control"  :disabled="toData.area=='null' ||  fromData.class_planning=='null'|| fromData.class_planning=='all' " v-model="toData.class_planning">
                      <option value="null">- {{ (fromData.class_planning!='null' && fromData.class_planning!='all')?'Seleccione':'No aplica' }} -</option>
                       <option value="new">- Nueva clase -</option>
+                      <option  v-for="(class_plan, k_c) in to_class_planning" :key="k_c" v-bind:value="class_plan"  >{{ class_plan.name }}</option>
                     </select>
                   </div>
 
@@ -331,8 +332,13 @@ export default {
   methods: {
     copyInformationEvent()
     {
-      toastr.success("Información duplicada correctamente");
-     // location.href="/actividad_g";
+      //
+       axios.put("/api/planification/copy",{fromData:this.fromData,toData:this.toData}).then((response) => {
+        toastr.success("Información duplicada correctamente");
+        //location.href="/actividad_g";
+      });
+     
+     // 
 
      console.log(this.fromData);
      console.log(this.toData);
@@ -355,6 +361,7 @@ export default {
       {
           axios.get(`/showClass/${this.toData.weekly_planning.id}`).then((response) => {
                 this.to_class_planning=response.data.clase;
+                console.log(this.to_class_planning);
           });
       }
       else{
