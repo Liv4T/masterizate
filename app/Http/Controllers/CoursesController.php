@@ -502,4 +502,42 @@ class CoursesController extends Controller
         $weeks = Weekly::findOrFail($id);
         return response()->json($weeks);
     }
+    public function copyInformation(Request $request)
+    {
+        $user = Auth::user();
+        $data = $request->all();
+
+        if(isset($data['fromData']) && isset($data['toData']) && isset($data['fromData']['weekly_planning']['id']))
+        {
+            if( $data['toData']['weekly_planning']=='new')
+            {
+                $weekly_plan=Weekly::find($data['fromData']['weekly_planning']['id']);
+                Weekly::create([
+                    'driving_question'=>$weekly_plan->driving_question,
+                    'class_development'=>$weekly_plan->class_development,
+                    'observation'=>$weekly_plan->observation,
+                    'id_teacher'=>$weekly_plan->id_teacher,
+                    'id_area'=>$data['toData']['area']['id'],
+                    'id_classroom'=>$data['toData']['area']['id_classroom'],
+                    'week'=>$weekly_plan->week,
+                    'status'=>$weekly_plan->status,
+                    'observation_coord'=>$weekly_plan->observation_coord
+                ]);
+            }
+            else
+            {
+                $weekly_plan=Weekly::find($data['fromData']['weekly_planning']['id']);
+                Weekly::where('id',$data['toData']['weekly_planning']['id'])->update([
+                    'driving_question'=>$weekly_plan->driving_question,
+                    'class_development'=>$weekly_plan->class_development,
+                    'observation'=>$weekly_plan->observation,
+                    'week'=>$weekly_plan->week,
+                    'status'=>$weekly_plan->status,
+                    'observation_coord'=>$weekly_plan->observation_coord
+                ]);
+            }
+
+
+        }
+    }
 }

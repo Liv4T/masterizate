@@ -43,7 +43,7 @@
                   >Porcentaje de notas</a>
                   <a
                     v-show="general==true"
-                    :href="'/duplicar_semana/'+ area.id +'/'+ area.id_classroom"
+                    :href="'/duplicar-semana/'"
                     class="btn btn-warning"
                   >Duplicar Ciclo</a>
                   <a

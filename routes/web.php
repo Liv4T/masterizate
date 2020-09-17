@@ -63,8 +63,8 @@ Route::get('/course/{id_area}/{id_classroom}', function (String $id_area, String
 Route::get('/duplicar/{id_area}/{id_classroom}', function (String $id_area, String $id_classroom) {
     return view('duplicarGeneral')->with('id_area', $id_area)->with('id_classroom', $id_classroom);
 });
-Route::get('/duplicar_semana/{id_area}/{id_classroom}', function (String $id_area, String $id_classroom) {
-    return view('duplicarSemana')->with('id_area', $id_area)->with('id_classroom', $id_classroom);
+Route::get('/duplicar-semana/', function () {
+    return view('duplicarSemana');
 });
 Route::get('/crear_semana/{id_area}/{id_classroom}', function (String $id_area, String $id_classroom) {
     return view('semanal')->with('id_area', $id_area)->with('id_classroom', $id_classroom);
@@ -551,3 +551,4 @@ Route::put('/api/lectives/planification/{id_lective_planification}/weekly/{id_we
 Route::get('/api/lectives/planification/{id_lective_planification}/weekly/{id_weekly_plan}/course/{id_class}/activity', 'LectivesController@getActivities');
 Route::get('/api/lectives/planification/{id_lective_planification}/activities', 'LectivesController@getActivitiesByPlan');
 Route::put('/api/lectives/planification/{id_lective_planification}/weekly/{id_weekly_plan}/course/{id_class}/activity/{id_activity}/module/ENCUESTA_UNICA_RTA/question/{id_question}', 'QuestionController@responseQuestiononLective');
+Route::put('/api/planification/copy', 'CoursesController@copyInformation');
