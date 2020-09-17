@@ -12,6 +12,7 @@ use App\CoursesAchievement;
 use App\Classroom;
 use App\ClassroomStudent;
 use App\ClassroomTeacher;
+use App\Classes;
 use Illuminate\Http\Request;
 use Auth;
 
@@ -501,5 +502,133 @@ class CoursesController extends Controller
     {
         $weeks = Weekly::findOrFail($id);
         return response()->json($weeks);
+    }
+    public function copyInformation(Request $request)
+    {
+    
+        $data = $request->all();
+
+        if(isset($data['fromData']) && isset($data['toData']) && isset($data['fromData']['weekly_planning']['id']))
+        {
+            //copy weekly_planning
+            $weekly_planning_id=0;
+            if( $data['toData']['weekly_planning']=='new')
+            {
+                $weekly_plan=Weekly::find($data['fromData']['weekly_planning']['id']);
+                $new_weekly_plan=Weekly::create([
+                    'driving_question'=>$weekly_plan->driving_question,
+                    'class_development'=>$weekly_plan->class_development,
+                    'observation'=>$weekly_plan->observation,
+                    'id_teacher'=>$weekly_plan->id_teacher,
+                    'id_area'=>$data['toData']['area']['id'],
+                    'id_classroom'=>$data['toData']['area']['id_classroom'],
+                    'week'=>$weekly_plan->week,
+                    'status'=>$weekly_plan->status,
+                    'observation_coord'=>$weekly_plan->observation_coord
+                ]);
+                $weekly_planning_id=$new_weekly_plan->id;
+            }
+            else
+            {
+                $weekly_plan=Weekly::find($data['fromData']['weekly_planning']['id']);
+                Weekly::where('id',$data['toData']['weekly_planning']['id'])->update([
+                    'driving_question'=>$weekly_plan->driving_question,
+                    'class_development'=>$weekly_plan->class_development,
+                    'observation'=>$weekly_plan->observation,
+                    'week'=>$weekly_plan->week,
+                    'status'=>$weekly_plan->status,
+                    'observation_coord'=>$weekly_plan->observation_coord
+                ]);
+                $weekly_planning_id=$data['toData']['weekly_planning']['id'];
+            }
+
+
+            //copy class information
+            if($data['fromData']['class_planning']=='null')
+            {
+
+            }
+            else if($data['fromData']['class_planning']=='all')
+            {
+              
+                $class_planning=Classes::where('id_weekly_plan',$data['fromData']['weekly_planning']['id'])->get();
+                
+                 foreach ($class_planning as $key_c => $clase) {
+                    Classes::create([
+                        'name'=>$clase->name,
+                        'description'=> $clase->description,
+                        'name_document'=> $clase->name_document,
+                        'document'=> $clase->document,
+                        'url'=> $clase->url,
+                        'video'=> $clase->video,
+                        'id_weekly_plan'=> $weekly_planning_id,
+                        'status'=> $clase->status,
+                        'video1'=> $clase->video1,
+                        'video2'=> $clase->video2,
+                        'url1'=> $clase->url1,
+                        'url2'=> $clase->url2,
+                        'document1'=> $clase->document1,
+                        'document2'=> $clase->document2,
+                        'observation'=> $clase->observation,
+                        'hourly'=> $clase->hourly
+                    ]);
+                }   
+
+            }
+            else{
+
+                if($data['fromData']['class_planning']=='null')
+                {
+
+                }
+                else if($data['toData']['class_planning']=='new')
+                {
+                    $clase=Classes::find($data['fromData']['class_planning']['id']);
+
+                    Classes::create([
+                        'name'=>$clase->name,
+                        'description'=> $clase->description,
+                        'name_document'=> $clase->name_document,
+                        'document'=> $clase->document,
+                        'url'=> $clase->url,
+                        'video'=> $clase->video,
+                        'id_weekly_plan'=> $weekly_planning_id,
+                        'status'=> $clase->status,
+                        'video1'=> $clase->video1,
+                        'video2'=> $clase->video2,
+                        'url1'=> $clase->url1,
+                        'url2'=> $clase->url2,
+                        'document1'=> $clase->document1,
+                        'document2'=> $clase->document2,
+                        'observation'=> $clase->observation,
+                        'hourly'=> $clase->hourly
+                    ]);
+                }
+                else 
+                {
+                    $clase=Classes::find($data['fromData']['class_planning']['id']);
+
+                    Classes::where('id',$data['toData']['class_planning']['id'])->update([
+                        'name'=>$clase->name,
+                        'description'=> $clase->description,
+                        'name_document'=> $clase->name_document,
+                        'document'=> $clase->document,
+                        'url'=> $clase->url,
+                        'video'=> $clase->video,
+                        'status'=> $clase->status,
+                        'video1'=> $clase->video1,
+                        'video2'=> $clase->video2,
+                        'url1'=> $clase->url1,
+                        'url2'=> $clase->url2,
+                        'document1'=> $clase->document1,
+                        'document2'=> $clase->document2,
+                        'observation'=> $clase->observation,
+                        'hourly'=> $clase->hourly
+                    ]);
+                }
+            }
+
+
+        }
     }
 }

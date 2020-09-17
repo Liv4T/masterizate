@@ -93,7 +93,7 @@ Vue.component("anunciomc-component", require("./components/anunciomc.vue").defau
 Vue.component("full-component", require("./components/fullCalendar.vue").default);
 Vue.component("redactar-component", require("./components/redactar.vue").default);
 Vue.component("vmensaje-component", require("./components/vistamensaje.vue").default);
-Vue.component("duplicar-component", require("./components/duplicarGeneral.vue").default);
+
 Vue.component("duplicarsemana-component", require("./components/duplicarSemana.vue").default);
 Vue.component("game-component", require("./components/Game.vue").default);
 Vue.component("juegos-component", require("./components/juegos.vue").default);
@@ -138,6 +138,9 @@ Vue.component("adocente-adm", require("./components/asignarDocente.vue").default
 Vue.component("aestudiante-adm", require("./components/asignarEstudiante.vue").default);
 Vue.component("importar-adm", require("./components/importAdm.vue").default);
 Vue.component("asistencia-adm", require("./components/asistencia.vue").default);
+
+
+Vue.component("duplicar-component",  () => import ("./components/duplicarGeneral.vue"));
 
 
 Vue.component("lectives-adm", () => import ("./components/lectivesAdmComponent.vue"));
