@@ -11,7 +11,7 @@
   @if (Auth::user()->type_user == '1')
     <menu-adm></menu-adm>
  @endif
-<duplicarsemana-component :id_area="{{ $id_area }}" :id_classroom="{{ $id_classroom }}"></duplicarsemana-component>
+<duplicarsemana-component></duplicarsemana-component>
  <footers></footers>
 <div class="container">
 
