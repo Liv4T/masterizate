@@ -17,31 +17,31 @@ use App\Exports\ProductsExport;
 
 // Route::group(['middleware' => 'auth', function () {
 //add all your routes here
-Route::get('/user', function () {
+Route::middleware('auth')->get('/user', function () {
     return view('user');
 });
-Route::get('/board', function () {
+Route::middleware('auth')->get('/board', function () {
     return view('welcome');
 });
-Route::get('/memoria', function () {
+Route::middleware('auth')->get('/memoria', function () {
     return view('memory');
 });
-Route::get('/task', function () {
+Route::middleware('auth')->get('/task', function () {
     return view('class');
 });
-Route::get('/resume', function () {
+Route::middleware('auth')->get('/resume', function () {
     return view('resume');
 });
-Route::get('/class', function () {
+Route::middleware('auth')->get('/class', function () {
     return view('class');
 });
-Route::get('/Clases', function () {
+Route::middleware('auth')->get('/Clases', function () {
     return view('clasesSt');
 });
-Route::get('/notas_d', function () {
+Route::middleware('auth')->get('/notas_d', function () {
     return view('notasDocente');
 });
-Route::get('/actividad_docente', function () {
+Route::middleware('auth')->get('/actividad_docente', function () {
     return view('actividadVD');
 });
 // Route::get('/board', function () {
@@ -51,206 +51,206 @@ Route::get('/actividad_docente', function () {
 //      return view('dboard');
 // });
 
-Route::get('/free', function () {
+Route::middleware('auth')->get('/free', function () {
     return view('free');
 });
-Route::get('/freeUnit', function () {
+Route::middleware('auth')->get('/freeUnit', function () {
     return view('freeU');
 });
-Route::get('/course/{id_area}/{id_classroom}', function (String $id_area, String $id_classroom) {
+Route::middleware('auth')->get('/course/{id_area}/{id_classroom}', function (String $id_area, String $id_classroom) {
     return view('course')->with('id_area', $id_area)->with('id_classroom', $id_classroom);
 });
-Route::get('/duplicar/{id_area}/{id_classroom}', function (String $id_area, String $id_classroom) {
+Route::middleware('auth')->get('/duplicar/{id_area}/{id_classroom}', function (String $id_area, String $id_classroom) {
     return view('duplicarGeneral')->with('id_area', $id_area)->with('id_classroom', $id_classroom);
 });
-Route::get('/duplicar-semana/', function () {
+Route::middleware('auth')->get('/duplicar-semana/', function () {
     return view('duplicarSemana');
 });
-Route::get('/crear_semana/{id_area}/{id_classroom}', function (String $id_area, String $id_classroom) {
+Route::middleware('auth')->get('/crear_semana/{id_area}/{id_classroom}', function (String $id_area, String $id_classroom) {
     return view('semanal')->with('id_area', $id_area)->with('id_classroom', $id_classroom);
 });
-Route::get('/act_semana/{id_area}/{id_classroom}', function (String $id_area, String $id_classroom) {
+Route::middleware('auth')->get('/act_semana/{id_area}/{id_classroom}', function (String $id_area, String $id_classroom) {
     return view('semanalAct')->with('id_area', $id_area)->with('id_classroom', $id_classroom);
 });
 
-Route::get('/unit', function () {
+Route::middleware('auth')->get('/unit', function () {
     return view('unit');
 });
-Route::get('/payments', function () {
+Route::middleware('auth')->get('/payments', function () {
     return view('car');
 });
-Route::get('/ccourse', function () {
+Route::middleware('auth')->get('/ccourse', function () {
     return view('list');
 });
-Route::get('/listactivity', function () {
+Route::middleware('auth')->get('/listactivity', function () {
     return view('lista');
 });
-Route::get('/actividad_g', function () {
+Route::middleware('auth')->get('/actividad_g', function () {
     return view('actividadgd');
 });
-Route::get('/sincro', function () {
+Route::middleware('auth')->get('/sincro', function () {
     return view('sincro');
 });
-Route::get('/evaluation', function () {
+Route::middleware('auth')->get('/evaluation', function () {
     return view('evaluation');
 });
-Route::get('/vcourse', function () {
+Route::middleware('auth')->get('/vcourse', function () {
     return view('view');
 });
 
-Route::get('/consult', function () {
+Route::middleware('auth')->get('/consult', function () {
     return view('consult');
 });
-Route::get('/manual', function () {
+Route::middleware('auth')->get('/manual', function () {
     return view('cuestions');
 });
-Route::get('/mycourse', function () {
+Route::middleware('auth')->get('/mycourse', function () {
     return view('mycourse');
 });
-Route::get('/mycourses', function () {
+Route::middleware('auth')->get('/mycourses', function () {
     return view('mycourses');
 });
-Route::get('/courseSt', function () {
+Route::middleware('auth')->get('/courseSt', function () {
     return view('coursesSt');
 });
-Route::get('/calificationSt', function () {
+Route::middleware('auth')->get('/calificationSt', function () {
     return view('calificationSt');
 });
-Route::get('/activitySt', function () {
+Route::middleware('auth')->get('/activitySt', function () {
     return view('activitySt');
 });
-Route::get('/calification', function () {
+Route::middleware('auth')->get('/calification', function () {
     return view('listevaluationSt');
 });
-Route::get('/plan', function () {
+Route::middleware('auth')->get('/plan', function () {
     return view('plan');
 });
-Route::get('/changePassword', function () {
+Route::middleware('auth')->get('/changePassword', function () {
     return view('changepassword');
 });
-Route::get('/miPerfil', function () {
+Route::middleware('auth')->get('/miPerfil', function () {
     return view('perfil');
 });
-Route::get('/resetPass', function () {
+Route::middleware('auth')->get('/resetPass', function () {
     return view('resetPass');
 });
 
-Route::get('/trivia', function () {
+Route::middleware('auth')->get('/trivia', function () {
     return view('trivia');
 });
-Route::get('/triviaimg', function () {
+Route::middleware('auth')->get('/triviaimg', function () {
     return view('triviaimg');
 });
-Route::get('/quiz', function () {
+Route::middleware('auth')->get('/quiz', function () {
     return view('quizopen');
 });
-Route::get('/sentence', function () {
+Route::middleware('auth')->get('/sentence', function () {
     return view('quiz');
 });
-Route::get('/mensajes', function () {
+Route::middleware('auth')->get('/mensajes', function () {
     return view('mensajes');
 });
-Route::get('/Actividad', function () {
+Route::middleware('auth')->get('/Actividad', function () {
     return view('activ');
 });
-Route::get('/notas', function () {
+Route::middleware('auth')->get('/notas', function () {
     return view('notas');
 });
-Route::get('/boletin', function () {
+Route::middleware('auth')->get('/boletin', function () {
     return view('boletin');
 });
-Route::get('/calendar', function () {
+Route::middleware('auth')->get('/calendar', function () {
     return view('calendar')->with('type_user', Auth::user()->type_user);
 });
-Route::get('/perfil_d', function () {
+Route::middleware('auth')->get('/perfil_d', function () {
     return view('perfild');
 });
-Route::get('/anuncio_d', function () {
+Route::middleware('auth')->get('/anuncio_d', function () {
     return view('anunciod');
 });
-Route::get('/anuncio_mc', function () {
+Route::middleware('auth')->get('/anuncio_mc', function () {
     return view('anunciomc');
 });
-Route::get('/inicio', function () {
+Route::middleware('auth')->get('/inicio', function () {
     return view('inicio');
 });
-Route::get('/juegos', function () {
+Route::middleware('auth')->get('/juegos', function () {
     return view('juegos');
 });
-Route::get('/redactar', function () {
+Route::middleware('auth')->get('/redactar', function () {
     return view('redactar');
 });
-Route::get('/vmensaje', function () {
+Route::middleware('auth')->get('/vmensaje', function () {
     return view('vistamensaje');
 });
-Route::get('/clases_d', function () {
+Route::middleware('auth')->get('/clases_d', function () {
     return view('clasesDocente');
 });
 
-Route::get('/crear_clase/{id_area}/{id_classroom}', function (String $id_area, String $id_classroom) {
+Route::middleware('auth')->get('/crear_clase/{id_area}/{id_classroom}', function (String $id_area, String $id_classroom) {
     return view('crearClase')->with('id_area', $id_area)->with('id_classroom', $id_classroom);
 });
-Route::get('/editar_clase/{id_class}/{id_area}/{id_classroom}', function (String $id_class, String $id_area, String $id_classroom) {
+Route::middleware('auth')->get('/editar_clase/{id_class}/{id_area}/{id_classroom}', function (String $id_class, String $id_area, String $id_classroom) {
     return view('editarClase')->with('id_class', $id_class)->with('id_area', $id_area)->with('id_classroom', $id_classroom);
 });
 
-Route::get('/general_adm', function () {
+Route::middleware('auth')->get('/general_adm', function () {
     return view('cursosAdm');
 });
 
-Route::get('/semana_adm', function () {
+Route::middleware('auth')->get('/semana_adm', function () {
     return view('semanaAdm');
 });
-Route::get('/planificacion', function () {
+Route::middleware('auth')->get('/planificacion', function () {
     return view('vplanAdm');
 });
-Route::get('/vclases_adm', function () {
+Route::middleware('auth')->get('/vclases_adm', function () {
     return view('vclasesAdm');
 });
-Route::get('/planeacion', function () {
+Route::middleware('auth')->get('/planeacion', function () {
     return view('planificacionAdm');
 });
-Route::get('/plan_adm', function () {
+Route::middleware('auth')->get('/plan_adm', function () {
     return view('planAdm');
 });
-Route::get('/estudiante_adm', function () {
+Route::middleware('auth')->get('/estudiante_adm', function () {
     return view('estudianteAdm');
 });
-Route::get('/docente_adm', function () {
+Route::middleware('auth')->get('/docente_adm', function () {
     return view('docenteAdm');
 });
-Route::get('/reportes', function () {
+Route::middleware('auth')->get('/reportes', function () {
     return view('reportesAdm');
 });
-Route::get('/instituciones_adm', function () {
+Route::middleware('auth')->get('/instituciones_adm', function () {
     return view('institucionesAdm');
 });
-Route::get('/instituciones_crear', function () {
+Route::middleware('auth')->get('/instituciones_crear', function () {
     return view('crearInstitucion');
 });
-Route::get('/perfil_asignar', function () {
+Route::middleware('auth')->get('/perfil_asignar', function () {
     return view('asignarPerfil');
 });
-Route::get('/docente_asignar', function () {
+Route::middleware('auth')->get('/docente_asignar', function () {
     return view('asignarDocente');
 });
-Route::get('/estudiante_asignar', function () {
+Route::middleware('auth')->get('/estudiante_asignar', function () {
     return view('asignarEstudiante');
 });
-Route::get('/coordinador_adm', function () {
+Route::middleware('auth')->get('/coordinador_adm', function () {
     return view('coordinadorAdm');
 });
-Route::get('/salon_adm', function () {
+Route::middleware('auth')->get('/salon_adm', function () {
     return view('salonAdm');
 });
-Route::get('/asistencia', function () {
+Route::middleware('auth')->get('/asistencia', function () {
     return view('asistencia');
 });
-Route::get('/matricula', function () {
+Route::middleware('auth')->get('/matricula', function () {
     return view('matricula');
 });
 
-Route::get('/porcentaje/{id_area}/{id_classroom}', function (String $id_area, String $id_classroom) {
+Route::middleware('auth')->get('/porcentaje/{id_area}/{id_classroom}', function (String $id_area, String $id_classroom) {
     return view('porcentajeNotas')->with('id_area', $id_area)->with('id_classroom', $id_classroom);
 });
 Route::get('/chat', 'HomeController@CreateGroup')->name('chat');
@@ -388,7 +388,7 @@ Route::put('updateMessages', 'MessagingController@update')->name('updateMessages
 Route::get('getReceivedMessage', 'MessagingController@showReceivedMessage')->name('showReceivedMessage');
 Route::get('getSentMessage', 'MessagingController@showSentMessage')->name('showSentMessage');
 Route::get('getMessage/{id}', 'MessagingController@showMessage')->name('getMessage');
-Route::get('/enviados', function () {
+Route::middleware('auth')->get('/enviados', function () {
     return view('mensajeEnv');
 });
 /* Rutas del administrador
@@ -450,7 +450,7 @@ $router->get('import', 'ImportController@importTeacherClassroom');
 $router->get('importStudent', 'ImportController@importStudentClassroom');
 // Carga masiva usuario
 $router->get('importUsers', 'ImportController@importUsers');
-Route::get('/importar_adm', function () {
+Route::middleware('auth')->get('/importar_adm', function () {
     return view('imports.importB');
 });
 // }]);
@@ -477,57 +477,58 @@ Route::get('/logout2', 'UserController@logOut')->name('logout2');
 
 
 //Módulo de electivas usuario Administrador
-Route::get('/admin/lectives', function () { 
+Route::middleware('auth')->get('/admin/lectives', function () { 
     return view('lectivesAdm');
 });
-Route::get('/admin/lectives-teacher', function () { 
+Route::middleware('auth')->get('/admin/lectives-teacher', function () { 
     return view('lectivesAdmAssingTeacher');
 });
 //Módulo de electivas usuario Docente
-Route::get('/teacher/lectives/planning', function () {
+Route::middleware('auth')->get('/teacher/lectives/planning', function () {
     return view('lectivesTeacherPlanning');
 });
-Route::get('/teacher/lectives/planning/{id_lective_planification}', function (int $id_lective_planification) {
+Route::middleware('auth')->get('/teacher/lectives/planning/{id_lective_planification}', function (int $id_lective_planification) {
     return view('lectivesTeacherPlanningEdit')->with('id_lective_planification', $id_lective_planification);
 });
-Route::get('/teacher/lectives/planning/{id_lective_planification}/indicators', function (int $id_lective_planification) {
+Route::middleware('auth')->get('/teacher/lectives/planning/{id_lective_planification}/indicators', function (int $id_lective_planification) {
     return view('lectivesTeacherIndicators')->with('id_lective_planification', $id_lective_planification);
 });
 
-Route::get('/teacher/lectives/planning/{id_lective_planification}/weekly', function (int $id_lective_planification) {
+Route::middleware('auth')->get('/teacher/lectives/planning/{id_lective_planification}/weekly', function (int $id_lective_planification) {
     return view('lectivesTeacherWeekly')->with('id_lective_planification', $id_lective_planification);
 });
 
-Route::get('/teacher/lectives/planning/{id_lective_planification}/weekly/{id_weekly_plan}/course', function (int $id_lective_planification,int $id_weekly_plan) {
+Route::middleware('auth')->get('/teacher/lectives/planning/{id_lective_planification}/weekly/{id_weekly_plan}/course', function (int $id_lective_planification,int $id_weekly_plan) {
     return view('lectivesTeacherCoursesEdit')->with('id_lective_planification', $id_lective_planification)->with('id_weekly_plan', $id_weekly_plan);
 });
-Route::get('/teacher/lectives/planning/{id_lective_planification}/weekly/{id_weekly_plan}/course/{id_course}/activities', function (int $id_lective_planification,int $id_weekly_plan,$id_course) {
+Route::middleware('auth')->get('/teacher/lectives/planning/{id_lective_planification}/weekly/{id_weekly_plan}/course/{id_course}/activities', function (int $id_lective_planification,int $id_weekly_plan,$id_course) {
     return view('lectivesTeacherActivity')->with('id_lective_planification', $id_lective_planification)->with('id_weekly_plan', $id_weekly_plan)->with('id_course', $id_course);
 });
 
-Route::get('/teacher/lectives/activities', function () {
+Route::middleware('auth')->get('/teacher/lectives/activities', function () {
     return view('lectivesTeacherActivities');
 });
 
 
-Route::get('/teacher/lectives/courses', function () {
+Route::middleware('auth')->get('/teacher/lectives/courses', function () {
     return view('lectivesTeacherCourses');
 });
-Route::get('/teacher/lectives/students', function () {
+Route::middleware('auth')->get('/teacher/lectives/students', function () {
     return view('lectivesTeacherStudents');
 });
 
-Route::get('/teacher/lectives/notes', function () {
+Route::middleware('auth')->get('/teacher/lectives/notes', function () {
     return view('lectivesTeacherNotes');
 });
-Route::get('/teacher/lectives/board', function () {
+Route::middleware('auth')->get('/teacher/lectives/board', function () {
     return view('lectivesTeacherBoard');
 });
 //Módulo de electivas usuario Estudiante
-Route::get('/student/lectives/courses', function () {
+Route::middleware('auth')->get('/student/lectives/courses', function () {
     return view('lectivesStudentCourses');
 });
-Route::get('/student/lectives/activities', function () {
+//middleware('auth')->
+Route::middleware('auth')->get('/student/lectives/activities', function () {
     return view('lectivesStudentActivities');
 });
 

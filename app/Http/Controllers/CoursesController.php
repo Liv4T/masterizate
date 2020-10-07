@@ -463,7 +463,16 @@ class CoursesController extends Controller
     {
         $user = Auth::user();
         $data = [];
-        $Weeks = Weekly::where('id_teacher', $user->id)->where('id_area', $id_area)->where('id_classroom', $id_classroom)->get();
+        
+        if($user->type_user==1)
+        {
+            $Weeks = Weekly::where('id_area', $id_area)->where('id_classroom', $id_classroom)->get();
+        }
+        else
+        {
+            $Weeks = Weekly::where('id_teacher', $user->id)->where('id_area', $id_area)->where('id_classroom', $id_classroom)->get();
+        }
+        
         $data = [];
         // $data[0] = [
         //     'id'   => 0,

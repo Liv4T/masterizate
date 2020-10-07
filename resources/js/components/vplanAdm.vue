@@ -40,6 +40,15 @@
                   >Porcentaje de notas</a>
 
                   <a href="/clases_d" class="btn btn-warning">Clases</a>
+
+                   <a
+                    v-show="general==true"
+                    :href="'/act_semana/'+ area.id +'/'+ area.id_classroom"
+                    class="btn btn-warning"
+                  >Ciclos</a>
+
+                  
+
                 </div>
               </div>
             </div>
