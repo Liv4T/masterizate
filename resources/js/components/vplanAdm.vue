@@ -40,6 +40,14 @@
                   >Porcentaje de notas</a>
 
                   <a href="/clases_d" class="btn btn-warning">Clases</a>
+
+                   <a
+                    :href="'/act_semana/'+ area.id +'/'+ area.id_classroom"
+                    class="btn btn-warning"
+                  >Ciclos</a>
+
+                  
+
                 </div>
               </div>
             </div>
@@ -87,7 +95,7 @@ export default {
           this.general = false;
         }
       });
-      var urlsel = "editGetWeek";
+     /* var urlsel = "editGetWeek";
       axios.get(urlsel).then((response) => {
         this.week = response.data;
 
@@ -96,7 +104,7 @@ export default {
         } else {
           this.semanal = false;
         }
-      });
+      });*/
     },
   },
 };
