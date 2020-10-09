@@ -4,7 +4,7 @@
       <div class="row">
         <div class="col-md-11 mx-auto">
           <div class="custom-card text-center">
-            <h3 class="card-header fondo">Mis Cursos</h3>
+            <h3 class="card-header fondo">Actualizar ciclo</h3>
             <form class="needs-validation" novalidate v-show="semanal==true">
               <form-wizard
                 title

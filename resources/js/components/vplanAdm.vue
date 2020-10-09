@@ -42,7 +42,6 @@
                   <a href="/clases_d" class="btn btn-warning">Clases</a>
 
                    <a
-                    v-show="general==true"
                     :href="'/act_semana/'+ area.id +'/'+ area.id_classroom"
                     class="btn btn-warning"
                   >Ciclos</a>
@@ -96,7 +95,7 @@ export default {
           this.general = false;
         }
       });
-      var urlsel = "editGetWeek";
+     /* var urlsel = "editGetWeek";
       axios.get(urlsel).then((response) => {
         this.week = response.data;
 
@@ -105,7 +104,7 @@ export default {
         } else {
           this.semanal = false;
         }
-      });
+      });*/
     },
   },
 };
