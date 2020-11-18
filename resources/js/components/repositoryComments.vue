@@ -33,7 +33,7 @@
                                             </div>
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <label for="name">Archivos</label>
+                                                    <label for="name">Archivo</label>
                                                     <br />
                                                     <a  :href="nameFile"
                                                         target="_blank"
@@ -58,6 +58,33 @@
 
                                         </div>
                                     </div>
+                                     <div class="form-group  mx-auto" >
+                                          <label for="name">Grabar nota de voz</label>
+              <select
+                class="hidden"
+                name="listaDeDispositivos"
+                id="listaDeDispositivos"
+                v-model="listaDeDispositivos"
+                hidden
+              ></select>
+              <p id="duracion"></p>
+
+              <button class="btn btn-link" id="btnComenzarGrabacion" @click="comenzarAGrabar">
+                <i class="fas fa-microphone-alt"></i>
+              </button>
+
+              <button
+                class="btn btn-link fas fa-stop-circle"
+                id="btnDetenerGrabacion"
+                @click="detenerGrabacion"
+              ></button>
+                 <a  v-show="uploadBlobFile!=null"  :href="uploadBlobFile"
+                                                        target="_blank"
+                                                        rel="noopener noreferrer">
+                                                            <i class="fas fa-file-download fa-2x" style="color: grey;"></i>
+                                                            <span style="color:grey">Descargar</span>
+                                                    </a>
+            </div>
                                     <div class="form-group row mx-auto">
                                         <div class="col">
                                             <label for="name">Archivo</label>
@@ -84,7 +111,69 @@
     </div>
 </template>
 <script>
+const init = () => {
+  const tieneSoporteUserMedia = () =>
+    navigator.mediaDevices ? navigator.mediaDevices.getUserMedia : null;
+  // Si no soporta...
+  // Amable aviso para que el mundo comience a usar navegadores decentes ;)
+  if (typeof MediaRecorder === "undefined" || !tieneSoporteUserMedia())
+    return console.log(
+      "Tu navegador web no cumple los requisitos; por favor, actualiza a un navegador como Firefox o Google Chrome"
+    );
 
+  // Declaración de elementos del DOM
+  const $listaDeDispositivos = document.querySelector("#listaDeDispositivos"),
+    $duracion = document.querySelector("#duracion"),
+    $btnComenzarGrabacion = document.querySelector("#btnComenzarGrabacion"),
+    $btnDetenerGrabacion = document.querySelector("#btnDetenerGrabacion");
+
+  // Algunas funciones útiles
+  const limpiarSelect = () => {
+    for (let x = $listaDeDispositivos.options.length - 1; x >= 0; x--) {
+      $listaDeDispositivos.options.remove(x);
+    }
+  };
+
+  const segundosATiempo = (numeroDeSegundos) => {
+    let horas = Math.floor(numeroDeSegundos / 60 / 60);
+    numeroDeSegundos -= horas * 60 * 60;
+    let minutos = Math.floor(numeroDeSegundos / 60);
+    numeroDeSegundos -= minutos * 60;
+    numeroDeSegundos = parseInt(numeroDeSegundos);
+    if (horas < 10) horas = "0" + horas;
+    if (minutos < 10) minutos = "0" + minutos;
+    if (numeroDeSegundos < 10) numeroDeSegundos = "0" + numeroDeSegundos;
+
+    return `${horas}:${minutos}:${numeroDeSegundos}`;
+  };
+  // Variables "globales"
+  let tiempoInicio, mediaRecorder, idIntervalo;
+  const refrescar = () => {
+    $duracion.textContent = segundosATiempo((Date.now() - tiempoInicio) / 1000);
+  };
+  // Consulta la lista de dispositivos de entrada de audio y llena el select
+  const llenarLista = () => {
+    navigator.mediaDevices.enumerateDevices().then((dispositivos) => {
+      limpiarSelect();
+      dispositivos.forEach((dispositivo, indice) => {
+        if (dispositivo.kind === "audioinput") {
+          const $opcion = document.createElement("option");
+          // Firefox no trae nada con label, que viva la privacidad
+          // y que muera la compatibilidad
+          $opcion.text = dispositivo.label || `Dispositivo ${indice + 1}`;
+          $opcion.value = dispositivo.deviceId;
+          $listaDeDispositivos.appendChild($opcion);
+        }
+      });
+    });
+  };
+  // Ayudante para la duración; no ayuda en nada pero muestra algo informativo
+  const comenzarAContar = () => {
+    tiempoInicio = Date.now();
+    idIntervalo = setInterval(refrescar, 500);
+  };
+   llenarLista();
+};
 import VueFormWizard from "vue-form-wizard";
 import "vue-form-wizard/dist/vue-form-wizard.min.css";
 import firebase from 'firebase';
@@ -115,8 +204,14 @@ export default {
       errors: [],
       nameFile: '',
       uploadFile: '',
+      uploadBlobFile:null,
       imageData: null,
-      message:""
+      message:"",
+       listaDeDispositivos: document.querySelector("#listaDeDispositivos"),
+      duracion: document.querySelector("#duracion"),
+      tiempoInicio: "",
+      mediaRecorder: "",
+      idIntervalo: "",
     };
   },
   mounted() {
@@ -139,6 +234,94 @@ export default {
     getMenu() {
       window.location = "/repository/students/"+this.id_repo;
     },
+    onResult(data) {
+      console.log("The blob data:", data);
+      console.log("Downloadable audio", window.URL.createObjectURL(data));
+      this.audio = data;
+    },
+    comenzarAGrabar() {
+      //   if (!this.listaDeDispositivos.options.length)
+      //     return alert("No hay dispositivos");
+      // No permitir que se grabe doblemente
+      if (this.mediaRecorder) return alert("Ya se está grabando");
+
+      navigator.mediaDevices
+        .getUserMedia({
+          audio: {
+            deviceId: this.listaDeDispositivos,
+          },
+        })
+        .then((stream) => {
+          // Comenzar a grabar con el stream
+          this.mediaRecorder = new MediaRecorder(stream);
+          this.mediaRecorder.start();
+          this.comenzarAContar();
+          // En el arreglo pondremos los datos que traiga el evento dataavailable
+          const fragmentosDeAudio = [];
+          // Escuchar cuando haya datos disponibles
+          this.mediaRecorder.addEventListener("dataavailable", (evento) => {
+            // Y agregarlos a los fragmentos
+            fragmentosDeAudio.push(evento.data);
+          });
+          // Cuando se detenga (haciendo click en el botón) se ejecuta esto
+          this.mediaRecorder.addEventListener("stop", () => {
+            // Detener el stream
+            stream.getTracks().forEach((track) => track.stop());
+            // Detener la cuenta regresiva
+            this.detenerConteo();
+            // Convertir los fragmentos a un objeto binario
+            const blobAudio = new Blob(fragmentosDeAudio);
+            let date = Date.now();
+            var name_blob = "audio_" + date + ".mp3"; //name file upload
+            var file = blobAudio // use the Blob or File API
+            const ref=firebase.storage().ref(name_blob).put(file);
+            ref.on(`state_changed`,snapshot=>{
+                ref.snapshot.ref.getDownloadURL().then((url)=>{
+                this.uploadBlobFile =url;
+                // console.log(this.uploadBlobFile)
+                });
+            });
+
+          });
+        })
+        .catch((error) => {
+          // Aquí maneja el error, tal vez no dieron permiso
+          console.log(error);
+        });
+    },
+    comenzarAContar() {
+      this.tiempoInicio = Date.now();
+      this.idIntervalo = setInterval(this.refrescar(), 500);
+    },
+    refrescar() {
+      this.duracion = this.segundosATiempo(
+        (Date.now() - this.tiempoInicio) / 1000
+      );
+    },
+    segundosATiempo(numeroDeSegundos) {
+      let horas = Math.floor(numeroDeSegundos / 60 / 60);
+      numeroDeSegundos -= horas * 60 * 60;
+      let minutos = Math.floor(numeroDeSegundos / 60);
+      numeroDeSegundos -= minutos * 60;
+      numeroDeSegundos = parseInt(numeroDeSegundos);
+      if (horas < 10) horas = "0" + horas;
+      if (minutos < 10) minutos = "0" + minutos;
+      if (numeroDeSegundos < 10) numeroDeSegundos = "0" + numeroDeSegundos;
+
+      return `${horas}:${minutos}:${numeroDeSegundos}`;
+    },
+
+    detenerConteo() {
+      clearInterval(this.idIntervalo);
+      this.tiempoInicio = null;
+      this.duracion = "";
+    },
+
+    detenerGrabacion() {
+      if (!this.mediaRecorder) return alert("No se está grabando");
+      this.mediaRecorder.stop();
+      this.mediaRecorder = null;
+    },
     createComment() {
       var url = window.location.origin + "/saveRepoComment";
 
@@ -149,6 +332,7 @@ export default {
           id_student:this.id_student,
           comment: this.retro,
           file: this.uploadFile,
+          audio:this.uploadBlobFile,
         })
         .then((response) => {
           this.errors = [];

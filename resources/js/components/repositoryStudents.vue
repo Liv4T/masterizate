@@ -38,6 +38,7 @@
                     ></td>
                     <td>
                       <a
+                        v-show="row.id_student!=null"
                         class="btn btn-warning"
                         :href="'/repository/comments/'+row.id_student+'/'+id_repo"
                         >Ver más</a

@@ -79,6 +79,7 @@ class RepositoryController extends Controller
         $repositori_comment->id_repository = $data['id_repository'];
         $repositori_comment->comment = $data['comment'];
         $repositori_comment->file = $data['file'];
+        $repositori_comment->audio = $data['audio'];
         $repositori_comment->save();
 
         if ($repositori_comment->save()) {
@@ -181,6 +182,7 @@ class RepositoryController extends Controller
                     'name' => $repo_student->name,
                     'comment' => $commentsTeacher->comment,
                     'file_teacher' => isset($commentsTeacher->file) ? $commentsTeacher->file : null,
+                    'audio_teacher' => isset($commentsTeacher->audio) ? $commentsTeacher->audio : null,
                 ];
             } else {
                 $studenRepo[] = [
@@ -209,6 +211,7 @@ class RepositoryController extends Controller
                 'name_file_student' => $repo_student->name,
                 'comment' => $commentsTeacher->comment,
                 'file_teacher' => isset($commentsTeacher->file) ? $commentsTeacher->file : null,
+                'audio_teacher' => isset($commentsTeacher->audio) ? $commentsTeacher->audio : null,
             ];
             return $studenRepo;
         } else {

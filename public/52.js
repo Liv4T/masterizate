@@ -66,6 +66,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___default.a);
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -220,6 +221,14 @@ var render = function() {
                             _c(
                               "a",
                               {
+                                directives: [
+                                  {
+                                    name: "show",
+                                    rawName: "v-show",
+                                    value: row.id_student != null,
+                                    expression: "row.id_student!=null"
+                                  }
+                                ],
                                 staticClass: "btn btn-warning",
                                 attrs: {
                                   href:

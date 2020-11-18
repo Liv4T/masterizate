@@ -79,6 +79,21 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -105,7 +120,8 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
       retro: "",
       newdate: "",
       nameRepo: "",
-      fileComment: "",
+      fileComment: null,
+      audioComment: null,
       errors: [],
       fileStudent: ""
     };
@@ -123,6 +139,7 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
         _this.retro = element.comment;
         _this.fileStudent = element.file_student;
         _this.fileComment = element.file_teacher;
+        _this.audioComment = element.audio_teacher;
       });
     });
   },
@@ -301,28 +318,89 @@ var render = function() {
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "form-group row mx-auto" }, [
-              _c("div", { staticClass: "col" }, [
-                _c(
-                  "a",
-                  {
-                    attrs: {
-                      href: _vm.fileComment,
-                      target: "_blank",
-                      rel: "noopener noreferrer"
+              _c(
+                "div",
+                {
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: _vm.audioComment != null,
+                      expression: "audioComment!=null"
                     }
-                  },
-                  [
-                    _c("i", {
-                      staticClass: "fas fa-file-download fa-2x",
-                      staticStyle: { color: "grey" }
-                    }),
-                    _vm._v(" "),
-                    _c("span", { staticStyle: { color: "grey" } }, [
-                      _vm._v("Descargar")
-                    ])
-                  ]
-                )
-              ])
+                  ],
+                  staticClass: "col-md-6"
+                },
+                [
+                  _c("label", { attrs: { for: "name" } }, [
+                    _vm._v("Nota de voz")
+                  ]),
+                  _vm._v(" "),
+                  _c("br"),
+                  _vm._v(" "),
+                  _c(
+                    "a",
+                    {
+                      attrs: {
+                        href: _vm.audioComment,
+                        target: "_blank",
+                        rel: "noopener noreferrer"
+                      }
+                    },
+                    [
+                      _c("i", {
+                        staticClass: "fas fa-file-download fa-2x",
+                        staticStyle: { color: "grey" }
+                      }),
+                      _vm._v(" "),
+                      _c("span", { staticStyle: { color: "grey" } }, [
+                        _vm._v("Descargar")
+                      ])
+                    ]
+                  )
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: _vm.fileComment != null,
+                      expression: "fileComment!=null"
+                    }
+                  ],
+                  staticClass: "col-md-6"
+                },
+                [
+                  _c("label", { attrs: { for: "name" } }, [_vm._v("Archivo")]),
+                  _vm._v(" "),
+                  _c("br"),
+                  _vm._v(" "),
+                  _c(
+                    "a",
+                    {
+                      attrs: {
+                        href: _vm.fileComment,
+                        target: "_blank",
+                        rel: "noopener noreferrer"
+                      }
+                    },
+                    [
+                      _c("i", {
+                        staticClass: "fas fa-file-download fa-2x",
+                        staticStyle: { color: "grey" }
+                      }),
+                      _vm._v(" "),
+                      _c("span", { staticStyle: { color: "grey" } }, [
+                        _vm._v("Descargar")
+                      ])
+                    ]
+                  )
+                ]
+              )
             ])
           ])
         ])

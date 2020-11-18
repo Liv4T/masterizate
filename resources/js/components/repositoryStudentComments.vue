@@ -48,8 +48,23 @@
                                         </div>
                                     </div>
                                     <div class="form-group row mx-auto">
-                                        <div class="col">
-                                            <a  :href="fileComment"
+                                          <div class="col-md-6" v-show="audioComment!=null" >
+                                               <label for="name"
+                                                >Nota de voz</label
+                                            > <br />
+                                            <a  :href="audioComment"
+                                                target="_blank"
+                                                rel="noopener noreferrer">
+                                                    <i class="fas fa-file-download fa-2x" style="color: grey;"></i>
+                                                    <span style="color:grey">Descargar</span>
+                                            </a>
+                                        </div>
+                                        <div class="col-md-6" v-show="fileComment!=null">
+                                             <label for="name"
+                                                >Archivo</label
+                                            > <br />
+                                            <a
+                                                :href="fileComment"
                                                 target="_blank"
                                                 rel="noopener noreferrer">
                                                     <i class="fas fa-file-download fa-2x" style="color: grey;"></i>
@@ -91,7 +106,8 @@ export default {
       retro: "",
       newdate: "",
       nameRepo: "",
-      fileComment:"",
+      fileComment:null,
+      audioComment:null,
       errors: [],
       fileStudent: "",
     };
@@ -106,6 +122,7 @@ export default {
            this.retro= element.comment;
            this.fileStudent= element.file_student;
            this.fileComment= element.file_teacher;
+           this.audioComment= element.audio_teacher;
 
       });
 
