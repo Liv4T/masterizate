@@ -479,6 +479,7 @@ Route::middleware('auth')->get('/repository/student/upload/{id_repo}', function 
 });
 Route::post('/saveRepository', 'RepositoryController@store')->name('saveRepository');
 Route::get('/getRepository/{id_area}/{id_classroom}', 'RepositoryController@show')->name('getRepository');
+Route::get('/getRepoStudent/{id_area}/{id_classroom}', 'RepositoryController@showStudent')->name('getRepositoryStudent');
 Route::get('/getRepositoryStudents/{id_repo}', 'RepositoryController@showRepositoryStudents')->name('getRepositoryStudents');
 Route::get('/showRepository/{id_repo}', 'RepositoryController@showRepository')->name('showRepository');
 Route::get('/showRepositoryComments/{id_student}/{id_repo}', 'RepositoryController@showRepositoryComments')->name('showRepositoryComments');

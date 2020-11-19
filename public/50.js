@@ -94,6 +94,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 
 
@@ -260,7 +263,9 @@ var render = function() {
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "col-md-6" }, [
-                _c("label", { attrs: { for: "name" } }, [_vm._v("Archivo")]),
+                _c("label", { attrs: { for: "name" } }, [
+                  _vm._v("Archivo del estudiante")
+                ]),
                 _vm._v(" "),
                 _c("br"),
                 _vm._v(" "),
@@ -375,7 +380,9 @@ var render = function() {
                   staticClass: "col-md-6"
                 },
                 [
-                  _c("label", { attrs: { for: "name" } }, [_vm._v("Archivo")]),
+                  _c("label", { attrs: { for: "name" } }, [
+                    _vm._v("Archivo del docente")
+                  ]),
                   _vm._v(" "),
                   _c("br"),
                   _vm._v(" "),
@@ -401,14 +408,32 @@ var render = function() {
                   )
                 ]
               )
-            ])
+            ]),
+            _vm._v(" "),
+            _vm._m(0)
           ])
         ])
       ])
     ])
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-footer" }, [
+      _c(
+        "a",
+        {
+          staticClass: "btn btn-warning float-right",
+          attrs: { href: "/repository/student" }
+        },
+        [_vm._v("Volver")]
+      )
+    ])
+  }
+]
 render._withStripped = true
 
 

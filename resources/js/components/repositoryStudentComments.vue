@@ -23,7 +23,7 @@
                                             </div>
                                             <div class="col-md-6">
 
-                                                <label for="name">Archivo</label> <br />
+                                                <label for="name">Archivo del estudiante</label> <br />
                                                  <a  :href="fileStudent"
                                                     target="_blank"
                                                     rel="noopener noreferrer">
@@ -61,7 +61,7 @@
                                         </div>
                                         <div class="col-md-6" v-show="fileComment!=null">
                                              <label for="name"
-                                                >Archivo</label
+                                                >Archivo del docente</label
                                             > <br />
                                             <a
                                                 :href="fileComment"
@@ -71,6 +71,9 @@
                                                     <span style="color:grey">Descargar</span>
                                             </a>
                                         </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <a href="/repository/student" class="btn btn-warning float-right">Volver</a>
                                     </div>
                     </div>
                 </div>

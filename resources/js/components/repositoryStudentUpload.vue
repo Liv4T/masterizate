@@ -78,6 +78,9 @@
                                         </div>
 
                                 </tab-content>
+                                <div class="float-left">
+                                        <a href="/repository/student" class="btn btn-warning ">Volver</a>
+                                </div>
                             </form-wizard>
                     </div>
                 </div>

@@ -29,6 +29,7 @@
                   <tr>
                     <th>Fecha</th>
                     <th>Tarea</th>
+                     <th>Estado</th>
                     <th>-</th>
                   </tr>
                 </thead>
@@ -46,8 +47,12 @@
                       style="font-size: 18px"
                       v-html="highlightMatches(row.name)"
                     ></td>
+                     <td
+                      style="font-size: 18px"
+                      v-html="highlightMatches(row.status)"
+                    ></td>
                     <td>
-                      <a
+                      <a v-show="row.status!='Calificado'"
                         class="btn btn-warning"
                         :href="'/repository/student/upload/'+row.id"
                         >Ver más</a
@@ -103,7 +108,7 @@ export default {
   },
   methods: {
     areaClassroom(){
-         var url = window.location.origin + "/getRepository/" + this.area_classroom;
+         var url = window.location.origin + "/getRepoStudent/" + this.area_classroom;
     axios.get(url).then((response) => {
       this.clases = response.data;
     });

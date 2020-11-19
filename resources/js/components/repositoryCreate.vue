@@ -83,9 +83,9 @@
 
                   </div>
                   <strong>* Campos requeridos</strong>
-                  <!-- <div class="modal-footer">
-                    <a href="#" class="btn btn-warning float-right">Guardar</a>
-                  </div>-->
+                  <div class="float-left">
+                    <a href="/repository" class="btn btn-warning ">Volver</a>
+                </div>
                 </tab-content>
               </form-wizard>
           </div>

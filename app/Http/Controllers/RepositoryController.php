@@ -134,6 +134,29 @@ class RepositoryController extends Controller
             return response()->json([false]);
         }
     }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function showStudent(String $id_area, String $id_classroom)
+    {
+
+        $repositoris = Repository::where('id_area', $id_area)->where('id_classroom', $id_classroom)->get();
+        if (isset($repositoris)) {
+            foreach ($repositoris as $repo) {
+                $repoStudent = RepositoryStudents::where('id_student', Auth::user()->id)->where('id_repository', $repo->id)->first();
+                $status_student = isset($repoStudent) ? $repoStudent->status : 'Pendiente';
+                $repo->status = $status_student;
+            }
+            return $repositoris;
+        } else {
+            return response()->json([false]);
+        }
+    }
+
     public function showRepository(String $id)
     {
 
