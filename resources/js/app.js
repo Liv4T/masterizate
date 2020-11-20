@@ -161,6 +161,16 @@ Vue.component("lectives-teacher-students", () => import ("./components/lectivesT
 Vue.component("lectives-teacher-notes", () => import ("./components/lectivesTeacherNotesComponent.vue"));
 
 
+Vue.component("repository-component", () => import("./components/repositoryComponent.vue"));
+Vue.component("create-repository", () => import("./components/repositoryCreate.vue"));
+Vue.component("repository-students", () => import("./components/repositoryStudents.vue"));
+Vue.component("repository-comments", () => import("./components/repositoryComments.vue"));
+Vue.component("student-comments", () => import("./components/repositoryStudentComments.vue"));
+
+Vue.component("repo-student", () => import("./components/repositoryStudentView.vue"));
+Vue.component("repository-upload", () => import("./components/repositoryStudentUpload.vue"));
+Vue.component("test-firebase", () => import("./components/testFirebase.vue"));
+
 Vue.use(CKEditor);
 Vue.use(CKEditor);
 
