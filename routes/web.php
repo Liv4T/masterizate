@@ -454,7 +454,39 @@ Route::middleware('auth')->get('/importar_adm', function () {
     return view('imports.importB');
 });
 // }]);
+// Modulo del repositorio de clases
 
+Route::middleware('auth')->get('/repository', function () {
+    return view('repository');
+});
+Route::middleware('auth')->get('/createrepository', function () {
+    return view('repositoryCreate');
+});
+Route::middleware('auth')->get('/repository/students/{id_repo}', function (String $id_repo) {
+    return view('repositoryStudents')->with('id_repo', $id_repo);
+});
+Route::middleware('auth')->get('/repository/comments/{id_student}/{id_repo}', function (String $id_student, String $id_repo) {
+    return view('repositoryComments')->with('id_student', $id_student)->with('id_repo', $id_repo);
+});
+Route::middleware('auth')->get('/repository/student/comment/{id_repo}', function (String $id_repo) {
+    return view('repositoryStudentComments')->with('id_repo', $id_repo);
+});
+Route::middleware('auth')->get('/repository/student', function () {
+    return view('repositoryStudentView');
+});
+Route::middleware('auth')->get('/repository/student/upload/{id_repo}', function (String $id_repo) {
+    return view('repositoryStudentUpload')->with('id_repo', $id_repo);
+});
+Route::post('/saveRepository', 'RepositoryController@store')->name('saveRepository');
+Route::get('/getRepository/{id_area}/{id_classroom}', 'RepositoryController@show')->name('getRepository');
+Route::get('/getRepoStudent/{id_area}/{id_classroom}', 'RepositoryController@showStudent')->name('getRepositoryStudent');
+Route::get('/getRepositoryStudents/{id_repo}', 'RepositoryController@showRepositoryStudents')->name('getRepositoryStudents');
+Route::get('/showRepository/{id_repo}', 'RepositoryController@showRepository')->name('showRepository');
+Route::get('/showRepositoryComments/{id_student}/{id_repo}', 'RepositoryController@showRepositoryComments')->name('showRepositoryComments');
+Route::get('/showRepositoryCommentsStudents/{id_repo}', 'RepositoryController@showRepositoryCommentsStudents')->name('showRepositoryCommentsStudents');
+
+Route::post('/saveRepoComment', 'RepositoryController@storeRepositoryComment')->name('saveRepoComment');
+Route::post('/saveRepoStUpload', 'RepositoryController@storeRepositoryStudent')->name('saveRepoStUpload');
 
 /*login personalizado permite verificar suscripcion*/
 Route::get('/', function () {
@@ -477,10 +509,10 @@ Route::get('/logout2', 'UserController@logOut')->name('logout2');
 
 
 //Módulo de electivas usuario Administrador
-Route::middleware('auth')->get('/admin/lectives', function () { 
+Route::middleware('auth')->get('/admin/lectives', function () {
     return view('lectivesAdm');
 });
-Route::middleware('auth')->get('/admin/lectives-teacher', function () { 
+Route::middleware('auth')->get('/admin/lectives-teacher', function () {
     return view('lectivesAdmAssingTeacher');
 });
 //Módulo de electivas usuario Docente
@@ -498,10 +530,10 @@ Route::middleware('auth')->get('/teacher/lectives/planning/{id_lective_planifica
     return view('lectivesTeacherWeekly')->with('id_lective_planification', $id_lective_planification);
 });
 
-Route::middleware('auth')->get('/teacher/lectives/planning/{id_lective_planification}/weekly/{id_weekly_plan}/course', function (int $id_lective_planification,int $id_weekly_plan) {
+Route::middleware('auth')->get('/teacher/lectives/planning/{id_lective_planification}/weekly/{id_weekly_plan}/course', function (int $id_lective_planification, int $id_weekly_plan) {
     return view('lectivesTeacherCoursesEdit')->with('id_lective_planification', $id_lective_planification)->with('id_weekly_plan', $id_weekly_plan);
 });
-Route::middleware('auth')->get('/teacher/lectives/planning/{id_lective_planification}/weekly/{id_weekly_plan}/course/{id_course}/activities', function (int $id_lective_planification,int $id_weekly_plan,$id_course) {
+Route::middleware('auth')->get('/teacher/lectives/planning/{id_lective_planification}/weekly/{id_weekly_plan}/course/{id_course}/activities', function (int $id_lective_planification, int $id_weekly_plan, $id_course) {
     return view('lectivesTeacherActivity')->with('id_lective_planification', $id_lective_planification)->with('id_weekly_plan', $id_weekly_plan)->with('id_course', $id_course);
 });
 
