@@ -30,6 +30,7 @@
                             <th>Tipo de Actividad</th>
                             <th>Fecha de entrega límite</th>
                             <th>Fecha de retroalimentación</th>
+                            <th>Estado</th>
                             <th colspan="1">&nbsp;</th>
                           </tr>
                         </thead>
@@ -39,6 +40,7 @@
                             <td>{{ actividad.activity_type }}</td>
                             <td>{{actividad.deliver_date}}</td>
                             <td>{{actividad.feedback_date}}</td>
+                            <td>{{actividad.activity_state==2?'PÚBLICADA':'BORRADOR'}}</td>
                             <td width="10px">
                               <a
                                 class="btn btn-warning btn-sm"
@@ -59,7 +61,7 @@
         </div>
       </div>
       <div class="modal fade" id="editu">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-lg">
           <div class="modal-content">
             <div class="card">
               <h3 class="card-header fondo text-center">
@@ -178,44 +180,48 @@
                       data-parent="#accordionExample"
                     >
                       <div class="card-body">
-                        <div v-for="(question, k) in formulario" :key="k">
-                          <div class="form-group row mx-auto">
-                            <label for="name">Pregunta {{ k+1 }}</label>
-                            <input
-                              type="text"
-                              name="objetive1"
-                              class="form-control"
-                              v-model="question.questions"
-                              disabled
-                            />
-                          </div>
-                          <div
-                            class="form-group row"
-                            v-for="(res, t) in question.responses"
-                            :key="t"
-                          >
-                            <div class="col" v-if="res.correct==true">
-                              <label>Respuesta Correcta</label>
-                              <input
-                                type="text"
-                                name="objetive1"
-                                class="form-control"
-                                v-model="res.answer"
-                                disabled
-                              />
+                          <template v-if="activity.activity_type=='complete_sentence'">
+                            <div v-for="(question, k) in formulario" :key="k">
+                                <div class="form-group row mx-auto">
+                                    <label for="name">Pregunta {{ k+1 }}</label>
+                                    <input
+                                    type="text"
+                                    name="objetive1"
+                                    class="form-control"
+                                    v-model="question.questions"
+                                    disabled
+                                    />
+                                </div>
+                                <div
+                                    class="form-group row"
+                                    v-for="(res, t) in question.responses"
+                                    :key="t"
+                                >
+                                    <div class="col" v-if="res.correct==true">
+                                    <label>Respuesta Correcta</label>
+                                    <input
+                                        type="text"
+                                        name="objetive1"
+                                        class="form-control"
+                                        v-model="res.answer"
+                                        disabled
+                                    />
+                                    </div>
+                                    <div class="col" v-else>
+                                    <label for>Opción {{ t+1 }}</label>
+                                    <input
+                                        type="text"
+                                        name="objetive1"
+                                        class="form-control"
+                                        v-model="res.answer"
+                                        disabled
+                                    />
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col" v-else>
-                              <label for>Opción {{ t+1 }}</label>
-                              <input
-                                type="text"
-                                name="objetive1"
-                                class="form-control"
-                                v-model="res.answer"
-                                disabled
-                              />
-                            </div>
-                          </div>
-                        </div>
+                          </template>
+                        <activity-teacher-complete-sentence  :previewMode="true"  v-bind:data="activity.content" v-if="activity.activity_type == 'complete_sentence'"></activity-teacher-complete-sentence>
+                        <activity-teacher-open-question :previewMode="true"    v-bind:data="activity.content"  v-if="activity.activity_type == 'questionary_open_questions'"></activity-teacher-open-question>
                       </div>
                     </div>
                   </div>
@@ -268,7 +274,7 @@ export default {
 
         this.id_act = this.activity.id;
         this.descripcion = this.activity.activity_desc;
-        this.logro = this.activity.achievement;
+        this.logro = this.activity.achievement_data.achievement;
         this.fechaE = this.activity.deliver_date;
         this.fechaR = this.activity.feedback_date;
       });

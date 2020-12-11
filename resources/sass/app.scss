@@ -31,3 +31,46 @@
 .classroom-planning-section>span{
     margin-left: 20px;
 }
+.padding-10{
+    padding: 10px;
+}
+
+.btn-primary{
+    background-color:$color-1;
+    font-weight: 600;
+    color: $color-2;
+    border-color: $color-1;
+}
+.btn-primary:hover{
+    background-color: $color-1-6;
+    border-color: $color-2;
+    text-decoration: none;
+}
+
+.btn-warning{
+    background-color:$color-1;
+    font-weight: 600;
+    border-color: $color-1;
+     color: $color-2;
+}
+.btn-warning:hover{
+    background-color: $color-1-6;
+    border-color: $color-1-6;
+    text-decoration: none;
+    color:$color-2;
+}
+
+a:not(.md-button):hover{
+    text-decoration: none;
+    color: $color-2;
+}
+.btn-primary:not(:disabled):not(.disabled):active, .btn-primary:not(:disabled):not(.disabled).active, .show > .btn-primary.dropdown-toggle{
+    text-decoration: none;
+    color: $color-2;
+}
+.btn-link{
+    color:$color-3;
+}
+.btn-link_bold{
+    font-weight: bold;
+}
