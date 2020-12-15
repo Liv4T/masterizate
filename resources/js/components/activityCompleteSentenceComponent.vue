@@ -67,7 +67,7 @@
 </template>
 <script>
 export default {
-    props:['module', 'disabled'],
+    props:['module', 'disabled','playing'],
     data() {
         return {
 

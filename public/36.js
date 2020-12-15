@@ -299,163 +299,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 (function () {
   "use strict";
 
@@ -609,8 +452,15 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
     },
     openQuestion: function openQuestion(id_activity) {
       this.activity = this.course.activities[id_activity];
-      axios.put("/api/student/module/".concat(this.id_module, "/class/").concat(this.id_class, "/activity/").concat(this.activity.id, "/interaction")).then(function (response) {});
-      this.completeQuestion();
+      console.log(this.activity);
+      /*
+                  axios
+                      .put(
+                          `/api/student/module/${this.id_module}/class/${this.id_class}/activity/${this.activity.id}/interaction`
+                      )
+                      .then(response => {});
+      
+                  this.completeQuestion();*/
     },
     openFeedback: function openFeedback(id_activity) {
       var _this5 = this;
@@ -776,6 +626,21 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
         _this10.course.content[item_index].progress_bar_percent = 0;
         _this10.is_loading = false;
       }, 500);
+    },
+    resolveYoutubeLink: function resolveYoutubeLink(link_youtube) {
+      if (!link_youtube.includes('/')) return link_youtube;
+      var split_link = link_youtube.split('/');
+      var split_simple_link = split_link[split_link.length - 1].split('&')[0].split('=');
+      return 'https://www.youtube.com/embed/' + split_simple_link[split_simple_link.length - 1];
+    },
+    SaveResponseEvent: function SaveResponseEvent(activity) {
+      axios.put("/api/student/module/".concat(this.id_module, "/class/").concat(this.id_class, "/activity/").concat(activity.id, "/interaction"), activity).then(function (response) {
+        // this.getPlanificationEvent(this.id_lective_planification);
+        toastr.success("Actividad enviada correctamente"); // location.reload();
+      }, function (error) {
+        console.log(error);
+        toastr.error("ERROR:Por favor valide que la información esta completa");
+      });
     }
   }
 });
@@ -794,7 +659,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.div-weekly-plan {\n    display: flex;\n    flex-direction: row;\n    justify-content: space-around;\n    padding: 10px;\n}\n.div-weekly-plan label {\n    font-size: 1.2em;\n    font-weight: 700;\n}\n.div-classes {\n    display: flex;\n    flex-direction: column;\n    justify-content: center;\n    padding: 5px;\n}\n.div-class {\n    display: flex;\n    flex-direction: column;\n    justify-content: space-around;\n    padding: 5px;\n}\n.div-class > .title {\n    display: flex;\n    flex-direction: row;\n    justify-content: space-around;\n}\n.div-class > .content {\n    display: flex;\n    flex-direction: row;\n    justify-content: space-around;\n    margin-top: 30px;\n    flex-wrap: wrap;\n}\n.required {\n    color: red;\n}\n.div-resource {\n    padding: 30px;\n    background-color: #e9ecefb5;\n    margin: 5px;\n}\n.div-resource .form-item {\n    width: 100%;\n    padding: 5px;\n    display: flex;\n    flex-direction: column;\n    justify-content: flex-start;\n}\n.div-resource .form-item > a {\n    color: #007bff;\n}\n.div-resource .form-item > a:visited {\n    color: #007bff;\n}\n.div-resource .form-item > span {\n    padding: 10px;\n    font-size: 1.2em;\n    color: #233d68;\n    font-weight: 700;\n    border: 1px solid #233d68;\n    border-radius: 5px;\n    margin: 5px;\n}\n.div-resource .form-item > span.blue {\n    padding: 10px;\n    background-color: #edf8ff;\n    font-size: 1.2em;\n    color: #233d68;\n    font-weight: 700;\n    border: 1px solid #233d68;\n    border-radius: 5px;\n    margin: 5px;\n}\n.div-resource .form-item > span:hover {\n    background-color: white;\n    cursor: pointer;\n}\n.div-resource .form-item > .form-button {\n    width: 100%;\n    padding: 5px;\n    display: flex;\n    flex-direction: row;\n    justify-content: flex-end;\n}\n.div-resource .form-item > .form-button > button {\n    width: 50%;\n}\n.div-weekly-plan-btn-save {\n    display: flex;\n    padding: 50px;\n    justify-content: space-between;\n    flex-direction: row;\n}\n.closed-icon {\n    width: 100%;\n    display: flex;\n    justify-content: flex-end;\n    flex-direction: row;\n    cursor: pointer;\n    color: #233d68;\n}\n.margin-top-50 {\n    margin-top: 50px;\n}\n.row {\n    margin: 10px 0px;\n}\n.question {\n    background-color: #e9ecefb5;\n}\n.div-icon-add {\n    display: flex;\n    flex-direction: row;\n    justify-content: center;\n    align-items: center;\n}\n.icon-remove {\n    background-color: #f2f2f2;\n    height: 30px;\n    width: 40px;\n    border: 2px solid #8f8f8f;\n    border-radius: 5px;\n    display: flex;\n    flex-direction: row;\n    justify-content: center;\n    align-items: center;\n    cursor: default;\n\n    font-weight: 900;\n    background-color: #ffc107;\n    color: white;\n    border-color: #ffc107;\n}\n.icon-remove:hover {\n    color: #ffc107;\n    background-color: white;\n    border-color: #ffc107;\n}\n.icon-add {\n    background-color: #233d68;\n    height: 30px;\n    width: 40px;\n    border: 2px solid #233d68;\n    border-radius: 5px;\n    display: flex;\n    flex-direction: row;\n    justify-content: center;\n    align-items: center;\n    cursor: default;\n\n    font-weight: 900;\n    color: white;\n}\n.icon-add:hover {\n    color: #233d68;\n    background-color: white;\n    border-color: #233d68;\n}\n.card-title {\n    display: flex;\n    flex-direction: row;\n    justify-content: space-between;\n}\n.card-title > h5 {\n    width: 50%;\n}\n.div-check {\n    display: flex;\n    flex-direction: row;\n    justify-content: center;\n    align-items: center;\n    padding-top: 20px;\n}\n.progress {\n    width: 100%;\n    display: flex;\n    justify-content: flex-start;\n}\n.q-option {\n    background-color: white;\n    border-radius: 5px;\n    padding: 10px 20px;\n    margin: 5px;\n    border: 1px solid #f2f2f2;\n    width: 100%;\n    display: flex;\n    justify-content: space-between;\n    flex-direction: row;\n    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);\n}\n.q-option:hover {\n    background-color: #ffe7a0;\n    cursor: pointer;\n}\n.q-option-checked {\n    background-color: #007bff !important;\n    color: white;\n    box-shadow: none;\n}\n.span-solution {\n    margin-top: 20px;\n    font-size: 1.8em;\n}\n.html-content {\n    padding: 10px;\n    margin-top: 20px;\n    background-color: rgba(255, 255, 255, 1);\n}\n", ""]);
+exports.push([module.i, "\n.div-weekly-plan {\n    display: flex;\n    flex-direction: row;\n    justify-content: space-around;\n    padding: 10px;\n}\n.div-weekly-plan label {\n    font-size: 1.2em;\n    font-weight: 700;\n}\n.div-classes {\n    display: flex;\n    flex-direction: column;\n    justify-content: center;\n    padding: 5px;\n}\n.div-class {\n    display: flex;\n    flex-direction: column;\n    justify-content: space-around;\n    padding: 5px;\n}\n.div-class > .title {\n    display: flex;\n    flex-direction: row;\n    justify-content: space-around;\n}\n.div-class > .content {\n    display: flex;\n    flex-direction: row;\n    justify-content: space-around;\n    margin-top: 30px;\n    flex-wrap: wrap;\n}\n.required {\n    color: red;\n}\n.div-resource {\n    padding: 30px;\n    background-color: #e9ecefb5;\n    margin: 5px;\n}\n.div-resource .form-item {\n    width: 100%;\n    padding: 5px;\n    display: flex;\n    flex-direction: column;\n    justify-content: flex-start;\n}\n.div-resource .form-item > a {\n    color: #007bff;\n}\n.div-resource .form-item > a:visited {\n    color: #007bff;\n}\n.div-resource .form-item > span {\n    padding: 10px;\n    font-size: 1.2em;\n    color: #233d68;\n    font-weight: 700;\n    border: 1px solid #233d68;\n    border-radius: 5px;\n    margin: 5px;\n}\n.div-resource .form-item > span.blue {\n    padding: 10px;\n    background-color: #edf8ff;\n    font-size: 1.2em;\n    color: #233d68;\n    font-weight: 700;\n    border: 1px solid #233d68;\n    border-radius: 5px;\n    margin: 5px;\n}\n.div-resource .form-item > span:hover {\n    background-color: white;\n    cursor: pointer;\n}\n.div-resource .form-item > .form-button {\n    width: 100%;\n    padding: 5px;\n    display: flex;\n    flex-direction: row;\n    justify-content: flex-end;\n}\n.div-resource .form-item > .form-button > button {\n    width: 50%;\n}\n.div-weekly-plan-btn-save {\n    display: flex;\n    padding: 50px;\n    justify-content: space-between;\n    flex-direction: row;\n}\n.closed-icon {\n    width: 100%;\n    display: flex;\n    justify-content: flex-end;\n    flex-direction: row;\n    cursor: pointer;\n    color: #233d68;\n}\n.margin-top-50 {\n    margin-top: 50px;\n}\n.row {\n    margin: 10px 0px;\n}\n.question {\n    background-color: #e9ecefb5;\n}\n.div-icon-add {\n    display: flex;\n    flex-direction: row;\n    justify-content: center;\n    align-items: center;\n}\n.icon-remove {\n    background-color: #f2f2f2;\n    height: 30px;\n    width: 40px;\n    border: 2px solid #8f8f8f;\n    border-radius: 5px;\n    display: flex;\n    flex-direction: row;\n    justify-content: center;\n    align-items: center;\n    cursor: default;\n\n    font-weight: 900;\n    background-color: #ffc107;\n    color: white;\n    border-color: #ffc107;\n}\n.icon-remove:hover {\n    color: #ffc107;\n    background-color: white;\n    border-color: #ffc107;\n}\n.icon-add {\n    background-color: #233d68;\n    height: 30px;\n    width: 40px;\n    border: 2px solid #233d68;\n    border-radius: 5px;\n    display: flex;\n    flex-direction: row;\n    justify-content: center;\n    align-items: center;\n    cursor: default;\n\n    font-weight: 900;\n    color: white;\n}\n.icon-add:hover {\n    color: #233d68;\n    background-color: white;\n    border-color: #233d68;\n}\n.card-title {\n    display: flex;\n    flex-direction: row;\n    justify-content: space-between;\n}\n.card-title > h5 {\n    width: 50%;\n}\n.div-check {\n    display: flex;\n    flex-direction: row;\n    justify-content: center;\n    align-items: center;\n    padding-top: 20px;\n}\n.progress {\n    width: 100%;\n    display: flex;\n    justify-content: flex-start;\n}\n.q-option {\n    background-color: white;\n    border-radius: 5px;\n    padding: 10px 20px;\n    margin: 5px;\n    border: 1px solid #f2f2f2;\n    width: 100%;\n    display: flex;\n    justify-content: space-between;\n    flex-direction: row;\n    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);\n}\n.q-option:hover {\n    background-color: #ffe7a0;\n    cursor: pointer;\n}\n.q-option-checked {\n    background-color: #007bff !important;\n    color: white;\n    box-shadow: none;\n}\n.span-solution {\n    margin-top: 20px;\n    font-size: 1.8em;\n}\n.html-content {\n    padding: 10px;\n    margin-top: 20px;\n    background-color: rgba(255, 255, 255, 1);\n}\n.container_youtube{\n    width: 100%;\n    height: 500px !important;\n}\n.activity_response-button{\n    display:flex;\n    flex-direction: row;\n    justify-content: flex-end;\n    align-items: center;\n}\n.activity_score{\n    font-size: 1.5em;\n}\n", ""]);
 
 // exports
 
@@ -1142,9 +1007,11 @@ var render = function() {
                                     _vm._v(" "),
                                     item_content.content_type === "YOUTUBE"
                                       ? _c("iframe", {
+                                          staticClass: "container_youtube",
                                           attrs: {
-                                            width: "100%",
-                                            src: item_content.content,
+                                            src: _vm.resolveYoutubeLink(
+                                              item_content.content
+                                            ),
                                             frameborder: "0",
                                             allow:
                                               "accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture",
@@ -1184,7 +1051,7 @@ var render = function() {
                               )
                             ]),
                             _vm._v(" "),
-                            !act.interaction.is_qualified &&
+                            act.interaction.state < 3 &&
                             _vm.activity.id != act.id
                               ? _c(
                                   "button",
@@ -1199,7 +1066,13 @@ var render = function() {
                                   },
                                   [
                                     _vm._v(
-                                      "\n                                            Presentar\n                                        "
+                                      "\n                                            " +
+                                        _vm._s(
+                                          act.interaction.state == 2
+                                            ? "Esperando calificación"
+                                            : "Presentar"
+                                        ) +
+                                        "\n                                        "
                                     )
                                   ]
                                 )
@@ -1225,7 +1098,7 @@ var render = function() {
                                 )
                               : _vm._e(),
                             _vm._v(" "),
-                            act.interaction.is_qualified &&
+                            act.interaction.state == 3 &&
                             _vm.activity.id != act.id
                               ? _c(
                                   "button",
@@ -1248,312 +1121,133 @@ var render = function() {
                           ]),
                           _vm._v(" "),
                           _vm.activity.id == act.id
-                            ? _c("div", { staticClass: "card-body" }, [
-                                _c("div", { staticClass: "row" }, [
-                                  _c("div", { staticClass: "col-12" }, [
-                                    _c("b", [_vm._v("Descripción:")]),
-                                    _vm._v(" "),
-                                    _c("textarea", {
-                                      directives: [
-                                        {
-                                          name: "model",
-                                          rawName: "v-model",
-                                          value: _vm.activity.description,
-                                          expression:
-                                            "\n                                                        activity.description\n                                                    "
-                                        }
-                                      ],
-                                      staticClass: "form-control-plaintext",
-                                      attrs: { readonly: "" },
-                                      domProps: {
-                                        value: _vm.activity.description
-                                      },
-                                      on: {
-                                        input: function($event) {
-                                          if ($event.target.composing) {
-                                            return
+                            ? _c(
+                                "div",
+                                { staticClass: "card-body" },
+                                [
+                                  _c("div", { staticClass: "row" }, [
+                                    _c("div", { staticClass: "col-12" }, [
+                                      _c("b", [_vm._v("Descripción:")]),
+                                      _vm._v(" "),
+                                      _c("textarea", {
+                                        directives: [
+                                          {
+                                            name: "model",
+                                            rawName: "v-model",
+                                            value: _vm.activity.description,
+                                            expression:
+                                              "\n                                                        activity.description\n                                                    "
                                           }
-                                          _vm.$set(
-                                            _vm.activity,
-                                            "description",
-                                            $event.target.value
-                                          )
-                                        }
-                                      }
-                                    })
-                                  ])
-                                ]),
-                                _vm._v(" "),
-                                _vm.activity.activity_type ==
-                                "CUESTIONARIO_UNICA_RTA"
-                                  ? _c(
-                                      "div",
-                                      {
-                                        staticClass:
-                                          "row justify-content-center question"
-                                      },
-                                      [
-                                        _c(
-                                          "div",
-                                          { staticClass: "col-12" },
-                                          _vm._l(
-                                            _vm.activity.module.questions,
-                                            function(question, k_q) {
-                                              return _c(
-                                                "div",
-                                                {
-                                                  key: k_q,
-                                                  staticClass:
-                                                    "row justify-content-center"
-                                                },
-                                                [
-                                                  _c(
-                                                    "div",
-                                                    { staticClass: "col-12" },
-                                                    [
-                                                      _c(
-                                                        "div",
-                                                        { staticClass: "row" },
-                                                        [
-                                                          _c(
-                                                            "div",
-                                                            {
-                                                              staticClass:
-                                                                "col-12 text-left"
-                                                            },
-                                                            [
-                                                              _c("b", [
-                                                                _vm._v(
-                                                                  "Pregunta\n                                                                    N°\n                                                                    " +
-                                                                    _vm._s(
-                                                                      k_q + 1
-                                                                    ) +
-                                                                    ":"
-                                                                )
-                                                              ]),
-                                                              _vm._v(" "),
-                                                              _c("div", {
-                                                                staticClass:
-                                                                  "html-content",
-                                                                domProps: {
-                                                                  innerHTML: _vm._s(
-                                                                    question.question
-                                                                  )
-                                                                }
-                                                              })
-                                                            ]
-                                                          )
-                                                        ]
-                                                      ),
-                                                      _vm._v(" "),
-                                                      _vm._l(
-                                                        question.options,
-                                                        function(option, k_op) {
-                                                          return _c(
-                                                            "div",
-                                                            {
-                                                              key: k_op,
-                                                              staticClass: "row"
-                                                            },
-                                                            [
-                                                              _c(
-                                                                "div",
-                                                                {
-                                                                  staticClass:
-                                                                    "col-11 text-left"
-                                                                },
-                                                                [
-                                                                  _c(
-                                                                    "button",
-                                                                    {
-                                                                      staticClass:
-                                                                        "q-option",
-                                                                      class: {
-                                                                        "q-option-checked":
-                                                                          question
-                                                                            .student_response
-                                                                            .response ==
-                                                                          k_op
-                                                                      },
-                                                                      on: {
-                                                                        click: function(
-                                                                          $event
-                                                                        ) {
-                                                                          $event.preventDefault()
-                                                                          return _vm.selectOption(
-                                                                            question.id,
-                                                                            k_op,
-                                                                            question
-                                                                          )
-                                                                        }
-                                                                      }
-                                                                    },
-                                                                    [
-                                                                      _vm._v(
-                                                                        "\n                                                                    " +
-                                                                          _vm._s(
-                                                                            option.content
-                                                                          ) +
-                                                                          "\n                                                                    "
-                                                                      ),
-                                                                      _vm
-                                                                        .activity
-                                                                        .interaction
-                                                                        .is_qualified &&
-                                                                      question
-                                                                        .student_response
-                                                                        .response >
-                                                                        -1 &&
-                                                                      question.valid_answer_index ==
-                                                                        k_op
-                                                                        ? _c(
-                                                                            "i",
-                                                                            {
-                                                                              staticClass:
-                                                                                "fa fa-check"
-                                                                            }
-                                                                          )
-                                                                        : _vm._e(),
-                                                                      _vm._v(
-                                                                        " "
-                                                                      ),
-                                                                      _vm
-                                                                        .activity
-                                                                        .interaction
-                                                                        .is_qualified &&
-                                                                      question
-                                                                        .student_response
-                                                                        .response >
-                                                                        -1 &&
-                                                                      question
-                                                                        .student_response
-                                                                        .response ==
-                                                                        k_op &&
-                                                                      question.valid_answer_index !=
-                                                                        k_op
-                                                                        ? _c(
-                                                                            "i",
-                                                                            {
-                                                                              staticClass:
-                                                                                "fa fa-times"
-                                                                            }
-                                                                          )
-                                                                        : _vm._e()
-                                                                    ]
-                                                                  )
-                                                                ]
-                                                              )
-                                                            ]
-                                                          )
-                                                        }
-                                                      ),
-                                                      _vm._v(" "),
-                                                      act.interaction &&
-                                                      act.interaction
-                                                        .is_qualified
-                                                        ? _c(
-                                                            "div",
-                                                            {
-                                                              staticClass: "row"
-                                                            },
-                                                            [
-                                                              _c(
-                                                                "div",
-                                                                {
-                                                                  staticClass:
-                                                                    "col-12"
-                                                                },
-                                                                [
-                                                                  _c("b", [
-                                                                    _vm._v(
-                                                                      "Justificación:"
-                                                                    )
-                                                                  ]),
-                                                                  _vm._v(" "),
-                                                                  _c("div", {
-                                                                    staticClass:
-                                                                      "html-content",
-                                                                    domProps: {
-                                                                      innerHTML: _vm._s(
-                                                                        question.justify
-                                                                      )
-                                                                    }
-                                                                  })
-                                                                ]
-                                                              )
-                                                            ]
-                                                          )
-                                                        : _vm._e()
-                                                    ],
-                                                    2
-                                                  )
-                                                ]
-                                              )
+                                        ],
+                                        staticClass: "form-control-plaintext",
+                                        attrs: { readonly: "" },
+                                        domProps: {
+                                          value: _vm.activity.description
+                                        },
+                                        on: {
+                                          input: function($event) {
+                                            if ($event.target.composing) {
+                                              return
                                             }
-                                          ),
-                                          0
-                                        )
-                                      ]
-                                    )
-                                  : _vm._e(),
-                                _vm._v(" "),
-                                _c(
-                                  "div",
-                                  { staticClass: "row justify-content-center" },
-                                  [
-                                    _c(
-                                      "div",
-                                      { staticClass: "col-12 text-right" },
-                                      [
-                                        !act.interaction.is_qualified
-                                          ? _c(
-                                              "button",
-                                              {
-                                                staticClass: "btn btn-primary",
-                                                attrs: {
-                                                  disabled: !_vm.activity
-                                                    .completed
-                                                },
-                                                on: {
-                                                  click: function($event) {
-                                                    $event.preventDefault()
-                                                    return _vm.finalizeActivityQuestion()
-                                                  }
+                                            _vm.$set(
+                                              _vm.activity,
+                                              "description",
+                                              $event.target.value
+                                            )
+                                          }
+                                        }
+                                      })
+                                    ])
+                                  ]),
+                                  _vm._v(" "),
+                                  _vm.activity.activity_type == "CUESTIONARIO"
+                                    ? _c("activity-questionary", {
+                                        attrs: {
+                                          playing: true,
+                                          module: _vm.activity.module,
+                                          disabled:
+                                            _vm.activity.interaction.state > 1
+                                        }
+                                      })
+                                    : _vm._e(),
+                                  _vm._v(" "),
+                                  _vm.activity.activity_type ==
+                                  "COMPLETAR_ORACION"
+                                    ? _c("activity-complete-sentence", {
+                                        attrs: {
+                                          playing: true,
+                                          module: _vm.activity.module,
+                                          disabled:
+                                            _vm.activity.interaction.state > 1
+                                        }
+                                      })
+                                    : _vm._e(),
+                                  _vm._v(" "),
+                                  _vm.activity.activity_type == "RELACION"
+                                    ? _c("activity-relationship", {
+                                        attrs: {
+                                          playing: true,
+                                          module: _vm.activity.module,
+                                          disabled:
+                                            _vm.activity.interaction.state > 1
+                                        }
+                                      })
+                                    : _vm._e(),
+                                  _vm._v(" "),
+                                  _vm.activity.activity_type == "CRUCIGRAMA"
+                                    ? _c("activity-crossword", {
+                                        attrs: {
+                                          playing: true,
+                                          module: _vm.activity.module,
+                                          disabled:
+                                            _vm.activity.interaction.state > 1
+                                        }
+                                      })
+                                    : _vm._e(),
+                                  _vm._v(" "),
+                                  _c(
+                                    "div",
+                                    { staticClass: "activity_response-button" },
+                                    [
+                                      _vm.activity.interaction.state == 1
+                                        ? _c(
+                                            "button",
+                                            {
+                                              staticClass: "btn btn-primary",
+                                              on: {
+                                                click: function($event) {
+                                                  return _vm.SaveResponseEvent(
+                                                    _vm.activity
+                                                  )
                                                 }
-                                              },
-                                              [
-                                                _vm._v(
-                                                  "\n                                                    Finalizar\n                                                "
-                                                )
-                                              ]
-                                            )
-                                          : _vm._e(),
-                                        _vm._v(" "),
-                                        act.interaction.is_qualified
-                                          ? _c(
-                                              "span",
-                                              { staticClass: "span-solution" },
-                                              [
-                                                _vm._v(
-                                                  "Respuestas correctas:\n                                                    " +
-                                                    _vm._s(
-                                                      _vm.activity
-                                                        .correct_answers
-                                                    ) +
-                                                    "/" +
-                                                    _vm._s(
-                                                      _vm.activity.module
-                                                        .questions.length
-                                                    )
-                                                )
-                                              ]
-                                            )
-                                          : _vm._e()
-                                      ]
-                                    )
-                                  ]
-                                )
-                              ])
+                                              }
+                                            },
+                                            [_vm._v("Enviar respuestas")]
+                                          )
+                                        : _vm._e()
+                                    ]
+                                  ),
+                                  _vm._v(" "),
+                                  _c("div", [
+                                    _vm._v("Calificación: "),
+                                    _vm.activity.interaction.state == 3
+                                      ? _c(
+                                          "span",
+                                          { staticClass: "activity_score" },
+                                          [
+                                            _vm._v(
+                                              _vm._s(
+                                                _vm.activity.interaction.score
+                                              )
+                                            ),
+                                            _c("small", [_vm._v("/5")])
+                                          ]
+                                        )
+                                      : _vm._e()
+                                  ])
+                                ],
+                                1
+                              )
                             : _vm._e()
                         ])
                       ])

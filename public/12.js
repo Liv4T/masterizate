@@ -85,7 +85,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['module', 'disabled'],
+  props: ['module', 'disabled', 'playing'],
   data: function data() {
     return {
       loading_component: true,

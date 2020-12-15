@@ -19,40 +19,55 @@
             </div>
         </div>
         <template v-if="!loading_component" >
-            <div class="card padding-10">
-                <div class="crossword_table" >
-                    <div  class="crossword_table_row" v-for="(row,k_row) in table" v-bind:key="k_row" >
-                        <div class="crossword_table_col" v-for="(col,k_col) in row.cols" v-bind:key="k_col">
-                            <input :ref="'input_'+k_row+'_'+k_col" @change="InputChanged(k_row,k_col)" @input="col.letter = $event.target.value.toUpperCase()" class="crossword_table_col_input " :maxlength="1"  type="text" v-model="col.letter" @keyup.down="downEvent(k_row,k_col)" @keyup.right="rightEvent(k_row,k_col)" @keyup.up="topEvent(k_row,k_col)" @keyup.left="leftEvent(k_row,k_col)" v-bind:class="{ 'crossword_table_col_input-active': (col.letter!='' && col.letter!=null) }"  />
+            <div v-if="!playing">
+                <div class="card padding-10">
+                        <div class="crossword_table" >
+                            <div  class="crossword_table_row" v-for="(row,k_row) in table" v-bind:key="k_row" >
+                                <div class="crossword_table_col" v-for="(col,k_col) in row.cols" v-bind:key="k_col">
+                                    <input :ref="'input_'+k_row+'_'+k_col" @change="InputChanged(k_row,k_col)" @input="col.letter = $event.target.value.toUpperCase()" class="crossword_table_col_input " :maxlength="1"  type="text" v-model="col.letter" @keyup.down="downEvent(k_row,k_col)" @keyup.right="rightEvent(k_row,k_col)" @keyup.up="topEvent(k_row,k_col)" @keyup.left="leftEvent(k_row,k_col)" v-bind:class="{ 'crossword_table_col_input-active': (col.letter!='' && col.letter!=null) }"  />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" >
+                            <div class="col-sm padding-10 text-center">
+                            <button class="btn btn-primary" @click="validateWords">Ingresar contenido</button>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="row" >
-                     <div class="col-sm padding-10 text-center">
-                      <button class="btn btn-primary" @click="validateWords">Ingresar contenido</button>
-                    </div>
-                </div>
-            </div>
-            <div class="card padding-10">
-                <div class="row ">
-                    <div class="col-8 text-left">
-                        <h4>Preguntas del crucigrama</h4>
-                    </div>
-                    <div class="col-4 text-right">
+                    <div class="card padding-10">
+                        <div class="row ">
+                            <div class="col-8 text-left">
+                                <h4>Preguntas del crucigrama</h4>
+                            </div>
+                            <div class="col-4 text-right">
 
+                            </div>
+                        </div>
+                        <div class="row" v-for="(word,k_word) in words" v-bind:key="k_word">
+                            <div class="col-sm-4 padding-10">
+                            <label>Palabra:</label>
+                            <input type="text" class="form-control" :disabled="true" v-model="word.word" />
+                            </div>
+                            <div class="col-sm-8 padding-10">
+                            <label>Pregunta</label>
+                            <editor-component :content="word.content" v-bind:readonly="disabled" @updateText="SetWordContentEvent($event,k_word)"></editor-component>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="row" v-for="(word,k_word) in words" v-bind:key="k_word">
-                     <div class="col-sm-4 padding-10">
-                      <label>Palabra:</label>
-                      <input type="text" class="form-control" :disabled="true" v-model="word.word" />
-                    </div>
-                    <div class="col-sm-8 padding-10">
-                      <label>Pregunta</label>
-                      <editor-component :content="word.content" v-bind:readonly="disabled" @updateText="SetWordContentEvent($event,k_word)"></editor-component>
-                    </div>
-                </div>
             </div>
+             <div v-if="playing">
+                    <div class="card padding-10">
+                        <div class="crossword_table" >
+                            <div  class="crossword_table_row" v-for="(row,k_row) in table" v-bind:key="k_row" >
+                                <div class="crossword_table_col_resp_input" v-for="(col,k_col) in row.cols" v-bind:key="k_col">
+                                    <input v-if="!col.title" :ref="'input_'+k_row+'_'+k_col" @change="InputResponseChanged(k_row,k_col)" @input="col.letter = $event.target.value.toUpperCase()" class="crossword_table_col_input " :maxlength="1"  type="text" v-model="col.response" @keyup.down="downEvent(k_row,k_col)" @keyup.right="rightEvent(k_row,k_col)" @keyup.up="topEvent(k_row,k_col)" @keyup.left="leftEvent(k_row,k_col)" v-bind:class="{ 'crossword_table_col_resp_input-active': (col.letter!='' && col.letter!=null) }"  />
+                                    <span v-if="col.title">{{col.response}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+             </div>
+
 
 
         </template>
@@ -62,7 +77,7 @@
 <script>
 import { VueEditor } from "vue2-editor";
 export default {
-    props:['module', 'disabled'],
+    props:['module', 'disabled','playing'],
     data() {
         return {
             loading_component:true,
@@ -97,6 +112,8 @@ export default {
                     if(c.letter==null)
                     {
                         c.letter='';
+                        c.response='';
+                        c.title=false;
                     }
                    col.push(c);
                 })
@@ -104,7 +121,27 @@ export default {
                 this.table.push(r);
             });
            this.validateWords();
+            console.log(this.words);
 
+            if(this.playing)
+            {
+                let w_i=1;
+                this.words.forEach(w=>{
+
+                    if(w.letters[0].r==w.letters[1].r)
+                    {
+                       let _c= w.letters[0].c-1;
+                       this.table[w.letters[0].r].cols[_c]={letter:w_i,response:w_i,title:true};
+                    }
+                    else
+                    {
+                        let _r= w.letters[0].r-1;
+                       this.table[_r].cols[w.letters[0].c]={letter:w_i,response:w_i,title:true};
+                    }
+
+                    w_i++;
+                })
+            }
 
         }
 
@@ -159,6 +196,9 @@ export default {
 
         },
         InputChanged(k_row,k_col){
+            this.module.table=this.table;
+        },
+        InputResponseChanged(k_row,k_col){
             this.module.table=this.table;
         },
         validateWords()
@@ -296,5 +336,14 @@ export default {
 .crossword_table_col_input-active
 {
     border:2px solid #4b87f7;
+}
+.crossword_table_col_resp_input{
+  width:40px;
+  height: 40px;
+  padding:1px;
+}
+.crossword_table_col_resp_input-active
+{
+    border:1px solid #4b87f7;
 }
 </style>

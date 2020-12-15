@@ -168,13 +168,17 @@ class ClassController extends Controller
 
                 foreach($activity_questions as $i_question => $question) {
                     $student_response=[];
+                    $response='';
                     if($user->type_user==3)//student
                     {
-                        $student_response=ActivityQuestionInteraction::where('id_activity_question',$question->id)->where('id_student',$user->id)->where('deleted',0)->where('state',1)->first();
+                        $student_response=ActivityQuestionInteraction::where('id_activity_question',$question->id)->where('id_student',$user->id)->where('deleted',0)->first();
 
                         if(!isset($student_response))
                         {
                             $student_response=['response'=>-1];
+                        }
+                        else{
+                            $response=$student_response->response;
                         }
                     }
 
@@ -186,7 +190,8 @@ class ClassController extends Controller
                         'valid_answer_index'=>json_decode($question->correct_answer),
                         'justify'=>$question->justify,
                         'state'=>$question->state,
-                        'student_response'=>$student_response
+                        'student_response'=>$student_response,
+                        'response'=>$response
                     ]);
                 }
             }
@@ -324,8 +329,128 @@ class ClassController extends Controller
         return response()->json($ret);
     }
 
+     /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function saveActivityInteraction(Request $request,int $id_module,int $id_course, int $id_activity)
+    {
+        $auth = Auth::user();
 
-        /**
+
+
+        $this->validate($request, [
+            'id' => 'required',
+            'module' => 'required',
+            'activity_type' => 'required'
+        ]);
+
+        $data = $request->all();
+
+        if($data['activity_type']=='CUESTIONARIO')
+        {
+            $q_index=0;
+            $q_score=0;
+            foreach($data['module']['questions'] as $i_question => $question) {
+
+                $q_index++;
+
+                //calcule score
+                $score=0;
+                $is_qualified=false;
+                if($question['type_question']=='SIMPLE_RTA')
+                {
+                    $is_qualified=true;
+                    if($question['response']==$question['valid_answer_index'])
+                    {
+                        $score=5;
+                        $q_score+=5;
+
+                    }
+
+                }
+
+                $activity_q_interaction=ActivityQuestionInteraction::where('id_activity_question',$question['id'])->where('id_student',$auth->id)->where('deleted',0)->first();
+
+                if(isset($activity_q_interaction))
+                {
+                    ActivityQuestionInteraction::where('id_activity_question',$question['id'])->where('id_student',$auth->id)->where('deleted',0)->update(array('response'=>$question['response'],'score'=>$score,'state'=>($is_qualified?2:1),'deleted'=>0,'updated_user'=>$auth->id));
+                }
+                else{
+                    ActivityQuestionInteraction::create([
+                        'id_activity_question'=>$question['id'],
+                        'id_student'=>$auth->id,
+                        'response'=>$question['response'],
+                        'score'=>$score,
+                        'state'=>($is_qualified?2:1),
+                        'deleted'=>0,
+                        'updated_user'=>$auth->id
+                    ]);
+                }
+            }
+        }
+
+        if($data['activity_type']=='CRUCIGRAMA')
+        {/*
+            $q_index=0;
+            $q_score=0;
+            foreach($data['module']['questions'] as $i_question => $question) {
+
+                $q_index++;
+
+                //calcule score
+                $score=0;
+                if($question['type_question']=='SIMPLE_RTA')
+                {
+                    if($question['response']==$question['valid_answer_index'])
+                    {
+                        $score=5;
+                        $q_score+=5;
+                    }
+                }
+
+                $activity_q_interaction=ActivityQuestionInteraction::where('id_activity_question',$question['id'])->where('id_student',$auth->id)->where('deleted',0)->first();
+
+                if(isset($activity_q_interaction))
+                {
+                    ActivityQuestionInteraction::where('id_activity_question',$question['id'])->where('id_student',$auth->id)->where('deleted',0)->update(array('response'=>$question['response'],'score'=>$score,'state'=>1,'deleted'=>0,'updated_user'=>$auth->id));
+                }
+                else{
+                    ActivityQuestionInteraction::create([
+                        'id_activity_question'=>$question['id'],
+                        'id_student'=>$auth->id,
+                        'response'=>$question['response'],
+                        'score'=>$score,'state'=>1,
+                        'deleted'=>0,
+                        'updated_user'=>$auth->id
+                    ]);
+                }
+            }*/
+        }
+
+        if(isset($data['interaction']) && isset($data['interaction']['id']))
+        {
+            ActivityInteraction::where('id',$data['interaction']['id'])->update(array('latest_access_date'=>date("Y-m-d H:i"), 'score'=>($q_score/$q_index),'state'=>1,'deleted'=>0,'updated_user'=>$auth->id));
+        }
+        else{
+            ActivityInteraction::create([
+                'id_activity'=>$question['id'],
+                'id_student'=>$auth->id,
+                'latest_access_date'=>date("Y-m-d H:i"),
+                'score'=>($q_score/$q_index),
+                'state'=>1,
+                'deleted'=>0,
+                'updated_user'=>$auth->id
+            ]);
+        }
+
+
+        Activity::where('id',$id_activity)->update(['state'=>2]);
+    }
+
+    /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id

@@ -1,71 +1,114 @@
 <template>
     <div>
-        <div class="row justify-content-center question">
+        <div class="row question">
             <div class="col-12">
                 <div class="row">
                     <div class="col-8 text-left">
                         <h4>Cuestionario</h4>
                     </div>
                     <div class="col-4 text-right">
-                        <button class="btn btn-primary"  @click.prevent="AddQuestionEvent()" v-if="!disabled"> Agregar pregunta </button>
+                        <button class="btn btn-primary"  @click.prevent="AddQuestionEvent()" v-if="!disabled && !playing"> Agregar pregunta </button>
                     </div>
                 </div>
-                <div class="row justify-content-center"  v-for="(question, k_q) in module.questions" v-bind:key="k_q" >
-                    <div class="col-12">
-                        <div class="row">
-                            <div class="col-12 text-left">
-                                <div class="row">
+                <template v-if="!playing">
+                    <div class="row"  v-for="(question, k_q) in module.questions" v-bind:key="k_q" >
+                        <div class="col-12">
+                            <div class="row">
+                                <div class="col-12 text-left">
+                                    <div class="row">
 
-                                    <div class="col-7"><label><span class="required" >*</span>Pregunta N° {{k_q+1}} :</label></div>
-                                    <div class="col-5 text-right">
-                                        <button class="btn btn-warning" alt="Remover pregunta" v-if="(k_q)>0 && !disabled" @click.prevent="RemoveQuestionEvent(k_q)" >Remover pregunta</button>
+                                        <div class="col-7"><label><span class="required" >*</span>Pregunta N° {{k_q+1}} :</label></div>
+                                        <div class="col-5 text-right">
+                                            <button class="btn btn-warning" alt="Remover pregunta" v-if="(k_q)>0 && !disabled" @click.prevent="RemoveQuestionEvent(k_q)" >Remover pregunta</button>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12"><label><span class="required" >*</span>Tipo de pregunta:</label></div>
+                                        <div class="col-12 text-left">
+                                        <select class="form-control"  v-model="question.type_question" v-bind:readonly="disabled">
+                                            <option v-for="(option, k_op) in question_types" v-bind:key="k_op" v-bind:value="option.id">{{option.label}}</option>
+                                        </select>
+                                        </div>
+                                    </div>
+                                    <editor-component :content="question.question" @updateText="SetQuestionEvent($event,k_q)" v-bind:readonly="disabled"></editor-component>
+                                </div>
+                            </div>
+                            <template v-if="question.type_question!='OPEN_RTA'">
+                                <div class="row"  v-for="(option, k_op) in question.options" v-bind:key="k_op">
+                                    <div class="col-11 text-left">
+                                        <input type="text" class="form-control" :placeholder="'Opción '+(k_op+1)" v-model="option.content" v-bind:readonly="disabled"/>
+                                    </div>
+                                    <div class="col-1 div-icon-add">
+                                        <div class="icon-add" alt="Agregar opción" v-if="(k_op)==0" @click.prevent="AddOptionOnQuestion(k_q)">+</div>
+                                        <div class="icon-remove" alt="Remover opción" v-if="(k_op)>1" @click.prevent="RemoveOptionOnQuestion(k_q,k_op)">-</div>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-12"><label><span class="required" >*</span>Tipo de pregunta:</label></div>
-                                    <div class="col-12 text-left">
-                                    <select class="form-control"  v-model="question.type_question" v-bind:readonly="disabled">
-                                        <option v-for="(option, k_op) in question_types" v-bind:key="k_op" v-bind:value="option.id">{{option.label}}</option>
+                            </template>
+                            <div class="row" v-if="question.type_question!='OPEN_RTA'">
+                                <div class="col-12">
+                                    <label for="question"><span class="required" >*</span>Respuesta correcta:</label>
+                                    <select class="form-control"  v-model="question.valid_answer_index" v-bind:readonly="disabled">
+                                        <option v-for="(option, k_op) in question.options" v-bind:key="k_op" v-bind:value="k_op">{{option.content}}</option>
                                     </select>
-                                    </div>
-                                </div>
-                                <editor-component :content="question.question" @updateText="SetQuestionEvent($event,k_q)" v-bind:readonly="disabled"></editor-component>
-                            </div>
-                        </div>
-                        <template v-if="question.type_question!='OPEN_RTA'">
-                            <div class="row"  v-for="(option, k_op) in question.options" v-bind:key="k_op">
-                                <div class="col-11 text-left">
-                                    <input type="text" class="form-control" :placeholder="'Opción '+(k_op+1)" v-model="option.content" v-bind:readonly="disabled"/>
-                                </div>
-                                <div class="col-1 div-icon-add">
-                                    <div class="icon-add" alt="Agregar opción" v-if="(k_op)==0" @click.prevent="AddOptionOnQuestion(k_q)">+</div>
-                                    <div class="icon-remove" alt="Remover opción" v-if="(k_op)>1" @click.prevent="RemoveOptionOnQuestion(k_q,k_op)">-</div>
                                 </div>
                             </div>
-                        </template>
-                        <div class="row" v-if="question.type_question!='OPEN_RTA'">
-                            <div class="col-12">
-                                <label for="question"><span class="required" >*</span>Respuesta correcta:</label>
-                                <select class="form-control"  v-model="question.valid_answer_index" v-bind:readonly="disabled">
-                                    <option v-for="(option, k_op) in question.options" v-bind:key="k_op" v-bind:value="k_op">{{option.content}}</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-12">
-                                <label for="question-answer"><span class="required" >*</span>Justificación:</label>
-                                <editor-component :content="question.justify" v-bind:readonly="disabled" @updateText="SetJustifyEvent($event,k_q)" ></editor-component>
+                            <div class="row">
+                                <div class="col-12">
+                                    <label for="question-answer"><span class="required" >*</span>Justificación:</label>
+                                    <editor-component :content="question.justify" v-bind:readonly="disabled" @updateText="SetJustifyEvent($event,k_q)" ></editor-component>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </template>
+                <template v-if="playing">
+                    <div class="row"  v-for="(question, k_q) in module.questions" v-bind:key="k_q" >
+                        <div class="col-12">
+                            <div class="row">
+                                <div class="col-12 text-left">
+                                    <div class="row">
+
+                                        <div class="col-7"><label><span class="required" >*</span>Pregunta N° {{k_q+1}} :</label></div>
+                                        <div class="col-5 text-right">
+                                            <button class="btn btn-warning" alt="Remover pregunta" v-if="(k_q)>0 && !disabled" @click.prevent="RemoveQuestionEvent(k_q)" >Remover pregunta</button>
+                                        </div>
+                                    </div>
+                                    <div class="question_container" v-html="question.question">
+
+                                    </div>
+                                </div>
+                            </div>
+                            <template v-if="question.type_question!='OPEN_RTA'">
+                                <div class="row"  v-for="(option, k_op) in question.options" v-bind:key="k_op">
+                                    <div class="col-12 text-left">
+                                        <button class="q-option" :disabled="disabled" @click="SelectOptionEvent(k_q,k_op)"    v-bind:class="{'q-option-checked':question.response==k_op}">{{option.content}} <i  class="fa fa-check" v-if="k_op==question.valid_answer_index && disabled"></i></button>
+                                    </div>
+                                </div>
+                            </template>
+                            <template v-if="question.type_question=='OPEN_RTA'">
+                                <div class="row" >
+                                     <div class="col-12">
+                                         <editor-component :content="question.response" @updateText="SetResponseEvent($event,k_q)" v-bind:readonly="disabled" ></editor-component>
+                                     </div>
+                                </div>
+                            </template>
+                            <div class="row " v-if="disabled">
+                                <div class="col-12">
+                                    <label for="question-answer">Justificación:</label>
+                                    <div class="question-answer" v-html="question.justify"></div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </template>
             </div>
         </div>
     </div>
 </template>
 <script>
 export default {
-    props:['module', 'disabled'],
+    props:['module', 'disabled','playing'],
     data() {
         return {
             question_types:[
@@ -135,11 +178,17 @@ export default {
 
         },
         SetJustifyEvent(content,ix_question){
-
            this.module.questions[ix_question].justify=content;
-
-
         },
+        SetResponseEvent(content,ix_question){
+           this.module.questions[ix_question].response=content;
+        },
+        SelectOptionEvent(ix_question,ix_option)
+        {
+            this.module.questions[ix_question].response=ix_option;
+            this.module.questions=JSON.parse(JSON.stringify(this.module.questions));
+            console.log( this.module.questions[ix_question])
+        }
     }
 }
 </script>
@@ -192,4 +241,31 @@ export default {
 }
 
 .visor{border:1px solid #7b7b7b;}
+.question_container{font-family: "Century Gothic";width: 100%;padding:10px 20px;font-weight: 600;font-size:1.2em;border-radius:4px;}
+.q-option {
+    background-color: white;
+    border-radius: 5px;
+    padding: 10px 20px;
+    margin: 5px;
+    border: 1px solid #f2f2f2;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+}
+.q-option:hover {
+    background-color: #ffe7a0;
+    cursor: pointer;
+}
+.q-option-checked {
+    background-color: #007bff !important;
+    color: white;
+    box-shadow: none;
+}
+.question-answer{
+    padding:10px;
+    background-color:white;
+    border-radius:5px;
+}
 </style>

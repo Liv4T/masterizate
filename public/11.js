@@ -74,8 +74,51 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['module', 'disabled'],
+  props: ['module', 'disabled', 'playing'],
   data: function data() {
     return {
       question_types: [{
@@ -138,6 +181,14 @@ __webpack_require__.r(__webpack_exports__);
     },
     SetJustifyEvent: function SetJustifyEvent(content, ix_question) {
       this.module.questions[ix_question].justify = content;
+    },
+    SetResponseEvent: function SetResponseEvent(content, ix_question) {
+      this.module.questions[ix_question].response = content;
+    },
+    SelectOptionEvent: function SelectOptionEvent(ix_question, ix_option) {
+      this.module.questions[ix_question].response = ix_option;
+      this.module.questions = JSON.parse(JSON.stringify(this.module.questions));
+      console.log(this.module.questions[ix_question]);
     }
   }
 });
@@ -156,7 +207,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.question{\n    background-color:#e9ecefb5;\n}\n.div-icon-add{\n  display:flex;\n  flex-direction:row;\n  justify-content:center;\n  align-items:center;\n}\n.icon-remove{\n  background-color:#f2f2f2;\n  height:30px;\n  width:40px;\n  border:2px solid #8f8f8f;\n  border-radius:5px;\n  display:flex;\n  flex-direction:row;\n  justify-content:center;\n  align-items:center;\n  cursor:default;\n\n  font-weight:900;\n  background-color:#ffc107;color:white;border-color:#ffc107;\n}\n.icon-remove:hover{ color:#ffc107;background-color:white;border-color:#ffc107;}\n.icon-add{\n  background-color:#233d68;\n  height:30px;\n  width:40px;\n  border:2px solid #233d68;\n  border-radius:5px;\n  display:flex;\n  flex-direction:row;\n  justify-content:center;\n  align-items:center;\n  cursor:default;\n\n  font-weight:900;\n  color:white;\n}\n/*Text Editor*/\n.editor{ border: 1px solid #ced4da;background-color:white;border-radius: 0.25rem;}\n.codex-editor__redactor{\n    padding-bottom: 50px !important;\n}\n.visor{border:1px solid #7b7b7b;}\n", ""]);
+exports.push([module.i, "\n.question{\n    background-color:#e9ecefb5;\n}\n.div-icon-add{\n  display:flex;\n  flex-direction:row;\n  justify-content:center;\n  align-items:center;\n}\n.icon-remove{\n  background-color:#f2f2f2;\n  height:30px;\n  width:40px;\n  border:2px solid #8f8f8f;\n  border-radius:5px;\n  display:flex;\n  flex-direction:row;\n  justify-content:center;\n  align-items:center;\n  cursor:default;\n\n  font-weight:900;\n  background-color:#ffc107;color:white;border-color:#ffc107;\n}\n.icon-remove:hover{ color:#ffc107;background-color:white;border-color:#ffc107;}\n.icon-add{\n  background-color:#233d68;\n  height:30px;\n  width:40px;\n  border:2px solid #233d68;\n  border-radius:5px;\n  display:flex;\n  flex-direction:row;\n  justify-content:center;\n  align-items:center;\n  cursor:default;\n\n  font-weight:900;\n  color:white;\n}\n/*Text Editor*/\n.editor{ border: 1px solid #ced4da;background-color:white;border-radius: 0.25rem;}\n.codex-editor__redactor{\n    padding-bottom: 50px !important;\n}\n.visor{border:1px solid #7b7b7b;}\n.question_container{font-family: \"Century Gothic\";width: 100%;padding:10px 20px;font-weight: 600;font-size:1.2em;border-radius:4px;}\n.q-option {\n    background-color: white;\n    border-radius: 5px;\n    padding: 10px 20px;\n    margin: 5px;\n    border: 1px solid #f2f2f2;\n    width: 100%;\n    display: flex;\n    justify-content: space-between;\n    flex-direction: row;\n    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);\n}\n.q-option:hover {\n    background-color: #ffe7a0;\n    cursor: pointer;\n}\n.q-option-checked {\n    background-color: #007bff !important;\n    color: white;\n    box-shadow: none;\n}\n.question-answer{\n    padding:10px;\n    background-color:white;\n    border-radius:5px;\n}\n", ""]);
 
 // exports
 
@@ -209,7 +260,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("div", { staticClass: "row justify-content-center question" }, [
+    _c("div", { staticClass: "row question" }, [
       _c(
         "div",
         { staticClass: "col-12" },
@@ -218,7 +269,7 @@ var render = function() {
             _vm._m(0),
             _vm._v(" "),
             _c("div", { staticClass: "col-4 text-right" }, [
-              !_vm.disabled
+              !_vm.disabled && !_vm.playing
                 ? _c(
                     "button",
                     {
@@ -236,20 +287,306 @@ var render = function() {
             ])
           ]),
           _vm._v(" "),
-          _vm._l(_vm.module.questions, function(question, k_q) {
-            return _c(
-              "div",
-              { key: k_q, staticClass: "row justify-content-center" },
-              [
-                _c(
-                  "div",
-                  { staticClass: "col-12" },
-                  [
-                    _c("div", { staticClass: "row" }, [
-                      _c(
-                        "div",
-                        { staticClass: "col-12 text-left" },
-                        [
+          !_vm.playing
+            ? _vm._l(_vm.module.questions, function(question, k_q) {
+                return _c("div", { key: k_q, staticClass: "row" }, [
+                  _c(
+                    "div",
+                    { staticClass: "col-12" },
+                    [
+                      _c("div", { staticClass: "row" }, [
+                        _c(
+                          "div",
+                          { staticClass: "col-12 text-left" },
+                          [
+                            _c("div", { staticClass: "row" }, [
+                              _c("div", { staticClass: "col-7" }, [
+                                _c("label", [
+                                  _c("span", { staticClass: "required" }, [
+                                    _vm._v("*")
+                                  ]),
+                                  _vm._v(
+                                    "Pregunta N° " + _vm._s(k_q + 1) + " :"
+                                  )
+                                ])
+                              ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "col-5 text-right" }, [
+                                k_q > 0 && !_vm.disabled
+                                  ? _c(
+                                      "button",
+                                      {
+                                        staticClass: "btn btn-warning",
+                                        attrs: { alt: "Remover pregunta" },
+                                        on: {
+                                          click: function($event) {
+                                            $event.preventDefault()
+                                            return _vm.RemoveQuestionEvent(k_q)
+                                          }
+                                        }
+                                      },
+                                      [_vm._v("Remover pregunta")]
+                                    )
+                                  : _vm._e()
+                              ])
+                            ]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "row" }, [
+                              _vm._m(1, true),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "col-12 text-left" }, [
+                                _c(
+                                  "select",
+                                  {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: question.type_question,
+                                        expression: "question.type_question"
+                                      }
+                                    ],
+                                    staticClass: "form-control",
+                                    attrs: { readonly: _vm.disabled },
+                                    on: {
+                                      change: function($event) {
+                                        var $$selectedVal = Array.prototype.filter
+                                          .call($event.target.options, function(
+                                            o
+                                          ) {
+                                            return o.selected
+                                          })
+                                          .map(function(o) {
+                                            var val =
+                                              "_value" in o ? o._value : o.value
+                                            return val
+                                          })
+                                        _vm.$set(
+                                          question,
+                                          "type_question",
+                                          $event.target.multiple
+                                            ? $$selectedVal
+                                            : $$selectedVal[0]
+                                        )
+                                      }
+                                    }
+                                  },
+                                  _vm._l(_vm.question_types, function(
+                                    option,
+                                    k_op
+                                  ) {
+                                    return _c(
+                                      "option",
+                                      {
+                                        key: k_op,
+                                        domProps: { value: option.id }
+                                      },
+                                      [_vm._v(_vm._s(option.label))]
+                                    )
+                                  }),
+                                  0
+                                )
+                              ])
+                            ]),
+                            _vm._v(" "),
+                            _c("editor-component", {
+                              attrs: {
+                                content: question.question,
+                                readonly: _vm.disabled
+                              },
+                              on: {
+                                updateText: function($event) {
+                                  return _vm.SetQuestionEvent($event, k_q)
+                                }
+                              }
+                            })
+                          ],
+                          1
+                        )
+                      ]),
+                      _vm._v(" "),
+                      question.type_question != "OPEN_RTA"
+                        ? _vm._l(question.options, function(option, k_op) {
+                            return _c(
+                              "div",
+                              { key: k_op, staticClass: "row" },
+                              [
+                                _c("div", { staticClass: "col-11 text-left" }, [
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: option.content,
+                                        expression: "option.content"
+                                      }
+                                    ],
+                                    staticClass: "form-control",
+                                    attrs: {
+                                      type: "text",
+                                      placeholder: "Opción " + (k_op + 1),
+                                      readonly: _vm.disabled
+                                    },
+                                    domProps: { value: option.content },
+                                    on: {
+                                      input: function($event) {
+                                        if ($event.target.composing) {
+                                          return
+                                        }
+                                        _vm.$set(
+                                          option,
+                                          "content",
+                                          $event.target.value
+                                        )
+                                      }
+                                    }
+                                  })
+                                ]),
+                                _vm._v(" "),
+                                _c(
+                                  "div",
+                                  { staticClass: "col-1 div-icon-add" },
+                                  [
+                                    k_op == 0
+                                      ? _c(
+                                          "div",
+                                          {
+                                            staticClass: "icon-add",
+                                            attrs: { alt: "Agregar opción" },
+                                            on: {
+                                              click: function($event) {
+                                                $event.preventDefault()
+                                                return _vm.AddOptionOnQuestion(
+                                                  k_q
+                                                )
+                                              }
+                                            }
+                                          },
+                                          [_vm._v("+")]
+                                        )
+                                      : _vm._e(),
+                                    _vm._v(" "),
+                                    k_op > 1
+                                      ? _c(
+                                          "div",
+                                          {
+                                            staticClass: "icon-remove",
+                                            attrs: { alt: "Remover opción" },
+                                            on: {
+                                              click: function($event) {
+                                                $event.preventDefault()
+                                                return _vm.RemoveOptionOnQuestion(
+                                                  k_q,
+                                                  k_op
+                                                )
+                                              }
+                                            }
+                                          },
+                                          [_vm._v("-")]
+                                        )
+                                      : _vm._e()
+                                  ]
+                                )
+                              ]
+                            )
+                          })
+                        : _vm._e(),
+                      _vm._v(" "),
+                      question.type_question != "OPEN_RTA"
+                        ? _c("div", { staticClass: "row" }, [
+                            _c("div", { staticClass: "col-12" }, [
+                              _vm._m(2, true),
+                              _vm._v(" "),
+                              _c(
+                                "select",
+                                {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: question.valid_answer_index,
+                                      expression: "question.valid_answer_index"
+                                    }
+                                  ],
+                                  staticClass: "form-control",
+                                  attrs: { readonly: _vm.disabled },
+                                  on: {
+                                    change: function($event) {
+                                      var $$selectedVal = Array.prototype.filter
+                                        .call($event.target.options, function(
+                                          o
+                                        ) {
+                                          return o.selected
+                                        })
+                                        .map(function(o) {
+                                          var val =
+                                            "_value" in o ? o._value : o.value
+                                          return val
+                                        })
+                                      _vm.$set(
+                                        question,
+                                        "valid_answer_index",
+                                        $event.target.multiple
+                                          ? $$selectedVal
+                                          : $$selectedVal[0]
+                                      )
+                                    }
+                                  }
+                                },
+                                _vm._l(question.options, function(
+                                  option,
+                                  k_op
+                                ) {
+                                  return _c(
+                                    "option",
+                                    { key: k_op, domProps: { value: k_op } },
+                                    [_vm._v(_vm._s(option.content))]
+                                  )
+                                }),
+                                0
+                              )
+                            ])
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "row" }, [
+                        _c(
+                          "div",
+                          { staticClass: "col-12" },
+                          [
+                            _vm._m(3, true),
+                            _vm._v(" "),
+                            _c("editor-component", {
+                              attrs: {
+                                content: question.justify,
+                                readonly: _vm.disabled
+                              },
+                              on: {
+                                updateText: function($event) {
+                                  return _vm.SetJustifyEvent($event, k_q)
+                                }
+                              }
+                            })
+                          ],
+                          1
+                        )
+                      ])
+                    ],
+                    2
+                  )
+                ])
+              })
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.playing
+            ? _vm._l(_vm.module.questions, function(question, k_q) {
+                return _c("div", { key: k_q, staticClass: "row" }, [
+                  _c(
+                    "div",
+                    { staticClass: "col-12" },
+                    [
+                      _c("div", { staticClass: "row" }, [
+                        _c("div", { staticClass: "col-12 text-left" }, [
                           _c("div", { staticClass: "row" }, [
                             _c("div", { staticClass: "col-7" }, [
                               _c("label", [
@@ -280,237 +617,103 @@ var render = function() {
                             ])
                           ]),
                           _vm._v(" "),
-                          _c("div", { staticClass: "row" }, [
-                            _vm._m(1, true),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "col-12 text-left" }, [
-                              _c(
-                                "select",
-                                {
-                                  directives: [
-                                    {
-                                      name: "model",
-                                      rawName: "v-model",
-                                      value: question.type_question,
-                                      expression: "question.type_question"
-                                    }
-                                  ],
-                                  staticClass: "form-control",
-                                  attrs: { readonly: _vm.disabled },
-                                  on: {
-                                    change: function($event) {
-                                      var $$selectedVal = Array.prototype.filter
-                                        .call($event.target.options, function(
-                                          o
-                                        ) {
-                                          return o.selected
-                                        })
-                                        .map(function(o) {
-                                          var val =
-                                            "_value" in o ? o._value : o.value
-                                          return val
-                                        })
-                                      _vm.$set(
-                                        question,
-                                        "type_question",
-                                        $event.target.multiple
-                                          ? $$selectedVal
-                                          : $$selectedVal[0]
-                                      )
-                                    }
-                                  }
-                                },
-                                _vm._l(_vm.question_types, function(
-                                  option,
-                                  k_op
-                                ) {
-                                  return _c(
-                                    "option",
-                                    {
-                                      key: k_op,
-                                      domProps: { value: option.id }
-                                    },
-                                    [_vm._v(_vm._s(option.label))]
-                                  )
-                                }),
-                                0
-                              )
-                            ])
-                          ]),
-                          _vm._v(" "),
-                          _c("editor-component", {
-                            attrs: {
-                              content: question.question,
-                              readonly: _vm.disabled
-                            },
-                            on: {
-                              updateText: function($event) {
-                                return _vm.SetQuestionEvent($event, k_q)
-                              }
-                            }
+                          _c("div", {
+                            staticClass: "question_container",
+                            domProps: { innerHTML: _vm._s(question.question) }
                           })
-                        ],
-                        1
-                      )
-                    ]),
-                    _vm._v(" "),
-                    question.type_question != "OPEN_RTA"
-                      ? _vm._l(question.options, function(option, k_op) {
-                          return _c("div", { key: k_op, staticClass: "row" }, [
-                            _c("div", { staticClass: "col-11 text-left" }, [
-                              _c("input", {
-                                directives: [
-                                  {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value: option.content,
-                                    expression: "option.content"
-                                  }
-                                ],
-                                staticClass: "form-control",
-                                attrs: {
-                                  type: "text",
-                                  placeholder: "Opción " + (k_op + 1),
-                                  readonly: _vm.disabled
-                                },
-                                domProps: { value: option.content },
-                                on: {
-                                  input: function($event) {
-                                    if ($event.target.composing) {
-                                      return
-                                    }
-                                    _vm.$set(
-                                      option,
-                                      "content",
-                                      $event.target.value
-                                    )
-                                  }
-                                }
-                              })
-                            ]),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "col-1 div-icon-add" }, [
-                              k_op == 0
-                                ? _c(
-                                    "div",
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      question.type_question != "OPEN_RTA"
+                        ? _vm._l(question.options, function(option, k_op) {
+                            return _c(
+                              "div",
+                              { key: k_op, staticClass: "row" },
+                              [
+                                _c("div", { staticClass: "col-12 text-left" }, [
+                                  _c(
+                                    "button",
                                     {
-                                      staticClass: "icon-add",
-                                      attrs: { alt: "Agregar opción" },
+                                      staticClass: "q-option",
+                                      class: {
+                                        "q-option-checked":
+                                          question.response == k_op
+                                      },
+                                      attrs: { disabled: _vm.disabled },
                                       on: {
                                         click: function($event) {
-                                          $event.preventDefault()
-                                          return _vm.AddOptionOnQuestion(k_q)
-                                        }
-                                      }
-                                    },
-                                    [_vm._v("+")]
-                                  )
-                                : _vm._e(),
-                              _vm._v(" "),
-                              k_op > 1
-                                ? _c(
-                                    "div",
-                                    {
-                                      staticClass: "icon-remove",
-                                      attrs: { alt: "Remover opción" },
-                                      on: {
-                                        click: function($event) {
-                                          $event.preventDefault()
-                                          return _vm.RemoveOptionOnQuestion(
+                                          return _vm.SelectOptionEvent(
                                             k_q,
                                             k_op
                                           )
                                         }
                                       }
                                     },
-                                    [_vm._v("-")]
+                                    [
+                                      _vm._v(_vm._s(option.content) + " "),
+                                      k_op == question.valid_answer_index &&
+                                      _vm.disabled
+                                        ? _c("i", {
+                                            staticClass: "fa fa-check"
+                                          })
+                                        : _vm._e()
+                                    ]
                                   )
-                                : _vm._e()
+                                ])
+                              ]
+                            )
+                          })
+                        : _vm._e(),
+                      _vm._v(" "),
+                      question.type_question == "OPEN_RTA"
+                        ? [
+                            _c("div", { staticClass: "row" }, [
+                              _c(
+                                "div",
+                                { staticClass: "col-12" },
+                                [
+                                  _c("editor-component", {
+                                    attrs: {
+                                      content: question.response,
+                                      readonly: _vm.disabled
+                                    },
+                                    on: {
+                                      updateText: function($event) {
+                                        return _vm.SetResponseEvent($event, k_q)
+                                      }
+                                    }
+                                  })
+                                ],
+                                1
+                              )
+                            ])
+                          ]
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _vm.disabled
+                        ? _c("div", { staticClass: "row " }, [
+                            _c("div", { staticClass: "col-12" }, [
+                              _c(
+                                "label",
+                                { attrs: { for: "question-answer" } },
+                                [_vm._v("Justificación:")]
+                              ),
+                              _vm._v(" "),
+                              _c("div", {
+                                staticClass: "question-answer",
+                                domProps: {
+                                  innerHTML: _vm._s(question.justify)
+                                }
+                              })
                             ])
                           ])
-                        })
-                      : _vm._e(),
-                    _vm._v(" "),
-                    question.type_question != "OPEN_RTA"
-                      ? _c("div", { staticClass: "row" }, [
-                          _c("div", { staticClass: "col-12" }, [
-                            _vm._m(2, true),
-                            _vm._v(" "),
-                            _c(
-                              "select",
-                              {
-                                directives: [
-                                  {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value: question.valid_answer_index,
-                                    expression: "question.valid_answer_index"
-                                  }
-                                ],
-                                staticClass: "form-control",
-                                attrs: { readonly: _vm.disabled },
-                                on: {
-                                  change: function($event) {
-                                    var $$selectedVal = Array.prototype.filter
-                                      .call($event.target.options, function(o) {
-                                        return o.selected
-                                      })
-                                      .map(function(o) {
-                                        var val =
-                                          "_value" in o ? o._value : o.value
-                                        return val
-                                      })
-                                    _vm.$set(
-                                      question,
-                                      "valid_answer_index",
-                                      $event.target.multiple
-                                        ? $$selectedVal
-                                        : $$selectedVal[0]
-                                    )
-                                  }
-                                }
-                              },
-                              _vm._l(question.options, function(option, k_op) {
-                                return _c(
-                                  "option",
-                                  { key: k_op, domProps: { value: k_op } },
-                                  [_vm._v(_vm._s(option.content))]
-                                )
-                              }),
-                              0
-                            )
-                          ])
-                        ])
-                      : _vm._e(),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "row" }, [
-                      _c(
-                        "div",
-                        { staticClass: "col-12" },
-                        [
-                          _vm._m(3, true),
-                          _vm._v(" "),
-                          _c("editor-component", {
-                            attrs: {
-                              content: question.justify,
-                              readonly: _vm.disabled
-                            },
-                            on: {
-                              updateText: function($event) {
-                                return _vm.SetJustifyEvent($event, k_q)
-                              }
-                            }
-                          })
-                        ],
-                        1
-                      )
-                    ])
-                  ],
-                  2
-                )
-              ]
-            )
-          })
+                        : _vm._e()
+                    ],
+                    2
+                  )
+                ])
+              })
+            : _vm._e()
         ],
         2
       )

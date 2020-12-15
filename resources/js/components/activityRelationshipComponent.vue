@@ -75,7 +75,7 @@
 
 import { VueEditor } from "vue2-editor";
 export default {
-    props:['module', 'disabled'],
+    props:['module', 'disabled','playing'],
     data() {
         return {
             loading_component:true,

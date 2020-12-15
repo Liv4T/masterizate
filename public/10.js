@@ -71,9 +71,24 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['module', 'disabled'],
+  props: ['module', 'disabled', 'playing'],
   data: function data() {
     return {
       loading_component: true,
@@ -114,6 +129,8 @@ __webpack_require__.r(__webpack_exports__);
         r.cols.forEach(function (c) {
           if (c.letter == null) {
             c.letter = '';
+            c.response = '';
+            c.title = false;
           }
 
           col.push(c);
@@ -123,6 +140,32 @@ __webpack_require__.r(__webpack_exports__);
         _this.table.push(r);
       });
       this.validateWords();
+      console.log(this.words);
+
+      if (this.playing) {
+        var w_i = 1;
+        this.words.forEach(function (w) {
+          if (w.letters[0].r == w.letters[1].r) {
+            var _c = w.letters[0].c - 1;
+
+            _this.table[w.letters[0].r].cols[_c] = {
+              letter: w_i,
+              response: w_i,
+              title: true
+            };
+          } else {
+            var _r = w.letters[0].r - 1;
+
+            _this.table[_r].cols[w.letters[0].c] = {
+              letter: w_i,
+              response: w_i,
+              title: true
+            };
+          }
+
+          w_i++;
+        });
+      }
     }
 
     this.loadingComponent();
@@ -171,6 +214,9 @@ __webpack_require__.r(__webpack_exports__);
     InputChanged: function InputChanged(k_row, k_col) {
       this.module.table = this.table;
     },
+    InputResponseChanged: function InputResponseChanged(k_row, k_col) {
+      this.module.table = this.table;
+    },
     validateWords: function validateWords() {
       var word = '';
       var existLetter = false;
@@ -211,20 +257,20 @@ __webpack_require__.r(__webpack_exports__);
         }
       }
 
-      for (var _c = 0; _c < this.cols; _c++) {
-        for (var _r = 0; _r < this.rows; _r++) {
-          var _cell = this.table[_r].cols[_c];
+      for (var _c2 = 0; _c2 < this.cols; _c2++) {
+        for (var _r2 = 0; _r2 < this.rows; _r2++) {
+          var _cell = this.table[_r2].cols[_c2];
           word += _cell.letter;
           letters.push({
-            r: _r,
-            c: _c
+            r: _r2,
+            c: _c2
           });
 
           if (_cell.letter != '' && !existLetter) {
             word = _cell.letter;
             letters = [{
-              r: _r,
-              c: _c
+              r: _r2,
+              c: _c2
             }];
           } else if (_cell.letter == '' && existLetter && word.length > 1) {
             if (this.words.filter(function (p) {
@@ -274,7 +320,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.crossword{\n    background-color:#e9ecefb5;\n    padding:5px;\n}\n.crossword_table{\n    width:100%;\n    display: flex;\n    flex-direction: row;\n    justify-content: center;\n    align-items: center;\n}\n.crossword_table_row{\n    display: flex;\n    flex-direction: column;\n    justify-content: center;\n    align-items: center;\n}\n.crossword_table_col{\n    display: flex;\n    flex-direction: row;\n    justify-content: center;\n    align-items: center;\n    border:1px solid #e2e2e2;\n}\n.crossword_table_col_input{\n    width:40px;\n    height: 40px;\n    text-align: center;\n    border:2px solid #fff;\n    text-transform: uppercase;\n}\n.crossword_table_col_input-active\n{\n    border:2px solid #4b87f7;\n}\n", ""]);
+exports.push([module.i, "\n.crossword{\n    background-color:#e9ecefb5;\n    padding:5px;\n}\n.crossword_table{\n    width:100%;\n    display: flex;\n    flex-direction: row;\n    justify-content: center;\n    align-items: center;\n}\n.crossword_table_row{\n    display: flex;\n    flex-direction: column;\n    justify-content: center;\n    align-items: center;\n}\n.crossword_table_col{\n    display: flex;\n    flex-direction: row;\n    justify-content: center;\n    align-items: center;\n    border:1px solid #e2e2e2;\n}\n.crossword_table_col_input{\n    width:40px;\n    height: 40px;\n    text-align: center;\n    border:2px solid #fff;\n    text-transform: uppercase;\n}\n.crossword_table_col_input-active\n{\n    border:2px solid #4b87f7;\n}\n.crossword_table_col_resp_input{\n  width:40px;\n  height: 40px;\n  padding:1px;\n}\n.crossword_table_col_resp_input-active\n{\n    border:1px solid #4b87f7;\n}\n", ""]);
 
 // exports
 
@@ -340,210 +386,380 @@ var render = function() {
       _vm._v(" "),
       !_vm.loading_component
         ? [
-            _c("div", { staticClass: "card padding-10" }, [
-              _c(
-                "div",
-                { staticClass: "crossword_table" },
-                _vm._l(_vm.table, function(row, k_row) {
-                  return _c(
-                    "div",
-                    { key: k_row, staticClass: "crossword_table_row" },
-                    _vm._l(row.cols, function(col, k_col) {
-                      return _c(
-                        "div",
-                        { key: k_col, staticClass: "crossword_table_col" },
-                        [
-                          _c("input", {
-                            directives: [
+            !_vm.playing
+              ? _c("div", [
+                  _c("div", { staticClass: "card padding-10" }, [
+                    _c(
+                      "div",
+                      { staticClass: "crossword_table" },
+                      _vm._l(_vm.table, function(row, k_row) {
+                        return _c(
+                          "div",
+                          { key: k_row, staticClass: "crossword_table_row" },
+                          _vm._l(row.cols, function(col, k_col) {
+                            return _c(
+                              "div",
                               {
-                                name: "model",
-                                rawName: "v-model",
-                                value: col.letter,
-                                expression: "col.letter"
-                              }
-                            ],
-                            ref: "input_" + k_row + "_" + k_col,
-                            refInFor: true,
-                            staticClass: "crossword_table_col_input ",
-                            class: {
-                              "crossword_table_col_input-active":
-                                col.letter != "" && col.letter != null
-                            },
-                            attrs: { maxlength: 1, type: "text" },
-                            domProps: { value: col.letter },
-                            on: {
-                              change: function($event) {
-                                return _vm.InputChanged(k_row, k_col)
+                                key: k_col,
+                                staticClass: "crossword_table_col"
                               },
-                              input: [
-                                function($event) {
+                              [
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: col.letter,
+                                      expression: "col.letter"
+                                    }
+                                  ],
+                                  ref: "input_" + k_row + "_" + k_col,
+                                  refInFor: true,
+                                  staticClass: "crossword_table_col_input ",
+                                  class: {
+                                    "crossword_table_col_input-active":
+                                      col.letter != "" && col.letter != null
+                                  },
+                                  attrs: { maxlength: 1, type: "text" },
+                                  domProps: { value: col.letter },
+                                  on: {
+                                    change: function($event) {
+                                      return _vm.InputChanged(k_row, k_col)
+                                    },
+                                    input: [
+                                      function($event) {
+                                        if ($event.target.composing) {
+                                          return
+                                        }
+                                        _vm.$set(
+                                          col,
+                                          "letter",
+                                          $event.target.value
+                                        )
+                                      },
+                                      function($event) {
+                                        col.letter = $event.target.value.toUpperCase()
+                                      }
+                                    ],
+                                    keyup: [
+                                      function($event) {
+                                        if (
+                                          !$event.type.indexOf("key") &&
+                                          _vm._k(
+                                            $event.keyCode,
+                                            "down",
+                                            40,
+                                            $event.key,
+                                            ["Down", "ArrowDown"]
+                                          )
+                                        ) {
+                                          return null
+                                        }
+                                        return _vm.downEvent(k_row, k_col)
+                                      },
+                                      function($event) {
+                                        if (
+                                          !$event.type.indexOf("key") &&
+                                          _vm._k(
+                                            $event.keyCode,
+                                            "right",
+                                            39,
+                                            $event.key,
+                                            ["Right", "ArrowRight"]
+                                          )
+                                        ) {
+                                          return null
+                                        }
+                                        if (
+                                          "button" in $event &&
+                                          $event.button !== 2
+                                        ) {
+                                          return null
+                                        }
+                                        return _vm.rightEvent(k_row, k_col)
+                                      },
+                                      function($event) {
+                                        if (
+                                          !$event.type.indexOf("key") &&
+                                          _vm._k(
+                                            $event.keyCode,
+                                            "up",
+                                            38,
+                                            $event.key,
+                                            ["Up", "ArrowUp"]
+                                          )
+                                        ) {
+                                          return null
+                                        }
+                                        return _vm.topEvent(k_row, k_col)
+                                      },
+                                      function($event) {
+                                        if (
+                                          !$event.type.indexOf("key") &&
+                                          _vm._k(
+                                            $event.keyCode,
+                                            "left",
+                                            37,
+                                            $event.key,
+                                            ["Left", "ArrowLeft"]
+                                          )
+                                        ) {
+                                          return null
+                                        }
+                                        if (
+                                          "button" in $event &&
+                                          $event.button !== 0
+                                        ) {
+                                          return null
+                                        }
+                                        return _vm.leftEvent(k_row, k_col)
+                                      }
+                                    ]
+                                  }
+                                })
+                              ]
+                            )
+                          }),
+                          0
+                        )
+                      }),
+                      0
+                    ),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "row" }, [
+                      _c(
+                        "div",
+                        { staticClass: "col-sm padding-10 text-center" },
+                        [
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-primary",
+                              on: { click: _vm.validateWords }
+                            },
+                            [_vm._v("Ingresar contenido")]
+                          )
+                        ]
+                      )
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "card padding-10" },
+                    [
+                      _vm._m(3),
+                      _vm._v(" "),
+                      _vm._l(_vm.words, function(word, k_word) {
+                        return _c("div", { key: k_word, staticClass: "row" }, [
+                          _c("div", { staticClass: "col-sm-4 padding-10" }, [
+                            _c("label", [_vm._v("Palabra:")]),
+                            _vm._v(" "),
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: word.word,
+                                  expression: "word.word"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              attrs: { type: "text", disabled: true },
+                              domProps: { value: word.word },
+                              on: {
+                                input: function($event) {
                                   if ($event.target.composing) {
                                     return
                                   }
-                                  _vm.$set(col, "letter", $event.target.value)
-                                },
-                                function($event) {
-                                  col.letter = $event.target.value.toUpperCase()
+                                  _vm.$set(word, "word", $event.target.value)
                                 }
-                              ],
-                              keyup: [
-                                function($event) {
-                                  if (
-                                    !$event.type.indexOf("key") &&
-                                    _vm._k(
-                                      $event.keyCode,
-                                      "down",
-                                      40,
-                                      $event.key,
-                                      ["Down", "ArrowDown"]
-                                    )
-                                  ) {
-                                    return null
-                                  }
-                                  return _vm.downEvent(k_row, k_col)
+                              }
+                            })
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            { staticClass: "col-sm-8 padding-10" },
+                            [
+                              _c("label", [_vm._v("Pregunta")]),
+                              _vm._v(" "),
+                              _c("editor-component", {
+                                attrs: {
+                                  content: word.content,
+                                  readonly: _vm.disabled
                                 },
-                                function($event) {
-                                  if (
-                                    !$event.type.indexOf("key") &&
-                                    _vm._k(
-                                      $event.keyCode,
-                                      "right",
-                                      39,
-                                      $event.key,
-                                      ["Right", "ArrowRight"]
+                                on: {
+                                  updateText: function($event) {
+                                    return _vm.SetWordContentEvent(
+                                      $event,
+                                      k_word
                                     )
-                                  ) {
-                                    return null
                                   }
-                                  if (
-                                    "button" in $event &&
-                                    $event.button !== 2
-                                  ) {
-                                    return null
-                                  }
-                                  return _vm.rightEvent(k_row, k_col)
-                                },
-                                function($event) {
-                                  if (
-                                    !$event.type.indexOf("key") &&
-                                    _vm._k(
-                                      $event.keyCode,
-                                      "up",
-                                      38,
-                                      $event.key,
-                                      ["Up", "ArrowUp"]
-                                    )
-                                  ) {
-                                    return null
-                                  }
-                                  return _vm.topEvent(k_row, k_col)
-                                },
-                                function($event) {
-                                  if (
-                                    !$event.type.indexOf("key") &&
-                                    _vm._k(
-                                      $event.keyCode,
-                                      "left",
-                                      37,
-                                      $event.key,
-                                      ["Left", "ArrowLeft"]
-                                    )
-                                  ) {
-                                    return null
-                                  }
-                                  if (
-                                    "button" in $event &&
-                                    $event.button !== 0
-                                  ) {
-                                    return null
-                                  }
-                                  return _vm.leftEvent(k_row, k_col)
                                 }
-                              ]
-                            }
-                          })
-                        ]
-                      )
-                    }),
-                    0
-                  )
-                }),
-                0
-              ),
-              _vm._v(" "),
-              _c("div", { staticClass: "row" }, [
-                _c("div", { staticClass: "col-sm padding-10 text-center" }, [
-                  _c(
-                    "button",
-                    {
-                      staticClass: "btn btn-primary",
-                      on: { click: _vm.validateWords }
-                    },
-                    [_vm._v("Ingresar contenido")]
+                              })
+                            ],
+                            1
+                          )
+                        ])
+                      })
+                    ],
+                    2
                   )
                 ])
-              ])
-            ]),
+              : _vm._e(),
             _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "card padding-10" },
-              [
-                _vm._m(3),
-                _vm._v(" "),
-                _vm._l(_vm.words, function(word, k_word) {
-                  return _c("div", { key: k_word, staticClass: "row" }, [
-                    _c("div", { staticClass: "col-sm-4 padding-10" }, [
-                      _c("label", [_vm._v("Palabra:")]),
-                      _vm._v(" "),
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: word.word,
-                            expression: "word.word"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        attrs: { type: "text", disabled: true },
-                        domProps: { value: word.word },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.$set(word, "word", $event.target.value)
-                          }
-                        }
-                      })
-                    ]),
-                    _vm._v(" "),
+            _vm.playing
+              ? _c("div", [
+                  _c("div", { staticClass: "card padding-10" }, [
                     _c(
                       "div",
-                      { staticClass: "col-sm-8 padding-10" },
-                      [
-                        _c("label", [_vm._v("Pregunta")]),
-                        _vm._v(" "),
-                        _c("editor-component", {
-                          attrs: {
-                            content: word.content,
-                            readonly: _vm.disabled
-                          },
-                          on: {
-                            updateText: function($event) {
-                              return _vm.SetWordContentEvent($event, k_word)
-                            }
-                          }
-                        })
-                      ],
-                      1
+                      { staticClass: "crossword_table" },
+                      _vm._l(_vm.table, function(row, k_row) {
+                        return _c(
+                          "div",
+                          { key: k_row, staticClass: "crossword_table_row" },
+                          _vm._l(row.cols, function(col, k_col) {
+                            return _c(
+                              "div",
+                              {
+                                key: k_col,
+                                staticClass: "crossword_table_col_resp_input"
+                              },
+                              [
+                                !col.title
+                                  ? _c("input", {
+                                      directives: [
+                                        {
+                                          name: "model",
+                                          rawName: "v-model",
+                                          value: col.response,
+                                          expression: "col.response"
+                                        }
+                                      ],
+                                      ref: "input_" + k_row + "_" + k_col,
+                                      refInFor: true,
+                                      staticClass: "crossword_table_col_input ",
+                                      class: {
+                                        "crossword_table_col_resp_input-active":
+                                          col.letter != "" && col.letter != null
+                                      },
+                                      attrs: { maxlength: 1, type: "text" },
+                                      domProps: { value: col.response },
+                                      on: {
+                                        change: function($event) {
+                                          return _vm.InputResponseChanged(
+                                            k_row,
+                                            k_col
+                                          )
+                                        },
+                                        input: [
+                                          function($event) {
+                                            if ($event.target.composing) {
+                                              return
+                                            }
+                                            _vm.$set(
+                                              col,
+                                              "response",
+                                              $event.target.value
+                                            )
+                                          },
+                                          function($event) {
+                                            col.letter = $event.target.value.toUpperCase()
+                                          }
+                                        ],
+                                        keyup: [
+                                          function($event) {
+                                            if (
+                                              !$event.type.indexOf("key") &&
+                                              _vm._k(
+                                                $event.keyCode,
+                                                "down",
+                                                40,
+                                                $event.key,
+                                                ["Down", "ArrowDown"]
+                                              )
+                                            ) {
+                                              return null
+                                            }
+                                            return _vm.downEvent(k_row, k_col)
+                                          },
+                                          function($event) {
+                                            if (
+                                              !$event.type.indexOf("key") &&
+                                              _vm._k(
+                                                $event.keyCode,
+                                                "right",
+                                                39,
+                                                $event.key,
+                                                ["Right", "ArrowRight"]
+                                              )
+                                            ) {
+                                              return null
+                                            }
+                                            if (
+                                              "button" in $event &&
+                                              $event.button !== 2
+                                            ) {
+                                              return null
+                                            }
+                                            return _vm.rightEvent(k_row, k_col)
+                                          },
+                                          function($event) {
+                                            if (
+                                              !$event.type.indexOf("key") &&
+                                              _vm._k(
+                                                $event.keyCode,
+                                                "up",
+                                                38,
+                                                $event.key,
+                                                ["Up", "ArrowUp"]
+                                              )
+                                            ) {
+                                              return null
+                                            }
+                                            return _vm.topEvent(k_row, k_col)
+                                          },
+                                          function($event) {
+                                            if (
+                                              !$event.type.indexOf("key") &&
+                                              _vm._k(
+                                                $event.keyCode,
+                                                "left",
+                                                37,
+                                                $event.key,
+                                                ["Left", "ArrowLeft"]
+                                              )
+                                            ) {
+                                              return null
+                                            }
+                                            if (
+                                              "button" in $event &&
+                                              $event.button !== 0
+                                            ) {
+                                              return null
+                                            }
+                                            return _vm.leftEvent(k_row, k_col)
+                                          }
+                                        ]
+                                      }
+                                    })
+                                  : _vm._e(),
+                                _vm._v(" "),
+                                col.title
+                                  ? _c("span", [_vm._v(_vm._s(col.response))])
+                                  : _vm._e()
+                              ]
+                            )
+                          }),
+                          0
+                        )
+                      }),
+                      0
                     )
                   ])
-                })
-              ],
-              2
-            )
+                ])
+              : _vm._e()
           ]
         : _vm._e()
     ],

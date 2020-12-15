@@ -91,6 +91,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["id_module"],
   data: function data() {
@@ -144,7 +145,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.check{\r\n    margin-left: 8px;\r\n    padding: 0;\r\n    display: flex;\r\n    flex-direction: row;\r\n    justify-content: center;\r\n    align-items: center;\n}\np{ \r\n    margin: 0 0 0 8px;\r\n    font-size: 16px;\n}\r\n", ""]);
+exports.push([module.i, "\n.check{\n    margin-left: 8px;\n    padding: 0;\n    display: flex;\n    flex-direction: row;\n    justify-content: center;\n    align-items: center;\n}\np{\n    margin: 0 0 0 8px;\n    font-size: 16px;\n}\n", ""]);
 
 // exports
 
@@ -222,101 +223,70 @@ var render = function() {
                 _vm._v(" "),
                 _c(
                   "tbody",
-                  [
-                    _vm._l(_vm.fillS, function(clas, t) {
-                      return _c("tr", { key: t }, [
-                        _c("td", [_vm._v(_vm._s(clas.name))]),
-                        _vm._v(" "),
-                        _c(
-                          "td",
-                          { staticClass: "row justify-content-center" },
-                          [
-                            _c(
-                              "a",
-                              {
-                                staticClass: "btn btn-primary",
-                                attrs: {
-                                  href:
-                                    "/estudiante/modulo/" +
-                                    _vm.id_module +
-                                    "/clase/" +
-                                    clas.id
-                                }
-                              },
-                              [_vm._v("Ir a clase")]
-                            )
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c("td", [
-                          clas.progress == 100
-                            ? _c("div", { staticClass: "check" }, [
-                                _c(
-                                  "svg",
-                                  {
-                                    staticClass: "bi bi-check-circle-fill",
-                                    attrs: {
-                                      width: "2em",
-                                      height: "2em",
-                                      viewBox: "0 0 16 16",
-                                      fill: "#28a745",
-                                      xmlns: "http://www.w3.org/2000/svg"
-                                    }
-                                  },
-                                  [
-                                    _c("path", {
-                                      attrs: {
-                                        "fill-rule": "evenodd",
-                                        d:
-                                          "M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"
-                                      }
-                                    }),
-                                    _vm._v(" "),
-                                    _c("path", {
-                                      attrs: {
-                                        "fill-rule": "evenodd",
-                                        d:
-                                          "M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.236.236 0 0 1 .02-.022z"
-                                      }
-                                    })
-                                  ]
-                                ),
-                                _vm._v(" "),
-                                _c("p", { staticClass: "text-success" }, [
-                                  _vm._v("Completado")
-                                ])
-                              ])
-                            : _vm._e()
-                        ])
-                      ])
-                    }),
-                    _vm._v(" "),
-                    _c("tr", [
-                      _c("td", [_vm._v("Recursos Adicionales")]),
+                  _vm._l(_vm.fillS, function(clas, t) {
+                    return _c("tr", { key: t }, [
+                      _c("td", [_vm._v(_vm._s(clas.name))]),
                       _vm._v(" "),
-                      _c("td", [
+                      _c("td", { staticClass: "row justify-content-center" }, [
                         _c(
                           "a",
                           {
                             staticClass: "btn btn-primary",
                             attrs: {
                               href:
-                                "/student/clases_adicionales/" +
+                                "/estudiante/modulo/" +
                                 _vm.id_module +
-                                "/" +
-                                _vm.id_area +
-                                "/" +
-                                _vm.id_classroom
+                                "/clase/" +
+                                clas.id
                             }
                           },
-                          [_vm._v("Ir a recursos")]
+                          [_vm._v("Ir a clase")]
                         )
                       ]),
                       _vm._v(" "),
-                      _c("td")
+                      _c("td", [
+                        clas.progress == 100
+                          ? _c("div", { staticClass: "check" }, [
+                              _c(
+                                "svg",
+                                {
+                                  staticClass: "bi bi-check-circle-fill",
+                                  attrs: {
+                                    width: "2em",
+                                    height: "2em",
+                                    viewBox: "0 0 16 16",
+                                    fill: "#28a745",
+                                    xmlns: "http://www.w3.org/2000/svg"
+                                  }
+                                },
+                                [
+                                  _c("path", {
+                                    attrs: {
+                                      "fill-rule": "evenodd",
+                                      d:
+                                        "M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"
+                                    }
+                                  }),
+                                  _vm._v(" "),
+                                  _c("path", {
+                                    attrs: {
+                                      "fill-rule": "evenodd",
+                                      d:
+                                        "M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.236.236 0 0 1 .02-.022z"
+                                    }
+                                  })
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c("p", { staticClass: "text-success" }, [
+                                _vm._v("Completado")
+                              ])
+                            ])
+                          : _vm._e()
+                      ])
                     ])
-                  ],
-                  2
+                  }),
+                  0
                 )
               ]
             ),

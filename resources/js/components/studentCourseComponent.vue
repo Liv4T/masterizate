@@ -163,7 +163,7 @@
                                                     type="video/mp4"
                                                 />
                                             </video>
-                                            <iframe v-if="item_content.content_type ==='YOUTUBE'" width="100%" v-bind:src="item_content.content" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+                                            <iframe v-if="item_content.content_type ==='YOUTUBE'" class="container_youtube"  v-bind:src="resolveYoutubeLink(item_content.content)" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
                                             </iframe>
 
                                         </div>
@@ -187,16 +187,16 @@
                                             <button
                                                 class="btn btn-primary"
                                                 v-if="
-                                                    !act.interaction
-                                                        .is_qualified &&
+                                                    act.interaction.state<3 &&
                                                         activity.id != act.id
                                                 "
                                                 @click.prevent="
                                                     openQuestion(key_a)
                                                 "
                                             >
-                                                Presentar
+                                                {{act.interaction.state==2?'Esperando calificación':'Presentar'}}
                                             </button>
+
                                             <button
                                                 class="btn btn-warning"
                                                 v-if="activity.id == act.id"
@@ -207,8 +207,7 @@
                                             <button
                                                 class="btn btn-primary"
                                                 v-if="
-                                                    act.interaction
-                                                        .is_qualified &&
+                                                  act.interaction.state==3 &&
                                                         activity.id != act.id
                                                 "
                                                 @click.prevent="
@@ -234,171 +233,15 @@
                                                     ></textarea>
                                                 </div>
                                             </div>
-                                            <div
-                                                class="row justify-content-center question"
-                                                v-if="
-                                                    activity.activity_type ==
-                                                        'CUESTIONARIO_UNICA_RTA'
-                                                "
-                                            >
-                                                <div class="col-12">
-                                                    <div
-                                                        class="row justify-content-center"
-                                                        v-for="(question,
-                                                        k_q) in activity.module
-                                                            .questions"
-                                                        v-bind:key="k_q"
-                                                    >
-                                                        <div class="col-12">
-                                                            <div class="row">
-                                                                <div
-                                                                    class="col-12 text-left"
-                                                                >
-                                                                    <b
-                                                                        >Pregunta
-                                                                        N°
-                                                                        {{
-                                                                            k_q +
-                                                                                1
-                                                                        }}:</b
-                                                                    >
-                                                                    <div
-                                                                        class="html-content"
-                                                                        v-html="
-                                                                            question.question
-                                                                        "
-                                                                    ></div>
-                                                                </div>
-                                                            </div>
-                                                            <div
-                                                                class="row"
-                                                                v-for="(option,
-                                                                k_op) in question.options"
-                                                                v-bind:key="
-                                                                    k_op
-                                                                "
-                                                            >
-                                                                <div
-                                                                    class="col-11 text-left"
-                                                                >
-                                                                    <button
-                                                                        class="q-option"
-                                                                        @click.prevent="
-                                                                            selectOption(
-                                                                                question.id,
-                                                                                k_op,
-                                                                                question
-                                                                            )
-                                                                        "
-                                                                        v-bind:class="{
-                                                                            'q-option-checked':
-                                                                                question
-                                                                                    .student_response
-                                                                                    .response ==
-                                                                                k_op
-                                                                        }"
-                                                                    >
-                                                                        {{
-                                                                            option.content
-                                                                        }}
-                                                                        <i
-                                                                            v-if="
-                                                                                activity
-                                                                                    .interaction
-                                                                                    .is_qualified &&
-                                                                                    question
-                                                                                        .student_response
-                                                                                        .response >
-                                                                                        -1 &&
-                                                                                    question.valid_answer_index ==
-                                                                                        k_op
-                                                                            "
-                                                                            class="fa fa-check"
-                                                                        ></i>
-                                                                        <i
-                                                                            v-if="
-                                                                                activity
-                                                                                    .interaction
-                                                                                    .is_qualified &&
-                                                                                    question
-                                                                                        .student_response
-                                                                                        .response >
-                                                                                        -1 &&
-                                                                                    question
-                                                                                        .student_response
-                                                                                        .response ==
-                                                                                        k_op &&
-                                                                                    question.valid_answer_index !=
-                                                                                        k_op
-                                                                            "
-                                                                            class="fa fa-times"
-                                                                        ></i>
-                                                                    </button>
-                                                                </div>
-                                                            </div>
-                                                            <div
-                                                                class="row"
-                                                                v-if="
-                                                                    act.interaction &&
-                                                                        act
-                                                                            .interaction
-                                                                            .is_qualified
-                                                                "
-                                                            >
-                                                                <div
-                                                                    class="col-12"
-                                                                >
-                                                                    <b
-                                                                        >Justificación:</b
-                                                                    >
-                                                                    <div
-                                                                        class="html-content"
-                                                                        v-html="
-                                                                            question.justify
-                                                                        "
-                                                                    ></div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                            <activity-questionary v-if="activity.activity_type=='CUESTIONARIO'" v-bind:playing="true" v-bind:module="activity.module" v-bind:disabled="activity.interaction.state>1"></activity-questionary>
+                                            <activity-complete-sentence v-if="activity.activity_type=='COMPLETAR_ORACION'" v-bind:playing="true" v-bind:module="activity.module" v-bind:disabled="activity.interaction.state>1"></activity-complete-sentence>
+                                            <activity-relationship v-if="activity.activity_type=='RELACION'" v-bind:playing="true" v-bind:module="activity.module" v-bind:disabled="activity.interaction.state>1"></activity-relationship>
+                                            <activity-crossword v-if="activity.activity_type=='CRUCIGRAMA'" v-bind:playing="true" v-bind:module="activity.module" v-bind:disabled="activity.interaction.state>1"></activity-crossword>
+                                            <div class="activity_response-button">
+                                                <button class="btn btn-primary" v-if="activity.interaction.state==1" @click="SaveResponseEvent(activity)">Enviar respuestas</button>
+
                                             </div>
-                                            <div
-                                                class="row justify-content-center"
-                                            >
-                                                <div class="col-12 text-right">
-                                                    <button
-                                                        class="btn btn-primary"
-                                                        :disabled="
-                                                            !activity.completed
-                                                        "
-                                                        @click.prevent="
-                                                            finalizeActivityQuestion()
-                                                        "
-                                                        v-if="
-                                                            !act.interaction
-                                                                .is_qualified
-                                                        "
-                                                    >
-                                                        Finalizar
-                                                    </button>
-                                                    <span
-                                                        class="span-solution"
-                                                        v-if="
-                                                            act.interaction
-                                                                .is_qualified
-                                                        "
-                                                        >Respuestas correctas:
-                                                        {{
-                                                            activity.correct_answers
-                                                        }}/{{
-                                                            activity.module
-                                                                .questions
-                                                                .length
-                                                        }}</span
-                                                    >
-                                                </div>
-                                            </div>
+                                            <div>Calificación: <span class="activity_score" v-if="activity.interaction.state==3">{{activity.interaction.score}}<small>/5</small></span></div>
                                         </div>
                                     </div>
                                 </div>
@@ -618,14 +461,15 @@ export default {
         },
         openQuestion(id_activity) {
             this.activity = this.course.activities[id_activity];
-
+            console.log(this.activity);
+/*
             axios
                 .put(
                     `/api/student/module/${this.id_module}/class/${this.id_class}/activity/${this.activity.id}/interaction`
                 )
                 .then(response => {});
 
-            this.completeQuestion();
+            this.completeQuestion();*/
         },
         openFeedback(id_activity) {
             this.activity = this.course.activities[id_activity];
@@ -813,6 +657,34 @@ export default {
                 this.course.content[item_index].progress_bar_percent = 0;
                 this.is_loading = false;
             }, 500);
+        },
+        resolveYoutubeLink(link_youtube)
+        {
+            if(!link_youtube.includes('/')) return link_youtube;
+
+            let split_link=link_youtube.split('/');
+
+            let split_simple_link=split_link[split_link.length-1].split('&')[0].split('=');
+
+            return 'https://www.youtube.com/embed/'+split_simple_link[split_simple_link.length-1];
+        },
+        SaveResponseEvent(activity)
+        {
+            axios
+                .put(`/api/student/module/${this.id_module}/class/${this.id_class}/activity/${activity.id}/interaction`,activity)
+                .then(
+                    response => {
+                        // this.getPlanificationEvent(this.id_lective_planification);
+                        toastr.success("Actividad enviada correctamente");
+                       // location.reload();
+                    },
+                    error => {
+                        console.log(error);
+                        toastr.error(
+                            "ERROR:Por favor valide que la información esta completa"
+                        );
+                    }
+                );
         }
     }
 };
@@ -1028,5 +900,18 @@ export default {
     padding: 10px;
     margin-top: 20px;
     background-color: rgba(255, 255, 255, 1);
+}
+.container_youtube{
+    width: 100%;
+    height: 500px !important;
+}
+.activity_response-button{
+    display:flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+}
+.activity_score{
+    font-size: 1.5em;
 }
 </style>
