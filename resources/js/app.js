@@ -8,8 +8,8 @@ window.Vue = require("vue");
 window.Bus = new Vue();
 window.toastr = require("toastr");
 import CKEditor from "@ckeditor/ckeditor5-vue";
-import "bootstrap/dist/css/bootstrap.css";
-import "bootstrap-vue/dist/bootstrap-vue.css";
+//import "bootstrap/dist/css/bootstrap.css";
+//import "bootstrap-vue/dist/bootstrap-vue.css";
 import fullCalendar from "vue-fullcalendar";
 import Game from "./components/Game";
 import store from "./vuex/store";
@@ -103,9 +103,11 @@ Vue.component("group-chat", require("./components/GroupChat.vue").default);
 Vue.component("clasesst-component", require("./components/clasesSt.vue").default);
 Vue.component("notasd-component", require("./components/notasDocente.vue").default);
 Vue.component("actividadvd-component", require("./components/actividadVDocente.vue").default);
-Vue.component("clasesd-component", require("./components/clasesDocente.vue").default);
+Vue.component("clasesd-component",()=>import("./components/clasesDocente.vue"));
 Vue.component("crearc-component", require("./components/crearClase.vue").default);
 Vue.component("editarc-component", require("./components/editarClase.vue").default);
+
+
 
 Vue.component("inicio-component", ()=>import("./components/inicio.vue"));
 Vue.component("userinfo", ()=>import("./components/UserInfo"));
@@ -142,6 +144,15 @@ Vue.component("asistencia-adm", ()=>import("./components/asistencia.vue"));
 
 Vue.component("duplicar-component",  () => import ("./components/duplicarGeneral.vue"));
 
+//activities
+Vue.component("activity-questionary", ()=>import("./components/activityQuestionaryComponent.vue"));
+Vue.component("activity-complete-sentence", ()=>import("./components/activityCompleteSentenceComponent.vue"));
+Vue.component("activity-crossword", ()=>import("./components/activityCrosswordComponent.vue"));
+Vue.component("activity-relationship", ()=>import("./components/activityRelationshipComponent.vue"));
+
+Vue.component("activity-student-play-component", ()=>import("./components/activityStudentPlayComponent.vue"));
+Vue.component("editor-component", () => import("./components/editorComponent.vue"));
+Vue.component("process-ribbon-component", () =>   import("./components/processRibbonComponent.vue"));
 
 Vue.component("lectives-adm", () => import ("./components/lectivesAdmComponent.vue"));
 Vue.component("lectives-adm-assing-teacher", () => import ("./components/lectivesAdmAssingTeacherComponent.vue"));
@@ -173,7 +184,17 @@ Vue.component("repo-student", () => import("./components/repositoryStudentView.v
 Vue.component("repository-upload", () => import("./components/repositoryStudentUpload.vue"));
 Vue.component("test-firebase", () => import("./components/testFirebase.vue"));
 
-Vue.use(CKEditor);
+
+//cursos
+Vue.component("admin-courses", () => import ("./components/adminCoursesComponent.vue"));
+Vue.component("admin-module", () => import ("./components/adminModuleComponent.vue"));
+Vue.component("teacher-courses", () => import ("./components/teacherCoursesComponent.vue"));
+Vue.component("teacher-module", () => import ("./components/teacherModuleComponent.vue"));
+Vue.component("teacher-course", () => import ("./components/teacherCourseComponent.vue"));
+Vue.component("student-courses", () => import ("./components/studentCoursesComponent.vue"));
+Vue.component("student-module", () => import ("./components/studentModuleComponent.vue"));
+Vue.component("student-course", () => import ("./components/studentCourseComponent.vue"));
+
 Vue.use(CKEditor);
 
 const app = new Vue({el: "#app", data: {}, store});

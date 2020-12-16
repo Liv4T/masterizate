@@ -1,106 +1,14 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[11],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/lectivesStudentActivitiesComponent.vue?vue&type=script&lang=js&":
-/*!*********************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/lectivesStudentActivitiesComponent.vue?vue&type=script&lang=js& ***!
-  \*********************************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/activityQuestionaryComponent.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/activityQuestionaryComponent.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -210,105 +118,111 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['module', 'disabled', 'playing'],
   data: function data() {
     return {
-      activities: [],
-      activity: {
-        achievement: {},
-        indicator: {}
-      },
-      formulario: [],
-      descripcion: "",
-      logro: "",
-      fechaE: "",
-      fechaR: "",
-      id_act: "",
-      id_t: "",
-      areas: [],
-      errors: [],
-      planifications: [],
-      open_plan: 0
+      question_types: [{
+        label: 'RESPUESTA ÚNICA',
+        id: 'SIMPLE_RTA'
+      }, {
+        label: 'RESPUESTA ABIERTA',
+        id: 'OPEN_RTA'
+      }]
     };
   },
-  created: function created() {},
-  mounted: function mounted() {
-    var _this = this;
-
-    axios.get("/api/lectives").then(function (response) {
-      _this.planifications = response.data;
-    });
-    console.log("Component mounted.");
-  },
   methods: {
-    getActivities: function getActivities(id_planification) {
-      var _this2 = this;
-
-      if (this.open_plan == id_planification) return;
-      this.open_plan = id_planification;
-      axios.get("/api/lectives/planification/".concat(id_planification, "/activities")).then(function (response) {
-        _this2.activities = response.data;
+    AddQuestionEvent: function AddQuestionEvent() {
+      this.module.questions.push({
+        question: "",
+        type_question: 'SIMPLE_RTA',
+        options: [{
+          content: ''
+        }, {
+          content: ''
+        }],
+        valid_answer_index: 0,
+        justify: ""
       });
     },
-    showActivity: function showActivity(activity) {
-      this.activity = activity;
-
-      for (var ix_question = 0; ix_question < this.activity.module.length; ix_question++) {
-        for (var i = 0; i < this.activity.module[ix_question].content.options.length; i++) {
-          var ix_response = this.activity.module[ix_question].response.response.split('|')[0];
-          this.activity.module[ix_question].content.options[i].checked = i == ix_response;
-        }
-      }
-
-      $("#editu").modal("show");
+    RemoveQuestionEvent: function RemoveQuestionEvent(index) {
+      this.module.questions.splice(index, 1);
     },
-    checkOption: function checkOption(question, option, ix_question, ix_option) {
-      var _this3 = this;
-
-      axios.put("/api/lectives/planification/".concat(this.open_plan, "/weekly/").concat(this.activity.weekly_plan.id, "/course/").concat(this.activity.course.id, "/activity/").concat(this.activity.id_activity, "/module/").concat(this.activity.activity_type, "/question/").concat(question.id_question), {
-        response: "".concat(ix_option, "|").concat(option.content),
-        ok: question.content.valid_answer_index == ix_option ? 'S' : 'N'
-      }).then(function (response) {
-        for (var i = 0; i < _this3.activity.module[ix_question].content.options.length; i++) {
-          _this3.activity.module[ix_question].content.options[i].checked = i == ix_option;
-        }
-
-        _this3.activity = JSON.parse(JSON.stringify(_this3.activity));
+    AddOptionOnQuestion: function AddOptionOnQuestion(index) {
+      this.module.questions[index].options.push({
+        content: ''
       });
+    },
+    RemoveOptionOnQuestion: function RemoveOptionOnQuestion(index_question, index) {
+      this.module.questions[index_question].options.splice(index, 1);
+    },
+
+    /*
+        uploadQuestionFile(file){
+            return new Promise((resolve,reject)=>{
+                  if(!file) resolve();
+                  let _fileNameSplit=file.name.split(".");
+                let file_extension=_fileNameSplit[_fileNameSplit.length-1];
+                let file_name=file.name.replace(`.${file_extension}`,'');
+                let file_detail_name=`-editor-content-questions-${this.getRandom(1,9999999)}`;
+                let file_url=`${window.location.origin}/uploads/editor_content/${file_name.split(' ').join('_')}${file_detail_name}.${file_extension}`;
+                  let data = new FormData();
+                data.append("file", file);
+                data.append("name", `${file_name}${file_detail_name}`);
+                   axios.post("/api/file/upload/editor-content", data).then(response => {
+                      resolve(file_url);
+                }).catch(err=>{reject(err);});
+              });
+        },*/
+    getRandom: function getRandom(min, max) {
+      return Math.random() * (max - min) + min;
+    },
+    SetQuestionEvent: function SetQuestionEvent(content, ix_question) {
+      this.module.questions[ix_question].question = content;
+    },
+    SetJustifyEvent: function SetJustifyEvent(content, ix_question) {
+      this.module.questions[ix_question].justify = content;
+    },
+    SetResponseEvent: function SetResponseEvent(content, ix_question) {
+      this.module.questions[ix_question].response = content;
+    },
+    SelectOptionEvent: function SelectOptionEvent(ix_question, ix_option) {
+      this.module.questions[ix_question].response = ix_option;
+      this.module.questions = JSON.parse(JSON.stringify(this.module.questions));
+      console.log(this.module.questions[ix_question]);
     }
   }
 });
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/lectivesStudentActivitiesComponent.vue?vue&type=style&index=0&lang=css&":
-/*!****************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/lectivesStudentActivitiesComponent.vue?vue&type=style&index=0&lang=css& ***!
-  \****************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/activityQuestionaryComponent.vue?vue&type=style&index=0&lang=css&":
+/*!**********************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/activityQuestionaryComponent.vue?vue&type=style&index=0&lang=css& ***!
+  \**********************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var escape = __webpack_require__(/*! ../../../node_modules/css-loader/lib/url/escape.js */ "./node_modules/css-loader/lib/url/escape.js");
 exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
 // imports
 
 
 // module
-exports.push([module.i, "\n.background2 {\r\n  background: url(" + escape(__webpack_require__(/*! ../assets/img/Fondo5.jpg */ "./resources/js/assets/img/Fondo5.jpg")) + ");\r\n  background-size: contain;\r\n  background-repeat: no-repeat;\r\n  background-position: center;\r\n  position: relative;\n}\n.question-module{\r\n  padding:10px;\n}\n.question-module label{\r\n  padding:10px;\n}\n.question-module .q-option{\r\n  background-color:#f2f2f2;\r\n  border-radius:5px;\r\n  padding:5px;\r\n  margin:5px;\r\n  border:1px solid #f2f2f2;\r\n  width:100%;\n}\n.question-module .q-option:hover{\r\n    background-color:#f5e18d;\r\n    cursor:pointer;\n}\n.q-option-checked{\r\n   background-color:#91ffcf !important;\r\n  border-radius:5px;\r\n  padding:5px;\r\n  margin:5px;\r\n  border:1px solid #91ffcf;\n}\r\n", ""]);
+exports.push([module.i, "\n.question{\r\n    background-color:#e9ecefb5;\n}\n.div-icon-add{\r\n  display:flex;\r\n  flex-direction:row;\r\n  justify-content:center;\r\n  align-items:center;\n}\n.icon-remove{\r\n  background-color:#f2f2f2;\r\n  height:30px;\r\n  width:40px;\r\n  border:2px solid #8f8f8f;\r\n  border-radius:5px;\r\n  display:flex;\r\n  flex-direction:row;\r\n  justify-content:center;\r\n  align-items:center;\r\n  cursor:default;\r\n\r\n  font-weight:900;\r\n  background-color:#ffc107;color:white;border-color:#ffc107;\n}\n.icon-remove:hover{ color:#ffc107;background-color:white;border-color:#ffc107;}\n.icon-add{\r\n  background-color:#233d68;\r\n  height:30px;\r\n  width:40px;\r\n  border:2px solid #233d68;\r\n  border-radius:5px;\r\n  display:flex;\r\n  flex-direction:row;\r\n  justify-content:center;\r\n  align-items:center;\r\n  cursor:default;\r\n\r\n  font-weight:900;\r\n  color:white;\n}\r\n/*Text Editor*/\n.editor{ border: 1px solid #ced4da;background-color:white;border-radius: 0.25rem;}\n.codex-editor__redactor{\r\n    padding-bottom: 50px !important;\n}\n.visor{border:1px solid #7b7b7b;}\n.question_container{font-family: \"Century Gothic\";width: 100%;padding:10px 20px;font-weight: 600;font-size:1.2em;border-radius:4px;}\n.q-option {\r\n    background-color: white;\r\n    border-radius: 5px;\r\n    padding: 10px 20px;\r\n    margin: 5px;\r\n    border: 1px solid #f2f2f2;\r\n    width: 100%;\r\n    display: flex;\r\n    justify-content: space-between;\r\n    flex-direction: row;\r\n    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);\n}\n.q-option:hover {\r\n    background-color: #ffe7a0;\r\n    cursor: pointer;\n}\n.q-option-checked {\r\n    background-color: #007bff !important;\r\n    color: white;\r\n    box-shadow: none;\n}\n.question-answer{\r\n    padding:10px;\r\n    background-color:white;\r\n    border-radius:5px;\n}\r\n", ""]);
 
 // exports
 
 
 /***/ }),
 
-/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/lectivesStudentActivitiesComponent.vue?vue&type=style&index=0&lang=css&":
-/*!********************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/lectivesStudentActivitiesComponent.vue?vue&type=style&index=0&lang=css& ***!
-  \********************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/activityQuestionaryComponent.vue?vue&type=style&index=0&lang=css&":
+/*!**************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/activityQuestionaryComponent.vue?vue&type=style&index=0&lang=css& ***!
+  \**************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var content = __webpack_require__(/*! !../../../node_modules/css-loader??ref--6-1!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--6-2!../../../node_modules/vue-loader/lib??vue-loader-options!./lectivesStudentActivitiesComponent.vue?vue&type=style&index=0&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/lectivesStudentActivitiesComponent.vue?vue&type=style&index=0&lang=css&");
+var content = __webpack_require__(/*! !../../../node_modules/css-loader??ref--6-1!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--6-2!../../../node_modules/vue-loader/lib??vue-loader-options!./activityQuestionaryComponent.vue?vue&type=style&index=0&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/activityQuestionaryComponent.vue?vue&type=style&index=0&lang=css&");
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -330,10 +244,10 @@ if(false) {}
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/lectivesStudentActivitiesComponent.vue?vue&type=template&id=78d2d105&":
-/*!*************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/lectivesStudentActivitiesComponent.vue?vue&type=template&id=78d2d105& ***!
-  \*************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/activityQuestionaryComponent.vue?vue&type=template&id=c6902e56&":
+/*!*******************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/activityQuestionaryComponent.vue?vue&type=template&id=c6902e56& ***!
+  \*******************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -345,306 +259,464 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "back" }, [
-    _c("div", { staticClass: "row justify-content-center" }, [
-      _c("div", { staticClass: "col-sm-10", attrs: { id: "crud" } }, [
-        _c("div", { staticClass: "card text-center" }, [
-          _c("h3", { staticClass: "card-header fondo" }, [
-            _vm._v("Mis actividades de electivas")
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "card-body" }, [
-            _c(
-              "table",
-              {
-                staticClass:
-                  "table table-responsive-xl table-hover table-striped center"
-              },
-              _vm._l(_vm.planifications, function(plan, t) {
-                return _c("tbody", { key: t }, [
-                  _c(
-                    "tr",
+  return _c("div", [
+    _c("div", { staticClass: "row question" }, [
+      _c(
+        "div",
+        { staticClass: "col-12" },
+        [
+          _c("div", { staticClass: "row" }, [
+            _vm._m(0),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-4 text-right" }, [
+              !_vm.disabled && !_vm.playing
+                ? _c(
+                    "button",
                     {
-                      staticClass: "clickable",
-                      attrs: {
-                        "data-toggle": "collapse",
-                        "data-target": "#accordion" + t
-                      },
+                      staticClass: "btn btn-primary",
                       on: {
                         click: function($event) {
-                          return _vm.getActivities(plan.id_planification)
+                          $event.preventDefault()
+                          return _vm.AddQuestionEvent()
                         }
                       }
                     },
+                    [_vm._v(" Agregar pregunta ")]
+                  )
+                : _vm._e()
+            ])
+          ]),
+          _vm._v(" "),
+          !_vm.playing
+            ? _vm._l(_vm.module.questions, function(question, k_q) {
+                return _c("div", { key: k_q, staticClass: "row" }, [
+                  _c(
+                    "div",
+                    { staticClass: "col-12" },
                     [
-                      _c("td", [
-                        _vm._v(
-                          _vm._s(plan.lective.name) +
-                            " Trimestre " +
-                            _vm._s(plan.period_consecutive)
+                      _c("div", { staticClass: "row" }, [
+                        _c(
+                          "div",
+                          { staticClass: "col-12 text-left" },
+                          [
+                            _c("div", { staticClass: "row" }, [
+                              _c("div", { staticClass: "col-7" }, [
+                                _c("label", [
+                                  _c("span", { staticClass: "required" }, [
+                                    _vm._v("*")
+                                  ]),
+                                  _vm._v(
+                                    "Pregunta N° " + _vm._s(k_q + 1) + " :"
+                                  )
+                                ])
+                              ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "col-5 text-right" }, [
+                                k_q > 0 && !_vm.disabled
+                                  ? _c(
+                                      "button",
+                                      {
+                                        staticClass: "btn btn-warning",
+                                        attrs: { alt: "Remover pregunta" },
+                                        on: {
+                                          click: function($event) {
+                                            $event.preventDefault()
+                                            return _vm.RemoveQuestionEvent(k_q)
+                                          }
+                                        }
+                                      },
+                                      [_vm._v("Remover pregunta")]
+                                    )
+                                  : _vm._e()
+                              ])
+                            ]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "row" }, [
+                              _vm._m(1, true),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "col-12 text-left" }, [
+                                _c(
+                                  "select",
+                                  {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: question.type_question,
+                                        expression: "question.type_question"
+                                      }
+                                    ],
+                                    staticClass: "form-control",
+                                    attrs: { readonly: _vm.disabled },
+                                    on: {
+                                      change: function($event) {
+                                        var $$selectedVal = Array.prototype.filter
+                                          .call($event.target.options, function(
+                                            o
+                                          ) {
+                                            return o.selected
+                                          })
+                                          .map(function(o) {
+                                            var val =
+                                              "_value" in o ? o._value : o.value
+                                            return val
+                                          })
+                                        _vm.$set(
+                                          question,
+                                          "type_question",
+                                          $event.target.multiple
+                                            ? $$selectedVal
+                                            : $$selectedVal[0]
+                                        )
+                                      }
+                                    }
+                                  },
+                                  _vm._l(_vm.question_types, function(
+                                    option,
+                                    k_op
+                                  ) {
+                                    return _c(
+                                      "option",
+                                      {
+                                        key: k_op,
+                                        domProps: { value: option.id }
+                                      },
+                                      [_vm._v(_vm._s(option.label))]
+                                    )
+                                  }),
+                                  0
+                                )
+                              ])
+                            ]),
+                            _vm._v(" "),
+                            _c("editor-component", {
+                              attrs: {
+                                content: question.question,
+                                readonly: _vm.disabled
+                              },
+                              on: {
+                                updateText: function($event) {
+                                  return _vm.SetQuestionEvent($event, k_q)
+                                }
+                              }
+                            })
+                          ],
+                          1
                         )
                       ]),
                       _vm._v(" "),
-                      _c("td"),
+                      question.type_question != "OPEN_RTA"
+                        ? _vm._l(question.options, function(option, k_op) {
+                            return _c(
+                              "div",
+                              { key: k_op, staticClass: "row" },
+                              [
+                                _c("div", { staticClass: "col-11 text-left" }, [
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: option.content,
+                                        expression: "option.content"
+                                      }
+                                    ],
+                                    staticClass: "form-control",
+                                    attrs: {
+                                      type: "text",
+                                      placeholder: "Opción " + (k_op + 1),
+                                      readonly: _vm.disabled
+                                    },
+                                    domProps: { value: option.content },
+                                    on: {
+                                      input: function($event) {
+                                        if ($event.target.composing) {
+                                          return
+                                        }
+                                        _vm.$set(
+                                          option,
+                                          "content",
+                                          $event.target.value
+                                        )
+                                      }
+                                    }
+                                  })
+                                ]),
+                                _vm._v(" "),
+                                _c(
+                                  "div",
+                                  { staticClass: "col-1 div-icon-add" },
+                                  [
+                                    k_op == 0
+                                      ? _c(
+                                          "div",
+                                          {
+                                            staticClass: "icon-add",
+                                            attrs: { alt: "Agregar opción" },
+                                            on: {
+                                              click: function($event) {
+                                                $event.preventDefault()
+                                                return _vm.AddOptionOnQuestion(
+                                                  k_q
+                                                )
+                                              }
+                                            }
+                                          },
+                                          [_vm._v("+")]
+                                        )
+                                      : _vm._e(),
+                                    _vm._v(" "),
+                                    k_op > 1
+                                      ? _c(
+                                          "div",
+                                          {
+                                            staticClass: "icon-remove",
+                                            attrs: { alt: "Remover opción" },
+                                            on: {
+                                              click: function($event) {
+                                                $event.preventDefault()
+                                                return _vm.RemoveOptionOnQuestion(
+                                                  k_q,
+                                                  k_op
+                                                )
+                                              }
+                                            }
+                                          },
+                                          [_vm._v("-")]
+                                        )
+                                      : _vm._e()
+                                  ]
+                                )
+                              ]
+                            )
+                          })
+                        : _vm._e(),
                       _vm._v(" "),
-                      _c("td"),
-                      _vm._v(" "),
-                      _c("td"),
-                      _vm._v(" "),
-                      _c("td"),
-                      _vm._v(" "),
-                      _c("td")
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c("tr", [
-                    _c("td", [
-                      _c(
-                        "div",
-                        {
-                          staticClass: "collapse",
-                          attrs: { id: "accordion" + t }
-                        },
-                        [
-                          _c(
-                            "table",
-                            {
-                              staticClass:
-                                "table table-responsive table-hover table-striped center"
-                            },
-                            [
-                              _vm._m(0, true),
+                      question.type_question != "OPEN_RTA"
+                        ? _c("div", { staticClass: "row" }, [
+                            _c("div", { staticClass: "col-12" }, [
+                              _vm._m(2, true),
                               _vm._v(" "),
                               _c(
-                                "tbody",
-                                _vm._l(_vm.activities, function(actividad, k) {
-                                  return _c("tr", { key: k }, [
-                                    _c("td", [_vm._v(_vm._s(actividad.name))]),
-                                    _vm._v(" "),
-                                    _c("td", [
-                                      _vm._v(_vm._s(actividad.activity_type))
-                                    ]),
-                                    _vm._v(" "),
-                                    _c("td", [
-                                      _vm._v(_vm._s(actividad.delivery_date))
-                                    ]),
-                                    _vm._v(" "),
-                                    _c("td", [
-                                      _vm._v(_vm._s(actividad.feedback_date))
-                                    ]),
-                                    _vm._v(" "),
-                                    _c("td", { attrs: { width: "10px" } }, [
-                                      _c(
-                                        "a",
-                                        {
-                                          staticClass: "btn btn-warning btn-sm",
-                                          on: {
-                                            click: function($event) {
-                                              $event.preventDefault()
-                                              return _vm.showActivity(actividad)
-                                            }
-                                          }
-                                        },
-                                        [_c("i", { staticClass: "fa fa-eye" })]
+                                "select",
+                                {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: question.valid_answer_index,
+                                      expression: "question.valid_answer_index"
+                                    }
+                                  ],
+                                  staticClass: "form-control",
+                                  attrs: { readonly: _vm.disabled },
+                                  on: {
+                                    change: function($event) {
+                                      var $$selectedVal = Array.prototype.filter
+                                        .call($event.target.options, function(
+                                          o
+                                        ) {
+                                          return o.selected
+                                        })
+                                        .map(function(o) {
+                                          var val =
+                                            "_value" in o ? o._value : o.value
+                                          return val
+                                        })
+                                      _vm.$set(
+                                        question,
+                                        "valid_answer_index",
+                                        $event.target.multiple
+                                          ? $$selectedVal
+                                          : $$selectedVal[0]
                                       )
-                                    ])
-                                  ])
-                                }),
-                                0
-                              )
-                            ]
-                          )
-                        ]
-                      )
-                    ])
-                  ])
-                ])
-              }),
-              0
-            )
-          ])
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "modal fade", attrs: { id: "editu" } }, [
-        _c("div", { staticClass: "modal-dialog" }, [
-          _c("div", { staticClass: "modal-content" }, [
-            _c("div", { staticClass: "card" }, [
-              _vm._m(1),
-              _vm._v(" "),
-              _c("div", { staticClass: "card-body" }, [
-                _c(
-                  "div",
-                  {
-                    staticClass: "accordion",
-                    attrs: { id: "accordionExample" }
-                  },
-                  [
-                    _c("div", { staticClass: "card" }, [
-                      _vm._m(2),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        {
-                          staticClass: "collapse show",
-                          attrs: {
-                            id: "collapseOne",
-                            "aria-labelledby": "headingOne",
-                            "data-parent": "#accordionExample"
-                          }
-                        },
-                        [
-                          _c("div", { staticClass: "card-body" }, [
-                            _vm._v(_vm._s(_vm.activity.description))
-                          ])
-                        ]
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "card" }, [
-                      _vm._m(3),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        {
-                          staticClass: "collapse",
-                          attrs: {
-                            id: "collapseTwo",
-                            "aria-labelledby": "headingTwo",
-                            "data-parent": "#accordionExample"
-                          }
-                        },
-                        [
-                          _c("div", { staticClass: "card-body" }, [
-                            _vm._v(
-                              _vm._s(_vm.activity.achievement.content) +
-                                " (" +
-                                _vm._s(_vm.activity.achievement.rate) +
-                                ")%"
-                            )
-                          ])
-                        ]
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "card" }, [
-                      _vm._m(4),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        {
-                          staticClass: "collapse",
-                          attrs: {
-                            id: "collapseThree",
-                            "aria-labelledby": "headingThree",
-                            "data-parent": "#accordionExample"
-                          }
-                        },
-                        [
-                          _c("div", { staticClass: "card-body" }, [
-                            _vm._v(_vm._s(_vm.activity.delivery_date))
-                          ])
-                        ]
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "card" }, [
-                      _vm._m(5),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        {
-                          staticClass: "collapse",
-                          attrs: {
-                            id: "collapseFour",
-                            "aria-labelledby": "headingFour",
-                            "data-parent": "#accordionExample"
-                          }
-                        },
-                        [
-                          _c("div", { staticClass: "card-body" }, [
-                            _vm._v(_vm._s(_vm.activity.feedback_date))
-                          ])
-                        ]
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "card" }, [
-                      _vm._m(6),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        {
-                          staticClass: "collapse",
-                          attrs: {
-                            id: "collapseFive",
-                            "aria-labelledby": "headingFive",
-                            "data-parent": "#accordionExample"
-                          }
-                        },
-                        [
-                          _vm.activity.activity_type == "ENCUESTA_UNICA_RTA"
-                            ? _c(
-                                "form",
-                                { staticClass: "question-module" },
-                                _vm._l(_vm.activity.module, function(
-                                  question,
-                                  k_q
+                                    }
+                                  }
+                                },
+                                _vm._l(question.options, function(
+                                  option,
+                                  k_op
                                 ) {
-                                  return _c("div", { staticClass: "row" }, [
-                                    _c(
-                                      "div",
-                                      { staticClass: "col" },
-                                      [
-                                        _c("label", [
-                                          _vm._v(_vm._s(question.question))
-                                        ]),
-                                        _vm._v(" "),
-                                        _vm._l(
-                                          question.content.options,
-                                          function(option, k_op) {
-                                            return _c(
-                                              "button",
-                                              {
-                                                staticClass: "row q-option",
-                                                class: {
-                                                  "q-option-checked":
-                                                    option.checked
-                                                },
-                                                on: {
-                                                  click: function($event) {
-                                                    $event.preventDefault()
-                                                    return _vm.checkOption(
-                                                      question,
-                                                      option,
-                                                      k_q,
-                                                      k_op
-                                                    )
-                                                  }
-                                                }
-                                              },
-                                              [_vm._v(_vm._s(option.content))]
-                                            )
-                                          }
-                                        )
-                                      ],
-                                      2
-                                    )
-                                  ])
+                                  return _c(
+                                    "option",
+                                    { key: k_op, domProps: { value: k_op } },
+                                    [_vm._v(_vm._s(option.content))]
+                                  )
                                 }),
                                 0
                               )
-                            : _vm._e()
-                        ]
-                      )
-                    ])
-                  ]
-                )
-              ])
-            ])
-          ])
-        ])
-      ])
+                            ])
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "row" }, [
+                        _c(
+                          "div",
+                          { staticClass: "col-12" },
+                          [
+                            _vm._m(3, true),
+                            _vm._v(" "),
+                            _c("editor-component", {
+                              attrs: {
+                                content: question.justify,
+                                readonly: _vm.disabled
+                              },
+                              on: {
+                                updateText: function($event) {
+                                  return _vm.SetJustifyEvent($event, k_q)
+                                }
+                              }
+                            })
+                          ],
+                          1
+                        )
+                      ])
+                    ],
+                    2
+                  )
+                ])
+              })
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.playing
+            ? _vm._l(_vm.module.questions, function(question, k_q) {
+                return _c("div", { key: k_q, staticClass: "row" }, [
+                  _c(
+                    "div",
+                    { staticClass: "col-12" },
+                    [
+                      _c("div", { staticClass: "row" }, [
+                        _c("div", { staticClass: "col-12 text-left" }, [
+                          _c("div", { staticClass: "row" }, [
+                            _c("div", { staticClass: "col-7" }, [
+                              _c("label", [
+                                _c("span", { staticClass: "required" }, [
+                                  _vm._v("*")
+                                ]),
+                                _vm._v("Pregunta N° " + _vm._s(k_q + 1) + " :")
+                              ])
+                            ]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "col-5 text-right" }, [
+                              k_q > 0 && !_vm.disabled
+                                ? _c(
+                                    "button",
+                                    {
+                                      staticClass: "btn btn-warning",
+                                      attrs: { alt: "Remover pregunta" },
+                                      on: {
+                                        click: function($event) {
+                                          $event.preventDefault()
+                                          return _vm.RemoveQuestionEvent(k_q)
+                                        }
+                                      }
+                                    },
+                                    [_vm._v("Remover pregunta")]
+                                  )
+                                : _vm._e()
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("div", {
+                            staticClass: "question_container",
+                            domProps: { innerHTML: _vm._s(question.question) }
+                          })
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      question.type_question != "OPEN_RTA"
+                        ? _vm._l(question.options, function(option, k_op) {
+                            return _c(
+                              "div",
+                              { key: k_op, staticClass: "row" },
+                              [
+                                _c("div", { staticClass: "col-12 text-left" }, [
+                                  _c(
+                                    "button",
+                                    {
+                                      staticClass: "q-option",
+                                      class: {
+                                        "q-option-checked":
+                                          question.response == k_op
+                                      },
+                                      attrs: { disabled: _vm.disabled },
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.SelectOptionEvent(
+                                            k_q,
+                                            k_op
+                                          )
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _vm._v(_vm._s(option.content) + " "),
+                                      k_op == question.valid_answer_index &&
+                                      _vm.disabled
+                                        ? _c("i", {
+                                            staticClass: "fa fa-check"
+                                          })
+                                        : _vm._e()
+                                    ]
+                                  )
+                                ])
+                              ]
+                            )
+                          })
+                        : _vm._e(),
+                      _vm._v(" "),
+                      question.type_question == "OPEN_RTA"
+                        ? [
+                            _c("div", { staticClass: "row" }, [
+                              _c(
+                                "div",
+                                { staticClass: "col-12" },
+                                [
+                                  _c("editor-component", {
+                                    attrs: {
+                                      content: question.response,
+                                      readonly: _vm.disabled
+                                    },
+                                    on: {
+                                      updateText: function($event) {
+                                        return _vm.SetResponseEvent($event, k_q)
+                                      }
+                                    }
+                                  })
+                                ],
+                                1
+                              )
+                            ])
+                          ]
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _vm.disabled
+                        ? _c("div", { staticClass: "row " }, [
+                            _c("div", { staticClass: "col-12" }, [
+                              _c(
+                                "label",
+                                { attrs: { for: "question-answer" } },
+                                [_vm._v("Justificación:")]
+                              ),
+                              _vm._v(" "),
+                              _c("div", {
+                                staticClass: "question-answer",
+                                domProps: {
+                                  innerHTML: _vm._s(question.justify)
+                                }
+                              })
+                            ])
+                          ])
+                        : _vm._e()
+                    ],
+                    2
+                  )
+                ])
+              })
+            : _vm._e()
+        ],
+        2
+      )
     ])
   ])
 }
@@ -653,17 +725,18 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("thead", [
-      _c("tr", [
-        _c("th", [_vm._v("Nombre de la materia")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Tipo de Actividad")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Fecha de entrega límite")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Fecha de retroalimentación")]),
-        _vm._v(" "),
-        _c("th", { attrs: { colspan: "1" } }, [_vm._v(" ")])
+    return _c("div", { staticClass: "col-8 text-left" }, [
+      _c("h4", [_vm._v("Cuestionario")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-12" }, [
+      _c("label", [
+        _c("span", { staticClass: "required" }, [_vm._v("*")]),
+        _vm._v("Tipo de pregunta:")
       ])
     ])
   },
@@ -671,152 +744,19 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("h3", { staticClass: "card-header fondo text-center" }, [
-      _vm._v("\n              Actividad\n              "),
-      _c(
-        "button",
-        {
-          staticClass: "close",
-          attrs: { type: "button", "data-dismiss": "modal" }
-        },
-        [_c("span", [_vm._v("×")])]
-      )
+    return _c("label", { attrs: { for: "question" } }, [
+      _c("span", { staticClass: "required" }, [_vm._v("*")]),
+      _vm._v("Respuesta correcta:")
     ])
   },
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      { staticClass: "card-header", attrs: { id: "headingOne" } },
-      [
-        _c("h2", { staticClass: "mb-0" }, [
-          _c(
-            "button",
-            {
-              staticClass: "btn btn-link",
-              attrs: {
-                type: "button",
-                "data-toggle": "collapse",
-                "data-target": "#collapseOne",
-                "aria-expanded": "true",
-                "aria-controls": "collapseOne"
-              }
-            },
-            [_vm._v("Descripción de la actividad")]
-          )
-        ])
-      ]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      { staticClass: "card-header", attrs: { id: "headingTwo" } },
-      [
-        _c("h2", { staticClass: "mb-0" }, [
-          _c(
-            "button",
-            {
-              staticClass: "btn btn-link collapsed",
-              attrs: {
-                type: "button",
-                "data-toggle": "collapse",
-                "data-target": "#collapseTwo",
-                "aria-expanded": "false",
-                "aria-controls": "collapseTwo"
-              }
-            },
-            [_vm._v("Logro")]
-          )
-        ])
-      ]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      { staticClass: "card-header", attrs: { id: "headingThree" } },
-      [
-        _c("h2", { staticClass: "mb-0" }, [
-          _c(
-            "button",
-            {
-              staticClass: "btn btn-link collapsed",
-              attrs: {
-                type: "button",
-                "data-toggle": "collapse",
-                "data-target": "#collapseThree",
-                "aria-expanded": "false",
-                "aria-controls": "collapseThree"
-              }
-            },
-            [_vm._v("Fecha de entrega")]
-          )
-        ])
-      ]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      { staticClass: "card-header", attrs: { id: "headingFour" } },
-      [
-        _c("h2", { staticClass: "mb-0" }, [
-          _c(
-            "button",
-            {
-              staticClass: "btn btn-link collapsed",
-              attrs: {
-                type: "button",
-                "data-toggle": "collapse",
-                "data-target": "#collapseFour",
-                "aria-expanded": "false",
-                "aria-controls": "collapseFour"
-              }
-            },
-            [_vm._v("Fecha retroalimentación")]
-          )
-        ])
-      ]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      { staticClass: "card-header", attrs: { id: "headingFive" } },
-      [
-        _c("h2", { staticClass: "mb-0" }, [
-          _c(
-            "button",
-            {
-              staticClass: "btn btn-link collapsed",
-              attrs: {
-                type: "button",
-                "data-toggle": "collapse",
-                "data-target": "#collapseFive",
-                "aria-expanded": "false",
-                "aria-controls": "collapseFive"
-              }
-            },
-            [_vm._v("Formulario")]
-          )
-        ])
-      ]
-    )
+    return _c("label", { attrs: { for: "question-answer" } }, [
+      _c("span", { staticClass: "required" }, [_vm._v("*")]),
+      _vm._v("Justificación:")
+    ])
   }
 ]
 render._withStripped = true
@@ -825,18 +765,18 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./resources/js/components/lectivesStudentActivitiesComponent.vue":
-/*!************************************************************************!*\
-  !*** ./resources/js/components/lectivesStudentActivitiesComponent.vue ***!
-  \************************************************************************/
+/***/ "./resources/js/components/activityQuestionaryComponent.vue":
+/*!******************************************************************!*\
+  !*** ./resources/js/components/activityQuestionaryComponent.vue ***!
+  \******************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _lectivesStudentActivitiesComponent_vue_vue_type_template_id_78d2d105___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./lectivesStudentActivitiesComponent.vue?vue&type=template&id=78d2d105& */ "./resources/js/components/lectivesStudentActivitiesComponent.vue?vue&type=template&id=78d2d105&");
-/* harmony import */ var _lectivesStudentActivitiesComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./lectivesStudentActivitiesComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/lectivesStudentActivitiesComponent.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _lectivesStudentActivitiesComponent_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./lectivesStudentActivitiesComponent.vue?vue&type=style&index=0&lang=css& */ "./resources/js/components/lectivesStudentActivitiesComponent.vue?vue&type=style&index=0&lang=css&");
+/* harmony import */ var _activityQuestionaryComponent_vue_vue_type_template_id_c6902e56___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./activityQuestionaryComponent.vue?vue&type=template&id=c6902e56& */ "./resources/js/components/activityQuestionaryComponent.vue?vue&type=template&id=c6902e56&");
+/* harmony import */ var _activityQuestionaryComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./activityQuestionaryComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/activityQuestionaryComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _activityQuestionaryComponent_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./activityQuestionaryComponent.vue?vue&type=style&index=0&lang=css& */ "./resources/js/components/activityQuestionaryComponent.vue?vue&type=style&index=0&lang=css&");
 /* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -847,9 +787,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
-  _lectivesStudentActivitiesComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _lectivesStudentActivitiesComponent_vue_vue_type_template_id_78d2d105___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _lectivesStudentActivitiesComponent_vue_vue_type_template_id_78d2d105___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _activityQuestionaryComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _activityQuestionaryComponent_vue_vue_type_template_id_c6902e56___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _activityQuestionaryComponent_vue_vue_type_template_id_c6902e56___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -859,54 +799,54 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/components/lectivesStudentActivitiesComponent.vue"
+component.options.__file = "resources/js/components/activityQuestionaryComponent.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/components/lectivesStudentActivitiesComponent.vue?vue&type=script&lang=js&":
-/*!*************************************************************************************************!*\
-  !*** ./resources/js/components/lectivesStudentActivitiesComponent.vue?vue&type=script&lang=js& ***!
-  \*************************************************************************************************/
+/***/ "./resources/js/components/activityQuestionaryComponent.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************************!*\
+  !*** ./resources/js/components/activityQuestionaryComponent.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_lectivesStudentActivitiesComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./lectivesStudentActivitiesComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/lectivesStudentActivitiesComponent.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_lectivesStudentActivitiesComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_activityQuestionaryComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./activityQuestionaryComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/activityQuestionaryComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_activityQuestionaryComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/components/lectivesStudentActivitiesComponent.vue?vue&type=style&index=0&lang=css&":
-/*!*********************************************************************************************************!*\
-  !*** ./resources/js/components/lectivesStudentActivitiesComponent.vue?vue&type=style&index=0&lang=css& ***!
-  \*********************************************************************************************************/
+/***/ "./resources/js/components/activityQuestionaryComponent.vue?vue&type=style&index=0&lang=css&":
+/*!***************************************************************************************************!*\
+  !*** ./resources/js/components/activityQuestionaryComponent.vue?vue&type=style&index=0&lang=css& ***!
+  \***************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_lectivesStudentActivitiesComponent_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/style-loader!../../../node_modules/css-loader??ref--6-1!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--6-2!../../../node_modules/vue-loader/lib??vue-loader-options!./lectivesStudentActivitiesComponent.vue?vue&type=style&index=0&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/lectivesStudentActivitiesComponent.vue?vue&type=style&index=0&lang=css&");
-/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_lectivesStudentActivitiesComponent_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_lectivesStudentActivitiesComponent_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_lectivesStudentActivitiesComponent_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_lectivesStudentActivitiesComponent_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
- /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_lectivesStudentActivitiesComponent_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_activityQuestionaryComponent_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/style-loader!../../../node_modules/css-loader??ref--6-1!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--6-2!../../../node_modules/vue-loader/lib??vue-loader-options!./activityQuestionaryComponent.vue?vue&type=style&index=0&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/activityQuestionaryComponent.vue?vue&type=style&index=0&lang=css&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_activityQuestionaryComponent_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_activityQuestionaryComponent_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_activityQuestionaryComponent_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_activityQuestionaryComponent_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_activityQuestionaryComponent_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
 
 /***/ }),
 
-/***/ "./resources/js/components/lectivesStudentActivitiesComponent.vue?vue&type=template&id=78d2d105&":
-/*!*******************************************************************************************************!*\
-  !*** ./resources/js/components/lectivesStudentActivitiesComponent.vue?vue&type=template&id=78d2d105& ***!
-  \*******************************************************************************************************/
+/***/ "./resources/js/components/activityQuestionaryComponent.vue?vue&type=template&id=c6902e56&":
+/*!*************************************************************************************************!*\
+  !*** ./resources/js/components/activityQuestionaryComponent.vue?vue&type=template&id=c6902e56& ***!
+  \*************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_lectivesStudentActivitiesComponent_vue_vue_type_template_id_78d2d105___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./lectivesStudentActivitiesComponent.vue?vue&type=template&id=78d2d105& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/lectivesStudentActivitiesComponent.vue?vue&type=template&id=78d2d105&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_lectivesStudentActivitiesComponent_vue_vue_type_template_id_78d2d105___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_activityQuestionaryComponent_vue_vue_type_template_id_c6902e56___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./activityQuestionaryComponent.vue?vue&type=template&id=c6902e56& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/activityQuestionaryComponent.vue?vue&type=template&id=c6902e56&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_activityQuestionaryComponent_vue_vue_type_template_id_c6902e56___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_lectivesStudentActivitiesComponent_vue_vue_type_template_id_78d2d105___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_activityQuestionaryComponent_vue_vue_type_template_id_c6902e56___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

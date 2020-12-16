@@ -25,6 +25,8 @@
                             <th>Tipo de Actividad</th>
                             <th>Fecha de entrega límite</th>
                             <th>Fecha de retroalimentación</th>
+                            <th>Calificación</th>
+                            <th>Estado</th>
                             <th colspan="1">&nbsp;</th>
                           </tr>
                         </thead>
@@ -34,6 +36,12 @@
                             <td>{{ actividad.activity_type }}</td>
                             <td>{{actividad.deliver_date}}</td>
                             <td>{{actividad.feedback_date}}</td>
+                             <td>{{actividad.qualification}}</td>
+                             <td>
+                                 <span v-if="actividad.activity_state=='1'">Pendiente</span>
+                                 <span v-if="actividad.activity_state=='2'">Esperando calificación</span>
+                                 <span v-if="actividad.activity_state=='3'">Calificada</span>
+                            </td>
                             <td width="10px">
                               <a
                                 class="btn btn-warning btn-sm"
@@ -78,7 +86,7 @@
                   <div class="texttrivia">
                     <div align="center">
                       <h5>Ahora vamos a ver cuanto sabes</h5>
-                      <a :href="'/trivia/'+id_act" class="btn btn-warning">Jugar</a>
+                      <a :href="getUrl()" class="btn btn-warning">{{activity.state==3?'Ver retroalimentación':'Jugar'}}</a>
                     </div>
                   </div>
                 </parallax-container>
@@ -218,12 +226,22 @@ export default {
 
         this.id_act = this.activity.id;
         this.descripcion = this.activity.activity_desc;
-        this.logro = this.activity.achievement;
+        this.logro = this.activity.achievement_data.achievement;
         this.fechaE = this.activity.deliver_date;
         this.fechaR = this.activity.feedback_date;
       });
       $("#editu").modal("show");
     },
+    getUrl(){
+        if(this.activity.activity_type=='questionary_options')
+        {
+            return `/trivia/${this.activity?.id}`;
+        }
+        else
+        {
+            return `/area/${this.activity?.weekly_data?.id_area}/clase/${this.activity?.weekly_data?.id_classroom}/actividad/${this.activity?.id}/jugar`;
+        }
+    }
   },
 };
 </script>

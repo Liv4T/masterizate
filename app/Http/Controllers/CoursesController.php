@@ -12,7 +12,7 @@ use App\CoursesAchievement;
 use App\Classroom;
 use App\ClassroomStudent;
 use App\ClassroomTeacher;
-use App\Classes;
+use App\Classs;
 use Illuminate\Http\Request;
 use Auth;
 
@@ -439,7 +439,7 @@ class CoursesController extends Controller
                 ];
             }
         } elseif ($user->type_user == 2) {
-            $Weeks = Weekly::where('id_teacher', $user->id)->get();
+            $Weeks = Weekly::where('id_teacher', $user->id)->where('id_area', $id_area)->where('id_classroom', $id_classroom)->get();
             $data = [];
             // $data[0] = [
             //     'id'   => 0,
@@ -463,7 +463,7 @@ class CoursesController extends Controller
     {
         $user = Auth::user();
         $data = [];
-        
+
         if($user->type_user==1)
         {
             $Weeks = Weekly::where('id_area', $id_area)->where('id_classroom', $id_classroom)->get();
@@ -472,7 +472,7 @@ class CoursesController extends Controller
         {
             $Weeks = Weekly::where('id_teacher', $user->id)->where('id_area', $id_area)->where('id_classroom', $id_classroom)->get();
         }
-        
+
         $data = [];
         // $data[0] = [
         //     'id'   => 0,
@@ -514,7 +514,7 @@ class CoursesController extends Controller
     }
     public function copyInformation(Request $request)
     {
-    
+
         $data = $request->all();
 
         if(isset($data['fromData']) && isset($data['toData']) && isset($data['fromData']['weekly_planning']['id']))
@@ -559,11 +559,11 @@ class CoursesController extends Controller
             }
             else if($data['fromData']['class_planning']=='all')
             {
-              
-                $class_planning=Classes::where('id_weekly_plan',$data['fromData']['weekly_planning']['id'])->get();
-                
+
+                $class_planning=Classs::where('id_weekly_plan',$data['fromData']['weekly_planning']['id'])->get();
+
                  foreach ($class_planning as $key_c => $clase) {
-                    Classes::create([
+                    Classs::create([
                         'name'=>$clase->name,
                         'description'=> $clase->description,
                         'name_document'=> $clase->name_document,
@@ -581,7 +581,7 @@ class CoursesController extends Controller
                         'observation'=> $clase->observation,
                         'hourly'=> $clase->hourly
                     ]);
-                }   
+                }
 
             }
             else{
@@ -592,9 +592,9 @@ class CoursesController extends Controller
                 }
                 else if($data['toData']['class_planning']=='new')
                 {
-                    $clase=Classes::find($data['fromData']['class_planning']['id']);
+                    $clase=Classs::find($data['fromData']['class_planning']['id']);
 
-                    Classes::create([
+                    Classs::create([
                         'name'=>$clase->name,
                         'description'=> $clase->description,
                         'name_document'=> $clase->name_document,
@@ -613,11 +613,11 @@ class CoursesController extends Controller
                         'hourly'=> $clase->hourly
                     ]);
                 }
-                else 
+                else
                 {
-                    $clase=Classes::find($data['fromData']['class_planning']['id']);
+                    $clase=Classs::find($data['fromData']['class_planning']['id']);
 
-                    Classes::where('id',$data['toData']['class_planning']['id'])->update([
+                    Classs::where('id',$data['toData']['class_planning']['id'])->update([
                         'name'=>$clase->name,
                         'description'=> $clase->description,
                         'name_document'=> $clase->name_document,

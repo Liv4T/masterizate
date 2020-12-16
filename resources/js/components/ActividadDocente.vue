@@ -41,7 +41,7 @@
                     <div class="col-md-6">
                       <label for>Clase:</label>
                       <select class="form-control" ref="seleccionado" required>
-                        <option :value="option.id" v-for="option in myOptions.clase">{{option.text}}</option>
+                        <option :value="option.id" v-for="(option,_opK) in myOptions.clase" v-bind:key="_opK">{{option.text}}</option>
                       </select>
                     </div>
                   </div>
@@ -76,8 +76,8 @@
                 <div class="form-group row mx-auto">
                   <div class="col-md-6">
                     <label>Tipo de actividad</label>
-                    <select class="form-control" required v-model="newActivity">
-                      <option :value="optionA">{{optionA}}</option>
+                    <select class="form-control" required v-model="newActivity" @change="ActivityTypeSelectedEvent" >
+                      <option :value="activity_type.value" v-for="(activity_type, atk) in activities_type" v-bind:key="atk">{{activity_type.label}}</option>
                     </select>
                   </div>
                   <div class="col-md-6">
@@ -90,7 +90,8 @@
                     >
                       <option
                         :value="logr.id"
-                        v-for="logr in myOptions.achievements"
+                        v-for="(logr, logi) in myOptions.achievements"
+                         v-bind:key="logi"
                       >{{logr.achievement}}</option>
                     </select>
                     <div class="invalid-feedback">Please fill out this field</div>
@@ -100,7 +101,8 @@
                     <select class="form-control" v-model="newIndicator" required>
                       <option
                         :value="opt.id"
-                        v-for="opt in fillI"
+                        v-for="(opt,opid) in fillI"
+                        v-bind:key="opid"
                       >{{opt.type_activity +" - "+ opt.activity_rate+"%" }}</option>
                     </select>
                     <div class="invalid-feedback">Please fill out this field</div>
@@ -120,92 +122,93 @@
                 </div>
               </tab-content>
               <tab-content title="Formulario">
-                <div
-                  v-show="
-                                        newActivity == 'Cuestionario 4 opciones'
-                                    "
-                  v-for="(input, k) in inputs"
-                  :key="k"
-                >
-                  <div class="form-group row mx-auto">
-                    <div class="col-md-6">
-                      <label for="name">Pregunta {{ k+1 }}</label>
-                      <span>
-                        <a
-                          href="#"
-                          class="badge badge-danger"
-                          @click.prevent="remove(k)"
-                          v-show="
-                                                        k ||
-                                                            (!k &&
-                                                                inputs.length >
-                                                                    1)
-                                                    "
-                        >-</a>
-                        <a
-                          href="#"
-                          class="badge badge-primary"
-                          @click.prevent="add(k)"
-                          v-show="
-                                                        k == inputs.length - 1
-                                                    "
-                        >+</a>
-                      </span>
-                      <input
-                        type="text"
-                        name="objetive1"
-                        class="form-control"
-                        v-model="input.question"
-                        required
-                      />
+                <template  v-if="newActivity == 'questionary_options'">
+                    <div
+
+                    v-for="(input, k) in inputs"
+                    :key="k">
+                    <div class="form-group row mx-auto">
+                        <div class="col-md-6">
+                        <label for="name">Pregunta {{ k+1 }}</label>
+                        <span>
+                            <a
+                            href="#"
+                            class="badge badge-danger"
+                            @click.prevent="remove(k)"
+                            v-show="
+                                                            k ||
+                                                                (!k &&
+                                                                    inputs.length >
+                                                                        1)
+                                                        "
+                            >-</a>
+                            <a
+                            href="#"
+                            class="badge badge-primary"
+                            @click.prevent="add(k)"
+                            v-show="
+                                                            k == inputs.length - 1
+                                                        "
+                            >+</a>
+                        </span>
+                        <input
+                            type="text"
+                            name="objetive1"
+                            class="form-control"
+                            v-model="input.question"
+                            required
+                        />
+                        </div>
+                        <div class="col-md-6">
+                        <label>Respuesta Correcta</label>
+                        <input
+                            type="text"
+                            name="objetive1"
+                            class="form-control"
+                            v-model="input.correct_answer"
+                            required
+                        />
+                        </div>
+                        <div class="invalid-feedback">Please fill out this field</div>
                     </div>
-                    <div class="col-md-6">
-                      <label>Respuesta Correcta</label>
-                      <input
-                        type="text"
-                        name="objetive1"
-                        class="form-control"
-                        v-model="input.correct_answer"
-                        required
-                      />
+                    <div class="form-group row mx-auto">
+                        <div class="col-md-6">
+                        <label for>Opción 1</label>
+                        <input
+                            type="text"
+                            name="objetive1"
+                            class="form-control"
+                            v-model="input.answer_1"
+                            required
+                        />
+                        </div>
+                        <div class="col-md-6">
+                        <label for>Opción 2</label>
+                        <input
+                            type="text"
+                            name="objetive1"
+                            class="form-control"
+                            v-model="input.answer_2"
+                            required
+                        />
+                        </div>
                     </div>
-                    <div class="invalid-feedback">Please fill out this field</div>
-                  </div>
-                  <div class="form-group row mx-auto">
-                    <div class="col-md-6">
-                      <label for>Opción 1</label>
-                      <input
-                        type="text"
-                        name="objetive1"
-                        class="form-control"
-                        v-model="input.answer_1"
-                        required
-                      />
+                    <div class="form-group row mx-auto">
+                        <div class="col-md-6">
+                        <label for>Opción 3</label>
+                        <input
+                            type="text"
+                            name="objetive1"
+                            class="form-control"
+                            v-model="input.answer_3"
+                            required
+                        />
+                        </div>
                     </div>
-                    <div class="col-md-6">
-                      <label for>Opción 2</label>
-                      <input
-                        type="text"
-                        name="objetive1"
-                        class="form-control"
-                        v-model="input.answer_2"
-                        required
-                      />
                     </div>
-                  </div>
-                  <div class="form-group row mx-auto">
-                    <div class="col-md-6">
-                      <label for>Opción 3</label>
-                      <input
-                        type="text"
-                        name="objetive1"
-                        class="form-control"
-                        v-model="input.answer_3"
-                        required
-                      />
-                    </div>
-                  </div>
-                </div>
+                </template>
+                <activity-teacher-complete-sentence   @refresh-data="RefreshData" v-if="newActivity == 'complete_sentence'"></activity-teacher-complete-sentence>
+                <activity-teacher-open-question    @refresh-data="RefreshData"  v-if="newActivity == 'questionary_open_questions'"></activity-teacher-open-question>
               </tab-content>
             </form-wizard>
           </form>
@@ -264,16 +267,12 @@ export default {
   props: ["week"],
   data() {
     return {
-      inputs: [
-        {
-          question: "",
-          correct_answer: "",
-          answer_1: "",
-          answer_2: "",
-          answer_3: "",
-        },
+      inputs: [],
+      activities_type:[
+          {label:'Cuestionario 4 opciones',value:'questionary_options'},
+          {label:'Completar oración',value:'complete_sentence'},
+          {label:'Cuestionario de preguntas abiertas',value:'questionary_open_questions'},
       ],
-
       myOptions: [],
       optionA: "Cuestionario 4 opciones",
       logros: [],
@@ -295,6 +294,7 @@ export default {
         description: "",
       },
       errors: [],
+      data:{complete:true}
     };
   },
   mounted() {
@@ -320,6 +320,12 @@ export default {
       window.location = "/clases_d";
     },
     createActivity() {
+        if(!this.data.complete)
+        {
+            toastr.warning("Por favor revise que el contenido de la actividad este completo.");
+            return;
+        }
+
       var url = "Activity";
       this.seleccionado = this.$refs.seleccionado.value;
 
@@ -340,6 +346,7 @@ export default {
           activity_type: this.newActivity,
           id_indicator: this.newIndicator,
           trivia: this.newTrivia,
+          activity_data:this.data
         })
         .then((response) => {
           this.errors = [];
@@ -350,6 +357,7 @@ export default {
         .catch((error) => {
           this.errors = error.response.data;
         });
+
     },
     Indicator(id) {
       var urli = window.location.origin + "/getIndicator/" + id;
@@ -357,6 +365,26 @@ export default {
         this.fillI = response.data;
       });
     },
+    RefreshData(data)
+    {
+        this.data=data;
+    },
+    ActivityTypeSelectedEvent()
+    {
+        if(this.newActivity=='questionary_options')
+        {
+            this.inputs=[ {
+                question: "",
+                correct_answer: "",
+                answer_1: "",
+                answer_2: "",
+                answer_3: "",
+            }];
+        }
+        else{
+            this.inputs=[];
+        }
+    }
   },
 };
 </script>
