@@ -14,7 +14,7 @@
     <menu-adm></menu-adm>
     <inicio-component></inicio-component>
  @endif
-
+<memory-create></memory-create>
 <div class="container">
 
     <div class="row justify-content-center">

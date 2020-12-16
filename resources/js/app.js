@@ -167,6 +167,8 @@ Vue.component("repository-students", () => import("./components/repositoryStuden
 Vue.component("repository-comments", () => import("./components/repositoryComments.vue"));
 Vue.component("student-comments", () => import("./components/repositoryStudentComments.vue"));
 
+Vue.component("memory-create", () => import("./components/crearMemoria.vue"));
+
 Vue.component("repo-student", () => import("./components/repositoryStudentView.vue"));
 Vue.component("repository-upload", () => import("./components/repositoryStudentUpload.vue"));
 Vue.component("test-firebase", () => import("./components/testFirebase.vue"));
