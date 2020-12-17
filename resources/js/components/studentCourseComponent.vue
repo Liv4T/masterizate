@@ -13,7 +13,25 @@
                             >{{ nameArea }}</span
                         >
                     </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <b>Clase presencial:</b>
 
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            Nombre de clase Fecha:00/00/0000 Hora:00/00/0000
+                        </div>
+                        <div class="col-md-6">
+                              <a
+                                class="btn btn-warning float-right"
+                                href=""
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                >Ir a la clase</a>
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="col-12"></div>
                         <div class="col-12">
@@ -183,6 +201,80 @@
                                             <h5 style="color:#f79d52">
                                                 Actividad N°{{ key_a + 1 }} :
                                                 {{ act.name }}
+                                            </h5>
+                                            <button
+                                                class="btn btn-primary"
+                                                v-if="
+                                                    act.interaction.state<3 &&
+                                                        activity.id != act.id
+                                                "
+                                                @click.prevent="
+                                                    openQuestion(key_a)
+                                                "
+                                            >
+                                                {{act.interaction.state==2?'Esperando calificación':'Presentar'}}
+                                            </button>
+
+                                            <button
+                                                class="btn btn-warning"
+                                                v-if="activity.id == act.id"
+                                                @click.prevent="closeQuestion()"
+                                            >
+                                                Cancelar
+                                            </button>
+                                            <button
+                                                class="btn btn-primary"
+                                                v-if="
+                                                  act.interaction.state==3 &&
+                                                        activity.id != act.id
+                                                "
+                                                @click.prevent="
+                                                    openFeedback(key_a)
+                                                "
+                                            >
+                                                Ver retroalimentación
+                                            </button>
+                                        </div>
+                                        <div
+                                            class="card-body"
+                                            v-if="activity.id == act.id"
+                                        >
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <b>Descripción:</b>
+                                                    <textarea
+                                                        class="form-control-plaintext"
+                                                        v-model="
+                                                            activity.description
+                                                        "
+                                                        readonly
+                                                    ></textarea>
+                                                </div>
+                                            </div>
+                                            <activity-questionary v-if="activity.activity_type=='CUESTIONARIO'" v-bind:playing="true" v-bind:module="activity.module" v-bind:disabled="activity.interaction.state>1"></activity-questionary>
+                                            <activity-complete-sentence v-if="activity.activity_type=='COMPLETAR_ORACION'" v-bind:playing="true" v-bind:module="activity.module" v-bind:disabled="activity.interaction.state>1"></activity-complete-sentence>
+                                            <activity-relationship v-if="activity.activity_type=='RELACION'" v-bind:playing="true" v-bind:module="activity.module" v-bind:disabled="activity.interaction.state>1"></activity-relationship>
+                                            <activity-crossword v-if="activity.activity_type=='CRUCIGRAMA'" v-bind:playing="true" v-bind:module="activity.module" v-bind:disabled="activity.interaction.state>1"></activity-crossword>
+                                            <div class="activity_response-button">
+                                                <button class="btn btn-primary" v-if="activity.interaction.state==1" @click="SaveResponseEvent(activity)">Enviar respuestas</button>
+
+                                            </div>
+                                            <div>Calificación: <span class="activity_score" v-if="activity.interaction.state==3">{{activity.interaction.score}}<small>/5</small></span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--card -->
+                            </div>
+                            <div
+                                class="row justify-content-center margin-top-50"
+                                v-for="(act, key_a) in course.activities"
+                                v-bind:key="key_a"
+                            >
+                                <div class="col-10">
+                                    <div class="card">
+                                        <div class="card-header card-title">
+                                            <h5 style="color:#f79d52">
+                                                Entrega N°{{ key_a + 1 }}
                                             </h5>
                                             <button
                                                 class="btn btn-primary"
