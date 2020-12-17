@@ -1657,7 +1657,7 @@ var staticRenderFns = [
     return _c("div", { staticClass: "row" }, [
       _c("div", { staticClass: "col-md-6" }, [
         _vm._v(
-          "\n                        Nombre de clase Fecha:00/00/0000 Hora:00/00/0000\n                    "
+          "\n                        Nombre de clase Fecha:17/12/2020 Hora:3:00PM\n                    "
         )
       ]),
       _vm._v(" "),
@@ -1666,7 +1666,11 @@ var staticRenderFns = [
           "a",
           {
             staticClass: "btn btn-warning float-right",
-            attrs: { href: "", target: "_blank", rel: "noopener noreferrer" }
+            attrs: {
+              href: "https://meet.google.com/uxb-miog-got",
+              target: "_blank",
+              rel: "noopener noreferrer"
+            }
           },
           [_vm._v("Ir a la clase")]
         )

@@ -21,12 +21,12 @@
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            Nombre de clase Fecha:00/00/0000 Hora:00/00/0000
+                            Nombre de clase Fecha:17/12/2020 Hora:3:00PM
                         </div>
                         <div class="col-md-6">
                               <a
                                 class="btn btn-warning float-right"
-                                href=""
+                                href="https://meet.google.com/uxb-miog-got"
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 >Ir a la clase</a>
