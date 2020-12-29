@@ -1360,7 +1360,7 @@ var staticRenderFns = [
     return _c("div", { staticClass: "row" }, [
       _c("div", { staticClass: "col-md-6" }, [
         _vm._v(
-          "\n                        Nombre de clase Fecha:17/12/2020 Hora:3:00PM\n                    "
+          "\n                        Nombre de clase Fecha:29/12/2020 Hora:10:30AM\n                    "
         )
       ]),
       _vm._v(" "),
