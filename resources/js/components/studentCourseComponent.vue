@@ -21,7 +21,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            Nombre de clase Fecha:17/12/2020 Hora:3:00PM
+                            Nombre de clase Fecha:29/12/2020 Hora:10:30AM
                         </div>
                         <div class="col-md-6">
                               <a
