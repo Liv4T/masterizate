@@ -30,10 +30,13 @@ class LectivesController extends Controller
      */
     public function getLectives()
     {
+        $lectives = [];
         $auth = Auth::user();
 
+        if(!isset($auth)) return response()->json($lectives);
+
         $user = User::find($auth->id);
-        $lectives = [];
+
         if ($user->type_user == 1) {//admin
 
             $lectivePlanifications = LectivePlanification::where('deleted',0)->get();
@@ -78,24 +81,24 @@ class LectivesController extends Controller
                             'id_updated_user'=>$planification->updated_user
                         ]
                     );
-                  
+
                 }
 
             }
         } elseif ($user->type_user == 3) { // student
-            
+
             $lectives_student=LectiveStudent::where('id_student',$user->id)->where('deleted',0)->get();
 
-            foreach ($lectives_student as $key_i=> $lective_student) 
+            foreach ($lectives_student as $key_i=> $lective_student)
             {
                 $lectivePlanifications = LectivePlanification::where('deleted',0)->where('id',$lective_student->id_lective_planification)->get();
 
                 foreach ($lectivePlanifications as $key_j => $planification) {
 
-             
+
 
                     $lective=Lective::where('id',$planification->id_lective)->where('deleted',0)->first();
-    
+
                     if(isset($lective))
                     {
                         $lectives[$key_i+$key_j]=[
@@ -109,9 +112,9 @@ class LectivesController extends Controller
                             'id_updated_user'=>$planification->updated_user,
                         ];
                     }
-    
+
                 }
-            }           
+            }
         }
         return response()->json($lectives);
     }
@@ -149,13 +152,13 @@ class LectivesController extends Controller
         $ret_model['lective']=[
             'id_lective'=>$lective->id,
             'name'=>$lective->name,
-        ];  
+        ];
 
         $ret_model['achievements']=LectiveAchievement::where('id_lective_planification',$planification->id)->where('deleted',0)->get();
 
         $ret_model['quarterlies']=LectiveQuarterlyPlan::where('id_lective_planification',$planification->id)->where('deleted',0)->get();
 
-        $ret_model['weeklies']=LectiveWeeklyPlan::where('id_lective_planification',$planification->id)->where('deleted',0)->get();    
+        $ret_model['weeklies']=LectiveWeeklyPlan::where('id_lective_planification',$planification->id)->where('deleted',0)->get();
 
         return response()->json($ret_model);
     }
@@ -171,8 +174,8 @@ class LectivesController extends Controller
 
         $auth = Auth::user();
 
-        $user = User::find($auth->id);       
-  
+        $user = User::find($auth->id);
+
         foreach ($data['achievements'] as  $achievement) {
             if(!empty($achievement['id']))
             {
@@ -208,9 +211,9 @@ class LectivesController extends Controller
                 ]);
             }
         }
-     
+
       return response()->json($data);
-    }    
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -235,7 +238,7 @@ class LectivesController extends Controller
 
         if(isset($data['id_indicator']) && $data['id_indicator']!=0)
         {
-            LectiveIndicator::where('id', $data['id_indicator'])->update(array('type_activity'=>$data['type_activity'], 'rate'=>$data['rate'], 'updated_user'=>$auth->id));     
+            LectiveIndicator::where('id', $data['id_indicator'])->update(array('type_activity'=>$data['type_activity'], 'rate'=>$data['rate'], 'updated_user'=>$auth->id));
         }
         else{
             LectiveIndicator::create([
@@ -259,7 +262,7 @@ class LectivesController extends Controller
      */
     public function updateIndicator(Request $request, $id_lective_indicator){
         $data = $request->all();
-        Indicator::where('id', $id_lective_indicator)->update(array('type_activity'=>$data['type_activity'], 'rate'=>$data['rate'], 'updated_user'=>$auth->id));     
+        Indicator::where('id', $id_lective_indicator)->update(array('type_activity'=>$data['type_activity'], 'rate'=>$data['rate'], 'updated_user'=>$auth->id));
 
         return 'ok';
     }
@@ -289,8 +292,8 @@ class LectivesController extends Controller
         $auth = Auth::user();
 
         $user = User::find($auth->id);
-       
-  
+
+
         foreach ($data['weeklies'] as  $weekly_plan) {
             if(!empty($weekly_plan['id']))
             {
@@ -310,13 +313,13 @@ class LectivesController extends Controller
             }
         }
 
-     
+
       return response()->json($data);
     }
 
 
 
-    
+
      /**
      * Display a listing of the resource.
      *
@@ -335,7 +338,7 @@ class LectivesController extends Controller
 
 
         foreach ($courses as $key_course => $course) {
-            
+
 
             $course_content_data=LectiveClassContent::where('deleted',0)->where('id_lective_class',$course->id)->get();
 
@@ -387,7 +390,7 @@ class LectivesController extends Controller
 
         foreach ($data as $key => $item) {
 
-            
+
             if(isset($item['id_class']) && $item['id_class']!=0 )
             {
                 LectiveClass::where('id',$item['id_class'])->update(array('name'=>$item['name'],'description'=>$item['description'],'hourly_intensity'=>$item['hourly_intensity'],'updated_user'=> $user->id));
@@ -448,7 +451,7 @@ class LectivesController extends Controller
                 }
             }
 
-            
+
 
 
         }
@@ -470,15 +473,15 @@ class LectivesController extends Controller
         $students = [];
 
         $lective_students= LectiveStudent::where('id_lective_planification',$id_lective_planification)->where('deleted',0)->where('state',1)->get();
-      
+
         foreach ($lective_students as $key_i => $lective_student) {
             $user=User::find($lective_student->id_student);
 
             $user_grade=ClassroomStudent::where('id_user',$lective_student->id_student)->first();
             if(isset($user_grade)){$classroom=Classroom::find( $user_grade->id_classroom);}else{$classroom=null;}
-      
 
-            
+
+
 
             array_push($students,[
                 'id_user'=>$lective_student->id_student,
@@ -513,7 +516,7 @@ class LectivesController extends Controller
 
 
         foreach ($user_identification_finded as $key_i => $user) {
-           
+
 
             array_push($students,[
                 'id_user'=>$user->id,
@@ -527,7 +530,7 @@ class LectivesController extends Controller
 
 
         foreach ($user_lastname_finded as $key_i => $user) {
-           
+
 
             array_push($students,[
                 'id_user'=>$user->id,
@@ -540,9 +543,9 @@ class LectivesController extends Controller
         }
 
 
-        
+
         foreach ($user_name_finded as $key_i => $user) {
-           
+
 
             array_push($students,[
                 'id_user'=>$user->id,
@@ -629,9 +632,9 @@ class LectivesController extends Controller
     public function getActivities(int $id_lective_planification,int $id_weekly_plan,int $id_class)
     {
         $lective_activities=LectiveActivity::where('id_lective_class',$id_class)->where('deleted',0)->get();
-        return response()->json($lective_activities);   
+        return response()->json($lective_activities);
     }
-    
+
     /**
      * Store a newly created resource in storage.
      *
@@ -644,8 +647,8 @@ class LectivesController extends Controller
 
 
 
-     
-           
+
+
             if(isset($data['id_activity']) && $data['id_activity']!=0)
             {
                  LectiveActivity::where('id',$data['id_activity'])->update(array(
@@ -720,9 +723,9 @@ class LectivesController extends Controller
                         ]);
                     }
 
-                   
+
                 }
-                
+
 
             }
 
@@ -732,7 +735,7 @@ class LectivesController extends Controller
     }
 
 
-    
+
     /**
      * Store a newly created resource in storage.
      *
@@ -769,7 +772,7 @@ class LectivesController extends Controller
                                         'response'=>LectiveActivityQuestionAnswer::where('id_lective_activity_question',$question->id)->where('deleted',0)->where('id_student',$auth->id)->first()
                                     ]);
                                 }
-                             
+
                             }
 
                             array_push($activities,[
@@ -785,18 +788,18 @@ class LectivesController extends Controller
                                 'indicator'=>$indicator,
                                 'achievement'=> $achievement,
                                 'module'=>$module
-                            ]);   
+                            ]);
                         }
-                       
-                 
-    
+
+
+
                 }
             }
 
-        return response()->json($activities);   
+        return response()->json($activities);
     }
 
 
-    
+
 
 }

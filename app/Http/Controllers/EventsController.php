@@ -70,7 +70,7 @@ class EventsController extends Controller
         $eventos = [];
         $user = Auth::user();
         $date =  Carbon::now();
-        if ($user->type_user == 2) {
+        if (isset($user) && $user->type_user == 2) {
             $eventos_teacher = Eventos::where('id_user', $user->id)->orderBy('date_from', 'ASC')->get();
             foreach ($eventos_teacher as $index => $evento) {
                 $dateTo = Carbon::parse($evento->date_to);
@@ -98,7 +98,7 @@ class EventsController extends Controller
                     ];
                 }
             }
-        } elseif ($user->type_user == 3) {
+        } elseif (isset($user) && $user->type_user == 3) {
             $classroom_student = ClassroomStudent::where('id_user', $user->id)->first();
             $eventos_student = Eventos::where('id_classroom', $classroom_student->id_classroom)->orderBy('date_from', 'ASC')->get();
             foreach ($eventos_student as $index => $evento) {
@@ -167,7 +167,7 @@ class EventsController extends Controller
                     }
                 }
             }
-        } elseif ($user->type_user == 1) {
+        } elseif (isset($user) && $user->type_user == 1) {
             $eventos_all = Eventos::orderBy('date_from', 'ASC')->get();
             foreach ($eventos_all as $index => $evento) {
                 $dateTo = Carbon::parse($evento->date_to);

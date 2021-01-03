@@ -84,6 +84,8 @@ class CoursesController extends Controller
         //
         $auth = Auth::user();
 
+        if(!isset($auth)) return response()->json([]);
+
         $user = User::find($auth->id);
         $areas = [];
         if ($user->type_user == 1) {
