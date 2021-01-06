@@ -484,6 +484,7 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
       var _this5 = this;
 
       this.activity = this.course.activities[id_activity];
+      console.log(this.activity);
 
       if ("CUESTIONARIO_UNICA_RTA" == this.activity.activity_type) {
         this.activity.correct_answers = 0;
@@ -655,7 +656,8 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
       console.log(activity);
       axios.put("/api/student/module/".concat(this.id_module, "/class/").concat(this.id_class, "/activity/").concat(activity.id, "/interaction"), activity).then(function (response) {
         // this.getPlanificationEvent(this.id_lective_planification);
-        toastr.success("Actividad enviada correctamente"); // location.reload();
+        toastr.success("Actividad enviada correctamente");
+        location.reload();
       }, function (error) {
         console.log(error);
         toastr.error("ERROR:Por favor valide que la información esta completa");
