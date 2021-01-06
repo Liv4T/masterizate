@@ -491,6 +491,7 @@ export default {
         },
         openFeedback(id_activity) {
             this.activity = this.course.activities[id_activity];
+              console.log(this.activity);
 
             if ("CUESTIONARIO_UNICA_RTA" == this.activity.activity_type) {
                 this.activity.correct_answers = 0;
@@ -691,14 +692,13 @@ export default {
 
             console.log(activity);
 
-
             axios
                 .put(`/api/student/module/${this.id_module}/class/${this.id_class}/activity/${activity.id}/interaction`,activity)
                 .then(
                     response => {
                         // this.getPlanificationEvent(this.id_lective_planification);
                         toastr.success("Actividad enviada correctamente");
-                       // location.reload();
+                        location.reload();
                     },
                     error => {
                         console.log(error);

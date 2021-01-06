@@ -277,21 +277,26 @@ class ClassController extends Controller
 
                 if(isset($activity_crossword))
                 {
-                    $student_response=[];
+                    $student_response=null;
                     if($user->type_user==3)//student
                     {
-                        $student_response=ActivityCrosswordInteraction::where('id_activity_crossword',$activity_crossword->id)->where('id_student',$user->id)->where('deleted',0)->where('state',1)->first();
+                        $student_response=ActivityCrosswordInteraction::where('id_activity_crossword',$activity_crossword->id)->where('id_student',$user->id)->where('deleted',0)->first();
 
                         if(!isset($student_response))
                         {
-                            $student_response=[];
+                            $student_response=null;
                         }
                     }
                     $module=json_decode($activity_crossword->content,true);
 
                     $module['id']=$activity_crossword->id;
                     $module['state']=$activity_crossword->state;
-                    $module['student_response']=$student_response;
+
+                    if(isset($student_response))
+                    {
+                        $module['words']=json_decode($student_response->response);
+                    }
+
 
                 }
 
@@ -490,9 +495,6 @@ class ClassController extends Controller
                 }
 
                 if($is_qualified){
-                    print_r($score);
-                    print_r('-');
-                    print_r($r_index);
                     $score=$score/$r_index;
                     $g_score+=$score;
                 }
@@ -519,42 +521,63 @@ class ClassController extends Controller
         }
 
         if($data['activity_type']=='CRUCIGRAMA')
-        {/*
-            $q_index=0;
-            $q_score=0;
-            foreach($data['module']['questions'] as $i_question => $question) {
+        {
+                $module=$data['module'];
 
-                $q_index++;
+
+                $g_index++;
 
                 //calcule score
                 $score=0;
-                if($question['type_question']=='SIMPLE_RTA')
+                $is_qualified=false;
+
+                if(isset($module['words']))
                 {
-                    if($question['response']==$question['valid_answer_index'])
+                    $is_qualified=true;
+                    $r_index=0;
+                    for($i=0;$i<count($module['words']);$i++)
                     {
-                        $score=5;
-                        $q_score+=5;
+                        $response_word=$module['words'][$i]['response'];
+                        $correct_word=$module['words'][$i]['word'];
+                        if(strtolower($response_word)==strtolower($correct_word))
+                        {
+                            $score+=1;
+                        }
+
+                        $r_index++;
                     }
+
+
+
                 }
 
-                $activity_q_interaction=ActivityQuestionInteraction::where('id_activity_question',$question['id'])->where('id_student',$auth->id)->where('deleted',0)->first();
+                if($is_qualified){
+                    $score=$score/$r_index;
+                    $g_score+=$score;
+                }
 
-                if(isset($activity_q_interaction))
+
+                $module_interaction=ActivityCrosswordInteraction::where('id_activity_crossword',$module['id'])->where('id_student',$auth->id)->where('deleted',0)->first();
+
+                if(isset($module_interaction))
                 {
-                    ActivityQuestionInteraction::where('id_activity_question',$question['id'])->where('id_student',$auth->id)->where('deleted',0)->update(array('response'=>$question['response'],'score'=>$score,'state'=>1,'deleted'=>0,'updated_user'=>$auth->id));
+                    ActivityCrosswordInteraction::where('id_activity_crossword',$module['id'])->where('id_student',$auth->id)->where('deleted',0)->update(array('response'=>json_encode($module['words']),'score'=>$score*$base_score,'state'=>($is_qualified?2:1),'deleted'=>0,'updated_user'=>$auth->id));
                 }
                 else{
-                    ActivityQuestionInteraction::create([
-                        'id_activity_question'=>$question['id'],
+                    ActivityCrosswordInteraction::create([
+                        'id_activity_crossword'=>$module['id'],
                         'id_student'=>$auth->id,
-                        'response'=>$question['response'],
-                        'score'=>$score,'state'=>1,
+                        'response'=>json_encode($module['words']),
+                        'score'=>$score*$base_score,
+                        'state'=>($is_qualified?2:1),
                         'deleted'=>0,
                         'updated_user'=>$auth->id
                     ]);
                 }
-            }*/
+
         }
+
+
 
         if(isset($data['interaction']) && isset($data['interaction']['id']))
         {
