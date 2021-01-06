@@ -61,6 +61,7 @@
                             <div  class="crossword_table_row" v-for="(row,k_row) in table" v-bind:key="k_row" >
                                 <div class="crossword_table_col_resp_input" v-for="(col,k_col) in row.cols" v-bind:key="k_col">
                                     <input v-if="!col.title" :ref="'input_'+k_row+'_'+k_col" @change="InputResponseChanged(k_row,k_col)" @input="col.letter = $event.target.value.toUpperCase()" class="crossword_table_col_input " :maxlength="1"  type="text" v-model="col.response" @keyup.down="downEvent(k_row,k_col)" @keyup.right="rightEvent(k_row,k_col)" @keyup.up="topEvent(k_row,k_col)" @keyup.left="leftEvent(k_row,k_col)" v-bind:class="{ 'crossword_table_col_resp_input-active': (col.letter!='' && col.letter!=null) }"  />
+                                    {{col.response}}
                                     <span v-if="col.title">{{col.response}}</span>
                                 </div>
                             </div>
@@ -128,6 +129,8 @@ export default {
                 let w_i=1;
                 this.words.forEach(w=>{
 
+                    console.log('pos:',w_i);
+                    console.log('compare:',w.letters[0],w.letters[1]);
                     if(w.letters[0].r==w.letters[1].r)
                     {
                        let _c= w.letters[0].c-1;
@@ -137,6 +140,7 @@ export default {
                     {
                         let _r= w.letters[0].r-1;
                        this.table[_r].cols[w.letters[0].c]={letter:w_i,response:w_i,title:true};
+                       console.log(this.table[_r]);
                     }
 
                     w_i++;

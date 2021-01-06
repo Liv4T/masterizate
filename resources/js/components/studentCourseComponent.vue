@@ -209,7 +209,7 @@
                                                         activity.id != act.id
                                                 "
                                                 @click.prevent="
-                                                    openQuestion(key_a)
+                                                    openActivity(key_a)
                                                 "
                                             >
                                                 {{act.interaction.state==2?'Esperando calificación':'Presentar'}}
@@ -259,7 +259,7 @@
                                                 <button class="btn btn-primary" v-if="activity.interaction.state==1" @click="SaveResponseEvent(activity)">Enviar respuestas</button>
 
                                             </div>
-                                            <div>Calificación: <span class="activity_score" v-if="activity.interaction.state==3">{{activity.interaction.score}}<small>/5</small></span></div>
+                                            <div v-if="activity.interaction.state==3">Calificación: <span class="activity_score" >{{activity.interaction.score}}<small>/5</small></span></div>
                                         </div>
                                     </div>
                                 </div>
@@ -477,7 +477,7 @@ export default {
                     });
             }
         },
-        openQuestion(id_activity) {
+        openActivity(id_activity) {
             this.activity = this.course.activities[id_activity];
             console.log(this.activity);
 /*
@@ -688,6 +688,10 @@ export default {
         },
         SaveResponseEvent(activity)
         {
+
+            console.log(activity);
+
+
             axios
                 .put(`/api/student/module/${this.id_module}/class/${this.id_class}/activity/${activity.id}/interaction`,activity)
                 .then(

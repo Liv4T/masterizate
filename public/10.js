@@ -86,6 +86,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['module', 'disabled', 'playing'],
@@ -145,6 +146,9 @@ __webpack_require__.r(__webpack_exports__);
       if (this.playing) {
         var w_i = 1;
         this.words.forEach(function (w) {
+          console.log('pos:', w_i);
+          console.log('compare:', w.letters[0], w.letters[1]);
+
           if (w.letters[0].r == w.letters[1].r) {
             var _c = w.letters[0].c - 1;
 
@@ -161,6 +165,7 @@ __webpack_require__.r(__webpack_exports__);
               response: w_i,
               title: true
             };
+            console.log(_this.table[_r]);
           }
 
           w_i++;
@@ -320,7 +325,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.crossword{\r\n    background-color:#e9ecefb5;\r\n    padding:5px;\n}\n.crossword_table{\r\n    width:100%;\r\n    display: flex;\r\n    flex-direction: row;\r\n    justify-content: center;\r\n    align-items: center;\n}\n.crossword_table_row{\r\n    display: flex;\r\n    flex-direction: column;\r\n    justify-content: center;\r\n    align-items: center;\n}\n.crossword_table_col{\r\n    display: flex;\r\n    flex-direction: row;\r\n    justify-content: center;\r\n    align-items: center;\r\n    border:1px solid #e2e2e2;\n}\n.crossword_table_col_input{\r\n    width:40px;\r\n    height: 40px;\r\n    text-align: center;\r\n    border:2px solid #fff;\r\n    text-transform: uppercase;\n}\n.crossword_table_col_input-active\r\n{\r\n    border:2px solid #4b87f7;\n}\n.crossword_table_col_resp_input{\r\n  width:40px;\r\n  height: 40px;\r\n  padding:1px;\n}\n.crossword_table_col_resp_input-active\r\n{\r\n    border:1px solid #4b87f7;\n}\r\n", ""]);
+exports.push([module.i, "\n.crossword{\n    background-color:#e9ecefb5;\n    padding:5px;\n}\n.crossword_table{\n    width:100%;\n    display: flex;\n    flex-direction: row;\n    justify-content: center;\n    align-items: center;\n}\n.crossword_table_row{\n    display: flex;\n    flex-direction: column;\n    justify-content: center;\n    align-items: center;\n}\n.crossword_table_col{\n    display: flex;\n    flex-direction: row;\n    justify-content: center;\n    align-items: center;\n    border:1px solid #e2e2e2;\n}\n.crossword_table_col_input{\n    width:40px;\n    height: 40px;\n    text-align: center;\n    border:2px solid #fff;\n    text-transform: uppercase;\n}\n.crossword_table_col_input-active\n{\n    border:2px solid #4b87f7;\n}\n.crossword_table_col_resp_input{\n  width:40px;\n  height: 40px;\n  padding:1px;\n}\n.crossword_table_col_resp_input-active\n{\n    border:1px solid #4b87f7;\n}\n", ""]);
 
 // exports
 
@@ -745,7 +750,11 @@ var render = function() {
                                       }
                                     })
                                   : _vm._e(),
-                                _vm._v(" "),
+                                _vm._v(
+                                  "\n                                " +
+                                    _vm._s(col.response) +
+                                    "\n                                "
+                                ),
                                 col.title
                                   ? _c("span", [_vm._v(_vm._s(col.response))])
                                   : _vm._e()

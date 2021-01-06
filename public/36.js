@@ -468,7 +468,7 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
         });
       }
     },
-    openQuestion: function openQuestion(id_activity) {
+    openActivity: function openActivity(id_activity) {
       this.activity = this.course.activities[id_activity];
       console.log(this.activity);
       /*
@@ -652,6 +652,7 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
       return 'https://www.youtube.com/embed/' + split_simple_link[split_simple_link.length - 1];
     },
     SaveResponseEvent: function SaveResponseEvent(activity) {
+      console.log(activity);
       axios.put("/api/student/module/".concat(this.id_module, "/class/").concat(this.id_class, "/activity/").concat(activity.id, "/interaction"), activity).then(function (response) {
         // this.getPlanificationEvent(this.id_lective_planification);
         toastr.success("Actividad enviada correctamente"); // location.reload();
@@ -1082,7 +1083,7 @@ var render = function() {
                                     on: {
                                       click: function($event) {
                                         $event.preventDefault()
-                                        return _vm.openQuestion(key_a)
+                                        return _vm.openActivity(key_a)
                                       }
                                     }
                                   },
@@ -1250,10 +1251,10 @@ var render = function() {
                                     ]
                                   ),
                                   _vm._v(" "),
-                                  _c("div", [
-                                    _vm._v("Calificación: "),
-                                    _vm.activity.interaction.state == 3
-                                      ? _c(
+                                  _vm.activity.interaction.state == 3
+                                    ? _c("div", [
+                                        _vm._v("Calificación: "),
+                                        _c(
                                           "span",
                                           { staticClass: "activity_score" },
                                           [
@@ -1265,8 +1266,8 @@ var render = function() {
                                             _c("small", [_vm._v("/5")])
                                           ]
                                         )
-                                      : _vm._e()
-                                  ])
+                                      ])
+                                    : _vm._e()
                                 ],
                                 1
                               )
