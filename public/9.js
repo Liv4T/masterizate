@@ -76,27 +76,47 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['module', 'disabled', 'playing'],
   data: function data() {
     return {};
   },
   mounted: function mounted() {
-    /*
-    if(this.module)
-    {
-        this.module.sentences=JSON.parse(this.data).sentences;
-        this.module.sentences.forEach(s=>{
-            if(!s.responses) s.responses=[];
-              s.properties.forEach(p=>{
-                s.responses.push('');
-            })
+    if (this.module) {
+      if (this.playing) {
+        this.module.sentences.forEach(function (s) {
+          if (!s.student_response || s.student_response.length == 0) s.student_response = s.properties.map(function (p) {
+            return {
+              content: p.text,
+              response: ''
+            };
+          });
         });
+      }
+    } else {
+      this.module.sentences = [];
     }
-    else{
-        this.module.sentences=[];
-    }*/
-    //this.module.sentences=[];
   },
   methods: {
     AddSentenceEvent: function AddSentenceEvent() {
@@ -182,6 +202,18 @@ __webpack_require__.r(__webpack_exports__);
           return p.text == '';
         }).length == 0
       });
+    },
+    EvaluateReponse: function EvaluateReponse(student_response) {
+      if (!student_response) return false;
+      if (!student_response.response) return false;
+      if (!student_response.content) return false;
+      var contains = false;
+      student_response.content.toLowerCase().split(',').forEach(function (i) {
+        if (i == student_response.response.toLowerCase()) {
+          contains = true;
+        }
+      });
+      return contains;
     }
   }
 });
@@ -200,7 +232,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.complete-sentence{\r\n    background-color:#e9ecefb5;\r\n    padding:5px;\n}\n.input-word{\r\n    height:30px ;\r\n    border-radius: 5px;\r\n    background-color:rgb(179, 209, 255);\r\n    border-width: 0px;\r\n    padding: 0px 15px;\r\n    color:black;\n}\n.paragraph-sentence>p{\r\n    line-height: 3.5;\r\n    font-weight: 700;\r\n    text-align: justify;\n}\n.paragraph-sentence-preview>p{\r\n    line-height: 3.0;\r\n    font-weight: 600;\r\n    text-align: justify;\r\n    font-size: 1.2em;\n}\n.input-color{\r\n    background-color:#fffde7;\n}\n.label-preview{\r\n    display: flex;\r\n    flex-direction: row;\r\n    justify-content: space-between;\r\n    align-items: flex-start;\n}\n.label-preview_button{\r\n     -webkit-animation-duration: 5s;\r\n             animation-duration: 5s;\r\n     outline:none;\n}\n.label-preview_button:hover{\r\n    transform: rotate(360deg) ;\n}\n.label-preview_button:hover>svg{\r\n    fill:#61f174;\n}\r\n", ""]);
+exports.push([module.i, "\n.complete-sentence{\n    background-color:#e9ecefb5;\n    padding:5px;\n}\n.input-word{\n    height:30px ;\n    border-radius: 5px;\n    background-color:rgb(179, 209, 255);\n    border-width: 0px;\n    padding: 0px 15px;\n    color:black;\n}\n.paragraph-sentence{\n    padding: 5px 15px;\n    background: #fff;\n    border-radius: 5px;\n}\n.paragraph-sentence>p{\n    line-height: 3.5;\n    font-weight: 500;\n    text-align: justify;\n}\n.paragraph-sentence-preview>p{\n    line-height: 3.0;\n    font-weight: 500;\n    text-align: justify;\n    font-size: 1.2em;\n}\n.input-color{\n    background-color:#fffde7;\n}\n.label-preview{\n    display: flex;\n    flex-direction: row;\n    justify-content: space-between;\n    align-items: flex-start;\n}\n.label-preview_button{\n     -webkit-animation-duration: 5s;\n             animation-duration: 5s;\n     outline:none;\n}\n.label-preview_button:hover{\n    transform: rotate(360deg) ;\n}\n.label-preview_button:hover>svg{\n    fill:#61f174;\n}\n", ""]);
 
 // exports
 
@@ -256,306 +288,470 @@ var render = function() {
     "div",
     { staticClass: "complete-sentence" },
     [
-      _c("div", { staticClass: "row " }, [
-        _vm._m(0),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-4 text-right" }, [
-          _c(
-            "button",
-            {
-              staticClass: "btn btn-primary",
-              attrs: { type: "button", disabled: _vm.disabled },
-              on: { click: _vm.AddSentenceEvent }
-            },
-            [_vm._v("Agregar oración")]
-          )
-        ])
-      ]),
+      !_vm.playing
+        ? _c("div", { staticClass: "row " }, [
+            _vm._m(0),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-4 text-right" }, [
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-primary",
+                  attrs: { type: "button", disabled: _vm.disabled },
+                  on: { click: _vm.AddSentenceEvent }
+                },
+                [_vm._v("Agregar oración")]
+              )
+            ])
+          ])
+        : _vm._e(),
       _vm._v(" "),
-      _vm._l(_vm.module.sentences, function(sentence, k_sentence) {
-        return _c("div", { key: k_sentence, staticClass: "row" }, [
-          _c("div", { staticClass: "col-sm " }, [
-            _c("div", { staticClass: "card padding-10" }, [
-              !_vm.disabled
-                ? _c("div", { staticClass: "row" }, [
-                    _c(
-                      "div",
-                      { staticClass: "col-12  col-lg-6 padding-10" },
-                      [
-                        _c("label", [_vm._v("Contenido de la oración:")]),
-                        _vm._v(" "),
-                        _c("textarea", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: sentence.content,
-                              expression: "sentence.content"
-                            }
-                          ],
-                          staticClass: "form-control input-color",
-                          attrs: { rows: "4", placeholder: "Contenido" },
-                          domProps: { value: sentence.content },
-                          on: {
-                            change: function($event) {
-                              return _vm.EvaluateContent(k_sentence, sentence)
-                            },
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.$set(sentence, "content", $event.target.value)
-                            }
-                          }
-                        }),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "row" }, [
-                          _c("div", { staticClass: "col-sm text-left" }, [
-                            _c(
-                              "button",
-                              {
-                                staticClass: "btn btn-link",
-                                attrs: { type: "button" },
-                                on: {
-                                  click: function($event) {
-                                    return _vm.AddInputEvent(
-                                      k_sentence,
-                                      sentence
-                                    )
-                                  }
+      !_vm.playing
+        ? _vm._l(_vm.module.sentences, function(sentence, k_sentence) {
+            return _c("div", { key: k_sentence, staticClass: "row" }, [
+              _c("div", { staticClass: "col-sm " }, [
+                _c("div", { staticClass: "card padding-10" }, [
+                  !_vm.disabled
+                    ? _c("div", { staticClass: "row" }, [
+                        _c(
+                          "div",
+                          { staticClass: "col-12  col-lg-6 padding-10" },
+                          [
+                            _c("label", [_vm._v("Contenido de la oración:")]),
+                            _vm._v(" "),
+                            _c("textarea", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: sentence.content,
+                                  expression: "sentence.content"
                                 }
-                              },
-                              [_vm._v("Agregar campo")]
-                            )
-                          ])
-                        ]),
-                        _vm._v(" "),
-                        _vm._l(sentence.properties, function(
-                          property,
-                          k_property
-                        ) {
-                          return _c(
-                            "div",
-                            { key: k_property, staticClass: "row" },
-                            [
-                              _c("div", { staticClass: "col-sm padding-10" }, [
-                                _c("label", [
-                                  _vm._v(
-                                    "Respuesta del campo " +
-                                      _vm._s(k_property + 1) +
-                                      ":"
+                              ],
+                              staticClass: "form-control input-color",
+                              attrs: { rows: "4", placeholder: "Contenido" },
+                              domProps: { value: sentence.content },
+                              on: {
+                                change: function($event) {
+                                  return _vm.EvaluateContent(
+                                    k_sentence,
+                                    sentence
                                   )
-                                ]),
-                                _vm._v(" "),
-                                _c("input", {
-                                  directives: [
-                                    {
-                                      name: "model",
-                                      rawName: "v-model",
-                                      value: property.text,
-                                      expression: "property.text"
+                                },
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    sentence,
+                                    "content",
+                                    $event.target.value
+                                  )
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "row" }, [
+                              _c("div", { staticClass: "col-sm text-left" }, [
+                                _c(
+                                  "button",
+                                  {
+                                    staticClass: "btn btn-link",
+                                    attrs: { type: "button" },
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.AddInputEvent(
+                                          k_sentence,
+                                          sentence
+                                        )
+                                      }
                                     }
-                                  ],
-                                  staticClass: "form-control",
-                                  attrs: {
-                                    type: "text",
-                                    placeholder: "opción1,opción2 "
                                   },
-                                  domProps: { value: property.text },
+                                  [_vm._v("Agregar campo")]
+                                )
+                              ])
+                            ]),
+                            _vm._v(" "),
+                            _vm._l(sentence.properties, function(
+                              property,
+                              k_property
+                            ) {
+                              return _c(
+                                "div",
+                                { key: k_property, staticClass: "row" },
+                                [
+                                  _c(
+                                    "div",
+                                    { staticClass: "col-sm padding-10" },
+                                    [
+                                      _c("label", [
+                                        _vm._v(
+                                          "Respuesta del campo " +
+                                            _vm._s(k_property + 1) +
+                                            ":"
+                                        )
+                                      ]),
+                                      _vm._v(" "),
+                                      _c("input", {
+                                        directives: [
+                                          {
+                                            name: "model",
+                                            rawName: "v-model",
+                                            value: property.text,
+                                            expression: "property.text"
+                                          }
+                                        ],
+                                        staticClass: "form-control",
+                                        attrs: {
+                                          type: "text",
+                                          placeholder: "opción1,opción2 "
+                                        },
+                                        domProps: { value: property.text },
+                                        on: {
+                                          change: function($event) {
+                                            return _vm.EvaluateContent(
+                                              k_sentence,
+                                              sentence
+                                            )
+                                          },
+                                          input: function($event) {
+                                            if ($event.target.composing) {
+                                              return
+                                            }
+                                            _vm.$set(
+                                              property,
+                                              "text",
+                                              $event.target.value
+                                            )
+                                          }
+                                        }
+                                      })
+                                    ]
+                                  )
+                                ]
+                              )
+                            })
+                          ],
+                          2
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          { staticClass: "col-12  col-lg-6 padding-10" },
+                          [
+                            _c("div", { staticClass: "label-preview" }, [
+                              _c("label", [_vm._v("Previsualización:")]),
+                              _vm._v(" "),
+                              _c(
+                                "button",
+                                {
+                                  staticClass:
+                                    "btn btn-default label-preview_button",
                                   on: {
-                                    change: function($event) {
-                                      return _vm.EvaluateContent(
+                                    click: function($event) {
+                                      return _vm.RefreshContent(
                                         k_sentence,
                                         sentence
                                       )
-                                    },
-                                    input: function($event) {
-                                      if ($event.target.composing) {
-                                        return
-                                      }
-                                      _vm.$set(
-                                        property,
-                                        "text",
-                                        $event.target.value
-                                      )
                                     }
                                   }
-                                })
-                              ])
-                            ]
-                          )
-                        })
-                      ],
-                      2
-                    ),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "col-12  col-lg-6 padding-10" }, [
-                      _c("div", { staticClass: "label-preview" }, [
-                        _c("label", [_vm._v("Previsualización:")]),
-                        _vm._v(" "),
-                        _c(
-                          "button",
-                          {
-                            staticClass: "btn btn-default label-preview_button",
-                            on: {
-                              click: function($event) {
-                                return _vm.RefreshContent(k_sentence, sentence)
-                              }
-                            }
-                          },
-                          [
-                            _c(
-                              "svg",
-                              {
-                                attrs: {
-                                  xmlns: "http://www.w3.org/2000/svg",
-                                  viewBox: "0 0 24 24",
-                                  fill: "black",
-                                  width: "18px",
-                                  height: "18px"
-                                }
-                              },
-                              [
-                                _c("path", {
-                                  attrs: { d: "M0 0h24v24H0z", fill: "none" }
-                                }),
-                                _c("path", {
-                                  attrs: {
-                                    d:
-                                      "M19 8l-4 4h3c0 3.31-2.69 6-6 6-1.01 0-1.97-.25-2.8-.7l-1.46 1.46C8.97 19.54 10.43 20 12 20c4.42 0 8-3.58 8-8h3l-4-4zM6 12c0-3.31 2.69-6 6-6 1.01 0 1.97.25 2.8.7l1.46-1.46C15.03 4.46 13.57 4 12 4c-4.42 0-8 3.58-8 8H1l4 4 4-4H6z"
+                                },
+                                [
+                                  _c(
+                                    "svg",
+                                    {
+                                      attrs: {
+                                        xmlns: "http://www.w3.org/2000/svg",
+                                        viewBox: "0 0 24 24",
+                                        fill: "black",
+                                        width: "18px",
+                                        height: "18px"
+                                      }
+                                    },
+                                    [
+                                      _c("path", {
+                                        attrs: {
+                                          d: "M0 0h24v24H0z",
+                                          fill: "none"
+                                        }
+                                      }),
+                                      _c("path", {
+                                        attrs: {
+                                          d:
+                                            "M19 8l-4 4h3c0 3.31-2.69 6-6 6-1.01 0-1.97-.25-2.8-.7l-1.46 1.46C8.97 19.54 10.43 20 12 20c4.42 0 8-3.58 8-8h3l-4-4zM6 12c0-3.31 2.69-6 6-6 1.01 0 1.97.25 2.8.7l1.46-1.46C15.03 4.46 13.57 4 12 4c-4.42 0-8 3.58-8 8H1l4 4 4-4H6z"
+                                        }
+                                      })
+                                    ]
+                                  )
+                                ]
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "paragraph-sentence" }, [
+                              _c(
+                                "p",
+                                _vm._l(
+                                  _vm.module.sentences[k_sentence]
+                                    .content_array,
+                                  function(property, k_content) {
+                                    return _c("span", { key: k_content }, [
+                                      _vm._v(
+                                        "\n                                        " +
+                                          _vm._s(property.text) +
+                                          " "
+                                      ),
+                                      sentence.properties[k_content]
+                                        ? _c("input", {
+                                            directives: [
+                                              {
+                                                name: "model",
+                                                rawName: "v-model",
+                                                value:
+                                                  sentence.properties[k_content]
+                                                    .text,
+                                                expression:
+                                                  "sentence.properties[k_content].text"
+                                              }
+                                            ],
+                                            staticClass: "input-word",
+                                            attrs: {
+                                              type: "text",
+                                              placeholder:
+                                                "Respuesta " + (k_content + 1)
+                                            },
+                                            domProps: {
+                                              value:
+                                                sentence.properties[k_content]
+                                                  .text
+                                            },
+                                            on: {
+                                              input: function($event) {
+                                                if ($event.target.composing) {
+                                                  return
+                                                }
+                                                _vm.$set(
+                                                  sentence.properties[
+                                                    k_content
+                                                  ],
+                                                  "text",
+                                                  $event.target.value
+                                                )
+                                              }
+                                            }
+                                          })
+                                        : _vm._e()
+                                    ])
                                   }
-                                })
-                              ]
-                            )
+                                ),
+                                0
+                              )
+                            ])
                           ]
                         )
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "paragraph-sentence" }, [
-                        _c(
-                          "p",
-                          _vm._l(
-                            _vm.module.sentences[k_sentence].content_array,
-                            function(property, k_content) {
-                              return _c("span", { key: k_content }, [
-                                _vm._v(
-                                  "\n                                    " +
-                                    _vm._s(property.text) +
-                                    " "
-                                ),
-                                sentence.properties[k_content]
-                                  ? _c("input", {
-                                      directives: [
-                                        {
-                                          name: "model",
-                                          rawName: "v-model",
-                                          value:
-                                            sentence.properties[k_content].text,
-                                          expression:
-                                            "sentence.properties[k_content].text"
-                                        }
-                                      ],
-                                      staticClass: "input-word",
-                                      attrs: {
-                                        type: "text",
-                                        placeholder:
-                                          "Respuesta " + (k_content + 1)
-                                      },
-                                      domProps: {
-                                        value:
-                                          sentence.properties[k_content].text
-                                      },
-                                      on: {
-                                        input: function($event) {
-                                          if ($event.target.composing) {
-                                            return
-                                          }
-                                          _vm.$set(
-                                            sentence.properties[k_content],
-                                            "text",
-                                            $event.target.value
-                                          )
-                                        }
-                                      }
-                                    })
-                                  : _vm._e()
-                              ])
-                            }
-                          ),
-                          0
-                        )
                       ])
-                    ])
-                  ])
-                : _vm._e(),
-              _vm._v(" "),
-              _vm.disabled
-                ? _c("div", { staticClass: "row" }, [
-                    _c("div", { staticClass: "col-12 padding-10" }, [
-                      _c("label", [_vm._v("Completar las oraciones:")]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "paragraph-sentence-preview" }, [
-                        _c(
-                          "p",
-                          _vm._l(
-                            _vm.module.sentences[k_sentence].content_array,
-                            function(property, k_content) {
-                              return _c("span", { key: k_content }, [
-                                _vm._v(
-                                  "\n                                    " +
-                                    _vm._s(property.text) +
-                                    "  "
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.disabled
+                    ? _c("div", { staticClass: "row" }, [
+                        _c("div", { staticClass: "col-12 padding-10" }, [
+                          _c("label", [_vm._v("Completar las oraciones:")]),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            { staticClass: "paragraph-sentence-preview" },
+                            [
+                              _c(
+                                "p",
+                                _vm._l(
+                                  _vm.module.sentences[k_sentence]
+                                    .content_array,
+                                  function(property, k_content) {
+                                    return _c("span", { key: k_content }, [
+                                      _vm._v(
+                                        "\n                                        " +
+                                          _vm._s(property.text) +
+                                          "  "
+                                      ),
+                                      sentence.properties[k_content]
+                                        ? _c("input", {
+                                            directives: [
+                                              {
+                                                name: "model",
+                                                rawName: "v-model",
+                                                value:
+                                                  sentence.responses[k_content],
+                                                expression:
+                                                  "sentence.responses[k_content]"
+                                              }
+                                            ],
+                                            staticClass: "input-word",
+                                            attrs: {
+                                              type: "text",
+                                              placeholder:
+                                                "Respuesta " + (k_content + 1),
+                                              disabled: _vm.disabled
+                                            },
+                                            domProps: {
+                                              value:
+                                                sentence.responses[k_content]
+                                            },
+                                            on: {
+                                              change: function($event) {
+                                                return _vm.RefreshResponse(
+                                                  k_sentence
+                                                )
+                                              },
+                                              input: function($event) {
+                                                if ($event.target.composing) {
+                                                  return
+                                                }
+                                                _vm.$set(
+                                                  sentence.responses,
+                                                  k_content,
+                                                  $event.target.value
+                                                )
+                                              }
+                                            }
+                                          })
+                                        : _vm._e()
+                                    ])
+                                  }
                                 ),
-                                sentence.properties[k_content]
-                                  ? _c("input", {
-                                      directives: [
-                                        {
-                                          name: "model",
-                                          rawName: "v-model",
-                                          value: sentence.responses[k_content],
-                                          expression:
-                                            "sentence.responses[k_content]"
-                                        }
-                                      ],
-                                      staticClass: "input-word",
-                                      attrs: {
-                                        type: "text",
-                                        placeholder:
-                                          "Respuesta " + (k_content + 1)
-                                      },
-                                      domProps: {
-                                        value: sentence.responses[k_content]
-                                      },
-                                      on: {
-                                        change: function($event) {
-                                          return _vm.RefreshResponse(k_sentence)
-                                        },
-                                        input: function($event) {
-                                          if ($event.target.composing) {
-                                            return
-                                          }
-                                          _vm.$set(
-                                            sentence.responses,
-                                            k_content,
-                                            $event.target.value
-                                          )
-                                        }
-                                      }
-                                    })
-                                  : _vm._e()
-                              ])
-                            }
-                          ),
-                          0
-                        )
+                                0
+                              )
+                            ]
+                          )
+                        ])
                       ])
-                    ])
-                  ])
-                : _vm._e()
+                    : _vm._e()
+                ])
+              ])
             ])
-          ])
-        ])
-      })
+          })
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.playing
+        ? _vm._l(_vm.module.sentences, function(sentence, k_sentence) {
+            return _c("div", { key: k_sentence, staticClass: "row" }, [
+              _c("div", { staticClass: "col-sm " }, [
+                _c("h5", [_vm._v(_vm._s(k_sentence + 1) + ".")]),
+                _vm._v(" "),
+                _c("div", { staticClass: "paragraph-sentence" }, [
+                  _c(
+                    "p",
+                    _vm._l(sentence.content_array, function(
+                      property,
+                      k_content
+                    ) {
+                      return _c("span", { key: k_content }, [
+                        _vm._v(
+                          "\n                                " +
+                            _vm._s(property.text) +
+                            " "
+                        ),
+                        sentence.student_response[k_content]
+                          ? _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value:
+                                    sentence.student_response[k_content]
+                                      .response,
+                                  expression:
+                                    "sentence.student_response[k_content].response"
+                                }
+                              ],
+                              staticClass: "input-word",
+                              attrs: {
+                                type: "text",
+                                placeholder: "Respuesta " + (k_content + 1),
+                                disabled: _vm.disabled
+                              },
+                              domProps: {
+                                value:
+                                  sentence.student_response[k_content].response
+                              },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    sentence.student_response[k_content],
+                                    "response",
+                                    $event.target.value
+                                  )
+                                }
+                              }
+                            })
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _vm.disabled && sentence.student_response[k_content]
+                          ? _c("i", { staticClass: "check-ok" }, [
+                              _vm.EvaluateReponse(
+                                sentence.student_response[k_content]
+                              )
+                                ? _c(
+                                    "svg",
+                                    {
+                                      attrs: {
+                                        xmlns: "http://www.w3.org/2000/svg",
+                                        viewBox: "0 0 16 16",
+                                        width: "16",
+                                        height: "16"
+                                      }
+                                    },
+                                    [
+                                      _c("path", {
+                                        staticStyle: { fill: "#48DA7E" },
+                                        attrs: {
+                                          "fill-rule": "evenodd",
+                                          d:
+                                            "M1.5 8a6.5 6.5 0 1113 0 6.5 6.5 0 01-13 0zM0 8a8 8 0 1116 0A8 8 0 010 8zm11.78-1.72a.75.75 0 00-1.06-1.06L6.75 9.19 5.28 7.72a.75.75 0 00-1.06 1.06l2 2a.75.75 0 001.06 0l4.5-4.5z"
+                                        }
+                                      })
+                                    ]
+                                  )
+                                : _c(
+                                    "svg",
+                                    {
+                                      attrs: {
+                                        xmlns: "http://www.w3.org/2000/svg",
+                                        viewBox: "0 0 24 24",
+                                        width: "16",
+                                        height: "16"
+                                      }
+                                    },
+                                    [
+                                      _c("path", {
+                                        staticStyle: { fill: "#D61D5A" },
+                                        attrs: {
+                                          d:
+                                            "M9.036 7.976a.75.75 0 00-1.06 1.06L10.939 12l-2.963 2.963a.75.75 0 101.06 1.06L12 13.06l2.963 2.964a.75.75 0 001.061-1.06L13.061 12l2.963-2.964a.75.75 0 10-1.06-1.06L12 10.939 9.036 7.976z"
+                                        }
+                                      }),
+                                      _c("path", {
+                                        staticStyle: { fill: "#D61D5A" },
+                                        attrs: {
+                                          "fill-rule": "evenodd",
+                                          d:
+                                            "M12 1C5.925 1 1 5.925 1 12s4.925 11 11 11 11-4.925 11-11S18.075 1 12 1zM2.5 12a9.5 9.5 0 1119 0 9.5 9.5 0 01-19 0z"
+                                        }
+                                      })
+                                    ]
+                                  )
+                            ])
+                          : _vm._e()
+                      ])
+                    }),
+                    0
+                  )
+                ])
+              ])
+            ])
+          })
+        : _vm._e()
     ],
     2
   )

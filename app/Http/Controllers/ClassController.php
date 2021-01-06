@@ -211,11 +211,14 @@ class ClassController extends Controller
                     $student_response=[];
                     if($user->type_user==3)//student
                     {
-                        $student_response=ActivityCompleteSentenceInteraction::where('id_activity_complete_sentence',$sentence->id)->where('id_student',$user->id)->where('deleted',0)->where('state',1)->first();
+                        $model_student_response=ActivityCompleteSentenceInteraction::where('id_activity_complete_sentence',$sentence->id)->where('id_student',$user->id)->where('deleted',0)->first();
 
-                        if(!isset($student_response))
+                        if(!isset($model_student_response))
                         {
                             $student_response=[];
+                        }
+                        else{
+                            $student_response=json_decode($model_student_response->response);
                         }
                     }
 
@@ -239,21 +242,25 @@ class ClassController extends Controller
 
                 if(isset($activity_relationship))
                 {
-                    $student_response=[];
+                    $student_response=null;
                     if($user->type_user==3)//student
                     {
-                        $student_response=ActivityRelationshipInteraction::where('id_activity_crossword',$activity_relationship->id)->where('id_student',$user->id)->where('deleted',0)->where('state',1)->first();
+                        $student_response=ActivityRelationshipInteraction::where('id_activity_relationship',$activity_relationship->id)->where('id_student',$user->id)->where('deleted',0)->first();
 
                         if(!isset($student_response))
                         {
-                            $student_response=[];
+                            $student_response=null;
                         }
                     }
                     $module=json_decode($activity_relationship->content,true);
 
                     $module['id']=$activity_relationship->id;
                     $module['state']=$activity_relationship->state;
-                    $module['student_response']=$student_response;
+                    if(isset($student_response))
+                    {
+                        $module['student_response']=json_decode($student_response->response);
+                    }
+
 
                 }
 
@@ -338,8 +345,9 @@ class ClassController extends Controller
     public function saveActivityInteraction(Request $request,int $id_module,int $id_course, int $id_activity)
     {
         $auth = Auth::user();
+        $base_score=5;
 
-
+        if(!isset($auth)) return;
 
         $this->validate($request, [
             'id' => 'required',
@@ -348,14 +356,16 @@ class ClassController extends Controller
         ]);
 
         $data = $request->all();
+        $g_score=0;
+        $g_index=0;
+        $g_is_qualified=true;
 
         if($data['activity_type']=='CUESTIONARIO')
         {
-            $q_index=0;
-            $q_score=0;
+
             foreach($data['module']['questions'] as $i_question => $question) {
 
-                $q_index++;
+                $g_index++;
 
                 //calcule score
                 $score=0;
@@ -365,31 +375,147 @@ class ClassController extends Controller
                     $is_qualified=true;
                     if($question['response']==$question['valid_answer_index'])
                     {
-                        $score=5;
-                        $q_score+=5;
+                        $score=1;
+                        $g_score+=$score;
 
                     }
 
+                }
+                else{
+                    $g_is_qualified=false;
                 }
 
                 $activity_q_interaction=ActivityQuestionInteraction::where('id_activity_question',$question['id'])->where('id_student',$auth->id)->where('deleted',0)->first();
 
                 if(isset($activity_q_interaction))
                 {
-                    ActivityQuestionInteraction::where('id_activity_question',$question['id'])->where('id_student',$auth->id)->where('deleted',0)->update(array('response'=>$question['response'],'score'=>$score,'state'=>($is_qualified?2:1),'deleted'=>0,'updated_user'=>$auth->id));
+                    ActivityQuestionInteraction::where('id_activity_question',$question['id'])->where('id_student',$auth->id)->where('deleted',0)->update(array('response'=>$question['response'],'score'=>$score*$base_score,'state'=>($is_qualified?2:1),'deleted'=>0,'updated_user'=>$auth->id));
                 }
                 else{
                     ActivityQuestionInteraction::create([
                         'id_activity_question'=>$question['id'],
                         'id_student'=>$auth->id,
                         'response'=>$question['response'],
-                        'score'=>$score,
+                        'score'=>$score*$base_score,
                         'state'=>($is_qualified?2:1),
                         'deleted'=>0,
                         'updated_user'=>$auth->id
                     ]);
                 }
             }
+        }
+
+        if($data['activity_type']=='COMPLETAR_ORACION')
+        {
+
+            foreach($data['module']['sentences'] as $i_sentence => $sentence) {
+
+                $g_index++;
+
+                //calcule score
+                $score=0;
+                $is_qualified=false;
+
+                if(isset($sentence['student_response']))
+                {
+                    $r_index=0;
+                    foreach($sentence['student_response'] as $i_response => $response) {
+                        if(isset($response['response']) && isset($response['content']))
+                        {
+                            $is_qualified=true;
+                            $content_list=explode(",",strtolower($response['content']));
+                            foreach($content_list as $i_content => $content) {
+                                $score+=(trim($content)==trim(strtolower($response['response'])))?1:0;
+                            }
+                        }
+                        $r_index++;
+                    }
+                }
+
+                if($is_qualified){
+                    $score=$score/$r_index;
+                    $g_score+=$score;
+                }
+
+
+                $sentence_interaction=ActivityCompleteSentenceInteraction::where('id_activity_complete_sentence',$sentence['id'])->where('id_student',$auth->id)->where('deleted',0)->first();
+
+                if(isset($sentence_interaction))
+                {
+                    ActivityCompleteSentenceInteraction::where('id_activity_complete_sentence',$sentence['id'])->where('id_student',$auth->id)->where('deleted',0)->update(array('response'=>json_encode($sentence['student_response']),'score'=>$score*$base_score,'state'=>($is_qualified?2:1),'deleted'=>0,'updated_user'=>$auth->id));
+                }
+                else{
+                    ActivityCompleteSentenceInteraction::create([
+                        'id_activity_complete_sentence'=>$sentence['id'],
+                        'id_student'=>$auth->id,
+                        'response'=>json_encode($sentence['student_response']),
+                        'score'=>$score*$base_score,
+                        'state'=>($is_qualified?2:1),
+                        'deleted'=>0,
+                        'updated_user'=>$auth->id
+                    ]);
+                }
+            }
+        }
+
+        if($data['activity_type']=='RELACION')
+        {
+                $module=$data['module'];
+
+
+                $g_index++;
+
+                //calcule score
+                $score=0;
+                $is_qualified=false;
+
+                if(isset($module['student_response']))
+                {
+                    $is_qualified=true;
+                    $r_index=0;
+                    for($i=0;$i<count($module['student_response']['selected_items']);$i++)
+                    {
+                        $index_selected=$module['student_response']['selected_items'][$i]['index'];
+                        $index_correct=$module['student_response']['items_left'][$i]['index'];
+                        if($index_selected==$index_correct)
+                        {
+                            $score+=1;
+                        }
+
+                        $r_index++;
+                    }
+
+
+
+                }
+
+                if($is_qualified){
+                    print_r($score);
+                    print_r('-');
+                    print_r($r_index);
+                    $score=$score/$r_index;
+                    $g_score+=$score;
+                }
+
+
+                $module_interaction=ActivityRelationshipInteraction::where('id_activity_relationship',$module['id'])->where('id_student',$auth->id)->where('deleted',0)->first();
+
+                if(isset($module_interaction))
+                {
+                    ActivityRelationshipInteraction::where('id_activity_relationship',$module['id'])->where('id_student',$auth->id)->where('deleted',0)->update(array('response'=>json_encode($module['student_response']),'score'=>$score*$base_score,'state'=>($is_qualified?2:1),'deleted'=>0,'updated_user'=>$auth->id));
+                }
+                else{
+                    ActivityRelationshipInteraction::create([
+                        'id_activity_relationship'=>$module['id'],
+                        'id_student'=>$auth->id,
+                        'response'=>json_encode($module['student_response']),
+                        'score'=>$score*$base_score,
+                        'state'=>($is_qualified?2:1),
+                        'deleted'=>0,
+                        'updated_user'=>$auth->id
+                    ]);
+                }
+
         }
 
         if($data['activity_type']=='CRUCIGRAMA')
@@ -432,15 +558,15 @@ class ClassController extends Controller
 
         if(isset($data['interaction']) && isset($data['interaction']['id']))
         {
-            ActivityInteraction::where('id',$data['interaction']['id'])->update(array('latest_access_date'=>date("Y-m-d H:i"), 'score'=>($q_score/$q_index),'state'=>1,'deleted'=>0,'updated_user'=>$auth->id));
+            ActivityInteraction::where('id',$data['interaction']['id'])->update(array('latest_access_date'=>date("Y-m-d H:i"), 'score'=>($g_score/($g_index>0?$g_index:1))*$base_score,'state'=>($g_is_qualified?3:2),'deleted'=>0,'updated_user'=>$auth->id));
         }
         else{
             ActivityInteraction::create([
-                'id_activity'=>$question['id'],
+                'id_activity'=>$id_activity,
                 'id_student'=>$auth->id,
                 'latest_access_date'=>date("Y-m-d H:i"),
-                'score'=>($q_score/$q_index),
-                'state'=>1,
+                'score'=>($g_score/($g_index>0?$g_index:1))*$base_score,
+                'state'=>($g_is_qualified?3:2),
                 'deleted'=>0,
                 'updated_user'=>$auth->id
             ]);
