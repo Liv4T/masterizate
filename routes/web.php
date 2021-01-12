@@ -4,6 +4,9 @@ use App\Message;
 use App\User;
 use App\Events\MessagePosted;
 use App\Exports\ProductsExport;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Excel;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -161,6 +164,12 @@ Route::middleware('auth')->get('/boletin', function () {
 });
 Route::middleware('auth')->get('/calendar', function () {
     return view('calendar')->with('type_user', Auth::user()->type_user);
+});
+Route::middleware('auth')->get('/calendario', function () {
+    return view('calendar')->with('type_user', Auth::user()->type_user);
+});
+Route::middleware('auth')->get('/estudiante/calendario', function () {
+    return view('studentCalendar')->with('type_user', Auth::user()->type_user);
 });
 Route::middleware('auth')->get('/perfil_d', function () {
     return view('perfild');
@@ -619,6 +628,8 @@ Route::put('/api/student/module/{id_module}/class/{id_course}/activity/{id_activ
 Route::put('/api/student/module/{id_module}/class/{id_course}/activity/{id_activity}/question/{id_question}/response', 'ClassController@saveActivityQuestionResponse');
 Route::post('/api/file/upload/editor-content', 'UploadController@uploadEditorContent');
 Route::put('/api/admin/module/{id_module}/class/{id_course}/{state}', 'ClassController@updateClassEnableEdition');
+Route::get('/api/student/activity', 'ActivityController@getByCurrentStudent');
+Route::get('/api/student/event', 'EventsController@studentEvents');
 
 
 Route::get('/api/lectives', 'LectivesController@getLectives');

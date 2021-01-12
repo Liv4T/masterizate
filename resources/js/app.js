@@ -10,7 +10,6 @@ window.toastr = require("toastr");
 import CKEditor from "@ckeditor/ckeditor5-vue";
 //import "bootstrap/dist/css/bootstrap.css";
 //import "bootstrap-vue/dist/bootstrap-vue.css";
-import fullCalendar from "vue-fullcalendar";
 import Game from "./components/Game";
 import store from "./vuex/store";
 
@@ -90,7 +89,8 @@ Vue.component("perfil-docente", require("./components/perfildocente.vue").defaul
 Vue.component("anuncio-docente", require("./components/anunciodocente.vue").default);
 Vue.component("actividadg-docente",  () => import ("./components/actividadGDocente.vue"));
 Vue.component("anunciomc-component", require("./components/anunciomc.vue").default);
-Vue.component("full-component", require("./components/fullCalendar.vue").default);
+Vue.component("calendar-component", require("./components/calendarComponent.vue").default);
+Vue.component("student-calendar-component", require("./components/studentCalendarComponent.vue").default);
 Vue.component("redactar-component", require("./components/redactar.vue").default);
 Vue.component("vmensaje-component", require("./components/vistamensaje.vue").default);
 

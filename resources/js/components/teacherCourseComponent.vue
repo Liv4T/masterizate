@@ -127,11 +127,11 @@
                                                  <div class="row">
                                                     <div class="col-6">
                                                         <label><span class="required">*</span>Fecha máxima entrega:</label>
-                                                        <input type="date" class="form-control" v-model="activity.delivery_max_date" />
+                                                        <input type="datetime-local" class="form-control" v-model="activity.delivery_max_date" />
                                                     </div>
                                                     <div class="col-6">
                                                         <label><span class="required">*</span>Fecha retroalimentación:</label>
-                                                        <input type="date" class="form-control" v-model="activity.feedback_date" />
+                                                        <input type="datetime-local" class="form-control" v-model="activity.feedback_date" />
                                                     </div>
                                                 </div>
                                                 <activity-questionary v-if="activity.activity_type=='CUESTIONARIO'" v-bind:module="activity.module" v-bind:disabled="course.state==2"></activity-questionary>

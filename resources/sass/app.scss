@@ -45,7 +45,16 @@
     background-color: $color-1-6;
     border-color: $color-2;
     text-decoration: none;
+    color: white;
 }
+.btn-primary:focus{
+    background-color:$color-1;
+    border-color: $color-1;
+    text-decoration: none;
+    color: white;
+    box-shadow: none;
+}
+
 
 .btn-warning{
     background-color:$color-1;
@@ -68,9 +77,24 @@ a:not(.md-button):hover{
     text-decoration: none;
     color: $color-2;
 }
-.btn-link{
-    color:$color-3;
-}
+
 .btn-link_bold{
     font-weight: bold;
+}
+.btn-link{
+    font-weight: 600;
+    color:$color-3;
+}
+.btn-link:hover{
+    border-color: $color-3;
+    text-decoration: none;
+}
+.btn-link:focus{
+    border-color: $color-3;
+    text-decoration: none;
+    box-shadow: none;
+}
+a:not(.md-button):hover{
+    color:$color-3;
+    text-decoration: none;
 }

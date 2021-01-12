@@ -11,10 +11,12 @@ use App\Classs;
 use App\Courses;
 use App\Indicator;
 use App\Classroom;
+use App\ClassroomStudent;
 use App\CoursesAchievement;
 use App\Weekly;
 use Illuminate\Http\Request;
 use Auth;
+use Illuminate\Support\Facades\DB;
 
 class ActivityController extends Controller
 {
@@ -67,6 +69,38 @@ class ActivityController extends Controller
         }
         return response()->json($activities);
 
+    }
+
+
+    public function getByCurrentStudent()
+    {
+        $user = Auth::user();
+
+        if(!isset($user)) return response()->json([]);
+
+        $activities=DB::table('classroom_student')
+                    ->join('classroom', 'classroom_student.id_classroom', '=', 'classroom.id')
+                    ->join('annual_planification', 'annual_planification.id_classroom', '=', 'classroom_student.id_classroom')
+                    ->join('area', 'annual_planification.id_area', '=', 'area.id')
+                    ->join('achievement_planification', 'achievement_planification.id_planification', '=', 'annual_planification.id')
+                    ->join('activity', 'activity.id_achievement', '=', 'achievement_planification.id')
+                    ->join('class', 'class.id', '=', 'activity.id_class')
+                    ->leftJoin('activity_interaction', 'activity_interaction.id_activity', '=', 'activity.id')
+                    ->select('area.name as area_name','classroom.name as classroom_name','activity.*','activity_interaction.score as interaction_score','activity_interaction.state as interaction_state','class.id_weekly_plan as weekly_plan_id')
+                    ->where('classroom_student.id_user', $user->id)
+                    ->where('activity.deleted',0)
+                    ->orderBy('activity.delivery_max_date')
+                    ->limit(30)
+                    ->get();
+
+        if(count($activities)==0)
+        {
+            return response()->json([]);
+        }
+
+        return response()->json($activities->filter(function($activity){
+            return $activity->interaction_state<3;
+        }));
     }
 
     /**
