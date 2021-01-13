@@ -6,6 +6,20 @@
           <h4>Calendario</h4>
         </div>
         <div class="card-body">
+            <div class="row">
+                <div class="col-12">
+                    <div class="btn-group" role="group" aria-label="Basic example">
+                        <button type="button" class="btn" v-bind:class="{ 'btn-primary': (initialView=='dayGridMonth')  }" @click="changeCalendarView('dayGridMonth')">Mensual</button>
+                        <button type="button" class="btn" v-bind:class="{  'btn-primary': (initialView=='timeGridWeek') }" @click="changeCalendarView('timeGridWeek')">Semanal</button>
+
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <FullCalendar ref="fullCalendar"  :options="calendarOptions" />
+                </div>
+            </div>
           <div class="row" v-show="type_u==2">
             <a class="btn btn-warning float-right" v-on:click.prevent="createE()">Crear evento</a>
           </div>
@@ -183,6 +197,17 @@
 
 <script>
 import Vue from "vue";
+import FullCalendar from '@fullcalendar/vue'
+import esLocale from '@fullcalendar/core/locales/es';
+import dayGridPlugin from '@fullcalendar/daygrid'
+import momentPlugin from '@fullcalendar/moment'
+import timeGridPlugin from '@fullcalendar/timegrid';
+import momentTimezonePlugin from '@fullcalendar/moment-timezone'
+import interactionPlugin from '@fullcalendar/interaction'
+import moment from 'moment'
+
+moment.tz.setDefault("America/Bogota");
+moment.locale('es');
 
 import datetime from "vuejs-datetimepicker";
 Vue.use(require("vue-moment"));
@@ -206,11 +231,28 @@ export default {
       delId: "",
       delName: "",
       idUp: "",
-      lective_planification:{}
+      lective_planification:{},
+    initialView:'dayGridMonth',
+      calendarOptions: {
+        locale: esLocale,
+        plugins: [ dayGridPlugin, interactionPlugin,timeGridPlugin,momentTimezonePlugin,momentPlugin ],
+        initialView: 'dayGridMonth',//timeGridWeek
+        themeSystem:'bootstrap',
+        dateClick: this.handleDateClick,
+        timeZone: 'America/Bogota',
+        titleFormat: 'D MMMM YYYY',
+        events: [
+          /*{ title: 'event 1', date: '2021-01-08 05:00:00',description: 'description for Long Event 11',url:'http://google.com/' },
+          { title: 'event 2', date: '2020-12-31 07:00:00',description: 'description for Long Event 22' }*/
+        ],
+        eventClick:this.handleEventClick,
+        eventDidMount:this.handleEventDidMount
+      }
     };
   },
   components: {
     datetime,
+    FullCalendar
   },
   mounted() {
     var urlM = window.location.origin + "/getAllEvents";
@@ -235,17 +277,41 @@ export default {
                   text:`Electiva ${e.lective.name} Trimestre ${e.period_consecutive}`
               });
           });
-        
+
         });
 
     });
-   
 
-  
-  
+
+
+
 
   },
   methods: {
+      handleDateClick(arg){
+      //alert('date click! ' + arg.dateStr)
+    },
+    handleEventClick(info){
+        info.jsEvent.preventDefault();
+
+        if (info.event.url) {
+            window.open(info.event.url);
+        }
+    },
+    handleEventDidMount(info){
+        /* var tooltip = new Tooltip(info.el, {
+            title: info.event.extendedProps.description,
+            placement: 'top',
+            trigger: 'hover',
+            container: 'body'
+        });*/
+
+    },
+    changeCalendarView(view){
+        this.initialView=view;
+        this.calendarOptions.initialView=view;
+        this.$refs.fullCalendar.getApi().changeView(view);
+    },
     getMenu() {
       window.location = "/calendar";
     },

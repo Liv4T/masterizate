@@ -38,7 +38,7 @@
                                     </div>
                                 </div>
                                 <div class="class-event-action">
-                                    <a class="btn btn-primary" html:type="_blank" :href="meeting.hangout">Ingresar</a>
+                                    <a class="btn btn-primary" html:type="_blank" :href="meeting.hangout">Ir a clase</a>
                                 </div>
                             </div>
                         </div>
@@ -155,6 +155,10 @@ components: {
                 }
                 else if(activity.interaction_state==2){//feedback
                     fullCalendarApi.addEvent({ title: `Actividad: [${activity.area_name} ${activity.classroom_name}] ${activity.name}`, date: activity.feedback_date ,description: activity.description,url:`/estudiante/modulo/${activity.weekly_plan_id}/clase/${activity.id_class}` });
+                }
+                else
+                {
+                     fullCalendarApi.addEvent({ title: `Actividad: [${activity.area_name} ${activity.classroom_name}] ${activity.name}`, date: activity.delivery_max_date ,description: activity.description,url:`/estudiante/modulo/${activity.weekly_plan_id}/clase/${activity.id_class}` });
                 }
 
             })
