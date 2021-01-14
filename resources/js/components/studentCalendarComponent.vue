@@ -7,11 +7,27 @@
         </div>
         <div class="card-body">
              <div class="row">
-                <div class="col-12">
+                <div class="col-6 justify-content">
                     <div class="btn-group" role="group" aria-label="Basic example">
                         <button type="button" class="btn" v-bind:class="{ 'btn-primary': (initialView=='dayGridMonth')  }" @click="changeCalendarView('dayGridMonth')">Mensual</button>
                         <button type="button" class="btn" v-bind:class="{  'btn-primary': (initialView=='timeGridWeek') }" @click="changeCalendarView('timeGridWeek')">Semanal</button>
 
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="justify-content">
+                         <div class="form-check">
+                            <input class="form-check-input" type="checkbox" v-model="display_activities" @change="displayActivitiesChange()" id="defaultCheck1">
+                            <label class="form-check-label" for="defaultCheck1">
+                                <span class="dot dot_blue"></span> Actividades
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" v-model="display_events" @change="displayEventsChange()"  id="defaultCheck2">
+                            <label class="form-check-label" for="defaultCheck2">
+                                <span class="dot dot_red"></span> Clases presenciales
+                            </label>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -108,6 +124,8 @@ components: {
   props: ["type_u"],
   data() {
     return {
+      display_events:true,
+      display_activities:true,
       meetings:[],
       activities:[],
       initialView:'dayGridMonth',
@@ -137,7 +155,7 @@ components: {
         {
 
             this.meetings.forEach(meeting=>{
-               fullCalendarApi.addEvent({ title: `Clase: [${meeting.area} ${meeting.classroom}] ${meeting.name}`, start: meeting.dateFrom,end:meeting.dateTo,description: meeting.name,url:meeting.hangout ,backgroundColor:'red'});
+               fullCalendarApi.addEvent({ title: `${meeting.area} ${meeting.classroom} | Clase ${meeting.name}`, start: meeting.dateFrom,end:meeting.dateTo,description: meeting.name,url:meeting.hangout ,backgroundColor:'red'});
             })
 
              //this.calendarOptions.events= this.meetings.map(meeting=>{return { title: `[${meeting.area} ${meeting.classroom}] ${meeting.name}`, date: meeting.dateFrom,description: meeting.name,url:meeting.hangout }});
@@ -151,14 +169,14 @@ components: {
             this.activities.forEach(activity=>{
                 if(activity.interaction_state==1)//delivery max
                 {
-                    fullCalendarApi.addEvent({ title: `Actividad: [${activity.area_name} ${activity.classroom_name}] ${activity.name}`, date: activity.delivery_max_date ,description: activity.description,url:`/estudiante/modulo/${activity.weekly_plan_id}/clase/${activity.id_class}` });
+                    fullCalendarApi.addEvent({ title: `${activity.area_name} ${activity.classroom_name} | Actividad: ${activity.name}`, date: activity.delivery_max_date ,description: activity.description,url:`/estudiante/modulo/${activity.weekly_plan_id}/clase/${activity.id_class}`,backgroundColor:'blue' });
                 }
                 else if(activity.interaction_state==2){//feedback
-                    fullCalendarApi.addEvent({ title: `Actividad: [${activity.area_name} ${activity.classroom_name}] ${activity.name}`, date: activity.feedback_date ,description: activity.description,url:`/estudiante/modulo/${activity.weekly_plan_id}/clase/${activity.id_class}` });
+                    fullCalendarApi.addEvent({ title: `${activity.area_name} ${activity.classroom_name} | Actividad: ${activity.name}`, date: activity.feedback_date ,description: activity.description,url:`/estudiante/modulo/${activity.weekly_plan_id}/clase/${activity.id_class}`,backgroundColor:'blue' });
                 }
                 else
                 {
-                     fullCalendarApi.addEvent({ title: `Actividad: [${activity.area_name} ${activity.classroom_name}] ${activity.name}`, date: activity.delivery_max_date ,description: activity.description,url:`/estudiante/modulo/${activity.weekly_plan_id}/clase/${activity.id_class}` });
+                     fullCalendarApi.addEvent({ title: `${activity.area_name} ${activity.classroom_name} | Actividad: ${activity.name}`, date: activity.delivery_max_date ,description: activity.description,url:`/estudiante/modulo/${activity.weekly_plan_id}/clase/${activity.id_class}`,backgroundColor:'blue' });
                 }
 
             })
@@ -173,6 +191,55 @@ components: {
 
   },
   methods: {
+       displayActivitiesChange(){
+        const fullCalendarApi=this.$refs.fullCalendar.getApi();
+
+          if(this.display_activities)
+          {
+              this.activities.forEach(activity=>{
+                if(activity.interaction_state==1)//delivery max
+                {
+                    fullCalendarApi.addEvent({ title: `${activity.area_name} ${activity.classroom_name} | Actividad: ${activity.name}`, date: activity.delivery_max_date ,description: activity.description,url:`/estudiante/modulo/${activity.weekly_plan_id}/clase/${activity.id_class}` ,backgroundColor:'blue' });
+                }
+                else if(activity.interaction_state==2){//feedback
+                    fullCalendarApi.addEvent({ title: `${activity.area_name} ${activity.classroom_name} | Actividad: ${activity.name}`, date: activity.feedback_date ,description: activity.description,url:`/estudiante/modulo/${activity.weekly_plan_id}/clase/${activity.id_class}` ,backgroundColor:'blue' });
+                }
+                else
+                {
+                     fullCalendarApi.addEvent({ title: `${activity.area_name} ${activity.classroom_name} | Actividad: ${activity.name}`, date: activity.delivery_max_date ,description: activity.description,url:`/estudiante/modulo/${activity.weekly_plan_id}/clase/${activity.id_class}` ,backgroundColor:'blue' });
+                }
+
+            })
+          }
+          else{
+            const currentEvents=  fullCalendarApi.getEvents();
+            currentEvents.forEach(event=>{
+                if(event.backgroundColor=='blue')
+                {
+                    event.remove();
+                }
+            });
+          }
+      },
+      displayEventsChange(){
+           const fullCalendarApi=this.$refs.fullCalendar.getApi();
+
+          if(this.display_events)
+          {
+            this.meetings.forEach(meeting=>{
+               fullCalendarApi.addEvent({ title: `${meeting.area} ${meeting.classroom} | Clase ${meeting.name}`, start: meeting.dateFrom,end:meeting.dateTo,description: meeting.name,url:meeting.hangout ,backgroundColor:'red'});
+            })
+          }
+          else{
+            const currentEvents=  fullCalendarApi.getEvents();
+            currentEvents.forEach(event=>{
+                if(event.backgroundColor=='red')
+                {
+                    event.remove();
+                }
+            });
+          }
+      },
     handleDateClick(arg){
       //alert('date click! ' + arg.dateStr)
     },
@@ -305,5 +372,24 @@ components: {
     flex-direction: row;
     justify-content: flex-end;
     width: 100%;
+}
+.justify-content{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 100%;
+}
+.dot {
+  height: 8px;
+  width: 8px;
+  border-radius: 50%;
+  display: inline-block;
+}
+.dot_blue{
+    background-color: #3788d8;
+}
+.dot_red{
+    background-color: #d8374d;
 }
 </style>

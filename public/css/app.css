@@ -10934,6 +10934,13 @@ a.text-dark:focus {
   box-shadow: none;
 }
 
+.btn-primary:not(:disabled):not(.disabled):active,
+.btn-primary:not(:disabled):not(.disabled).active,
+.show > .btn-primary.dropdown-toggle {
+  text-decoration: none;
+  color: #ffffff;
+}
+
 .btn-warning {
   background-color: #ffc039;
   font-weight: 600;
@@ -10948,14 +10955,9 @@ a.text-dark:focus {
   color: #ffffff;
 }
 
-a:not(.md-button):hover {
-  text-decoration: none;
-  color: #ffffff;
-}
-
-.btn-primary:not(:disabled):not(.disabled):active,
-.btn-primary:not(:disabled):not(.disabled).active,
-.show > .btn-primary.dropdown-toggle {
+.btn-warning:not(:disabled):not(.disabled):active,
+.btn-warning:not(:disabled):not(.disabled).active,
+.show > .btn-warning.dropdown-toggle {
   text-decoration: none;
   color: #ffffff;
 }
@@ -10983,6 +10985,40 @@ a:not(.md-button):hover {
 a:not(.md-button):hover {
   color: #278080;
   text-decoration: none;
+}
+
+.btn-danger {
+  background-color: #ff3939;
+  font-weight: 600;
+  color: #ffffff;
+  border-color: #ff3939;
+}
+
+.btn-danger:hover {
+  background-color: #a82f2f;
+  border-color: #ffffff;
+  text-decoration: none;
+  color: white;
+}
+
+.btn-danger:focus {
+  background-color: #ff3939;
+  border-color: #ff3939;
+  text-decoration: none;
+  color: white;
+  box-shadow: none;
+}
+
+.btn-danger:not(:disabled):not(.disabled):active,
+.btn-danger:not(:disabled):not(.disabled).active,
+.show > .btn-danger.dropdown-toggle {
+  text-decoration: none;
+  color: #ffffff;
+}
+
+a:not(.md-button):hover {
+  text-decoration: none;
+  color: #ffffff;
 }
 
 /* (ignored) *//* (ignored) *//* (ignored) *//* (ignored) *//* (ignored) */

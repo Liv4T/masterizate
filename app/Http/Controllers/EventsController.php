@@ -88,7 +88,7 @@ class EventsController extends Controller
                     }
 
 
-                    $eventos[$index] = [
+                    array_push($eventos,[
                         "id" => $evento->id,
                         "name" => $evento->name,
                         "dateFrom" => $evento->date_from,
@@ -96,7 +96,7 @@ class EventsController extends Controller
                         "hangout" => $evento->url,
                         "area" => $area->name,
                         "classroom" => $classroom ? $classroom->name : '',
-                    ];
+                    ]);
                 }
             }
         } elseif (isset($user) && $user->type_user == 3) {
@@ -238,14 +238,14 @@ class EventsController extends Controller
                         }
                         //$area = Area::find($evento->id_area);
                         //$classroom = Classroom::find($evento->id_classroom);
-                        $eventos[$index] = [
+                        array_push($eventos,[
                             "name" => $evento->name,
                             "dateFrom" => $evento->date_from,
                             "dateTo" => $evento->date_to,
                             "hangout" => $evento->url,
                             "area" => $area->name,
                             "classroom" =>  $classroom ? $classroom->name : '',
-                        ];
+                        ]);
             }
 
             //lectives events

@@ -54,6 +54,10 @@
     color: white;
     box-shadow: none;
 }
+.btn-primary:not(:disabled):not(.disabled):active, .btn-primary:not(:disabled):not(.disabled).active, .show > .btn-primary.dropdown-toggle{
+    text-decoration: none;
+    color: $color-2;
+}
 
 
 .btn-warning{
@@ -68,15 +72,13 @@
     text-decoration: none;
     color:$color-2;
 }
+.btn-warning:not(:disabled):not(.disabled):active, .btn-warning:not(:disabled):not(.disabled).active, .show > .btn-warning.dropdown-toggle{
+    text-decoration: none;
+    color: $color-2;
+}
 
-a:not(.md-button):hover{
-    text-decoration: none;
-    color: $color-2;
-}
-.btn-primary:not(:disabled):not(.disabled):active, .btn-primary:not(:disabled):not(.disabled).active, .show > .btn-primary.dropdown-toggle{
-    text-decoration: none;
-    color: $color-2;
-}
+
+
 
 .btn-link_bold{
     font-weight: bold;
@@ -97,4 +99,33 @@ a:not(.md-button):hover{
 a:not(.md-button):hover{
     color:$color-3;
     text-decoration: none;
+}
+
+.btn-danger{
+    background-color:$color-4;
+    font-weight: 600;
+    color: $color-2;
+    border-color: $color-4;
+}
+.btn-danger:hover{
+    background-color: $color-4-6;
+    border-color: $color-2;
+    text-decoration: none;
+    color: white;
+}
+.btn-danger:focus{
+    background-color:$color-4;
+    border-color: $color-4;
+    text-decoration: none;
+    color: white;
+    box-shadow: none;
+}
+.btn-danger:not(:disabled):not(.disabled):active, .btn-danger:not(:disabled):not(.disabled).active, .show > .btn-danger.dropdown-toggle{
+    text-decoration: none;
+    color: $color-2;
+}
+
+a:not(.md-button):hover{
+    text-decoration: none;
+    color: $color-2;
 }

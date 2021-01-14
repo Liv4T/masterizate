@@ -7,11 +7,27 @@
         </div>
         <div class="card-body">
             <div class="row">
-                <div class="col-12">
+                <div class="col-6 justify-content">
                     <div class="btn-group" role="group" aria-label="Basic example">
                         <button type="button" class="btn" v-bind:class="{ 'btn-primary': (initialView=='dayGridMonth')  }" @click="changeCalendarView('dayGridMonth')">Mensual</button>
                         <button type="button" class="btn" v-bind:class="{  'btn-primary': (initialView=='timeGridWeek') }" @click="changeCalendarView('timeGridWeek')">Semanal</button>
 
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="justify-content">
+                         <div class="form-check">
+                            <input class="form-check-input" type="checkbox" v-model="display_activities" @change="displayActivitiesChange()" id="defaultCheck1">
+                            <label class="form-check-label" for="defaultCheck1">
+                                <span class="dot dot_blue"></span> Actividades
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" v-model="display_events" @change="displayEventsChange()" id="defaultCheck2">
+                            <label class="form-check-label" for="defaultCheck2">
+                                <span class="dot dot_red"></span> Clases presenciales
+                            </label>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -29,38 +45,40 @@
               <div class="row justify-content-center">
                 <h4>Clases presenciales</h4>
               </div>
-              <div v-for="(clas, k) in clases" :key="k">
-                <div class="row justify-content-center">
-                  <h5>{{ clas.name }}</h5>
-                </div>
-                <h6 for>Desde: {{ clas.dateFrom | moment("LLL") }}</h6>
-                <h6 for>Hasta: {{ clas.dateTo | moment("LLL") }}</h6>
+              <div class="row" v-for="(clas, k) in clases" v-bind:key="k">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="class-event">
+                                    <div class="class-event-info">{{!clas.classroom?'Lectiva ':''}} {{clas.area}} {{clas.classroom?clas.classroom:''}}: {{clas.name}} </div>
+                                    <div class="class-event-date">
+                                        <div>
+                                            <small>Desde:</small>
+                                            <span>{{clas.dateFrom|formatDate}}</span>
+                                        </div>
+                                        <div>
+                                            <small>Hasta:</small>
+                                            <span>{{clas.dateTo|formatDate}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="class-event-action">
+                                        <a class="btn btn-primary" html:type="_blank" :href="clas.hangout">Ir a clase</a>
+                                    </div>
+                                </div>
+                                <div class="class-event-footer ">
+                                    <div class="class-event-action">
+                                        <button class="btn btn-primary"  v-show="type_u==2" v-on:click.prevent="editE(clas.id)">Editar</button>
+                                        <button class="btn btn-danger"  v-show="type_u==2" v-on:click.prevent="viewDelete(clas.id,clas.name)">Eliminar</button>
+                                    </div>
 
-                <label v-if="clas.classroom"  for>Materia: {{ clas.area }}</label>
-                 <label v-if="!clas.classroom"  for>Materia: Electiva {{ clas.area }}</label>
-                <label v-if="clas.classroom" for>Salón: {{ clas.classroom }}</label>
-                <br />
-                <a
-                  class="btn btn-warning"
-                  :href="clas.hangout"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >Ir a la clase</a>
-                <div class="modal-footer">
-                  <a
-                    class="btn btn-warning"
-                    v-show="type_u==2"
-                    href
-                    v-on:click.prevent="editE(clas.id)"
-                  >Editar</a>
-                  <a
-                    class="btn btn-danger"
-                    v-show="type_u==2"
-                    href
-                    v-on:click.prevent="viewDelete(clas.id,clas.name)"
-                  >Eliminar</a>
+                                </div>
+
+
+
+                            </div>
+
+                        </div>
                 </div>
-              </div>
+
             </div>
           </div>
         </div>
@@ -215,6 +233,8 @@ export default {
   props: ["type_u"],
   data() {
     return {
+      display_events:true,
+      display_activities:true,
       desde: "",
       hasta: "",
       nameEvent: "",
@@ -254,10 +274,27 @@ export default {
     datetime,
     FullCalendar
   },
+  filters:{
+      formatDate:(value)=>{
+        if (value) {
+            return moment(String(value)).format('DD MMMM YYYY hh:mm a')
+        }
+      }
+  },
   mounted() {
+    const fullCalendarApi=this.$refs.fullCalendar.getApi();
+
     var urlM = window.location.origin + "/getAllEvents";
     axios.get(urlM).then((response) => {
       this.clases = response.data;
+      if(this.clases && this.clases.length>0)
+        {
+
+            this.clases.forEach(meeting=>{
+               fullCalendarApi.addEvent({ title: `${meeting.area} ${meeting.classroom} | Clase ${meeting.name}`, start: meeting.dateFrom,end:meeting.dateTo,description: meeting.name,url:meeting.hangout ,backgroundColor:'red'});
+            })
+
+        }
     });
     var url = window.location.origin + "/GetArearByUser";
     axios.get(url).then((response) => {
@@ -288,6 +325,45 @@ export default {
 
   },
   methods: {
+      displayActivitiesChange(){
+        const fullCalendarApi=this.$refs.fullCalendar.getApi();
+
+          if(this.display_activities)
+          {
+              /*
+               this.clases.forEach(meeting=>{
+                fullCalendarApi.addEvent({ title: `${meeting.area} ${meeting.classroom} | Clase ${meeting.name}`, start: meeting.dateFrom,end:meeting.dateTo,description: meeting.name,url:meeting.hangout ,backgroundColor:'red'});
+               })*/
+          }
+          else{
+            const currentEvents=  fullCalendarApi.getEvents();
+            currentEvents.forEach(event=>{
+                if(event.backgroundColor=='blue')
+                {
+                    event.remove();
+                }
+            });
+          }
+      },
+      displayEventsChange(){
+           const fullCalendarApi=this.$refs.fullCalendar.getApi();
+
+          if(this.display_events)
+          {
+               this.clases.forEach(meeting=>{
+                fullCalendarApi.addEvent({ title: `${meeting.area} ${meeting.classroom} | Clase ${meeting.name}`, start: meeting.dateFrom,end:meeting.dateTo,description: meeting.name,url:meeting.hangout ,backgroundColor:'red'});
+               })
+          }
+          else{
+            const currentEvents=  fullCalendarApi.getEvents();
+            currentEvents.forEach(event=>{
+                if(event.backgroundColor=='red')
+                {
+                    event.remove();
+                }
+            });
+          }
+      },
       handleDateClick(arg){
       //alert('date click! ' + arg.dateStr)
     },
@@ -391,5 +467,72 @@ export default {
 <style>
 .back-calendar {
   padding-left: 290px;
+}
+.class-event{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 15px;
+}
+.class-event-info{
+    font-size: 1.2em;
+    font-weight: 600;
+    max-width: 280px;
+    text-align: left;
+}
+
+.class-event-date{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+.class-event-date>div{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    text-align: left;
+}
+.class-event-date>div>small{
+    font-size:0.8em;
+}
+.class-event-date>div>span{
+    font-size:1em;
+
+}
+.class-event-footer{
+    display:flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+.class-event-action{
+    display:flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    padding: 10px;
+}
+.class-event-action button{
+    margin-right: 5px;
+}
+.justify-content{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 100%;
+}
+.dot {
+  height: 8px;
+  width: 8px;
+  border-radius: 50%;
+  display: inline-block;
+}
+.dot_blue{
+    background-color: #3788d8;
+}
+.dot_red{
+    background-color: #d8374d;
 }
 </style>
