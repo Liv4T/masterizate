@@ -120,7 +120,7 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     var _this = this;
 
-    if (this.module.table === undefined) {
+    if (this.module.table === undefined || this.module.table.length == 0) {
       this.module.table = [];
       this.table = [];
 
@@ -356,7 +356,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.crossword{\r\n    background-color:#e9ecefb5;\r\n    padding:5px;\n}\n.crossword_table{\r\n    width:100%;\r\n    display: flex;\r\n    flex-direction: row;\r\n    justify-content: center;\r\n    align-items: center;\n}\n.crossword_table_row{\r\n    display: flex;\r\n    flex-direction: column;\r\n    justify-content: center;\r\n    align-items: center;\n}\n.crossword_table_col{\r\n    display: flex;\r\n    flex-direction: row;\r\n    justify-content: center;\r\n    align-items: center;\r\n    border:1px solid #e2e2e2;\n}\n.crossword_table_col_input{\r\n    width:40px;\r\n    height: 40px;\r\n    text-align: center;\r\n    border:2px solid #fff;\r\n    text-transform: uppercase;\n}\n.crossword_table_col_input-active\r\n{\r\n    border:2px solid #4b87f7;\n}\n.crossword_table_col_resp_input{\r\n  width:40px;\r\n  height: 40px;\r\n  padding:1px;\n}\n.crossword_table_col_resp_input-active\r\n{\r\n    border:1px solid #4b87f7;\n}\r\n", ""]);
+exports.push([module.i, "\n.crossword{\n    background-color:#e9ecefb5;\n    padding:5px;\n}\n.crossword_table{\n    width:100%;\n    display: flex;\n    flex-direction: row;\n    justify-content: center;\n    align-items: center;\n}\n.crossword_table_row{\n    display: flex;\n    flex-direction: column;\n    justify-content: center;\n    align-items: center;\n}\n.crossword_table_col{\n    display: flex;\n    flex-direction: row;\n    justify-content: center;\n    align-items: center;\n    border:1px solid #e2e2e2;\n}\n.crossword_table_col_input{\n    width:40px;\n    height: 40px;\n    text-align: center;\n    border:2px solid #fff;\n    text-transform: uppercase;\n}\n.crossword_table_col_input-active\n{\n    border:2px solid #4b87f7;\n}\n.crossword_table_col_resp_input{\n  width:40px;\n  height: 40px;\n  padding:1px;\n}\n.crossword_table_col_resp_input-active\n{\n    border:1px solid #4b87f7;\n}\n", ""]);
 
 // exports
 
@@ -448,119 +448,121 @@ var render = function() {
                                 staticClass: "crossword_table_col"
                               },
                               [
-                                _c("input", {
-                                  directives: [
-                                    {
-                                      name: "model",
-                                      rawName: "v-model",
-                                      value: col.letter,
-                                      expression: "col.letter"
-                                    }
-                                  ],
-                                  ref: "input_" + k_row + "_" + k_col,
-                                  refInFor: true,
-                                  staticClass: "crossword_table_col_input ",
-                                  class: {
-                                    "crossword_table_col_input-active":
-                                      col.letter != "" && col.letter != null
-                                  },
-                                  attrs: { maxlength: 1, type: "text" },
-                                  domProps: { value: col.letter },
-                                  on: {
-                                    change: function($event) {
-                                      return _vm.InputChanged(k_row, k_col)
-                                    },
-                                    input: [
-                                      function($event) {
-                                        if ($event.target.composing) {
-                                          return
+                                k_row > 0 && k_col > 0
+                                  ? _c("input", {
+                                      directives: [
+                                        {
+                                          name: "model",
+                                          rawName: "v-model",
+                                          value: col.letter,
+                                          expression: "col.letter"
                                         }
-                                        _vm.$set(
-                                          col,
-                                          "letter",
-                                          $event.target.value
-                                        )
+                                      ],
+                                      ref: "input_" + k_row + "_" + k_col,
+                                      refInFor: true,
+                                      staticClass: "crossword_table_col_input ",
+                                      class: {
+                                        "crossword_table_col_input-active":
+                                          col.letter != "" && col.letter != null
                                       },
-                                      function($event) {
-                                        col.letter = $event.target.value.toUpperCase()
+                                      attrs: { maxlength: 1, type: "text" },
+                                      domProps: { value: col.letter },
+                                      on: {
+                                        change: function($event) {
+                                          return _vm.InputChanged(k_row, k_col)
+                                        },
+                                        input: [
+                                          function($event) {
+                                            if ($event.target.composing) {
+                                              return
+                                            }
+                                            _vm.$set(
+                                              col,
+                                              "letter",
+                                              $event.target.value
+                                            )
+                                          },
+                                          function($event) {
+                                            col.letter = $event.target.value.toUpperCase()
+                                          }
+                                        ],
+                                        keyup: [
+                                          function($event) {
+                                            if (
+                                              !$event.type.indexOf("key") &&
+                                              _vm._k(
+                                                $event.keyCode,
+                                                "down",
+                                                40,
+                                                $event.key,
+                                                ["Down", "ArrowDown"]
+                                              )
+                                            ) {
+                                              return null
+                                            }
+                                            return _vm.downEvent(k_row, k_col)
+                                          },
+                                          function($event) {
+                                            if (
+                                              !$event.type.indexOf("key") &&
+                                              _vm._k(
+                                                $event.keyCode,
+                                                "right",
+                                                39,
+                                                $event.key,
+                                                ["Right", "ArrowRight"]
+                                              )
+                                            ) {
+                                              return null
+                                            }
+                                            if (
+                                              "button" in $event &&
+                                              $event.button !== 2
+                                            ) {
+                                              return null
+                                            }
+                                            return _vm.rightEvent(k_row, k_col)
+                                          },
+                                          function($event) {
+                                            if (
+                                              !$event.type.indexOf("key") &&
+                                              _vm._k(
+                                                $event.keyCode,
+                                                "up",
+                                                38,
+                                                $event.key,
+                                                ["Up", "ArrowUp"]
+                                              )
+                                            ) {
+                                              return null
+                                            }
+                                            return _vm.topEvent(k_row, k_col)
+                                          },
+                                          function($event) {
+                                            if (
+                                              !$event.type.indexOf("key") &&
+                                              _vm._k(
+                                                $event.keyCode,
+                                                "left",
+                                                37,
+                                                $event.key,
+                                                ["Left", "ArrowLeft"]
+                                              )
+                                            ) {
+                                              return null
+                                            }
+                                            if (
+                                              "button" in $event &&
+                                              $event.button !== 0
+                                            ) {
+                                              return null
+                                            }
+                                            return _vm.leftEvent(k_row, k_col)
+                                          }
+                                        ]
                                       }
-                                    ],
-                                    keyup: [
-                                      function($event) {
-                                        if (
-                                          !$event.type.indexOf("key") &&
-                                          _vm._k(
-                                            $event.keyCode,
-                                            "down",
-                                            40,
-                                            $event.key,
-                                            ["Down", "ArrowDown"]
-                                          )
-                                        ) {
-                                          return null
-                                        }
-                                        return _vm.downEvent(k_row, k_col)
-                                      },
-                                      function($event) {
-                                        if (
-                                          !$event.type.indexOf("key") &&
-                                          _vm._k(
-                                            $event.keyCode,
-                                            "right",
-                                            39,
-                                            $event.key,
-                                            ["Right", "ArrowRight"]
-                                          )
-                                        ) {
-                                          return null
-                                        }
-                                        if (
-                                          "button" in $event &&
-                                          $event.button !== 2
-                                        ) {
-                                          return null
-                                        }
-                                        return _vm.rightEvent(k_row, k_col)
-                                      },
-                                      function($event) {
-                                        if (
-                                          !$event.type.indexOf("key") &&
-                                          _vm._k(
-                                            $event.keyCode,
-                                            "up",
-                                            38,
-                                            $event.key,
-                                            ["Up", "ArrowUp"]
-                                          )
-                                        ) {
-                                          return null
-                                        }
-                                        return _vm.topEvent(k_row, k_col)
-                                      },
-                                      function($event) {
-                                        if (
-                                          !$event.type.indexOf("key") &&
-                                          _vm._k(
-                                            $event.keyCode,
-                                            "left",
-                                            37,
-                                            $event.key,
-                                            ["Left", "ArrowLeft"]
-                                          )
-                                        ) {
-                                          return null
-                                        }
-                                        if (
-                                          "button" in $event &&
-                                          $event.button !== 0
-                                        ) {
-                                          return null
-                                        }
-                                        return _vm.leftEvent(k_row, k_col)
-                                      }
-                                    ]
-                                  }
-                                })
+                                    })
+                                  : _vm._e()
                               ]
                             )
                           }),
@@ -691,7 +693,8 @@ var render = function() {
                               _vm._v(" "),
                               word.response &&
                               word.response.toUpperCase() ==
-                                word.word.toUpperCase()
+                                word.word.toUpperCase() &&
+                              _vm.disabled
                                 ? _c("small", [
                                     _c(
                                       "svg",
@@ -720,7 +723,8 @@ var render = function() {
                               _vm._v(" "),
                               word.response &&
                               word.response.toUpperCase() !=
-                                word.word.toUpperCase()
+                                word.word.toUpperCase() &&
+                              _vm.disabled
                                 ? _c("small", [
                                     _c(
                                       "svg",
@@ -827,7 +831,7 @@ var render = function() {
                                                 )
                                               },
                                               function($event) {
-                                                col.letter = $event.target.value.toUpperCase()
+                                                col.response = $event.target.value.toUpperCase()
                                               }
                                             ],
                                             keyup: [

@@ -597,6 +597,23 @@ Route::middleware('auth')->get('/docente/modulo/{id_module}/clase/{id_class}', f
     return view('teacherCourse')->with('id_module', $id_module)->with('id_class', $id_class);
 });
 
+Route::middleware('auth')->get('/docente/estudiantes', function () {
+    return view('teacherStudents');
+});
+
+Route::middleware('auth')->get('/docente/area/{id_area}/curso/{id_classroom}/estudiante/{id_student}', function (int $id_area, int $id_classroom,int $id_student) {
+    return view('teacherStudent')->with('id_area', $id_area)->with('id_classroom', $id_classroom)->with('id_student', $id_student);
+});
+
+Route::middleware('auth')->get('/docente/area/{id_area}/curso/{id_classroom}/estudiante/{id_student}/modulo/{id_module}', function (int $id_area, int $id_classroom,int $id_student,int $id_module) {
+    return view('teacherStudent')->with('id_area', $id_area)->with('id_classroom', $id_classroom)->with('id_student', $id_student)->with('id_module', $id_module);
+});
+
+Route::middleware('auth')->get('/docente/area/{id_area}/curso/{id_classroom}/estudiante/{id_student}/modulo/{id_module}/clase/{id_class}', function (int $id_area, int $id_classroom,int $id_student,int $id_module,int $id_class) {
+    return view('teacherStudent')->with('id_area', $id_area)->with('id_classroom', $id_classroom)->with('id_student', $id_student)->with('id_module', $id_module)->with('id_class', $id_class);
+});
+
+
 Route::middleware('auth')->get('/estudiante/clases', function () {
     return view('studentCourses');
 });
@@ -619,6 +636,9 @@ Route::middleware('auth')->get('/admin/clases', function () {
 
 
 
+
+
+
 //api rest
 Route::get('/api/achievement/{id_achievement}/indicator', 'IndicatorController@getByAchievement');
 Route::get('/api/teacher/module/{id_module}/class/{id_course}', 'ClassController@getCourse');
@@ -630,6 +650,12 @@ Route::post('/api/file/upload/editor-content', 'UploadController@uploadEditorCon
 Route::put('/api/admin/module/{id_module}/class/{id_course}/{state}', 'ClassController@updateClassEnableEdition');
 Route::get('/api/student/activity', 'ActivityController@getByCurrentStudent');
 Route::get('/api/student/event', 'EventsController@studentEvents');
+Route::get('/api/teacher/area/{area_id}/classroom/{classroom_id}/student', 'CalificationController@getByClassroom');
+Route::get('/api/teacher/area/{area_id}/classroom/{classroom_id}/student/{student_id}', 'CalificationController@getByStudent');
+Route::get('/api/teacher/area/{area_id}/classroom/{classroom_id}/student/{student_id}/module/{module_id}', 'CalificationController@getByModule');
+Route::get('/api/student/{student_id}', 'StudentController@get');
+Route::get('/api/teacher/class/{id_class}/student/{id_student}', 'CalificationController@getClassContent');
+
 
 
 Route::get('/api/lectives', 'LectivesController@getLectives');

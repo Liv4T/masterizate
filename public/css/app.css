@@ -10972,12 +10972,12 @@ a.text-dark:focus {
 }
 
 .btn-link:hover {
-  border-color: #278080;
-  text-decoration: none;
+  border: 0px;
+  text-decoration: underline;
+  color: #278080;
 }
 
 .btn-link:focus {
-  border-color: #278080;
   text-decoration: none;
   box-shadow: none;
 }

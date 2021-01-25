@@ -88,11 +88,11 @@
     color:$color-3;
 }
 .btn-link:hover{
-    border-color: $color-3;
-    text-decoration: none;
+    border:0px;
+    text-decoration: underline;
+    color:$color-3;
 }
 .btn-link:focus{
-    border-color: $color-3;
     text-decoration: none;
     box-shadow: none;
 }

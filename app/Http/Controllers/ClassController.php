@@ -324,8 +324,8 @@ class ClassController extends Controller
                 'activity_type'=>$activity->activity_type,
                 'name'=>$activity->name,
                 'description'=>$activity->description,
-                'delivery_max_date'=>substr($activity->delivery_max_date,0,10),
-                'feedback_date'=>substr($activity->feedback_date,0,10),
+                'delivery_max_date'=>$activity->delivery_max_date,
+                'feedback_date'=>$activity->feedback_date,
                 'rules'=>json_decode($activity->rules),
                 'is_required'=>$activity->is_required,
                 'state'=>$activity->state,
@@ -722,7 +722,7 @@ class ClassController extends Controller
                 if(isset($activity['id']))
                 {
                     $id_activity=$activity['id'];
-                    Activity::where('id',$activity['id'])->update(array('deleted'=>0,'state'=>1,'id_achievement'=>$activity['id_achievement'],'name'=>$activity['name'],'description'=>$activity['description'],'activity_type'=>$activity['activity_type'],'is_required'=>1,'updated_user'=>$auth->id,'delivery_max_date'=>$activity['delivery_max_date']));
+                    Activity::where('id',$activity['id'])->update(array('deleted'=>0,'state'=>1,'id_achievement'=>$activity['id_achievement'],'name'=>$activity['name'],'description'=>$activity['description'],'activity_type'=>$activity['activity_type'],'is_required'=>1,'updated_user'=>$auth->id,'delivery_max_date'=>$activity['delivery_max_date'],'feedback_date'=>$activity['feedback_date']));
                 }
                 else
                 {
@@ -738,7 +738,7 @@ class ClassController extends Controller
                         'deleted'=>0,
                         'updated_user'=>$auth->id,
                         'delivery_max_date'=>$activity['delivery_max_date'],
-                        'feedback_date'=>$activity['feedback_date'],
+                        'feedback_date'=>$activity['feedback_date']
                     ]);
                     $id_activity=$activity_new->id;
                 }

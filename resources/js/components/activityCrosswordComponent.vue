@@ -24,7 +24,7 @@
                         <div class="crossword_table" >
                             <div  class="crossword_table_row" v-for="(row,k_row) in table" v-bind:key="k_row" >
                                 <div class="crossword_table_col" v-for="(col,k_col) in row.cols" v-bind:key="k_col">
-                                    <input :ref="'input_'+k_row+'_'+k_col" @change="InputChanged(k_row,k_col)" @input="col.letter = $event.target.value.toUpperCase()" class="crossword_table_col_input " :maxlength="1"  type="text" v-model="col.letter" @keyup.down="downEvent(k_row,k_col)" @keyup.right="rightEvent(k_row,k_col)" @keyup.up="topEvent(k_row,k_col)" @keyup.left="leftEvent(k_row,k_col)" v-bind:class="{ 'crossword_table_col_input-active': (col.letter!='' && col.letter!=null) }"  />
+                                    <input :ref="'input_'+k_row+'_'+k_col" v-if="k_row>0 && k_col>0" @change="InputChanged(k_row,k_col)" @input="col.letter = $event.target.value.toUpperCase()" class="crossword_table_col_input " :maxlength="1"  type="text" v-model="col.letter" @keyup.down="downEvent(k_row,k_col)" @keyup.right="rightEvent(k_row,k_col)" @keyup.up="topEvent(k_row,k_col)" @keyup.left="leftEvent(k_row,k_col)" v-bind:class="{ 'crossword_table_col_input-active': (col.letter!='' && col.letter!=null) }"  />
                                 </div>
                             </div>
                         </div>
@@ -69,8 +69,8 @@
                             <div class="col-sm-8 padding-10" style="display:flex;flex-direction:row">
                                  <label style="margin-right:10px;font-weight:bold">{{k_word+1}}. </label>
                                  <div v-html="word.content" style="margin-right:10px;"></div>
-                                 <small v-if="word.response && word.response.toUpperCase()==word.word.toUpperCase()"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path style="fill:#48DA7E" fill-rule="evenodd" d="M1.5 8a6.5 6.5 0 1113 0 6.5 6.5 0 01-13 0zM0 8a8 8 0 1116 0A8 8 0 010 8zm11.78-1.72a.75.75 0 00-1.06-1.06L6.75 9.19 5.28 7.72a.75.75 0 00-1.06 1.06l2 2a.75.75 0 001.06 0l4.5-4.5z"></path></svg> ({{word.word}}). </small>
-                                 <small v-if="word.response && word.response.toUpperCase()!=word.word.toUpperCase()"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16"><path style="fill:#D61D5A" d="M9.036 7.976a.75.75 0 00-1.06 1.06L10.939 12l-2.963 2.963a.75.75 0 101.06 1.06L12 13.06l2.963 2.964a.75.75 0 001.061-1.06L13.061 12l2.963-2.964a.75.75 0 10-1.06-1.06L12 10.939 9.036 7.976z"></path><path style="fill:#D61D5A" fill-rule="evenodd" d="M12 1C5.925 1 1 5.925 1 12s4.925 11 11 11 11-4.925 11-11S18.075 1 12 1zM2.5 12a9.5 9.5 0 1119 0 9.5 9.5 0 01-19 0z"></path></svg> ({{word.word}}). Respondiste: {{word.response}}</small>
+                                 <small v-if="word.response && word.response.toUpperCase()==word.word.toUpperCase() && disabled"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path style="fill:#48DA7E" fill-rule="evenodd" d="M1.5 8a6.5 6.5 0 1113 0 6.5 6.5 0 01-13 0zM0 8a8 8 0 1116 0A8 8 0 010 8zm11.78-1.72a.75.75 0 00-1.06-1.06L6.75 9.19 5.28 7.72a.75.75 0 00-1.06 1.06l2 2a.75.75 0 001.06 0l4.5-4.5z"></path></svg> ({{word.word}}). </small>
+                                 <small v-if="word.response && word.response.toUpperCase()!=word.word.toUpperCase() && disabled"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16"><path style="fill:#D61D5A" d="M9.036 7.976a.75.75 0 00-1.06 1.06L10.939 12l-2.963 2.963a.75.75 0 101.06 1.06L12 13.06l2.963 2.964a.75.75 0 001.061-1.06L13.061 12l2.963-2.964a.75.75 0 10-1.06-1.06L12 10.939 9.036 7.976z"></path><path style="fill:#D61D5A" fill-rule="evenodd" d="M12 1C5.925 1 1 5.925 1 12s4.925 11 11 11 11-4.925 11-11S18.075 1 12 1zM2.5 12a9.5 9.5 0 1119 0 9.5 9.5 0 01-19 0z"></path></svg> ({{word.word}}). Respondiste: {{word.response}}</small>
                             </div>
                         </div>
                     </div>
@@ -78,7 +78,7 @@
                         <div class="crossword_table" >
                             <div  class="crossword_table_row" v-for="(row,k_row) in table" v-bind:key="k_row" >
                                 <div class="crossword_table_col_resp_input" v-for="(col,k_col) in row.cols" v-bind:key="k_col">
-                                    <input v-if="!col.title && col.letter" :ref="'input_'+k_row+'_'+k_col" @change="InputResponseChanged(k_row,k_col)" @input="col.letter = $event.target.value.toUpperCase()" class="crossword_table_col_input " :maxlength="1"  type="text" v-model="col.response" @keyup.down="downEvent(k_row,k_col)" @keyup.right="rightEvent(k_row,k_col)" @keyup.up="topEvent(k_row,k_col)" @keyup.left="leftEvent(k_row,k_col)" v-bind:class="{ 'crossword_table_col_resp_input-active': (col.letter!='' && col.letter!=null) }"  />
+                                    <input v-if="!col.title && col.letter" :ref="'input_'+k_row+'_'+k_col" @change="InputResponseChanged(k_row,k_col)" @input="col.response = $event.target.value.toUpperCase()" class="crossword_table_col_input " :maxlength="1"  type="text" v-model="col.response" @keyup.down="downEvent(k_row,k_col)" @keyup.right="rightEvent(k_row,k_col)" @keyup.up="topEvent(k_row,k_col)" @keyup.left="leftEvent(k_row,k_col)" v-bind:class="{ 'crossword_table_col_resp_input-active': (col.letter!='' && col.letter!=null) }"  />
                                     <span v-if="col.title">{{col.response}}</span>
                                 </div>
                             </div>
@@ -107,7 +107,7 @@ export default {
         }
     },
     mounted() {
-        if(this.module.table===undefined)
+        if(this.module.table===undefined||this.module.table.length==0)
         {
             this.module.table=[];
              this.table=[];

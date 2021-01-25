@@ -127,7 +127,9 @@
                                                  <div class="row">
                                                     <div class="col-6">
                                                         <label><span class="required">*</span>Fecha máxima entrega:</label>
+                                                        {{activity.delivery_max_date}}
                                                         <input type="datetime-local" class="form-control" v-model="activity.delivery_max_date" />
+                                                        <input type="hidden" id="timezone" name="timezone" value="-05:00">
                                                     </div>
                                                     <div class="col-6">
                                                         <label><span class="required">*</span>Fecha retroalimentación:</label>
@@ -270,6 +272,8 @@ export default {
                     if(this.course.activities.length>0)
                     {
                         this.course.activities.forEach(act=>{
+                            act.delivery_max_date=act.delivery_max_date.replace(" ","T");
+                            act.feedback_date=act.feedback_date.replace(" ","T");
                             this.GetIndicatorsEvent(act);
                         });
                     }

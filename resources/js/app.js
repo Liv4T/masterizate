@@ -194,7 +194,11 @@ Vue.component("teacher-course", () => import ("./components/teacherCourseCompone
 Vue.component("student-courses", () => import ("./components/studentCoursesComponent.vue"));
 Vue.component("student-module", () => import ("./components/studentModuleComponent.vue"));
 Vue.component("student-course", () => import ("./components/studentCourseComponent.vue"));
-
+Vue.component("teacher-students", () => import ("./components/teacherStudentsComponent.vue"));
+Vue.component("teacher-student", () => import ("./components/teacherStudentComponent.vue"));
+Vue.component("teacher-student-module-select", () => import ("./components/teacherStudentModuleSelectComponent.vue"));
+Vue.component("teacher-student-class-select", () => import ("./components/teacherStudentClassSelectComponent.vue"));
+Vue.component("teacher-student-class-content", () => import ("./components/teacherStudentClassContentComponent.vue"));
 Vue.use(CKEditor);
 
 const app = new Vue({el: "#app", data: {}, store});
