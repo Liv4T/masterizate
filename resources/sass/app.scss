@@ -96,10 +96,6 @@
     text-decoration: none;
     box-shadow: none;
 }
-a:not(.md-button):hover{
-    color:$color-3;
-    text-decoration: none;
-}
 
 .btn-danger{
     background-color:$color-4;
@@ -121,11 +117,6 @@ a:not(.md-button):hover{
     box-shadow: none;
 }
 .btn-danger:not(:disabled):not(.disabled):active, .btn-danger:not(:disabled):not(.disabled).active, .show > .btn-danger.dropdown-toggle{
-    text-decoration: none;
-    color: $color-2;
-}
-
-a:not(.md-button):hover{
     text-decoration: none;
     color: $color-2;
 }

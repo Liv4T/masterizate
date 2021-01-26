@@ -46,7 +46,7 @@
                                                 {{student.progress}} %
                                             </td>
                                             <td>
-                                                {{student.score}} / 5.00
+                                                {{student.score}} /  {{student.score_base}}
                                             </td>
                                             <td>
                                                 <a class="btn btn-primary" :href="`/docente/area/${current_area.id}/curso/${current_area.id_classroom}/estudiante/${student.user_id}`">VER</a>

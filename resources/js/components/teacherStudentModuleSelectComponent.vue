@@ -20,11 +20,13 @@
 
                         <div class="class_container_score">
                             <div>
-                                <span>{{_module.progress}}%</span>
+                                <span v-if="_module.score>-1">{{_module.progress}}%</span>
+                                <span v-else>-</span>
                                 <small>Progreso</small>
                             </div>
                             <div>
-                                <span>{{_module.score}}/5</span>
+                                <span v-if="_module.score>-1">{{_module.score}}/5</span>
+                                <span v-else>-</span>
                                 <small>Calificación</small>
                             </div>
 
@@ -52,7 +54,7 @@ export default {
         getStudentCalifications()
         {
             return new Promise((resolve,reject)=>{
-                axios.get(`/api/teacher/area/${this.id_area}/classroom/${this.id_classroom}/student/${this.id_student}`).then(response => {
+                axios.get(`/api/teacher/area/${this.id_area}/classroom/${this.id_classroom}/student/${this.id_student}/module`).then(response => {
                     this.modules = response.data;
                     resolve();
                 },e=>reject(e));

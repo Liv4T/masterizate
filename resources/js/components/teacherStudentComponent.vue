@@ -21,11 +21,11 @@
                                 <h5>Advisor 12C</h5>
                                 <div class="course_resume">
                                     <div class="course_resume_item">
-                                        <span>76%</span>
+                                        <span>{{current_student.progress}}%</span>
                                         <small>Progreso</small>
                                     </div>
                                     <div class="course_resume_item">
-                                        <span>3.51 / 5.00</span>
+                                        <span>{{current_student.score}} / {{current_student.score_base}}</span>
                                         <small>Promedio</small>
                                     </div>
                                 </div>
@@ -53,24 +53,24 @@ export default {
     mounted() {
         this.modules = [];
         this.getStudentInformation().then(()=>{
-            this.getStudentCalifications()
+            this.getModules()
         });
     },
     methods: {
         getStudentInformation()
         {
             return new Promise((resolve,reject)=>{
-                axios.get(`/api/student/${this.id_student}`).then(response => {
+                axios.get(`/api/teacher/area/${this.id_area}/classroom/${this.id_classroom}/student/${this.id_student}`).then(response => {
                     this.current_student = response.data;
                     resolve();
                 },e=>reject(e));
             });
 
         },
-        getStudentCalifications()
+        getModules()
         {
             return new Promise((resolve,reject)=>{
-                axios.get(`/api/teacher/area/${this.id_area}/classroom/${this.id_classroom}/student/${this.id_student}`).then(response => {
+                axios.get(`/api/teacher/area/${this.id_area}/classroom/${this.id_classroom}/student/${this.id_student}/module`).then(response => {
                     this.modules = response.data;
                     resolve();
                 },e=>reject(e));

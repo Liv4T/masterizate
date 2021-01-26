@@ -15,8 +15,9 @@ use App\ClassroomStudent;
 use App\CoursesAchievement;
 use App\Weekly;
 use Illuminate\Http\Request;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+
 
 class ActivityController extends Controller
 {
@@ -162,12 +163,50 @@ class ActivityController extends Controller
         ActivityInteraction::create([
             'id_activity'=>$id_activity,
             'id_student'=>$user->id,
-            'content'=>json_encode($data),
-            'qualification'=>$data['score'],
+            'score'=>$data['score'],
             'state'=>$is_qualificated?3:1
         ]);
 
         //todo add interaction user
+    }
+
+    public function saveTeacherScore(Request $request,int $id_activity, int $id_student)
+    {
+        $user = Auth::user();
+
+        if(!isset($user)) return response('Usuario no autenticado.',402);
+
+
+        $data=$request->all();
+
+        if(!isset($data)) return response('Error al procesar. Contenido es requerido.',400);
+
+
+        $activity=Activity::find($id_activity);
+
+        $activity_interaction=ActivityInteraction::where('id_activity',$activity->id)->where('deleted',0)->first();
+
+        if(!isset($activity_interaction))
+        {
+            ActivityInteraction::create([
+                'id_activity'=>$id_activity,
+                'id_student'=>$id_student,
+                'score'=>$data['score'],
+                'qualified_date'=>date("Y-m-d H:i"),
+                'state'=>3
+            ]);
+
+        }else{
+            ActivityInteraction::where('id_activity',$activity->id)->update([
+                'score'=>$data['score'],
+                'qualified_date'=>date("Y-m-d H:i"),
+                'state'=>3
+            ]);
+        }
+
+
+
+
     }
 
     /**

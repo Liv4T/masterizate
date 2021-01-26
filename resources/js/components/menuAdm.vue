@@ -161,7 +161,7 @@
                   />
                   <span class="menu">Electivas</span>
                   <div class="dropdown2-content">
-                    <a href="/electiveCourse">
+                    <a href="/teacher/lectives/planning">
                       <img
                         width="35px"
                         src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/MIS-CURSOS.png?alt=media&token=93ec6b97-e5a6-4eca-891e-b63bf2a352ad"
@@ -169,6 +169,14 @@
                       />
                       Administrar Electivas
                     </a>
+                    <a href="/teacher/lectives/courses">
+                      <img
+                        width="35px"
+                        src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/ACTIVIDADES_naranja.png?alt=media&token=93ec6b97-e5a6-4eca-891e-b63bf2a352ad"
+                        alt
+                      />Clases lectivas
+                    </a>
+
                   </div>
                 </li>
               </a>

@@ -199,6 +199,7 @@ Vue.component("teacher-student", () => import ("./components/teacherStudentCompo
 Vue.component("teacher-student-module-select", () => import ("./components/teacherStudentModuleSelectComponent.vue"));
 Vue.component("teacher-student-class-select", () => import ("./components/teacherStudentClassSelectComponent.vue"));
 Vue.component("teacher-student-class-content", () => import ("./components/teacherStudentClassContentComponent.vue"));
+Vue.component("notification-component", () => import ("./components/notificationComponent.vue"));
 Vue.use(CKEditor);
 
 const app = new Vue({el: "#app", data: {}, store});
