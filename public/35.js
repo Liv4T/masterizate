@@ -315,8 +315,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 (function () {
   "use strict";
 
@@ -419,8 +417,7 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
     },
     openDocument: function openDocument(resource) {
       try {
-        this.saveInteraction(resource);
-        window.open(resource.content);
+        this.saveInteraction(resource); //  window.open(resource.content);
       } catch (_unused) {}
     },
     openLink: function openLink(resource) {
@@ -433,21 +430,18 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
       this.saveInteraction(resource);
     },
     saveInteraction: function saveInteraction(resource) {
-      var _this3 = this;
-
-      axios.put("/api/student/module/".concat(this.id_module, "/class/").concat(this.id_class, "/resource/").concat(resource.id, "/interaction")).then(function (response) {
-        _this3.getCourseData();
+      axios.put("/api/student/module/".concat(this.id_module, "/class/").concat(this.id_class, "/resource/").concat(resource.id, "/interaction")).then(function (response) {//this.getCourseData();
       });
     },
     getCourseData: function getCourseData() {
-      var _this4 = this;
+      var _this3 = this;
 
       if (this.id_class != 0) {
         axios.get("/api/teacher/module/".concat(this.id_module, "/class/").concat(this.id_class)).then(function (response) {
-          _this4.course = response.data;
+          _this3.course = response.data;
 
-          if (_this4.course.content.length == 0) {
-            _this4.course.content = [{
+          if (_this3.course.content.length == 0) {
+            _this3.course.content = [{
               content_type: "DOCUMENT",
               content: "",
               description: ""
@@ -481,7 +475,7 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
                   this.completeQuestion();*/
     },
     openFeedback: function openFeedback(id_activity) {
-      var _this5 = this;
+      var _this4 = this;
 
       this.activity = this.course.activities[id_activity];
       console.log(this.activity);
@@ -490,7 +484,7 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
         this.activity.correct_answers = 0;
         this.course.activities[id_activity].module.questions.forEach(function (e) {
           if (e.student_response.response > -1 && e.student_response.is_correct == "S") {
-            _this5.activity.correct_answers++;
+            _this4.activity.correct_answers++;
           }
         });
       }
@@ -499,15 +493,15 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
       this.activity = {}; //activate class
     },
     finalizeActivityQuestion: function finalizeActivityQuestion() {
-      var _this6 = this;
+      var _this5 = this;
 
       axios.put("/api/student/module/".concat(this.id_module, "/class/").concat(this.id_class, "/activity/").concat(this.activity.id, "/interaction"), {
         is_qualified: 1,
         qualified_date: new Date()
       }).then(function (response) {
-        _this6.getCourseData();
+        _this5.getCourseData();
 
-        _this6.closeQuestion();
+        _this5.closeQuestion();
       });
     },
     returnPage: function returnPage() {
@@ -540,13 +534,13 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
       activity.module.questions.splice(index, 1);
     },
     saveData: function saveData() {
-      var _this7 = this;
+      var _this6 = this;
 
       axios.put("/api/teacher/module/".concat(this.id_module, "/class"), this.course).then(function (response) {
         // this.getPlanificationEvent(this.id_lective_planification);
         toastr.success("Clases actualizadas correctamente");
 
-        _this7.returnPage();
+        _this6.returnPage();
       }, function (error) {
         console.log(error);
         toastr.error("ERROR:Por favor valide que la información esta completa");
@@ -593,7 +587,7 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
       activity.module.questions[index_question].options.splice(index, 1);
     },
     onFileChange: function onFileChange(file, item_index) {
-      var _this8 = this;
+      var _this7 = this;
 
       console.log(item_index);
       this.is_loading = true;
@@ -617,33 +611,33 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
         data.append("name", file_name);
         data.append("count", "-class-".concat(item_index));
         axios.post("/fileDocument", data).then(function (response) {
-          _this8.course.content[item_index].content = "".concat(window.location.origin, "/uploads/clases/").concat(file_name.split(" ").join("_"), "-class-").concat(item_index, ".").concat(file_extension);
+          _this7.course.content[item_index].content = "".concat(window.location.origin, "/uploads/clases/").concat(file_name.split(" ").join("_"), "-class-").concat(item_index, ".").concat(file_extension);
 
-          _this8.stopLooading(item_index);
+          _this7.stopLooading(item_index);
         })["catch"](function (err) {
-          _this8.stopLooading(item_index);
+          _this7.stopLooading(item_index);
         });
       } else {
         this.stopLooading(item_index);
       }
     },
     initLoading: function initLoading(item_index, percent) {
-      var _this9 = this;
+      var _this8 = this;
 
       if (this.course.content[item_index].progress_bar_percent != 0 && this.course.content[item_index].progress_bar_percent < percent && percent < 100) {
         this.course.content[item_index].progress_bar_percent = this.course.content[item_index].progress_bar_percent + 20;
         setTimeout(function () {
-          _this9.initLoading(item_index, percent + 20);
+          _this8.initLoading(item_index, percent + 20);
         }, 2000);
       }
     },
     stopLooading: function stopLooading(item_index) {
-      var _this10 = this;
+      var _this9 = this;
 
       this.course.content[item_index].progress_bar_percent = 100;
       setTimeout(function () {
-        _this10.course.content[item_index].progress_bar_percent = 0;
-        _this10.is_loading = false;
+        _this9.course.content[item_index].progress_bar_percent = 0;
+        _this9.is_loading = false;
       }, 500);
     },
     resolveYoutubeLink: function resolveYoutubeLink(link_youtube) {
@@ -680,7 +674,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.div-weekly-plan {\r\n    display: flex;\r\n    flex-direction: row;\r\n    justify-content: space-around;\r\n    padding: 10px;\n}\n.div-weekly-plan label {\r\n    font-size: 1.2em;\r\n    font-weight: 700;\n}\n.div-classes {\r\n    display: flex;\r\n    flex-direction: column;\r\n    justify-content: center;\r\n    padding: 5px;\n}\n.div-class {\r\n    display: flex;\r\n    flex-direction: column;\r\n    justify-content: space-around;\r\n    padding: 5px;\n}\n.div-class > .title {\r\n    display: flex;\r\n    flex-direction: row;\r\n    justify-content: space-around;\n}\n.div-class > .content {\r\n    display: flex;\r\n    flex-direction: row;\r\n    justify-content: space-around;\r\n    margin-top: 30px;\r\n    flex-wrap: wrap;\n}\n.required {\r\n    color: red;\n}\n.div-resource {\r\n    padding: 30px;\r\n    background-color: #e9ecefb5;\r\n    margin: 5px;\n}\n.div-resource .form-item {\r\n    width: 100%;\r\n    padding: 5px;\r\n    display: flex;\r\n    flex-direction: column;\r\n    justify-content: flex-start;\n}\n.div-resource .form-item > a {\r\n    color: #007bff;\n}\n.div-resource .form-item > a:visited {\r\n    color: #007bff;\n}\n.div-resource .form-item > span {\r\n    padding: 10px;\r\n    font-size: 1.2em;\r\n    color: #233d68;\r\n    font-weight: 700;\r\n    border: 1px solid #233d68;\r\n    border-radius: 5px;\r\n    margin: 5px;\n}\n.div-resource .form-item > span.blue {\r\n    padding: 10px;\r\n    background-color: #edf8ff;\r\n    font-size: 1.2em;\r\n    color: #233d68;\r\n    font-weight: 700;\r\n    border: 1px solid #233d68;\r\n    border-radius: 5px;\r\n    margin: 5px;\n}\n.div-resource .form-item > span:hover {\r\n    background-color: white;\r\n    cursor: pointer;\n}\n.div-resource .form-item > .form-button {\r\n    width: 100%;\r\n    padding: 5px;\r\n    display: flex;\r\n    flex-direction: row;\r\n    justify-content: flex-end;\n}\n.div-resource .form-item > .form-button > button {\r\n    width: 50%;\n}\n.div-weekly-plan-btn-save {\r\n    display: flex;\r\n    padding: 50px;\r\n    justify-content: space-between;\r\n    flex-direction: row;\n}\n.closed-icon {\r\n    width: 100%;\r\n    display: flex;\r\n    justify-content: flex-end;\r\n    flex-direction: row;\r\n    cursor: pointer;\r\n    color: #233d68;\n}\n.margin-top-50 {\r\n    margin-top: 50px;\n}\n.row {\r\n    margin: 10px 0px;\n}\n.question {\r\n    background-color: #e9ecefb5;\n}\n.div-icon-add {\r\n    display: flex;\r\n    flex-direction: row;\r\n    justify-content: center;\r\n    align-items: center;\n}\n.icon-remove {\r\n    background-color: #f2f2f2;\r\n    height: 30px;\r\n    width: 40px;\r\n    border: 2px solid #8f8f8f;\r\n    border-radius: 5px;\r\n    display: flex;\r\n    flex-direction: row;\r\n    justify-content: center;\r\n    align-items: center;\r\n    cursor: default;\r\n\r\n    font-weight: 900;\r\n    background-color: #ffc107;\r\n    color: white;\r\n    border-color: #ffc107;\n}\n.icon-remove:hover {\r\n    color: #ffc107;\r\n    background-color: white;\r\n    border-color: #ffc107;\n}\n.icon-add {\r\n    background-color: #233d68;\r\n    height: 30px;\r\n    width: 40px;\r\n    border: 2px solid #233d68;\r\n    border-radius: 5px;\r\n    display: flex;\r\n    flex-direction: row;\r\n    justify-content: center;\r\n    align-items: center;\r\n    cursor: default;\r\n\r\n    font-weight: 900;\r\n    color: white;\n}\n.icon-add:hover {\r\n    color: #233d68;\r\n    background-color: white;\r\n    border-color: #233d68;\n}\n.card-title {\r\n    display: flex;\r\n    flex-direction: row;\r\n    justify-content: space-between;\n}\n.card-title > h5 {\r\n    width: 50%;\n}\n.div-check {\r\n    display: flex;\r\n    flex-direction: row;\r\n    justify-content: center;\r\n    align-items: center;\r\n    padding-top: 20px;\n}\n.progress {\r\n    width: 100%;\r\n    display: flex;\r\n    justify-content: flex-start;\n}\n.q-option {\r\n    background-color: white;\r\n    border-radius: 5px;\r\n    padding: 10px 20px;\r\n    margin: 5px;\r\n    border: 1px solid #f2f2f2;\r\n    width: 100%;\r\n    display: flex;\r\n    justify-content: space-between;\r\n    flex-direction: row;\r\n    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);\n}\n.q-option:hover {\r\n    background-color: #ffe7a0;\r\n    cursor: pointer;\n}\n.q-option-checked {\r\n    background-color: #007bff !important;\r\n    color: white;\r\n    box-shadow: none;\n}\n.span-solution {\r\n    margin-top: 20px;\r\n    font-size: 1.8em;\n}\n.html-content {\r\n    padding: 10px;\r\n    margin-top: 20px;\r\n    background-color: rgba(255, 255, 255, 1);\n}\n.container_youtube{\r\n    width: 100%;\r\n    height: 500px !important;\n}\n.activity_response-button{\r\n    display:flex;\r\n    flex-direction: row;\r\n    justify-content: flex-end;\r\n    align-items: center;\n}\n.activity_score{\r\n    font-size: 1.5em;\n}\r\n", ""]);
+exports.push([module.i, "\n.div-weekly-plan {\n    display: flex;\n    flex-direction: row;\n    justify-content: space-around;\n    padding: 10px;\n}\n.div-weekly-plan label {\n    font-size: 1.2em;\n    font-weight: 700;\n}\n.div-classes {\n    display: flex;\n    flex-direction: column;\n    justify-content: center;\n    padding: 5px;\n}\n.div-class {\n    display: flex;\n    flex-direction: column;\n    justify-content: space-around;\n    padding: 5px;\n}\n.div-class > .title {\n    display: flex;\n    flex-direction: row;\n    justify-content: space-around;\n}\n.div-class > .content {\n    display: flex;\n    flex-direction: row;\n    justify-content: space-around;\n    margin-top: 30px;\n    flex-wrap: wrap;\n}\n.required {\n    color: red;\n}\n.div-resource {\n    padding: 30px;\n    background-color: #e9ecefb5;\n    margin: 5px;\n}\n.div-resource .form-item {\n    width: 100%;\n    padding: 5px;\n    display: flex;\n    flex-direction: column;\n    justify-content: flex-start;\n}\n.div-resource .form-item > a {\n    color: #007bff;\n}\n.div-resource .form-item > a:visited {\n    color: #007bff;\n}\n.div-resource .form-item > span {\n    padding: 10px;\n    font-size: 1.2em;\n    color: #233d68;\n    font-weight: 700;\n    border: 1px solid #233d68;\n    border-radius: 5px;\n    margin: 5px;\n}\n.div-resource .form-item > span.blue {\n    padding: 10px;\n    background-color: #edf8ff;\n    font-size: 1.2em;\n    color: #233d68;\n    font-weight: 700;\n    border: 1px solid #233d68;\n    border-radius: 5px;\n    margin: 5px;\n}\n.div-resource .form-item > span:hover {\n    background-color: white;\n    cursor: pointer;\n}\n.div-resource .form-item > .form-button {\n    width: 100%;\n    padding: 5px;\n    display: flex;\n    flex-direction: row;\n    justify-content: flex-end;\n}\n.div-resource .form-item > .form-button > button {\n    width: 50%;\n}\n.div-weekly-plan-btn-save {\n    display: flex;\n    padding: 50px;\n    justify-content: space-between;\n    flex-direction: row;\n}\n.closed-icon {\n    width: 100%;\n    display: flex;\n    justify-content: flex-end;\n    flex-direction: row;\n    cursor: pointer;\n    color: #233d68;\n}\n.margin-top-50 {\n    margin-top: 50px;\n}\n.row {\n    margin: 10px 0px;\n}\n.question {\n    background-color: #e9ecefb5;\n}\n.div-icon-add {\n    display: flex;\n    flex-direction: row;\n    justify-content: center;\n    align-items: center;\n}\n.icon-remove {\n    background-color: #f2f2f2;\n    height: 30px;\n    width: 40px;\n    border: 2px solid #8f8f8f;\n    border-radius: 5px;\n    display: flex;\n    flex-direction: row;\n    justify-content: center;\n    align-items: center;\n    cursor: default;\n\n    font-weight: 900;\n    background-color: #ffc107;\n    color: white;\n    border-color: #ffc107;\n}\n.icon-remove:hover {\n    color: #ffc107;\n    background-color: white;\n    border-color: #ffc107;\n}\n.icon-add {\n    background-color: #233d68;\n    height: 30px;\n    width: 40px;\n    border: 2px solid #233d68;\n    border-radius: 5px;\n    display: flex;\n    flex-direction: row;\n    justify-content: center;\n    align-items: center;\n    cursor: default;\n\n    font-weight: 900;\n    color: white;\n}\n.icon-add:hover {\n    color: #233d68;\n    background-color: white;\n    border-color: #233d68;\n}\n.card-title {\n    display: flex;\n    flex-direction: row;\n    justify-content: space-between;\n}\n.card-title > h5 {\n    width: 50%;\n}\n.div-check {\n    display: flex;\n    flex-direction: row;\n    justify-content: center;\n    align-items: center;\n    padding-top: 20px;\n}\n.progress {\n    width: 100%;\n    display: flex;\n    justify-content: flex-start;\n}\n.q-option {\n    background-color: white;\n    border-radius: 5px;\n    padding: 10px 20px;\n    margin: 5px;\n    border: 1px solid #f2f2f2;\n    width: 100%;\n    display: flex;\n    justify-content: space-between;\n    flex-direction: row;\n    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);\n}\n.q-option:hover {\n    background-color: #ffe7a0;\n    cursor: pointer;\n}\n.q-option-checked {\n    background-color: #007bff !important;\n    color: white;\n    box-shadow: none;\n}\n.span-solution {\n    margin-top: 20px;\n    font-size: 1.8em;\n}\n.html-content {\n    padding: 10px;\n    margin-top: 20px;\n    background-color: rgba(255, 255, 255, 1);\n}\n.container_youtube{\n    width: 100%;\n    height: 500px !important;\n}\n.activity_response-button{\n    display:flex;\n    flex-direction: row;\n    justify-content: flex-end;\n    align-items: center;\n}\n.activity_score{\n    font-size: 1.5em;\n}\n", ""]);
 
 // exports
 
@@ -972,7 +966,6 @@ var render = function() {
                                           "a",
                                           {
                                             staticClass: "btn btn-primary",
-                                            attrs: { href: "" },
                                             on: {
                                               click: function($event) {
                                                 return _vm.openDocument(
@@ -990,10 +983,7 @@ var render = function() {
                                           "a",
                                           {
                                             staticClass: "btn btn-primary",
-                                            attrs: {
-                                              href: "",
-                                              target: "_blank"
-                                            },
+                                            attrs: { target: "_blank" },
                                             on: {
                                               click: function($event) {
                                                 return _vm.openLink(

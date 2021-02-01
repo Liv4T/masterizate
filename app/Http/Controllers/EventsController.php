@@ -71,11 +71,12 @@ class EventsController extends Controller
         $eventos = [];
         $user = Auth::user();
         $date =  Carbon::now();
+        $current_date=date('Y-m-d');
+        $initial_range_date = date ( 'Y-m-d' , strtotime ( '-90 day' , strtotime ($current_date ) )) ;
+        $end_range_date =date ( 'Y-m-d' ,  strtotime ( '+90 day' , strtotime ($current_date ) )) ;
         if (isset($user) && $user->type_user == 2) {
-            $eventos_teacher = Eventos::where('id_user', $user->id)->orderBy('date_from', 'ASC')->get();
+            $eventos_teacher = Eventos::where('id_user', $user->id)->whereDate('date_from','>=',$initial_range_date)->whereDate('date_to','<=',$end_range_date)->orderBy('date_from', 'ASC')->limit(50)->get();
             foreach ($eventos_teacher as $index => $evento) {
-                $dateTo = Carbon::parse($evento->date_to);
-                if ($dateTo > $date) {
 
 
                     if ($evento->id_classroom == 0) // is lective
@@ -97,17 +98,13 @@ class EventsController extends Controller
                         "area" => $area->name,
                         "classroom" => $classroom ? $classroom->name : '',
                     ]);
-                }
+
             }
         } elseif (isset($user) && $user->type_user == 3) {
             $classroom_student = ClassroomStudent::where('id_user', $user->id)->first();
-            $eventos_student = Eventos::where('id_classroom', $classroom_student->id_classroom)->orderBy('date_from', 'ASC')->get();
+            $eventos_student = Eventos::where('id_classroom', $classroom_student->id_classroom)->whereDate('date_from','>=',$initial_range_date)->whereDate('date_to','<=',$end_range_date)->orderBy('date_from', 'ASC')->limit(50)->get();
 
             foreach ($eventos_student as $index => $evento) {
-                $dateTo = Carbon::parse($evento->date_to);
-                $dateFrom = Carbon::parse($evento->date_from);
-                if ($dateTo > $date) {
-                    if (($dateTo->day == $date->day && $dateTo->month == $date->month) || ($dateFrom->day == $date->day && $dateFrom->month == $date->month)) {
 
                         if ($evento->id_classroom == 0) // is lective
                         {
@@ -127,8 +124,8 @@ class EventsController extends Controller
                             "area" => $area->name,
                             "classroom" =>  $classroom ? $classroom->name : '',
                         ];
-                    }
-                }
+
+
             }
 
             //lectives events
@@ -170,10 +167,8 @@ class EventsController extends Controller
                 }
             }
         } elseif (isset($user) && $user->type_user == 1) {
-            $eventos_all = Eventos::orderBy('date_from', 'ASC')->get();
+            $eventos_all = Eventos::whereDate('date_from','>=',$initial_range_date)->whereDate('date_to','<=',$end_range_date)->orderBy('date_from', 'ASC')->limit(50)->get();
             foreach ($eventos_all as $index => $evento) {
-                $dateTo = Carbon::parse($evento->date_to);
-                if ($dateTo > $date) {
 
                     if ($evento->id_classroom == 0) // is lective
                     {
@@ -194,7 +189,7 @@ class EventsController extends Controller
                         "area" => $area->name,
                         "classroom" =>  $classroom ? $classroom->name : '',
                     ];
-                }
+
             }
         }
         return response()->json($eventos);
@@ -314,34 +309,63 @@ class EventsController extends Controller
                             ->join('eventos', 'classroom_student.id_classroom', '=', 'eventos.id_classroom')
                             ->select('eventos.*')
                             ->where('classroom_student.id_user', $user->id)
-                            ->whereDate('eventos.date_to','=',$current_date)
+                            ->whereDate('eventos.date_from','>=',$current_date)
                             ->orderBy('eventos.date_from')
                             ->limit(30)
                             ->get();
 
 
                 foreach ($events_student as $index => $evento) {
-
-
-                            if ($evento->id_classroom == 0) // is lective
-                            {
-                                $classroom = null;
-                                $area = Lective::find($evento->id_area);
-                            } else {
-                                $classroom = Classroom::find($evento->id_classroom);
-                                $area = Area::find($evento->id_area);
-                            }
-                            //$area = Area::find($evento->id_area);
-                            //$classroom = Classroom::find($evento->id_classroom);
-                            array_push($eventos,[
-                                "name" => $evento->name,
-                                "dateFrom" => $evento->date_from,
-                                "dateTo" => $evento->date_to,
-                                "hangout" => $evento->url,
-                                "area" => $area->name,
-                                "classroom" =>  $classroom ? $classroom->name : '',
-                            ]);
+                    if ($evento->id_classroom == 0) // is lective
+                    {
+                        $classroom = null;
+                        $area = Lective::find($evento->id_area);
+                    } else {
+                        $classroom = Classroom::find($evento->id_classroom);
+                        $area = Area::find($evento->id_area);
+                    }
+                    //$area = Area::find($evento->id_area);
+                    //$classroom = Classroom::find($evento->id_classroom);
+                    array_push($eventos,[
+                        "name" => $evento->name,
+                        "dateFrom" => $evento->date_from,
+                        "dateTo" => $evento->date_to,
+                        "hangout" => $evento->url,
+                        "area" => $area->name,
+                        "classroom" =>  $classroom ? $classroom->name : '',
+                    ]);
                 }
+
+                //activities
+                $activities_student=DB::table('classroom_student')
+                    ->join('classroom', 'classroom_student.id_classroom', '=', 'classroom.id')
+                    ->join('annual_planification', 'annual_planification.id_classroom', '=', 'classroom_student.id_classroom')
+                    ->join('area', 'annual_planification.id_area', '=', 'area.id')
+                    ->join('achievement_planification', 'achievement_planification.id_planification', '=', 'annual_planification.id')
+                    ->join('activity', 'activity.id_achievement', '=', 'achievement_planification.id')
+                    ->join('class', 'class.id', '=', 'activity.id_class')
+                    ->leftJoin('activity_interaction', 'activity_interaction.id_activity', '=', 'activity.id')
+                    ->select('area.name as area_name','classroom.name as classroom_name','activity.*','activity_interaction.score as interaction_score','activity_interaction.state as interaction_state','class.id_weekly_plan as weekly_plan_id')
+                    ->where('classroom_student.id_user', $user->id)
+                    ->where('activity.deleted',0)
+                    ->whereDate('activity.delivery_max_date','>=',$current_date)
+                    ->orderBy('activity.delivery_max_date')
+                    ->limit(30)
+                    ->get();
+
+
+                foreach ($activities_student as $index => $activity) {
+
+                    array_push($eventos,[
+                        "name" => 'ACTIVIDAD: '.$activity->name,
+                        "dateFrom" => $activity->created_at,
+                        "dateTo" => $activity->delivery_max_date,
+                        "hangout" => '/estudiante/modulo/'.$activity->weekly_plan_id.'/clase/'.$activity->id_class,
+                        "area" => $activity->area_name,
+                        "classroom" =>$activity->classroom_name
+                    ]);
+                }
+
 
                 //lectives events
                 $plans_student = LectiveStudent::where('id_student', $user->id)->where('deleted', 0)->get();
@@ -388,10 +412,11 @@ class EventsController extends Controller
                         ->join('eventos', 'classroom_teacher.id_classroom', '=', 'eventos.id_classroom')
                         ->select('eventos.*')
                         ->where('classroom_teacher.id_user', $user->id)
-                        ->whereDate('eventos.date_to','=',$current_date)
+                        ->whereDate('eventos.date_from','>=',$current_date)
                         ->orderBy('eventos.date_from')
                         ->limit(30)
                         ->get();
+
 
 
                         foreach ($events_teacher as $index => $evento) {

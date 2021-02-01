@@ -143,7 +143,6 @@
                                         <div class="form-button">
                                             <a
                                                 class="btn btn-primary"
-                                                href
                                                 v-if="
                                                     item_content.content_type ==='DOCUMENT'
                                                 "
@@ -154,7 +153,6 @@
                                             >
                                             <a
                                                 class="btn btn-primary"
-                                                href
                                                 v-if="
                                                     item_content.content_type === 'LINK'
                                                 "
@@ -420,7 +418,7 @@ export default {
         openDocument(resource) {
             try {
                 this.saveInteraction(resource);
-                window.open(resource.content);
+              //  window.open(resource.content);
             } catch {}
         },
         openLink(resource) {
@@ -438,7 +436,7 @@ export default {
                     `/api/student/module/${this.id_module}/class/${this.id_class}/resource/${resource.id}/interaction`
                 )
                 .then(response => {
-                    this.getCourseData();
+                    //this.getCourseData();
                 });
         },
         getCourseData() {

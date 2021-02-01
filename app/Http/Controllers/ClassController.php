@@ -26,6 +26,7 @@ use App\User;
 use Illuminate\Http\Request;
 use Auth;
 use PhpParser\Node\Stmt\Foreach_;
+use Illuminate\Support\Facades\DB;
 
 class ClassController extends Controller
 {
@@ -121,15 +122,7 @@ class ClassController extends Controller
         $progress=0;
         if($user->type_user==3)//student
         {
-            $class_interaction=ClassInteraction::where('id_class',$course->id)->where('id_student',$user->id)->where('deleted',0)->first();
-
-            if(isset($class_interaction))
-            {
-                $total_required=($class_content_required_quantity+$course->activity_quantity);
-
-                if($total_required>0)
-                    $progress=(($class_interaction->activity_required_complete + $class_interaction->class_content_required_complete)*100)/$total_required;
-            }
+            $progress=DB::select('call obtener_progreso_clase(?,?)',[$course->id, $user->id])[0]->porcentaje;
         }
 
         $ret=[

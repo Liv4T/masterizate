@@ -11,7 +11,6 @@
                     <div class="btn-group" role="group" aria-label="Basic example">
                         <button type="button" class="btn" v-bind:class="{ 'btn-primary': (initialView=='dayGridMonth')  }" @click="changeCalendarView('dayGridMonth')">Mensual</button>
                         <button type="button" class="btn" v-bind:class="{  'btn-primary': (initialView=='timeGridWeek') }" @click="changeCalendarView('timeGridWeek')">Semanal</button>
-
                     </div>
                 </div>
                 <div class="col-6">
@@ -45,7 +44,7 @@
               <div class="row justify-content-center">
                 <h4>Clases presenciales</h4>
               </div>
-              <div class="row" v-for="(clas, k) in clases" v-bind:key="k">
+              <div class="row" v-for="(clas, k) in filterPendingEvents(clases)" v-bind:key="k">
                         <div class="col-12">
                             <div class="card">
                                 <div class="class-event">
@@ -252,7 +251,7 @@ export default {
       delName: "",
       idUp: "",
       lective_planification:{},
-    initialView:'dayGridMonth',
+      initialView:'dayGridMonth',
       calendarOptions: {
         locale: esLocale,
         plugins: [ dayGridPlugin, interactionPlugin,timeGridPlugin,momentTimezonePlugin,momentPlugin ],
@@ -261,10 +260,7 @@ export default {
         dateClick: this.handleDateClick,
         timeZone: 'America/Bogota',
         titleFormat: 'D MMMM YYYY',
-        events: [
-          /*{ title: 'event 1', date: '2021-01-08 05:00:00',description: 'description for Long Event 11',url:'http://google.com/' },
-          { title: 'event 2', date: '2020-12-31 07:00:00',description: 'description for Long Event 22' }*/
-        ],
+        events: [],
         eventClick:this.handleEventClick,
         eventDidMount:this.handleEventDidMount
       }
@@ -325,6 +321,9 @@ export default {
 
   },
   methods: {
+      filterPendingEvents:(events)=>{
+          return events.filter(e=>moment(e.dateFrom)>=moment());
+      },
       displayActivitiesChange(){
         const fullCalendarApi=this.$refs.fullCalendar.getApi();
 
@@ -368,6 +367,7 @@ export default {
       //alert('date click! ' + arg.dateStr)
     },
     handleEventClick(info){
+
         info.jsEvent.preventDefault();
 
         if (info.event.url) {
@@ -375,6 +375,7 @@ export default {
         }
     },
     handleEventDidMount(info){
+         console.log('PREV');
         /* var tooltip = new Tooltip(info.el, {
             title: info.event.extendedProps.description,
             placement: 'top',
