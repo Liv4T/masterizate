@@ -32,7 +32,7 @@ Vue.component("example-component", require("./components/ExampleComponent.vue").
 Vue.component("category-component", require("./components/CategoryComponent.vue").default);
 
 Vue.component("select2", require("./components/Select2.vue").default);
-Vue.component("user-component", require("./components/UserComponent.vue").default);
+Vue.component("user-component", require("./components/Usercomponent.vue").default);
 Vue.component("type-component", require("./components/TypeUserComponent.vue").default);
 Vue.component("resume-component", require("./components/ResumeComponent.vue").default);
 Vue.component("checkbox", require("./components/Checkbox.vue").default);
@@ -48,14 +48,14 @@ Vue.component("unit-class", require("./components/unitComponent.vue").default);
 Vue.component("free-component", require("./components/freeComponent.vue").default);
 Vue.component("freeu-component", require("./components/freeUnitComponent.vue").default);
 Vue.component("course-component", () => import ("./components/courseComponent.vue"));
-Vue.component("course-view", require("./components/courseView.vue").default);
+Vue.component("course-view", require("./components/CourseView.vue").default);
 Vue.component("semanal-component", require("./components/courseSemanalComponet.vue").default);
 Vue.component("semanalact-component", require("./components/courseSemanalAct.vue").default);
 Vue.component("list-component", require("./components/listClassComponent.vue").default);
 Vue.component("list-activity", require("./components/listActivity.vue").default);
 Vue.component("actividad-docente", require("./components/ActividadDocente.vue").default);
-Vue.component("sincro-component", require("./components/sincroEvent.vue").default);
-Vue.component("cuestionario-component", require("./components/cuestionario.vue").default);
+Vue.component("sincro-component", require("./components/SincroEvent.vue").default);
+Vue.component("cuestionario-component", require("./components/Cuestionario.vue").default);
 Vue.component("hangman-component", require("./components/hangman.vue").default);
 Vue.component("evaluation-component", require("./components/EvaluationComponent.vue").default);
 Vue.component("activ-component", require("./components/ActivityComponent.vue").default);
@@ -63,7 +63,7 @@ Vue.component("mycourse-component", require("./components/MyCourseComponent.vue"
 Vue.component("consult-component", require("./components/ConsultComponent.vue").default);
 Vue.component("frecuent-cuestions", require("./components/FrecuentCuestions.vue").default);
 Vue.component("register-component", require("./components/RegisterComponent.vue").default);
-Vue.component("mycourses-component", require("./components/MycoursesComponent.vue").default);
+Vue.component("mycourses-component", require("./components/MyCoursesComponent.vue").default);
 Vue.component("coursest-component", require("./components/CoursesStComponent.vue").default);
 Vue.component("evaluationst-component", require("./components/EvaluationStComponent.vue").default);
 Vue.component("activityst-component", require("./components/ActivityStComponent.vue").default);

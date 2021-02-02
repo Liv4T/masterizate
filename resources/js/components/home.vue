@@ -281,7 +281,7 @@
                 :type="'depth'"
             >
                 <img
-                    src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/Fondo2.jpg?alt=media&token=5018775f-6c8e-4855-9ae6-e44b50bf1be5"
+                    src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/fondo2.jpg?alt=media&token=5018775f-6c8e-4855-9ae6-e44b50bf1be5"
                 />
             </parallax-element>
         </parallax-container>
@@ -697,7 +697,7 @@ footer .footer-col {
     margin: 0%;
 }
 .section2 {
-    background: url(../assets/img/Fondo2.jpg);
+    background: url(../assets/img/fondo2.jpg);
     background-attachment: fixed;
 }
 h4 {

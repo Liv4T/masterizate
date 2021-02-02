@@ -100,7 +100,7 @@
                   <input type="text" name="name" class="form-control" v-model="nameEvent" />
                   <div class="invalid-feedback">Please fill out this field</div>
                 </div>
-                <div class="col-md-6">
+                <!-- <div class="col-md-6">
                   <label for="name">Materia</label>
                   <select class="form-control" v-model="materia" required>
                     <option :value="option.id+'/'+option.id_classroom " v-for="option in myOptions">
@@ -109,6 +109,12 @@
                       }}
                     </option>
                   </select>
+                </div> -->
+                <div class="col-md-6">
+                  <label for="name">Materia</label>
+                  <multiselect v-model="materia" :options="myOptions" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" placeholder="Seleccione una o varias" label="text" track-by="id" :preselect-first="true">
+                    <template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single" v-if="values.length &amp;&amp; !isOpen">{{ values.length }} opciones selecionadas</span></template>
+                  </multiselect>
                 </div>
               </div>
               <div class="form-group row">
@@ -154,7 +160,7 @@
                   <div class="invalid-feedback">Please fill out this field</div>
                 </div>
                 <div class="col-md-6">
-                  <label for="name">Materia</label>
+                  <label for="name">Materiaa</label>
                   <select class="form-control" v-model="areaUp" required>
                     <option :value="option.id+'/'+option.id_classroom " v-for="option in myOptions">
                       {{
@@ -227,7 +233,9 @@ moment.tz.setDefault("America/Bogota");
 moment.locale('es');
 
 import datetime from "vuejs-datetimepicker";
+import Multiselect from "vue-multiselect";
 Vue.use(require("vue-moment"));
+Vue.component("multiselect", Multiselect);
 export default {
   props: ["type_u"],
   data() {
@@ -239,8 +247,9 @@ export default {
       nameEvent: "",
       nameMeet: "",
       clases: [],
-      myOptions: [],
-      materia: "",
+      value:[],
+      myOptions:[],
+      materia: [],
       meetUp: "",
       nameUp: "",
       fromUp: "",
@@ -268,7 +277,8 @@ export default {
   },
   components: {
     datetime,
-    FullCalendar
+    FullCalendar,
+    Multiselect
   },
   filters:{
       formatDate:(value)=>{
@@ -427,21 +437,28 @@ export default {
     },
     createEvent() {
       var url = "createEvent";
+      if (this.materia.length >= 1) {
+        console.log(this.materia);
+        for (let i = 0; i < this.materia.length; i++) {
 
-      axios
-        .post(url, {
-          //Cursos generales
-          name: this.nameEvent,
-          startDateTime: this.desde,
-          endDateTime: this.hasta,
-          id_area: this.materia,
-          url: this.nameMeet,
-        })
-        .then((response) => {
-          this.getMenu();
-          toastr.success("Nuevo evento creado exitosamente");
-        })
-        .catch((error) => {});
+          axios
+            .post(url, {
+              //Cursos generales
+              name: this.nameEvent,
+              startDateTime: this.desde,
+              endDateTime: this.hasta,
+              id_area: this.materia[i].id,
+              id_classroom: this.materia[i].id_classroom,
+              url: this.nameMeet,
+            })
+            .then((response) => {
+              this.getMenu();
+              toastr.success("Nuevo evento creado exitosamente");
+            })
+            .catch((error) => {});
+          
+        }
+      }      
     },
     updateEvent() {
       var url = "updateEvent";
@@ -465,6 +482,7 @@ export default {
   },
 };
 </script>
+<style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
 <style>
 .back-calendar {
   padding-left: 290px;
