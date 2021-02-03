@@ -152,7 +152,6 @@
                         alt
                       />Mis clases
                     </a>
-
                    <a href="/student/lectives/activities">
                       <img
                         width="35px"

@@ -45,7 +45,6 @@
                         :href="'/estudiante/modulo/'+row.weekly_plan_id+'/clase/'+row.id_class"
                         >Ver más</a
                       >
-
                     </td>
                   </tr>
                 </tbody>

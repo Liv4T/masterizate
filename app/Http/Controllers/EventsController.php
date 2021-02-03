@@ -45,14 +45,14 @@ class EventsController extends Controller
         // $event->save();
 
         $area_classroom = $request->id_area;
-        $arrayAreaClassroom = explode("/", $area_classroom);
+        //$arrayAreaClassroom = explode("/", $area_classroom);
 
         $evento = new Eventos;
         $evento->name = $request->name;
         $evento->date_from = $request->startDateTime;
         $evento->date_to = $request->endDateTime;
-        $evento->id_area = $arrayAreaClassroom[0];
-        $evento->id_classroom = $arrayAreaClassroom[1];
+        $evento->id_area = $request->id_area;
+        $evento->id_classroom = $request->id_classroom;
         $evento->id_user = Auth::user()->id;
         $evento->url = $request->url;
         $evento->save();
