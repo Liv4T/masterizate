@@ -490,6 +490,28 @@ class EventsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    public function eventNearStudent(String $id_area, String $id_classroom)
+    {
+        $user = Auth::user();
+        if (isset($user) && $user->type_user == 3) {
+            $date =  Carbon::now();
+            $event = Eventos::where('id_area',$id_area)
+                            ->where('id_classroom',$id_classroom)
+                            ->where('date_from','>=',$date)
+                            ->orderBy('date_from','ASC')
+                            ->first();
+            return $event;
+        }else{
+            return 0;
+        }
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function store(Request $request)
     {
         //

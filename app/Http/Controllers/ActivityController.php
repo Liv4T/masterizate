@@ -13,6 +13,8 @@ use App\Indicator;
 use App\Classroom;
 use App\ClassroomStudent;
 use App\CoursesAchievement;
+use App\Repository;
+use App\RepositoryStudents;
 use App\Weekly;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -69,6 +71,107 @@ class ActivityController extends Controller
 
         }
         return response()->json($activities);
+
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getAllActivitiesRepositories()
+    {
+        $user = Auth::user();
+        if ($user->type_user == 3) {
+            $user_asignateds = ClassroomStudent::where('id_user', $user->id)->get();
+            if (isset($user_asignateds)) {
+                foreach ($user_asignateds as $key => $user_asignated) {
+                    $classroom = Classroom::find($user_asignated->id_classroom);
+                    $class = Area::where('id_grade', $classroom->id_grade)->get();
+                    foreach ($class as $key => $area) {
+                        $areas[] = $area->id;
+                    }
+                }
+                $repositoris = Repository::whereIn('id_area', $areas)->where('id_classroom', $user_asignated->id_classroom)->get();
+                if (isset($repositoris)) {
+                    foreach ($repositoris as $repo) {
+                        $area = Area::findOrFail($repo->id_area);
+                        $repoStudent = RepositoryStudents::where('id_student', Auth::user()->id)->where('id_repository', $repo->id)->first();
+                        $status_student = isset($repoStudent) ? $repoStudent->status : 'Pendiente';
+                        $repo->status = $status_student;
+                        $repo->area = $area->name;
+                    }
+                    $repositoris;
+                    // return $repos;
+                } else {
+                    $repos = [];
+                }
+                $weekly_plans = Weekly::whereIn('id_area', $areas)->where('id_classroom', $user_asignated->id_classroom)->get();
+                $activities=[];
+                foreach ($weekly_plans as $key => $weekly_plan) {
+                    $classes=Classs::where('id_weekly_plan',$weekly_plan->id)->get();
+                    $area = Area::findOrFail($weekly_plan->id_area);
+                    foreach ($classes as $key_class => $class) {
+                        $activity_list = Activity::where('id_class', $class->id)->where('deleted',0)->where('state',2)->get();
+                        foreach ($activity_list as $num => $act) {
+                            $interaction=ActivityInteraction::where('id_activity',$act->id)->where('id_student',$user->id)->where('deleted',0)->first();
+                            array_push($activities,[
+                                'id' => $act->id,
+                                'activity_name' => $act->activity_name,
+                                'activity_type' => $act->activity_type,
+                                'deliver_date' => $act->deliver_date,
+                                'feedback_date' => $act->feedback_date,
+                                'activity_state'=>isset($interaction)?$interaction->state:1,
+                                'qualification'=>isset($interaction)?$interaction->qualification:0,
+                                'area'=>$area->name,
+                            ]);
+                        }
+                    }
+
+                }
+                $data=  $activities;
+
+                return response()->json($data);
+            }
+        }
+        // } elseif ($user->type_user == 2) {
+        //     $weekly_plans = Weekly::where('id_teac   her', $user->id)->where('id_area', $id_area)->where('id_classroom', $id_classroom)->get();
+        // }
+
+        // $activities=[];
+        // foreach ($weekly_plans as $key => $weekly_plan) {
+
+        //     $classes=Classs::where('id_weekly_plan',$weekly_plan->id)->get();
+
+        //     foreach ($classes as $key_class => $class) {
+
+        //         if ($user->type_user == 3){
+        //             $activity_list = Activity::where('id_class', $class->id)->where('deleted',0)->where('state',2)->get();
+        //         }
+        //         else{
+        //             $activity_list = Activity::where('id_class', $class->id)->where('deleted',0)->get();
+        //         }
+
+        //         foreach ($activity_list as $num => $act) {
+
+        //             $interaction=ActivityInteraction::where('id_activity',$act->id)->where('id_student',$user->id)->where('deleted',0)->first();
+
+        //             array_push($activities,[
+        //                 'id' => $act->id,
+        //                 'activity_name' => $act->activity_name,
+        //                 'activity_type' => $act->activity_type,
+        //                 'deliver_date' => $act->deliver_date,
+        //                 'feedback_date' => $act->feedback_date,
+        //                 'activity_state'=>isset($interaction)?$interaction->state:1,
+        //                 'qualification'=>isset($interaction)?$interaction->qualification:0
+        //             ]);
+        //         }
+
+        //     }
+
+
+        // }
+        // return response()->json($activities);
 
     }
 

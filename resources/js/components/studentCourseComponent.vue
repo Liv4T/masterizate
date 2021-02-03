@@ -19,14 +19,14 @@
 
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row" v-if="link_event!=''">
                         <div class="col-md-6">
-                            Nombre de clase Fecha:29/12/2020 Hora:10:30AM
+                            {{ name_event +" Fecha y hora: " +hour_event}}
                         </div>
                         <div class="col-md-6">
                               <a
                                 class="btn btn-warning float-right"
-                                href="https://meet.google.com/uxb-miog-got"
+                                :href="link_event"
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 >Ir a la clase</a>
@@ -369,7 +369,12 @@ export default {
                 progress: 0
             },
             achievements: [],
-            activity: {}
+            activity: {},
+            name_event:"",
+            hour_event:"",
+            link_event:"",
+            id_area:"",
+            id_classroom:""
         };
     },
     mounted() {
@@ -377,14 +382,23 @@ export default {
             this.achievements = response.data.achievements;
 
             this.nameArea = `${response.data.area.name} ${response.data.classroom.name}`;
+            this.id_area= `${response.data.area.id}/${response.data.classroom.id} `;
 
-            console.log(this.nameArea);
+
+           axios.get(`/getEvenNearStudent/${this.id_area}`).then(response => {
+                this.name_event= response.data.name;
+                this.hour_event= response.data.date_from;
+                this.link_event= response.data.url
+        });
+
         });
         axios.get(`/GetNameWeekly/${this.id_module}`).then(response => {
             this.weekly_plan = { name: response.data };
         });
 
+
         this.getCourseData();
+
     },
     methods: {
         selectOption(id_question, ix_option, question) {
