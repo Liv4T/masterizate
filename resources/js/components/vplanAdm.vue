@@ -39,14 +39,14 @@
                     class="btn btn-warning"
                   >Porcentaje de notas</a>
 
-                  <a href="/clases_d" class="btn btn-warning">Clases</a>
-
+                  <a href="/docente/clases" class="btn btn-warning">Ciclos y clases</a>
+<!--
                    <a
                     :href="'/act_semana/'+ area.id +'/'+ area.id_classroom"
                     class="btn btn-warning"
                   >Ciclos</a>
+-->
 
-                  
 
                 </div>
               </div>
