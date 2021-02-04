@@ -260,21 +260,9 @@ var render = function() {
                         "a",
                         {
                           staticClass: "btn btn-warning",
-                          attrs: { href: "/clases_d" }
+                          attrs: { href: "/docente/clases" }
                         },
-                        [_vm._v("Clases")]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "a",
-                        {
-                          staticClass: "btn btn-warning",
-                          attrs: {
-                            href:
-                              "/act_semana/" + area.id + "/" + area.id_classroom
-                          }
-                        },
-                        [_vm._v("Ciclos")]
+                        [_vm._v("Ciclos y clases")]
                       )
                     ]
                   )
