@@ -28,26 +28,16 @@
                   aria-labelledby="heading"
                   data-parent="#accordionExample"
                 >
-                  <tr>
-                    <td
-                      v-for="(clas, k) in clases"
-                      :key="k"
-                      v-if="clas.id_classroom==area.id_classroom && clas.id_area==area.id"
-                      style="display: inline-grid;"
-                    >
-                      <a
-                        class="btn btn-warning"
-                        v-on:click.prevent="
-                                                    editNames(clas.id, clas.id_area, clas.id_classroom)
-                                                "
-                        style="text-overflow: ellipsis;
-                                width: 170px;
-                                white-space: nowrap;
-                                overflow: hidden;
-                                "
-                      >{{ clas.text }}</a>
-                    </td>
-                  </tr>
+                      <div v-for="(clas,k) in clases" v-bind:key="k"
+                            style="display: inline-grid;padding:10px;">
+                                <a
+                                    class="btn btn-warning"
+                                    v-on:click.prevent="editNames(clas.id, clas.id_area, clas.id_classroom)"
+                                    v-if="clas.id_classroom==area.id_classroom && clas.id_area==area.id"
+                                >{{ clas.text }}</a>
+                      </div>
+                       <span v-if="clases.length==0">No hay clases</span>
+
                 </div>
               </div>
             </div>
@@ -235,6 +225,10 @@
   </div>
 </template>
 <script>
+$(".collapse").on("show.bs.collapse", function () {
+  $(".collapse.in").collapse("hide");
+});
+
 export default {
   data() {
     return {
@@ -269,7 +263,6 @@ export default {
       axios.get(urlr).then((response) => {
         this.fillS = response.data.clase;
       });
-      console.log(this.fillS);
       $("#editu").modal("show");
     },
     botones(area, classroom) {

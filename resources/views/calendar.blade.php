@@ -11,7 +11,7 @@
   @if (Auth::user()->type_user == '1')
     <menu-adm></menu-adm>
  @endif
-  <full-component :type_u="{{ $type_user }}"></full-component>
+  <calendar-component :type_u="{{ $type_user }}"></calendar-component>
   <footers></footers>
 <div class="container">
   <!--<app-vue></app-vue>-->

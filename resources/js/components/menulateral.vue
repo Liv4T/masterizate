@@ -4,14 +4,14 @@
       <div class="row">
         <div class="left">
           <ul>
-            <a href="/miPerfil">
+               <a href="/estudiante/calendario">
               <li class="item-menu">
                 <img
-                  width="35px"
-                  src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/MI-PERFIL.png?alt=media&token=317fc013-8cce-448f-9af9-54e2981274d0"
-                  alt
+                        width="35px"
+                        src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/HORARIO_narnja.png?alt=media&token=93ec6b97-e5a6-4eca-891e-b63bf2a352ad"
+                        alt
                 />
-                <span class="menu">Mi perfil</span>
+                <span class="menu">Calendario</span>
               </li>
             </a>
             <div class="dropdown">
@@ -29,19 +29,12 @@
                     <a href="/mensajes">
                       <img
                         width="35px"
-                        src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/MENSAJES_naranja.png?alt=media&token=93ec6b97-e5a6-4eca-891e-b63bf2a352ad"
+                        src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/MENSAJES_naranja.png?alt=media&token=f76f98f1-1c57-469b-a839-d98e64651818"
                         alt
                       />
                       Mensajes
                     </a>
-                    <a href="/calendar">
-                      <img
-                        width="35px"
-                        src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/ANUNCIOS_naranja.png?alt=media&token=93ec6b97-e5a6-4eca-891e-b63bf2a352ad"
-                        alt
-                      />
-                      Calendario
-                    </a>
+
                     <!-- <a href="/horario">
                                             <img
                                                 width="35px"
@@ -66,14 +59,6 @@
                       />
                       Chat
                     </a>
-                    <a href="/mensajes">
-                      <img
-                        width="35px"
-                        src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/sicologia_naranja.png?alt=media&token=93ec6b97-e5a6-4eca-891e-b63bf2a352ad"
-                        alt
-                      />
-                      Psicología
-                    </a>
                   </div>
                 </li>
               </a>
@@ -83,20 +68,20 @@
                 <li class="item-menu">
                   <img
                     width="35px"
-                    src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/ANUNCIOS_naranja.png?alt=media&token=539c1428-c480-43bf-a132-73be35386940"
+                    src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/MIS-CURSOS.png?alt=media&token=47515df0-5b95-48b4-bb08-10257108169b"
                     alt
                   />
                   <span
                     class="menu"
-                  >Académico&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                  >Mis clases&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                   <div class="dropdown2-content">
-                    <a href="/Clases">
+                    <a href="/estudiante/clases">
                       <img
                         width="35px"
-                        src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/ACTIVIDADES_naranja.png?alt=media&token=93ec6b97-e5a6-4eca-891e-b63bf2a352ad"
+                        src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/TAREAS_naranja.png?alt=media&token=0ffb3c21-349a-4615-b57c-50dac3db8285"
                         alt
                       />
-                      Mis clases
+                      Mis materias
                     </a>
                     <a href="/Actividad">
                       <img
@@ -106,14 +91,14 @@
                       />
                       Mis actividades
                     </a>
-                    <a href="/juegos">
+                    <!-- <a href="/juegos">
                       <img
                         width="35px"
                         src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/MIS-CURSOS.png?alt=media&token=93ec6b97-e5a6-4eca-891e-b63bf2a352ad"
                         alt
                       />
                       Juegos
-                    </a>
+                    </a>-->
                     <a href="/repository/student">
                      <img
                                                 width="35px"
@@ -155,7 +140,7 @@
                 <li class="item-menu">
                   <img
                     width="35px"
-                    src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/ANUNCIOS_naranja.png?alt=media&token=539c1428-c480-43bf-a132-73be35386940"
+                    src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/TAREAS_naranja.png?alt=media&token=0ffb3c21-349a-4615-b57c-50dac3db8285"
                     alt
                   />
                   <span class="menu">Mis Electivas</span>
@@ -167,7 +152,6 @@
                         alt
                       />Mis clases
                     </a>
-
                    <a href="/student/lectives/activities">
                       <img
                         width="35px"
@@ -175,15 +159,6 @@
                         alt
                       />Mis actividades
                     </a>
-
-                    <a href="/juegos">
-                      <img
-                        width="35px"
-                        src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/MIS-CURSOS.png?alt=media&token=93ec6b97-e5a6-4eca-891e-b63bf2a352ad"
-                        alt
-                      />Juegos
-                    </a>
-
                     <a href="/board">
                       <img
                         width="35px"
@@ -195,7 +170,17 @@
                 </li>
               </a>
             </div>
+              <a href="/mensajes">
+              <li class="item-menu">
+                <img
+                        width="35px"
+                        src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/sicologia_naranja.png?alt=media&token=93ec6b97-e5a6-4eca-891e-b63bf2a352ad"
+                        alt
+                      />
+                       <span class="menu"> Psicología</span>
 
+              </li>
+            </a>
             <a href="/manual">
               <li class="item-menu">
                 <img

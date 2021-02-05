@@ -4,14 +4,14 @@
             <div class="row">
                 <div class="left">
                     <ul>
-                        <a href="/perfil_d">
+                        <a href="/calendar">
                             <li class="item-menu">
                                 <img
                                     width="35px"
-                                    src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/MI-PERFIL.png?alt=media&token=317fc013-8cce-448f-9af9-54e2981274d0"
+                                     src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/HORARIO_narnja.png?alt=media&token=93ec6b97-e5a6-4eca-891e-b63bf2a352ad"
                                     alt
                                 />
-                                <span class="menu">Mi perfil</span>
+                                <span class="menu">Calendario</span>
                             </li>
                         </a>
                         <div class="dropdown">
@@ -34,14 +34,7 @@
                                             />
                                             Mensajes
                                         </a>
-                                        <a href="/calendar">
-                                            <img
-                                                width="35px"
-                                                src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/ANUNCIOS_naranja.png?alt=media&token=93ec6b97-e5a6-4eca-891e-b63bf2a352ad"
-                                                alt
-                                            />
-                                            Calendario
-                                        </a>
+
 
                     <a href="/questions">
                       <img
@@ -91,7 +84,7 @@
                       />
                       Planificación
                     </a>
-                    <a href="/clases_d">
+                    <a href="/docente/clases">
                       <img
                         width="35px"
                         src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/ACTIVIDADES_naranja.png?alt=media&token=93ec6b97-e5a6-4eca-891e-b63bf2a352ad"
@@ -99,13 +92,21 @@
                       />
                       Mis clases
                     </a>
-                    <a href="/actividad_docente">
+                    <!--<a href="/actividad_docente">
                       <img
                         width="35px"
                         src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/ACTIVIDADES_naranja.png?alt=media&token=93ec6b97-e5a6-4eca-891e-b63bf2a352ad"
                         alt
                       />
                       Mis actividades
+                    </a>-->
+                    <a href="/docente/estudiantes">
+                      <img
+                        width="35px"
+                        src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/ACTIVIDADES_naranja.png?alt=media&token=93ec6b97-e5a6-4eca-891e-b63bf2a352ad"
+                        alt
+                      />
+                      Mis Estudiantes
                     </a>
                       <a href="/repository">
                       <img
@@ -318,7 +319,7 @@ export default {
     methods: {
         logout: function() {
             axios
-                .post("logout")
+                .post("/logout")
                 .then(response => {
                     if (response.status === 302 || 401) {
                         window.location.href = "/login";

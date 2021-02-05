@@ -4610,20 +4610,6 @@ export default {
 };
 </script>
 <style>
-.btn-primary {
-  color: #fff;
-  background-color: #ff4700;
-  border-color: #ff4700;
-}
-.btn-primary:not(:disabled):not(.disabled):active {
-  color: #fff;
-  background-color: coral;
-  border-color: coral;
-}
-.btn-primary:hover {
-  color: #fff;
-  background-color: coral;
-  border-color: coral;
-}
+
 </style>
 

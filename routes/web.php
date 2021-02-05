@@ -4,6 +4,9 @@ use App\Message;
 use App\User;
 use App\Events\MessagePosted;
 use App\Exports\ProductsExport;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Excel;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -162,6 +165,12 @@ Route::middleware('auth')->get('/boletin', function () {
 Route::middleware('auth')->get('/calendar', function () {
     return view('calendar')->with('type_user', Auth::user()->type_user);
 });
+Route::middleware('auth')->get('/calendario', function () {
+    return view('calendar')->with('type_user', Auth::user()->type_user);
+});
+Route::middleware('auth')->get('/estudiante/calendario', function () {
+    return view('studentCalendar')->with('type_user', Auth::user()->type_user);
+});
 Route::middleware('auth')->get('/perfil_d', function () {
     return view('perfild');
 });
@@ -253,32 +262,32 @@ Route::middleware('auth')->get('/matricula', function () {
 Route::middleware('auth')->get('/porcentaje/{id_area}/{id_classroom}', function (String $id_area, String $id_classroom) {
     return view('porcentajeNotas')->with('id_area', $id_area)->with('id_classroom', $id_classroom);
 });
-Route::get('/chat', 'HomeController@CreateGroup')->name('chat');
+Route::middleware('auth')->get('/chat', 'HomeController@CreateGroup')->name('chat');
 // Lessons
-Route::delete('lessons/destroy', 'LessonsController@massDestroy')->name('lessons.massDestroy');
+Route::middleware('auth')->delete('lessons/destroy', 'LessonsController@massDestroy')->name('lessons.massDestroy');
 Route::resource('lessons', 'LessonsController');
 
 // School Classes
-Route::delete('school-classes/destroy', 'SchoolClassesController@massDestroy')->name('school-classes.massDestroy');
+Route::middleware('auth')->delete('school-classes/destroy', 'SchoolClassesController@massDestroy')->name('school-classes.massDestroy');
 Route::resource('school-classes', 'SchoolClassesController');
 
 Route::get('horario', 'CalendarController@index')->name('calendar.index');
 Route::put('/changePassword', 'UserController@changePassword')->name('changePassword');
 
 
-Route::get('showUser', 'UserController@show')->name('users_save');
-Route::post('img_user', 'UserController@uploadFile')->name('img_user');
+Route::middleware('auth')->get('showUser', 'UserController@show')->name('users_save');
+Route::middleware('auth')->post('img_user', 'UserController@uploadFile')->name('img_user');
 
-Route::post('savePrintDoc', 'HomeController@savePrintDoc')->name('savePrintDoc');
+Route::middleware('auth')->post('savePrintDoc', 'HomeController@savePrintDoc')->name('savePrintDoc');
 Route::get('downloadFile', 'HomeController@downloadFile')->name('downloadFile');
 
 
-Route::get('info_user', 'UserController@show')->name('info_user');
-Route::get('coursePlanification/{id_area}/{id_classroom}', 'CoursesController@index');
-Route::get('GetCourses', 'CourseController@GetCourses');
-Route::get('GetCategories', 'CategoryController@GetCategories');
-Route::get('GetTypeU', 'CategoryController@GetTypeU');
-Route::get('GetSubcategories/{id}', 'CategoryController@GetSubcategories');
+Route::middleware('auth')->get('info_user', 'UserController@show')->name('info_user');
+Route::middleware('auth')->get('coursePlanification/{id_area}/{id_classroom}', 'CoursesController@index');
+Route::middleware('auth')->get('GetCourses', 'CourseController@GetCourses');
+Route::middleware('auth')->get('GetCategories', 'CategoryController@GetCategories');
+Route::middleware('auth')->get('GetTypeU', 'CategoryController@GetTypeU');
+Route::middleware('auth')->get('GetSubcategories/{id}', 'CategoryController@GetSubcategories');
 /* Get unit and topic */
 Route::get('GetUnits/{id}', 'courseController@GetUnits');
 Route::get('GetTopics/{id}', 'courseController@GetTopics');
@@ -315,10 +324,18 @@ Route::get('editEvent/{id}', 'EventsController@findEvent')->name('editEvent');
 Route::put('updateEvent', 'EventsController@updateEvent')->name('updateEvent');
 Route::get('deleteEvent/{id}', 'EventsController@destroy')->name('deleteEvent');
 
-Route::get('/actividad_d/{id}', 'ClassController@activityWeekId')->name('actividad_d');
-Route::get('/actividad_d/getClass/{id}', 'ClassController@getClassId')->name('getClass');
+Route::middleware('auth')->get('/actividad_d/{id}', 'ClassController@activityWeekId')->name('actividad_d');
+Route::middleware('auth')->get('/actividad_d/getClass/{id}', 'ClassController@getClassId')->name('getClass');
 Route::post('courseWeekly', 'CoursesController@courseWeekly')->name('courseWeekly');
 Route::get('GetArearByUser', 'CoursesController@getAreaByUser')->name('GetArearByUser');
+
+// Rutas capturar actividades y entregas
+
+Route::get('getAllActivitiesUser', 'ActivityController@getAllActivitiesRepositories')->name('getAllActivitiesUser');
+
+
+Route::get('getEvenNearStudent/{id_area}/{id_classroom}', 'EventsController@eventNearStudent')->name('getEvenNearStudent');
+
 Route::get('GetWeek', 'CoursesController@getWeek');
 Route::get('editGetWeek/{id_area}/{id_classroom}', 'CoursesController@editGetWeek')->name('editGetWeek');
 Route::get('editOneWeek/{id_area}/{id_classroom}', 'CoursesController@editOneWeek')->name('editOneWeek');
@@ -484,6 +501,7 @@ Route::get('/getRepositoryStudents/{id_repo}', 'RepositoryController@showReposit
 Route::get('/showRepository/{id_repo}', 'RepositoryController@showRepository')->name('showRepository');
 Route::get('/showRepositoryComments/{id_student}/{id_repo}', 'RepositoryController@showRepositoryComments')->name('showRepositoryComments');
 Route::get('/showRepositoryCommentsStudents/{id_repo}', 'RepositoryController@showRepositoryCommentsStudents')->name('showRepositoryCommentsStudents');
+Route::get('/api/repository/student', 'RepositoryController@getPendingRepositories');
 
 Route::post('/saveRepoComment', 'RepositoryController@storeRepositoryComment')->name('saveRepoComment');
 Route::post('/saveRepoStUpload', 'RepositoryController@storeRepositoryStudent')->name('saveRepoStUpload');
@@ -507,7 +525,7 @@ Route::get('/logout2', 'UserController@logOut')->name('logout2');
 
 
 
-
+//LECTIVAS
 //Módulo de electivas usuario Administrador
 Route::middleware('auth')->get('/admin/lectives', function () {
     return view('lectivesAdm');
@@ -559,12 +577,99 @@ Route::middleware('auth')->get('/teacher/lectives/board', function () {
 Route::middleware('auth')->get('/student/lectives/courses', function () {
     return view('lectivesStudentCourses');
 });
-//middleware('auth')->
+
 Route::middleware('auth')->get('/student/lectives/activities', function () {
     return view('lectivesStudentActivities');
 });
 
+
+
+// CLASES
+Route::get('GetNameWeekly/{id_class}', 'ClassController@getWeeklyName')->name('GetNameWeekly');
+
+Route::middleware('auth')->get('/docente/clases', function () {
+    return view('teacherCourses');
+});
+Route::get('/admin/modulo/{id_module}', function (int $id_module) {
+    return view('adminModule')->with('id_module', $id_module);
+});
+
+Route::middleware('auth')->get('/docente/modulo/{id_module}', function (int $id_module) {
+    return view('teacherModule')->with('id_module', $id_module);
+});
+
+Route::middleware('auth')->get('/docente/modulo/{id_module}/clase/nueva', function (int $id_module) {
+    return view('teacherCourse')->with('id_module', $id_module)->with('id_class', 0);
+});
+
+Route::middleware('auth')->get('/docente/modulo/{id_module}/clase/{id_class}', function (int $id_module, int $id_class) {
+    return view('teacherCourse')->with('id_module', $id_module)->with('id_class', $id_class);
+});
+
+Route::middleware('auth')->get('/docente/estudiantes', function () {
+    return view('teacherStudents');
+});
+
+Route::middleware('auth')->get('/docente/area/{id_area}/curso/{id_classroom}/estudiante/{id_student}', function (int $id_area, int $id_classroom,int $id_student) {
+    return view('teacherStudent')->with('id_area', $id_area)->with('id_classroom', $id_classroom)->with('id_student', $id_student);
+});
+
+Route::middleware('auth')->get('/docente/area/{id_area}/curso/{id_classroom}/estudiante/{id_student}/modulo/{id_module}', function (int $id_area, int $id_classroom,int $id_student,int $id_module) {
+    return view('teacherStudent')->with('id_area', $id_area)->with('id_classroom', $id_classroom)->with('id_student', $id_student)->with('id_module', $id_module);
+});
+
+Route::middleware('auth')->get('/docente/area/{id_area}/curso/{id_classroom}/estudiante/{id_student}/modulo/{id_module}/clase/{id_class}', function (int $id_area, int $id_classroom,int $id_student,int $id_module,int $id_class) {
+    return view('teacherStudent')->with('id_area', $id_area)->with('id_classroom', $id_classroom)->with('id_student', $id_student)->with('id_module', $id_module)->with('id_class', $id_class);
+});
+
+
+Route::middleware('auth')->get('/estudiante/clases', function () {
+    return view('studentCourses');
+});
+
+Route::middleware('auth')->get('/estudiante/modulo/{id_module}', function (int $id_module) {
+    return view('studentModule')->with('id_module', $id_module);
+});
+
+Route::middleware('auth')->get('/estudiante/modulo/{id_module}/clase/nueva', function (int $id_module) {
+    return view('studentCourse')->with('id_module', $id_module)->with('id_class', 0);
+});
+
+Route::middleware('auth')->get('/estudiante/modulo/{id_module}/clase/{id_class}', function (int $id_module, int $id_class) {
+    return view('studentCourse')->with('id_module', $id_module)->with('id_class', $id_class);
+});
+
+Route::middleware('auth')->get('/admin/clases', function () {
+    return view('adminCourses');
+});
+
+
+
+
+
+
 //api rest
+Route::get('/api/achievement/{id_achievement}/indicator', 'IndicatorController@getByAchievement');
+Route::put('/api/teacher/activity/{id_activity}/student/{id_student}/score', 'ActivityController@saveTeacherScore');
+Route::get('/api/teacher/module/{id_module}/class/{id_course}', 'ClassController@getCourse');
+Route::put('/api/teacher/module/{id_module}/class', 'ClassController@saveCourse');
+Route::put('/api/student/module/{id_module}/class/{id_course}/resource/{id_resource}/interaction', 'ClassController@saveCourseContentInteraction');
+Route::put('/api/student/module/{id_module}/class/{id_course}/activity/{id_activity}/interaction', 'ClassController@saveActivityInteraction');
+Route::put('/api/student/module/{id_module}/class/{id_course}/activity/{id_activity}/question/{id_question}/response', 'ClassController@saveActivityQuestionResponse');
+Route::post('/api/file/upload/editor-content', 'UploadController@uploadEditorContent');
+Route::put('/api/admin/module/{id_module}/class/{id_course}/{state}', 'ClassController@updateClassEnableEdition');
+Route::get('/api/student/activity', 'ActivityController@getByCurrentStudent');
+Route::get('/api/student/event', 'EventsController@studentEvents');
+Route::get('/api/teacher/area/{area_id}/classroom/{classroom_id}/student', 'CalificationController@getAllStudents');
+Route::get('/api/teacher/area/{area_id}/classroom/{classroom_id}/student/{student_id}', 'CalificationController@getByStudent');
+Route::get('/api/teacher/area/{area_id}/classroom/{classroom_id}/student/{student_id}/module', 'CalificationController@getAllModules');
+Route::get('/api/teacher/area/{area_id}/classroom/{classroom_id}/student/{student_id}/module/{module_id}/class', 'CalificationController@getAllClasses');
+Route::get('/api/student/{student_id}', 'StudentController@get');
+Route::get('/api/teacher/area/{area_id}/classroom/{classroom_id}/student/{student_id}/module/{module_id}/class/{class_id}', 'CalificationController@getByClass');
+Route::get('/api/event/today', 'EventsController@todayEvents');
+
+
+
 Route::get('/api/lectives', 'LectivesController@getLectives');
 Route::get('/api/lectives/planification/{id_lective_planification}', 'LectivesController@getPlanificationDetail');
 Route::put('/api/lectives/planification', 'LectivesController@savePlanificationDetail');
@@ -585,3 +690,5 @@ Route::get('/api/lectives/planification/{id_lective_planification}/weekly/{id_we
 Route::get('/api/lectives/planification/{id_lective_planification}/activities', 'LectivesController@getActivitiesByPlan');
 Route::put('/api/lectives/planification/{id_lective_planification}/weekly/{id_weekly_plan}/course/{id_class}/activity/{id_activity}/module/ENCUESTA_UNICA_RTA/question/{id_question}', 'QuestionController@responseQuestiononLective');
 Route::put('/api/planification/copy', 'CoursesController@copyInformation');
+
+

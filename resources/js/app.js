@@ -8,9 +8,8 @@ window.Vue = require("vue");
 window.Bus = new Vue();
 window.toastr = require("toastr");
 import CKEditor from "@ckeditor/ckeditor5-vue";
-import "bootstrap/dist/css/bootstrap.css";
-import "bootstrap-vue/dist/bootstrap-vue.css";
-import fullCalendar from "vue-fullcalendar";
+//import "bootstrap/dist/css/bootstrap.css";
+//import "bootstrap-vue/dist/bootstrap-vue.css";
 import Game from "./components/Game";
 import store from "./vuex/store";
 
@@ -33,12 +32,11 @@ Vue.component("example-component", require("./components/ExampleComponent.vue").
 Vue.component("category-component", require("./components/CategoryComponent.vue").default);
 
 Vue.component("select2", require("./components/Select2.vue").default);
-Vue.component("user-component", require("./components/UserComponent.vue").default);
+Vue.component("user-component", require("./components/Usercomponent.vue").default);
 Vue.component("type-component", require("./components/TypeUserComponent.vue").default);
 Vue.component("resume-component", require("./components/ResumeComponent.vue").default);
 Vue.component("checkbox", require("./components/Checkbox.vue").default);
 Vue.component("class-component", require("./components/ClassComponent.vue").default);
-
 Vue.component("blog-component", require("./components/BlogComponent.vue").default);
 Vue.component("draw-c", require("./components/draw.vue").default);
 
@@ -49,14 +47,14 @@ Vue.component("unit-class", require("./components/unitComponent.vue").default);
 Vue.component("free-component", require("./components/freeComponent.vue").default);
 Vue.component("freeu-component", require("./components/freeUnitComponent.vue").default);
 Vue.component("course-component", () => import ("./components/courseComponent.vue"));
-Vue.component("course-view", require("./components/courseView.vue").default);
+Vue.component("course-view", require("./components/CourseView.vue").default);
 Vue.component("semanal-component", require("./components/courseSemanalComponet.vue").default);
 Vue.component("semanalact-component", require("./components/courseSemanalAct.vue").default);
 Vue.component("list-component", require("./components/listClassComponent.vue").default);
 Vue.component("list-activity", require("./components/listActivity.vue").default);
 Vue.component("actividad-docente", require("./components/ActividadDocente.vue").default);
-Vue.component("sincro-component", require("./components/sincroEvent.vue").default);
-Vue.component("cuestionario-component", require("./components/cuestionario.vue").default);
+Vue.component("sincro-component", require("./components/SincroEvent.vue").default);
+Vue.component("cuestionario-component", require("./components/Cuestionario.vue").default);
 Vue.component("hangman-component", require("./components/hangman.vue").default);
 Vue.component("evaluation-component", require("./components/EvaluationComponent.vue").default);
 Vue.component("activ-component", require("./components/ActivityComponent.vue").default);
@@ -64,7 +62,7 @@ Vue.component("mycourse-component", require("./components/MyCourseComponent.vue"
 Vue.component("consult-component", require("./components/ConsultComponent.vue").default);
 Vue.component("frecuent-cuestions", require("./components/FrecuentCuestions.vue").default);
 Vue.component("register-component", require("./components/RegisterComponent.vue").default);
-Vue.component("mycourses-component", require("./components/MycoursesComponent.vue").default);
+Vue.component("mycourses-component", require("./components/MyCoursesComponent.vue").default);
 Vue.component("coursest-component", require("./components/CoursesStComponent.vue").default);
 Vue.component("evaluationst-component", require("./components/EvaluationStComponent.vue").default);
 Vue.component("activityst-component", require("./components/ActivityStComponent.vue").default);
@@ -90,7 +88,8 @@ Vue.component("perfil-docente", require("./components/perfildocente.vue").defaul
 Vue.component("anuncio-docente", require("./components/anunciodocente.vue").default);
 Vue.component("actividadg-docente",  () => import ("./components/actividadGDocente.vue"));
 Vue.component("anunciomc-component", require("./components/anunciomc.vue").default);
-Vue.component("full-component", require("./components/fullCalendar.vue").default);
+Vue.component("calendar-component", require("./components/calendarComponent.vue").default);
+Vue.component("student-calendar-component", require("./components/studentCalendarComponent.vue").default);
 Vue.component("redactar-component", require("./components/redactar.vue").default);
 Vue.component("vmensaje-component", require("./components/vistamensaje.vue").default);
 
@@ -103,9 +102,11 @@ Vue.component("group-chat", require("./components/GroupChat.vue").default);
 Vue.component("clasesst-component", require("./components/clasesSt.vue").default);
 Vue.component("notasd-component", require("./components/notasDocente.vue").default);
 Vue.component("actividadvd-component", require("./components/actividadVDocente.vue").default);
-Vue.component("clasesd-component", require("./components/clasesDocente.vue").default);
+Vue.component("clasesd-component",()=>import("./components/clasesDocente.vue"));
 Vue.component("crearc-component", require("./components/crearClase.vue").default);
 Vue.component("editarc-component", require("./components/editarClase.vue").default);
+
+
 
 Vue.component("inicio-component", ()=>import("./components/inicio.vue"));
 Vue.component("userinfo", ()=>import("./components/UserInfo"));
@@ -142,6 +143,15 @@ Vue.component("asistencia-adm", ()=>import("./components/asistencia.vue"));
 
 Vue.component("duplicar-component",  () => import ("./components/duplicarGeneral.vue"));
 
+//activities
+Vue.component("activity-questionary", ()=>import("./components/activityQuestionaryComponent.vue"));
+Vue.component("activity-complete-sentence", ()=>import("./components/activityCompleteSentenceComponent.vue"));
+Vue.component("activity-crossword", ()=>import("./components/activityCrosswordComponent.vue"));
+Vue.component("activity-relationship", ()=>import("./components/activityRelationshipComponent.vue"));
+
+Vue.component("activity-student-play-component", ()=>import("./components/activityStudentPlayComponent.vue"));
+Vue.component("editor-component", () => import("./components/editorComponent.vue"));
+Vue.component("process-ribbon-component", () =>   import("./components/processRibbonComponent.vue"));
 
 Vue.component("lectives-adm", () => import ("./components/lectivesAdmComponent.vue"));
 Vue.component("lectives-adm-assing-teacher", () => import ("./components/lectivesAdmAssingTeacherComponent.vue"));
@@ -167,11 +177,28 @@ Vue.component("repository-students", () => import("./components/repositoryStuden
 Vue.component("repository-comments", () => import("./components/repositoryComments.vue"));
 Vue.component("student-comments", () => import("./components/repositoryStudentComments.vue"));
 
+Vue.component("memory-create", () => import("./components/crearMemoria.vue"));
+
 Vue.component("repo-student", () => import("./components/repositoryStudentView.vue"));
 Vue.component("repository-upload", () => import("./components/repositoryStudentUpload.vue"));
 Vue.component("test-firebase", () => import("./components/testFirebase.vue"));
 
-Vue.use(CKEditor);
+
+//cursos
+Vue.component("admin-courses", () => import ("./components/adminCoursesComponent.vue"));
+Vue.component("admin-module", () => import ("./components/adminModuleComponent.vue"));
+Vue.component("teacher-courses", () => import ("./components/teacherCoursesComponent.vue"));
+Vue.component("teacher-module", () => import ("./components/teacherModuleComponent.vue"));
+Vue.component("teacher-course", () => import ("./components/teacherCourseComponent.vue"));
+Vue.component("student-courses", () => import ("./components/studentCoursesComponent.vue"));
+Vue.component("student-module", () => import ("./components/studentModuleComponent.vue"));
+Vue.component("student-course", () => import ("./components/studentCourseComponent.vue"));
+Vue.component("teacher-students", () => import ("./components/teacherStudentsComponent.vue"));
+Vue.component("teacher-student", () => import ("./components/teacherStudentComponent.vue"));
+Vue.component("teacher-student-module-select", () => import ("./components/teacherStudentModuleSelectComponent.vue"));
+Vue.component("teacher-student-class-select", () => import ("./components/teacherStudentClassSelectComponent.vue"));
+Vue.component("teacher-student-class-content", () => import ("./components/teacherStudentClassContentComponent.vue"));
+Vue.component("notification-component", () => import ("./components/notificationComponent.vue"));
 Vue.use(CKEditor);
 
 const app = new Vue({el: "#app", data: {}, store});
