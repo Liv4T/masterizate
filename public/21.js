@@ -219,7 +219,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.background2 {\r\n  background: url(" + escape(__webpack_require__(/*! ../assets/img/Fondo5.jpg */ "./resources/js/assets/img/Fondo5.jpg")) + ");\r\n  background-size: contain;\r\n  background-repeat: no-repeat;\r\n  background-position: center;\r\n  position: relative;\n}\niframe:not(.md-image){\r\n    height:300px !important;\n}\r\n\r\n", ""]);
+exports.push([module.i, "\n.background2 {\n  background: url(" + escape(__webpack_require__(/*! ../assets/img/Fondo5.jpg */ "./resources/js/assets/img/Fondo5.jpg")) + ");\n  background-size: contain;\n  background-repeat: no-repeat;\n  background-position: center;\n  position: relative;\n}\niframe:not(.md-image){\n    height:300px !important;\n}\n\n", ""]);
 
 // exports
 
@@ -378,7 +378,7 @@ var render = function() {
           ])
         ])
       ]),
-      _vm._v("3\n\n    "),
+      _vm._v(" "),
       _c("div", { staticClass: "modal fade", attrs: { id: "editu" } }, [
         _c("div", { staticClass: "modal-dialog" }, [
           _c("div", { staticClass: "modal-content" }, [
@@ -469,7 +469,10 @@ var render = function() {
                               ) {
                                 return _c(
                                   "div",
-                                  { staticClass: "form-group text-center" },
+                                  {
+                                    key: t_c,
+                                    staticClass: "form-group text-center"
+                                  },
                                   [
                                     item_content.content_type === "DOCUMENT"
                                       ? _c("strong", [_vm._v("Documento")])

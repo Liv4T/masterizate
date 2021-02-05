@@ -13,13 +13,12 @@
                             >{{ nameArea }}</span
                         >
                     </div>
-                    <div class="row">
+                    <div class="row" v-if="link_event">
                         <div class="col-12">
                             <b>Clase presencial:</b>
-
                         </div>
                     </div>
-                    <div class="row" v-if="link_event!=''">
+                    <div class="row" v-if="link_event">
                         <div class="col-md-6">
                             {{ name_event +" Fecha y hora: " +hour_event}}
                         </div>

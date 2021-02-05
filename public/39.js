@@ -135,7 +135,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.class-inactive{\r\n    margin: 10px;\r\n    font-weight: bold;\r\n    color: #F79D52;\n}\r\n", ""]);
+exports.push([module.i, "\n.class-inactive{\n    margin: 10px;\n    font-weight: bold;\n    color: #F79D52;\n}\n", ""]);
 
 // exports
 
@@ -247,29 +247,6 @@ var render = function() {
                           },
                           [_vm._v("Ir a clase")]
                         )
-                      ]),
-                      _vm._v(" "),
-                      _c("td", [
-                        clas.state == 2
-                          ? _c("span", { staticClass: "class-inactive" }, [
-                              _vm._v("Clase cerrada")
-                            ])
-                          : _vm._e(),
-                        _vm._v(" "),
-                        clas.state == 1
-                          ? _c(
-                              "button",
-                              {
-                                staticClass: "btn btn-primary",
-                                on: {
-                                  click: function($event) {
-                                    return _vm.enabledClass(clas)
-                                  }
-                                }
-                              },
-                              [_vm._v("Cerrar clase")]
-                            )
-                          : _vm._e()
                       ])
                     ])
                   }),
@@ -292,9 +269,7 @@ var staticRenderFns = [
       _c("tr", [
         _c("th", { staticClass: "text-center" }, [_vm._v("Clases")]),
         _vm._v(" "),
-        _c("th", { staticClass: "text-center" }, [_vm._v("Acción")]),
-        _vm._v(" "),
-        _c("th", { staticClass: "text-center" }, [_vm._v("Estado")])
+        _c("th", { staticClass: "text-center" }, [_vm._v("Acción")])
       ])
     ])
   }

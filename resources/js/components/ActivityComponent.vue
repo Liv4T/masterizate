@@ -76,7 +76,7 @@ export default {
       errors: [],
       fillS: [],
       area: null,
-      filter: "",
+      filter: '',
     };
   },
   created() {},
@@ -104,6 +104,8 @@ export default {
   },
   computed: {
     filteredRows() {
+    if(!this.activities.filter) return false;
+
       return this.activities.filter((row) => {
         const name = row.name.toString().toLowerCase();
         const searchTerm = this.filter.toLowerCase();
