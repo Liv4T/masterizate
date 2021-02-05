@@ -501,6 +501,7 @@ Route::get('/getRepositoryStudents/{id_repo}', 'RepositoryController@showReposit
 Route::get('/showRepository/{id_repo}', 'RepositoryController@showRepository')->name('showRepository');
 Route::get('/showRepositoryComments/{id_student}/{id_repo}', 'RepositoryController@showRepositoryComments')->name('showRepositoryComments');
 Route::get('/showRepositoryCommentsStudents/{id_repo}', 'RepositoryController@showRepositoryCommentsStudents')->name('showRepositoryCommentsStudents');
+Route::get('/api/repository/student', 'RepositoryController@getPendingRepositories');
 
 Route::post('/saveRepoComment', 'RepositoryController@storeRepositoryComment')->name('saveRepoComment');
 Route::post('/saveRepoStUpload', 'RepositoryController@storeRepositoryStudent')->name('saveRepoStUpload');
