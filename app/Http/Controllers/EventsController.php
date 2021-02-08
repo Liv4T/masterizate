@@ -416,7 +416,7 @@ class EventsController extends Controller
                         ->whereDate('eventos.date_from','=',$current_date)
                         ->where('eventos.date_to','>=',date('Y-m-d H:i:s'))
                         ->select('eventos.*')
-                        ->orderBy('eventos.date_froms')
+                        ->orderBy('eventos.date_from')
                         ->limit(15)
                         ->get();
 
