@@ -405,13 +405,16 @@ class EventsController extends Controller
                     }
                 }
             }
-            else  if (isset($user) && $user->type_user == 2) {
+
+            if(isset($user) && $user->type_user == 2) {
 
                         $events_teacher=DB::table('classroom_teacher')
                         ->join('eventos', 'classroom_teacher.id_classroom', '=', 'eventos.id_classroom')
-                        ->select('eventos.*')
                         ->where('classroom_teacher.id_user', $user->id)
+                        ->where('eventos.id_user', $user->id)
                         ->whereDate('eventos.date_from','=',$current_date)
+                        ->where('eventos.date_to','>=',date('Y-m-d H:i:s'))
+                        ->select('eventos.*')
                         ->orderBy('eventos.date_from')
                         ->limit(15)
                         ->get();
