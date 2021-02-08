@@ -409,10 +409,10 @@ class EventsController extends Controller
 
                         $events_teacher=DB::table('classroom_teacher')
                         ->join('eventos', 'classroom_teacher.id_classroom', '=', 'eventos.id_classroom')
-                        ->select('eventos.*')
                         ->where('classroom_teacher.id_user', $user->id)
                         ->whereDate('eventos.date_from','=',$current_date)
-                        ->orderBy('eventos.date_from')
+                        ->select('eventos.*')
+                        ->orderBy('eventos.date_froms')
                         ->limit(15)
                         ->get();
 
@@ -434,6 +434,7 @@ class EventsController extends Controller
                                     array_push($eventos,[
                                         "evento"=>$evento,
                                         "user_id"=>$user->id,
+                                        "user_type"=>$user->type_user,
                                         "name" => $evento->name,
                                         "dateFrom" => $evento->date_from,
                                         "dateTo" => $evento->date_to,
