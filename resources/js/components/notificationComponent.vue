@@ -33,8 +33,7 @@ export default {
   },
   methods: {
     extractHour(date){
-      console.log(`${date}`)
-      return `${date}`.substring(12,20);
+      return `${date}`.substring(11,20);
     }
   },
 };
