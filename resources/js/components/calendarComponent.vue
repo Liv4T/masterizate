@@ -160,9 +160,9 @@
                   <div class="invalid-feedback">Please fill out this field</div>
                 </div>
                 <div class="col-md-6">
-                  <label for="name">Materiaa</label>
+                  <label for="name">Materia</label>
                   <select class="form-control" v-model="areaUp" required>
-                    <option :value="option.id+'/'+option.id_classroom " v-for="option in myOptions">
+                    <option :value="option.id+'/'+option.id_classroom " v-for="(option,k_option) in myOptions" v-bind:key="k_option">
                       {{
                       option.text
                       }}
@@ -174,7 +174,7 @@
                 <div class="col-md-6">
                   <label for="name">Desde</label>
                   <datetime format="YYYY-MM-DD H:i:s" v-model="fromUp"></datetime>
-                  <div class="invalid-feedback">Please fill out this field</div>
+                  <div class="invalid-feedback">Por favor ingresa la fecha</div>
                 </div>
                 <div class="col-md-6">
                   <label for="name">Hasta</label>
@@ -184,7 +184,7 @@
                 <div class="col-md-6">
                   <strong for="name">Enlace de Meet</strong>
                   <input type="text" name="name" class="form-control" v-model="meetUp" />
-                  <div class="invalid-feedback">Please fill out this field</div>
+                  <div class="invalid-feedback">Por favor ingrwsa la fecha</div>
                 </div>
               </div>
               <div class="modal-footer">
@@ -332,7 +332,7 @@ export default {
   },
   methods: {
       filterPendingEvents:(events)=>{
-          return events.filter(e=>moment(e.dateFrom)>=moment());
+          return events.filter(e=>moment(e.dateTo)>=moment());
       },
       displayActivitiesChange(){
         const fullCalendarApi=this.$refs.fullCalendar.getApi();
@@ -425,9 +425,10 @@ export default {
     deleteEvent(id) {
       var url = "deleteEvent/" + id;
       axios.get(url).then((response) => {
+        toastr.success("Eliminado exitosamente"); //mensaje
         // eliminamos
         this.getMenu(); //listamos
-        toastr.success("Eliminado exitosamente"); //mensaje
+
       });
     },
     viewDelete(id, name) {
@@ -452,13 +453,14 @@ export default {
               url: this.nameMeet,
             })
             .then((response) => {
-              this.getMenu();
               toastr.success("Nuevo evento creado exitosamente");
+              this.getMenu();
+
             })
             .catch((error) => {});
-          
+
         }
-      }      
+      }
     },
     updateEvent() {
       var url = "updateEvent";

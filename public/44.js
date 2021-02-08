@@ -109,6 +109,10 @@ __webpack_require__.r(__webpack_exports__);
       axios.get("/api/teacher/area/".concat(this.current_area.id, "/classroom/").concat(this.current_area.id_classroom, "/student")).then(function (response) {
         _this2.students = response.data;
       });
+    },
+    SelectArea: function SelectArea(area) {
+      this.current_area = area;
+      this.getStudents();
     }
   }
 });
@@ -198,7 +202,14 @@ var render = function() {
                     key: k_area,
                     staticClass: "area_container",
                     class: {
-                      "area_container-active": _vm.current_area.id == area.id
+                      "area_container-active":
+                        _vm.current_area.id == area.id &&
+                        _vm.current_area.id_classroom == area.id_classroom
+                    },
+                    on: {
+                      click: function($event) {
+                        return _vm.SelectArea(area)
+                      }
                     }
                   },
                   [_c("span", [_vm._v(_vm._s(area.text))])]

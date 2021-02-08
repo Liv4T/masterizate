@@ -4,7 +4,15 @@
             <i style="color:#ffc039" class="fas fa-bell"></i> <span id="span-counter" class="badge badge-light">0</span> <span class="caret"></span>
         </a>
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-            <a v-for="(event, k_event) in events" v-bind:key="k_event" class="dropdown-item" :href="event.hangout">[{{event.area}} {{event.classroom}}] {{event.name}}</a>
+            <div class="event_container">
+                <div class="list-group">
+                  <a v-for="(event, k_event) in events" v-bind:key="k_event" class="list-group-item list-group-item-action text-truncate" :href="event.hangout"><b>{{extractHour(event.dateFrom)}}</b> [{{event.area}} {{event.classroom}}] {{event.name}}</a>
+                </div>
+            </div>
+            <div class="event_all">
+              <a href="/calendar">Ver todos</a>
+            </div>
+            <!---->
         </div>
     </div>
 </template>
@@ -24,9 +32,44 @@ export default {
         });
   },
   methods: {
-
+    extractHour(date){
+      console.log(`${date}`)
+      return `${date}`.substring(12,20);
+    }
   },
 };
 </script>
 <style>
+    a:not(.md-button):hover{
+       text-decoration: none;
+    }
+    .navbar a{
+      text-align: left !important;
+    }
+    .event_container{
+        width: 450px;
+        padding: 5px;
+        max-height: 200px;
+        overflow:auto;
+    }
+    .event_all a{
+      width:100%;
+      text-align: center !important;
+      padding: 10px;
+      background: #278080;
+      color:white;
+      text-decoration: none;
+    }
+    .list-group-item-action{
+      text-align: left;
+      width:100%;
+      word-wrap: break-word;
+    }
+    .list-group-item-action:hover{
+      text-decoration: none;
+      background: #ffc039;
+      font-weight: 600;
+      color:white;
+    }
+
 </style>
