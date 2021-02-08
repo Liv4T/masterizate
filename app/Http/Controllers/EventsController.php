@@ -412,6 +412,7 @@ class EventsController extends Controller
                         ->join('eventos', 'classroom_teacher.id_classroom', '=', 'eventos.id_classroom')
                         ->where('classroom_teacher.id_user', $user->id)
                         ->where('eventos.id_user', $user->id)
+                        ->where('eventos.id_area','=','classroom_teacher.id_area')
                         ->whereDate('eventos.date_from','=',$current_date)
                         ->where('eventos.date_to','>=',date('Y-m-d H:i:s'))
                         ->select('eventos.*')
