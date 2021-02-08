@@ -432,6 +432,8 @@ class EventsController extends Controller
                                     //$area = Area::find($evento->id_area);
                                     //$classroom = Classroom::find($evento->id_classroom);
                                     array_push($eventos,[
+                                        "evento"=>$evento,
+                                        "user_id"=>$user->id,
                                         "name" => $evento->name,
                                         "dateFrom" => $evento->date_from,
                                         "dateTo" => $evento->date_to,
