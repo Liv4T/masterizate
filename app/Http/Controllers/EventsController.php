@@ -412,7 +412,7 @@ class EventsController extends Controller
                         ->where('classroom_teacher.id_user', $user->id)
                         ->whereDate('eventos.date_from','=',$current_date)
                         ->select('eventos.*')
-                        ->orderBy('eventos.date_froms')
+                        ->orderBy('eventos.date_from')
                         ->limit(15)
                         ->get();
 
