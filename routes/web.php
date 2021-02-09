@@ -423,6 +423,11 @@ Route::get('getGrade', 'AdministratorController@findGrade')->name('getGrade');
 Route::get('getArea', 'AdministratorController@findArea')->name('getArea');
 Route::get('getClassroom', 'AdministratorController@findClassroom')->name('getClassroom');
 
+//Landing
+Route::get('/landing', function () {
+    return view('landing');
+});
+Route::post('/createContact','LandingController@store')->name('createContact');
 
 // route set for favorite answer
 // -------------------------------

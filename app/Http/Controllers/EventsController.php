@@ -44,7 +44,7 @@ class EventsController extends Controller
 
         // $event->save();
 
-        $area_classroom = $request->id_area;
+        //$area_classroom = $request->id_area;
         //$arrayAreaClassroom = explode("/", $area_classroom);
 
         $evento = new Eventos;
