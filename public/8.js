@@ -141,7 +141,11 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
+<<<<<<< HEAD
 exports.push([module.i, "\n.collapse-row.collapsed + tr {\n  display: none;\n}\n.btn.skool {\n  background-color: #c1e9eb;\n  color: white;\n}\n", ""]);
+=======
+exports.push([module.i, "\n.complete-sentence{\r\n    background-color:#e9ecefb5;\r\n    padding:5px;\n}\n.input-word{\r\n    height:30px ;\r\n    border-radius: 5px;\r\n    background-color:rgb(179, 209, 255);\r\n    border-width: 0px;\r\n    padding: 0px 15px;\r\n    color:black;\n}\n.paragraph-sentence{\r\n    padding: 5px 15px;\r\n    background: #fff;\r\n    border-radius: 5px;\n}\n.paragraph-sentence>p{\r\n    line-height: 3.5;\r\n    font-weight: 500;\r\n    text-align: justify;\n}\n.paragraph-sentence-preview>p{\r\n    line-height: 3.0;\r\n    font-weight: 500;\r\n    text-align: justify;\r\n    font-size: 1.2em;\n}\n.input-color{\r\n    background-color:#fffde7;\n}\n.label-preview{\r\n    display: flex;\r\n    flex-direction: row;\r\n    justify-content: space-between;\r\n    align-items: flex-start;\n}\n.label-preview_button{\r\n     -webkit-animation-duration: 5s;\r\n             animation-duration: 5s;\r\n     outline:none;\n}\n.label-preview_button:hover{\r\n    transform: rotate(360deg) ;\n}\n.label-preview_button:hover>svg{\r\n    fill:#61f174;\n}\r\n", ""]);
+>>>>>>> 29908028c636e9b5cef7a214fb1dc6e775ab27d0
 
 // exports
 

@@ -12,7 +12,7 @@
                             <div>
                                 <span>Seleccione el área:</span>
                             </div>
-                            <div v-for="(area,k_area) in areas" v-bind:key="k_area" class="area_container" v-bind:class="{ 'area_container-active': (current_area.id==area.id) }">
+                            <div v-for="(area,k_area) in areas" v-bind:key="k_area" class="area_container" v-bind:class="{ 'area_container-active': (current_area.id==area.id && current_area.id_classroom==area.id_classroom) }" @click="SelectArea(area)">
                                 <span>{{area.text}}</span>
                             </div>
                         </div>
@@ -96,6 +96,10 @@ export default {
             axios.get(`/api/teacher/area/${this.current_area.id}/classroom/${this.current_area.id_classroom}/student`).then(response => {
                 this.students = response.data;
             });
+        },
+        SelectArea(area){
+             this.current_area=area;
+             this.getStudents();
         }
     }
 }

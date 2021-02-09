@@ -37,7 +37,6 @@ Vue.component("type-component", require("./components/TypeUserComponent.vue").de
 Vue.component("resume-component", require("./components/ResumeComponent.vue").default);
 Vue.component("checkbox", require("./components/Checkbox.vue").default);
 Vue.component("class-component", require("./components/ClassComponent.vue").default);
-
 Vue.component("blog-component", require("./components/BlogComponent.vue").default);
 Vue.component("draw-c", require("./components/draw.vue").default);
 

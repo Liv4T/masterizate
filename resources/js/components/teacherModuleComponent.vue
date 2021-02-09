@@ -24,7 +24,7 @@
                                 <tr>
                                     <th class="text-center">Clases</th>
                                     <th class="text-center">Acción</th>
-                                     <th class="text-center">Estado</th>
+                                     <!--<th class="text-center">Estado</th>-->
                                 </tr>
                             </thead>
                             <tbody>
@@ -41,12 +41,12 @@
                                             "
                                             >Ir a clase</a
                                         >
-                                      
+
                                     </td>
-                                    <td>
+                                    <!--<td>
                                           <span class="class-inactive" v-if="clas.state==2">Clase cerrada</span>
                                         <button v-if="clas.state==1" class="btn btn-primary" @click="enabledClass(clas)">Cerrar clase</button>
-                                    </td>
+                                    </td>-->
                                 </tr>
                             </tbody>
                         </table>
@@ -96,7 +96,7 @@ export default {
         {
             var urlr = window.location.origin + "/showClass/" + this.id_module;
             axios.get(urlr).then(response => {
-            
+
                 this.fillS = response.data.clase;
 
                 if(response.data.area && response.data.classroom)

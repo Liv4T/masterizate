@@ -274,7 +274,11 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
+<<<<<<< HEAD
 exports.push([module.i, "\n.background2 {\n  background: url(" + escape(__webpack_require__(/*! ../assets/img/Fondo5.jpg */ "./resources/js/assets/img/Fondo5.jpg")) + ");\n  background-size: contain;\n  background-repeat: no-repeat;\n  background-position: center;\n  position: relative;\n}\n.question-module{\n  padding:10px;\n}\n.question-module label{\n  padding:10px;\n}\n.question-module .q-option{\n  background-color:#f2f2f2;\n  border-radius:5px;\n  padding:5px;\n  margin:5px;\n}\n\n", ""]);
+=======
+exports.push([module.i, "\n.form-activity{\r\n  width:100%;\r\n  margin-top:30px;\n}\n.form-activity>.form-group{\r\n  display:flex;\r\n  flex-direction:column;\r\n  align-items:flex-start !important;\n}\n.form-activity>.form-group-center{\r\n  display:flex;\r\n  flex-direction:column;\r\n  align-items:center !important;\n}\n.form-activity>.form-group>label{\r\n  text-align:left !important;\n}\n.form-activity>.form-group input{\r\n  width:40%;\n}\n.required{\r\n  color:red;\n}\n.card-grey{\r\n  background-color:#f2f2f2;\n}\n.questionary-module{\r\n  padding:20px;\n}\n.q-option{\r\n  padding:10px;\n}\n.div-icon-add{\r\n  display:flex;\r\n  flex-direction:row;\r\n  justify-content:center;\r\n  align-items:center;\n}\n.icon-add{\r\n  background-color:#f2f2f2;\r\n  height:30px;\r\n  width:40px;\r\n  border:2px solid #8f8f8f;\r\n  border-radius:5px;\r\n  display:flex;\r\n  flex-direction:row;\r\n  justify-content:center;\r\n  align-items:center;\r\n  cursor:default;\r\n \r\n  font-weight:900;\r\n  background-color:#ffc107;color:white;border-color:#ffc107;\n}\n.icon-add:hover{ color:#ffc107;background-color:white;border-color:#ffc107;}\n.icon-remove{\r\n  background-color:#ff004c;\r\n  height:30px;\r\n  width:40px;\r\n  border:2px solid #ff004c;\r\n  border-radius:5px;\r\n  display:flex;\r\n  flex-direction:row;\r\n  justify-content:center;\r\n  align-items:center;\r\n  cursor:default;\r\n \r\n  font-weight:900;\r\n  background-color:#ff004c;color:white;border-color:#ff004c;\n}\n.icon-remove:hover{ color:#ff004c;background-color:white;border-color:#ff004c;}\r\n", ""]);
+>>>>>>> 29908028c636e9b5cef7a214fb1dc6e775ab27d0
 
 // exports
 

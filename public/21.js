@@ -293,7 +293,11 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
+<<<<<<< HEAD
 exports.push([module.i, "\n.background2 {\n  background: url(" + escape(__webpack_require__(/*! ../assets/img/Fondo5.jpg */ "./resources/js/assets/img/Fondo5.jpg")) + ");\n  background-size: contain;\n  background-repeat: no-repeat;\n  background-position: center;\n  position: relative;\n}\n.question-module{\n  padding:10px;\n}\n.question-module label{\n  padding:10px;\n}\n.question-module .q-option{\n  background-color:#f2f2f2;\n  border-radius:5px;\n  padding:5px;\n  margin:5px;\n  border:1px solid #f2f2f2;\n  width:100%;\n}\n.question-module .q-option:hover{\n    background-color:#f5e18d;\n    cursor:pointer;\n}\n.q-option-checked{\n   background-color:#91ffcf !important;\n  border-radius:5px;\n  padding:5px;\n  margin:5px;\n  border:1px solid #91ffcf;\n}\n", ""]);
+=======
+exports.push([module.i, "\n.background2 {\r\n  background: url(" + escape(__webpack_require__(/*! ../assets/img/Fondo5.jpg */ "./resources/js/assets/img/Fondo5.jpg")) + ");\r\n  background-size: contain;\r\n  background-repeat: no-repeat;\r\n  background-position: center;\r\n  position: relative;\n}\niframe:not(.md-image){\r\n    height:300px !important;\n}\r\n\r\n", ""]);
+>>>>>>> 29908028c636e9b5cef7a214fb1dc6e775ab27d0
 
 // exports
 
@@ -541,6 +545,7 @@ var render = function() {
                           }
                         },
                         [
+<<<<<<< HEAD
                           _c("div", { staticClass: "card-body" }, [
                             _vm._v(_vm._s(_vm.activity.delivery_date))
                           ])
@@ -625,6 +630,117 @@ var render = function() {
                                               },
                                               [_vm._v(_vm._s(option.content))]
                                             )
+=======
+                          _c(
+                            "div",
+                            { staticClass: "card-body" },
+                            [
+                              _c(
+                                "div",
+                                { staticClass: "form-group text-center" },
+                                [
+                                  _c("strong", { attrs: { for: "name" } }, [
+                                    _vm._v("Nombre")
+                                  ]),
+                                  _vm._v(" "),
+                                  _c(
+                                    "div",
+                                    { staticStyle: { "font-weight": "bold" } },
+                                    [_vm._v(_vm._s(course.name))]
+                                  )
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "div",
+                                { staticClass: "form-group text-center" },
+                                [
+                                  _c("strong", { attrs: { for: "name" } }, [
+                                    _vm._v("Descripción")
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("p", [_vm._v(_vm._s(course.description))])
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _vm._l(course.content, function(
+                                item_content,
+                                t_c
+                              ) {
+                                return _c(
+                                  "div",
+                                  {
+                                    key: t_c,
+                                    staticClass: "form-group text-center"
+                                  },
+                                  [
+                                    item_content.content_type === "DOCUMENT"
+                                      ? _c("strong", [_vm._v("Documento")])
+                                      : item_content.content_type === "LINK"
+                                      ? _c("strong", [_vm._v("Enlace")])
+                                      : item_content.content_type === "VIDEO"
+                                      ? _c("strong", [_vm._v("Video")])
+                                      : _vm._e(),
+                                    _vm._v(" "),
+                                    _c("p", [
+                                      _vm._v(_vm._s(item_content.description))
+                                    ]),
+                                    _vm._v(" "),
+                                    item_content.content_type === "DOCUMENT" &&
+                                    item_content.content
+                                      ? _c(
+                                          "a",
+                                          {
+                                            staticClass: "form-control",
+                                            attrs: {
+                                              href: item_content.content,
+                                              target: "_blank",
+                                              type: "text"
+                                            }
+                                          },
+                                          [
+                                            _c("i", {
+                                              staticClass: "fa fa-file-download"
+                                            }),
+                                            _vm._v(" Descargar")
+                                          ]
+                                        )
+                                      : _vm._e(),
+                                    _vm._v(" "),
+                                    item_content.content_type === "LINK" &&
+                                    item_content.content
+                                      ? _c(
+                                          "a",
+                                          {
+                                            staticClass: "form-control",
+                                            attrs: {
+                                              href: item_content.content,
+                                              target: "_blank",
+                                              type: "text"
+                                            }
+                                          },
+                                          [
+                                            _c("i", {
+                                              staticClass: "fa fa-link"
+                                            }),
+                                            _vm._v(" Abrir")
+                                          ]
+                                        )
+                                      : _vm._e(),
+                                    _vm._v(" "),
+                                    item_content.content_type === "VIDEO" &&
+                                    item_content.content
+                                      ? _c("iframe", {
+                                          attrs: {
+                                            width: "100%",
+                                            frameborder: "0",
+                                            allow:
+                                              "accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture",
+                                            allowfullscreen: "",
+                                            src:
+                                              "https://www.youtube.com/embed/" +
+                                              item_content.content
+>>>>>>> 29908028c636e9b5cef7a214fb1dc6e775ab27d0
                                           }
                                         )
                                       ],

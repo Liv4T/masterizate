@@ -28,6 +28,12 @@
                                 <span class="dot dot_red"></span> Clases presenciales
                             </label>
                         </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" v-model="display_respositories" @change="displayRepositoriesChange()"  id="defaultCheck3">
+                            <label class="form-check-label" for="defaultCheck3">
+                                <span class="dot dot_red"></span> Repositorio
+                            </label>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -126,8 +132,10 @@ components: {
     return {
       display_events:true,
       display_activities:true,
+      display_respositories:true,
       meetings:[],
       activities:[],
+      respositories:[],
       initialView:'dayGridMonth',
       calendarOptions: {
         locale: esLocale,
@@ -185,6 +193,16 @@ components: {
 
         }
     });
+    axios.get("/api/repository/student").then((response) => {
+       this.respositories=response.data;
+        if(this.respositories && this.respositories.length>0)
+        {
+            this.respositories.forEach(repository=>{
+                fullCalendarApi.addEvent({ title: `${repository.area_name} ${repository.classroom_name} | Repositorio: ${repository.name}`, date: repository.date ,description: repository.description,url:repository.file,backgroundColor:'orange' });
+            })
+
+        }
+    });
 
 
 
@@ -234,6 +252,25 @@ components: {
             const currentEvents=  fullCalendarApi.getEvents();
             currentEvents.forEach(event=>{
                 if(event.backgroundColor=='red')
+                {
+                    event.remove();
+                }
+            });
+          }
+      },
+       displayRepositoriesChange(){
+           const fullCalendarApi=this.$refs.fullCalendar.getApi();
+
+          if(this.display_respositories)
+          {
+            this.respositories.forEach(repository=>{
+              fullCalendarApi.addEvent({ title: `${repository.area_name} ${repository.classroom_name} | Repositorio: ${repository.name}`, date: repository.date ,description: repository.description,url:repository.file,backgroundColor:'orange' });
+            })
+          }
+          else{
+            const currentEvents=  fullCalendarApi.getEvents();
+            currentEvents.forEach(event=>{
+                if(event.backgroundColor=='orange')
                 {
                     event.remove();
                 }

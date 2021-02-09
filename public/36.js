@@ -314,7 +314,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 (function () {
   "use strict";
 
@@ -372,7 +371,12 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
         progress: 0
       },
       achievements: [],
-      activity: {}
+      activity: {},
+      name_event: "",
+      hour_event: "",
+      link_event: "",
+      id_area: "",
+      id_classroom: ""
     };
   },
   mounted: function mounted() {
@@ -381,7 +385,12 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
     axios.get("/showClass/".concat(this.id_module)).then(function (response) {
       _this.achievements = response.data.achievements;
       _this.nameArea = "".concat(response.data.area.name, " ").concat(response.data.classroom.name);
-      console.log(_this.nameArea);
+      _this.id_area = "".concat(response.data.area.id, "/").concat(response.data.classroom.id, " ");
+      axios.get("/getEvenNearStudent/".concat(_this.id_area)).then(function (response) {
+        _this.name_event = response.data.name;
+        _this.hour_event = response.data.date_from;
+        _this.link_event = response.data.url;
+      });
     });
     axios.get("/GetNameWeekly/".concat(this.id_module)).then(function (response) {
       _this.weekly_plan = {
@@ -749,9 +758,38 @@ var render = function() {
             )
           ]),
           _vm._v(" "),
-          _vm._m(0),
+          _vm.link_event
+            ? _c("div", { staticClass: "row" }, [_vm._m(0)])
+            : _vm._e(),
           _vm._v(" "),
-          _vm._m(1),
+          _vm.link_event
+            ? _c("div", { staticClass: "row" }, [
+                _c("div", { staticClass: "col-md-6" }, [
+                  _vm._v(
+                    "\n                        " +
+                      _vm._s(
+                        _vm.name_event + " Fecha y hora: " + _vm.hour_event
+                      ) +
+                      "\n                    "
+                  )
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-md-6" }, [
+                  _c(
+                    "a",
+                    {
+                      staticClass: "btn btn-warning float-right",
+                      attrs: {
+                        href: _vm.link_event,
+                        target: "_blank",
+                        rel: "noopener noreferrer"
+                      }
+                    },
+                    [_vm._v("Ir a la clase")]
+                  )
+                ])
+              ])
+            : _vm._e(),
           _vm._v(" "),
           _c("div", { staticClass: "row" }, [
             _c("div", { staticClass: "col-12" }),
@@ -869,7 +907,7 @@ var render = function() {
                   ])
                 ]),
                 _vm._v(" "),
-                _vm._m(2),
+                _vm._m(1),
                 _vm._v(" "),
                 _c(
                   "div",
@@ -1340,37 +1378,8 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-12" }, [
-        _c("b", [_vm._v("Clase presencial:")])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-md-6" }, [
-        _vm._v(
-          "\n                        Nombre de clase Fecha:29/12/2020 Hora:10:30AM\n                    "
-        )
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-md-6" }, [
-        _c(
-          "a",
-          {
-            staticClass: "btn btn-warning float-right",
-            attrs: {
-              href: "https://meet.google.com/uxb-miog-got",
-              target: "_blank",
-              rel: "noopener noreferrer"
-            }
-          },
-          [_vm._v("Ir a la clase")]
-        )
-      ])
+    return _c("div", { staticClass: "col-12" }, [
+      _c("b", [_vm._v("Clase presencial:")])
     ])
   },
   function() {

@@ -352,7 +352,11 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
+<<<<<<< HEAD
 exports.push([module.i, "\n.form-activity{\n  width:100%;\n  margin-top:30px;\n}\n.form-activity>.form-group{\n  display:flex;\n  flex-direction:column;\n  align-items:flex-start !important;\n}\n.form-activity>.form-group-center{\n  display:flex;\n  flex-direction:column;\n  align-items:center !important;\n}\n.form-activity>.form-group>label{\n  text-align:left !important;\n}\n.form-activity>.form-group input{\n  width:40%;\n}\n.required{\n  color:red;\n}\n.card-grey{\n  background-color:#f2f2f2;\n}\n.questionary-module{\n  padding:20px;\n}\n.q-option{\n  padding:10px;\n}\n.div-icon-add{\n  display:flex;\n  flex-direction:row;\n  justify-content:center;\n  align-items:center;\n}\n.icon-add{\n  background-color:#f2f2f2;\n  height:30px;\n  width:40px;\n  border:2px solid #8f8f8f;\n  border-radius:5px;\n  display:flex;\n  flex-direction:row;\n  justify-content:center;\n  align-items:center;\n  cursor:default;\n \n  font-weight:900;\n  background-color:#ffc107;color:white;border-color:#ffc107;\n}\n.icon-add:hover{ color:#ffc107;background-color:white;border-color:#ffc107;}\n.icon-remove{\n  background-color:#ff004c;\n  height:30px;\n  width:40px;\n  border:2px solid #ff004c;\n  border-radius:5px;\n  display:flex;\n  flex-direction:row;\n  justify-content:center;\n  align-items:center;\n  cursor:default;\n \n  font-weight:900;\n  background-color:#ff004c;color:white;border-color:#ff004c;\n}\n.icon-remove:hover{ color:#ff004c;background-color:white;border-color:#ff004c;}\n", ""]);
+=======
+exports.push([module.i, "\n.background2 {\r\n  background: url(" + escape(__webpack_require__(/*! ../assets/img/Fondo5.jpg */ "./resources/js/assets/img/Fondo5.jpg")) + ");\r\n  background-size: contain;\r\n  background-repeat: no-repeat;\r\n  background-position: center;\r\n  position: relative;\n}\niframe:not(.md-image){\r\n    height:300px !important;\n}\r\n", ""]);
+>>>>>>> 29908028c636e9b5cef7a214fb1dc6e775ab27d0
 
 // exports
 

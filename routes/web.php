@@ -328,6 +328,14 @@ Route::middleware('auth')->get('/actividad_d/{id}', 'ClassController@activityWee
 Route::middleware('auth')->get('/actividad_d/getClass/{id}', 'ClassController@getClassId')->name('getClass');
 Route::post('courseWeekly', 'CoursesController@courseWeekly')->name('courseWeekly');
 Route::get('GetArearByUser', 'CoursesController@getAreaByUser')->name('GetArearByUser');
+
+// Rutas capturar actividades y entregas
+
+Route::get('getAllActivitiesUser', 'ActivityController@getAllActivitiesRepositories')->name('getAllActivitiesUser');
+
+
+Route::get('getEvenNearStudent/{id_area}/{id_classroom}', 'EventsController@eventNearStudent')->name('getEvenNearStudent');
+
 Route::get('GetWeek', 'CoursesController@getWeek');
 Route::get('editGetWeek/{id_area}/{id_classroom}', 'CoursesController@editGetWeek')->name('editGetWeek');
 Route::get('editOneWeek/{id_area}/{id_classroom}', 'CoursesController@editOneWeek')->name('editOneWeek');
@@ -498,6 +506,7 @@ Route::get('/getRepositoryStudents/{id_repo}', 'RepositoryController@showReposit
 Route::get('/showRepository/{id_repo}', 'RepositoryController@showRepository')->name('showRepository');
 Route::get('/showRepositoryComments/{id_student}/{id_repo}', 'RepositoryController@showRepositoryComments')->name('showRepositoryComments');
 Route::get('/showRepositoryCommentsStudents/{id_repo}', 'RepositoryController@showRepositoryCommentsStudents')->name('showRepositoryCommentsStudents');
+Route::get('/api/repository/student', 'RepositoryController@getPendingRepositories');
 
 Route::post('/saveRepoComment', 'RepositoryController@storeRepositoryComment')->name('saveRepoComment');
 Route::post('/saveRepoStUpload', 'RepositoryController@storeRepositoryStudent')->name('saveRepoStUpload');

@@ -378,7 +378,7 @@ var render = function() {
           ])
         ])
       ]),
-      _vm._v("3\n\n    "),
+      _vm._v(" "),
       _c("div", { staticClass: "modal fade", attrs: { id: "editu" } }, [
         _c("div", { staticClass: "modal-dialog" }, [
           _c("div", { staticClass: "modal-content" }, [
@@ -469,7 +469,10 @@ var render = function() {
                               ) {
                                 return _c(
                                   "div",
-                                  { staticClass: "form-group text-center" },
+                                  {
+                                    key: t_c,
+                                    staticClass: "form-group text-center"
+                                  },
                                   [
                                     item_content.content_type === "DOCUMENT"
                                       ? _c("strong", [_vm._v("Documento")])

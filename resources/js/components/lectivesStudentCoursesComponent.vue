@@ -53,7 +53,7 @@
             </div>
           </div>
         </div>
-      </div>3
+      </div>
 
       <div class="modal fade" id="editu">
         <div class="modal-dialog">
@@ -71,7 +71,7 @@
               <div class="card-body">
                 <div class="accordion" id="accordionExample">
                   <div class="card" v-for="(course, t) in courses" :key="t">
-                   
+
                    <div class="card-header" :id="'heading' +t">
                       <h2 class="mb-0">
                         <button
@@ -99,7 +99,7 @@
                           <strong for="name">Descripción</strong>
                           <p>{{course.description }}</p>
                         </div>
-                        <div class="form-group text-center"  v-for="(item_content, t_c) in course.content">
+                        <div class="form-group text-center" v-bind:key="t_c"  v-for="(item_content, t_c) in course.content">
                             <strong v-if="item_content.content_type === 'DOCUMENT'">Documento</strong>
                             <strong v-else-if="item_content.content_type === 'LINK'">Enlace</strong>
                             <strong v-else-if="item_content.content_type === 'VIDEO'">Video</strong>
@@ -113,7 +113,7 @@
                         </div>
                     <!--END FOOTER-->
                       </div><!--END CART BODY-->
-                      
+
                     </div>
                   </div>
 
@@ -130,7 +130,7 @@
 <script>
 export default {
   data() {
-   
+
     return {
       planifications:[],
       planification:{lective:{}},
@@ -155,7 +155,7 @@ export default {
      axios.get("/api/lectives").then((response) => {
       this.planifications= response.data;
     });
-  
+
   },
   methods: {
     showModalAddCourses(id_lective_planification,id_weekly_plan) {
@@ -187,10 +187,10 @@ export default {
       });
 
 
-    
+
     },
     getPlanificationEvent(id_lective_planification) {
-    
+
       axios.get(`/api/lectives/planification/${id_lective_planification}`).then((response) => {
         this.planification = response.data;
       });

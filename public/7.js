@@ -20,7 +20,12 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "createCheckBox", function() { return _src_index__WEBPACK_IMPORTED_MODULE_0__["createCheckBox"]; });
 
+<<<<<<< HEAD
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "rippleMouseHandler", function() { return _src_index__WEBPACK_IMPORTED_MODULE_0__["rippleMouseHandler"]; });
+=======
+// module
+exports.push([module.i, "\n.collapse-row.collapsed + tr {\r\n  display: none;\n}\n.btn.skool {\r\n  background-color: #c1e9eb;\r\n  color: white;\n}\r\n", ""]);
+>>>>>>> 29908028c636e9b5cef7a214fb1dc6e775ab27d0
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "setHiddenInput", function() { return _src_index__WEBPACK_IMPORTED_MODULE_0__["setHiddenInput"]; });
 

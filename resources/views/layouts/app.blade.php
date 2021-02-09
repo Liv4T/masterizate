@@ -145,7 +145,7 @@
 
 }
 .navbar-brand{
-    max-height: 50px;
+    max-height: 120px;
 }
 .navbar-brand img{
     width:200px;
@@ -157,7 +157,7 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
 }
 .py-3{
-    margin-top:60px;
+    margin-top:5px;
 }
 @media only screen and (max-width: 400px) {
     .navbar-brand img{

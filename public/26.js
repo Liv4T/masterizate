@@ -363,7 +363,11 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
+<<<<<<< HEAD
 exports.push([module.i, "\n.div-weekly-plan{\n    display:flex;\n    flex-direction:row;\n    justify-content:space-around;\n    padding:10px;\n}\n.div-weekly-plan label{\n    font-size:1.2em;\n    font-weight:700;\n}\n.div-classes{\n    display: flex;\n    flex-direction: column;\n    justify-content:center;\n    padding:5px;\n}\n.div-class{\n    display: flex;\n    flex-direction: column;\n    justify-content:space-around;\n    padding:5px;\n}\n.div-class>.title{\n    display: flex;\n    flex-direction: row;\n    justify-content:space-around;\n}\n.div-class>.content{\n    display: flex;\n    flex-direction: row;\n    justify-content:space-around;\n    margin-top:30px;\n    flex-wrap: wrap;\n}\n.required{\n    color:Red;\n}\n.div-resource{\n    display:flex;\n    flex-direction:column;\n    align-items: center;\n    padding:30px;\n    background-color:#f2f2f2;\n    margin:10px;\n    max-width:400px;\n    min-width:350px;\n}\n.div-resource .form-item{\n    width:100%;\n    padding:5px;\n    display:flex;\n    flex-direction:column;\n    justify-content:flex-start;\n}\n.div-resource .form-item>a{\n    color:#007bff;\n}\n.div-resource .form-item>a:visited{\n    color:#007bff;\n}\n.div-resource .form-item>span{\n    padding:10px;\n    font-size:1.2em;\n    color:#b4b4b4;\n    font-weight:700;\n    border:1px solid #b4b4b4;\n    border-radius:5px;\n    margin:5px\n}\n.div-resource .form-item>span:hover{\n    background-color:white;\n    cursor:pointer;\n}\n.div-weekly-plan-btn-save{\n    display:flex;\n    padding:50px;\n    justify-content:flex-end;\n     flex-direction:row;\n}\n.closed-icon{\n    width:100%;\n    display:flex;\n    justify-content:flex-end;\n    flex-direction:row;\n}\n", ""]);
+=======
+exports.push([module.i, "\n.collapse-row.collapsed + tr {\r\n  display: none;\n}\n.btn.skool {\r\n  background-color: #c1e9eb;\r\n  color: white;\n}\r\n", ""]);
+>>>>>>> 29908028c636e9b5cef7a214fb1dc6e775ab27d0
 
 // exports
 

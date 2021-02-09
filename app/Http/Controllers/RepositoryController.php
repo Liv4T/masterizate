@@ -8,7 +8,8 @@ use App\RepositoryComments;
 use App\RepositoryStudents;
 use App\ClassroomStudent;
 use App\User;
-use Auth;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class RepositoryController extends Controller
 {
@@ -274,5 +275,38 @@ class RepositoryController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function getPendingRepositories()
+    {
+        $respositories=[];
+        $user = Auth::user();
+
+        if(!isset($user)) return response()->json([]);
+
+        if($user->type_user!=3) return response()->json([]);
+
+        $current_date=date('Y-m-d');
+
+        $respositories=DB::table('classroom_student')
+                    ->join('repository', 'classroom_student.id_classroom', '=', 'repository.id_classroom')
+                    ->join('classroom', 'repository.id_classroom', '=', 'classroom.id')
+                    ->join('area', 'repository.id_area', '=', 'area.id')
+                    ->leftJoin('repository_students',function($leftJoin){
+                        $leftJoin->on( 'repository_students.id_repository', '=', 'repository.id')->where('repository_students.id_student','=','classroom_student.id_user');
+                     })
+                    ->select('repository.*','area.name as area_name','classroom.name as classroom_name')
+                    ->where('classroom_student.id_user', $user->id)
+                    ->whereNull('repository_students.id')
+                    ->whereDate('repository.date','>=',date('Y-m-d', strtotime($current_date. ' - 60 days')))
+                    ->whereDate('repository.date','<=',date('Y-m-d', strtotime($current_date. ' + 60 days')))
+                    ->orderBy('repository.date')
+                    ->limit(30)
+                    ->get();
+
+        if(count($respositories)==0) return response()->json([]);
+
+        return response()->json([$respositories[0]]);
+
     }
 }
