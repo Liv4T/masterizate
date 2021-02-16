@@ -648,11 +648,6 @@ Route::middleware('auth')->get('/admin/clases', function () {
     return view('adminCourses');
 });
 
-
-
-
-
-
 //api rest
 Route::get('/api/achievement/{id_achievement}/indicator', 'IndicatorController@getByAchievement');
 Route::put('/api/teacher/activity/{id_activity}/student/{id_student}/score', 'ActivityController@saveTeacherScore');
@@ -665,6 +660,7 @@ Route::post('/api/file/upload/editor-content', 'UploadController@uploadEditorCon
 Route::put('/api/admin/module/{id_module}/class/{id_course}/{state}', 'ClassController@updateClassEnableEdition');
 Route::get('/api/student/activity', 'ActivityController@getByCurrentStudent');
 Route::get('/api/student/event', 'EventsController@studentEvents');
+Route::put('/api/teacher/area/{area_id}/classroom/{classroom_id}/calification', 'CoursesController@teacherScoreUpdate');
 Route::get('/api/teacher/area/{area_id}/classroom/{classroom_id}/student', 'CalificationController@getAllStudents');
 Route::get('/api/teacher/area/{area_id}/classroom/{classroom_id}/student/{student_id}', 'CalificationController@getByStudent');
 Route::get('/api/teacher/area/{area_id}/classroom/{classroom_id}/student/{student_id}/module', 'CalificationController@getAllModules');
@@ -672,7 +668,6 @@ Route::get('/api/teacher/area/{area_id}/classroom/{classroom_id}/student/{studen
 Route::get('/api/student/{student_id}', 'StudentController@get');
 Route::get('/api/teacher/area/{area_id}/classroom/{classroom_id}/student/{student_id}/module/{module_id}/class/{class_id}', 'CalificationController@getByClass');
 Route::get('/api/event/today', 'EventsController@todayEvents');
-
 
 
 Route::get('/api/lectives', 'LectivesController@getLectives');
@@ -695,5 +690,3 @@ Route::get('/api/lectives/planification/{id_lective_planification}/weekly/{id_we
 Route::get('/api/lectives/planification/{id_lective_planification}/activities', 'LectivesController@getActivitiesByPlan');
 Route::put('/api/lectives/planification/{id_lective_planification}/weekly/{id_weekly_plan}/course/{id_class}/activity/{id_activity}/module/ENCUESTA_UNICA_RTA/question/{id_question}', 'QuestionController@responseQuestiononLective');
 Route::put('/api/planification/copy', 'CoursesController@copyInformation');
-
-

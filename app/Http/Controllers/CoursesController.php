@@ -14,7 +14,7 @@ use App\ClassroomStudent;
 use App\ClassroomTeacher;
 use App\Classs;
 use Illuminate\Http\Request;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 
 class CoursesController extends Controller
 {
@@ -98,6 +98,7 @@ class CoursesController extends Controller
                     'id' => isset($class->id) ? $class->id : '',
                     'text' => isset($class->name) && isset($classroom->name) ? $class->name . " - " . $classroom->name : '',
                     'id_classroom' => isset($classroom->id) ? $classroom->id : '',
+                    'calification_base'=>$user_asigned->percent_calification
                 ];
             }
         } elseif ($user->type_user == 2) {
@@ -110,6 +111,7 @@ class CoursesController extends Controller
                         'id'           => $class->id,
                         'text'         => $class->name . " - " . $classroom->name,
                         'id_classroom' => $classroom->id,
+                        'calification_base'=>$area->percent_calification
                     ];
                 }
             }
@@ -139,6 +141,22 @@ class CoursesController extends Controller
      */
     public function create()
     {
+    }
+
+    public function teacherScoreUpdate(Request $request,int $area_id,int $classroom_id){
+        $user = Auth::user();
+        $data = $request->all();
+
+        if (isset($user) && $user->type_user == 2) {
+
+            if(!isset($data)) {return;}
+
+            ClassroomTeacher::where('id_user',$user->id)->where('id_classroom',$classroom_id)->where('id_area',$area_id)->update(['percent_calification'=>$data['percent_calification']]);
+
+        }
+
+        return;
+
     }
 
     /**
