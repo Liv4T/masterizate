@@ -110,11 +110,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-<<<<<<< HEAD
-exports.push([module.i, "\n#container {\n    height: 350px;\n}\n.e-export-icon::before {\n    content: \"\\E728\";\n}\n", ""]);
-=======
-exports.push([module.i, "\n.background2 {\r\n  background: url(" + escape(__webpack_require__(/*! ../assets/img/Fondo5.jpg */ "./resources/js/assets/img/Fondo5.jpg")) + ");\r\n  background-size: contain;\r\n  background-repeat: no-repeat;\r\n  background-position: center;\r\n  position: relative;\n}\r\n", ""]);
->>>>>>> 29908028c636e9b5cef7a214fb1dc6e775ab27d0
+exports.push([module.i, "\n#container {\r\n    height: 350px;\n}\n.e-export-icon::before {\r\n    content: \"\\E728\";\n}\r\n", ""]);
 
 // exports
 
