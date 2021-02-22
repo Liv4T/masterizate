@@ -149,11 +149,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-<<<<<<< HEAD
 exports.push([module.i, "\n.class-active{\n    margin: 10px;\n    font-weight: bold;\n    color: #F79D52;\n}\n", ""]);
-=======
-exports.push([module.i, "\n#container {\r\n    height: 350px;\n}\n.e-export-icon::before {\r\n    content: \"\\E728\";\n}\r\n", ""]);
->>>>>>> 29908028c636e9b5cef7a214fb1dc6e775ab27d0
 
 // exports
 

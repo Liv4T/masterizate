@@ -1,6 +1,7 @@
 <template>
     <div class="responsive">    
-        <div class="landing-img form-group section1">
+        <div class="">
+            <div class="col landing-img form-group section1">
             <a class="landing-brand text-center">
                 <div>
                     <img thumbnail fluid src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/LOGO_LIV4T_SKOOL.png?alt=media&token=e0a74c90-0f0d-4932-863a-827b5f87ed0c"  alt="4"></img>
@@ -8,30 +9,16 @@
                 </div>
             </a>
         </div>
-        <div class="align-items-center section2 fondo-amarillo">
-            <div class="col text-sect2 text-center" style="padding-top: 10px;">
-                <p>Todo el colegio en una</p>
-                <p>sola plataforma</p>
-            </div>
-            <div class="col" style="padding:20px 0 0 20px;">
-                <a class="landing-sect2">
-                    <div>
-                        <img thumbnail fluid src="../assets/img/LANDING1.png"></img>  
-                    </div>
-                </a>
-            </div>
+        <div class="col text-sect2 text-center fondo-azul fondo-transparente" style="padding-top: 10px;">
+            <p>Todo el colegio en una</p>
+            <p>sola plataforma</p> 
+            <p class="line-yellow"></p>
         </div>
-        <div class="row section3 fondo-transparente">
-            <div class="col-md-5" style="padding: 40px 40px 10px 70px; font-size:20px; line-height: 140%;">
-                <label><b>Liv4T Skool</b> es una plataforma <br> Sistema de gestión de contenido de <br> aprendizaje (LCMS) que apoya los procesos <br> administrativos y pedagógicos, y que <br> permite flexibilizar, conexión remota y seguimiento.</label>
+        </div>
+        <div class="align-items-center section2 fondo1">
+             <div class="col-md-8 text-sect1">
+                <label><b>Liv4T Skool</b> es una plataforma de gestión de contenido de aprendizaje (LCMS) que apoya los procesos administrativos y pedagógicos, y que permite flexibilizar, conexión remota y seguimiento.</label>
                 <label>Diseñada por profesores y administradores escolares</label>
-            </div>
-            <div class="col-md-7" style="padding:20px 0 0 20px;">
-                <a class="landing-sect3">
-                    <div>
-                        <img thumbnail fluid src="../assets/img/LANDING2.png"></img>  
-                    </div>
-                </a>
             </div>
         </div>
         <div class="centrado fondo-azul-form shadow-form">
@@ -39,6 +26,8 @@
                 <div class="text-center">
                     <label class="text-form">RECIBE 1 MES GRATIS <br> DE PRUEBA </label>
                     <label class="text-form2">DILIGENCIANDO EL FORMULARIO</label>
+                    <p class="line-yellow-form"></p>
+                    <br>
                 </div>
                 <div class="form-group">
                     <input type="text" class="form-control" name="name" id="name" v-model="name" placeholder="Nombre Completo" required>
@@ -70,21 +59,27 @@
                 </div>
             </form>
         </div>
-        <div class="centrado2">
+        <div class="fondo2">
             <div class="col img-section4 text-center" style="padding:20px 0 0 20px;">
-                <a class="landing-sect4">
-                    <div>
-                        <img thumbnail fluid src="../assets/img/LANDING3.png"></img>  
-                    </div>
-                    <div class="text-section4">
-                        <label>Sabías qué..?</label>
-                    </div>
-                </a>
+                <div class="col landing-img form-group">
+                    <a class="landing-brand2" style="text-align: left;">
+                        <div>
+                            <img thumbnail fluid src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/LOGO_LIV4T_SKOOL.png?alt=media&token=e0a74c90-0f0d-4932-863a-827b5f87ed0c"  alt="4"></img>
+                            <p>Diviértete aprendiendo</p>
+                        </div>
+                    </a>
+                </div>
             </div>
-        </div>
-        <div class="centrado3">
-            <div>
-                <label class="text-sect5">Realizar un auto cuestionario luego de estudiar ayudará a tu cerebro a recuperar la información cuando la necesites.</label>
+            <div class="margin-elements">
+                <div class="content-text">
+                    <label>Podrás crear y entregar el material de las clases desde Liv4T Skool</label>
+                </div>
+                <div class="content-text">
+                    <label>Las evaluaciones, los talleres y las clases serán más didacticas y sencillas de hacer con Liv4T</label>
+                </div>
+                <div class="content-text">
+                    <label>La información e interacción con docentes, estudiantes, padres y administrativos en una sola plataforma.</label>
+                </div>
             </div>
         </div>
     </div>
@@ -153,18 +148,17 @@ export default {
     left:10px;
     text-align: left;
 }
-.fondo-amarillo {
-    background-image: url("../assets/img/LANDING5.png");
+.fondo1 {
+    background-image: url("../assets/img/LANDING7.png");
     background-repeat: no-repeat;
-    background-size: 100% 100%;
-    background-position: center;
+    background-size: cover;
+    height: 900px;
 }
 .text-sect2 p{
     color: white;
     font-weight: 700;
-    font-size: 48px;
-    margin-top: 20px;
-    margin-bottom: 2rem ;
+    font-size: 36px;
+    margin-top: 15px;
 }
 .section3 {
     width: 100%; 
@@ -194,13 +188,6 @@ export default {
     margin-right: auto;
     display: table;
     width: 45%;
-    padding: 50px 50px 0px 50px;
-}
-.centrado3{
-    margin-left: auto;
-    margin-right: auto;
-    display: table;
-    width: 45%;
     padding: 0 50px 0 50px;
 }
 .center-elements-form{
@@ -211,6 +198,7 @@ export default {
 .fondo-azul-form{
     background-color: #b0ebed; 
     border-radius: 20px;
+    margin-bottom: 4rem;
 }
 .text-form{
     font-size: 32px;  
@@ -266,4 +254,134 @@ export default {
     line-height: 120%;
     text-align: center;
 }
+.fondo-azul{
+    background-color: rgb(21, 185, 185);
+    height: 110px;
+}
+.line-yellow{
+    border-bottom: 4px solid rgb(248, 207, 26);
+    max-width: 230px;
+    padding: 0;
+    margin: -4px auto 0 auto !important;
+}
+.line-yellow-form{
+    border-bottom: 5px solid rgb(248, 207, 26);
+    max-width: 280px;
+    padding: 0;
+    margin: -4px auto 0 auto !important;
+}
+.fondo2 {
+    background-image: url("../assets/img/LANDING8.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 700px;
+}
+.landing-brand2 img{
+    width:400px;
+    text-align: left;
+}
+.landing-brand2 p{
+    margin-left: 50px; 
+    font-size:30px;
+}
+.content-text{
+    width: 70%;
+    background-color: #ffc107;
+    border-radius: 7px;
+    margin-bottom: 1rem;
+    font-size: 24px;
+    padding: 8px;
+}
+.margin-elements{
+    margin-top: 200px;
+}
+.text-sect1{
+    padding: 50% 60px 10px 70px; 
+    font-size:20px; 
+    line-height: 140%; 
+    text-align: justify;
+}
+
+@media (max-width: 600px) {
+    .btn-form{
+        left: 23%;
+        position: absolute;
+        font-size: 32px;
+        width: 55%;
+        padding: 0;
+        margin: 0;
+        border: 0;
+        border-radius: 12px;
+        margin-top: 13px; 
+    }
+    .phone-form{
+        color: #615f5f !important; 
+        margin-bottom:1rem;
+        font-size: 24px;
+        font-weight: 700;
+    }
+    .centrado {
+        margin-left: auto;
+        margin-right: auto;
+        display: table;
+        width: 75%;
+        padding: 50px;
+        margin-top: -160px;
+    }
+    .fondo2 {
+        background-image: url("../assets/img/LANDING8.png");
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-size: 100% 100%;
+        height: 850px;
+    }
+    .fondo1 {
+        background-image: url("../assets/img/LANDING7.png");
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-size: 100% 100%;
+        height: 506px;
+    }
+    .content-text{
+        width: 80%;
+        background-color: #ffc107;
+        border-radius: 7px;
+        margin-bottom: 1rem;
+        font-size: 18px;
+        padding: 8px;
+    }
+    .text-sect1{
+        padding: 35% 140px 10px 20px;
+        font-size: 14px;
+        line-height: 140%;
+        text-align: justify;
+    }
+    .text-sect2 p{
+        font-size: 28px;
+    }
+    .line-yellow{
+        max-width: 190px;
+    }
+    .landing-brand2 img{
+        width:200px;
+    }
+    .landing-brand2 p{
+        margin-left: 10px; 
+        font-size:18px;
+    }
+    .text-form {
+        font-size: 20px;
+        line-height: 100%;
+        font-weight: 700;
+    }
+    .text-form2 {
+        font-size: 12px;
+    }
+    .line-yellow-form{
+        border-bottom: 5px solid rgb(248, 207, 26);
+        max-width: 185px;
+        padding: 0;
+        margin: -4px auto 0 auto !important;
+    }
+  }
 </style>

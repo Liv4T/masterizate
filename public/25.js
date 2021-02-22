@@ -229,11 +229,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-<<<<<<< HEAD
 exports.push([module.i, "\n.background2 {\n  background: url(" + escape(__webpack_require__(/*! ../assets/img/Fondo5.jpg */ "./resources/js/assets/img/Fondo5.jpg")) + ");\n  background-size: contain;\n  background-repeat: no-repeat;\n  background-position: center;\n  position: relative;\n}\niframe:not(.md-image){\n    height:300px !important;\n}\n", ""]);
-=======
-exports.push([module.i, "\n.div-weekly-plan{\r\n    display:flex;\r\n    flex-direction:row;\r\n    justify-content:space-around;\r\n    padding:10px;\n}\n.div-weekly-plan label{\r\n    font-size:1.2em;\r\n    font-weight:700;\n}\n.div-classes{\r\n    display: flex;\r\n    flex-direction: column;\r\n    justify-content:center;\r\n    padding:5px;\n}\n.div-class{\r\n    display: flex;\r\n    flex-direction: column;\r\n    justify-content:space-around;\r\n    padding:5px;\n}\n.div-class>.title{\r\n    display: flex;\r\n    flex-direction: row;\r\n    justify-content:space-around;\n}\n.div-class>.content{\r\n    display: flex;\r\n    flex-direction: row;\r\n    justify-content:space-around;\r\n    margin-top:30px;\r\n    flex-wrap: wrap;\n}\n.required{\r\n    color:Red;\n}\n.div-resource{\r\n    display:flex;\r\n    flex-direction:column;\r\n    align-items: center;\r\n    padding:30px;\r\n    background-color:#f2f2f2;\r\n    margin:10px;\r\n    max-width:400px;\r\n    min-width:350px;\n}\n.div-resource .form-item{\r\n    width:100%;\r\n    padding:5px;\r\n    display:flex;\r\n    flex-direction:column;\r\n    justify-content:flex-start;\n}\n.div-resource .form-item>a{\r\n    color:#007bff;\n}\n.div-resource .form-item>a:visited{\r\n    color:#007bff;\n}\n.div-resource .form-item>span{\r\n    padding:10px;\r\n    font-size:1.2em;\r\n    color:#b4b4b4;\r\n    font-weight:700;\r\n    border:1px solid #b4b4b4;\r\n    border-radius:5px;\r\n    margin:5px\n}\n.div-resource .form-item>span:hover{\r\n    background-color:white;\r\n    cursor:pointer;\n}\n.div-weekly-plan-btn-save{\r\n    display:flex;\r\n    padding:50px;\r\n    justify-content:flex-end;\r\n     flex-direction:row;\n}\n.closed-icon{\r\n    width:100%;\r\n    display:flex;\r\n    justify-content:flex-end;\r\n    flex-direction:row;\n}\r\n", ""]);
->>>>>>> 29908028c636e9b5cef7a214fb1dc6e775ab27d0
 
 // exports
 

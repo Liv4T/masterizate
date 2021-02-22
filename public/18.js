@@ -548,11 +548,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-<<<<<<< HEAD
 exports.push([module.i, "\n.background2 {\n    background: url(" + escape(__webpack_require__(/*! ../assets/img/Fondo5.jpg */ "./resources/js/assets/img/Fondo5.jpg")) + ");\n    background-size: contain;\n    background-repeat: no-repeat;\n    background-position: center;\n    position: relative;\n}\n", ""]);
-=======
-exports.push([module.i, "\n.ql-editor{min-height: 100px;}\n.quillWrapper{background-color:white;}\r\n", ""]);
->>>>>>> 29908028c636e9b5cef7a214fb1dc6e775ab27d0
 
 // exports
 
