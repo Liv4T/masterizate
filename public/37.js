@@ -426,7 +426,8 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
     },
     openDocument: function openDocument(resource) {
       try {
-        this.saveInteraction(resource); //  window.open(resource.content);
+        this.saveInteraction(resource);
+        window.open(resource.content);
       } catch (_unused) {}
     },
     openLink: function openLink(resource) {
