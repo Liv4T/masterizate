@@ -644,11 +644,7 @@ Route::middleware('auth')->get('/admin/clases', function () {
     return view('adminCourses');
 });
 
-Route::get('test','ClassController@DeactivateCicleClass')->name('test');
-
-
-
-
+Route::put('/test','ClassController@deactivateClass')->name('test');
 
 //api rest
 Route::get('/api/achievement/{id_achievement}/indicator', 'IndicatorController@getByAchievement');

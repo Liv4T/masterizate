@@ -1186,10 +1186,9 @@ class ClassController extends Controller
     }
 
     public function deactivateClass(Request $request){
-        $data = $request->dataToDeactivate;
-        $id_weekle_plan = $request->id;
-        foreach($data as $key => $data){
-            $class = Classs::findOrFail($data['id']);
+        $clases = $request->clases;
+        foreach($clases as $key => $clase){
+            $class = Classs::findOrFail($clase['id']);
             $class->status = 0;
             $class->save();
             echo($class);

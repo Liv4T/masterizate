@@ -80,7 +80,7 @@
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <input type="submit" class="btn btn-warning" value="Guardar" />
+                                <input type="submit" class="btn btn-danger" value="Eliminar" />
                             </div>
                         </div>
                     </form>
@@ -190,7 +190,16 @@
                 $("#openModal").modal("show");
             },
             deactivateData() {
-                console.log(this.ciclesData);
+                var dataToDeactivate = [{
+                    'cicles': this.ciclesData,
+                    'clases': this.clasesByCiclesData
+                }]
+
+                axios.put('/test',dataToDeactivate).then(response =>{
+                    console.log(response);
+                }).catch(error =>{
+                    console.log(error);
+                })
             }
         }
     };

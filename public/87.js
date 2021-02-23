@@ -227,7 +227,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       $("#openModal").modal("show");
     },
     deactivateData: function deactivateData() {
-      console.log(this.ciclesData);
+      var dataToDeactivate = [{
+        'cicles': this.ciclesData,
+        'clases': this.clasesByCiclesData
+      }];
+      axios.put('/test', dataToDeactivate).then(function (response) {
+        console.log(response);
+      })["catch"](function (error) {
+        console.log(error);
+      });
     }
   }
 });
@@ -565,8 +573,8 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "modal-footer" }, [
       _c("input", {
-        staticClass: "btn btn-warning",
-        attrs: { type: "submit", value: "Guardar" }
+        staticClass: "btn btn-danger",
+        attrs: { type: "submit", value: "Eliminar" }
       })
     ])
   }
