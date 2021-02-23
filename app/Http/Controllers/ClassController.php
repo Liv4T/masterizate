@@ -1184,4 +1184,15 @@ class ClassController extends Controller
         $week = $id;
         return view("activity", compact("week"));;
     }
+
+    public function deactivateClass(Request $request){
+        $data = $request->dataToDeactivate;
+        $id_weekle_plan = $request->id;
+        foreach($data as $key => $data){
+            $class = Classs::findOrFail($data['id']);
+            $class->status = 0;
+            $class->save();
+            echo($class);
+        }
+    }
 }

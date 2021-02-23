@@ -306,6 +306,7 @@ Route::resource('Courses', 'CoursesController', ['except' => 'show', 'create', '
 Route::resource('Class', 'ClassController', ['except' => 'show', 'create', 'edit']);
 Route::get('GetClass', 'ClassController@getClass');
 Route::get('showClass/{id}', 'ClassController@show')->name('showClass');
+Route::put('test', 'ClassController@deactivateClass')->name('test');
 Route::get('editClass/{id}', 'ClassController@findClass')->name('editClass');
 Route::get('GetNameArea/{id_area}/{id_classroom}', 'ClassController@getNameArea')->name('GetNameArea');
 Route::get('getActivity/{id_1}/{id_2}', 'ActivityController@indexActivityByArea')->name('getActivity');
@@ -643,6 +644,7 @@ Route::middleware('auth')->get('/admin/clases', function () {
     return view('adminCourses');
 });
 
+Route::get('test','ClassController@DeactivateCicleClass')->name('test');
 
 
 
