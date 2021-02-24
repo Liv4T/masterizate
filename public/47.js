@@ -106,7 +106,11 @@ $(".collapse").on("show.bs.collapse", function () {
       /* var urlsel = "editGetWeek";
        axios.get(urlsel).then((response) => {
          this.week = response.data;
+<<<<<<< HEAD
+          if (this.week.id_area == area && this.week.id_classroom == classroom) {
+=======
            if (this.week.id_area == area && this.week.id_classroom == classroom) {
+>>>>>>> 8365a52e26988418faa53f75896a09d033110408
            this.semanal = true;
          } else {
            this.semanal = false;
