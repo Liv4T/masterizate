@@ -95,11 +95,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -207,8 +202,6 @@ var render = function() {
     _vm._v(" "),
     _vm._m(1),
     _vm._v(" "),
-    _vm._m(2),
-    _vm._v(" "),
     _c("div", { staticClass: "centrado fondo-azul-form shadow-form" }, [
       _c(
         "form",
@@ -222,7 +215,7 @@ var render = function() {
           }
         },
         [
-          _vm._m(3),
+          _vm._m(2),
           _vm._v(" "),
           _c("div", { staticClass: "form-group" }, [
             _c("input", {
@@ -381,18 +374,16 @@ var render = function() {
             ]
           ),
           _vm._v(" "),
+          _vm._m(3),
+          _vm._v(" "),
           _vm._m(4),
           _vm._v(" "),
-          _vm._m(5),
-          _vm._v(" "),
-          _vm._m(6)
+          _vm._m(5)
         ]
       )
     ]),
     _vm._v(" "),
-    _vm._m(7),
-    _vm._v(" "),
-    _vm._m(8)
+    _vm._m(6)
   ])
 }
 var staticRenderFns = [
@@ -400,117 +391,59 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "landing-img form-group section1" }, [
-      _c("a", { staticClass: "landing-brand text-center" }, [
-        _c("div", [
-          _c("img", {
-            attrs: {
-              thumbnail: "",
-              fluid: "",
-              src:
-                "https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/LOGO_LIV4T_SKOOL.png?alt=media&token=e0a74c90-0f0d-4932-863a-827b5f87ed0c",
-              alt: "4"
-            }
-          }),
-          _vm._v(" "),
-          _c("p", { attrs: { for: "" } }, [_vm._v("Diviértete aprendiendo")])
+    return _c("div", {}, [
+      _c("div", { staticClass: "col landing-img form-group section1" }, [
+        _c("a", { staticClass: "landing-brand text-center" }, [
+          _c("div", [
+            _c("img", {
+              attrs: {
+                thumbnail: "",
+                fluid: "",
+                src:
+                  "https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/LOGO_LIV4T_SKOOL.png?alt=media&token=e0a74c90-0f0d-4932-863a-827b5f87ed0c",
+                alt: "4"
+              }
+            }),
+            _vm._v(" "),
+            _c("p", { attrs: { for: "" } }, [_vm._v("Diviértete aprendiendo")])
+          ])
         ])
-      ])
+      ]),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass:
+            "col text-sect2 text-center fondo-azul fondo-transparente",
+          staticStyle: { "padding-top": "10px" }
+        },
+        [
+          _c("p", [_vm._v("Todo el colegio en una")]),
+          _vm._v(" "),
+          _c("p", [_vm._v("sola plataforma")]),
+          _vm._v(" "),
+          _c("p", { staticClass: "line-yellow" })
+        ]
+      )
     ])
   },
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      { staticClass: "align-items-center section2 fondo-amarillo" },
-      [
-        _c(
-          "div",
-          {
-            staticClass: "col text-sect2 text-center",
-            staticStyle: { "padding-top": "10px" }
-          },
-          [
-            _c("p", [_vm._v("Todo el colegio en una")]),
-            _vm._v(" "),
-            _c("p", [_vm._v("sola plataforma")])
-          ]
-        ),
+    return _c("div", { staticClass: "align-items-center section2 fondo1" }, [
+      _c("div", { staticClass: "col-md-8 text-sect1" }, [
+        _c("label", [
+          _c("b", [_vm._v("Liv4T Skool")]),
+          _vm._v(
+            " es una plataforma de gestión de contenido de aprendizaje (LCMS) que apoya los procesos administrativos y pedagógicos, y que permite flexibilizar, conexión remota y seguimiento."
+          )
+        ]),
         _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "col", staticStyle: { padding: "20px 0 0 20px" } },
-          [
-            _c("a", { staticClass: "landing-sect2" }, [
-              _c("div", [
-                _c("img", {
-                  attrs: {
-                    thumbnail: "",
-                    fluid: "",
-                    src: __webpack_require__(/*! ../assets/img/LANDING1.png */ "./resources/js/assets/img/LANDING1.png")
-                  }
-                })
-              ])
-            ])
-          ]
-        )
-      ]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row section3 fondo-transparente" }, [
-      _c(
-        "div",
-        {
-          staticClass: "col-md-5",
-          staticStyle: {
-            padding: "40px 40px 10px 70px",
-            "font-size": "20px",
-            "line-height": "140%"
-          }
-        },
-        [
-          _c("label", [
-            _c("b", [_vm._v("Liv4T Skool")]),
-            _vm._v(" es una plataforma "),
-            _c("br"),
-            _vm._v(" Sistema de gestión de contenido de "),
-            _c("br"),
-            _vm._v(" aprendizaje (LCMS) que apoya los procesos "),
-            _c("br"),
-            _vm._v(" administrativos y pedagógicos, y que "),
-            _c("br"),
-            _vm._v(" permite flexibilizar, conexión remota y seguimiento.")
-          ]),
-          _vm._v(" "),
-          _c("label", [
-            _vm._v("Diseñada por profesores y administradores escolares")
-          ])
-        ]
-      ),
-      _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "col-md-7", staticStyle: { padding: "20px 0 0 20px" } },
-        [
-          _c("a", { staticClass: "landing-sect3" }, [
-            _c("div", [
-              _c("img", {
-                attrs: {
-                  thumbnail: "",
-                  fluid: "",
-                  src: __webpack_require__(/*! ../assets/img/LANDING2.png */ "./resources/js/assets/img/LANDING2.png")
-                }
-              })
-            ])
-          ])
-        ]
-      )
+        _c("label", [
+          _vm._v("Diseñada por profesores y administradores escolares")
+        ])
+      ])
     ])
   },
   function() {
@@ -526,7 +459,11 @@ var staticRenderFns = [
       _vm._v(" "),
       _c("label", { staticClass: "text-form2" }, [
         _vm._v("DILIGENCIANDO EL FORMULARIO")
-      ])
+      ]),
+      _vm._v(" "),
+      _c("p", { staticClass: "line-yellow-form" }),
+      _vm._v(" "),
+      _c("br")
     ])
   },
   function() {
@@ -582,7 +519,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "centrado2" }, [
+    return _c("div", { staticClass: "fondo2" }, [
       _c(
         "div",
         {
@@ -590,35 +527,56 @@ var staticRenderFns = [
           staticStyle: { padding: "20px 0 0 20px" }
         },
         [
-          _c("a", { staticClass: "landing-sect4" }, [
-            _c("div", [
-              _c("img", {
-                attrs: {
-                  thumbnail: "",
-                  fluid: "",
-                  src: __webpack_require__(/*! ../assets/img/LANDING3.png */ "./resources/js/assets/img/LANDING3.png")
-                }
-              })
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "text-section4" }, [
-              _c("label", [_vm._v("Sabías qué..?")])
-            ])
+          _c("div", { staticClass: "col landing-img form-group" }, [
+            _c(
+              "a",
+              {
+                staticClass: "landing-brand2",
+                staticStyle: { "text-align": "left" }
+              },
+              [
+                _c("div", [
+                  _c("img", {
+                    attrs: {
+                      thumbnail: "",
+                      fluid: "",
+                      src:
+                        "https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/LOGO_LIV4T_SKOOL.png?alt=media&token=e0a74c90-0f0d-4932-863a-827b5f87ed0c",
+                      alt: "4"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("p", [_vm._v("Diviértete aprendiendo")])
+                ])
+              ]
+            )
           ])
         ]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "centrado3" }, [
-      _c("div", [
-        _c("label", { staticClass: "text-sect5" }, [
-          _vm._v(
-            "Realizar un auto cuestionario luego de estudiar ayudará a tu cerebro a recuperar la información cuando la necesites."
-          )
+      ),
+      _vm._v(" "),
+      _c("div", { staticClass: "margin-elements" }, [
+        _c("div", { staticClass: "content-text" }, [
+          _c("label", [
+            _vm._v(
+              "Podrás crear y entregar el material de las clases desde Liv4T Skool"
+            )
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "content-text" }, [
+          _c("label", [
+            _vm._v(
+              "Las evaluaciones, los talleres y las clases serán más didacticas y sencillas de hacer con Liv4T"
+            )
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "content-text" }, [
+          _c("label", [
+            _vm._v(
+              "La información e interacción con docentes, estudiantes, padres y administrativos en una sola plataforma."
+            )
+          ])
         ])
       ])
     ])
@@ -630,50 +588,6 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./resources/js/assets/img/LANDING1.png":
-/*!**********************************************!*\
-  !*** ./resources/js/assets/img/LANDING1.png ***!
-  \**********************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "/images/LANDING1.png?c0c0014fe6c81c02c70e0a68d9bf83a4";
-
-/***/ }),
-
-/***/ "./resources/js/assets/img/LANDING2.png":
-/*!**********************************************!*\
-  !*** ./resources/js/assets/img/LANDING2.png ***!
-  \**********************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "/images/LANDING2.png?0dce99e928e1605b9bc664d004c40012";
-
-/***/ }),
-
-/***/ "./resources/js/assets/img/LANDING3.png":
-/*!**********************************************!*\
-  !*** ./resources/js/assets/img/LANDING3.png ***!
-  \**********************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "/images/LANDING3.png?e80a1e8a9a593a29d994c09cee89cb87";
-
-/***/ }),
-
-/***/ "./resources/js/assets/img/LANDING5.png":
-/*!**********************************************!*\
-  !*** ./resources/js/assets/img/LANDING5.png ***!
-  \**********************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "/images/LANDING5.png?ce1981297ae0bdc555a03aebb65e78d1";
-
-/***/ }),
-
 /***/ "./resources/js/assets/img/LANDING6.png":
 /*!**********************************************!*\
   !*** ./resources/js/assets/img/LANDING6.png ***!
@@ -682,6 +596,28 @@ module.exports = "/images/LANDING5.png?ce1981297ae0bdc555a03aebb65e78d1";
 /***/ (function(module, exports) {
 
 module.exports = "/images/LANDING6.png?402d15e7cdaa432cfec8990b76b81427";
+
+/***/ }),
+
+/***/ "./resources/js/assets/img/LANDING7.png":
+/*!**********************************************!*\
+  !*** ./resources/js/assets/img/LANDING7.png ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "/images/LANDING7.png?0700988b5780f3fe1aa3c6f6b75701f1";
+
+/***/ }),
+
+/***/ "./resources/js/assets/img/LANDING8.png":
+/*!**********************************************!*\
+  !*** ./resources/js/assets/img/LANDING8.png ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "/images/LANDING8.png?71953d58f093d8ccd23db253f10bf8b6";
 
 /***/ }),
 
