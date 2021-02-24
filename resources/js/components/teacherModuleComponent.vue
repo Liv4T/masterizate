@@ -8,22 +8,26 @@
                     <span class="classroom-label">{{ nameArea }}</span>
                     <div class="card-body">
                         <div class="text-left">
-                            <a class="btn btn-primary" :href="'/docente/modulo/' + id_module +'/clase/nueva'">Crear Clase</a>
-                            <a class="btn btn-primary text-right" :href="''" v-on:click.prevent="openModal()">Eliminar</a>
+                            <a class="btn btn-primary" :href="'/docente/modulo/' + id_module +'/clase/nueva'">Crear
+                                Clase</a>
+                            <a class="btn btn-primary text-right" :href="''"
+                                v-on:click.prevent="openModal()">Eliminar</a>
                         </div>
                         <br>
                         <table class="table table-responsive-xl table-hover table-striped center">
                             <thead>
                                 <tr>
                                     <th class="text-center">Clases</th>
+                                    <th class="text-center">Estado</th>
                                     <th class="text-center">Acción</th>
                                     <!--<th class="text-center">Estado</th>-->
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr v-for="(clas, t) in fillS" :key="t">
-                                    <td>{{ clas.name }}</td>
-                                    <td>
+                                    <td v-if="clas.status===1">{{ clas.name }}</td>
+                                    <td v-if="clas.status===1">{{ clas.status }}</td>
+                                    <td v-if="clas.status===1">
                                         <a class="btn btn-primary" :href="
                                                 '/docente/modulo/' +
                                                     id_module +
@@ -31,10 +35,10 @@
                                                     clas.id
                                             ">Ir a clase</a>
                                     </td>
-                                    <!--<td>
-                                          <span class="class-inactive" v-if="clas.state==2">Clase cerrada</span>
-                                        <button v-if="clas.state==1" class="btn btn-primary" @click="enabledClass(clas)">Cerrar clase</button>
-                                    </td>-->
+                                    <!-- <td>
+                                          <span class="class-inactive" v-if="clas.status==1">Clase cerrada</span>
+                                        <button v-if="clas.status==0" class="btn btn-primary" @click="enabledClass(clas)">Cerrar clase</button>
+                                    </td> -->
                                 </tr>
                             </tbody>
                         </table>
@@ -146,6 +150,7 @@
                     this.id_classroom = response.data.classroom.id;
                 });
             },
+            //Funcion para obtener las clases y los ciclos para mostrar en los multiselect 
             async getCiclesAndClasses() {
                 this.ciclesData.push({
                     'id': this.id_module,
@@ -156,6 +161,10 @@
 
                 var urlsel = "/editGetWeek/" + this.id_area + "/" + this.id_classroom;
                 axios.get(urlsel).then((response) => {
+                    /* 
+                        Se asigna la data a la variable ciclesClean 
+                        para su mejor uso paso seguido se itera y asigna al array cicles
+                    */
                     var ciclesClean = response.data;
                     for (const key in ciclesClean) {
                         this.cicles.push({
@@ -166,16 +175,23 @@
                         })
                     }
 
+                    /*
+                        Se itera nuevamente los ciclos 
+                        ya organizados para poder obtener 
+                        todas las clases de los ciclos ya consultados
+                    */
                     for (const key in ciclesClean) {
                         var urls = window.location.origin + "/showClass/" + ciclesClean[key].id;
                         axios.get(urls).then(response => {
                             var clasesClean = response.data.clase;
-                            for(const key in clasesClean){
-                                this.clasesByCicles.push({
-                                    'id': clasesClean[key].id,
-                                    'id_weekly_plan': clasesClean[key].id_weekly_plan,
-                                    'text': clasesClean[key].name,
-                                })
+                            for (const key in clasesClean) {
+                                if (clasesClean[key].status === 1) {
+                                    this.clasesByCicles.push({
+                                        'id': clasesClean[key].id,
+                                        'id_weekly_plan': clasesClean[key].id_weekly_plan,
+                                        'text': clasesClean[key].name,
+                                    })
+                                }
                             }
                         }).catch(error => {
                             console.log(error);
@@ -186,18 +202,25 @@
                 });
 
             },
+            //Funcion creada para Mostrar el modal
             openModal() {
                 $("#openModal").modal("show");
             },
+            /* 
+                Funcion para recoger la data acumulada de las clases y los ciclos para su desactivación.
+                se comenta la linea 216 la cual obtiene los ciclos seleccionados, en caso de ser necesarios 
+                se puede descomentar la linea para settear el array de ciclos al backend
+            */
             deactivateData() {
                 var dataToDeactivate = [{
-                    'cicles': this.ciclesData,
+                    // 'cicles': this.ciclesData,
                     'clases': this.clasesByCiclesData
                 }]
-
-                axios.put('/test',dataToDeactivate).then(response =>{
-                    console.log(response);
-                }).catch(error =>{
+                axios.put('/test', dataToDeactivate).then(response => {
+                    toastr.success("Dato desactivado correctamente");
+                    $("#openModal").modal("hide");
+                    this.getClasses();
+                }).catch(error => {
                     console.log(error);
                 })
             }
