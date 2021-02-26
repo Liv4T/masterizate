@@ -201,4 +201,8 @@ Vue.component("teacher-student-class-content", () => import ("./components/teach
 Vue.component("notification-component", () => import ("./components/notificationComponent.vue"));
 Vue.use(CKEditor);
 
+//Padres
+Vue.component("menu-padres", () => import("./components/menuPadres.vue"));
+Vue.component("parents-component", () => import("./components/parents.vue"));
+
 const app = new Vue({el: "#app", data: {}, store});

@@ -689,4 +689,6 @@ Route::get('/api/lectives/planification/{id_lective_planification}/activities', 
 Route::put('/api/lectives/planification/{id_lective_planification}/weekly/{id_weekly_plan}/course/{id_class}/activity/{id_activity}/module/ENCUESTA_UNICA_RTA/question/{id_question}', 'QuestionController@responseQuestiononLective');
 Route::put('/api/planification/copy', 'CoursesController@copyInformation');
 
+//parents 
 
+Route::resource('/notes', 'ParentsController');
