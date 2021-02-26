@@ -35,8 +35,8 @@
                     <FullCalendar ref="fullCalendar"  :options="calendarOptions" />
                 </div>
             </div>
-          <div class="row" v-show="type_u==2 || type_u==2">
-            <a class="btn btn-warning float-right" v-on:click.prevent="createE()">Crear evento</a>
+          <div class="row" v-show="type_u==2 || type_u==4">
+            <a class="btn btn-warning float-right mt-2 ml-3" v-on:click.prevent="createE()">Crear evento</a>
           </div>
           <br />
           <div class="row">
