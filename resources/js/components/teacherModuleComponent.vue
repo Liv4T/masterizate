@@ -18,7 +18,6 @@
                             <thead>
                                 <tr>
                                     <th class="text-center">Clases</th>
-                                    <th class="text-center">Estado</th>
                                     <th class="text-center">Acción</th>
                                     <!--<th class="text-center">Estado</th>-->
                                 </tr>
@@ -26,7 +25,6 @@
                             <tbody>
                                 <tr v-for="(clas, t) in fillS" :key="t">
                                     <td v-if="clas.status===1">{{ clas.name }}</td>
-                                    <td v-if="clas.status===1">{{ clas.status }}</td>
                                     <td v-if="clas.status===1">
                                         <a class="btn btn-primary" :href="
                                                 '/docente/modulo/' +

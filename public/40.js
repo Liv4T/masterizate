@@ -111,8 +111,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["id_module"],
@@ -398,10 +396,6 @@ var render = function() {
                         : _vm._e(),
                       _vm._v(" "),
                       clas.status === 1
-                        ? _c("td", [_vm._v(_vm._s(clas.status))])
-                        : _vm._e(),
-                      _vm._v(" "),
-                      clas.status === 1
                         ? _c("td", [
                             _c(
                               "a",
@@ -582,8 +576,6 @@ var staticRenderFns = [
     return _c("thead", [
       _c("tr", [
         _c("th", { staticClass: "text-center" }, [_vm._v("Clases")]),
-        _vm._v(" "),
-        _c("th", { staticClass: "text-center" }, [_vm._v("Estado")]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [_vm._v("Acción")])
       ])
