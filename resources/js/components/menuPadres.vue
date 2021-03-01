@@ -35,7 +35,7 @@
                                                 alt
                                             />
                                             Mi horario
-                    </a>-->
+                                        </a>-->
                                         <a href="/questions">
                                             <img width="35px"
                                                 src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/FOROS_naranja.png?alt=media&token=93ec6b97-e5a6-4eca-891e-b63bf2a352ad"
@@ -60,14 +60,44 @@
                                 <span class="menu">Académico</span>
                             </li>
                         </a>
-                        <a href="/mensajes">
-                            <li class="item-menu">
-                                <img width="35px"
-                                    src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/sicologia_naranja.png?alt=media&token=93ec6b97-e5a6-4eca-891e-b63bf2a352ad"
-                                    alt />
-                                <span class="menu"> Psicología</span>
-                            </li>
-                        </a>
+                        <div class="dropdown">
+                            <a>
+                                <li class="item-menu">
+
+                                    <img width="35px"
+                                        src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/sicologia_naranja.png?alt=media&token=93ec6b97-e5a6-4eca-891e-b63bf2a352ad"
+                                        alt />
+                                    <span class="menu">Psicología &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+
+                                    <div class="dropdown-content">
+                                        <a href="/comunicates">
+                                            <img width="35px"
+                                                src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/ANUNCIOS_naranja.png?alt=media&token=539c1428-c480-43bf-a132-73be35386940"
+                                                alt />
+                                            Comunicados
+                                        </a>
+                                        <a href="/mensajes">
+                                            <img width="35px"
+                                                src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/MENSAJES_naranja.png?alt=media&token=f76f98f1-1c57-469b-a839-d98e64651818"
+                                                alt />
+                                            Mensajes
+                                        </a>
+                                        <a href="#">
+                                            <img width="35px"
+                                                src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/MANUAL-DE-USUARIO_naranja.png?alt=media&token=bd2488fb-e121-432d-afd2-f223fcc0f29e"
+                                                alt />
+                                            Seguimientos
+                                        </a>
+                                        <a href="#">
+                                            <img width="35px"
+                                                src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/MANUAL-DE-USUARIO_naranja.png?alt=media&token=bd2488fb-e121-432d-afd2-f223fcc0f29e"
+                                                alt />
+                                            Historial
+                                        </a>
+                                    </div>
+                                </li>
+                            </a>
+                        </div>
                         <a href="/manual">
                             <li class="item-menu">
                                 <img width="35px"
