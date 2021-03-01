@@ -82,13 +82,13 @@
                                                 alt />
                                             Mensajes
                                         </a>
-                                        <a href="#">
+                                        <a href="/followUps">
                                             <img width="35px"
                                                 src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/MANUAL-DE-USUARIO_naranja.png?alt=media&token=bd2488fb-e121-432d-afd2-f223fcc0f29e"
                                                 alt />
                                             Seguimientos
                                         </a>
-                                        <a href="#">
+                                        <a href="/historyPsicology">
                                             <img width="35px"
                                                 src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/MANUAL-DE-USUARIO_naranja.png?alt=media&token=bd2488fb-e121-432d-afd2-f223fcc0f29e"
                                                 alt />

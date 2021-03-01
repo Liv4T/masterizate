@@ -206,5 +206,7 @@ Vue.component("menu-padres", () => import("./components/menuPadres.vue"));
 Vue.component("parents-component", () => import("./components/parents.vue"));
 
 //Psicologia 
-Vue.component("comunicates-component", () => import("./components/Comunicates.vue"))
+Vue.component("comunicates-component", () => import("./components/Comunicates.vue"));
+Vue.component("history-psicology-component", ()=> import("./components/HistorialPsicologia.vue"));
+Vue.component("follow-ups-component", ()=>import("./components/Seguimientos.vue"))
 const app = new Vue({el: "#app", data: {}, store});

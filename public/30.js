@@ -384,7 +384,7 @@ var staticRenderFns = [
                 )
               ]),
               _vm._v(" "),
-              _c("a", { attrs: { href: "#" } }, [
+              _c("a", { attrs: { href: "/followUps" } }, [
                 _c("img", {
                   attrs: {
                     width: "35px",
@@ -398,7 +398,7 @@ var staticRenderFns = [
                 )
               ]),
               _vm._v(" "),
-              _c("a", { attrs: { href: "#" } }, [
+              _c("a", { attrs: { href: "/historyPsicology" } }, [
                 _c("img", {
                   attrs: {
                     width: "35px",

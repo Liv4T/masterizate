@@ -694,5 +694,6 @@ Route::put('/api/planification/copy', 'CoursesController@copyInformation');
 Route::resource('/notes', 'ParentsController');
 
 //psicology
-
+Route::resource('/historyPsicology', 'HistoryPsicologyController');
+Route::resource('/followUps', 'FollowUpsController');
 Route::resource('/comunicates', 'ComunicatesController');
