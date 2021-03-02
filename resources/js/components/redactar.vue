@@ -6,7 +6,7 @@
                     <h3 class="card-header fondo">Redactar Mensaje</h3>
                     <div class="container-mensaje">
                         <div class="row">
-                            <h5>Destinatarios</h5>
+                            <h5>Destinatarios</h5><br>
                         </div>
                         <div class="row">
                             <h6>Tus contactos</h6>
@@ -14,6 +14,12 @@
                                 style="margin: 10px;">Docentes</a>
                             <a class="btn btn-info float-left" href="#" v-on:click.prevent="btE()"
                                 style="margin: 10px;">Estudiantes</a>
+                            <template v-if="user_rol" class="float-left">
+                                <a class="btn btn-info" href="#" v-on:click.prevent="btP()"
+                                    style="margin: 10px;">Padres</a>
+                                <a class="btn btn-info" href="#" v-on:click.prevent="btA()"
+                                    style="margin: 10px;">Administrativa</a>
+                            </template>
                         </div>
                         <div v-show="docente == true">
                             <label for>Docentes</label>
@@ -29,9 +35,15 @@
                                 :taggable="true" @tag="addTage"></multiselect>
                         </div>
                         <br />
-                        <div v-show="acudiente == true">
-                            <label for>Acudientes</label>
-                            <multiselect v-model="cacudiente" :options="optionsa" tag-placeholder="Add this as new tag"
+                        <div v-show="padres == true">
+                            <label for>Padres</label>
+                            <multiselect v-model="cpadres" :options="optionsp" tag-placeholder="Add this as new tag"
+                                placeholder="Search or add a tag" label="name" track-by="id" :multiple="true"
+                                :taggable="true" @tag="addTaga"></multiselect>
+                        </div>
+                        <div v-show="administrative == true">
+                            <label for>Administrativos</label>
+                            <multiselect v-model="cadministrative" :options="optionsa" tag-placeholder="Add this as new tag"
                                 placeholder="Search or add a tag" label="name" track-by="id" :multiple="true"
                                 :taggable="true" @tag="addTaga"></multiselect>
                         </div>
@@ -66,8 +78,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <p>Estamos fuera de servicio</p>
-                        <p>Nuestros Horarios de atención son:</p>
+                        <p>Recuerda que los horarios para dar respuesta son:</p>
                         <p>Lunes a sabados de 8:00 A.M a 5:30 P.M</p>
                     </div>
                 </div>
@@ -82,12 +93,14 @@
     // register globally
     Vue.component("multiselect", Multiselect);
     export default {
+        props: ['user'],
         // OR register locally
         components: {
             Multiselect
         },
         data() {
             return {
+                user_rol: this.user.type_user === 4 ? true : false,
                 editor: DecoupledEditor,
                 editorData: "<p>Escribir...</p>",
                 dataBoard: {},
@@ -99,13 +112,16 @@
                 optionsa: [],
                 optionse: [],
                 optionsd: [],
+                optionsp: [],
                 docente: false,
                 estudiante: false,
-                acudiente: false,
+                administrative: false,
+                padres: false,
                 asunto: "",
                 cdocente: [],
                 cestudiante: [],
-                cacudiente: [],
+                cadministrative: [],
+                cpadres: [],
                 correos: [],
             };
         },
@@ -123,6 +139,9 @@
                     }
                     if (this.options[i].type_user == 3) {
                         this.optionse.push(this.options[i]);
+                    }
+                    if (this.options[i].type_user == 4) {
+                        this.optionsp.push(this.options[i]);
                     }
                 }
             });
@@ -176,24 +195,31 @@
                 }
             },
             btA() {
-                if (this.acudiente == false) {
-                    this.acudiente = true;
+                if (this.administrative == false) {
+                    this.administrative = true;
                 } else {
-                    this.acudiente = false;
+                    this.administrative = false;
+                }
+            },
+            btP() {
+                if (this.padres == false) {
+                    this.padres = true;
+                } else {
+                    this.padres = false;
                 }
             },
             saveM() {
                 let date = new Date();
                 let hourly = date.getHours();
                 let minutes = date.getMinutes();
-                if (hourly <= 7 && minutes <= 59  || hourly >=17 && minutes >= 31) {
+                if (hourly <= 7 && minutes <= 59 || hourly >= 17 && minutes >= 31) {
                     $("#infoModal").modal("show");
                 } else {
                     console.log("data: ", this.editorData);
                     var url = "sendMessages";
-                    if (this.cacudiente.length >= 1) {
-                        for (let i = 0; i < this.cacudiente.length; i++) {
-                            this.correos.push(this.cacudiente[i].id);
+                    if (this.cadministrative.length >= 1) {
+                        for (let i = 0; i < this.cadministrative.length; i++) {
+                            this.correos.push(this.cadministrative[i].id);
                         }
                     }
                     if (this.cestudiante.length >= 1) {
@@ -204,6 +230,12 @@
                     if (this.cdocente.length >= 1) {
                         for (let i = 0; i < this.cdocente.length; i++) {
                             this.correos.push(this.cdocente[i].id);
+                        }
+                    }
+                    if (this.cpadres.length >= 1) {
+                        console.log(this.cpadres);
+                        for (let i = 0; i < this.cpadres.length; i++) {
+                            this.correos.push(this.cpadres[i].id);
                         }
                     }
                     axios

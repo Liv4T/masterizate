@@ -2,7 +2,7 @@
     <div class="back">
         <div class="row">
             <div class="col-md-11 mx-auto">
-                <input class="form-control col-md-3" placeholder="Buscar" type="text" v-model="filter" />
+                <input class="form-control col-md-3" placeholder="Buscar Comunicado" type="text" v-model="filter" />
                 <div class="card" style="width: 65rem;">
                     <div class="card-header fondo text-center">
                         <h4>Comunicados</h4>

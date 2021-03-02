@@ -108,7 +108,7 @@ var render = function() {
             }
           ],
           staticClass: "form-control col-md-3",
-          attrs: { placeholder: "Buscar", type: "text" },
+          attrs: { placeholder: "Buscar Comunicado", type: "text" },
           domProps: { value: _vm.filter },
           on: {
             input: function($event) {

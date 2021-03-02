@@ -12,7 +12,10 @@
   @if (Auth::user()->type_user == '1')
     <menu-adm></menu-adm>
  @endif
-    <redactar-component></redactar-component>
+ @if (Auth::user()->type_user == '4')
+    <menu-padres></menu-padres>
+ @endif
+    <redactar-component :user="{{ Auth::user() }}"></redactar-component>
 
 
 <div class="container">
