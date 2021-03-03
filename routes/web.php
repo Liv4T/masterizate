@@ -321,8 +321,10 @@ Route::get('showTrivia/{id}', 'ActivityController@showTrivia');
 Route::post('createEvent', 'EventsController@createEvent')->name('createEvent');
 Route::get('/getAllEvents', 'EventsController@indexEvents')->name('getAllEvents');
 Route::get('editEvent/{id}', 'EventsController@findEvent')->name('editEvent');
+Route::get('lastId', 'EventsController@lastID')->name('lastID');
+Route::get('updatePadre/{id}', 'EventsController@Update_padre')->name('Update_padre');
 Route::put('updateEvent', 'EventsController@updateEvent')->name('updateEvent');
-Route::get('deleteEvent/{id}', 'EventsController@destroy')->name('deleteEvent');
+Route::put('deleteEvent', 'EventsController@deleteEvent')->name('deleteEvent');
 
 Route::middleware('auth')->get('/actividad_d/{id}', 'ClassController@activityWeekId')->name('actividad_d');
 Route::middleware('auth')->get('/actividad_d/getClass/{id}', 'ClassController@getClassId')->name('getClass');

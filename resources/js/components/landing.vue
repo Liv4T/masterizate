@@ -217,7 +217,7 @@ export default {
     margin: 0;
     border: 0;
     letter-spacing: 0.15em;
-    border-radius: 15px
+    border-radius: 15px;
 }
 .text-terms{
     color: #7e7e7e !important; 
@@ -326,21 +326,21 @@ export default {
         display: table;
         width: 75%;
         padding: 50px;
-        margin-top: -160px;
+        margin-top: 20px;
     }
     .fondo2 {
-        background-image: url("../assets/img/LANDING8.png");
+        background-image: url("../assets/img/Responsive1-05.png");
         background-repeat: no-repeat;
         background-size: cover;
         background-size: 100% 100%;
-        height: 850px;
+        height: 600px;
     }
     .fondo1 {
-        background-image: url("../assets/img/LANDING7.png");
+        background-image: url("../assets/img/Responsive2-06.png");
         background-repeat: no-repeat;
         background-size: cover;
         background-size: 100% 100%;
-        height: 506px;
+        height: 340px;
     }
     .content-text{
         width: 80%;
@@ -352,7 +352,7 @@ export default {
     }
     .text-sect1{
         padding: 35% 140px 10px 20px;
-        font-size: 14px;
+        font-size: 13px;
         line-height: 140%;
         text-align: justify;
     }
@@ -383,5 +383,6 @@ export default {
         padding: 0;
         margin: -4px auto 0 auto !important;
     }
+    
   }
 </style>
