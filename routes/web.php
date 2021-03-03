@@ -700,6 +700,8 @@ Route::put('/api/planification/copy', 'CoursesController@copyInformation');
 //parents 
 
 Route::resource('/notes', 'ParentsController');
+Route::get('/getInvitations','ParentsController@getInvitatios');
+Route::get('/invitations', 'ParentsController@getUsersToInvitations');
 
 //psicology
 Route::resource('/historyPsicology', 'HistoryPsicologyController');

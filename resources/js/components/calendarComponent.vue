@@ -44,9 +44,13 @@
                     <div class="row" v-show="type_u==2 || type_u==4">
                         <a class="btn btn-warning float-right mt-2 ml-3" v-on:click.prevent="createE()">Crear evento</a>
                     </div>
+                    <div>
+                        <event-parents-modal :concurrent="concurrent" :type_u="type_u" :dias="dias" :clases="clases"
+                            :user="this.user" :getInvitations="getInvitations"></event-parents-modal>
+                    </div>
                     <br />
                     <div class="row">
-                        <div class="col-md-11">
+                        <div class="col-md-11" v-if="type_u != 4">
                             <div class="row justify-content-center">
                                 <h4>Clases presenciales</h4>
                             </div>
@@ -78,16 +82,10 @@
                                                 <button class="btn btn-danger" v-show="type_u==2"
                                                     v-on:click.prevent="viewDelete(clas.id,clas.name)">Eliminar</button>
                                             </div>
-
                                         </div>
-
-
-
                                     </div>
-
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -134,15 +132,15 @@
                                     <div class="invalid-feedback">Please fill out this field</div>
                                 </div>
                                 <!-- <div class="col-md-6">
-                  <label for="name">Materia</label>
-                  <select class="form-control" v-model="materia" required>
-                    <option :value="option.id+'/'+option.id_classroom " v-for="option in myOptions">
-                      {{
-                      option.text
-                      }}
-                    </option>
-                  </select>
-                </div> -->
+                                    <label for="name">Materia</label>
+                                    <select class="form-control" v-model="materia" required>
+                                        <option :value="option.id+'/'+option.id_classroom " v-for="option in myOptions">
+                                        {{
+                                        option.text
+                                        }}
+                                        </option>
+                                    </select>
+                                </div> -->
                                 <div class="col-md-6">
                                     <label for="name">Materia</label>
                                     <multiselect v-model="materia" :options="myOptions" :multiple="true"
@@ -282,7 +280,7 @@
     Vue.use(require("vue-moment"));
     Vue.component("multiselect", Multiselect);
     export default {
-        props: ["type_u"],
+        props: ["type_u", "user"],
         data() {
             return {
                 display_events: true,
@@ -381,8 +379,31 @@
         },
         mounted() {
             const fullCalendarApi = this.$refs.fullCalendar.getApi();
+            this.getInvitations()
+            if (this.type_u === 4) {
+                var urlP = window.location.origin + "/api/event/getStudentsClass";
+                axios.get(urlP).then((response) => {
+                    this.clases = response.data;
+                    console.log(this.clases)
+                    if (this.clases && this.clases.length > 0) {
+
+                        this.clases.forEach(meeting => {
+                            fullCalendarApi.addEvent({
+                                title: `${meeting.student_name} | ${meeting.area} ${meeting.classroom} | Clase ${meeting.name}`,
+                                start: meeting.dateFrom,
+                                end: meeting.dateTo,
+                                description: meeting.name,
+                                url: meeting.hangout,
+                                backgroundColor: 'red'
+                            });
+                        })
+
+                    }
+                });
+            }
 
             var urlM = window.location.origin + "/getAllEvents";
+
             axios.get(urlM).then((response) => {
                 this.clases = response.data;
                 if (this.clases && this.clases.length > 0) {
@@ -426,6 +447,29 @@
         methods: {
             filterPendingEvents: (events) => {
                 return events.filter(e => moment(e.dateTo) >= moment());
+            },
+            getInvitations() {
+                const fullCalendarApi = this.$refs.fullCalendar.getApi();
+                if (this.type_u != 3) {
+                    axios.get("/getInvitations").then((response) => {
+                        this.clases = response.data;
+                        if (this.clases && this.clases.length > 0) {
+                            this.clases.forEach(dataParent => {
+                                if (dataParent.id_sender === this.user.id || dataParent.id_invited === this.user.id){
+                                    fullCalendarApi.addEvent({
+                                        title: `${dataParent.name_event}`,
+                                        start: dataParent.date_start,
+                                        end: dataParent.date_end,
+                                        description: dataParent.description ? dataParent
+                                            .description : '',
+                                        url: dataParent.link,
+                                        backgroundColor: 'blue'
+                                    });
+                                }
+                            })
+                        }
+                    });
+                }
             },
             displayActivitiesChange() {
                 const fullCalendarApi = this.$refs.fullCalendar.getApi();
@@ -609,9 +653,12 @@
                 window.location = "/calendar";
             },
             createE() {
-                $("#createE").modal("show");
+                if (this.type_u != 4) {
+                    $("#createE").modal("show");
+                } else {
+                    $("#createEvent").modal("show");
+                }
                 //this.concurrentDays();
-
             },
             editE(id) {
                 this.evenUp = [];

@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Auth;
+use DB;
+use App\User;
+use App\Parents;
 
 class ParentsController extends Controller
 {
@@ -21,14 +24,31 @@ class ParentsController extends Controller
         return view('parents');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+    public function getInvitatios(){
+        $parents = Parents::orderBy('created_at', 'desc')->get();
+        return response()->json($parents, 200);return $parents;
+    }
+    public function getUsersToInvitations(){
+        $users = [];
+
+        $admins = DB::table("users")
+        ->select('users.*')
+        ->where('type_user','=',1)
+        ->get();
+
+        $teachers = DB::table("users")
+        ->select('users.*')
+        ->where('type_user','=',2)
+        ->get();
+
+        $psychologists = DB::table("users")
+        ->select('users.*')
+        ->where('type_user','=',5)
+        ->get();
+
+        array_push($users, $admins, $teachers, $psychologists);
+
+        return response()->json($users, 200);
     }
 
     /**
@@ -39,7 +59,20 @@ class ParentsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $parents = new Parents;
+        $parents->name_event = $request->name_event;
+        $parents->date_start = $request->date_start;
+        $parents->date_end = $request->date_end;
+        $parents->link = $request->link;
+        $parents->day_week = $request->day_week;
+        $parents->type_event = $request->type_event;
+        $parents->email_invited = $request->email_invited;
+        $parents->id_invited = $request->id_invited;
+        $parents->id_sender = $request->id_sender;
+
+        $parents->save();
+
+        return response()->json($parents);
     }
 
     /**
