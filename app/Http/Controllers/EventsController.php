@@ -195,6 +195,55 @@ class EventsController extends Controller
         return response()->json($eventos);
     }
 
+    public function getStudentsClassForParents(){
+        $eventos = [];
+        $user = Auth::user();
+        $current_date=date('Y-m-d h:i:s');
+        $date =  Carbon::now();
+
+        if(isset($user) && $user->type_user == 4){
+            //Se buscan los estudiantes por medio del campo parent_id 
+            $students = DB::table("users")
+                ->select('users.*')
+                ->where('parent_id','=',$user->id)
+                ->get();
+
+            /* 
+                Con base a la busqueda anterior se consultan 
+                los eventos, areas y clases al que el estudiante se encuentre asociado y se realiza push al array eventos
+            */
+            foreach($students as $index => $student){
+                $events_student_for_parents = DB::table('classroom_student')
+                ->join('eventos', 'classroom_student.id_classroom', '=', 'eventos.id_classroom')
+                ->select('eventos.*')
+                ->where('classroom_student.id_user', $student->id)
+                ->where('eventos.date_to','>=',$current_date)
+                ->orderBy('eventos.date_from')
+                ->get();
+
+                foreach($events_student_for_parents as $index => $events_students){
+                    if ($events_students->id_classroom == 0){
+                        $classroom = null;
+                        $area = Lective::find($events_students->id_area);
+                    } else {
+                        $classroom = Classroom::find($events_students->id_classroom);
+                        $area = Area::find($events_students->id_area);
+                    }
+                    
+                    array_push($eventos,[
+                        "name" => $events_students->name,
+                        "dateFrom" => $events_students->date_from,
+                        "dateTo" => $events_students->date_to,
+                        "hangout" => $events_students->url,
+                        "area" => $area->name,
+                        "classroom" =>  $classroom ? $classroom->name : '',
+                        "student_name" => $student->name
+                    ]);
+                }
+            }
+        }
+        return response()->json($eventos);
+    }
     /**
      * Display a listing of the resource.
      *

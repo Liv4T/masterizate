@@ -663,6 +663,7 @@ Route::post('/api/file/upload/editor-content', 'UploadController@uploadEditorCon
 Route::put('/api/admin/module/{id_module}/class/{id_course}/{state}', 'ClassController@updateClassEnableEdition');
 Route::get('/api/student/activity', 'ActivityController@getByCurrentStudent');
 Route::get('/api/student/event', 'EventsController@studentEvents');
+Route::get('/api/event/getStudentsClass','EventsController@getStudentsClassForParents');
 Route::get('/api/teacher/area/{area_id}/classroom/{classroom_id}/student', 'CalificationController@getAllStudents');
 Route::get('/api/teacher/area/{area_id}/classroom/{classroom_id}/student/{student_id}', 'CalificationController@getByStudent');
 Route::get('/api/teacher/area/{area_id}/classroom/{classroom_id}/student/{student_id}/module', 'CalificationController@getAllModules');
