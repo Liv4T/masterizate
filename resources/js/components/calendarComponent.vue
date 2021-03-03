@@ -155,7 +155,7 @@
                   <input type="text" name="name" class="form-control" v-model="nameMeet" />
                   <div class="invalid-feedback">Please fill out this field</div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-6" style="display: none;">
                   <strong for="name">id ultimo</strong>
                   <input type="text" name="id_padre" class="form-control" v-model="lastId" />
                   <div class="invalid-feedback">Please fill out this field</div>
