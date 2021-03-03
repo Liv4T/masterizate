@@ -94,6 +94,28 @@
               </button>
             </div>
             <div class="modal-body">
+            <div class="form-group row justify-content-center">
+                <div class="col-md-6">
+                  <label for="name">Evento concurrente</label>
+                  <select class="form-control" v-model="typeEvent" @click="concurrentDays" @change="selectChange" >
+                    <option :value="options.id" v-for="options in concurrent">
+                      {{
+                      options.type
+                      }}
+                    </option>
+                  </select>
+                </div>
+                <div class="col-md-6">
+                  <label style="display: none;" id="labeldia">Dia de la semana</label>
+                  <select class="form-control" name="dia" id="dia" v-model="diaSemana" style="display:none">
+                    <option :value="options.id" v-for="options in dias">
+                      {{
+                      options.dia
+                      }}
+                    </option>
+                  </select>
+                </div>
+              </div>
               <div class="form-group row justify-content-center">
                 <div class="col-md-6">
                   <label for="name">Nombre del evento</label>
@@ -250,6 +272,9 @@ export default {
       value:[],
       myOptions:[],
       materia: [],
+      concurrent: [{'id':'0','type':'No'},{'id':'1', 'type':'De lunes a viernes'}, {'id':'2', 'type':'Un dia en especifico'}, {'id':'3', 'type':'Menusal'}],
+      dias:[{'id':'0', 'dia':'Domingo'},{'id':'1','dia':'Lunes'},{'id':'2','dia':'Martes'},{'id':'3','dia':'Miercoles'},{'id':'4','dia':'Jueves'},{'id':'5','dia':'Viernes'},{'id':'6','dia':'Sabado'}],
+      diaSemana: "",
       meetUp: "",
       nameUp: "",
       fromUp: "",
@@ -259,6 +284,7 @@ export default {
       delId: "",
       delName: "",
       idUp: "",
+      typeEvent: "",
       lective_planification:{},
       initialView:'dayGridMonth',
       calendarOptions: {
@@ -324,11 +350,6 @@ export default {
         });
 
     });
-
-
-
-
-
   },
   methods: {
       filterPendingEvents:(events)=>{
@@ -353,6 +374,15 @@ export default {
                 }
             });
           }
+      },
+      selectChange() {
+        if (this.typeEvent == 2) {
+          document.getElementById("dia").style.display = "block";
+          document.getElementById("labeldia").style.display = "block";
+        } else {
+          document.getElementById("dia").style.display = "none";
+          document.getElementById("labeldia").style.display = "none";    
+        }
       },
       displayEventsChange(){
            const fullCalendarApi=this.$refs.fullCalendar.getApi();
@@ -394,6 +424,38 @@ export default {
         });*/
 
     },
+    concurrentDays(){
+      console.log(this.typeEvent);
+      if(this.typeEvent == 1){
+        var date2 = new Date();
+        if (date2.getDay() == 6){
+          date2.setDate(date2.getDate() + 2);
+        }
+        if (date2.getDay() == 0){
+          date2.setDate(date2.getDate() + 1);
+        }
+        var dayOfWeek = date2.getDay();
+        console.log(dayOfWeek);
+        var arrayDaysEvent = [];
+        for(var i=0;i<5;i++){
+          if(i-dayOfWeek!=-1){
+            var days = i-dayOfWeek + 1;
+            var newDate = new Date(date2.getTime()+(days * 24 * 60 * 60 * 1000));
+            newDate = moment(String(newDate)).format('YYYY-MM-DD H:m:s');
+            if(i +1 >= dayOfWeek){
+              arrayDaysEvent.push(newDate);
+            }  
+          }else{ 
+            var date3 = moment(String(date2)).format('YYYY-MM-DD H:m:s');
+            arrayDaysEvent.push(date3);
+          }
+        }    
+        console.log(arrayDaysEvent);
+      }
+      if(this.typeEvent == 2){
+
+      }
+    },
     changeCalendarView(view){
         this.initialView=view;
         this.calendarOptions.initialView=view;
@@ -404,6 +466,7 @@ export default {
     },
     createE() {
       $("#createE").modal("show");
+      //this.concurrentDays();
     },
     editE(id) {
       this.evenUp = [];
