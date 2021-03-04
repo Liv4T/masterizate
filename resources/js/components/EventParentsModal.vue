@@ -328,7 +328,7 @@
                             axios.post(url, {
                                 name_event: this.nameEvent,
                                 date_start: this.arrayDaysEvent[j],
-                                date_end: this.arrayDaysEvent[j],
+                                date_end: this.arrayDaysEventMes[j],
                                 link: this.nameMeet,
                                 day_week: this.diaSemana,
                                 type_event: this.typeEvent,

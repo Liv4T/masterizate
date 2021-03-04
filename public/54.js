@@ -345,7 +345,7 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_2___defaul
             axios.post(url, {
               name_event: this.nameEvent,
               date_start: this.arrayDaysEvent[_j],
-              date_end: this.arrayDaysEvent[_j],
+              date_end: this.arrayDaysEventMes[_j],
               link: this.nameMeet,
               day_week: this.diaSemana,
               type_event: this.typeEvent,
