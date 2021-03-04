@@ -125,7 +125,9 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_2___defaul
       subject: "",
       lastId: [],
       invitations: [],
-      invitationsGet: []
+      invitationsGet: [],
+      arrayDaysEvent: [],
+      arrayDaysEventMes: []
     };
   },
   components: {
@@ -203,27 +205,162 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_2___defaul
         console.log(response.data);
       });
     },
+    concurrentDays: function concurrentDays() {
+      if (this.typeEvent == 1) {
+        //Crear eventos de lunes a viernes y omitimos los dias que ya pasaron de la semana
+        var date2 = new Date();
+
+        if (date2.getDay() == 6) {
+          date2.setDate(date2.getDate() + 2);
+        }
+
+        if (date2.getDay() == 0) {
+          date2.setDate(date2.getDate() + 1);
+        }
+
+        var dayOfWeek = date2.getDay();
+        this.arrayDaysEvent = [];
+
+        for (var i = 0; i < 5; i++) {
+          if (i - dayOfWeek != -1) {
+            var days = i - dayOfWeek + 1;
+            var newDate = new Date(date2.getTime() + days * 24 * 60 * 60 * 1000);
+            newDate = moment__WEBPACK_IMPORTED_MODULE_0___default()(String(newDate)).format('YYYY-MM-DD');
+
+            if (i + 1 >= dayOfWeek) {
+              this.arrayDaysEvent.push(newDate);
+            }
+          } else {
+            var date3 = moment__WEBPACK_IMPORTED_MODULE_0___default()(String(date2)).format('YYYY-MM-DD');
+            this.arrayDaysEvent.push(date3);
+          }
+        }
+      }
+
+      if (this.typeEvent == 2) {
+        //Crear eventos un dia especifico de la semana 
+        this.arrayDaysEvent = [];
+        var hoy = new Date();
+        var hasta = new Date();
+        hasta.setDate(hasta.getDate() + 365);
+
+        while (moment__WEBPACK_IMPORTED_MODULE_0___default()(hoy).isSameOrBefore(hasta)) {
+          if (this.diaSemana == hoy.getDay()) {
+            this.arrayDaysEvent.push(moment__WEBPACK_IMPORTED_MODULE_0___default()(hoy).format('YYYY-MM-DD'));
+          }
+
+          hoy.setDate(hoy.getDate() + 1);
+        } //console.log(this.arrayDaysEvent);
+
+      }
+
+      if (this.typeEvent == 3) {
+        //Crear evento una vez por mes
+        this.arrayDaysEvent = [];
+        this.arrayDaysEventMes = [];
+        var desde = new Date(this.desde);
+        var hasta = new Date(this.desde);
+        var desde2 = new Date(this.hasta);
+        var hasta2 = new Date(this.hasta);
+        hasta.setDate(hasta.getDate() + 365);
+        hasta2.setDate(hasta2.getDate() + 365);
+        var dia = desde.getDate(desde);
+        var dia2 = desde2.getDate(desde2);
+
+        while (moment__WEBPACK_IMPORTED_MODULE_0___default()(desde).isSameOrBefore(hasta)) {
+          var dayMonth = desde.getDate(desde);
+
+          if (dayMonth == dia) {
+            this.arrayDaysEvent.push(moment__WEBPACK_IMPORTED_MODULE_0___default()(desde).format('YYYY-MM-DD H:mm:ss'));
+          }
+
+          desde.setDate(desde.getDate() + 1);
+        }
+
+        while (moment__WEBPACK_IMPORTED_MODULE_0___default()(desde2).isSameOrBefore(hasta2)) {
+          var dayMonth = desde2.getDate(desde2);
+
+          if (dayMonth == dia2) {
+            this.arrayDaysEventMes.push(moment__WEBPACK_IMPORTED_MODULE_0___default()(desde2).format('YYYY-MM-DD H:mm:ss'));
+          }
+
+          desde2.setDate(desde2.getDate() + 1);
+        }
+
+        console.log(this.arrayDaysEventMes);
+      }
+
+      if (this.typeEvent == 0) {
+        this.arrayDaysEvent = [];
+        this.formatDate = "YYYY-MM-DD H:i:s";
+      }
+    },
     createInvitation: function createInvitation() {
       var _this3 = this;
 
+      this.concurrentDays();
       var url = 'notes';
-      this.invitationsGet.forEach(function (element) {
-        axios.post(url, {
-          name_event: _this3.nameEvent,
-          date_start: _this3.desde,
-          date_end: _this3.hasta,
-          link: _this3.nameMeet,
-          day_week: _this3.diaSemana,
-          type_event: _this3.typeEvent,
-          email_invited: element.email,
-          id_invited: element.id,
-          id_sender: _this3.user.id
-        }).then(function (response) {
-          console.log(response);
-          _this3.getInvitations;
-          toastr.success("Invitación enviada correctamente");
+
+      if (this.typeEvent == 0) {
+        this.invitationsGet.forEach(function (element) {
+          axios.post(url, {
+            name_event: _this3.nameEvent,
+            date_start: _this3.desde,
+            date_end: _this3.hasta,
+            link: _this3.nameMeet,
+            day_week: _this3.diaSemana,
+            type_event: _this3.typeEvent,
+            email_invited: element.email,
+            id_invited: element.id,
+            id_sender: _this3.user.id
+          }).then(function (response) {
+            console.log(response);
+            _this3.getInvitations;
+            toastr.success("Invitación enviada correctamente");
+          });
         });
-      });
+      } else if (this.typeEvent == 1 || this.typeEvent == 2) {
+        for (var i = 0; i < this.invitationsGet.length; i++) {
+          for (var j = 0; j < this.arrayDaysEvent.length; j++) {
+            axios.post(url, {
+              name_event: this.nameEvent,
+              date_start: this.arrayDaysEvent[j] + " " + this.desde,
+              date_end: this.arrayDaysEvent[j] + " " + this.hasta,
+              link: this.nameMeet,
+              day_week: this.diaSemana,
+              type_event: this.typeEvent,
+              email_invited: this.invitationsGet[i].email,
+              id_invited: this.invitationsGet[i].id,
+              id_sender: this.user.id
+            }).then(function (response) {
+              console.log(response);
+              _this3.getInvitations;
+              toastr.success("Invitación enviada correctamente");
+            });
+          }
+        }
+      } else if (this.typeEvent == 3) {
+        for (var _i = 0; _i < this.invitationsGet.length; _i++) {
+          for (var _j = 0; _j < this.arrayDaysEvent.length; _j++) {
+            axios.post(url, {
+              name_event: this.nameEvent,
+              date_start: this.arrayDaysEvent[_j],
+              date_end: this.arrayDaysEvent[_j],
+              link: this.nameMeet,
+              day_week: this.diaSemana,
+              type_event: this.typeEvent,
+              email_invited: this.invitationsGet[_i].email,
+              id_invited: this.invitationsGet[_i].id,
+              id_sender: this.user.id
+            }).then(function (response) {
+              console.log(response);
+              _this3.getInvitations;
+              toastr.success("Invitación enviada correctamente");
+            });
+          }
+        }
+      }
+
       this.nameEvent = "", this.desde = "", this.hasta = "", this.nameMeet = "", this.diaSemana = "", this.subject = "", this.typeEvent = [], this.invitationsGet = [];
     }
   }
