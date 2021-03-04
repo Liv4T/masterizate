@@ -344,13 +344,15 @@
                     }
                 }
                 this.nameEvent = "",
-                    this.desde = "",
-                    this.hasta = "",
-                    this.nameMeet = "",
-                    this.diaSemana = "",
-                    this.subject = "",
-                    this.typeEvent = [],
-                    this.invitationsGet = []
+                this.desde = "",
+                this.hasta = "",
+                this.nameMeet = "",
+                this.diaSemana = "",
+                this.subject = "",
+                this.typeEvent = [],
+                this.invitationsGet = [],
+                this.arrayDaysEvent = [],
+                this.arrayDaysEventMes = []
             }
         }
     }

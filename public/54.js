@@ -361,7 +361,7 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_2___defaul
         }
       }
 
-      this.nameEvent = "", this.desde = "", this.hasta = "", this.nameMeet = "", this.diaSemana = "", this.subject = "", this.typeEvent = [], this.invitationsGet = [];
+      this.nameEvent = "", this.desde = "", this.hasta = "", this.nameMeet = "", this.diaSemana = "", this.subject = "", this.typeEvent = [], this.invitationsGet = [], this.arrayDaysEvent = [], this.arrayDaysEventMes = [];
     }
   }
 });
