@@ -304,9 +304,10 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_2___defaul
             id_sender: _this3.user.id
           }).then(function () {
             toastr.success("Invitación enviada correctamente");
-            $("#createEvent").modal("hide");
           });
         });
+        this.getInvitations();
+        $("#createEvent").modal("hide");
       } else if (this.typeEvent == 1 || this.typeEvent == 2) {
         for (var i = 0; i < this.invitationsGet.length; i++) {
           for (var j = 0; j < this.arrayDaysEvent.length; j++) {
@@ -325,6 +326,9 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_2___defaul
             });
           }
         }
+
+        this.getInvitations();
+        $("#createEvent").modal("hide");
       } else if (this.typeEvent == 3) {
         for (var _i = 0; _i < this.invitationsGet.length; _i++) {
           for (var _j = 0; _j < this.arrayDaysEvent.length; _j++) {
@@ -339,11 +343,13 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_2___defaul
               id_invited: this.invitationsGet[_i].id,
               id_sender: this.user.id
             }).then(function () {
-              _this3.getInvitations;
               toastr.success("Invitación enviada correctamente");
             });
           }
         }
+
+        this.getInvitations();
+        $("#createEvent").modal("hide");
       }
 
       this.nameEvent = "", this.desde = "", this.hasta = "", this.nameMeet = "", this.diaSemana = "", this.typeEvent = [], this.invitationsGet = [], this.arrayDaysEvent = [], this.arrayDaysEventMes = [];

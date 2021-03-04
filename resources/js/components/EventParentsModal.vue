@@ -288,9 +288,10 @@
                             id_sender: this.user.id
                         }).then(() => {
                             toastr.success("Invitación enviada correctamente");
-                            $("#createEvent").modal("hide");
                         })
                     });
+                    this.getInvitations();
+                    $("#createEvent").modal("hide");
                 } else if (this.typeEvent == 1 || this.typeEvent == 2) {
                     for (let i = 0; i < this.invitationsGet.length; i++) {
                         for (let j = 0; j < this.arrayDaysEvent.length; j++) {
@@ -309,6 +310,8 @@
                             })
                         }
                     }
+                    this.getInvitations();
+                    $("#createEvent").modal("hide");
                 }else if (this.typeEvent == 3) {
                     for (let i = 0; i < this.invitationsGet.length; i++) {
                         for (let j = 0; j < this.arrayDaysEvent.length; j++) {
@@ -323,11 +326,12 @@
                                 id_invited: this.invitationsGet[i].id,
                                 id_sender: this.user.id
                             }).then(() => {
-                                this.getInvitations;
                                 toastr.success("Invitación enviada correctamente");
                             })
                         }
                     }
+                    this.getInvitations();
+                    $("#createEvent").modal("hide");
                 }
                 this.nameEvent = "",
                 this.desde = "",

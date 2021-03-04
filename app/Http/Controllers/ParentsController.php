@@ -26,7 +26,7 @@ class ParentsController extends Controller
 
     public function getInvitatios(){
         $user_id = Auth::user()->id;
-        $parents = Parents::where('id_sender','=', $user_id)->orderBy('id', 'desc')->get();
+        $parents = Parents::where('id_sender','=', $user_id)->orderBy('id', 'asc')->get();
         return response()->json($parents, 200);return $parents;
     }
     public function getUsersToInvitations(){
@@ -114,7 +114,8 @@ class ParentsController extends Controller
         $parents->date_end = $request->date_end;
         $parents->link = $request->link;
         $parents->update();
-        return;
+
+        return response()->json('ok');
     }
 
     /**
@@ -127,6 +128,6 @@ class ParentsController extends Controller
     {
         $parentsData = Parents::find($id);
         $parentsData->delete();
-        return "ok";
+        return response()->json('ok');
     }
 }

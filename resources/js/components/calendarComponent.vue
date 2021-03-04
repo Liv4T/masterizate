@@ -50,7 +50,7 @@
                     </div>
                     <div>
                         <modal-edit-parents-info :concurrent="concurrent" :type_u="type_u" :user="this.user"
-                            :dias="dias"></modal-edit-parents-info>
+                            :dias="dias" :getInvitations="getInvitations"></modal-edit-parents-info>
                     </div>
                     <br />
                     <div class="row">

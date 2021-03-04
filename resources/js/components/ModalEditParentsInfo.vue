@@ -121,7 +121,8 @@
             "concurrent",
             "type_u",
             "user",
-            "dias"
+            "dias",
+            "getInvitations"
         ],
         data() {
             return {
@@ -175,9 +176,10 @@
             deleteE(id) {
                 if (window.confirm("Deseas eliminar este dato?")) {
                     axios.delete("/parents/" + id).then(() => {
-                        toastr.success("Dato Eliminado")
+                        toastr.success("Dato Eliminado");
+                        this.getData();
+                        this.getInvitations();
                     });
-                    this.getData();
                 }
             },
             selectChange() {
@@ -204,6 +206,7 @@
                 }).then(()=>{
                     toastr.success("Datos Actualizados");
                     this.getData();
+                    this.getInvitations();
                     $("#editE").modal("hide");
                 }).catch(()=>{
                     toastr.error("Intenta de nuevo mas tarde")

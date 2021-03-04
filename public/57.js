@@ -132,7 +132,7 @@ moment__WEBPACK_IMPORTED_MODULE_1___default.a.locale('es');
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(__webpack_require__(/*! vue-moment */ "./node_modules/vue-moment/dist/vue-moment.js"));
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_3___default.a);
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["concurrent", "type_u", "user", "dias"],
+  props: ["concurrent", "type_u", "user", "dias", "getInvitations"],
   data: function data() {
     return {
       parents: [],
@@ -186,11 +186,16 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component("multiselect", vue_multisel
       $("#editE").modal("show");
     },
     deleteE: function deleteE(id) {
+      var _this3 = this;
+
       if (window.confirm("Deseas eliminar este dato?")) {
         axios["delete"]("/parents/" + id).then(function () {
           toastr.success("Dato Eliminado");
+
+          _this3.getData();
+
+          _this3.getInvitations();
         });
-        this.getData();
       }
     },
     selectChange: function selectChange() {
@@ -209,7 +214,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component("multiselect", vue_multisel
       }
     },
     updateInvitation: function updateInvitation() {
-      var _this3 = this;
+      var _this4 = this;
 
       axios.put("parents/" + this.idToEdit, {
         name_event: this.name_event,
@@ -219,7 +224,9 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component("multiselect", vue_multisel
       }).then(function () {
         toastr.success("Datos Actualizados");
 
-        _this3.getData();
+        _this4.getData();
+
+        _this4.getInvitations();
 
         $("#editE").modal("hide");
       })["catch"](function () {
