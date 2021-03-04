@@ -25,7 +25,8 @@ class ParentsController extends Controller
     }
 
     public function getInvitatios(){
-        $parents = Parents::orderBy('created_at', 'desc')->get();
+        $user_id = Auth::user()->id;
+        $parents = Parents::where('id_sender','=', $user_id)->orderBy('id', 'asc')->get();
         return response()->json($parents, 200);return $parents;
     }
     public function getUsersToInvitations(){
@@ -83,7 +84,8 @@ class ParentsController extends Controller
      */
     public function show($id)
     {
-        //
+        $parents = Parents::find($id);
+        return $parents;
     }
 
     /**
@@ -106,7 +108,13 @@ class ParentsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $parents = Parents::find($id);
+        $parents->name_event = $request->name_event;
+        $parents->date_start = $request->date_start;
+        $parents->date_end = $request->date_end;
+        $parents->link = $request->link;
+        $parents->update();
+        return;
     }
 
     /**
@@ -117,6 +125,8 @@ class ParentsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $parentsData = Parents::find($id);
+        $parentsData->delete();
+        return "ok";
     }
 }

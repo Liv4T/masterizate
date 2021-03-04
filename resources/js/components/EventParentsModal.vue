@@ -40,11 +40,6 @@
                                 <div class="invalid-feedback">Please fill out this field</div>
                             </div>
                             <div class="col-md-6">
-                                <label for="name">Asunto del evento</label>
-                                <input type="text" name="subject" class="form-control" v-model="subject" />
-                                <div class="invalid-feedback">Please fill out this field</div>
-                            </div>
-                            <div class="col-md-6">
                                 <label for="invitations">Invitaciones</label>
                                 <multiselect v-model="invitationsGet" :options="invitations" :multiple="true"
                                     :close-on-select="false" :clear-on-select="false" :preserve-search="true"
@@ -110,7 +105,6 @@
                 diaSemana: "",
                 formatDate: "",
                 typeEvent: "",
-                subject: "",
                 lastId: [],
                 invitations: [],
                 invitationsGet: [],
@@ -130,7 +124,6 @@
             }
         },
         mounted() {
-            console.log("datos del usuario", this.user);
             var urlUsers = 'invitations'
             axios.get(urlUsers).then((response) => {
                 let arrayData = response.data;
@@ -296,9 +289,7 @@
                             email_invited: element.email,
                             id_invited: element.id,
                             id_sender: this.user.id
-                        }).then(response => {
-                            console.log(response)
-                            this.getInvitations;
+                        }).then(() => {
                             toastr.success("Invitación enviada correctamente");
                         })
                     });
@@ -315,9 +306,7 @@
                                 email_invited: this.invitationsGet[i].email,
                                 id_invited: this.invitationsGet[i].id,
                                 id_sender: this.user.id
-                            }).then(response => {
-                                console.log(response)
-                                this.getInvitations;
+                            }).then(() => {
                                 toastr.success("Invitación enviada correctamente");
                             })
                         }
@@ -348,7 +337,6 @@
                 this.hasta = "",
                 this.nameMeet = "",
                 this.diaSemana = "",
-                this.subject = "",
                 this.typeEvent = [],
                 this.invitationsGet = [],
                 this.arrayDaysEvent = [],

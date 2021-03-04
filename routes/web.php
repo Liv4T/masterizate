@@ -699,7 +699,7 @@ Route::put('/api/planification/copy', 'CoursesController@copyInformation');
 
 //parents 
 
-Route::resource('/notes', 'ParentsController');
+Route::resource('/parents', 'ParentsController');
 Route::get('/getInvitations','ParentsController@getInvitatios');
 Route::get('/invitations', 'ParentsController@getUsersToInvitations');
 

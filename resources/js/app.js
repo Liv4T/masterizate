@@ -208,6 +208,7 @@ Vue.use(CKEditor);
 Vue.component("menu-padres", () => import("./components/menuPadres.vue"));
 Vue.component("parents-component", () => import("./components/parents.vue"));
 Vue.component("event-parents-modal", () => import("./components/EventParentsModal.vue"));
+Vue.component("modal-edit-parents-info", () => import("./components/ModalEditParentsInfo.vue"));
 
 //Psicologia 
 Vue.component("comunicates-component", () => import("./components/Comunicates.vue"));

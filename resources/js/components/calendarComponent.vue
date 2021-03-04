@@ -48,6 +48,10 @@
                         <event-parents-modal :concurrent="concurrent" :type_u="type_u" :dias="dias" :clases="clases"
                             :user="this.user" :getInvitations="getInvitations"></event-parents-modal>
                     </div>
+                    <div>
+                        <modal-edit-parents-info :concurrent="concurrent" :type_u="type_u" :user="this.user"
+                            :dias="dias"></modal-edit-parents-info>
+                    </div>
                     <br />
                     <div class="row">
                         <div class="col-md-11" v-if="type_u != 4">
@@ -456,8 +460,9 @@
                         if (this.clases && this.clases.length > 0) {
                             this.clases.forEach(dataParent => {
                                 if (dataParent.id_sender === this.user.id || dataParent.id_invited === this.user.id){
+                                    console.log("datos de invitaciones",dataParent)
                                     fullCalendarApi.addEvent({
-                                        title: `${dataParent.name_event}`,
+                                        title: dataParent.name_event,
                                         start: dataParent.date_start,
                                         end: dataParent.date_end,
                                         description: dataParent.description ? dataParent

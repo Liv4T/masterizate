@@ -99,11 +99,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
 
 moment__WEBPACK_IMPORTED_MODULE_0___default.a.tz.setDefault("America/Bogota");
 moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale('es');
@@ -122,7 +117,6 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_2___defaul
       diaSemana: "",
       formatDate: "",
       typeEvent: "",
-      subject: "",
       lastId: [],
       invitations: [],
       invitationsGet: [],
@@ -144,7 +138,6 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_2___defaul
   mounted: function mounted() {
     var _this = this;
 
-    console.log("datos del usuario", this.user);
     var urlUsers = 'invitations';
     axios.get(urlUsers).then(function (response) {
       var arrayData = response.data;
@@ -313,9 +306,7 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_2___defaul
             email_invited: element.email,
             id_invited: element.id,
             id_sender: _this3.user.id
-          }).then(function (response) {
-            console.log(response);
-            _this3.getInvitations;
+          }).then(function () {
             toastr.success("Invitación enviada correctamente");
           });
         });
@@ -332,9 +323,7 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_2___defaul
               email_invited: this.invitationsGet[i].email,
               id_invited: this.invitationsGet[i].id,
               id_sender: this.user.id
-            }).then(function (response) {
-              console.log(response);
-              _this3.getInvitations;
+            }).then(function () {
               toastr.success("Invitación enviada correctamente");
             });
           }
@@ -361,7 +350,7 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_2___defaul
         }
       }
 
-      this.nameEvent = "", this.desde = "", this.hasta = "", this.nameMeet = "", this.diaSemana = "", this.subject = "", this.typeEvent = [], this.invitationsGet = [], this.arrayDaysEvent = [], this.arrayDaysEventMes = [];
+      this.nameEvent = "", this.desde = "", this.hasta = "", this.nameMeet = "", this.diaSemana = "", this.typeEvent = [], this.invitationsGet = [], this.arrayDaysEvent = [], this.arrayDaysEventMes = [];
     }
   }
 });
@@ -545,38 +534,6 @@ var render = function() {
                             return
                           }
                           _vm.nameEvent = $event.target.value
-                        }
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "invalid-feedback" }, [
-                      _vm._v("Please fill out this field")
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col-md-6" }, [
-                    _c("label", { attrs: { for: "name" } }, [
-                      _vm._v("Asunto del evento")
-                    ]),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.subject,
-                          expression: "subject"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      attrs: { type: "text", name: "subject" },
-                      domProps: { value: _vm.subject },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.subject = $event.target.value
                         }
                       }
                     }),
