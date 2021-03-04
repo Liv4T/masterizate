@@ -132,7 +132,7 @@ moment__WEBPACK_IMPORTED_MODULE_1___default.a.locale('es');
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(__webpack_require__(/*! vue-moment */ "./node_modules/vue-moment/dist/vue-moment.js"));
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_3___default.a);
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["concurrent", "type_u", "user", "dias", "getInvitations"],
+  props: ["concurrent", "type_u", "user", "dias", "getMenu"],
   data: function data() {
     return {
       parents: [],
@@ -194,7 +194,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component("multiselect", vue_multisel
 
           _this3.getData();
 
-          _this3.getInvitations();
+          _this3.getMenu();
         });
       }
     },
@@ -226,7 +226,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component("multiselect", vue_multisel
 
         _this4.getData();
 
-        _this4.getInvitations();
+        _this4.getMenu();
 
         $("#editE").modal("hide");
       })["catch"](function () {

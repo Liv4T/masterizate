@@ -46,11 +46,11 @@
                     </div>
                     <div>
                         <event-parents-modal :concurrent="concurrent" :type_u="type_u" :dias="dias" :clases="clases"
-                            :user="this.user" :getInvitations="getInvitations"></event-parents-modal>
+                            :user="this.user" :getMenu="getMenu"></event-parents-modal>
                     </div>
                     <div>
                         <modal-edit-parents-info :concurrent="concurrent" :type_u="type_u" :user="this.user"
-                            :dias="dias" :getInvitations="getInvitations"></modal-edit-parents-info>
+                            :dias="dias" :getMenu="getMenu"></modal-edit-parents-info>
                     </div>
                     <br />
                     <div class="row">

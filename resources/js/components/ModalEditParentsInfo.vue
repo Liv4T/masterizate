@@ -122,7 +122,7 @@
             "type_u",
             "user",
             "dias",
-            "getInvitations"
+            "getMenu"
         ],
         data() {
             return {
@@ -178,7 +178,7 @@
                     axios.delete("/parents/" + id).then(() => {
                         toastr.success("Dato Eliminado");
                         this.getData();
-                        this.getInvitations();
+                        this.getMenu();
                     });
                 }
             },
@@ -206,7 +206,7 @@
                 }).then(()=>{
                     toastr.success("Datos Actualizados");
                     this.getData();
-                    this.getInvitations();
+                    this.getMenu();
                     $("#editE").modal("hide");
                 }).catch(()=>{
                     toastr.error("Intenta de nuevo mas tarde")

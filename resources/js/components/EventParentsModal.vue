@@ -95,7 +95,7 @@
     Vue.component("multiselect", Multiselect);
     export default {
 
-        props: ["concurrent", "type_u", "dias", "clases", "user", "getInvitations"],
+        props: ["concurrent", "type_u", "dias", "clases", "user", "getMenu"],
         data() {
             return {
                 desde: "",
@@ -290,7 +290,7 @@
                             toastr.success("Invitación enviada correctamente");
                         })
                     });
-                    this.getInvitations();
+                    this.getMenu();
                     $("#createEvent").modal("hide");
                 } else if (this.typeEvent == 1 || this.typeEvent == 2) {
                     for (let i = 0; i < this.invitationsGet.length; i++) {
@@ -310,7 +310,7 @@
                             })
                         }
                     }
-                    this.getInvitations();
+                    this.getMenu();
                     $("#createEvent").modal("hide");
                 }else if (this.typeEvent == 3) {
                     for (let i = 0; i < this.invitationsGet.length; i++) {
@@ -330,7 +330,7 @@
                             })
                         }
                     }
-                    this.getInvitations();
+                    this.getMenu();
                     $("#createEvent").modal("hide");
                 }
                 this.nameEvent = "",

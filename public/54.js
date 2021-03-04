@@ -107,7 +107,7 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale('es');
 Vue.use(__webpack_require__(/*! vue-moment */ "./node_modules/vue-moment/dist/vue-moment.js"));
 Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_2___default.a);
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["concurrent", "type_u", "dias", "clases", "user", "getInvitations"],
+  props: ["concurrent", "type_u", "dias", "clases", "user", "getMenu"],
   data: function data() {
     return {
       desde: "",
@@ -306,7 +306,7 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_2___defaul
             toastr.success("Invitación enviada correctamente");
           });
         });
-        this.getInvitations();
+        this.getMenu();
         $("#createEvent").modal("hide");
       } else if (this.typeEvent == 1 || this.typeEvent == 2) {
         for (var i = 0; i < this.invitationsGet.length; i++) {
@@ -327,7 +327,7 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_2___defaul
           }
         }
 
-        this.getInvitations();
+        this.getMenu();
         $("#createEvent").modal("hide");
       } else if (this.typeEvent == 3) {
         for (var _i = 0; _i < this.invitationsGet.length; _i++) {
@@ -348,7 +348,7 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_2___defaul
           }
         }
 
-        this.getInvitations();
+        this.getMenu();
         $("#createEvent").modal("hide");
       }
 
