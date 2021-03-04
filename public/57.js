@@ -141,16 +141,9 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component("multiselect", vue_multisel
       link: "",
       idToEdit: "",
       formatDate: "",
-      id_invited: "",
-      diaSemana: "",
-      lastId: "",
       day_week: "",
       date_start: [],
-      date_end: [],
-      invitations: [],
-      invitationsGet: [],
-      arrayDaysEvent: [],
-      arrayDaysEventMes: []
+      date_end: []
     };
   },
   mounted: function mounted() {
@@ -172,7 +165,6 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component("multiselect", vue_multisel
       var _this = this;
 
       axios.get("/getInvitations").then(function (response) {
-        console.log(response);
         _this.parents = response.data;
       })["catch"](function () {
         toastr.error("Intenta de nuevo mas tarde");

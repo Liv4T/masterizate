@@ -388,7 +388,6 @@
                 var urlP = window.location.origin + "/api/event/getStudentsClass";
                 axios.get(urlP).then((response) => {
                     this.clases = response.data;
-                    console.log(this.clases)
                     if (this.clases && this.clases.length > 0) {
 
                         this.clases.forEach(meeting => {
@@ -460,7 +459,6 @@
                         if (this.clases && this.clases.length > 0) {
                             this.clases.forEach(dataParent => {
                                 if (dataParent.id_sender === this.user.id || dataParent.id_invited === this.user.id){
-                                    console.log("datos de invitaciones",dataParent)
                                     fullCalendarApi.addEvent({
                                         title: dataParent.name_event,
                                         start: dataParent.date_start,
@@ -549,7 +547,7 @@
                 }
             },
             handleEventDidMount(info) {
-                console.log('PREV');
+                // console.log('PREV');
                 /* var tooltip = new Tooltip(info.el, {
                     title: info.event.extendedProps.description,
                     placement: 'top',
@@ -640,7 +638,6 @@
                         desde2.setDate(desde2.getDate() + 1);
 
                     }
-                    console.log(this.arrayDaysEventMes);
                 }
                 if (this.typeEvent == 0) {
 
@@ -725,10 +722,7 @@
             last_insert() {
                 var urlId = "lastId";
                 axios.get(urlId).then((response) => {
-
                     this.lastId = response.data;
-                    console.log(response.data);
-
                 })
             },
             createEvent() {

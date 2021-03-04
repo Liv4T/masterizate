@@ -26,7 +26,7 @@ class ParentsController extends Controller
 
     public function getInvitatios(){
         $user_id = Auth::user()->id;
-        $parents = Parents::where('id_sender','=', $user_id)->orderBy('id', 'asc')->get();
+        $parents = Parents::where('id_sender','=', $user_id)->orderBy('id', 'desc')->get();
         return response()->json($parents, 200);return $parents;
     }
     public function getUsersToInvitations(){

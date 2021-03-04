@@ -195,7 +195,6 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_2___defaul
       var urlId = "lastId";
       axios.get(urlId).then(function (response) {
         _this2.lastId = response.data;
-        console.log(response.data);
       });
     },
     concurrentDays: function concurrentDays() {
@@ -243,8 +242,7 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_2___defaul
           }
 
           hoy.setDate(hoy.getDate() + 1);
-        } //console.log(this.arrayDaysEvent);
-
+        }
       }
 
       if (this.typeEvent == 3) {
@@ -279,8 +277,6 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_2___defaul
 
           desde2.setDate(desde2.getDate() + 1);
         }
-
-        console.log(this.arrayDaysEventMes);
       }
 
       if (this.typeEvent == 0) {
@@ -292,7 +288,7 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_2___defaul
       var _this3 = this;
 
       this.concurrentDays();
-      var url = 'notes';
+      var url = 'parents';
 
       if (this.typeEvent == 0) {
         this.invitationsGet.forEach(function (element) {
@@ -308,6 +304,7 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_2___defaul
             id_sender: _this3.user.id
           }).then(function () {
             toastr.success("Invitación enviada correctamente");
+            $("#createEvent").modal("hide");
           });
         });
       } else if (this.typeEvent == 1 || this.typeEvent == 2) {
@@ -341,8 +338,7 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_2___defaul
               email_invited: this.invitationsGet[_i].email,
               id_invited: this.invitationsGet[_i].id,
               id_sender: this.user.id
-            }).then(function (response) {
-              console.log(response);
+            }).then(function () {
               _this3.getInvitations;
               toastr.success("Invitación enviada correctamente");
             });

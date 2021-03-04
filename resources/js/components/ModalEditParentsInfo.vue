@@ -131,16 +131,9 @@
                 link: "",
                 idToEdit:"",
                 formatDate:"",
-                id_invited: "",
-                diaSemana: "",
-                lastId: "",
                 day_week:"",
                 date_start: [],
                 date_end: [],
-                invitations: [],
-                invitationsGet: [],
-                arrayDaysEvent: [],
-                arrayDaysEventMes: []
             }
         },
         mounted() {
@@ -160,7 +153,6 @@
         methods: {
             getData() {
                 axios.get("/getInvitations").then((response) => {
-                    console.log(response)
                     this.parents = response.data;
                 }).catch(() => {
                     toastr.error("Intenta de nuevo mas tarde")

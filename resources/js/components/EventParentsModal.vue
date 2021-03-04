@@ -182,7 +182,6 @@
                 var urlId = "lastId";
                 axios.get(urlId).then((response) => {
                     this.lastId = response.data;
-                    console.log(response.data);
                 })
             },
             concurrentDays() {
@@ -230,7 +229,6 @@
                         hoy.setDate(hoy.getDate() + 1);
 
                     }
-                    //console.log(this.arrayDaysEvent);
                 }
 
                 if (this.typeEvent == 3) { //Crear evento una vez por mes
@@ -265,7 +263,6 @@
                         desde2.setDate(desde2.getDate() + 1);
 
                     }
-                    console.log(this.arrayDaysEventMes);
                 }
                 if (this.typeEvent == 0) {
 
@@ -276,7 +273,7 @@
             },
             createInvitation() {
                 this.concurrentDays();
-                const url = 'notes';
+                const url = 'parents';
                 if (this.typeEvent == 0) {
                     this.invitationsGet.forEach(element => {
                         axios.post(url, {
@@ -291,6 +288,7 @@
                             id_sender: this.user.id
                         }).then(() => {
                             toastr.success("Invitación enviada correctamente");
+                            $("#createEvent").modal("hide");
                         })
                     });
                 } else if (this.typeEvent == 1 || this.typeEvent == 2) {
@@ -324,8 +322,7 @@
                                 email_invited: this.invitationsGet[i].email,
                                 id_invited: this.invitationsGet[i].id,
                                 id_sender: this.user.id
-                            }).then(response => {
-                                console.log(response)
+                            }).then(() => {
                                 this.getInvitations;
                                 toastr.success("Invitación enviada correctamente");
                             })
