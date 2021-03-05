@@ -10,7 +10,8 @@ Homestead.json
 Homestead.yaml
 npm-debug.log
 yarn-error.log
+mysql/mysql
 mysql
-Dockerfile
 docker-compose
 docker-compose.yml
+Dockerfile

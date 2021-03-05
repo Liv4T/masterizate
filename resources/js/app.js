@@ -89,6 +89,7 @@ Vue.component("anuncio-docente", require("./components/anunciodocente.vue").defa
 Vue.component("actividadg-docente",  () => import ("./components/actividadGDocente.vue"));
 Vue.component("anunciomc-component", require("./components/anunciomc.vue").default);
 Vue.component("calendar-component", require("./components/calendarComponent.vue").default);
+Vue.component("psychology-calendar-component", require("./components/psychologyComponent.vue").default);
 Vue.component("student-calendar-component", require("./components/studentCalendarComponent.vue").default);
 Vue.component("redactar-component", require("./components/redactar.vue").default);
 Vue.component("vmensaje-component", require("./components/vistamensaje.vue").default);
@@ -106,7 +107,10 @@ Vue.component("clasesd-component",()=>import("./components/clasesDocente.vue"));
 Vue.component("crearc-component", require("./components/crearClase.vue").default);
 Vue.component("editarc-component", require("./components/editarClase.vue").default);
 
+//Landing 
 
+Vue.component("landing-component",()=>import("./components/landing.vue"));
+Vue.component("footer-landing",()=>import("./components/footerLanding.vue"));
 
 Vue.component("inicio-component", ()=>import("./components/inicio.vue"));
 Vue.component("userinfo", ()=>import("./components/UserInfo"));
@@ -200,5 +204,6 @@ Vue.component("teacher-student-class-select", () => import ("./components/teache
 Vue.component("teacher-student-class-content", () => import ("./components/teacherStudentClassContentComponent.vue"));
 Vue.component("notification-component", () => import ("./components/notificationComponent.vue"));
 Vue.use(CKEditor);
+
 
 const app = new Vue({el: "#app", data: {}, store});
