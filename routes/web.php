@@ -165,6 +165,9 @@ Route::middleware('auth')->get('/boletin', function () {
 Route::middleware('auth')->get('/calendar', function () {
     return view('calendar')->with('type_user', Auth::user()->type_user);
 });
+Route::middleware('auth')->get('/psychology', function () {
+    return view('psychology')->with('type_user', Auth::user()->type_user);
+});
 Route::middleware('auth')->get('/calendario', function () {
     return view('calendar')->with('type_user', Auth::user()->type_user);
 });
