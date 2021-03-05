@@ -78,140 +78,39 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       notes: [],
-      observationNote: "",
-      inData: false,
-      data: [{
-        id: 1,
-        name: "Estudiante 1",
-        materials: [{
-          id: 1,
-          name: "Matematicas",
-          id_student: 1,
-          note: [{
-            name: "Comportamiento",
-            note: 35
-          }, {
-            name: "Rendimiento",
-            note: 35
-          }, {
-            name: "Nota Final",
-            note: 35
-          }],
-          observation: "Sigue Mejorando"
-        }, {
-          id: 2,
-          name: "Español",
-          id_student: 1,
-          note: [{
-            name: "Comportamiento",
-            note: 40
-          }, {
-            name: "Rendimiento",
-            note: 40
-          }, {
-            name: "Nota Final",
-            note: 40
-          }],
-          observation: "Vas Bien"
-        }, {
-          id: 3,
-          name: "Fisica",
-          id_student: 1,
-          note: [{
-            name: "Comportamiento",
-            note: 50
-          }, {
-            name: "Rendimiento",
-            note: 50
-          }, {
-            name: "Nota Final",
-            note: 50
-          }],
-          observation: "Excelente"
-        }]
-      }, {
-        id: 2,
-        name: "Estudiante 2",
-        materials: [{
-          id: 1,
-          name: "Ed fisica",
-          id_student: 2,
-          note: [{
-            name: "Comportamiento",
-            note: 35
-          }, {
-            name: "Rendimiento",
-            note: 35
-          }, {
-            name: "Nota Final",
-            note: 35
-          }],
-          observation: "Excelente"
-        }, {
-          id: 2,
-          name: "Fisica",
-          id_student: 2,
-          note: [{
-            name: "Comportamiento",
-            note: 45
-          }, {
-            name: "Rendimiento",
-            note: 45
-          }, {
-            name: "Nota Final",
-            note: 45
-          }],
-          observation: "Vas bien"
-        }, {
-          id: 3,
-          name: "Quimica",
-          id_student: 2,
-          note: [{
-            name: "Comportamiento",
-            note: 46
-          }, {
-            name: "Rendimiento",
-            note: 46
-          }, {
-            name: "Nota Final",
-            note: 46
-          }],
-          observation: "Sigue mejorando"
-        }]
-      }]
+      studentClass: [],
+      inData: false
     };
   },
-  mounted: function mounted() {},
+  mounted: function mounted() {
+    this.getClasses();
+  },
   methods: {
-    getNotes: function getNotes(notes) {
-      this.notes = notes;
+    getClasses: function getClasses() {
+      var _this = this;
+
+      axios.get('/getAreas').then(function (response) {
+        _this.studentClass = response.data;
+      })["catch"](function (error) {
+        console.log(error);
+      });
     },
-    getObservation: function getObservation(observation) {
-      this.observationNote = observation;
+    getNotes: function getNotes(id_student, id_area, id_classroom) {
+      var _this2 = this;
+
+      return new Promise(function (resolve, reject) {
+        axios.get("/api/teacher/area/".concat(id_area, "/classroom/").concat(id_classroom, "/student/").concat(id_student, "/module")).then(function (response) {
+          _this2.notes = response.data;
+          $("#notesModal").modal("show");
+          resolve();
+        }, function (e) {
+          return reject(e);
+        });
+      });
     }
   }
 });
@@ -238,10 +137,10 @@ var render = function() {
       _c(
         "div",
         { staticClass: "col-sm-10", attrs: { id: "crud" } },
-        _vm._l(_vm.data, function(data, id) {
-          return _c("div", { key: id, staticClass: "card text-center" }, [
+        _vm._l(_vm.studentClass, function(studentClass, key) {
+          return _c("div", { key: key, staticClass: "card text-center" }, [
             _c("h3", { staticClass: "card-header fondo" }, [
-              _vm._v(_vm._s(data.name))
+              _vm._v(_vm._s(key))
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "card-body" }, [
@@ -254,10 +153,10 @@ var render = function() {
                 [
                   _vm._m(0, true),
                   _vm._v(" "),
-                  _vm._l(data.materials, function(material, id) {
+                  _vm._l(studentClass, function(studentClass, id) {
                     return _c("tbody", { key: id }, [
                       _c("tr", [
-                        _c("td", [_vm._v(_vm._s(material.name))]),
+                        _c("td", [_vm._v(_vm._s(studentClass.text))]),
                         _vm._v(" "),
                         _c("td", [
                           _c("div", [
@@ -265,44 +164,20 @@ var render = function() {
                               "button",
                               {
                                 staticClass: "btn btn-warning",
-                                attrs: {
-                                  type: "button",
-                                  "data-toggle": "modal",
-                                  "data-target": "#notesModal"
-                                },
+                                attrs: { type: "button" },
                                 on: {
                                   click: function($event) {
-                                    return _vm.getNotes(material.note)
-                                  }
-                                }
-                              },
-                              [
-                                _vm._v(
-                                  "\n                                            Notas\n                                        "
-                                )
-                              ]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "button",
-                              {
-                                staticClass: "btn btn-warning",
-                                attrs: {
-                                  type: "button",
-                                  "data-toggle": "modal",
-                                  "data-target": "#observationModal"
-                                },
-                                on: {
-                                  click: function($event) {
-                                    return _vm.getObservation(
-                                      material.observation
+                                    return _vm.getNotes(
+                                      studentClass.id_student,
+                                      studentClass.id_area,
+                                      studentClass.id_classroom
                                     )
                                   }
                                 }
                               },
                               [
                                 _vm._v(
-                                  "\n                                            Observación\n                                        "
+                                  "\n                                            Ver\n                                        "
                                 )
                               ]
                             )
@@ -354,44 +229,21 @@ var render = function() {
                     _vm._l(_vm.notes, function(notes, id) {
                       return _c("tbody", { key: id }, [
                         _c("tr", [
-                          _c("td", [_vm._v(_vm._s(notes.name))]),
+                          _c("td", [_vm._v(_vm._s(notes.driving_question))]),
                           _vm._v(" "),
-                          _c("td", [_vm._v(_vm._s(notes.note))])
+                          notes.score > -1
+                            ? _c("td", [_vm._v(_vm._s(notes.progress) + "%")])
+                            : _c("td", [_vm._v("-")]),
+                          _vm._v(" "),
+                          notes.score > -1
+                            ? _c("td", [_vm._v(_vm._s(notes.score) + "/5")])
+                            : _c("td", [_vm._v("-")])
                         ])
                       ])
                     })
                   ],
                   2
                 )
-              ])
-            ])
-          ]
-        )
-      ]
-    ),
-    _vm._v(" "),
-    _c(
-      "div",
-      {
-        staticClass: "modal fade",
-        attrs: {
-          id: "observationModal",
-          tabindex: "-1",
-          role: "dialog",
-          "aria-labelledby": "exampleModalLabel",
-          "aria-hidden": "true"
-        }
-      },
-      [
-        _c(
-          "div",
-          { staticClass: "modal-dialog", attrs: { role: "document" } },
-          [
-            _c("div", { staticClass: "modal-content" }, [
-              _vm._m(3),
-              _vm._v(" "),
-              _c("div", { staticClass: "modal-body" }, [
-                _c("p", [_vm._v(_vm._s(_vm.observationNote))])
               ])
             ])
           ]
@@ -409,7 +261,7 @@ var staticRenderFns = [
       _c("tr", [
         _c("th", [_vm._v("Nombre de la materia")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Acción")])
+        _c("th", [_vm._v("Notas")])
       ])
     ])
   },
@@ -444,35 +296,12 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
-        _c("th", [_vm._v("Nota")]),
+        _c("th", [_vm._v("Actividad")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Puntaje")])
+        _c("th", [_vm._v("Progreso")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Nota")])
       ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "modal-header" }, [
-      _c(
-        "h5",
-        { staticClass: "modal-title", attrs: { id: "exampleModalLabel" } },
-        [_vm._v("Observaciónes")]
-      ),
-      _vm._v(" "),
-      _c(
-        "button",
-        {
-          staticClass: "close",
-          attrs: {
-            type: "button",
-            "data-dismiss": "modal",
-            "aria-label": "Close"
-          }
-        },
-        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
-      )
     ])
   }
 ]

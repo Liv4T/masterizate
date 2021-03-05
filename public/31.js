@@ -324,7 +324,7 @@ var staticRenderFns = [
         ])
       ]),
       _vm._v(" "),
-      _c("a", { attrs: { href: "/notes" } }, [
+      _c("a", { attrs: { href: "/parents" } }, [
         _c("li", { staticClass: "item-menu" }, [
           _c("img", {
             attrs: {
