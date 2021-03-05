@@ -94,28 +94,6 @@
               </button>
             </div>
             <div class="modal-body">
-            <div class="form-group row justify-content-center">
-                <div class="col-md-6">
-                  <label for="name">Evento concurrente</label>
-                  <select class="form-control" v-model="typeEvent" @change="selectChange" >
-                    <option :value="options.id" v-for="options in concurrent">
-                      {{
-                      options.type
-                      }}
-                    </option>
-                  </select>
-                </div>
-                <div class="col-md-6">
-                  <label style="display: none;" id="labeldia">Dia de la semana</label>
-                  <select class="form-control" name="dia" id="dia" v-model="diaSemana" style="display:none">
-                    <option :value="options.id" v-for="options in dias">
-                      {{
-                      options.dia
-                      }}
-                    </option>
-                  </select>
-                </div>
-              </div>
               <div class="form-group row justify-content-center">
                 <div class="col-md-6">
                   <label for="name">Nombre del evento</label>
@@ -142,22 +120,17 @@
               <div class="form-group row">
                 <div class="col-md-6">
                   <label for="name">Desde</label>
-                  <datetime :format="formatDate" v-model="desde"></datetime>
+                  <datetime format="YYYY-MM-DD H:i:s" v-model="desde"></datetime>
                   <div class="invalid-feedback">Please fill out this field</div>
                 </div>
                 <div class="col-md-6">
                   <label for="name">Hasta</label>
-                  <datetime :format="formatDate" v-model="hasta"></datetime>
+                  <datetime format="YYYY-MM-DD H:i:s" v-model="hasta"></datetime>
                   <div class="invalid-feedback"></div>
                 </div>
                 <div class="col-md-6">
                   <strong for="name">Enlace de Meet</strong>
                   <input type="text" name="name" class="form-control" v-model="nameMeet" />
-                  <div class="invalid-feedback">Please fill out this field</div>
-                </div>
-                <div class="col-md-6" style="display: none;">
-                  <strong for="name">id ultimo</strong>
-                  <input type="text" name="id_padre" class="form-control" v-model="lastId" />
                   <div class="invalid-feedback">Please fill out this field</div>
                 </div>
               </div>
@@ -211,7 +184,7 @@
                 <div class="col-md-6">
                   <strong for="name">Enlace de Meet</strong>
                   <input type="text" name="name" class="form-control" v-model="meetUp" />
-                  <div class="invalid-feedback">Por favor ingresa la fecha</div>
+                  <div class="invalid-feedback">Por favor ingrwsa la fecha</div>
                 </div>
               </div>
               <div class="modal-footer">
@@ -277,31 +250,17 @@ export default {
       value:[],
       myOptions:[],
       materia: [],
-      concurrent: [{'id':'0','type':'No'},{'id':'1', 'type':'De lunes a viernes'}, {'id':'2', 'type':'Un dia en especifico'}, {'id':'3', 'type':'Menusal'}],
-      dias:[{'id':'0', 'dia':'Domingo'},{'id':'1','dia':'Lunes'},{'id':'2','dia':'Martes'},{'id':'3','dia':'Miercoles'},{'id':'4','dia':'Jueves'},{'id':'5','dia':'Viernes'},{'id':'6','dia':'Sabado'}],
-      diaSemana: "",
       meetUp: "",
       nameUp: "",
       fromUp: "",
       toUp: "",
-      id_padreUp: "",
-      id_padreDel: "",
-      editConcurrent: "",
       areaUp: "",
       evenUp: [],
-      evenDel: [],
       delId: "",
       delName: "",
-      formatDate: "",
       idUp: "",
-      typeEvent: "",
-      daysWeek:[],
-      lastId: [],
-      errors: [],
       lective_planification:{},
       initialView:'dayGridMonth',
-      arrayDaysEvent: [],
-      arrayDaysEventMes: [],
       calendarOptions: {
         locale: esLocale,
         plugins: [ dayGridPlugin, interactionPlugin,timeGridPlugin,momentTimezonePlugin,momentPlugin ],
@@ -365,6 +324,11 @@ export default {
         });
 
     });
+
+
+
+
+
   },
   methods: {
       filterPendingEvents:(events)=>{
@@ -389,27 +353,6 @@ export default {
                 }
             });
           }
-      },
-      selectChange() {
-        if (this.typeEvent == 2) {
-          document.getElementById("dia").style.display = "block";
-          document.getElementById("labeldia").style.display = "block";
-          this.formatDate = "H:i:s";
-          this.last_insert()
-        } else if (this.typeEvent == 3) {
-          document.getElementById("dia").style.display = "none";
-          document.getElementById("labeldia").style.display = "none";
-          this.formatDate = "YYYY-MM-DD H:i:s";    
-        }else if (this.typeEvent == 1){
-          document.getElementById("dia").style.display = "none";
-          document.getElementById("labeldia").style.display = "none";
-          this.formatDate = "H:i:s";
-          this.last_insert() 
-        }else if (this.typeEvent == 0){
-          document.getElementById("dia").style.display = "none";
-          document.getElementById("labeldia").style.display = "none";
-          this.formatDate = "YYYY-MM-DD H:i:s"; 
-        }
       },
       displayEventsChange(){
            const fullCalendarApi=this.$refs.fullCalendar.getApi();
@@ -451,96 +394,6 @@ export default {
         });*/
 
     },
-    concurrentDays(){
-      if(this.typeEvent == 1){ //Crear eventos de lunes a viernes y omitimos los dias que ya pasaron de la semana
-        
-        var date2 = new Date();
-        if (date2.getDay() == 6){
-          date2.setDate(date2.getDate() + 2);
-        }
-        if (date2.getDay() == 0){
-          date2.setDate(date2.getDate() + 1);
-        }
-        var dayOfWeek = date2.getDay();
-        this.arrayDaysEvent = [];
-        for(var i=0;i<5;i++){
-          if(i-dayOfWeek!=-1){
-            var days = i-dayOfWeek + 1;
-            var newDate = new Date(date2.getTime()+(days * 24 * 60 * 60 * 1000));
-            newDate = moment(String(newDate)).format('YYYY-MM-DD');
-            if(i +1 >= dayOfWeek){
-              this.arrayDaysEvent.push(newDate);
-            }  
-          }else{ 
-            var date3 = moment(String(date2)).format('YYYY-MM-DD');
-            this.arrayDaysEvent.push(date3);
-          }
-        }    
-      }
-      if(this.typeEvent == 2){ //Crear eventos un dia especifico de la semana 
-        
-        this.arrayDaysEvent = [];
-        var hoy= new Date();
-        var hasta= new Date();
-        hasta.setDate(hasta.getDate() + 365);
-        
-        while (moment(hoy).isSameOrBefore(hasta)) {
-          
-          if(this.diaSemana == hoy.getDay()){
-            
-            this.arrayDaysEvent.push(moment(hoy).format('YYYY-MM-DD'));
-            
-          }
-          
-          hoy.setDate(hoy.getDate() + 1);
-          
-        }
-        //console.log(this.arrayDaysEvent);
-      }
-
-      if(this.typeEvent == 3){ //Crear evento una vez por mes
-
-        this.arrayDaysEvent = [];
-        this.arrayDaysEventMes = [];
-        var desde= new Date(this.desde);
-        var hasta= new Date(this.desde);
-        var desde2= new Date(this.hasta);
-        var hasta2= new Date(this.hasta);
-        hasta.setDate(hasta.getDate() + 365);
-        hasta2.setDate(hasta2.getDate() + 365);
-        var dia= desde.getDate(desde);
-        var dia2= desde2.getDate(desde2);
-        while (moment(desde).isSameOrBefore(hasta)) {
-          var dayMonth= desde.getDate(desde);
-          if(dayMonth == dia){
-            
-            this.arrayDaysEvent.push(moment(desde).format('YYYY-MM-DD H:mm:ss'));
-            
-          }
-          
-          desde.setDate(desde.getDate() + 1);
-          
-        }
-        while (moment(desde2).isSameOrBefore(hasta2)) {
-          var dayMonth= desde2.getDate(desde2);
-          if(dayMonth == dia2){
-            
-            this.arrayDaysEventMes.push(moment(desde2).format('YYYY-MM-DD H:mm:ss'));
-            
-          }
-          
-          desde2.setDate(desde2.getDate() + 1);
-          
-        }
-        console.log(this.arrayDaysEventMes);
-      }
-      if(this.typeEvent == 0){ 
-
-        this.arrayDaysEvent = [];
-        this.formatDate = "YYYY-MM-DD H:i:s";
-        
-      }
-    },
     changeCalendarView(view){
         this.initialView=view;
         this.calendarOptions.initialView=view;
@@ -551,8 +404,6 @@ export default {
     },
     createE() {
       $("#createE").modal("show");
-      //this.concurrentDays();
-      
     },
     editE(id) {
       this.evenUp = [];
@@ -564,7 +415,6 @@ export default {
         this.fromUp = this.evenUp.date_from;
         this.toUp = this.evenUp.date_to;
         this.meetUp = this.evenUp.url;
-        this.id_padreUp = this.evenUp.id_padre;
         this.idUp = id;
       });
       $("#editE").modal("show");
@@ -573,176 +423,63 @@ export default {
       $("#deleteE").modal("hide");
     },
     deleteEvent(id) {
-      var url = "deleteEvent";
-      if (this.id_padreDel === null) {
-        axios
-          .put(url, {
-            id: id,
-            id_padre: this.id_padreDel,
-            todos: false,
-          }).then((response) => {
-            this.getMenu();
-            toastr.success("Evento actualizado exitosamente");
-          })
-          .catch((error) => {});
+      var url = "deleteEvent/" + id;
+      axios.get(url).then((response) => {
+        toastr.success("Eliminado exitosamente"); //mensaje
+        // eliminamos
+        this.getMenu(); //listamos
 
-      }else{  // falta cambiar la funcion de eliminar por la de cambiar el update_at
-        var resp = confirm("Este evento es concurrente, ¿desea editar todos los eventos?");
-        axios
-          .put(url, {
-            id: id,
-            id_padre: this.id_padreDel,
-            todos: resp,
-          }).then((response) => {
-            this.getMenu();
-            toastr.success("Evento actualizado exitosamente");
-          })
-          .catch((error) => {});
-      }
+      });
     },
     viewDelete(id, name) {
       this.delName = name;
       this.delId = id;
-      this.evenDel = [];
-      var urlM = window.location.origin + "/editEvent/" + id;
-      axios.get(urlM).then((response) => {
-        this.evenDel = response.data;
-        this.id_padreDel = this.evenDel.id_padre;
-      });
       $("#deleteE").modal("show");
-    },
-    last_insert() {
-      var urlId = "lastId";
-      axios.get(urlId).then((response) => {
-        
-        this.lastId = response.data;
-        console.log(response.data);
-         
-      })
     },
     createEvent() {
       var url = "createEvent";
-      this.concurrentDays();
-      if (this.typeEvent == 0){
-        if (this.materia.length >= 1) {
-          for (let i = 0; i < this.materia.length; i++) {
+      if (this.materia.length >= 1) {
+        console.log(this.materia);
+        for (let i = 0; i < this.materia.length; i++) {
 
-            axios
-              .post(url, {
-                //Cursos generales
-                name: this.nameEvent,
-                startDateTime: this.desde,
-                endDateTime: this.hasta,
-                id_area: this.materia[i].id,
-                id_classroom: this.materia[i].id_classroom,
-                url: this.nameMeet,
-                id_padre: null,
-              })
-              .then((response) => {
-                toastr.success("Nuevo evento creado exitosamente");
-                this.getMenu();
+          axios
+            .post(url, {
+              //Cursos generales
+              name: this.nameEvent,
+              startDateTime: this.desde,
+              endDateTime: this.hasta,
+              id_area: this.materia[i].id,
+              id_classroom: this.materia[i].id_classroom,
+              url: this.nameMeet,
+            })
+            .then((response) => {
+              toastr.success("Nuevo evento creado exitosamente");
+              this.getMenu();
 
-              })
-              .catch((error) => {});
+            })
+            .catch((error) => {});
 
-          }
-        }
-      }else if(this.typeEvent == 1 || this.typeEvent == 2) {
-        if (this.materia.length >= 1 && this.arrayDaysEvent.length >= 1) {
-          for (let i = 0; i < this.materia.length; i++) {    
-            for(let j = 0; j < this.arrayDaysEvent.length; j++ ){
-              axios
-                .post(url, {
-                  //Cursos generales
-                  name: this.nameEvent,
-                  startDateTime: this.arrayDaysEvent[j] + " " + this.desde,
-                  endDateTime: this.arrayDaysEvent[j] + " " + this.hasta,
-                  id_area: this.materia[i].id,
-                  id_classroom: this.materia[i].id_classroom,
-                  url: this.nameMeet,
-                  id_padre: this.lastId + 1,
-                })
-                .then((response) => {
-                  toastr.success("Nuevo evento creado exitosamente");
-                  this.getMenu();
-
-                })
-                .catch((error) => {});
-            }
-          }
-        }
-      }else if(this.typeEvent == 3){
-        
-        if (this.materia.length >= 1 && this.arrayDaysEvent.length >= 1) {
-          for (let i = 0; i < this.materia.length; i++) {    
-            for(let j = 0; j < this.arrayDaysEvent.length; j++){
-              axios
-                .post(url, {
-                  //Cursos generales
-                  name: this.nameEvent,
-                  startDateTime: this.arrayDaysEvent[j],
-                  endDateTime: this.arrayDaysEventMes[j],
-                  id_area: this.materia[i].id,
-                  id_classroom: this.materia[i].id_classroom,
-                  url: this.nameMeet,
-                  id_padre: this.lastId + 1,
-                })
-                .then((response) => {
-                  toastr.success("Nuevo evento creado exitosamente");
-                  this.getMenu();
-
-                })
-                .catch((error) => {});
-            }
-          }
         }
       }
     },
     updateEvent() {
       var url = "updateEvent";
 
-      if (this.id_padreUp === null) {
-        
-        axios
-          .put(url, {
-            //Cursos generales
-            id: this.idUp,
-            name: this.nameUp,
-            startDateTime: this.fromUp,
-            endDateTime: this.toUp,
-            id_area: this.areaUp,
-            url: this.meetUp,
-            id_padre: this.id_padreUp,
-            todos: false,
-          })
-          .then((response) => {
-            this.getMenu();
-            toastr.success("Evento actualizado exitosamente");
-          })
-          .catch((error) => {});
-      }else{
-        
-        var resp = confirm("Este evento es concurrente, ¿desea editar todos los eventos?");
-        
-          axios
-            .put(url, {
-              //Cursos generales
-              id: this.idUp,
-              name: this.nameUp,
-              startDateTime: this.fromUp,
-              endDateTime: this.toUp,
-              id_area: this.areaUp,
-              url: this.meetUp,
-              id_padre: this.id_padreUp,
-              todos: resp,
-            })
-            .then((response) => {
-              this.getMenu();
-              toastr.success("Evento actualizado exitosamente");
-            })
-            .catch((error) => {});
-        
-      }
+      axios
+        .put(url, {
+          //Cursos generales
+          id: this.idUp,
+          name: this.nameUp,
+          startDateTime: this.fromUp,
+          endDateTime: this.toUp,
+          id_area: this.areaUp,
+          url: this.meetUp,
+        })
+        .then((response) => {
+          this.getMenu();
+          toastr.success("Evento actualizado exitosamente");
+        })
+        .catch((error) => {});
     },
   },
 };

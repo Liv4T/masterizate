@@ -44,7 +44,7 @@ class EventsController extends Controller
 
         // $event->save();
 
-        //$area_classroom = $request->id_area;
+        $area_classroom = $request->id_area;
         //$arrayAreaClassroom = explode("/", $area_classroom);
 
         $evento = new Eventos;
@@ -55,40 +55,9 @@ class EventsController extends Controller
         $evento->id_classroom = $request->id_classroom;
         $evento->id_user = Auth::user()->id;
         $evento->url = $request->url;
-        $evento->id_padre = $request->id_padre; 
         $evento->save();
 
         return response()->json($evento);
-    }
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function lastID(){
-
-        $last_id= Eventos::all()->last()->id;
-
-        return $last_id;
-
-    }
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function Update_padre(String $id){
-
-        $eventos = Eventos::findOrFail($id);
-        
-        $eventos->id_padre = $id;
-        $eventos->save();
-
-        return response()->json($eventos);
-
     }
 
     /**
@@ -106,7 +75,7 @@ class EventsController extends Controller
         $initial_range_date = date ( 'Y-m-d' , strtotime ( '-90 day' , strtotime ($current_date ) )) ;
         $end_range_date =date ( 'Y-m-d' ,  strtotime ( '+90 day' , strtotime ($current_date ) )) ;
         if (isset($user) && $user->type_user == 2) {
-            $eventos_teacher = Eventos::where('id_user', $user->id)->whereDate('date_from','>=',$initial_range_date)->whereDate('date_to','<=',$end_range_date)->where('delete_at','=', null)->orderBy('date_from', 'ASC')->get();
+            $eventos_teacher = Eventos::where('id_user', $user->id)->whereDate('date_from','>=',$initial_range_date)->whereDate('date_to','<=',$end_range_date)->orderBy('date_from', 'ASC')->get();
             foreach ($eventos_teacher as $index => $evento) {
 
 
@@ -133,7 +102,7 @@ class EventsController extends Controller
             }
         } elseif (isset($user) && $user->type_user == 3) {
             $classroom_student = ClassroomStudent::where('id_user', $user->id)->first();
-            $eventos_student = Eventos::where('id_classroom', $classroom_student->id_classroom)->whereDate('date_from','>=',$initial_range_date)->whereDate('date_to','<=',$end_range_date)->where('delete_at','=', null)->orderBy('date_from', 'ASC')->get();
+            $eventos_student = Eventos::where('id_classroom', $classroom_student->id_classroom)->whereDate('date_from','>=',$initial_range_date)->whereDate('date_to','<=',$end_range_date)->orderBy('date_from', 'ASC')->get();
 
             foreach ($eventos_student as $index => $evento) {
 
@@ -198,7 +167,7 @@ class EventsController extends Controller
                 }
             }
         } elseif (isset($user) && $user->type_user == 1) {
-            $eventos_all = Eventos::whereDate('date_from','>=',$initial_range_date)->whereDate('date_to','<=',$end_range_date)->where('delete_at','=', null)->orderBy('date_from', 'ASC')->get();
+            $eventos_all = Eventos::whereDate('date_from','>=',$initial_range_date)->whereDate('date_to','<=',$end_range_date)->orderBy('date_from', 'ASC')->get();
             foreach ($eventos_all as $index => $evento) {
 
                     if ($evento->id_classroom == 0) // is lective
@@ -549,81 +518,22 @@ class EventsController extends Controller
     public function updateEvent(Request $request)
     {
         $data = $request->all();
+        $eventos = Eventos::findOrFail($data['id']);
         $user = Auth::user();
-        if($data['todos'] === false){
-            $eventos = Eventos::findOrFail($data['id']);
-            $area_classroom = $data['id_area'];
-            $arrayAreaClassroom = explode("/", $area_classroom);
-            $eventos->name = $data['name'];
-            $eventos->date_from = $data['startDateTime'];
-            $eventos->date_to = $data['endDateTime'];
-            $eventos->id_area = $arrayAreaClassroom[0];
-            $eventos->id_classroom = $arrayAreaClassroom[1];
-            $eventos->id_user = Auth::user()->id;
-            $eventos->url = $data['url'];
-            $eventos->save();
-        
-            return 'ok';
-        }else{
-            $eventos = Eventos::select('id')->where('id_padre', $data['id_padre'])->get();
-            if(count($eventos) > 0){
-                for($i=0; $i < count($eventos); $i++){
-                    $evento = Eventos::where('id', $eventos[$i]->id)->first();
-                    $area_classroom = $data['id_area'];
-                    $arrayAreaClassroom = explode("/", $area_classroom);
-                    $evento->name = $data['name'];
-                    $evento->date_from = $data['startDateTime'];
-                    $evento->date_to = $data['endDateTime'];
-                    $evento->id_area = $arrayAreaClassroom[0];
-                    $evento->id_classroom = $arrayAreaClassroom[1];
-                    $evento->id_user = Auth::user()->id;
-                    $evento->url = $data['url'];
-                    $evento->save();
-            
-                }
-            }else{
-                return 'no';
-            }
-            return 'ok';
-        }
 
+        $area_classroom = $data['id_area'];
+        $arrayAreaClassroom = explode("/", $area_classroom);
+        $eventos->name = $data['name'];
+        $eventos->date_from = $data['startDateTime'];
+        $eventos->date_to = $data['endDateTime'];
+        $eventos->id_area = $arrayAreaClassroom[0];
+        $eventos->id_classroom = $arrayAreaClassroom[1];
+        $eventos->id_user = Auth::user()->id;
+        $eventos->url = $data['url'];
+        $eventos->save();
+
+        return 'ok';
     }
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function deleteEvent(Request $request)
-    {
-        $data = $request->all();
-        $user = Auth::user();
-        if($data['todos'] === false){
-            $eventos = Eventos::findOrFail($data['id']);
-            $eventos->id_user = Auth::user()->id;
-            $eventos->delete_at = Carbon::now();
-            $eventos->save();
-        
-            return 'ok';
-        }else{
-            $eventos = Eventos::select('id')->where('id_padre', $data['id_padre'])->get();
-            if(count($eventos) > 0){
-                for($i=0; $i < count($eventos); $i++){
-                    $evento = Eventos::where('id', $eventos[$i]->id)->first();
-                    $evento->id_user = Auth::user()->id;
-                    $evento->delete_at = Carbon::now();
-                    $evento->save();
-            
-                }
-            }else{
-                return 'no';
-            }
-            return 'ok';
-        }
-
-    }
-
     public function findEvent(String $id)
     {
 
