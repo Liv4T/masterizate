@@ -431,7 +431,7 @@ export default {
         openDocument(resource) {
             try {
                 this.saveInteraction(resource);
-              //  window.open(resource.content);
+                window.open(resource.content);
             } catch {}
         },
         openLink(resource) {
