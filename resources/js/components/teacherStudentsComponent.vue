@@ -18,6 +18,7 @@
                             </div>
                         </div>
                         <div class="col-12 col-md-8">
+                            <!--
                             <div class="row">
                                 <div class="col-12 col-md-12 align-self-end">
                                     <div class="percent-calification-base">
@@ -34,6 +35,7 @@
                                     </div>
                                 </div>
                             </div>
+                            -->
                             <div class="students_container">
                                 <table class="table table-hover center">
                                     <thead>

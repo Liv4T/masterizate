@@ -535,6 +535,9 @@ Route::get('/logout2', 'UserController@logOut')->name('logout2');
 Route::middleware('auth')->get('/admin/lectives', function () {
     return view('lectivesAdm');
 });
+Route::middleware('auth')->get('/admin/configuracion', function () {
+    return view('configurationAdm');
+});
 Route::middleware('auth')->get('/admin/lectives-teacher', function () {
     return view('lectivesAdmAssingTeacher');
 });
@@ -668,6 +671,9 @@ Route::get('/api/teacher/area/{area_id}/classroom/{classroom_id}/student/{studen
 Route::get('/api/student/{student_id}', 'StudentController@get');
 Route::get('/api/teacher/area/{area_id}/classroom/{classroom_id}/student/{student_id}/module/{module_id}/class/{class_id}', 'CalificationController@getByClass');
 Route::get('/api/event/today', 'EventsController@todayEvents');
+Route::get('/api/admin/configuration/property/{code}', 'ConfigurationController@getPropertyByCode');
+Route::put('/api/admin/configuration/property/{code}', 'ConfigurationController@setProperty');
+Route::get('/api/admin/configuration/template-calification/generate-minify', 'CalificationController@generateMinify');
 
 
 Route::get('/api/lectives', 'LectivesController@getLectives');

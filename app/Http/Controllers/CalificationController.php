@@ -12,10 +12,12 @@ use App\ActivityQuestion;
 use App\ActivityQuestionInteraction;
 use App\ActivityRelationship;
 use App\ActivityRelationshipInteraction;
+use App\Area;
 use App\ClassContent;
 use App\Classroom;
 use App\ClassroomStudent;
 use App\Classs;
+use App\ConfigurationParameter;
 use Illuminate\Support\Facades\Auth;
 use App\Weekly;
 use Illuminate\Support\Facades\DB;
@@ -28,6 +30,8 @@ class CalificationController extends Controller
         $auth = Auth::user();
 
         if(!isset($auth)) return  response()->json([]);
+
+        $score_base=ConfigurationParameter::where('code','CALIFICATION_BASE')->where('deleted',0)->first();
 
         $weekly_plans=Weekly::where('id_classroom',$classroom_id)->where('id_area',$area_id)->get();
 
@@ -46,6 +50,7 @@ class CalificationController extends Controller
 
             $weekly_plans_with_score=0;
             $weekly_plans_with_progress=0;
+
 
 
             foreach ($weekly_plans as $weekly_plan) {
@@ -93,7 +98,7 @@ class CalificationController extends Controller
 
             $students[$key_student]->score =round(($weekly_plans_with_score>0)?($score/$weekly_plans_with_score):-1,2);
 
-            $students[$key_student]->score_base=5;
+            $students[$key_student]->score_base=!isset($score_base)?5:$score_base->content;
 
             $students[$key_student]->pending_calification =$activities_pending;
         }
@@ -110,6 +115,12 @@ class CalificationController extends Controller
         if(!isset($auth)) return  response()->json([]);
 
         $student=User::find($id_student);
+
+        $score_base=ConfigurationParameter::where('code','CALIFICATION_BASE')->where('deleted',0)->first();
+
+        $area=Area::find($area_id);
+
+        $classroom=Classroom::find($classroom_id);
 
         $weekly_plans=Weekly::where('id_classroom',$classroom_id)->where('id_area',$area_id)->get();
 
@@ -166,9 +177,18 @@ class CalificationController extends Controller
 
             $student->score =round(($weekly_plans_with_score>0)?($score/$weekly_plans_with_score):-1,2);
 
-            $student->score_base=5;
+            $student->score_base=!isset($score_base)?5:$score_base->content;
 
             $student->pending_calification =$activities_pending;
+
+            $student->area_id=$area_id;
+
+            $student->area_name=$area->name;
+
+            $student->classroom_id=$classroom_id;
+
+            $student->classroom_name=$classroom->name;
+
 
         return  response()->json($student);
 
@@ -232,6 +252,7 @@ class CalificationController extends Controller
 
 
             $classes=Classs::where('id_weekly_plan',$id_module)->get();
+            $score_base=ConfigurationParameter::where('code','CALIFICATION_BASE')->where('deleted',0)->first();
 
             foreach ($classes as $key_class => $class) {
                 $progress=  DB::select('call obtener_progreso_clase(?,?)',[$class->id, $student_id])[0]->porcentaje;
@@ -252,7 +273,7 @@ class CalificationController extends Controller
 
                         $classes[$key_class]->progress = $progress;
                         $classes[$key_class]->score = $score;
-                        $classes[$key_class]->score_base = 5;
+                        $classes[$key_class]->score_base = !isset($score_base)?5:$score_base->content;
                         $classes[$key_class]->pending_calification = count($activities_interaction);
 
             }
@@ -442,5 +463,38 @@ class CalificationController extends Controller
 
 
         return  response()->json($class);
+    }
+    public function generateTemplateCalification(int $student_id){
+        $auth = Auth::user();
+
+
+        $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor(base_path().'/public/uploads/clases/plantilla_notas3-template.docx');
+        $filename=public_path().'/public/uploads/clases/plantilla_notas3-template-temp-12345.docx';
+        $templateProcessor->saveAs($filename);
+
+
+    }
+    public function generateMinify(){
+        $templateData=ConfigurationParameter::where('code','TEMPLATE_NOTES')->first();
+
+        if(!isset($templateData))  return;
+
+
+        $explode_name=explode('/',$templateData->content);
+
+        $short_name=$explode_name[count($explode_name)-1];
+
+        $file_path=str_replace($short_name,"",$templateData->content);
+
+        $short_name=str_replace(".xlsx","",$short_name);
+
+
+        $filename=public_path().$templateData->content;
+        $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($filename);
+
+        $objWriter = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, 'Pdf');
+        $objWriter->save(public_path().$file_path.'/__'.$short_name.'.xlsx');
+
+        return  response()->json(['path'=>$file_path.'/__'.$short_name.'.xlsx']);
     }
 }
