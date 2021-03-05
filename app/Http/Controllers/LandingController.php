@@ -33,10 +33,10 @@ class LandingController extends Controller
                 $message->to('desarrollo@liv4t.com', 'Liv4T Contáctanos');
                 $message->subject('Nuevo lead Landing');
             });
-            // Mail::send('emails.landing-contact', ["name" => $request->name, "email" => $request->email, "phone" => $request->phone, "school" => $request->school, "city" => $request->city], function ($message) use ($email_to) {
-            //     $message->to($email_to, 'Liv4T Contáctanos');
-            //     $message->subject('');
-            // });
+            Mail::send('emails.landing-contact', [], function ($message) use ($email_to) {
+                $message->to($email_to, 'Liv4T Contáctanos');
+                $message->subject('Recibe 3 meses gratis');
+            });
             return view("landing", ["saved" => true]);
         }
     }
