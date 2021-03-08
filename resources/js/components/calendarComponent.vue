@@ -348,7 +348,7 @@
                                 end: meeting.dateTo,
                                 description: meeting.name,
                                 url: meeting.hangout,
-                                backgroundColor: 'red'
+                                backgroundColor: 'blue'
                             });
                         })
                     }
