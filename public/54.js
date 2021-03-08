@@ -84,21 +84,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 moment__WEBPACK_IMPORTED_MODULE_0___default.a.tz.setDefault("America/Bogota");
 moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale('es');
@@ -115,9 +100,6 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_2___defaul
       nameEvent: "",
       nameMeet: "",
       diaSemana: "",
-      formatDate: "",
-      typeEvent: "",
-      lastId: [],
       invitations: [],
       invitationsGet: [],
       arrayDaysEvent: [],
@@ -127,13 +109,6 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_2___defaul
   components: {
     datetime: vuejs_datetimepicker__WEBPACK_IMPORTED_MODULE_1__["default"],
     Multiselect: vue_multiselect__WEBPACK_IMPORTED_MODULE_2___default.a
-  },
-  filters: {
-    formatDate: function formatDate(value) {
-      if (value) {
-        return moment__WEBPACK_IMPORTED_MODULE_0___default()(String(value)).format('DD MMMM YYYY hh:mm a');
-      }
-    }
   },
   mounted: function mounted() {
     var _this = this;
@@ -168,191 +143,27 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_2___defaul
     });
   },
   methods: {
-    selectChange: function selectChange() {
-      if (this.typeEvent == 2) {
-        document.getElementById("dia").style.display = "block";
-        document.getElementById("labeldia").style.display = "block";
-        this.formatDate = "H:i:s";
-        this.last_insert();
-      } else if (this.typeEvent == 3) {
-        document.getElementById("dia").style.display = "none";
-        document.getElementById("labeldia").style.display = "none";
-        this.formatDate = "YYYY-MM-DD H:i:s";
-      } else if (this.typeEvent == 1) {
-        document.getElementById("dia").style.display = "none";
-        document.getElementById("labeldia").style.display = "none";
-        this.formatDate = "H:i:s";
-        this.last_insert();
-      } else if (this.typeEvent == 0) {
-        document.getElementById("dia").style.display = "none";
-        document.getElementById("labeldia").style.display = "none";
-        this.formatDate = "YYYY-MM-DD H:i:s";
-      }
-    },
-    last_insert: function last_insert() {
+    createInvitation: function createInvitation() {
       var _this2 = this;
 
-      var urlId = "lastId";
-      axios.get(urlId).then(function (response) {
-        _this2.lastId = response.data;
-      });
-    },
-    concurrentDays: function concurrentDays() {
-      if (this.typeEvent == 1) {
-        //Crear eventos de lunes a viernes y omitimos los dias que ya pasaron de la semana
-        var date2 = new Date();
-
-        if (date2.getDay() == 6) {
-          date2.setDate(date2.getDate() + 2);
-        }
-
-        if (date2.getDay() == 0) {
-          date2.setDate(date2.getDate() + 1);
-        }
-
-        var dayOfWeek = date2.getDay();
-        this.arrayDaysEvent = [];
-
-        for (var i = 0; i < 5; i++) {
-          if (i - dayOfWeek != -1) {
-            var days = i - dayOfWeek + 1;
-            var newDate = new Date(date2.getTime() + days * 24 * 60 * 60 * 1000);
-            newDate = moment__WEBPACK_IMPORTED_MODULE_0___default()(String(newDate)).format('YYYY-MM-DD');
-
-            if (i + 1 >= dayOfWeek) {
-              this.arrayDaysEvent.push(newDate);
-            }
-          } else {
-            var date3 = moment__WEBPACK_IMPORTED_MODULE_0___default()(String(date2)).format('YYYY-MM-DD');
-            this.arrayDaysEvent.push(date3);
-          }
-        }
-      }
-
-      if (this.typeEvent == 2) {
-        //Crear eventos un dia especifico de la semana 
-        this.arrayDaysEvent = [];
-        var hoy = new Date();
-        var hasta = new Date();
-        hasta.setDate(hasta.getDate() + 365);
-
-        while (moment__WEBPACK_IMPORTED_MODULE_0___default()(hoy).isSameOrBefore(hasta)) {
-          if (this.diaSemana == hoy.getDay()) {
-            this.arrayDaysEvent.push(moment__WEBPACK_IMPORTED_MODULE_0___default()(hoy).format('YYYY-MM-DD'));
-          }
-
-          hoy.setDate(hoy.getDate() + 1);
-        }
-      }
-
-      if (this.typeEvent == 3) {
-        //Crear evento una vez por mes
-        this.arrayDaysEvent = [];
-        this.arrayDaysEventMes = [];
-        var desde = new Date(this.desde);
-        var hasta = new Date(this.desde);
-        var desde2 = new Date(this.hasta);
-        var hasta2 = new Date(this.hasta);
-        hasta.setDate(hasta.getDate() + 365);
-        hasta2.setDate(hasta2.getDate() + 365);
-        var dia = desde.getDate(desde);
-        var dia2 = desde2.getDate(desde2);
-
-        while (moment__WEBPACK_IMPORTED_MODULE_0___default()(desde).isSameOrBefore(hasta)) {
-          var dayMonth = desde.getDate(desde);
-
-          if (dayMonth == dia) {
-            this.arrayDaysEvent.push(moment__WEBPACK_IMPORTED_MODULE_0___default()(desde).format('YYYY-MM-DD H:mm:ss'));
-          }
-
-          desde.setDate(desde.getDate() + 1);
-        }
-
-        while (moment__WEBPACK_IMPORTED_MODULE_0___default()(desde2).isSameOrBefore(hasta2)) {
-          var dayMonth = desde2.getDate(desde2);
-
-          if (dayMonth == dia2) {
-            this.arrayDaysEventMes.push(moment__WEBPACK_IMPORTED_MODULE_0___default()(desde2).format('YYYY-MM-DD H:mm:ss'));
-          }
-
-          desde2.setDate(desde2.getDate() + 1);
-        }
-      }
-
-      if (this.typeEvent == 0) {
-        this.arrayDaysEvent = [];
-        this.formatDate = "YYYY-MM-DD H:i:s";
-      }
-    },
-    createInvitation: function createInvitation() {
-      var _this3 = this;
-
-      this.concurrentDays();
       var url = 'parents';
-
-      if (this.typeEvent == 0) {
-        this.invitationsGet.forEach(function (element) {
-          axios.post(url, {
-            name_event: _this3.nameEvent,
-            date_start: _this3.desde,
-            date_end: _this3.hasta,
-            link: _this3.nameMeet,
-            day_week: _this3.diaSemana,
-            type_event: _this3.typeEvent,
-            email_invited: element.email,
-            id_invited: element.id,
-            id_sender: _this3.user.id
-          }).then(function () {
-            toastr.success("Invitación enviada correctamente");
-          });
+      this.invitationsGet.forEach(function (element) {
+        axios.post(url, {
+          name_event: _this2.nameEvent,
+          date_start: _this2.desde,
+          date_end: _this2.hasta,
+          link: _this2.nameMeet,
+          day_week: _this2.diaSemana,
+          email_invited: element.email,
+          id_invited: element.id,
+          id_sender: _this2.user.id
+        }).then(function () {
+          toastr.success("Invitación enviada correctamente");
         });
-        this.getMenu();
-        $("#createEvent").modal("hide");
-      } else if (this.typeEvent == 1 || this.typeEvent == 2) {
-        for (var i = 0; i < this.invitationsGet.length; i++) {
-          for (var j = 0; j < this.arrayDaysEvent.length; j++) {
-            axios.post(url, {
-              name_event: this.nameEvent,
-              date_start: this.arrayDaysEvent[j] + " " + this.desde,
-              date_end: this.arrayDaysEvent[j] + " " + this.hasta,
-              link: this.nameMeet,
-              day_week: this.diaSemana,
-              type_event: this.typeEvent,
-              email_invited: this.invitationsGet[i].email,
-              id_invited: this.invitationsGet[i].id,
-              id_sender: this.user.id
-            }).then(function () {
-              toastr.success("Invitación enviada correctamente");
-            });
-          }
-        }
-
-        this.getMenu();
-        $("#createEvent").modal("hide");
-      } else if (this.typeEvent == 3) {
-        for (var _i = 0; _i < this.invitationsGet.length; _i++) {
-          for (var _j = 0; _j < this.arrayDaysEvent.length; _j++) {
-            axios.post(url, {
-              name_event: this.nameEvent,
-              date_start: this.arrayDaysEvent[_j],
-              date_end: this.arrayDaysEventMes[_j],
-              link: this.nameMeet,
-              day_week: this.diaSemana,
-              type_event: this.typeEvent,
-              email_invited: this.invitationsGet[_i].email,
-              id_invited: this.invitationsGet[_i].id,
-              id_sender: this.user.id
-            }).then(function () {
-              toastr.success("Invitación enviada correctamente");
-            });
-          }
-        }
-
-        this.getMenu();
-        $("#createEvent").modal("hide");
-      }
-
-      this.nameEvent = "", this.desde = "", this.hasta = "", this.nameMeet = "", this.diaSemana = "", this.typeEvent = [], this.invitationsGet = [], this.arrayDaysEvent = [], this.arrayDaysEventMes = [];
+      });
+      this.getMenu();
+      $("#createEvent").modal("hide");
+      this.nameEvent = "", this.desde = "", this.hasta = "", this.nameMeet = "", this.diaSemana = "", this.invitationsGet = [], this.arrayDaysEvent = [], this.arrayDaysEventMes = [];
     }
   }
 });
@@ -400,59 +211,6 @@ var render = function() {
                   "div",
                   { staticClass: "form-group row justify-content-center" },
                   [
-                    _c("div", { staticClass: "col-md-6" }, [
-                      _c("label", { attrs: { for: "name" } }, [
-                        _vm._v("Evento concurrente")
-                      ]),
-                      _vm._v(" "),
-                      _c(
-                        "select",
-                        {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.typeEvent,
-                              expression: "typeEvent"
-                            }
-                          ],
-                          staticClass: "form-control",
-                          on: {
-                            change: [
-                              function($event) {
-                                var $$selectedVal = Array.prototype.filter
-                                  .call($event.target.options, function(o) {
-                                    return o.selected
-                                  })
-                                  .map(function(o) {
-                                    var val = "_value" in o ? o._value : o.value
-                                    return val
-                                  })
-                                _vm.typeEvent = $event.target.multiple
-                                  ? $$selectedVal
-                                  : $$selectedVal[0]
-                              },
-                              _vm.selectChange
-                            ]
-                          }
-                        },
-                        _vm._l(_vm.concurrent, function(options, key) {
-                          return _c(
-                            "option",
-                            { key: key, domProps: { value: options.id } },
-                            [
-                              _vm._v(
-                                "\n                                    " +
-                                  _vm._s(options.type) +
-                                  "\n                                "
-                              )
-                            ]
-                          )
-                        }),
-                        0
-                      )
-                    ]),
-                    _vm._v(" "),
                     _c("div", { staticClass: "col-md-6" }, [
                       _c(
                         "label",
@@ -611,7 +369,6 @@ var render = function() {
                       ]),
                       _vm._v(" "),
                       _c("datetime", {
-                        attrs: { format: _vm.formatDate },
                         model: {
                           value: _vm.desde,
                           callback: function($$v) {
@@ -637,7 +394,6 @@ var render = function() {
                       ]),
                       _vm._v(" "),
                       _c("datetime", {
-                        attrs: { format: _vm.formatDate },
                         model: {
                           value: _vm.hasta,
                           callback: function($$v) {
@@ -684,42 +440,6 @@ var render = function() {
                     ])
                   ])
                 ]),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "col-md-6", staticStyle: { display: "none" } },
-                  [
-                    _c("strong", { attrs: { for: "name" } }, [
-                      _vm._v("id ultimo")
-                    ]),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.lastId,
-                          expression: "lastId"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      attrs: { type: "text", name: "id_padre" },
-                      domProps: { value: _vm.lastId },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.lastId = $event.target.value
-                        }
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "invalid-feedback" }, [
-                      _vm._v("Please fill out this field")
-                    ])
-                  ]
-                ),
                 _vm._v(" "),
                 _vm._m(1)
               ])

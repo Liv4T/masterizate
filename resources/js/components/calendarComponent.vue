@@ -108,29 +108,6 @@
                         <div class="modal-body">
                             <div class="form-group row justify-content-center">
                                 <div class="col-md-6">
-                                    <label for="name">Evento concurrente</label>
-                                    <select class="form-control" v-model="typeEvent" @change="selectChange">
-                                        <option :value="options.id" v-for="(options, key) in concurrent" :key="key">
-                                            {{
-                                                options.type
-                                            }}
-                                        </option>
-                                    </select>
-                                </div>
-                                <div class="col-md-6">
-                                    <label style="display: none;" id="labeldia">Dia de la semana</label>
-                                    <select class="form-control" name="dia" id="dia" v-model="diaSemana"
-                                        style="display:none">
-                                        <option :value="options.id" v-for="(options, key) in dias" :key="key">
-                                            {{
-                                                options.dia
-                                            }}
-                                        </option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group row justify-content-center">
-                                <div class="col-md-6">
                                     <label for="name">Nombre del evento</label>
                                     <input type="text" name="name" class="form-control" v-model="nameEvent" />
                                     <div class="invalid-feedback">Please fill out this field</div>
@@ -151,7 +128,7 @@
                                         :close-on-select="false" :clear-on-select="false" :preserve-search="true"
                                         placeholder="Seleccione una o varias" label="text" track-by="id"
                                         :preselect-first="true">
-                                        <template slot="selection" slot-scope="{ values, isOpen }"><span
+                                        <template slot="selection" slot-scope="{ values, search, isOpen }"><span
                                                 class="multiselect__single"
                                                 v-if="values.length &amp;&amp; !isOpen">{{ values.length }} opciones
                                                 selecionadas</span></template>
@@ -161,22 +138,17 @@
                             <div class="form-group row">
                                 <div class="col-md-6">
                                     <label for="name">Desde</label>
-                                    <datetime :format="formatDate" v-model="desde"></datetime>
+                                    <datetime format="YYYY-MM-DD H:i:s" v-model="desde"></datetime>
                                     <div class="invalid-feedback">Please fill out this field</div>
                                 </div>
                                 <div class="col-md-6">
                                     <label for="name">Hasta</label>
-                                    <datetime :format="formatDate" v-model="hasta"></datetime>
+                                    <datetime format="YYYY-MM-DD H:i:s" v-model="hasta"></datetime>
                                     <div class="invalid-feedback"></div>
                                 </div>
                                 <div class="col-md-6">
                                     <strong for="name">Enlace de Meet</strong>
                                     <input type="text" name="name" class="form-control" v-model="nameMeet" />
-                                    <div class="invalid-feedback">Please fill out this field</div>
-                                </div>
-                                <div class="col-md-6" style="display: none;">
-                                    <strong for="name">id ultimo</strong>
-                                    <input type="text" name="id_padre" class="form-control" v-model="lastId" />
                                     <div class="invalid-feedback">Please fill out this field</div>
                                 </div>
                             </div>
@@ -186,12 +158,12 @@
                         </div>
                     </form>
                 </div>
-                <div class="modal fade" id="editE">
+                <div class="modal fade" id="createE">
                     <div class="modal-lg modal-dialog">
                         <div class="modal-content">
-                            <form class="needs-validation" v-on:submit.prevent="updateEvent" novalidate>
+                            <form class="needs-validation" v-on:submit.prevent="createEvent" novalidate>
                                 <div class="modal-header">
-                                    <h4>Editar evento</h4>
+                                    <h4>Crear evento</h4>
                                     <button type="button" class="close" data-dismiss="modal">
                                         <span>&times;</span>
                                     </button>
@@ -199,64 +171,90 @@
                                 <div class="modal-body">
                                     <div class="form-group row justify-content-center">
                                         <div class="col-md-6">
-                                            <label for="name">Nombre del evento</label>
-                                            <input type="text" name="name" class="form-control" v-model="nameUp" />
-                                            <div class="invalid-feedback">Please fill out this field</div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label for="name">Materia</label>
-                                            <select class="form-control" v-model="areaUp" required>
-                                                <option :value="option.id+'/'+option.id_classroom "
-                                                    v-for="(option,k_option) in myOptions" v-bind:key="k_option">
+                                            <label for="name">Evento concurrente</label>
+                                            <select class="form-control" v-model="typeEvent" @change="selectChange">
+                                                <option :value="options.id" v-for="(options, key) in concurrent"
+                                                    :key="key">
                                                     {{
-                                                        option.text
-                                                    }}
+                                                options.type
+                                            }}
                                                 </option>
                                             </select>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label style="display: none;" id="labeldia">Dia de la semana</label>
+                                            <select class="form-control" name="dia" id="dia" v-model="diaSemana"
+                                                style="display:none">
+                                                <option :value="options.id" v-for="(options, key) in dias" :key="key">
+                                                    {{
+                                                options.dia
+                                            }}
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row justify-content-center">
+                                        <div class="col-md-6">
+                                            <label for="name">Nombre del evento</label>
+                                            <input type="text" name="name" class="form-control" v-model="nameEvent" />
+                                            <div class="invalid-feedback">Please fill out this field</div>
+                                        </div>
+                                        <!-- <div class="col-md-6">
+                                    <label for="name">Materia</label>
+                                    <select class="form-control" v-model="materia" required>
+                                        <option :value="option.id+'/'+option.id_classroom " v-for="option in myOptions">
+                                        {{
+                                        option.text
+                                        }}
+                                        </option>
+                                    </select>
+                                </div> -->
+                                        <div class="col-md-6">
+                                            <label for="name">Materia</label>
+                                            <multiselect v-model="materia" :options="myOptions" :multiple="true"
+                                                :close-on-select="false" :clear-on-select="false"
+                                                :preserve-search="true" placeholder="Seleccione una o varias"
+                                                label="text" track-by="id" :preselect-first="true">
+                                                <template slot="selection" slot-scope="{ values, isOpen }"><span
+                                                        class="multiselect__single"
+                                                        v-if="values.length &amp;&amp; !isOpen">{{ values.length }}
+                                                        opciones
+                                                        selecionadas</span></template>
+                                            </multiselect>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <div class="col-md-6">
                                             <label for="name">Desde</label>
-                                            <datetime format="YYYY-MM-DD H:i:s" v-model="fromUp"></datetime>
-                                            <div class="invalid-feedback">Por favor ingresa la fecha</div>
+                                            <datetime :format="formatDate" v-model="desde"></datetime>
+                                            <div class="invalid-feedback">Please fill out this field</div>
                                         </div>
                                         <div class="col-md-6">
                                             <label for="name">Hasta</label>
-                                            <datetime format="YYYY-MM-DD H:i:s" v-model="toUp"></datetime>
+                                            <datetime :format="formatDate" v-model="hasta"></datetime>
                                             <div class="invalid-feedback"></div>
                                         </div>
                                         <div class="col-md-6">
                                             <strong for="name">Enlace de Meet</strong>
-                                            <input type="text" name="name" class="form-control" v-model="meetUp" />
-                                            <div class="invalid-feedback">Por favor ingresa la fecha</div>
+                                            <input type="text" name="name" class="form-control" v-model="nameMeet" />
+                                            <div class="invalid-feedback">Please fill out this field</div>
+                                        </div>
+                                        <div class="col-md-6" style="display: none;">
+                                            <strong for="name">id ultimo</strong>
+                                            <input type="text" name="id_padre" class="form-control" v-model="lastId" />
+                                            <div class="invalid-feedback">Please fill out this field</div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="modal fade" id="deleteE">
-                                    <div class="modal-sm modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <button type="button" class="close" data-dismiss="modal">
-                                                    <span>&times;</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <div class="form-group row text-center">
-                                                    <label for="name">Esta seguro que desea eliminar {{ delName }}
-                                                        ?</label>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <a class="btn btn-danger float-right" href
-                                                        v-on:click.prevent="deleteEvent(delId)">Si</a>
-                                                    <a class="btn btn-warning" href
-                                                        v-on:click.prevent="deletE()">Cancelar</a>
-                                                </div>
-                                            </div>
-                                        </div>
+                                    <div class="modal-footer">
+                                        <input type="submit" class="btn btn-warning" value="Guardar" />
                                     </div>
                                 </div>
                             </form>
+                        </div>
+                        <div class="col-md-6">
+                            <strong for="name">Enlace de Meet</strong>
+                            <input type="text" name="name" class="form-control" v-model="meetUp" />
+                            <div class="invalid-feedback">Por favor ingrwsa la fecha</div>
                         </div>
                     </div>
                 </div>
@@ -284,7 +282,7 @@
     Vue.use(require("vue-moment"));
     Vue.component("multiselect", Multiselect);
     export default {
-        props: ["type_u", "user"],
+        props: ["type_u","user"],
         data() {
             return {
                 display_events: true,
@@ -297,64 +295,17 @@
                 value: [],
                 myOptions: [],
                 materia: [],
-                concurrent: [{
-                    'id': '0',
-                    'type': 'No'
-                }, {
-                    'id': '1',
-                    'type': 'De lunes a viernes'
-                }, {
-                    'id': '2',
-                    'type': 'Un dia en especifico'
-                }, {
-                    'id': '3',
-                    'type': 'Menusal'
-                }],
-                dias: [{
-                    'id': '0',
-                    'dia': 'Domingo'
-                }, {
-                    'id': '1',
-                    'dia': 'Lunes'
-                }, {
-                    'id': '2',
-                    'dia': 'Martes'
-                }, {
-                    'id': '3',
-                    'dia': 'Miercoles'
-                }, {
-                    'id': '4',
-                    'dia': 'Jueves'
-                }, {
-                    'id': '5',
-                    'dia': 'Viernes'
-                }, {
-                    'id': '6',
-                    'dia': 'Sabado'
-                }],
-                diaSemana: "",
                 meetUp: "",
                 nameUp: "",
                 fromUp: "",
                 toUp: "",
-                id_padreUp: "",
-                id_padreDel: "",
-                editConcurrent: "",
                 areaUp: "",
                 evenUp: [],
-                evenDel: [],
                 delId: "",
                 delName: "",
-                formatDate: "",
                 idUp: "",
-                typeEvent: "",
-                daysWeek: [],
-                lastId: [],
-                errors: [],
                 lective_planification: {},
                 initialView: 'dayGridMonth',
-                arrayDaysEvent: [],
-                arrayDaysEventMes: [],
                 calendarOptions: {
                     locale: esLocale,
                     plugins: [dayGridPlugin, interactionPlugin, timeGridPlugin, momentTimezonePlugin, momentPlugin],
@@ -383,13 +334,13 @@
         },
         mounted() {
             const fullCalendarApi = this.$refs.fullCalendar.getApi();
-            this.getInvitations()
+            this.getInvitations();
+
             if (this.type_u === 4) {
                 var urlP = window.location.origin + "/api/event/getStudentsClass";
                 axios.get(urlP).then((response) => {
                     this.clases = response.data;
                     if (this.clases && this.clases.length > 0) {
-
                         this.clases.forEach(meeting => {
                             fullCalendarApi.addEvent({
                                 title: `${meeting.student_name} | ${meeting.area} ${meeting.classroom} | Clase ${meeting.name}`,
@@ -400,13 +351,11 @@
                                 backgroundColor: 'red'
                             });
                         })
-
                     }
                 });
             }
 
             var urlM = window.location.origin + "/getAllEvents";
-
             axios.get(urlM).then((response) => {
                 this.clases = response.data;
                 if (this.clases && this.clases.length > 0) {
@@ -456,9 +405,11 @@
                 if (this.type_u != 3) {
                     axios.get("/getInvitations").then((response) => {
                         this.clases = response.data;
+                        console.log("datos aqui",response.data);
                         if (this.clases && this.clases.length > 0) {
                             this.clases.forEach(dataParent => {
                                 if (dataParent.id_sender === this.user.id || dataParent.id_invited === this.user.id){
+                                    console.log("pasé")
                                     fullCalendarApi.addEvent({
                                         title: dataParent.name_event,
                                         start: dataParent.date_start,
@@ -489,27 +440,6 @@
                             event.remove();
                         }
                     });
-                }
-            },
-            selectChange() {
-                if (this.typeEvent == 2) {
-                    document.getElementById("dia").style.display = "block";
-                    document.getElementById("labeldia").style.display = "block";
-                    this.formatDate = "H:i:s";
-                    this.last_insert()
-                } else if (this.typeEvent == 3) {
-                    document.getElementById("dia").style.display = "none";
-                    document.getElementById("labeldia").style.display = "none";
-                    this.formatDate = "YYYY-MM-DD H:i:s";
-                } else if (this.typeEvent == 1) {
-                    document.getElementById("dia").style.display = "none";
-                    document.getElementById("labeldia").style.display = "none";
-                    this.formatDate = "H:i:s";
-                    this.last_insert()
-                } else if (this.typeEvent == 0) {
-                    document.getElementById("dia").style.display = "none";
-                    document.getElementById("labeldia").style.display = "none";
-                    this.formatDate = "YYYY-MM-DD H:i:s";
                 }
             },
             displayEventsChange() {
@@ -547,7 +477,7 @@
                 }
             },
             handleEventDidMount(info) {
-                // console.log('PREV');
+                console.log('PREV');
                 /* var tooltip = new Tooltip(info.el, {
                     title: info.event.extendedProps.description,
                     placement: 'top',
@@ -555,96 +485,6 @@
                     container: 'body'
                 });*/
 
-            },
-            concurrentDays() {
-                if (this.typeEvent ==
-                    1) { //Crear eventos de lunes a viernes y omitimos los dias que ya pasaron de la semana
-
-                    var date2 = new Date();
-                    if (date2.getDay() == 6) {
-                        date2.setDate(date2.getDate() + 2);
-                    }
-                    if (date2.getDay() == 0) {
-                        date2.setDate(date2.getDate() + 1);
-                    }
-                    var dayOfWeek = date2.getDay();
-                    this.arrayDaysEvent = [];
-                    for (var i = 0; i < 5; i++) {
-                        if (i - dayOfWeek != -1) {
-                            var days = i - dayOfWeek + 1;
-                            var newDate = new Date(date2.getTime() + (days * 24 * 60 * 60 * 1000));
-                            newDate = moment(String(newDate)).format('YYYY-MM-DD');
-                            if (i + 1 >= dayOfWeek) {
-                                this.arrayDaysEvent.push(newDate);
-                            }
-                        } else {
-                            var date3 = moment(String(date2)).format('YYYY-MM-DD');
-                            this.arrayDaysEvent.push(date3);
-                        }
-                    }
-                }
-                if (this.typeEvent == 2) { //Crear eventos un dia especifico de la semana 
-
-                    this.arrayDaysEvent = [];
-                    var hoy = new Date();
-                    var hasta = new Date();
-                    hasta.setDate(hasta.getDate() + 365);
-
-                    while (moment(hoy).isSameOrBefore(hasta)) {
-
-                        if (this.diaSemana == hoy.getDay()) {
-
-                            this.arrayDaysEvent.push(moment(hoy).format('YYYY-MM-DD'));
-
-                        }
-
-                        hoy.setDate(hoy.getDate() + 1);
-
-                    }
-                    //console.log(this.arrayDaysEvent);
-                }
-
-                if (this.typeEvent == 3) { //Crear evento una vez por mes
-
-                    this.arrayDaysEvent = [];
-                    this.arrayDaysEventMes = [];
-                    var desde = new Date(this.desde);
-                    var hasta = new Date(this.desde);
-                    var desde2 = new Date(this.hasta);
-                    var hasta2 = new Date(this.hasta);
-                    hasta.setDate(hasta.getDate() + 365);
-                    hasta2.setDate(hasta2.getDate() + 365);
-                    var dia = desde.getDate(desde);
-                    var dia2 = desde2.getDate(desde2);
-                    while (moment(desde).isSameOrBefore(hasta)) {
-                        var dayMonth = desde.getDate(desde);
-                        if (dayMonth == dia) {
-
-                            this.arrayDaysEvent.push(moment(desde).format('YYYY-MM-DD H:mm:ss'));
-
-                        }
-
-                        desde.setDate(desde.getDate() + 1);
-
-                    }
-                    while (moment(desde2).isSameOrBefore(hasta2)) {
-                        var dayMonth = desde2.getDate(desde2);
-                        if (dayMonth == dia2) {
-
-                            this.arrayDaysEventMes.push(moment(desde2).format('YYYY-MM-DD H:mm:ss'));
-
-                        }
-
-                        desde2.setDate(desde2.getDate() + 1);
-
-                    }
-                }
-                if (this.typeEvent == 0) {
-
-                    this.arrayDaysEvent = [];
-                    this.formatDate = "YYYY-MM-DD H:i:s";
-
-                }
             },
             changeCalendarView(view) {
                 this.initialView = view;
@@ -655,12 +495,11 @@
                 window.location = "/calendar";
             },
             createE() {
-                if (this.type_u != 4) {
+               if (this.type_u != 4) {
                     $("#createE").modal("show");
                 } else {
                     $("#createEvent").modal("show");
                 }
-                //this.concurrentDays();
             },
             editE(id) {
                 this.evenUp = [];
@@ -672,7 +511,6 @@
                     this.fromUp = this.evenUp.date_from;
                     this.toUp = this.evenUp.date_to;
                     this.meetUp = this.evenUp.url;
-                    this.id_padreUp = this.evenUp.id_padre;
                     this.idUp = id;
                 });
                 $("#editE").modal("show");
@@ -681,173 +519,63 @@
                 $("#deleteE").modal("hide");
             },
             deleteEvent(id) {
-                var url = "deleteEvent";
-                if (this.id_padreDel === null) {
-                    axios
-                        .put(url, {
-                            id: id,
-                            id_padre: this.id_padreDel,
-                            todos: false,
-                        }).then((response) => {
-                            this.getMenu();
-                            toastr.success("Evento actualizado exitosamente");
-                        })
-                        .catch((error) => {});
+                var url = "deleteEvent/" + id;
+                axios.get(url).then((response) => {
+                    toastr.success("Eliminado exitosamente"); //mensaje
+                    // eliminamos
+                    this.getMenu(); //listamos
 
-                } else { // falta cambiar la funcion de eliminar por la de cambiar el update_at
-                    var resp = confirm("Este evento es concurrente, ¿desea editar todos los eventos?");
-                    axios
-                        .put(url, {
-                            id: id,
-                            id_padre: this.id_padreDel,
-                            todos: resp,
-                        }).then((response) => {
-                            this.getMenu();
-                            toastr.success("Evento actualizado exitosamente");
-                        })
-                        .catch((error) => {});
-                }
+                });
             },
             viewDelete(id, name) {
                 this.delName = name;
                 this.delId = id;
-                this.evenDel = [];
-                var urlM = window.location.origin + "/editEvent/" + id;
-                axios.get(urlM).then((response) => {
-                    this.evenDel = response.data;
-                    this.id_padreDel = this.evenDel.id_padre;
-                });
                 $("#deleteE").modal("show");
-            },
-            last_insert() {
-                var urlId = "lastId";
-                axios.get(urlId).then((response) => {
-                    this.lastId = response.data;
-                })
             },
             createEvent() {
                 var url = "createEvent";
-                this.concurrentDays();
-                if (this.typeEvent == 0) {
-                    if (this.materia.length >= 1) {
-                        for (let i = 0; i < this.materia.length; i++) {
+                if (this.materia.length >= 1) {
+                    console.log(this.materia);
+                    for (let i = 0; i < this.materia.length; i++) {
 
-                            axios
-                                .post(url, {
-                                    //Cursos generales
-                                    name: this.nameEvent,
-                                    startDateTime: this.desde,
-                                    endDateTime: this.hasta,
-                                    id_area: this.materia[i].id,
-                                    id_classroom: this.materia[i].id_classroom,
-                                    url: this.nameMeet,
-                                    id_padre: null,
-                                })
-                                .then((response) => {
-                                    toastr.success("Nuevo evento creado exitosamente");
-                                    this.getMenu();
+                        axios
+                            .post(url, {
+                                //Cursos generales
+                                name: this.nameEvent,
+                                startDateTime: this.desde,
+                                endDateTime: this.hasta,
+                                id_area: this.materia[i].id,
+                                id_classroom: this.materia[i].id_classroom,
+                                url: this.nameMeet,
+                            })
+                            .then((response) => {
+                                toastr.success("Nuevo evento creado exitosamente");
+                                this.getMenu();
 
-                                })
-                                .catch((error) => {});
+                            })
+                            .catch((error) => {});
 
-                        }
-                    }
-                } else if (this.typeEvent == 1 || this.typeEvent == 2) {
-                    if (this.materia.length >= 1 && this.arrayDaysEvent.length >= 1) {
-                        for (let i = 0; i < this.materia.length; i++) {
-                            for (let j = 0; j < this.arrayDaysEvent.length; j++) {
-                                axios
-                                    .post(url, {
-                                        //Cursos generales
-                                        name: this.nameEvent,
-                                        startDateTime: this.arrayDaysEvent[j] + " " + this.desde,
-                                        endDateTime: this.arrayDaysEvent[j] + " " + this.hasta,
-                                        id_area: this.materia[i].id,
-                                        id_classroom: this.materia[i].id_classroom,
-                                        url: this.nameMeet,
-                                        id_padre: this.lastId + 1,
-                                    })
-                                    .then((response) => {
-                                        toastr.success("Nuevo evento creado exitosamente");
-                                        this.getMenu();
-
-                                    })
-                                    .catch((error) => {});
-                            }
-                        }
-                    }
-                } else if (this.typeEvent == 3) {
-
-                    if (this.materia.length >= 1 && this.arrayDaysEvent.length >= 1) {
-                        for (let i = 0; i < this.materia.length; i++) {
-                            for (let j = 0; j < this.arrayDaysEvent.length; j++) {
-                                axios
-                                    .post(url, {
-                                        //Cursos generales
-                                        name: this.nameEvent,
-                                        startDateTime: this.arrayDaysEvent[j],
-                                        endDateTime: this.arrayDaysEventMes[j],
-                                        id_area: this.materia[i].id,
-                                        id_classroom: this.materia[i].id_classroom,
-                                        url: this.nameMeet,
-                                        id_padre: this.lastId + 1,
-                                    })
-                                    .then((response) => {
-                                        toastr.success("Nuevo evento creado exitosamente");
-                                        this.getMenu();
-
-                                    })
-                                    .catch((error) => {});
-                            }
-                        }
                     }
                 }
             },
             updateEvent() {
                 var url = "updateEvent";
 
-                if (this.id_padreUp === null) {
-
-                    axios
-                        .put(url, {
-                            //Cursos generales
-                            id: this.idUp,
-                            name: this.nameUp,
-                            startDateTime: this.fromUp,
-                            endDateTime: this.toUp,
-                            id_area: this.areaUp,
-                            url: this.meetUp,
-                            id_padre: this.id_padreUp,
-                            todos: false,
-                        })
-                        .then((response) => {
-                            this.getMenu();
-                            toastr.success("Evento actualizado exitosamente");
-                        })
-                        .catch((error) => {});
-                } else {
-
-                    var resp = confirm("Este evento es concurrente, ¿desea editar todos los eventos?");
-
-                    axios
-                        .put(url, {
-                            //Cursos generales
-                            id: this.idUp,
-                            name: this.nameUp,
-                            startDateTime: this.fromUp,
-                            endDateTime: this.toUp,
-                            id_area: this.areaUp,
-                            url: this.meetUp,
-                            id_padre: this.id_padreUp,
-                            todos: resp,
-                        })
-                        .then((response) => {
-                            this.getMenu();
-                            toastr.success("Evento actualizado exitosamente");
-                        })
-                        .catch((error) => {});
-
-                }
+                axios
+                    .put(url, {
+                        //Cursos generales
+                        id: this.idUp,
+                        name: this.nameUp,
+                        startDateTime: this.fromUp,
+                        endDateTime: this.toUp,
+                        id_area: this.areaUp,
+                        url: this.meetUp,
+                    })
+                    .then((response) => {
+                        this.getMenu();
+                        toastr.success("Evento actualizado exitosamente");
+                    })
+                    .catch((error) => {});
             },
         },
     };

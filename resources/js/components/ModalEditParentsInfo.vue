@@ -49,28 +49,6 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <div class="form-group row justify-content-center">
-                                <div class="col-md-6">
-                                    <label for="name">Evento concurrente</label>
-                                    <select class="form-control" v-model="typeEvent" @change="selectChange" readonly>
-                                        <option :value="options.id" v-for="(options, key) in concurrent" :key="key">
-                                            {{
-                                                options.type
-                                            }}
-                                        </option>
-                                    </select>
-                                </div>
-                                <div style="display: none;" id="divDia" class="col-md-6">
-                                    <label id="diaLabel">Dia de la semana</label>
-                                    <select class="form-control" name="dia" id="dia" v-model="day_week" readonly>
-                                        <option :value="options.id" v-for="(options, key) in dias" :key="key">
-                                            {{
-                                            options.dia
-                                        }}
-                                        </option>
-                                    </select>
-                                </div>
-                            </div>
                             <div class="form-group row">
                                 <div class="col-md-6">
                                     <label for="name">Nombre del evento</label>
@@ -131,7 +109,6 @@
                 name_event: "",
                 link: "",
                 idToEdit:"",
-                formatDate:"",
                 day_week:"",
                 date_start: [],
                 date_end: [],
@@ -139,13 +116,6 @@
         },
         mounted() {
             this.getData();
-        },
-        filters: {
-            formatDate: (value) => {
-                if (value) {
-                    return moment(String(value)).format('DD MMMM YYYY hh:mm a')
-                }
-            }
         },
         components: {
             datetime,
@@ -180,21 +150,6 @@
                         this.getData();
                         this.getMenu();
                     });
-                }
-            },
-            selectChange() {
-                if (this.typeEvent === "2") {
-                    document.getElementById("divDia").style.display = "block";
-                    this.formatDate = "H:i:s";
-                } else if (this.typeEvent === "3") {
-                    document.getElementById("divDia").style.display = "none";
-                    this.formatDate = "YYYY-MM-DD H:i:s";
-                } else if (this.typeEvent === "1") {
-                    document.getElementById("divDia").style.display = "none";
-                    this.formatDate = "H:i:s";
-                } else if (this.typeEvent === "0") {
-                    document.getElementById("divDia").style.display = "none";
-                    this.formatDate = "YYYY-MM-DD H:i:s";
                 }
             },
             updateInvitation(){

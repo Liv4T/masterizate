@@ -70,7 +70,6 @@ class ParentsController extends Controller
         $parents->date_end = $request->date_end;
         $parents->link = $request->link;
         $parents->day_week = $request->day_week;
-        $parents->type_event = $request->type_event;
         $parents->email_invited = $request->email_invited;
         $parents->id_invited = $request->id_invited;
         $parents->id_sender = $request->id_sender;

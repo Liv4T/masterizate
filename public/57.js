@@ -101,28 +101,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 moment__WEBPACK_IMPORTED_MODULE_1___default.a.tz.setDefault("America/Bogota");
@@ -140,7 +118,6 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component("multiselect", vue_multisel
       name_event: "",
       link: "",
       idToEdit: "",
-      formatDate: "",
       day_week: "",
       date_start: [],
       date_end: []
@@ -148,13 +125,6 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component("multiselect", vue_multisel
   },
   mounted: function mounted() {
     this.getData();
-  },
-  filters: {
-    formatDate: function formatDate(value) {
-      if (value) {
-        return moment__WEBPACK_IMPORTED_MODULE_1___default()(String(value)).format('DD MMMM YYYY hh:mm a');
-      }
-    }
   },
   components: {
     datetime: vuejs_datetimepicker__WEBPACK_IMPORTED_MODULE_2__["default"],
@@ -196,21 +166,6 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component("multiselect", vue_multisel
 
           _this3.getMenu();
         });
-      }
-    },
-    selectChange: function selectChange() {
-      if (this.typeEvent === "2") {
-        document.getElementById("divDia").style.display = "block";
-        this.formatDate = "H:i:s";
-      } else if (this.typeEvent === "3") {
-        document.getElementById("divDia").style.display = "none";
-        this.formatDate = "YYYY-MM-DD H:i:s";
-      } else if (this.typeEvent === "1") {
-        document.getElementById("divDia").style.display = "none";
-        this.formatDate = "H:i:s";
-      } else if (this.typeEvent === "0") {
-        document.getElementById("divDia").style.display = "none";
-        this.formatDate = "YYYY-MM-DD H:i:s";
       }
     },
     updateInvitation: function updateInvitation() {
@@ -359,125 +314,6 @@ var render = function() {
               _vm._m(1),
               _vm._v(" "),
               _c("div", { staticClass: "modal-body" }, [
-                _c(
-                  "div",
-                  { staticClass: "form-group row justify-content-center" },
-                  [
-                    _c("div", { staticClass: "col-md-6" }, [
-                      _c("label", { attrs: { for: "name" } }, [
-                        _vm._v("Evento concurrente")
-                      ]),
-                      _vm._v(" "),
-                      _c(
-                        "select",
-                        {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.typeEvent,
-                              expression: "typeEvent"
-                            }
-                          ],
-                          staticClass: "form-control",
-                          attrs: { readonly: "" },
-                          on: {
-                            change: [
-                              function($event) {
-                                var $$selectedVal = Array.prototype.filter
-                                  .call($event.target.options, function(o) {
-                                    return o.selected
-                                  })
-                                  .map(function(o) {
-                                    var val = "_value" in o ? o._value : o.value
-                                    return val
-                                  })
-                                _vm.typeEvent = $event.target.multiple
-                                  ? $$selectedVal
-                                  : $$selectedVal[0]
-                              },
-                              _vm.selectChange
-                            ]
-                          }
-                        },
-                        _vm._l(_vm.concurrent, function(options, key) {
-                          return _c(
-                            "option",
-                            { key: key, domProps: { value: options.id } },
-                            [
-                              _vm._v(
-                                "\n                                        " +
-                                  _vm._s(options.type) +
-                                  "\n                                    "
-                              )
-                            ]
-                          )
-                        }),
-                        0
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      {
-                        staticClass: "col-md-6",
-                        staticStyle: { display: "none" },
-                        attrs: { id: "divDia" }
-                      },
-                      [
-                        _c("label", { attrs: { id: "diaLabel" } }, [
-                          _vm._v("Dia de la semana")
-                        ]),
-                        _vm._v(" "),
-                        _c(
-                          "select",
-                          {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.day_week,
-                                expression: "day_week"
-                              }
-                            ],
-                            staticClass: "form-control",
-                            attrs: { name: "dia", id: "dia", readonly: "" },
-                            on: {
-                              change: function($event) {
-                                var $$selectedVal = Array.prototype.filter
-                                  .call($event.target.options, function(o) {
-                                    return o.selected
-                                  })
-                                  .map(function(o) {
-                                    var val = "_value" in o ? o._value : o.value
-                                    return val
-                                  })
-                                _vm.day_week = $event.target.multiple
-                                  ? $$selectedVal
-                                  : $$selectedVal[0]
-                              }
-                            }
-                          },
-                          _vm._l(_vm.dias, function(options, key) {
-                            return _c(
-                              "option",
-                              { key: key, domProps: { value: options.id } },
-                              [
-                                _vm._v(
-                                  "\n                                        " +
-                                    _vm._s(options.dia) +
-                                    "\n                                    "
-                                )
-                              ]
-                            )
-                          }),
-                          0
-                        )
-                      ]
-                    )
-                  ]
-                ),
-                _vm._v(" "),
                 _c("div", { staticClass: "form-group row" }, [
                   _c("div", { staticClass: "col-md-6" }, [
                     _c("label", { attrs: { for: "name" } }, [

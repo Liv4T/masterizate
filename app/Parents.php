@@ -14,7 +14,6 @@ class Parents extends Model
         'date_end',
         'link',
         'day_week',
-        'type_event',
         'email_invited',
         'id_invited',
         'id_sender'

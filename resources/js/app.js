@@ -89,6 +89,7 @@ Vue.component("anuncio-docente", require("./components/anunciodocente.vue").defa
 Vue.component("actividadg-docente",  () => import ("./components/actividadGDocente.vue"));
 Vue.component("anunciomc-component", require("./components/anunciomc.vue").default);
 Vue.component("calendar-component", require("./components/calendarComponent.vue").default);
+Vue.component("psychology-calendar-component", require("./components/psychologyComponent.vue").default);
 Vue.component("student-calendar-component", require("./components/studentCalendarComponent.vue").default);
 Vue.component("redactar-component", require("./components/redactar.vue").default);
 Vue.component("vmensaje-component", require("./components/vistamensaje.vue").default);
