@@ -78,6 +78,21 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -89,11 +104,17 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     this.getClasses();
   },
+  filters: {
+    upper: function upper(value) {
+      return value.trim().replace(/\s/g, "");
+    }
+  },
   methods: {
     getClasses: function getClasses() {
       var _this = this;
 
       axios.get('/getAreas').then(function (response) {
+        console.log(response.data);
         _this.studentClass = response.data;
       })["catch"](function (error) {
         console.log(error);
@@ -134,66 +155,109 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "back" }, [
     _c("div", { staticClass: "row justify-content-center" }, [
-      _c(
-        "div",
-        { staticClass: "col-sm-10", attrs: { id: "crud" } },
-        _vm._l(_vm.studentClass, function(studentClass, key) {
-          return _c("div", { key: key, staticClass: "card text-center" }, [
-            _c("h3", { staticClass: "card-header fondo" }, [
-              _vm._v(_vm._s(key))
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "card-body" }, [
+      _c("div", { staticClass: "col-sm-10", attrs: { id: "crud" } }, [
+        _c(
+          "div",
+          { attrs: { id: "accordion" } },
+          _vm._l(_vm.studentClass, function(studentClass, key, value) {
+            return _c("div", { key: key, staticClass: "card" }, [
               _c(
-                "table",
+                "div",
                 {
-                  staticClass:
-                    "table table-responsive-xl table-hover table-striped center"
+                  staticClass: "card-header fondo",
+                  attrs: { id: "headingOne" }
                 },
                 [
-                  _vm._m(0, true),
-                  _vm._v(" "),
-                  _vm._l(studentClass, function(studentClass, id) {
-                    return _c("tbody", { key: id }, [
-                      _c("tr", [
-                        _c("td", [_vm._v(_vm._s(studentClass.text))]),
+                  _c("h5", { staticClass: "mb-0" }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-link",
+                        staticStyle: { color: "white" },
+                        attrs: {
+                          "data-toggle": "collapse",
+                          "data-target": _vm._f("upper")("#" + key),
+                          "aria-expanded": "true",
+                          "aria-controls": _vm._f("upper")(key)
+                        }
+                      },
+                      [
+                        _vm._v(
+                          "\n                                " +
+                            _vm._s(key) +
+                            "\n                            "
+                        )
+                      ]
+                    )
+                  ])
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  staticClass: "collapse show",
+                  attrs: {
+                    id: _vm._f("upper")(key),
+                    "aria-labelledby": "headingOne",
+                    "data-parent": "#accordion"
+                  }
+                },
+                [
+                  _c("div", { staticClass: "card-body" }, [
+                    _c(
+                      "table",
+                      {
+                        staticClass:
+                          "table table-responsive-xl table-hover table-striped center"
+                      },
+                      [
+                        _vm._m(0, true),
                         _vm._v(" "),
-                        _c("td", [
-                          _c("div", [
-                            _c(
-                              "button",
-                              {
-                                staticClass: "btn btn-warning",
-                                attrs: { type: "button" },
-                                on: {
-                                  click: function($event) {
-                                    return _vm.getNotes(
-                                      studentClass.id_student,
-                                      studentClass.id_area,
-                                      studentClass.id_classroom
-                                    )
-                                  }
-                                }
-                              },
-                              [
-                                _vm._v(
-                                  "\n                                            Ver\n                                        "
-                                )
-                              ]
-                            )
+                        _vm._l(studentClass, function(studentClass, id) {
+                          return _c("tbody", { key: id }, [
+                            _c("tr", [
+                              _c("td", [_vm._v(_vm._s(studentClass.text))]),
+                              _vm._v(" "),
+                              _c("td", [
+                                _c("div", [
+                                  _c(
+                                    "button",
+                                    {
+                                      staticClass: "btn btn-warning",
+                                      attrs: { type: "button" },
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.getNotes(
+                                            studentClass.id_student,
+                                            studentClass.id_area,
+                                            studentClass.id_classroom
+                                          )
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _vm._v(
+                                        "\n                                                    Ver\n                                                "
+                                      )
+                                    ]
+                                  )
+                                ])
+                              ])
+                            ])
                           ])
-                        ])
-                      ])
-                    ])
-                  })
-                ],
-                2
+                        })
+                      ],
+                      2
+                    )
+                  ])
+                ]
               )
             ])
-          ])
-        }),
-        0
-      )
+          }),
+          0
+        )
+      ])
     ]),
     _vm._v(" "),
     _c(

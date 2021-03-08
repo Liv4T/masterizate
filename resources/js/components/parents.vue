@@ -2,33 +2,48 @@
     <div class="back">
         <div class="row justify-content-center">
             <div id="crud" class="col-sm-10">
-                <div class="card text-center" v-for="(studentClass, key) in studentClass" :key="key">
-                    <h3 class="card-header fondo">{{key}}</h3>
-                    <div class="card-body">
-                        <table class="table table-responsive-xl table-hover table-striped center">
-                            <thead>
-                                <tr>
-                                    <th>Nombre de la materia</th>
-                                    <th>Notas</th>
-                                </tr>
-                            </thead>
-                            <tbody v-for="(studentClass, id) in studentClass" :key="id">
-                                <tr>
-                                    <td>{{studentClass.text}}</td>
-                                    <td>
-                                        <div>
-                                            <button type="button" class="btn btn-warning" v-on:click="getNotes(studentClass.id_student,studentClass.id_area,studentClass.id_classroom)">
-                                                Ver
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                <div id="accordion">
+                    <div class="card" v-for="(studentClass, key, value) in studentClass" :key="key">
+                        <div class="card-header fondo" id="headingOne">
+                            <h5 class="mb-0">
+                                <button class="btn btn-link" style="color:white" data-toggle="collapse" :data-target="'#'+key | upper"
+                                    aria-expanded="true" :aria-controls="key | upper">
+                                    {{key}}
+                                </button>
+                            </h5>
+                        </div>
+
+                        <div :id="key | upper" class="collapse show" aria-labelledby="headingOne"
+                            data-parent="#accordion">
+                            <div class="card-body">
+                                <table class="table table-responsive-xl table-hover table-striped center">
+                                    <thead>
+                                        <tr>
+                                            <th>Nombre de la materia</th>
+                                            <th>Notas</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody v-for="(studentClass, id) in studentClass" :key="id">
+                                        <tr>
+                                            <td>{{studentClass.text}}</td>
+                                            <td>
+                                                <div>
+                                                    <button type="button" class="btn btn-warning"
+                                                        v-on:click="getNotes(studentClass.id_student,studentClass.id_area,studentClass.id_classroom)">
+                                                        Ver
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+
 
         <!-- Modal de Notas-->
         <div class="modal fade" id="notesModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -71,29 +86,37 @@
     export default {
         data() {
             return {
-                notes:[],
+                notes: [],
                 studentClass: [],
                 inData: false,
             }
         },
-        mounted(){
+        mounted() {
             this.getClasses();
         },
+        filters: {
+            upper: function (value) {
+                return value.trim().replace(/\s/g,"");
+            }
+        },
         methods: {
-            getClasses(){
-                axios.get('/getAreas').then((response)=>{
+            getClasses() {
+                axios.get('/getAreas').then((response) => {
+                    console.log(response.data)
                     this.studentClass = response.data;
-                }).catch((error)=>{
+                }).catch((error) => {
                     console.log(error);
                 })
             },
-            getNotes(id_student,id_area,id_classroom){
-                return new Promise((resolve,reject)=>{
-                    axios.get(`/api/teacher/area/${id_area}/classroom/${id_classroom}/student/${id_student}/module`).then(response => {
+            getNotes(id_student, id_area, id_classroom) {
+                return new Promise((resolve, reject) => {
+                    axios.get(
+                        `/api/teacher/area/${id_area}/classroom/${id_classroom}/student/${id_student}/module`
+                    ).then(response => {
                         this.notes = response.data;
                         $("#notesModal").modal("show");
                         resolve();
-                    },e=>reject(e));
+                    }, e => reject(e));
                 })
             }
         }
