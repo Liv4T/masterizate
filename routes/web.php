@@ -712,3 +712,7 @@ Route::get('/getNotes/{id_student}/{id_area}/{id_classroom}', 'ParentsController
 Route::resource('/historyPsicology', 'HistoryPsicologyController');
 Route::resource('/followUps', 'FollowUpsController');
 Route::resource('/comunicates', 'ComunicatesController');
+
+//Observer 
+Route::resource('/observer','ObserverController');
+Route::get('/dataUsers','ObserverController@getDataParentsStudents');

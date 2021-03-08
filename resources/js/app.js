@@ -8,6 +8,7 @@ window.Vue = require("vue");
 window.Bus = new Vue();
 window.toastr = require("toastr");
 import CKEditor from "@ckeditor/ckeditor5-vue";
+import Vue from "vue";
 //import "bootstrap/dist/css/bootstrap.css";
 //import "bootstrap-vue/dist/bootstrap-vue.css";
 import Game from "./components/Game";
@@ -216,3 +217,6 @@ Vue.component("comunicates-component", () => import("./components/Comunicates.vu
 Vue.component("history-psicology-component", ()=> import("./components/HistorialPsicologia.vue"));
 Vue.component("follow-ups-component", ()=>import("./components/Seguimientos.vue"))
 const app = new Vue({el: "#app", data: {}, store});
+
+//Observer
+Vue.component("observer-component", () => import("./components/Observer.vue"));
