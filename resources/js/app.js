@@ -205,5 +205,14 @@ Vue.component("teacher-student-class-content", () => import ("./components/teach
 Vue.component("notification-component", () => import ("./components/notificationComponent.vue"));
 Vue.use(CKEditor);
 
+//Padres
+Vue.component("menu-padres", () => import("./components/menuPadres.vue"));
+Vue.component("parents-component", () => import("./components/parents.vue"));
+Vue.component("event-parents-modal", () => import("./components/EventParentsModal.vue"));
+Vue.component("modal-edit-parents-info", () => import("./components/ModalEditParentsInfo.vue"));
 
+//Psicologia 
+Vue.component("comunicates-component", () => import("./components/Comunicates.vue"));
+Vue.component("history-psicology-component", ()=> import("./components/HistorialPsicologia.vue"));
+Vue.component("follow-ups-component", ()=>import("./components/Seguimientos.vue"))
 const app = new Vue({el: "#app", data: {}, store});

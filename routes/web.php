@@ -309,6 +309,7 @@ Route::resource('Courses', 'CoursesController', ['except' => 'show', 'create', '
 Route::resource('Class', 'ClassController', ['except' => 'show', 'create', 'edit']);
 Route::get('GetClass', 'ClassController@getClass');
 Route::get('showClass/{id}', 'ClassController@show')->name('showClass');
+Route::put('test', 'ClassController@deactivateClass')->name('test');
 Route::get('editClass/{id}', 'ClassController@findClass')->name('editClass');
 Route::get('GetNameArea/{id_area}/{id_classroom}', 'ClassController@getNameArea')->name('GetNameArea');
 Route::get('getActivity/{id_1}/{id_2}', 'ActivityController@indexActivityByArea')->name('getActivity');
@@ -653,10 +654,7 @@ Route::middleware('auth')->get('/admin/clases', function () {
     return view('adminCourses');
 });
 
-
-
-
-
+Route::put('/test','ClassController@deactivateClass')->name('test');
 
 //api rest
 Route::get('/api/achievement/{id_achievement}/indicator', 'IndicatorController@getByAchievement');
@@ -670,6 +668,7 @@ Route::post('/api/file/upload/editor-content', 'UploadController@uploadEditorCon
 Route::put('/api/admin/module/{id_module}/class/{id_course}/{state}', 'ClassController@updateClassEnableEdition');
 Route::get('/api/student/activity', 'ActivityController@getByCurrentStudent');
 Route::get('/api/student/event', 'EventsController@studentEvents');
+Route::get('/api/event/getStudentsClass','EventsController@getStudentsClassForParents');
 Route::get('/api/teacher/area/{area_id}/classroom/{classroom_id}/student', 'CalificationController@getAllStudents');
 Route::get('/api/teacher/area/{area_id}/classroom/{classroom_id}/student/{student_id}', 'CalificationController@getByStudent');
 Route::get('/api/teacher/area/{area_id}/classroom/{classroom_id}/student/{student_id}/module', 'CalificationController@getAllModules');
@@ -701,4 +700,15 @@ Route::get('/api/lectives/planification/{id_lective_planification}/activities', 
 Route::put('/api/lectives/planification/{id_lective_planification}/weekly/{id_weekly_plan}/course/{id_class}/activity/{id_activity}/module/ENCUESTA_UNICA_RTA/question/{id_question}', 'QuestionController@responseQuestiononLective');
 Route::put('/api/planification/copy', 'CoursesController@copyInformation');
 
+//parents 
 
+Route::resource('/parents', 'ParentsController');
+Route::get('/getInvitations','ParentsController@getInvitatios');
+Route::get('/invitations', 'ParentsController@getUsersToInvitations');
+Route::get('/getAreas','ParentsController@getAreas');
+Route::get('/getNotes/{id_student}/{id_area}/{id_classroom}', 'ParentsController@getNotes');
+
+//psicology
+Route::resource('/historyPsicology', 'HistoryPsicologyController');
+Route::resource('/followUps', 'FollowUpsController');
+Route::resource('/comunicates', 'ComunicatesController');

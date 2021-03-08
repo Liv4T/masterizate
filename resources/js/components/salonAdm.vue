@@ -138,6 +138,9 @@
                                                     <option value="3"
                                                         >Estudiante</option
                                                     >
+                                                    <option value="4"
+                                                        >Padres</option
+                                                    >
                                                 </select>
                                             </div>
                                         </div>
