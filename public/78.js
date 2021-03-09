@@ -159,7 +159,7 @@ var render = function() {
         _c(
           "div",
           { attrs: { id: "accordion" } },
-          _vm._l(_vm.studentClass, function(studentClass, key, value) {
+          _vm._l(_vm.studentClass, function(studentClass, key) {
             return _c("div", { key: key, staticClass: "card" }, [
               _c(
                 "div",

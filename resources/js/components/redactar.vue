@@ -78,9 +78,11 @@
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <div class="modal-body">
-                            <div class="content">
-                                <strong class="h4">Lunes a sabados de 8:00 A.M a 5:00 P.M</strong>
+                        <div class="modal-horario">
+                            <div class="modal-body">
+                                <div class="content">
+                                    <strong class="h4">Lunes a sabados de 8:00 A.M a 5:00 P.M</strong>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -247,14 +249,13 @@
                     })
                     .then((response) => {
                         this.errors = [];
-
                         toastr.success("Mensaje enviado");
+                        if (hourly >= 7 && minutes <= 59 || hourly >= 17 && minutes >= 0) {
+                            $("#infoModal").modal("show");
+                        }
                         this.getMenu();
                     })
                     .catch((error) => {});
-                if (hourly <= 7 && minutes <= 59 || hourly >= 17 && minutes >= 0) {
-                    $("#infoModal").modal("show");
-                }
             },
         },
     };
@@ -287,7 +288,7 @@
         height: 150px;
     }
 
-    .modal-body {
+    .modal-horario {
         background-image: url("https://firebasestorage.googleapis.com/v0/b/movie-44de4.appspot.com/o/horarioAtenci%C3%B3n.png?alt=media&token=488369f1-14b1-438a-9de0-2d2f7b3c45de");
         background-repeat: no-repeat;
         background-size: cover;
