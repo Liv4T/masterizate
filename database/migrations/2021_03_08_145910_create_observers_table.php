@@ -15,19 +15,22 @@ class CreateObserversTable extends Migration
     {
         Schema::create('observers', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('id_course');
-            $table->string('name');
-            $table->date('date_birth');
+            $table->string('name_student');
             $table->integer('id_student')->unsigned();
+            $table->integer('age');
+            $table->date('date_birth');
             $table->string('size');
+            $table->string('weight');
             $table->bigInteger('identification');
             $table->string('father_name')->nullable();
-            $table->string('mother_name')->nullable();
             $table->string('office_father')->nullable();
+            $table->string('mother_name')->nullable();
             $table->string('office_mother')->nullable();
             $table->string('user_creator');
             $table->string('address');
             $table->string('phone');
+            $table->boolean('repitent');
+            $table->text('observation');
 
             $table->foreign('id_student')
                 ->references('id')

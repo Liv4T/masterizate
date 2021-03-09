@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Observer;
 use App\User;
+use App\ClassroomTeacher;
+use App\ClassroomStudent;
 use Auth;
 use Illuminate\Http\Request;
 
@@ -20,15 +22,14 @@ class ObserverController extends Controller
     }
 
     public function getDataParentsStudents(){
-        $user_id = Auth::user()->id;
-        $observer = Observer::where('user_creator','=', $user_id)->get();
+        $user_name = Auth::user()->name;
+
+        $observer = Observer::where('user_creator','=', $user_name)->get();
         $parents = User::where('type_user','=',4)->get();
-        $students = User::where('type_user','=',3)->get();
 
         $users = [
             $observer,
-            $parents,
-            $students
+            $parents
         ];
 
         return response()->json($users);

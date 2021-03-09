@@ -3,7 +3,7 @@
         <div class="row justify-content-center">
             <div id="crud" class="col-sm-10">
                 <div id="accordion">
-                    <div class="card" v-for="(studentClass, key, value) in studentClass" :key="key">
+                    <div class="card" v-for="(studentClass, key) in studentClass" :key="key">
                         <div class="card-header fondo" id="headingOne">
                             <h5 class="mb-0">
                                 <button class="btn btn-link" style="color:white" data-toggle="collapse" :data-target="'#'+key | upper"

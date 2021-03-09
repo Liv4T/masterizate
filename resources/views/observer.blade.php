@@ -3,7 +3,7 @@
 @section('content')
 @if (Auth::user()->type_user == '2')
     <menu-docente></menu-docente>
-    <observer-component></observer-component>
+    <observer-component :user="{{Auth::user()}}"></observer-component>
 @endif
 @if (Auth::user()->type_user == '4')
     <menu-padres></menu-padres>

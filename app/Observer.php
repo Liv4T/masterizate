@@ -10,19 +10,22 @@ class Observer extends Model
     protected $table = "observers";
     protected $guarded = ['id'];
     protected $fillable = [
-        'id_course',
-        'name',
-        'date_birth',
+        'name_student',
         'id_student',
+        'age',
+        'date_birth',
         'size',
+        'weight',
         'identification',
         'father_name',
-        'mother_name',
         'office_father',
+        'mother_name',
         'office_mother',
         'user_creator',
         'address',
         'phone',
+        'repitent',
+        'observation'
     ];
 
     public function user(){
