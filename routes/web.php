@@ -249,6 +249,9 @@ Route::middleware('auth')->get('/docente_asignar', function () {
 Route::middleware('auth')->get('/estudiante_asignar', function () {
     return view('asignarEstudiante');
 });
+Route::middleware('auth')->get('/parent_asignar', function () {
+    return view('asignarParent');
+});
 Route::middleware('auth')->get('/coordinador_adm', function () {
     return view('coordinadorAdm');
 });
@@ -422,6 +425,7 @@ Route::get('getStudents', 'AdministratorController@indexStudents')->name('getStu
 Route::get('getTeachers', 'AdministratorController@indexTeachers')->name('getTeachers');
 Route::get('getUsersAssigned', 'AdministratorController@indexStudentsTeachersAssigned')->name('getUsersAssigned');
 Route::post('assignStudents', 'AdministratorController@assignStudents')->name('assignStudents');
+Route::put('assignParentToStudent/{id_student}', 'AdministratorController@assignParentsToStudent');
 Route::post('assignTeachers', 'AdministratorController@assignTeachers')->name('assignTeachers');
 Route::get('getState', 'AdministratorController@getAllState')->name('getState');
 Route::get('getInstitution', 'AdministratorController@indexInstitution')->name('getInstitution');
@@ -704,6 +708,7 @@ Route::put('/api/planification/copy', 'CoursesController@copyInformation');
 
 Route::resource('/parents', 'ParentsController');
 Route::get('/getInvitations','ParentsController@getInvitatios');
+Route::get('/getParents','ParentsController@getParents');
 Route::get('/invitations', 'ParentsController@getUsersToInvitations');
 Route::get('/getAreas','ParentsController@getAreas');
 Route::get('/getNotes/{id_student}/{id_area}/{id_classroom}', 'ParentsController@getNotes');

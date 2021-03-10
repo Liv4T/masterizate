@@ -142,6 +142,7 @@ Vue.component("matricula", ()=>import("./components/matricula.vue"));
 Vue.component("aperfil-adm", ()=>import("./components/AsignarPerfil.vue"));
 Vue.component("adocente-adm", ()=>import("./components/asignarDocente.vue"));
 Vue.component("aestudiante-adm", ()=>import("./components/asignarEstudiante.vue"));
+Vue.component("aparent-adm", ()=>import("./components/asignarPariente.vue"));
 Vue.component("importar-adm", ()=>import("./components/importAdm.vue"));
 Vue.component("asistencia-adm", ()=>import("./components/asistencia.vue"));
 
@@ -216,9 +217,10 @@ Vue.component("modal-edit-parents-info", () => import("./components/ModalEditPar
 Vue.component("comunicates-component", () => import("./components/Comunicates.vue"));
 Vue.component("history-psicology-component", ()=> import("./components/HistorialPsicologia.vue"));
 Vue.component("follow-ups-component", ()=>import("./components/Seguimientos.vue"))
-const app = new Vue({el: "#app", data: {}, store});
+
 
 //Observer
 Vue.component("observer-component", () => import("./components/Observer.vue"));
 Vue.component("modal-observer-component", () => import("./components/ModalObserver.vue"));
 Vue.component("modal-edit-observer-component", () => import("./components/ModalEditObserver.vue"));
+const app = new Vue({el: "#app", data: {}, store});

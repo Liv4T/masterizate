@@ -28,6 +28,10 @@ class ParentsController extends Controller
         return view('parents');
     }
 
+    public function getParents(){
+        $parents = User::where('type_user','=',4)->get();
+        return response()->json($parents, 200);
+    }
     public function getInvitatios(){
         $user_id = Auth::user()->id;
         $parents = Parents::where('id_sender','=', $user_id)->orderBy('id', 'asc')->get();

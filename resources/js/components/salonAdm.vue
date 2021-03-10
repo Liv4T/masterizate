@@ -32,6 +32,12 @@
                         >
                         <a
                             class="btn btn-warning float-right"
+                            style="margin-left:10px;"
+                            href="/parent_asignar"
+                            >Asignar Acudiente</a
+                        >
+                        <a
+                            class="btn btn-warning float-right"
                             href="/docente_asignar"
                             >Asignar docente</a
                         >
@@ -139,7 +145,7 @@
                                                         >Estudiante</option
                                                     >
                                                     <option value="4"
-                                                        >Padres</option
+                                                        >Acudiente</option
                                                     >
                                                 </select>
                                             </div>
