@@ -25,14 +25,8 @@ class ObserverController extends Controller
         $user_name = Auth::user()->name;
 
         $observer = Observer::where('user_creator','=', $user_name)->get();
-        $parents = User::where('type_user','=',4)->get();
 
-        $users = [
-            $observer,
-            $parents
-        ];
-
-        return response()->json($users);
+        return response()->json($observer);
     }
 
     /**

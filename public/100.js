@@ -99,11 +99,13 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function (error) {
         console.log(error);
       });
+      axios.get('/getParents').then(function (response) {
+        _this.parents = response.data;
+      })["catch"](function (error) {
+        console.log(error);
+      });
       axios.get('/dataUsers').then(function (response) {
-        if (response.data.length > 0) {
-          _this.parents = response.data[1];
-          _this.observers = response.data[0];
-        }
+        _this.observers = response.data;
       })["catch"](function (error) {
         console.log(error);
       });

@@ -85,11 +85,14 @@
                     console.log(error)
                 });
 
+                axios.get('/getParents').then((response)=>{
+                    this.parents = response.data
+                }).catch((error)=>{
+                    console.log(error);
+                })
+
                 axios.get('/dataUsers').then((response)=>{
-                    if(response.data.length > 0){
-                        this.parents = response.data[1];
-                        this.observers = response.data[0]
-                    }
+                    this.observers = response.data
                 }).catch(error => {
                     console.log(error)
                 })
