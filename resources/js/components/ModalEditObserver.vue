@@ -15,7 +15,7 @@
                     <div class="row">
                         <div class="col-6">
                             <label for="name">Nombre</label>
-                            <multiselect v-model="studentsEdit.name_student" :options="studentsOptions" :multiple="false"
+                            <multiselect v-model="studentToSave" :options="studentsOptions" :multiple="false"
                                 :close-on-select="false" :clear-on-select="false" :preserve-search="true"
                                 placeholder="Seleccione una o varias" label="text" track-by="id"
                                 :preselect-first="false">
@@ -51,7 +51,7 @@
                     <div class="row">
                         <div class="col-6">
                             <label for="fatherName">Nombre del Padre</label>
-                            <multiselect v-model="studentsEdit.father_name" :options="parentsOptions" :multiple="false"
+                            <multiselect v-model="fatherToSave" :options="parentsOptions" :multiple="false"
                                 :close-on-select="false" :clear-on-select="false" :preserve-search="true"
                                 placeholder="Seleccione una o varias" label="text" track-by="id"
                                 :preselect-first="false">
@@ -67,7 +67,7 @@
                         </div>
                         <div class="col-6">
                             <label for="motherName">Nombre de la Madre</label>
-                            <multiselect v-model="studentsEdit.mother_name" :options="parentsOptions" :multiple="false"
+                            <multiselect v-model="motherToSave" :options="parentsOptions" :multiple="false"
                                 :close-on-select="false" :clear-on-select="false" :preserve-search="true"
                                 placeholder="Seleccione una o varias" label="text" track-by="id"
                                 :preselect-first="false">
@@ -127,8 +127,13 @@
                 motherToSave:[]
             }
         },
+        watch: { 
+            studentsEdit: function(newVal, oldVal) { // watch it
+                this.showDataParentsAndStudents();
+            }
+        },
         components: {
-            Multiselect
+            Multiselect,
         },
         mounted(){
             this.getParentsStudentsData();
@@ -140,6 +145,7 @@
                 if(dataStudent){
                     dataStudent.forEach(e => {
                         this.studentsOptions.push({
+                            id: e.user_id,
                             id_student: e.user_id,
                             text: `${e.user_name}`,
                         });
@@ -148,37 +154,71 @@
 
                 this.parents.forEach(e => {
                     this.parentsOptions.push({
+                        id: e.id,
                         id_parent: e.id,
                         text: `${e.name}`
                     });
                 });
-            },
 
-            saveObservation(){
-                const data = {
-                    'name_student': this.studentToSave.text,
-                    'id_student': this.studentToSave.id_student,
-                    'age':this.age,
-                    'date_birth': this.dateBirth,
-                    'size': this.size,
-                    'weight': this.weight,
-                    'identification': this.identification,
-                    'father_name': this.fatherToSave.text,
-                    'office_father': this.officeFather,
-                    'mother_name': this.motherToSave.text,
-                    'office_mother': this.officeMother,
-                    'user_creator': this.user.name,
-                    'address': this.address,
-                    'phone': this.phone,
-                    'repitent': this.repitent === true ? true : false,
-                    'observation': this.observer
+                console.log(this.parents)
+            },
+            showDataParentsAndStudents(){
+                this.parents.forEach(e => {
+                    if(e.name === this.studentsEdit.mother_name){
+                        this.motherToSave.push({
+                            id: e.id,
+                            id_parent: e.id,
+                            text: `${e.name}`
+                        });
+                    }
+
+                    if(e.name === this.studentsEdit.father_name){
+                        this.fatherToSave.push({
+                            id: e.id,
+                            id_parent: e.id,
+                            text: `${e.name}`
+                        });
+                    }
+                });
+
+                if(this.students[0]){
+                    this.students[0].forEach(e => { 
+                        if(e.user_id === this.studentsEdit.id_student){ 
+                            this.studentToSave.push({
+                                id: e.user_id,
+                                id_student: e.user_id,
+                                text: `${e.user_name}`,
+                            });                
+                        }
+                });
                 }
-                axios.post('/observer',data).then((response)=>{
-                    toastr.success("Datos Guardados")
-                    $("#EditModal").modal("hide");
-                }).catch((error)=>{
-                    toastr.error("Diligencia los campos requeridos")
-                })
+            },
+            saveObservation(){
+                console.log(this.motherToSave)
+                // const data = {
+                //     'name_student': this.studentToSave.text,
+                //     'id_student': this.studentToSave.id_student,
+                //     'age':this.age,
+                //     'date_birth': this.dateBirth,
+                //     'size': this.size,
+                //     'weight': this.weight,
+                //     'identification': this.identification,
+                //     'father_name': this.fatherToSave.text,
+                //     'office_father': this.officeFather,
+                //     'mother_name': this.motherToSave.text,
+                //     'office_mother': this.officeMother,
+                //     'user_creator': this.user.name,
+                //     'address': this.address,
+                //     'phone': this.phone,
+                //     'repitent': this.repitent === true ? true : false,
+                //     'observation': this.observer
+                // }
+                // axios.post('/observer',data).then((response)=>{
+                //     toastr.success("Datos Guardados")
+                //     $("#EditModal").modal("hide");
+                // }).catch((error)=>{
+                //     toastr.error("Diligencia los campos requeridos")
+                // })
             }
         }
     }

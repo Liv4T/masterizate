@@ -167,6 +167,7 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
       if (dataStudent) {
         dataStudent.forEach(function (e) {
           _this.studentsOptions.push({
+            id: e.user_id,
             id_student: e.user_id,
             text: "".concat(e.user_name)
           });
@@ -175,6 +176,7 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
 
       this.parents.forEach(function (e) {
         _this.parentsOptions.push({
+          id: e.id,
           id_parent: e.id,
           text: "".concat(e.name)
         });

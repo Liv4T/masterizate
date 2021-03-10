@@ -139,6 +139,12 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
       motherToSave: []
     };
   },
+  watch: {
+    studentsEdit: function studentsEdit(newVal, oldVal) {
+      // watch it
+      this.showDataParentsAndStudents();
+    }
+  },
   components: {
     Multiselect: vue_multiselect__WEBPACK_IMPORTED_MODULE_0___default.a
   },
@@ -154,6 +160,7 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
       if (dataStudent) {
         dataStudent.forEach(function (e) {
           _this.studentsOptions.push({
+            id: e.user_id,
             id_student: e.user_id,
             text: "".concat(e.user_name)
           });
@@ -162,36 +169,71 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
 
       this.parents.forEach(function (e) {
         _this.parentsOptions.push({
+          id: e.id,
           id_parent: e.id,
           text: "".concat(e.name)
         });
       });
+      console.log(this.parents);
+    },
+    showDataParentsAndStudents: function showDataParentsAndStudents() {
+      var _this2 = this;
+
+      this.parents.forEach(function (e) {
+        if (e.name === _this2.studentsEdit.mother_name) {
+          _this2.motherToSave.push({
+            id: e.id,
+            id_parent: e.id,
+            text: "".concat(e.name)
+          });
+        }
+
+        if (e.name === _this2.studentsEdit.father_name) {
+          _this2.fatherToSave.push({
+            id: e.id,
+            id_parent: e.id,
+            text: "".concat(e.name)
+          });
+        }
+      });
+
+      if (this.students[0]) {
+        this.students[0].forEach(function (e) {
+          if (e.user_id === _this2.studentsEdit.id_student) {
+            _this2.studentToSave.push({
+              id: e.user_id,
+              id_student: e.user_id,
+              text: "".concat(e.user_name)
+            });
+          }
+        });
+      }
     },
     saveObservation: function saveObservation() {
-      var data = {
-        'name_student': this.studentToSave.text,
-        'id_student': this.studentToSave.id_student,
-        'age': this.age,
-        'date_birth': this.dateBirth,
-        'size': this.size,
-        'weight': this.weight,
-        'identification': this.identification,
-        'father_name': this.fatherToSave.text,
-        'office_father': this.officeFather,
-        'mother_name': this.motherToSave.text,
-        'office_mother': this.officeMother,
-        'user_creator': this.user.name,
-        'address': this.address,
-        'phone': this.phone,
-        'repitent': this.repitent === true ? true : false,
-        'observation': this.observer
-      };
-      axios.post('/observer', data).then(function (response) {
-        toastr.success("Datos Guardados");
-        $("#EditModal").modal("hide");
-      })["catch"](function (error) {
-        toastr.error("Diligencia los campos requeridos");
-      });
+      console.log(this.motherToSave); // const data = {
+      //     'name_student': this.studentToSave.text,
+      //     'id_student': this.studentToSave.id_student,
+      //     'age':this.age,
+      //     'date_birth': this.dateBirth,
+      //     'size': this.size,
+      //     'weight': this.weight,
+      //     'identification': this.identification,
+      //     'father_name': this.fatherToSave.text,
+      //     'office_father': this.officeFather,
+      //     'mother_name': this.motherToSave.text,
+      //     'office_mother': this.officeMother,
+      //     'user_creator': this.user.name,
+      //     'address': this.address,
+      //     'phone': this.phone,
+      //     'repitent': this.repitent === true ? true : false,
+      //     'observation': this.observer
+      // }
+      // axios.post('/observer',data).then((response)=>{
+      //     toastr.success("Datos Guardados")
+      //     $("#EditModal").modal("hide");
+      // }).catch((error)=>{
+      //     toastr.error("Diligencia los campos requeridos")
+      // })
     }
   }
 });
@@ -282,11 +324,11 @@ var render = function() {
                         }
                       ]),
                       model: {
-                        value: _vm.studentsEdit.name_student,
+                        value: _vm.studentToSave,
                         callback: function($$v) {
-                          _vm.$set(_vm.studentsEdit, "name_student", $$v)
+                          _vm.studentToSave = $$v
                         },
-                        expression: "studentsEdit.name_student"
+                        expression: "studentToSave"
                       }
                     })
                   ],
@@ -489,11 +531,11 @@ var render = function() {
                         }
                       ]),
                       model: {
-                        value: _vm.studentsEdit.father_name,
+                        value: _vm.fatherToSave,
                         callback: function($$v) {
-                          _vm.$set(_vm.studentsEdit, "father_name", $$v)
+                          _vm.fatherToSave = $$v
                         },
-                        expression: "studentsEdit.father_name"
+                        expression: "fatherToSave"
                       }
                     })
                   ],
@@ -576,11 +618,11 @@ var render = function() {
                         }
                       ]),
                       model: {
-                        value: _vm.studentsEdit.mother_name,
+                        value: _vm.motherToSave,
                         callback: function($$v) {
-                          _vm.$set(_vm.studentsEdit, "mother_name", $$v)
+                          _vm.motherToSave = $$v
                         },
-                        expression: "studentsEdit.mother_name"
+                        expression: "motherToSave"
                       }
                     })
                   ],

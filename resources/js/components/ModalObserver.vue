@@ -153,14 +153,16 @@
                 if(dataStudent){
                     dataStudent.forEach(e => {
                         this.studentsOptions.push({
+                            id: e.user_id,
                             id_student: e.user_id,
                             text: `${e.user_name}`,
                         });
                     });
                 }
 
-                this.parents.forEach(e => {
+                this.parents.forEach(e => {   
                     this.parentsOptions.push({
+                        id:e.id,
                         id_parent: e.id,
                         text: `${e.name}`
                     });
