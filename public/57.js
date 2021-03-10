@@ -132,17 +132,22 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
   props: ['students', 'parents', 'studentsEdit'],
   data: function data() {
     return {
+      newStudentEdit: {},
       studentsOptions: [],
       studentToSave: [],
       parentsOptions: [],
       fatherToSave: [],
-      motherToSave: []
+      motherToSave: [],
+      repitent: true
     };
   },
   watch: {
     studentsEdit: function studentsEdit(newVal, oldVal) {
       // watch it
-      this.showDataParentsAndStudents();
+      if (newVal !== oldVal) {
+        this.newStudentEdit = newVal;
+        this.showDataParentsAndStudents();
+      }
     }
   },
   components: {
@@ -174,66 +179,68 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
           text: "".concat(e.name)
         });
       });
-      console.log(this.parents);
     },
     showDataParentsAndStudents: function showDataParentsAndStudents() {
       var _this2 = this;
 
       this.parents.forEach(function (e) {
-        if (e.name === _this2.studentsEdit.mother_name) {
-          _this2.motherToSave.push({
+        if (e.name === _this2.newStudentEdit.mother_name) {
+          _this2.motherToSave = {
             id: e.id,
             id_parent: e.id,
             text: "".concat(e.name)
-          });
+          };
         }
 
-        if (e.name === _this2.studentsEdit.father_name) {
-          _this2.fatherToSave.push({
+        if (e.name === _this2.newStudentEdit.father_name) {
+          _this2.fatherToSave = {
             id: e.id,
             id_parent: e.id,
             text: "".concat(e.name)
-          });
+          };
         }
       });
 
       if (this.students[0]) {
         this.students[0].forEach(function (e) {
-          if (e.user_id === _this2.studentsEdit.id_student) {
-            _this2.studentToSave.push({
+          if (e.user_id === _this2.newStudentEdit.id_student) {
+            _this2.studentToSave = {
               id: e.user_id,
               id_student: e.user_id,
               text: "".concat(e.user_name)
-            });
+            };
           }
         });
       }
     },
     saveObservation: function saveObservation() {
-      console.log(this.motherToSave); // const data = {
-      //     'name_student': this.studentToSave.text,
-      //     'id_student': this.studentToSave.id_student,
-      //     'age':this.age,
-      //     'date_birth': this.dateBirth,
-      //     'size': this.size,
-      //     'weight': this.weight,
-      //     'identification': this.identification,
-      //     'father_name': this.fatherToSave.text,
-      //     'office_father': this.officeFather,
-      //     'mother_name': this.motherToSave.text,
-      //     'office_mother': this.officeMother,
-      //     'user_creator': this.user.name,
-      //     'address': this.address,
-      //     'phone': this.phone,
-      //     'repitent': this.repitent === true ? true : false,
-      //     'observation': this.observer
-      // }
-      // axios.post('/observer',data).then((response)=>{
-      //     toastr.success("Datos Guardados")
-      //     $("#EditModal").modal("hide");
-      // }).catch((error)=>{
-      //     toastr.error("Diligencia los campos requeridos")
-      // })
+      var _this3 = this;
+
+      var data = {
+        'name_student': this.studentToSave.text,
+        'id_student': this.studentToSave.id_student,
+        'age': this.newStudentEdit.age,
+        'date_birth': this.newStudentEdit.date_birth,
+        'size': this.newStudentEdit.size,
+        'weight': this.newStudentEdit.weight,
+        'identification': this.newStudentEdit.identification,
+        'father_name': this.fatherToSave.text,
+        'office_father': this.newStudentEdit.office_father,
+        'mother_name': this.motherToSave.text,
+        'office_mother': this.newStudentEdit.office_mother,
+        'address': this.newStudentEdit.address,
+        'phone': this.newStudentEdit.phone,
+        'repitent': this.newStudentEdit.repitent,
+        'observation': this.newStudentEdit.observation
+      };
+      axios.put("/observer/".concat(this.newStudentEdit.id), data).then(function (response) {
+        _this3.getMenu();
+      })["catch"](function (error) {
+        toastr.error("Diligencia los campos requeridos");
+      });
+    },
+    getMenu: function getMenu() {
+      window.location = "/observer";
     }
   }
 });
@@ -345,20 +352,20 @@ var render = function() {
                       {
                         name: "model",
                         rawName: "v-model",
-                        value: _vm.studentsEdit.date_birth,
-                        expression: "studentsEdit.date_birth"
+                        value: _vm.newStudentEdit.date_birth,
+                        expression: "newStudentEdit.date_birth"
                       }
                     ],
                     staticClass: "form-control",
                     attrs: { id: "dateBirth", type: "date", required: "" },
-                    domProps: { value: _vm.studentsEdit.date_birth },
+                    domProps: { value: _vm.newStudentEdit.date_birth },
                     on: {
                       input: function($event) {
                         if ($event.target.composing) {
                           return
                         }
                         _vm.$set(
-                          _vm.studentsEdit,
+                          _vm.newStudentEdit,
                           "date_birth",
                           $event.target.value
                         )
@@ -375,19 +382,19 @@ var render = function() {
                       {
                         name: "model",
                         rawName: "v-model",
-                        value: _vm.studentsEdit.age,
-                        expression: "studentsEdit.age"
+                        value: _vm.newStudentEdit.age,
+                        expression: "newStudentEdit.age"
                       }
                     ],
                     staticClass: "form-control",
                     attrs: { id: "age", type: "number", required: "" },
-                    domProps: { value: _vm.studentsEdit.age },
+                    domProps: { value: _vm.newStudentEdit.age },
                     on: {
                       input: function($event) {
                         if ($event.target.composing) {
                           return
                         }
-                        _vm.$set(_vm.studentsEdit, "age", $event.target.value)
+                        _vm.$set(_vm.newStudentEdit, "age", $event.target.value)
                       }
                     }
                   })
@@ -401,19 +408,23 @@ var render = function() {
                       {
                         name: "model",
                         rawName: "v-model",
-                        value: _vm.studentsEdit.size,
-                        expression: "studentsEdit.size"
+                        value: _vm.newStudentEdit.size,
+                        expression: "newStudentEdit.size"
                       }
                     ],
                     staticClass: "form-control",
                     attrs: { id: "size", type: "text", required: "" },
-                    domProps: { value: _vm.studentsEdit.size },
+                    domProps: { value: _vm.newStudentEdit.size },
                     on: {
                       input: function($event) {
                         if ($event.target.composing) {
                           return
                         }
-                        _vm.$set(_vm.studentsEdit, "size", $event.target.value)
+                        _vm.$set(
+                          _vm.newStudentEdit,
+                          "size",
+                          $event.target.value
+                        )
                       }
                     }
                   })
@@ -427,20 +438,20 @@ var render = function() {
                       {
                         name: "model",
                         rawName: "v-model",
-                        value: _vm.studentsEdit.weight,
-                        expression: "studentsEdit.weight"
+                        value: _vm.newStudentEdit.weight,
+                        expression: "newStudentEdit.weight"
                       }
                     ],
                     staticClass: "form-control",
                     attrs: { id: "weight", type: "text", required: "" },
-                    domProps: { value: _vm.studentsEdit.weight },
+                    domProps: { value: _vm.newStudentEdit.weight },
                     on: {
                       input: function($event) {
                         if ($event.target.composing) {
                           return
                         }
                         _vm.$set(
-                          _vm.studentsEdit,
+                          _vm.newStudentEdit,
                           "weight",
                           $event.target.value
                         )
@@ -459,20 +470,20 @@ var render = function() {
                       {
                         name: "model",
                         rawName: "v-model",
-                        value: _vm.studentsEdit.identification,
-                        expression: "studentsEdit.identification"
+                        value: _vm.newStudentEdit.identification,
+                        expression: "newStudentEdit.identification"
                       }
                     ],
                     staticClass: "form-control",
                     attrs: { id: "identification", type: "text", required: "" },
-                    domProps: { value: _vm.studentsEdit.identification },
+                    domProps: { value: _vm.newStudentEdit.identification },
                     on: {
                       input: function($event) {
                         if ($event.target.composing) {
                           return
                         }
                         _vm.$set(
-                          _vm.studentsEdit,
+                          _vm.newStudentEdit,
                           "identification",
                           $event.target.value
                         )
@@ -552,20 +563,20 @@ var render = function() {
                       {
                         name: "model",
                         rawName: "v-model",
-                        value: _vm.studentsEdit.office_father,
-                        expression: "studentsEdit.office_father"
+                        value: _vm.newStudentEdit.office_father,
+                        expression: "newStudentEdit.office_father"
                       }
                     ],
                     staticClass: "form-control",
                     attrs: { id: "officeFather", type: "text" },
-                    domProps: { value: _vm.studentsEdit.office_father },
+                    domProps: { value: _vm.newStudentEdit.office_father },
                     on: {
                       input: function($event) {
                         if ($event.target.composing) {
                           return
                         }
                         _vm.$set(
-                          _vm.studentsEdit,
+                          _vm.newStudentEdit,
                           "office_father",
                           $event.target.value
                         )
@@ -639,20 +650,20 @@ var render = function() {
                       {
                         name: "model",
                         rawName: "v-model",
-                        value: _vm.studentsEdit.office_mother,
-                        expression: "studentsEdit.office_mother"
+                        value: _vm.newStudentEdit.office_mother,
+                        expression: "newStudentEdit.office_mother"
                       }
                     ],
                     staticClass: "form-control",
                     attrs: { id: "officeMother", type: "text" },
-                    domProps: { value: _vm.studentsEdit.office_mother },
+                    domProps: { value: _vm.newStudentEdit.office_mother },
                     on: {
                       input: function($event) {
                         if ($event.target.composing) {
                           return
                         }
                         _vm.$set(
-                          _vm.studentsEdit,
+                          _vm.newStudentEdit,
                           "office_mother",
                           $event.target.value
                         )
@@ -677,20 +688,20 @@ var render = function() {
                       {
                         name: "model",
                         rawName: "v-model",
-                        value: _vm.studentsEdit.address,
-                        expression: "studentsEdit.address"
+                        value: _vm.newStudentEdit.address,
+                        expression: "newStudentEdit.address"
                       }
                     ],
                     staticClass: "form-control",
                     attrs: { id: "address", type: "text", required: "" },
-                    domProps: { value: _vm.studentsEdit.address },
+                    domProps: { value: _vm.newStudentEdit.address },
                     on: {
                       input: function($event) {
                         if ($event.target.composing) {
                           return
                         }
                         _vm.$set(
-                          _vm.studentsEdit,
+                          _vm.newStudentEdit,
                           "address",
                           $event.target.value
                         )
@@ -709,19 +720,23 @@ var render = function() {
                       {
                         name: "model",
                         rawName: "v-model",
-                        value: _vm.studentsEdit.phone,
-                        expression: "studentsEdit.phone"
+                        value: _vm.newStudentEdit.phone,
+                        expression: "newStudentEdit.phone"
                       }
                     ],
                     staticClass: "form-control",
                     attrs: { id: "phone", type: "text", required: "" },
-                    domProps: { value: _vm.studentsEdit.phone },
+                    domProps: { value: _vm.newStudentEdit.phone },
                     on: {
                       input: function($event) {
                         if ($event.target.composing) {
                           return
                         }
-                        _vm.$set(_vm.studentsEdit, "phone", $event.target.value)
+                        _vm.$set(
+                          _vm.newStudentEdit,
+                          "phone",
+                          $event.target.value
+                        )
                       }
                     }
                   })
@@ -737,20 +752,20 @@ var render = function() {
                       {
                         name: "model",
                         rawName: "v-model",
-                        value: _vm.studentsEdit.repitent,
-                        expression: "studentsEdit.repitent"
+                        value: _vm.newStudentEdit.repitent,
+                        expression: "newStudentEdit.repitent"
                       }
                     ],
                     staticClass: "ml-2",
                     attrs: { type: "checkbox", id: "Repitent", required: "" },
                     domProps: {
-                      checked: Array.isArray(_vm.studentsEdit.repitent)
-                        ? _vm._i(_vm.studentsEdit.repitent, null) > -1
-                        : _vm.studentsEdit.repitent
+                      checked: Array.isArray(_vm.newStudentEdit.repitent)
+                        ? _vm._i(_vm.newStudentEdit.repitent, null) > -1
+                        : _vm.newStudentEdit.repitent
                     },
                     on: {
                       change: function($event) {
-                        var $$a = _vm.studentsEdit.repitent,
+                        var $$a = _vm.newStudentEdit.repitent,
                           $$el = $event.target,
                           $$c = $$el.checked ? true : false
                         if (Array.isArray($$a)) {
@@ -759,20 +774,20 @@ var render = function() {
                           if ($$el.checked) {
                             $$i < 0 &&
                               _vm.$set(
-                                _vm.studentsEdit,
+                                _vm.newStudentEdit,
                                 "repitent",
                                 $$a.concat([$$v])
                               )
                           } else {
                             $$i > -1 &&
                               _vm.$set(
-                                _vm.studentsEdit,
+                                _vm.newStudentEdit,
                                 "repitent",
                                 $$a.slice(0, $$i).concat($$a.slice($$i + 1))
                               )
                           }
                         } else {
-                          _vm.$set(_vm.studentsEdit, "repitent", $$c)
+                          _vm.$set(_vm.newStudentEdit, "repitent", $$c)
                         }
                       }
                     }
@@ -795,20 +810,20 @@ var render = function() {
                       {
                         name: "model",
                         rawName: "v-model",
-                        value: _vm.studentsEdit.observation,
-                        expression: "studentsEdit.observation"
+                        value: _vm.newStudentEdit.observation,
+                        expression: "newStudentEdit.observation"
                       }
                     ],
                     staticClass: "form-control",
                     attrs: { id: "Observer", required: "" },
-                    domProps: { value: _vm.studentsEdit.observation },
+                    domProps: { value: _vm.newStudentEdit.observation },
                     on: {
                       input: function($event) {
                         if ($event.target.composing) {
                           return
                         }
                         _vm.$set(
-                          _vm.studentsEdit,
+                          _vm.newStudentEdit,
                           "observation",
                           $event.target.value
                         )

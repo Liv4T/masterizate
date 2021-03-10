@@ -112,6 +112,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     edit: function edit(value) {
       this.studentEdit = value;
+      console.log(value);
     }
   }
 });

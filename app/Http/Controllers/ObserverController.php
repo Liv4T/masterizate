@@ -71,7 +71,7 @@ class ObserverController extends Controller
      * @param  \App\Observer  $observer
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Observer $observer)
+    public function update(Request $request, $id)
     {
         $observer = Observer::findOrFail($id);
         $data = $request->all();

@@ -99,6 +99,7 @@
             },
             edit(value){
                 this.studentEdit = value;
+                console.log(value)
             }
         }
     }
