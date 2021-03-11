@@ -38,7 +38,7 @@
                             <input disabled id="identification_Est" class="form-control" type="text" v-model="newStudentView.identification" required/>
                         </div>
                     </div>
-                    <h3 class="mt-5">Información de los padres</h3>
+                    <h3 class="mt-5">Información de los Acudientes</h3>
                     <div class="row">
                         <div class="col-6">
                             <label for="fatherName">Nombre del Padre</label>
@@ -76,21 +76,18 @@
                     <div class="row">
                         <div class="col">
                             <label for="Observer_est">Observaciones</label>
-                            <textarea id="Observer_est" class="form-control" v-model="newStudentView.observation" required/>
+                            <textarea disabled id="Observer_est" class="form-control" v-model="newStudentView.observation" required/>
                             </div>
                         </div>            
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" v-on:click="saveObservation()">Save changes</button>
+                        <button type="button" class="btn btn-Primary" data-dismiss="modal">Cerrar</button>
                     </div>
                 </div>
             </div>
         </div>
 </template>
 <script>
-    import Multiselect from "vue-multiselect";
-    Vue.component("multiselect", Multiselect);
     export default {
         props:['studentsView'],
         data(){
@@ -104,10 +101,6 @@
                     this.newStudentView = newVal;
                 }
             }
-        },
-        components: {
-            Multiselect,
         }
     }
 </script>
-<style src="vue-multiselect/dist/vue-multiselect.min.css"></style>

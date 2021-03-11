@@ -21,13 +21,13 @@ use Illuminate\Support\Facades\Excel;
 // Route::group(['middleware' => 'auth', function () {
 //add all your routes here
 Route::middleware('auth')->get('/user', function () {
-    return view('user');
+vretew('user');
 });
 Route::middleware('auth')->get('/board', function () {
-    return view('welcome');
+vretew('welcome');
 });
 Route::middleware('auth')->get('/memoria', function () {
-    return view('memory');
+vretew('memory');
 });
 Route::middleware('auth')->get('/task', function () {
     return view('class');
@@ -712,7 +712,8 @@ Route::get('/getParents','ParentsController@getParents');
 Route::get('/invitations', 'ParentsController@getUsersToInvitations');
 Route::get('/getAreas','ParentsController@getAreas');
 Route::get('/getNotes/{id_student}/{id_area}/{id_classroom}', 'ParentsController@getNotes');
-
+Route::get('/dataObserver','ParentsController@getDataObserverStudents');
+Route::view('/getParentsObserver', 'getParentsObserver');
 //psicology
 Route::resource('/historyPsicology', 'HistoryPsicologyController');
 Route::resource('/followUps', 'FollowUpsController');
