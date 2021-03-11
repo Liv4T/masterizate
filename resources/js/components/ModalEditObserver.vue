@@ -27,24 +27,24 @@
                             </multiselect>
                         </div>
                         <div class="col-6">
-                            <label for="dateBirth">Fecha de Nacimiento</label>
-                            <input id="dateBirth" class="form-control" type="date" v-model="newStudentEdit.date_birth" required/>
+                            <label for="date_birth">Fecha de Nacimiento</label>
+                            <input id="date_birth" class="form-control" type="date" v-model="newStudentEdit.date_birth" required/>
                         </div>
                         <div class="col-6">
-                            <label for="age">Edad</label>
-                            <input id="age" class="form-control" type="number" v-model="newStudentEdit.age" required/>
+                            <label for="ageEst">Edad</label>
+                            <input id="ageEst" class="form-control" type="number" v-model="newStudentEdit.age" required/>
                         </div>
                         <div class="col-6">
-                            <label for="size">Talla</label>
-                            <input id="size" class="form-control" type="text" v-model="newStudentEdit.size" required/>
+                            <label for="sizeEst">Talla</label>
+                            <input id="sizeEst" class="form-control" type="text" v-model="newStudentEdit.size" required/>
                         </div>
                         <div class="col-6">
-                            <label for="weight">Peso</label>
-                            <input id="weight" class="form-control" type="text" v-model="newStudentEdit.weight" required/>
+                            <label for="weight_Est">Peso</label>
+                            <input id="weight_Est" class="form-control" type="text" v-model="newStudentEdit.weight" required/>
                         </div>
                         <div class="col-6">
-                            <label for="identification">Identificación</label>
-                            <input id="identification" class="form-control" type="text" v-model="newStudentEdit.identification" required/>
+                            <label for="identification_Est">Identificación</label>
+                            <input id="identification_Est" class="form-control" type="text" v-model="newStudentEdit.identification" required/>
                         </div>
                     </div>
                     <h3 class="mt-5">Información de los padres</h3>
@@ -62,8 +62,8 @@
                             </multiselect>
                         </div>
                         <div class="col-6">
-                            <label for="officeFather">Profesión u Oficio</label>
-                            <input id="officeFather" class="form-control" type="text" v-model="newStudentEdit.office_father" />
+                            <label for="office_Father">Profesión u Oficio</label>
+                            <input id="office_Father" class="form-control" type="text" v-model="newStudentEdit.office_father" />
                         </div>
                         <div class="col-6">
                             <label for="motherName">Nombre de la Madre</label>
@@ -78,19 +78,19 @@
                             </multiselect>
                         </div>
                         <div class="col-6">
-                            <label for="officeMother">Profesión u Oficio</label>
-                            <input id="officeMother" class="form-control" type="text" v-model="newStudentEdit.office_mother" >
+                            <label for="office_Mother">Profesión u Oficio</label>
+                            <input id="office_Mother" class="form-control" type="text" v-model="newStudentEdit.office_mother" >
                         </div>
                     </div>
                     <h3 class="mt-5">Información General</h3>
                     <div class="row">
                         <div class="col-6">
-                            <label for="address">Dirección</label>
-                            <input id="address" class="form-control" type="text" v-model="newStudentEdit.address" required/>
+                            <label for="address_general">Dirección</label>
+                            <input id="address_general" class="form-control" type="text" v-model="newStudentEdit.address" required/>
                         </div>
                         <div class="col-6">
-                            <label for="phone">Telefono</label>
-                            <input id="phone" class="form-control" type="text" v-model="newStudentEdit.phone" required/>
+                            <label for="phone_general">Telefono</label>
+                            <input id="phone_general" class="form-control" type="text" v-model="newStudentEdit.phone" required/>
                         </div>
                         <div class="col-6 mt-3">    
                             <label for="Repitente">Repitente</label>
@@ -100,8 +100,8 @@
                     <h3 class="mt-2">Anotación de la Observación</h3>
                     <div class="row">
                         <div class="col">
-                            <label for="Observer">Observaciones</label>
-                            <textarea id="Observer" class="form-control" v-model="newStudentEdit.observation" required/>
+                            <label for="Observer_est">Observaciones</label>
+                            <textarea id="Observer_est" class="form-control" v-model="newStudentEdit.observation" required/>
                             </div>
                         </div>            
                     </div>
@@ -168,6 +168,7 @@
             showDataParentsAndStudents(){
                 this.parents.forEach(e => {
                     if(e.name === this.newStudentEdit.mother_name){
+                        console.log("Padres",e)
                         this.motherToSave= {
                             id: e.id,
                             id_parent: e.id,

@@ -185,6 +185,7 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
 
       this.parents.forEach(function (e) {
         if (e.name === _this2.newStudentEdit.mother_name) {
+          console.log("Padres", e);
           _this2.motherToSave = {
             id: e.id,
             id_parent: e.id,
@@ -343,7 +344,7 @@ var render = function() {
                 ),
                 _vm._v(" "),
                 _c("div", { staticClass: "col-6" }, [
-                  _c("label", { attrs: { for: "dateBirth" } }, [
+                  _c("label", { attrs: { for: "date_birth" } }, [
                     _vm._v("Fecha de Nacimiento")
                   ]),
                   _vm._v(" "),
@@ -357,7 +358,7 @@ var render = function() {
                       }
                     ],
                     staticClass: "form-control",
-                    attrs: { id: "dateBirth", type: "date", required: "" },
+                    attrs: { id: "date_birth", type: "date", required: "" },
                     domProps: { value: _vm.newStudentEdit.date_birth },
                     on: {
                       input: function($event) {
@@ -375,7 +376,7 @@ var render = function() {
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "col-6" }, [
-                  _c("label", { attrs: { for: "age" } }, [_vm._v("Edad")]),
+                  _c("label", { attrs: { for: "ageEst" } }, [_vm._v("Edad")]),
                   _vm._v(" "),
                   _c("input", {
                     directives: [
@@ -387,7 +388,7 @@ var render = function() {
                       }
                     ],
                     staticClass: "form-control",
-                    attrs: { id: "age", type: "number", required: "" },
+                    attrs: { id: "ageEst", type: "number", required: "" },
                     domProps: { value: _vm.newStudentEdit.age },
                     on: {
                       input: function($event) {
@@ -401,7 +402,7 @@ var render = function() {
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "col-6" }, [
-                  _c("label", { attrs: { for: "size" } }, [_vm._v("Talla")]),
+                  _c("label", { attrs: { for: "sizeEst" } }, [_vm._v("Talla")]),
                   _vm._v(" "),
                   _c("input", {
                     directives: [
@@ -413,7 +414,7 @@ var render = function() {
                       }
                     ],
                     staticClass: "form-control",
-                    attrs: { id: "size", type: "text", required: "" },
+                    attrs: { id: "sizeEst", type: "text", required: "" },
                     domProps: { value: _vm.newStudentEdit.size },
                     on: {
                       input: function($event) {
@@ -431,7 +432,9 @@ var render = function() {
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "col-6" }, [
-                  _c("label", { attrs: { for: "weight" } }, [_vm._v("Peso")]),
+                  _c("label", { attrs: { for: "weight_Est" } }, [
+                    _vm._v("Peso")
+                  ]),
                   _vm._v(" "),
                   _c("input", {
                     directives: [
@@ -443,7 +446,7 @@ var render = function() {
                       }
                     ],
                     staticClass: "form-control",
-                    attrs: { id: "weight", type: "text", required: "" },
+                    attrs: { id: "weight_Est", type: "text", required: "" },
                     domProps: { value: _vm.newStudentEdit.weight },
                     on: {
                       input: function($event) {
@@ -461,7 +464,7 @@ var render = function() {
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "col-6" }, [
-                  _c("label", { attrs: { for: "identification" } }, [
+                  _c("label", { attrs: { for: "identification_Est" } }, [
                     _vm._v("Identificación")
                   ]),
                   _vm._v(" "),
@@ -475,7 +478,11 @@ var render = function() {
                       }
                     ],
                     staticClass: "form-control",
-                    attrs: { id: "identification", type: "text", required: "" },
+                    attrs: {
+                      id: "identification_Est",
+                      type: "text",
+                      required: ""
+                    },
                     domProps: { value: _vm.newStudentEdit.identification },
                     on: {
                       input: function($event) {
@@ -554,7 +561,7 @@ var render = function() {
                 ),
                 _vm._v(" "),
                 _c("div", { staticClass: "col-6" }, [
-                  _c("label", { attrs: { for: "officeFather" } }, [
+                  _c("label", { attrs: { for: "office_Father" } }, [
                     _vm._v("Profesión u Oficio")
                   ]),
                   _vm._v(" "),
@@ -568,7 +575,7 @@ var render = function() {
                       }
                     ],
                     staticClass: "form-control",
-                    attrs: { id: "officeFather", type: "text" },
+                    attrs: { id: "office_Father", type: "text" },
                     domProps: { value: _vm.newStudentEdit.office_father },
                     on: {
                       input: function($event) {
@@ -641,7 +648,7 @@ var render = function() {
                 ),
                 _vm._v(" "),
                 _c("div", { staticClass: "col-6" }, [
-                  _c("label", { attrs: { for: "officeMother" } }, [
+                  _c("label", { attrs: { for: "office_Mother" } }, [
                     _vm._v("Profesión u Oficio")
                   ]),
                   _vm._v(" "),
@@ -655,7 +662,7 @@ var render = function() {
                       }
                     ],
                     staticClass: "form-control",
-                    attrs: { id: "officeMother", type: "text" },
+                    attrs: { id: "office_Mother", type: "text" },
                     domProps: { value: _vm.newStudentEdit.office_mother },
                     on: {
                       input: function($event) {
@@ -679,7 +686,7 @@ var render = function() {
               _vm._v(" "),
               _c("div", { staticClass: "row" }, [
                 _c("div", { staticClass: "col-6" }, [
-                  _c("label", { attrs: { for: "address" } }, [
+                  _c("label", { attrs: { for: "address_general" } }, [
                     _vm._v("Dirección")
                   ]),
                   _vm._v(" "),
@@ -693,7 +700,11 @@ var render = function() {
                       }
                     ],
                     staticClass: "form-control",
-                    attrs: { id: "address", type: "text", required: "" },
+                    attrs: {
+                      id: "address_general",
+                      type: "text",
+                      required: ""
+                    },
                     domProps: { value: _vm.newStudentEdit.address },
                     on: {
                       input: function($event) {
@@ -711,7 +722,7 @@ var render = function() {
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "col-6" }, [
-                  _c("label", { attrs: { for: "phone" } }, [
+                  _c("label", { attrs: { for: "phone_general" } }, [
                     _vm._v("Telefono")
                   ]),
                   _vm._v(" "),
@@ -725,7 +736,7 @@ var render = function() {
                       }
                     ],
                     staticClass: "form-control",
-                    attrs: { id: "phone", type: "text", required: "" },
+                    attrs: { id: "phone_general", type: "text", required: "" },
                     domProps: { value: _vm.newStudentEdit.phone },
                     on: {
                       input: function($event) {
@@ -801,7 +812,7 @@ var render = function() {
               _vm._v(" "),
               _c("div", { staticClass: "row" }, [
                 _c("div", { staticClass: "col" }, [
-                  _c("label", { attrs: { for: "Observer" } }, [
+                  _c("label", { attrs: { for: "Observer_est" } }, [
                     _vm._v("Observaciones")
                   ]),
                   _vm._v(" "),
@@ -815,7 +826,7 @@ var render = function() {
                       }
                     ],
                     staticClass: "form-control",
-                    attrs: { id: "Observer", required: "" },
+                    attrs: { id: "Observer_est", required: "" },
                     domProps: { value: _vm.newStudentEdit.observation },
                     on: {
                       input: function($event) {
