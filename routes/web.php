@@ -722,3 +722,6 @@ Route::resource('/comunicates', 'ComunicatesController');
 //Observer 
 Route::resource('/observer','ObserverController');
 Route::get('/dataUsers','ObserverController@getDataParentsStudents');
+
+//School Government
+Route::resource('/schoolGobernment','SchoolGovernmentController');
