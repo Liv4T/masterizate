@@ -27,6 +27,7 @@
                                     <td>{{student.user_creator}}</td>
                                     <td>
                                         <button class="btn btn-primary" data-toggle="modal" data-target="#EditModal" v-on:click="edit(student)">Editar</button>
+                                        <button class="btn btn-primary" data-toggle="modal" data-target="#ViewModal" v-on:click="ViewModal(student)">Ver</button>
                                     </td>
                                 </tr>
                             </tbody>
@@ -40,6 +41,9 @@
 
         <modal-edit-observer-component v-bind:students="students" v-bind:parents="parents" v-bind:studentsEdit="studentEdit">
         </modal-edit-observer-component>
+
+        <modal-view-observer-component v-bind:studentsView="studentsView">            
+        </modal-view-observer-component>
     </div>
 </template>
 <script>
@@ -48,6 +52,7 @@
         data() {
             return {
                 studentEdit:{},
+                studentsView:{},
                 students: [],
                 parents: [],
                 observers: []
@@ -99,7 +104,9 @@
             },
             edit(value){
                 this.studentEdit = value;
-                console.log(value)
+            },
+            ViewModal(value){
+                this.studentsView = value;
             }
         }
     }

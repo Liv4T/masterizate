@@ -53,11 +53,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['user'],
   data: function data() {
     return {
       studentEdit: {},
+      studentsView: {},
       students: [],
       parents: [],
       observers: []
@@ -112,7 +117,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     edit: function edit(value) {
       this.studentEdit = value;
-      console.log(value);
+    },
+    ViewModal: function ViewModal(value) {
+      this.studentsView = value;
     }
   }
 });
@@ -207,6 +214,23 @@ var render = function() {
                               }
                             },
                             [_vm._v("Editar")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-primary",
+                              attrs: {
+                                "data-toggle": "modal",
+                                "data-target": "#ViewModal"
+                              },
+                              on: {
+                                click: function($event) {
+                                  return _vm.ViewModal(student)
+                                }
+                              }
+                            },
+                            [_vm._v("Ver")]
                           )
                         ])
                       ])
@@ -230,6 +254,10 @@ var render = function() {
           parents: _vm.parents,
           studentsEdit: _vm.studentEdit
         }
+      }),
+      _vm._v(" "),
+      _c("modal-view-observer-component", {
+        attrs: { studentsView: _vm.studentsView }
       })
     ],
     1

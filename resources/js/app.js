@@ -223,4 +223,5 @@ Vue.component("follow-ups-component", ()=>import("./components/Seguimientos.vue"
 Vue.component("observer-component", () => import("./components/Observer.vue"));
 Vue.component("modal-observer-component", () => import("./components/ModalObserver.vue"));
 Vue.component("modal-edit-observer-component", () => import("./components/ModalEditObserver.vue"));
+Vue.component("modal-view-observer-component", () => import("./components/ModalViewObserver.vue"));
 const app = new Vue({el: "#app", data: {}, store});
