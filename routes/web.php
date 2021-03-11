@@ -21,13 +21,13 @@ use Illuminate\Support\Facades\Excel;
 // Route::group(['middleware' => 'auth', function () {
 //add all your routes here
 Route::middleware('auth')->get('/user', function () {
-    return view('user');
+vretew('user');
 });
 Route::middleware('auth')->get('/board', function () {
-    return view('welcome');
+vretew('welcome');
 });
 Route::middleware('auth')->get('/memoria', function () {
-    return view('memory');
+vretew('memory');
 });
 Route::middleware('auth')->get('/task', function () {
     return view('class');
@@ -249,6 +249,9 @@ Route::middleware('auth')->get('/docente_asignar', function () {
 Route::middleware('auth')->get('/estudiante_asignar', function () {
     return view('asignarEstudiante');
 });
+Route::middleware('auth')->get('/parent_asignar', function () {
+    return view('asignarParent');
+});
 Route::middleware('auth')->get('/coordinador_adm', function () {
     return view('coordinadorAdm');
 });
@@ -422,6 +425,7 @@ Route::get('getStudents', 'AdministratorController@indexStudents')->name('getStu
 Route::get('getTeachers', 'AdministratorController@indexTeachers')->name('getTeachers');
 Route::get('getUsersAssigned', 'AdministratorController@indexStudentsTeachersAssigned')->name('getUsersAssigned');
 Route::post('assignStudents', 'AdministratorController@assignStudents')->name('assignStudents');
+Route::put('assignParentToStudent/{id_student}', 'AdministratorController@assignParentsToStudent');
 Route::post('assignTeachers', 'AdministratorController@assignTeachers')->name('assignTeachers');
 Route::get('getState', 'AdministratorController@getAllState')->name('getState');
 Route::get('getInstitution', 'AdministratorController@indexInstitution')->name('getInstitution');
@@ -704,11 +708,17 @@ Route::put('/api/planification/copy', 'CoursesController@copyInformation');
 
 Route::resource('/parents', 'ParentsController');
 Route::get('/getInvitations','ParentsController@getInvitatios');
+Route::get('/getParents','ParentsController@getParents');
 Route::get('/invitations', 'ParentsController@getUsersToInvitations');
 Route::get('/getAreas','ParentsController@getAreas');
 Route::get('/getNotes/{id_student}/{id_area}/{id_classroom}', 'ParentsController@getNotes');
-
+Route::get('/dataObserver','ParentsController@getDataObserverStudents');
+Route::view('/getParentsObserver', 'getParentsObserver');
 //psicology
 Route::resource('/historyPsicology', 'HistoryPsicologyController');
 Route::resource('/followUps', 'FollowUpsController');
 Route::resource('/comunicates', 'ComunicatesController');
+
+//Observer 
+Route::resource('/observer','ObserverController');
+Route::get('/dataUsers','ObserverController@getDataParentsStudents');

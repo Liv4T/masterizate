@@ -59,7 +59,12 @@ class AdministratorController extends Controller
         return $users;
     }
 
-
+    public function assignParentsToStudent(Request $request, $id){
+        $student = User::find($id);
+        $student->parent_id = $request->parent_id;
+        $student->save();
+        return "Pariente Asignado";
+    }
     /**
      * Display a listing of the resource.
      *

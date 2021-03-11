@@ -8,6 +8,7 @@ window.Vue = require("vue");
 window.Bus = new Vue();
 window.toastr = require("toastr");
 import CKEditor from "@ckeditor/ckeditor5-vue";
+import Vue from "vue";
 //import "bootstrap/dist/css/bootstrap.css";
 //import "bootstrap-vue/dist/bootstrap-vue.css";
 import Game from "./components/Game";
@@ -141,6 +142,7 @@ Vue.component("matricula", ()=>import("./components/matricula.vue"));
 Vue.component("aperfil-adm", ()=>import("./components/AsignarPerfil.vue"));
 Vue.component("adocente-adm", ()=>import("./components/asignarDocente.vue"));
 Vue.component("aestudiante-adm", ()=>import("./components/asignarEstudiante.vue"));
+Vue.component("aparent-adm", ()=>import("./components/asignarPariente.vue"));
 Vue.component("importar-adm", ()=>import("./components/importAdm.vue"));
 Vue.component("asistencia-adm", ()=>import("./components/asistencia.vue"));
 
@@ -210,9 +212,17 @@ Vue.component("menu-padres", () => import("./components/menuPadres.vue"));
 Vue.component("parents-component", () => import("./components/parents.vue"));
 Vue.component("event-parents-modal", () => import("./components/EventParentsModal.vue"));
 Vue.component("modal-edit-parents-info", () => import("./components/ModalEditParentsInfo.vue"));
+Vue.component("parents-observer", () => import("./components/ParentsObserver.vue"));
 
 //Psicologia 
 Vue.component("comunicates-component", () => import("./components/Comunicates.vue"));
 Vue.component("history-psicology-component", ()=> import("./components/HistorialPsicologia.vue"));
 Vue.component("follow-ups-component", ()=>import("./components/Seguimientos.vue"))
+
+
+//Observer
+Vue.component("observer-component", () => import("./components/Observer.vue"));
+Vue.component("modal-observer-component", () => import("./components/ModalObserver.vue"));
+Vue.component("modal-edit-observer-component", () => import("./components/ModalEditObserver.vue"));
+Vue.component("modal-view-observer-component", () => import("./components/ModalViewObserver.vue"));
 const app = new Vue({el: "#app", data: {}, store});

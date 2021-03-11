@@ -60,6 +60,12 @@
                                 <span class="menu">Académico</span>
                             </li>
                         </a>
+                        <a href="/getParentsObserver">
+                            <li class="item-menu">
+                                <img width="35px" src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/MIS-CURSOS.png?alt=media&token=93ec6b97-e5a6-4eca-891e-b63bf2a352ad" alt/>
+                                <span class="menu">Observador</span>
+                            </li>
+                        </a>
                         <div class="dropdown">
                             <a>
                                 <li class="item-menu">

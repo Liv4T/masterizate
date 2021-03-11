@@ -11,6 +11,7 @@ use App\ClassroomStudent;
 use App\Classroom;
 use App\Area;
 use App\Weekly;
+use App\Observer;
 
 class ParentsController extends Controller
 {
@@ -26,6 +27,26 @@ class ParentsController extends Controller
     public function index()
     {
         return view('parents');
+    }
+
+    public function getParents(){
+        $parents = User::where('type_user','=',4)->get();
+        return response()->json($parents, 200);
+    }
+
+    public function getDataObserverStudents(){
+        $user_name = Auth::user()->name;
+
+        $observer = Observer::where('father_name','=', $user_name)->get();
+        $observerMother = Observer::where('mother_name','=', $user_name)->get();
+
+        if($observer){
+            return $observer;
+        }else if($observerMother){
+            return $observerMother;
+        }else {
+            return [];
+        }
     }
 
     public function getInvitatios(){

@@ -43,9 +43,9 @@
                         </div>
                         <div v-show="administrative == true">
                             <label for>Administrativos</label>
-                            <multiselect v-model="cadministrative" :options="optionsa" tag-placeholder="Add this as new tag"
-                                placeholder="Search or add a tag" label="name" track-by="id" :multiple="true"
-                                :taggable="true" @tag="addTaga"></multiselect>
+                            <multiselect v-model="cadministrative" :options="optionsa"
+                                tag-placeholder="Add this as new tag" placeholder="Search or add a tag" label="name"
+                                track-by="id" :multiple="true" :taggable="true" @tag="addTaga"></multiselect>
                         </div>
                         <br />
                         <div class="row">
@@ -71,15 +71,20 @@
             aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Horario de Respuesta</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <p>Recuerda que los horarios para dar respuesta son:</p>
-                        <p>Lunes a sabados de 8:00 A.M a 5:30 P.M</p>
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Horario de Respuesta</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-horario">
+                            <div class="modal-body">
+                                <div class="content">
+                                    <strong class="h4">Lunes a sabados de 8:00 A.M a 5:00 P.M</strong>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -212,46 +217,45 @@
                 let date = new Date();
                 let hourly = date.getHours();
                 let minutes = date.getMinutes();
-                if (hourly <= 7 && minutes <= 59 || hourly >= 17 && minutes >= 31) {
-                    $("#infoModal").modal("show");
-                } else {
-                    console.log("data: ", this.editorData);
-                    var url = "sendMessages";
-                    if (this.cadministrative.length >= 1) {
-                        for (let i = 0; i < this.cadministrative.length; i++) {
-                            this.correos.push(this.cadministrative[i].id);
-                        }
-                    }
-                    if (this.cestudiante.length >= 1) {
-                        for (let i = 0; i < this.cestudiante.length; i++) {
-                            this.correos.push(this.cestudiante[i].id);
-                        }
-                    }
-                    if (this.cdocente.length >= 1) {
-                        for (let i = 0; i < this.cdocente.length; i++) {
-                            this.correos.push(this.cdocente[i].id);
-                        }
-                    }
-                    if (this.cpadres.length >= 1) {
-                        console.log(this.cpadres);
-                        for (let i = 0; i < this.cpadres.length; i++) {
-                            this.correos.push(this.cpadres[i].id);
-                        }
-                    }
-                    axios
-                        .post(url, {
-                            receptor: this.correos,
-                            subject: this.asunto,
-                            message: this.editorData,
-                        })
-                        .then((response) => {
-                            this.errors = [];
 
-                            toastr.success("Mensaje enviado");
-                            this.getMenu();
-                        })
-                        .catch((error) => {});
+                console.log("data: ", this.editorData);
+                var url = "sendMessages";
+                if (this.cadministrative.length >= 1) {
+                    for (let i = 0; i < this.cadministrative.length; i++) {
+                        this.correos.push(this.cadministrative[i].id);
+                    }
                 }
+                if (this.cestudiante.length >= 1) {
+                    for (let i = 0; i < this.cestudiante.length; i++) {
+                        this.correos.push(this.cestudiante[i].id);
+                    }
+                }
+                if (this.cdocente.length >= 1) {
+                    for (let i = 0; i < this.cdocente.length; i++) {
+                        this.correos.push(this.cdocente[i].id);
+                    }
+                }
+                if (this.cpadres.length >= 1) {
+                    console.log(this.cpadres);
+                    for (let i = 0; i < this.cpadres.length; i++) {
+                        this.correos.push(this.cpadres[i].id);
+                    }
+                }
+                axios
+                    .post(url, {
+                        receptor: this.correos,
+                        subject: this.asunto,
+                        message: this.editorData,
+                    })
+                    .then((response) => {
+                        this.errors = [];
+                        toastr.success("Mensaje enviado");
+                        if (hourly >= 7 && minutes <= 59 || hourly >= 17 && minutes >= 0) {
+                            $("#infoModal").modal("show");
+                        }
+                        this.getMenu();
+                    })
+                    .catch((error) => {});
             },
         },
     };
@@ -282,6 +286,18 @@
 
     .mensajes {
         height: 150px;
+    }
+
+    .modal-horario {
+        background-image: url("https://firebasestorage.googleapis.com/v0/b/movie-44de4.appspot.com/o/horarioAtenci%C3%B3n.png?alt=media&token=488369f1-14b1-438a-9de0-2d2f7b3c45de");
+        background-repeat: no-repeat;
+        background-size: cover;
+        height: 320px;
+    }
+
+    .content {
+        margin-left: 243px;
+        margin-top: 176px;
     }
 
 </style>

@@ -77,6 +77,7 @@
                     <select class="form-control" ref="seleccionado" required>
                       <option value="2">Docente</option>
                       <option value="3">Estudiante</option>
+                      <option value="4">Acudiente</option>
                     </select>
                   </div>
                   <div class="col">
