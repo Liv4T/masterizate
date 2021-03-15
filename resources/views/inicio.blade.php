@@ -18,6 +18,10 @@
     <menu-padres></menu-padres>
     <inicio-component></inicio-component>
   @endif
+  @if(Auth::user()->type_user == '6')
+    <menu-school></menu-school>
+    <inicio-component></inicio-component>
+  @endif
 {{-- <memory-create></memory-create> --}}
 <div class="container">
 

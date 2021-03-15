@@ -78,6 +78,7 @@
                       <option value="2">Docente</option>
                       <option value="3">Estudiante</option>
                       <option value="4">Acudiente</option>
+                      <option value="6">Gobierno Escolar</option>
                     </select>
                   </div>
                   <div class="col">
