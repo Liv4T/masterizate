@@ -138,6 +138,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   methods: {
     logout: function logout() {
@@ -267,7 +271,7 @@ var staticRenderFns = [
         ])
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "dropdown" }, [
+      _c("div", { staticClass: "dropdown1" }, [
         _c("a", [
           _c("li", { staticClass: "item-menu" }, [
             _c("img", {
@@ -283,7 +287,7 @@ var staticRenderFns = [
               _vm._v("Comunicaciones          ")
             ]),
             _vm._v(" "),
-            _c("div", { staticClass: "dropdown-content" }, [
+            _c("div", { staticClass: "dropdown1-content" }, [
               _c("a", { attrs: { href: "/mensajes" } }, [
                 _c("img", {
                   attrs: {
@@ -437,20 +441,30 @@ var staticRenderFns = [
         ])
       ]),
       _vm._v(" "),
-      _c("a", { attrs: { href: "/manual" } }, [
+      _c("a", { attrs: { href: "/psychology_menu" } }, [
         _c("li", { staticClass: "item-menu" }, [
           _c("img", {
             attrs: {
-              width: "35px",
+              width: "50px",
+              height: "150px",
               src:
-                "https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/MANUAL-DE-USUARIO_naranja.png?alt=media&token=bd2488fb-e121-432d-afd2-f223fcc0f29e",
+                "https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/sicologia_naranja.png?alt=media&token=3c495a25-1349-4b16-920d-126eed308186",
               alt: ""
             }
           }),
           _vm._v(" "),
-          _c("span", { staticClass: "menu" }, [
-            _vm._v("PEY Y Manual de Convivencia ")
-          ])
+          _c(
+            "span",
+            {
+              staticClass: "badge text-wrap",
+              staticStyle: { width: "6rem", "font-size": "13px" }
+            },
+            [
+              _vm._v(
+                "\n                                PEI\n                                Y Manual de Convivencia\n                            "
+              )
+            ]
+          )
         ])
       ]),
       _vm._v(" "),

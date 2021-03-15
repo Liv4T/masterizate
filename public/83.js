@@ -1,5 +1,9 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[83],{
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/teacherCoursesComponent.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/teacherCoursesComponent.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************************************************************************************************************/
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/lectivesTeacherPlanningEditComponent.vue?vue&type=script&lang=js&":
 /*!***********************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/lectivesTeacherPlanningEditComponent.vue?vue&type=script&lang=js& ***!
@@ -116,6 +120,38 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      clases: [],
+      areas: [],
+      descripcion: "",
+      logro: "",
+      fechaE: "",
+      fechaR: "",
+      id_act: "",
+      errors: [],
+      fillS: []
+    };
+  },
+  created: function created() {},
+  mounted: function mounted() {
+    var _this = this;
+
+    var url = "/GetArearByUser";
+    axios.get(url).then(function (response) {
+      _this.areas = response.data;
+    });
+    console.log("Component mounted.");
+  },
+  methods: {
+    botones: function botones(area, classroom) {
+      var _this2 = this;
+
+      var urlsel = "/editGetWeek/" + area + "/" + classroom;
+      axios.get(urlsel).then(function (response) {
+        _this2.clases = response.data;
+      });
 //
 //
 //
@@ -365,6 +401,10 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/teacherCoursesComponent.vue?vue&type=template&id=7dfc702c&":
+/*!**************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/teacherCoursesComponent.vue?vue&type=template&id=7dfc702c& ***!
+  \**************************************************************************************************************************************************************************************************************************/
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/lectivesTeacherPlanningEditComponent.vue?vue&type=template&id=da5f3db8&":
 /*!***************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/lectivesTeacherPlanningEditComponent.vue?vue&type=template&id=da5f3db8& ***!
@@ -380,6 +420,123 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "back" }, [
+    _c("div", { staticClass: "row justify-content-center" }, [
+      _c("div", { staticClass: "col-sm-10", attrs: { id: "crud" } }, [
+        _c("div", { staticClass: "card text-center" }, [
+          _c("h3", { staticClass: "card-header fondo" }, [
+            _vm._v("Mis clases")
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "card-body" }, [
+            _c(
+              "div",
+              { staticClass: "accordion", attrs: { id: "accordionExample" } },
+              _vm._l(_vm.areas, function(area, t) {
+                return _c("div", { key: t, staticClass: "card" }, [
+                  _c("div", { staticClass: "card-header" }, [
+                    _c("h2", { staticClass: "mb-0" }, [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-link",
+                          attrs: {
+                            type: "button",
+                            "data-toggle": "collapse",
+                            "data-target": "#collapse" + t,
+                            "aria-expanded": "false",
+                            "aria-controls": "collapse"
+                          },
+                          on: {
+                            click: function($event) {
+                              $event.preventDefault()
+                              return _vm.botones(area.id, area.id_classroom)
+                            }
+                          }
+                        },
+                        [
+                          _c("label", { staticClass: "btn-link_bold" }, [
+                            _vm._v(_vm._s(area.text))
+                          ])
+                        ]
+                      )
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass: "collapse hide",
+                      attrs: {
+                        id: "collapse" + t,
+                        "aria-labelledby": "heading",
+                        "data-parent": "#accordionExample"
+                      }
+                    },
+                    [
+                      _c(
+                        "table",
+                        {
+                          staticClass:
+                            "table table-responsive-xl table-hover table-striped center"
+                        },
+                        [
+                          _vm._m(0, true),
+                          _vm._v(" "),
+                          _c(
+                            "tbody",
+                            [
+                              _vm._l(_vm.clases, function(clas, k) {
+                                return [
+                                  clas.id_classroom == area.id_classroom &&
+                                  clas.id_area == area.id
+                                    ? _c("tr", { key: k }, [
+                                        _c("td", [
+                                          _c(
+                                            "a",
+                                            {
+                                              staticClass: "btn btn-primary",
+                                              attrs: {
+                                                href:
+                                                  "/act_semana/" +
+                                                  clas.id_area +
+                                                  "/" +
+                                                  clas.id_classroom
+                                              }
+                                            },
+                                            [_vm._v("Editar")]
+                                          )
+                                        ]),
+                                        _vm._v(" "),
+                                        _c("td", [_vm._v(_vm._s(clas.text))]),
+                                        _vm._v(" "),
+                                        _c("td", [
+                                          _c(
+                                            "a",
+                                            {
+                                              staticClass: "btn btn-primary",
+                                              attrs: {
+                                                href:
+                                                  "/docente/modulo/" + clas.id
+                                              }
+                                            },
+                                            [_vm._v("Ir a Ciclo")]
+                                          )
+                                        ])
+                                      ])
+                                    : _vm._e()
+                                ]
+                              })
+                            ],
+                            2
+                          )
+                        ]
+                      )
+                    ]
+                  )
+                ])
+              }),
+              0
   return _c("div", [
     _vm._m(0),
     _vm._v(" "),

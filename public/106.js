@@ -1,14 +1,20 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[106],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/legislation.vue?vue&type=script&lang=js&":
-/*!**********************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/legislation.vue?vue&type=script&lang=js& ***!
-  \**********************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/asignarPariente.vue?vue&type=script&lang=js&":
+/*!**************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/asignarPariente.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vue_form_wizard__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-form-wizard */ "./node_modules/vue-form-wizard/dist/vue-form-wizard.js");
+/* harmony import */ var vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vue_multiselect__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-multiselect */ "./node_modules/vue-multiselect/dist/vue-multiselect.min.js");
+/* harmony import */ var vue_multiselect__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue_multiselect__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var vue_form_wizard_dist_vue_form_wizard_min_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue-form-wizard/dist/vue-form-wizard.min.css */ "./node_modules/vue-form-wizard/dist/vue-form-wizard.min.css");
+/* harmony import */ var vue_form_wizard_dist_vue_form_wizard_min_css__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(vue_form_wizard_dist_vue_form_wizard_min_css__WEBPACK_IMPORTED_MODULE_2__);
 //
 //
 //
@@ -73,105 +79,121 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+(function () {
+  "use strict";
+
+  window.addEventListener("load", function () {
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    var forms = document.getElementsByClassName("needs-validation"); // Loop over them and prevent submission
+
+    var validation = Array.prototype.filter.call(forms, function (form) {
+      form.addEventListener("submit", function (event) {
+        if (form.checkValidity() === false) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+
+        form.classList.add("was-validated");
+      }, false);
+    });
+  }, false);
+})();
+
+$(function () {
+  // Get the form fields and hidden div
+  var checkbox = $("#gridCheck1");
+  var hidden = $("#hidden_fields1");
+  hidden.hide();
+  checkbox.change(function () {
+    if (checkbox.is(":checked")) {
+      // Show the hidden fields.
+      hidden.show();
+    } else {
+      hidden.hide();
+    }
+  });
+});
+
+
+
+Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
+Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_1___default.a);
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['user'],
   data: function data() {
     return {
-      legislation: "",
-      legislationData: [],
-      legislationToEdit: "",
-      idLegislation: ""
+      optionse: [],
+      optionsp: [],
+      nameUnit: "",
+      description: "",
+      nameFile: "",
+      nameUrl: "",
+      newDocument: [],
+      semanal: false,
+      Newrol: "",
+      errors: [],
+      seccion: "",
+      cestudiante: [],
+      cparent: [],
+      estudiantes: [],
+      inputs: [{
+        name: ""
+      }]
     };
   },
   mounted: function mounted() {
-    this.getLegislation();
+    var _this = this;
+
+    var urlUsers = "getStudents";
+    axios.get(urlUsers).then(function (response) {
+      _this.optionse = response.data;
+    });
+    var urlUsers = "/getParents";
+    axios.get(urlUsers).then(function (response) {
+      _this.optionsp = response.data;
+    });
   },
   methods: {
-    getLegislation: function getLegislation() {
-      var _this = this;
-
-      axios.get('/getLegislation').then(function (response) {
-        _this.legislationData = response.data;
-      })["catch"](function (error) {
-        console.log(error);
-      });
+    addTage: function addTage(newTag) {
+      var tag = {
+        name: newTag,
+        id: newTag
+      };
+      this.optionse.push(tag);
     },
-    createLegislation: function createLegislation() {
+    addTageP: function addTageP(newTag) {
+      console.log(newTag);
+      var tagp = {
+        name: newTag,
+        id: newTag
+      };
+      this.optionsp.push(tagp);
+    },
+    getMenu: function getMenu() {
+      window.location = "/salon_adm";
+    },
+    createAs: function createAs() {
       var _this2 = this;
 
-      axios.post('/schoolGobernment', {
-        legislation: this.legislation,
-        user_id: this.user.id
-      }).then(function () {
-        toastr.success("Legislación creada");
-        $("#modalCreate").modal("hide");
-
-        _this2.getLegislation();
-      })["catch"](function () {
-        toast.danger("Intentalo de nuevo mas tarde");
-      });
-    },
-    edit: function edit(data) {
-      this.idLegislation = data.id;
-      this.legislationToEdit = data.legislation;
-    },
-    editLegislation: function editLegislation() {
-      var _this3 = this;
-
-      axios.put("/schoolGobernment/".concat(this.idLegislation), {
-        legislation: this.legislationToEdit
-      }).then(function () {
-        toastr.success("Legislación Actualizada");
-        $("#modalEdit").modal("hide");
-
-        _this3.getLegislation();
-      })["catch"](function (error) {
-        console.log(error);
-        toast.danger("Intentalo de nuevo mas tarde");
-      });
-    },
-    deleteLegislation: function deleteLegislation(id) {
-      var _this4 = this;
-
-      var confirmToDelete = confirm("Desea eliminar el dato?");
-
-      if (confirmToDelete == true) {
-        axios["delete"]("schoolGobernment/".concat(id)).then(function (response) {
-          toastr.success(response.data);
-
-          _this4.getLegislation();
+      this.cestudiante.forEach(function (student) {
+        axios.put("/assignParentToStudent/".concat(student.id), {
+          parent_id: _this2.cparent.id
         })["catch"](function (error) {
+          toastr.error("Intenta de nuevo mas tarde");
           console.log(error);
-          toastr.error("Intentalo de nuevo mas tarde");
         });
-      }
+      });
+      toastr.success("Acudiente Relacionado");
+      this.getMenu();
     }
   }
 });
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/legislation.vue?vue&type=template&id=1d2a5b74&":
-/*!**************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/legislation.vue?vue&type=template&id=1d2a5b74& ***!
-  \**************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/asignarPariente.vue?vue&type=template&id=6785df94&":
+/*!******************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/asignarPariente.vue?vue&type=template&id=6785df94& ***!
+  \******************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -183,313 +205,136 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "back" }, [
-    _c("div", { staticClass: "row justify-content-center" }, [
-      _c("div", { staticClass: "col-sm-10", attrs: { id: "crud" } }, [
-        _c("div", { staticClass: "card" }, [
-          _c("div", { staticClass: "text-center card-header fondo" }, [
-            _vm._v("\n                    Legislación\n                ")
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "card-body" }, [
-            _c(
-              "button",
-              {
-                staticClass: "btn btn-primary btn-xs",
-                attrs: { "data-toggle": "modal", "data-target": "#modalCreate" }
-              },
-              [_vm._v("Crear")]
-            ),
+  return _c("div", [
+    _c("div", { staticClass: "back" }, [
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col-md-11 mx-auto" }, [
+          _c("div", { staticClass: "custom-card text-center" }, [
+            _c("h3", { staticClass: "card-header fondo" }, [
+              _vm._v("Asignación de Acudientes")
+            ]),
             _vm._v(" "),
             _c(
-              "table",
+              "form",
+              { staticClass: "needs-validation", attrs: { novalidate: "" } },
               [
-                _vm._m(0),
-                _vm._v(" "),
-                _vm._l(_vm.legislationData, function(data, id) {
-                  return _c("tbody", { key: id }, [
-                    _c("tr", [
-                      _c("td", [_vm._v(_vm._s(data.legislation))]),
-                      _vm._v(" "),
-                      _c("td", [
+                _c(
+                  "form-wizard",
+                  {
+                    attrs: {
+                      title: "",
+                      subtitle: "",
+                      color: "#ffc107",
+                      "next-button-text": "Siguiente",
+                      "back-button-text": "Atrás",
+                      "finish-button-text": "Guardar y enviar"
+                    },
+                    on: { "on-complete": _vm.createAs }
+                  },
+                  [
+                    _c("tab-content", [
+                      _c("div", { staticClass: "form-group row mx-auto" }, [
                         _c(
-                          "button",
-                          {
-                            staticClass: "btn btn-success btn-xs",
-                            attrs: {
-                              "data-toggle": "modal",
-                              "data-target": "#modalEdit"
-                            },
-                            on: {
-                              click: function($event) {
-                                return _vm.edit(data)
+                          "div",
+                          { staticClass: "col-md-6" },
+                          [
+                            _c("label", { attrs: { for: "name" } }, [
+                              _vm._v("Estudiante")
+                            ]),
+                            _vm._v(" "),
+                            _c("multiselect", {
+                              attrs: {
+                                options: _vm.optionse,
+                                "tag-placeholder": "Add this as new tag",
+                                placeholder: "Search or add a tag",
+                                label: "name",
+                                "track-by": "id",
+                                multiple: true,
+                                taggable: true
+                              },
+                              on: { tag: _vm.addTage },
+                              model: {
+                                value: _vm.cestudiante,
+                                callback: function($$v) {
+                                  _vm.cestudiante = $$v
+                                },
+                                expression: "cestudiante"
                               }
-                            }
-                          },
-                          [_vm._v("Editar")]
+                            }),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "invalid-feedback" }, [
+                              _vm._v("Please fill out this field")
+                            ])
+                          ],
+                          1
                         ),
                         _vm._v(" "),
                         _c(
-                          "button",
-                          {
-                            staticClass: "btn btn-danger btn-xs",
-                            on: {
-                              click: function($event) {
-                                return _vm.deleteLegislation(data.id)
+                          "div",
+                          { staticClass: "col-md-6" },
+                          [
+                            _c("label", { attrs: { for: "name" } }, [
+                              _vm._v("Acudiente")
+                            ]),
+                            _vm._v(" "),
+                            _c("multiselect", {
+                              attrs: {
+                                options: _vm.optionsp,
+                                "tag-placeholder": "Add this as new tag",
+                                placeholder: "Search or add a tag",
+                                label: "name",
+                                "track-by": "id",
+                                multiple: false,
+                                taggable: true
+                              },
+                              on: { tag: _vm.addTageP },
+                              model: {
+                                value: _vm.cparent,
+                                callback: function($$v) {
+                                  _vm.cparent = $$v
+                                },
+                                expression: "cparent"
                               }
-                            }
-                          },
-                          [_vm._v("Eliminar")]
+                            }),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "invalid-feedback" }, [
+                              _vm._v("Please fill out this field")
+                            ])
+                          ],
+                          1
                         )
                       ])
                     ])
-                  ])
-                })
+                  ],
+                  1
+                )
               ],
-              2
+              1
             )
           ])
         ])
       ])
-    ]),
-    _vm._v(" "),
-    _c(
-      "div",
-      {
-        staticClass: "modal fade",
-        attrs: {
-          id: "modalCreate",
-          tabindex: "-1",
-          role: "dialog",
-          "aria-labelledby": "modalCreateLabel",
-          "aria-hidden": "true"
-        }
-      },
-      [
-        _c(
-          "div",
-          { staticClass: "modal-dialog", attrs: { role: "document" } },
-          [
-            _c("div", { staticClass: "modal-content" }, [
-              _vm._m(1),
-              _vm._v(" "),
-              _c("div", { staticClass: "modal-body" }, [
-                _c("div", { staticClass: "form-group" }, [
-                  _c("label", [_vm._v("Legislación")]),
-                  _vm._v(" "),
-                  _c("textarea", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.legislation,
-                        expression: "legislation"
-                      }
-                    ],
-                    staticClass: "form-control",
-                    domProps: { value: _vm.legislation },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.legislation = $event.target.value
-                      }
-                    }
-                  })
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "modal-footer" }, [
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-secondary",
-                    attrs: { type: "button", "data-dismiss": "modal" }
-                  },
-                  [_vm._v("Cerrar")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-primary",
-                    attrs: { type: "button" },
-                    on: {
-                      click: function($event) {
-                        return _vm.createLegislation()
-                      }
-                    }
-                  },
-                  [_vm._v("Guardar")]
-                )
-              ])
-            ])
-          ]
-        )
-      ]
-    ),
-    _vm._v(" "),
-    _c(
-      "div",
-      {
-        staticClass: "modal fade",
-        attrs: {
-          id: "modalEdit",
-          tabindex: "-1",
-          role: "dialog",
-          "aria-labelledby": "modalEditLabel",
-          "aria-hidden": "true"
-        }
-      },
-      [
-        _c(
-          "div",
-          { staticClass: "modal-dialog", attrs: { role: "document" } },
-          [
-            _c("div", { staticClass: "modal-content" }, [
-              _vm._m(2),
-              _vm._v(" "),
-              _c("div", { staticClass: "modal-body" }, [
-                _c("div", { staticClass: "form-group" }, [
-                  _c("label", [_vm._v("Legislación")]),
-                  _vm._v(" "),
-                  _c("textarea", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.legislationToEdit,
-                        expression: "legislationToEdit"
-                      }
-                    ],
-                    staticClass: "form-control",
-                    attrs: { "aria-label": "With textarea" },
-                    domProps: { value: _vm.legislationToEdit },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.legislationToEdit = $event.target.value
-                      }
-                    }
-                  })
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "modal-footer" }, [
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-secondary",
-                    attrs: { type: "button", "data-dismiss": "modal" }
-                  },
-                  [_vm._v("Cerrar")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-primary",
-                    attrs: { type: "button" },
-                    on: {
-                      click: function($event) {
-                        return _vm.editLegislation()
-                      }
-                    }
-                  },
-                  [_vm._v("Guardar Cambios")]
-                )
-              ])
-            ])
-          ]
-        )
-      ]
-    )
+    ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("thead", [
-      _c("tr", [
-        _c("th", [_vm._v("Legislación")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Acción")])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "modal-header" }, [
-      _c(
-        "h5",
-        { staticClass: "modal-title", attrs: { id: "modalCreateLabel" } },
-        [_vm._v("Creación de Legislación")]
-      ),
-      _vm._v(" "),
-      _c(
-        "button",
-        {
-          staticClass: "close",
-          attrs: {
-            type: "button",
-            "data-dismiss": "modal",
-            "aria-label": "Close"
-          }
-        },
-        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "modal-header" }, [
-      _c(
-        "h5",
-        { staticClass: "modal-title", attrs: { id: "modalEditLabel" } },
-        [_vm._v("Editar Legislación")]
-      ),
-      _vm._v(" "),
-      _c(
-        "button",
-        {
-          staticClass: "close",
-          attrs: {
-            type: "button",
-            "data-dismiss": "modal",
-            "aria-label": "Close"
-          }
-        },
-        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
-      )
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
 
 /***/ }),
 
-/***/ "./resources/js/components/legislation.vue":
-/*!*************************************************!*\
-  !*** ./resources/js/components/legislation.vue ***!
-  \*************************************************/
+/***/ "./resources/js/components/asignarPariente.vue":
+/*!*****************************************************!*\
+  !*** ./resources/js/components/asignarPariente.vue ***!
+  \*****************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _legislation_vue_vue_type_template_id_1d2a5b74___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./legislation.vue?vue&type=template&id=1d2a5b74& */ "./resources/js/components/legislation.vue?vue&type=template&id=1d2a5b74&");
-/* harmony import */ var _legislation_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./legislation.vue?vue&type=script&lang=js& */ "./resources/js/components/legislation.vue?vue&type=script&lang=js&");
+/* harmony import */ var _asignarPariente_vue_vue_type_template_id_6785df94___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./asignarPariente.vue?vue&type=template&id=6785df94& */ "./resources/js/components/asignarPariente.vue?vue&type=template&id=6785df94&");
+/* harmony import */ var _asignarPariente_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./asignarPariente.vue?vue&type=script&lang=js& */ "./resources/js/components/asignarPariente.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -499,9 +344,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _legislation_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _legislation_vue_vue_type_template_id_1d2a5b74___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _legislation_vue_vue_type_template_id_1d2a5b74___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _asignarPariente_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _asignarPariente_vue_vue_type_template_id_6785df94___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _asignarPariente_vue_vue_type_template_id_6785df94___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -511,38 +356,38 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/components/legislation.vue"
+component.options.__file = "resources/js/components/asignarPariente.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/components/legislation.vue?vue&type=script&lang=js&":
-/*!**************************************************************************!*\
-  !*** ./resources/js/components/legislation.vue?vue&type=script&lang=js& ***!
-  \**************************************************************************/
+/***/ "./resources/js/components/asignarPariente.vue?vue&type=script&lang=js&":
+/*!******************************************************************************!*\
+  !*** ./resources/js/components/asignarPariente.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_legislation_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./legislation.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/legislation.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_legislation_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_asignarPariente_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./asignarPariente.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/asignarPariente.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_asignarPariente_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/components/legislation.vue?vue&type=template&id=1d2a5b74&":
-/*!********************************************************************************!*\
-  !*** ./resources/js/components/legislation.vue?vue&type=template&id=1d2a5b74& ***!
-  \********************************************************************************/
+/***/ "./resources/js/components/asignarPariente.vue?vue&type=template&id=6785df94&":
+/*!************************************************************************************!*\
+  !*** ./resources/js/components/asignarPariente.vue?vue&type=template&id=6785df94& ***!
+  \************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_legislation_vue_vue_type_template_id_1d2a5b74___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./legislation.vue?vue&type=template&id=1d2a5b74& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/legislation.vue?vue&type=template&id=1d2a5b74&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_legislation_vue_vue_type_template_id_1d2a5b74___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_asignarPariente_vue_vue_type_template_id_6785df94___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./asignarPariente.vue?vue&type=template&id=6785df94& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/asignarPariente.vue?vue&type=template&id=6785df94&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_asignarPariente_vue_vue_type_template_id_6785df94___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_legislation_vue_vue_type_template_id_1d2a5b74___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_asignarPariente_vue_vue_type_template_id_6785df94___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

@@ -113,8 +113,8 @@ var render = function() {
             _vm._m(1)
           ])
         ])
-      ])
-    ])
+      ]
+    )
   ])
 }
 var staticRenderFns = [

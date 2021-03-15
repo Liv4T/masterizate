@@ -105,11 +105,15 @@
                             </a>
                         </div>
                         <a href="/manual">
-                            <li class="item-menu">
-                                <img width="35px"
+                            <li class="item-menu">    
+                                <img width="50px"
+                                    height="150px"
                                     src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/MANUAL-DE-USUARIO_naranja.png?alt=media&token=bd2488fb-e121-432d-afd2-f223fcc0f29e"
                                     alt />
-                                <span class="menu">PEY Y Manual de Convivencia </span>
+                                <span class="badge text-wrap" style="width: 6rem; font-size: 13px">
+                                    PEI
+                                    Y Manual de Convivencia
+                                </span>
                             </li>
                         </a>
                         <a href="../../uploads/Terminos _Condiciones_liv4t.pdf" target="_blank">

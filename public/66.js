@@ -74,6 +74,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: ["id_area", "id_classroom"],
   data: function data() {
     return {
       legislationData: [],

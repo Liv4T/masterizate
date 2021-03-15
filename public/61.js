@@ -71,6 +71,10 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
       studentsToSearch: {}
     };
   },
+  created: function created() {
+    this.getNames();
+  },
+  computed: {},
   mounted: function mounted() {
     this.getTeachers();
     this.getStudents();
