@@ -42,10 +42,12 @@
                                 <div id="collapseTwo" class="collapse show" aria-labelledby="headingOne"
                                     data-parent="#accordion">
                                     <div class="card-body">
-                                        <div class="card-body" v-if="legislation.length > 0">
-                                            <p>{{legislation.text}}</p>
+                                        <div class="card-body" v-if="legislationData.length > 0">
+                                            <div v-for="(data, id) in legislationData" :key="id">                                    
+                                                <p>{{data.legislation}}</p>
+                                                <br>
+                                            </div>
                                         </div>
-
                                         <div class="card-body" v-else>
                                             <p>Crea La Legislación del Gobierno Escolar</p>
                                         </div>
@@ -64,10 +66,22 @@
     export default {
         data() {
             return {
-                legislation: [],
+                legislationData: [],
                 integrates: []
             }
         },
+        mounted(){
+            this.getLegislation();
+        },
+        methods:{
+            getLegislation(){
+                axios.get('/getLegislation').then((response)=>{
+                    this.legislationData = response.data
+                }).catch((error)=>{
+                    console.log(error);
+                })
+            },
+        }
     }
 
 </script>

@@ -71,12 +71,28 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      legislation: [],
+      legislationData: [],
       integrates: []
     };
+  },
+  mounted: function mounted() {
+    this.getLegislation();
+  },
+  methods: {
+    getLegislation: function getLegislation() {
+      var _this = this;
+
+      axios.get('/getLegislation').then(function (response) {
+        _this.legislationData = response.data;
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    }
   }
 });
 
@@ -152,10 +168,19 @@ var render = function() {
                     },
                     [
                       _c("div", { staticClass: "card-body" }, [
-                        _vm.legislation.length > 0
-                          ? _c("div", { staticClass: "card-body" }, [
-                              _c("p", [_vm._v(_vm._s(_vm.legislation.text))])
-                            ])
+                        _vm.legislationData.length > 0
+                          ? _c(
+                              "div",
+                              { staticClass: "card-body" },
+                              _vm._l(_vm.legislationData, function(data, id) {
+                                return _c("div", { key: id }, [
+                                  _c("p", [_vm._v(_vm._s(data.legislation))]),
+                                  _vm._v(" "),
+                                  _c("br")
+                                ])
+                              }),
+                              0
+                            )
                           : _c("div", { staticClass: "card-body" }, [
                               _c("p", [
                                 _vm._v(
