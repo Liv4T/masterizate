@@ -2,7 +2,14 @@
     <div class="back">
         <div class="row justify-content-center">
             <div id="crud" class="col-sm-10">
-                <div id="accordion">
+                <div class="card-header fondo text-center mb-3" v-if="studentClass.length === 0">
+                    <h4>Académico</h4>
+                </div>
+                
+                <div v-else id="accordion">
+                    <div class="card-header fondo text-center mb-3">
+                        <h4>Académico</h4>
+                    </div>
                     <div class="card" v-for="(studentClass, key) in studentClass" :key="key">
                         <div class="card-header fondo" id="headingOne">
                             <h5 class="mb-0">
