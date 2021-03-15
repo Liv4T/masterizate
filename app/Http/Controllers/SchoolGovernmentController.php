@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\SchoolGovernment;
 use Illuminate\Http\Request;
+use App\User;
+use Auth;
 
 class SchoolGovernmentController extends Controller
 {
@@ -17,6 +19,11 @@ class SchoolGovernmentController extends Controller
         return view("schoolGovernment");
     }
 
+    public function getLegislation(){
+        $user_id = Auth::user()->id;
+        $school = SchoolGovernment::where('user_id','=',$user_id)->get();
+        return response()->json($school);
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -35,7 +42,11 @@ class SchoolGovernmentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $school = new SchoolGovernment;
+        $school->legislation = $request->legislation;
+        $school->user_id = $request->user_id;
+        $school->save();
+        return response()->json("Legislación Creada");
     }
 
     /**
@@ -67,9 +78,12 @@ class SchoolGovernmentController extends Controller
      * @param  \App\SchoolGovernment  $schoolGovernment
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, SchoolGovernment $schoolGovernment)
+    public function update(Request $request, $id)
     {
-        //
+        $school = SchoolGovernment::findOrFail($id);
+        $school->legislation = $request->legislation;
+        $school->save();
+        return response()->json("Legislación Creada");
     }
 
     /**
@@ -78,8 +92,10 @@ class SchoolGovernmentController extends Controller
      * @param  \App\SchoolGovernment  $schoolGovernment
      * @return \Illuminate\Http\Response
      */
-    public function destroy(SchoolGovernment $schoolGovernment)
+    public function destroy(int $id)
     {
-        //
+        $legislation = SchoolGovernment::findOrFail($id);
+        $legislation->delete();
+        return response()->json("Dato Eliminado");
     }
 }

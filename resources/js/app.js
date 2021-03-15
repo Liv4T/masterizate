@@ -230,4 +230,5 @@ Vue.component("modal-view-observer-component", () => import("./components/ModalV
 Vue.component("menu-school", () =>import("./components/menuSchoolGov.vue"));
 Vue.component("school-government-component", () =>import("./components/SchoolGov.vue"));
 Vue.component("modal-school-component", () =>import("./components/ModalSchoolGov.vue"));
+Vue.component("legislation-component", () =>import("./components/legislation.vue"));
 const app = new Vue({el: "#app", data: {}, store});

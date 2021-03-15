@@ -15,6 +15,7 @@ class CreateSchoolGovernmentsTable extends Migration
     {
         Schema::create('school_governments', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('legislation');
             $table->timestamps();
         });
     }

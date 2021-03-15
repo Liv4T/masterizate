@@ -725,3 +725,7 @@ Route::get('/dataUsers','ObserverController@getDataParentsStudents');
 
 //School Government
 Route::resource('/schoolGobernment','SchoolGovernmentController');
+Route::middleware('auth')->get('/legislation', function () {
+    return view('legislation');
+});
+Route::get('/getLegislation', 'SchoolGovernmentController@getLegislation');

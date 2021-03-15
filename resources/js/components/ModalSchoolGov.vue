@@ -15,11 +15,27 @@
                     </div>
                     <div class="form-group">
                         <label>Estudiante</label>
-                        <input class="form-control"/>
+                        <multiselect v-model="studentsToSearch" :options="studentsOption" :multiple="false"
+                            :close-on-select="false" :clear-on-select="false" :preserve-search="true"
+                            placeholder="Seleccione una o varias" label="text" track-by="id"
+                            :preselect-first="false">
+                            <template slot="selection" slot-scope="{ values, isOpen }"><span
+                                class="multiselect__single"
+                                v-if="values.length &amp;&amp; !isOpen">{{ values.length }} opciones
+                                selecionadas</span></template>
+                        </multiselect>
                     </div>
                     <div class="form-group">
                         <label>Docente</label>
-                        <input class="form-control"/>
+                        <multiselect v-model="teachersToSearch" :options="teachersOption" :multiple="false"
+                            :close-on-select="false" :clear-on-select="false" :preserve-search="true"
+                            placeholder="Seleccione una o varias" label="text" track-by="id"
+                            :preselect-first="false">
+                            <template slot="selection" slot-scope="{ values, isOpen }"><span
+                                class="multiselect__single"
+                                v-if="values.length &amp;&amp; !isOpen">{{ values.length }} opciones
+                                selecionadas</span></template>
+                        </multiselect>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -31,12 +47,57 @@
     </div>
 </template>
 <script>
+    import Multiselect from "vue-multiselect";
+    Vue.component("multiselect", Multiselect);
     export default {
         data() {
             return {
-                title:"Notas"
+                title:"Notas",
+                studentsOption:[],
+                teachersOption:[],
+                teachersToSearch:{},
+                studentsToSearch:{}
             }
         },
+        mounted(){
+            this.getTeachers();
+            this.getStudents();
+        },
+        methods:{
+            getTeachers(){
+                axios.get('getTeachers').then((response)=>{                    
+                    let dataTeachers = response.data;
+                    if(dataTeachers){
+
+                        dataTeachers.forEach(e => {
+                            this.teachersOption.push({
+                                id: e.id,
+                                id_teacher: e.id,
+                                text: `${e.name}`,
+                            });
+                        });
+                    }
+                }).catch((error)=>{
+                    console.log(error)
+                })
+            },
+            getStudents(){
+                axios.get('getStudents').then((response)=>{
+                    let studentsData = response.data;
+                    if(studentsData){
+                        studentsData.forEach(e => {
+                            this.studentsOption.push({
+                                id: e.id,
+                                id_student: e.id,
+                                text: `${e.name}`,
+                            });
+                        });
+                    }
+                }).catch((error)=>{
+                    console.log(error)
+                })
+            }
+        }
     }
 
 </script>

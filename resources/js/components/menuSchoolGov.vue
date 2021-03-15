@@ -25,27 +25,31 @@
                                                 alt />
                                             Chat
                                         </a>
-                                        <a href="/chat">
-                                            <img width="35px"
-                                                src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/MANUAL-DE-USUARIO_naranja.png?alt=media&token=bd2488fb-e121-432d-afd2-f223fcc0f29e"
-                                                alt />
-                                            Quienes lo Conforman
-                                        </a>
-                                        <a href="/chat">
-                                            <img width="35px"
-                                                src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/MANUAL-DE-USUARIO_naranja.png?alt=media&token=bd2488fb-e121-432d-afd2-f223fcc0f29e"
-                                                alt />
-                                            Legislación
-                                        </a>
                                     </div>
                                 </li>
                             </a>
                         </div>
+                        <a href="/chat">
+                            <li class="item-menu">
+                                <img width="35px"
+                                    src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/MANUAL-DE-USUARIO_naranja.png?alt=media&token=bd2488fb-e121-432d-afd2-f223fcc0f29e"
+                                    alt />
+                                <span class="menu"> Quienes lo Conforman </span>
+                            </li>
+                        </a>
+                        <a href="/legislation">
+                            <li class="item-menu">
+                                <img width="35px"
+                                    src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/MANUAL-DE-USUARIO_naranja.png?alt=media&token=bd2488fb-e121-432d-afd2-f223fcc0f29e"
+                                    alt />
+                                <span class="menu"> Legislación</span>
+                            </li>
+                        </a>
                         <a href="/schoolGobernment">
                             <li class="item-menu">
                                 <img width="35px"
-                                src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/sicologia_naranja.png?alt=media&token=93ec6b97-e5a6-4eca-891e-b63bf2a352ad"
-                                alt />                            
+                                    src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/sicologia_naranja.png?alt=media&token=93ec6b97-e5a6-4eca-891e-b63bf2a352ad"
+                                    alt />
                                 <span class="menu">Gobierno Escolar</span>
                             </li>
                         </a>
