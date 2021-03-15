@@ -14,13 +14,41 @@
                     </div>
                 </div> 
             </div>
+            <div class="col-6">
+                    <div class="justify-content">
+                         <div class="form-check">
+                            <input class="form-check-input" type="checkbox" v-model="display_solicitud" @change="displaySolicitudChange()" id="defaultCheck1">
+                            <label class="form-check-label" for="defaultCheck1">
+                                <span class="dot dot_orange"></span> Solicitud
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" v-model="display_seguimiento" @change="displaySeguimientoChange()" id="defaultCheck2">
+                            <label class="form-check-label" for="defaultCheck2">
+                                <span class="dot dot_yellow"></span> Seguimiento
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" v-model="display_cita" @change="displayCitaChange()" id="defaultCheck3">
+                            <label class="form-check-label" for="defaultCheck3">
+                                <span class="dot dot_blue"></span> Cita
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" v-model="display_reunion" @change="displayReunionChange()" id="defaultCheck4">
+                            <label class="form-check-label" for="defaultCheck4">
+                                <span class="dot dot_green"></span> Reunión
+                            </label>
+                        </div>
+                    </div>
+                </div>
             <div class="row">
                 <div class="col-12">
                     <FullCalendar ref="fullCalendar"  :options="calendarOptions" />
                 </div>
             </div>
-          <div class="row" v-show="type_u==2">
-            <a class="btn btn-warning float-right" v-on:click.prevent="createE()">Crear evento</a>
+          <div class="row">
+            <a class="btn btn-warning float-right" v-on:click.prevent="createEven()">Crear evento</a>
           </div>
           <br />
           <div class="row">
@@ -49,8 +77,8 @@
                       </div>
                       <div class="class-event-footer ">
                         <div class="class-event-action">
-                            <button class="btn btn-primary"  v-show="type_u==2" v-on:click.prevent="editE(clas.id)">Editar</button>
-                            <button class="btn btn-danger"  v-show="type_u==2" v-on:click.prevent="viewDelete(clas.id,clas.name)">Eliminar</button>
+                            <button class="btn btn-primary" v-on:click.prevent="editE(clas.id)">Editar</button>
+                            <button class="btn btn-danger"  v-on:click.prevent="viewDelete(clas.id,clas.name)">Eliminar</button>
                         </div>
                       </div>
                   </div>
@@ -61,7 +89,7 @@
         </div>
       </div>
     </div>  
-    <div class="modal fade" id="createE">
+    <div class="modal fade" id="createEvent">
       <div class="modal-lg modal-dialog">
         <div class="modal-content">
           <form class="needs-validation" v-on:submit.prevent="createEvent" novalidate>
@@ -76,7 +104,7 @@
                 <div class="col-md-6">
                   <label for="name">Tipo de evento a crear</label>
                   <select class="form-control" v-model="typeEvent" @change="selectChange" >
-                    <option :value="options.id" v-for="options in event">
+                    <option :value="options.id" v-for="options in eventType">
                       {{
                       options.name
                       }}
@@ -84,14 +112,19 @@
                   </select>
                 </div>
                 <div class="col-md-6">
-                  <label style="display: none;" id="labeldia">Invitar usuario</label>
-                  <select class="form-control" name="dia" id="dia" v-model="diaSemana" style="display:none">
-                    <option :value="options.id" v-for="options in users">
-                      {{
-                      options.name
-                      }}
-                    </option>
-                  </select>
+                  <div id="inviteUser" style="display:none;">
+                    <label>Invitar usuario</label>
+                    <multiselect v-model="user_invited" :options="myUsers" :multiple="true"
+                        :close-on-select="false" :clear-on-select="false" :preserve-search="true"
+                        placeholder="Seleccione una o varias" label="text" track-by="id"
+                        :preselect-first="true">
+                        <template slot="selection" slot-scope="{ values, isOpen }"><span
+                          class="multiselect__single"
+                          v-if="values.length &amp;&amp; !isOpen">{{ values.length }} opciones
+                          selecionadas</span>
+                        </template>
+                    </multiselect>
+                  </div>
                 </div>
               </div>
               <div class="form-group row justify-content-center">
@@ -100,43 +133,22 @@
                   <input type="text" name="name" class="form-control" v-model="nameEvent" />
                   <div class="invalid-feedback">Please fill out this field</div>
                 </div>
-                <!-- <div class="col-md-6">
-                  <label for="name">Materia</label>
-                  <select class="form-control" v-model="materia" required>
-                    <option :value="option.id+'/'+option.id_classroom " v-for="option in myOptions">
-                      {{
-                      option.text
-                      }}
-                    </option>
-                  </select>
-                </div> -->
-                <div class="col-md-6">
-                  <label for="name">Materia</label>
-                  <multiselect v-model="materia" :options="myOptions" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" placeholder="Seleccione una o varias" label="text" track-by="id" :preselect-first="true">
-                    <template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single" v-if="values.length &amp;&amp; !isOpen">{{ values.length }} opciones selecionadas</span></template>
-                  </multiselect>
-                </div>
-              </div>
-              <div class="form-group row">
-                <div class="col-md-6">
-                  <label for="name">Desde</label>
-                  <datetime :format="formatDate" v-model="desde"></datetime>
-                  <div class="invalid-feedback">Please fill out this field</div>
-                </div>
-                <div class="col-md-6">
-                  <label for="name">Hasta</label>
-                  <datetime :format="formatDate" v-model="hasta"></datetime>
-                  <div class="invalid-feedback"></div>
-                </div>
                 <div class="col-md-6">
                   <strong for="name">Enlace de Meet</strong>
                   <input type="text" name="name" class="form-control" v-model="nameMeet" />
                   <div class="invalid-feedback">Please fill out this field</div>
                 </div>
-                <div class="col-md-6" style="display: none;">
-                  <strong for="name">id ultimo</strong>
-                  <input type="text" name="id_padre" class="form-control" v-model="lastId" />
+              </div>
+              <div class="form-group row">
+                <div class="col-md-6">
+                  <label for="name">Desde</label>
+                  <datetime v-model="desde"></datetime>
                   <div class="invalid-feedback">Please fill out this field</div>
+                </div>
+                <div class="col-md-6">
+                  <label for="name">Hasta</label>
+                  <datetime v-model="hasta"></datetime>
+                  <div class="invalid-feedback"></div>
                 </div>
               </div>
               <div class="modal-footer">
@@ -178,12 +190,12 @@
               <div class="form-group row">
                 <div class="col-md-6">
                   <label for="name">Desde</label>
-                  <datetime format="YYYY-MM-DD H:i:s" v-model="fromUp"></datetime>
+                  <datetime v-model="fromUp"></datetime>
                   <div class="invalid-feedback">Por favor ingresa la fecha</div>
                 </div>
                 <div class="col-md-6">
                   <label for="name">Hasta</label>
-                  <datetime format="YYYY-MM-DD H:i:s" v-model="toUp"></datetime>
+                  <datetime v-model="toUp"></datetime>
                   <div class="invalid-feedback"></div>
                 </div>
                 <div class="col-md-6">
@@ -244,8 +256,10 @@ export default {
   props: ["type_u"],
   data() {
     return {
-      display_events:true,
-      display_activities:true,
+      display_solicitud:true,
+      display_seguimiento:true,
+      display_cita:true,
+      display_reunion:true,
       desde: "",
       hasta: "",
       nameEvent: "",
@@ -254,8 +268,9 @@ export default {
       value:[],
       myOptions:[],
       materia: [],
-      concurrent: [{'id':'1','name':'Solicitud'},{'id':'2', 'name':'Seguimiento'}, {'id':'3', 'name':'Cita'}, {'id':'4', 'name':'Reunión'}],
-      users:[],
+      eventType: [{'id':'1','name':'Solicitud'},{'id':'2', 'name':'Seguimiento'}, {'id':'3', 'name':'Cita'}, {'id':'4', 'name':'Reunión'}],
+      myUsers: [],
+      user_invited:[],
       delId: "",
       delName: "",
       formatDate: "",
@@ -284,7 +299,8 @@ export default {
   },
   components: {
     datetime,
-    FullCalendar
+    FullCalendar,
+    Multiselect
   },
   filters:{
       formatDate:(value)=>{
@@ -294,16 +310,53 @@ export default {
       }
   },
   mounted() {
-     const fullCalendarApi=this.$refs.fullCalendar.getApi();
+    const fullCalendarApi=this.$refs.fullCalendar.getApi();
+    var url = window.location.origin + "/getAllUsers";
+    
+    axios.get(url).then((response) => {
+      let arrayData = response.data;
+      arrayData[0].forEach(e => {
+        this.myUsers.push({
+            is_lective: true,
+            id: e.id,
+            email: e.email,
+            text: e.name + e.last_name + ' -- ' + ' Administrador '
+        });
+      });
+      arrayData[1].forEach(e => {
+        this.myUsers.push({
+            is_lective: true,
+            id: e.id,
+            email: e.email,
+            text: e.name + e.last_name + ' -- ' + ' Docente '
+        });
+      });
+      arrayData[2].forEach(e => {
+        this.myUsers.push({
+            is_lective: true,
+            id: e.id,
+            email: e.email,
+            text: e.name + e.last_name + ' -- ' + ' Padres '
+        });
+      });
+      arrayData[3].forEach(e => {
+        this.myUsers.push({
+            is_lective: true,
+            id: e.id,
+            email: e.email,
+            text: e.name + e.last_name + ' -- ' + ' Psicologia '
+        });
+      });
+    });
   },
   methods: {
     filterPendingEvents:(events)=>{
           return events.filter(e=>moment(e.dateTo)>=moment());
       },
-      displayActivitiesChange(){
+      displaySolicitudChange(){
         const fullCalendarApi=this.$refs.fullCalendar.getApi();
 
-          if(this.display_activities)
+          if(this.display_solicitud)
           {
               /*
                this.clases.forEach(meeting=>{
@@ -320,7 +373,45 @@ export default {
             });
           }
       },
-      displayEventsChange(){
+      displaySeguimientoChange(){
+           const fullCalendarApi=this.$refs.fullCalendar.getApi();
+
+          if(this.display_events)
+          {
+               this.clases.forEach(meeting=>{
+                fullCalendarApi.addEvent({ title: `${meeting.area} ${meeting.classroom} | Clase ${meeting.name}`, start: meeting.dateFrom,end:meeting.dateTo,description: meeting.name,url:meeting.hangout ,backgroundColor:'red'});
+               })
+          }
+          else{
+            const currentEvents=  fullCalendarApi.getEvents();
+            currentEvents.forEach(event=>{
+                if(event.backgroundColor=='red')
+                {
+                    event.remove();
+                }
+            });
+          }
+      },
+      displayCitaChange(){
+           const fullCalendarApi=this.$refs.fullCalendar.getApi();
+
+          if(this.display_events)
+          {
+               this.clases.forEach(meeting=>{
+                fullCalendarApi.addEvent({ title: `${meeting.area} ${meeting.classroom} | Clase ${meeting.name}`, start: meeting.dateFrom,end:meeting.dateTo,description: meeting.name,url:meeting.hangout ,backgroundColor:'red'});
+               })
+          }
+          else{
+            const currentEvents=  fullCalendarApi.getEvents();
+            currentEvents.forEach(event=>{
+                if(event.backgroundColor=='red')
+                {
+                    event.remove();
+                }
+            });
+          }
+      },
+      displayReunionChange(){
            const fullCalendarApi=this.$refs.fullCalendar.getApi();
 
           if(this.display_events)
@@ -364,7 +455,74 @@ export default {
         this.initialView=view;
         this.calendarOptions.initialView=view;
         this.$refs.fullCalendar.getApi().changeView(view);
-    },     
+    }, 
+    selectChange() {
+        if (this.typeEvent == 2 || this.typeEvent == 4) {
+          document.getElementById("inviteUser").style.display = "block";
+        } else if (this.typeEvent == 1 || this.typeEvent == 3) {
+          document.getElementById("inviteUser").style.display = "none";
+        }
+      },
+    getMenu() {
+      window.location = "/psychology";
+    },
+    createEven(){
+      $("#createEvent").modal("show");
+      console.log(this.myUsers);
+    }, 
+    createEvent() {
+      var url = "createEvent";
+      
+      if (this.user_invited.length >= 1 ){
+        var id_users=[];
+        for(let i = 0; i < this.user_invited.length; i++){
+          if(i + 1 < this.user_invited.length){
+           id_users = id_users + this.user_invited[i].id + ",";
+          }else{
+            id_users = id_users + this.user_invited[i].id;
+          }
+        }
+      }
+
+      if (this.typeEvent == 1 || this.typeEvent== 3){
+        
+        axios
+          .post(url, {
+            //Eventos sin invitacion
+            name: this.nameEvent,
+            startDateTime: this.desde,
+            endDateTime: this.hasta,
+            url: this.nameMeet,
+            type_event: this.typeEvent,
+            user_invited: null,
+          })
+          .then((response) => {
+            toastr.success("Nuevo evento creado exitosamente");
+            this.getMenu();
+
+          })
+          .catch((error) => {});
+          
+      }else if(this.typeEvent == 2 || this.typeEvent== 4) {
+         
+        axios
+          .post(url, {
+            //Eventos con invitacion
+            name: this.nameEvent,
+            startDateTime: this.desde,
+            endDateTime: this.hasta,
+            url: this.nameMeet,
+            type_event: this.typeEvent,
+            user_invited: id_users,
+          })
+          .then((response) => {
+            toastr.success("Nuevo evento creado exitosamente");
+            this.getMenu();
+
+          })
+          .catch((error) => {}); 
+      }  
+    },   
     
   },
 };
@@ -434,10 +592,16 @@ export default {
   border-radius: 50%;
   display: inline-block;
 }
-.dot_blue{
+.dot_orange{
     background-color: #3788d8;
 }
-.dot_red{
+.dot_yellow{
+    background-color: #d8374d;
+}
+.dot_blue{
+    background-color: #d8374d;
+}
+.dot_green{
     background-color: #d8374d;
 }
 </style>

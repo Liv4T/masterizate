@@ -138,6 +138,9 @@
                                                     <option value="3"
                                                         >Estudiante</option
                                                     >
+                                                    <option value="5"
+                                                        >Psicología</option
+                                                    >
                                                 </select>
                                             </div>
                                         </div>

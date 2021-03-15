@@ -14,6 +14,10 @@
     <menu-adm></menu-adm>
     <inicio-component></inicio-component>
  @endif
+ @if (Auth::user()->type_user == '5')
+        <menu-psychology></menu-psychology>
+        <inicio-component></inicio-component>
+  @endif
 {{-- <memory-create></memory-create> --}}
 <div class="container">
 
