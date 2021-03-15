@@ -58,6 +58,7 @@ $(".collapse").on("show.bs.collapse", function () {
   $(".collapse.in").collapse("hide");
 });
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['items', 'active'],
   data: function data() {
     return {
       week: [],

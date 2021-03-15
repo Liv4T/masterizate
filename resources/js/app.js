@@ -85,7 +85,9 @@ Vue.component("actividad-component", require("./components/tareas.vue").default)
 Vue.component("notas-component", require("./components/notas.vue").default);
 Vue.component("boletin-component", require("./components/boletin.vue").default);
 Vue.component("menu-docente", () => import ("./components/menudocente.vue"));
+Vue.component("menu-psychology", () => import ("./components/menuPsyc.vue"));
 Vue.component("perfil-docente", require("./components/perfildocente.vue").default);
+Vue.component("perfil-psychology", require("./components/perfilPsy.vue").default);
 Vue.component("anuncio-docente", require("./components/anunciodocente.vue").default);
 Vue.component("actividadg-docente",  () => import ("./components/actividadGDocente.vue"));
 Vue.component("anunciomc-component", require("./components/anunciomc.vue").default);
@@ -94,6 +96,9 @@ Vue.component("psychology-calendar-component", require("./components/psychologyC
 Vue.component("student-calendar-component", require("./components/studentCalendarComponent.vue").default);
 Vue.component("redactar-component", require("./components/redactar.vue").default);
 Vue.component("vmensaje-component", require("./components/vistamensaje.vue").default);
+Vue.component("classroom-component", require("./components/classroomComponent.vue").default);
+Vue.component("studentbyclass-component", require("./components/studentClassroom.vue").default);
+Vue.component("psychologymenu",  () => import ("./components/psychologyMenu.vue"));
 
 Vue.component("duplicarsemana-component", require("./components/duplicarSemana.vue").default);
 Vue.component("game-component", require("./components/Game.vue").default);

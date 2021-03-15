@@ -261,6 +261,7 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
       }]
     };
   },
+  created: function created() {},
   mounted: function mounted() {
     var _this = this;
 
@@ -269,6 +270,7 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
       _this.myOptions = response.data;
       console.log(_this.myOptions);
     });
+    console.log("Component mounted.");
   },
   methods: {
     getMenu: function getMenu() {

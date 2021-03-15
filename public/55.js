@@ -486,10 +486,17 @@ render._withStripped = true
 
 /***/ }),
 
+<<<<<<< HEAD
+/***/ "./resources/js/components/QuestionVote.vue":
+/*!**************************************************!*\
+  !*** ./resources/js/components/QuestionVote.vue ***!
+  \**************************************************/
+=======
 /***/ "./resources/js/components/EventParentsModal.vue":
 /*!*******************************************************!*\
   !*** ./resources/js/components/EventParentsModal.vue ***!
   \*******************************************************/
+>>>>>>> daefe46fd3fbc21a6acec8fb4e2f661841b9829b
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -511,7 +518,7 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
   _EventParentsModal_vue_vue_type_template_id_7c3f9903___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
-  null,
+  "1f809bdb",
   null
   
 )

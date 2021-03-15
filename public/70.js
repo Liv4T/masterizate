@@ -76,6 +76,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: ["id_lective_planification"],
   data: function data() {
     return {
       clases: [],
@@ -89,7 +90,6 @@ __webpack_require__.r(__webpack_exports__);
       fillS: []
     };
   },
-  created: function created() {},
   mounted: function mounted() {
     var _this = this;
 

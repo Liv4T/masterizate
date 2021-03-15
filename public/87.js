@@ -1,6 +1,10 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[87],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/parents.vue?vue&type=script&lang=js&":
+/***/ "./resources/js/components/lectivesAdmAssingTeacherComponent.vue":
+/*!***********************************************************************!*\
+  !*** ./resources/js/components/lectivesAdmAssingTeacherComponent.vue ***!
+  \***********************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/planAdm.vue?vue&type=script&lang=js&":
 /*!******************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/parents.vue?vue&type=script&lang=js& ***!
   \******************************************************************************************************************************************************************/
@@ -405,6 +409,7 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
   
 )
 
+component.options.__file = "resources/js/components/lectivesAdmAssingTeacherComponent.vue"
 /* hot reload */
 if (false) { var api; }
 component.options.__file = "resources/js/components/parents.vue"

@@ -279,8 +279,9 @@ var staticRenderFns = [
         _c("th", [_vm._v("Acción")])
       ])
     ])
-  }
-]
+  ])
+}
+var staticRenderFns = []
 render._withStripped = true
 
 

@@ -123,6 +123,7 @@ $(function () {
 Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
 Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_1___default.a);
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: ["id_lective_planification"],
   data: function data() {
     return {
       materia: [],
@@ -167,7 +168,7 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_1___defaul
       });
     },
     remove: function remove(index) {
-      this.inputs.splice(index, 1);
+      this.weekly_plans.splice(index, 1);
     },
     addTage: function addTage(newTag) {
       var tag = {
@@ -212,9 +213,10 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_1___defaul
         _this2.errors = [];
         toastr.success("Nueva asignación creada exitosamente");
 
-        _this2.getMenu();
+        _this2.returnToMenu();
       })["catch"](function (error) {
         _this2.errors = error.response.data;
+        _this2.isLoading = false;
       });
     }
   }

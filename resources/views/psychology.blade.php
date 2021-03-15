@@ -1,17 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
-  @if (Auth::user()->type_user == '2')
-        <menu-docente></menu-docente>
+  @if (Auth::user()->type_user == '5')
+        <menu-psychology></menu-psychology>
         <inicio-component></inicio-component>
   @endif
-  @if (Auth::user()->type_user == '3')
-    <menu-lateral></menu-lateral>
- @endif
-  @if (Auth::user()->type_user == '1')
-    <menu-adm></menu-adm>
- @endif
-  <psychology-calendar-component :type_u="{{ $type_user }}"></psychology-calendar-component>
+  <psychology-calendar-component></psychology-calendar-component>
   <footers></footers>
 <div class="container">
   <!--<app-vue></app-vue>-->

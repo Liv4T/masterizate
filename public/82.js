@@ -278,6 +278,18 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
       _this.planification = response.data;
     });
   },
+  mounted: function mounted() {
+    var _this = this;
+
+    var urlsel = "editGetWeek";
+    axios.get(urlsel).then(function (response) {
+      _this.fillS = response.data;
+
+      if (_this.fillS.length > 0) {
+        _this.semanal = true;
+      }
+    });
+  },
   methods: {
     getMenu: function getMenu() {
       window.location = "/api/lectives/planification";

@@ -21,13 +21,13 @@ use Illuminate\Support\Facades\Excel;
 // Route::group(['middleware' => 'auth', function () {
 //add all your routes here
 Route::middleware('auth')->get('/user', function () {
-vretew('user');
+    return view('user');
 });
 Route::middleware('auth')->get('/board', function () {
-vretew('welcome');
+    return view('welcome');
 });
 Route::middleware('auth')->get('/memoria', function () {
-vretew('memory');
+    return view('memory');
 });
 Route::middleware('auth')->get('/task', function () {
     return view('class');
@@ -168,6 +168,15 @@ Route::middleware('auth')->get('/calendar', function () {
 Route::middleware('auth')->get('/psychology', function () {
     return view('psychology')->with('type_user', Auth::user()->type_user);
 });
+Route::middleware('auth')->get('/psychology_menu', function () {
+    return view('psychologyMenu');
+});
+Route::middleware('auth')->get('/classroom', function () {
+    return view('classroom')->with('type_user', Auth::user()->type_user);
+});
+Route::middleware('auth')->get('/student/{id_classroom}/{name_classroom}', function (String $id_classroom, String $name_classroom) {
+    return view('studentsClassroom')->with('id_classroom', $id_classroom)->with('name_classroom', $name_classroom);
+});
 Route::middleware('auth')->get('/calendario', function () {
     return view('calendar')->with('type_user', Auth::user()->type_user);
 });
@@ -176,6 +185,9 @@ Route::middleware('auth')->get('/estudiante/calendario', function () {
 });
 Route::middleware('auth')->get('/perfil_d', function () {
     return view('perfild');
+});
+Route::middleware('auth')->get('/perfil_p', function () {
+    return view('perfilp');
 });
 Route::middleware('auth')->get('/anuncio_d', function () {
     return view('anunciod');
@@ -323,7 +335,7 @@ Route::get('trivia/{id}', 'ActivityController@activityId');
 Route::post('actividad_d/Activity', 'ActivityController@store');
 Route::get('showTrivia/{id}', 'ActivityController@showTrivia');
 
-
+//Events
 
 Route::post('createEvent', 'EventsController@createEvent')->name('createEvent');
 Route::get('/getAllEvents', 'EventsController@indexEvents')->name('getAllEvents');
@@ -332,6 +344,15 @@ Route::get('lastId', 'EventsController@lastID')->name('lastID');
 Route::get('updatePadre/{id}', 'EventsController@Update_padre')->name('Update_padre');
 Route::put('updateEvent', 'EventsController@updateEvent')->name('updateEvent');
 Route::put('deleteEvent', 'EventsController@deleteEvent')->name('deleteEvent');
+
+//Psychology
+
+Route::get('/getAllUsers', 'PsychologyController@getUsersToInvitations')->name('getAllUsers');
+Route::post('createEvent', 'PsychologyController@createEvent')->name('createEvent');
+
+//Classroom and Students
+Route::get('/getClassroomByInstitution/{id}', 'ClassroomController@classroomByInstitution')->name('getClassroomByInstitution');
+Route::get('/getStudentByClassroom/{id}', 'ClassroomController@studentsForClassroom')->name('getStudentByClassroom');
 
 Route::middleware('auth')->get('/actividad_d/{id}', 'ClassController@activityWeekId')->name('actividad_d');
 Route::middleware('auth')->get('/actividad_d/getClass/{id}', 'ClassController@getClassId')->name('getClass');

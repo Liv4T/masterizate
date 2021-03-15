@@ -41,6 +41,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['id_area', 'id_classroom', 'id_activity'],
   data: function data() {
     return {
       data: [{
@@ -100,6 +101,42 @@ var render = function() {
             _vm._v(" "),
             _vm._m(1)
           ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "row margin-top-20" }, [
+        _c(
+          "div",
+          { staticClass: "col-md-10 mx-auto" },
+          [
+            _vm.activity.activity_type == "complete_sentence"
+              ? _c("activity-complete-sentence", {
+                  attrs: { previewMode: true, data: _vm.activity.content },
+                  on: { "refresh-data": _vm.RefreshData }
+                })
+              : _vm._e(),
+            _vm._v(" "),
+            _vm.activity.activity_type == "questionary_open_questions"
+              ? _c("activity-open-question", {
+                  attrs: { previewMode: true, data: _vm.activity.content },
+                  on: { "refresh-data": _vm.RefreshData }
+                })
+              : _vm._e()
+          ],
+          1
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "row margin-top-20" }, [
+        _c("div", { staticClass: "col-md-10 mx-auto" }, [
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-primary",
+              on: { click: _vm.FinishActivity }
+            },
+            [_vm._v("Finalizar")]
+          )
         ])
       ])
     ])

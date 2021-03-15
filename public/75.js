@@ -192,7 +192,7 @@ $(function () {
 
 Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["id_area", "id_classroom"],
+  props: ["id_repo", "id_student"],
   data: function data() {
     var _ref;
 
@@ -341,7 +341,7 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
         _this2.errors = [];
         toastr.success("Nuevo plan general creado exitosamente");
 
-        _this2.getMenu();
+        _this3.getMenu();
       })["catch"](function (error) {
         _this2.errors = error.response.data;
         _this2.isLoading = false;
