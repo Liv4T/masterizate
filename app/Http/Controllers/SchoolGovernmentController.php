@@ -20,8 +20,7 @@ class SchoolGovernmentController extends Controller
     }
 
     public function getLegislation(){
-        $user_id = Auth::user()->id;
-        $school = SchoolGovernment::where('user_id','=',$user_id)->get();
+        $school = SchoolGovernment::all();
         return response()->json($school);
     }
     /**

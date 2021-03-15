@@ -43,7 +43,7 @@
                                     data-parent="#accordion">
                                     <div class="card-body">
                                         <div class="card-body" v-if="legislationData.length > 0">
-                                            <div v-for="(data, id) in legislationData" :key="id">                                    
+                                            <div v-for="(data, id) in legislationData" :key="id">
                                                 <p>{{data.legislation}}</p>
                                                 <br>
                                             </div>
@@ -59,7 +59,7 @@
                 </div>
             </div>
         </div>
-        <modal-school-component></modal-school-component>
+        <!-- <modal-school-component></modal-school-component> -->
     </div>
 </template>
 <script>
@@ -70,14 +70,14 @@
                 integrates: []
             }
         },
-        mounted(){
+        mounted() {
             this.getLegislation();
         },
-        methods:{
-            getLegislation(){
-                axios.get('/getLegislation').then((response)=>{
+        methods: {
+            getLegislation() {
+                axios.get('/getLegislation').then((response) => {
                     this.legislationData = response.data
-                }).catch((error)=>{
+                }).catch((error) => {
                     console.log(error);
                 })
             },

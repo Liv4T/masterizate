@@ -29,20 +29,20 @@
                                 </li>
                             </a>
                         </div>
-                        <a href="/chat">
+                        <!-- <a href="/SchoolGovernmentMembers">
                             <li class="item-menu">
                                 <img width="35px"
                                     src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/MANUAL-DE-USUARIO_naranja.png?alt=media&token=bd2488fb-e121-432d-afd2-f223fcc0f29e"
                                     alt />
-                                <span class="menu"> Quienes lo Conforman </span>
+                                <span class="menu">Quienes lo Conforman</span>
                             </li>
-                        </a>
+                        </a> -->
                         <a href="/legislation">
                             <li class="item-menu">
                                 <img width="35px"
                                     src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/MANUAL-DE-USUARIO_naranja.png?alt=media&token=bd2488fb-e121-432d-afd2-f223fcc0f29e"
                                     alt />
-                                <span class="menu"> Legislación</span>
+                                <span class="menu">Legislación</span>
                             </li>
                         </a>
                         <a href="/schoolGobernment">

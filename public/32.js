@@ -250,23 +250,6 @@ var staticRenderFns = [
         ])
       ]),
       _vm._v(" "),
-      _c("a", { attrs: { href: "/chat" } }, [
-        _c("li", { staticClass: "item-menu" }, [
-          _c("img", {
-            attrs: {
-              width: "35px",
-              src:
-                "https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/MANUAL-DE-USUARIO_naranja.png?alt=media&token=bd2488fb-e121-432d-afd2-f223fcc0f29e",
-              alt: ""
-            }
-          }),
-          _vm._v(" "),
-          _c("span", { staticClass: "menu" }, [
-            _vm._v(" Quienes lo Conforman ")
-          ])
-        ])
-      ]),
-      _vm._v(" "),
       _c("a", { attrs: { href: "/legislation" } }, [
         _c("li", { staticClass: "item-menu" }, [
           _c("img", {
@@ -278,7 +261,7 @@ var staticRenderFns = [
             }
           }),
           _vm._v(" "),
-          _c("span", { staticClass: "menu" }, [_vm._v(" Legislación")])
+          _c("span", { staticClass: "menu" }, [_vm._v("Legislación")])
         ])
       ]),
       _vm._v(" "),

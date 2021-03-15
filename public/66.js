@@ -113,95 +113,86 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { staticClass: "back" },
-    [
-      _c("div", { staticClass: "row justify-content-center" }, [
-        _c("div", { staticClass: "col-sm-10", attrs: { id: "crud" } }, [
-          _c("div", { staticClass: "card" }, [
-            _c("div", { staticClass: "text-center card-header fondo" }, [
-              _vm._v("\n                    Gobierno Escolar\n                ")
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "card-body" }, [
-              _c("div", { attrs: { id: "accordion" } }, [
-                _c("div", { staticClass: "card" }, [
-                  _vm._m(0),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    {
-                      staticClass: "collapse show",
-                      attrs: {
-                        id: "collapseOne",
-                        "aria-labelledby": "headingOne",
-                        "data-parent": "#accordion"
-                      }
-                    },
-                    [
-                      _vm.integrates.length > 0
-                        ? _c("div", { staticClass: "card-body" }, [
-                            _c("p", [_vm._v(_vm._s(_vm.integrates.text))])
+  return _c("div", { staticClass: "back" }, [
+    _c("div", { staticClass: "row justify-content-center" }, [
+      _c("div", { staticClass: "col-sm-10", attrs: { id: "crud" } }, [
+        _c("div", { staticClass: "card" }, [
+          _c("div", { staticClass: "text-center card-header fondo" }, [
+            _vm._v("\n                    Gobierno Escolar\n                ")
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "card-body" }, [
+            _c("div", { attrs: { id: "accordion" } }, [
+              _c("div", { staticClass: "card" }, [
+                _vm._m(0),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass: "collapse show",
+                    attrs: {
+                      id: "collapseOne",
+                      "aria-labelledby": "headingOne",
+                      "data-parent": "#accordion"
+                    }
+                  },
+                  [
+                    _vm.integrates.length > 0
+                      ? _c("div", { staticClass: "card-body" }, [
+                          _c("p", [_vm._v(_vm._s(_vm.integrates.text))])
+                        ])
+                      : _c("div", { staticClass: "card-body" }, [
+                          _c("p", [
+                            _vm._v(
+                              "Crea a los Integrantes del Gobierno Escolar"
+                            )
                           ])
+                        ])
+                  ]
+                ),
+                _vm._v(" "),
+                _vm._m(1),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass: "collapse show",
+                    attrs: {
+                      id: "collapseTwo",
+                      "aria-labelledby": "headingOne",
+                      "data-parent": "#accordion"
+                    }
+                  },
+                  [
+                    _c("div", { staticClass: "card-body" }, [
+                      _vm.legislationData.length > 0
+                        ? _c(
+                            "div",
+                            { staticClass: "card-body" },
+                            _vm._l(_vm.legislationData, function(data, id) {
+                              return _c("div", { key: id }, [
+                                _c("p", [_vm._v(_vm._s(data.legislation))]),
+                                _vm._v(" "),
+                                _c("br")
+                              ])
+                            }),
+                            0
+                          )
                         : _c("div", { staticClass: "card-body" }, [
                             _c("p", [
-                              _vm._v(
-                                "Crea a los Integrantes del Gobierno Escolar"
-                              )
+                              _vm._v("Crea La Legislación del Gobierno Escolar")
                             ])
                           ])
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _vm._m(1),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    {
-                      staticClass: "collapse show",
-                      attrs: {
-                        id: "collapseTwo",
-                        "aria-labelledby": "headingOne",
-                        "data-parent": "#accordion"
-                      }
-                    },
-                    [
-                      _c("div", { staticClass: "card-body" }, [
-                        _vm.legislationData.length > 0
-                          ? _c(
-                              "div",
-                              { staticClass: "card-body" },
-                              _vm._l(_vm.legislationData, function(data, id) {
-                                return _c("div", { key: id }, [
-                                  _c("p", [_vm._v(_vm._s(data.legislation))]),
-                                  _vm._v(" "),
-                                  _c("br")
-                                ])
-                              }),
-                              0
-                            )
-                          : _c("div", { staticClass: "card-body" }, [
-                              _c("p", [
-                                _vm._v(
-                                  "Crea La Legislación del Gobierno Escolar"
-                                )
-                              ])
-                            ])
-                      ])
-                    ]
-                  )
-                ])
+                    ])
+                  ]
+                )
               ])
             ])
           ])
         ])
-      ]),
-      _vm._v(" "),
-      _c("modal-school-component")
-    ],
-    1
-  )
+      ])
+    ])
+  ])
 }
 var staticRenderFns = [
   function() {
