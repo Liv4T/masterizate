@@ -15,6 +15,9 @@
  <menu-psychology></menu-psychology>
  <inicio-component></inicio-component>
 @endif
+ @if (Auth::user()->type_user == '4')
+    <menu-padres></menu-padres>
+ @endif
   <mensajes-component></mensajes-component>
   <footers></footers>
 <div class="container">

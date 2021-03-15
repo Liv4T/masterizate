@@ -1184,4 +1184,31 @@ class ClassController extends Controller
         $week = $id;
         return view("activity", compact("week"));;
     }
+
+    /* 
+        Función para desactivar las clases 
+        se itera el array que contiene los arrays de clases y ciclos
+        para iterar por el array de clases y desactivarlos mediante el id 
+
+        se itera el array de ciclos para obtener 
+        el ciclo o ciclos que llegan para su futuro uso
+        descomentar las lineas 1199 y 1203 en caso de ser necesario
+        para obtener los ciclos que llegan
+    */
+    public function deactivateClass(Request $request){
+        $clases = [];
+        // $cicles = [];
+        $dataToDeactivate = $request->all();
+        foreach($dataToDeactivate as $key => $data){
+            $clases = $data['clases'];
+            // $cicles = $data['cicles'];
+        }
+
+        foreach($clases as $key => $clase){
+            $class = Classs::findOrFail($clase['id']);
+            $class->status = 0;
+            $class->save();
+            return $class;
+        }
+    }
 }

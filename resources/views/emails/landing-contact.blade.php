@@ -22,7 +22,7 @@
         </style>
     </head>
     <p><img style="display: block; margin-left: auto; margin-right: auto;" src="https://mcusercontent.com/39faf2f58c1d4ffe21b063667/images/f2aac40f-abf2-4452-ab3d-2a186137b3d0.png" alt="" width="300" height="136" /></p>
-    <h1 style="text-align: center;"><span style="color: #339966;">&iexcl;VIRUALIZA TU COLEGIO!</span></h1>
+    <h1 style="text-align: center;"><span style="color: #339966;">&iexcl;VIRTUALIZA TU COLEGIO!</span></h1>
     <p><span style="color: #339966;"><img style="display: block; margin-left: auto; margin-right: auto;" src="https://mcusercontent.com/39faf2f58c1d4ffe21b063667/images/773aead8-9f23-4a4e-aabe-83ac056e6788.png" alt="" width="400" height="266" /></span></p>
     <h2 style="text-align: center;"><span style="color: #339966;"><a class="x_1011735361m_-2443307567304989031btn-mail" style="color: #339966; font-size: 24px;" href="https://www.liv4t.com/register">Reg&iacute;strate gratis</a></span></h2>
     <div>

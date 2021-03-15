@@ -467,6 +467,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -781,6 +792,16 @@ var render = function() {
               "a",
               {
                 staticClass: "btn btn-warning float-right",
+                staticStyle: { "margin-left": "10px" },
+                attrs: { href: "/parent_asignar" }
+              },
+              [_vm._v("Asignar Acudiente")]
+            ),
+            _vm._v(" "),
+            _c(
+              "a",
+              {
+                staticClass: "btn btn-warning float-right",
                 attrs: { href: "/docente_asignar" }
               },
               [_vm._v("Asignar docente")]
@@ -937,8 +958,16 @@ var render = function() {
                                   _vm._v("Estudiante")
                                 ]),
                                 _vm._v(" "),
+                                _c("option", { attrs: { value: "4" } }, [
+                                  _vm._v("Acudiente")
+                                ]),
+                                _vm._v(" "),
                                 _c("option", { attrs: { value: "5" } }, [
                                   _vm._v("Psicología")
+                                ]),
+                                _vm._v(" "),
+                                _c("option", { attrs: { value: "6" } }, [
+                                  _vm._v("Gobierno Escolar")
                                 ])
                               ]
                             )
