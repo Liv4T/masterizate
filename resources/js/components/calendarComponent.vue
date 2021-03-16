@@ -333,70 +333,73 @@
             }
         },
         mounted() {
-            const fullCalendarApi = this.$refs.fullCalendar.getApi();
-            this.getInvitations();
+            this.getData();
+        },
+        methods: {
+            getData(){
+                const fullCalendarApi = this.$refs.fullCalendar.getApi();
+                this.getInvitations();
 
-            if (this.type_u === 4) {
-                var urlP = window.location.origin + "/api/event/getStudentsClass";
-                axios.get(urlP).then((response) => {
+                if (this.type_u === 4) {
+                    var urlP = window.location.origin + "/api/event/getStudentsClass";
+                    axios.get(urlP).then((response) => {
+                        this.clases = response.data;
+                        if (this.clases && this.clases.length > 0) {
+                            this.clases.forEach(meeting => {
+                                fullCalendarApi.addEvent({
+                                    title: `${meeting.student_name} | ${meeting.area} ${meeting.classroom} | Clase ${meeting.name}`,
+                                    start: meeting.dateFrom,
+                                    end: meeting.dateTo,
+                                    description: meeting.name,
+                                    url: meeting.hangout,
+                                    backgroundColor: 'blue'
+                                });
+                            })
+                        }
+                    });
+                }
+
+                var urlM = window.location.origin + "/getAllEvents";
+                axios.get(urlM).then((response) => {
                     this.clases = response.data;
                     if (this.clases && this.clases.length > 0) {
+
                         this.clases.forEach(meeting => {
                             fullCalendarApi.addEvent({
-                                title: `${meeting.student_name} | ${meeting.area} ${meeting.classroom} | Clase ${meeting.name}`,
+                                title: `${meeting.area} ${meeting.classroom} | Clase ${meeting.name}`,
                                 start: meeting.dateFrom,
                                 end: meeting.dateTo,
                                 description: meeting.name,
                                 url: meeting.hangout,
-                                backgroundColor: 'blue'
+                                backgroundColor: 'red'
                             });
                         })
+
                     }
                 });
-            }
+                var url = window.location.origin + "/GetArearByUser";
+                axios.get(url).then((response) => {
+                    this.myOptions = response.data;
 
-            var urlM = window.location.origin + "/getAllEvents";
-            axios.get(urlM).then((response) => {
-                this.clases = response.data;
-                if (this.clases && this.clases.length > 0) {
 
-                    this.clases.forEach(meeting => {
-                        fullCalendarApi.addEvent({
-                            title: `${meeting.area} ${meeting.classroom} | Clase ${meeting.name}`,
-                            start: meeting.dateFrom,
-                            end: meeting.dateTo,
-                            description: meeting.name,
-                            url: meeting.hangout,
-                            backgroundColor: 'red'
+                    axios.get("/api/lectives").then((response) => {
+                        this.lective_planification = response.data;
+
+
+                        response.data.forEach(e => {
+                            this.myOptions.push({
+                                is_lective: true,
+                                id: e.lective.id,
+                                id_classroom: 0,
+                                id_planification: e.id_planification,
+                                text: `Electiva ${e.lective.name} Trimestre ${e.period_consecutive}`
+                            });
                         });
-                    })
 
-                }
-            });
-            var url = window.location.origin + "/GetArearByUser";
-            axios.get(url).then((response) => {
-                this.myOptions = response.data;
-
-
-                axios.get("/api/lectives").then((response) => {
-                    this.lective_planification = response.data;
-
-
-                    response.data.forEach(e => {
-                        this.myOptions.push({
-                            is_lective: true,
-                            id: e.lective.id,
-                            id_classroom: 0,
-                            id_planification: e.id_planification,
-                            text: `Electiva ${e.lective.name} Trimestre ${e.period_consecutive}`
-                        });
                     });
 
                 });
-
-            });
-        },
-        methods: {
+            },
             filterPendingEvents: (events) => {
                 return events.filter(e => moment(e.dateTo) >= moment());
             },
@@ -429,10 +432,7 @@
                 const fullCalendarApi = this.$refs.fullCalendar.getApi();
 
                 if (this.display_activities) {
-                    /*
-                     this.clases.forEach(meeting=>{
-                      fullCalendarApi.addEvent({ title: `${meeting.area} ${meeting.classroom} | Clase ${meeting.name}`, start: meeting.dateFrom,end:meeting.dateTo,description: meeting.name,url:meeting.hangout ,backgroundColor:'red'});
-                     })*/
+                    this.getInvitations();
                 } else {
                     const currentEvents = fullCalendarApi.getEvents();
                     currentEvents.forEach(event => {
