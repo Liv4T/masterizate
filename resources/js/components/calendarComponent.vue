@@ -44,11 +44,11 @@
                     <div class="row" v-show="type_u==2 || type_u==4">
                         <a class="btn btn-warning float-right mt-2 ml-3" v-on:click.prevent="createE()">Crear evento</a>
                     </div>
-                    <div>
+                    <div v-show="type_u === 4">
                         <event-parents-modal :concurrent="concurrent" :type_u="type_u" :dias="dias" :clases="clases"
                             :user="this.user" :getMenu="getMenu"></event-parents-modal>
                     </div>
-                    <div>
+                    <div v-show="type_u === 4">
                         <modal-edit-parents-info :concurrent="concurrent" :type_u="type_u" :user="this.user"
                             :dias="dias" :getMenu="getMenu"></modal-edit-parents-info>
                     </div>
@@ -226,12 +226,12 @@
                                     <div class="form-group row">
                                         <div class="col-md-6">
                                             <label for="name">Desde</label>
-                                            <datetime :format="formatDate" v-model="desde"></datetime>
+                                            <datetime format="YYYY-MM-DD H:i:s" v-model="desde"></datetime>
                                             <div class="invalid-feedback">Please fill out this field</div>
                                         </div>
                                         <div class="col-md-6">
                                             <label for="name">Hasta</label>
-                                            <datetime :format="formatDate" v-model="hasta"></datetime>
+                                            <datetime format="YYYY-MM-DD H:i:s" v-model="hasta"></datetime>
                                             <div class="invalid-feedback"></div>
                                         </div>
                                         <div class="col-md-6">
@@ -239,11 +239,11 @@
                                             <input type="text" name="name" class="form-control" v-model="nameMeet" />
                                             <div class="invalid-feedback">Please fill out this field</div>
                                         </div>
-                                        <div class="col-md-6" style="display: none;">
+                                        <!-- <div class="col-md-6" style="display: none;">
                                             <strong for="name">id ultimo</strong>
                                             <input type="text" name="id_padre" class="form-control" v-model="lastId" />
                                             <div class="invalid-feedback">Please fill out this field</div>
-                                        </div>
+                                        </div> -->
                                     </div>
                                     <div class="modal-footer">
                                         <input type="submit" class="btn btn-warning" value="Guardar" />
