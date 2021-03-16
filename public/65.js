@@ -80,35 +80,6 @@ __webpack_require__.r(__webpack_exports__);
     getData: function getData() {
       var _this = this;
 
-      axios.get('/GetArearByUser').then(function (response) {
-        var data = response.data;
-
-        if (data.length > 0) {
-          data.forEach(function (element) {
-            axios.get("/api/teacher/area/".concat(element.id, "/classroom/").concat(element.id_classroom, "/student")).then(function (response) {
-              var studentData = response.data;
-
-              if (studentData.length > 0) {
-                _this.students.push(studentData);
-
-                var hash = {};
-                _this.students = _this.students.filter(function (current) {
-                  var exists = !hash[current.id];
-                  hash[current.id] = true;
-                  return exists;
-                });
-              }
-            });
-          });
-        }
-      })["catch"](function (error) {
-        console.log(error);
-      });
-      axios.get('/getParents').then(function (response) {
-        _this.parents = response.data;
-      })["catch"](function (error) {
-        console.log(error);
-      });
       axios.get('/dataUsers').then(function (response) {
         _this.observers = response.data;
       })["catch"](function (error) {
@@ -244,16 +215,10 @@ var render = function() {
         ])
       ]),
       _vm._v(" "),
-      _c("modal-observer-component", {
-        attrs: { students: _vm.students, parents: _vm.parents, user: _vm.user }
-      }),
+      _c("modal-observer-component", { attrs: { user: _vm.user } }),
       _vm._v(" "),
       _c("modal-edit-observer-component", {
-        attrs: {
-          students: _vm.students,
-          parents: _vm.parents,
-          studentsEdit: _vm.studentEdit
-        }
+        attrs: { studentsEdit: _vm.studentEdit }
       }),
       _vm._v(" "),
       _c("modal-view-observer-component", {

@@ -17,6 +17,7 @@
  @if (Auth::user()->type_user == '5')
         <menu-psychology></menu-psychology>
         <inicio-component></inicio-component>
+  @endif
  @if(Auth::user()->type_user == '4')
     <menu-padres></menu-padres>
     <inicio-component></inicio-component>

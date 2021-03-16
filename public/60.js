@@ -129,7 +129,7 @@ __webpack_require__.r(__webpack_exports__);
 
 Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___default.a);
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['students', 'parents', 'studentsEdit'],
+  props: ['studentsEdit'],
   data: function data() {
     return {
       newStudentEdit: {},
@@ -138,7 +138,11 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
       parentsOptions: [],
       fatherToSave: [],
       motherToSave: [],
-      repitent: true
+      repitent: true,
+      parents: [],
+      students: [],
+      areas: [],
+      current_area: {}
     };
   },
   watch: {
@@ -146,7 +150,8 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
       // watch it
       if (newVal !== oldVal) {
         this.newStudentEdit = newVal;
-        this.showDataParentsAndStudents();
+        this.showDataParents();
+        this.showDataStudents();
       }
     }
   },
@@ -154,68 +159,94 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
     Multiselect: vue_multiselect__WEBPACK_IMPORTED_MODULE_0___default.a
   },
   mounted: function mounted() {
-    this.getParentsStudentsData();
+    this.getData();
+    this.showDataParents();
+    this.showDataStudents();
   },
   methods: {
-    getParentsStudentsData: function getParentsStudentsData() {
+    getData: function getData() {
       var _this = this;
 
-      var dataStudent = this.students[0];
+      this.getParents();
+      axios.get('/GetArearByUser').then(function (response) {
+        _this.areas = response.data;
 
-      if (dataStudent) {
-        dataStudent.forEach(function (e) {
-          _this.studentsOptions.push({
+        if (_this.areas.length > 0) {
+          _this.current_area = _this.areas[0];
+
+          _this.getStudents();
+        }
+      });
+    },
+    getParents: function getParents() {
+      var _this2 = this;
+
+      axios.get('/getParents').then(function (response) {
+        _this2.parents = response.data;
+
+        _this2.parents.forEach(function (e) {
+          _this2.parentsOptions.push({
+            id: e.id,
+            id_parent: e.id,
+            text: "".concat(e.name)
+          });
+        });
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
+    getStudents: function getStudents() {
+      var _this3 = this;
+
+      this.students = [];
+      axios.get("/api/teacher/area/".concat(this.current_area.id, "/classroom/").concat(this.current_area.id_classroom, "/student")).then(function (response) {
+        _this3.students = response.data;
+
+        _this3.students.forEach(function (e) {
+          _this3.studentsOptions.push({
             id: e.user_id,
             id_student: e.user_id,
             text: "".concat(e.user_name)
           });
         });
-      }
-
-      this.parents.forEach(function (e) {
-        _this.parentsOptions.push({
-          id: e.id,
-          id_parent: e.id,
-          text: "".concat(e.name)
-        });
       });
     },
-    showDataParentsAndStudents: function showDataParentsAndStudents() {
-      var _this2 = this;
+    showDataParents: function showDataParents() {
+      var _this4 = this;
 
       this.parents.forEach(function (e) {
-        if (e.name === _this2.newStudentEdit.mother_name) {
-          console.log("Padres", e);
-          _this2.motherToSave = {
+        if (e.name === _this4.newStudentEdit.mother_name) {
+          _this4.motherToSave = {
             id: e.id,
             id_parent: e.id,
             text: "".concat(e.name)
           };
         }
 
-        if (e.name === _this2.newStudentEdit.father_name) {
-          _this2.fatherToSave = {
+        if (e.name === _this4.newStudentEdit.father_name) {
+          _this4.fatherToSave = {
             id: e.id,
             id_parent: e.id,
             text: "".concat(e.name)
           };
         }
       });
+    },
+    showDataStudents: function showDataStudents() {
+      var _this5 = this;
 
-      if (this.students[0]) {
-        this.students[0].forEach(function (e) {
-          if (e.user_id === _this2.newStudentEdit.id_student) {
-            _this2.studentToSave = {
-              id: e.user_id,
-              id_student: e.user_id,
-              text: "".concat(e.user_name)
-            };
-          }
-        });
-      }
+      this.students.forEach(function (e) {
+        if (e.user_id === _this5.newStudentEdit.id_student) {
+          _this5.studentToSave = {
+            id: e.user_id,
+            id_student: e.user_id,
+            text: "".concat(e.user_name)
+          };
+        }
+      });
     },
     saveObservation: function saveObservation() {
-      var _this3 = this;
+      var _this6 = this;
 
       var data = {
         'name_student': this.studentToSave.text,
@@ -235,7 +266,7 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
         'observation': this.newStudentEdit.observation
       };
       axios.put("/observer/".concat(this.newStudentEdit.id), data).then(function (response) {
-        _this3.getMenu();
+        _this6.getMenu();
       })["catch"](function (error) {
         toastr.error("Diligencia los campos requeridos");
       });

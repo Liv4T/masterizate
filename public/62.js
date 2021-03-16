@@ -129,7 +129,7 @@ __webpack_require__.r(__webpack_exports__);
 
 Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___default.a);
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['students', 'parents', 'user'],
+  props: ['user'],
   data: function data() {
     return {
       dateBirth: "",
@@ -149,36 +149,61 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
       studentToSave: [],
       parentsOptions: [],
       fatherToSave: [],
-      motherToSave: []
+      motherToSave: [],
+      parents: [],
+      students: [],
+      areas: [],
+      current_area: {}
     };
   },
   components: {
     Multiselect: vue_multiselect__WEBPACK_IMPORTED_MODULE_0___default.a
   },
   mounted: function mounted() {
-    this.getParentsStudentsData();
+    var _this = this;
+
+    this.getParents();
+    axios.get('/GetArearByUser').then(function (response) {
+      _this.areas = response.data;
+
+      if (_this.areas.length > 0) {
+        _this.current_area = _this.areas[0];
+
+        _this.getStudents();
+      }
+    });
   },
   methods: {
-    getParentsStudentsData: function getParentsStudentsData() {
-      var _this = this;
+    getParents: function getParents() {
+      var _this2 = this;
 
-      var dataStudent = this.students[0];
+      axios.get('/getParents').then(function (response) {
+        _this2.parents = response.data;
 
-      if (dataStudent) {
-        dataStudent.forEach(function (e) {
-          _this.studentsOptions.push({
+        _this2.parents.forEach(function (e) {
+          _this2.parentsOptions.push({
+            id: e.id,
+            id_parent: e.id,
+            text: "".concat(e.name)
+          });
+        });
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
+    getStudents: function getStudents() {
+      var _this3 = this;
+
+      this.students = [];
+      axios.get("/api/teacher/area/".concat(this.current_area.id, "/classroom/").concat(this.current_area.id_classroom, "/student")).then(function (response) {
+        _this3.students = response.data;
+
+        _this3.students.forEach(function (e) {
+          _this3.studentsOptions.push({
             id: e.user_id,
             id_student: e.user_id,
             text: "".concat(e.user_name)
           });
-        });
-      }
-
-      this.parents.forEach(function (e) {
-        _this.parentsOptions.push({
-          id: e.id,
-          id_parent: e.id,
-          text: "".concat(e.name)
         });
       });
     },
