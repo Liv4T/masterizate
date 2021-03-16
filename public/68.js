@@ -73,11 +73,34 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       legislationData: [],
-      integrates: []
+      members: []
     };
   },
   mounted: function mounted() {
@@ -118,7 +141,9 @@ var render = function() {
       _c("div", { staticClass: "col-sm-10", attrs: { id: "crud" } }, [
         _c("div", { staticClass: "card" }, [
           _c("div", { staticClass: "text-center card-header fondo" }, [
-            _vm._v("\n                    Gobierno Escolar\n                ")
+            _vm._v(
+              "\n                        Gobierno Escolar\n                    "
+            )
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "card-body" }, [
@@ -137,21 +162,79 @@ var render = function() {
                     }
                   },
                   [
-                    _vm.integrates.length > 0
-                      ? _c("div", { staticClass: "card-body" }, [
-                          _c("p", [_vm._v(_vm._s(_vm.integrates.text))])
-                        ])
-                      : _c("div", { staticClass: "card-body" }, [
-                          _c("p", [
-                            _vm._v(
-                              "Crea a los Integrantes del Gobierno Escolar"
+                    _c("div", { staticClass: "card-body" }, [
+                      _c("div", { staticClass: "row" }, [
+                        _vm.members.length > 0
+                          ? _c(
+                              "div",
+                              { staticClass: "col-12" },
+                              _vm._l(_vm.members, function(data, id) {
+                                return _c(
+                                  "div",
+                                  {
+                                    key: id,
+                                    staticClass: "list-group",
+                                    attrs: { id: "list-tab", role: "tablist" }
+                                  },
+                                  [
+                                    _c(
+                                      "a",
+                                      {
+                                        staticClass: "list-group-item",
+                                        attrs: {
+                                          id: "list-home-list",
+                                          "data-toggle": "list",
+                                          role: "tab",
+                                          "aria-controls": "home"
+                                        }
+                                      },
+                                      [
+                                        _c(
+                                          "div",
+                                          {
+                                            staticClass:
+                                              "d-flex justify-content-center"
+                                          },
+                                          [
+                                            _c("img", {
+                                              staticStyle: { height: "160px" },
+                                              attrs: {
+                                                src: data.image,
+                                                alt: ""
+                                              }
+                                            })
+                                          ]
+                                        ),
+                                        _vm._v(" "),
+                                        _c(
+                                          "div",
+                                          { staticClass: "text-center mt-2" },
+                                          [
+                                            _c(
+                                              "strong",
+                                              { staticClass: "h3 mb-2" },
+                                              [_vm._v(_vm._s(data.title))]
+                                            ),
+                                            _vm._v(" "),
+                                            _c("p", { staticClass: "h4" }, [
+                                              _vm._v(_vm._s(data.desscription))
+                                            ])
+                                          ]
+                                        )
+                                      ]
+                                    )
+                                  ]
+                                )
+                              }),
+                              0
                             )
-                          ])
-                        ])
+                          : _c("div", [_vm._m(1)])
+                      ])
+                    ])
                   ]
                 ),
                 _vm._v(" "),
-                _vm._m(1),
+                _vm._m(2),
                 _vm._v(" "),
                 _c(
                   "div",
@@ -217,13 +300,21 @@ var staticRenderFns = [
             },
             [
               _vm._v(
-                "\n                                        Quiénes lo Conforman\n                                    "
+                "\n                                            Quiénes lo Conforman\n                                        "
               )
             ]
           )
         ])
       ]
     )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "text-center" }, [
+      _c("p", [_vm._v("Crea los integrantes del Gobierno Escolar")])
+    ])
   },
   function() {
     var _vm = this
@@ -247,7 +338,7 @@ var staticRenderFns = [
             },
             [
               _vm._v(
-                "\n                                        Legislación\n                                    "
+                "\n                                            Legislación\n                                        "
               )
             ]
           )

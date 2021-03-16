@@ -749,4 +749,7 @@ Route::resource('/schoolGobernment','SchoolGovernmentController');
 Route::middleware('auth')->get('/legislation', function () {
     return view('legislation');
 });
+Route::middleware('auth')->get('/governmentMembers', function () {
+    return view('gobernmentMembers');
+});
 Route::get('/getLegislation', 'SchoolGovernmentController@getLegislation');
