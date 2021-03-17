@@ -21,22 +21,21 @@
                             </thead>
                             <tbody>
                                 <tr v-for="(data, id) in members" :key="id">
-                                        <td>{{data.member}}</td>
-                                        <td>{{data.position}}</td>
-                                        <td>{{data.description}}</td>
-                                        <td>{{data.order}}</td>
-                                        <td>
-                                            <img
-                                                width="70px"
-                                                :src="data.imageSchoolGovernment"
-                                                alt
-                                                />
-                                        </td>
-                                        <td>
-                                            <button class="btn btn-success" v-on:click="()=>editMember(data)">Editar</button>
-                                            <button class="btn btn-danger" v-on:click="()=>deleteMember(data.id)">Eliminar</button>
-                                        </td>
-                                    </tr>                                    
+                                    <td>{{data.member}}</td>
+                                    <td>{{data.position}}</td>
+                                    <td>{{data.description}}</td>
+                                    <td>{{data.order}}</td>
+                                    <td>
+                                        <img
+                                            width="70px"
+                                            :src="data.imageSchoolGovernment"
+                                            alt
+                                            />
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-success" v-on:click="()=>editMember(data)">Editar</button>
+                                        <button class="btn btn-danger" v-on:click="()=>deleteMember(data.id)">Eliminar</button>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>

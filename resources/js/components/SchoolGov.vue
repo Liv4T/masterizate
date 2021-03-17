@@ -24,22 +24,41 @@
                                         <div class="row">
                                             <div v-if="members.length > 0" class="col-12">
                                                 <div class="list-group" id="list-tab" role="tablist" v-for="(data, id) in members" :key="id">
-                                                    <a class="list-group-item" id="list-home-list" data-toggle="list" role="tab" aria-controls="home">
-                                                        <div class="d-flex justify-content-center">
-                                                            <img                                                                       
-                                                            style="height:160px;"
-                                                            :src="data.image" 
-                                                            alt=""                                                            
-                                                            >
-                                                        </div>
-                                                        <div class="text-center mt-2">
-                                                            <strong class="h3 mb-2 text-uppercase">{{data.member}}</strong>
+                                                    <div class="mb-5" v-show="data.modeInsert == '1'">
+                                                        <a class="list-group-item" id="list-home-list" data-toggle="list" role="tab" aria-controls="home">
                                                             <div>
-                                                                <p class="h3">{{data.position}}</p>
+                                                                <div class="mb-3 d-flex justify-content-center">
+                                                                    <strong>Organigrama de Gobierno Escolar</strong>
+                                                                </div> 
+                                                                <div class="d-flex justify-content-center">
+                                                                    <img                                                                       
+                                                                        style="height:160px;"
+                                                                        :src="data.imageSchoolGovernment" 
+                                                                        alt=""                                                            
+                                                                    >
+                                                                </div>                                                               
+                                                                
+                                                            </div>                                                        
+                                                        </a>
+                                                    </div>
+                                                    <div v-show="data.modeInsert == '2'">
+                                                        <a class="list-group-item" id="list-home-list" data-toggle="list" role="tab" aria-controls="home">
+                                                            <div class="d-flex justify-content-center">
+                                                                <img                                                                       
+                                                                style="height:160px;"
+                                                                :src="data.image" 
+                                                                alt=""                                                            
+                                                                >
                                                             </div>
-                                                            <p class="h4">{{data.description}}</p>
-                                                        </div>                                                        
-                                                    </a>                                                
+                                                            <div class="text-center mt-2">
+                                                                <strong class="h3 mb-2 text-uppercase">{{data.member}}</strong>
+                                                                <div>
+                                                                    <p class="h3">{{data.position}}</p>
+                                                                </div>
+                                                                <p class="h4">{{data.description}}</p>
+                                                            </div>                                                        
+                                                        </a>
+                                                    </div>                                                
                                                 </div>
                                             </div>
                                             <div v-else>
@@ -49,10 +68,6 @@
                                             </div>
                                         </div>
                                     </div>
-<!-- 
-                                    <div class="card-body" v-else>
-                                        <p>Crea a los Integrantes del Gobierno Escolar</p>
-                                    </div> -->
                                 </div>
 
 

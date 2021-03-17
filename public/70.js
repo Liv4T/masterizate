@@ -99,6 +99,21 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -152,9 +167,7 @@ var render = function() {
       _c("div", { staticClass: "col-sm-10", attrs: { id: "crud" } }, [
         _c("div", { staticClass: "card" }, [
           _c("div", { staticClass: "text-center card-header fondo" }, [
-            _vm._v(
-              "\n                        Gobierno Escolar\n                    "
-            )
+            _vm._v("\n                    Gobierno Escolar\n                ")
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "card-body" }, [
@@ -189,56 +202,137 @@ var render = function() {
                                   },
                                   [
                                     _c(
-                                      "a",
+                                      "div",
                                       {
-                                        staticClass: "list-group-item",
-                                        attrs: {
-                                          id: "list-home-list",
-                                          "data-toggle": "list",
-                                          role: "tab",
-                                          "aria-controls": "home"
-                                        }
+                                        directives: [
+                                          {
+                                            name: "show",
+                                            rawName: "v-show",
+                                            value: data.modeInsert == "1",
+                                            expression: "data.modeInsert == '1'"
+                                          }
+                                        ],
+                                        staticClass: "mb-5"
                                       },
                                       [
                                         _c(
-                                          "div",
+                                          "a",
                                           {
-                                            staticClass:
-                                              "d-flex justify-content-center"
+                                            staticClass: "list-group-item",
+                                            attrs: {
+                                              id: "list-home-list",
+                                              "data-toggle": "list",
+                                              role: "tab",
+                                              "aria-controls": "home"
+                                            }
                                           },
                                           [
-                                            _c("img", {
-                                              staticStyle: { height: "160px" },
-                                              attrs: {
-                                                src: data.image,
-                                                alt: ""
-                                              }
-                                            })
+                                            _c("div", [
+                                              _vm._m(1, true),
+                                              _vm._v(" "),
+                                              _c(
+                                                "div",
+                                                {
+                                                  staticClass:
+                                                    "d-flex justify-content-center"
+                                                },
+                                                [
+                                                  _c("img", {
+                                                    staticStyle: {
+                                                      height: "160px"
+                                                    },
+                                                    attrs: {
+                                                      src:
+                                                        data.imageSchoolGovernment,
+                                                      alt: ""
+                                                    }
+                                                  })
+                                                ]
+                                              )
+                                            ])
                                           ]
-                                        ),
-                                        _vm._v(" "),
+                                        )
+                                      ]
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "div",
+                                      {
+                                        directives: [
+                                          {
+                                            name: "show",
+                                            rawName: "v-show",
+                                            value: data.modeInsert == "2",
+                                            expression: "data.modeInsert == '2'"
+                                          }
+                                        ]
+                                      },
+                                      [
                                         _c(
-                                          "div",
-                                          { staticClass: "text-center mt-2" },
+                                          "a",
+                                          {
+                                            staticClass: "list-group-item",
+                                            attrs: {
+                                              id: "list-home-list",
+                                              "data-toggle": "list",
+                                              role: "tab",
+                                              "aria-controls": "home"
+                                            }
+                                          },
                                           [
                                             _c(
-                                              "strong",
+                                              "div",
                                               {
                                                 staticClass:
-                                                  "h3 mb-2 text-uppercase"
+                                                  "d-flex justify-content-center"
                                               },
-                                              [_vm._v(_vm._s(data.member))]
+                                              [
+                                                _c("img", {
+                                                  staticStyle: {
+                                                    height: "160px"
+                                                  },
+                                                  attrs: {
+                                                    src: data.image,
+                                                    alt: ""
+                                                  }
+                                                })
+                                              ]
                                             ),
                                             _vm._v(" "),
-                                            _c("div", [
-                                              _c("p", { staticClass: "h3" }, [
-                                                _vm._v(_vm._s(data.position))
-                                              ])
-                                            ]),
-                                            _vm._v(" "),
-                                            _c("p", { staticClass: "h4" }, [
-                                              _vm._v(_vm._s(data.description))
-                                            ])
+                                            _c(
+                                              "div",
+                                              {
+                                                staticClass: "text-center mt-2"
+                                              },
+                                              [
+                                                _c(
+                                                  "strong",
+                                                  {
+                                                    staticClass:
+                                                      "h3 mb-2 text-uppercase"
+                                                  },
+                                                  [_vm._v(_vm._s(data.member))]
+                                                ),
+                                                _vm._v(" "),
+                                                _c("div", [
+                                                  _c(
+                                                    "p",
+                                                    { staticClass: "h3" },
+                                                    [
+                                                      _vm._v(
+                                                        _vm._s(data.position)
+                                                      )
+                                                    ]
+                                                  )
+                                                ]),
+                                                _vm._v(" "),
+                                                _c("p", { staticClass: "h4" }, [
+                                                  _vm._v(
+                                                    _vm._s(data.description)
+                                                  )
+                                                ])
+                                              ]
+                                            )
                                           ]
                                         )
                                       ]
@@ -248,13 +342,13 @@ var render = function() {
                               }),
                               0
                             )
-                          : _c("div", [_vm._m(1)])
+                          : _c("div", [_vm._m(2)])
                       ])
                     ])
                   ]
                 ),
                 _vm._v(" "),
-                _vm._m(2),
+                _vm._m(3),
                 _vm._v(" "),
                 _c(
                   "div",
@@ -320,13 +414,21 @@ var staticRenderFns = [
             },
             [
               _vm._v(
-                "\n                                            Quiénes lo Conforman\n                                        "
+                "\n                                        Quiénes lo Conforman\n                                    "
               )
             ]
           )
         ])
       ]
     )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "mb-3 d-flex justify-content-center" }, [
+      _c("strong", [_vm._v("Organigrama de Gobierno Escolar")])
+    ])
   },
   function() {
     var _vm = this
@@ -358,7 +460,7 @@ var staticRenderFns = [
             },
             [
               _vm._v(
-                "\n                                            Legislación\n                                        "
+                "\n                                        Legislación\n                                    "
               )
             ]
           )
