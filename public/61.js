@@ -59,6 +59,33 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+// import firebase from 'firebase';
+// var firebaseConfig = {
+//     apiKey: "AIzaSyBUwPOBHWgSv10yWDO0VX_UCCOfHZ3jKYE",
+//     authDomain: "liv4t-skool.firebaseapp.com",
+//     databaseURL: "https://liv4t-skool.firebaseio.com",
+//     projectId: "liv4t-skool",
+//     storageBucket: "liv4t-skool.appspot.com",
+//     messagingSenderId: "346718353628",
+//     appId: "1:346718353628:web:abc0666c41b66fa472dc19",
+//     measurementId: "G-7L14TG5RRZ"
+// };
+// // Initialize Firebase
+// firebase.initializeApp(firebaseConfig);
+// firebase.analytics();
 
 Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___default.a);
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -66,7 +93,8 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
   data: function data() {
     return {
       nameOptions: {},
-      myOptions: []
+      myOptions: [],
+      imageData: []
     };
   },
   watch: {
@@ -81,25 +109,54 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
     Multiselect: vue_multiselect__WEBPACK_IMPORTED_MODULE_0___default.a
   },
   methods: {
+    getImage: function getImage(image) {
+      var files = image.target.files || image.dataTransfer.files;
+
+      if (!files.length) {
+        return;
+      }
+
+      this.imageData = files[0];
+    },
     updateMembers: function updateMembers() {
       var _this = this;
 
-      axios.put("/members/".concat(this.memberEdit.id), {
-        member: this.nameOptions.text,
-        position: this.memberEdit.position,
-        description: this.memberEdit.description,
-        order: this.memberEdit.order,
-        user_id: this.nameOptions.id,
-        image: this.nameOptions.image
-      }).then(function (response) {
-        toastr.success(response.data);
-        $('#editModal').modal("hide");
+      if (this.memberEdit.modeInsert == '2') {
+        axios.put("/members/".concat(this.memberEdit.id), {
+          member: this.nameOptions.text,
+          position: this.memberEdit.position,
+          description: this.memberEdit.description,
+          order: this.memberEdit.order,
+          user_id: this.nameOptions.id,
+          image: this.nameOptions.image,
+          modeInsert: this.memberEdit.modeInsert
+        }).then(function (response) {
+          toastr.success(response.data);
+          $('#editModal').modal("hide");
 
-        _this.getMembers();
-      })["catch"](function (error) {
-        toastr.danger(error);
-        console.log(error);
-      });
+          _this.getMembers();
+        })["catch"](function (error) {
+          toastr.danger(error);
+          console.log(error);
+        });
+      } else if (this.memberEdit.modeInsert == '1') {
+        console.log(this.imageData);
+        var storageRef = firebase.storage().ref("images/schoolGovernment/".concat(this.imageData.name)).put(this.imageData);
+        storageRef.on("images/schoolGovernment/", function (snapshot) {
+          _this.uploadValue = snapshot.bytesTransferred / snapshot.totalBytes * 100;
+        }, function (error) {
+          console.log(error.message);
+        }, function () {
+          _this.uploadValue = 100;
+          storageRef.snapshot.ref.getDownloadURL().then(function (url) {
+            console.log(url);
+            axios.put("/members/".concat(_this.memberEdit.id), {
+              imageSchoolGovernment: url,
+              modeInsert: _this.memberEdit.modeInsert
+            });
+          });
+        });
+      }
     },
     getUsers: function getUsers() {
       var _this2 = this;
@@ -162,136 +219,238 @@ var render = function() {
           _vm._m(0),
           _vm._v(" "),
           _c("div", { staticClass: "modal-body" }, [
+            _c("div", { staticClass: "mb-3" }, [
+              _c("label", [
+                _vm._v("Selecciona forma de inserción de Gobierno Escolar")
+              ]),
+              _vm._v(" "),
+              _c(
+                "select",
+                {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.memberEdit.modeInsert,
+                      expression: "memberEdit.modeInsert"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: { name: "changeSave", id: "membersGovernment" },
+                  on: {
+                    change: function($event) {
+                      var $$selectedVal = Array.prototype.filter
+                        .call($event.target.options, function(o) {
+                          return o.selected
+                        })
+                        .map(function(o) {
+                          var val = "_value" in o ? o._value : o.value
+                          return val
+                        })
+                      _vm.$set(
+                        _vm.memberEdit,
+                        "modeInsert",
+                        $event.target.multiple
+                          ? $$selectedVal
+                          : $$selectedVal[0]
+                      )
+                    }
+                  }
+                },
+                [
+                  _c("option", { attrs: { value: "1" } }, [
+                    _vm._v("Insertar Imagen")
+                  ]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "2" } }, [
+                    _vm._v("Crear Miembros de Gobierno Escolar")
+                  ])
+                ]
+              )
+            ]),
+            _vm._v(" "),
             _c(
               "div",
-              { staticClass: "form-group" },
+              {
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value: _vm.memberEdit.modeInsert == "2",
+                    expression: "memberEdit.modeInsert == '2'"
+                  }
+                ]
+              },
               [
-                _c("label", [_vm._v("Nombre")]),
-                _vm._v(" "),
-                _c("multiselect", {
-                  attrs: {
-                    options: _vm.myOptions,
-                    multiple: false,
-                    "close-on-select": false,
-                    "clear-on-select": false,
-                    "preserve-search": true,
-                    placeholder: "Seleccione una o varias",
-                    label: "text",
-                    "track-by": "id",
-                    "preselect-first": true
-                  },
-                  scopedSlots: _vm._u([
-                    {
-                      key: "selection",
-                      fn: function(ref) {
-                        var values = ref.values
-                        var isOpen = ref.isOpen
-                        return [
-                          values.length && !isOpen
-                            ? _c(
-                                "span",
-                                { staticClass: "multiselect__single" },
-                                [
-                                  _vm._v(
-                                    _vm._s(values.length) +
-                                      " opciones\n                                    selecionadas"
+                _c(
+                  "div",
+                  { staticClass: "form-group" },
+                  [
+                    _c("label", [_vm._v("Nombre")]),
+                    _vm._v(" "),
+                    _c("multiselect", {
+                      attrs: {
+                        options: _vm.myOptions,
+                        multiple: false,
+                        "close-on-select": false,
+                        "clear-on-select": false,
+                        "preserve-search": true,
+                        placeholder: "Seleccione una o varias",
+                        label: "text",
+                        "track-by": "id",
+                        "preselect-first": true
+                      },
+                      scopedSlots: _vm._u([
+                        {
+                          key: "selection",
+                          fn: function(ref) {
+                            var values = ref.values
+                            var isOpen = ref.isOpen
+                            return [
+                              values.length && !isOpen
+                                ? _c(
+                                    "span",
+                                    { staticClass: "multiselect__single" },
+                                    [
+                                      _vm._v(
+                                        _vm._s(values.length) +
+                                          " opciones\n                                        selecionadas"
+                                      )
+                                    ]
                                   )
-                                ]
-                              )
-                            : _vm._e()
-                        ]
+                                : _vm._e()
+                            ]
+                          }
+                        }
+                      ]),
+                      model: {
+                        value: _vm.nameOptions,
+                        callback: function($$v) {
+                          _vm.nameOptions = $$v
+                        },
+                        expression: "nameOptions"
+                      }
+                    })
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group" }, [
+                  _c("label", [_vm._v("Posición")]),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.memberEdit.position,
+                        expression: "memberEdit.position"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: { type: "text" },
+                    domProps: { value: _vm.memberEdit.position },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(
+                          _vm.memberEdit,
+                          "position",
+                          $event.target.value
+                        )
                       }
                     }
-                  ]),
-                  model: {
-                    value: _vm.nameOptions,
-                    callback: function($$v) {
-                      _vm.nameOptions = $$v
-                    },
-                    expression: "nameOptions"
-                  }
-                })
-              ],
-              1
+                  })
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group" }, [
+                  _c("label", [_vm._v("Descripción")]),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.memberEdit.description,
+                        expression: "memberEdit.description"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: { type: "text" },
+                    domProps: { value: _vm.memberEdit.description },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(
+                          _vm.memberEdit,
+                          "description",
+                          $event.target.value
+                        )
+                      }
+                    }
+                  })
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group" }, [
+                  _c("label", [_vm._v("Orden en listado")]),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.memberEdit.order,
+                        expression: "memberEdit.order"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: { type: "text" },
+                    domProps: { value: _vm.memberEdit.order },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.memberEdit, "order", $event.target.value)
+                      }
+                    }
+                  })
+                ])
+              ]
             ),
             _vm._v(" "),
-            _c("div", { staticClass: "form-group" }, [
-              _c("label", [_vm._v("Posición")]),
-              _vm._v(" "),
-              _c("input", {
+            _c(
+              "div",
+              {
                 directives: [
                   {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.memberEdit.position,
-                    expression: "memberEdit.position"
+                    name: "show",
+                    rawName: "v-show",
+                    value: _vm.memberEdit.modeInsert == "1",
+                    expression: "memberEdit.modeInsert == '1'"
                   }
-                ],
-                staticClass: "form-control",
-                attrs: { type: "text" },
-                domProps: { value: _vm.memberEdit.position },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
+                ]
+              },
+              [
+                _c("label", { attrs: { for: "imageGovernment" } }, [
+                  _vm._v("Actualiza la Imagen Organigrama Del Gobierno Escolar")
+                ]),
+                _vm._v(" "),
+                _c("input", {
+                  staticClass: "form-control-file",
+                  attrs: { type: "file", id: "imageGovernment", required: "" },
+                  on: {
+                    change: function() {
+                      return _vm.getImage
                     }
-                    _vm.$set(_vm.memberEdit, "position", $event.target.value)
                   }
-                }
-              })
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "form-group" }, [
-              _c("label", [_vm._v("Descripción")]),
-              _vm._v(" "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.memberEdit.description,
-                    expression: "memberEdit.description"
-                  }
-                ],
-                staticClass: "form-control",
-                attrs: { type: "text" },
-                domProps: { value: _vm.memberEdit.description },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.$set(_vm.memberEdit, "description", $event.target.value)
-                  }
-                }
-              })
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "form-group" }, [
-              _c("label", [_vm._v("Orden en listado")]),
-              _vm._v(" "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.memberEdit.order,
-                    expression: "memberEdit.order"
-                  }
-                ],
-                staticClass: "form-control",
-                attrs: { type: "text" },
-                domProps: { value: _vm.memberEdit.order },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.$set(_vm.memberEdit, "order", $event.target.value)
-                  }
-                }
-              })
-            ])
+                })
+              ]
+            )
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "modal-footer" }, [
@@ -330,7 +489,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "modal-header" }, [
       _c("h5", { staticClass: "modal-title" }, [
-        _vm._v("Creación de Miembros de Gobierno Escolar")
+        _vm._v("Actualización de Miembros de Gobierno Escolar")
       ]),
       _vm._v(" "),
       _c(

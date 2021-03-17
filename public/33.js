@@ -93,6 +93,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   methods: {
     logout: function logout() {
@@ -207,6 +217,21 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("ul", [
+      _c("a", { attrs: { href: "/perfil_d" } }, [
+        _c("li", { staticClass: "item-menu" }, [
+          _c("img", {
+            attrs: {
+              width: "35px",
+              src:
+                "https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/MI-PERFIL.png?alt=media&token=317fc013-8cce-448f-9af9-54e2981274d0",
+              alt: ""
+            }
+          }),
+          _vm._v(" "),
+          _c("span", { staticClass: "menu" }, [_vm._v("Mi perfil")])
+        ])
+      ]),
+      _vm._v(" "),
       _c("div", { staticClass: "dropdown" }, [
         _c("a", [
           _c("li", { staticClass: "item-menu" }, [

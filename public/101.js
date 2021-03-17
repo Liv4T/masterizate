@@ -50,6 +50,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['user'],
   data: function data() {
@@ -149,6 +158,16 @@ var render = function() {
                       _c("td", [_vm._v(_vm._s(data.order))]),
                       _vm._v(" "),
                       _c("td", [
+                        _c("img", {
+                          attrs: {
+                            width: "70px",
+                            src: data.imageSchoolGovernment,
+                            alt: ""
+                          }
+                        })
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [
                         _c(
                           "button",
                           {
@@ -220,6 +239,8 @@ var staticRenderFns = [
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Descripción")]),
         _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Orden en Listado")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Imagen")]),
         _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Acciones")])
       ])

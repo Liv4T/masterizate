@@ -46,6 +46,8 @@ class SchoolGovernmentMembersController extends Controller
         $members->user_creator_id = $request->user_creator_id;
         $members->user_id = $request->user_id;
         $members->image = $request->image;
+        $members->imageSchoolGovernment = $request->imageSchoolGovernment;
+        $members->modeInsert = $request->modeInsert;
         $members->save();
         return response()->json("Miembro Creado");
     }
@@ -88,6 +90,8 @@ class SchoolGovernmentMembersController extends Controller
         $members->order = $request->order;
         $members->user_id = $request->user_id;
         $members->image = $request->image;
+        $members->imageSchoolGovernment = $request->imageSchoolGovernment;
+        $members->modeInsert = $request->modeInsert;
         $members->save();
         return response()->json("Miembro Actualizado");
     }

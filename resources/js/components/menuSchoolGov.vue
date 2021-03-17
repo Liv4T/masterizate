@@ -4,6 +4,16 @@
             <div class="row">
                 <div class="left">
                     <ul>
+                        <a href="/perfil_d">
+                            <li class="item-menu">
+                                <img
+                                width="35px"
+                                src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/MI-PERFIL.png?alt=media&token=317fc013-8cce-448f-9af9-54e2981274d0"
+                                alt
+                                />
+                                <span class="menu">Mi perfil</span>
+                            </li>
+                        </a>
                         <div class="dropdown">
                             <a>
                                 <li class="item-menu">

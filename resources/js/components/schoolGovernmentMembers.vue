@@ -8,26 +8,35 @@
                     </div>
                     <div class="card-body">
                         <button class="btn btn-primary mb-3" data-toggle="modal" data-target="#createModal">Crear Miembro</button>
-                        <table class="table">
+                        <table class="table">                    
                             <thead>
                                 <tr>
                                 <th scope="col">Nombre</th>
                                 <th scope="col">Posición</th>
                                 <th scope="col">Descripción</th>
                                 <th scope="col">Orden en Listado</th>
+                                <th scope="col">Imagen</th>
                                 <th scope="col">Acciones</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr v-for="(data, id) in members" :key="id">
-                                    <td>{{data.member}}</td>
-                                    <td>{{data.position}}</td>
-                                    <td>{{data.description}}</td>
-                                    <td>{{data.order}}</td>
-                                    <td>
-                                        <button class="btn btn-success" v-on:click="()=>editMember(data)">Editar</button>
-                                        <button class="btn btn-danger" v-on:click="()=>deleteMember(data.id)">Eliminar</button>
-                                    </td>
+                                        <td>{{data.member}}</td>
+                                        <td>{{data.position}}</td>
+                                        <td>{{data.description}}</td>
+                                        <td>{{data.order}}</td>
+                                        <td>
+                                            <img
+                                                width="70px"
+                                                :src="data.imageSchoolGovernment"
+                                                alt
+                                                />
+                                        </td>
+                                        <td>
+                                            <button class="btn btn-success" v-on:click="()=>editMember(data)">Editar</button>
+                                            <button class="btn btn-danger" v-on:click="()=>deleteMember(data.id)">Eliminar</button>
+                                        </td>
+                                    </tr>                                    
                                 </tr>
                             </tbody>
                         </table>
