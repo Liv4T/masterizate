@@ -33,8 +33,11 @@
                                                             >
                                                         </div>
                                                         <div class="text-center mt-2">
-                                                            <strong class="h3 mb-2">{{data.title}}</strong>
-                                                            <p class="h4">{{data.desscription}}</p>
+                                                            <strong class="h3 mb-2 text-uppercase">{{data.member}}</strong>
+                                                            <div>
+                                                                <p class="h3">{{data.position}}</p>
+                                                            </div>
+                                                            <p class="h4">{{data.description}}</p>
                                                         </div>                                                        
                                                     </a>                                                
                                                 </div>
@@ -95,6 +98,7 @@
         },
         mounted() {
             this.getLegislation();
+            this.getMembers();
         },
         methods: {
             getLegislation() {
@@ -102,6 +106,11 @@
                     this.legislationData = response.data
                 }).catch((error) => {
                     console.log(error);
+                })
+            },
+            getMembers(){
+                axios.get('/members').then(members =>{
+                    this.members = members.data
                 })
             },
         }

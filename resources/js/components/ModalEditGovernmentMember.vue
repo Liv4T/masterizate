@@ -11,7 +11,16 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <label>Nombre</label>
-                        <input class="form-control" type="text" v-model="memberEdit.member"/>
+                        <multiselect v-model="nameOptions" :options="myOptions" :multiple="false"
+                            :close-on-select="false" :clear-on-select="false" :preserve-search="true"
+                            placeholder="Seleccione una o varias" label="text" track-by="id"
+                            :preselect-first="true">
+                                <template slot="selection" slot-scope="{ values, isOpen }"><span
+                                    class="multiselect__single"
+                                    v-if="values.length &amp;&amp; !isOpen">{{ values.length }} opciones
+                                        selecionadas</span>
+                                </template>
+                        </multiselect>
                     </div>
 
                     <div class="form-group">
@@ -38,33 +47,66 @@
         </div>
 </template>
 <script>
+import Multiselect from "vue-multiselect";
+Vue.component("multiselect", Multiselect);
 export default {
     props:['memberEdit','getMembers'],
     data(){
-        return{}
+        return{
+            nameOptions:{},
+            myOptions:[]
+        }
     },
     watch: { 
-        editMember: function(newMember, oldMember) {
+        memberEdit: function(newMember, oldMember) {
             if(newMember !== oldMember){
-                this.memberEdit = newMember
+                this.memberEdit = newMember;
+                this.getUsers();
             }
         }
+    },
+    components: {
+        Multiselect
     },
     methods:{
         updateMembers(){
             axios.put(`/members/${this.memberEdit.id}`,{
-                member: this.memberEdit.member,
+                member: this.nameOptions.text,
                 position: this.memberEdit.position,
                 description: this.memberEdit.description,
-                order: this.memberEdit.order
+                order: this.memberEdit.order,
+                user_id: this.nameOptions.id,
+                image: this.nameOptions.image
             }).then((response)=>{
                 toastr.success(response.data);
+                $('#editModal').modal("hide");
                 this.getMembers();
             }).catch(error => {
                 toastr.danger(error)
                 console.log(error)
             })
+        },
+        getUsers(){
+            axios.get('getUsers').then(response => {
+                response.data.forEach(e => {
+                    if(this.memberEdit.user_id === e.id){
+                        this.nameOptions = {
+                            id: e.id,
+                            user_id: e.id,
+                            text: `${e.name}`+` ${e.last_name}`,
+                            image: e.picture
+                        };
+                    }
+                    this.myOptions.push({
+                        id: e.id,
+                        user_id: e.id,
+                        text: `${e.name}`+` ${e.last_name}`,
+                        image: e.picture
+                    });
+                });
+            })
         }
     }
 }
 </script>
+<style src="vue-multiselect/dist/vue-multiselect.min.css"></style>

@@ -11,7 +11,16 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <label>Nombre</label>
-                        <input class="form-control" type="text" v-model="name"/>
+                        <multiselect v-model="nameOptions" :options="myOptions" :multiple="false"
+                            :close-on-select="false" :clear-on-select="false" :preserve-search="true"
+                            placeholder="Seleccione una o varias" label="text" track-by="id"
+                            :preselect-first="true">
+                                <template slot="selection" slot-scope="{ values, isOpen }"><span
+                                    class="multiselect__single"
+                                    v-if="values.length &amp;&amp; !isOpen">{{ values.length }} opciones
+                                        selecionadas</span>
+                                </template>
+                        </multiselect>
                     </div>
 
                     <div class="form-group">
@@ -38,6 +47,8 @@
         </div>
 </template>
 <script>
+import Multiselect from "vue-multiselect";
+Vue.component("multiselect", Multiselect);
 export default {
     props:['user', 'getMembers'],
     data(){
@@ -47,16 +58,26 @@ export default {
             position:"",
             description:"",
             order:"",
+            nameOptions:{},
+            myOptions:[]
         }
+    },
+    components: {
+        Multiselect
+    },
+    mounted(){
+        this.getUsers()
     },
     methods:{
         saveMembers(){
             axios.post('/members',{
-                member: this.name,
+                member: this.nameOptions.text,
                 position: this.position,
                 description: this.description,
                 order: this.order,
-                user_id: this.user.id
+                user_creator_id: this.user.id,
+                user_id: this.nameOptions.id,
+                image: this.nameOptions.image
             }).then((response)=>{
                 toastr.success(response.data);
                 
@@ -71,7 +92,20 @@ export default {
                 toastr.danger(error)
                 console.log(error)
             })
+        },
+        getUsers(){
+            axios.get('getUsers').then(response => {
+                response.data.forEach(e => {
+                    this.myOptions.push({
+                        id: e.id,
+                        user_id: e.id,
+                        text: `${e.name}`+` ${e.last_name}`,
+                        image: e.picture
+                    });
+                });
+            })
         }
     }
 }
 </script>
+<style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
