@@ -110,10 +110,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -228,13 +224,11 @@ var render = function() {
                                           },
                                           [
                                             _c("div", [
-                                              _vm._m(1, true),
-                                              _vm._v(" "),
                                               _c(
                                                 "div",
                                                 {
                                                   staticClass:
-                                                    "d-flex justify-content-center"
+                                                    "d-flex mb-2 justify-content-center"
                                                 },
                                                 [
                                                   _c("img", {
@@ -284,7 +278,7 @@ var render = function() {
                                               "div",
                                               {
                                                 staticClass:
-                                                  "d-flex justify-content-center"
+                                                  "d-flex justify-content-center mb-3"
                                               },
                                               [
                                                 _c("img", {
@@ -342,13 +336,13 @@ var render = function() {
                               }),
                               0
                             )
-                          : _c("div", [_vm._m(2)])
+                          : _c("div", [_vm._m(1)])
                       ])
                     ])
                   ]
                 ),
                 _vm._v(" "),
-                _vm._m(3),
+                _vm._m(2),
                 _vm._v(" "),
                 _c(
                   "div",
@@ -421,14 +415,6 @@ var staticRenderFns = [
         ])
       ]
     )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "mb-3 d-flex justify-content-center" }, [
-      _c("strong", [_vm._v("Organigrama de Gobierno Escolar")])
-    ])
   },
   function() {
     var _vm = this

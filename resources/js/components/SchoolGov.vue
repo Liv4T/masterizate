@@ -26,24 +26,20 @@
                                                 <div class="list-group" id="list-tab" role="tablist" v-for="(data, id) in members" :key="id">
                                                     <div class="mb-5" v-show="data.modeInsert == '1'">
                                                         <a class="list-group-item" id="list-home-list" data-toggle="list" role="tab" aria-controls="home">
-                                                            <div>
-                                                                <div class="mb-3 d-flex justify-content-center">
-                                                                    <strong>Organigrama de Gobierno Escolar</strong>
-                                                                </div> 
-                                                                <div class="d-flex justify-content-center">
-                                                                    <img                                                                       
+                                                            <div> 
+                                                                <div class="d-flex mb-2 justify-content-center">
+                                                                    <img                                                     
                                                                         style="height:160px;"
                                                                         :src="data.imageSchoolGovernment" 
                                                                         alt=""                                                            
                                                                     >
-                                                                </div>                                                               
-                                                                
+                                                                </div>                                                                                                                               
                                                             </div>                                                        
                                                         </a>
                                                     </div>
                                                     <div v-show="data.modeInsert == '2'">
                                                         <a class="list-group-item" id="list-home-list" data-toggle="list" role="tab" aria-controls="home">
-                                                            <div class="d-flex justify-content-center">
+                                                            <div class="d-flex justify-content-center mb-3">
                                                                 <img                                                                       
                                                                 style="height:160px;"
                                                                 :src="data.image" 
