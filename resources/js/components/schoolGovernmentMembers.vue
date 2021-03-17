@@ -7,13 +7,14 @@
                         <strong class="h3">Miembros del Gobierno Escolar</strong>
                     </div>
                     <div class="card-body">
-                        <button class="btn btn-primary mb-3">Crear Miembro</button>
+                        <button class="btn btn-primary mb-3" data-toggle="modal" data-target="#createModal">Crear Miembro</button>
                         <table class="table">
                             <thead>
                                 <tr>
                                 <th scope="col">Nombre</th>
                                 <th scope="col">Posición</th>
                                 <th scope="col">Descripción</th>
+                                <th scope="col">Orden en Listado</th>
                                 <th scope="col">Acciones</th>
                                 </tr>
                             </thead>
@@ -22,9 +23,10 @@
                                     <td>{{data.member}}</td>
                                     <td>{{data.position}}</td>
                                     <td>{{data.description}}</td>
+                                    <td>{{data.order}}</td>
                                     <td>
-                                        <button class="btn btn-success">Editar</button>
-                                        <button class="btn btn-danger">Eliminar</button>
+                                        <button class="btn btn-success" v-on:click="()=>editMember(data)">Editar</button>
+                                        <button class="btn btn-danger" v-on:click="()=>deleteMember(data.id)">Eliminar</button>
                                     </td>
                                 </tr>
                             </tbody>
@@ -33,23 +35,46 @@
                 </div>
             </div>
         </div>
+        <modal-create-government-member :user="user" :getMembers="getMembers"></modal-create-government-member>
+        <modal-edit-government-member :memberEdit="memberEdit" :getMembers="getMembers"></modal-edit-government-member>
     </div>
 </template>
 <script>
 export default {
+    props:['user'],
     data(){
         return{
-            members:[]
+            members:[],
+            name:"",
+            position:"",
+            description:"",
+            order:"",
+            memberEdit:{}
         }
     }, 
     mounted(){
-
+        this.getMembers();
     },
     methods:{
         getMembers(){
             axios.get('/members').then(response =>{
                 this.members = response.data
             })
+        },
+        editMember(value){
+            this.memberEdit = value;
+            $("#editModal").modal("show");
+        },
+        deleteMember(id){
+            if (window.confirm("Deseas eliminar este dato?")) {
+                axios.delete(`/members/${id}`).then(response=>{
+                    toastr.success(response.data);
+                    this.getMembers();
+                }).catch(error => {
+                    toastr.danger("Intentalo de nuevo mas tarde");
+                    console.log(error);
+                })
+            }
         }
     }
 }

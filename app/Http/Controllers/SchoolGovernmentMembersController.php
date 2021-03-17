@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\SchoolGovernmentMembers;
+use Auth;
 
 class SchoolGovernmentMembersController extends Controller
 {
@@ -14,7 +15,8 @@ class SchoolGovernmentMembersController extends Controller
      */
     public function index()
     {
-        $members = SchoolGovernmentMembers::all();
+        $user_id = Auth::user()->id;
+        $members = SchoolGovernmentMembers::where('user_id','=',$user_id)->orderBy('order','asc')->get();
         return response()->json($members);
     }
 
@@ -39,7 +41,9 @@ class SchoolGovernmentMembersController extends Controller
         $members = new SchoolGovernmentMembers();
         $members->member = $request->member;
         $members->position = $request->position;
-        $members->description = $request->descrition;
+        $members->description = $request->description;
+        $members->order = $request->order;
+        $members->user_id = $request->user_id;
         $members->save();
         return response()->json("Miembro Creado");
     }
@@ -78,9 +82,10 @@ class SchoolGovernmentMembersController extends Controller
         $members = SchoolGovernmentMembers::findOrFail($id);
         $members->member = $request->member;
         $members->position = $request->position;
-        $members->description = $request->descrition;
+        $members->description = $request->description;
+        $members->order = $request->order;
         $members->save();
-        return response()->json("Miembro Creado");
+        return response()->json("Miembro Actualizado");
     }
 
     /**

@@ -16,8 +16,9 @@ class CreateSchoolGovernmentMembersTable extends Migration
         Schema::create('school_government_members', function (Blueprint $table) {
             $table->increments('id');
             $table->string('member');
-            $title->string('position');
+            $table->string('position');
             $table->string('description');
+            $table->bigInteger('order');
             $table->timestamps();
         });
     }

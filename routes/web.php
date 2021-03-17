@@ -753,3 +753,4 @@ Route::middleware('auth')->get('/governmentMembers', function () {
     return view('gobernmentMembers');
 });
 Route::get('/getLegislation', 'SchoolGovernmentController@getLegislation');
+Route::resource('/members','SchoolGovernmentMembersController');
