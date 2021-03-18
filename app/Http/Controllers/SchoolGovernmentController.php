@@ -6,6 +6,12 @@ use App\SchoolGovernment;
 use Illuminate\Http\Request;
 use App\User;
 use Auth;
+use App\ClassroomTeacher;
+use App\Area;
+use App\Classroom;
+use App\Quarterly;
+use App\CoursesAchievement;
+use App\Courses;
 
 class SchoolGovernmentController extends Controller
 {
@@ -17,6 +23,65 @@ class SchoolGovernmentController extends Controller
     public function index()
     {
         return view("schoolGovernment");
+    }
+
+    public function reportTeacher($teacherId){
+        $user_asignated = ClassroomTeacher::where('id_user', $teacherId)->get();
+        $areas = [];
+        if (isset($user_asignated)) {
+            foreach ($user_asignated as $key => $area) {
+                $classroom = Classroom::find($area->id_classroom);
+                $class = Area::find($area->id_area);
+                $areas[$key] = [
+                    'id'           => $class->id,
+                    'text'         => $class->name . " - " . $classroom->name,
+                    'id_classroom' => $classroom->id,
+                ];
+            }
+        }
+
+        return response()->json($areas);
+    }
+
+    public function reportPlanificationTeacher($teacherId, $id_area, $id_classroom){
+        $quaterly = [];
+        $achievements = [];
+
+        $Courses = Courses::where('id_teacher', $teacherId)->where('id_area', $id_area)->where('id_classroom', $id_classroom)->first();
+        if (isset($Courses)) {
+            $achievements = CoursesAchievement::where('id_planification', $Courses->id)->get();
+
+            $Quarterlies = Quarterly::where('id_teacher', $teacherId)->where('id_area', $id_area)->where('id_classroom', $id_classroom)->get();
+            $Courses->achievements = $achievements;
+            foreach ($Quarterlies as $key => $Quarterly) {
+                $quaterly[$key] = [
+                    'id' => $Quarterly->id,
+                    'content' => $Quarterly->content,
+                    'unit_name' => $Quarterly->unit_name
+                ];
+            }
+        }
+        $classroom_name = '';
+        $classroom = Classroom::where('id', $id_classroom)->get();
+        $area = Area::where('id', $id_area)->get();
+
+        if (isset($classroom) && count($classroom) > 0 && isset($area) && count($area) > 0) {
+            $classroom_name = $area[0]->name . ' ' . $classroom[0]->name;
+        }
+
+        $data = [
+            'classroom_name' => $classroom_name,
+            'quaterly' =>  $quaterly,
+            'courses' => $Courses,
+            'achievements' => $achievements
+        ];
+
+        return response()->json($data);
+    }
+
+    public function students(){
+        $students = Users::where('type_user','=',3)->get();
+        return response()->json($students);
     }
 
     public function getLegislation(){

@@ -239,4 +239,7 @@ Vue.component("legislation-component", () =>import("./components/legislation.vue
 Vue.component("government-members-component", () => import("./components/schoolGovernmentMembers.vue"))
 Vue.component("modal-create-government-member", ()=>import("./components/ModalCreateGovernmentMember.vue"));
 Vue.component("modal-edit-government-member", () => import("./components/ModalEditGovernmentMember.vue"));
+Vue.component("reports-government", ()=> import("./components/reportsGovernment.vue"))
+Vue.component("modal-docente", ()=> import("./components/modalDocenteReport.vue"))
+Vue.component("modal-planif-docente", ()=> import("./components/modalDocentePlanifReport.vue"));
 const app = new Vue({el: "#app", data: {}, store});

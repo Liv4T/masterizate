@@ -754,3 +754,8 @@ Route::middleware('auth')->get('/governmentMembers', function () {
 });
 Route::get('/getLegislation', 'SchoolGovernmentController@getLegislation');
 Route::resource('/members','SchoolGovernmentMembersController');
+Route::middleware('auth')->get('/reportsGovernment', function () {
+    return view('reportsGovernment');
+});
+Route::get('GetAreaToReport/{idTeachers}','SchoolGovernmentController@reportTeacher');
+Route::get('GetPlanificationTeacher/{teacherId}/{id_area}/{id_classroom}','SchoolGovernMentController@reportPlanificationTeacher');
