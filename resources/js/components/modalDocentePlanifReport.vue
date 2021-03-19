@@ -132,13 +132,12 @@ export default {
             })
             
             for(let i = 0; i < this.anualPlanification.length; i++){
-                    if(this.anualPlanification[i].achievements.length > 0){
-                        this.cleanData.push({
-                            Clase: this.anualPlanification[i].class_name,
-                            Profesor: this.saveTeachers.text,
-                            Materia: this.anualPlanification[i].materia
-                        })
-                        
+                this.cleanData.push({
+                        Clase: this.anualPlanification[i].class_name,
+                        Profesor: this.saveTeachers.text,
+                        Materia: this.anualPlanification[i].materia
+                    })
+                    if(this.anualPlanification[i].achievements.length > 0){            
                         for(let h = 0; h < this.anualPlanification[i].achievements.length; h++){
                             this.cleanData[i][`logro`+(h+1)] = this.anualPlanification[i].achievements[h].achievement
                         }
@@ -149,7 +148,11 @@ export default {
                     const data = this.cleanData;
                     const fileName = 'Reporte Planeación'
                     const exportType = 'xls'
-                    
+                    this.cleanData=[],
+                    this.saveArea=[],
+                    this.saveTeachers=[],
+                    this.anualPlanification=[]
+                    $("#reportTeacherPlanifModal").modal("hide");
                     exportFromJSON({ data, fileName, exportType })
                 }else{
                     toastr.info("No hay datos disponibles")

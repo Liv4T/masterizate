@@ -152,13 +152,13 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
       });
 
       for (var i = 0; i < this.anualPlanification.length; i++) {
-        if (this.anualPlanification[i].achievements.length > 0) {
-          this.cleanData.push({
-            Clase: this.anualPlanification[i].class_name,
-            Profesor: this.saveTeachers.text,
-            Materia: this.anualPlanification[i].materia
-          });
+        this.cleanData.push({
+          Clase: this.anualPlanification[i].class_name,
+          Profesor: this.saveTeachers.text,
+          Materia: this.anualPlanification[i].materia
+        });
 
+        if (this.anualPlanification[i].achievements.length > 0) {
           for (var h = 0; h < this.anualPlanification[i].achievements.length; h++) {
             this.cleanData[i]["logro" + (h + 1)] = this.anualPlanification[i].achievements[h].achievement;
           }
@@ -169,6 +169,8 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
         var data = this.cleanData;
         var fileName = 'Reporte Planeación';
         var exportType = 'xls';
+        this.cleanData = [], this.saveArea = [], this.saveTeachers = [], this.anualPlanification = [];
+        $("#reportTeacherPlanifModal").modal("hide");
         Object(export_from_json__WEBPACK_IMPORTED_MODULE_1__["default"])({
           data: data,
           fileName: fileName,
