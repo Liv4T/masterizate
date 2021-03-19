@@ -60,8 +60,7 @@
 <script>
 import Multiselect from "vue-multiselect";
 Vue.component("multiselect", Multiselect);
-import jsPDF from "jspdf";
-import {GenerateData, CreateHeaders} from "./ExportPDF/export";
+import exportFromJSON from 'export-from-json';
 export default {
     data(){
         return{
@@ -115,18 +114,12 @@ export default {
                         })
                     });     
                 })
-                var headers = CreateHeaders([
-                    "id",
-                    "clase",
-                    "Estudiante",
-                    "Progreso",
-                    "Nota",
-                ]);
                 if(this.dataToExport.length > 0){
-                    var doc = new jsPDF({ putOnlyUsedFonts: true, orientation: "landscape" });
-                    doc.table(1, 1, GenerateData(this.dataToExport), headers, { autoSize: true });
-                    doc.save("ReporteNotas.pdf");
-                    this.dataToExport = []
+                    const data = this.dataToExport;
+                    const fileName = 'Reporte Notas'
+                    const exportType = 'xls'
+                    
+                    exportFromJSON({ data, fileName, exportType })
                 }else{
                     toastr.info("No hay datos disponibles")
                 }

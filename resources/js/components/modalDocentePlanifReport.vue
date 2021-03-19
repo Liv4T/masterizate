@@ -10,15 +10,6 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-goup">
-                        <label>Fecha</label>
-                        <select v-model="dateToExport" class="form-control">
-                            <option value="1">Un Mes</option>
-                            <option value="2">Tres Meses</option>
-                            <option value="3">Seis Meses</option>
-                            <option value="4">Un Año</option>
-                        </select>
-                    </div>
-                    <div class="form-goup">
                         <label>Docente</label>
                         <multiselect v-model="saveTeachers" :options="teachersOptions" :multiple="false"
                             :close-on-select="false" :clear-on-select="false"
@@ -33,9 +24,14 @@
                                 </template>
                         </multiselect>
                     </div>
-                    <div class="form-goup">
-                        <label>Area</label>
-                        <multiselect v-model="saveAreas" :options="areasOptions" :multiple="false"
+                    <div class="form-group">
+                        <button class="btn btn-primary mt-2 mb-2" v-on:click="getArea()">
+                            Consultar Area
+                        </button>
+                    </div>
+                    <div v-show="areaOptions.length > 0" class="form-goup">
+                        <label>Areas Disponibles</label>
+                        <multiselect v-model="saveArea" :options="areaOptions" :multiple="false"
                             :close-on-select="false" :clear-on-select="false"
                             :preserve-search="true" placeholder="Seleccione una"
                             label="text" track-by="id" :preselect-first="true">
@@ -48,10 +44,25 @@
                                 </template>
                         </multiselect>
                     </div>
+                    <div v-show="areaOptions.length > 0" class="form-goup">
+                        <label>Filtro</label>
+                        <div class="form-check">
+                            <input v-model="planification" class="form-check-input" type="radio" name="filter" id="filter1" value="anual">
+                            <label class="form-check-label" for="filter1">
+                                Anual
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input v-model="planification" class="form-check-input" type="radio" name="filter" id="filter2" value="quarters">
+                            <label class="form-check-label" for="filter2">
+                                Trimestral
+                            </label>
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" v-on:click="exportData()">Exportar</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Datos</button>
+                    <button type="button" class="btn btn-primary" v-on:click="dataExport()">Exportar</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                 </div>
             </div>
         </div>
@@ -60,18 +71,21 @@
 <script>
 import Multiselect from "vue-multiselect";
 Vue.component("multiselect", Multiselect);
-import jsPDF from "jspdf";
-import {GenerateData, CreateHeaders} from "./ExportPDF/export";
+import exportFromJSON from 'export-from-json';
 export default {
     data(){
         return{
-            dateToExport:"",
             teachersOptions:[],
-            areasOptions:[],
+            areaOptions:[],
             dataToExport:[],
-            planification:[],
             saveTeachers:{},
-            saveAreas:{},
+            planification:"",
+            saveArea:{},
+            anualPlanification:[],
+            quaterlyPlanification:[],
+            anual:[],
+            headers:[],
+            cleanData:[],
             areasByTeacher:{}
         }
     },
@@ -92,37 +106,49 @@ export default {
                 });
             })
         },
-        exportData(){
+        getArea(){
             axios.get(`GetAreaToReport/${this.saveTeachers.id}`).then((response) => {
-                response.data.forEach(area => {
-                    axios.get(`GetPlanificationTeacher/${this.saveTeachers.id}/${area.id}/${area.id_classroom}`).then((response) => {
-                        let anual = response.data;
-                        this.planification.push({
-                            name: area.text,
-                            achievement: anual.achievements,
-                            courses: anual.courses,
-                            quaterly: anual.quaterly
-                        })
-                        console.log(this.planification)
+                let area = response.data;
+                area.forEach(element => {
+                    this.areaOptions.push({
+                        id: element.id,
+                        id_area: element.id_area,
+                        id_classroom: element.id_classroom,
+                        text: element.text
                     })
                 })
             });
-            
-            // var headers = CreateHeaders([
-            //     "id",
-            //     "clase",
-            //     "Estudiante",
-            //     "Progreso",
-            //     "Nota",
-            // ]);
-            // if(this.dataToExport.length > 0){
-            //     var doc = new jsPDF({ putOnlyUsedFonts: true, orientation: "landscape" });
-            //     doc.table(1, 1, GenerateData(this.dataToExport), headers, { autoSize: true });
-            //     doc.save("ReporteNotas.pdf");
-            //     this.dataToExport = []
-            // }else{
-            //     toastr.info("No hay datos disponibles")
-            // }                     
+        },
+        dataExport(){
+            axios.get(`GetPlanificationTeacher/${this.saveTeachers.id}/${this.saveArea.id_area}/${this.saveArea.id_classroom}`).then((response) => {
+                let anual = response.data;
+                this.anualPlanification.push({
+                    class_name: anual.classroom_name,
+                    achievements: anual.achievements
+                });
+                for(let i = 0; i < this.anualPlanification.length; i++){
+                    if(this.anualPlanification[i].achievements.length > 0){
+                        this.cleanData.push({
+                            Clase: this.anualPlanification[i].class_name,
+                            Profesor: this.saveTeachers.text,
+                            Materia: this.saveArea.text
+                        })
+                        for(let h = 0; h < this.anualPlanification[i].achievements.length; h++){
+                            this.cleanData[i][`logro`+(h+1)] = this.anualPlanification[i].achievements[h].achievement
+                        }
+                    }
+                }
+
+                if(this.cleanData.length > 0){
+                    const data = this.cleanData;
+                    const fileName = 'Reporte Planeación'
+                    const exportType = 'xls'
+                    
+                    exportFromJSON({ data, fileName, exportType })
+                }else{
+                    toastr.info("No hay datos disponibles")
+                }
+            })
         }
     }
 }

@@ -33,7 +33,8 @@ class SchoolGovernmentController extends Controller
                 $classroom = Classroom::find($area->id_classroom);
                 $class = Area::find($area->id_area);
                 $areas[$key] = [
-                    'id'           => $class->id,
+                    'id'           => $area->id,
+                    'id_area'      => $class->id,
                     'text'         => $class->name . " - " . $classroom->name,
                     'id_classroom' => $classroom->id,
                 ];

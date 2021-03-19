@@ -20,8 +20,8 @@
                                 <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
                                     <div class="card-body text-center">
                                         <div class="form-group">                                            
-                                            <!-- <button class="btn btn-primary" data-toggle="modal" data-target="#reportTeacherModal">Notas</button>                                             -->
-                                            <!-- <button class="btn btn-primary" data-toggle="modal" data-target="#reportTeacherPlanifModal">Planeación</button> -->
+                                            <button class="btn btn-primary" data-toggle="modal" data-target="#reportTeacherModal">Notas</button>
+                                            <button class="btn btn-primary" data-toggle="modal" data-target="#reportTeacherPlanifModal">Planeación</button>
                                         </div>
                                     </div>
                                 </div>
