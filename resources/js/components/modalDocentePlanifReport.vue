@@ -31,7 +31,7 @@
                     </div>
                     <div v-show="areaOptions.length > 0" class="form-goup">
                         <label>Areas Disponibles</label>
-                        <multiselect v-model="saveArea" :options="areaOptions" :multiple="false"
+                        <multiselect v-model="saveArea" :options="areaOptions" :multiple="true"
                             :close-on-select="false" :clear-on-select="false"
                             :preserve-search="true" placeholder="Seleccione una"
                             label="text" track-by="id" :preselect-first="true">
@@ -80,7 +80,7 @@ export default {
             dataToExport:[],
             saveTeachers:{},
             planification:"",
-            saveArea:{},
+            saveArea:[],
             anualPlanification:[],
             quaterlyPlanification:[],
             anual:[],
@@ -120,19 +120,25 @@ export default {
             });
         },
         dataExport(){
-            axios.get(`GetPlanificationTeacher/${this.saveTeachers.id}/${this.saveArea.id_area}/${this.saveArea.id_classroom}`).then((response) => {
-                let anual = response.data;
-                this.anualPlanification.push({
-                    class_name: anual.classroom_name,
-                    achievements: anual.achievements
-                });
-                for(let i = 0; i < this.anualPlanification.length; i++){
+            this.saveArea.forEach(area=>{
+                axios.get(`GetPlanificationTeacher/${this.saveTeachers.id}/${area.id_area}/${area.id_classroom}`).then((response) => {
+                    let anual = response.data;
+                    this.anualPlanification.push({
+                        class_name: anual.classroom_name,
+                        achievements: anual.achievements,
+                        materia: area.text
+                    });
+                })
+            })
+            
+            for(let i = 0; i < this.anualPlanification.length; i++){
                     if(this.anualPlanification[i].achievements.length > 0){
                         this.cleanData.push({
                             Clase: this.anualPlanification[i].class_name,
                             Profesor: this.saveTeachers.text,
-                            Materia: this.saveArea.text
+                            Materia: this.anualPlanification[i].materia
                         })
+                        
                         for(let h = 0; h < this.anualPlanification[i].achievements.length; h++){
                             this.cleanData[i][`logro`+(h+1)] = this.anualPlanification[i].achievements[h].achievement
                         }
@@ -148,7 +154,6 @@ export default {
                 }else{
                     toastr.info("No hay datos disponibles")
                 }
-            })
         }
     }
 }

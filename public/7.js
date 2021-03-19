@@ -93,7 +93,7 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
       dataToExport: [],
       saveTeachers: {},
       planification: "",
-      saveArea: {},
+      saveArea: [],
       anualPlanification: [],
       quaterlyPlanification: [],
       anual: [],
@@ -139,41 +139,44 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
     dataExport: function dataExport() {
       var _this3 = this;
 
-      axios.get("GetPlanificationTeacher/".concat(this.saveTeachers.id, "/").concat(this.saveArea.id_area, "/").concat(this.saveArea.id_classroom)).then(function (response) {
-        var anual = response.data;
+      this.saveArea.forEach(function (area) {
+        axios.get("GetPlanificationTeacher/".concat(_this3.saveTeachers.id, "/").concat(area.id_area, "/").concat(area.id_classroom)).then(function (response) {
+          var anual = response.data;
 
-        _this3.anualPlanification.push({
-          class_name: anual.classroom_name,
-          achievements: anual.achievements
+          _this3.anualPlanification.push({
+            class_name: anual.classroom_name,
+            achievements: anual.achievements,
+            materia: area.text
+          });
         });
+      });
 
-        for (var i = 0; i < _this3.anualPlanification.length; i++) {
-          if (_this3.anualPlanification[i].achievements.length > 0) {
-            _this3.cleanData.push({
-              Clase: _this3.anualPlanification[i].class_name,
-              Profesor: _this3.saveTeachers.text,
-              Materia: _this3.saveArea.text
-            });
+      for (var i = 0; i < this.anualPlanification.length; i++) {
+        if (this.anualPlanification[i].achievements.length > 0) {
+          this.cleanData.push({
+            Clase: this.anualPlanification[i].class_name,
+            Profesor: this.saveTeachers.text,
+            Materia: this.anualPlanification[i].materia
+          });
 
-            for (var h = 0; h < _this3.anualPlanification[i].achievements.length; h++) {
-              _this3.cleanData[i]["logro" + (h + 1)] = _this3.anualPlanification[i].achievements[h].achievement;
-            }
+          for (var h = 0; h < this.anualPlanification[i].achievements.length; h++) {
+            this.cleanData[i]["logro" + (h + 1)] = this.anualPlanification[i].achievements[h].achievement;
           }
         }
+      }
 
-        if (_this3.cleanData.length > 0) {
-          var data = _this3.cleanData;
-          var fileName = 'Reporte Planeación';
-          var exportType = 'xls';
-          Object(export_from_json__WEBPACK_IMPORTED_MODULE_1__["default"])({
-            data: data,
-            fileName: fileName,
-            exportType: exportType
-          });
-        } else {
-          toastr.info("No hay datos disponibles");
-        }
-      });
+      if (this.cleanData.length > 0) {
+        var data = this.cleanData;
+        var fileName = 'Reporte Planeación';
+        var exportType = 'xls';
+        Object(export_from_json__WEBPACK_IMPORTED_MODULE_1__["default"])({
+          data: data,
+          fileName: fileName,
+          exportType: exportType
+        });
+      } else {
+        toastr.info("No hay datos disponibles");
+      }
     }
   }
 });
@@ -610,7 +613,7 @@ var render = function() {
                 _c("multiselect", {
                   attrs: {
                     options: _vm.areaOptions,
-                    multiple: false,
+                    multiple: true,
                     "close-on-select": false,
                     "clear-on-select": false,
                     "preserve-search": true,
