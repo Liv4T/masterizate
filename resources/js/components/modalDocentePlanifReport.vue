@@ -123,16 +123,27 @@ export default {
             this.saveArea.forEach(area=>{
                 axios.get(`GetPlanificationTeacher/${this.saveTeachers.id}/${area.id_area}/${area.id_classroom}`).then((response) => {
                     let anual = response.data;
-                    this.anualPlanification.push({
-                        class_name: anual.classroom_name,
-                        achievements: anual.achievements,
-                        materia: area.text
-                    });
+                    if(this.planification === "anual"){
+                        this.anualPlanification.push({
+                            class_name: anual.classroom_name,
+                            achievements: anual.achievements,
+                            materia: area.text
+                        });
+                    }else if(this.planification === "quarters"){
+                        console.log(anual)
+                        this.quaterlyPlanification.push({
+                            class_name: anual.classroom_name,
+                            quaterly: anual.quaterly,
+                            materia: area.text
+                        });
+                    } 
                 })
             })
             
-            for(let i = 0; i < this.anualPlanification.length; i++){
-                this.cleanData.push({
+            //Organizacion de datos para exportacion mediante Planificación Anual
+            if(this.planification === "anual"){
+                for(let i = 0; i < this.anualPlanification.length; i++){
+                    this.cleanData.push({
                         Clase: this.anualPlanification[i].class_name,
                         Profesor: this.saveTeachers.text,
                         Materia: this.anualPlanification[i].materia
@@ -143,20 +154,37 @@ export default {
                         }
                     }
                 }
-
-                if(this.cleanData.length > 0){
-                    const data = this.cleanData;
-                    const fileName = 'Reporte Planeación'
-                    const exportType = 'xls'
-                    this.cleanData=[],
-                    this.saveArea=[],
-                    this.saveTeachers=[],
-                    this.anualPlanification=[]
-                    $("#reportTeacherPlanifModal").modal("hide");
-                    exportFromJSON({ data, fileName, exportType })
-                }else{
-                    toastr.info("No hay datos disponibles")
+            //Organizacion de datos para exportacion mediante Planificación Trimestral
+            }else if(this.planification === "quarters"){
+                for(let i = 0; i < this.quaterlyPlanification.length; i++){
+                    this.cleanData.push({
+                        Clase: this.quaterlyPlanification[i].class_name,
+                        Profesor: this.saveTeachers.text,
+                        Materia: this.quaterlyPlanification[i].materia
+                    })
+                    if(this.quaterlyPlanification[i].quaterly.length > 0){   
+                        for(let h = 0; h < this.quaterlyPlanification[i].quaterly.length; h++){
+                            this.cleanData[i][`content`+(h+1)] = this.quaterlyPlanification[i].quaterly[h].content
+                            this.cleanData[i][`unit_name`+(h+1)] = this.quaterlyPlanification[i].quaterly[h].unit_name
+                        }
+                    }
                 }
+            }
+
+            if(this.cleanData.length > 0){
+                const data = this.cleanData;
+                const fileName = 'Reporte Planeación'
+                const exportType = 'xls'
+                this.cleanData=[],
+                this.saveArea=[],
+                this.areaOptions=[],
+                this.saveTeachers=[],
+                this.anualPlanification=[]
+                $("#reportTeacherPlanifModal").modal("hide");
+                exportFromJSON({ data, fileName, exportType })
+            }else{
+                toastr.info("No hay datos disponibles")
+            }
         }
     }
 }

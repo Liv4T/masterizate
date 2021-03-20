@@ -143,24 +143,52 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
         axios.get("GetPlanificationTeacher/".concat(_this3.saveTeachers.id, "/").concat(area.id_area, "/").concat(area.id_classroom)).then(function (response) {
           var anual = response.data;
 
-          _this3.anualPlanification.push({
-            class_name: anual.classroom_name,
-            achievements: anual.achievements,
-            materia: area.text
+          if (_this3.planification === "anual") {
+            _this3.anualPlanification.push({
+              class_name: anual.classroom_name,
+              achievements: anual.achievements,
+              materia: area.text
+            });
+          } else if (_this3.planification === "quarters") {
+            console.log(anual);
+
+            _this3.quaterlyPlanification.push({
+              class_name: anual.classroom_name,
+              quaterly: anual.quaterly,
+              materia: area.text
+            });
+          }
+        });
+      }); //Organizacion de datos para exportacion mediante Planificación Anual
+
+      if (this.planification === "anual") {
+        for (var i = 0; i < this.anualPlanification.length; i++) {
+          this.cleanData.push({
+            Clase: this.anualPlanification[i].class_name,
+            Profesor: this.saveTeachers.text,
+            Materia: this.anualPlanification[i].materia
           });
-        });
-      });
 
-      for (var i = 0; i < this.anualPlanification.length; i++) {
-        this.cleanData.push({
-          Clase: this.anualPlanification[i].class_name,
-          Profesor: this.saveTeachers.text,
-          Materia: this.anualPlanification[i].materia
-        });
+          if (this.anualPlanification[i].achievements.length > 0) {
+            for (var h = 0; h < this.anualPlanification[i].achievements.length; h++) {
+              this.cleanData[i]["logro" + (h + 1)] = this.anualPlanification[i].achievements[h].achievement;
+            }
+          }
+        } //Organizacion de datos para exportacion mediante Planificación Trimestral
 
-        if (this.anualPlanification[i].achievements.length > 0) {
-          for (var h = 0; h < this.anualPlanification[i].achievements.length; h++) {
-            this.cleanData[i]["logro" + (h + 1)] = this.anualPlanification[i].achievements[h].achievement;
+      } else if (this.planification === "quarters") {
+        for (var _i = 0; _i < this.quaterlyPlanification.length; _i++) {
+          this.cleanData.push({
+            Clase: this.quaterlyPlanification[_i].class_name,
+            Profesor: this.saveTeachers.text,
+            Materia: this.quaterlyPlanification[_i].materia
+          });
+
+          if (this.quaterlyPlanification[_i].quaterly.length > 0) {
+            for (var _h = 0; _h < this.quaterlyPlanification[_i].quaterly.length; _h++) {
+              this.cleanData[_i]["content" + (_h + 1)] = this.quaterlyPlanification[_i].quaterly[_h].content;
+              this.cleanData[_i]["unit_name" + (_h + 1)] = this.quaterlyPlanification[_i].quaterly[_h].unit_name;
+            }
           }
         }
       }
@@ -169,7 +197,7 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
         var data = this.cleanData;
         var fileName = 'Reporte Planeación';
         var exportType = 'xls';
-        this.cleanData = [], this.saveArea = [], this.saveTeachers = [], this.anualPlanification = [];
+        this.cleanData = [], this.saveArea = [], this.areaOptions = [], this.saveTeachers = [], this.anualPlanification = [];
         $("#reportTeacherPlanifModal").modal("hide");
         Object(export_from_json__WEBPACK_IMPORTED_MODULE_1__["default"])({
           data: data,
