@@ -82,6 +82,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___default.a);
 
@@ -624,69 +627,68 @@ var render = function() {
               )
             ]),
             _vm._v(" "),
-            _c(
-              "div",
-              {
-                directives: [
-                  {
-                    name: "show",
-                    rawName: "v-show",
-                    value: _vm.areaOptions.length > 0,
-                    expression: "areaOptions.length > 0"
-                  }
-                ],
-                staticClass: "form-goup"
-              },
-              [
-                _c("label", [_vm._v("Areas Disponibles")]),
-                _vm._v(" "),
-                _c("multiselect", {
-                  attrs: {
-                    options: _vm.areaOptions,
-                    multiple: true,
-                    "close-on-select": false,
-                    "clear-on-select": false,
-                    "preserve-search": true,
-                    placeholder: "Seleccione una",
-                    label: "text",
-                    "track-by": "id",
-                    "preselect-first": true
-                  },
-                  scopedSlots: _vm._u([
-                    {
-                      key: "selection",
-                      fn: function(ref) {
-                        var values = ref.values
-                        var isOpen = ref.isOpen
-                        return [
-                          values.length && !isOpen
-                            ? _c(
-                                "span",
-                                { staticClass: "multiselect__single" },
-                                [
-                                  _vm._v(
-                                    "\n                                    " +
-                                      _vm._s(values.length) +
-                                      "\n                                    opciones\n                                    selecionadas\n                                "
-                                  )
-                                ]
-                              )
-                            : _vm._e()
-                        ]
+            _vm.areaOptions.length > 0
+              ? _c(
+                  "div",
+                  { staticClass: "form-goup" },
+                  [
+                    _c("label", [_vm._v("Areas Disponibles")]),
+                    _vm._v(" "),
+                    _c("multiselect", {
+                      attrs: {
+                        options: _vm.areaOptions,
+                        multiple: true,
+                        "close-on-select": false,
+                        "clear-on-select": false,
+                        "preserve-search": true,
+                        placeholder: "Seleccione una",
+                        label: "text",
+                        "track-by": "id",
+                        "preselect-first": true
+                      },
+                      scopedSlots: _vm._u(
+                        [
+                          {
+                            key: "selection",
+                            fn: function(ref) {
+                              var values = ref.values
+                              var isOpen = ref.isOpen
+                              return [
+                                values.length && !isOpen
+                                  ? _c(
+                                      "span",
+                                      { staticClass: "multiselect__single" },
+                                      [
+                                        _vm._v(
+                                          "\n                                    " +
+                                            _vm._s(values.length) +
+                                            "\n                                    opciones\n                                    selecionadas\n                                "
+                                        )
+                                      ]
+                                    )
+                                  : _vm._e()
+                              ]
+                            }
+                          }
+                        ],
+                        null,
+                        false,
+                        1821651511
+                      ),
+                      model: {
+                        value: _vm.saveArea,
+                        callback: function($$v) {
+                          _vm.saveArea = $$v
+                        },
+                        expression: "saveArea"
                       }
-                    }
-                  ]),
-                  model: {
-                    value: _vm.saveArea,
-                    callback: function($$v) {
-                      _vm.saveArea = $$v
-                    },
-                    expression: "saveArea"
-                  }
-                })
-              ],
-              1
-            ),
+                    })
+                  ],
+                  1
+                )
+              : _c("div", [
+                  _c("strong", [_vm._v("No se encuentran areas disponibles")])
+                ]),
             _vm._v(" "),
             _c(
               "div",

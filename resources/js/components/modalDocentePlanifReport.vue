@@ -29,7 +29,7 @@
                             Consultar Area
                         </button>
                     </div>
-                    <div v-show="areaOptions.length > 0" class="form-goup">
+                    <div v-if="areaOptions.length > 0" class="form-goup">
                         <label>Areas Disponibles</label>
                         <multiselect v-model="saveArea" :options="areaOptions" :multiple="true"
                             :close-on-select="false" :clear-on-select="false"
@@ -43,6 +43,9 @@
                                     </span>
                                 </template>
                         </multiselect>
+                    </div>
+                    <div v-else>
+                        <strong>No se encuentran areas disponibles</strong>
                     </div>
                     <div v-show="areaOptions.length > 0" class="form-goup">
                         <label>Filtro</label>
@@ -164,8 +167,8 @@ export default {
                     })
                     if(this.quaterlyPlanification[i].quaterly.length > 0){   
                         for(let h = 0; h < this.quaterlyPlanification[i].quaterly.length; h++){
-                            this.cleanData[i][`content`+(h+1)] = this.quaterlyPlanification[i].quaterly[h].content
-                            this.cleanData[i][`unit_name`+(h+1)] = this.quaterlyPlanification[i].quaterly[h].unit_name
+                            this.cleanData[i][`Contenido`+(h+1)] = this.quaterlyPlanification[i].quaterly[h].content
+                            this.cleanData[i][`Nombre de la Unidad`+(h+1)] = this.quaterlyPlanification[i].quaterly[h].unit_name
                         }
                     }
                 }
