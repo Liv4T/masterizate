@@ -81,7 +81,7 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
       teachersOptions: [],
       studentsOptions: [],
       dataToExport: [],
-      saveStudents: {},
+      saveStudents: [],
       saveTeachers: {}
     };
   },
@@ -123,14 +123,16 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
       axios.get("GetAreaToReport/".concat(this.saveTeachers.id)).then(function (response) {
         var areas = response.data;
         areas.forEach(function (area) {
-          axios.get("/api/teacher/area/".concat(parseInt(area.id), "/classroom/").concat(parseInt(area.id_classroom), "/student/").concat(parseInt(_this3.saveStudents.id))).then(function (response) {
-            var classRoom = response.data;
+          _this3.saveStudents.forEach(function (saveStudents) {
+            axios.get("/api/teacher/area/".concat(parseInt(area.id), "/classroom/").concat(parseInt(area.id_classroom), "/student/").concat(parseInt(saveStudents.id))).then(function (response) {
+              var classRoom = response.data;
 
-            _this3.dataToExport.push({
-              clase: area.text,
-              Estudiante: classRoom.name,
-              Progreso: "".concat(classRoom.progress === -1 ? 0 : classRoom.progress.toString(), " %"),
-              Nota: "".concat(classRoom.score === -1 ? 0 : classRoom.score.toString(), " / ").concat(classRoom.score_base.toString())
+              _this3.dataToExport.push({
+                clase: area.text,
+                Estudiante: classRoom.name,
+                Progreso: "".concat(classRoom.progress === -1 ? 0 : classRoom.progress.toString(), " %"),
+                Nota: "".concat(classRoom.score === -1 ? 0 : classRoom.score.toString(), " / ").concat(classRoom.score_base.toString())
+              });
             });
           });
         });
@@ -548,7 +550,7 @@ var render = function() {
                 _c("multiselect", {
                   attrs: {
                     options: _vm.studentsOptions,
-                    multiple: false,
+                    multiple: true,
                     "close-on-select": false,
                     "clear-on-select": false,
                     "preserve-search": true,
@@ -669,7 +671,7 @@ var render = function() {
                 staticClass: "btn btn-secondary",
                 attrs: { type: "button", "data-dismiss": "modal" }
               },
-              [_vm._v("Datos")]
+              [_vm._v("Cerrar")]
             )
           ])
         ])

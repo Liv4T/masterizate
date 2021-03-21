@@ -20,7 +20,7 @@
                     </div>
                     <div class="form-goup">
                         <label>Estudiante</label>
-                        <multiselect v-model="saveStudents" :options="studentsOptions" :multiple="false"
+                        <multiselect v-model="saveStudents" :options="studentsOptions" :multiple="true"
                             :close-on-select="false" :clear-on-select="false"
                             :preserve-search="true" placeholder="Seleccione una"
                             label="text" track-by="id" :preselect-first="true">
@@ -51,7 +51,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" v-on:click="exportData()">Exportar</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Datos</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                 </div>
             </div>
         </div>
@@ -68,7 +68,7 @@ export default {
             teachersOptions:[],
             studentsOptions:[],
             dataToExport:[],
-            saveStudents:{},
+            saveStudents:[],
             saveTeachers:{}
         }
     },
@@ -104,15 +104,17 @@ export default {
             axios.get(`GetAreaToReport/${this.saveTeachers.id}`).then((response) => {
                 let areas = response.data;
                 areas.forEach(area => {
-                    axios.get(`/api/teacher/area/${parseInt(area.id)}/classroom/${parseInt(area.id_classroom)}/student/${parseInt(this.saveStudents.id)}`).then((response) => {
-                        let classRoom = response.data;
-                        this.dataToExport.push({
-                            clase: area.text,
-                            Estudiante: classRoom.name,
-                            Progreso: `${classRoom.progress === -1 ? 0 : classRoom.progress.toString()} %`,
-                            Nota: `${classRoom.score === -1 ? 0 : classRoom.score.toString()} / ${classRoom.score_base.toString()}`,
-                        })
-                    });     
+                    this.saveStudents.forEach(saveStudents => {
+                        axios.get(`/api/teacher/area/${parseInt(area.id)}/classroom/${parseInt(area.id_classroom)}/student/${parseInt(saveStudents.id)}`).then((response) => {
+                            let classRoom = response.data;
+                            this.dataToExport.push({
+                                clase: area.text,
+                                Estudiante: classRoom.name,
+                                Progreso: `${classRoom.progress === -1 ? 0 : classRoom.progress.toString()} %`,
+                                Nota: `${classRoom.score === -1 ? 0 : classRoom.score.toString()} / ${classRoom.score_base.toString()}`,
+                            })
+                        });
+                    })
                 })
                 if(this.dataToExport.length > 0){
                     const data = this.dataToExport;
