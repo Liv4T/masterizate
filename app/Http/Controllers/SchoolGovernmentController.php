@@ -12,6 +12,7 @@ use App\Classroom;
 use App\Quarterly;
 use App\CoursesAchievement;
 use App\Courses;
+use App\ClassroomStudent;
 
 class SchoolGovernmentController extends Controller
 {
@@ -36,6 +37,7 @@ class SchoolGovernmentController extends Controller
                     'id'           => $area->id,
                     'id_area'      => $class->id,
                     'text'         => $class->name . " - " . $classroom->name,
+                    'classroom'    => $classroom->name,
                     'id_classroom' => $classroom->id,
                 ];
             }
@@ -88,6 +90,16 @@ class SchoolGovernmentController extends Controller
     public function getLegislation(){
         $school = SchoolGovernment::all();
         return response()->json($school);
+    }
+
+    public function getAllAreas(){
+        $areas = Area::all();
+        return response()->json($areas);
+    }
+
+    public function user(String $userid){
+        $user = User::where('id',$userid)->get();
+        return response()->json($user);
     }
     /**
      * Show the form for creating a new resource.

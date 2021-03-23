@@ -759,3 +759,6 @@ Route::middleware('auth')->get('/reportsGovernment', function () {
 });
 Route::get('GetAreaToReport/{idTeachers}','SchoolGovernmentController@reportTeacher');
 Route::get('GetPlanificationTeacher/{teacherId}/{id_area}/{id_classroom}','SchoolGovernMentController@reportPlanificationTeacher');
+Route::post('GetCoursesInformation','SchoolGovernmentController@getCoursesInformation');
+Route::get('showUser/{userid}','SchoolGovernmentController@user');
+Route::get('getAllAreas', 'SchoolGovernmentController@getAllAreas');

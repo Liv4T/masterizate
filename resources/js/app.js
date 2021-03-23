@@ -242,4 +242,5 @@ Vue.component("modal-edit-government-member", () => import("./components/ModalEd
 Vue.component("reports-government", ()=> import("./components/reportsGovernment.vue"))
 Vue.component("modal-docente", ()=> import("./components/modalDocenteReport.vue"))
 Vue.component("modal-planif-docente", ()=> import("./components/modalDocentePlanifReport.vue"));
+Vue.component("modal-course", ()=> import("./components/modalDocenteCurso.vue"));
 const app = new Vue({el: "#app", data: {}, store});

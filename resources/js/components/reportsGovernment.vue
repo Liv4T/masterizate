@@ -37,8 +37,7 @@
                                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
                                     <div class="card-body">
                                         <div class="form-group text-center">                                            
-                                            <button class="btn btn-primary">Curso</button>                                            
-                                            <button class="btn btn-primary">Progreso</button>
+                                            <button class="btn btn-primary" data-toggle="modal" data-target="#reportTeacherCourseModal">Curso</button>
                                         </div>
                                     </div>
                                 </div>
@@ -85,6 +84,7 @@
         </div>
         <modal-docente></modal-docente>
         <modal-planif-docente></modal-planif-docente>
+        <modal-course></modal-course>
     </div>
 </template>
 <script>

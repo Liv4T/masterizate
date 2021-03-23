@@ -1,18 +1,14 @@
 <template>
-    <div class="modal fade bd-example-modal-lg" id="reportTeacherModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal fade bd-example-modal-lg" id="reportTeacherCourseModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Reporte de Notas</h5>
+                    <h5 class="modal-title">Reporte de Curso</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div class="form-goup">
-                        <label>Fecha</label>
-                        <input v-model="dateToExport" type="date" class="form-control"/>
-                    </div>
                     <div class="form-goup">
                         <label>Docente</label>
                         <multiselect v-model="saveTeachers" :options="teachersOptions" :multiple="false"
@@ -47,28 +43,7 @@
                                     </span>
                                 </template>
                         </multiselect>
-                    </div>
-                    <div v-if="areaOptions.length > 0" class="form-group">
-                        <button class="btn btn-primary mt-2 mb-2" v-on:click="getStudents()">
-                            Obtener Estudiante
-                        </button>
-                    </div>
-                    <div v-if="studentsOptions.length > 0" class="form-goup">
-                        <label>Estudiante</label>
-                        <multiselect v-model="saveStudents" :options="studentsOptions" :multiple="true"
-                            :close-on-select="false" :clear-on-select="false"
-                            :preserve-search="true" placeholder="Seleccione una"
-                            label="text" track-by="id" :preselect-first="true">
-                                <template slot="selection" slot-scope="{ values, isOpen }">
-                                    <span class="multiselect__single" v-if="values.length &amp;&amp; !isOpen">
-                                        {{ values.length }}
-                                        opciones
-                                        selecionadas
-                                    </span>
-                                </template>
-                        </multiselect>
-                    </div>
-                    
+                    </div>                    
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" v-on:click="exportData()">Exportar</button>
@@ -88,9 +63,7 @@ export default {
             dateToExport:"",
             teachersOptions:[],
             areaOptions:[],
-            studentsOptions:[],
             dataToExport:[],
-            saveStudents:[],
             saveArea:[],
             saveTeachers:{}
         }
@@ -120,59 +93,39 @@ export default {
                         id: element.id,
                         id_area: element.id_area,
                         id_classroom: element.id_classroom,
-                        text: element.text
+                        text: element.text,
+                        classroom: element.classroom
                     })
                 })
             });
         },
-        getStudents(){
-            this.areaOptions.forEach(area=>{
-                axios.get(`/api/teacher/area/${area.id}/classroom/${area.id_classroom}/student`).then(response => {
-                    response.data.forEach(element => {
-                        this.studentsOptions.push({
-                            id: element.user_id,
-                            text: `${element.user_name}`+` ${element.user_lastname}` 
+        
+        exportData(){        
+            this.saveArea.forEach(area => {        
+                axios.get(`/api/teacher/area/${parseInt(area.id_area)}/classroom/${parseInt(area.id_classroom)}/student`).then((response) => {
+                    let dataExport = response.data;
+                    console.log(dataExport);
+                    dataExport.forEach(data => {
+                        this.dataToExport.push({
+                            estudiante: data.user_name+ '' +data.user_lastname,
+                            materia: area.text,
+                            curso: area.classroom
                         })
-                    });
-
-                    var hash = {};
-                    this.studentsOptions = this.studentsOptions.filter(function(current) {
-                        var exists = !hash[current.id];
-                        hash[current.id] = true;
-                        return exists;
-                    });
+                    })
                 });
             })
-        },
-        exportData(){
-            axios.get(`GetAreaToReport/${this.saveTeachers.id}`).then((response) => {
-                let areas = response.data;
-                areas.forEach(area => {
-                    this.saveStudents.forEach(saveStudents => {
-                        axios.get(`/api/teacher/area/${parseInt(area.id)}/classroom/${parseInt(area.id_classroom)}/student/${parseInt(saveStudents.id)}`).then((response) => {
-                            let classRoom = response.data;
-                            if(Date.parse(classRoom.created_at) <= Date.parse(this.dateToExport)){
-                                this.dataToExport.push({
-                                    clase: area.text,
-                                    Estudiante: classRoom.name,
-                                    Profesor: this.saveTeachers.text,
-                                    Progreso: `${classRoom.progress === -1 ? 0 : classRoom.progress.toString()} %`,
-                                    Nota: `${classRoom.score === -1 ? 0 : classRoom.score.toString()} / ${classRoom.score_base.toString()}`,
-                                })
-                            }
-                        });
-                    })
-                })
-                if(this.dataToExport.length > 0){
-                    const data = this.dataToExport;
-                    const fileName = 'Reporte Notas'
-                    const exportType = 'xls'
-                    
-                    exportFromJSON({ data, fileName, exportType })
-                }else{
-                    toastr.info("No hay datos disponibles")
-                }
-            });            
+            if(this.dataToExport.length > 0){
+                const data = this.dataToExport;
+                const fileName = 'Reporte Notas'
+                const exportType = 'xls'
+                this.dataToExport = [],
+                this.saveTeachers = [],
+                this.saveArea = [],
+                $('#reportTeacherCourseModal').modal('hide');
+                exportFromJSON({ data, fileName, exportType })
+            }else{
+                toastr.info("No hay datos disponibles")
+            }          
         }
     }
 }
