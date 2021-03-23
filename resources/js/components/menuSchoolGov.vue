@@ -39,6 +39,14 @@
                                 </li>
                             </a>
                         </div>
+                        <a href="/reportsGovernment">
+                            <li class="item-menu">
+                                <img width="35px"
+                                    src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/MANUAL-DE-USUARIO_naranja.png?alt=media&token=bd2488fb-e121-432d-afd2-f223fcc0f29e"
+                                    alt />
+                                <span class="menu">Reportes</span>
+                            </li>
+                        </a>
                         <a href="/governmentMembers">
                             <li class="item-menu">
                                 <img width="35px"

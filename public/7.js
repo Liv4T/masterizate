@@ -153,8 +153,6 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
               materia: area.text
             });
           } else if (_this3.planification === "quarters") {
-            console.log(anual);
-
             _this3.quaterlyPlanification.push({
               class_name: anual.classroom_name,
               quaterly: anual.quaterly,
@@ -189,8 +187,8 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
 
           if (this.quaterlyPlanification[_i].quaterly.length > 0) {
             for (var _h = 0; _h < this.quaterlyPlanification[_i].quaterly.length; _h++) {
-              this.cleanData[_i]["content" + (_h + 1)] = this.quaterlyPlanification[_i].quaterly[_h].content;
-              this.cleanData[_i]["unit_name" + (_h + 1)] = this.quaterlyPlanification[_i].quaterly[_h].unit_name;
+              this.cleanData[_i]["Indicador" + (_h + 1)] = this.quaterlyPlanification[_i].quaterly[_h].content;
+              this.cleanData[_i]["Contenido" + (_h + 1)] = this.quaterlyPlanification[_i].quaterly[_h].unit_name;
             }
           }
         }

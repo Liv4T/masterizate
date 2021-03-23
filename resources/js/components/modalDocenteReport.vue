@@ -11,27 +11,7 @@
                 <div class="modal-body">
                     <div class="form-goup">
                         <label>Fecha</label>
-                        <select v-model="dateToExport" class="form-control">
-                            <option value="1">Un Mes</option>
-                            <option value="2">Tres Meses</option>
-                            <option value="3">Seis Meses</option>
-                            <option value="4">Un Año</option>
-                        </select>
-                    </div>
-                    <div class="form-goup">
-                        <label>Estudiante</label>
-                        <multiselect v-model="saveStudents" :options="studentsOptions" :multiple="true"
-                            :close-on-select="false" :clear-on-select="false"
-                            :preserve-search="true" placeholder="Seleccione una"
-                            label="text" track-by="id" :preselect-first="true">
-                                <template slot="selection" slot-scope="{ values, isOpen }">
-                                    <span class="multiselect__single" v-if="values.length &amp;&amp; !isOpen">
-                                        {{ values.length }}
-                                        opciones
-                                        selecionadas
-                                    </span>
-                                </template>
-                        </multiselect>
+                        <input v-model="dateToExport" type="date" class="form-control"/>
                     </div>
                     <div class="form-goup">
                         <label>Docente</label>
@@ -48,6 +28,47 @@
                                 </template>
                         </multiselect>
                     </div>
+                    <div class="form-group">
+                        <button class="btn btn-primary mt-2 mb-2" v-on:click="getArea()">
+                            Consultar Area
+                        </button>
+                    </div>
+                    <div v-if="areaOptions.length > 0" class="form-goup">
+                        <label>Areas Disponibles</label>
+                        <multiselect v-model="saveArea" :options="areaOptions" :multiple="true"
+                            :close-on-select="false" :clear-on-select="false"
+                            :preserve-search="true" placeholder="Seleccione una"
+                            label="text" track-by="id" :preselect-first="true">
+                                <template slot="selection" slot-scope="{ values, isOpen }">
+                                    <span class="multiselect__single" v-if="values.length &amp;&amp; !isOpen">
+                                        {{ values.length }}
+                                        opciones
+                                        selecionadas
+                                    </span>
+                                </template>
+                        </multiselect>
+                    </div>
+                    <div v-if="areaOptions.length > 0" class="form-group">
+                        <button class="btn btn-primary mt-2 mb-2" v-on:click="getStudents()">
+                            Obtener Estudiante
+                        </button>
+                    </div>
+                    <div v-if="studentsOptions.length > 0" class="form-goup">
+                        <label>Estudiante</label>
+                        <multiselect v-model="saveStudents" :options="studentsOptions" :multiple="true"
+                            :close-on-select="false" :clear-on-select="false"
+                            :preserve-search="true" placeholder="Seleccione una"
+                            label="text" track-by="id" :preselect-first="true">
+                                <template slot="selection" slot-scope="{ values, isOpen }">
+                                    <span class="multiselect__single" v-if="values.length &amp;&amp; !isOpen">
+                                        {{ values.length }}
+                                        opciones
+                                        selecionadas
+                                    </span>
+                                </template>
+                        </multiselect>
+                    </div>
+                    
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" v-on:click="exportData()">Exportar</button>
@@ -66,15 +87,16 @@ export default {
         return{
             dateToExport:"",
             teachersOptions:[],
+            areaOptions:[],
             studentsOptions:[],
             dataToExport:[],
             saveStudents:[],
+            saveArea:[],
             saveTeachers:{}
         }
     },
     mounted(){
         this.getTeachers();
-        this.getStudents();
     },
     components: {
         Multiselect,
@@ -90,15 +112,40 @@ export default {
                 });
             })
         },
-        getStudents(){
-            axios.get('getStudents').then(response => {
-                response.data.forEach(element => {
-                    this.studentsOptions.push({
+        getArea(){
+            axios.get(`GetAreaToReport/${this.saveTeachers.id}`).then((response) => {
+                let area = response.data;
+                area.forEach(element => {
+                    this.areaOptions.push({
                         id: element.id,
-                        text: `${element.name}`+` ${element.last_name}` 
+                        id_area: element.id_area,
+                        id_classroom: element.id_classroom,
+                        text: element.text
                     })
+                })
+            });
+        },
+        getStudents(){
+            this.areaOptions.forEach(area=>{
+                axios.get(`/api/teacher/area/${area.id}/classroom/${area.id_classroom}/student`).then(response => {
+                    response.data.forEach(element => {
+                        this.studentsOptions.push({
+                            id: element.user_id,
+                            text: `${element.user_name}`+` ${element.user_lastname}` 
+                        })
+                    });
+
+                    var hash = {};
+                    this.studentsOptions = this.studentsOptions.filter(function(current) {
+                        var exists = !hash[current.id];
+                        hash[current.id] = true;
+                        return exists;
+                    });
+
+                    console.log(JSON.stringify(this.studentsOptions))
                 });
             })
+            //console.log(this.studentsOptions);
         },
         exportData(){
             axios.get(`GetAreaToReport/${this.saveTeachers.id}`).then((response) => {
@@ -107,12 +154,15 @@ export default {
                     this.saveStudents.forEach(saveStudents => {
                         axios.get(`/api/teacher/area/${parseInt(area.id)}/classroom/${parseInt(area.id_classroom)}/student/${parseInt(saveStudents.id)}`).then((response) => {
                             let classRoom = response.data;
-                            this.dataToExport.push({
-                                clase: area.text,
-                                Estudiante: classRoom.name,
-                                Progreso: `${classRoom.progress === -1 ? 0 : classRoom.progress.toString()} %`,
-                                Nota: `${classRoom.score === -1 ? 0 : classRoom.score.toString()} / ${classRoom.score_base.toString()}`,
-                            })
+                            console.log()
+                            if(Date.parse(classRoom.created_at) <= Date.parse(this.dateToExport)){
+                                this.dataToExport.push({
+                                    clase: area.text,
+                                    Estudiante: classRoom.name,
+                                    Progreso: `${classRoom.progress === -1 ? 0 : classRoom.progress.toString()} %`,
+                                    Nota: `${classRoom.score === -1 ? 0 : classRoom.score.toString()} / ${classRoom.score_base.toString()}`,
+                                })
+                            }
                         });
                     })
                 })

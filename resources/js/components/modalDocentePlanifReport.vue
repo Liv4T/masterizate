@@ -133,7 +133,6 @@ export default {
                             materia: area.text
                         });
                     }else if(this.planification === "quarters"){
-                        console.log(anual)
                         this.quaterlyPlanification.push({
                             class_name: anual.classroom_name,
                             quaterly: anual.quaterly,
@@ -167,8 +166,8 @@ export default {
                     })
                     if(this.quaterlyPlanification[i].quaterly.length > 0){   
                         for(let h = 0; h < this.quaterlyPlanification[i].quaterly.length; h++){
-                            this.cleanData[i][`Contenido`+(h+1)] = this.quaterlyPlanification[i].quaterly[h].content
-                            this.cleanData[i][`Nombre de la Unidad`+(h+1)] = this.quaterlyPlanification[i].quaterly[h].unit_name
+                            this.cleanData[i][`Indicador`+(h+1)] = this.quaterlyPlanification[i].quaterly[h].content
+                            this.cleanData[i][`Contenido`+(h+1)] = this.quaterlyPlanification[i].quaterly[h].unit_name
                         }
                     }
                 }
