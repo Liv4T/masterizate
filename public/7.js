@@ -67,6 +67,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___default.a);
 
@@ -622,7 +625,9 @@ var render = function() {
                   ],
                   1
                 )
-              : _vm._e()
+              : _c("div", { staticClass: "form-goup" }, [
+                  _c("strong", [_vm._v("No existen Areas Disponibles")])
+                ])
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "modal-footer" }, [

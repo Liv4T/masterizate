@@ -43,7 +43,10 @@
                                     </span>
                                 </template>
                         </multiselect>
-                    </div>                    
+                    </div>    
+                    <div v-else class="form-goup">
+                        <strong>No existen Areas Disponibles</strong>
+                    </div>                
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" v-on:click="exportData()">Exportar</button>
