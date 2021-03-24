@@ -52,8 +52,8 @@
                                 </div>
                                 <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
                                     <div class="card-body">
-                                        <div class="form-group text-center">
-                                            <button class="btn btn-primary">Materias</button>
+                                        <div class="form-group text-center">                                            
+                                            <button class="btn btn-primary" data-toggle="modal" data-target="#reportMateriasModal">Reporte de Materias</button>
                                         </div>
                                     </div>
                                 </div>
@@ -84,6 +84,7 @@
         <modal-planif-docente></modal-planif-docente>
         <modal-course></modal-course>
         <modal-estudiante></modal-estudiante>
+        <modal-materias></modal-materias>
     </div>
 </template>
 <script>

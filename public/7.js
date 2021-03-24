@@ -137,7 +137,7 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
 
       if (this.dataToExport.length > 0) {
         var data = this.dataToExport;
-        var fileName = 'Reporte Notas';
+        var fileName = 'Reporte Cursos';
         var exportType = 'xls';
         this.dataToExport = [], this.saveTeachers = [], this.saveArea = [], $('#reportTeacherCourseModal').modal('hide');
         Object(export_from_json__WEBPACK_IMPORTED_MODULE_1__["default"])({

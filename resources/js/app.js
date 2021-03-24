@@ -244,4 +244,5 @@ Vue.component("modal-docente", ()=> import("./components/modalDocenteReport.vue"
 Vue.component("modal-planif-docente", ()=> import("./components/modalDocentePlanifReport.vue"));
 Vue.component("modal-course", ()=> import("./components/modalDocenteCurso.vue"));
 Vue.component("modal-estudiante", ()=> import("./components/modalEstudiante.vue"));
+Vue.component("modal-materias", ()=> import("./components/modalMaterias.vue"));
 const app = new Vue({el: "#app", data: {}, store});

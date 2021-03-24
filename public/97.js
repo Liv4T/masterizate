@@ -97,6 +97,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {};
@@ -134,7 +135,9 @@ var render = function() {
       _vm._v(" "),
       _c("modal-course"),
       _vm._v(" "),
-      _c("modal-estudiante")
+      _c("modal-estudiante"),
+      _vm._v(" "),
+      _c("modal-materias")
     ],
     1
   )
@@ -319,9 +322,17 @@ var staticRenderFns = [
                   [
                     _c("div", { staticClass: "card-body" }, [
                       _c("div", { staticClass: "form-group text-center" }, [
-                        _c("button", { staticClass: "btn btn-primary" }, [
-                          _vm._v("Materias")
-                        ])
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-primary",
+                            attrs: {
+                              "data-toggle": "modal",
+                              "data-target": "#reportMateriasModal"
+                            }
+                          },
+                          [_vm._v("Reporte de Materias")]
+                        )
                       ])
                     ])
                   ]

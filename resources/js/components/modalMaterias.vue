@@ -1,17 +1,17 @@
 <template>
-    <div class="modal fade bd-example-modal-lg" id="reportEstudianteModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal fade bd-example-modal-lg" id="reportMateriasModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Reporte de Estudiantes</h5>
+                    <h5 class="modal-title">Reporte de Materias</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
                     <div class="form-goup">
-                        <label>Estudiante</label>
-                        <multiselect v-model="saveStudents" :options="studentsOptions" :multiple="true"
+                        <label>Docente</label>
+                        <multiselect v-model="saveTeachers" :options="teachersOptions" :multiple="true"
                             :close-on-select="false" :clear-on-select="false"
                             :preserve-search="true" placeholder="Seleccione una"
                             label="text" track-by="id" :preselect-first="true">
@@ -24,7 +24,6 @@
                                 </template>
                         </multiselect>
                     </div>
-                    
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" v-on:click="exportData()">Exportar</button>
@@ -41,50 +40,53 @@ import exportFromJSON from 'export-from-json';
 export default {
     data(){
         return{
-            studentsOptions:[],
-            saveStudents:[],
-            DataToExport:[]
+            teachersOptions:[],
+            saveTeachers:[],
+            DataToExport:[],
+            
         }
     },
     mounted(){
-        this.getStudents();
+        this.getTeachers();
     },
     components: {
         Multiselect,
     },
     methods:{
-        getStudents(){
-            axios.get('getAllStudents').then(response => {
+        getTeachers(){
+            axios.get('getTeachers').then(response => {
                 response.data.forEach(element => {
-                    this.studentsOptions.push({
+                    this.teachersOptions.push({
                         id: element.id,
-                        text: `${element.name}`+` ${element.last_name}`,
-                        parent_id: element.parent_id 
+                        text: `${element.name}`+` ${element.last_name}` 
                     })
                 });
-            });
+            })
         },
         exportData(){
-            this.saveStudents.forEach(student => {
-                if(student.id && student.parent_id){
-                    axios.get(`reportStudents/${student.id}/${student.parent_id}`).then((response) => {
-                        this.DataToExport.push(response.data);
-                    });
-                }else{
-                    toastr.info(`El estudiante ${student.text} no cuenta con un acudiente asignado`);
-                }
+            this.saveTeachers.forEach(teacher => {
+                axios.get(`GetAreaToReport/${teacher.id}`).then((response) => {
+                    let findedTeachers = response.data;
+                    findedTeachers.forEach(element => {
+                        this.DataToExport.push({
+                            Salon: element.classroom,
+                            Area: element.text,
+                            Profesor_asignado: teacher.text
+                        })
+                    })
+                });
             })
             if(this.DataToExport.length > 0){
                 const data = this.DataToExport;
-                const fileName = 'Reporte Estudiantes'
+                const fileName = 'Reporte Materias'
                 const exportType = 'xls'
                 this.DataToExport = [];
-                this.saveStudents=[];
-                $("reportEstudianteModal").modal("hide");
+                this.saveTeachers = [];
+                $("#reportMateriasModal").modal('hide');
                 exportFromJSON({ data, fileName, exportType })
             }else{
                 toastr.info("No hay datos disponibles")
-            }
+            }           
         }
     }
 }

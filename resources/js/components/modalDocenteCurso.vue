@@ -118,7 +118,7 @@ export default {
             })
             if(this.dataToExport.length > 0){
                 const data = this.dataToExport;
-                const fileName = 'Reporte Notas'
+                const fileName = 'Reporte Cursos'
                 const exportType = 'xls'
                 this.dataToExport = [],
                 this.saveTeachers = [],
