@@ -187,7 +187,8 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
         var data = this.DataToExport;
         var fileName = 'Reporte Notas';
         var exportType = 'xls';
-        this.DataToExport = [];
+        this.dateToExport = "", this.DataToExport = [];
+        this.saveTeachers = [];
         this.areaOptions = [];
         this.saveStudents = [];
         this.saveArea = [];

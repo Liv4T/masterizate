@@ -169,7 +169,8 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
           this.DataToExport.push({
             Clase: this.anualPlanification[i].class_name,
             Profesor: this.saveTeachers.text,
-            Materia: this.anualPlanification[i].materia
+            Materia: this.anualPlanification[i].materia,
+            Fecha: new Date()
           });
 
           if (this.anualPlanification[i].achievements.length > 0) {
@@ -184,7 +185,8 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
           this.DataToExport.push({
             Clase: this.quaterlyPlanification[_i].class_name,
             Profesor: this.saveTeachers.text,
-            Materia: this.quaterlyPlanification[_i].materia
+            Materia: this.quaterlyPlanification[_i].materia,
+            Fecha: new Date()
           });
 
           if (this.quaterlyPlanification[_i].quaterly.length > 0) {

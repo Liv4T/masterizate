@@ -150,7 +150,8 @@ export default {
                     this.DataToExport.push({
                         Clase: this.anualPlanification[i].class_name,
                         Profesor: this.saveTeachers.text,
-                        Materia: this.anualPlanification[i].materia
+                        Materia: this.anualPlanification[i].materia,
+                        Fecha: new Date()
                     })
                     if(this.anualPlanification[i].achievements.length > 0){            
                         for(let h = 0; h < this.anualPlanification[i].achievements.length; h++){
@@ -164,7 +165,8 @@ export default {
                     this.DataToExport.push({
                         Clase: this.quaterlyPlanification[i].class_name,
                         Profesor: this.saveTeachers.text,
-                        Materia: this.quaterlyPlanification[i].materia
+                        Materia: this.quaterlyPlanification[i].materia,
+                        Fecha: new Date()
                     })
                     if(this.quaterlyPlanification[i].quaterly.length > 0){   
                         for(let h = 0; h < this.quaterlyPlanification[i].quaterly.length; h++){
@@ -183,7 +185,7 @@ export default {
                                 Clase: clas.class,
                                 Observacion: clas.observation,
                                 Ciclo: clas.text,  
-                                Fecha: new Date()                              
+                                Fecha: new Date()
                             })
                         })
                     })

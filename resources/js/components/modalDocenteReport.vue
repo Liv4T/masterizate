@@ -165,7 +165,9 @@ export default {
                 const data = this.DataToExport;
                 const fileName = 'Reporte Notas'
                 const exportType = 'xls'
+                this.dateToExport = "",
                 this.DataToExport = [];
+                this.saveTeachers = [];
                 this.areaOptions = [];
                 this.saveStudents=[];
                 this.saveArea=[];
