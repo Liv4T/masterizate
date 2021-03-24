@@ -61,6 +61,12 @@
                                 Trimestral
                             </label>
                         </div>
+                        <div class="form-check">
+                            <input v-model="planification" class="form-check-input" type="radio" name="filter" id="filter3" value="clases">
+                            <label class="form-check-label" for="filter3">
+                                Clases
+                            </label>
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -171,6 +177,22 @@ export default {
                         }
                     }
                 }
+            }else if (this.planification === "clases"){
+                this.saveArea.forEach(area=>{
+                    axios.get(`viewGetWeek/${area.id_area}/${area.id_classroom}`).then((response) => {
+                        let clase = response.data;
+                        console.log(clase);
+                        clase.forEach(clas => {
+                            this.cleanData.push({
+                                Area: area.text,
+                                Clase: clas.class,
+                                Observacion: clas.observation,
+                                Ciclo: clas.text,                                
+                            })
+                        })
+                    })
+                })
+                console.log(this.cleanData)
             }
 
             if(this.cleanData.length > 0){

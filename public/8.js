@@ -85,6 +85,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___default.a);
 
@@ -192,6 +198,22 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
             }
           }
         }
+      } else if (this.planification === "clases") {
+        this.saveArea.forEach(function (area) {
+          axios.get("viewGetWeek/".concat(area.id_area, "/").concat(area.id_classroom)).then(function (response) {
+            var clase = response.data;
+            console.log(clase);
+            clase.forEach(function (clas) {
+              _this3.cleanData.push({
+                Area: area.text,
+                Clase: clas["class"],
+                Observacion: clas.observation,
+                Ciclo: clas.text
+              });
+            });
+          });
+        });
+        console.log(this.cleanData);
       }
 
       if (this.cleanData.length > 0) {
@@ -779,6 +801,45 @@ var render = function() {
                     [
                       _vm._v(
                         "\n                            Trimestral\n                        "
+                      )
+                    ]
+                  )
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-check" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.planification,
+                        expression: "planification"
+                      }
+                    ],
+                    staticClass: "form-check-input",
+                    attrs: {
+                      type: "radio",
+                      name: "filter",
+                      id: "filter3",
+                      value: "clases"
+                    },
+                    domProps: { checked: _vm._q(_vm.planification, "clases") },
+                    on: {
+                      change: function($event) {
+                        _vm.planification = "clases"
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "label",
+                    {
+                      staticClass: "form-check-label",
+                      attrs: { for: "filter3" }
+                    },
+                    [
+                      _vm._v(
+                        "\n                            Clases\n                        "
                       )
                     ]
                   )
