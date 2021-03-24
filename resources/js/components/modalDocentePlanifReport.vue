@@ -182,7 +182,8 @@ export default {
                                 Area: area.text,
                                 Clase: clas.class,
                                 Observacion: clas.observation,
-                                Ciclo: clas.text,                                
+                                Ciclo: clas.text,  
+                                Fecha: new Date()                              
                             })
                         })
                     })

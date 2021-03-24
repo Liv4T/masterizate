@@ -203,7 +203,8 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
                 Area: area.text,
                 Clase: clas["class"],
                 Observacion: clas.observation,
-                Ciclo: clas.text
+                Ciclo: clas.text,
+                Fecha: new Date()
               });
             });
           });
