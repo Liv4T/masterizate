@@ -215,6 +215,7 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
         var fileName = 'Reporte Planeación';
         var exportType = 'xls';
         this.DataToExport = [], this.saveArea = [], this.areaOptions = [], this.saveTeachers = [], this.anualPlanification = [];
+        this.quaterlyPlanification = [];
         $("#reportTeacherPlanifModal").modal("hide");
         Object(export_from_json__WEBPACK_IMPORTED_MODULE_1__["default"])({
           data: data,

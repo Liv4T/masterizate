@@ -198,6 +198,7 @@ export default {
                 this.areaOptions=[],
                 this.saveTeachers=[],
                 this.anualPlanification=[]
+                this.quaterlyPlanification=[]
                 $("#reportTeacherPlanifModal").modal("hide");
                 exportFromJSON({ data, fileName, exportType })
             }else{
