@@ -99,16 +99,12 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
     return {
       teachersOptions: [],
       areaOptions: [],
-      dataToExport: [],
       saveTeachers: {},
       planification: "",
       saveArea: [],
       anualPlanification: [],
       quaterlyPlanification: [],
-      anual: [],
-      headers: [],
-      cleanData: [],
-      areasByTeacher: {}
+      DataToExport: []
     };
   },
   mounted: function mounted() {
@@ -170,7 +166,7 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
 
       if (this.planification === "anual") {
         for (var i = 0; i < this.anualPlanification.length; i++) {
-          this.cleanData.push({
+          this.DataToExport.push({
             Clase: this.anualPlanification[i].class_name,
             Profesor: this.saveTeachers.text,
             Materia: this.anualPlanification[i].materia
@@ -178,14 +174,14 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
 
           if (this.anualPlanification[i].achievements.length > 0) {
             for (var h = 0; h < this.anualPlanification[i].achievements.length; h++) {
-              this.cleanData[i]["logro" + (h + 1)] = this.anualPlanification[i].achievements[h].achievement;
+              this.DataToExport[i]["logro" + (h + 1)] = this.anualPlanification[i].achievements[h].achievement;
             }
           }
         } //Organizacion de datos para exportacion mediante Planificación Trimestral
 
       } else if (this.planification === "quarters") {
         for (var _i = 0; _i < this.quaterlyPlanification.length; _i++) {
-          this.cleanData.push({
+          this.DataToExport.push({
             Clase: this.quaterlyPlanification[_i].class_name,
             Profesor: this.saveTeachers.text,
             Materia: this.quaterlyPlanification[_i].materia
@@ -193,8 +189,8 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
 
           if (this.quaterlyPlanification[_i].quaterly.length > 0) {
             for (var _h = 0; _h < this.quaterlyPlanification[_i].quaterly.length; _h++) {
-              this.cleanData[_i]["Indicador" + (_h + 1)] = this.quaterlyPlanification[_i].quaterly[_h].content;
-              this.cleanData[_i]["Contenido" + (_h + 1)] = this.quaterlyPlanification[_i].quaterly[_h].unit_name;
+              this.DataToExport[_i]["Indicador" + (_h + 1)] = this.quaterlyPlanification[_i].quaterly[_h].content;
+              this.DataToExport[_i]["Contenido" + (_h + 1)] = this.quaterlyPlanification[_i].quaterly[_h].unit_name;
             }
           }
         }
@@ -202,9 +198,8 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
         this.saveArea.forEach(function (area) {
           axios.get("viewGetWeek/".concat(area.id_area, "/").concat(area.id_classroom)).then(function (response) {
             var clase = response.data;
-            console.log(clase);
             clase.forEach(function (clas) {
-              _this3.cleanData.push({
+              _this3.DataToExport.push({
                 Area: area.text,
                 Clase: clas["class"],
                 Observacion: clas.observation,
@@ -213,14 +208,13 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
             });
           });
         });
-        console.log(this.cleanData);
       }
 
-      if (this.cleanData.length > 0) {
-        var data = this.cleanData;
+      if (this.DataToExport.length > 0) {
+        var data = this.DataToExport;
         var fileName = 'Reporte Planeación';
         var exportType = 'xls';
-        this.cleanData = [], this.saveArea = [], this.areaOptions = [], this.saveTeachers = [], this.anualPlanification = [];
+        this.DataToExport = [], this.saveArea = [], this.areaOptions = [], this.saveTeachers = [], this.anualPlanification = [];
         $("#reportTeacherPlanifModal").modal("hide");
         Object(export_from_json__WEBPACK_IMPORTED_MODULE_1__["default"])({
           data: data,

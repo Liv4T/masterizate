@@ -86,16 +86,12 @@ export default {
         return{
             teachersOptions:[],
             areaOptions:[],
-            dataToExport:[],
             saveTeachers:{},
             planification:"",
             saveArea:[],
             anualPlanification:[],
             quaterlyPlanification:[],
-            anual:[],
-            headers:[],
-            cleanData:[],
-            areasByTeacher:{}
+            DataToExport:[]
         }
     },
     mounted(){
@@ -151,29 +147,29 @@ export default {
             //Organizacion de datos para exportacion mediante Planificación Anual
             if(this.planification === "anual"){
                 for(let i = 0; i < this.anualPlanification.length; i++){
-                    this.cleanData.push({
+                    this.DataToExport.push({
                         Clase: this.anualPlanification[i].class_name,
                         Profesor: this.saveTeachers.text,
                         Materia: this.anualPlanification[i].materia
                     })
                     if(this.anualPlanification[i].achievements.length > 0){            
                         for(let h = 0; h < this.anualPlanification[i].achievements.length; h++){
-                            this.cleanData[i][`logro`+(h+1)] = this.anualPlanification[i].achievements[h].achievement
+                            this.DataToExport[i][`logro`+(h+1)] = this.anualPlanification[i].achievements[h].achievement
                         }
                     }
                 }
             //Organizacion de datos para exportacion mediante Planificación Trimestral
             }else if(this.planification === "quarters"){
                 for(let i = 0; i < this.quaterlyPlanification.length; i++){
-                    this.cleanData.push({
+                    this.DataToExport.push({
                         Clase: this.quaterlyPlanification[i].class_name,
                         Profesor: this.saveTeachers.text,
                         Materia: this.quaterlyPlanification[i].materia
                     })
                     if(this.quaterlyPlanification[i].quaterly.length > 0){   
                         for(let h = 0; h < this.quaterlyPlanification[i].quaterly.length; h++){
-                            this.cleanData[i][`Indicador`+(h+1)] = this.quaterlyPlanification[i].quaterly[h].content
-                            this.cleanData[i][`Contenido`+(h+1)] = this.quaterlyPlanification[i].quaterly[h].unit_name
+                            this.DataToExport[i][`Indicador`+(h+1)] = this.quaterlyPlanification[i].quaterly[h].content
+                            this.DataToExport[i][`Contenido`+(h+1)] = this.quaterlyPlanification[i].quaterly[h].unit_name
                         }
                     }
                 }
@@ -181,9 +177,8 @@ export default {
                 this.saveArea.forEach(area=>{
                     axios.get(`viewGetWeek/${area.id_area}/${area.id_classroom}`).then((response) => {
                         let clase = response.data;
-                        console.log(clase);
                         clase.forEach(clas => {
-                            this.cleanData.push({
+                            this.DataToExport.push({
                                 Area: area.text,
                                 Clase: clas.class,
                                 Observacion: clas.observation,
@@ -192,14 +187,13 @@ export default {
                         })
                     })
                 })
-                console.log(this.cleanData)
             }
 
-            if(this.cleanData.length > 0){
-                const data = this.cleanData;
+            if(this.DataToExport.length > 0){
+                const data = this.DataToExport;
                 const fileName = 'Reporte Planeación'
                 const exportType = 'xls'
-                this.cleanData=[],
+                this.DataToExport=[],
                 this.saveArea=[],
                 this.areaOptions=[],
                 this.saveTeachers=[],

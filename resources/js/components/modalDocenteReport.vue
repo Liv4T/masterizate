@@ -34,7 +34,7 @@
                         </button>
                     </div>
                     <div v-if="areaOptions.length > 0" class="form-goup">
-                        <label>Areas Disponibles</label>
+                        <label>Areas Consultadas</label>
                         <multiselect v-model="saveArea" :options="areaOptions" :multiple="true"
                             :close-on-select="false" :clear-on-select="false"
                             :preserve-search="true" placeholder="Seleccione una"
@@ -89,9 +89,9 @@ export default {
             teachersOptions:[],
             areaOptions:[],
             studentsOptions:[],
-            dataToExport:[],
             saveStudents:[],
             saveArea:[],
+            DataToExport:[],
             saveTeachers:{}
         }
     },
@@ -126,7 +126,7 @@ export default {
             });
         },
         getStudents(){
-            this.areaOptions.forEach(area=>{
+            this.saveArea.forEach(area=>{
                 axios.get(`/api/teacher/area/${area.id}/classroom/${area.id_classroom}/student`).then(response => {
                     response.data.forEach(element => {
                         this.studentsOptions.push({
@@ -145,34 +145,33 @@ export default {
             })
         },
         exportData(){
-            axios.get(`GetAreaToReport/${this.saveTeachers.id}`).then((response) => {
-                let areas = response.data;
-                areas.forEach(area => {
-                    this.saveStudents.forEach(saveStudents => {
-                        axios.get(`/api/teacher/area/${parseInt(area.id)}/classroom/${parseInt(area.id_classroom)}/student/${parseInt(saveStudents.id)}`).then((response) => {
-                            let classRoom = response.data;
-                            if(Date.parse(classRoom.created_at) <= Date.parse(this.dateToExport)){
-                                this.dataToExport.push({
-                                    clase: area.text,
-                                    Estudiante: classRoom.name,
-                                    Profesor: this.saveTeachers.text,
-                                    Progreso: `${classRoom.progress === -1 ? 0 : classRoom.progress.toString()} %`,
-                                    Nota: `${classRoom.score === -1 ? 0 : classRoom.score.toString()} / ${classRoom.score_base.toString()}`,
-                                })
-                            }
-                        });
-                    })
+            this.saveArea.forEach(area => {
+                this.saveStudents.forEach(saveStudents => {
+                    axios.get(`/api/teacher/area/${parseInt(area.id)}/classroom/${parseInt(area.id_classroom)}/student/${parseInt(saveStudents.id)}`).then((response) => {
+                        let classRoom = response.data;
+                        if(Date.parse(classRoom.created_at) <= Date.parse(this.dateToExport)){
+                            this.DataToExport.push({
+                                clase: area.text,
+                                Estudiante: classRoom.name,
+                                Profesor: this.saveTeachers.text,
+                                Progreso: `${classRoom.progress === -1 ? 0 : classRoom.progress.toString()} %`,
+                                Nota: `${classRoom.score === -1 ? 0 : classRoom.score.toString()} / ${classRoom.score_base.toString()}`,
+                            })
+                        }
+                    });
                 })
-                if(this.dataToExport.length > 0){
-                    const data = this.dataToExport;
-                    const fileName = 'Reporte Notas'
-                    const exportType = 'xls'
-                    
-                    exportFromJSON({ data, fileName, exportType })
-                }else{
-                    toastr.info("No hay datos disponibles")
-                }
-            });            
+            })
+            if(this.DataToExport.length > 0){
+                const data = this.DataToExport;
+                const fileName = 'Reporte Notas'
+                const exportType = 'xls'
+                this.DataToExport = [];
+                this.areaOptions = [];
+                this.studentsOptions = []
+                exportFromJSON({ data, fileName, exportType })
+            }else{
+                toastr.info("No hay datos disponibles")
+            }           
         }
     }
 }

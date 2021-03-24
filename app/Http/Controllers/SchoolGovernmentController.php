@@ -83,7 +83,7 @@ class SchoolGovernmentController extends Controller
     }
 
     public function students(){
-        $students = Users::where('type_user','=',3)->get();
+        $students = User::where('type_user','=',3)->get();
         return response()->json($students);
     }
 
@@ -100,6 +100,32 @@ class SchoolGovernmentController extends Controller
     public function user(String $userid){
         $user = User::where('id',$userid)->get();
         return response()->json($user);
+    }
+
+    public function getReportStudents(String $idStudent, String $idParent){
+        $infoStudents=[];
+        $students = User::where('id','=',$idStudent)->get();
+        $parents = User::where('id','=',$idParent)->get();
+        
+        foreach($students as $student){
+            foreach($parents as $parent){
+                if($student->parent_id === $parent->id){
+                    $infoStudents = array_merge($infoStudents, array(
+                        "Estudiante"=>$student->name.' '.$student->last_name,
+                        "Email_Estudiante"=>strval($student->email),
+                        "Acudiente"=>$parent->name,
+                        "Identificacion_Estudiante"=>$student->id_number,
+                        "Identificacion_Acudiente"=>$parent->id_number,
+                        "Telefono_Acudiente"=>$parent->phone
+                    ));
+                    return response()->json($infoStudents);
+                }else{
+                    return "No se encuentra información correspopondiente al estudiante";
+                }
+            }
+        }
+
+        
     }
     /**
      * Show the form for creating a new resource.

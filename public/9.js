@@ -102,9 +102,9 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
       teachersOptions: [],
       areaOptions: [],
       studentsOptions: [],
-      dataToExport: [],
       saveStudents: [],
       saveArea: [],
+      DataToExport: [],
       saveTeachers: {}
     };
   },
@@ -145,7 +145,7 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
     getStudents: function getStudents() {
       var _this3 = this;
 
-      this.areaOptions.forEach(function (area) {
+      this.saveArea.forEach(function (area) {
         axios.get("/api/teacher/area/".concat(area.id, "/classroom/").concat(area.id_classroom, "/student")).then(function (response) {
           response.data.forEach(function (element) {
             _this3.studentsOptions.push({
@@ -165,39 +165,39 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
     exportData: function exportData() {
       var _this4 = this;
 
-      axios.get("GetAreaToReport/".concat(this.saveTeachers.id)).then(function (response) {
-        var areas = response.data;
-        areas.forEach(function (area) {
-          _this4.saveStudents.forEach(function (saveStudents) {
-            axios.get("/api/teacher/area/".concat(parseInt(area.id), "/classroom/").concat(parseInt(area.id_classroom), "/student/").concat(parseInt(saveStudents.id))).then(function (response) {
-              var classRoom = response.data;
+      this.saveArea.forEach(function (area) {
+        _this4.saveStudents.forEach(function (saveStudents) {
+          axios.get("/api/teacher/area/".concat(parseInt(area.id), "/classroom/").concat(parseInt(area.id_classroom), "/student/").concat(parseInt(saveStudents.id))).then(function (response) {
+            var classRoom = response.data;
 
-              if (Date.parse(classRoom.created_at) <= Date.parse(_this4.dateToExport)) {
-                _this4.dataToExport.push({
-                  clase: area.text,
-                  Estudiante: classRoom.name,
-                  Profesor: _this4.saveTeachers.text,
-                  Progreso: "".concat(classRoom.progress === -1 ? 0 : classRoom.progress.toString(), " %"),
-                  Nota: "".concat(classRoom.score === -1 ? 0 : classRoom.score.toString(), " / ").concat(classRoom.score_base.toString())
-                });
-              }
-            });
+            if (Date.parse(classRoom.created_at) <= Date.parse(_this4.dateToExport)) {
+              _this4.DataToExport.push({
+                clase: area.text,
+                Estudiante: classRoom.name,
+                Profesor: _this4.saveTeachers.text,
+                Progreso: "".concat(classRoom.progress === -1 ? 0 : classRoom.progress.toString(), " %"),
+                Nota: "".concat(classRoom.score === -1 ? 0 : classRoom.score.toString(), " / ").concat(classRoom.score_base.toString())
+              });
+            }
           });
         });
-
-        if (_this4.dataToExport.length > 0) {
-          var data = _this4.dataToExport;
-          var fileName = 'Reporte Notas';
-          var exportType = 'xls';
-          Object(export_from_json__WEBPACK_IMPORTED_MODULE_1__["default"])({
-            data: data,
-            fileName: fileName,
-            exportType: exportType
-          });
-        } else {
-          toastr.info("No hay datos disponibles");
-        }
       });
+
+      if (this.DataToExport.length > 0) {
+        var data = this.DataToExport;
+        var fileName = 'Reporte Notas';
+        var exportType = 'xls';
+        this.DataToExport = [];
+        this.areaOptions = [];
+        this.studentsOptions = [];
+        Object(export_from_json__WEBPACK_IMPORTED_MODULE_1__["default"])({
+          data: data,
+          fileName: fileName,
+          exportType: exportType
+        });
+      } else {
+        toastr.info("No hay datos disponibles");
+      }
     }
   }
 });
@@ -646,7 +646,7 @@ var render = function() {
                   "div",
                   { staticClass: "form-goup" },
                   [
-                    _c("label", [_vm._v("Areas Disponibles")]),
+                    _c("label", [_vm._v("Areas Consultadas")]),
                     _vm._v(" "),
                     _c("multiselect", {
                       attrs: {

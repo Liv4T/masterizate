@@ -762,3 +762,5 @@ Route::get('GetPlanificationTeacher/{teacherId}/{id_area}/{id_classroom}','Schoo
 Route::post('GetCoursesInformation','SchoolGovernmentController@getCoursesInformation');
 Route::get('showUser/{userid}','SchoolGovernmentController@user');
 Route::get('getAllAreas', 'SchoolGovernmentController@getAllAreas');
+Route::get('reportStudents/{idStudent}/{idParent}','SchoolGovernmentController@getReportStudents');
+Route::get('getAllStudents','SchoolGovernmentController@students');

@@ -97,7 +97,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {};
@@ -133,7 +132,9 @@ var render = function() {
       _vm._v(" "),
       _c("modal-planif-docente"),
       _vm._v(" "),
-      _c("modal-course")
+      _c("modal-course"),
+      _vm._v(" "),
+      _c("modal-estudiante")
     ],
     1
   )
@@ -319,11 +320,7 @@ var staticRenderFns = [
                     _c("div", { staticClass: "card-body" }, [
                       _c("div", { staticClass: "form-group text-center" }, [
                         _c("button", { staticClass: "btn btn-primary" }, [
-                          _vm._v("Docente")
-                        ]),
-                        _vm._v(" "),
-                        _c("button", { staticClass: "btn btn-primary" }, [
-                          _vm._v("Materia")
+                          _vm._v("Materias")
                         ])
                       ])
                     ])
@@ -343,9 +340,9 @@ var staticRenderFns = [
                           staticClass: "btn btn-link collapsed",
                           attrs: {
                             "data-toggle": "collapse",
-                            "data-target": "#collapseThree",
+                            "data-target": "#collapseFour",
                             "aria-expanded": "false",
-                            "aria-controls": "collapseThree"
+                            "aria-controls": "collapseFour"
                           }
                         },
                         [
@@ -363,7 +360,7 @@ var staticRenderFns = [
                   {
                     staticClass: "collapse",
                     attrs: {
-                      id: "collapseThree",
+                      id: "collapseFour",
                       "aria-labelledby": "headingFour",
                       "data-parent": "#accordion"
                     }
@@ -371,13 +368,17 @@ var staticRenderFns = [
                   [
                     _c("div", { staticClass: "card-body" }, [
                       _c("div", { staticClass: "form-group text-center" }, [
-                        _c("button", { staticClass: "btn btn-primary" }, [
-                          _vm._v("Progreso")
-                        ]),
-                        _vm._v(" "),
-                        _c("button", { staticClass: "btn btn-primary" }, [
-                          _vm._v("Curso")
-                        ])
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-primary",
+                            attrs: {
+                              "data-toggle": "modal",
+                              "data-target": "#reportEstudianteModal"
+                            }
+                          },
+                          [_vm._v("Estudiantes")]
+                        )
                       ])
                     ])
                   ]
