@@ -68,7 +68,6 @@ export default {
             this.saveStudents.forEach(student => {
                 if(student.id && student.parent_id){
                     axios.get(`reportStudents/${student.id}/${student.parent_id}`).then((response) => {
-                        console.log(response.data);
                         this.DataToExport.push(response.data);
                     });
                 }else{
@@ -80,6 +79,7 @@ export default {
                 const fileName = 'Reporte Notas'
                 const exportType = 'xls'
                 this.DataToExport = [];
+                this.saveStudents=[];
                 $("reportEstudianteModal").modal("hide");
                 exportFromJSON({ data, fileName, exportType })
             }else{

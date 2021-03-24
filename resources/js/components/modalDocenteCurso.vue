@@ -107,7 +107,6 @@ export default {
             this.saveArea.forEach(area => {        
                 axios.get(`/api/teacher/area/${parseInt(area.id_area)}/classroom/${parseInt(area.id_classroom)}/student`).then((response) => {
                     let dataExport = response.data;
-                    console.log(dataExport);
                     dataExport.forEach(data => {
                         this.dataToExport.push({
                             estudiante: data.user_name+ '' +data.user_lastname,

@@ -125,7 +125,6 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
       this.saveArea.forEach(function (area) {
         axios.get("/api/teacher/area/".concat(parseInt(area.id_area), "/classroom/").concat(parseInt(area.id_classroom), "/student")).then(function (response) {
           var dataExport = response.data;
-          console.log(dataExport);
           dataExport.forEach(function (data) {
             _this3.dataToExport.push({
               estudiante: data.user_name + '' + data.user_lastname,

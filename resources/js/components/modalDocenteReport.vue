@@ -167,7 +167,10 @@ export default {
                 const exportType = 'xls'
                 this.DataToExport = [];
                 this.areaOptions = [];
-                this.studentsOptions = []
+                this.saveStudents=[];
+                this.saveArea=[];
+                this.studentsOptions = [];
+                $("#reportTeacherModal").modal('hide');
                 exportFromJSON({ data, fileName, exportType })
             }else{
                 toastr.info("No hay datos disponibles")

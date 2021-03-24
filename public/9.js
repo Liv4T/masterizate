@@ -189,7 +189,10 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
         var exportType = 'xls';
         this.DataToExport = [];
         this.areaOptions = [];
+        this.saveStudents = [];
+        this.saveArea = [];
         this.studentsOptions = [];
+        $("#reportTeacherModal").modal('hide');
         Object(export_from_json__WEBPACK_IMPORTED_MODULE_1__["default"])({
           data: data,
           fileName: fileName,

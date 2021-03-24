@@ -85,8 +85,6 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
       this.saveStudents.forEach(function (student) {
         if (student.id && student.parent_id) {
           axios.get("reportStudents/".concat(student.id, "/").concat(student.parent_id)).then(function (response) {
-            console.log(response.data);
-
             _this2.DataToExport.push(response.data);
           });
         } else {
@@ -99,6 +97,7 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
         var fileName = 'Reporte Notas';
         var exportType = 'xls';
         this.DataToExport = [];
+        this.saveStudents = [];
         $("reportEstudianteModal").modal("hide");
         Object(export_from_json__WEBPACK_IMPORTED_MODULE_1__["default"])({
           data: data,
