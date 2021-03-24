@@ -53,10 +53,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["id_area", "id_classroom", "id_student", "id_module", "id_class"],
   data: function data() {
@@ -198,10 +194,25 @@ var render = function() {
                 _c("small", [_vm._v("Correo:")]),
                 _vm._v(" "),
                 _c("span", [_vm._v(_vm._s(_vm.current_student.email))])
-              ])
+              ]),
+              _vm._v(" "),
+              _c(
+                "a",
+                {
+                  staticClass: "btn btn-primary",
+                  attrs: {
+                    href:
+                      "/api/student/" +
+                      _vm.current_student.id +
+                      "/calification-report",
+                    target: "_blank"
+                  }
+                },
+                [_vm._v("Planilla de notas")]
+              )
             ]),
             _vm._v(" "),
-            _c("div", { staticClass: "col-12 col-md-6" }, [
+            _c("div", { staticClass: "col-12 col-md-8" }, [
               _c("div", { staticClass: "course_info" }, [
                 _c("h5", [
                   _vm._v(
@@ -237,9 +248,7 @@ var render = function() {
                   ])
                 ])
               ])
-            ]),
-            _vm._v(" "),
-            _vm._m(1)
+            ])
           ]),
           _vm._v(" "),
           !_vm.id_module
@@ -288,18 +297,6 @@ var staticRenderFns = [
     return _c("div", { staticClass: "card text-center" }, [
       _c("div", { staticClass: "card-header fondo" }, [
         _c("h4", [_vm._v("Progreso de estudiante")])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-12 col-md-2" }, [
-      _c("div", { staticClass: "btn-options" }, [
-        _c("button", { staticClass: "btn btn-primary" }, [
-          _vm._v("Descargar planilla")
-        ])
       ])
     ])
   }

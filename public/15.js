@@ -26,95 +26,162 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: [],
   data: function data() {
     return {
       template_header: "",
       template_footer: "",
+      template_path: "",
+      header_loading: false,
+      footer_loading: false,
       loading: false
     };
   },
-  mounted: function mounted() {},
+  mounted: function mounted() {
+    this.getTemplateHeader();
+    this.getTemplateFooter();
+    this.getTemplatePath();
+  },
   methods: {
-    getTemplateNote: function getTemplateNote() {
+    getTemplateHeader: function getTemplateHeader() {
       var _this = this;
 
-      this.loading = true;
-      axios.get("/api/admin/configuration/property/TEMPLATE_NOTES").then(function (response) {
+      this.header_loading = true;
+      axios.get("/api/admin/configuration/property/TEMPLATE_NOTESHEET_HEADER").then(function (response) {
         if (response.data && response.data.content) {
-          _this.template_url = response.data.content;
-          var split_url = response.data.content.split("/");
-          _this.template_name = split_url[split_url.length - 1];
+          _this.template_header = response.data.content;
         }
 
-        _this.loading = false;
+        _this.header_loading = false;
       }, function (error) {
         console.error(error);
-        _this.loading = false;
+        _this.header_loading = false;
       });
     },
-    updateTemplateNote: function updateTemplateNote() {
+    getTemplateFooter: function getTemplateFooter() {
       var _this2 = this;
 
+      this.footer_loading = true;
+      axios.get("/api/admin/configuration/property/TEMPLATE_NOTESHEET_FOOTER").then(function (response) {
+        if (response.data && response.data.content) {
+          _this2.template_footer = response.data.content;
+        }
+
+        _this2.footer_loading = false;
+      }, function (error) {
+        console.error(error);
+        _this2.footer_loading = false;
+      });
+    },
+    getTemplatePath: function getTemplatePath() {
+      var _this3 = this;
+
+      this.loading = true;
+      axios.get("/api/admin/configuration/property/TEMPLATE_NOTESHEET_PATH").then(function (response) {
+        if (response.data && response.data.content) {
+          _this3.template_path = response.data.content;
+        }
+
+        _this3.loading = false;
+      }, function (error) {
+        console.error(error);
+        _this3.loading = false;
+      });
+    },
+    updateTemplateHeader: function updateTemplateHeader() {
+      var _this4 = this;
+
       return new Promise(function (resolve, reject) {
-        _this2.loading = true;
-        axios.put("/api/admin/configuration/property/TEMPLATE_NOTES", {
-          value: _this2.template_url
+        _this4.header_loading = true;
+        axios.put("/api/admin/configuration/property/TEMPLATE_NOTESHEET_HEADER", {
+          value: _this4.template_header
         }).then(function (response) {
           console.log(response);
 
           if (response.status == 200) {
-            toastr.success("Plantilla actualizada correctamente");
+            toastr.success("Header actualizado correctamente");
           }
 
-          _this2.loading = false;
+          _this4.header_loading = false;
           resolve();
         }, function (error) {
           console.error(error);
-          _this2.loading = false;
+          _this4.header_loading = false;
           reject(error);
         });
       });
     },
-    onFileChange: function onFileChange(file) {
-      var _this3 = this;
+    updateTemplateFooter: function updateTemplateFooter() {
+      var _this5 = this;
 
-      this.loading = true;
-      var files = file.target.files || file.dataTransfer.files;
-      var data = new FormData();
+      return new Promise(function (resolve, reject) {
+        _this5.footer_loading = true;
+        axios.put("/api/admin/configuration/property/TEMPLATE_NOTESHEET_FOOTER", {
+          value: _this5.template_footer
+        }).then(function (response) {
+          console.log(response);
 
-      if (files.length > 0) {
-        this.progress_upload = 10;
-        console.log("evento");
-        var _file = files[0];
+          if (response.status == 200) {
+            toastr.success("Footer actualizado correctamente");
+          }
 
-        var _fileNameSplit = _file.name.split("."); // if uploaded file is valid with validation rules
-
-
-        var file_extension = _fileNameSplit[_fileNameSplit.length - 1];
-
-        var file_name = _file.name.replace(".".concat(file_extension), "");
-
-        this.progress_upload = 20;
-        data.append("file", files[0]);
-        data.append("name", file_name);
-        data.append("count", "-template");
-        axios.post("/fileDocument", data).then(function (response) {
-          _this3.template_url = "".concat(window.location.origin, "/uploads/clases/").concat(file_name.split(" ").join("_"), "-template.").concat(file_extension); //this.template_name = file_name.split(" ").join("_").file_extension;
-
-          _this3.updateTemplateNote().then(function () {
-            _this3.getTemplateNote();
-
-            _this3.progress_upload = 100;
-          });
-        })["catch"](function (err) {
-          console.error(err);
-          _this3.loading = false;
+          _this5.footer_loading = false;
+          resolve();
+        }, function (error) {
+          console.error(error);
+          _this5.footer_loading = false;
+          reject(error);
         });
-      } else {
-        this.loading = false;
-      }
+      });
+    },
+    updateTemplatePath: function updateTemplatePath() {
+      var _this6 = this;
+
+      return new Promise(function (resolve, reject) {
+        _this6.loading = true;
+        axios.put("/api/admin/configuration/property/TEMPLATE_NOTESHEET_PATH", {
+          value: _this6.template_path
+        }).then(function (response) {
+          console.log(response);
+
+          if (response.status == 200) {
+            toastr.success("Plantilla actualizado correctamente");
+          }
+
+          _this6.loading = false;
+          resolve();
+        }, function (error) {
+          console.error(error);
+          _this6.loading = false;
+          reject(error);
+        });
+      });
+    },
+    SetTemplateHeaderEvent: function SetTemplateHeaderEvent(content) {
+      this.template_header = content;
+    },
+    SetTemplateFooterEvent: function SetTemplateFooterEvent(content) {
+      this.template_footer = content;
     }
   }
 });
@@ -189,9 +256,9 @@ var render = function() {
     "div",
     { staticClass: "template-container" },
     [
-      _vm.loading ? _c("content-loader") : _vm._e(),
+      _vm.header_loading ? _c("content-loader") : _vm._e(),
       _vm._v(" "),
-      !_vm.loading
+      !_vm.header_loading
         ? _c("div", { staticClass: "row" }, [
             _c(
               "div",
@@ -200,15 +267,37 @@ var render = function() {
                 _c("h4", [_vm._v("Encabezado de página")]),
                 _vm._v(" "),
                 _c("editor-component", {
-                  attrs: { content: _vm.template_header }
+                  attrs: { content: _vm.template_header },
+                  on: {
+                    updateText: function($event) {
+                      return _vm.SetTemplateHeaderEvent($event)
+                    }
+                  }
                 })
               ],
               1
-            )
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-sm-12" }, [
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-primary",
+                  on: {
+                    click: function($event) {
+                      return _vm.updateTemplateHeader()
+                    }
+                  }
+                },
+                [_vm._v("Guardar Encabezado")]
+              )
+            ])
           ])
         : _vm._e(),
       _vm._v(" "),
-      !_vm.loading
+      _vm.footer_loading ? _c("content-loader") : _vm._e(),
+      _vm._v(" "),
+      !_vm.footer_loading
         ? _c("div", { staticClass: "row" }, [
             _c(
               "div",
@@ -217,13 +306,82 @@ var render = function() {
                 _c("h4", [_vm._v("Pie de página")]),
                 _vm._v(" "),
                 _c("editor-component", {
-                  attrs: { content: _vm.template_footer }
+                  attrs: { content: _vm.template_footer },
+                  on: {
+                    updateText: function($event) {
+                      return _vm.SetTemplateFooterEvent($event)
+                    }
+                  }
                 })
               ],
               1
-            )
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-sm-12" }, [
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-primary",
+                  on: {
+                    click: function($event) {
+                      return _vm.updateTemplateFooter()
+                    }
+                  }
+                },
+                [_vm._v("Guardar Pie de Página")]
+              )
+            ])
           ])
-        : _vm._e()
+        : _vm._e(),
+      _vm._v(" "),
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col-sm-12" }, [
+          !_vm.loading
+            ? _c("div", { staticClass: "parameter" }, [
+                _c("span", { staticClass: "parameter-label" }, [
+                  _vm._v("Plantilla")
+                ]),
+                _vm._v(" "),
+                _c("div", [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.template_path,
+                        expression: "template_path"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: { type: "text" },
+                    domProps: { value: _vm.template_path },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.template_path = $event.target.value
+                      }
+                    }
+                  })
+                ]),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-primary",
+                    on: {
+                      click: function($event) {
+                        return _vm.updateTemplatePath()
+                      }
+                    }
+                  },
+                  [_vm._v("Guardar")]
+                )
+              ])
+            : _vm._e()
+        ])
+      ])
     ],
     1
   )

@@ -1,18 +1,37 @@
 <template>
   <div class="template-container">
-    <content-loader v-if="loading"></content-loader>
-    <div class="row" v-if="!loading">
+    <content-loader v-if="header_loading"></content-loader>
+    <div class="row" v-if="!header_loading">
         <div class="col-sm-12">
             <h4>Encabezado de página</h4>
-            <editor-component :content="template_header"></editor-component>
+            <editor-component :content="template_header" @updateText="SetTemplateHeaderEvent($event)"></editor-component>
+        </div>
+        <div class="col-sm-12">
+           <button class="btn btn-primary" @click="updateTemplateHeader()">Guardar Encabezado</button>
         </div>
     </div>
-    <div class="row" v-if="!loading">
+    <content-loader v-if="footer_loading"></content-loader>
+    <div class="row" v-if="!footer_loading">
         <div class="col-sm-12">
             <h4>Pie de página</h4>
-            <editor-component :content="template_footer"></editor-component>
+            <editor-component :content="template_footer" @updateText="SetTemplateFooterEvent($event)"></editor-component>
+        </div>
+         <div class="col-sm-12">
+           <button class="btn btn-primary" @click="updateTemplateFooter()">Guardar Pie de Página</button>
         </div>
     </div>
+
+     <div class="row">
+          <div class="col-sm-12">
+             <div class="parameter" v-if="!loading">
+            <span class="parameter-label">Plantilla</span>
+            <div>
+                <input type="text" class="form-control" v-model="template_path" />
+            </div>
+            <button class="btn btn-primary" @click="updateTemplatePath()">Guardar</button>
+        </div>
+          </div>
+        </div>
   </div>
 </template>
 <script>
@@ -22,23 +41,56 @@
       return {
         template_header: "",
         template_footer: "",
+        template_path:"",
+        header_loading:false,
+        footer_loading:false,
         loading:false
       };
     },
     mounted() {
-
+        this.getTemplateHeader();
+        this.getTemplateFooter();
+        this.getTemplatePath();
     },
     methods: {
-      getTemplateNote() {
-        this.loading = true;
-        axios.get("/api/admin/configuration/property/TEMPLATE_NOTES").then(
+      getTemplateHeader() {
+        this.header_loading = true;
+        axios.get("/api/admin/configuration/property/TEMPLATE_NOTESHEET_HEADER").then(
           (response) => {
             if (response.data && response.data.content) {
-              this.template_url = response.data.content;
+              this.template_header = response.data.content;
+            }
 
-              const split_url = response.data.content.split("/");
+            this.header_loading = false;
+          },
+          (error) => {
+            console.error(error);
+            this.header_loading = false;
+          }
+        );
+      },
+      getTemplateFooter() {
+        this.footer_loading = true;
+        axios.get("/api/admin/configuration/property/TEMPLATE_NOTESHEET_FOOTER").then(
+          (response) => {
+            if (response.data && response.data.content) {
+              this.template_footer = response.data.content;
+            }
 
-              this.template_name = split_url[split_url.length - 1];
+            this.footer_loading = false;
+          },
+          (error) => {
+            console.error(error);
+            this.footer_loading = false;
+          }
+        );
+      },
+      getTemplatePath() {
+        this.loading = true;
+        axios.get("/api/admin/configuration/property/TEMPLATE_NOTESHEET_PATH").then(
+          (response) => {
+            if (response.data && response.data.content) {
+              this.template_path = response.data.content;
             }
 
             this.loading = false;
@@ -49,14 +101,56 @@
           }
         );
       },
-      updateTemplateNote() {
+      updateTemplateHeader() {
         return new Promise((resolve, reject) => {
-          this.loading = true;
-          axios.put("/api/admin/configuration/property/TEMPLATE_NOTES", { value: this.template_url }).then(
+          this.header_loading = true;
+          axios.put("/api/admin/configuration/property/TEMPLATE_NOTESHEET_HEADER", { value: this.template_header }).then(
             (response) => {
               console.log(response);
               if (response.status == 200) {
-                toastr.success("Plantilla actualizada correctamente");
+                toastr.success("Header actualizado correctamente");
+
+              }
+              this.header_loading = false;
+               resolve();
+            },
+            (error) => {
+              console.error(error);
+              this.header_loading = false;
+              reject(error);
+            }
+          );
+        });
+      },
+       updateTemplateFooter() {
+        return new Promise((resolve, reject) => {
+          this.footer_loading = true;
+          axios.put("/api/admin/configuration/property/TEMPLATE_NOTESHEET_FOOTER", { value: this.template_footer }).then(
+            (response) => {
+              console.log(response);
+              if (response.status == 200) {
+                toastr.success("Footer actualizado correctamente");
+
+              }
+              this.footer_loading = false;
+               resolve();
+            },
+            (error) => {
+              console.error(error);
+              this.footer_loading = false;
+              reject(error);
+            }
+          );
+        });
+      },
+      updateTemplatePath() {
+        return new Promise((resolve, reject) => {
+          this.loading = true;
+          axios.put("/api/admin/configuration/property/TEMPLATE_NOTESHEET_PATH", { value: this.template_path }).then(
+            (response) => {
+              console.log(response);
+              if (response.status == 200) {
+                toastr.success("Plantilla actualizado correctamente");
 
               }
               this.loading = false;
@@ -70,46 +164,15 @@
           );
         });
       },
-      onFileChange(file) {
-        this.loading = true;
-
-        let files = file.target.files || file.dataTransfer.files;
-        let data = new FormData();
-        if (files.length > 0) {
-          this.progress_upload = 10;
-          console.log("evento");
-
-          let file = files[0];
-          let _fileNameSplit = file.name.split(".");
-
-          // if uploaded file is valid with validation rules
-          let file_extension = _fileNameSplit[_fileNameSplit.length - 1];
-          let file_name = file.name.replace(`.${file_extension}`, "");
-          this.progress_upload = 20;
-
-          data.append("file", files[0]);
-          data.append("name", file_name);
-          data.append("count", `-template`);
-
-          axios
-            .post("/fileDocument", data)
-            .then((response) => {
-               this.template_url = `${window.location.origin}/uploads/clases/${file_name.split(" ").join("_")}-template.${file_extension}`;
-              //this.template_name = file_name.split(" ").join("_").file_extension;
-              this.updateTemplateNote().then(()=>{
-                  this.getTemplateNote();
-                    this.progress_upload = 100;
-              });
-
-            })
-            .catch((err) => {
-              console.error(err);
-              this.loading = false;
-            });
-        } else {
-          this.loading = false;
-        }
+      SetTemplateHeaderEvent(content)
+      {
+          this.template_header=content;
       },
+      SetTemplateFooterEvent(content)
+      {
+          this.template_footer=content;
+      }
+
     },
   };
 </script>

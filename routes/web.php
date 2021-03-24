@@ -673,7 +673,7 @@ Route::get('/api/teacher/area/{area_id}/classroom/{classroom_id}/student/{studen
 Route::get('/api/event/today', 'EventsController@todayEvents');
 Route::get('/api/admin/configuration/property/{code}', 'ConfigurationController@getPropertyByCode');
 Route::put('/api/admin/configuration/property/{code}', 'ConfigurationController@setProperty');
-Route::get('/api/admin/configuration/template-calification/generate-minify', 'CalificationController@generateMinify');
+Route::get('/api/student/{student_id}/calification-report', 'CalificationController@generateTemplateCalification');
 
 
 Route::get('/api/lectives', 'LectivesController@getLectives');

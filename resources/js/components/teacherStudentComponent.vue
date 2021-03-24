@@ -15,8 +15,9 @@
               <small>Correo:</small>
               <span>{{ current_student.email }}</span>
             </div>
+             <a :href="`/api/student/${current_student.id}/calification-report`" target="_blank" class="btn btn-primary">Planilla de notas</a>
           </div>
-          <div class="col-12 col-md-6">
+          <div class="col-12 col-md-8">
             <div class="course_info">
               <h5>{{ current_student.area_name }} {{ current_student.classroom_name }}</h5>
               <div class="course_resume">
@@ -29,11 +30,6 @@
                   <small>Promedio</small>
                 </div>
               </div>
-            </div>
-          </div>
-          <div class="col-12 col-md-2">
-            <div class="btn-options">
-              <button class="btn btn-primary">Descargar planilla</button>
             </div>
           </div>
         </div>
