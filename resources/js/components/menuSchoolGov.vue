@@ -65,6 +65,15 @@
                                 <span class="menu">Legislación</span>
                             </li>
                         </a>
+
+                        <a href="/staments">
+                            <li class="item-menu">
+                                <img width="35px"
+                                    src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/MANUAL-DE-USUARIO_naranja.png?alt=media&token=bd2488fb-e121-432d-afd2-f223fcc0f29e"
+                                    alt />
+                                <span class="menu">Estamentos Escolares</span>
+                            </li>
+                        </a>
                         
                         <a href="/schoolGobernment">
                             <li class="item-menu">
