@@ -1,9 +1,9 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[10],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/modalEstudiante.vue?vue&type=script&lang=js&":
-/*!**************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/modalEstudiante.vue?vue&type=script&lang=js& ***!
-  \**************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/modalDocenteReport.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/modalDocenteReport.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -48,57 +48,152 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___default.a);
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
+      dateToExport: "",
+      teachersOptions: [],
+      areaOptions: [],
       studentsOptions: [],
       saveStudents: [],
-      DataToExport: []
+      saveArea: [],
+      DataToExport: [],
+      saveTeachers: {}
     };
   },
   mounted: function mounted() {
-    this.getStudents();
+    this.getTeachers();
   },
   components: {
     Multiselect: vue_multiselect__WEBPACK_IMPORTED_MODULE_0___default.a
   },
   methods: {
-    getStudents: function getStudents() {
+    getTeachers: function getTeachers() {
       var _this = this;
 
-      axios.get('getAllStudents').then(function (response) {
+      axios.get('getTeachers').then(function (response) {
         response.data.forEach(function (element) {
-          _this.studentsOptions.push({
+          _this.teachersOptions.push({
             id: element.id,
-            text: "".concat(element.name) + " ".concat(element.last_name),
-            parent_id: element.parent_id
+            text: "".concat(element.name) + " ".concat(element.last_name)
+          });
+        });
+      });
+    },
+    getArea: function getArea() {
+      var _this2 = this;
+
+      axios.get("GetAreaToReport/".concat(this.saveTeachers.id)).then(function (response) {
+        var area = response.data;
+        area.forEach(function (element) {
+          _this2.areaOptions.push({
+            id: element.id,
+            id_area: element.id_area,
+            id_classroom: element.id_classroom,
+            text: element.text
+          });
+        });
+      });
+    },
+    getStudents: function getStudents() {
+      var _this3 = this;
+
+      this.saveArea.forEach(function (area) {
+        axios.get("/api/teacher/area/".concat(area.id, "/classroom/").concat(area.id_classroom, "/student")).then(function (response) {
+          response.data.forEach(function (element) {
+            _this3.studentsOptions.push({
+              id: element.user_id,
+              text: "".concat(element.user_name) + " ".concat(element.user_lastname)
+            });
+          });
+          var hash = {};
+          _this3.studentsOptions = _this3.studentsOptions.filter(function (current) {
+            var exists = !hash[current.id];
+            hash[current.id] = true;
+            return exists;
           });
         });
       });
     },
     exportData: function exportData() {
-      var _this2 = this;
+      var _this4 = this;
 
-      this.saveStudents.forEach(function (student) {
-        if (student.id && student.parent_id) {
-          axios.get("reportStudents/".concat(student.id, "/").concat(student.parent_id)).then(function (response) {
-            _this2.DataToExport.push(response.data);
+      this.saveArea.forEach(function (area) {
+        _this4.saveStudents.forEach(function (saveStudents) {
+          axios.get("/api/teacher/area/".concat(parseInt(area.id), "/classroom/").concat(parseInt(area.id_classroom), "/student/").concat(parseInt(saveStudents.id))).then(function (response) {
+            var classRoom = response.data;
+
+            if (Date.parse(classRoom.created_at) <= Date.parse(_this4.dateToExport)) {
+              _this4.DataToExport.push({
+                clase: area.text,
+                Estudiante: classRoom.name,
+                Profesor: _this4.saveTeachers.text,
+                Progreso: "".concat(classRoom.progress === -1 ? 0 : classRoom.progress.toString(), " %"),
+                Nota: "".concat(classRoom.score === -1 ? 0 : classRoom.score.toString(), " / ").concat(classRoom.score_base.toString())
+              });
+            }
           });
-        } else {
-          toastr.info("El estudiante ".concat(student.text, " no cuenta con un acudiente asignado"));
-        }
+        });
       });
 
       if (this.DataToExport.length > 0) {
         var data = this.DataToExport;
-        var fileName = 'Reporte Estudiantes';
+        var fileName = 'Reporte Notas';
         var exportType = 'xls';
-        this.DataToExport = [];
+        this.dateToExport = "", this.DataToExport = [];
+        this.saveTeachers = [];
+        this.areaOptions = [];
         this.saveStudents = [];
-        $("reportEstudianteModal").modal("hide");
+        this.saveArea = [];
+        this.studentsOptions = [];
+        $("#reportTeacherModal").modal('hide');
         Object(export_from_json__WEBPACK_IMPORTED_MODULE_1__["default"])({
           data: data,
           fileName: fileName,
@@ -418,10 +513,10 @@ function stripHTML(text) {
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/modalEstudiante.vue?vue&type=template&id=79dfe538&":
-/*!******************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/modalEstudiante.vue?vue&type=template&id=79dfe538& ***!
-  \******************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/modalDocenteReport.vue?vue&type=template&id=2c17d944&":
+/*!*********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/modalDocenteReport.vue?vue&type=template&id=2c17d944& ***!
+  \*********************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -438,7 +533,7 @@ var render = function() {
     {
       staticClass: "modal fade bd-example-modal-lg",
       attrs: {
-        id: "reportEstudianteModal",
+        id: "reportTeacherModal",
         tabindex: "-1",
         role: "dialog",
         "aria-labelledby": "myLargeModalLabel",
@@ -451,16 +546,42 @@ var render = function() {
           _vm._m(0),
           _vm._v(" "),
           _c("div", { staticClass: "modal-body" }, [
+            _c("div", { staticClass: "form-goup" }, [
+              _c("label", [_vm._v("Fecha")]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.dateToExport,
+                    expression: "dateToExport"
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: { type: "date" },
+                domProps: { value: _vm.dateToExport },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.dateToExport = $event.target.value
+                  }
+                }
+              })
+            ]),
+            _vm._v(" "),
             _c(
               "div",
               { staticClass: "form-goup" },
               [
-                _c("label", [_vm._v("Estudiante")]),
+                _c("label", [_vm._v("Docente")]),
                 _vm._v(" "),
                 _c("multiselect", {
                   attrs: {
-                    options: _vm.studentsOptions,
-                    multiple: true,
+                    options: _vm.teachersOptions,
+                    multiple: false,
                     "close-on-select": false,
                     "clear-on-select": false,
                     "preserve-search": true,
@@ -494,16 +615,178 @@ var render = function() {
                     }
                   ]),
                   model: {
-                    value: _vm.saveStudents,
+                    value: _vm.saveTeachers,
                     callback: function($$v) {
-                      _vm.saveStudents = $$v
+                      _vm.saveTeachers = $$v
                     },
-                    expression: "saveStudents"
+                    expression: "saveTeachers"
                   }
                 })
               ],
               1
-            )
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group" }, [
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-primary mt-2 mb-2",
+                  on: {
+                    click: function($event) {
+                      return _vm.getArea()
+                    }
+                  }
+                },
+                [
+                  _vm._v(
+                    "\n                        Consultar Area\n                    "
+                  )
+                ]
+              )
+            ]),
+            _vm._v(" "),
+            _vm.areaOptions.length > 0
+              ? _c(
+                  "div",
+                  { staticClass: "form-goup" },
+                  [
+                    _c("label", [_vm._v("Areas Consultadas")]),
+                    _vm._v(" "),
+                    _c("multiselect", {
+                      attrs: {
+                        options: _vm.areaOptions,
+                        multiple: true,
+                        "close-on-select": false,
+                        "clear-on-select": false,
+                        "preserve-search": true,
+                        placeholder: "Seleccione una",
+                        label: "text",
+                        "track-by": "id",
+                        "preselect-first": true
+                      },
+                      scopedSlots: _vm._u(
+                        [
+                          {
+                            key: "selection",
+                            fn: function(ref) {
+                              var values = ref.values
+                              var isOpen = ref.isOpen
+                              return [
+                                values.length && !isOpen
+                                  ? _c(
+                                      "span",
+                                      { staticClass: "multiselect__single" },
+                                      [
+                                        _vm._v(
+                                          "\n                                    " +
+                                            _vm._s(values.length) +
+                                            "\n                                    opciones\n                                    selecionadas\n                                "
+                                        )
+                                      ]
+                                    )
+                                  : _vm._e()
+                              ]
+                            }
+                          }
+                        ],
+                        null,
+                        false,
+                        1821651511
+                      ),
+                      model: {
+                        value: _vm.saveArea,
+                        callback: function($$v) {
+                          _vm.saveArea = $$v
+                        },
+                        expression: "saveArea"
+                      }
+                    })
+                  ],
+                  1
+                )
+              : _vm._e(),
+            _vm._v(" "),
+            _vm.areaOptions.length > 0
+              ? _c("div", { staticClass: "form-group" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-primary mt-2 mb-2",
+                      on: {
+                        click: function($event) {
+                          return _vm.getStudents()
+                        }
+                      }
+                    },
+                    [
+                      _vm._v(
+                        "\n                        Obtener Estudiante\n                    "
+                      )
+                    ]
+                  )
+                ])
+              : _vm._e(),
+            _vm._v(" "),
+            _vm.studentsOptions.length > 0
+              ? _c(
+                  "div",
+                  { staticClass: "form-goup" },
+                  [
+                    _c("label", [_vm._v("Estudiante")]),
+                    _vm._v(" "),
+                    _c("multiselect", {
+                      attrs: {
+                        options: _vm.studentsOptions,
+                        multiple: true,
+                        "close-on-select": false,
+                        "clear-on-select": false,
+                        "preserve-search": true,
+                        placeholder: "Seleccione una",
+                        label: "text",
+                        "track-by": "id",
+                        "preselect-first": true
+                      },
+                      scopedSlots: _vm._u(
+                        [
+                          {
+                            key: "selection",
+                            fn: function(ref) {
+                              var values = ref.values
+                              var isOpen = ref.isOpen
+                              return [
+                                values.length && !isOpen
+                                  ? _c(
+                                      "span",
+                                      { staticClass: "multiselect__single" },
+                                      [
+                                        _vm._v(
+                                          "\n                                    " +
+                                            _vm._s(values.length) +
+                                            "\n                                    opciones\n                                    selecionadas\n                                "
+                                        )
+                                      ]
+                                    )
+                                  : _vm._e()
+                              ]
+                            }
+                          }
+                        ],
+                        null,
+                        false,
+                        1821651511
+                      ),
+                      model: {
+                        value: _vm.saveStudents,
+                        callback: function($$v) {
+                          _vm.saveStudents = $$v
+                        },
+                        expression: "saveStudents"
+                      }
+                    })
+                  ],
+                  1
+                )
+              : _vm._e()
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "modal-footer" }, [
@@ -514,7 +797,6 @@ var render = function() {
                 attrs: { type: "button" },
                 on: {
                   click: function($event) {
-                    $event.preventDefault()
                     return _vm.exportData()
                   }
                 }
@@ -542,9 +824,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "modal-header" }, [
-      _c("h5", { staticClass: "modal-title" }, [
-        _vm._v("Reporte de Estudiantes")
-      ]),
+      _c("h5", { staticClass: "modal-title" }, [_vm._v("Reporte de Notas")]),
       _vm._v(" "),
       _c(
         "button",
@@ -567,17 +847,17 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./resources/js/components/modalEstudiante.vue":
-/*!*****************************************************!*\
-  !*** ./resources/js/components/modalEstudiante.vue ***!
-  \*****************************************************/
+/***/ "./resources/js/components/modalDocenteReport.vue":
+/*!********************************************************!*\
+  !*** ./resources/js/components/modalDocenteReport.vue ***!
+  \********************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _modalEstudiante_vue_vue_type_template_id_79dfe538___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modalEstudiante.vue?vue&type=template&id=79dfe538& */ "./resources/js/components/modalEstudiante.vue?vue&type=template&id=79dfe538&");
-/* harmony import */ var _modalEstudiante_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modalEstudiante.vue?vue&type=script&lang=js& */ "./resources/js/components/modalEstudiante.vue?vue&type=script&lang=js&");
+/* harmony import */ var _modalDocenteReport_vue_vue_type_template_id_2c17d944___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modalDocenteReport.vue?vue&type=template&id=2c17d944& */ "./resources/js/components/modalDocenteReport.vue?vue&type=template&id=2c17d944&");
+/* harmony import */ var _modalDocenteReport_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modalDocenteReport.vue?vue&type=script&lang=js& */ "./resources/js/components/modalDocenteReport.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var vue_multiselect_dist_vue_multiselect_min_css_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue-multiselect/dist/vue-multiselect.min.css?vue&type=style&index=0&lang=css& */ "./node_modules/vue-multiselect/dist/vue-multiselect.min.css?vue&type=style&index=0&lang=css&");
 /* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
@@ -589,9 +869,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
-  _modalEstudiante_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _modalEstudiante_vue_vue_type_template_id_79dfe538___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _modalEstudiante_vue_vue_type_template_id_79dfe538___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _modalDocenteReport_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _modalDocenteReport_vue_vue_type_template_id_2c17d944___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _modalDocenteReport_vue_vue_type_template_id_2c17d944___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -601,38 +881,38 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/components/modalEstudiante.vue"
+component.options.__file = "resources/js/components/modalDocenteReport.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/components/modalEstudiante.vue?vue&type=script&lang=js&":
-/*!******************************************************************************!*\
-  !*** ./resources/js/components/modalEstudiante.vue?vue&type=script&lang=js& ***!
-  \******************************************************************************/
+/***/ "./resources/js/components/modalDocenteReport.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************!*\
+  !*** ./resources/js/components/modalDocenteReport.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_modalEstudiante_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./modalEstudiante.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/modalEstudiante.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_modalEstudiante_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_modalDocenteReport_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./modalDocenteReport.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/modalDocenteReport.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_modalDocenteReport_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/components/modalEstudiante.vue?vue&type=template&id=79dfe538&":
-/*!************************************************************************************!*\
-  !*** ./resources/js/components/modalEstudiante.vue?vue&type=template&id=79dfe538& ***!
-  \************************************************************************************/
+/***/ "./resources/js/components/modalDocenteReport.vue?vue&type=template&id=2c17d944&":
+/*!***************************************************************************************!*\
+  !*** ./resources/js/components/modalDocenteReport.vue?vue&type=template&id=2c17d944& ***!
+  \***************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_modalEstudiante_vue_vue_type_template_id_79dfe538___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./modalEstudiante.vue?vue&type=template&id=79dfe538& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/modalEstudiante.vue?vue&type=template&id=79dfe538&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_modalEstudiante_vue_vue_type_template_id_79dfe538___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_modalDocenteReport_vue_vue_type_template_id_2c17d944___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./modalDocenteReport.vue?vue&type=template&id=2c17d944& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/modalDocenteReport.vue?vue&type=template&id=2c17d944&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_modalDocenteReport_vue_vue_type_template_id_2c17d944___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_modalEstudiante_vue_vue_type_template_id_79dfe538___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_modalDocenteReport_vue_vue_type_template_id_2c17d944___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
