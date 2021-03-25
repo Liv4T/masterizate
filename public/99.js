@@ -205,7 +205,7 @@ var staticRenderFns = [
                               "data-target": "#reportTeacherModal"
                             }
                           },
-                          [_vm._v("Notas")]
+                          [_vm._v("Reporte de Notas")]
                         ),
                         _vm._v(" "),
                         _c(
@@ -217,7 +217,7 @@ var staticRenderFns = [
                               "data-target": "#reportTeacherPlanifModal"
                             }
                           },
-                          [_vm._v("Planeación")]
+                          [_vm._v("Reporte de Planeación")]
                         )
                       ])
                     ])
@@ -274,7 +274,7 @@ var staticRenderFns = [
                               "data-target": "#reportTeacherCourseModal"
                             }
                           },
-                          [_vm._v("Curso")]
+                          [_vm._v("Reporte de Curso")]
                         )
                       ])
                     ])
@@ -388,7 +388,7 @@ var staticRenderFns = [
                               "data-target": "#reportEstudianteModal"
                             }
                           },
-                          [_vm._v("Estudiantes")]
+                          [_vm._v("Reporte de Estudiantes")]
                         )
                       ])
                     ])

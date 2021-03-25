@@ -20,8 +20,8 @@
                                 <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
                                     <div class="card-body text-center">
                                         <div class="form-group">
-                                            <button class="btn btn-primary" data-toggle="modal" data-target="#reportTeacherModal">Notas</button>
-                                            <button class="btn btn-primary" data-toggle="modal" data-target="#reportTeacherPlanifModal">Planeación</button>
+                                            <button class="btn btn-primary" data-toggle="modal" data-target="#reportTeacherModal">Reporte de Notas</button>
+                                            <button class="btn btn-primary" data-toggle="modal" data-target="#reportTeacherPlanifModal">Reporte de Planeación</button>
                                         </div>
                                     </div>
                                 </div>
@@ -37,7 +37,7 @@
                                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
                                     <div class="card-body">
                                         <div class="form-group text-center">
-                                            <button class="btn btn-primary" data-toggle="modal" data-target="#reportTeacherCourseModal">Curso</button>
+                                            <button class="btn btn-primary" data-toggle="modal" data-target="#reportTeacherCourseModal">Reporte de Curso</button>
                                         </div>
                                     </div>
                                 </div>
@@ -70,7 +70,7 @@
                                 <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordion">
                                     <div class="card-body">
                                         <div class="form-group text-center">
-                                            <button class="btn btn-primary" data-toggle="modal" data-target="#reportEstudianteModal">Estudiantes</button>
+                                            <button class="btn btn-primary" data-toggle="modal" data-target="#reportEstudianteModal">Reporte de Estudiantes</button>
                                         </div>
                                     </div>
                                 </div>
