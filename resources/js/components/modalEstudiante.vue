@@ -27,7 +27,7 @@
                     
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" v-on:click="exportData()">Exportar</button>
+                    <button type="button" class="btn btn-primary" v-on:click.prevent="exportData()">Exportar</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                 </div>
             </div>
@@ -64,23 +64,23 @@ export default {
                 });
             });
         },
-        exportData(){
+        async exportData(){
             this.saveStudents.forEach(student => {
                 if(student.id && student.parent_id){
                     axios.get(`reportStudents/${student.id}/${student.parent_id}`).then((response) => {
-                        this.DataToExport.push(response.data);
+                        return this.DataToExport.push(response.data);
                     });
                 }else{
                     toastr.info(`El estudiante ${student.text} no cuenta con un acudiente asignado`);
                 }
             })
-            if(this.DataToExport.length > 0){
+            if(await this.DataToExport.length > 0){
                 const data = this.DataToExport;
                 const fileName = 'Reporte Estudiantes'
                 const exportType = 'xls'
                 this.DataToExport = [];
                 this.saveStudents=[];
-                $("reportEstudianteModal").modal("hide");
+                $("#reportEstudianteModal").modal("hide");
                 exportFromJSON({ data, fileName, exportType })
             }else{
                 toastr.info("No hay datos disponibles")

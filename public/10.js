@@ -514,6 +514,7 @@ var render = function() {
                 attrs: { type: "button" },
                 on: {
                   click: function($event) {
+                    $event.preventDefault()
                     return _vm.exportData()
                   }
                 }
