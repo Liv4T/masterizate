@@ -113,7 +113,7 @@ Vue.component("clasesd-component",()=>import("./components/clasesDocente.vue"));
 Vue.component("crearc-component", require("./components/crearClase.vue").default);
 Vue.component("editarc-component", require("./components/editarClase.vue").default);
 
-//Landing 
+//Landing
 
 Vue.component("landing-component",()=>import("./components/landing.vue"));
 Vue.component("footer-landing",()=>import("./components/footerLanding.vue"));
@@ -196,6 +196,9 @@ Vue.component("test-firebase", () => import("./components/testFirebase.vue"));
 
 
 //cursos
+Vue.component("admin-configuration", () => import ("./components/adminConfiguration.vue"));
+Vue.component("admin-configuration-parameters", () => import ("./components/adminConfigurationParameters.vue"));
+Vue.component("admin-configuration-template-notes", () => import ("./components/adminConfigurationTemplateNotes.vue"));
 Vue.component("admin-courses", () => import ("./components/adminCoursesComponent.vue"));
 Vue.component("admin-module", () => import ("./components/adminModuleComponent.vue"));
 Vue.component("teacher-courses", () => import ("./components/teacherCoursesComponent.vue"));
@@ -210,6 +213,9 @@ Vue.component("teacher-student-module-select", () => import ("./components/teach
 Vue.component("teacher-student-class-select", () => import ("./components/teacherStudentClassSelectComponent.vue"));
 Vue.component("teacher-student-class-content", () => import ("./components/teacherStudentClassContentComponent.vue"));
 Vue.component("notification-component", () => import ("./components/notificationComponent.vue"));
+Vue.component("content-loader", () => import ("./components/contentLoaderComponent.vue"));
+
+
 Vue.use(CKEditor);
 
 //Padres

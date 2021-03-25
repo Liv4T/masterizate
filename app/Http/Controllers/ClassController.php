@@ -22,9 +22,10 @@ use App\ClassContent;
 use App\ClassContentInteraction;
 use App\ClassInteraction;
 use App\Classroom;
+use App\ConfigurationParameter;
 use App\User;
 use Illuminate\Http\Request;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 use PhpParser\Node\Stmt\Foreach_;
 use Illuminate\Support\Facades\DB;
 
@@ -343,7 +344,12 @@ class ClassController extends Controller
     public function saveActivityInteraction(Request $request,int $id_module,int $id_course, int $id_activity)
     {
         $auth = Auth::user();
-        $base_score=5;
+
+        $score=ConfigurationParameter::where('code','CALIFICATION_BASE')->first();
+
+
+
+        $base_score=isset($score)?$score->content:5;
 
         if(!isset($auth)) return;
 
