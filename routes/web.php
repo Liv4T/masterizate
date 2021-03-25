@@ -168,6 +168,15 @@ Route::middleware('auth')->get('/calendar', function () {
 Route::middleware('auth')->get('/psychology', function () {
     return view('psychology')->with('type_user', Auth::user()->type_user);
 });
+Route::middleware('auth')->get('/psychology_menu', function () {
+    return view('psychologyMenu');
+});
+Route::middleware('auth')->get('/classroom', function () {
+    return view('classroom')->with('type_user', Auth::user()->type_user);
+});
+Route::middleware('auth')->get('/student/{id_classroom}/{name_classroom}', function (String $id_classroom, String $name_classroom) {
+    return view('studentsClassroom')->with('id_classroom', $id_classroom)->with('name_classroom', $name_classroom);
+});
 Route::middleware('auth')->get('/calendario', function () {
     return view('calendar')->with('type_user', Auth::user()->type_user);
 });
@@ -176,6 +185,9 @@ Route::middleware('auth')->get('/estudiante/calendario', function () {
 });
 Route::middleware('auth')->get('/perfil_d', function () {
     return view('perfild');
+});
+Route::middleware('auth')->get('/perfil_p', function () {
+    return view('perfilp');
 });
 Route::middleware('auth')->get('/anuncio_d', function () {
     return view('anunciod');
@@ -249,6 +261,9 @@ Route::middleware('auth')->get('/docente_asignar', function () {
 Route::middleware('auth')->get('/estudiante_asignar', function () {
     return view('asignarEstudiante');
 });
+Route::middleware('auth')->get('/parent_asignar', function () {
+    return view('asignarParent');
+});
 Route::middleware('auth')->get('/coordinador_adm', function () {
     return view('coordinadorAdm');
 });
@@ -309,6 +324,7 @@ Route::resource('Courses', 'CoursesController', ['except' => 'show', 'create', '
 Route::resource('Class', 'ClassController', ['except' => 'show', 'create', 'edit']);
 Route::get('GetClass', 'ClassController@getClass');
 Route::get('showClass/{id}', 'ClassController@show')->name('showClass');
+Route::put('test', 'ClassController@deactivateClass')->name('test');
 Route::get('editClass/{id}', 'ClassController@findClass')->name('editClass');
 Route::get('GetNameArea/{id_area}/{id_classroom}', 'ClassController@getNameArea')->name('GetNameArea');
 Route::get('getActivity/{id_1}/{id_2}', 'ActivityController@indexActivityByArea')->name('getActivity');
@@ -319,7 +335,7 @@ Route::get('trivia/{id}', 'ActivityController@activityId');
 Route::post('actividad_d/Activity', 'ActivityController@store');
 Route::get('showTrivia/{id}', 'ActivityController@showTrivia');
 
-
+//Events
 
 Route::post('createEvent', 'EventsController@createEvent')->name('createEvent');
 Route::get('/getAllEvents', 'EventsController@indexEvents')->name('getAllEvents');
@@ -328,6 +344,15 @@ Route::get('lastId', 'EventsController@lastID')->name('lastID');
 Route::get('updatePadre/{id}', 'EventsController@Update_padre')->name('Update_padre');
 Route::put('updateEvent', 'EventsController@updateEvent')->name('updateEvent');
 Route::put('deleteEvent', 'EventsController@deleteEvent')->name('deleteEvent');
+
+//Psychology
+
+Route::get('/getAllUsers', 'PsychologyController@getUsersToInvitations')->name('getAllUsers');
+Route::post('createEvent', 'PsychologyController@createEvent')->name('createEvent');
+
+//Classroom and Students
+Route::get('/getClassroomByInstitution/{id}', 'ClassroomController@classroomByInstitution')->name('getClassroomByInstitution');
+Route::get('/getStudentByClassroom/{id}', 'ClassroomController@studentsForClassroom')->name('getStudentByClassroom');
 
 Route::middleware('auth')->get('/actividad_d/{id}', 'ClassController@activityWeekId')->name('actividad_d');
 Route::middleware('auth')->get('/actividad_d/getClass/{id}', 'ClassController@getClassId')->name('getClass');
@@ -421,6 +446,7 @@ Route::get('getStudents', 'AdministratorController@indexStudents')->name('getStu
 Route::get('getTeachers', 'AdministratorController@indexTeachers')->name('getTeachers');
 Route::get('getUsersAssigned', 'AdministratorController@indexStudentsTeachersAssigned')->name('getUsersAssigned');
 Route::post('assignStudents', 'AdministratorController@assignStudents')->name('assignStudents');
+Route::put('assignParentToStudent/{id_student}', 'AdministratorController@assignParentsToStudent');
 Route::post('assignTeachers', 'AdministratorController@assignTeachers')->name('assignTeachers');
 Route::get('getState', 'AdministratorController@getAllState')->name('getState');
 Route::get('getInstitution', 'AdministratorController@indexInstitution')->name('getInstitution');
@@ -653,10 +679,7 @@ Route::middleware('auth')->get('/admin/clases', function () {
     return view('adminCourses');
 });
 
-
-
-
-
+Route::put('/test','ClassController@deactivateClass')->name('test');
 
 //api rest
 Route::get('/api/achievement/{id_achievement}/indicator', 'IndicatorController@getByAchievement');
@@ -670,6 +693,7 @@ Route::post('/api/file/upload/editor-content', 'UploadController@uploadEditorCon
 Route::put('/api/admin/module/{id_module}/class/{id_course}/{state}', 'ClassController@updateClassEnableEdition');
 Route::get('/api/student/activity', 'ActivityController@getByCurrentStudent');
 Route::get('/api/student/event', 'EventsController@studentEvents');
+Route::get('/api/event/getStudentsClass','EventsController@getStudentsClassForParents');
 Route::get('/api/teacher/area/{area_id}/classroom/{classroom_id}/student', 'CalificationController@getAllStudents');
 Route::get('/api/teacher/area/{area_id}/classroom/{classroom_id}/student/{student_id}', 'CalificationController@getByStudent');
 Route::get('/api/teacher/area/{area_id}/classroom/{classroom_id}/student/{student_id}/module', 'CalificationController@getAllModules');
@@ -701,4 +725,42 @@ Route::get('/api/lectives/planification/{id_lective_planification}/activities', 
 Route::put('/api/lectives/planification/{id_lective_planification}/weekly/{id_weekly_plan}/course/{id_class}/activity/{id_activity}/module/ENCUESTA_UNICA_RTA/question/{id_question}', 'QuestionController@responseQuestiononLective');
 Route::put('/api/planification/copy', 'CoursesController@copyInformation');
 
+//parents 
 
+Route::resource('/parents', 'ParentsController');
+Route::get('/getInvitations','ParentsController@getInvitatios');
+Route::get('/getParents','ParentsController@getParents');
+Route::get('/invitations', 'ParentsController@getUsersToInvitations');
+Route::get('/getAreas','ParentsController@getAreas');
+Route::get('/getNotes/{id_student}/{id_area}/{id_classroom}', 'ParentsController@getNotes');
+Route::get('/dataObserver','ParentsController@getDataObserverStudents');
+Route::view('/getParentsObserver', 'getParentsObserver');
+//psicology
+Route::resource('/historyPsicology', 'HistoryPsicologyController');
+Route::resource('/followUps', 'FollowUpsController');
+Route::resource('/comunicates', 'ComunicatesController');
+
+//Observer 
+Route::resource('/observer','ObserverController');
+Route::get('/dataUsers','ObserverController@getDataParentsStudents');
+
+//School Government
+Route::resource('/schoolGobernment','SchoolGovernmentController');
+Route::middleware('auth')->get('/legislation', function () {
+    return view('legislation');
+});
+Route::middleware('auth')->get('/governmentMembers', function () {
+    return view('gobernmentMembers');
+});
+Route::get('/getLegislation', 'SchoolGovernmentController@getLegislation');
+Route::resource('/members','SchoolGovernmentMembersController');
+Route::middleware('auth')->get('/reportsGovernment', function () {
+    return view('reportsGovernment');
+});
+Route::get('GetAreaToReport/{idTeachers}','SchoolGovernmentController@reportTeacher');
+Route::get('GetPlanificationTeacher/{teacherId}/{id_area}/{id_classroom}','SchoolGovernMentController@reportPlanificationTeacher');
+Route::post('GetCoursesInformation','SchoolGovernmentController@getCoursesInformation');
+Route::get('showUser/{userid}','SchoolGovernmentController@user');
+Route::get('getAllAreas', 'SchoolGovernmentController@getAllAreas');
+Route::get('reportStudents/{idStudent}/{idParent}','SchoolGovernmentController@getReportStudents');
+Route::get('getAllStudents','SchoolGovernmentController@students');

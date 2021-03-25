@@ -8,6 +8,7 @@ window.Vue = require("vue");
 window.Bus = new Vue();
 window.toastr = require("toastr");
 import CKEditor from "@ckeditor/ckeditor5-vue";
+import Vue from "vue";
 //import "bootstrap/dist/css/bootstrap.css";
 //import "bootstrap-vue/dist/bootstrap-vue.css";
 import Game from "./components/Game";
@@ -84,7 +85,9 @@ Vue.component("actividad-component", require("./components/tareas.vue").default)
 Vue.component("notas-component", require("./components/notas.vue").default);
 Vue.component("boletin-component", require("./components/boletin.vue").default);
 Vue.component("menu-docente", () => import ("./components/menudocente.vue"));
+Vue.component("menu-psychology", () => import ("./components/menuPsyc.vue"));
 Vue.component("perfil-docente", require("./components/perfildocente.vue").default);
+Vue.component("perfil-psychology", require("./components/perfilPsy.vue").default);
 Vue.component("anuncio-docente", require("./components/anunciodocente.vue").default);
 Vue.component("actividadg-docente",  () => import ("./components/actividadGDocente.vue"));
 Vue.component("anunciomc-component", require("./components/anunciomc.vue").default);
@@ -93,6 +96,9 @@ Vue.component("psychology-calendar-component", require("./components/psychologyC
 Vue.component("student-calendar-component", require("./components/studentCalendarComponent.vue").default);
 Vue.component("redactar-component", require("./components/redactar.vue").default);
 Vue.component("vmensaje-component", require("./components/vistamensaje.vue").default);
+Vue.component("classroom-component", require("./components/classroomComponent.vue").default);
+Vue.component("studentbyclass-component", require("./components/studentClassroom.vue").default);
+Vue.component("psychologymenu",  () => import ("./components/psychologyMenu.vue"));
 
 Vue.component("duplicarsemana-component", require("./components/duplicarSemana.vue").default);
 Vue.component("game-component", require("./components/Game.vue").default);
@@ -141,6 +147,7 @@ Vue.component("matricula", ()=>import("./components/matricula.vue"));
 Vue.component("aperfil-adm", ()=>import("./components/AsignarPerfil.vue"));
 Vue.component("adocente-adm", ()=>import("./components/asignarDocente.vue"));
 Vue.component("aestudiante-adm", ()=>import("./components/asignarEstudiante.vue"));
+Vue.component("aparent-adm", ()=>import("./components/asignarPariente.vue"));
 Vue.component("importar-adm", ()=>import("./components/importAdm.vue"));
 Vue.component("asistencia-adm", ()=>import("./components/asistencia.vue"));
 
@@ -205,5 +212,37 @@ Vue.component("teacher-student-class-content", () => import ("./components/teach
 Vue.component("notification-component", () => import ("./components/notificationComponent.vue"));
 Vue.use(CKEditor);
 
+//Padres
+Vue.component("menu-padres", () => import("./components/menuPadres.vue"));
+Vue.component("parents-component", () => import("./components/parents.vue"));
+Vue.component("event-parents-modal", () => import("./components/EventParentsModal.vue"));
+Vue.component("modal-edit-parents-info", () => import("./components/ModalEditParentsInfo.vue"));
+Vue.component("parents-observer", () => import("./components/ParentsObserver.vue"));
 
+//Psicologia 
+Vue.component("comunicates-component", () => import("./components/Comunicates.vue"));
+Vue.component("history-psicology-component", ()=> import("./components/HistorialPsicologia.vue"));
+Vue.component("follow-ups-component", ()=>import("./components/Seguimientos.vue"))
+
+
+//Observer
+Vue.component("observer-component", () => import("./components/Observer.vue"));
+Vue.component("modal-observer-component", () => import("./components/ModalObserver.vue"));
+Vue.component("modal-edit-observer-component", () => import("./components/ModalEditObserver.vue"));
+Vue.component("modal-view-observer-component", () => import("./components/ModalViewObserver.vue"));
+
+// SchoolGovernment
+Vue.component("menu-school", () =>import("./components/menuSchoolGov.vue"));
+Vue.component("school-government-component", () =>import("./components/SchoolGov.vue"));
+Vue.component("modal-school-component", () =>import("./components/ModalSchoolGov.vue"));
+Vue.component("legislation-component", () =>import("./components/legislation.vue"));
+Vue.component("government-members-component", () => import("./components/schoolGovernmentMembers.vue"))
+Vue.component("modal-create-government-member", ()=>import("./components/ModalCreateGovernmentMember.vue"));
+Vue.component("modal-edit-government-member", () => import("./components/ModalEditGovernmentMember.vue"));
+Vue.component("reports-government", ()=> import("./components/reportsGovernment.vue"))
+Vue.component("modal-docente", ()=> import("./components/modalDocenteReport.vue"))
+Vue.component("modal-planif-docente", ()=> import("./components/modalDocentePlanifReport.vue"));
+Vue.component("modal-course", ()=> import("./components/modalDocenteCurso.vue"));
+Vue.component("modal-estudiante", ()=> import("./components/modalEstudiante.vue"));
+Vue.component("modal-materias", ()=> import("./components/modalMaterias.vue"));
 const app = new Vue({el: "#app", data: {}, store});

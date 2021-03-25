@@ -11,6 +11,13 @@
   @if (Auth::user()->type_user == '1')
     <menu-adm></menu-adm>
  @endif
+ @if (Auth::user()->type_user == '5')
+    <menu-psychology></menu-psychology>
+    <inicio-component></inicio-component>
+ @endif
+ @if (Auth::user()->type_user == '4')
+    <menu-padres></menu-padres>
+ @endif
     <div class="back">
         <div class="row justify-content-center">
             <div class="col-md-10">
