@@ -29,7 +29,6 @@
                 </div>
                 <div class="modal-footer">
                     <input v-model="message" type="textbox" class="col-md-12 form-control" placeholder="Escribe tu mensaje" v-on:keyup.enter="(e)=>sendMessage(e.target.value)"/>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                 </div>
             </div>
         </div>

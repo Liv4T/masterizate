@@ -82,7 +82,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['chat', 'user'],
@@ -349,16 +348,7 @@ var render = function() {
                   _vm.message = $event.target.value
                 }
               }
-            }),
-            _vm._v(" "),
-            _c(
-              "button",
-              {
-                staticClass: "btn btn-secondary",
-                attrs: { type: "button", "data-dismiss": "modal" }
-              },
-              [_vm._v("Cerrar")]
-            )
+            })
           ])
         ])
       ])
