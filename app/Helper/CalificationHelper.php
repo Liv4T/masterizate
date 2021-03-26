@@ -17,7 +17,7 @@ class CalificationHelper{
             ->join('users as teacher','teacher.id','=','ap.id_teacher')
             ->where('cs.id_user','=', $student_id)
             ->select('area.id as area_id','area.name as area_name','cs.id_classroom as classroom_id','ap.id as plannification_id','teacher.name as teacher_name','teacher.last_name as teacher_lastname')
-            ->groupBy('area.id','cs.id_classroom','ap.id','teacher.name','teacher.last_name')
+            ->groupBy('area.id','area.name','cs.id_classroom','ap.id','teacher.name','teacher.last_name')
             ->get();
 
         $periods=Period::where('year',$period_year)->get();
