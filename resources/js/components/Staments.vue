@@ -9,7 +9,7 @@
                     <div class="card-body">
                         <div class="form-group">
                             <button class="btn btn-primary" data-toggle="modal" data-target="#staments">Crear Estamento</button>
-                            <a href="chat" class="btn btn-primary">Chats</a>
+                            <a href="chatGobernment" class="btn btn-primary">Chats</a>
                         </div>
                         <table class="table table-hover">
                             <thead>
