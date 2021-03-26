@@ -52,7 +52,7 @@ class StamentsChatController extends Controller
      */
     public function store(Request $request)
     {
-        $chat = new StamentChat;
+        $chat = new StamentsChat;
         $chat->chat = $request->chat;
         $chat->message = $request->message;
         $chat->member = $request->member;

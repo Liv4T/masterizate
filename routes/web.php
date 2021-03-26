@@ -773,3 +773,4 @@ Route::get('getStaments', 'StamentsController@getStaments');
 //chat Stament
 Route::resource('chat','StamentsChatController');
 Route::get('/getChatAsigment','StamentsChatController@getStamentsByUser');
+Route::get('getChat/{chat}','StamentsChatController@getChats');
