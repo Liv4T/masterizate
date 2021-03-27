@@ -44,11 +44,11 @@
                     <div class="row" v-show="type_u==2 || type_u==4">
                         <a class="btn btn-warning float-right mt-2 ml-3" v-on:click.prevent="createE()">Crear evento</a>
                     </div>
-                    <div>
+                    <div v-show="type_u === 4">
                         <event-parents-modal :concurrent="concurrent" :type_u="type_u" :dias="dias" :clases="clases"
                             :user="this.user" :getMenu="getMenu"></event-parents-modal>
                     </div>
-                    <div>
+                    <div v-show="type_u === 4">
                         <modal-edit-parents-info :concurrent="concurrent" :type_u="type_u" :user="this.user"
                             :dias="dias" :getMenu="getMenu"></modal-edit-parents-info>
                     </div>
@@ -219,6 +219,101 @@
                         <datetime format="YYYY-MM-DD H:i:s" v-model="toUp"></datetime>
                         <div class="invalid-feedback"></div>
                         </div>
+                    </div>
+                </div>
+                <div class="modal fade" id="createE">
+                    <div class="modal-lg modal-dialog">
+                        <div class="modal-content">
+                            <form class="needs-validation" v-on:submit.prevent="createEvent" novalidate>
+                                <div class="modal-header">
+                                    <h4>Crear evento</h4>
+                                    <button type="button" class="close" data-dismiss="modal">
+                                        <span>&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="form-group row justify-content-center">
+                                        <div class="col-md-6">
+                                            <label for="name">Evento concurrente</label>
+                                            <select class="form-control" v-model="typeEvent" @change="selectChange">
+                                                <option :value="options.id" v-for="(options, key) in concurrent"
+                                                    :key="key">
+                                                    {{
+                                                options.type
+                                            }}
+                                                </option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label style="display: none;" id="labeldia">Dia de la semana</label>
+                                            <select class="form-control" name="dia" id="dia" v-model="diaSemana"
+                                                style="display:none">
+                                                <option :value="options.id" v-for="(options, key) in dias" :key="key">
+                                                    {{
+                                                options.dia
+                                            }}
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row justify-content-center">
+                                        <div class="col-md-6">
+                                            <label for="name">Nombre del evento</label>
+                                            <input type="text" name="name" class="form-control" v-model="nameEvent" />
+                                            <div class="invalid-feedback">Please fill out this field</div>
+                                        </div>
+                                        <!-- <div class="col-md-6">
+                                    <label for="name">Materia</label>
+                                    <select class="form-control" v-model="materia" required>
+                                        <option :value="option.id+'/'+option.id_classroom " v-for="option in myOptions">
+                                        {{
+                                        option.text
+                                        }}
+                                        </option>
+                                    </select>
+                                </div> -->
+                                        <div class="col-md-6">
+                                            <label for="name">Materia</label>
+                                            <multiselect v-model="materia" :options="myOptions" :multiple="true"
+                                                :close-on-select="false" :clear-on-select="false"
+                                                :preserve-search="true" placeholder="Seleccione una o varias"
+                                                label="text" track-by="id" :preselect-first="true">
+                                                <template slot="selection" slot-scope="{ values, isOpen }"><span
+                                                        class="multiselect__single"
+                                                        v-if="values.length &amp;&amp; !isOpen">{{ values.length }}
+                                                        opciones
+                                                        selecionadas</span></template>
+                                            </multiselect>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-md-6">
+                                            <label for="name">Desde</label>
+                                            <datetime format="YYYY-MM-DD H:i:s" v-model="desde"></datetime>
+                                            <div class="invalid-feedback">Please fill out this field</div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="name">Hasta</label>
+                                            <datetime format="YYYY-MM-DD H:i:s" v-model="hasta"></datetime>
+                                            <div class="invalid-feedback"></div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <strong for="name">Enlace de Meet</strong>
+                                            <input type="text" name="name" class="form-control" v-model="nameMeet" />
+                                            <div class="invalid-feedback">Please fill out this field</div>
+                                        </div>
+                                        <!-- <div class="col-md-6" style="display: none;">
+                                            <strong for="name">id ultimo</strong>
+                                            <input type="text" name="id_padre" class="form-control" v-model="lastId" />
+                                            <div class="invalid-feedback">Please fill out this field</div>
+                                        </div> -->
+                                    </div>
+                                    <div class="modal-footer">
+                                        <input type="submit" class="btn btn-warning" value="Guardar" />
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
                         <div class="col-md-6">
                         <strong for="name">Enlace de Meet</strong>
                         <input type="text" name="name" class="form-control" v-model="meetUp" />
@@ -344,70 +439,73 @@
             }
         },
         mounted() {
-            const fullCalendarApi = this.$refs.fullCalendar.getApi();
-            this.getInvitations();
+            this.getData();
+        },
+        methods: {
+            getData(){
+                const fullCalendarApi = this.$refs.fullCalendar.getApi();
+                this.getInvitations();
 
-            if (this.type_u === 4) {
-                var urlP = window.location.origin + "/api/event/getStudentsClass";
-                axios.get(urlP).then((response) => {
+                if (this.type_u === 4) {
+                    var urlP = window.location.origin + "/api/event/getStudentsClass";
+                    axios.get(urlP).then((response) => {
+                        this.clases = response.data;
+                        if (this.clases && this.clases.length > 0) {
+                            this.clases.forEach(meeting => {
+                                fullCalendarApi.addEvent({
+                                    title: `${meeting.student_name} | ${meeting.area} ${meeting.classroom} | Clase ${meeting.name}`,
+                                    start: meeting.dateFrom,
+                                    end: meeting.dateTo,
+                                    description: meeting.name,
+                                    url: meeting.hangout,
+                                    backgroundColor: 'blue'
+                                });
+                            })
+                        }
+                    });
+                }
+
+                var urlM = window.location.origin + "/getAllEvents";
+                axios.get(urlM).then((response) => {
                     this.clases = response.data;
                     if (this.clases && this.clases.length > 0) {
+
                         this.clases.forEach(meeting => {
                             fullCalendarApi.addEvent({
-                                title: `${meeting.student_name} | ${meeting.area} ${meeting.classroom} | Clase ${meeting.name}`,
+                                title: `${meeting.area} ${meeting.classroom} | Clase ${meeting.name}`,
                                 start: meeting.dateFrom,
                                 end: meeting.dateTo,
                                 description: meeting.name,
                                 url: meeting.hangout,
-                                backgroundColor: 'blue'
+                                backgroundColor: 'red'
                             });
                         })
+
                     }
                 });
-            }
+                var url = window.location.origin + "/GetArearByUser";
+                axios.get(url).then((response) => {
+                    this.myOptions = response.data;
 
-            var urlM = window.location.origin + "/getAllEvents";
-            axios.get(urlM).then((response) => {
-                this.clases = response.data;
-                if (this.clases && this.clases.length > 0) {
 
-                    this.clases.forEach(meeting => {
-                        fullCalendarApi.addEvent({
-                            title: `${meeting.area} ${meeting.classroom} | Clase ${meeting.name}`,
-                            start: meeting.dateFrom,
-                            end: meeting.dateTo,
-                            description: meeting.name,
-                            url: meeting.hangout,
-                            backgroundColor: 'red'
+                    axios.get("/api/lectives").then((response) => {
+                        this.lective_planification = response.data;
+
+
+                        response.data.forEach(e => {
+                            this.myOptions.push({
+                                is_lective: true,
+                                id: e.lective.id,
+                                id_classroom: 0,
+                                id_planification: e.id_planification,
+                                text: `Electiva ${e.lective.name} Trimestre ${e.period_consecutive}`
+                            });
                         });
-                    })
 
-                }
-            });
-            var url = window.location.origin + "/GetArearByUser";
-            axios.get(url).then((response) => {
-                this.myOptions = response.data;
-
-
-                axios.get("/api/lectives").then((response) => {
-                    this.lective_planification = response.data;
-
-
-                    response.data.forEach(e => {
-                        this.myOptions.push({
-                            is_lective: true,
-                            id: e.lective.id,
-                            id_classroom: 0,
-                            id_planification: e.id_planification,
-                            text: `Electiva ${e.lective.name} Trimestre ${e.period_consecutive}`
-                        });
                     });
 
                 });
-
-            });
-        },
-        methods: {
+            },
             filterPendingEvents: (events) => {
                 return events.filter(e => moment(e.dateTo) >= moment());
             },
@@ -458,10 +556,7 @@
                 const fullCalendarApi = this.$refs.fullCalendar.getApi();
 
                 if (this.display_activities) {
-                    /*
-                     this.clases.forEach(meeting=>{
-                      fullCalendarApi.addEvent({ title: `${meeting.area} ${meeting.classroom} | Clase ${meeting.name}`, start: meeting.dateFrom,end:meeting.dateTo,description: meeting.name,url:meeting.hangout ,backgroundColor:'red'});
-                     })*/
+                    this.getInvitations();
                 } else {
                     const currentEvents = fullCalendarApi.getEvents();
                     currentEvents.forEach(event => {

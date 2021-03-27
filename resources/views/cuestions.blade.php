@@ -12,6 +12,12 @@
   @if (Auth::user()->type_user == '1')
     <menu-adm></menu-adm>
  @endif
+ @if (Auth::user()->type_user == '4')
+    <menu-padres></menu-padres>
+ @endif
+ @if (Auth::user()->type_user == '6')
+    <menu-school></menu-school>
+ @endif
   <frecuent-cuestions></frecuent-cuestions>
   <footers></footers>
 <div class="container">

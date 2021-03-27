@@ -117,7 +117,7 @@
     import Multiselect from "vue-multiselect";
     Vue.component("multiselect", Multiselect);
     export default {
-        props:['students','parents','studentsEdit'],
+        props:['studentsEdit'],
         data(){
             return {
                 newStudentEdit:{},
@@ -126,14 +126,19 @@
                 parentsOptions:[],
                 fatherToSave:[],
                 motherToSave:[],
-                repitent:true
+                repitent:true,
+                parents:[],
+                students:[],
+                areas:[],
+                current_area:{}
             }
         },
         watch: { 
             studentsEdit: function(newVal, oldVal) { // watch it
                 if(newVal !== oldVal){
                     this.newStudentEdit = newVal;
-                    this.showDataParentsAndStudents();
+                    this.showDataParents();
+                    this.showDataStudents();
                 }
             }
         },
@@ -141,34 +146,55 @@
             Multiselect,
         },
         mounted(){
-            this.getParentsStudentsData();
+            this.getData();
+            this.showDataParents();
+            this.showDataStudents();
         },
         methods:{
-            getParentsStudentsData(){
-                let dataStudent = this.students[0];
-    
-                if(dataStudent){
-                    dataStudent.forEach(e => {
-                        this.studentsOptions.push({
-                            id: e.user_id,
-                            id_student: e.user_id,
-                            text: `${e.user_name}`,
-                        });
-                    });
-                }
+            getData(){
+                this.getParents();
+                axios.get('/GetArearByUser').then(response => {
+                    this.areas = response.data;
 
-                this.parents.forEach(e => {
-                    this.parentsOptions.push({
-                        id: e.id,
-                        id_parent: e.id,
-                        text: `${e.name}`
-                    });
+                    if(this.areas.length>0)
+                    {
+                        this.current_area=this.areas[0];
+                        this.getStudents();
+                    }
                 });
             },
-            showDataParentsAndStudents(){
+            getParents(){
+                axios.get('/getParents').then((response)=>{
+                    this.parents = response.data;
+                    this.parents.forEach(e => {   
+                        this.parentsOptions.push({
+                            id:e.id,
+                            id_parent: e.id,
+                            text: `${e.name}`
+                        });
+                    });
+                }).catch((error)=>{
+                    console.log(error);
+                })
+            },
+
+            getStudents(){
+                this.students = [];
+                axios.get(`/api/teacher/area/${this.current_area.id}/classroom/${this.current_area.id_classroom}/student`).then(response => {
+                    this.students = response.data;
+                    this.students.forEach(e => {   
+                        this.studentsOptions.push({
+                            id: e.user_id,
+                            id_student:e.user_id,
+                            text: `${e.user_name}`
+                        });
+                    });
+                });
+                
+            },
+            showDataParents(){
                 this.parents.forEach(e => {
                     if(e.name === this.newStudentEdit.mother_name){
-                        console.log("Padres",e)
                         this.motherToSave= {
                             id: e.id,
                             id_parent: e.id,
@@ -184,18 +210,18 @@
                         };
                     }
                 });
+            },
 
-                if(this.students[0]){
-                    this.students[0].forEach(e => { 
-                        if(e.user_id === this.newStudentEdit.id_student){ 
-                            this.studentToSave= {
-                                id: e.user_id,
-                                id_student: e.user_id,
-                                text: `${e.user_name}`,
-                            };
-                        }
-                    });
-                }
+            showDataStudents(){
+                this.students.forEach(e => { 
+                    if(e.user_id === this.newStudentEdit.id_student){ 
+                        this.studentToSave= {
+                            id: e.user_id,
+                            id_student: e.user_id,
+                            text: `${e.user_name}`,
+                        };
+                    }
+                });
             },
             saveObservation(){
                 const data = {

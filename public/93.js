@@ -1,9 +1,9 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[93],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/porcentajeNotas.vue?vue&type=script&lang=js&":
-/*!**************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/porcentajeNotas.vue?vue&type=script&lang=js& ***!
-  \**************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/lectivesTeacherIndicatorsComponent.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/lectivesTeacherIndicatorsComponent.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -15,6 +15,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_form_wizard_dist_vue_form_wizard_min_css__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue_form_wizard_dist_vue_form_wizard_min_css__WEBPACK_IMPORTED_MODULE_1__);
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
 //
 //
 //
@@ -249,7 +250,7 @@ $(function () {
 
 Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["id_area", "id_classroom"],
+  props: ["id_lective_planification"],
   data: function data() {
     var _ref;
 
@@ -260,35 +261,38 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
       }],
       inputs1: [{
         name: "",
-        porcentaje: ""
+        rate: ""
       }],
       newTrimestre: [],
       tipo_act: "",
-      porcentaje: ""
-    }, _defineProperty(_ref, "newTrimestre", []), _defineProperty(_ref, "newLogro", []), _defineProperty(_ref, "trimestre", false), _defineProperty(_ref, "logro_1", ""), _defineProperty(_ref, "logro_2", ""), _defineProperty(_ref, "logro_3", ""), _defineProperty(_ref, "logro_4", ""), _defineProperty(_ref, "fillC", []), _defineProperty(_ref, "fillI", []), _defineProperty(_ref, "anual", []), _defineProperty(_ref, "newAnual", []), _defineProperty(_ref, "errors", []), _defineProperty(_ref, "id_logro", ""), _defineProperty(_ref, "id_indicator", 0), _defineProperty(_ref, "index", 0), _ref;
+      rate: ""
+    }, _defineProperty(_ref, "newTrimestre", []), _defineProperty(_ref, "newLogro", []), _defineProperty(_ref, "trimestre", false), _defineProperty(_ref, "logro_1", ""), _defineProperty(_ref, "logro_2", ""), _defineProperty(_ref, "logro_3", ""), _defineProperty(_ref, "logro_4", ""), _defineProperty(_ref, "planification", {
+      lective: {}
+    }), _defineProperty(_ref, "indicators", []), _defineProperty(_ref, "anual", []), _defineProperty(_ref, "newAnual", []), _defineProperty(_ref, "errors", []), _defineProperty(_ref, "id_logro", ""), _defineProperty(_ref, "id_indicator", 0), _defineProperty(_ref, "index", 0), _defineProperty(_ref, "id_lective_achievement", 0), _ref;
   },
   mounted: function mounted() {
     var _this = this;
 
-    var urlsel = window.location.origin + "/coursePlanification/" + this.id_area + "/" + this.id_classroom;
+    var urlsel = "/api/lectives/planification/" + this.id_lective_planification;
     axios.get(urlsel).then(function (response) {
-      _this.fillC = response.data;
+      _this.planification = response.data;
     });
   },
   methods: {
     getMenu: function getMenu() {
-      window.location = "/actividad_g";
+      window.location = "/api/lectives/planification";
     },
-    getInd: function getInd() {
-      window.location = "/porcentaje/" + this.id_area + "/" + this.id_classroom;
+    returnToHome: function returnToHome() {
+      window.location = "/teacher/lectives/planning/".concat(this.id_lective_planification, "/indicators");
     },
-    indicador: function indicador(id) {
+    getIndicador: function getIndicador(id_achievement) {
       var _this2 = this;
 
-      var urli = window.location.origin + "/getIndicator/" + id;
+      this.id_lective_achievement = id_achievement;
+      this.indicators = [];
+      var urli = "/api/lectives/planification/" + this.id_lective_planification + "/achievement/" + id_achievement;
       axios.get(urli).then(function (response) {
-        _this2.fillI = response.data;
-        console.log(_this2.fillI);
+        _this2.indicators = response.data;
       });
     },
     add: function add(index) {
@@ -303,7 +307,7 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
     add1: function add1(index) {
       this.inputs1.push({
         name: "",
-        porcentaje: ""
+        rate: ""
       });
     },
     remove1: function remove1(index) {
@@ -312,68 +316,55 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
     createIndicator: function createIndicator() {
       var _this3 = this;
 
-      var url = window.location.origin + "/saveIndicator";
-      axios.post(url, {
+      axios.put("/api/lectives/planification/" + this.id_lective_planification + "/achievement", {
         //Cursos generales
         id_indicator: this.id_indicator,
+        id_lective_achievement: this.id_lective_achievement,
         type_activity: this.tipo_act,
         id_annual: this.id_annual,
         id_achievement: this.id_logro,
-        activity_rate: this.porcentaje
+        rate: this.rate
       }).then(function (response) {
         _this3.errors = [];
         toastr.success("Nueva actividad creada exitosamente");
 
-        _this3.getInd();
+        _this3.returnToHome();
       })["catch"](function (error) {
         _this3.errors = error.response.data;
       });
     },
     updateCourses: function updateCourses() {
-      window.location = "/actividad_g";
+      this.returnToHome();
     },
-    editNames: function editNames(id, clas) {
-      //   var urlr = "showClass/" + clas;
-      //   axios.get(urlr).then(response => {
-      //     this.fillS = response.data;
-      //   });
+    showAddModal: function showAddModal(id) {
       this.id_indicator = 0;
-      this.id_annual = clas;
-      this.id_logro = id;
-      this.tipo_act = "";
-      this.porcentaje = "";
+      this.tipo_act = '';
+      this.rate = '';
       $("#createZ").modal("show");
     },
-    showEdit: function showEdit(id_porcentaje, tipo_act, porcentaje) {
+    showEdit: function showEdit(id_rate, tipo_act, rate) {
       //   var urlr = "showClass/" + clas;
       //   axios.get(urlr).then(response => {
       //     this.fillS = response.data;
       //   });
-      this.id_indicator = id_porcentaje;
+      this.id_indicator = id_rate;
       this.tipo_act = tipo_act;
-      this.porcentaje = porcentaje;
+      this.rate = rate;
       $("#createZ").modal("show");
     },
-    removePercentage: function removePercentage(index, id_indicator) {
+    showDeleted: function showDeleted(id_indicator) {
       this.id_indicator = id_indicator;
-      this.index = index;
       $("#deleteZ").modal("show");
     },
     deleteIndicator: function deleteIndicator() {
       var _this4 = this;
 
-      var url = window.location.origin + "/deleteIndicator";
-      $("#deleteZ").modal("hide");
-      axios.post(url, {
-        //Eliminar indicador
-        id_indicator: this.id_indicator
-      }).then(function (response) {
+      axios["delete"]("/api/lectives/planification/".concat(this.id_lective_planification, "/indicator/").concat(this.id_indicator), {}).then(function (response) {
         _this4.errors = [];
+        $("#deleteZ").modal("hide");
         toastr.success("Actividad eliminada exitosamente");
 
-        _this4.fillI.splice(_this4.index, 1);
-
-        _this4.getInd();
+        _this4.returnToHome();
       })["catch"](function (error) {
         _this4.errors = error.response.data;
       });
@@ -383,10 +374,10 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/porcentajeNotas.vue?vue&type=template&id=23a35049&":
-/*!******************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/porcentajeNotas.vue?vue&type=template&id=23a35049& ***!
-  \******************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/lectivesTeacherIndicatorsComponent.vue?vue&type=template&id=2d195887&":
+/*!*************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/lectivesTeacherIndicatorsComponent.vue?vue&type=template&id=2d195887& ***!
+  \*************************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -406,7 +397,13 @@ var render = function() {
         _c("div", { staticClass: "col-md-11 mx-auto" }, [
           _c("div", { staticClass: "custom-card text-center" }, [
             _c("h3", { staticClass: "card-header fondo" }, [
-              _vm._v("Planificación general")
+              _vm._v(
+                "Planificación general " +
+                  _vm._s(_vm.planification.lective.name) +
+                  " Trimestre " +
+                  _vm._s(_vm.planification.period_consecutive) +
+                  " "
+              )
             ]),
             _vm._v(" "),
             _c(
@@ -438,228 +435,195 @@ var render = function() {
                     on: { "on-complete": _vm.updateCourses }
                   },
                   [
-                    _c(
-                      "tab-content",
-                      { attrs: { title: "Porcentaje de notas" } },
-                      [
-                        _c("div", { staticClass: "card-body" }, [
-                          _c(
-                            "div",
-                            {
-                              staticClass: "accordion",
-                              attrs: { id: "accordionExample" }
-                            },
-                            _vm._l(_vm.fillC.achievements, function(option, t) {
-                              return _c(
-                                "div",
-                                { key: t, staticClass: "card" },
-                                [
-                                  _c("div", { staticClass: "card-header" }, [
-                                    _c("h2", { staticClass: "mb-0" }, [
-                                      _c(
-                                        "button",
-                                        {
-                                          staticClass: "btn btn-link",
-                                          attrs: {
-                                            type: "button",
-                                            "data-toggle": "collapse",
-                                            "data-target": "#collapse" + t,
-                                            "aria-expanded": "false",
-                                            "aria-controls": "collapse"
-                                          },
-                                          on: {
-                                            click: function($event) {
-                                              $event.preventDefault()
-                                              return _vm.indicador(option.id)
-                                            }
-                                          }
-                                        },
-                                        [
-                                          _c(
-                                            "label",
-                                            {
-                                              staticStyle: {
-                                                "text-overflow": "ellipsis",
-                                                width: "450px",
-                                                "white-space": "nowrap",
-                                                overflow: "hidden"
-                                              }
-                                            },
-                                            [_vm._v(_vm._s(option.achievement))]
-                                          ),
-                                          _vm._v(" "),
-                                          _c("input", {
-                                            directives: [
-                                              {
-                                                name: "model",
-                                                rawName: "v-model",
-                                                value: option.percentage,
-                                                expression: "option.percentage"
-                                              }
-                                            ],
-                                            staticStyle: { width: "50px" },
-                                            attrs: {
-                                              type: "number",
-                                              disabled: ""
-                                            },
-                                            domProps: {
-                                              value: option.percentage
-                                            },
-                                            on: {
-                                              input: function($event) {
-                                                if ($event.target.composing) {
-                                                  return
-                                                }
-                                                _vm.$set(
-                                                  option,
-                                                  "percentage",
-                                                  $event.target.value
-                                                )
-                                              }
-                                            }
-                                          }),
-                                          _vm._v(
-                                            "\n                            %\n                          "
-                                          )
-                                        ]
-                                      )
-                                    ])
-                                  ]),
-                                  _vm._v(" "),
+                    _c("tab-content", { attrs: { title: "rate de notas" } }, [
+                      _c("div", { staticClass: "card-body" }, [
+                        _c(
+                          "div",
+                          {
+                            staticClass: "accordion",
+                            attrs: { id: "accordionExample" }
+                          },
+                          _vm._l(_vm.planification.achievements, function(
+                            option,
+                            t
+                          ) {
+                            return _c("div", { key: t, staticClass: "card" }, [
+                              _c("div", { staticClass: "card-header" }, [
+                                _c("h2", { staticClass: "mb-0" }, [
                                   _c(
-                                    "div",
+                                    "button",
                                     {
-                                      staticClass: "collapse hide",
+                                      staticClass: "btn btn-link",
                                       attrs: {
-                                        id: "collapse" + t,
-                                        "aria-labelledby": "heading",
-                                        "data-parent": "#accordionExample"
+                                        type: "button",
+                                        "data-toggle": "collapse",
+                                        "data-target": "#collapse" + t,
+                                        "aria-expanded": "false",
+                                        "aria-controls": "collapse"
+                                      },
+                                      on: {
+                                        click: function($event) {
+                                          $event.preventDefault()
+                                          return _vm.getIndicador(option.id)
+                                        }
                                       }
                                     },
                                     [
-                                      _c("div", { staticClass: "card-body" }, [
-                                        _c(
-                                          "table",
+                                      _c(
+                                        "label",
+                                        {
+                                          staticStyle: {
+                                            "text-overflow": "ellipsis",
+                                            width: "450px",
+                                            "white-space": "nowrap",
+                                            overflow: "hidden"
+                                          }
+                                        },
+                                        [_vm._v(_vm._s(option.content))]
+                                      ),
+                                      _vm._v(" "),
+                                      _c("input", {
+                                        directives: [
                                           {
-                                            staticClass:
-                                              "table table-responsive-xl table-hover table-striped center"
-                                          },
-                                          [
-                                            _c(
-                                              "tbody",
-                                              [
-                                                _c("tr", [
-                                                  _c("td", [
-                                                    _vm._v("Actividad")
-                                                  ]),
-                                                  _vm._v(" "),
-                                                  _c("td", [
-                                                    _vm._v("Porcentaje")
-                                                  ]),
-                                                  _vm._v(" "),
-                                                  _c("td", [_vm._v("Editar")]),
-                                                  _vm._v(" "),
-                                                  _c("td", [_vm._v("Eliminar")])
-                                                ]),
-                                                _vm._v(" "),
-                                                _vm._l(_vm.fillI, function(
-                                                  opt,
-                                                  i
-                                                ) {
-                                                  return _c("tr", [
-                                                    _c("td", [
-                                                      _vm._v(
-                                                        _vm._s(
-                                                          opt.type_activity
-                                                        )
-                                                      )
-                                                    ]),
-                                                    _vm._v(" "),
-                                                    _c("td", [
-                                                      _vm._v(
-                                                        _vm._s(
-                                                          opt.activity_rate
-                                                        )
-                                                      )
-                                                    ]),
-                                                    _vm._v(" "),
-                                                    _c("td", [
-                                                      _c("a", {
-                                                        staticClass:
-                                                          "fas fa-edit",
-                                                        on: {
-                                                          click: function(
-                                                            $event
-                                                          ) {
-                                                            $event.preventDefault()
-                                                            return _vm.showEdit(
-                                                              opt.id,
-                                                              opt.type_activity,
-                                                              opt.activity_rate
-                                                            )
-                                                          }
-                                                        }
-                                                      })
-                                                    ]),
-                                                    _vm._v(" "),
-                                                    _c("td", [
-                                                      _c("a", {
-                                                        staticClass:
-                                                          "fas fa-trash-alt",
-                                                        on: {
-                                                          click: function(
-                                                            $event
-                                                          ) {
-                                                            $event.preventDefault()
-                                                            return _vm.removePercentage(
-                                                              i,
-                                                              opt.id
-                                                            )
-                                                          }
-                                                        }
-                                                      })
-                                                    ])
-                                                  ])
-                                                })
-                                              ],
-                                              2
+                                            name: "model",
+                                            rawName: "v-model",
+                                            value: option.rate,
+                                            expression: "option.rate"
+                                          }
+                                        ],
+                                        staticStyle: { width: "50px" },
+                                        attrs: { type: "number", disabled: "" },
+                                        domProps: { value: option.rate },
+                                        on: {
+                                          input: function($event) {
+                                            if ($event.target.composing) {
+                                              return
+                                            }
+                                            _vm.$set(
+                                              option,
+                                              "rate",
+                                              $event.target.value
                                             )
-                                          ]
-                                        ),
-                                        _vm._v(" "),
-                                        _c(
-                                          "div",
-                                          { attrs: { align: "right" } },
-                                          [
-                                            _c(
-                                              "a",
-                                              {
-                                                staticClass: "btn btn-warning",
-                                                on: {
-                                                  click: function($event) {
-                                                    $event.preventDefault()
-                                                    return _vm.editNames(
-                                                      option.id,
-                                                      option.id_planification
-                                                    )
-                                                  }
-                                                }
-                                              },
-                                              [_vm._v("Agregar")]
-                                            )
-                                          ]
-                                        )
-                                      ])
+                                          }
+                                        }
+                                      }),
+                                      _vm._v(
+                                        "\n                            %\n                          "
+                                      )
                                     ]
                                   )
+                                ])
+                              ]),
+                              _vm._v(" "),
+                              _c(
+                                "div",
+                                {
+                                  staticClass: "collapse hide",
+                                  attrs: {
+                                    id: "collapse" + t,
+                                    "aria-labelledby": "heading",
+                                    "data-parent": "#accordionExample"
+                                  }
+                                },
+                                [
+                                  _c("div", { staticClass: "card-body" }, [
+                                    _c(
+                                      "table",
+                                      {
+                                        staticClass:
+                                          "table table-responsive-xl table-hover table-striped center"
+                                      },
+                                      [
+                                        _c(
+                                          "tbody",
+                                          [
+                                            _c("tr", [
+                                              _c("td", [_vm._v("Actividad")]),
+                                              _vm._v(" "),
+                                              _c("td", [_vm._v("rate")]),
+                                              _vm._v(" "),
+                                              _c("td", [_vm._v("Editar")]),
+                                              _vm._v(" "),
+                                              _c("td", [_vm._v("Eliminar")])
+                                            ]),
+                                            _vm._v(" "),
+                                            _vm._l(_vm.indicators, function(
+                                              opt,
+                                              i
+                                            ) {
+                                              return _c("tr", [
+                                                _c("td", [
+                                                  _vm._v(
+                                                    _vm._s(opt.type_activity)
+                                                  )
+                                                ]),
+                                                _vm._v(" "),
+                                                _c("td", [
+                                                  _vm._v(_vm._s(opt.rate))
+                                                ]),
+                                                _vm._v(" "),
+                                                _c("td", [
+                                                  _c("a", {
+                                                    staticClass: "fas fa-edit",
+                                                    on: {
+                                                      click: function($event) {
+                                                        $event.preventDefault()
+                                                        return _vm.showEdit(
+                                                          opt.id,
+                                                          opt.type_activity,
+                                                          opt.rate
+                                                        )
+                                                      }
+                                                    }
+                                                  })
+                                                ]),
+                                                _vm._v(" "),
+                                                _c("td", [
+                                                  _c("a", {
+                                                    staticClass:
+                                                      "fas fa-trash-alt",
+                                                    on: {
+                                                      click: function($event) {
+                                                        $event.preventDefault()
+                                                        return _vm.showDeleted(
+                                                          opt.id
+                                                        )
+                                                      }
+                                                    }
+                                                  })
+                                                ])
+                                              ])
+                                            })
+                                          ],
+                                          2
+                                        )
+                                      ]
+                                    ),
+                                    _vm._v(" "),
+                                    _c("div", { attrs: { align: "right" } }, [
+                                      _c(
+                                        "a",
+                                        {
+                                          staticClass: "btn btn-warning",
+                                          on: {
+                                            click: function($event) {
+                                              $event.preventDefault()
+                                              return _vm.showAddModal(option.id)
+                                            }
+                                          }
+                                        },
+                                        [_vm._v("Agregar")]
+                                      )
+                                    ])
+                                  ])
                                 ]
                               )
-                            }),
-                            0
-                          )
-                        ])
-                      ]
-                    )
+                            ])
+                          }),
+                          0
+                        )
+                      ])
+                    ])
                   ],
                   1
                 )
@@ -744,8 +708,8 @@ var render = function() {
                                   {
                                     name: "model",
                                     rawName: "v-model",
-                                    value: _vm.porcentaje,
-                                    expression: "porcentaje"
+                                    value: _vm.rate,
+                                    expression: "rate"
                                   }
                                 ],
                                 staticClass: "form-control",
@@ -755,13 +719,13 @@ var render = function() {
                                   name: "objetive1",
                                   required: ""
                                 },
-                                domProps: { value: _vm.porcentaje },
+                                domProps: { value: _vm.rate },
                                 on: {
                                   input: function($event) {
                                     if ($event.target.composing) {
                                       return
                                     }
-                                    _vm.porcentaje = $event.target.value
+                                    _vm.rate = $event.target.value
                                   }
                                 }
                               })
@@ -797,34 +761,20 @@ var render = function() {
                 _vm._m(2),
                 _vm._v(" "),
                 _c("div", { staticClass: "card-body" }, [
-                  _c(
-                    "form",
-                    {
-                      staticClass: "needs-validation",
-                      attrs: { novalidate: "" },
+                  _c("label", [_vm._v("¿Desea eliminar el indicador?")]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "modal-footer" }, [
+                    _c("input", {
+                      staticClass: "btn btn-warning",
+                      attrs: { type: "submit", value: "Confirmar" },
                       on: {
-                        submit: function($event) {
+                        click: function($event) {
                           $event.preventDefault()
+                          return _vm.deleteIndicator()
                         }
                       }
-                    },
-                    [
-                      _c("label", [_vm._v("¿Desea eliminar el indicador?")]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "modal-footer" }, [
-                        _c("input", {
-                          staticClass: "btn btn-warning",
-                          attrs: { type: "submit", value: "Confirmar" },
-                          on: {
-                            click: function($event) {
-                              $event.preventDefault()
-                              return _vm.deleteIndicator()
-                            }
-                          }
-                        })
-                      ])
-                    ]
-                  )
+                    })
+                  ])
                 ])
               ])
             ])
@@ -911,17 +861,17 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./resources/js/components/porcentajeNotas.vue":
-/*!*****************************************************!*\
-  !*** ./resources/js/components/porcentajeNotas.vue ***!
-  \*****************************************************/
+/***/ "./resources/js/components/lectivesTeacherIndicatorsComponent.vue":
+/*!************************************************************************!*\
+  !*** ./resources/js/components/lectivesTeacherIndicatorsComponent.vue ***!
+  \************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _porcentajeNotas_vue_vue_type_template_id_23a35049___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./porcentajeNotas.vue?vue&type=template&id=23a35049& */ "./resources/js/components/porcentajeNotas.vue?vue&type=template&id=23a35049&");
-/* harmony import */ var _porcentajeNotas_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./porcentajeNotas.vue?vue&type=script&lang=js& */ "./resources/js/components/porcentajeNotas.vue?vue&type=script&lang=js&");
+/* harmony import */ var _lectivesTeacherIndicatorsComponent_vue_vue_type_template_id_2d195887___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./lectivesTeacherIndicatorsComponent.vue?vue&type=template&id=2d195887& */ "./resources/js/components/lectivesTeacherIndicatorsComponent.vue?vue&type=template&id=2d195887&");
+/* harmony import */ var _lectivesTeacherIndicatorsComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./lectivesTeacherIndicatorsComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/lectivesTeacherIndicatorsComponent.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -931,9 +881,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _porcentajeNotas_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _porcentajeNotas_vue_vue_type_template_id_23a35049___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _porcentajeNotas_vue_vue_type_template_id_23a35049___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _lectivesTeacherIndicatorsComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _lectivesTeacherIndicatorsComponent_vue_vue_type_template_id_2d195887___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _lectivesTeacherIndicatorsComponent_vue_vue_type_template_id_2d195887___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -943,38 +893,38 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/components/porcentajeNotas.vue"
+component.options.__file = "resources/js/components/lectivesTeacherIndicatorsComponent.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/components/porcentajeNotas.vue?vue&type=script&lang=js&":
-/*!******************************************************************************!*\
-  !*** ./resources/js/components/porcentajeNotas.vue?vue&type=script&lang=js& ***!
-  \******************************************************************************/
+/***/ "./resources/js/components/lectivesTeacherIndicatorsComponent.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************************!*\
+  !*** ./resources/js/components/lectivesTeacherIndicatorsComponent.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_porcentajeNotas_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./porcentajeNotas.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/porcentajeNotas.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_porcentajeNotas_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_lectivesTeacherIndicatorsComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./lectivesTeacherIndicatorsComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/lectivesTeacherIndicatorsComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_lectivesTeacherIndicatorsComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/components/porcentajeNotas.vue?vue&type=template&id=23a35049&":
-/*!************************************************************************************!*\
-  !*** ./resources/js/components/porcentajeNotas.vue?vue&type=template&id=23a35049& ***!
-  \************************************************************************************/
+/***/ "./resources/js/components/lectivesTeacherIndicatorsComponent.vue?vue&type=template&id=2d195887&":
+/*!*******************************************************************************************************!*\
+  !*** ./resources/js/components/lectivesTeacherIndicatorsComponent.vue?vue&type=template&id=2d195887& ***!
+  \*******************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_porcentajeNotas_vue_vue_type_template_id_23a35049___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./porcentajeNotas.vue?vue&type=template&id=23a35049& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/porcentajeNotas.vue?vue&type=template&id=23a35049&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_porcentajeNotas_vue_vue_type_template_id_23a35049___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_lectivesTeacherIndicatorsComponent_vue_vue_type_template_id_2d195887___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./lectivesTeacherIndicatorsComponent.vue?vue&type=template&id=2d195887& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/lectivesTeacherIndicatorsComponent.vue?vue&type=template&id=2d195887&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_lectivesTeacherIndicatorsComponent_vue_vue_type_template_id_2d195887___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_porcentajeNotas_vue_vue_type_template_id_23a35049___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_lectivesTeacherIndicatorsComponent_vue_vue_type_template_id_2d195887___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

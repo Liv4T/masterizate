@@ -117,7 +117,7 @@
     import Multiselect from "vue-multiselect";
     Vue.component("multiselect", Multiselect);
     export default {
-        props:['students','parents','user'],
+        props:['user'],
         data(){
             return {
                 dateBirth:"",
@@ -137,36 +137,57 @@
                 studentToSave:[],
                 parentsOptions:[],
                 fatherToSave:[],
-                motherToSave:[]
+                motherToSave:[],
+                parents:[],
+                students:[],
+                areas:[],
+                current_area:{}
             }
         },
         components: {
             Multiselect
         },
         mounted(){
-            this.getParentsStudentsData();
+            this.getParents();
+            axios.get('/GetArearByUser').then(response => {
+                this.areas = response.data;
+
+                if(this.areas.length>0)
+                {
+                    this.current_area=this.areas[0];
+                    this.getStudents();
+                }
+            });
         },
         methods:{
-            getParentsStudentsData(){
-                let dataStudent = this.students[0];
-    
-                if(dataStudent){
-                    dataStudent.forEach(e => {
-                        this.studentsOptions.push({
-                            id: e.user_id,
-                            id_student: e.user_id,
-                            text: `${e.user_name}`,
+            getParents(){
+                axios.get('/getParents').then((response)=>{
+                    this.parents = response.data;
+                    this.parents.forEach(e => {   
+                        this.parentsOptions.push({
+                            id:e.id,
+                            id_parent: e.id,
+                            text: `${e.name}`
                         });
                     });
-                }
+                }).catch((error)=>{
+                    console.log(error);
+                })
+            },
 
-                this.parents.forEach(e => {   
-                    this.parentsOptions.push({
-                        id:e.id,
-                        id_parent: e.id,
-                        text: `${e.name}`
+            getStudents(){
+                this.students = [];
+                axios.get(`/api/teacher/area/${this.current_area.id}/classroom/${this.current_area.id_classroom}/student`).then(response => {
+                    this.students = response.data;
+                    this.students.forEach(e => {   
+                        this.studentsOptions.push({
+                            id: e.user_id,
+                            id_student:e.user_id,
+                            text: `${e.user_name}`
+                        });
                     });
                 });
+                
             },
 
             saveObservation(){
@@ -191,7 +212,7 @@
                 axios.post('/observer',data).then((response)=>{
                     toastr.success("Datos Guardados")
                     $("#createModal").modal("hide");
-                }).catch((error)=>{
+                }).catch((error)=>{                    
                     toastr.error("Diligencia los campos requeridos")
                 })
             }

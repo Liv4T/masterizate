@@ -4,6 +4,16 @@
             <div class="row">
                 <div class="left">
                     <ul>
+                        <a href="/perfil_d">
+                            <li class="item-menu">
+                                <img
+                                width="35px"
+                                src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/MI-PERFIL.png?alt=media&token=317fc013-8cce-448f-9af9-54e2981274d0"
+                                alt
+                                />
+                                <span class="menu">Mi perfil</span>
+                            </li>
+                        </a>
                         <div class="dropdown">
                             <a>
                                 <li class="item-menu">
@@ -29,14 +39,24 @@
                                 </li>
                             </a>
                         </div>
-                        <!-- <a href="/SchoolGovernmentMembers">
+                        <a href="/reportsGovernment">
                             <li class="item-menu">
                                 <img width="35px"
                                     src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/MANUAL-DE-USUARIO_naranja.png?alt=media&token=bd2488fb-e121-432d-afd2-f223fcc0f29e"
                                     alt />
-                                <span class="menu">Quienes lo Conforman</span>
+                                <span class="menu">Reportes</span>
                             </li>
-                        </a> -->
+                        </a>
+                        <a href="/governmentMembers">
+                            <li class="item-menu">
+                                <img width="35px"
+                                    src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/MANUAL-DE-USUARIO_naranja.png?alt=media&token=bd2488fb-e121-432d-afd2-f223fcc0f29e"
+                                    alt />
+                                <span class="badge text-wrap" style="width: 6rem; font-size: 13px">
+                                    Quienes lo Conforman
+                                </span>
+                            </li>
+                        </a>
                         <a href="/legislation">
                             <li class="item-menu">
                                 <img width="35px"
@@ -45,6 +65,7 @@
                                 <span class="menu">Legislación</span>
                             </li>
                         </a>
+                        
                         <a href="/schoolGobernment">
                             <li class="item-menu">
                                 <img width="35px"
@@ -55,8 +76,7 @@
                         </a>
                         <a href="/manual">
                             <li class="item-menu">
-                                <img width="50px"
-                                    height="150px"
+                                <img width="35px"
                                     src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/MANUAL-DE-USUARIO_naranja.png?alt=media&token=bd2488fb-e121-432d-afd2-f223fcc0f29e"
                                     alt />
                                 <span class="badge text-wrap" style="width: 6rem; font-size: 13px">
