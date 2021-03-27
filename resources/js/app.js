@@ -98,6 +98,7 @@ Vue.component("redactar-component", require("./components/redactar.vue").default
 Vue.component("vmensaje-component", require("./components/vistamensaje.vue").default);
 Vue.component("classroom-component", require("./components/classroomComponent.vue").default);
 Vue.component("studentbyclass-component", require("./components/studentClassroom.vue").default);
+Vue.component("student-report-component", require("./components/studentReport.vue").default);
 Vue.component("psychologymenu",  () => import ("./components/psychologyMenu.vue"));
 
 Vue.component("duplicarsemana-component", require("./components/duplicarSemana.vue").default);
@@ -222,8 +223,8 @@ Vue.component("parents-observer", () => import("./components/ParentsObserver.vue
 //Psicologia 
 Vue.component("comunicates-component", () => import("./components/Comunicates.vue"));
 Vue.component("history-psicology-component", ()=> import("./components/HistorialPsicologia.vue"));
-Vue.component("follow-ups-component", ()=>import("./components/Seguimientos.vue"))
-
+Vue.component("follow-ups-component", ()=>import("./components/Seguimientos.vue"));
+Vue.component("modal-create-reason-component", () => import("./components/ModalReasonCreate.vue"));
 
 //Observer
 Vue.component("observer-component", () => import("./components/Observer.vue"));
@@ -236,4 +237,8 @@ Vue.component("menu-school", () =>import("./components/menuSchoolGov.vue"));
 Vue.component("school-government-component", () =>import("./components/SchoolGov.vue"));
 Vue.component("modal-school-component", () =>import("./components/ModalSchoolGov.vue"));
 Vue.component("legislation-component", () =>import("./components/legislation.vue"));
+
+//Report Psychology
+Vue.component("students-component", () => import("./components/students.vue"));
+Vue.component("report-visits-component", () => import("./components/reportVisits.vue"));
 const app = new Vue({el: "#app", data: {}, store});

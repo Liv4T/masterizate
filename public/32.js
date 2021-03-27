@@ -152,6 +152,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   methods: {
     logout: function logout() {
@@ -179,7 +187,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.left {\r\n  width: 225px;\r\n  height: auto;\r\n  background: #f5f5f5;\r\n  white-space: nowrap;\r\n  transition: width 0.5s;\r\n  position: absolute;\r\n  z-index: 1;\n}\n.left ul {\r\n  padding: 0;\r\n  list-style-type: none;\r\n  text-align: left;\n}\n.left li {\r\n  width: auto;\r\n  height: 60px;\r\n  line-height: 50px;\r\n  padding-left: 18px;\n}\n.left li:hover {\r\n  background: #278080;\r\n  color: white;\n}\n.left .item-menu {\r\n  height: 50px;\r\n  overflow: hidden;\r\n  color: black;\n}\n.left a {\r\n  color: white;\r\n  text-decoration: none;\r\n  font-weight: bold;\n}\nspan.menu {\r\n  padding-left: 17px;\n}\n.t_search {\r\n  color: rgb(200, 200, 200);\r\n  height: 35px;\r\n  margin-left: 15px;\r\n  width: 190px;\n}\n.dropdown {\r\n  position: relative;\r\n  display: inline-block;\n}\n.dropdown-content {\r\n  display: none;\r\n  position: absolute;\r\n  background-color: #f5f5f5;\r\n  min-width: 160px;\r\n  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);\r\n  z-index: 1;\n}\n.dropdown-content a {\r\n  color: black;\r\n  padding: 12px 16px;\r\n  text-decoration: none;\r\n  display: block;\n}\n.dropdown-content a:hover {\r\n  background: #278080;\r\n  color: white;\n}\n.dropdown:hover .dropdown-content {\r\n  display: block;\n}\n.dropdown1 {\r\n  position: relative;\n}\n.dropdown1-content {\r\n  display: none;\r\n  position: absolute;\r\n  background-color: #f5f5f5;\r\n  min-width: 160px;\r\n  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);\r\n  z-index: 1;\n}\n.dropdown1-content a {\r\n  color: black;\r\n  padding: 12px 16px;\r\n  text-decoration: none;\r\n  display: block;\n}\n.dropdown1-content a:hover {\r\n  background: #278080;\r\n  color: white;\n}\n.dropdown1:hover .dropdown1-content {\r\n  display: block;\n}\n.dropdown2 {\r\n  position: relative;\n}\n.dropdown2-content {\r\n  display: none;\r\n  position: absolute;\r\n  background-color: #f5f5f5;\r\n  min-width: 160px;\r\n  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);\r\n  z-index: 1;\n}\n.dropdown2-content a {\r\n  color: black;\r\n  padding: 12px 16px;\r\n  text-decoration: none;\r\n  display: block;\n}\n.dropdown2-content a:hover {\r\n  background: #278080;\r\n  color: white;\n}\n.dropdown2:hover .dropdown2-content {\r\n  display: block;\n}\r\n", ""]);
+exports.push([module.i, "\n.left {\n  width: 225px;\n  height: auto;\n  background: #f5f5f5;\n  white-space: nowrap;\n  transition: width 0.5s;\n  position: absolute;\n  z-index: 1;\n}\n.left ul {\n  padding: 0;\n  list-style-type: none;\n  text-align: left;\n}\n.left li {\n  width: auto;\n  height: 60px;\n  line-height: 50px;\n  padding-left: 18px;\n}\n.left li:hover {\n  background: #278080;\n  color: white;\n}\n.left .item-menu {\n  height: 50px;\n  overflow: hidden;\n  color: black;\n}\n.left a {\n  color: white;\n  text-decoration: none;\n  font-weight: bold;\n}\nspan.menu {\n  padding-left: 17px;\n}\n.t_search {\n  color: rgb(200, 200, 200);\n  height: 35px;\n  margin-left: 15px;\n  width: 190px;\n}\n.dropdown {\n  position: relative;\n  display: inline-block;\n}\n.dropdown-content {\n  display: none;\n  position: absolute;\n  background-color: #f5f5f5;\n  min-width: 160px;\n  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);\n  z-index: 1;\n}\n.dropdown-content a {\n  color: black;\n  padding: 12px 16px;\n  text-decoration: none;\n  display: block;\n}\n.dropdown-content a:hover {\n  background: #278080;\n  color: white;\n}\n.dropdown:hover .dropdown-content {\n  display: block;\n}\n.dropdown1 {\n  position: relative;\n}\n.dropdown1-content {\n  display: none;\n  position: absolute;\n  background-color: #f5f5f5;\n  min-width: 160px;\n  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);\n  z-index: 1;\n}\n.dropdown1-content a {\n  color: black;\n  padding: 12px 16px;\n  text-decoration: none;\n  display: block;\n}\n.dropdown1-content a:hover {\n  background: #278080;\n  color: white;\n}\n.dropdown1:hover .dropdown1-content {\n  display: block;\n}\n.dropdown2 {\n  position: relative;\n}\n.dropdown2-content {\n  display: none;\n  position: absolute;\n  background-color: #f5f5f5;\n  min-width: 160px;\n  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);\n  z-index: 1;\n}\n.dropdown2-content a {\n  color: black;\n  padding: 12px 16px;\n  text-decoration: none;\n  display: block;\n}\n.dropdown2-content a:hover {\n  background: #278080;\n  color: white;\n}\n.dropdown2:hover .dropdown2-content {\n  display: block;\n}\n", ""]);
 
 // exports
 
@@ -382,7 +390,7 @@ var staticRenderFns = [
                 _vm._v("\n                    Estudiantes\n                  ")
               ]),
               _vm._v(" "),
-              _c("a", { attrs: { href: "/reportes" } }, [
+              _c("a", { attrs: { href: "/students/visits" } }, [
                 _c("img", {
                   attrs: {
                     width: "35px",
@@ -391,7 +399,23 @@ var staticRenderFns = [
                     alt: ""
                   }
                 }),
-                _vm._v("\n                    Reportes\n                  ")
+                _vm._v(
+                  "\n                    Reporte de Visitas\n                  "
+                )
+              ]),
+              _vm._v(" "),
+              _c("a", { attrs: { href: "/students/notes" } }, [
+                _c("img", {
+                  attrs: {
+                    width: "35px",
+                    src:
+                      "https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/MIS-CURSOS.png?alt=media&token=93ec6b97-e5a6-4eca-891e-b63bf2a352ad",
+                    alt: ""
+                  }
+                }),
+                _vm._v(
+                  "\n                    Reporte Observaciones\n                  "
+                )
               ])
             ])
           ])

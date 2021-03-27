@@ -23,4 +23,19 @@ class StudentController extends Controller
 
         return  response()->json($student);
     }
+
+    public function student(int $id){
+
+        $student=User::find($id);
+
+        $students[0] = [
+            "id" => $student->id,
+            "name" => $student->name,
+            "last_name" => $student->last_name,
+            "picture" => $student->picture,
+            "email" => $student->email,
+        ];
+
+        return  response()->json($students);
+    }
 }

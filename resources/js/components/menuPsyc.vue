@@ -76,7 +76,7 @@
                     class="menu"
                   >Académico&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                   <div class="dropdown2-content">
-                    <a href="/classroom"> <!-- vista sin crear aun -->
+                    <a href="/classroom">
                       <img
                         width="35px"
                         src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/MIS-CURSOS.png?alt=media&token=93ec6b97-e5a6-4eca-891e-b63bf2a352ad"
@@ -84,13 +84,21 @@
                       />
                       Estudiantes
                     </a>
-                    <a href="/reportes"> <!-- vista sin crear aun porque creo que es una distinta a esta -->
+                    <a href="/students/visits"> 
                       <img
                         width="35px"
                         src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/MIS-CURSOS.png?alt=media&token=93ec6b97-e5a6-4eca-891e-b63bf2a352ad"
                         alt
                       />
-                      Reportes
+                      Reporte de Visitas
+                    </a>
+                    <a href="/students/notes"> 
+                      <img
+                        width="35px"
+                        src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/MIS-CURSOS.png?alt=media&token=93ec6b97-e5a6-4eca-891e-b63bf2a352ad"
+                        alt
+                      />
+                      Reporte Observaciones
                     </a>
                   </div>
                 </li>
