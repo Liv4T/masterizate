@@ -7,6 +7,7 @@
                    </div>
               </div>
                <div class="card-body">
+
                    <div class="row">
                         <div class="col-12 col-md-4">
                             <div>
@@ -17,6 +18,24 @@
                             </div>
                         </div>
                         <div class="col-12 col-md-8">
+                            <!--
+                            <div class="row">
+                                <div class="col-12 col-md-12 align-self-end">
+                                    <div class="percent-calification-base">
+                                            <span>Porcentaje base de calificación:</span>
+                                            <div class="percent-calification-save">
+                                                <div class="input-group">
+                                                    <input type="number" class="form-control" v-model="current_area.calification_base">
+                                                    <div class="input-group-append">
+                                                        <span class="input-group-text" >%</span>
+                                                    </div>
+                                                </div>
+                                                <button class="btn btn-primary" @click="saveCalificationCourse()">Aplicar</button>
+                                            </div>
+                                    </div>
+                                </div>
+                            </div>
+                            -->
                             <div class="students_container">
                                 <table class="table table-hover center">
                                     <thead>
@@ -46,7 +65,7 @@
                                                 {{student.progress}} %
                                             </td>
                                             <td>
-                                                {{student.score}} /  {{student.score_base}}
+                                                {{student.score > -1? `${student.score}/${student.score_base}`:''}}
                                             </td>
                                             <td>
                                                 <a class="btn btn-primary" :href="`/docente/area/${current_area.id}/curso/${current_area.id_classroom}/estudiante/${student.user_id}`">VER</a>
@@ -100,11 +119,36 @@ export default {
         SelectArea(area){
              this.current_area=area;
              this.getStudents();
+        },
+        saveCalificationCourse(){
+            console.log(this.current_area.calification_base);
+             axios.put(`/api/teacher/area/${this.current_area.id}/classroom/${this.current_area.id_classroom}/calification`,{percent_calification:this.current_area.calification_base}).then(response => {
+                   toastr.success("Calificación actualizada correctamente");
+                   this.getStudents();
+            });
         }
     }
 }
 </script>
 <style scoped>
+.align-self-end{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+.percent-calification-base{
+    margin-bottom: 20px;
+}
+.percent-calification-save{
+     display: flex;
+    justify-content: flex-start;
+}
+.percent-calification-save input{
+    max-width: 80px;
+}
+.percent-calification-save>button{
+    margin-left: 20px;
+}
 .area_container{
     display: flex;
     padding: 10px;

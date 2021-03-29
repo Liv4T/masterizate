@@ -1,16 +1,14 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[116],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/text-emoji.vue?vue&type=script&lang=js&":
-/*!*********************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/text-emoji.vue?vue&type=script&lang=js& ***!
-  \*********************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/schoolGovernmentMembers.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/schoolGovernmentMembers.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vue_emoji_picker__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-emoji-picker */ "./node_modules/vue-emoji-picker/dist-module/main.js");
-/* harmony import */ var vue_emoji_picker__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue_emoji_picker__WEBPACK_IMPORTED_MODULE_0__);
 //
 //
 //
@@ -60,75 +58,56 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["foro"],
+  props: ['user'],
   data: function data() {
     return {
-      input: "",
-      search: ""
+      members: [],
+      name: "",
+      position: "",
+      description: "",
+      order: "",
+      memberEdit: {}
     };
   },
-  components: {
-    EmojiPicker: vue_emoji_picker__WEBPACK_IMPORTED_MODULE_0___default.a
+  mounted: function mounted() {
+    this.getMembers();
   },
   methods: {
-    append: function append(emoji) {
-      this.input += emoji;
-    },
-    getMenu: function getMenu() {
-      window.location = "/showQuestion/" + this.foro;
-    },
-    createEvent: function createEvent() {
+    getMembers: function getMembers() {
       var _this = this;
 
-      var url = "/storeAnswer";
-      axios.post(url, {
-        //Cursos generales
-        id_question: this.foro,
-        body: this.input
-      }).then(function (response) {
-        _this.getMenu();
+      axios.get('/members').then(function (response) {
+        _this.members = response.data;
+      });
+    },
+    editMember: function editMember(value) {
+      this.memberEdit = value;
+      $("#editModal").modal("show");
+    },
+    deleteMember: function deleteMember(id) {
+      var _this2 = this;
 
-        toastr.success("Nueva respuesta creada exitosamente");
-      })["catch"](function (error) {});
+      if (window.confirm("Deseas eliminar este dato?")) {
+        axios["delete"]("/members/".concat(id)).then(function (response) {
+          toastr.success(response.data);
+
+          _this2.getMembers();
+        })["catch"](function (error) {
+          toastr.danger("Intentalo de nuevo mas tarde");
+          console.log(error);
+        });
+      }
     }
   }
 });
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/text-emoji.vue?vue&type=template&id=bc3fbd9e&":
-/*!*************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/text-emoji.vue?vue&type=template&id=bc3fbd9e& ***!
-  \*************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/schoolGovernmentMembers.vue?vue&type=template&id=d953434e&":
+/*!**************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/schoolGovernmentMembers.vue?vue&type=template&id=d953434e& ***!
+  \**************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -140,185 +119,130 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "back" }, [
-    _c(
-      "form",
-      {
-        staticClass: "needs-validation",
-        attrs: { novalidate: "" },
-        on: {
-          submit: function($event) {
-            $event.preventDefault()
-            return _vm.createEvent($event)
-          }
-        }
-      },
-      [
-        _c("div", { staticClass: "input-group" }, [
-          _c(
-            "div",
-            { staticClass: "wrapper" },
-            [
-              _c("textarea", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.input,
-                    expression: "input"
+  return _c(
+    "div",
+    { staticClass: "back" },
+    [
+      _c("div", { staticClass: "row justify-content-center" }, [
+        _c("div", { staticClass: "col-sm-10", attrs: { id: "crud" } }, [
+          _c("div", { staticClass: "card" }, [
+            _vm._m(0),
+            _vm._v(" "),
+            _c("div", { staticClass: "card-body" }, [
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-primary mb-3",
+                  attrs: {
+                    "data-toggle": "modal",
+                    "data-target": "#createModal"
                   }
-                ],
-                staticClass: "regular-input",
-                attrs: { id: "area" },
-                domProps: { value: _vm.input },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.input = $event.target.value
-                  }
-                }
-              }),
+                },
+                [_vm._v("Crear Miembro")]
+              ),
               _vm._v(" "),
-              _c("emoji-picker", {
-                attrs: { search: _vm.search },
-                on: { emoji: _vm.append },
-                scopedSlots: _vm._u([
-                  {
-                    key: "emoji-invoker",
-                    fn: function(ref) {
-                      var clickEvent = ref.events.click
-                      return _c(
-                        "div",
-                        {
-                          staticClass: "emoji-invoker",
-                          on: {
-                            click: function($event) {
-                              $event.stopPropagation()
-                              return clickEvent($event)
-                            }
+              _c("table", { staticClass: "table" }, [
+                _vm._m(1),
+                _vm._v(" "),
+                _c(
+                  "tbody",
+                  _vm._l(_vm.members, function(data, id) {
+                    return _c("tr", { key: id }, [
+                      _c("td", [_vm._v(_vm._s(data.member))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(data.position))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(data.description))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(data.order))]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _c("img", {
+                          attrs: {
+                            width: "70px",
+                            src: data.imageSchoolGovernment,
+                            alt: ""
                           }
-                        },
-                        [
-                          _c(
-                            "svg",
-                            {
-                              attrs: {
-                                height: "24",
-                                viewBox: "0 0 24 24",
-                                width: "24",
-                                xmlns: "http://www.w3.org/2000/svg"
+                        })
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-success",
+                            on: {
+                              click: function() {
+                                return _vm.editMember(data)
                               }
-                            },
-                            [
-                              _c("path", {
-                                attrs: { d: "M0 0h24v24H0z", fill: "none" }
-                              }),
-                              _vm._v(" "),
-                              _c("path", {
-                                attrs: {
-                                  d:
-                                    "M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm3.5-9c.83 0 1.5-.67 1.5-1.5S16.33 8 15.5 8 14 8.67 14 9.5s.67 1.5 1.5 1.5zm-7 0c.83 0 1.5-.67 1.5-1.5S9.33 8 8.5 8 7 8.67 7 9.5 7.67 11 8.5 11zm3.5 6.5c2.33 0 4.31-1.46 5.11-3.5H6.89c.8 2.04 2.78 3.5 5.11 3.5z"
-                                }
-                              })
-                            ]
-                          )
-                        ]
-                      )
-                    }
-                  },
-                  {
-                    key: "emoji-picker",
-                    fn: function(ref) {
-                      var emojis = ref.emojis
-                      var insert = ref.insert
-                      var display = ref.display
-                      return _c("div", {}, [
-                        _c("div", { staticClass: "emoji-picker" }, [
-                          _c("div", { staticClass: "emoji-picker__search" }, [
-                            _c("input", {
-                              directives: [
-                                {
-                                  name: "model",
-                                  rawName: "v-model",
-                                  value: _vm.search,
-                                  expression: "search"
-                                },
-                                { name: "focus", rawName: "v-focus" }
-                              ],
-                              attrs: { type: "text" },
-                              domProps: { value: _vm.search },
-                              on: {
-                                input: function($event) {
-                                  if ($event.target.composing) {
-                                    return
-                                  }
-                                  _vm.search = $event.target.value
-                                }
+                            }
+                          },
+                          [_vm._v("Editar")]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-danger",
+                            on: {
+                              click: function() {
+                                return _vm.deleteMember(data.id)
                               }
-                            })
-                          ]),
-                          _vm._v(" "),
-                          _c(
-                            "div",
-                            _vm._l(emojis, function(emojiGroup, category) {
-                              return _c("div", { key: category }, [
-                                _c("h5", [_vm._v(_vm._s(category))]),
-                                _vm._v(" "),
-                                _c(
-                                  "div",
-                                  { staticClass: "emojis" },
-                                  _vm._l(emojiGroup, function(
-                                    emoji,
-                                    emojiName
-                                  ) {
-                                    return _c(
-                                      "span",
-                                      {
-                                        key: emojiName,
-                                        attrs: { title: emojiName },
-                                        on: {
-                                          click: function($event) {
-                                            return insert(emoji)
-                                          }
-                                        }
-                                      },
-                                      [_vm._v(_vm._s(emoji))]
-                                    )
-                                  }),
-                                  0
-                                )
-                              ])
-                            }),
-                            0
-                          )
-                        ])
+                            }
+                          },
+                          [_vm._v("Eliminar")]
+                        )
                       ])
-                    }
-                  }
-                ])
-              })
-            ],
-            1
-          )
-        ]),
-        _vm._v(" "),
-        _vm._m(0)
-      ]
-    )
-  ])
+                    ])
+                  }),
+                  0
+                )
+              ])
+            ])
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("modal-create-government-member", {
+        attrs: { user: _vm.user, getMembers: _vm.getMembers }
+      }),
+      _vm._v(" "),
+      _c("modal-edit-government-member", {
+        attrs: { memberEdit: _vm.memberEdit, getMembers: _vm.getMembers }
+      })
+    ],
+    1
+  )
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "modal-footer" }, [
-      _c("input", {
-        staticClass: "btn btn-warning",
-        attrs: { type: "submit", value: "Guardar" }
-      })
+    return _c("div", { staticClass: "card-header fondo text-center" }, [
+      _c("strong", { staticClass: "h3" }, [
+        _vm._v("Miembros del Gobierno Escolar")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Nombre")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Posición")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Descripción")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Orden en Listado")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Imagen")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Acciones")])
+      ])
     ])
   }
 ]
@@ -328,17 +252,17 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./resources/js/components/text-emoji.vue":
-/*!************************************************!*\
-  !*** ./resources/js/components/text-emoji.vue ***!
-  \************************************************/
+/***/ "./resources/js/components/schoolGovernmentMembers.vue":
+/*!*************************************************************!*\
+  !*** ./resources/js/components/schoolGovernmentMembers.vue ***!
+  \*************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _text_emoji_vue_vue_type_template_id_bc3fbd9e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./text-emoji.vue?vue&type=template&id=bc3fbd9e& */ "./resources/js/components/text-emoji.vue?vue&type=template&id=bc3fbd9e&");
-/* harmony import */ var _text_emoji_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./text-emoji.vue?vue&type=script&lang=js& */ "./resources/js/components/text-emoji.vue?vue&type=script&lang=js&");
+/* harmony import */ var _schoolGovernmentMembers_vue_vue_type_template_id_d953434e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./schoolGovernmentMembers.vue?vue&type=template&id=d953434e& */ "./resources/js/components/schoolGovernmentMembers.vue?vue&type=template&id=d953434e&");
+/* harmony import */ var _schoolGovernmentMembers_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./schoolGovernmentMembers.vue?vue&type=script&lang=js& */ "./resources/js/components/schoolGovernmentMembers.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -348,9 +272,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _text_emoji_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _text_emoji_vue_vue_type_template_id_bc3fbd9e___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _text_emoji_vue_vue_type_template_id_bc3fbd9e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _schoolGovernmentMembers_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _schoolGovernmentMembers_vue_vue_type_template_id_d953434e___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _schoolGovernmentMembers_vue_vue_type_template_id_d953434e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -360,38 +284,38 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/components/text-emoji.vue"
+component.options.__file = "resources/js/components/schoolGovernmentMembers.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/components/text-emoji.vue?vue&type=script&lang=js&":
-/*!*************************************************************************!*\
-  !*** ./resources/js/components/text-emoji.vue?vue&type=script&lang=js& ***!
-  \*************************************************************************/
+/***/ "./resources/js/components/schoolGovernmentMembers.vue?vue&type=script&lang=js&":
+/*!**************************************************************************************!*\
+  !*** ./resources/js/components/schoolGovernmentMembers.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_text_emoji_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./text-emoji.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/text-emoji.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_text_emoji_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_schoolGovernmentMembers_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./schoolGovernmentMembers.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/schoolGovernmentMembers.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_schoolGovernmentMembers_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/components/text-emoji.vue?vue&type=template&id=bc3fbd9e&":
-/*!*******************************************************************************!*\
-  !*** ./resources/js/components/text-emoji.vue?vue&type=template&id=bc3fbd9e& ***!
-  \*******************************************************************************/
+/***/ "./resources/js/components/schoolGovernmentMembers.vue?vue&type=template&id=d953434e&":
+/*!********************************************************************************************!*\
+  !*** ./resources/js/components/schoolGovernmentMembers.vue?vue&type=template&id=d953434e& ***!
+  \********************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_text_emoji_vue_vue_type_template_id_bc3fbd9e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./text-emoji.vue?vue&type=template&id=bc3fbd9e& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/text-emoji.vue?vue&type=template&id=bc3fbd9e&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_text_emoji_vue_vue_type_template_id_bc3fbd9e___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_schoolGovernmentMembers_vue_vue_type_template_id_d953434e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./schoolGovernmentMembers.vue?vue&type=template&id=d953434e& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/schoolGovernmentMembers.vue?vue&type=template&id=d953434e&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_schoolGovernmentMembers_vue_vue_type_template_id_d953434e___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_text_emoji_vue_vue_type_template_id_bc3fbd9e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_schoolGovernmentMembers_vue_vue_type_template_id_d953434e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

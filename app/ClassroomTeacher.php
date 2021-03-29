@@ -10,6 +10,6 @@ class ClassroomTeacher extends Model
     protected $table = 'classroom_teacher';
 
     protected $fillable = [
-        'id_classroom', 'id_user', 'id_area',
+        'id_classroom', 'id_user', 'id_area','percent_calification'
     ];
 }
