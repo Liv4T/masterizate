@@ -13,6 +13,10 @@ use App\Quarterly;
 use App\CoursesAchievement;
 use App\Courses;
 use App\ClassroomStudent;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\StudentsExport;
+use App\Exports\MateriasByTeacherExport;
+use App\Exports\MateriasTeachersExport;
 
 class SchoolGovernmentController extends Controller
 {
@@ -27,23 +31,10 @@ class SchoolGovernmentController extends Controller
     }
 
     public function reportTeacher($teacherId){
-        $user_asignated = ClassroomTeacher::where('id_user', $teacherId)->get();
-        $areas = [];
-        if (isset($user_asignated)) {
-            foreach ($user_asignated as $key => $area) {
-                $classroom = Classroom::find($area->id_classroom);
-                $class = Area::find($area->id_area);
-                $areas[$key] = [
-                    'id'           => $area->id,
-                    'id_area'      => $class->id,
-                    'text'         => $class->name . " - " . $classroom->name,
-                    'classroom'    => $classroom->name,
-                    'id_classroom' => $classroom->id,
-                ];
-            }
-        }
-
-        return response()->json($areas);
+        return Excel::download(new MateriasByTeacherExport($teacherId),'Reporte_Materias.xlsx');
+    }
+    public function reportAllMateriasTeachers(){
+        return Excel::download(new MateriasTeachersExport(),'Reporte_Materias.xlsx');
     }
 
     public function reportPlanificationTeacher($teacherId, $id_area, $id_classroom){
@@ -102,30 +93,8 @@ class SchoolGovernmentController extends Controller
         return response()->json($user);
     }
 
-    public function getReportStudents(String $idStudent, String $idParent){
-        $infoStudents=[];
-        $students = User::where('id','=',$idStudent)->get();
-        $parents = User::where('id','=',$idParent)->get();
-        
-        foreach($students as $student){
-            foreach($parents as $parent){
-                if($student->parent_id === $parent->id){
-                    $infoStudents = array_merge($infoStudents, array(
-                        "Estudiante"=>$student->name.' '.$student->last_name,
-                        "Email_Estudiante"=>strval($student->email),
-                        "Acudiente"=>$parent->name,
-                        "Identificacion_Estudiante"=>$student->id_number,
-                        "Identificacion_Acudiente"=>$parent->id_number,
-                        "Telefono_Acudiente"=>$parent->phone
-                    ));
-                    return response()->json($infoStudents);
-                }else{
-                    return "No se encuentra información correspopondiente al estudiante";
-                }
-            }
-        }
-
-        
+    public function getReportStudents(){
+        return Excel::download(new StudentsExport,'Reporte_Estudiantes.xlsx');  
     }
     /**
      * Show the form for creating a new resource.

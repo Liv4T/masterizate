@@ -9,9 +9,15 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div class="form-goup">
-                        <label>Docente</label>
-                        <multiselect v-model="saveTeachers" :options="teachersOptions" :multiple="true"
+                    <div class="form-check mb-5">
+                        <input class="form-check-input" type="checkbox" v-model="show_type_import" id="defaultCheck1">
+                        <label class="form-check-label" for="defaultCheck1">
+                            <span class="dot dot_orange"></span> Reporte por Docente
+                        </label>
+                    </div>
+                    <div v-if="show_type_import === true" class="form-goup">
+                        <label>Reporte por Docente</label>
+                        <multiselect v-model="saveTeachers" :options="teachersOptions" :multiple="false"
                             :close-on-select="false" :clear-on-select="false"
                             :preserve-search="true" placeholder="Seleccione una"
                             label="text" track-by="id" :preselect-first="true">
@@ -23,6 +29,9 @@
                                     </span>
                                 </template>
                         </multiselect>
+                    </div>
+                    <div v-else>
+                        <p>Puedes oprimir el boton de exportar para descargar el reporte completo de Materias</p>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -41,9 +50,9 @@ export default {
     data(){
         return{
             teachersOptions:[],
-            saveTeachers:[],
+            saveTeachers:{},
             DataToExport:[],
-            
+            show_type_import:true,
         }
     },
     mounted(){
@@ -64,29 +73,11 @@ export default {
             })
         },
         exportData(){
-            this.saveTeachers.forEach(teacher => {
-                axios.get(`GetAreaToReport/${teacher.id}`).then((response) => {
-                    let findedTeachers = response.data;
-                    findedTeachers.forEach(element => {
-                        this.DataToExport.push({
-                            Salon: element.classroom,
-                            Area: element.text,
-                            Profesor_asignado: teacher.text
-                        })
-                    })
-                });
-            })
-            if(this.DataToExport.length > 0){
-                const data = this.DataToExport;
-                const fileName = 'Reporte Materias'
-                const exportType = 'xls'
-                this.DataToExport = [];
-                this.saveTeachers = [];
-                $("#reportMateriasModal").modal('hide');
-                exportFromJSON({ data, fileName, exportType })
+            if(this.show_type_import){
+                window.open(`GetAreaToReport/${this.saveTeachers.id}`, "_self")
             }else{
-                toastr.info("No hay datos disponibles")
-            }           
+                window.open(`GetMateriasToReport`, "_self")
+            }       
         }
     }
 }

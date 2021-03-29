@@ -88,53 +88,11 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_1___defaul
       });
     },
     exportData: function exportData() {
-      var _this2 = this;
-
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        var data, fileName, exportType;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _this2.saveStudents.forEach(function (student) {
-                  if (student.id && student.parent_id) {
-                    axios.get("reportStudents/".concat(student.id, "/").concat(student.parent_id)).then(function (response) {
-                      return _this2.DataToExport.push(response.data);
-                    });
-                  } else {
-                    toastr.info("El estudiante ".concat(student.text, " no cuenta con un acudiente asignado"));
-                  }
-                });
-
-                _context.next = 3;
-                return _this2.DataToExport.length;
-
-              case 3:
-                _context.t0 = _context.sent;
-
-                if (!(_context.t0 > 0)) {
-                  _context.next = 14;
-                  break;
-                }
-
-                data = _this2.DataToExport;
-                fileName = 'Reporte Estudiantes';
-                exportType = 'xls';
-                _this2.DataToExport = [];
-                _this2.saveStudents = [];
-                $("#reportEstudianteModal").modal("hide");
-                Object(export_from_json__WEBPACK_IMPORTED_MODULE_2__["default"])({
-                  data: data,
-                  fileName: fileName,
-                  exportType: exportType
-                });
-                _context.next = 15;
-                break;
-
-              case 14:
-                toastr.info("No hay datos disponibles");
-
-              case 15:
               case "end":
                 return _context.stop();
             }

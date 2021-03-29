@@ -47,6 +47,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___default.a);
 
@@ -54,8 +63,9 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
   data: function data() {
     return {
       teachersOptions: [],
-      saveTeachers: [],
-      DataToExport: []
+      saveTeachers: {},
+      DataToExport: [],
+      show_type_import: true
     };
   },
   mounted: function mounted() {
@@ -78,35 +88,10 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
       });
     },
     exportData: function exportData() {
-      var _this2 = this;
-
-      this.saveTeachers.forEach(function (teacher) {
-        axios.get("GetAreaToReport/".concat(teacher.id)).then(function (response) {
-          var findedTeachers = response.data;
-          findedTeachers.forEach(function (element) {
-            _this2.DataToExport.push({
-              Salon: element.classroom,
-              Area: element.text,
-              Profesor_asignado: teacher.text
-            });
-          });
-        });
-      });
-
-      if (this.DataToExport.length > 0) {
-        var data = this.DataToExport;
-        var fileName = 'Reporte Materias';
-        var exportType = 'xls';
-        this.DataToExport = [];
-        this.saveTeachers = [];
-        $("#reportMateriasModal").modal('hide');
-        Object(export_from_json__WEBPACK_IMPORTED_MODULE_1__["default"])({
-          data: data,
-          fileName: fileName,
-          exportType: exportType
-        });
+      if (this.show_type_import) {
+        window.open("GetAreaToReport/".concat(this.saveTeachers.id), "_self");
       } else {
-        toastr.info("No hay datos disponibles");
+        window.open("GetMateriasToReport", "_self");
       }
     }
   }
@@ -452,59 +437,115 @@ var render = function() {
           _vm._m(0),
           _vm._v(" "),
           _c("div", { staticClass: "modal-body" }, [
-            _c(
-              "div",
-              { staticClass: "form-goup" },
-              [
-                _c("label", [_vm._v("Docente")]),
-                _vm._v(" "),
-                _c("multiselect", {
-                  attrs: {
-                    options: _vm.teachersOptions,
-                    multiple: true,
-                    "close-on-select": false,
-                    "clear-on-select": false,
-                    "preserve-search": true,
-                    placeholder: "Seleccione una",
-                    label: "text",
-                    "track-by": "id",
-                    "preselect-first": true
-                  },
-                  scopedSlots: _vm._u([
-                    {
-                      key: "selection",
-                      fn: function(ref) {
-                        var values = ref.values
-                        var isOpen = ref.isOpen
-                        return [
-                          values.length && !isOpen
-                            ? _c(
-                                "span",
-                                { staticClass: "multiselect__single" },
-                                [
-                                  _vm._v(
-                                    "\n                                    " +
-                                      _vm._s(values.length) +
-                                      "\n                                    opciones\n                                    selecionadas\n                                "
-                                  )
-                                ]
-                              )
-                            : _vm._e()
-                        ]
-                      }
-                    }
-                  ]),
-                  model: {
-                    value: _vm.saveTeachers,
-                    callback: function($$v) {
-                      _vm.saveTeachers = $$v
-                    },
-                    expression: "saveTeachers"
+            _c("div", { staticClass: "form-check mb-5" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.show_type_import,
+                    expression: "show_type_import"
                   }
-                })
-              ],
-              1
-            )
+                ],
+                staticClass: "form-check-input",
+                attrs: { type: "checkbox", id: "defaultCheck1" },
+                domProps: {
+                  checked: Array.isArray(_vm.show_type_import)
+                    ? _vm._i(_vm.show_type_import, null) > -1
+                    : _vm.show_type_import
+                },
+                on: {
+                  change: function($event) {
+                    var $$a = _vm.show_type_import,
+                      $$el = $event.target,
+                      $$c = $$el.checked ? true : false
+                    if (Array.isArray($$a)) {
+                      var $$v = null,
+                        $$i = _vm._i($$a, $$v)
+                      if ($$el.checked) {
+                        $$i < 0 && (_vm.show_type_import = $$a.concat([$$v]))
+                      } else {
+                        $$i > -1 &&
+                          (_vm.show_type_import = $$a
+                            .slice(0, $$i)
+                            .concat($$a.slice($$i + 1)))
+                      }
+                    } else {
+                      _vm.show_type_import = $$c
+                    }
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _vm._m(1)
+            ]),
+            _vm._v(" "),
+            _vm.show_type_import === true
+              ? _c(
+                  "div",
+                  { staticClass: "form-goup" },
+                  [
+                    _c("label", [_vm._v("Reporte por Docente")]),
+                    _vm._v(" "),
+                    _c("multiselect", {
+                      attrs: {
+                        options: _vm.teachersOptions,
+                        multiple: false,
+                        "close-on-select": false,
+                        "clear-on-select": false,
+                        "preserve-search": true,
+                        placeholder: "Seleccione una",
+                        label: "text",
+                        "track-by": "id",
+                        "preselect-first": true
+                      },
+                      scopedSlots: _vm._u(
+                        [
+                          {
+                            key: "selection",
+                            fn: function(ref) {
+                              var values = ref.values
+                              var isOpen = ref.isOpen
+                              return [
+                                values.length && !isOpen
+                                  ? _c(
+                                      "span",
+                                      { staticClass: "multiselect__single" },
+                                      [
+                                        _vm._v(
+                                          "\n                                    " +
+                                            _vm._s(values.length) +
+                                            "\n                                    opciones\n                                    selecionadas\n                                "
+                                        )
+                                      ]
+                                    )
+                                  : _vm._e()
+                              ]
+                            }
+                          }
+                        ],
+                        null,
+                        false,
+                        1821651511
+                      ),
+                      model: {
+                        value: _vm.saveTeachers,
+                        callback: function($$v) {
+                          _vm.saveTeachers = $$v
+                        },
+                        expression: "saveTeachers"
+                      }
+                    })
+                  ],
+                  1
+                )
+              : _c("div", [
+                  _c("p", [
+                    _vm._v(
+                      "Puedes oprimir el boton de exportar para descargar el reporte completo de Materias"
+                    )
+                  ])
+                ])
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "modal-footer" }, [
@@ -557,6 +598,19 @@ var staticRenderFns = [
         [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
       )
     ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "label",
+      { staticClass: "form-check-label", attrs: { for: "defaultCheck1" } },
+      [
+        _c("span", { staticClass: "dot dot_orange" }),
+        _vm._v(" Reporte por Docente\n                    ")
+      ]
+    )
   }
 ]
 render._withStripped = true

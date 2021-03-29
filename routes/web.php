@@ -4,6 +4,7 @@ use App\Message;
 use App\User;
 use App\Events\MessagePosted;
 use App\Exports\ProductsExport;
+use App\Exports\StudentsExport;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Excel;
@@ -763,13 +764,16 @@ Route::resource('/members','SchoolGovernmentMembersController');
 Route::middleware('auth')->get('/reportsGovernment', function () {
     return view('reportsGovernment');
 });
-Route::get('GetAreaToReport/{idTeachers}','SchoolGovernmentController@reportTeacher');
 Route::get('GetPlanificationTeacher/{teacherId}/{id_area}/{id_classroom}','SchoolGovernMentController@reportPlanificationTeacher');
 Route::post('GetCoursesInformation','SchoolGovernmentController@getCoursesInformation');
 Route::get('showUser/{userid}','SchoolGovernmentController@user');
 Route::get('getAllAreas', 'SchoolGovernmentController@getAllAreas');
-Route::get('reportStudents/{idStudent}/{idParent}','SchoolGovernmentController@getReportStudents');
 Route::get('getAllStudents','SchoolGovernmentController@students');
+
+//Route for download reports Government
+Route::get('reportStudents','SchoolGovernmentController@getReportStudents');
+Route::get('GetMateriasToReport','SchoolGovernmentController@reportAllMateriasTeachers');
+Route::get('GetAreaToReport/{idTeachers}','SchoolGovernmentController@reportTeacher');
 
 
 //Staments Of Government School
