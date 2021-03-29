@@ -1,13 +1,170 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[121],{
 
+/***/ "./connectionDbFirebase.js":
+/*!*********************************!*\
+  !*** ./connectionDbFirebase.js ***!
+  \*********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var firebase__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! firebase */ "./node_modules/firebase/dist/index.esm.js");
+
+var firebaseConfig = {
+  apiKey: "AIzaSyBUwPOBHWgSv10yWDO0VX_UCCOfHZ3jKYE",
+  authDomain: "liv4t-skool.firebaseapp.com",
+  databaseURL: "https://liv4t-skool.firebaseio.com",
+  projectId: "liv4t-skool",
+  storageBucket: "liv4t-skool.appspot.com",
+  messagingSenderId: "346718353628",
+  appId: "1:346718353628:web:abc0666c41b66fa472dc19",
+  measurementId: "G-7L14TG5RRZ"
+}; // Initialize Firebase
+
+firebase__WEBPACK_IMPORTED_MODULE_0__["default"].initializeApp(firebaseConfig);
+firebase__WEBPACK_IMPORTED_MODULE_0__["default"].analytics();
+/* harmony default export */ __webpack_exports__["default"] = (firebase__WEBPACK_IMPORTED_MODULE_0__["default"]);
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/modalChat.vue?vue&type=script&lang=js&":
 /*!********************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/modalChat.vue?vue&type=script&lang=js& ***!
   \********************************************************************************************************************************************************************/
 /*! exports provided: default */
-/***/ (function(module, exports) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nSyntaxError: D:\\Trabajo\\Liv4t\\Web\\Liv4t-Web\\resources\\js\\components\\modalChat.vue: Can not use keyword 'await' outside an async function (77:12)\n\n\u001b[0m \u001b[90m 75 | \u001b[39m        }\u001b[33m,\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 76 | \u001b[39m        deleteMessage(key){\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 77 | \u001b[39m            await db\u001b[33m.\u001b[39mcollection(\u001b[32m`chatGovernment/${this.chat}`\u001b[39m)\u001b[33m.\u001b[39mdoc(key)\u001b[33m.\u001b[39m\u001b[36mdelete\u001b[39m()\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m    | \u001b[39m            \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 78 | \u001b[39m        }\u001b[33m,\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 79 | \u001b[39m        \u001b[0m\n\u001b[0m \u001b[90m 80 | \u001b[39m        mouseover(key){\u001b[0m\n    at Parser._raise (D:\\Trabajo\\Liv4t\\Web\\Liv4t-Web\\node_modules\\@babel\\parser\\lib\\index.js:742:17)\n    at Parser.raiseWithData (D:\\Trabajo\\Liv4t\\Web\\Liv4t-Web\\node_modules\\@babel\\parser\\lib\\index.js:735:17)\n    at Parser.raise (D:\\Trabajo\\Liv4t\\Web\\Liv4t-Web\\node_modules\\@babel\\parser\\lib\\index.js:729:17)\n    at Parser.checkReservedWord (D:\\Trabajo\\Liv4t\\Web\\Liv4t-Web\\node_modules\\@babel\\parser\\lib\\index.js:10815:14)\n    at Parser.parseIdentifierName (D:\\Trabajo\\Liv4t\\Web\\Liv4t-Web\\node_modules\\@babel\\parser\\lib\\index.js:10777:12)\n    at Parser.parseIdentifier (D:\\Trabajo\\Liv4t\\Web\\Liv4t-Web\\node_modules\\@babel\\parser\\lib\\index.js:10748:23)\n    at Parser.parseExprAtom (D:\\Trabajo\\Liv4t\\Web\\Liv4t-Web\\node_modules\\@babel\\parser\\lib\\index.js:9888:27)\n    at Parser.parseExprSubscripts (D:\\Trabajo\\Liv4t\\Web\\Liv4t-Web\\node_modules\\@babel\\parser\\lib\\index.js:9624:23)\n    at Parser.parseMaybeUnary (D:\\Trabajo\\Liv4t\\Web\\Liv4t-Web\\node_modules\\@babel\\parser\\lib\\index.js:9604:21)\n    at Parser.parseExprOps (D:\\Trabajo\\Liv4t\\Web\\Liv4t-Web\\node_modules\\@babel\\parser\\lib\\index.js:9474:23)\n    at Parser.parseMaybeConditional (D:\\Trabajo\\Liv4t\\Web\\Liv4t-Web\\node_modules\\@babel\\parser\\lib\\index.js:9447:23)\n    at Parser.parseMaybeAssign (D:\\Trabajo\\Liv4t\\Web\\Liv4t-Web\\node_modules\\@babel\\parser\\lib\\index.js:9402:21)\n    at Parser.parseExpression (D:\\Trabajo\\Liv4t\\Web\\Liv4t-Web\\node_modules\\@babel\\parser\\lib\\index.js:9354:23)\n    at Parser.parseStatementContent (D:\\Trabajo\\Liv4t\\Web\\Liv4t-Web\\node_modules\\@babel\\parser\\lib\\index.js:11233:23)\n    at Parser.parseStatement (D:\\Trabajo\\Liv4t\\Web\\Liv4t-Web\\node_modules\\@babel\\parser\\lib\\index.js:11104:17)\n    at Parser.parseBlockOrModuleBlockBody (D:\\Trabajo\\Liv4t\\Web\\Liv4t-Web\\node_modules\\@babel\\parser\\lib\\index.js:11679:25)\n    at Parser.parseBlockBody (D:\\Trabajo\\Liv4t\\Web\\Liv4t-Web\\node_modules\\@babel\\parser\\lib\\index.js:11665:10)\n    at Parser.parseBlock (D:\\Trabajo\\Liv4t\\Web\\Liv4t-Web\\node_modules\\@babel\\parser\\lib\\index.js:11649:10)\n    at Parser.parseFunctionBody (D:\\Trabajo\\Liv4t\\Web\\Liv4t-Web\\node_modules\\@babel\\parser\\lib\\index.js:10656:24)\n    at Parser.parseFunctionBodyAndFinish (D:\\Trabajo\\Liv4t\\Web\\Liv4t-Web\\node_modules\\@babel\\parser\\lib\\index.js:10639:10)\n    at Parser.parseMethod (D:\\Trabajo\\Liv4t\\Web\\Liv4t-Web\\node_modules\\@babel\\parser\\lib\\index.js:10601:10)\n    at Parser.parseObjectMethod (D:\\Trabajo\\Liv4t\\Web\\Liv4t-Web\\node_modules\\@babel\\parser\\lib\\index.js:10517:19)\n    at Parser.parseObjPropValue (D:\\Trabajo\\Liv4t\\Web\\Liv4t-Web\\node_modules\\@babel\\parser\\lib\\index.js:10559:23)\n    at Parser.parseObjectMember (D:\\Trabajo\\Liv4t\\Web\\Liv4t-Web\\node_modules\\@babel\\parser\\lib\\index.js:10483:10)\n    at Parser.parseObj (D:\\Trabajo\\Liv4t\\Web\\Liv4t-Web\\node_modules\\@babel\\parser\\lib\\index.js:10396:25)\n    at Parser.parseExprAtom (D:\\Trabajo\\Liv4t\\Web\\Liv4t-Web\\node_modules\\@babel\\parser\\lib\\index.js:10017:28)\n    at Parser.parseExprSubscripts (D:\\Trabajo\\Liv4t\\Web\\Liv4t-Web\\node_modules\\@babel\\parser\\lib\\index.js:9624:23)\n    at Parser.parseMaybeUnary (D:\\Trabajo\\Liv4t\\Web\\Liv4t-Web\\node_modules\\@babel\\parser\\lib\\index.js:9604:21)\n    at Parser.parseExprOps (D:\\Trabajo\\Liv4t\\Web\\Liv4t-Web\\node_modules\\@babel\\parser\\lib\\index.js:9474:23)\n    at Parser.parseMaybeConditional (D:\\Trabajo\\Liv4t\\Web\\Liv4t-Web\\node_modules\\@babel\\parser\\lib\\index.js:9447:23)\n    at Parser.parseMaybeAssign (D:\\Trabajo\\Liv4t\\Web\\Liv4t-Web\\node_modules\\@babel\\parser\\lib\\index.js:9402:21)\n    at Parser.parseObjectProperty (D:\\Trabajo\\Liv4t\\Web\\Liv4t-Web\\node_modules\\@babel\\parser\\lib\\index.js:10534:101)\n    at Parser.parseObjPropValue (D:\\Trabajo\\Liv4t\\Web\\Liv4t-Web\\node_modules\\@babel\\parser\\lib\\index.js:10559:101)\n    at Parser.parseObjectMember (D:\\Trabajo\\Liv4t\\Web\\Liv4t-Web\\node_modules\\@babel\\parser\\lib\\index.js:10483:10)\n    at Parser.parseObj (D:\\Trabajo\\Liv4t\\Web\\Liv4t-Web\\node_modules\\@babel\\parser\\lib\\index.js:10396:25)\n    at Parser.parseExprAtom (D:\\Trabajo\\Liv4t\\Web\\Liv4t-Web\\node_modules\\@babel\\parser\\lib\\index.js:10017:28)");
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _connectionDbFirebase__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../connectionDbFirebase */ "./connectionDbFirebase.js");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['chat', 'user'],
+  data: function data() {
+    return {
+      message: [],
+      allChat: [],
+      fullName: this.user.name + ' ' + this.user.last_name,
+      showButton: false
+    };
+  },
+  watch: {
+    chat: function chat() {
+      this.getChat();
+    }
+  },
+  methods: {
+    getChat: function getChat() {
+      var _this = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var starCountRef;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                starCountRef = _connectionDbFirebase__WEBPACK_IMPORTED_MODULE_1__["default"].database().ref("chatGovernment/".concat(_this.chat));
+                starCountRef.on('value', function (snapshot) {
+                  _this.allChat = snapshot.val();
+                });
+
+              case 2:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    },
+    sendMessage: function sendMessage(message) {
+      var _this2 = this;
+
+      var data = {
+        chat: this.chat,
+        message: message,
+        member: this.user.name + ' ' + this.user.last_name
+      };
+      _connectionDbFirebase__WEBPACK_IMPORTED_MODULE_1__["default"].database().ref("chatGovernment/".concat(this.chat)).push(data).then(function () {
+        _this2.getChat();
+
+        _this2.message = [];
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
+    deleteMessage: function deleteMessage(key) {
+      var _this3 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _connectionDbFirebase__WEBPACK_IMPORTED_MODULE_1__["default"].database().ref("chatGovernment/".concat(_this3.chat, "/").concat(key)).remove();
+
+                _this3.getChat();
+
+              case 2:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }))();
+    },
+    mouseover: function mouseover(key) {
+      $("#drop".concat(key)).css('display', 'flex');
+    },
+    mouseleave: function mouseleave(key) {
+      $("#drop".concat(key)).css('display', 'none');
+    }
+  }
+});
 
 /***/ }),
 
@@ -112,7 +269,7 @@ var render = function() {
                     _c(
                       "div",
                       {
-                        staticClass: "dropdown",
+                        staticClass: "btn-group dropright",
                         staticStyle: { display: "none", "margin-left": "79px" },
                         attrs: { id: "drop" + key }
                       },
@@ -191,16 +348,7 @@ var render = function() {
                   _vm.message = $event.target.value
                 }
               }
-            }),
-            _vm._v(" "),
-            _c(
-              "button",
-              {
-                staticClass: "btn btn-secondary",
-                attrs: { type: "button", "data-dismiss": "modal" }
-              },
-              [_vm._v("Cerrar")]
-            )
+            })
           ])
         ])
       ])

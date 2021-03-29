@@ -22,6 +22,7 @@
                                     <th>{{stament.stament}}</th>
                                     <th>
                                         <button class="btn btn-primary" v-on:click="sendTitleMessage(stament.stament)">Abrir Chat</button>
+                                        <button class="btn btn-primary" v-on:click="membersChat(stament.stament)">Miembros del Chat</button>
                                     </th>
                                 </tr>
                             </tbody>
@@ -31,6 +32,7 @@
             </div>
         </div>
     <modal-chat :chat="chat" :user="user"></modal-chat>
+    <members-chat :chat="chat" :members="members"></members-chat>
     </div>
 </template>
 <script>
@@ -39,7 +41,8 @@ export default {
     data(){
         return{
             staments:[],
-            chat:""
+            chat:"",
+            members:[]
         }
     },
     mounted(){
@@ -62,7 +65,21 @@ export default {
         sendTitleMessage(title){
             this.chat = title;
             $('#chatModal').modal('show');
-        }
+        },
+        membersChat(title){
+            this.chat = title;
+            this.members = [];
+            axios.get('/getChatAsigment').then(response => {
+                let members = response.data;
+
+                members.forEach(stament => {
+                    if(stament.stament === title){
+                        this.members.push(stament)
+                    }
+                })
+            })
+            $('#memberModal').modal('show');
+        },
     }
 }
 </script>
