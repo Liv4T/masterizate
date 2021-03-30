@@ -167,41 +167,24 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
 
       this.saveArea.forEach(function (area) {
         _this4.saveStudents.forEach(function (saveStudents) {
-          axios.get("/api/teacher/area/".concat(parseInt(area.id), "/classroom/").concat(parseInt(area.id_classroom), "/student/").concat(parseInt(saveStudents.id))).then(function (response) {
-            var classRoom = response.data;
-
-            if (Date.parse(classRoom.created_at) <= Date.parse(_this4.dateToExport)) {
-              _this4.DataToExport.push({
-                clase: area.text,
-                Estudiante: classRoom.name,
-                Profesor: _this4.saveTeachers.text,
-                Progreso: "".concat(classRoom.progress === -1 ? 0 : classRoom.progress.toString(), " %"),
-                Nota: "".concat(classRoom.score === -1 ? 0 : classRoom.score.toString(), " / ").concat(classRoom.score_base.toString())
-              });
-            }
-          });
+          window.open("reportNotes/".concat(parseInt(area.id), "/").concat(parseInt(area.id_classroom), "/").concat(parseInt(saveStudents.id)), "_self");
         });
-      });
-
-      if (this.DataToExport.length > 0) {
-        var data = this.DataToExport;
-        var fileName = 'Reporte Notas';
-        var exportType = 'xls';
-        this.dateToExport = "", this.DataToExport = [];
-        this.saveTeachers = [];
-        this.areaOptions = [];
-        this.saveStudents = [];
-        this.saveArea = [];
-        this.studentsOptions = [];
-        $("#reportTeacherModal").modal('hide');
-        Object(export_from_json__WEBPACK_IMPORTED_MODULE_1__["default"])({
-          data: data,
-          fileName: fileName,
-          exportType: exportType
-        });
-      } else {
-        toastr.info("No hay datos disponibles");
-      }
+      }); // if(this.DataToExport.length > 0){
+      //     const data = this.DataToExport;
+      //     const fileName = 'Reporte Notas'
+      //     const exportType = 'xls'
+      //     this.dateToExport = "",
+      //     this.DataToExport = [];
+      //     this.saveTeachers = [];
+      //     this.areaOptions = [];
+      //     this.saveStudents=[];
+      //     this.saveArea=[];
+      //     this.studentsOptions = [];
+      //     $("#reportTeacherModal").modal('hide');
+      //     exportFromJSON({ data, fileName, exportType })
+      // }else{
+      //     toastr.info("No hay datos disponibles")
+      // }           
     }
   }
 });

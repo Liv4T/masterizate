@@ -147,36 +147,25 @@ export default {
         exportData(){
             this.saveArea.forEach(area => {
                 this.saveStudents.forEach(saveStudents => {
-                    axios.get(`/api/teacher/area/${parseInt(area.id)}/classroom/${parseInt(area.id_classroom)}/student/${parseInt(saveStudents.id)}`).then((response) => {
-                        let classRoom = response.data;
-                        if(Date.parse(classRoom.created_at) <= Date.parse(this.dateToExport)){
-                            this.DataToExport.push({
-                                clase: area.text,
-                                Estudiante: classRoom.name,
-                                Profesor: this.saveTeachers.text,
-                                Progreso: `${classRoom.progress === -1 ? 0 : classRoom.progress.toString()} %`,
-                                Nota: `${classRoom.score === -1 ? 0 : classRoom.score.toString()} / ${classRoom.score_base.toString()}`,
-                            })
-                        }
-                    });
+                    window.open(`reportNotes/${parseInt(area.id)}/${parseInt(area.id_classroom)}/${parseInt(saveStudents.id)}`, "_self")
                 })
             })
-            if(this.DataToExport.length > 0){
-                const data = this.DataToExport;
-                const fileName = 'Reporte Notas'
-                const exportType = 'xls'
-                this.dateToExport = "",
-                this.DataToExport = [];
-                this.saveTeachers = [];
-                this.areaOptions = [];
-                this.saveStudents=[];
-                this.saveArea=[];
-                this.studentsOptions = [];
-                $("#reportTeacherModal").modal('hide');
-                exportFromJSON({ data, fileName, exportType })
-            }else{
-                toastr.info("No hay datos disponibles")
-            }           
+            // if(this.DataToExport.length > 0){
+            //     const data = this.DataToExport;
+            //     const fileName = 'Reporte Notas'
+            //     const exportType = 'xls'
+            //     this.dateToExport = "",
+            //     this.DataToExport = [];
+            //     this.saveTeachers = [];
+            //     this.areaOptions = [];
+            //     this.saveStudents=[];
+            //     this.saveArea=[];
+            //     this.studentsOptions = [];
+            //     $("#reportTeacherModal").modal('hide');
+            //     exportFromJSON({ data, fileName, exportType })
+            // }else{
+            //     toastr.info("No hay datos disponibles")
+            // }           
         }
     }
 }

@@ -97,8 +97,6 @@ class CourseExport implements FromCollection , ShouldAutoSize, WithMapping, With
 
             $students[$key_student]->pending_calification =$activities_pending;
         }
-        //DB::select('call obtener_progreso_clase(?,?)',[$clase[$key]->id, $user->id])[0]->porcentaje;
-        // print_r($students);
         return collect($students);
     }
 
