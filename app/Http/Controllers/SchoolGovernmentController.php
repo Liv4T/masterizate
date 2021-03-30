@@ -17,6 +17,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\StudentsExport;
 use App\Exports\MateriasByTeacherExport;
 use App\Exports\MateriasTeachersExport;
+use App\Exports\CourseExport;
 
 class SchoolGovernmentController extends Controller
 {
@@ -30,11 +31,36 @@ class SchoolGovernmentController extends Controller
         return view("schoolGovernment");
     }
 
+    public function areaTeacher($teacherId){
+        $user_asignated = ClassroomTeacher::where('id_user', $teacherId)->get();
+        $areas = [];
+        if (isset($user_asignated)) {
+            foreach ($user_asignated as $key => $area) {
+                $classroom = Classroom::find($area->id_classroom);
+                $class = Area::find($area->id_area);
+                $areas[$key] = [
+                    'id'           => $area->id,
+                    'id_area'      => $class->id,
+                    'text'         => $class->name . " - " . $classroom->name,
+                    'classroom'    => $classroom->name,
+                    'id_classroom' => $classroom->id,
+                ];
+            }
+        }
+
+        return response()->json($areas);
+    }
+
     public function reportTeacher($teacherId){
         return Excel::download(new MateriasByTeacherExport($teacherId),'Reporte_Materias.xlsx');
     }
+    
     public function reportAllMateriasTeachers(){
         return Excel::download(new MateriasTeachersExport(),'Reporte_Materias.xlsx');
+    }
+
+    public function reportCourse(int $area_id,int $classroom_id, String $teacher, String $area){
+        return Excel::download(new CourseExport($area_id, $classroom_id, $teacher, $area),'Reporte_Curso.xls');
     }
 
     public function reportPlanificationTeacher($teacherId, $id_area, $id_classroom){

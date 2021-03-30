@@ -31,7 +31,7 @@
                     </div>
                     <div v-if="areaOptions.length > 0" class="form-goup">
                         <label>Areas Disponibles</label>
-                        <multiselect v-model="saveArea" :options="areaOptions" :multiple="true"
+                        <multiselect v-model="saveArea" :options="areaOptions" :multiple="false"
                             :close-on-select="false" :clear-on-select="false"
                             :preserve-search="true" placeholder="Seleccione una"
                             label="text" track-by="id" :preselect-first="true">
@@ -67,7 +67,7 @@ export default {
             teachersOptions:[],
             areaOptions:[],
             dataToExport:[],
-            saveArea:[],
+            saveArea:{},
             saveTeachers:{}
         }
     },
@@ -89,8 +89,9 @@ export default {
             })
         },
         getArea(){
-            axios.get(`GetAreaToReport/${this.saveTeachers.id}`).then((response) => {
+            axios.get(`GetAreaTeacher/${this.saveTeachers.id}`).then((response) => {
                 let area = response.data;
+                
                 area.forEach(element => {
                     this.areaOptions.push({
                         id: element.id,
@@ -104,30 +105,7 @@ export default {
         },
         
         exportData(){        
-            this.saveArea.forEach(area => {        
-                axios.get(`/api/teacher/area/${parseInt(area.id_area)}/classroom/${parseInt(area.id_classroom)}/student`).then((response) => {
-                    let dataExport = response.data;
-                    dataExport.forEach(data => {
-                        this.dataToExport.push({
-                            estudiante: data.user_name+ '' +data.user_lastname,
-                            materia: area.text,
-                            curso: area.classroom
-                        })
-                    })
-                });
-            })
-            if(this.dataToExport.length > 0){
-                const data = this.dataToExport;
-                const fileName = 'Reporte Cursos'
-                const exportType = 'xls'
-                this.dataToExport = [],
-                this.saveTeachers = [],
-                this.saveArea = [],
-                $('#reportTeacherCourseModal').modal('hide');
-                exportFromJSON({ data, fileName, exportType })
-            }else{
-                toastr.info("No hay datos disponibles")
-            }          
+            window.open(`reportCourse/${parseInt( this.saveArea.id_area)}/${parseInt( this.saveArea.id_classroom)}/${this.saveTeachers.text}/${ this.saveArea.text}`, "_self");          
         }
     }
 }

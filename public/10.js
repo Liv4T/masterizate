@@ -130,7 +130,7 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
     getArea: function getArea() {
       var _this2 = this;
 
-      axios.get("GetAreaToReport/".concat(this.saveTeachers.id)).then(function (response) {
+      axios.get("GetAreaTeacher/".concat(this.saveTeachers.id)).then(function (response) {
         var area = response.data;
         area.forEach(function (element) {
           _this2.areaOptions.push({

@@ -113,7 +113,7 @@ export default {
             })
         },
         getArea(){
-            axios.get(`GetAreaToReport/${this.saveTeachers.id}`).then((response) => {
+            axios.get(`GetAreaTeacher/${this.saveTeachers.id}`).then((response) => {
                 let area = response.data;
                 area.forEach(element => {
                     this.areaOptions.push({

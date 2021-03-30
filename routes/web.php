@@ -769,11 +769,13 @@ Route::post('GetCoursesInformation','SchoolGovernmentController@getCoursesInform
 Route::get('showUser/{userid}','SchoolGovernmentController@user');
 Route::get('getAllAreas', 'SchoolGovernmentController@getAllAreas');
 Route::get('getAllStudents','SchoolGovernmentController@students');
+Route::get('GetAreaTeacher/{idTeachers}','SchoolGovernmentController@areaTeacher');
 
 //Route for download reports Government
 Route::get('reportStudents','SchoolGovernmentController@getReportStudents');
 Route::get('GetMateriasToReport','SchoolGovernmentController@reportAllMateriasTeachers');
 Route::get('GetAreaToReport/{idTeachers}','SchoolGovernmentController@reportTeacher');
+Route::get('reportCourse/{id_area}/{id_classroom}/{teacher}/{area}','SchoolGovernmentController@reportCourse');
 
 
 //Staments Of Government School

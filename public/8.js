@@ -80,7 +80,7 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
       teachersOptions: [],
       areaOptions: [],
       dataToExport: [],
-      saveArea: [],
+      saveArea: {},
       saveTeachers: {}
     };
   },
@@ -106,7 +106,7 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
     getArea: function getArea() {
       var _this2 = this;
 
-      axios.get("GetAreaToReport/".concat(this.saveTeachers.id)).then(function (response) {
+      axios.get("GetAreaTeacher/".concat(this.saveTeachers.id)).then(function (response) {
         var area = response.data;
         area.forEach(function (element) {
           _this2.areaOptions.push({
@@ -120,34 +120,7 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
       });
     },
     exportData: function exportData() {
-      var _this3 = this;
-
-      this.saveArea.forEach(function (area) {
-        axios.get("/api/teacher/area/".concat(parseInt(area.id_area), "/classroom/").concat(parseInt(area.id_classroom), "/student")).then(function (response) {
-          var dataExport = response.data;
-          dataExport.forEach(function (data) {
-            _this3.dataToExport.push({
-              estudiante: data.user_name + '' + data.user_lastname,
-              materia: area.text,
-              curso: area.classroom
-            });
-          });
-        });
-      });
-
-      if (this.dataToExport.length > 0) {
-        var data = this.dataToExport;
-        var fileName = 'Reporte Cursos';
-        var exportType = 'xls';
-        this.dataToExport = [], this.saveTeachers = [], this.saveArea = [], $('#reportTeacherCourseModal').modal('hide');
-        Object(export_from_json__WEBPACK_IMPORTED_MODULE_1__["default"])({
-          data: data,
-          fileName: fileName,
-          exportType: exportType
-        });
-      } else {
-        toastr.info("No hay datos disponibles");
-      }
+      window.open("reportCourse/".concat(parseInt(this.saveArea.id_area), "/").concat(parseInt(this.saveArea.id_classroom), "/").concat(this.saveTeachers.text, "/").concat(this.saveArea.text), "_self");
     }
   }
 });
@@ -575,7 +548,7 @@ var render = function() {
                     _c("multiselect", {
                       attrs: {
                         options: _vm.areaOptions,
-                        multiple: true,
+                        multiple: false,
                         "close-on-select": false,
                         "clear-on-select": false,
                         "preserve-search": true,
