@@ -776,7 +776,7 @@ Route::get('reportStudents','SchoolGovernmentController@getReportStudents');
 Route::get('GetMateriasToReport','SchoolGovernmentController@reportAllMateriasTeachers');
 Route::get('GetAreaToReport/{idTeachers}','SchoolGovernmentController@reportTeacher');
 Route::get('reportCourse/{id_area}/{id_classroom}/{teacher}/{area}','SchoolGovernmentController@reportCourse');
-Route::get('reportNotes/{area_id}/{classroom_id}/{student_id}','SchoolGovernmentController@reportNotes');
+Route::get('reportNotes/{area_id}/{classroom_id}/{teacher_name}/{area_name}','SchoolGovernmentController@reportNotes');
 
 
 //Staments Of Government School

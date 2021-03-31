@@ -45,7 +45,6 @@
 <script>
 import Multiselect from "vue-multiselect";
 Vue.component("multiselect", Multiselect);
-import exportFromJSON from 'export-from-json';
 export default {
     data(){
         return{

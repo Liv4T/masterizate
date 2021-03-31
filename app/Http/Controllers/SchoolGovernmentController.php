@@ -64,8 +64,8 @@ class SchoolGovernmentController extends Controller
         return Excel::download(new CourseExport($area_id, $classroom_id, $teacher, $area),'Reporte_Curso.xlsx');
     }
 
-    public function reportNotes(int $area_id,int $classroom_id,int $id_student){
-        return Excel::download(new NotesExport($area_id, $classroom_id, $id_student),'Reporte_Notas.xlsx');
+    public function reportNotes(int $area_id,int $classroom_id, String $teacher_name, String $area_name){
+        return Excel::download(new NotesExport($area_id, $classroom_id, $teacher_name, $area_name),'Reporte_Notas.xlsx');
     }
 
     public function reportPlanificationTeacher($teacherId, $id_area, $id_classroom){

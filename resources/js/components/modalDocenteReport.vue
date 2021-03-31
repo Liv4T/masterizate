@@ -10,10 +10,6 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-goup">
-                        <label>Fecha</label>
-                        <input v-model="dateToExport" type="date" class="form-control"/>
-                    </div>
-                    <div class="form-goup">
                         <label>Docente</label>
                         <multiselect v-model="saveTeachers" :options="teachersOptions" :multiple="false"
                             :close-on-select="false" :clear-on-select="false"
@@ -35,7 +31,7 @@
                     </div>
                     <div v-if="areaOptions.length > 0" class="form-goup">
                         <label>Areas Consultadas</label>
-                        <multiselect v-model="saveArea" :options="areaOptions" :multiple="true"
+                        <multiselect v-model="saveArea" :options="areaOptions" :multiple="false"
                             :close-on-select="false" :clear-on-select="false"
                             :preserve-search="true" placeholder="Seleccione una"
                             label="text" track-by="id" :preselect-first="true">
@@ -48,30 +44,9 @@
                                 </template>
                         </multiselect>
                     </div>
-                    <div v-if="areaOptions.length > 0" class="form-group">
-                        <button class="btn btn-primary mt-2 mb-2" v-on:click="getStudents()">
-                            Obtener Estudiante
-                        </button>
-                    </div>
-                    <div v-if="studentsOptions.length > 0" class="form-goup">
-                        <label>Estudiante</label>
-                        <multiselect v-model="saveStudents" :options="studentsOptions" :multiple="true"
-                            :close-on-select="false" :clear-on-select="false"
-                            :preserve-search="true" placeholder="Seleccione una"
-                            label="text" track-by="id" :preselect-first="true">
-                                <template slot="selection" slot-scope="{ values, isOpen }">
-                                    <span class="multiselect__single" v-if="values.length &amp;&amp; !isOpen">
-                                        {{ values.length }}
-                                        opciones
-                                        selecionadas
-                                    </span>
-                                </template>
-                        </multiselect>
-                    </div>
-                    
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" v-on:click="exportData()">Exportar</button>
+                    <button v-show="areaOptions.length > 0" type="button" class="btn btn-primary" v-on:click="exportData()">Exportar</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                 </div>
             </div>
@@ -81,16 +56,12 @@
 <script>
 import Multiselect from "vue-multiselect";
 Vue.component("multiselect", Multiselect);
-import exportFromJSON from 'export-from-json';
 export default {
     data(){
         return{
-            dateToExport:"",
             teachersOptions:[],
             areaOptions:[],
-            studentsOptions:[],
-            saveStudents:[],
-            saveArea:[],
+            saveArea:{},
             DataToExport:[],
             saveTeachers:{}
         }
@@ -125,47 +96,8 @@ export default {
                 })
             });
         },
-        getStudents(){
-            this.saveArea.forEach(area=>{
-                axios.get(`/api/teacher/area/${area.id}/classroom/${area.id_classroom}/student`).then(response => {
-                    response.data.forEach(element => {
-                        this.studentsOptions.push({
-                            id: element.user_id,
-                            text: `${element.user_name}`+` ${element.user_lastname}` 
-                        })
-                    });
-
-                    var hash = {};
-                    this.studentsOptions = this.studentsOptions.filter(function(current) {
-                        var exists = !hash[current.id];
-                        hash[current.id] = true;
-                        return exists;
-                    });
-                });
-            })
-        },
         exportData(){
-            this.saveArea.forEach(area => {
-                this.saveStudents.forEach(saveStudents => {
-                    window.open(`reportNotes/${parseInt(area.id)}/${parseInt(area.id_classroom)}/${parseInt(saveStudents.id)}`, "_self")
-                })
-            })
-            // if(this.DataToExport.length > 0){
-            //     const data = this.DataToExport;
-            //     const fileName = 'Reporte Notas'
-            //     const exportType = 'xls'
-            //     this.dateToExport = "",
-            //     this.DataToExport = [];
-            //     this.saveTeachers = [];
-            //     this.areaOptions = [];
-            //     this.saveStudents=[];
-            //     this.saveArea=[];
-            //     this.studentsOptions = [];
-            //     $("#reportTeacherModal").modal('hide');
-            //     exportFromJSON({ data, fileName, exportType })
-            // }else{
-            //     toastr.info("No hay datos disponibles")
-            // }           
+            window.open(`reportNotes/${parseInt(this.saveArea.id)}/${parseInt(this.saveArea.id_classroom)}/${this.saveTeachers.text}/${this.saveArea.text}`, "_self")           
         }
     }
 }

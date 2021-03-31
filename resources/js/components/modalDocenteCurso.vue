@@ -49,7 +49,7 @@
                     </div>                
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" v-on:click="exportData()">Exportar</button>
+                    <button v-show="areaOptions.length > 0" type="button" class="btn btn-primary" v-on:click="exportData()">Exportar</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                 </div>
             </div>
@@ -59,7 +59,6 @@
 <script>
 import Multiselect from "vue-multiselect";
 Vue.component("multiselect", Multiselect);
-import exportFromJSON from 'export-from-json';
 export default {
     data(){
         return{
