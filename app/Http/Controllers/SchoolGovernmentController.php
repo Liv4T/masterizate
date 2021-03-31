@@ -19,6 +19,7 @@ use App\Exports\MateriasByTeacherExport;
 use App\Exports\MateriasTeachersExport;
 use App\Exports\CourseExport;
 use App\Exports\NotesExport;
+use App\Exports\PlanificationExport;
 
 class SchoolGovernmentController extends Controller
 {
@@ -68,40 +69,8 @@ class SchoolGovernmentController extends Controller
         return Excel::download(new NotesExport($area_id, $classroom_id, $teacher_name, $area_name),'Reporte_Notas.xlsx');
     }
 
-    public function reportPlanificationTeacher($teacherId, $id_area, $id_classroom){
-        $quaterly = [];
-        $achievements = [];
-
-        $Courses = Courses::where('id_teacher', $teacherId)->where('id_area', $id_area)->where('id_classroom', $id_classroom)->first();
-        if (isset($Courses)) {
-            $achievements = CoursesAchievement::where('id_planification', $Courses->id)->get();
-
-            $Quarterlies = Quarterly::where('id_teacher', $teacherId)->where('id_area', $id_area)->where('id_classroom', $id_classroom)->get();
-            $Courses->achievements = $achievements;
-            foreach ($Quarterlies as $key => $Quarterly) {
-                $quaterly[$key] = [
-                    'id' => $Quarterly->id,
-                    'content' => $Quarterly->content,
-                    'unit_name' => $Quarterly->unit_name
-                ];
-            }
-        }
-        $classroom_name = '';
-        $classroom = Classroom::where('id', $id_classroom)->get();
-        $area = Area::where('id', $id_area)->get();
-
-        if (isset($classroom) && count($classroom) > 0 && isset($area) && count($area) > 0) {
-            $classroom_name = $area[0]->name . ' ' . $classroom[0]->name;
-        }
-
-        $data = [
-            'classroom_name' => $classroom_name,
-            'quaterly' =>  $quaterly,
-            'courses' => $Courses,
-            'achievements' => $achievements
-        ];
-
-        return response()->json($data);
+    public function reportPlanificationTeacher(String $teacherId, String $id_area, String $id_classroom){
+        return Excel::download(new PlanificationExport($teacherId, $id_area, $id_classroom),'Reporte_Planificación.xlsx');
     }
 
     public function students(){
