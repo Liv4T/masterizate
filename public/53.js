@@ -94,7 +94,19 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
 exports.push([module.i, "\n.text-link{\n    color: black;\n    font-size: 18px;\n}\n", ""]);
+=======
+exports.push([module.i, "\n.div-weekly-plan{\n    display:flex;\n    flex-direction:row;\n    justify-content:space-around;\n    padding:10px;\n}\n.div-weekly-plan label{\n    font-size:1.2em;\n    font-weight:700;\n}\n.div-classes{\n    display: flex;\n    flex-direction: column;\n    justify-content:center;\n    padding:5px;\n}\n.div-class{\n    display: flex;\n    flex-direction: column;\n    justify-content:space-around;\n    padding:5px;\n}\n.div-class>.title{\n    display: flex;\n    flex-direction: row;\n    justify-content:space-around;\n}\n.div-class>.content{\n    display: flex;\n    flex-direction: row;\n    justify-content:space-around;\n    margin-top:30px;\n    flex-wrap: wrap;\n}\n.required{\n    color:red;\n}\n.div-resource{\n    padding:30px;\n    background-color:#e9ecefb5;\n    margin:5px;\n}\n.div-resource .form-item{\n    width:100%;\n    padding:5px;\n    display:flex;\n    flex-direction:column;\n    justify-content:flex-start;\n}\n.div-resource .form-item>a{\n    color:#007bff;\n}\n.div-resource .form-item>a:visited{\n    color:#007bff;\n}\n.div-resource .form-item>span{\n     padding:10px;\n    font-size:1.2em;\n    color:#233d68;\n    font-weight:700;\n    border:1px solid #233d68;\n    border-radius:5px;\n    margin:5px\n}\n.div-resource .form-item>span.blue{\n    padding:10px;\n    background-color:#edf8ff;\n    font-size:1.2em;\n    color:#233d68;\n    font-weight:700;\n    border:1px solid #233d68;\n    border-radius:5px;\n    margin:5px\n}\n.div-resource .form-item>span:hover{\n    background-color:white;\n    cursor:pointer;\n}\n.div-weekly-plan-btn-save{\n    display:flex;\n    padding:50px;\n    justify-content:space-between;\n    flex-direction:row;\n}\n.closed-icon{\n    width:100%;\n    display:flex;\n    justify-content:flex-end;\n    flex-direction:row;\n    cursor:pointer;\n    color:#233d68;\n}\n.margin-top-50{\n    margin-top:50px;\n}\n.row{\n    margin:10px 0px;\n}\n.icon-add:hover{ color:#233d68;background-color:white;border-color:#233d68;}\n.card-title{display:flex;flex-direction:row;justify-content:space-between;}\n.card-title>h5{width:50%;}\n.div-check{display:flex;flex-direction:row;justify-content:center;  align-items:center;padding-top:20px;}\n.progress{width:100%;display:flex;justify-content:flex-start;}\n.classroom-label{font-size:1.5em;}\n\n\n\n\n", ""]);
+>>>>>>> 4a83d3a4cd430aa6033ce621f5b1104d21e43758
+=======
+exports.push([module.i, "\n.text-link{\n    color: black;\n    font-size: 18px;\n}\n", ""]);
+>>>>>>> develop
+=======
+exports.push([module.i, "\n.text-link{\n    color: black;\n    font-size: 18px;\n}\n", ""]);
+>>>>>>> develop
 
 // exports
 

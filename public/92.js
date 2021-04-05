@@ -190,6 +190,13 @@ var render = function() {
               _vm._v("Usuarios estudiantes")
             ]),
             _vm._v(" "),
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> develop
+=======
+>>>>>>> develop
             _c("div", { staticClass: "card-body" }, [
               _c(
                 "table",
@@ -205,6 +212,184 @@ var render = function() {
                       name.type_user == "3"
                         ? _c("tr", [
                             _vm._m(1, true),
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+            _c(
+              "span",
+              {
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value: !_vm.isSynchronized,
+                    expression: "!isSynchronized"
+                  }
+                ]
+              },
+              [_vm._v("(Hay cambios que no han sido guardados)")]
+            ),
+            _vm._v(" "),
+            _c(
+              "form",
+              { staticClass: "needs-validation", attrs: { novalidate: "" } },
+              [
+                _c(
+                  "form-wizard",
+                  {
+                    attrs: {
+                      title: "",
+                      subtitle: "",
+                      color: "#ffc107",
+                      "next-button-text": "Siguiente",
+                      "back-button-text": "Atrás",
+                      "finish-button-text": "Guardar y enviar"
+                    },
+                    on: { "on-complete": _vm.createCourses }
+                  },
+                  [
+                    _vm.isLoading
+                      ? _c("span", {
+                          staticClass: "spinner-border spinner-border",
+                          attrs: { role: "status", "aria-hidden": "true" }
+                        })
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _c(
+                      "tab-content",
+                      { attrs: { title: "Anual" } },
+                      _vm._l(_vm.inputs1, function(input1, t) {
+                        return _c(
+                          "div",
+                          { key: t, staticClass: "form-group mx-auto" },
+                          [
+                            _c(
+                              "div",
+                              { staticClass: "classroom-planning-section" },
+                              [
+                                _c("strong", [_vm._v("Logro:")]),
+                                _vm._v(" "),
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: input1.porcentaje,
+                                      expression: "input1.porcentaje"
+                                    }
+                                  ],
+                                  staticClass: "form-control form-control-sm",
+                                  staticStyle: { width: "50px" },
+                                  attrs: { type: "number" },
+                                  domProps: { value: input1.porcentaje },
+                                  on: {
+                                    change: function($event) {
+                                      return _vm.annualContentUpdateEvent(
+                                        $event,
+                                        t,
+                                        "inputs1"
+                                      )
+                                    },
+                                    input: function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.$set(
+                                        input1,
+                                        "porcentaje",
+                                        $event.target.value
+                                      )
+                                    }
+                                  }
+                                }),
+                                _vm._v("%\n                    "),
+                                _c("span", [
+                                  _c(
+                                    "a",
+                                    {
+                                      directives: [
+                                        {
+                                          name: "show",
+                                          rawName: "v-show",
+                                          value:
+                                            t > 0 &&
+                                            _vm.inputs1_saved.length <= t,
+                                          expression:
+                                            "(t>0 && inputs1_saved.length<=t)"
+                                        }
+                                      ],
+                                      staticClass: "badge badge-danger",
+                                      attrs: { href: "#" },
+                                      on: {
+                                        click: function($event) {
+                                          $event.preventDefault()
+                                          return _vm.remove1(t)
+                                        }
+                                      }
+                                    },
+                                    [_vm._v("-")]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "a",
+                                    {
+                                      directives: [
+                                        {
+                                          name: "show",
+                                          rawName: "v-show",
+                                          value: t == _vm.inputs1.length - 1,
+                                          expression: "t == inputs1.length -1"
+                                        }
+                                      ],
+                                      staticClass: "badge badge-primary",
+                                      attrs: { href: "#" },
+                                      on: {
+                                        click: function($event) {
+                                          $event.preventDefault()
+                                          return _vm.add1(t)
+                                        }
+                                      }
+                                    },
+                                    [_vm._v("+")]
+                                  )
+                                ])
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c("textarea", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: input1.logro,
+                                  expression: "input1.logro"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              attrs: { name: "welcome", required: "" },
+                              domProps: { value: input1.logro },
+                              on: {
+                                change: function($event) {
+                                  return _vm.annualContentUpdateEvent(
+                                    $event,
+                                    t,
+                                    "inputs1",
+                                    "logro"
+                                  )
+                                },
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(input1, "logro", $event.target.value)
+                                }
+                              }
+                            }),
+>>>>>>> 4a83d3a4cd430aa6033ce621f5b1104d21e43758
+=======
+>>>>>>> develop
+=======
+>>>>>>> develop
                             _vm._v(" "),
                             _c("td", [
                               _vm._v(

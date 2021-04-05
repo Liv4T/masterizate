@@ -281,7 +281,19 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
 exports.push([module.i, "\n.class-inactive {\n    margin: 10px;\n    font-weight: bold;\n    color: #F79D52;\n}\n\n", ""]);
+=======
+exports.push([module.i, "\n.class_container[data-v-1bd4abb0]{\n    display: flex;\n    flex-direction: column;\n    justify-content: space-between;\n    padding: 10px;\n    border:2px solid #ffc039;\n    border-radius:4px;\n    margin-top:10px;\n    transition: background 0.8s;\n    font-weight: 600;\n    font-family: \"Century Gothic\";\n    color:#000;\n}\n.class_container[data-v-1bd4abb0]:hover{\n      box-shadow: 0 0 11px rgba(33,33,33,.2);\n      cursor: default;\n      background: #ffc039 radial-gradient(circle, transparent 1%, white 1%) center/15000%;\n      color:#000;\n}\n.class_container[data-v-1bd4abb0]:active {\n  background-color: #ffc039;\n  background-size: 100%;\n  text-decoration: none;\n  transition: background 0s;\n   color:white;\n}\n.class_container-active[data-v-1bd4abb0]{\n     background-color: #ffc039;\n     color:#000;\n}\n.class_notify[data-v-1bd4abb0]{\n    font-weight: 700;\n    color:#278080;\n    background: #edffff;\n}\n.class_content_title[data-v-1bd4abb0]{\n    padding: 20px;\n    background: #f5f5f5;\n    color:#278080;\n    font-weight: 600;\n    font-size: 1.2em;\n    border-radius: 5px;\n}\n.class_container_info[data-v-1bd4abb0]{\n    display: flex;\n    flex-direction: row;\n    justify-content: space-between;\n    align-items: center;\n}\n.class_container_score[data-v-1bd4abb0]{\n     display: flex;\n     flex-direction: row;\n     justify-content: space-between;\n     align-items: center;\n}\n.class_container_score>div[data-v-1bd4abb0]{\n    display: flex;\n    flex-direction: column;\n    align-items: center;\n    justify-content: center;\n    margin-left:20px;\n}\n.class_container_header[data-v-1bd4abb0]{\n    display: flex;\n    flex-direction: row;\n    justify-content: space-between;\n}\n.class_container_info-container[data-v-1bd4abb0]{\n    display: flex;\n    flex-direction: column;\n}\n.activity_score[data-v-1bd4abb0]{\n    padding:10px;\n    display: flex;\n    justify-content: space-between;\n    flex-direction: row;\n    align-items: center;\n}\n", ""]);
+>>>>>>> 4a83d3a4cd430aa6033ce621f5b1104d21e43758
+=======
+exports.push([module.i, "\n.class-inactive {\n    margin: 10px;\n    font-weight: bold;\n    color: #F79D52;\n}\n\n", ""]);
+>>>>>>> develop
+=======
+exports.push([module.i, "\n.class-inactive {\n    margin: 10px;\n    font-weight: bold;\n    color: #F79D52;\n}\n\n", ""]);
+>>>>>>> develop
 
 // exports
 

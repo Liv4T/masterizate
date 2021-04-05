@@ -108,6 +108,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   mounted: function mounted() {
     var _this = this;
+<<<<<<< HEAD
 
     this.areas = [];
     axios.get('/GetArearByUser').then(function (response) {
@@ -116,6 +117,16 @@ __webpack_require__.r(__webpack_exports__);
       if (_this.areas.length > 0) {
         _this.current_area = _this.areas[0];
 
+=======
+
+    this.areas = [];
+    axios.get('/GetArearByUser').then(function (response) {
+      _this.areas = response.data;
+
+      if (_this.areas.length > 0) {
+        _this.current_area = _this.areas[0];
+
+>>>>>>> develop
         _this.getStudents();
       }
     });
@@ -129,9 +140,39 @@ __webpack_require__.r(__webpack_exports__);
         _this2.students = response.data;
       });
     },
+<<<<<<< HEAD
+<<<<<<< HEAD
+    showDataParents: function showDataParents() {
+      var _this4 = this;
+
+      this.parents.forEach(function (e) {
+        if (e.name === _this4.newStudentEdit.mother_name) {
+          _this4.motherToSave = {
+            id: e.id,
+            id_parent: e.id,
+            text: "".concat(e.name)
+          };
+        }
+
+        if (e.name === _this4.newStudentEdit.father_name) {
+          _this4.fatherToSave = {
+            id: e.id,
+            id_parent: e.id,
+            text: "".concat(e.name)
+          };
+        }
+      });
+<<<<<<< HEAD
+=======
     SelectArea: function SelectArea(area) {
       this.current_area = area;
       this.getStudents();
+>>>>>>> develop
+=======
+    SelectArea: function SelectArea(area) {
+      this.current_area = area;
+      this.getStudents();
+>>>>>>> develop
     },
     saveCalificationCourse: function saveCalificationCourse() {
       var _this3 = this;
@@ -144,16 +185,55 @@ __webpack_require__.r(__webpack_exports__);
 
         _this3.getStudents();
       });
+<<<<<<< HEAD
+<<<<<<< HEAD
+    },
+    getMenu: function getMenu() {
+      window.location = "/observer";
+=======
+      /* var urlsel = "editGetWeek";
+       axios.get(urlsel).then((response) => {
+         this.week = response.data;
+          if (this.week.id_area == area && this.week.id_classroom == classroom) {
+           this.semanal = true;
+         } else {
+           this.semanal = false;
+         }
+       });*/
+>>>>>>> 4a83d3a4cd430aa6033ce621f5b1104d21e43758
+=======
+>>>>>>> develop
+=======
+>>>>>>> develop
     }
   }
 });
 
 /***/ }),
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ModalEditObserver.vue?vue&type=template&id=19360cf2&":
+/*!********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/ModalEditObserver.vue?vue&type=template&id=19360cf2& ***!
+  \********************************************************************************************************************************************************************************************************************/
+=======
+/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/vplanAdm.vue?vue&type=style&index=0&lang=css&":
+/*!**************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/vplanAdm.vue?vue&type=style&index=0&lang=css& ***!
+  \**************************************************************************************************************************************************************************************************************************************************************************/
+=======
+=======
+>>>>>>> develop
 /***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/teacherStudentsComponent.vue?vue&type=style&index=0&id=aeb68f64&scoped=true&lang=css&":
 /*!******************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/teacherStudentsComponent.vue?vue&type=style&index=0&id=aeb68f64&scoped=true&lang=css& ***!
   \******************************************************************************************************************************************************************************************************************************************************************************************************************/
+<<<<<<< HEAD
+>>>>>>> develop
+=======
+>>>>>>> develop
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -199,10 +279,24 @@ if(false) {}
 
 /***/ }),
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/vplanAdm.vue?vue&type=template&id=817e2954&":
+/*!***********************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/vplanAdm.vue?vue&type=template&id=817e2954& ***!
+  \***********************************************************************************************************************************************************************************************************/
+>>>>>>> 4a83d3a4cd430aa6033ce621f5b1104d21e43758
+=======
+=======
+>>>>>>> develop
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/teacherStudentsComponent.vue?vue&type=template&id=aeb68f64&scoped=true&":
 /*!***************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/teacherStudentsComponent.vue?vue&type=template&id=aeb68f64&scoped=true& ***!
   \***************************************************************************************************************************************************************************************************************************************/
+<<<<<<< HEAD
+>>>>>>> develop
+=======
+>>>>>>> develop
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
