@@ -114,7 +114,6 @@ export default {
         getArea(){
             axios.get(`GetAreaTeacher/${this.saveTeachers.id}`).then((response) => {
                 let area = response.data;
-                console.log(response.data)
                 area.forEach(element => {
                     this.areaOptions.push({
                         id: element.id,
