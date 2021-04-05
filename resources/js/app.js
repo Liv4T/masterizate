@@ -250,7 +250,7 @@ Vue.component("students-component", () => import("./components/students.vue"));
 Vue.component("report-notes-component", () => import("./components/reportNotes.vue"));
 
 //
-Vue.component("government-members-component", () => import("./components/schoolGovernmentMembers.vue"))
+Vue.component("government-members-component", () => import("./components/schoolGovernmentMembers.vue"));
 Vue.component("modal-create-government-member", ()=>import("./components/ModalCreateGovernmentMember.vue"));
 Vue.component("modal-edit-government-member", () => import("./components/ModalEditGovernmentMember.vue"));
 Vue.component("reports-government", ()=> import("./components/reportsGovernment.vue"));
