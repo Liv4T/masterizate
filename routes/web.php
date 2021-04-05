@@ -805,9 +805,9 @@ Route::get('GetMateriasToReport','SchoolGovernmentController@reportAllMateriasTe
 Route::get('GetAreaToReport/{idTeachers}','SchoolGovernmentController@reportTeacher');
 Route::get('reportCourse/{id_area}/{id_classroom}/{teacher}/{area}','SchoolGovernmentController@reportCourse');
 Route::get('reportNotes/{area_id}/{classroom_id}/{teacher_name}/{area_name}','SchoolGovernmentController@reportNotes');
-Route::get('GetPlanificationTeacher/{teacherId}/{id_area}/{id_classroom}/{teacher}','SchoolGovernMentController@reportPlanificationTeacher');
-Route::get('GetPlanificationQuaterlyTeacher/{teacherId}/{id_area}/{id_classroom}/{teacher}','SchoolGovernMentController@reportPlanificationQuaterlyTeacher');
-Route::get('GetPlanificationCoursesTeacher/{id_area}/{id_classroom}/{teacher}','SchoolGovernMentController@reportPlanificationCoursesTeacher');
+Route::get('GetPlanificationTeacher/{teacherId}/{id_area}/{id_classroom}/{teacher}','SchoolGovernmentController@reportPlanificationTeacher');
+Route::get('GetPlanificationQuaterlyTeacher/{teacherId}/{id_area}/{id_classroom}/{teacher}','SchoolGovernmentController@reportPlanificationQuaterlyTeacher');
+Route::get('GetPlanificationCoursesTeacher/{id_area}/{id_classroom}/{teacher}','SchoolGovernmentController@reportPlanificationCoursesTeacher');
 
 //Staments Of Government School
 Route::resource('staments','StamentsController');
