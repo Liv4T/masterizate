@@ -78,6 +78,9 @@ var render = function() {
             _vm._v(" "),
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> develop
 =======
 >>>>>>> develop
             _vm._m(0)
@@ -101,6 +104,7 @@ var render = function() {
           ),
           _vm._v(" "),
           _vm._m(1)
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
             _c(
@@ -923,6 +927,8 @@ var render = function() {
             )
           ])
 >>>>>>> 4a83d3a4cd430aa6033ce621f5b1104d21e43758
+=======
+>>>>>>> develop
 =======
 >>>>>>> develop
         ])

@@ -192,6 +192,9 @@ var render = function() {
             _vm._v(" "),
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> develop
 =======
 >>>>>>> develop
             _c("div", { staticClass: "card-body" }, [
@@ -209,6 +212,7 @@ var render = function() {
                       name.type_user == "3"
                         ? _c("tr", [
                             _vm._m(1, true),
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
             _c(
@@ -382,6 +386,8 @@ var render = function() {
                               }
                             }),
 >>>>>>> 4a83d3a4cd430aa6033ce621f5b1104d21e43758
+=======
+>>>>>>> develop
 =======
 >>>>>>> develop
                             _vm._v(" "),

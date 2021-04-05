@@ -253,6 +253,7 @@ var render = function() {
                                             }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
                                           }),
                                           _vm._v(
@@ -281,6 +282,8 @@ var render = function() {
                                             staticClass:
                                               "table table-responsive-xl table-hover table-striped center"
 >>>>>>> 4a83d3a4cd430aa6033ce621f5b1104d21e43758
+=======
+>>>>>>> develop
 =======
 >>>>>>> develop
                                           },
@@ -380,6 +383,9 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> develop
 =======
 >>>>>>> develop
     return _c("thead", [
@@ -388,6 +394,7 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Notas")])
       ])
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
     return _c("h3", { staticClass: "card-header fondo text-center" }, [
@@ -403,6 +410,8 @@ var staticRenderFns = [
 >>>>>>> 4a83d3a4cd430aa6033ce621f5b1104d21e43758
 =======
 >>>>>>> develop
+=======
+>>>>>>> develop
     ])
   },
   function() {
@@ -411,6 +420,9 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> develop
 =======
 >>>>>>> develop
     return _c("div", { staticClass: "modal-header" }, [
@@ -421,10 +433,13 @@ var staticRenderFns = [
       ),
       _vm._v(" "),
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
     return _c("h3", { staticClass: "card-header fondo text-center" }, [
       _vm._v("\n                Eliminar Indicador\n                "),
 >>>>>>> 4a83d3a4cd430aa6033ce621f5b1104d21e43758
+=======
+>>>>>>> develop
 =======
 >>>>>>> develop
       _c(

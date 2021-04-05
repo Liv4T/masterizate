@@ -456,6 +456,9 @@ var render = function() {
                                     }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> develop
 =======
 >>>>>>> develop
                                   },
@@ -495,6 +498,7 @@ var render = function() {
                                       color: "green",
                                       "font-size": "20px"
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
                                   }
                                 },
@@ -531,6 +535,8 @@ var render = function() {
                                       $event.preventDefault()
                                       return _vm.duplicar(_vm.materia)
 >>>>>>> 4a83d3a4cd430aa6033ce621f5b1104d21e43758
+=======
+>>>>>>> develop
 =======
 >>>>>>> develop
                                     }
@@ -713,6 +719,9 @@ var render = function() {
                                     _vm._v(
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> develop
 =======
 >>>>>>> develop
                                       "Archivo cargado con exito nombre:" +
@@ -732,6 +741,7 @@ var render = function() {
                                     staticStyle: {
                                       color: "red",
                                       "font-size": "18px"
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
                                       "\n                        Logro " +
@@ -775,6 +785,8 @@ var render = function() {
                                       value: option.achievement,
                                       expression: "option.achievement"
 >>>>>>> 4a83d3a4cd430aa6033ce621f5b1104d21e43758
+=======
+>>>>>>> develop
 =======
 >>>>>>> develop
                                     }

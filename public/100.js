@@ -267,6 +267,9 @@ var render = function() {
                   [
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> develop
 =======
 >>>>>>> develop
                     _c("tab-content", [
@@ -278,6 +281,7 @@ var render = function() {
                             "select",
                             {
                               ref: "seleccionado",
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
                     _vm.isLoading
@@ -401,6 +405,8 @@ var render = function() {
                                 }
                               ],
 >>>>>>> 4a83d3a4cd430aa6033ce621f5b1104d21e43758
+=======
+>>>>>>> develop
 =======
 >>>>>>> develop
                               staticClass: "form-control",
