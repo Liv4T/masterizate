@@ -251,6 +251,35 @@ var render = function() {
                                                 )
                                               }
                                             }
+<<<<<<< HEAD
+=======
+                                          }),
+                                          _vm._v(
+                                            "\n                            %\n                          "
+                                          )
+                                        ]
+                                      )
+                                    ])
+                                  ]),
+                                  _vm._v(" "),
+                                  _c(
+                                    "div",
+                                    {
+                                      staticClass: "collapse hide",
+                                      attrs: {
+                                        id: "collapse" + t,
+                                        "aria-labelledby": "heading",
+                                        "data-parent": "#accordionExample"
+                                      }
+                                    },
+                                    [
+                                      _c("div", { staticClass: "card-body" }, [
+                                        _c(
+                                          "table",
+                                          {
+                                            staticClass:
+                                              "table table-responsive-xl table-hover table-striped center"
+>>>>>>> 4a83d3a4cd430aa6033ce621f5b1104d21e43758
                                           },
                                           [
                                             _vm._v(
@@ -346,18 +375,32 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
+<<<<<<< HEAD
     return _c("thead", [
       _c("tr", [
         _c("th", [_vm._v("Nombre de la materia")]),
         _vm._v(" "),
         _c("th", [_vm._v("Notas")])
       ])
+=======
+    return _c("h3", { staticClass: "card-header fondo text-center" }, [
+      _vm._v("\n                Porcentaje\n                "),
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: { type: "button", "data-dismiss": "modal" }
+        },
+        [_c("span", [_vm._v("×")])]
+      )
+>>>>>>> 4a83d3a4cd430aa6033ce621f5b1104d21e43758
     ])
   },
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
+<<<<<<< HEAD
     return _c("div", { staticClass: "modal-header" }, [
       _c(
         "h5",
@@ -365,6 +408,10 @@ var staticRenderFns = [
         [_vm._v("Notas")]
       ),
       _vm._v(" "),
+=======
+    return _c("h3", { staticClass: "card-header fondo text-center" }, [
+      _vm._v("\n                Eliminar Indicador\n                "),
+>>>>>>> 4a83d3a4cd430aa6033ce621f5b1104d21e43758
       _c(
         "button",
         {

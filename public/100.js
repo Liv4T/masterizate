@@ -265,6 +265,7 @@ var render = function() {
                     }
                   },
                   [
+<<<<<<< HEAD
                     _c("tab-content", [
                       _c("div", { staticClass: "form-group row mx-auto" }, [
                         _c("div", { staticClass: "col-md-6" }, [
@@ -274,6 +275,128 @@ var render = function() {
                             "select",
                             {
                               ref: "seleccionado",
+=======
+                    _vm.isLoading
+                      ? _c("span", {
+                          staticClass: "spinner-border spinner-border",
+                          attrs: { role: "status", "aria-hidden": "true" }
+                        })
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _c(
+                      "tab-content",
+                      { attrs: { title: "Anual" } },
+                      _vm._l(_vm.achievements, function(achievement, t) {
+                        return _c(
+                          "div",
+                          { key: t, staticClass: "form-group mx-auto" },
+                          [
+                            _c(
+                              "div",
+                              { staticClass: "classroom-planning-section" },
+                              [
+                                _c("strong", [_vm._v("Logro:")]),
+                                _vm._v(" "),
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: achievement.rate,
+                                      expression: "achievement.rate"
+                                    }
+                                  ],
+                                  staticClass: "form-control form-control-sm",
+                                  staticStyle: { width: "50px" },
+                                  attrs: { type: "number" },
+                                  domProps: { value: achievement.rate },
+                                  on: {
+                                    change: function($event) {
+                                      return _vm.planificationContentUpdateEvent(
+                                        $event,
+                                        t,
+                                        "achievements",
+                                        "rate"
+                                      )
+                                    },
+                                    input: function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.$set(
+                                        achievement,
+                                        "rate",
+                                        $event.target.value
+                                      )
+                                    }
+                                  }
+                                }),
+                                _vm._v("%\n                    "),
+                                _c("span", [
+                                  _c(
+                                    "a",
+                                    {
+                                      directives: [
+                                        {
+                                          name: "show",
+                                          rawName: "v-show",
+                                          value:
+                                            t > 0 &&
+                                            _vm.achievements_saved.length <= t,
+                                          expression:
+                                            "(t>0 && achievements_saved.length<=t)"
+                                        }
+                                      ],
+                                      staticClass: "badge badge-danger",
+                                      attrs: { href: "#" },
+                                      on: {
+                                        click: function($event) {
+                                          $event.preventDefault()
+                                          return _vm.removeAchievement(t)
+                                        }
+                                      }
+                                    },
+                                    [_vm._v("-")]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "a",
+                                    {
+                                      directives: [
+                                        {
+                                          name: "show",
+                                          rawName: "v-show",
+                                          value:
+                                            t == _vm.achievements.length - 1,
+                                          expression:
+                                            "t == achievements.length -1"
+                                        }
+                                      ],
+                                      staticClass: "badge badge-primary",
+                                      attrs: { href: "#" },
+                                      on: {
+                                        click: function($event) {
+                                          $event.preventDefault()
+                                          return _vm.addAchievement(t)
+                                        }
+                                      }
+                                    },
+                                    [_vm._v("+")]
+                                  )
+                                ])
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c("textarea", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: achievement.content,
+                                  expression: "achievement.content"
+                                }
+                              ],
+>>>>>>> 4a83d3a4cd430aa6033ce621f5b1104d21e43758
                               staticClass: "form-control",
                               attrs: { required: "" }
                             },
