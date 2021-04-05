@@ -798,4 +798,14 @@ Route::get('showUser/{userid}','SchoolGovernmentController@user');
 Route::get('getAllAreas', 'SchoolGovernmentController@getAllAreas');
 Route::get('reportStudents/{idStudent}/{idParent}','SchoolGovernmentController@getReportStudents');
 Route::get('getAllStudents','SchoolGovernmentController@students');
+
+
+//Staments Of Government School
+Route::resource('staments','StamentsController');
+Route::get('getStaments', 'StamentsController@getStaments');
+
+//chat Stament
+Route::resource('chatGobernment','StamentsChatController');
+Route::get('/getChatAsigment','StamentsChatController@getStamentsByUser');
+Route::get('getChat/{chat}','StamentsChatController@getChats');
 Route::get('getAllStudents','SchoolGovernmentController@students');

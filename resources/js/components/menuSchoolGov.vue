@@ -35,6 +35,12 @@
                                                 alt />
                                             Chat
                                         </a>
+                                        <a href="/chatGobernment">
+                                            <img width="35px"
+                                                src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/FOROS_naranja.png?alt=media&token=93ec6b97-e5a6-4eca-891e-b63bf2a352ad"
+                                                alt />
+                                            Chat Estamentos
+                                        </a>
                                     </div>
                                 </li>
                             </a>
@@ -63,6 +69,15 @@
                                     src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/MANUAL-DE-USUARIO_naranja.png?alt=media&token=bd2488fb-e121-432d-afd2-f223fcc0f29e"
                                     alt />
                                 <span class="menu">Legislación</span>
+                            </li>
+                        </a>
+
+                        <a href="/staments">
+                            <li class="item-menu">
+                                <img width="35px"
+                                    src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/MANUAL-DE-USUARIO_naranja.png?alt=media&token=bd2488fb-e121-432d-afd2-f223fcc0f29e"
+                                    alt />
+                                <span class="menu">Estamentos Escolares</span>
                             </li>
                         </a>
                         
