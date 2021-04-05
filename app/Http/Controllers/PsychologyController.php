@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Mail;
 
 class PsychologyController extends Controller
 {
-    public function createEvent (Request $request){
+    public function createEvent(Request $request){
 
         $evento = new EventsPsychology;
         $evento->name = $request->name;
@@ -27,21 +27,25 @@ class PsychologyController extends Controller
         $evento->save();
 
         if ($evento->save()) {
-            $correos = explode(',', $request->user_invited);
-            for($i=0; $i < count($correos); $i++){
+            if($evento->type_event == 2 || $evento->type_event == 4){
+                $correos = explode(',', $request->user_invited);
+                for($i=0; $i < count($correos); $i++){
+                    
+                    $email_u = User::find($correos[$i]);
+                    $email_to = $email_u->email;
+
+                    Mail::send('emails.psychologyInvited', ["fecha" => $request->startDateTime, "url" => $request->url], function ($message) use ($email_to) {
+                        $message->to($email_to, 'Liv4T Invitación Psicólogo');
+                        $message->subject('Liv4T Invitación Psicólogo');
+                    });
+                }
+                return view("psychology", ["saved" => true]);
+            }else{
                 
-                $email_u = User::find($correos[$i]);
-                $email_to = $email_u->email;
+                return response()->json($evento);
 
-                Mail::send('emails.psychologyInvited', ["fecha" => $request->startDateTime, "url" => $request->url], function ($message) use ($email_to) {
-                    $message->to($email_to, 'Liv4T Invitación Psicólogo');
-                    $message->subject('Liv4T Invitación Psicólogo');
-                });
             }
-            return view("psychology", ["saved" => true]);
         }   
-
-        return response()->json($evento);
     }
 
     public function getUsersToInvitations(){
@@ -77,7 +81,7 @@ class PsychologyController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function eventsCalendar(){
+    public function eventsCalendarSol(){
 
         $eventos = [];
         $user = Auth::user();
@@ -86,7 +90,7 @@ class PsychologyController extends Controller
         $initial_range_date = date ( 'Y-m-d' , strtotime ( '-90 day' , strtotime ($current_date ) )) ;
         $end_range_date =date ( 'Y-m-d' ,  strtotime ( '+90 day' , strtotime ($current_date ) )) ;
         if (isset($user)) {
-            $eventos_psy = EventsPsychology::where('id_user', $user->id)->whereDate('date_from','>=',$initial_range_date)->whereDate('date_to','<=',$end_range_date)->where('delete_at','=', null)->orderBy('date_from', 'ASC')->get();
+            $eventos_psy = EventsPsychology::where('id_user', $user->id)->whereDate('date_from','>=',$initial_range_date)->whereDate('date_to','<=',$end_range_date)->where('type_event', '1')->where('deleted_at','=', null)->orderBy('date_from', 'ASC')->get();
             foreach ($eventos_psy as $index => $evento) {
                 array_push($eventos,[
                     "id" => $evento->id,
@@ -94,10 +98,146 @@ class PsychologyController extends Controller
                     "dateFrom" => $evento->date_from,
                     "dateTo" => $evento->date_to,
                     "hangout" => $evento->url,
+                    "tipoEvento" => $evento->type_event,
                 ]);
             }
         }
         
         return response()->json($eventos);
+    }
+    
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function eventsCalendarSeg(){
+
+        $eventos = [];
+        $user = Auth::user();
+        $date =  Carbon::now();
+        $current_date=date('Y-m-d');
+        $initial_range_date = date ( 'Y-m-d' , strtotime ( '-90 day' , strtotime ($current_date ) )) ;
+        $end_range_date =date ( 'Y-m-d' ,  strtotime ( '+90 day' , strtotime ($current_date ) )) ;
+        if (isset($user)) {
+            $eventos_psy = EventsPsychology::where('id_user', $user->id)->whereDate('date_from','>=',$initial_range_date)->whereDate('date_to','<=',$end_range_date)->where('type_event', '2')->where('deleted_at','=', null)->orderBy('date_from', 'ASC')->get();
+            foreach ($eventos_psy as $index => $evento) {
+                array_push($eventos,[
+                    "id" => $evento->id,
+                    "name" => $evento->name,
+                    "dateFrom" => $evento->date_from,
+                    "dateTo" => $evento->date_to,
+                    "hangout" => $evento->url,
+                    "tipoEvento" => $evento->type_event,
+                ]);
+            }
+        }
+        
+        return response()->json($eventos);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function eventsCalendarCita(){
+
+        $eventos = [];
+        $user = Auth::user();
+        $date =  Carbon::now();
+        $current_date=date('Y-m-d');
+        $initial_range_date = date ( 'Y-m-d' , strtotime ( '-90 day' , strtotime ($current_date ) )) ;
+        $end_range_date =date ( 'Y-m-d' ,  strtotime ( '+90 day' , strtotime ($current_date ) )) ;
+        if (isset($user)) {
+            $eventos_psy = EventsPsychology::where('id_user', $user->id)->whereDate('date_from','>=',$initial_range_date)->whereDate('date_to','<=',$end_range_date)->where('type_event', '3')->where('deleted_at','=', null)->orderBy('date_from', 'ASC')->get();
+            foreach ($eventos_psy as $index => $evento) {
+                array_push($eventos,[
+                    "id" => $evento->id,
+                    "name" => $evento->name,
+                    "dateFrom" => $evento->date_from,
+                    "dateTo" => $evento->date_to,
+                    "hangout" => $evento->url,
+                    "tipoEvento" => $evento->type_event,
+                ]);
+            }
+        }
+        
+        return response()->json($eventos);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function eventsCalendarReu(){
+
+        $eventos = [];
+        $user = Auth::user();
+        $date =  Carbon::now();
+        $current_date=date('Y-m-d');
+        $initial_range_date = date ( 'Y-m-d' , strtotime ( '-90 day' , strtotime ($current_date ) )) ;
+        $end_range_date =date ( 'Y-m-d' ,  strtotime ( '+90 day' , strtotime ($current_date ) )) ;
+        if (isset($user)) {
+            $eventos_psy = EventsPsychology::where('id_user', $user->id)->whereDate('date_from','>=',$initial_range_date)->whereDate('date_to','<=',$end_range_date)->where('type_event', '4')->where('deleted_at','=', null)->orderBy('date_from', 'ASC')->get();
+            foreach ($eventos_psy as $index => $evento) {
+                array_push($eventos,[
+                    "id" => $evento->id,
+                    "name" => $evento->name,
+                    "dateFrom" => $evento->date_from,
+                    "dateTo" => $evento->date_to,
+                    "hangout" => $evento->url,
+                    "tipoEvento" => $evento->type_event,
+                ]);
+            }
+        }
+        
+        return response()->json($eventos);
+    }
+
+    public function findEvent(String $id)
+    {
+
+        $eventos = EventsPsychology::findOrFail($id);
+
+
+        return $eventos;
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function updateEvent(Request $request)
+    {
+        $data = $request->all();
+        $eventos = EventsPsychology::findOrFail($data['id']);
+        $user = Auth::user();
+
+        $eventos->name = $data['name'];
+        $eventos->date_from = $data['startDateTime'];
+        $eventos->date_to = $data['endDateTime'];
+        $eventos->id_user = Auth::user()->id;
+        $eventos->url = $data['url'];
+        $eventos->save();
+
+        return 'ok';
+    }
+    public function deleteEvent(Request $request)
+    {
+        $data = $request->all();
+        
+        
+            $eventos = EventsPsychology::findOrFail($data['id']);
+            $eventos->id_user = Auth::user()->id;
+            $eventos->deleted_at = Carbon::now();
+            $eventos->save();
+        
+            return 'ok';
+        
     }
 }

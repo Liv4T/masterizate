@@ -107,7 +107,7 @@
             }
         },
         methods: {
-            getClasses() {
+            getClasses() {  
                 axios.get('/getAreas').then((response) => {
                     console.log(response.data)
                     this.studentClass = response.data;

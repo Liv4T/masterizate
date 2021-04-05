@@ -10,7 +10,7 @@
                 <div class="col-6 justify-content">
                     <div class="btn-group" role="group" aria-label="Basic example">
                         <button type="button" class="btn" v-bind:class="{ 'btn-primary': (initialView=='dayGridMonth')  }" @click="changeCalendarView('dayGridMonth')">Mensual</button>
-                        <button type="button" class="btn" v-bind:class="{  'btn-primary': (initialView=='timeGridWeek') }" @click="changeCalendarView('timeGridWeek')">Semanal</button>
+                        <button type="button" class="btn" v-bind:class="{ 'btn-primary': (initialView=='timeGridWeek') }" @click="changeCalendarView('timeGridWeek')">Semanal</button>
                     </div>
                 </div> 
             </div>
@@ -54,31 +54,35 @@
           <div class="row">
             <div class="col-md-11">
               <div class="row justify-content-center">
-                <h4>Clases presenciales</h4>
+                <h4>Eventos</h4>
               </div>
-              <div class="row" v-for="(clas, k) in filterPendingEvents(clases)" v-bind:key="k">
+              <div class="row" v-for="(even, k) in filterPendingEvents(todos)" v-bind:key="k">
                 <div class="col-12">
                   <div class="card">
                       <div class="class-event">
-                        <div class="class-event-info">{{!clas.classroom?'Lectiva ':''}} {{clas.area}} {{clas.classroom?clas.classroom:''}}: {{clas.name}} </div>
+                        <div class="class-event-info">{{even.name}} </div>
+                        <div class="class-event-info" v-if="even.tipoEvento == 1">Solicitud</div>
+                        <div class="class-event-info" v-if="even.tipoEvento == 2">Seguimiento</div>
+                        <div class="class-event-info" v-if="even.tipoEvento == 3">Cita</div>
+                        <div class="class-event-info" v-if="even.tipoEvento == 4">Reunión</div>
                         <div class="class-event-date">
                           <div>
                             <small>Desde:</small>
-                            <span>{{clas.dateFrom|formatDate}}</span>
+                            <span>{{even.start}}</span>
                           </div>
                           <div>
                             <small>Hasta:</small>
-                            <span>{{clas.dateTo|formatDate}}</span>
+                            <span>{{even.end}}</span>
                           </div>
                         </div>
                         <div class="class-event-action">
-                            <a class="btn btn-primary" html:type="_blank" :href="clas.hangout">Ir a clase</a>
+                            <a class="btn btn-primary" html:type="_blank" :href="even.hangout">Ir al Evento</a>
                         </div>
                       </div>
                       <div class="class-event-footer ">
                         <div class="class-event-action">
-                            <button class="btn btn-primary" v-on:click.prevent="editE(clas.id)">Editar</button>
-                            <button class="btn btn-danger"  v-on:click.prevent="viewDelete(clas.id,clas.name)">Eliminar</button>
+                            <button class="btn btn-primary" v-on:click.prevent="editE(even.id)">Editar</button>
+                            <button class="btn btn-danger"  v-on:click.prevent="viewDelete(even.id,even.name)">Eliminar</button>
                         </div>
                       </div>
                   </div>
@@ -177,14 +181,9 @@
                   <div class="invalid-feedback">Please fill out this field</div>
                 </div>
                 <div class="col-md-6">
-                  <label for="name">Materia</label>
-                  <select class="form-control" v-model="areaUp" required>
-                    <option :value="option.id+'/'+option.id_classroom " v-for="(option,k_option) in myOptions" v-bind:key="k_option">
-                      {{
-                      option.text
-                      }}
-                    </option>
-                  </select>
+                  <strong for="name">Enlace de Meet</strong>
+                  <input type="text" name="name" class="form-control" v-model="meetUp" />
+                  <div class="invalid-feedback">Por favor ingresa la fecha</div>
                 </div>
               </div>
               <div class="form-group row">
@@ -197,11 +196,6 @@
                   <label for="name">Hasta</label>
                   <datetime v-model="toUp"></datetime>
                   <div class="invalid-feedback"></div>
-                </div>
-                <div class="col-md-6">
-                  <strong for="name">Enlace de Meet</strong>
-                  <input type="text" name="name" class="form-control" v-model="meetUp" />
-                  <div class="invalid-feedback">Por favor ingresa la fecha</div>
                 </div>
               </div>
               <div class="modal-footer">
@@ -264,7 +258,7 @@ export default {
       hasta: "",
       nameEvent: "",
       nameMeet: "",
-      clases: [],
+      todos: [],
       value:[],
       myOptions:[],
       materia: [],
@@ -275,14 +269,15 @@ export default {
       delName: "",
       formatDate: "",
       idUp: "",
+      meetUp: "",
+      nameUp: "",
+      fromUp: "",
+      toUp: "",
       typeEvent: "",
       daysWeek:[],
       lastId: [],
       errors: [],
-      lective_planification:{},
       initialView:'dayGridMonth',
-      arrayDaysEvent: [],
-      arrayDaysEventMes: [],
       calendarOptions: {
         locale: esLocale,
         plugins: [ dayGridPlugin, interactionPlugin,timeGridPlugin,momentTimezonePlugin,momentPlugin ],
@@ -311,8 +306,84 @@ export default {
   },
   mounted() {
     const fullCalendarApi=this.$refs.fullCalendar.getApi();
-    var url = window.location.origin + "/getAllUsers";
     
+    var urlSol = window.location.origin + "/getSolEvents"; //Trae los eventos de Solicitud del calendario
+    axios.get(urlSol).then((response) => {
+        this.solicitud = response.data;
+        if (this.solicitud && this.solicitud.length > 0) {
+
+            this.solicitud.forEach(meeting => {
+                this.todos.push({id: meeting.id, name: meeting.name, start: meeting.dateFrom, end: meeting.dateTo, hangout: meeting.hangout, tipoEvento: meeting.tipoEvento});
+                fullCalendarApi.addEvent({
+                    title: `${meeting.name}`,
+                    start: meeting.dateFrom,
+                    end: meeting.dateTo,
+                    description: meeting.name,
+                    url: meeting.hangout,
+                    backgroundColor: '#e48a20'
+                });
+            })
+        }
+    });
+
+    var urlSeg = window.location.origin + "/getSegEvents"; //Trae los eventos de seguimiento del calendario
+    axios.get(urlSeg).then((response) => {
+        this.seguimiento = response.data;
+        if (this.seguimiento && this.seguimiento.length > 0) {
+
+          this.seguimiento.forEach(meeting => {
+              this.todos.push({id: meeting.id, name: meeting.name, start: meeting.dateFrom, end: meeting.dateTo, hangout: meeting.hangout, tipoEvento: meeting.tipoEvento});
+              fullCalendarApi.addEvent({
+                  title: `${meeting.name}`,
+                  start: meeting.dateFrom,
+                  end: meeting.dateTo,
+                  description: meeting.name,
+                  url: meeting.hangout,
+                  backgroundColor: '#ffc200'
+              });
+          })
+        }
+    });
+
+    var urlCita = window.location.origin + "/getCitaEvents"; //Trae los eventos de cita del calendario
+    axios.get(urlCita).then((response) => {
+        this.cita = response.data;
+        if (this.cita && this.cita.length > 0) {
+
+            this.cita.forEach(meeting => {
+                this.todos.push({id: meeting.id, name: meeting.name, start: meeting.dateFrom, end: meeting.dateTo, hangout: meeting.hangout, tipoEvento: meeting.tipoEvento});
+                fullCalendarApi.addEvent({
+                    title: `${meeting.name}`,
+                    start: meeting.dateFrom,
+                    end: meeting.dateTo,
+                    description: meeting.name,
+                    url: meeting.hangout,
+                    backgroundColor: '#9fdee1'
+                });
+            })
+        }
+    });
+
+    var urlReu = window.location.origin + "/getReuEvents"; //Trae los eventos de seguimiento del calendario
+    axios.get(urlReu).then((response) => {
+        this.reunion = response.data;
+        if (this.reunion && this.reunion.length > 0) {
+
+            this.reunion.forEach(meeting => {
+                this.todos.push({id: meeting.id, name: meeting.name, start: meeting.dateFrom, end: meeting.dateTo, hangout: meeting.hangout, tipoEvento: meeting.tipoEvento});
+                fullCalendarApi.addEvent({
+                    title: `${meeting.name}`,
+                    start: meeting.dateFrom,
+                    end: meeting.dateTo,
+                    description: meeting.name,
+                    url: meeting.hangout,
+                    backgroundColor: '#0b8043'
+                });
+            })
+        }
+    });
+    
+    var url = window.location.origin + "/getAllUsers";
     axios.get(url).then((response) => {
       let arrayData = response.data;
       arrayData[0].forEach(e => {
@@ -351,22 +422,27 @@ export default {
   },
   methods: {
     filterPendingEvents:(events)=>{
-          return events.filter(e=>moment(e.dateTo)>=moment());
+          return events.filter(e=>moment(e.start)>=moment());
       },
       displaySolicitudChange(){
         const fullCalendarApi=this.$refs.fullCalendar.getApi();
 
           if(this.display_solicitud)
           {
-              /*
-               this.clases.forEach(meeting=>{
-                fullCalendarApi.addEvent({ title: `${meeting.area} ${meeting.classroom} | Clase ${meeting.name}`, start: meeting.dateFrom,end:meeting.dateTo,description: meeting.name,url:meeting.hangout ,backgroundColor:'red'});
-               })*/
+            console.log(this.solicitud);
+            this.solicitud.forEach(meeting=>{
+            fullCalendarApi.addEvent({ title: ` ${meeting.name}`, 
+                                       start: meeting.dateFrom,
+                                       end:meeting.dateTo,
+                                       description: meeting.name,
+                                       url:meeting.hangout ,
+                                       backgroundColor:'#e48a20'});
+            })
           }
           else{
             const currentEvents=  fullCalendarApi.getEvents();
             currentEvents.forEach(event=>{
-                if(event.backgroundColor=='blue')
+                if(event.backgroundColor=='#e48a20')
                 {
                     event.remove();
                 }
@@ -376,16 +452,21 @@ export default {
       displaySeguimientoChange(){
            const fullCalendarApi=this.$refs.fullCalendar.getApi();
 
-          if(this.display_events)
+          if(this.display_seguimiento)
           {
-               this.clases.forEach(meeting=>{
-                fullCalendarApi.addEvent({ title: `${meeting.area} ${meeting.classroom} | Clase ${meeting.name}`, start: meeting.dateFrom,end:meeting.dateTo,description: meeting.name,url:meeting.hangout ,backgroundColor:'red'});
-               })
+            this.seguimiento.forEach(meeting=>{
+            fullCalendarApi.addEvent({ title: `${meeting.name}`,
+                                        start: meeting.dateFrom,
+                                        end:meeting.dateTo,
+                                        description: meeting.name,
+                                        url:meeting.hangout ,
+                                        backgroundColor:'#ffc200'});
+            })
           }
           else{
             const currentEvents=  fullCalendarApi.getEvents();
             currentEvents.forEach(event=>{
-                if(event.backgroundColor=='red')
+                if(event.backgroundColor=='#ffc200')
                 {
                     event.remove();
                 }
@@ -395,16 +476,21 @@ export default {
       displayCitaChange(){
            const fullCalendarApi=this.$refs.fullCalendar.getApi();
 
-          if(this.display_events)
+          if(this.display_cita)
           {
-               this.clases.forEach(meeting=>{
-                fullCalendarApi.addEvent({ title: `${meeting.area} ${meeting.classroom} | Clase ${meeting.name}`, start: meeting.dateFrom,end:meeting.dateTo,description: meeting.name,url:meeting.hangout ,backgroundColor:'red'});
-               })
+            this.cita.forEach(meeting=>{
+            fullCalendarApi.addEvent({ title: `${meeting.name}`,
+                                        start: meeting.dateFrom,
+                                        end:meeting.dateTo,
+                                        description: meeting.name,
+                                        url:meeting.hangout ,
+                                        backgroundColor:'#9fdee1'});
+            })
           }
           else{
             const currentEvents=  fullCalendarApi.getEvents();
             currentEvents.forEach(event=>{
-                if(event.backgroundColor=='red')
+                if(event.backgroundColor=='#9fdee1')
                 {
                     event.remove();
                 }
@@ -414,25 +500,27 @@ export default {
       displayReunionChange(){
            const fullCalendarApi=this.$refs.fullCalendar.getApi();
 
-          if(this.display_events)
+          if(this.display_reunion)
           {
-               this.clases.forEach(meeting=>{
-                fullCalendarApi.addEvent({ title: `${meeting.area} ${meeting.classroom} | Clase ${meeting.name}`, start: meeting.dateFrom,end:meeting.dateTo,description: meeting.name,url:meeting.hangout ,backgroundColor:'red'});
-               })
+            this.reunion.forEach(meeting=>{
+            fullCalendarApi.addEvent({ title: `${meeting.name}`,
+                                        start: meeting.dateFrom,
+                                        end:meeting.dateTo,
+                                        description: meeting.name,
+                                        url:meeting.hangout ,
+                                        backgroundColor:'#0b8043'});
+            })
           }
           else{
             const currentEvents=  fullCalendarApi.getEvents();
             currentEvents.forEach(event=>{
-                if(event.backgroundColor=='red')
+                if(event.backgroundColor=='#0b8043')
                 {
                     event.remove();
                 }
             });
           }
       },
-      handleDateClick(arg){
-      //alert('date click! ' + arg.dateStr)
-    },
     handleEventClick(info){
 
         info.jsEvent.preventDefault();
@@ -443,13 +531,6 @@ export default {
     },
     handleEventDidMount(info){
          console.log('PREV');
-        /* var tooltip = new Tooltip(info.el, {
-            title: info.event.extendedProps.description,
-            placement: 'top',
-            trigger: 'hover',
-            container: 'body'
-        });*/
-
     },
     changeCalendarView(view){
         this.initialView=view;
@@ -468,10 +549,9 @@ export default {
     },
     createEven(){
       $("#createEvent").modal("show");
-      console.log(this.myUsers);
     }, 
     createEvent() {
-      var url = "createEvent";
+      var url = "createEventP";
       
       if (this.user_invited.length >= 1 ){
         var id_users=[];
@@ -522,8 +602,58 @@ export default {
           })
           .catch((error) => {}); 
       }  
-    },   
-    
+    },
+    editE(id) {
+      this.evenUp = [];
+      var urlM = window.location.origin + "/editEventP/" + id;
+      axios.get(urlM).then((response) => {
+          this.evenUp = response.data;
+          this.nameUp = this.evenUp.name;
+          this.fromUp = this.evenUp.date_from;
+          this.toUp = this.evenUp.date_to;
+          this.meetUp = this.evenUp.url;
+          this.idUp = id;
+      });
+      $("#editE").modal("show");
+    },
+    updateEvent() {
+      var url = "updateEventP";
+
+      axios
+        .put(url, {
+          id: this.idUp,
+          name: this.nameUp,
+          startDateTime: this.fromUp,
+          endDateTime: this.toUp,
+          id_area: this.areaUp,
+          url: this.meetUp,
+        })
+        .then((response) => {
+          this.getMenu();
+          toastr.success("Evento actualizado exitosamente");
+        })
+        .catch((error) => {});
+    },
+    deletE() {
+      $("#deleteE").modal("hide");
+    },
+    deleteEvent(id) {
+      var url = "deleteEventP";
+      
+          axios
+          .put(url, {
+              id: id,
+          }).then((response) => {
+              this.getMenu();
+              toastr.success("Evento actualizado exitosamente");
+          })
+          .catch((error) => {});
+    },
+    viewDelete(id, name) {
+      this.delName = name;
+      this.delId = id;
+      $("#deleteE").modal("show");
+    },    
   },
 };
 </script>
@@ -593,15 +723,15 @@ export default {
   display: inline-block;
 }
 .dot_orange{
-    background-color: #3788d8;
+  background-color: #e48a20;
 }
 .dot_yellow{
-    background-color: #d8374d;
+    background-color: #ffc200;
 }
 .dot_blue{
-    background-color: #d8374d;
+    background-color: #9fdee1;
 }
 .dot_green{
-    background-color: #d8374d;
+    background-color: #0b8043;
 }
 </style>
