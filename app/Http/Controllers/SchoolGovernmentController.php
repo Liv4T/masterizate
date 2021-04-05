@@ -20,6 +20,8 @@ use App\Exports\MateriasTeachersExport;
 use App\Exports\CourseExport;
 use App\Exports\NotesExport;
 use App\Exports\PlanificationExport;
+use App\Exports\PlanificationQuaterlyExport;
+use App\Exports\PlanificationCoursesExport;
 
 class SchoolGovernmentController extends Controller
 {
@@ -69,8 +71,16 @@ class SchoolGovernmentController extends Controller
         return Excel::download(new NotesExport($area_id, $classroom_id, $teacher_name, $area_name),'Reporte_Notas.xlsx');
     }
 
-    public function reportPlanificationTeacher(String $teacherId, String $id_area, String $id_classroom){
-        return Excel::download(new PlanificationExport($teacherId, $id_area, $id_classroom),'Reporte_Planificación.xlsx');
+    public function reportPlanificationTeacher(String $teacherId, String $id_area, String $id_classroom, String $teacher){
+        return Excel::download(new PlanificationExport($teacherId, $id_area, $id_classroom, $teacher),'Reporte_Planificación_Anual.xls');
+    }
+
+    public function reportPlanificationQuaterlyTeacher(String $teacherId, String $id_area, String $id_classroom, String $teacher){
+        return Excel::download(new PlanificationQuaterlyExport($teacherId, $id_area, $id_classroom, $teacher),'Reporte_Planificación_Trimestral.xls');
+    }
+
+    public function reportPlanificationCoursesTeacher(String $id_area, String $id_classroom, String $teacher){
+        return Excel::download(new PlanificationCoursesExport($id_area, $id_classroom, $teacher),'Reporte_Planificación_Clases.xls');
     }
 
     public function students(){

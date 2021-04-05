@@ -143,87 +143,14 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
       });
     },
     dataExport: function dataExport() {
-      var _this3 = this;
-
-      this.saveArea.forEach(function (area) {
-        window.open("GetPlanificationTeacher/".concat(_this3.saveTeachers.id, "/").concat(area.id_area, "/").concat(area.id_classroom), "_self"); // axios.get(`GetPlanificationTeacher/${this.saveTeachers.id}/${area.id_area}/${area.id_classroom}`).then((response) => {
-        //     let anual = response.data;
-        //     if(this.planification === "anual"){
-        //         this.anualPlanification.push({
-        //             class_name: anual.classroom_name,
-        //             achievements: anual.achievements,
-        //             materia: area.text
-        //         });
-        //     }else if(this.planification === "quarters"){
-        //         this.quaterlyPlanification.push({
-        //             class_name: anual.classroom_name,
-        //             quaterly: anual.quaterly,
-        //             materia: area.text
-        //         });
-        //     } 
-        // })
-      }); // //Organizacion de datos para exportacion mediante Planificación Anual
-      // if(this.planification === "anual"){
-      //     for(let i = 0; i < this.anualPlanification.length; i++){
-      //         this.DataToExport.push({
-      //             Clase: this.anualPlanification[i].class_name,
-      //             Profesor: this.saveTeachers.text,
-      //             Materia: this.anualPlanification[i].materia,
-      //             Fecha: new Date()
-      //         })
-      //         if(this.anualPlanification[i].achievements.length > 0){            
-      //             for(let h = 0; h < this.anualPlanification[i].achievements.length; h++){
-      //                 this.DataToExport[i][`logro`+(h+1)] = this.anualPlanification[i].achievements[h].achievement
-      //             }
-      //         }
-      //     }
-      // //Organizacion de datos para exportacion mediante Planificación Trimestral
-      // }else if(this.planification === "quarters"){
-      //     for(let i = 0; i < this.quaterlyPlanification.length; i++){
-      //         this.DataToExport.push({
-      //             Clase: this.quaterlyPlanification[i].class_name,
-      //             Profesor: this.saveTeachers.text,
-      //             Materia: this.quaterlyPlanification[i].materia,
-      //             Fecha: new Date()
-      //         })
-      //         if(this.quaterlyPlanification[i].quaterly.length > 0){   
-      //             for(let h = 0; h < this.quaterlyPlanification[i].quaterly.length; h++){
-      //                 this.DataToExport[i][`Indicador`+(h+1)] = this.quaterlyPlanification[i].quaterly[h].content
-      //                 this.DataToExport[i][`Contenido`+(h+1)] = this.quaterlyPlanification[i].quaterly[h].unit_name
-      //             }
-      //         }
-      //     }
-      // }else if (this.planification === "clases"){
-      //     this.saveArea.forEach(area=>{
-      //         axios.get(`viewGetWeek/${area.id_area}/${area.id_classroom}`).then((response) => {
-      //             let clase = response.data;
-      //             clase.forEach(clas => {
-      //                 this.DataToExport.push({
-      //                     Area: area.text,
-      //                     Clase: clas.class,
-      //                     Observacion: clas.observation,
-      //                     Ciclo: clas.text,  
-      //                     Fecha: new Date()
-      //                 })
-      //             })
-      //         })
-      //     })
-      // }
-      // if(this.DataToExport.length > 0){
-      //     const data = this.DataToExport;
-      //     const fileName = 'Reporte Planeación'
-      //     const exportType = 'xls'
-      //     this.DataToExport=[],
-      //     this.saveArea=[],
-      //     this.areaOptions=[],
-      //     this.saveTeachers=[],
-      //     this.anualPlanification=[]
-      //     this.quaterlyPlanification=[]
-      //     $("#reportTeacherPlanifModal").modal("hide");
-      //     exportFromJSON({ data, fileName, exportType })
-      // }else{
-      //     toastr.info("No hay datos disponibles")
-      // }
+      //Organizacion de datos para exportacion mediante Planificación Anual
+      if (this.planification === "anual") {
+        window.open("GetPlanificationTeacher/".concat(this.saveTeachers.id, "/").concat(this.saveArea.id_area, "/").concat(this.saveArea.id_classroom, "/").concat(this.saveTeachers.text), "_self"); //Organizacion de datos para exportacion mediante Planificación Trimestral
+      } else if (this.planification === "quarters") {
+        window.open("GetPlanificationQuaterlyTeacher/".concat(this.saveTeachers.id, "/").concat(this.saveArea.id_area, "/").concat(this.saveArea.id_classroom, "/").concat(this.saveTeachers.text), "_self");
+      } else if (this.planification === "clases") {
+        window.open("GetPlanificationCoursesTeacher/".concat(this.saveArea.id_area, "/").concat(this.saveArea.id_classroom, "/").concat(this.saveTeachers.text), "_self");
+      }
     }
   }
 });
@@ -651,7 +578,7 @@ var render = function() {
                     _c("multiselect", {
                       attrs: {
                         options: _vm.areaOptions,
-                        multiple: true,
+                        multiple: false,
                         "close-on-select": false,
                         "clear-on-select": false,
                         "preserve-search": true,
@@ -877,7 +804,9 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "modal-header" }, [
-      _c("h5", { staticClass: "modal-title" }, [_vm._v("Reporte de Notas")]),
+      _c("h5", { staticClass: "modal-title" }, [
+        _vm._v("Reporte de Planeación")
+      ]),
       _vm._v(" "),
       _c(
         "button",

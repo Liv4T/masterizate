@@ -764,7 +764,9 @@ Route::resource('/members','SchoolGovernmentMembersController');
 Route::middleware('auth')->get('/reportsGovernment', function () {
     return view('reportsGovernment');
 });
-Route::get('GetPlanificationTeacher/{teacherId}/{id_area}/{id_classroom}','SchoolGovernMentController@reportPlanificationTeacher');
+Route::get('GetPlanificationTeacher/{teacherId}/{id_area}/{id_classroom}/{teacher}','SchoolGovernMentController@reportPlanificationTeacher');
+Route::get('GetPlanificationQuaterlyTeacher/{teacherId}/{id_area}/{id_classroom}/{teacher}','SchoolGovernMentController@reportPlanificationQuaterlyTeacher');
+Route::get('GetPlanificationCoursesTeacher/{id_area}/{id_classroom}/{teacher}','SchoolGovernMentController@reportPlanificationCoursesTeacher');
 Route::post('GetCoursesInformation','SchoolGovernmentController@getCoursesInformation');
 Route::get('showUser/{userid}','SchoolGovernmentController@user');
 Route::get('getAllAreas', 'SchoolGovernmentController@getAllAreas');

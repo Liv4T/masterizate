@@ -3,8 +3,7 @@
 namespace App\Exports;
 
 use DB;
-use App\Courses;
-use App\CoursesAchievement;
+use App\Quarterly;
 use App\Area;
 use App\Classroom;
 use Maatwebsite\Excel\Concerns\FromCollection;
@@ -13,7 +12,7 @@ use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
 
-class PlanificationExport implements FromCollection , ShouldAutoSize, WithMapping, WithHeadings
+class PlanificationQuaterlyExport implements FromCollection , ShouldAutoSize, WithMapping, WithHeadings
 {
     use Exportable;
 
@@ -28,16 +27,11 @@ class PlanificationExport implements FromCollection , ShouldAutoSize, WithMappin
     */
     public function collection()
     {
-        $achievements = [];
-
-        $Courses = Courses::where('id_teacher', $this->teacherId)->where('id_area', $this->id_area)->where('id_classroom', $this->id_classroom)->first();
-        if (isset($Courses)) {
-            $achievements = CoursesAchievement::where('id_planification', $Courses->id)->get();
-        }
-        return collect($achievements);
+        $Quarterlies = Quarterly::where('id_teacher', $this->teacherId)->where('id_area', $this->id_area)->where('id_classroom', $this->id_classroom)->get();
+        return collect($Quarterlies);
     }
 
-    public function map($data): array
+    public function map($quaterly): array
     {
         $classroom_name = '';
         $classroom = Classroom::where('id', $this->id_classroom)->get();
@@ -46,12 +40,11 @@ class PlanificationExport implements FromCollection , ShouldAutoSize, WithMappin
         if (isset($classroom) && count($classroom) > 0 && isset($area) && count($area) > 0) {
             $classroom_name = $area[0]->name . ' ' . $classroom[0]->name;
         }
-
         return [
             $classroom_name,
             $this->teacher,
-            $data->achievement,
-            $data->percentage ? $data->percentage.'%' : '0%',
+            $quaterly->content,
+            $quaterly->unit_name,
         ];
     }
 
@@ -60,8 +53,8 @@ class PlanificationExport implements FromCollection , ShouldAutoSize, WithMappin
         return[
             'Clase',
             'Profesor',
-            'Logro',
-            'Porcentaje',
+            'Contenido',
+            'Contenido_Unitario',
         ];
     }
 }
