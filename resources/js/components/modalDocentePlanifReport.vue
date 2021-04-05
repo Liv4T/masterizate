@@ -3,7 +3,7 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Reporte de Notas</h5>
+                    <h5 class="modal-title">Reporte de Planeación</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                     </button>
@@ -31,7 +31,7 @@
                     </div>
                     <div v-if="areaOptions.length > 0" class="form-goup">
                         <label>Areas Disponibles</label>
-                        <multiselect v-model="saveArea" :options="areaOptions" :multiple="true"
+                        <multiselect v-model="saveArea" :options="areaOptions" :multiple="false"
                             :close-on-select="false" :clear-on-select="false"
                             :preserve-search="true" placeholder="Seleccione una"
                             label="text" track-by="id" :preselect-first="true">
@@ -112,7 +112,7 @@ export default {
             })
         },
         getArea(){
-            axios.get(`GetAreaToReport/${this.saveTeachers.id}`).then((response) => {
+            axios.get(`GetAreaTeacher/${this.saveTeachers.id}`).then((response) => {
                 let area = response.data;
                 area.forEach(element => {
                     this.areaOptions.push({
@@ -124,88 +124,15 @@ export default {
                 })
             });
         },
-        dataExport(){
-            this.saveArea.forEach(area=>{
-                axios.get(`GetPlanificationTeacher/${this.saveTeachers.id}/${area.id_area}/${area.id_classroom}`).then((response) => {
-                    let anual = response.data;
-                    if(this.planification === "anual"){
-                        this.anualPlanification.push({
-                            class_name: anual.classroom_name,
-                            achievements: anual.achievements,
-                            materia: area.text
-                        });
-                    }else if(this.planification === "quarters"){
-                        this.quaterlyPlanification.push({
-                            class_name: anual.classroom_name,
-                            quaterly: anual.quaterly,
-                            materia: area.text
-                        });
-                    } 
-                })
-            })
-            
+        dataExport(){            
             //Organizacion de datos para exportacion mediante Planificación Anual
             if(this.planification === "anual"){
-                for(let i = 0; i < this.anualPlanification.length; i++){
-                    this.DataToExport.push({
-                        Clase: this.anualPlanification[i].class_name,
-                        Profesor: this.saveTeachers.text,
-                        Materia: this.anualPlanification[i].materia,
-                        Fecha: new Date()
-                    })
-                    if(this.anualPlanification[i].achievements.length > 0){            
-                        for(let h = 0; h < this.anualPlanification[i].achievements.length; h++){
-                            this.DataToExport[i][`logro`+(h+1)] = this.anualPlanification[i].achievements[h].achievement
-                        }
-                    }
-                }
+                window.open(`GetPlanificationTeacher/${this.saveTeachers.id}/${this.saveArea.id_area}/${this.saveArea.id_classroom}/${this.saveTeachers.text}`, "_self");
             //Organizacion de datos para exportacion mediante Planificación Trimestral
             }else if(this.planification === "quarters"){
-                for(let i = 0; i < this.quaterlyPlanification.length; i++){
-                    this.DataToExport.push({
-                        Clase: this.quaterlyPlanification[i].class_name,
-                        Profesor: this.saveTeachers.text,
-                        Materia: this.quaterlyPlanification[i].materia,
-                        Fecha: new Date()
-                    })
-                    if(this.quaterlyPlanification[i].quaterly.length > 0){   
-                        for(let h = 0; h < this.quaterlyPlanification[i].quaterly.length; h++){
-                            this.DataToExport[i][`Indicador`+(h+1)] = this.quaterlyPlanification[i].quaterly[h].content
-                            this.DataToExport[i][`Contenido`+(h+1)] = this.quaterlyPlanification[i].quaterly[h].unit_name
-                        }
-                    }
-                }
+                window.open(`GetPlanificationQuaterlyTeacher/${this.saveTeachers.id}/${this.saveArea.id_area}/${this.saveArea.id_classroom}/${this.saveTeachers.text}`, "_self");
             }else if (this.planification === "clases"){
-                this.saveArea.forEach(area=>{
-                    axios.get(`viewGetWeek/${area.id_area}/${area.id_classroom}`).then((response) => {
-                        let clase = response.data;
-                        clase.forEach(clas => {
-                            this.DataToExport.push({
-                                Area: area.text,
-                                Clase: clas.class,
-                                Observacion: clas.observation,
-                                Ciclo: clas.text,  
-                                Fecha: new Date()
-                            })
-                        })
-                    })
-                })
-            }
-
-            if(this.DataToExport.length > 0){
-                const data = this.DataToExport;
-                const fileName = 'Reporte Planeación'
-                const exportType = 'xls'
-                this.DataToExport=[],
-                this.saveArea=[],
-                this.areaOptions=[],
-                this.saveTeachers=[],
-                this.anualPlanification=[]
-                this.quaterlyPlanification=[]
-                $("#reportTeacherPlanifModal").modal("hide");
-                exportFromJSON({ data, fileName, exportType })
-            }else{
-                toastr.info("No hay datos disponibles")
+                window.open(`GetPlanificationCoursesTeacher/${this.saveArea.id_area}/${this.saveArea.id_classroom}/${this.saveTeachers.text}`, "_self");
             }
         }
     }
