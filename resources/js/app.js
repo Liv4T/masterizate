@@ -245,8 +245,11 @@ Vue.component("modal-school-component", () =>import("./components/ModalSchoolGov
 Vue.component("legislation-component", () =>import("./components/legislation.vue"));
 
 //Report Psychology
-Vue.component("students-component", () => import("./components/students.vue"));
 Vue.component("report-visits-component", () => import("./components/reportVisits.vue"));
+Vue.component("students-component", () => import("./components/students.vue"));
+Vue.component("report-notes-component", () => import("./components/reportNotes.vue"));
+
+//
 Vue.component("government-members-component", () => import("./components/schoolGovernmentMembers.vue"))
 Vue.component("modal-create-government-member", ()=>import("./components/ModalCreateGovernmentMember.vue"));
 Vue.component("modal-edit-government-member", () => import("./components/ModalEditGovernmentMember.vue"));

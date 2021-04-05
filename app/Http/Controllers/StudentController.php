@@ -2,12 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Classroom;
-use App\ClassroomStudent;
 use App\User;
 use Illuminate\Support\Facades\Auth;
-use App\Weekly;
-use Illuminate\Support\Facades\DB;
 
 class StudentController extends Controller
 {

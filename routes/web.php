@@ -183,6 +183,9 @@ Route::middleware('auth')->get('/studentReport/{id_student}/{name_classroom}/{id
 Route::middleware('auth')->get('/students/{tipo}', function (String $tipo) {
     return view('students')->with('tipo', $tipo);
 });
+Route::middleware('auth')->get('/notes/{id_student}', function (String $id_student) {
+    return view('reportNotes')->with('id_student', $id_student);
+});
 Route::middleware('auth')->get('/reportVisits/{id_student}', function (String $id_student) {
     return view('reportVisits')->with('id_student', $id_student);
 });
@@ -368,6 +371,7 @@ Route::put('deleteEventP', 'PsychologyController@deleteEvent')->name('deleteEven
 Route::post('createReportP', 'StudentReportController@saveReport')->name('createReportP');
 Route::post('/createReason', 'StudentReportController@createReason')->name('createReason');
 Route::get('/getReason', 'StudentReportController@reasons')->name('getReason');
+Route::get('/getAreasByNotes/{id}','StudentReportController@getAreas')->name('getAreasByNotes');
 
 //Report Psychology
 Route::get('/getStudentsList', 'StudentReportController@studentsVisits')->name('getStudentsList');

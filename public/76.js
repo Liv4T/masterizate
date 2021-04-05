@@ -1,14 +1,16 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[76],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/SchoolGov.vue?vue&type=script&lang=js&":
-/*!********************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/SchoolGov.vue?vue&type=script&lang=js& ***!
-  \********************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ModalSchoolGov.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/ModalSchoolGov.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vue_multiselect__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-multiselect */ "./node_modules/vue-multiselect/dist/vue-multiselect.min.js");
+/* harmony import */ var vue_multiselect__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue_multiselect__WEBPACK_IMPORTED_MODULE_0__);
 //
 //
 //
@@ -57,85 +59,59 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+
+Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___default.a);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      legislationData: [],
-      members: []
+      title: "Notas",
+      studentsOption: [],
+      teachersOption: [],
+      teachersToSearch: {},
+      studentsToSearch: {}
     };
   },
   mounted: function mounted() {
-    this.getLegislation();
-    this.getMembers();
+    this.getTeachers();
+    this.getStudents();
   },
   methods: {
-    getLegislation: function getLegislation() {
+    getTeachers: function getTeachers() {
       var _this = this;
 
-      axios.get('/getLegislation').then(function (response) {
-        _this.legislationData = response.data;
+      axios.get('getTeachers').then(function (response) {
+        var dataTeachers = response.data;
+
+        if (dataTeachers) {
+          dataTeachers.forEach(function (e) {
+            _this.teachersOption.push({
+              id: e.id,
+              id_teacher: e.id,
+              text: "".concat(e.name)
+            });
+          });
+        }
       })["catch"](function (error) {
         console.log(error);
       });
     },
-    getMembers: function getMembers() {
+    getStudents: function getStudents() {
       var _this2 = this;
 
-      axios.get('/members').then(function (members) {
-        _this2.members = members.data;
+      axios.get('getStudents').then(function (response) {
+        var studentsData = response.data;
+
+        if (studentsData) {
+          studentsData.forEach(function (e) {
+            _this2.studentsOption.push({
+              id: e.id,
+              id_student: e.id,
+              text: "".concat(e.name)
+            });
+          });
+        }
+      })["catch"](function (error) {
+        console.log(error);
       });
     }
   }
@@ -143,10 +119,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/SchoolGov.vue?vue&type=template&id=41a0759f&":
-/*!************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/SchoolGov.vue?vue&type=template&id=41a0759f& ***!
-  \************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ModalSchoolGov.vue?vue&type=template&id=eece2610&":
+/*!*****************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/ModalSchoolGov.vue?vue&type=template&id=eece2610& ***!
+  \*****************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -158,232 +134,148 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "back" }, [
-    _c("div", { staticClass: "row justify-content-center" }, [
-      _c("div", { staticClass: "col-sm-10", attrs: { id: "crud" } }, [
-        _c("div", { staticClass: "card" }, [
-          _c("div", { staticClass: "text-center card-header fondo" }, [
-            _vm._v("\n                    Gobierno Escolar\n                ")
+  return _c(
+    "div",
+    {
+      staticClass: "modal fade bd-example-modal-lg",
+      attrs: {
+        tabindex: "-1",
+        role: "dialog",
+        "aria-labelledby": "myLargeModalLabel",
+        "aria-hidden": "true"
+      }
+    },
+    [
+      _c("div", { staticClass: "modal-dialog modal-lg" }, [
+        _c("div", { staticClass: "modal-content" }, [
+          _c("div", { staticClass: "modal-header" }, [
+            _c(
+              "h5",
+              {
+                staticClass: "modal-title",
+                attrs: { id: "exampleModalLabel" }
+              },
+              [_vm._v("Reporte de " + _vm._s(_vm.title))]
+            ),
+            _vm._v(" "),
+            _vm._m(0)
           ]),
           _vm._v(" "),
-          _c("div", { staticClass: "card-body" }, [
-            _c("div", { attrs: { id: "accordion" } }, [
-              _c("div", { staticClass: "card" }, [
-                _vm._m(0),
+          _c("div", { staticClass: "modal-body" }, [
+            _vm._m(1),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "form-group" },
+              [
+                _c("label", [_vm._v("Estudiante")]),
                 _vm._v(" "),
-                _c(
-                  "div",
-                  {
-                    staticClass: "collapse show",
-                    attrs: {
-                      id: "collapseOne",
-                      "aria-labelledby": "headingOne",
-                      "data-parent": "#accordion"
-                    }
+                _c("multiselect", {
+                  attrs: {
+                    options: _vm.studentsOption,
+                    multiple: false,
+                    "close-on-select": false,
+                    "clear-on-select": false,
+                    "preserve-search": true,
+                    placeholder: "Seleccione una o varias",
+                    label: "text",
+                    "track-by": "id",
+                    "preselect-first": false
                   },
-                  [
-                    _c("div", { staticClass: "card-body" }, [
-                      _c("div", { staticClass: "row" }, [
-                        _vm.members.length > 0
-                          ? _c(
-                              "div",
-                              { staticClass: "col-12" },
-                              _vm._l(_vm.members, function(data, id) {
-                                return _c(
-                                  "div",
-                                  {
-                                    key: id,
-                                    staticClass: "list-group",
-                                    attrs: { id: "list-tab", role: "tablist" }
-                                  },
-                                  [
-                                    _c(
-                                      "div",
-                                      {
-                                        directives: [
-                                          {
-                                            name: "show",
-                                            rawName: "v-show",
-                                            value: data.modeInsert == "1",
-                                            expression: "data.modeInsert == '1'"
-                                          }
-                                        ],
-                                        staticClass: "mb-5"
-                                      },
-                                      [
-                                        _c(
-                                          "a",
-                                          {
-                                            staticClass: "list-group-item",
-                                            attrs: {
-                                              id: "list-home-list",
-                                              "data-toggle": "list",
-                                              role: "tab",
-                                              "aria-controls": "home"
-                                            }
-                                          },
-                                          [
-                                            _c("div", [
-                                              _c(
-                                                "div",
-                                                {
-                                                  staticClass:
-                                                    "d-flex mb-2 justify-content-center"
-                                                },
-                                                [
-                                                  _c("img", {
-                                                    staticStyle: {
-                                                      height: "160px"
-                                                    },
-                                                    attrs: {
-                                                      src:
-                                                        data.imageSchoolGovernment,
-                                                      alt: ""
-                                                    }
-                                                  })
-                                                ]
-                                              )
-                                            ])
-                                          ]
-                                        )
-                                      ]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "div",
-                                      {
-                                        directives: [
-                                          {
-                                            name: "show",
-                                            rawName: "v-show",
-                                            value: data.modeInsert == "2",
-                                            expression: "data.modeInsert == '2'"
-                                          }
-                                        ]
-                                      },
-                                      [
-                                        _c(
-                                          "a",
-                                          {
-                                            staticClass: "list-group-item",
-                                            attrs: {
-                                              id: "list-home-list",
-                                              "data-toggle": "list",
-                                              role: "tab",
-                                              "aria-controls": "home"
-                                            }
-                                          },
-                                          [
-                                            _c(
-                                              "div",
-                                              {
-                                                staticClass:
-                                                  "d-flex justify-content-center mb-3"
-                                              },
-                                              [
-                                                _c("img", {
-                                                  staticStyle: {
-                                                    height: "160px"
-                                                  },
-                                                  attrs: {
-                                                    src: data.image,
-                                                    alt: ""
-                                                  }
-                                                })
-                                              ]
-                                            ),
-                                            _vm._v(" "),
-                                            _c(
-                                              "div",
-                                              {
-                                                staticClass: "text-center mt-2"
-                                              },
-                                              [
-                                                _c(
-                                                  "strong",
-                                                  {
-                                                    staticClass:
-                                                      "h3 mb-2 text-uppercase"
-                                                  },
-                                                  [_vm._v(_vm._s(data.member))]
-                                                ),
-                                                _vm._v(" "),
-                                                _c("div", [
-                                                  _c(
-                                                    "p",
-                                                    { staticClass: "h3" },
-                                                    [
-                                                      _vm._v(
-                                                        _vm._s(data.position)
-                                                      )
-                                                    ]
-                                                  )
-                                                ]),
-                                                _vm._v(" "),
-                                                _c("p", { staticClass: "h4" }, [
-                                                  _vm._v(
-                                                    _vm._s(data.description)
-                                                  )
-                                                ])
-                                              ]
-                                            )
-                                          ]
-                                        )
-                                      ]
-                                    )
-                                  ]
-                                )
-                              }),
-                              0
-                            )
-                          : _c("div", [_vm._m(1)])
-                      ])
-                    ])
-                  ]
-                ),
-                _vm._v(" "),
-                _vm._m(2),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  {
-                    staticClass: "collapse show",
-                    attrs: {
-                      id: "collapseTwo",
-                      "aria-labelledby": "headingOne",
-                      "data-parent": "#accordion"
+                  scopedSlots: _vm._u([
+                    {
+                      key: "selection",
+                      fn: function(ref) {
+                        var values = ref.values
+                        var isOpen = ref.isOpen
+                        return [
+                          values.length && !isOpen
+                            ? _c(
+                                "span",
+                                { staticClass: "multiselect__single" },
+                                [
+                                  _vm._v(
+                                    _vm._s(values.length) +
+                                      " opciones\n                            selecionadas"
+                                  )
+                                ]
+                              )
+                            : _vm._e()
+                        ]
+                      }
                     }
+                  ]),
+                  model: {
+                    value: _vm.studentsToSearch,
+                    callback: function($$v) {
+                      _vm.studentsToSearch = $$v
+                    },
+                    expression: "studentsToSearch"
+                  }
+                })
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "form-group" },
+              [
+                _c("label", [_vm._v("Docente")]),
+                _vm._v(" "),
+                _c("multiselect", {
+                  attrs: {
+                    options: _vm.teachersOption,
+                    multiple: false,
+                    "close-on-select": false,
+                    "clear-on-select": false,
+                    "preserve-search": true,
+                    placeholder: "Seleccione una o varias",
+                    label: "text",
+                    "track-by": "id",
+                    "preselect-first": false
                   },
-                  [
-                    _c("div", { staticClass: "card-body" }, [
-                      _vm.legislationData.length > 0
-                        ? _c(
-                            "div",
-                            { staticClass: "card-body" },
-                            _vm._l(_vm.legislationData, function(data, id) {
-                              return _c("div", { key: id }, [
-                                _c("p", [_vm._v(_vm._s(data.legislation))]),
-                                _vm._v(" "),
-                                _c("br")
-                              ])
-                            }),
-                            0
-                          )
-                        : _c("div", { staticClass: "card-body" }, [
-                            _c("p", [
-                              _vm._v("Crea La Legislación del Gobierno Escolar")
-                            ])
-                          ])
-                    ])
-                  ]
-                )
-              ])
-            ])
-          ])
+                  scopedSlots: _vm._u([
+                    {
+                      key: "selection",
+                      fn: function(ref) {
+                        var values = ref.values
+                        var isOpen = ref.isOpen
+                        return [
+                          values.length && !isOpen
+                            ? _c(
+                                "span",
+                                { staticClass: "multiselect__single" },
+                                [
+                                  _vm._v(
+                                    _vm._s(values.length) +
+                                      " opciones\n                            selecionadas"
+                                  )
+                                ]
+                              )
+                            : _vm._e()
+                        ]
+                      }
+                    }
+                  ]),
+                  model: {
+                    value: _vm.teachersToSearch,
+                    callback: function($$v) {
+                      _vm.teachersToSearch = $$v
+                    },
+                    expression: "teachersToSearch"
+                  }
+                })
+              ],
+              1
+            )
+          ]),
+          _vm._v(" "),
+          _vm._m(2)
         ])
       ])
-    ])
-  ])
+    ]
+  )
 }
 var staticRenderFns = [
   function() {
@@ -391,68 +283,48 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c(
-      "div",
-      { staticClass: "card-header", attrs: { id: "headingOne" } },
-      [
-        _c("h5", { staticClass: "mb-0" }, [
-          _c(
-            "button",
-            {
-              staticClass: "btn btn-link",
-              attrs: {
-                "data-toggle": "collapse",
-                "data-target": "#collapseOne",
-                "aria-expanded": "true",
-                "aria-controls": "collapseOne"
-              }
-            },
-            [
-              _vm._v(
-                "\n                                        Quiénes lo Conforman\n                                    "
-              )
-            ]
-          )
-        ])
-      ]
+      "button",
+      {
+        staticClass: "close",
+        attrs: {
+          type: "button",
+          "data-dismiss": "modal",
+          "aria-label": "Close"
+        }
+      },
+      [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
     )
   },
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "text-center" }, [
-      _c("p", [_vm._v("Crea los integrantes del Gobierno Escolar")])
+    return _c("div", { staticClass: "form-group" }, [
+      _c("label", [_vm._v("Fecha")]),
+      _vm._v(" "),
+      _c("input", { staticClass: "form-control", attrs: { type: "date" } })
     ])
   },
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      { staticClass: "card-header", attrs: { id: "headingOne" } },
-      [
-        _c("h5", { staticClass: "mb-0" }, [
-          _c(
-            "button",
-            {
-              staticClass: "btn btn-link",
-              attrs: {
-                "data-toggle": "collapse",
-                "data-target": "#collapseTwo",
-                "aria-expanded": "true",
-                "aria-controls": "collapseTwo"
-              }
-            },
-            [
-              _vm._v(
-                "\n                                        Legislación\n                                    "
-              )
-            ]
-          )
-        ])
-      ]
-    )
+    return _c("div", { staticClass: "modal-footer" }, [
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-secondary",
+          attrs: { type: "button", "data-dismiss": "modal" }
+        },
+        [_vm._v("Close")]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        { staticClass: "btn btn-primary", attrs: { type: "button" } },
+        [_vm._v("Exportar")]
+      )
+    ])
   }
 ]
 render._withStripped = true
@@ -461,17 +333,17 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./resources/js/components/SchoolGov.vue":
-/*!***********************************************!*\
-  !*** ./resources/js/components/SchoolGov.vue ***!
-  \***********************************************/
+/***/ "./resources/js/components/ModalSchoolGov.vue":
+/*!****************************************************!*\
+  !*** ./resources/js/components/ModalSchoolGov.vue ***!
+  \****************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _SchoolGov_vue_vue_type_template_id_41a0759f___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./SchoolGov.vue?vue&type=template&id=41a0759f& */ "./resources/js/components/SchoolGov.vue?vue&type=template&id=41a0759f&");
-/* harmony import */ var _SchoolGov_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./SchoolGov.vue?vue&type=script&lang=js& */ "./resources/js/components/SchoolGov.vue?vue&type=script&lang=js&");
+/* harmony import */ var _ModalSchoolGov_vue_vue_type_template_id_eece2610___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ModalSchoolGov.vue?vue&type=template&id=eece2610& */ "./resources/js/components/ModalSchoolGov.vue?vue&type=template&id=eece2610&");
+/* harmony import */ var _ModalSchoolGov_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ModalSchoolGov.vue?vue&type=script&lang=js& */ "./resources/js/components/ModalSchoolGov.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -481,9 +353,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _SchoolGov_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _SchoolGov_vue_vue_type_template_id_41a0759f___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _SchoolGov_vue_vue_type_template_id_41a0759f___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _ModalSchoolGov_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _ModalSchoolGov_vue_vue_type_template_id_eece2610___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _ModalSchoolGov_vue_vue_type_template_id_eece2610___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -493,38 +365,38 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/components/SchoolGov.vue"
+component.options.__file = "resources/js/components/ModalSchoolGov.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/components/SchoolGov.vue?vue&type=script&lang=js&":
-/*!************************************************************************!*\
-  !*** ./resources/js/components/SchoolGov.vue?vue&type=script&lang=js& ***!
-  \************************************************************************/
+/***/ "./resources/js/components/ModalSchoolGov.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************!*\
+  !*** ./resources/js/components/ModalSchoolGov.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_SchoolGov_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./SchoolGov.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/SchoolGov.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_SchoolGov_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ModalSchoolGov_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./ModalSchoolGov.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ModalSchoolGov.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ModalSchoolGov_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/components/SchoolGov.vue?vue&type=template&id=41a0759f&":
-/*!******************************************************************************!*\
-  !*** ./resources/js/components/SchoolGov.vue?vue&type=template&id=41a0759f& ***!
-  \******************************************************************************/
+/***/ "./resources/js/components/ModalSchoolGov.vue?vue&type=template&id=eece2610&":
+/*!***********************************************************************************!*\
+  !*** ./resources/js/components/ModalSchoolGov.vue?vue&type=template&id=eece2610& ***!
+  \***********************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SchoolGov_vue_vue_type_template_id_41a0759f___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./SchoolGov.vue?vue&type=template&id=41a0759f& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/SchoolGov.vue?vue&type=template&id=41a0759f&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SchoolGov_vue_vue_type_template_id_41a0759f___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ModalSchoolGov_vue_vue_type_template_id_eece2610___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./ModalSchoolGov.vue?vue&type=template&id=eece2610& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ModalSchoolGov.vue?vue&type=template&id=eece2610&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ModalSchoolGov_vue_vue_type_template_id_eece2610___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SchoolGov_vue_vue_type_template_id_41a0759f___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ModalSchoolGov_vue_vue_type_template_id_eece2610___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

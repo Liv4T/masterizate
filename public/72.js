@@ -1,14 +1,16 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[72],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ModalViewObserver.vue?vue&type=script&lang=js&":
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ModalEditObserver.vue?vue&type=script&lang=js&":
 /*!****************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/ModalViewObserver.vue?vue&type=script&lang=js& ***!
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/ModalEditObserver.vue?vue&type=script&lang=js& ***!
   \****************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vue_multiselect__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-multiselect */ "./node_modules/vue-multiselect/dist/vue-multiselect.min.js");
+/* harmony import */ var vue_multiselect__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue_multiselect__WEBPACK_IMPORTED_MODULE_0__);
 //
 //
 //
@@ -98,28 +100,188 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___default.a);
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['studentsView'],
+  props: ['studentsEdit'],
   data: function data() {
     return {
-      newStudentView: {}
+      newStudentEdit: {},
+      studentsOptions: [],
+      studentToSave: [],
+      parentsOptions: [],
+      fatherToSave: [],
+      motherToSave: [],
+      repitent: true,
+      parents: [],
+      students: [],
+      areas: [],
+      current_area: {}
     };
   },
   watch: {
-    studentsView: function studentsView(newVal, oldVal) {
+    studentsEdit: function studentsEdit(newVal, oldVal) {
       // watch it
       if (newVal !== oldVal) {
-        this.newStudentView = newVal;
+        this.newStudentEdit = newVal;
+        this.showDataParents();
+        this.showDataStudents();
       }
+    }
+  },
+  components: {
+    Multiselect: vue_multiselect__WEBPACK_IMPORTED_MODULE_0___default.a
+  },
+  mounted: function mounted() {
+    this.getData();
+    this.showDataParents();
+    this.showDataStudents();
+  },
+  methods: {
+    getData: function getData() {
+      var _this = this;
+
+      this.getParents();
+      axios.get('/GetArearByUser').then(function (response) {
+        _this.areas = response.data;
+
+        if (_this.areas.length > 0) {
+          _this.current_area = _this.areas[0];
+
+          _this.getStudents();
+        }
+      });
+    },
+    getParents: function getParents() {
+      var _this2 = this;
+
+      axios.get('/getParents').then(function (response) {
+        _this2.parents = response.data;
+
+        _this2.parents.forEach(function (e) {
+          _this2.parentsOptions.push({
+            id: e.id,
+            id_parent: e.id,
+            text: "".concat(e.name)
+          });
+        });
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
+    getStudents: function getStudents() {
+      var _this3 = this;
+
+      this.students = [];
+      axios.get("/api/teacher/area/".concat(this.current_area.id, "/classroom/").concat(this.current_area.id_classroom, "/student")).then(function (response) {
+        _this3.students = response.data;
+
+        _this3.students.forEach(function (e) {
+          _this3.studentsOptions.push({
+            id: e.user_id,
+            id_student: e.user_id,
+            text: "".concat(e.user_name)
+          });
+        });
+      });
+    },
+    showDataParents: function showDataParents() {
+      var _this4 = this;
+
+      this.parents.forEach(function (e) {
+        if (e.name === _this4.newStudentEdit.mother_name) {
+          _this4.motherToSave = {
+            id: e.id,
+            id_parent: e.id,
+            text: "".concat(e.name)
+          };
+        }
+
+        if (e.name === _this4.newStudentEdit.father_name) {
+          _this4.fatherToSave = {
+            id: e.id,
+            id_parent: e.id,
+            text: "".concat(e.name)
+          };
+        }
+      });
+    },
+    showDataStudents: function showDataStudents() {
+      var _this5 = this;
+
+      this.students.forEach(function (e) {
+        if (e.user_id === _this5.newStudentEdit.id_student) {
+          _this5.studentToSave = {
+            id: e.user_id,
+            id_student: e.user_id,
+            text: "".concat(e.user_name)
+          };
+        }
+      });
+    },
+    saveObservation: function saveObservation() {
+      var _this6 = this;
+
+      var data = {
+        'name_student': this.studentToSave.text,
+        'id_student': this.studentToSave.id_student,
+        'age': this.newStudentEdit.age,
+        'date_birth': this.newStudentEdit.date_birth,
+        'size': this.newStudentEdit.size,
+        'weight': this.newStudentEdit.weight,
+        'identification': this.newStudentEdit.identification,
+        'father_name': this.fatherToSave.text,
+        'office_father': this.newStudentEdit.office_father,
+        'mother_name': this.motherToSave.text,
+        'office_mother': this.newStudentEdit.office_mother,
+        'address': this.newStudentEdit.address,
+        'phone': this.newStudentEdit.phone,
+        'repitent': this.newStudentEdit.repitent,
+        'observation': this.newStudentEdit.observation
+      };
+      axios.put("/observer/".concat(this.newStudentEdit.id), data).then(function (response) {
+        _this6.getMenu();
+      })["catch"](function (error) {
+        toastr.error("Diligencia los campos requeridos");
+      });
+    },
+    getMenu: function getMenu() {
+      window.location = "/observer";
     }
   }
 });
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ModalViewObserver.vue?vue&type=template&id=1940c90d&":
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ModalEditObserver.vue?vue&type=template&id=19360cf2&":
 /*!********************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/ModalViewObserver.vue?vue&type=template&id=1940c90d& ***!
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/ModalEditObserver.vue?vue&type=template&id=19360cf2& ***!
   \********************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -137,7 +299,7 @@ var render = function() {
     {
       staticClass: "modal fade",
       attrs: {
-        id: "ViewModal",
+        id: "EditModal",
         tabindex: "-1",
         role: "dialog",
         "aria-labelledby": "exampleModalLabel",
@@ -156,42 +318,61 @@ var render = function() {
               _c("h3", [_vm._v("Información del Estudiante")]),
               _vm._v(" "),
               _c("div", { staticClass: "row" }, [
-                _c("div", { staticClass: "col-6" }, [
-                  _c("label", { attrs: { for: "name_student" } }, [
-                    _vm._v("Nombre")
-                  ]),
-                  _vm._v(" "),
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.newStudentView.name_student,
-                        expression: "newStudentView.name_student"
-                      }
-                    ],
-                    staticClass: "form-control",
-                    attrs: {
-                      disabled: "",
-                      id: "name_student",
-                      type: "text",
-                      required: ""
-                    },
-                    domProps: { value: _vm.newStudentView.name_student },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
+                _c(
+                  "div",
+                  { staticClass: "col-6" },
+                  [
+                    _c("label", { attrs: { for: "name" } }, [_vm._v("Nombre")]),
+                    _vm._v(" "),
+                    _c("multiselect", {
+                      attrs: {
+                        options: _vm.studentsOptions,
+                        multiple: false,
+                        "close-on-select": false,
+                        "clear-on-select": false,
+                        "preserve-search": true,
+                        placeholder: "Seleccione una o varias",
+                        label: "text",
+                        "track-by": "id",
+                        "preselect-first": false
+                      },
+                      scopedSlots: _vm._u([
+                        {
+                          key: "selection",
+                          fn: function(ref) {
+                            var values = ref.values
+                            var isOpen = ref.isOpen
+                            return [
+                              values.length && !isOpen
+                                ? _c(
+                                    "span",
+                                    {
+                                      staticClass: "multiselect__single",
+                                      attrs: { required: "" }
+                                    },
+                                    [
+                                      _vm._v(
+                                        _vm._s(values.length) +
+                                          " opciones\n                                    selecionadas"
+                                      )
+                                    ]
+                                  )
+                                : _vm._e()
+                            ]
+                          }
                         }
-                        _vm.$set(
-                          _vm.newStudentView,
-                          "name_student",
-                          $event.target.value
-                        )
+                      ]),
+                      model: {
+                        value: _vm.studentToSave,
+                        callback: function($$v) {
+                          _vm.studentToSave = $$v
+                        },
+                        expression: "studentToSave"
                       }
-                    }
-                  })
-                ]),
+                    })
+                  ],
+                  1
+                ),
                 _vm._v(" "),
                 _c("div", { staticClass: "col-6" }, [
                   _c("label", { attrs: { for: "date_birth" } }, [
@@ -203,25 +384,20 @@ var render = function() {
                       {
                         name: "model",
                         rawName: "v-model",
-                        value: _vm.newStudentView.date_birth,
-                        expression: "newStudentView.date_birth"
+                        value: _vm.newStudentEdit.date_birth,
+                        expression: "newStudentEdit.date_birth"
                       }
                     ],
                     staticClass: "form-control",
-                    attrs: {
-                      disabled: "",
-                      id: "date_birth",
-                      type: "date",
-                      required: ""
-                    },
-                    domProps: { value: _vm.newStudentView.date_birth },
+                    attrs: { id: "date_birth", type: "date", required: "" },
+                    domProps: { value: _vm.newStudentEdit.date_birth },
                     on: {
                       input: function($event) {
                         if ($event.target.composing) {
                           return
                         }
                         _vm.$set(
-                          _vm.newStudentView,
+                          _vm.newStudentEdit,
                           "date_birth",
                           $event.target.value
                         )
@@ -238,24 +414,19 @@ var render = function() {
                       {
                         name: "model",
                         rawName: "v-model",
-                        value: _vm.newStudentView.age,
-                        expression: "newStudentView.age"
+                        value: _vm.newStudentEdit.age,
+                        expression: "newStudentEdit.age"
                       }
                     ],
                     staticClass: "form-control",
-                    attrs: {
-                      disabled: "",
-                      id: "ageEst",
-                      type: "number",
-                      required: ""
-                    },
-                    domProps: { value: _vm.newStudentView.age },
+                    attrs: { id: "ageEst", type: "number", required: "" },
+                    domProps: { value: _vm.newStudentEdit.age },
                     on: {
                       input: function($event) {
                         if ($event.target.composing) {
                           return
                         }
-                        _vm.$set(_vm.newStudentView, "age", $event.target.value)
+                        _vm.$set(_vm.newStudentEdit, "age", $event.target.value)
                       }
                     }
                   })
@@ -269,25 +440,20 @@ var render = function() {
                       {
                         name: "model",
                         rawName: "v-model",
-                        value: _vm.newStudentView.size,
-                        expression: "newStudentView.size"
+                        value: _vm.newStudentEdit.size,
+                        expression: "newStudentEdit.size"
                       }
                     ],
                     staticClass: "form-control",
-                    attrs: {
-                      disabled: "",
-                      id: "sizeEst",
-                      type: "text",
-                      required: ""
-                    },
-                    domProps: { value: _vm.newStudentView.size },
+                    attrs: { id: "sizeEst", type: "text", required: "" },
+                    domProps: { value: _vm.newStudentEdit.size },
                     on: {
                       input: function($event) {
                         if ($event.target.composing) {
                           return
                         }
                         _vm.$set(
-                          _vm.newStudentView,
+                          _vm.newStudentEdit,
                           "size",
                           $event.target.value
                         )
@@ -306,25 +472,20 @@ var render = function() {
                       {
                         name: "model",
                         rawName: "v-model",
-                        value: _vm.newStudentView.weight,
-                        expression: "newStudentView.weight"
+                        value: _vm.newStudentEdit.weight,
+                        expression: "newStudentEdit.weight"
                       }
                     ],
                     staticClass: "form-control",
-                    attrs: {
-                      disabled: "",
-                      id: "weight_Est",
-                      type: "text",
-                      required: ""
-                    },
-                    domProps: { value: _vm.newStudentView.weight },
+                    attrs: { id: "weight_Est", type: "text", required: "" },
+                    domProps: { value: _vm.newStudentEdit.weight },
                     on: {
                       input: function($event) {
                         if ($event.target.composing) {
                           return
                         }
                         _vm.$set(
-                          _vm.newStudentView,
+                          _vm.newStudentEdit,
                           "weight",
                           $event.target.value
                         )
@@ -343,25 +504,24 @@ var render = function() {
                       {
                         name: "model",
                         rawName: "v-model",
-                        value: _vm.newStudentView.identification,
-                        expression: "newStudentView.identification"
+                        value: _vm.newStudentEdit.identification,
+                        expression: "newStudentEdit.identification"
                       }
                     ],
                     staticClass: "form-control",
                     attrs: {
-                      disabled: "",
                       id: "identification_Est",
                       type: "text",
                       required: ""
                     },
-                    domProps: { value: _vm.newStudentView.identification },
+                    domProps: { value: _vm.newStudentEdit.identification },
                     on: {
                       input: function($event) {
                         if ($event.target.composing) {
                           return
                         }
                         _vm.$set(
-                          _vm.newStudentView,
+                          _vm.newStudentEdit,
                           "identification",
                           $event.target.value
                         )
@@ -372,41 +532,64 @@ var render = function() {
               ]),
               _vm._v(" "),
               _c("h3", { staticClass: "mt-5" }, [
-                _vm._v("Información de los Acudientes")
+                _vm._v("Información de los padres")
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "row" }, [
-                _c("div", { staticClass: "col-6" }, [
-                  _c("label", { attrs: { for: "fatherName" } }, [
-                    _vm._v("Nombre del Padre")
-                  ]),
-                  _vm._v(" "),
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.newStudentView.father_name,
-                        expression: "newStudentView.father_name"
-                      }
-                    ],
-                    staticClass: "form-control",
-                    attrs: { disabled: "", id: "father_name", type: "text" },
-                    domProps: { value: _vm.newStudentView.father_name },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
+                _c(
+                  "div",
+                  { staticClass: "col-6" },
+                  [
+                    _c("label", { attrs: { for: "fatherName" } }, [
+                      _vm._v("Nombre del Padre")
+                    ]),
+                    _vm._v(" "),
+                    _c("multiselect", {
+                      attrs: {
+                        options: _vm.parentsOptions,
+                        multiple: false,
+                        "close-on-select": false,
+                        "clear-on-select": false,
+                        "preserve-search": true,
+                        placeholder: "Seleccione una o varias",
+                        label: "text",
+                        "track-by": "id",
+                        "preselect-first": false
+                      },
+                      scopedSlots: _vm._u([
+                        {
+                          key: "selection",
+                          fn: function(ref) {
+                            var values = ref.values
+                            var isOpen = ref.isOpen
+                            return [
+                              values.length && !isOpen
+                                ? _c(
+                                    "span",
+                                    { staticClass: "multiselect__single" },
+                                    [
+                                      _vm._v(
+                                        _vm._s(values.length) +
+                                          " opciones\n                                    selecionadas"
+                                      )
+                                    ]
+                                  )
+                                : _vm._e()
+                            ]
+                          }
                         }
-                        _vm.$set(
-                          _vm.newStudentView,
-                          "father_name",
-                          $event.target.value
-                        )
+                      ]),
+                      model: {
+                        value: _vm.fatherToSave,
+                        callback: function($$v) {
+                          _vm.fatherToSave = $$v
+                        },
+                        expression: "fatherToSave"
                       }
-                    }
-                  })
-                ]),
+                    })
+                  ],
+                  1
+                ),
                 _vm._v(" "),
                 _c("div", { staticClass: "col-6" }, [
                   _c("label", { attrs: { for: "office_Father" } }, [
@@ -418,20 +601,20 @@ var render = function() {
                       {
                         name: "model",
                         rawName: "v-model",
-                        value: _vm.newStudentView.office_father,
-                        expression: "newStudentView.office_father"
+                        value: _vm.newStudentEdit.office_father,
+                        expression: "newStudentEdit.office_father"
                       }
                     ],
                     staticClass: "form-control",
-                    attrs: { disabled: "", id: "office_Father", type: "text" },
-                    domProps: { value: _vm.newStudentView.office_father },
+                    attrs: { id: "office_Father", type: "text" },
+                    domProps: { value: _vm.newStudentEdit.office_father },
                     on: {
                       input: function($event) {
                         if ($event.target.composing) {
                           return
                         }
                         _vm.$set(
-                          _vm.newStudentView,
+                          _vm.newStudentEdit,
                           "office_father",
                           $event.target.value
                         )
@@ -440,37 +623,60 @@ var render = function() {
                   })
                 ]),
                 _vm._v(" "),
-                _c("div", { staticClass: "col-6" }, [
-                  _c("label", { attrs: { for: "motherName" } }, [
-                    _vm._v("Nombre de la Madre")
-                  ]),
-                  _vm._v(" "),
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.newStudentView.mother_name,
-                        expression: "newStudentView.mother_name"
-                      }
-                    ],
-                    staticClass: "form-control",
-                    attrs: { disabled: "", id: "mother_name", type: "text" },
-                    domProps: { value: _vm.newStudentView.mother_name },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
+                _c(
+                  "div",
+                  { staticClass: "col-6" },
+                  [
+                    _c("label", { attrs: { for: "motherName" } }, [
+                      _vm._v("Nombre de la Madre")
+                    ]),
+                    _vm._v(" "),
+                    _c("multiselect", {
+                      attrs: {
+                        options: _vm.parentsOptions,
+                        multiple: false,
+                        "close-on-select": false,
+                        "clear-on-select": false,
+                        "preserve-search": true,
+                        placeholder: "Seleccione una o varias",
+                        label: "text",
+                        "track-by": "id",
+                        "preselect-first": false
+                      },
+                      scopedSlots: _vm._u([
+                        {
+                          key: "selection",
+                          fn: function(ref) {
+                            var values = ref.values
+                            var isOpen = ref.isOpen
+                            return [
+                              values.length && !isOpen
+                                ? _c(
+                                    "span",
+                                    { staticClass: "multiselect__single" },
+                                    [
+                                      _vm._v(
+                                        _vm._s(values.length) +
+                                          " opciones\n                                    selecionadas"
+                                      )
+                                    ]
+                                  )
+                                : _vm._e()
+                            ]
+                          }
                         }
-                        _vm.$set(
-                          _vm.newStudentView,
-                          "mother_name",
-                          $event.target.value
-                        )
+                      ]),
+                      model: {
+                        value: _vm.motherToSave,
+                        callback: function($$v) {
+                          _vm.motherToSave = $$v
+                        },
+                        expression: "motherToSave"
                       }
-                    }
-                  })
-                ]),
+                    })
+                  ],
+                  1
+                ),
                 _vm._v(" "),
                 _c("div", { staticClass: "col-6" }, [
                   _c("label", { attrs: { for: "office_Mother" } }, [
@@ -482,20 +688,20 @@ var render = function() {
                       {
                         name: "model",
                         rawName: "v-model",
-                        value: _vm.newStudentView.office_mother,
-                        expression: "newStudentView.office_mother"
+                        value: _vm.newStudentEdit.office_mother,
+                        expression: "newStudentEdit.office_mother"
                       }
                     ],
                     staticClass: "form-control",
-                    attrs: { disabled: "", id: "office_Mother", type: "text" },
-                    domProps: { value: _vm.newStudentView.office_mother },
+                    attrs: { id: "office_Mother", type: "text" },
+                    domProps: { value: _vm.newStudentEdit.office_mother },
                     on: {
                       input: function($event) {
                         if ($event.target.composing) {
                           return
                         }
                         _vm.$set(
-                          _vm.newStudentView,
+                          _vm.newStudentEdit,
                           "office_mother",
                           $event.target.value
                         )
@@ -520,25 +726,24 @@ var render = function() {
                       {
                         name: "model",
                         rawName: "v-model",
-                        value: _vm.newStudentView.address,
-                        expression: "newStudentView.address"
+                        value: _vm.newStudentEdit.address,
+                        expression: "newStudentEdit.address"
                       }
                     ],
                     staticClass: "form-control",
                     attrs: {
-                      disabled: "",
                       id: "address_general",
                       type: "text",
                       required: ""
                     },
-                    domProps: { value: _vm.newStudentView.address },
+                    domProps: { value: _vm.newStudentEdit.address },
                     on: {
                       input: function($event) {
                         if ($event.target.composing) {
                           return
                         }
                         _vm.$set(
-                          _vm.newStudentView,
+                          _vm.newStudentEdit,
                           "address",
                           $event.target.value
                         )
@@ -557,25 +762,20 @@ var render = function() {
                       {
                         name: "model",
                         rawName: "v-model",
-                        value: _vm.newStudentView.phone,
-                        expression: "newStudentView.phone"
+                        value: _vm.newStudentEdit.phone,
+                        expression: "newStudentEdit.phone"
                       }
                     ],
                     staticClass: "form-control",
-                    attrs: {
-                      disabled: "",
-                      id: "phone_general",
-                      type: "text",
-                      required: ""
-                    },
-                    domProps: { value: _vm.newStudentView.phone },
+                    attrs: { id: "phone_general", type: "text", required: "" },
+                    domProps: { value: _vm.newStudentEdit.phone },
                     on: {
                       input: function($event) {
                         if ($event.target.composing) {
                           return
                         }
                         _vm.$set(
-                          _vm.newStudentView,
+                          _vm.newStudentEdit,
                           "phone",
                           $event.target.value
                         )
@@ -594,25 +794,20 @@ var render = function() {
                       {
                         name: "model",
                         rawName: "v-model",
-                        value: _vm.newStudentView.repitent,
-                        expression: "newStudentView.repitent"
+                        value: _vm.newStudentEdit.repitent,
+                        expression: "newStudentEdit.repitent"
                       }
                     ],
                     staticClass: "ml-2",
-                    attrs: {
-                      disabled: "",
-                      type: "checkbox",
-                      id: "Repitent",
-                      required: ""
-                    },
+                    attrs: { type: "checkbox", id: "Repitent", required: "" },
                     domProps: {
-                      checked: Array.isArray(_vm.newStudentView.repitent)
-                        ? _vm._i(_vm.newStudentView.repitent, null) > -1
-                        : _vm.newStudentView.repitent
+                      checked: Array.isArray(_vm.newStudentEdit.repitent)
+                        ? _vm._i(_vm.newStudentEdit.repitent, null) > -1
+                        : _vm.newStudentEdit.repitent
                     },
                     on: {
                       change: function($event) {
-                        var $$a = _vm.newStudentView.repitent,
+                        var $$a = _vm.newStudentEdit.repitent,
                           $$el = $event.target,
                           $$c = $$el.checked ? true : false
                         if (Array.isArray($$a)) {
@@ -621,20 +816,20 @@ var render = function() {
                           if ($$el.checked) {
                             $$i < 0 &&
                               _vm.$set(
-                                _vm.newStudentView,
+                                _vm.newStudentEdit,
                                 "repitent",
                                 $$a.concat([$$v])
                               )
                           } else {
                             $$i > -1 &&
                               _vm.$set(
-                                _vm.newStudentView,
+                                _vm.newStudentEdit,
                                 "repitent",
                                 $$a.slice(0, $$i).concat($$a.slice($$i + 1))
                               )
                           }
                         } else {
-                          _vm.$set(_vm.newStudentView, "repitent", $$c)
+                          _vm.$set(_vm.newStudentEdit, "repitent", $$c)
                         }
                       }
                     }
@@ -657,20 +852,20 @@ var render = function() {
                       {
                         name: "model",
                         rawName: "v-model",
-                        value: _vm.newStudentView.observation,
-                        expression: "newStudentView.observation"
+                        value: _vm.newStudentEdit.observation,
+                        expression: "newStudentEdit.observation"
                       }
                     ],
                     staticClass: "form-control",
-                    attrs: { disabled: "", id: "Observer_est", required: "" },
-                    domProps: { value: _vm.newStudentView.observation },
+                    attrs: { id: "Observer_est", required: "" },
+                    domProps: { value: _vm.newStudentEdit.observation },
                     on: {
                       input: function($event) {
                         if ($event.target.composing) {
                           return
                         }
                         _vm.$set(
-                          _vm.newStudentView,
+                          _vm.newStudentEdit,
                           "observation",
                           $event.target.value
                         )
@@ -681,7 +876,30 @@ var render = function() {
               ])
             ]),
             _vm._v(" "),
-            _vm._m(1)
+            _c("div", { staticClass: "modal-footer" }, [
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-secondary",
+                  attrs: { type: "button", "data-dismiss": "modal" }
+                },
+                [_vm._v("Close")]
+              ),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-primary",
+                  attrs: { type: "button" },
+                  on: {
+                    click: function($event) {
+                      return _vm.saveObservation()
+                    }
+                  }
+                },
+                [_vm._v("Save changes")]
+              )
+            ])
           ])
         ]
       )
@@ -713,21 +931,6 @@ var staticRenderFns = [
         [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
       )
     ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "modal-footer" }, [
-      _c(
-        "button",
-        {
-          staticClass: "btn btn-Primary",
-          attrs: { type: "button", "data-dismiss": "modal" }
-        },
-        [_vm._v("Cerrar")]
-      )
-    ])
   }
 ]
 render._withStripped = true
@@ -736,18 +939,20 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./resources/js/components/ModalViewObserver.vue":
+/***/ "./resources/js/components/ModalEditObserver.vue":
 /*!*******************************************************!*\
-  !*** ./resources/js/components/ModalViewObserver.vue ***!
+  !*** ./resources/js/components/ModalEditObserver.vue ***!
   \*******************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _ModalViewObserver_vue_vue_type_template_id_1940c90d___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ModalViewObserver.vue?vue&type=template&id=1940c90d& */ "./resources/js/components/ModalViewObserver.vue?vue&type=template&id=1940c90d&");
-/* harmony import */ var _ModalViewObserver_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ModalViewObserver.vue?vue&type=script&lang=js& */ "./resources/js/components/ModalViewObserver.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony import */ var _ModalEditObserver_vue_vue_type_template_id_19360cf2___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ModalEditObserver.vue?vue&type=template&id=19360cf2& */ "./resources/js/components/ModalEditObserver.vue?vue&type=template&id=19360cf2&");
+/* harmony import */ var _ModalEditObserver_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ModalEditObserver.vue?vue&type=script&lang=js& */ "./resources/js/components/ModalEditObserver.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var vue_multiselect_dist_vue_multiselect_min_css_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue-multiselect/dist/vue-multiselect.min.css?vue&type=style&index=0&lang=css& */ "./node_modules/vue-multiselect/dist/vue-multiselect.min.css?vue&type=style&index=0&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
 
 
 
@@ -755,10 +960,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /* normalize component */
 
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _ModalViewObserver_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _ModalViewObserver_vue_vue_type_template_id_1940c90d___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _ModalViewObserver_vue_vue_type_template_id_1940c90d___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _ModalEditObserver_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _ModalEditObserver_vue_vue_type_template_id_19360cf2___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _ModalEditObserver_vue_vue_type_template_id_19360cf2___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -768,38 +973,38 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/components/ModalViewObserver.vue"
+component.options.__file = "resources/js/components/ModalEditObserver.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/components/ModalViewObserver.vue?vue&type=script&lang=js&":
+/***/ "./resources/js/components/ModalEditObserver.vue?vue&type=script&lang=js&":
 /*!********************************************************************************!*\
-  !*** ./resources/js/components/ModalViewObserver.vue?vue&type=script&lang=js& ***!
+  !*** ./resources/js/components/ModalEditObserver.vue?vue&type=script&lang=js& ***!
   \********************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ModalViewObserver_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./ModalViewObserver.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ModalViewObserver.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ModalViewObserver_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ModalEditObserver_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./ModalEditObserver.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ModalEditObserver.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ModalEditObserver_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/components/ModalViewObserver.vue?vue&type=template&id=1940c90d&":
+/***/ "./resources/js/components/ModalEditObserver.vue?vue&type=template&id=19360cf2&":
 /*!**************************************************************************************!*\
-  !*** ./resources/js/components/ModalViewObserver.vue?vue&type=template&id=1940c90d& ***!
+  !*** ./resources/js/components/ModalEditObserver.vue?vue&type=template&id=19360cf2& ***!
   \**************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ModalViewObserver_vue_vue_type_template_id_1940c90d___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./ModalViewObserver.vue?vue&type=template&id=1940c90d& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ModalViewObserver.vue?vue&type=template&id=1940c90d&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ModalViewObserver_vue_vue_type_template_id_1940c90d___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ModalEditObserver_vue_vue_type_template_id_19360cf2___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./ModalEditObserver.vue?vue&type=template&id=19360cf2& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ModalEditObserver.vue?vue&type=template&id=19360cf2&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ModalEditObserver_vue_vue_type_template_id_19360cf2___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ModalViewObserver_vue_vue_type_template_id_1940c90d___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ModalEditObserver_vue_vue_type_template_id_19360cf2___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

@@ -1,7 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Classroom;
+use App\ClassroomStudent;
+use App\User;
+use App\Area;
 use App\StudentReport;
 use App\Reason;
 use Illuminate\Support\Facades\DB;
@@ -85,5 +88,39 @@ class StudentReportController extends Controller
             ]);
         }
         return response()->json($listReports);
+    }
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function getAreas(int $id){
+        $student = User::where('id','=',$id)->get();
+        $areas = [];
+        $user_asignateds = ClassroomStudent::where('id_user', $id)->get();
+        if (isset($user_asignateds)) {
+            foreach ($user_asignateds as $key => $user_asignated) {
+                $classroom = Classroom::find($user_asignated->id_classroom);
+                $class = Area::where('id_grade', $classroom->id_grade)->get();
+                foreach ($class as $key => $area) {
+                    array_push($areas, [
+                        'text'         => $area->name . " - " . $classroom->name,
+                        'student_name' => $student[0]->name,
+                        'id_student'   => $student[0]->id,
+                        'id_area'           => $area->id,
+                        'id_classroom' => $classroom->id,
+                    ]);
+                }
+            }
+        }
+
+        $studentsAreas = array();
+
+        foreach ( $areas as $value ) {
+            $studentsAreas[$value["student_name"]][] = $value;
+        }
+
+        return response()->json($studentsAreas);
     }
 }
