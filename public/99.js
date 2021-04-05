@@ -176,6 +176,9 @@ var render = function() {
             ]),
             _vm._v(" "),
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> develop
             _c("div", { staticClass: "card-body" }, [
               _c(
                 "table",
@@ -191,6 +194,7 @@ var render = function() {
                       name.type_user == "3"
                         ? _c("tr", [
                             _c("td", [_vm._v(_vm._s(name.name))]),
+<<<<<<< HEAD
 =======
             _c(
               "form",
@@ -447,6 +451,8 @@ var render = function() {
                               _vm._v("Tipo de actividad")
                             ]),
 >>>>>>> 4a83d3a4cd430aa6033ce621f5b1104d21e43758
+=======
+>>>>>>> develop
                             _vm._v(" "),
                             _c("td", [_vm._v(_vm._s(name.last_name))]),
                             _vm._v(" "),
@@ -493,11 +499,15 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
 <<<<<<< HEAD
+<<<<<<< HEAD
     return _c("td", { staticClass: "float-right" }, [
 =======
     return _c("h3", { staticClass: "card-header fondo text-center" }, [
       _vm._v("\n                Porcentaje\n                "),
 >>>>>>> 4a83d3a4cd430aa6033ce621f5b1104d21e43758
+=======
+    return _c("td", { staticClass: "float-right" }, [
+>>>>>>> develop
       _c(
         "a",
         {
@@ -506,6 +516,9 @@ var staticRenderFns = [
           attrs: { href: "#" }
         },
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> develop
         [_c("i", { staticClass: "fa fa-eye" })]
       ),
       _vm._v(" "),
@@ -519,6 +532,7 @@ var staticRenderFns = [
         [_c("i", { staticClass: "fa fa-edit" })]
       ),
       _vm._v(" "),
+<<<<<<< HEAD
 =======
         [_c("span", [_vm._v("×")])]
       )
@@ -531,6 +545,8 @@ var staticRenderFns = [
     return _c("h3", { staticClass: "card-header fondo text-center" }, [
       _vm._v("\n                Eliminar Indicador\n                "),
 >>>>>>> 4a83d3a4cd430aa6033ce621f5b1104d21e43758
+=======
+>>>>>>> develop
       _c(
         "a",
         {

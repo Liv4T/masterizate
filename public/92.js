@@ -191,6 +191,9 @@ var render = function() {
             ]),
             _vm._v(" "),
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> develop
             _c("div", { staticClass: "card-body" }, [
               _c(
                 "table",
@@ -206,6 +209,7 @@ var render = function() {
                       name.type_user == "3"
                         ? _c("tr", [
                             _vm._m(1, true),
+<<<<<<< HEAD
 =======
             _c(
               "span",
@@ -378,6 +382,8 @@ var render = function() {
                               }
                             }),
 >>>>>>> 4a83d3a4cd430aa6033ce621f5b1104d21e43758
+=======
+>>>>>>> develop
                             _vm._v(" "),
                             _c("td", [
                               _vm._v(

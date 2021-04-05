@@ -455,6 +455,9 @@ var render = function() {
                                       "font-size": "18px"
                                     }
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> develop
                                   },
                                   [_vm._v("Espere estamos cargando su archivo")]
                                 )
@@ -491,6 +494,7 @@ var render = function() {
                                     staticStyle: {
                                       color: "green",
                                       "font-size": "20px"
+<<<<<<< HEAD
 =======
                                   }
                                 },
@@ -527,6 +531,8 @@ var render = function() {
                                       $event.preventDefault()
                                       return _vm.duplicar(_vm.materia)
 >>>>>>> 4a83d3a4cd430aa6033ce621f5b1104d21e43758
+=======
+>>>>>>> develop
                                     }
                                   },
                                   [
@@ -706,6 +712,9 @@ var render = function() {
                                   [
                                     _vm._v(
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> develop
                                       "Archivo cargado con exito nombre:" +
                                         _vm._s(_vm.message) +
                                         " "
@@ -723,6 +732,7 @@ var render = function() {
                                     staticStyle: {
                                       color: "red",
                                       "font-size": "18px"
+<<<<<<< HEAD
 =======
                                       "\n                        Logro " +
                                         _vm._s(k + 1) +
@@ -765,6 +775,8 @@ var render = function() {
                                       value: option.achievement,
                                       expression: "option.achievement"
 >>>>>>> 4a83d3a4cd430aa6033ce621f5b1104d21e43758
+=======
+>>>>>>> develop
                                     }
                                   },
                                   [_vm._v("Espere estamos cargando su archivo")]

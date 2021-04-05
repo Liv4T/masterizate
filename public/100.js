@@ -266,6 +266,9 @@ var render = function() {
                   },
                   [
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> develop
                     _c("tab-content", [
                       _c("div", { staticClass: "form-group row mx-auto" }, [
                         _c("div", { staticClass: "col-md-6" }, [
@@ -275,6 +278,7 @@ var render = function() {
                             "select",
                             {
                               ref: "seleccionado",
+<<<<<<< HEAD
 =======
                     _vm.isLoading
                       ? _c("span", {
@@ -397,6 +401,8 @@ var render = function() {
                                 }
                               ],
 >>>>>>> 4a83d3a4cd430aa6033ce621f5b1104d21e43758
+=======
+>>>>>>> develop
                               staticClass: "form-control",
                               attrs: { required: "" }
                             },
