@@ -566,6 +566,9 @@ Route::get('/logout2', 'UserController@logOut')->name('logout2');
 Route::middleware('auth')->get('/admin/lectives', function () {
     return view('lectivesAdm');
 });
+Route::middleware('auth')->get('/admin/configuracion', function () {
+    return view('configurationAdm');
+});
 Route::middleware('auth')->get('/admin/lectives-teacher', function () {
     return view('lectivesAdmAssingTeacher');
 });
@@ -694,6 +697,7 @@ Route::put('/api/admin/module/{id_module}/class/{id_course}/{state}', 'ClassCont
 Route::get('/api/student/activity', 'ActivityController@getByCurrentStudent');
 Route::get('/api/student/event', 'EventsController@studentEvents');
 Route::get('/api/event/getStudentsClass','EventsController@getStudentsClassForParents');
+Route::put('/api/teacher/area/{area_id}/classroom/{classroom_id}/calification', 'CoursesController@teacherScoreUpdate');
 Route::get('/api/teacher/area/{area_id}/classroom/{classroom_id}/student', 'CalificationController@getAllStudents');
 Route::get('/api/teacher/area/{area_id}/classroom/{classroom_id}/student/{student_id}', 'CalificationController@getByStudent');
 Route::get('/api/teacher/area/{area_id}/classroom/{classroom_id}/student/{student_id}/module', 'CalificationController@getAllModules');
@@ -701,7 +705,9 @@ Route::get('/api/teacher/area/{area_id}/classroom/{classroom_id}/student/{studen
 Route::get('/api/student/{student_id}', 'StudentController@get');
 Route::get('/api/teacher/area/{area_id}/classroom/{classroom_id}/student/{student_id}/module/{module_id}/class/{class_id}', 'CalificationController@getByClass');
 Route::get('/api/event/today', 'EventsController@todayEvents');
-
+Route::get('/api/admin/configuration/property/{code}', 'ConfigurationController@getPropertyByCode');
+Route::put('/api/admin/configuration/property/{code}', 'ConfigurationController@setProperty');
+Route::get('/api/student/{student_id}/calification-report', 'CalificationController@generateTemplateCalification');
 
 
 Route::get('/api/lectives', 'LectivesController@getLectives');
@@ -749,4 +755,29 @@ Route::resource('/schoolGobernment','SchoolGovernmentController');
 Route::middleware('auth')->get('/legislation', function () {
     return view('legislation');
 });
+Route::middleware('auth')->get('/governmentMembers', function () {
+    return view('gobernmentMembers');
+});
 Route::get('/getLegislation', 'SchoolGovernmentController@getLegislation');
+Route::resource('/members','SchoolGovernmentMembersController');
+Route::middleware('auth')->get('/reportsGovernment', function () {
+    return view('reportsGovernment');
+});
+Route::get('GetAreaToReport/{idTeachers}','SchoolGovernmentController@reportTeacher');
+Route::get('GetPlanificationTeacher/{teacherId}/{id_area}/{id_classroom}','SchoolGovernMentController@reportPlanificationTeacher');
+Route::post('GetCoursesInformation','SchoolGovernmentController@getCoursesInformation');
+Route::get('showUser/{userid}','SchoolGovernmentController@user');
+Route::get('getAllAreas', 'SchoolGovernmentController@getAllAreas');
+Route::get('reportStudents/{idStudent}/{idParent}','SchoolGovernmentController@getReportStudents');
+Route::get('getAllStudents','SchoolGovernmentController@students');
+
+
+//Staments Of Government School
+Route::resource('staments','StamentsController');
+Route::get('getStaments', 'StamentsController@getStaments');
+
+//chat Stament
+Route::resource('chatGobernment','StamentsChatController');
+Route::get('/getChatAsigment','StamentsChatController@getStamentsByUser');
+Route::get('getChat/{chat}','StamentsChatController@getChats');
+Route::get('getAllStudents','SchoolGovernmentController@students');

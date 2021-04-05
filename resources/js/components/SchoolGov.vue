@@ -20,12 +20,49 @@
 
                                 <div id="collapseOne" class="collapse show" aria-labelledby="headingOne"
                                     data-parent="#accordion">
-                                    <div class="card-body" v-if="integrates.length > 0">
-                                        <p>{{integrates.text}}</p>
-                                    </div>
-
-                                    <div class="card-body" v-else>
-                                        <p>Crea a los Integrantes del Gobierno Escolar</p>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div v-if="members.length > 0" class="col-12">
+                                                <div class="list-group" id="list-tab" role="tablist" v-for="(data, id) in members" :key="id">
+                                                    <div class="mb-5" v-show="data.modeInsert == '1'">
+                                                        <a class="list-group-item" id="list-home-list" data-toggle="list" role="tab" aria-controls="home">
+                                                            <div> 
+                                                                <div class="d-flex mb-2 justify-content-center">
+                                                                    <img                                                     
+                                                                        style="height:160px;"
+                                                                        :src="data.imageSchoolGovernment" 
+                                                                        alt=""                                                            
+                                                                    >
+                                                                </div>                                                                                                                               
+                                                            </div>                                                        
+                                                        </a>
+                                                    </div>
+                                                    <div v-show="data.modeInsert == '2'">
+                                                        <a class="list-group-item" id="list-home-list" data-toggle="list" role="tab" aria-controls="home">
+                                                            <div class="d-flex justify-content-center mb-3">
+                                                                <img                                                                       
+                                                                style="height:160px;"
+                                                                :src="data.image" 
+                                                                alt=""                                                            
+                                                                >
+                                                            </div>
+                                                            <div class="text-center mt-2">
+                                                                <strong class="h3 mb-2 text-uppercase">{{data.member}}</strong>
+                                                                <div>
+                                                                    <p class="h3">{{data.position}}</p>
+                                                                </div>
+                                                                <p class="h4">{{data.description}}</p>
+                                                            </div>                                                        
+                                                        </a>
+                                                    </div>                                                
+                                                </div>
+                                            </div>
+                                            <div v-else>
+                                                <div class="text-center">
+                                                    <p>Crea los integrantes del Gobierno Escolar</p>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -67,11 +104,12 @@
         data() {
             return {
                 legislationData: [],
-                integrates: []
+                members: []
             }
         },
         mounted() {
             this.getLegislation();
+            this.getMembers();
         },
         methods: {
             getLegislation() {
@@ -79,6 +117,11 @@
                     this.legislationData = response.data
                 }).catch((error) => {
                     console.log(error);
+                })
+            },
+            getMembers(){
+                axios.get('/members').then(members =>{
+                    this.members = members.data
                 })
             },
         }

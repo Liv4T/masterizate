@@ -4,7 +4,7 @@
             <div class="modal-content">
                 <form class="needs-validation" v-on:submit.prevent="createInvitation" novalidate>
                     <div class="modal-header">
-                        <h4>Crear evento para alguien</h4>
+                        <h4>Crear evento</h4>
                         <button type="button" class="close" data-dismiss="modal">
                             <span>&times;</span>
                         </button>
