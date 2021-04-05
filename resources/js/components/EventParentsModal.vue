@@ -44,16 +44,6 @@
                         </div>
                         <div class="form-group row">
                             <div class="col-md-6">
-                                <label for="name">Desde</label>
-                                <datetime v-model="desde"></datetime>
-                                <div class="invalid-feedback">Please fill out this field</div>
-                            </div>
-                            <div class="col-md-6">
-                                <label for="name">Hasta</label>
-                                <datetime v-model="hasta"></datetime>
-                                <div class="invalid-feedback"></div>
-                            </div>
-                            <div class="col-md-6">
                                 <strong for="name">Enlace de Meet</strong>
                                 <input type="text" name="name" class="form-control" v-model="nameMeet" />
                                 <div class="invalid-feedback">Please fill out this field</div>
@@ -83,8 +73,6 @@
         props: ["concurrent", "type_u", "dias", "clases", "user", "getMenu"],
         data() {
             return {
-                desde: "",
-                hasta: "",
                 nameEvent: "",
                 nameMeet: "",
                 diaSemana: "",
@@ -137,8 +125,6 @@
                 this.invitationsGet.forEach(element => {
                     axios.post(url, {
                         name_event: this.nameEvent,
-                        date_start: this.desde,
-                        date_end: this.hasta,
                         link: this.nameMeet,
                         day_week: this.diaSemana,
                         email_invited: element.email,
@@ -151,8 +137,6 @@
                 this.getMenu();
                 $("#createEvent").modal("hide");
                 this.nameEvent = "",
-                    this.desde = "",
-                    this.hasta = "",
                     this.nameMeet = "",
                     this.diaSemana = "",
                     this.invitationsGet = [],
