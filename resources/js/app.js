@@ -98,6 +98,7 @@ Vue.component("redactar-component", require("./components/redactar.vue").default
 Vue.component("vmensaje-component", require("./components/vistamensaje.vue").default);
 Vue.component("classroom-component", require("./components/classroomComponent.vue").default);
 Vue.component("studentbyclass-component", require("./components/studentClassroom.vue").default);
+Vue.component("student-report-component", require("./components/studentReport.vue").default);
 Vue.component("psychologymenu",  () => import ("./components/psychologyMenu.vue"));
 
 Vue.component("duplicarsemana-component", require("./components/duplicarSemana.vue").default);
@@ -226,6 +227,7 @@ Vue.component("parents-observer", () => import("./components/ParentsObserver.vue
 Vue.component("comunicates-component", () => import("./components/Comunicates.vue"));
 Vue.component("history-psicology-component", ()=> import("./components/HistorialPsicologia.vue"));
 Vue.component("follow-ups-component", ()=>import("./components/Seguimientos.vue"))
+Vue.component("modal-create-reason-component", () => import("./components/ModalReasonCreate.vue"));
 
 //Tutor
 Vue.component("menu-tutor", () => import("./components/menuTutor.vue"));
@@ -243,14 +245,20 @@ Vue.component("menu-school", () =>import("./components/menuSchoolGov.vue"));
 Vue.component("school-government-component", () =>import("./components/SchoolGov.vue"));
 Vue.component("modal-school-component", () =>import("./components/ModalSchoolGov.vue"));
 Vue.component("legislation-component", () =>import("./components/legislation.vue"));
-Vue.component("government-members-component", () => import("./components/schoolGovernmentMembers.vue"))
+
+//Report Psychology
+Vue.component("report-visits-component", () => import("./components/reportVisits.vue"));
+Vue.component("students-component", () => import("./components/students.vue"));
+Vue.component("report-notes-component", () => import("./components/reportNotes.vue"));
+
+//
+Vue.component("government-members-component", () => import("./components/schoolGovernmentMembers.vue"));
 Vue.component("modal-create-government-member", ()=>import("./components/ModalCreateGovernmentMember.vue"));
 Vue.component("modal-edit-government-member", () => import("./components/ModalEditGovernmentMember.vue"));
-Vue.component("reports-government", ()=> import("./components/reportsGovernment.vue"))
-Vue.component("modal-docente", ()=> import("./components/modalDocenteReport.vue"))
+Vue.component("reports-government", ()=> import("./components/reportsGovernment.vue"));
+Vue.component("modal-docente", ()=> import("./components/modalDocenteReport.vue"));
 Vue.component("modal-planif-docente", ()=> import("./components/modalDocentePlanifReport.vue"));
 Vue.component("modal-course", ()=> import("./components/modalDocenteCurso.vue"));
-Vue.component("modal-estudiante", ()=> import("./components/modalEstudiante.vue"));
 Vue.component("modal-materias", ()=> import("./components/modalMaterias.vue"));
 Vue.component("staments-component", ()=> import("./components/Staments.vue"));
 Vue.component("staments-chat-component", ()=> import("./components/StamentsChat.vue"));

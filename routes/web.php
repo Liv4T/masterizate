@@ -4,6 +4,7 @@ use App\Message;
 use App\User;
 use App\Events\MessagePosted;
 use App\Exports\ProductsExport;
+use App\Exports\StudentsExport;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Excel;
@@ -177,6 +178,18 @@ Route::middleware('auth')->get('/classroom', function () {
 Route::middleware('auth')->get('/student/{id_classroom}/{name_classroom}', function (String $id_classroom, String $name_classroom) {
     return view('studentsClassroom')->with('id_classroom', $id_classroom)->with('name_classroom', $name_classroom);
 });
+Route::middleware('auth')->get('/studentReport/{id_student}/{name_classroom}/{id_classroom}', function (String $id_student, String $name_classroom, String $id_classroom) {
+    return view('studentReport')->with('id_student', $id_student)->with('name_classroom', $name_classroom)->with('id_classroom', $id_classroom);
+});
+Route::middleware('auth')->get('/students/{tipo}', function (String $tipo) {
+    return view('students')->with('tipo', $tipo);
+});
+Route::middleware('auth')->get('/notes/{id_student}', function (String $id_student) {
+    return view('reportNotes')->with('id_student', $id_student);
+});
+Route::middleware('auth')->get('/reportVisits/{id_student}', function (String $id_student) {
+    return view('reportVisits')->with('id_student', $id_student);
+});
 Route::middleware('auth')->get('/calendario', function () {
     return view('calendar')->with('type_user', Auth::user()->type_user);
 });
@@ -348,7 +361,22 @@ Route::put('deleteEvent', 'EventsController@deleteEvent')->name('deleteEvent');
 //Psychology
 
 Route::get('/getAllUsers', 'PsychologyController@getUsersToInvitations')->name('getAllUsers');
-Route::post('createEvent', 'PsychologyController@createEvent')->name('createEvent');
+Route::get('/getSolEvents', 'PsychologyController@eventsCalendarSol')->name('getSolEvents');
+Route::get('/getSegEvents', 'PsychologyController@eventsCalendarSeg')->name('getSegEvents');
+Route::get('/getCitaEvents', 'PsychologyController@eventsCalendarCita')->name('getCitaEvents');
+Route::get('/getReuEvents', 'PsychologyController@eventsCalendarReu')->name('getReuEvents');
+Route::post('createEventP', 'PsychologyController@createEvent')->name('createEventP');
+Route::get('editEventP/{id}', 'PsychologyController@findEvent')->name('editEventP');
+Route::put('updateEventP', 'PsychologyController@updateEvent')->name('updateEventP');
+Route::put('deleteEventP', 'PsychologyController@deleteEvent')->name('deleteEventP');
+Route::post('createReportP', 'StudentReportController@saveReport')->name('createReportP');
+Route::post('/createReason', 'StudentReportController@createReason')->name('createReason');
+Route::get('/getReason', 'StudentReportController@reasons')->name('getReason');
+Route::get('/getAreasByNotes/{id}','StudentReportController@getAreas')->name('getAreasByNotes');
+
+//Report Psychology
+Route::get('/getStudentsList', 'StudentReportController@studentsVisits')->name('getStudentsList');
+Route::get('/getReportStudent/{id}', 'StudentReportController@ReportVisits')->name('getReportStudent');
 
 //Classroom and Students
 Route::get('/getClassroomByInstitution/{id}', 'ClassroomController@classroomByInstitution')->name('getClassroomByInstitution');
@@ -711,6 +739,7 @@ Route::get('/api/teacher/area/{area_id}/classroom/{classroom_id}/student/{studen
 Route::get('/api/teacher/area/{area_id}/classroom/{classroom_id}/student/{student_id}/module', 'CalificationController@getAllModules');
 Route::get('/api/teacher/area/{area_id}/classroom/{classroom_id}/student/{student_id}/module/{module_id}/class', 'CalificationController@getAllClasses');
 Route::get('/api/student/{student_id}', 'StudentController@get');
+Route::get('/api/student/classroom/{student_id}', 'StudentController@student');
 Route::get('/api/teacher/area/{area_id}/classroom/{classroom_id}/student/{student_id}/module/{module_id}/class/{class_id}', 'CalificationController@getByClass');
 Route::get('/api/event/today', 'EventsController@todayEvents');
 Route::get('/api/admin/configuration/property/{code}', 'ConfigurationController@getPropertyByCode');
@@ -776,14 +805,22 @@ Route::resource('/members','SchoolGovernmentMembersController');
 Route::middleware('auth')->get('/reportsGovernment', function () {
     return view('reportsGovernment');
 });
-Route::get('GetAreaToReport/{idTeachers}','SchoolGovernmentController@reportTeacher');
-Route::get('GetPlanificationTeacher/{teacherId}/{id_area}/{id_classroom}','SchoolGovernMentController@reportPlanificationTeacher');
+
 Route::post('GetCoursesInformation','SchoolGovernmentController@getCoursesInformation');
 Route::get('showUser/{userid}','SchoolGovernmentController@user');
 Route::get('getAllAreas', 'SchoolGovernmentController@getAllAreas');
-Route::get('reportStudents/{idStudent}/{idParent}','SchoolGovernmentController@getReportStudents');
 Route::get('getAllStudents','SchoolGovernmentController@students');
+Route::get('GetAreaTeacher/{idTeachers}','SchoolGovernmentController@areaTeacher');
 
+//Route for download reports Government
+Route::get('reportStudents','SchoolGovernmentController@getReportStudents');
+Route::get('GetMateriasToReport','SchoolGovernmentController@reportAllMateriasTeachers');
+Route::get('GetAreaToReport/{idTeachers}','SchoolGovernmentController@reportTeacher');
+Route::get('reportCourse/{id_area}/{id_classroom}/{teacher}/{area}','SchoolGovernmentController@reportCourse');
+Route::get('reportNotes/{area_id}/{classroom_id}/{teacher_name}/{area_name}','SchoolGovernmentController@reportNotes');
+Route::get('GetPlanificationTeacher/{teacherId}/{id_area}/{id_classroom}/{teacher}','SchoolGovernmentController@reportPlanificationTeacher');
+Route::get('GetPlanificationQuaterlyTeacher/{teacherId}/{id_area}/{id_classroom}/{teacher}','SchoolGovernmentController@reportPlanificationQuaterlyTeacher');
+Route::get('GetPlanificationCoursesTeacher/{id_area}/{id_classroom}/{teacher}','SchoolGovernmentController@reportPlanificationCoursesTeacher');
 
 //Staments Of Government School
 Route::resource('staments','StamentsController');

@@ -17,7 +17,7 @@
                         <a :href="'/student/'+ student.id" class="btn btn-warning btn-radius">Hoja de vida</a>
                     </td>
                     <td style="padding-left: 2px;">
-                        <a :href="'/student/'+ student.id" class="btn btn-orange btn-radius">Competencias Blandas</a>
+                        <a :href="'/studentReport/' + student.id + '/' + name_classroom + '/' + id_classroom" class="btn btn-orange btn-radius">Competencias Blandas</a>
                     </td>
                 </tr>
             </table>
