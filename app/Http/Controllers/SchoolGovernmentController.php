@@ -18,6 +18,7 @@ use App\Exports\StudentsExport;
 use App\Exports\MateriasByTeacherExport;
 use App\Exports\MateriasTeachersExport;
 use App\Exports\CourseExport;
+use App\Exports\CourseAllExport;
 use App\Exports\NotesExport;
 use App\Exports\PlanificationExport;
 use App\Exports\PlanificationQuaterlyExport;
@@ -65,6 +66,10 @@ class SchoolGovernmentController extends Controller
 
     public function reportCourse(int $area_id,int $classroom_id, String $teacher, String $area){
         return Excel::download(new CourseExport($area_id, $classroom_id, $teacher, $area),'Reporte_Curso.xlsx');
+    }
+
+    public function reportAllCourse(){
+        return Excel::download(new CourseAllExport(),'Reporte_Cursos.xlsx');
     }
 
     public function reportNotes(int $area_id,int $classroom_id, String $teacher_name, String $area_name){
