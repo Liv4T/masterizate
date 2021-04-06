@@ -215,9 +215,6 @@ Vue.component("teacher-student-class-content", () => import ("./components/teach
 Vue.component("notification-component", () => import ("./components/notificationComponent.vue"));
 Vue.component("content-loader", () => import ("./components/contentLoaderComponent.vue"));
 
-
-Vue.use(CKEditor);
-
 //Padres
 Vue.component("menu-padres", () => import("./components/menuPadres.vue"));
 Vue.component("parents-component", () => import("./components/parents.vue"));
@@ -225,11 +222,15 @@ Vue.component("event-parents-modal", () => import("./components/EventParentsModa
 Vue.component("modal-edit-parents-info", () => import("./components/ModalEditParentsInfo.vue"));
 Vue.component("parents-observer", () => import("./components/ParentsObserver.vue"));
 
-//Psicologia 
+//Psicologia
 Vue.component("comunicates-component", () => import("./components/Comunicates.vue"));
 Vue.component("history-psicology-component", ()=> import("./components/HistorialPsicologia.vue"));
 Vue.component("follow-ups-component", ()=>import("./components/Seguimientos.vue"))
 
+//Tutor
+Vue.component("menu-tutor", () => import("./components/menuTutor.vue"));
+Vue.component("tutor-schedule", () => import("./components/tutorScheduleComponent.vue"));
+Vue.component("student-schedule", () => import("./components/studentScheduleComponent.vue"));
 
 //Observer
 Vue.component("observer-component", () => import("./components/Observer.vue"));
@@ -255,4 +256,9 @@ Vue.component("staments-component", ()=> import("./components/Staments.vue"));
 Vue.component("staments-chat-component", ()=> import("./components/StamentsChat.vue"));
 Vue.component("modal-chat", ()=> import("./components/modalChat.vue"));
 Vue.component("members-chat", ()=> import("./components/modalMembers.vue"));
+
+
+Vue.use(CKEditor);
+
+
 const app = new Vue({el: "#app", data: {}, store});

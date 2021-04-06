@@ -1,9 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-@section('content')
-  @if (Auth::user()->type_user == '3')
-    <menu-lateral></menu-lateral>
+  @include('menu')
+  @if (Auth::user()->isStudent())
     <juegos-component></juegos-component>
  @endif
 <div class="container">

@@ -74,7 +74,7 @@ class EventsController extends Controller
         $current_date=date('Y-m-d');
         $initial_range_date = date ( 'Y-m-d' , strtotime ( '-90 day' , strtotime ($current_date ) )) ;
         $end_range_date =date ( 'Y-m-d' ,  strtotime ( '+90 day' , strtotime ($current_date ) )) ;
-        if (isset($user) && $user->type_user == 2) {
+        if (isset($user) && ($user->isTeacher()||$user->isTutor())) {
             $eventos_teacher = Eventos::where('id_user', $user->id)->whereDate('date_from','>=',$initial_range_date)->whereDate('date_to','<=',$end_range_date)->orderBy('date_from', 'ASC')->get();
             foreach ($eventos_teacher as $index => $evento) {
 
@@ -202,14 +202,14 @@ class EventsController extends Controller
         $date =  Carbon::now();
 
         if(isset($user) && $user->type_user == 4){
-            //Se buscan los estudiantes por medio del campo parent_id 
+            //Se buscan los estudiantes por medio del campo parent_id
             $students = DB::table("users")
                 ->select('users.*')
                 ->where('parent_id','=',$user->id)
                 ->get();
 
-            /* 
-                Con base a la busqueda anterior se consultan 
+            /*
+                Con base a la busqueda anterior se consultan
                 los eventos, areas y clases al que el estudiante se encuentre asociado y se realiza push al array eventos
             */
             foreach($students as $index => $student){
@@ -229,7 +229,7 @@ class EventsController extends Controller
                         $classroom = Classroom::find($events_students->id_classroom);
                         $area = Area::find($events_students->id_area);
                     }
-                    
+
                     array_push($eventos,[
                         "name" => $events_students->name,
                         "dateFrom" => $events_students->date_from,
@@ -455,7 +455,7 @@ class EventsController extends Controller
                 }
             }
 
-            if(isset($user) && $user->type_user == 2) {
+            if(isset($user) && ($user->isTeacher()||$user->isTutor())) {
 
                         $events_teacher=DB::table('classroom_teacher')
                         ->join('eventos', 'classroom_teacher.id_classroom', '=', 'eventos.id_classroom')

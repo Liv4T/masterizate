@@ -37,7 +37,7 @@ class LectivesController extends Controller
 
         $user = User::find($auth->id);
 
-        if ($user->type_user == 1) {//admin
+        if ($user->isAdmin()) {//admin
 
             $lectivePlanifications = LectivePlanification::where('deleted',0)->get();
 
@@ -60,7 +60,7 @@ class LectivesController extends Controller
                 }
 
             }
-        } elseif ($user->type_user == 2) { // teacher
+        } elseif ($user->isTutor()||$user->isTeacher()) { // teacher
             $lectivePlanifications = LectivePlanification::where('deleted',0)->where('id_teacher',$user->id)->get();
 
             foreach ($lectivePlanifications as $key => $planification) {
@@ -85,7 +85,7 @@ class LectivesController extends Controller
                 }
 
             }
-        } elseif ($user->type_user == 3) { // student
+        } elseif ($user->isStudent()) { // student
 
             $lectives_student=LectiveStudent::where('id_student',$user->id)->where('deleted',0)->get();
 

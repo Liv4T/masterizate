@@ -32,10 +32,7 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Message');
     }
-    public function isModerator()
-    {
-        return $this->type_user === '2';
-    }
+
 
     /**
      * Returns whether a user has a role of 'admin'
@@ -44,14 +41,83 @@ class User extends Authenticatable
      */
     public function isAdmin()
     {
-        return $this->type_user === '1';
+        if(!isset($this->type_user)) return false;
+
+        return intval($this->type_user) === 1;
     }
 
-    /**
-     * Returns whether a user has a role of 'moderator' or 'admin'
+     /**
+     * Returns whether a user has a role of 'teacher'
      *
      * @return boolean
      */
+    public function isTeacher()
+    {
+        if(!isset($this->type_user)) return false;
+
+        return intval($this->type_user) === 2;
+    }
+
+    /**
+     * Returns whether a user has a role of 'student'
+     *
+     * @return boolean
+     */
+    public function isStudent()
+    {
+        if(!isset($this->type_user)) return false;
+
+        return intval($this->type_user) === 3;
+    }
+
+    /**
+     * Returns whether a user has a role of 'parent'
+     *
+     * @return boolean
+     */
+    public function isParent()
+    {
+        if(!isset($this->type_user)) return false;
+
+        return intval($this->type_user) === 4;
+    }
+
+     /**
+     * Returns whether a user has a role of 'psychology'
+     *
+     * @return boolean
+     */
+    public function isPsychology()
+    {
+        if(!isset($this->type_user)) return false;
+
+        return intval($this->type_user) === 5;
+    }
+
+     /**
+     * Returns whether a user has a role of 'school government'
+     *
+     * @return boolean
+     */
+    public function isSchoolGovernment()
+    {
+        if(!isset($this->type_user)) return false;
+
+        return intval($this->type_user) === 6;
+    }
+
+    /**
+     * Returns whether a user has a role of 'tutor'
+     *
+     * @return boolean
+     */
+    public function isTutor()
+    {
+        if(!isset($this->type_user)) return false;
+
+        return intval($this->type_user) === 7;
+    }
+
 
 
     /**

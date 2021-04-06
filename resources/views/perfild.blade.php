@@ -2,16 +2,10 @@
 
 @section('content')
 <!--<formstyle></formstyle>-->
-  @if (Auth::user()->type_user == '2')
-        <menu-docente></menu-docente>
+      @include('menu')
+    @if (Auth::user()->isTeacher()||Auth::user()->isPsychology()||Auth::user()->isTutor())
         <inicio-component></inicio-component>
-  @endif
-  @if (Auth::user()->type_user == '3')
-    <menu-lateral></menu-lateral>
- @endif
-  @if (Auth::user()->type_user == '1')
-    <menu-adm></menu-adm>
- @endif
+    @endif
  @if(Auth::user()->type_user == '6')
     <menu-school></menu-school>
     <inicio-component></inicio-component>

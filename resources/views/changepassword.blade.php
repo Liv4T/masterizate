@@ -2,16 +2,10 @@
 
 @section('content')
 <!--formstyle></formstyle-->
-   @if (Auth::user()->type_user == '2')
-        <menu-docente></menu-docente>
-        <inicio-component></inicio-component>
-  @endif
-  @if (Auth::user()->type_user == '3')
-    <menu-lateral></menu-lateral>
- @endif
-  @if (Auth::user()->type_user == '1')
-    <menu-adm></menu-adm>
- @endif
+@include('menu')
+@if (Auth::user()->isTeacher())
+      <inicio-component></inicio-component>
+@endif
 <changepassword-component ></changepassword-component>
   <footers></footers>
 <div class="container">
