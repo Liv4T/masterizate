@@ -23,6 +23,7 @@ use App\Exports\NotesExport;
 use App\Exports\PlanificationExport;
 use App\Exports\PlanificationQuaterlyExport;
 use App\Exports\PlanificationCoursesExport;
+use App\Exports\AllNotesExport;
 
 class SchoolGovernmentController extends Controller
 {
@@ -74,6 +75,10 @@ class SchoolGovernmentController extends Controller
 
     public function reportNotes(int $area_id,int $classroom_id, String $teacher_name, String $area_name){
         return Excel::download(new NotesExport($area_id, $classroom_id, $teacher_name, $area_name),'Reporte_Notas.xlsx');
+    }
+
+    public function reportAllNotes(){
+        return Excel::download(new AllNotesExport(),'Reporte_Notas.xlsx');
     }
 
     public function reportPlanificationTeacher(String $teacherId, String $id_area, String $id_classroom, String $teacher){

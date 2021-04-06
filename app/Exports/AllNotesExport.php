@@ -5,22 +5,19 @@ namespace App\Exports;
 use DB;
 use App\ConfigurationParameter;
 use App\Weekly;
+use App\ClassroomTeacher;
+use App\Area;
+use App\Classroom;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
 
-class CourseExport implements FromCollection , ShouldAutoSize, WithMapping, WithHeadings
+class AllNotesExport implements FromCollection , ShouldAutoSize, WithMapping, WithHeadings
 {
     use Exportable;
     
-    public function __construct(int $area_id, int $classroom_id, String $teacher, String $area){
-        $this->area_id = $area_id;
-        $this->classroom_id = $classroom_id;
-        $this->teacher = $teacher;
-        $this->area = $area;
-    }
     /**
     * @return \Illuminate\Support\Collection
     */    
@@ -28,14 +25,18 @@ class CourseExport implements FromCollection , ShouldAutoSize, WithMapping, With
     {
         $score_base=ConfigurationParameter::where('code','CALIFICATION_BASE')->where('deleted',0)->first();
 
-        $weekly_plans=Weekly::where('id_classroom',$this->classroom_id)->where('id_area',$this->area_id)->get();
+        $weekly_plans=DB::table('weekly_plan')
+            ->take(60)
+            ->get();
 
-        $students=DB::table('classroom_student')
-                    ->join('users', 'users.id', '=', 'classroom_student.id_user')
-                    ->select('users.id as user_id','users.name as user_name','users.last_name as user_lastname', 'users.picture as user_picture', 'users.email as user_email')
-                    ->where('classroom_student.id_classroom', $this->classroom_id)
-                    ->orderBy('users.last_name')
-                    ->get();
+        $students=DB::table('classroom')
+            ->join('classroom_student','classroom.id','=','classroom_student.id_classroom')
+            ->join('users as us1','us1.id','=','classroom_student.id_user')
+            ->join('classroom_teacher','classroom_teacher.id_classroom','=','classroom.id')
+            ->join('users as us2','classroom_teacher.id_user','=','us2.id')
+            ->select('us1.id as user_id','us1.name as user_name','us1.last_name as user_lastname', 'us1.picture as user_picture', 'us1.email as user_email','us2.name as teacher_name')
+            ->orderBy('us1.last_name')
+            ->get();
 
         foreach ($students as $key_student => $student) {
 
@@ -84,7 +85,10 @@ class CourseExport implements FromCollection , ShouldAutoSize, WithMapping, With
 
                     $activities_pending+=count($activities_interaction);
                 }
+
             }
+
+            $students[$key_student]->teacher_name;
 
             $students[$key_student]->progress = round(($weekly_plans_with_progress>0)?($progress/$weekly_plans_with_progress):-1,2);
 
@@ -94,31 +98,33 @@ class CourseExport implements FromCollection , ShouldAutoSize, WithMapping, With
 
             $students[$key_student]->pending_calification =$activities_pending;
         }
+
         return collect($students);
     }
 
     public function map($students): array
     {
-        
         return [
             $students->user_name,
             $students->user_lastname,
-            $students->score ? $students->score : '0' , 
+            $students->teacher_name,
+            $students->progress <= -1 ? '0 %' :$students->progress.' %' ,
+            $students->score <= -1 ? '0 %' : $students->score.' %',
             $students->score_base,
-            $this->teacher,
-            $this->area
+            $students->pending_calification,
         ];   
     }
 
     public function headings(): array
     {
         return[
-            'Nombre',
-            'Apellido',
+            'Nombre Estudiante',
+            'Apellido Estudiante',
+            'Profesor',
+            'Progreso',
             'Puntaje',
             'Puntaje Total',
-            'Profesor',
-            'Area'
+            'Calificación Pendiente'
         ];
     }
 }

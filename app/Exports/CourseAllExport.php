@@ -21,6 +21,8 @@ class CourseAllExport implements FromCollection , ShouldAutoSize, WithMapping, W
     */    
     public function collection()
     {
+        ini_set('max_execution_time', 300);
+
         $score_base=ConfigurationParameter::where('code','CALIFICATION_BASE')->where('deleted',0)->first();
 
         $weekly_plans=DB::table('weekly_plan')
@@ -31,7 +33,7 @@ class CourseAllExport implements FromCollection , ShouldAutoSize, WithMapping, W
                     ->join('users', 'users.id', '=', 'classroom_student.id_user')
                     ->join('classroom', 'classroom.id','=','classroom_student.id_classroom')
                     ->select('users.id as user_id','users.name as user_name','users.last_name as user_lastname', 'users.picture as user_picture', 'users.email as user_email','classroom.name as classroom')
-                    ->orderBy('classroom')
+                    ->take(60)
                     ->get();
 
         foreach ($students as $key_student => $student) {
