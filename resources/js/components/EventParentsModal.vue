@@ -79,7 +79,6 @@
     Vue.use(require("vue-moment"));
     Vue.component("multiselect", Multiselect);
     export default {
-
         props: ["concurrent", "type_u", "dias", "clases", "user", "getMenu"],
         data() {
             return {

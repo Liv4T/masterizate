@@ -1,9 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-  @if (Auth::user()->type_user == '2')
-        <menu-docente></menu-docente>
-  @endif
+ @include('menu')
 <teacher-students></teacher-students>
 <footers></footers>
 <div class="container">

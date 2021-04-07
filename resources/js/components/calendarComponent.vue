@@ -44,12 +44,15 @@
                     <div class="row" v-show="type_u==2 || type_u==4">
                         <a class="btn btn-warning float-right mt-2 ml-3" v-on:click.prevent="createE()">Crear evento</a>
                     </div>
-                    <div v-show="type_u === 4">
-                        <event-parents-modal :concurrent="concurrent" :type_u="type_u" :dias="dias" :clases="clases"
-                            :user="this.user" :getMenu="getMenu"></event-parents-modal>
+                    <div class="row" v-show="type_u==7">
+                        <a class="btn btn-warning float-right mt-2 ml-3" href="/tutor/cronograma">Registrar horario de tutorías</a>
                     </div>
                     <div v-show="type_u === 4">
-                        <modal-edit-parents-info :concurrent="concurrent" :type_u="type_u" :user="this.user"
+                        <event-parents-modal :concurrent="concurrent" :type_u="type_u" :dias="dias" :clases="clases"
+                            :user="user" :getMenu="getMenu"></event-parents-modal>
+                    </div>
+                    <div v-show="type_u === 4">
+                        <modal-edit-parents-info :concurrent="concurrent" :type_u="type_u" :user="user"
                             :dias="dias" :getMenu="getMenu"></modal-edit-parents-info>
                     </div>
                     <br />
@@ -378,6 +381,10 @@
         props: ["type_u","user"],
         data() {
             return {
+                diaSemana:null,
+                typeEvent:null,
+                concurrent:[],
+                dias:[],
                 display_events: true,
                 display_activities: true,
                 desde: "",
@@ -442,6 +449,9 @@
             this.getData();
         },
         methods: {
+            selectChange(){
+
+            },
             getData(){
                 const fullCalendarApi = this.$refs.fullCalendar.getApi();
                 this.getInvitations();

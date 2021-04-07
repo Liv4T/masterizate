@@ -13,6 +13,15 @@ use App\Quarterly;
 use App\CoursesAchievement;
 use App\Courses;
 use App\ClassroomStudent;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\StudentsExport;
+use App\Exports\MateriasByTeacherExport;
+use App\Exports\MateriasTeachersExport;
+use App\Exports\CourseExport;
+use App\Exports\NotesExport;
+use App\Exports\PlanificationExport;
+use App\Exports\PlanificationQuaterlyExport;
+use App\Exports\PlanificationCoursesExport;
 
 class SchoolGovernmentController extends Controller
 {
@@ -26,7 +35,7 @@ class SchoolGovernmentController extends Controller
         return view("schoolGovernment");
     }
 
-    public function reportTeacher($teacherId){
+    public function areaTeacher($teacherId){
         $user_asignated = ClassroomTeacher::where('id_user', $teacherId)->get();
         $areas = [];
         if (isset($user_asignated)) {
@@ -46,40 +55,32 @@ class SchoolGovernmentController extends Controller
         return response()->json($areas);
     }
 
-    public function reportPlanificationTeacher($teacherId, $id_area, $id_classroom){
-        $quaterly = [];
-        $achievements = [];
+    public function reportTeacher($teacherId){
+        return Excel::download(new MateriasByTeacherExport($teacherId),'Reporte_Materias.xlsx');
+    }
+    
+    public function reportAllMateriasTeachers(){
+        return Excel::download(new MateriasTeachersExport(),'Reporte_Materias.xlsx');
+    }
 
-        $Courses = Courses::where('id_teacher', $teacherId)->where('id_area', $id_area)->where('id_classroom', $id_classroom)->first();
-        if (isset($Courses)) {
-            $achievements = CoursesAchievement::where('id_planification', $Courses->id)->get();
+    public function reportCourse(int $area_id,int $classroom_id, String $teacher, String $area){
+        return Excel::download(new CourseExport($area_id, $classroom_id, $teacher, $area),'Reporte_Curso.xlsx');
+    }
 
-            $Quarterlies = Quarterly::where('id_teacher', $teacherId)->where('id_area', $id_area)->where('id_classroom', $id_classroom)->get();
-            $Courses->achievements = $achievements;
-            foreach ($Quarterlies as $key => $Quarterly) {
-                $quaterly[$key] = [
-                    'id' => $Quarterly->id,
-                    'content' => $Quarterly->content,
-                    'unit_name' => $Quarterly->unit_name
-                ];
-            }
-        }
-        $classroom_name = '';
-        $classroom = Classroom::where('id', $id_classroom)->get();
-        $area = Area::where('id', $id_area)->get();
+    public function reportNotes(int $area_id,int $classroom_id, String $teacher_name, String $area_name){
+        return Excel::download(new NotesExport($area_id, $classroom_id, $teacher_name, $area_name),'Reporte_Notas.xlsx');
+    }
 
-        if (isset($classroom) && count($classroom) > 0 && isset($area) && count($area) > 0) {
-            $classroom_name = $area[0]->name . ' ' . $classroom[0]->name;
-        }
+    public function reportPlanificationTeacher(String $teacherId, String $id_area, String $id_classroom, String $teacher){
+        return Excel::download(new PlanificationExport($teacherId, $id_area, $id_classroom, $teacher),'Reporte_Planificación_Anual.xls');
+    }
 
-        $data = [
-            'classroom_name' => $classroom_name,
-            'quaterly' =>  $quaterly,
-            'courses' => $Courses,
-            'achievements' => $achievements
-        ];
+    public function reportPlanificationQuaterlyTeacher(String $teacherId, String $id_area, String $id_classroom, String $teacher){
+        return Excel::download(new PlanificationQuaterlyExport($teacherId, $id_area, $id_classroom, $teacher),'Reporte_Planificación_Trimestral.xls');
+    }
 
-        return response()->json($data);
+    public function reportPlanificationCoursesTeacher(String $id_area, String $id_classroom, String $teacher){
+        return Excel::download(new PlanificationCoursesExport($id_area, $id_classroom, $teacher),'Reporte_Planificación_Clases.xls');
     }
 
     public function students(){
@@ -102,30 +103,8 @@ class SchoolGovernmentController extends Controller
         return response()->json($user);
     }
 
-    public function getReportStudents(String $idStudent, String $idParent){
-        $infoStudents=[];
-        $students = User::where('id','=',$idStudent)->get();
-        $parents = User::where('id','=',$idParent)->get();
-        
-        foreach($students as $student){
-            foreach($parents as $parent){
-                if($student->parent_id === $parent->id){
-                    $infoStudents = array_merge($infoStudents, array(
-                        "Estudiante"=>$student->name.' '.$student->last_name,
-                        "Email_Estudiante"=>strval($student->email),
-                        "Acudiente"=>$parent->name,
-                        "Identificacion_Estudiante"=>$student->id_number,
-                        "Identificacion_Acudiente"=>$parent->id_number,
-                        "Telefono_Acudiente"=>$parent->phone
-                    ));
-                    return response()->json($infoStudents);
-                }else{
-                    return "No se encuentra información correspopondiente al estudiante";
-                }
-            }
-        }
-
-        
+    public function getReportStudents(){
+        return Excel::download(new StudentsExport,'Reporte_Estudiantes.xlsx');  
     }
     /**
      * Show the form for creating a new resource.

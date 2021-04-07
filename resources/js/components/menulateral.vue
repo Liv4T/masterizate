@@ -137,6 +137,14 @@
                                             />
                                             Boletín de notas
                     </a>-->
+                     <a href="/estudiante/tutorias">
+                      <img
+                        width="35px"
+                        src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/ACTIVIDADES_naranja.png?alt=media&token=93ec6b97-e5a6-4eca-891e-b63bf2a352ad"
+                        alt
+                      />
+                      Tutorías
+                    </a>
                   </div>
                 </li>
               </a>

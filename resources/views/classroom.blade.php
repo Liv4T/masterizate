@@ -1,10 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-  @if (Auth::user()->type_user == '5')
-        <menu-psychology></menu-psychology>
-        <inicio-component></inicio-component>
-  @endif
+  @include('menu')
+  <inicio-component></inicio-component>
   <classroom-component :type_u="{{ $type_user }}"></classroom-component>
   <footers></footers>
 <div class="container">

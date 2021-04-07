@@ -2,7 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Area;
+use App\Classroom;
+use App\ClassroomTeacher;
+use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class LectiveCourseController extends Controller
 {
@@ -28,7 +33,7 @@ class LectiveCourseController extends Controller
 
         $user = User::find($auth->id);
         $areas = [];
-        if ($user->type_user == 1) {
+        if ($user->isAdmin()) {
             $user_asigneds = ClassroomTeacher::all();
             foreach ($user_asigneds as $key => $user_asigned) {
                 $user = User::find($user_asigned->id_user);
@@ -40,7 +45,7 @@ class LectiveCourseController extends Controller
                     'id_classroom' => isset($classroom->id) ? $classroom->id : '',
                 ];
             }
-        } elseif ($user->type_user == 2) {
+        } elseif ($user->isTeacher()||$user->isTutor()) {
             $user_asignated = ClassroomTeacher::where('id_user', $user->id)->get();
             if (isset($user_asignated)) {
                 foreach ($user_asignated as $key => $area) {
@@ -53,7 +58,7 @@ class LectiveCourseController extends Controller
                     ];
                 }
             }
-        } elseif ($user->type_user == 3) {
+        } elseif ($user->isStudent()) {
             $user_asignateds = ClassroomStudent::where('id_user', $user->id)->get();
             if (isset($user_asignateds)) {
                 foreach ($user_asignateds as $key => $user_asignated) {

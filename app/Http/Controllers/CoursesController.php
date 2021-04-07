@@ -31,14 +31,14 @@ class CoursesController extends Controller
         $achievements = [];
         if ($user->type_user == 1) {
             $Courses = Courses::where('id_area', $id_area)->where('id_classroom', $id_classroom)->first();
-        } elseif ($user->type_user == 2) {
+        } elseif ($user->isTeacher()||$user->isTutor()) {
             $Courses = Courses::where('id_teacher', $user->id)->where('id_area', $id_area)->where('id_classroom', $id_classroom)->first();
         }
         if (isset($Courses)) {
             $achievements = CoursesAchievement::where('id_planification', $Courses->id)->get();
             if ($user->type_user == 1) {
                 $Quarterlies = Quarterly::where('id_area', $id_area)->where('id_classroom', $id_classroom)->get();
-            } elseif ($user->type_user == 2) {
+            } elseif ($user->isTeacher()||$user->isTutor()) {
                 $Quarterlies = Quarterly::where('id_teacher', $user->id)->where('id_area', $id_area)->where('id_classroom', $id_classroom)->get();
             }
             // $data[0] = [
@@ -101,7 +101,7 @@ class CoursesController extends Controller
                     'calification_base'=>$user_asigned->percent_calification
                 ];
             }
-        } elseif ($user->type_user == 2) {
+        } elseif ($user->isTeacher()||$user->isTutor()) {
             $user_asignated = ClassroomTeacher::where('id_user', $user->id)->get();
             if (isset($user_asignated)) {
                 foreach ($user_asignated as $key => $area) {
@@ -147,7 +147,7 @@ class CoursesController extends Controller
         $user = Auth::user();
         $data = $request->all();
 
-        if (isset($user) && $user->type_user == 2) {
+        if (isset($user) && ($user->isTutor()||$user->isTeacher())) {
 
             if(!isset($data)) {return;}
 
@@ -442,7 +442,7 @@ class CoursesController extends Controller
     {
         $user = Auth::user();
         $data = [];
-        if ($user->type_user == 1) {
+        if ($user->isAdmin()) {
             $Weeks = Weekly::where('id_area', $id_area)->where('id_classroom', $id_classroom)->get();
             // $data[0] = [
             //     'id'   => 0,
@@ -458,7 +458,7 @@ class CoursesController extends Controller
                     'id_classroom' =>  $week->id_classroom,
                 ];
             }
-        } elseif ($user->type_user == 2) {
+        } elseif ($user->isTeacher()||$user->isTutor()) {
             $Weeks = Weekly::where('id_teacher', $user->id)->where('id_area', $id_area)->where('id_classroom', $id_classroom)->get();
             $data = [];
             // $data[0] = [

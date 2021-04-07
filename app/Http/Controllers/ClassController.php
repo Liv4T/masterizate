@@ -947,9 +947,9 @@ class ClassController extends Controller
         $achievements = [];
         $area = [];
         $classroom = [];
-        if ($user->type_user == 3) {
+        if ($user->isStudent()) {
             $Courses = Courses::where('id_area', $week->id_area)->where('id_classroom', $week->id_classroom)->first();
-        } elseif ($user->type_user == 2) {
+        } elseif ($user->isTeacher()||$user->isTutor()) {
             $Courses = Courses::where('id_teacher', $user->id)->where('id_area', $week->id_area)->where('id_classroom', $week->id_classroom)->first();
         }
         if (isset($Courses)) {
@@ -1191,12 +1191,12 @@ class ClassController extends Controller
         return view("activity", compact("week"));;
     }
 
-    /* 
-        Función para desactivar las clases 
+    /*
+        Función para desactivar las clases
         se itera el array que contiene los arrays de clases y ciclos
-        para iterar por el array de clases y desactivarlos mediante el id 
+        para iterar por el array de clases y desactivarlos mediante el id
 
-        se itera el array de ciclos para obtener 
+        se itera el array de ciclos para obtener
         el ciclo o ciclos que llegan para su futuro uso
         descomentar las lineas 1199 y 1203 en caso de ser necesario
         para obtener los ciclos que llegan

@@ -1,14 +1,15 @@
 @extends('layouts.app')
 
 @section('content')
-@if (Auth::user()->type_user == '2')
-    <menu-docente></menu-docente>
+@include('menu')
+@if (Auth::user()->isTeacher()||Auth::user()->isPsychology()||Auth::user()->isTutor())
+    <inicio-component></inicio-component>
+@endif
+@if (Auth::user()->isTeacher())
     <observer-component :user="{{Auth::user()}}"></observer-component>
 @endif
-@if (Auth::user()->type_user == '4')
-    <menu-padres></menu-padres>
-@endif
-    
+
+
 <div class="container">
     <div class="row justify-content-center">
         <div class="card-body"> @if (session('status'))

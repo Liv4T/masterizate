@@ -70,7 +70,7 @@
                                 <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordion">
                                     <div class="card-body">
                                         <div class="form-group text-center">
-                                            <button class="btn btn-primary" data-toggle="modal" data-target="#reportEstudianteModal">Reporte de Estudiantes</button>
+                                            <button class="btn btn-primary" v-on:click="getStudentsReport">Reporte de Estudiantes</button>
                                         </div>
                                     </div>
                                 </div>
@@ -83,7 +83,6 @@
         <modal-docente></modal-docente>
         <modal-planif-docente></modal-planif-docente>
         <modal-course></modal-course>
-        <modal-estudiante></modal-estudiante>
         <modal-materias></modal-materias>
     </div>
 </template>
@@ -98,7 +97,9 @@ export default {
 
     },
     methods:{
-
+        getStudentsReport(){
+            window.open("reportStudents", "_self")
+        }
     }
 }
 </script>

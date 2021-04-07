@@ -4,6 +4,7 @@ use App\Message;
 use App\User;
 use App\Events\MessagePosted;
 use App\Exports\ProductsExport;
+use App\Exports\StudentsExport;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Excel;
@@ -709,6 +710,14 @@ Route::middleware('auth')->get('/admin/clases', function () {
     return view('adminCourses');
 });
 
+Route::middleware('auth')->get('/tutor/cronograma', function () {
+    return view('tutorSchedule');
+});
+
+Route::middleware('auth')->get('/estudiante/tutorias', function () {
+    return view('studentSchedule');
+});
+
 Route::put('/test','ClassController@deactivateClass')->name('test');
 
 //api rest
@@ -736,6 +745,11 @@ Route::get('/api/event/today', 'EventsController@todayEvents');
 Route::get('/api/admin/configuration/property/{code}', 'ConfigurationController@getPropertyByCode');
 Route::put('/api/admin/configuration/property/{code}', 'ConfigurationController@setProperty');
 Route::get('/api/student/{student_id}/calification-report', 'CalificationController@generateTemplateCalification');
+Route::get('/api/tutor/area/{area_id}/classroom/{classroom_id}/schedule', 'TutorController@GetAllSchedule');
+Route::post('/api/tutor/area/{area_id}/classroom/{classroom_id}/schedule', 'TutorController@AddSchedule');
+Route::put('/api/tutor/area/{area_id}/classroom/{classroom_id}/schedule/{schedule_id}', 'TutorController@UpdateSchedule');
+Route::delete('/api/tutor/area/{area_id}/classroom/{classroom_id}/schedule/{schedule_id}', 'TutorController@DeleteSchedule');
+Route::get('/api/student/area/{area_id}/classroom/{classroom_id}/available-schedule/{date_find}', 'TutorController@GetAvailableSchedule');
 
 
 Route::get('/api/lectives', 'LectivesController@getLectives');
@@ -759,7 +773,7 @@ Route::get('/api/lectives/planification/{id_lective_planification}/activities', 
 Route::put('/api/lectives/planification/{id_lective_planification}/weekly/{id_weekly_plan}/course/{id_class}/activity/{id_activity}/module/ENCUESTA_UNICA_RTA/question/{id_question}', 'QuestionController@responseQuestiononLective');
 Route::put('/api/planification/copy', 'CoursesController@copyInformation');
 
-//parents 
+//parents
 
 Route::resource('/parents', 'ParentsController');
 Route::get('/getInvitations','ParentsController@getInvitatios');
@@ -774,7 +788,7 @@ Route::resource('/historyPsicology', 'HistoryPsicologyController');
 Route::resource('/followUps', 'FollowUpsController');
 Route::resource('/comunicates', 'ComunicatesController');
 
-//Observer 
+//Observer
 Route::resource('/observer','ObserverController');
 Route::get('/dataUsers','ObserverController@getDataParentsStudents');
 
@@ -791,14 +805,22 @@ Route::resource('/members','SchoolGovernmentMembersController');
 Route::middleware('auth')->get('/reportsGovernment', function () {
     return view('reportsGovernment');
 });
-Route::get('GetAreaToReport/{idTeachers}','SchoolGovernmentController@reportTeacher');
-Route::get('GetPlanificationTeacher/{teacherId}/{id_area}/{id_classroom}','SchoolGovernMentController@reportPlanificationTeacher');
+
 Route::post('GetCoursesInformation','SchoolGovernmentController@getCoursesInformation');
 Route::get('showUser/{userid}','SchoolGovernmentController@user');
 Route::get('getAllAreas', 'SchoolGovernmentController@getAllAreas');
-Route::get('reportStudents/{idStudent}/{idParent}','SchoolGovernmentController@getReportStudents');
 Route::get('getAllStudents','SchoolGovernmentController@students');
+Route::get('GetAreaTeacher/{idTeachers}','SchoolGovernmentController@areaTeacher');
 
+//Route for download reports Government
+Route::get('reportStudents','SchoolGovernmentController@getReportStudents');
+Route::get('GetMateriasToReport','SchoolGovernmentController@reportAllMateriasTeachers');
+Route::get('GetAreaToReport/{idTeachers}','SchoolGovernmentController@reportTeacher');
+Route::get('reportCourse/{id_area}/{id_classroom}/{teacher}/{area}','SchoolGovernmentController@reportCourse');
+Route::get('reportNotes/{area_id}/{classroom_id}/{teacher_name}/{area_name}','SchoolGovernmentController@reportNotes');
+Route::get('GetPlanificationTeacher/{teacherId}/{id_area}/{id_classroom}/{teacher}','SchoolGovernmentController@reportPlanificationTeacher');
+Route::get('GetPlanificationQuaterlyTeacher/{teacherId}/{id_area}/{id_classroom}/{teacher}','SchoolGovernmentController@reportPlanificationQuaterlyTeacher');
+Route::get('GetPlanificationCoursesTeacher/{id_area}/{id_classroom}/{teacher}','SchoolGovernmentController@reportPlanificationCoursesTeacher');
 
 //Staments Of Government School
 Route::resource('staments','StamentsController');

@@ -216,9 +216,6 @@ Vue.component("teacher-student-class-content", () => import ("./components/teach
 Vue.component("notification-component", () => import ("./components/notificationComponent.vue"));
 Vue.component("content-loader", () => import ("./components/contentLoaderComponent.vue"));
 
-
-Vue.use(CKEditor);
-
 //Padres
 Vue.component("menu-padres", () => import("./components/menuPadres.vue"));
 Vue.component("parents-component", () => import("./components/parents.vue"));
@@ -226,11 +223,16 @@ Vue.component("event-parents-modal", () => import("./components/EventParentsModa
 Vue.component("modal-edit-parents-info", () => import("./components/ModalEditParentsInfo.vue"));
 Vue.component("parents-observer", () => import("./components/ParentsObserver.vue"));
 
-//Psicologia 
+//Psicologia
 Vue.component("comunicates-component", () => import("./components/Comunicates.vue"));
 Vue.component("history-psicology-component", ()=> import("./components/HistorialPsicologia.vue"));
-Vue.component("follow-ups-component", ()=>import("./components/Seguimientos.vue"));
+Vue.component("follow-ups-component", ()=>import("./components/Seguimientos.vue"))
 Vue.component("modal-create-reason-component", () => import("./components/ModalReasonCreate.vue"));
+
+//Tutor
+Vue.component("menu-tutor", () => import("./components/menuTutor.vue"));
+Vue.component("tutor-schedule", () => import("./components/tutorScheduleComponent.vue"));
+Vue.component("student-schedule", () => import("./components/studentScheduleComponent.vue"));
 
 //Observer
 Vue.component("observer-component", () => import("./components/Observer.vue"));
@@ -250,17 +252,21 @@ Vue.component("students-component", () => import("./components/students.vue"));
 Vue.component("report-notes-component", () => import("./components/reportNotes.vue"));
 
 //
-Vue.component("government-members-component", () => import("./components/schoolGovernmentMembers.vue"))
+Vue.component("government-members-component", () => import("./components/schoolGovernmentMembers.vue"));
 Vue.component("modal-create-government-member", ()=>import("./components/ModalCreateGovernmentMember.vue"));
 Vue.component("modal-edit-government-member", () => import("./components/ModalEditGovernmentMember.vue"));
-Vue.component("reports-government", ()=> import("./components/reportsGovernment.vue"))
-Vue.component("modal-docente", ()=> import("./components/modalDocenteReport.vue"))
+Vue.component("reports-government", ()=> import("./components/reportsGovernment.vue"));
+Vue.component("modal-docente", ()=> import("./components/modalDocenteReport.vue"));
 Vue.component("modal-planif-docente", ()=> import("./components/modalDocentePlanifReport.vue"));
 Vue.component("modal-course", ()=> import("./components/modalDocenteCurso.vue"));
-Vue.component("modal-estudiante", ()=> import("./components/modalEstudiante.vue"));
 Vue.component("modal-materias", ()=> import("./components/modalMaterias.vue"));
 Vue.component("staments-component", ()=> import("./components/Staments.vue"));
 Vue.component("staments-chat-component", ()=> import("./components/StamentsChat.vue"));
 Vue.component("modal-chat", ()=> import("./components/modalChat.vue"));
 Vue.component("members-chat", ()=> import("./components/modalMembers.vue"));
+
+
+Vue.use(CKEditor);
+
+
 const app = new Vue({el: "#app", data: {}, store});

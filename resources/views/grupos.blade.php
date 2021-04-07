@@ -2,20 +2,10 @@
 
 @section('content')
  {{-- <examp></examp> --}}
-   @if (Auth::user()->type_user == '2')
-        <menu-docente></menu-docente>
+       @include('menu')
+    @if (Auth::user()->isTeacher()||Auth::user()->isPsychology()||Auth::user()->isTutor())
         <inicio-component></inicio-component>
-  @endif
-  @if (Auth::user()->type_user == '3')
-    <menu-lateral></menu-lateral>
- @endif
-  @if (Auth::user()->type_user == '1')
-    <menu-adm></menu-adm>
- @endif
- @if (Auth::user()->type_user == '5')
-    <menu-psychology></menu-psychology>
-    <inicio-component></inicio-component>
- @endif
+    @endif
  <div class="back">
 <div class="container" style="background-image:url('uploads/Fondo_chat.jpg');">
     <div class="row">

@@ -2,15 +2,10 @@
 
 @section('content')
 @section('content')
-  @if (Auth::user()->type_user == '2')
-        <menu-docente></menu-docente>
-  @endif
-  @if (Auth::user()->type_user == '3')
-    <menu-lateral></menu-lateral>
- @endif
-  @if (Auth::user()->type_user == '1')
-    <menu-adm></menu-adm>
- @endif
+  @include('menu')
+    @if (Auth::user()->isTeacher()||Auth::user()->isPsychology()||Auth::user()->isTutor())
+        <inicio-component></inicio-component>
+    @endif
     <lectives-teacher-indicators :id_lective_planification="{{ $id_lective_planification }}"></lectives-teacher-indicators>
 
 

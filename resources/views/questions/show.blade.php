@@ -1,13 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
- @if (Auth::user()->type_user == '2')
-        <menu-docente></menu-docente>
-        <inicio-component></inicio-component>
-  @endif
-  @if (Auth::user()->type_user == '3')
-    <menu-lateral></menu-lateral>
- @endif
+@include('../menu')
+@if (Auth::user()->isTeacher()||Auth::user()->isPsychology()||Auth::user()->isTutor())
+<inicio-component></inicio-component>
+@endif
     <div class="back">
         <div class="row justify-content-center">
             <div class="col-md-10">
