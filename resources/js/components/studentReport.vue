@@ -148,6 +148,6 @@ export default {
         -moz-border-radius: 50px;
         border-radius: 50px;
         font-size: 24px;
-        line-height: 32px;
+        line-height: 32px; 
     }
 </style>

@@ -79,7 +79,6 @@
         <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5LM3568"
         height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <!-- End Google Tag Manager (noscript) -->
-      <script async>(function(s,u,m,o,j,v){j=u.createElement(m);v=u.getElementsByTagName(m)[0];j.async=1;j.src=o;j.dataset.sumoSiteId='fda9738d6b78e9256a2eb1e537439a685fc0ecde74f6f970100d520830899d14';v.parentNode.insertBefore(j,v)})(window,document,'script','//load.sumo.com/');</script>
         <landing-component></landing-component>
         <footer-landing></footer-landing>
     </div>

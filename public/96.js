@@ -454,13 +454,6 @@ var render = function() {
                                       color: "red",
                                       "font-size": "18px"
                                     }
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> develop
-=======
->>>>>>> develop
                                   },
                                   [_vm._v("Espere estamos cargando su archivo")]
                                 )
@@ -497,48 +490,6 @@ var render = function() {
                                     staticStyle: {
                                       color: "green",
                                       "font-size": "20px"
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-                                  }
-                                },
-                                _vm._l(_vm.myOptions, function(option) {
-                                  return _c(
-                                    "option",
-                                    {
-                                      domProps: {
-                                        value:
-                                          option.id + "/" + option.id_classroom
-                                      }
-                                    },
-                                    [
-                                      _vm._v(
-                                        "\n                          " +
-                                          _vm._s(option.text) +
-                                          "\n                        "
-                                      )
-                                    ]
-                                  )
-                                }),
-                                0
-                              )
-                            ]),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "col-md-4" }, [
-                              _c(
-                                "a",
-                                {
-                                  staticClass: "btn btn-warning",
-                                  attrs: { href: "#" },
-                                  on: {
-                                    click: function($event) {
-                                      $event.preventDefault()
-                                      return _vm.duplicar(_vm.materia)
->>>>>>> 4a83d3a4cd430aa6033ce621f5b1104d21e43758
-=======
->>>>>>> develop
-=======
->>>>>>> develop
                                     }
                                   },
                                   [
@@ -717,13 +668,6 @@ var render = function() {
                                   },
                                   [
                                     _vm._v(
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> develop
-=======
->>>>>>> develop
                                       "Archivo cargado con exito nombre:" +
                                         _vm._s(_vm.message) +
                                         " "
@@ -741,54 +685,6 @@ var render = function() {
                                     staticStyle: {
                                       color: "red",
                                       "font-size": "18px"
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-                                      "\n                        Logro " +
-                                        _vm._s(k + 1) +
-                                        "\n                        "
-                                    ),
-                                    _c("input", {
-                                      directives: [
-                                        {
-                                          name: "model",
-                                          rawName: "v-model",
-                                          value: option.percentage,
-                                          expression: "option.percentage"
-                                        }
-                                      ],
-                                      staticStyle: { width: "50px" },
-                                      attrs: { type: "number", required: "" },
-                                      domProps: { value: option.percentage },
-                                      on: {
-                                        input: function($event) {
-                                          if ($event.target.composing) {
-                                            return
-                                          }
-                                          _vm.$set(
-                                            option,
-                                            "percentage",
-                                            $event.target.value
-                                          )
-                                        }
-                                      }
-                                    }),
-                                    _vm._v("%\n                      ")
-                                  ])
-                                ]),
-                                _vm._v(" "),
-                                _c("textarea", {
-                                  directives: [
-                                    {
-                                      name: "model",
-                                      rawName: "v-model",
-                                      value: option.achievement,
-                                      expression: "option.achievement"
->>>>>>> 4a83d3a4cd430aa6033ce621f5b1104d21e43758
-=======
->>>>>>> develop
-=======
->>>>>>> develop
                                     }
                                   },
                                   [_vm._v("Espere estamos cargando su archivo")]

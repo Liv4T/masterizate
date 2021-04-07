@@ -545,7 +545,6 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
     },
     saveData: function saveData() {
       var _this6 = this;
-<<<<<<< HEAD
 
       axios.put("/api/teacher/module/".concat(this.id_module, "/class"), this.course).then(function (response) {
         // this.getPlanificationEvent(this.id_lective_planification);
@@ -645,107 +644,6 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
     stopLooading: function stopLooading(item_index) {
       var _this9 = this;
 
-=======
-
-      axios.put("/api/teacher/module/".concat(this.id_module, "/class"), this.course).then(function (response) {
-        // this.getPlanificationEvent(this.id_lective_planification);
-        toastr.success("Clases actualizadas correctamente");
-
-        _this6.returnPage();
-      }, function (error) {
-        console.log(error);
-        toastr.error("ERROR:Por favor valide que la información esta completa");
-      });
-    },
-    selectActivityType: function selectActivityType(activity) {
-      switch (activity.activity_type) {
-        case "CUESTIONARIO_UNICA_RTA":
-          activity.module = {
-            questions: [{
-              question: "",
-              type_question: "SIMPLE_RTA",
-              options: [{
-                content: ""
-              }, {
-                content: ""
-              }],
-              valid_answer_index: 0,
-              justify: ""
-            }]
-          };
-          break;
-      }
-    },
-    AddQuestion: function AddQuestion(activity) {
-      activity.module.questions.push({
-        question: "",
-        type_question: "SIMPLE_RTA",
-        options: [{
-          content: ""
-        }, {
-          content: ""
-        }],
-        valid_answer_index: 0,
-        justify: ""
-      });
-    },
-    AddOptionOnQuestion: function AddOptionOnQuestion(activity, index) {
-      activity.module.questions[index].options.push({
-        content: ""
-      });
-    },
-    RemoveOptionOnQuestion: function RemoveOptionOnQuestion(activity, index_question, index) {
-      activity.module.questions[index_question].options.splice(index, 1);
-    },
-    onFileChange: function onFileChange(file, item_index) {
-      var _this7 = this;
-
-      console.log(item_index);
-      this.is_loading = true;
-      var files = file.target.files || file.dataTransfer.files;
-      var data = new FormData();
-
-      if (files.length > 0) {
-        this.course.content[item_index].progress_bar_percent = 10;
-        console.log("evento");
-        this.initLoading(item_index, 20);
-        var _file = files[0];
-
-        var _fileNameSplit = _file.name.split("."); // if uploaded file is valid with validation rules
-
-
-        var file_extension = _fileNameSplit[_fileNameSplit.length - 1];
-
-        var file_name = _file.name.replace(".".concat(file_extension), "");
-
-        data.append("file", files[0]);
-        data.append("name", file_name);
-        data.append("count", "-class-".concat(item_index));
-        axios.post("/fileDocument", data).then(function (response) {
-          _this7.course.content[item_index].content = "".concat(window.location.origin, "/uploads/clases/").concat(file_name.split(" ").join("_"), "-class-").concat(item_index, ".").concat(file_extension);
-
-          _this7.stopLooading(item_index);
-        })["catch"](function (err) {
-          _this7.stopLooading(item_index);
-        });
-      } else {
-        this.stopLooading(item_index);
-      }
-    },
-    initLoading: function initLoading(item_index, percent) {
-      var _this8 = this;
-
-      if (this.course.content[item_index].progress_bar_percent != 0 && this.course.content[item_index].progress_bar_percent < percent && percent < 100) {
-        this.course.content[item_index].progress_bar_percent = this.course.content[item_index].progress_bar_percent + 20;
-        setTimeout(function () {
-          _this8.initLoading(item_index, percent + 20);
-        }, 2000);
-      }
-    },
-    stopLooading: function stopLooading(item_index) {
-      var _this9 = this;
-
->>>>>>> develop
       this.course.content[item_index].progress_bar_percent = 100;
       setTimeout(function () {
         _this9.course.content[item_index].progress_bar_percent = 0;
@@ -786,19 +684,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-exports.push([module.i, "\n.align-self-end[data-v-aeb68f64]{\n    display: flex;\n    justify-content: flex-end;\n    align-items: center;\n}\n.percent-calification-base[data-v-aeb68f64]{\n    margin-bottom: 20px;\n}\n.percent-calification-save[data-v-aeb68f64]{\n     display: flex;\n    justify-content: flex-start;\n}\n.percent-calification-save input[data-v-aeb68f64]{\n    max-width: 80px;\n}\n.percent-calification-save>button[data-v-aeb68f64]{\n    margin-left: 20px;\n}\n.area_container[data-v-aeb68f64]{\n    display: flex;\n    padding: 10px;\n    border:2px solid #fff1d2;\n    border-radius:4px;\n    margin-top:10px;\n    transition: background 0.8s;\n    font-weight: 600;\n    font-family: \"Century Gothic\";\n    color:#000;\n}\n.area_container[data-v-aeb68f64]:hover{\n      box-shadow: 0 0 11px rgba(33,33,33,.2);\n      cursor: default;\n      background: #ffc039 radial-gradient(circle, transparent 1%, white 1%) center/15000%;\n      color:#000;\n}\n.area_container[data-v-aeb68f64]:active {\n  background-color: #ffc039;\n  background-size: 100%;\n  text-decoration: none;\n  transition: background 0s;\n   color:white;\n}\n.area_container-active[data-v-aeb68f64]{\n     background-color: #ffc039;\n     color:#000;\n}\n.student_info[data-v-aeb68f64]{\n    display: flex;\n    flex-direction: column;\n}\n.student_name[data-v-aeb68f64]{\n    display: flex;\n    flex-direction: row;\n    justify-content: flex-start;\n    align-items: center;\n}\n.student_name>img[data-v-aeb68f64]{\n    margin-right: 8px;\n}\n.student_notify[data-v-aeb68f64]{\n    background: #edffff;\n    padding: 3px;\n    color:#278080;\n}\n", ""]);
-=======
 exports.push([module.i, "\n.div-weekly-plan {\n    display: flex;\n    flex-direction: row;\n    justify-content: space-around;\n    padding: 10px;\n}\n.div-weekly-plan label {\n    font-size: 1.2em;\n    font-weight: 700;\n}\n.div-classes {\n    display: flex;\n    flex-direction: column;\n    justify-content: center;\n    padding: 5px;\n}\n.div-class {\n    display: flex;\n    flex-direction: column;\n    justify-content: space-around;\n    padding: 5px;\n}\n.div-class > .title {\n    display: flex;\n    flex-direction: row;\n    justify-content: space-around;\n}\n.div-class > .content {\n    display: flex;\n    flex-direction: row;\n    justify-content: space-around;\n    margin-top: 30px;\n    flex-wrap: wrap;\n}\n.required {\n    color: red;\n}\n.div-resource {\n    padding: 30px;\n    background-color: #e9ecefb5;\n    margin: 5px;\n}\n.div-resource .form-item {\n    width: 100%;\n    padding: 5px;\n    display: flex;\n    flex-direction: column;\n    justify-content: flex-start;\n}\n.div-resource .form-item > a {\n    color: #007bff;\n}\n.div-resource .form-item > a:visited {\n    color: #007bff;\n}\n.div-resource .form-item > span {\n    padding: 10px;\n    font-size: 1.2em;\n    color: #233d68;\n    font-weight: 700;\n    border: 1px solid #233d68;\n    border-radius: 5px;\n    margin: 5px;\n}\n.div-resource .form-item > span.blue {\n    padding: 10px;\n    background-color: #edf8ff;\n    font-size: 1.2em;\n    color: #233d68;\n    font-weight: 700;\n    border: 1px solid #233d68;\n    border-radius: 5px;\n    margin: 5px;\n}\n.div-resource .form-item > span:hover {\n    background-color: white;\n    cursor: pointer;\n}\n.div-resource .form-item > .form-button {\n    width: 100%;\n    padding: 5px;\n    display: flex;\n    flex-direction: row;\n    justify-content: flex-end;\n}\n.div-resource .form-item > .form-button > button {\n    width: 50%;\n}\n.div-weekly-plan-btn-save {\n    display: flex;\n    padding: 50px;\n    justify-content: space-between;\n    flex-direction: row;\n}\n.closed-icon {\n    width: 100%;\n    display: flex;\n    justify-content: flex-end;\n    flex-direction: row;\n    cursor: pointer;\n    color: #233d68;\n}\n.margin-top-50 {\n    margin-top: 50px;\n}\n.row {\n    margin: 10px 0px;\n}\n.question {\n    background-color: #e9ecefb5;\n}\n.div-icon-add {\n    display: flex;\n    flex-direction: row;\n    justify-content: center;\n    align-items: center;\n}\n.icon-remove {\n    background-color: #f2f2f2;\n    height: 30px;\n    width: 40px;\n    border: 2px solid #8f8f8f;\n    border-radius: 5px;\n    display: flex;\n    flex-direction: row;\n    justify-content: center;\n    align-items: center;\n    cursor: default;\n\n    font-weight: 900;\n    background-color: #ffc107;\n    color: white;\n    border-color: #ffc107;\n}\n.icon-remove:hover {\n    color: #ffc107;\n    background-color: white;\n    border-color: #ffc107;\n}\n.icon-add {\n    background-color: #233d68;\n    height: 30px;\n    width: 40px;\n    border: 2px solid #233d68;\n    border-radius: 5px;\n    display: flex;\n    flex-direction: row;\n    justify-content: center;\n    align-items: center;\n    cursor: default;\n\n    font-weight: 900;\n    color: white;\n}\n.icon-add:hover {\n    color: #233d68;\n    background-color: white;\n    border-color: #233d68;\n}\n.card-title {\n    display: flex;\n    flex-direction: row;\n    justify-content: space-between;\n}\n.card-title > h5 {\n    width: 50%;\n}\n.div-check {\n    display: flex;\n    flex-direction: row;\n    justify-content: center;\n    align-items: center;\n    padding-top: 20px;\n}\n.progress {\n    width: 100%;\n    display: flex;\n    justify-content: flex-start;\n}\n.q-option {\n    background-color: white;\n    border-radius: 5px;\n    padding: 10px 20px;\n    margin: 5px;\n    border: 1px solid #f2f2f2;\n    width: 100%;\n    display: flex;\n    justify-content: space-between;\n    flex-direction: row;\n    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);\n}\n.q-option:hover {\n    background-color: #ffe7a0;\n    cursor: pointer;\n}\n.q-option-checked {\n    background-color: #007bff !important;\n    color: white;\n    box-shadow: none;\n}\n.span-solution {\n    margin-top: 20px;\n    font-size: 1.8em;\n}\n.html-content {\n    padding: 10px;\n    margin-top: 20px;\n    background-color: rgba(255, 255, 255, 1);\n}\n.container_youtube{\n    width: 100%;\n    height: 500px !important;\n}\n.activity_response-button{\n    display:flex;\n    flex-direction: row;\n    justify-content: flex-end;\n    align-items: center;\n}\n.activity_score{\n    font-size: 1.5em;\n}\n", ""]);
->>>>>>> 4a83d3a4cd430aa6033ce621f5b1104d21e43758
-=======
-exports.push([module.i, "\n.div-weekly-plan {\n    display: flex;\n    flex-direction: row;\n    justify-content: space-around;\n    padding: 10px;\n}\n.div-weekly-plan label {\n    font-size: 1.2em;\n    font-weight: 700;\n}\n.div-classes {\n    display: flex;\n    flex-direction: column;\n    justify-content: center;\n    padding: 5px;\n}\n.div-class {\n    display: flex;\n    flex-direction: column;\n    justify-content: space-around;\n    padding: 5px;\n}\n.div-class > .title {\n    display: flex;\n    flex-direction: row;\n    justify-content: space-around;\n}\n.div-class > .content {\n    display: flex;\n    flex-direction: row;\n    justify-content: space-around;\n    margin-top: 30px;\n    flex-wrap: wrap;\n}\n.required {\n    color: red;\n}\n.div-resource {\n    padding: 30px;\n    background-color: #e9ecefb5;\n    margin: 5px;\n}\n.div-resource .form-item {\n    width: 100%;\n    padding: 5px;\n    display: flex;\n    flex-direction: column;\n    justify-content: flex-start;\n}\n.div-resource .form-item > a {\n    color: #007bff;\n}\n.div-resource .form-item > a:visited {\n    color: #007bff;\n}\n.div-resource .form-item > span {\n    padding: 10px;\n    font-size: 1.2em;\n    color: #233d68;\n    font-weight: 700;\n    border: 1px solid #233d68;\n    border-radius: 5px;\n    margin: 5px;\n}\n.div-resource .form-item > span.blue {\n    padding: 10px;\n    background-color: #edf8ff;\n    font-size: 1.2em;\n    color: #233d68;\n    font-weight: 700;\n    border: 1px solid #233d68;\n    border-radius: 5px;\n    margin: 5px;\n}\n.div-resource .form-item > span:hover {\n    background-color: white;\n    cursor: pointer;\n}\n.div-resource .form-item > .form-button {\n    width: 100%;\n    padding: 5px;\n    display: flex;\n    flex-direction: row;\n    justify-content: flex-end;\n}\n.div-resource .form-item > .form-button > button {\n    width: 50%;\n}\n.div-weekly-plan-btn-save {\n    display: flex;\n    padding: 50px;\n    justify-content: space-between;\n    flex-direction: row;\n}\n.closed-icon {\n    width: 100%;\n    display: flex;\n    justify-content: flex-end;\n    flex-direction: row;\n    cursor: pointer;\n    color: #233d68;\n}\n.margin-top-50 {\n    margin-top: 50px;\n}\n.row {\n    margin: 10px 0px;\n}\n.question {\n    background-color: #e9ecefb5;\n}\n.div-icon-add {\n    display: flex;\n    flex-direction: row;\n    justify-content: center;\n    align-items: center;\n}\n.icon-remove {\n    background-color: #f2f2f2;\n    height: 30px;\n    width: 40px;\n    border: 2px solid #8f8f8f;\n    border-radius: 5px;\n    display: flex;\n    flex-direction: row;\n    justify-content: center;\n    align-items: center;\n    cursor: default;\n\n    font-weight: 900;\n    background-color: #ffc107;\n    color: white;\n    border-color: #ffc107;\n}\n.icon-remove:hover {\n    color: #ffc107;\n    background-color: white;\n    border-color: #ffc107;\n}\n.icon-add {\n    background-color: #233d68;\n    height: 30px;\n    width: 40px;\n    border: 2px solid #233d68;\n    border-radius: 5px;\n    display: flex;\n    flex-direction: row;\n    justify-content: center;\n    align-items: center;\n    cursor: default;\n\n    font-weight: 900;\n    color: white;\n}\n.icon-add:hover {\n    color: #233d68;\n    background-color: white;\n    border-color: #233d68;\n}\n.card-title {\n    display: flex;\n    flex-direction: row;\n    justify-content: space-between;\n}\n.card-title > h5 {\n    width: 50%;\n}\n.div-check {\n    display: flex;\n    flex-direction: row;\n    justify-content: center;\n    align-items: center;\n    padding-top: 20px;\n}\n.progress {\n    width: 100%;\n    display: flex;\n    justify-content: flex-start;\n}\n.q-option {\n    background-color: white;\n    border-radius: 5px;\n    padding: 10px 20px;\n    margin: 5px;\n    border: 1px solid #f2f2f2;\n    width: 100%;\n    display: flex;\n    justify-content: space-between;\n    flex-direction: row;\n    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);\n}\n.q-option:hover {\n    background-color: #ffe7a0;\n    cursor: pointer;\n}\n.q-option-checked {\n    background-color: #007bff !important;\n    color: white;\n    box-shadow: none;\n}\n.span-solution {\n    margin-top: 20px;\n    font-size: 1.8em;\n}\n.html-content {\n    padding: 10px;\n    margin-top: 20px;\n    background-color: rgba(255, 255, 255, 1);\n}\n.container_youtube{\n    width: 100%;\n    height: 500px !important;\n}\n.activity_response-button{\n    display:flex;\n    flex-direction: row;\n    justify-content: flex-end;\n    align-items: center;\n}\n.activity_score{\n    font-size: 1.5em;\n}\n", ""]);
->>>>>>> develop
-=======
-exports.push([module.i, "\n.div-weekly-plan {\n    display: flex;\n    flex-direction: row;\n    justify-content: space-around;\n    padding: 10px;\n}\n.div-weekly-plan label {\n    font-size: 1.2em;\n    font-weight: 700;\n}\n.div-classes {\n    display: flex;\n    flex-direction: column;\n    justify-content: center;\n    padding: 5px;\n}\n.div-class {\n    display: flex;\n    flex-direction: column;\n    justify-content: space-around;\n    padding: 5px;\n}\n.div-class > .title {\n    display: flex;\n    flex-direction: row;\n    justify-content: space-around;\n}\n.div-class > .content {\n    display: flex;\n    flex-direction: row;\n    justify-content: space-around;\n    margin-top: 30px;\n    flex-wrap: wrap;\n}\n.required {\n    color: red;\n}\n.div-resource {\n    padding: 30px;\n    background-color: #e9ecefb5;\n    margin: 5px;\n}\n.div-resource .form-item {\n    width: 100%;\n    padding: 5px;\n    display: flex;\n    flex-direction: column;\n    justify-content: flex-start;\n}\n.div-resource .form-item > a {\n    color: #007bff;\n}\n.div-resource .form-item > a:visited {\n    color: #007bff;\n}\n.div-resource .form-item > span {\n    padding: 10px;\n    font-size: 1.2em;\n    color: #233d68;\n    font-weight: 700;\n    border: 1px solid #233d68;\n    border-radius: 5px;\n    margin: 5px;\n}\n.div-resource .form-item > span.blue {\n    padding: 10px;\n    background-color: #edf8ff;\n    font-size: 1.2em;\n    color: #233d68;\n    font-weight: 700;\n    border: 1px solid #233d68;\n    border-radius: 5px;\n    margin: 5px;\n}\n.div-resource .form-item > span:hover {\n    background-color: white;\n    cursor: pointer;\n}\n.div-resource .form-item > .form-button {\n    width: 100%;\n    padding: 5px;\n    display: flex;\n    flex-direction: row;\n    justify-content: flex-end;\n}\n.div-resource .form-item > .form-button > button {\n    width: 50%;\n}\n.div-weekly-plan-btn-save {\n    display: flex;\n    padding: 50px;\n    justify-content: space-between;\n    flex-direction: row;\n}\n.closed-icon {\n    width: 100%;\n    display: flex;\n    justify-content: flex-end;\n    flex-direction: row;\n    cursor: pointer;\n    color: #233d68;\n}\n.margin-top-50 {\n    margin-top: 50px;\n}\n.row {\n    margin: 10px 0px;\n}\n.question {\n    background-color: #e9ecefb5;\n}\n.div-icon-add {\n    display: flex;\n    flex-direction: row;\n    justify-content: center;\n    align-items: center;\n}\n.icon-remove {\n    background-color: #f2f2f2;\n    height: 30px;\n    width: 40px;\n    border: 2px solid #8f8f8f;\n    border-radius: 5px;\n    display: flex;\n    flex-direction: row;\n    justify-content: center;\n    align-items: center;\n    cursor: default;\n\n    font-weight: 900;\n    background-color: #ffc107;\n    color: white;\n    border-color: #ffc107;\n}\n.icon-remove:hover {\n    color: #ffc107;\n    background-color: white;\n    border-color: #ffc107;\n}\n.icon-add {\n    background-color: #233d68;\n    height: 30px;\n    width: 40px;\n    border: 2px solid #233d68;\n    border-radius: 5px;\n    display: flex;\n    flex-direction: row;\n    justify-content: center;\n    align-items: center;\n    cursor: default;\n\n    font-weight: 900;\n    color: white;\n}\n.icon-add:hover {\n    color: #233d68;\n    background-color: white;\n    border-color: #233d68;\n}\n.card-title {\n    display: flex;\n    flex-direction: row;\n    justify-content: space-between;\n}\n.card-title > h5 {\n    width: 50%;\n}\n.div-check {\n    display: flex;\n    flex-direction: row;\n    justify-content: center;\n    align-items: center;\n    padding-top: 20px;\n}\n.progress {\n    width: 100%;\n    display: flex;\n    justify-content: flex-start;\n}\n.q-option {\n    background-color: white;\n    border-radius: 5px;\n    padding: 10px 20px;\n    margin: 5px;\n    border: 1px solid #f2f2f2;\n    width: 100%;\n    display: flex;\n    justify-content: space-between;\n    flex-direction: row;\n    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);\n}\n.q-option:hover {\n    background-color: #ffe7a0;\n    cursor: pointer;\n}\n.q-option-checked {\n    background-color: #007bff !important;\n    color: white;\n    box-shadow: none;\n}\n.span-solution {\n    margin-top: 20px;\n    font-size: 1.8em;\n}\n.html-content {\n    padding: 10px;\n    margin-top: 20px;\n    background-color: rgba(255, 255, 255, 1);\n}\n.container_youtube{\n    width: 100%;\n    height: 500px !important;\n}\n.activity_response-button{\n    display:flex;\n    flex-direction: row;\n    justify-content: flex-end;\n    align-items: center;\n}\n.activity_score{\n    font-size: 1.5em;\n}\n", ""]);
->>>>>>> develop
 
 // exports
 
