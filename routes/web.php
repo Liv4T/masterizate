@@ -777,7 +777,7 @@ Route::get('GetMateriasToReport','SchoolGovernmentController@reportAllMateriasTe
 Route::get('GetAreaToReport/{idTeachers}','SchoolGovernmentController@reportTeacher');
 Route::get('reportCourse/{id_area}/{id_classroom}/{teacher}/{area}','SchoolGovernmentController@reportCourse');
 
-Route::get('reportAllCourse','SchoolGovernmentController@reportAllCourse');
+Route::get('reportAllCourse/{classroom}','SchoolGovernmentController@reportAllCourse');
 Route::get('reportNotes/{area_id}/{classroom_id}/{teacher_name}/{area_name}','SchoolGovernmentController@reportNotes');
 Route::get('reportAllNotes','SchoolGovernmentController@reportAllNotes');
 

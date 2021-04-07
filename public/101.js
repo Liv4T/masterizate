@@ -66,11 +66,28 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___default.a);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
+      type_export: true,
       teachersOptions: [],
       areaOptions: [],
       saveArea: {},
@@ -97,23 +114,39 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
         });
       });
     },
-    getArea: function getArea() {
+    getAreaOrClassroom: function getAreaOrClassroom() {
       var _this2 = this;
 
-      axios.get("GetAreaTeacher/".concat(this.saveTeachers.id)).then(function (response) {
-        var area = response.data;
-        area.forEach(function (element) {
-          _this2.areaOptions.push({
-            id: element.id,
-            id_area: element.id_area,
-            id_classroom: element.id_classroom,
-            text: element.text
+      if (this.type_export === true) {
+        axios.get("GetAreaTeacher/".concat(this.saveTeachers.id)).then(function (response) {
+          var area = response.data;
+          area.forEach(function (element) {
+            _this2.areaOptions.push({
+              id: element.id,
+              id_area: element.id_area,
+              id_classroom: element.id_classroom,
+              text: element.text
+            });
           });
         });
-      });
+      } else {
+        axios.get("getClassroom").then(function (response) {
+          var areaOrClassroom = response.data;
+          areaOrClassroom.forEach(function (element) {
+            _this2.areaOptions.push({
+              id: element.id,
+              text: element.clasroom
+            });
+          });
+        });
+      }
     },
     exportData: function exportData() {
-      window.open("reportNotes/".concat(parseInt(this.saveArea.id), "/").concat(parseInt(this.saveArea.id_classroom), "/").concat(this.saveTeachers.text, "/").concat(this.saveArea.text), "_self");
+      if (this.type_export === true) {
+        window.open("reportNotes/".concat(parseInt(this.saveArea.id), "/").concat(parseInt(this.saveArea.id_classroom), "/").concat(this.saveTeachers.text, "/").concat(this.saveArea.text), "_self");
+      } else {
+        window.open("reportAllCourse/".concat(parseInt(this.saveArea.id)), "_self");
+      }
     }
   }
 });
@@ -153,58 +186,131 @@ var render = function() {
           _vm._m(0),
           _vm._v(" "),
           _c("div", { staticClass: "modal-body" }, [
-            _c(
-              "div",
-              { staticClass: "form-goup" },
-              [
-                _c("label", [_vm._v("Docente")]),
-                _vm._v(" "),
-                _c("multiselect", {
-                  attrs: {
-                    options: _vm.teachersOptions,
-                    multiple: false,
-                    "close-on-select": false,
-                    "clear-on-select": false,
-                    "preserve-search": true,
-                    placeholder: "Seleccione una",
-                    label: "text",
-                    "track-by": "id",
-                    "preselect-first": true
-                  },
-                  scopedSlots: _vm._u([
+            _c("div", { staticClass: "form-goup" }, [
+              _c("div", { staticClass: "form-check mb-5" }, [
+                _c("input", {
+                  directives: [
                     {
-                      key: "selection",
-                      fn: function(ref) {
-                        var values = ref.values
-                        var isOpen = ref.isOpen
-                        return [
-                          values.length && !isOpen
-                            ? _c(
-                                "span",
-                                { staticClass: "multiselect__single" },
-                                [
-                                  _vm._v(
-                                    "\n                                    " +
-                                      _vm._s(values.length) +
-                                      "\n                                    opciones\n                                    selecionadas\n                                "
-                                  )
-                                ]
-                              )
-                            : _vm._e()
-                        ]
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.type_export,
+                      expression: "type_export"
+                    }
+                  ],
+                  staticClass: "form-check-input",
+                  attrs: { type: "checkbox", id: "defaultCheck1" },
+                  domProps: {
+                    checked: Array.isArray(_vm.type_export)
+                      ? _vm._i(_vm.type_export, null) > -1
+                      : _vm.type_export
+                  },
+                  on: {
+                    change: function($event) {
+                      var $$a = _vm.type_export,
+                        $$el = $event.target,
+                        $$c = $$el.checked ? true : false
+                      if (Array.isArray($$a)) {
+                        var $$v = null,
+                          $$i = _vm._i($$a, $$v)
+                        if ($$el.checked) {
+                          $$i < 0 && (_vm.type_export = $$a.concat([$$v]))
+                        } else {
+                          $$i > -1 &&
+                            (_vm.type_export = $$a
+                              .slice(0, $$i)
+                              .concat($$a.slice($$i + 1)))
+                        }
+                      } else {
+                        _vm.type_export = $$c
                       }
                     }
-                  ]),
-                  model: {
-                    value: _vm.saveTeachers,
-                    callback: function($$v) {
-                      _vm.saveTeachers = $$v
-                    },
-                    expression: "saveTeachers"
                   }
-                })
-              ],
-              1
+                }),
+                _vm._v(" "),
+                _vm._m(1)
+              ]),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: _vm.type_export === true,
+                      expression: "type_export === true"
+                    }
+                  ]
+                },
+                [
+                  _c("label", [_vm._v("Docente")]),
+                  _vm._v(" "),
+                  _c("multiselect", {
+                    attrs: {
+                      options: _vm.teachersOptions,
+                      multiple: false,
+                      "close-on-select": false,
+                      "clear-on-select": false,
+                      "preserve-search": true,
+                      placeholder: "Seleccione una",
+                      label: "text",
+                      "track-by": "id",
+                      "preselect-first": true
+                    },
+                    scopedSlots: _vm._u([
+                      {
+                        key: "selection",
+                        fn: function(ref) {
+                          var values = ref.values
+                          var isOpen = ref.isOpen
+                          return [
+                            values.length && !isOpen
+                              ? _c(
+                                  "span",
+                                  { staticClass: "multiselect__single" },
+                                  [
+                                    _vm._v(
+                                      "\n                                        " +
+                                        _vm._s(values.length) +
+                                        "\n                                        opciones\n                                        selecionadas\n                                    "
+                                    )
+                                  ]
+                                )
+                              : _vm._e()
+                          ]
+                        }
+                      }
+                    ]),
+                    model: {
+                      value: _vm.saveTeachers,
+                      callback: function($$v) {
+                        _vm.saveTeachers = $$v
+                      },
+                      expression: "saveTeachers"
+                    }
+                  })
+                ],
+                1
+              )
+            ]),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value: _vm.type_export === false,
+                    expression: "type_export === false"
+                  }
+                ]
+              },
+              [
+                _c("p", [
+                  _vm._v("Consulta el salon requerido y realiza la exportación")
+                ])
+              ]
             ),
             _vm._v(" "),
             _c("div", { staticClass: "form-group" }, [
@@ -214,13 +320,19 @@ var render = function() {
                   staticClass: "btn btn-primary mt-2 mb-2",
                   on: {
                     click: function($event) {
-                      return _vm.getArea()
+                      return _vm.getAreaOrClassroom()
                     }
                   }
                 },
                 [
                   _vm._v(
-                    "\n                        Consultar Area\n                    "
+                    "\n                       " +
+                      _vm._s(
+                        _vm.type_export === true
+                          ? "Consultar Area"
+                          : "Consultar Salon"
+                      ) +
+                      "\n                    "
                   )
                 ]
               )
@@ -231,7 +343,11 @@ var render = function() {
                   "div",
                   { staticClass: "form-goup" },
                   [
-                    _c("label", [_vm._v("Areas Consultadas")]),
+                    _vm.type_export === true
+                      ? _c("div", [_c("label", [_vm._v("Areas Consultadas")])])
+                      : _c("div", [
+                          _c("label", [_vm._v("Salones Consultados")])
+                        ]),
                     _vm._v(" "),
                     _c("multiselect", {
                       attrs: {
@@ -346,6 +462,19 @@ var staticRenderFns = [
         [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
       )
     ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "label",
+      { staticClass: "form-check-label", attrs: { for: "defaultCheck1" } },
+      [
+        _c("span", { staticClass: "dot dot_orange" }),
+        _vm._v(" Reporte de Notas por Docente\n                        ")
+      ]
+    )
   }
 ]
 render._withStripped = true

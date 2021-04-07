@@ -18,6 +18,10 @@ class CourseAllExport implements FromCollection , ShouldAutoSize, WithMapping, W
 {
     use Exportable;
     
+    public function __construct(int $classroom){
+        $this->classroom = $classroom;
+    }
+
     /**
     * @return \Illuminate\Support\Collection
     */    
@@ -25,9 +29,7 @@ class CourseAllExport implements FromCollection , ShouldAutoSize, WithMapping, W
     {          
         $score_base=ConfigurationParameter::where('code','CALIFICATION_BASE')->where('deleted',0)->first();
 
-        $weekly_plans=Weekle::all();
-
-        $students = DB::select('call getAllStudentsWithTeacher()');
+        $students = DB::select('call getAllStudentsWithTeacher(?)',[$this->classroom]);
 
         foreach ($students as $key_student => $student) {
 
@@ -38,11 +40,12 @@ class CourseAllExport implements FromCollection , ShouldAutoSize, WithMapping, W
             $weekly_plans_with_score=0;
             $weekly_plans_with_progress=0;
 
+            $weekly_plans=Weekly::where('id_classroom',$students[$key_student]->classroom_id)->where('id_area',$students[$key_student]->id_area)->get();
 
 
             foreach ($weekly_plans as $weekly_plan) {
 
-                $_progress=  DB::select('call obtener_progreso_modulo(?,?)',[$weekly_plan->id, $student->user_id])[0]->porcentaje;
+                $_progress=  DB::select('call obtener_progreso_modulo(?,?)',[$weekly_plan->id, $students[$key_student]->id_student])[0]->porcentaje;
 
                 if($_progress>-1)
                 {
@@ -59,7 +62,7 @@ class CourseAllExport implements FromCollection , ShouldAutoSize, WithMapping, W
                 if(count($activities)>0)
                 {
                     $weekly_plans_with_score++;
-                    $score+=  DB::select('call obtener_calificacion_modulo(?,?)',[$weekly_plan->id, $student->user_id])[0]->calificacion;
+                    $score+=  DB::select('call obtener_calificacion_modulo(?,?)',[$weekly_plan->id, $students[$key_student]->id_student])[0]->calificacion;
 
                     $activities_interaction = classs::join('activity', 'activity.id_class', '=', 'class.id')
                             ->join('activity_interaction', 'activity_interaction.id_activity', '=', 'activity.id')
@@ -67,7 +70,7 @@ class CourseAllExport implements FromCollection , ShouldAutoSize, WithMapping, W
                             ->where('activity.deleted', 0)
                             ->where('activity.state', 1)
                             ->where('activity_interaction.deleted', 0)
-                            ->where('activity_interaction.id_student', $student->user_id)//pendientes de calificacion
+                            ->where('activity_interaction.id_student', $students[$key_student]->id_student)//pendientes de calificacion
                             ->where('activity_interaction.state', 2)
                             ->get();
 
@@ -92,6 +95,7 @@ class CourseAllExport implements FromCollection , ShouldAutoSize, WithMapping, W
 
             $students[$key_student]->observation;
         }
+        // print_r($students);
         return collect($students);
     }
 
@@ -99,9 +103,10 @@ class CourseAllExport implements FromCollection , ShouldAutoSize, WithMapping, W
     {
         
         return [
-            $students->user_name,
-            $students->user_lastname,
-            $students->score ? $students->score : '0' , 
+            $students->student_name,
+            $students->student_lastname,
+            $students->progress.' %',
+            $students->score <= -1 ? $students->score : '0' , 
             $students->score_base,
             $students->classroom,
             $students->teacher_name,
@@ -115,8 +120,9 @@ class CourseAllExport implements FromCollection , ShouldAutoSize, WithMapping, W
         return[
             'Nombre',
             'Apellido',
-            'Puntaje',
-            'Puntaje Total',
+            'Progreso',
+            'Nota',
+            'Nota Posible',
             'Curso',
             'Profesor',
             'Ciclo',
