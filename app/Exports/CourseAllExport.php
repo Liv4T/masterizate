@@ -91,9 +91,9 @@ class CourseAllExport implements FromCollection , ShouldAutoSize, WithMapping, W
 
             $students[$key_student]->teacher_name;
 
-            $students[$key_student]->driving_question;
+            // $students[$key_student]->driving_question;
 
-            $students[$key_student]->observation;
+            // $students[$key_student]->observation;
         }
         // print_r($students);
         return collect($students);

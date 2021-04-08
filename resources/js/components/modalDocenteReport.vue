@@ -116,6 +116,7 @@ export default {
             }else{
                 axios.get(`getClassroom`).then((response) => {
                     let areaOrClassroom = response.data;
+                    console.log(areaOrClassroom);
                     areaOrClassroom.forEach(element => {
                         this.areaOptions.push({
                             id: element.id,

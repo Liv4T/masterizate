@@ -132,6 +132,7 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
       } else {
         axios.get("getClassroom").then(function (response) {
           var areaOrClassroom = response.data;
+          console.log(areaOrClassroom);
           areaOrClassroom.forEach(function (element) {
             _this2.areaOptions.push({
               id: element.id,
