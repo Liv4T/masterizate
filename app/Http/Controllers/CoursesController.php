@@ -6,6 +6,7 @@ use App\Courses;
 use App\Quarterly;
 use App\Weekly;
 use App\Area;
+use App\ClassContent;
 use App\User;
 use App\Grade;
 use App\CoursesAchievement;
@@ -534,7 +535,7 @@ class CoursesController extends Controller
     }
     public function copyInformation(Request $request)
     {
-
+        $auth=Auth::user();
         $data = $request->all();
 
         if(isset($data['fromData']) && isset($data['toData']) && isset($data['fromData']['weekly_planning']['id']))
@@ -583,7 +584,7 @@ class CoursesController extends Controller
                 $class_planning=Classs::where('id_weekly_plan',$data['fromData']['weekly_planning']['id'])->get();
 
                  foreach ($class_planning as $key_c => $clase) {
-                    Classs::create([
+                    $class =Classs::create([
                         'name'=>$clase->name,
                         'description'=> $clase->description,
                         'name_document'=> $clase->name_document,
@@ -601,6 +602,27 @@ class CoursesController extends Controller
                         'observation'=> $clase->observation,
                         'hourly'=> $clase->hourly
                     ]);
+
+
+                    if(isset($class))
+                    {
+                        $classes_content=ClassContent::where('id_class',$class_planning->id)->where('deleted',0)->get();
+                        foreach ($classes_content as $key_cc => $class_content) {
+                            ClassContent::create([
+                                'id_class'=>$class->id,
+                                'order'=>$class_content->order,
+                                'content_type'=>$class_content->content_type,
+                                'content'=>$class_content->content,
+                                'description'=>$class_content->description,
+                                'observation'=>$class_content->observation,
+                                'is_required'=>$class_content->is_required,
+                                'state'=>$class_content->state,
+                                'deleted'=>0,
+                                'updated_user'=> $auth->id
+                            ]);
+                        }
+
+                    }
                 }
 
             }
@@ -614,7 +636,7 @@ class CoursesController extends Controller
                 {
                     $clase=Classs::find($data['fromData']['class_planning']['id']);
 
-                    Classs::create([
+                    $class=Classs::create([
                         'name'=>$clase->name,
                         'description'=> $clase->description,
                         'name_document'=> $clase->name_document,
@@ -632,6 +654,27 @@ class CoursesController extends Controller
                         'observation'=> $clase->observation,
                         'hourly'=> $clase->hourly
                     ]);
+
+                    if(isset($class))
+                    {
+                        $classes_content=ClassContent::where('id_class',$clase->id)->where('deleted',0)->get();
+                        foreach ($classes_content as $key_cc => $class_content) {
+                            ClassContent::create([
+                                'id_class'=>$class->id,
+                                'order'=>$class_content->order,
+                                'content_type'=>$class_content->content_type,
+                                'content'=>$class_content->content,
+                                'description'=>$class_content->description,
+                                'observation'=>$class_content->observation,
+                                'is_required'=>$class_content->is_required,
+                                'state'=>$class_content->state,
+                                'deleted'=>0,
+                                'updated_user'=> $auth->id
+                            ]);
+                        }
+
+
+                    }
                 }
                 else
                 {
@@ -654,6 +697,7 @@ class CoursesController extends Controller
                         'observation'=> $clase->observation,
                         'hourly'=> $clase->hourly
                     ]);
+
                 }
             }
 
