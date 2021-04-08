@@ -16,6 +16,9 @@
     <menu-psychology></menu-psychology>
     <inicio-component></inicio-component>
  @endif
+ @if (Auth::user()->type_user == '6')
+    <menu-school></menu-school>
+ @endif
  <div class="back">
 <div class="container" style="background-image:url('uploads/Fondo_chat.jpg');">
     <div class="row">
