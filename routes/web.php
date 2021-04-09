@@ -831,3 +831,7 @@ Route::resource('chatGobernment','StamentsChatController');
 Route::get('/getChatAsigment','StamentsChatController@getStamentsByUser');
 Route::get('getChat/{chat}','StamentsChatController@getChats');
 Route::get('getAllStudents','SchoolGovernmentController@students');
+
+
+//Modulo para habilitar eliminacion de clases o ciclos
+Route::resource('activeElimination','DeleteClassAndCiclesController');
