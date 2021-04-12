@@ -135,7 +135,7 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
       if (this.show_type_import === true) {
         window.open("reportCourse/".concat(parseInt(this.saveArea.id_area), "/").concat(parseInt(this.saveArea.id_classroom), "/").concat(this.saveTeachers.text, "/").concat(this.saveArea.text), "_self");
       } else {
-        window.open("reportAllCourse", "_self");
+        toastr.info('Reporte no disponible por el momento'); //window.open(`reportAllCourse`, "_self");
       }
     }
   }

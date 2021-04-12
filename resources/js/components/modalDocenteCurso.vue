@@ -120,7 +120,8 @@ export default {
             if(this.show_type_import === true){
                 window.open(`reportCourse/${parseInt( this.saveArea.id_area)}/${parseInt( this.saveArea.id_classroom)}/${this.saveTeachers.text}/${ this.saveArea.text}`, "_self");
             }else{
-                window.open(`reportAllCourse`, "_self");
+                toastr.info('Reporte no disponible por el momento');
+                //window.open(`reportAllCourse`, "_self");
             }
             
         }
