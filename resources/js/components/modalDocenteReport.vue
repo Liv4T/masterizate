@@ -10,27 +10,43 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-goup">
-                        <label>Docente</label>
-                        <multiselect v-model="saveTeachers" :options="teachersOptions" :multiple="false"
-                            :close-on-select="false" :clear-on-select="false"
-                            :preserve-search="true" placeholder="Seleccione una"
-                            label="text" track-by="id" :preselect-first="true">
-                                <template slot="selection" slot-scope="{ values, isOpen }">
-                                    <span class="multiselect__single" v-if="values.length &amp;&amp; !isOpen">
-                                        {{ values.length }}
-                                        opciones
-                                        selecionadas
-                                    </span>
-                                </template>
-                        </multiselect>
+                        <div class="form-check mb-5">
+                            <input class="form-check-input" type="checkbox" v-model="type_export" id="defaultCheck1">
+                            <label class="form-check-label" for="defaultCheck1">
+                                <span class="dot dot_orange"></span> Reporte de Notas por Docente
+                            </label>
+                        </div>
+                        <div v-show="type_export === true">
+                            <label>Docente</label>
+                            <multiselect v-model="saveTeachers" :options="teachersOptions" :multiple="false"
+                                :close-on-select="false" :clear-on-select="false"
+                                :preserve-search="true" placeholder="Seleccione una"
+                                label="text" track-by="id" :preselect-first="true">
+                                    <template slot="selection" slot-scope="{ values, isOpen }">
+                                        <span class="multiselect__single" v-if="values.length &amp;&amp; !isOpen">
+                                            {{ values.length }}
+                                            opciones
+                                            selecionadas
+                                        </span>
+                                    </template>
+                            </multiselect>
+                        </div>
+                    </div>
+                    <div v-show="type_export === false">
+                        <p>Consulta el salon requerido y realiza la exportación</p>
                     </div>
                     <div class="form-group">
-                        <button class="btn btn-primary mt-2 mb-2" v-on:click="getArea()">
-                            Consultar Area
+                        <button class="btn btn-primary mt-2 mb-2" v-on:click="getAreaOrClassroom()">
+                           {{ type_export === true ? 'Consultar Area' : 'Consultar Salon'}}
                         </button>
                     </div>
                     <div v-if="areaOptions.length > 0" class="form-goup">
-                        <label>Areas Consultadas</label>
+                        <div v-if="type_export === true">
+                            <label>Areas Consultadas</label>
+                        </div>
+                        <div v-else>
+                            <label>Salones Consultados</label>
+                        </div>
                         <multiselect v-model="saveArea" :options="areaOptions" :multiple="false"
                             :close-on-select="false" :clear-on-select="false"
                             :preserve-search="true" placeholder="Seleccione una"
@@ -59,6 +75,7 @@ Vue.component("multiselect", Multiselect);
 export default {
     data(){
         return{
+            type_export: true,
             teachersOptions:[],
             areaOptions:[],
             saveArea:{},
@@ -83,21 +100,39 @@ export default {
                 });
             })
         },
-        getArea(){
-            axios.get(`GetAreaTeacher/${this.saveTeachers.id}`).then((response) => {
-                let area = response.data;
-                area.forEach(element => {
-                    this.areaOptions.push({
-                        id: element.id,
-                        id_area: element.id_area,
-                        id_classroom: element.id_classroom,
-                        text: element.text
+        getAreaOrClassroom(){
+            if(this.type_export === true){
+                axios.get(`GetAreaTeacher/${this.saveTeachers.id}`).then((response) => {
+                    let area = response.data;
+                    area.forEach(element => {
+                        this.areaOptions.push({
+                            id: element.id,
+                            id_area: element.id_area,
+                            id_classroom: element.id_classroom,
+                            text: element.text
+                        })
                     })
-                })
-            });
+                });
+            }else{
+                axios.get(`getClassroom`).then((response) => {
+                    let areaOrClassroom = response.data;
+                    console.log(areaOrClassroom);
+                    areaOrClassroom.forEach(element => {
+                        this.areaOptions.push({
+                            id: element.id,
+                            text: element.clasroom
+                        })
+                    })
+                });
+            }
         },
         exportData(){
-            window.open(`reportNotes/${parseInt(this.saveArea.id)}/${parseInt(this.saveArea.id_classroom)}/${this.saveTeachers.text}/${this.saveArea.text}`, "_self")           
+            if(this.type_export === true){
+                window.open(`reportNotes/${parseInt(this.saveArea.id)}/${parseInt(this.saveArea.id_classroom)}/${this.saveTeachers.text}/${this.saveArea.text}`, "_self")           
+            }else{
+                window.open(`reportAllCourse/${parseInt(this.saveArea.id)}`, "_self")           
+            }
+            
         }
     }
 }
