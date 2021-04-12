@@ -9,6 +9,8 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_0__);
 //
 //
 //
@@ -97,6 +99,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+
+moment__WEBPACK_IMPORTED_MODULE_0___default.a.tz.setDefault("America/Bogota");
+moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale('es');
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -128,7 +135,27 @@ __webpack_require__.r(__webpack_exports__);
 
       var urlsel = "/editGetWeek/" + area + "/" + classroom;
       axios.get(urlsel).then(function (response) {
-        _this2.clases = response.data;
+        var clases = response.data;
+        axios.get('/getPermissions').then(function (response) {
+          var permissions = response.data;
+
+          for (var i = 0; i < permissions.length; i++) {
+            for (var a = 0; a < clases.length; a++) {
+              if (permissions[i] && permissions[i].id_cicle === clases[a].id) {
+                console.log(permissions[i].date_to_activate_btn >= moment__WEBPACK_IMPORTED_MODULE_0___default()(new Date()).format('YYYY-MM-DD'));
+
+                if (permissions[i].date_to_activate_btn >= moment__WEBPACK_IMPORTED_MODULE_0___default()(new Date()).format('YYYY-MM-DD')) {
+                  clases[a].activateButton = true;
+                } else {
+                  clases[a].activateButton = false;
+                }
+              }
+            }
+          }
+
+          _this2.clases = clases;
+          console.log(_this2.clases);
+        });
       });
     },
     filterClass: function filterClass(class_name) {
@@ -401,7 +428,18 @@ var render = function() {
                                                 }
                                               },
                                               [_vm._v("Ir a Ciclo")]
-                                            )
+                                            ),
+                                            _vm._v(" "),
+                                            clas.activateButton
+                                              ? _c(
+                                                  "button",
+                                                  {
+                                                    staticClass:
+                                                      "btn btn-primary"
+                                                  },
+                                                  [_vm._v("Eliminar")]
+                                                )
+                                              : _vm._e()
                                           ])
                                         ])
                                       : _vm._e()

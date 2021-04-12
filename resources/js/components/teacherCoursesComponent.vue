@@ -69,7 +69,9 @@
                             class="btn btn-primary"
                             :href="'/docente/modulo/'+clas.id"
                           >Ir a Ciclo</a>
-
+                          
+                            <button v-if="clas.activateButton" class="btn btn-primary">Eliminar</button>
+                          
                         </td>
 
                       </tr>
@@ -87,6 +89,10 @@
   </div>
 </template>
 <script>
+import moment from 'moment';
+moment.tz.setDefault("America/Bogota");
+moment.locale('es');
+
 export default {
   data() {
     return {
@@ -114,7 +120,27 @@ export default {
     botones(area, classroom) {
         var urlsel = "/editGetWeek/" + area + "/" + classroom;
         axios.get(urlsel).then((response) => {
-            this.clases = response.data;
+            let clases = response.data
+
+            axios.get('/getPermissions').then((response)=>{
+                let permissions = response.data;
+
+                for(let i =0; i < permissions.length; i++){
+                    for(let a = 0; a < clases.length; a++){
+                        if(permissions[i] && permissions[i].id_cicle === clases[a].id){
+                            console.log(permissions[i].date_to_activate_btn >= moment(new Date()).format('YYYY-MM-DD'));
+                            if(permissions[i].date_to_activate_btn >= moment(new Date()).format('YYYY-MM-DD')){
+                                clases[a].activateButton = true
+                            }else{
+                                clases[a].activateButton = false
+                            }
+                        }
+                    }
+                }
+                
+                this.clases = clases;
+                console.log(this.clases);
+            });
         });
     },
     filterClass(class_name){
