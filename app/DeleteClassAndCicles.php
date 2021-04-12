@@ -10,5 +10,5 @@ class DeleteClassAndCicles extends Model
 
     protected $guarded = ['id'];
 
-    protected $fillable = ['id_class','id_cicle','date_to_activate_btn'];
+    protected $fillable = ['id_area','id_classroom','id_cicle','class_selected','area_selected','date_to_activate_btn','text'];
 }

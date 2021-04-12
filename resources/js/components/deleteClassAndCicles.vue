@@ -15,14 +15,19 @@
                                 <tr>
                                     <th>Clases</th>
                                     <th>Ciclos</th>
+                                    <th>Fecha de permiso para Eliminar Dato</th>
                                     <th>Acción</th>
                                 </tr>
                             </thead>
-                            <tbody >
+                            <tbody v-for="(data, key) in dataToIterate" :key="key">
                                 <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
+                                    <td>{{data.id_area ? data.text : ''}}</td>
+                                    <td>{{data.id_cicle ? data.text : ''}}</td>
+                                    <td>{{data.date_to_activate_btn}}</td>
+                                    <td>
+                                        <button class="btn btn-success" v-on:click="update(data)">Actualizar</button>
+                                        <button class="btn btn-danger" v-on:click="dropData(data.id)">Eliminar</button>    
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
@@ -36,7 +41,7 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="createRegisterLabel">Modal title</h5>
+                        <h5 class="modal-title" id="createRegisterLabel">Creación de Permiso</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                         </button>
@@ -81,8 +86,8 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                        <button type="button" class="btn btn-primary" v-on:click="savePermission">Guardar Cambios</button>
                     </div>
                 </div>
             </div>
@@ -99,23 +104,34 @@
                 ClassOptions:[],
                 CicleOptions:[],
                 saveCicle:[],
-                date:''
+                dataToIterate:[],
+                date:'',
+                is_updated: false,
+                id_to_update:'',
             }
         },
         mounted() {
             this.getArea();
+            this.getPermissions();
         },
         components: {
             Multiselect,
         },
         methods: {
+            getPermissions(){
+                axios.get('getPermissions').then((response)=>{
+                    this.dataToIterate= response.data;
+                }).catch((error)=>{
+                    console.log(error);
+                })
+            },
             getArea(){
                 axios.get(`GetArearByUser`).then((response) => {
                     let className = response.data;
     
                     for(let i = 0; i < className.length; i++){
                         this.ClassOptions.push({
-                            id: i,
+                            id: className[i].id+className[i].id_classroom,
                             id_area: className[i].id,
                             id_classroom: className[i].id_classroom,
                             text: className[i].text
@@ -127,7 +143,7 @@
                 if(this.saveClass.length > 0){
                     this.CicleOptions=[];
                     this.saveClass.forEach(clas =>{
-                        axios.get(`editGetWeek/${clas.id}/${clas.id_classroom}`).then((response)=> {
+                        axios.get(`editGetWeek/${clas.id_area}/${clas.id_classroom}`).then((response)=> {
                             let cicles = response.data;
                             if(!cicles.length){
                                 toastr.info(`No se encuentran ciclos registrados a la clase ${clas.text}`)
@@ -137,6 +153,8 @@
                                     id: cicles[i].id,
                                     text: clas.text+' - '+cicles[i].text,
                                     class: clas.text,
+                                    class_selected: clas.id_classroom,
+                                    area_selected: clas.id_area,
                                 })
                             }
                         })
@@ -144,7 +162,110 @@
                 }
             },
             savePermission(){
+                if(this.is_updated === false){
+                    if(this.saveClass.length > 0 && this.saveCicle.length === 0){
+                        this.saveClass.forEach(clas => {
+                            axios.post('activeElimination',{
+                                id_area: clas.id_area,
+                                id_classroom: clas.id_classroom,
+                                date_to_activate_btn: this.date,
+                                text: clas.text,
+                            }).then((response)=> {
+                                toastr.success(response.data)
+                            }).catch((error)=> { 
+                                toastr.info('Intentalo de nuevo mas tarde')
+                            })
+                        })
+                    }
+                    else if (this.saveCicle.length > 0){
+                        this.saveCicle.forEach(cicle => {
+                            axios.post('activeElimination',{
+                                id_cicle: cicle.id,
+                                date_to_activate_btn:this.date,
+                                text: cicle.text,
+                                class_selected: cicle.class_selected,
+                                area_selected: cicle.area_selected,
+                            }).then((response)=> {
+                                toastr.success(response.data)
+                            }).catch((error)=> { 
+                                toastr.info('Intentalo de nuevo mas tarde')
+                            })
+                        })
+                    }
+                    this.getPermissions();
+                    $('#createRegister').modal('hide');
+                }else{
+                    if(this.saveClass.length > 0 && this.saveCicle.length === 0){
+                        this.saveClass.forEach(clas => {
+                            axios.put(`activeElimination/${this.id_to_update}`,{
+                                id_area: clas.id_area,
+                                id_classroom: clas.id_classroom,
+                                date_to_activate_btn: this.date,
+                                text: clas.text,
+                            }).then((response)=> {
+                                toastr.success(response.data)
+                            }).catch((error)=> { 
+                                toastr.info('Intentalo de nuevo mas tarde')
+                            })
+                        })
+                    }
+                    else if (this.saveCicle.length > 0){
+                        this.saveCicle.forEach(cicle => {
+                            axios.put(`activeElimination/${this.id_to_update}`,{
+                                id_cicle: cicle.id,
+                                date_to_activate_btn:this.date,
+                                text: cicle.text,
+                                class_selected: cicle.class_selected,
+                                area_selected: cicle.area_selected
+                            }).then((response)=> {
+                                toastr.success(response.data)
+                            }).catch((error)=> { 
+                                toastr.info('Intentalo de nuevo mas tarde')
+                            })
+                        })
+                    }
+                    this.getPermissions();
+                    $('#createRegister').modal('hide');
+                }
+                
+            },
+            update(data){
+                if(data.id_area !== null){
+                    this.is_updated = true;
+                    this.date = data.date_to_activate_btn
+                    this.saveClass.push({
+                        id: data.id_area+data.id_classroom,
+                        id_area: data.id_area,
+                        id_classroom: data.id_classroom,
+                        text: data.text,
+                    })
+                    this.id_to_update = data.id;
+                    $('#createRegister').modal('show');
+                }else if(data.id_cicle !== null){
+                    this.saveClass.push({
+                        id: data.area_selected+data.class_selected,
+                        id_area: data.area_selected,
+                        id_classroom: data.class_selected,
+                        text: data.text,
+                    })
 
+                    this.getCicles();
+                    if(this.CicleOptions.length > 0){
+                        let dataCicle = this.CicleOptions.filter(cicleOption => cicleOption.area_selected === data.area_selected)
+                        console.log(dataCicle);
+                    }
+                    $('#createRegister').modal('show');
+                }
+            },
+            dropData(id){
+                axios.delete(`activeElimination/${id}`).then((response)=>{
+                    toastr.info(response.data);
+                    this.getPermissions();
+                }).catch((error)=>{
+                    toastr.error('Hubo un problema, intentelo de nuevo mas tarde');
+                    console.log(error);
+                    this.getPermissions();
+                })
             }
         }
     }

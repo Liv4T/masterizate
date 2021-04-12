@@ -17,6 +17,10 @@ class DeleteClassAndCiclesController extends Controller
         return view('deleteClassAndCicles');
     }
 
+    public function getPermissions(){
+        $permissions = DeleteClassAndCicles::all();
+        return response()->json($permissions);
+    }
     /**
      * Store a newly created resource in storage.
      *
@@ -26,12 +30,16 @@ class DeleteClassAndCiclesController extends Controller
     public function store(Request $request)
     {
         $deleteClassAndCicles = new DeleteClassAndCicles();
-        $deleteClassAndCicles->id_class = $request->id_class;
+        $deleteClassAndCicles->id_area = $request->id_area;
+        $deleteClassAndCicles->id_classroom = $request->id_classroom;
         $deleteClassAndCicles->id_cicle = $request->id_cicle;
         $deleteClassAndCicles->date_to_activate_btn = $request->date_to_activate_btn;
+        $deleteClassAndCicles->text = $request->text;
+        $deleteClassAndCicles->class_selected = $request->class_selected;
+        $deleteClassAndCicles->area_selected = $request->area_selected;
         $deleteClassAndCicles->save();
 
-        return response()->json('Dato Guardado, se habilitara la opción para eliminar las clases o cicles en la fecha establecida.');
+        return response()->json('Dato Guardado, se habilitara la opción en la fecha establecida.');
     }
 
     /**
@@ -54,12 +62,16 @@ class DeleteClassAndCiclesController extends Controller
     public function update(Request $request, $id)
     {
         $deleteClassAndCicles = DeleteClassAndCicles::find($id);
-        $deleteClassAndCicles->id_class = $request->id_class;
+        $deleteClassAndCicles->id_area = $request->id_area;
+        $deleteClassAndCicles->id_classroom = $request->id_classroom;
         $deleteClassAndCicles->id_cicle = $request->id_cicle;
         $deleteClassAndCicles->date_to_activate_btn = $request->date_to_activate_btn;
+        $deleteClassAndCicles->text = $request->text;
+        $deleteClassAndCicles->class_selected = $request->class_selected;
+        $deleteClassAndCicles->area_selected = $request->area_selected;
         $deleteClassAndCicles->update();
 
-        return response()->json('Dato Actualizado, se habilitara la opción para eliminar las clases o cicles en la fecha establecida.');
+        return response()->json('Dato Actualizado, se habilitara la opción en la fecha establecida.');
     }
 
     /**
@@ -68,13 +80,10 @@ class DeleteClassAndCiclesController extends Controller
      * @param  \App\DeleteClassAndCicles  $deleteClassAndCicles
      * @return \Illuminate\Http\Response
      */
-    public function destroy(DeleteClassAndCicles $deleteClassAndCicles)
+    public function destroy(String $id)
     {
-        $deleteClassAndCicles = DeleteClassAndCicles::find($id);
-        $deleteClassAndCicles->id_class = $request->id_class;
-        $deleteClassAndCicles->id_cicle = $request->id_cicle;
-        $deleteClassAndCicles->date_to_activate_btn = $request->date_to_activate_btn;
-        $deleteClassAndCicles->destroy();
+        $deleteClassAndCicles = DeleteClassAndCicles::findOrFail($id);
+        $deleteClassAndCicles->delete();
 
         return response()->json('Dato Eliminado');
     }

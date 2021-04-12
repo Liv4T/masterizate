@@ -15,8 +15,11 @@ class CreateDeleteClassAndCiclesTable extends Migration
     {
         Schema::create('delete_class_and_cicles', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('id_class')->nullable();
+            $table->integer('id_area')->nullable();
+            $table->integer('id_classroom')->nullable();
+            $table->string('text');
             $table->integer('id_cicle')->nullable();
+            $table->integer('class_selected')->nullable();
             $table->date('date_to_activate_btn');
             $table->timestamps();
         });

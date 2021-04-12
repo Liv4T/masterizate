@@ -102,6 +102,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___default.a);
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -111,25 +116,38 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
       ClassOptions: [],
       CicleOptions: [],
       saveCicle: [],
-      date: ''
+      dataToIterate: [],
+      date: '',
+      is_updated: false,
+      id_to_update: ''
     };
   },
   mounted: function mounted() {
     this.getArea();
+    this.getPermissions();
   },
   components: {
     Multiselect: vue_multiselect__WEBPACK_IMPORTED_MODULE_0___default.a
   },
   methods: {
-    getArea: function getArea() {
+    getPermissions: function getPermissions() {
       var _this = this;
+
+      axios.get('getPermissions').then(function (response) {
+        _this.dataToIterate = response.data;
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
+    getArea: function getArea() {
+      var _this2 = this;
 
       axios.get("GetArearByUser").then(function (response) {
         var className = response.data;
 
         for (var i = 0; i < className.length; i++) {
-          _this.ClassOptions.push({
-            id: i,
+          _this2.ClassOptions.push({
+            id: className[i].id + className[i].id_classroom,
             id_area: className[i].id,
             id_classroom: className[i].id_classroom,
             text: className[i].text
@@ -138,12 +156,12 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
       });
     },
     getCicles: function getCicles() {
-      var _this2 = this;
+      var _this3 = this;
 
       if (this.saveClass.length > 0) {
         this.CicleOptions = [];
         this.saveClass.forEach(function (clas) {
-          axios.get("editGetWeek/".concat(clas.id, "/").concat(clas.id_classroom)).then(function (response) {
+          axios.get("editGetWeek/".concat(clas.id_area, "/").concat(clas.id_classroom)).then(function (response) {
             var cicles = response.data;
 
             if (!cicles.length) {
@@ -151,17 +169,132 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
             }
 
             for (var i = 0; i < cicles.length; i++) {
-              _this2.CicleOptions.push({
+              _this3.CicleOptions.push({
                 id: cicles[i].id,
                 text: clas.text + ' - ' + cicles[i].text,
-                "class": clas.text
+                "class": clas.text,
+                class_selected: clas.id_classroom,
+                area_selected: clas.id_area
               });
             }
           });
         });
       }
     },
-    savePermission: function savePermission() {}
+    savePermission: function savePermission() {
+      var _this4 = this;
+
+      if (this.is_updated === false) {
+        if (this.saveClass.length > 0 && this.saveCicle.length === 0) {
+          this.saveClass.forEach(function (clas) {
+            axios.post('activeElimination', {
+              id_area: clas.id_area,
+              id_classroom: clas.id_classroom,
+              date_to_activate_btn: _this4.date,
+              text: clas.text
+            }).then(function (response) {
+              toastr.success(response.data);
+            })["catch"](function (error) {
+              toastr.info('Intentalo de nuevo mas tarde');
+            });
+          });
+        } else if (this.saveCicle.length > 0) {
+          this.saveCicle.forEach(function (cicle) {
+            axios.post('activeElimination', {
+              id_cicle: cicle.id,
+              date_to_activate_btn: _this4.date,
+              text: cicle.text,
+              class_selected: cicle.class_selected,
+              area_selected: cicle.area_selected
+            }).then(function (response) {
+              toastr.success(response.data);
+            })["catch"](function (error) {
+              toastr.info('Intentalo de nuevo mas tarde');
+            });
+          });
+        }
+
+        this.getPermissions();
+        $('#createRegister').modal('hide');
+      } else {
+        if (this.saveClass.length > 0 && this.saveCicle.length === 0) {
+          this.saveClass.forEach(function (clas) {
+            axios.put("activeElimination/".concat(_this4.id_to_update), {
+              id_area: clas.id_area,
+              id_classroom: clas.id_classroom,
+              date_to_activate_btn: _this4.date,
+              text: clas.text
+            }).then(function (response) {
+              toastr.success(response.data);
+            })["catch"](function (error) {
+              toastr.info('Intentalo de nuevo mas tarde');
+            });
+          });
+        } else if (this.saveCicle.length > 0) {
+          this.saveCicle.forEach(function (cicle) {
+            axios.put("activeElimination/".concat(_this4.id_to_update), {
+              id_cicle: cicle.id,
+              date_to_activate_btn: _this4.date,
+              text: cicle.text,
+              class_selected: cicle.class_selected,
+              area_selected: cicle.area_selected
+            }).then(function (response) {
+              toastr.success(response.data);
+            })["catch"](function (error) {
+              toastr.info('Intentalo de nuevo mas tarde');
+            });
+          });
+        }
+
+        this.getPermissions();
+        $('#createRegister').modal('hide');
+      }
+    },
+    update: function update(data) {
+      if (data.id_area !== null) {
+        this.is_updated = true;
+        this.date = data.date_to_activate_btn;
+        this.saveClass.push({
+          id: data.id_area + data.id_classroom,
+          id_area: data.id_area,
+          id_classroom: data.id_classroom,
+          text: data.text
+        });
+        this.id_to_update = data.id;
+        $('#createRegister').modal('show');
+      } else if (data.id_cicle !== null) {
+        this.saveClass.push({
+          id: data.area_selected + data.class_selected,
+          id_area: data.area_selected,
+          id_classroom: data.class_selected,
+          text: data.text
+        });
+        this.getCicles();
+
+        if (this.CicleOptions.length > 0) {
+          var dataCicle = this.CicleOptions.filter(function (cicleOption) {
+            return cicleOption.area_selected === data.area_selected;
+          });
+          console.log(dataCicle);
+        }
+
+        $('#createRegister').modal('show');
+      }
+    },
+    dropData: function dropData(id) {
+      var _this5 = this;
+
+      axios["delete"]("activeElimination/".concat(id)).then(function (response) {
+        toastr.info(response.data);
+
+        _this5.getPermissions();
+      })["catch"](function (error) {
+        toastr.error('Hubo un problema, intentelo de nuevo mas tarde');
+        console.log(error);
+
+        _this5.getPermissions();
+      });
+    }
   }
 });
 
@@ -183,7 +316,77 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "back" }, [
-    _vm._m(0),
+    _c(
+      "div",
+      { staticClass: "row justify-content-center", attrs: { id: "crud" } },
+      [
+        _c("div", { staticClass: "col-sm-10" }, [
+          _vm._m(0),
+          _vm._v(" "),
+          _vm._m(1),
+          _vm._v(" "),
+          _c("div", { staticClass: "card" }, [
+            _c("div", { staticClass: "card-body" }, [
+              _c(
+                "table",
+                {
+                  staticClass:
+                    "table table-responsive-xl table-hover table-striped"
+                },
+                [
+                  _vm._m(2),
+                  _vm._v(" "),
+                  _vm._l(_vm.dataToIterate, function(data, key) {
+                    return _c("tbody", { key: key }, [
+                      _c("tr", [
+                        _c("td", [
+                          _vm._v(_vm._s(data.id_area ? data.text : ""))
+                        ]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _vm._v(_vm._s(data.id_cicle ? data.text : ""))
+                        ]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(data.date_to_activate_btn))]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-success",
+                              on: {
+                                click: function($event) {
+                                  return _vm.update(data)
+                                }
+                              }
+                            },
+                            [_vm._v("Actualizar")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-danger",
+                              on: {
+                                click: function($event) {
+                                  return _vm.dropData(data.id)
+                                }
+                              }
+                            },
+                            [_vm._v("Eliminar")]
+                          )
+                        ])
+                      ])
+                    ])
+                  })
+                ],
+                2
+              )
+            ])
+          ])
+        ])
+      ]
+    ),
     _vm._v(" "),
     _c(
       "div",
@@ -203,7 +406,7 @@ var render = function() {
           { staticClass: "modal-dialog", attrs: { role: "document" } },
           [
             _c("div", { staticClass: "modal-content" }, [
-              _vm._m(1),
+              _vm._m(3),
               _vm._v(" "),
               _c("div", { staticClass: "modal-body" }, [
                 _c(
@@ -374,7 +577,26 @@ var render = function() {
                 ])
               ]),
               _vm._v(" "),
-              _vm._m(2)
+              _c("div", { staticClass: "modal-footer" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-secondary",
+                    attrs: { type: "button", "data-dismiss": "modal" }
+                  },
+                  [_vm._v("Cerrar")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-primary",
+                    attrs: { type: "button" },
+                    on: { click: _vm.savePermission }
+                  },
+                  [_vm._v("Guardar Cambios")]
+                )
+              ])
             ])
           ]
         )
@@ -387,66 +609,40 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      { staticClass: "row justify-content-center", attrs: { id: "crud" } },
-      [
-        _c("div", { staticClass: "col-sm-10" }, [
-          _c("div", { staticClass: "card-header fondo text-center mb-3" }, [
-            _c("h4", [
-              _vm._v("Activación de permiso para eliminar Clase o Ciclo")
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", [
-            _c(
-              "button",
-              {
-                staticClass: "btn btn-primary mb-3",
-                attrs: {
-                  "data-toggle": "modal",
-                  "data-target": "#createRegister"
-                }
-              },
-              [_vm._v("Crear Registro")]
-            )
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "card" }, [
-            _c("div", { staticClass: "card-body" }, [
-              _c(
-                "table",
-                {
-                  staticClass:
-                    "table table-responsive-xl table-hover table-striped"
-                },
-                [
-                  _c("thead", [
-                    _c("tr", [
-                      _c("th", [_vm._v("Clases")]),
-                      _vm._v(" "),
-                      _c("th", [_vm._v("Ciclos")]),
-                      _vm._v(" "),
-                      _c("th", [_vm._v("Acción")])
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("tbody", [
-                    _c("tr", [
-                      _c("td"),
-                      _vm._v(" "),
-                      _c("td"),
-                      _vm._v(" "),
-                      _c("td")
-                    ])
-                  ])
-                ]
-              )
-            ])
-          ])
-        ])
-      ]
-    )
+    return _c("div", { staticClass: "card-header fondo text-center mb-3" }, [
+      _c("h4", [_vm._v("Activación de permiso para eliminar Clase o Ciclo")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", [
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-primary mb-3",
+          attrs: { "data-toggle": "modal", "data-target": "#createRegister" }
+        },
+        [_vm._v("Crear Registro")]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("Clases")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Ciclos")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Fecha de permiso para Eliminar Dato")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Acción")])
+      ])
+    ])
   },
   function() {
     var _vm = this
@@ -456,7 +652,7 @@ var staticRenderFns = [
       _c(
         "h5",
         { staticClass: "modal-title", attrs: { id: "createRegisterLabel" } },
-        [_vm._v("Modal title")]
+        [_vm._v("Creación de Permiso")]
       ),
       _vm._v(" "),
       _c(
@@ -470,27 +666,6 @@ var staticRenderFns = [
           }
         },
         [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "modal-footer" }, [
-      _c(
-        "button",
-        {
-          staticClass: "btn btn-secondary",
-          attrs: { type: "button", "data-dismiss": "modal" }
-        },
-        [_vm._v("Close")]
-      ),
-      _vm._v(" "),
-      _c(
-        "button",
-        { staticClass: "btn btn-primary", attrs: { type: "button" } },
-        [_vm._v("Save changes")]
       )
     ])
   }
