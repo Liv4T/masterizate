@@ -76,12 +76,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
 
 Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___default.a);
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -135,7 +129,7 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
       if (this.show_type_import === true) {
         window.open("reportCourse/".concat(parseInt(this.saveArea.id_area), "/").concat(parseInt(this.saveArea.id_classroom), "/").concat(this.saveTeachers.text, "/").concat(this.saveArea.text), "_self");
       } else {
-        toastr.info('Reporte no disponible por el momento'); //window.open(`reportAllCourse`, "_self");
+        window.open("reportAllCourse/".concat(parseInt(this.saveArea.id_classroom)), "_self");
       }
     }
   }
@@ -219,157 +213,140 @@ var render = function() {
               _vm._m(1)
             ]),
             _vm._v(" "),
-            _vm.show_type_import === true
-              ? _c("div", [
-                  _c(
-                    "div",
-                    { staticClass: "form-goup" },
-                    [
-                      _c("label", [_vm._v("Docente")]),
-                      _vm._v(" "),
-                      _c("multiselect", {
-                        attrs: {
-                          options: _vm.teachersOptions,
-                          multiple: false,
-                          "close-on-select": false,
-                          "clear-on-select": false,
-                          "preserve-search": true,
-                          placeholder: "Seleccione una",
-                          label: "text",
-                          "track-by": "id",
-                          "preselect-first": true
-                        },
-                        scopedSlots: _vm._u(
-                          [
-                            {
-                              key: "selection",
-                              fn: function(ref) {
-                                var values = ref.values
-                                var isOpen = ref.isOpen
-                                return [
-                                  values.length && !isOpen
-                                    ? _c(
-                                        "span",
-                                        { staticClass: "multiselect__single" },
-                                        [
-                                          _vm._v(
-                                            "\n                                        " +
-                                              _vm._s(values.length) +
-                                              "\n                                        opciones\n                                        selecionadas\n                                    "
-                                          )
-                                        ]
-                                      )
-                                    : _vm._e()
+            _c(
+              "div",
+              { staticClass: "form-goup" },
+              [
+                _c("label", [_vm._v("Docente")]),
+                _vm._v(" "),
+                _c("multiselect", {
+                  attrs: {
+                    options: _vm.teachersOptions,
+                    multiple: false,
+                    "close-on-select": false,
+                    "clear-on-select": false,
+                    "preserve-search": true,
+                    placeholder: "Seleccione una",
+                    label: "text",
+                    "track-by": "id",
+                    "preselect-first": true
+                  },
+                  scopedSlots: _vm._u([
+                    {
+                      key: "selection",
+                      fn: function(ref) {
+                        var values = ref.values
+                        var isOpen = ref.isOpen
+                        return [
+                          values.length && !isOpen
+                            ? _c(
+                                "span",
+                                { staticClass: "multiselect__single" },
+                                [
+                                  _vm._v(
+                                    "\n                                    " +
+                                      _vm._s(values.length) +
+                                      "\n                                    opciones\n                                    selecionadas\n                                "
+                                  )
                                 ]
-                              }
-                            }
-                          ],
-                          null,
-                          false,
-                          2577030455
-                        ),
-                        model: {
-                          value: _vm.saveTeachers,
-                          callback: function($$v) {
-                            _vm.saveTeachers = $$v
-                          },
-                          expression: "saveTeachers"
-                        }
-                      })
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "form-group" }, [
-                    _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-primary mt-2 mb-2",
-                        on: {
-                          click: function($event) {
-                            return _vm.getArea()
-                          }
-                        }
-                      },
-                      [
-                        _vm._v(
-                          "\n                            Consultar Area\n                        "
-                        )
-                      ]
-                    )
+                              )
+                            : _vm._e()
+                        ]
+                      }
+                    }
                   ]),
-                  _vm._v(" "),
-                  _vm.areaOptions.length > 0
-                    ? _c(
-                        "div",
-                        { staticClass: "form-goup" },
+                  model: {
+                    value: _vm.saveTeachers,
+                    callback: function($$v) {
+                      _vm.saveTeachers = $$v
+                    },
+                    expression: "saveTeachers"
+                  }
+                })
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group" }, [
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-primary mt-2 mb-2",
+                  on: {
+                    click: function($event) {
+                      return _vm.getArea()
+                    }
+                  }
+                },
+                [
+                  _vm._v(
+                    "\n                        Consultar Area\n                    "
+                  )
+                ]
+              )
+            ]),
+            _vm._v(" "),
+            _vm.areaOptions.length > 0
+              ? _c(
+                  "div",
+                  { staticClass: "form-goup" },
+                  [
+                    _c("label", [_vm._v("Areas Disponibles")]),
+                    _vm._v(" "),
+                    _c("multiselect", {
+                      attrs: {
+                        options: _vm.areaOptions,
+                        multiple: false,
+                        "close-on-select": false,
+                        "clear-on-select": false,
+                        "preserve-search": true,
+                        placeholder: "Seleccione una",
+                        label: "text",
+                        "track-by": "id",
+                        "preselect-first": true
+                      },
+                      scopedSlots: _vm._u(
                         [
-                          _c("label", [_vm._v("Areas Disponibles")]),
-                          _vm._v(" "),
-                          _c("multiselect", {
-                            attrs: {
-                              options: _vm.areaOptions,
-                              multiple: false,
-                              "close-on-select": false,
-                              "clear-on-select": false,
-                              "preserve-search": true,
-                              placeholder: "Seleccione una",
-                              label: "text",
-                              "track-by": "id",
-                              "preselect-first": true
-                            },
-                            scopedSlots: _vm._u(
-                              [
-                                {
-                                  key: "selection",
-                                  fn: function(ref) {
-                                    var values = ref.values
-                                    var isOpen = ref.isOpen
-                                    return [
-                                      values.length && !isOpen
-                                        ? _c(
-                                            "span",
-                                            {
-                                              staticClass: "multiselect__single"
-                                            },
-                                            [
-                                              _vm._v(
-                                                "\n                                        " +
-                                                  _vm._s(values.length) +
-                                                  "\n                                        opciones\n                                        selecionadas\n                                    "
-                                              )
-                                            ]
-                                          )
-                                        : _vm._e()
-                                    ]
-                                  }
-                                }
-                              ],
-                              null,
-                              false,
-                              2577030455
-                            ),
-                            model: {
-                              value: _vm.saveArea,
-                              callback: function($$v) {
-                                _vm.saveArea = $$v
-                              },
-                              expression: "saveArea"
+                          {
+                            key: "selection",
+                            fn: function(ref) {
+                              var values = ref.values
+                              var isOpen = ref.isOpen
+                              return [
+                                values.length && !isOpen
+                                  ? _c(
+                                      "span",
+                                      { staticClass: "multiselect__single" },
+                                      [
+                                        _vm._v(
+                                          "\n                                    " +
+                                            _vm._s(values.length) +
+                                            "\n                                    opciones\n                                    selecionadas\n                                "
+                                        )
+                                      ]
+                                    )
+                                  : _vm._e()
+                              ]
                             }
-                          })
+                          }
                         ],
-                        1
-                      )
-                    : _c("div", { staticClass: "form-goup" }, [
-                        _c("strong", [_vm._v("No existen Areas Disponibles")])
-                      ])
-                ])
-              : _c("div", [
-                  _c("p", [
-                    _vm._v(
-                      "Puedes hacer click en el boton exportar para obtener los 100 datos mas recientes"
-                    )
-                  ])
+                        null,
+                        false,
+                        1821651511
+                      ),
+                      model: {
+                        value: _vm.saveArea,
+                        callback: function($$v) {
+                          _vm.saveArea = $$v
+                        },
+                        expression: "saveArea"
+                      }
+                    })
+                  ],
+                  1
+                )
+              : _c("div", { staticClass: "form-goup" }, [
+                  _c("strong", [_vm._v("No existen Areas Disponibles")])
                 ])
           ]),
           _vm._v(" "),
@@ -377,17 +354,6 @@ var render = function() {
             _c(
               "button",
               {
-                directives: [
-                  {
-                    name: "show",
-                    rawName: "v-show",
-                    value:
-                      _vm.areaOptions.length > 0 ||
-                      _vm.show_type_import === false,
-                    expression:
-                      "areaOptions.length > 0 || show_type_import === false"
-                  }
-                ],
                 staticClass: "btn btn-primary",
                 attrs: { type: "button" },
                 on: {
