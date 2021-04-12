@@ -832,7 +832,6 @@ Route::resource('staments','StamentsController');
 Route::get('getStaments', 'StamentsController@getStaments');
 
 //chat Stament
-Route::resource('chatGobernment','StamentsChatController');
 Route::get('/getChatAsigment','StamentsChatController@getStamentsByUser');
 Route::get('getChat/{chat}','StamentsChatController@getChats');
 Route::get('getAllStudents','SchoolGovernmentController@students');
