@@ -17,9 +17,10 @@ class CreateDeleteClassAndCiclesTable extends Migration
             $table->increments('id');
             $table->integer('id_area')->nullable();
             $table->integer('id_classroom')->nullable();
-            $table->string('text');
+            $table->longText('text');
             $table->integer('id_cicle')->nullable();
             $table->integer('class_selected')->nullable();
+            $table->integer('area_selected')->nullable();
             $table->date('date_to_activate_btn');
             $table->timestamps();
         });

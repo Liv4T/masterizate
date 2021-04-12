@@ -155,7 +155,7 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
         }
       });
     },
-    getCicles: function getCicles() {
+    getCicles: function getCicles($id_cicle) {
       var _this3 = this;
 
       if (this.saveClass.length > 0) {
@@ -176,6 +176,20 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
                 class_selected: clas.id_classroom,
                 area_selected: clas.id_area
               });
+            }
+
+            if ($id_cicle !== null) {
+              for (var _i = 0; _i < cicles.length; _i++) {
+                if ($id_cicle === cicles[_i].id) {
+                  _this3.saveCicle.push({
+                    id: cicles[_i].id,
+                    text: clas.text + ' - ' + cicles[_i].text,
+                    "class": clas.text,
+                    class_selected: clas.id_classroom,
+                    area_selected: clas.id_area
+                  });
+                }
+              }
             }
           });
         });
@@ -247,6 +261,8 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
         }
 
         this.getPermissions();
+        this.saveClass = [];
+        this.saveCicle = [];
         $('#createRegister').modal('hide');
       }
     },
@@ -263,21 +279,16 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
         this.id_to_update = data.id;
         $('#createRegister').modal('show');
       } else if (data.id_cicle !== null) {
+        this.is_updated = true;
+        this.date = data.date_to_activate_btn;
         this.saveClass.push({
           id: data.area_selected + data.class_selected,
           id_area: data.area_selected,
           id_classroom: data.class_selected,
           text: data.text
         });
-        this.getCicles();
-
-        if (this.CicleOptions.length > 0) {
-          var dataCicle = this.CicleOptions.filter(function (cicleOption) {
-            return cicleOption.area_selected === data.area_selected;
-          });
-          console.log(dataCicle);
-        }
-
+        this.id_to_update = data.id;
+        this.getCicles(data.id_cicle);
         $('#createRegister').modal('show');
       }
     },
@@ -353,7 +364,7 @@ var render = function() {
                           _c(
                             "button",
                             {
-                              staticClass: "btn btn-success",
+                              staticClass: "btn btn-primary mb-2 mr-2",
                               on: {
                                 click: function($event) {
                                   return _vm.update(data)
@@ -366,7 +377,7 @@ var render = function() {
                           _c(
                             "button",
                             {
-                              staticClass: "btn btn-danger",
+                              staticClass: "btn btn-primary",
                               on: {
                                 click: function($event) {
                                   return _vm.dropData(data.id)

@@ -25,8 +25,8 @@
                                     <td>{{data.id_cicle ? data.text : ''}}</td>
                                     <td>{{data.date_to_activate_btn}}</td>
                                     <td>
-                                        <button class="btn btn-success" v-on:click="update(data)">Actualizar</button>
-                                        <button class="btn btn-danger" v-on:click="dropData(data.id)">Eliminar</button>    
+                                        <button class="btn btn-primary mb-2 mr-2" v-on:click="update(data)">Actualizar</button>
+                                        <button class="btn btn-primary" v-on:click="dropData(data.id)">Eliminar</button>    
                                     </td>
                                 </tr>
                             </tbody>
@@ -139,7 +139,7 @@
                     }
                 });
             },
-            getCicles(){
+            getCicles($id_cicle){
                 if(this.saveClass.length > 0){
                     this.CicleOptions=[];
                     this.saveClass.forEach(clas =>{
@@ -156,6 +156,19 @@
                                     class_selected: clas.id_classroom,
                                     area_selected: clas.id_area,
                                 })
+                            }
+                            if($id_cicle !== null){
+                                for(let i = 0; i < cicles.length; i++){
+                                    if($id_cicle === cicles[i].id){
+                                        this.saveCicle.push({
+                                            id: cicles[i].id,
+                                            text: clas.text+' - '+cicles[i].text,
+                                            class: clas.text,
+                                            class_selected: clas.id_classroom,
+                                            area_selected: clas.id_area,
+                                        })
+                                    }
+                                }
                             }
                         })
                     })
@@ -225,6 +238,8 @@
                         })
                     }
                     this.getPermissions();
+                    this.saveClass = [];
+                    this.saveCicle = [];
                     $('#createRegister').modal('hide');
                 }
                 
@@ -242,18 +257,17 @@
                     this.id_to_update = data.id;
                     $('#createRegister').modal('show');
                 }else if(data.id_cicle !== null){
+                    this.is_updated = true;
+                    this.date = data.date_to_activate_btn
                     this.saveClass.push({
                         id: data.area_selected+data.class_selected,
                         id_area: data.area_selected,
                         id_classroom: data.class_selected,
                         text: data.text,
                     })
-
-                    this.getCicles();
-                    if(this.CicleOptions.length > 0){
-                        let dataCicle = this.CicleOptions.filter(cicleOption => cicleOption.area_selected === data.area_selected)
-                        console.log(dataCicle);
-                    }
+                    this.id_to_update = data.id;
+                    this.getCicles(data.id_cicle);
+                    
                     $('#createRegister').modal('show');
                 }
             },

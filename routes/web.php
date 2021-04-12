@@ -395,6 +395,7 @@ Route::get('getAllActivitiesUser', 'ActivityController@getAllActivitiesRepositor
 Route::get('getEvenNearStudent/{id_area}/{id_classroom}', 'EventsController@eventNearStudent')->name('getEvenNearStudent');
 
 Route::get('GetWeek', 'CoursesController@getWeek');
+Route::delete('DeleteCicle/{id_cicle}','CoursesController@destroy');
 Route::get('editGetWeek/{id_area}/{id_classroom}', 'CoursesController@editGetWeek')->name('editGetWeek');
 Route::get('editOneWeek/{id_area}/{id_classroom}', 'CoursesController@editOneWeek')->name('editOneWeek');
 Route::get('viewGetWeek/{id_area}/{id_classrom}', 'CoursesController@viewGetWeek')->name('viewGetWeek');
