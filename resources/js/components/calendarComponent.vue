@@ -41,18 +41,15 @@
                             <FullCalendar ref="fullCalendar" :options="calendarOptions" />
                         </div>
                     </div>
-                    <div class="row" v-show="type_u==2 || type_u==4">
+                    <div class="row" v-show="type_u===2 || type_u===4">
                         <a class="btn btn-warning float-right mt-2 ml-3" v-on:click.prevent="createE()">Crear evento</a>
                     </div>
-                    <div class="row" v-show="type_u==7">
-                        <a class="btn btn-warning float-right mt-2 ml-3" href="/tutor/cronograma">Registrar horario de tutorías</a>
-                    </div>
-                    <div v-show="type_u === 4">
+                    <div v-show="type_u == 4">
                         <event-parents-modal :concurrent="concurrent" :type_u="type_u" :dias="dias" :clases="clases"
                             :user="user" :getMenu="getMenu"></event-parents-modal>
                     </div>
-                    <div v-show="type_u === 4">
-                        <modal-edit-parents-info :concurrent="concurrent" :type_u="type_u" :user="user"
+                    <div v-show="type_u == 1 || type_u == 2 || type_u == 4">
+                        <modal-edit-parents-info :concurrent="concurrent" :type_u="type_u" :user="this.user"
                             :dias="dias" :getMenu="getMenu"></modal-edit-parents-info>
                     </div>
                     <br />
@@ -238,7 +235,7 @@
                                     <div class="form-group row justify-content-center">
                                         <div class="col-md-6">
                                             <label for="name">Evento concurrente</label>
-                                            <select class="form-control" v-model="typeEvent" @change="selectChange">
+                                            <select class="form-control" v-model="typeEvent">
                                                 <option :value="options.id" v-for="(options, key) in concurrent"
                                                     :key="key">
                                                     {{

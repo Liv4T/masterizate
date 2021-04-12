@@ -10,7 +10,7 @@
                         <div class="card">
                             <div class="class-event">
                                 <div class="class-event-info">{{parents.name_event}} </div>
-                                <div class="class-event-date">
+                                <div class="class-event-date">                                
                                     <div>
                                         <small>Desde:</small>
                                         <span>{{parents.date_start}}</span>
@@ -27,9 +27,16 @@
                             </div>
                             <div class="class-event-footer ">
                                 <div class="class-event-action">
-                                    <button class="btn btn-primary"
-                                        v-on:click.prevent="editE(parents.id)">Editar</button>
-                                    <button class="btn btn-danger"
+                                    <div v-if="type_u === 4">
+                                        <button class="btn btn-primary"
+                                            v-on:click.prevent="editE(parents.id)">Editar</button>
+                                    </div>
+                                    <div v-else>
+                                        <button class="btn btn-success"
+                                            v-on:click.prevent="editE(parents.id)">Agregar fecha de Reunion</button>
+                                    </div>
+                                    
+                                    <button v-show="type_u === 4" class="btn btn-danger"
                                         v-on:click.prevent="deleteE(parents.id)">Eliminar</button>
                                 </div>
                             </div>
@@ -52,11 +59,11 @@
                             <div class="form-group row">
                                 <div class="col-md-6">
                                     <label for="name">Nombre del evento</label>
-                                    <input type="text" name="name" class="form-control" v-model="name_event" />
+                                    <input type="text" name="name" class="form-control" v-model="name_event" :disabled="type_u !== 4"/>
                                     <div class="invalid-feedback">Please fill out this field</div>
                                 </div>
                             </div>
-                            <div class="form-group row">
+                            <div v-show="type_u == 1 || type_u == 2" class="form-group row">
                                 <div class="col-md-6">
                                     <label for="name">Desde</label>
                                     <datetime v-model="date_start"></datetime>
@@ -67,9 +74,11 @@
                                     <datetime v-model="date_end"></datetime>
                                     <div class="invalid-feedback"></div>
                                 </div>
+                            </div>
+                            <div class="form-group row">
                                 <div class="col-md-6">
                                     <strong for="name">Enlace de Meet</strong>
-                                    <input type="text" name="name" class="form-control" v-model="link" />
+                                    <input type="text" name="name" class="form-control" v-model="link" :disabled="type_u !== 4"/>
                                     <div class="invalid-feedback">Please fill out this field</div>
                                 </div>
                             </div>
