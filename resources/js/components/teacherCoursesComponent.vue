@@ -69,9 +69,7 @@
                             class="btn btn-primary"
                             :href="'/docente/modulo/'+clas.id"
                           >Ir a Ciclo</a>
-                          
-                            <button v-if="clas.activateButton" class="btn btn-primary">Eliminar</button>
-                          
+                          <button v-if="clas.activateButton" v-on:click="ClassAndCicle(clas.id)" class="btn btn-primary">Eliminar</button>
                         </td>
 
                       </tr>
@@ -85,6 +83,44 @@
           </div>
         </div>
       </div>
+    </div>
+    <div class="modal fade" id="infoClass" tabindex="-1" role="dialog" aria-labelledby="infoClassLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="infoClassLabel">Información de Clases del Ciclo</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div v-if="clase_to_delete.length > 0">
+                        <p class="mb-4">Se eliminarán las siguientes Clases del Ciclo: </p>
+                        <table class="table table-stripped table-hover">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Nombre</th>
+                                    <th scope="col">Descripción</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="(clasDelete, key) in clase_to_delete" :key="key">
+                                    <td>{{clasDelete.name}}</td>
+                                    <td>{{clasDelete.description}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div v-else>
+                        No hay Clases asignadas al Ciclo
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-primary" v-on:click="deleteClassAndCicles">Eliminar de todas Formas</button>
+                </div>
+            </div>
+        </div>
     </div>
   </div>
 </template>
@@ -107,50 +143,77 @@ export default {
         id_act: "",
         errors: [],
         fillS: [],
+        clase_to_delete:[],
+        id_module:''
     };
   },
   created() {},
   mounted() {
-    var url = "/GetArearByUser";
-    axios.get(url).then((response) => {
-      this.areas = response.data;
-    });
+    this.getData();
   },
   methods: {
-    botones(area, classroom) {
-        var urlsel = "/editGetWeek/" + area + "/" + classroom;
-        axios.get(urlsel).then((response) => {
-            let clases = response.data
+        getData(){
+            var url = "/GetArearByUser";
+            axios.get(url).then((response) => {
+                this.areas = response.data;
+            });
+        },
+        botones(area, classroom) {
+            var urlsel = "/editGetWeek/" + area + "/" + classroom;
+            axios.get(urlsel).then((response) => {
+                let clases = response.data
 
-            axios.get('/getPermissions').then((response)=>{
-                let permissions = response.data;
+                axios.get('/getPermissions').then((response)=>{
+                    let permissions = response.data;
 
-                for(let i =0; i < permissions.length; i++){
-                    for(let a = 0; a < clases.length; a++){
-                        if(permissions[i] && permissions[i].id_cicle === clases[a].id){
-                            console.log(permissions[i].date_to_activate_btn >= moment(new Date()).format('YYYY-MM-DD'));
-                            if(permissions[i].date_to_activate_btn >= moment(new Date()).format('YYYY-MM-DD')){
+                    for(let i =0; i < permissions.length; i++){
+                        for(let a = 0; a < clases.length; a++){
+                            if(permissions[i] && permissions[i].id_cicle === clases[a].id){
+                                if(permissions[i].date_to_activate_btn >= moment(new Date()).format('YYYY-MM-DD') || moment(new Date()).format('YYYY-MM-DD') <= permissions[i].date_to_deactivate_btn){
                                 clases[a].activateButton = true
-                            }else{
+                                }else{
                                 clases[a].activateButton = false
+                                }
                             }
                         }
                     }
-                }
-                
-                this.clases = clases;
-                console.log(this.clases);
+                    this.clases = clases;
+                });
             });
-        });
-    },
-    filterClass(class_name){
-        return class_name.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(this.search_filter.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, ""));
-    },
+        },
+        filterClass(class_name){
+            return class_name.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(this.search_filter.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, ""));
+        },
 
-    filterCicle(cicle_name){
-        return cicle_name.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(this.search_filter_cicle.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, ""));
+        filterCicle(cicle_name){
+            return cicle_name.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(this.search_filter_cicle.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, ""));
+        },
+        ClassAndCicle(id_module){
+            axios.get(`/showClass/${id_module}`).then(response => {
+                this.clase_to_delete = response.data.clase;
+                this.id_module = id_module;
+                $('#infoClass').modal('show');
+            })
+        },
+        deleteClassAndCicles(){
+            this.clase_to_delete.forEach((clas)=>{ 
+                axios.delete(`/deleteClasses/${clas.id}`)
+            })
+
+            axios.delete(`/DeleteCicle/${this.id_module}`).then((response)=> {
+                this.clase_to_delete =[];
+                this.id_module= '';
+                
+                if(this.clase_to_delete.length > 0){
+                    toastr.success(`Clases y ${response.data}`)
+                }else{
+                    toastr.success('Ciclo Eliminado')
+                }
+
+                window.location = "/docente/clases";
+            });
+        }
     },
-  },
 };
 </script>
 <style>

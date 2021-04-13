@@ -337,6 +337,8 @@ Route::resource('Courses', 'CoursesController', ['except' => 'show', 'create', '
 Route::resource('Class', 'ClassController', ['except' => 'show', 'create', 'edit']);
 Route::get('GetClass', 'ClassController@getClass');
 Route::get('showClass/{id}', 'ClassController@show')->name('showClass');
+Route::delete('deleteClasses/{id}', 'ClassController@destroy');
+
 Route::put('test', 'ClassController@deactivateClass')->name('test');
 Route::get('editClass/{id}', 'ClassController@findClass')->name('editClass');
 Route::get('GetNameArea/{id_area}/{id_classroom}', 'ClassController@getNameArea')->name('GetNameArea');

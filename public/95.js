@@ -107,6 +107,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___default.a);
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -118,6 +122,7 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
       saveCicle: [],
       dataToIterate: [],
       date: '',
+      date_end: '',
       is_updated: false,
       id_to_update: ''
     };
@@ -199,28 +204,17 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
       var _this4 = this;
 
       if (this.is_updated === false) {
-        if (this.saveClass.length > 0 && this.saveCicle.length === 0) {
-          this.saveClass.forEach(function (clas) {
-            axios.post('activeElimination', {
-              id_area: clas.id_area,
-              id_classroom: clas.id_classroom,
-              date_to_activate_btn: _this4.date,
-              text: clas.text
-            }).then(function (response) {
-              toastr.success(response.data);
-            })["catch"](function (error) {
-              toastr.info('Intentalo de nuevo mas tarde');
-            });
-          });
-        } else if (this.saveCicle.length > 0) {
+        if (this.saveCicle.length > 0) {
           this.saveCicle.forEach(function (cicle) {
             axios.post('activeElimination', {
               id_cicle: cicle.id,
               date_to_activate_btn: _this4.date,
+              date_to_deactivate_btn: _this4.date_end,
               text: cicle.text,
               class_selected: cicle.class_selected,
               area_selected: cicle.area_selected
             }).then(function (response) {
+              _this4.date = '', _this4.date_end = '', _this4.saveCicle = [];
               toastr.success(response.data);
             })["catch"](function (error) {
               toastr.info('Intentalo de nuevo mas tarde');
@@ -231,28 +225,17 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
         this.getPermissions();
         $('#createRegister').modal('hide');
       } else {
-        if (this.saveClass.length > 0 && this.saveCicle.length === 0) {
-          this.saveClass.forEach(function (clas) {
-            axios.put("activeElimination/".concat(_this4.id_to_update), {
-              id_area: clas.id_area,
-              id_classroom: clas.id_classroom,
-              date_to_activate_btn: _this4.date,
-              text: clas.text
-            }).then(function (response) {
-              toastr.success(response.data);
-            })["catch"](function (error) {
-              toastr.info('Intentalo de nuevo mas tarde');
-            });
-          });
-        } else if (this.saveCicle.length > 0) {
+        if (this.saveCicle.length > 0) {
           this.saveCicle.forEach(function (cicle) {
             axios.put("activeElimination/".concat(_this4.id_to_update), {
               id_cicle: cicle.id,
               date_to_activate_btn: _this4.date,
+              date_to_deactivate_btn: _this4.date_end,
               text: cicle.text,
               class_selected: cicle.class_selected,
               area_selected: cicle.area_selected
             }).then(function (response) {
+              _this4.date = '', _this4.date_end = '', _this4.saveCicle = [];
               toastr.success(response.data);
             })["catch"](function (error) {
               toastr.info('Intentalo de nuevo mas tarde');
@@ -267,30 +250,18 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
       }
     },
     update: function update(data) {
-      if (data.id_area !== null) {
-        this.is_updated = true;
-        this.date = data.date_to_activate_btn;
-        this.saveClass.push({
-          id: data.id_area + data.id_classroom,
-          id_area: data.id_area,
-          id_classroom: data.id_classroom,
-          text: data.text
-        });
-        this.id_to_update = data.id;
-        $('#createRegister').modal('show');
-      } else if (data.id_cicle !== null) {
-        this.is_updated = true;
-        this.date = data.date_to_activate_btn;
-        this.saveClass.push({
-          id: data.area_selected + data.class_selected,
-          id_area: data.area_selected,
-          id_classroom: data.class_selected,
-          text: data.text
-        });
-        this.id_to_update = data.id;
-        this.getCicles(data.id_cicle);
-        $('#createRegister').modal('show');
-      }
+      this.is_updated = true;
+      this.date = data.date_to_activate_btn;
+      this.date_end = data.date_to_deactivate_btn;
+      this.saveClass.push({
+        id: data.area_selected + data.class_selected,
+        id_area: data.area_selected,
+        id_classroom: data.class_selected,
+        text: data.text
+      });
+      this.id_to_update = data.id;
+      this.getCicles(data.id_cicle);
+      $('#createRegister').modal('show');
     },
     dropData: function dropData(id) {
       var _this5 = this;
@@ -350,15 +321,11 @@ var render = function() {
                   _vm._l(_vm.dataToIterate, function(data, key) {
                     return _c("tbody", { key: key }, [
                       _c("tr", [
-                        _c("td", [
-                          _vm._v(_vm._s(data.id_area ? data.text : ""))
-                        ]),
-                        _vm._v(" "),
-                        _c("td", [
-                          _vm._v(_vm._s(data.id_cicle ? data.text : ""))
-                        ]),
+                        _c("td", [_vm._v(_vm._s(data.text))]),
                         _vm._v(" "),
                         _c("td", [_vm._v(_vm._s(data.date_to_activate_btn))]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(data.date_to_deactivate_btn))]),
                         _vm._v(" "),
                         _c("td", [
                           _c(
@@ -477,12 +444,6 @@ var render = function() {
                   1
                 ),
                 _vm._v(" "),
-                _c("p", { staticClass: "mt-2 mb-2" }, [
-                  _vm._v(
-                    "Al consultar los ciclos, se habilitará el permiso para eliminar unicamente el/los ciclo(s) seleccionado(s)"
-                  )
-                ]),
-                _vm._v(" "),
                 _c(
                   "button",
                   {
@@ -585,6 +546,34 @@ var render = function() {
                       }
                     }
                   })
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group" }, [
+                  _c("label", { attrs: { for: "date_end" } }, [
+                    _vm._v("Fecha para desactivar el permiso de eliminar")
+                  ]),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.date_end,
+                        expression: "date_end"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: { name: "date_end", type: "date" },
+                    domProps: { value: _vm.date_end },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.date_end = $event.target.value
+                      }
+                    }
+                  })
                 ])
               ]),
               _vm._v(" "),
@@ -621,7 +610,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "card-header fondo text-center mb-3" }, [
-      _c("h4", [_vm._v("Activación de permiso para eliminar Clase o Ciclo")])
+      _c("h4", [_vm._v("Activación de permiso para eliminar Ciclo")])
     ])
   },
   function() {
@@ -645,11 +634,11 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
-        _c("th", [_vm._v("Clases")]),
-        _vm._v(" "),
         _c("th", [_vm._v("Ciclos")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Fecha de permiso para Eliminar Dato")]),
+        _c("th", [_vm._v("Fecha Inicio de permiso para Eliminar Dato")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Fecha Fin de permiso para Eliminar Dato")]),
         _vm._v(" "),
         _c("th", [_vm._v("Acción")])
       ])

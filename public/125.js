@@ -9,6 +9,8 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_0__);
 //
 //
 //
@@ -97,6 +99,47 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+moment__WEBPACK_IMPORTED_MODULE_0___default.a.tz.setDefault("America/Bogota");
+moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale('es');
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -110,25 +153,47 @@ __webpack_require__.r(__webpack_exports__);
       fechaR: "",
       id_act: "",
       errors: [],
-      fillS: []
+      fillS: [],
+      clase_to_delete: [],
+      id_module: ''
     };
   },
   created: function created() {},
   mounted: function mounted() {
-    var _this = this;
-
-    var url = "/GetArearByUser";
-    axios.get(url).then(function (response) {
-      _this.areas = response.data;
-    });
+    this.getData();
   },
   methods: {
+    getData: function getData() {
+      var _this = this;
+
+      var url = "/GetArearByUser";
+      axios.get(url).then(function (response) {
+        _this.areas = response.data;
+      });
+    },
     botones: function botones(area, classroom) {
       var _this2 = this;
 
       var urlsel = "/editGetWeek/" + area + "/" + classroom;
       axios.get(urlsel).then(function (response) {
-        _this2.clases = response.data;
+        var clases = response.data;
+        axios.get('/getPermissions').then(function (response) {
+          var permissions = response.data;
+
+          for (var i = 0; i < permissions.length; i++) {
+            for (var a = 0; a < clases.length; a++) {
+              if (permissions[i] && permissions[i].id_cicle === clases[a].id) {
+                if (permissions[i].date_to_activate_btn >= moment__WEBPACK_IMPORTED_MODULE_0___default()(new Date()).format('YYYY-MM-DD') || moment__WEBPACK_IMPORTED_MODULE_0___default()(new Date()).format('YYYY-MM-DD') <= permissions[i].date_to_deactivate_btn) {
+                  clases[a].activateButton = true;
+                } else {
+                  clases[a].activateButton = false;
+                }
+              }
+            }
+          }
+
+          _this2.clases = clases;
+        });
       });
     },
     filterClass: function filterClass(class_name) {
@@ -136,6 +201,34 @@ __webpack_require__.r(__webpack_exports__);
     },
     filterCicle: function filterCicle(cicle_name) {
       return cicle_name.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(this.search_filter_cicle.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, ""));
+    },
+    ClassAndCicle: function ClassAndCicle(id_module) {
+      var _this3 = this;
+
+      axios.get("/showClass/".concat(id_module)).then(function (response) {
+        _this3.clase_to_delete = response.data.clase;
+        _this3.id_module = id_module;
+        $('#infoClass').modal('show');
+      });
+    },
+    deleteClassAndCicles: function deleteClassAndCicles() {
+      var _this4 = this;
+
+      this.clase_to_delete.forEach(function (clas) {
+        axios["delete"]("/deleteClasses/".concat(clas.id));
+      });
+      axios["delete"]("/DeleteCicle/".concat(this.id_module)).then(function (response) {
+        _this4.clase_to_delete = [];
+        _this4.id_module = '';
+
+        if (_this4.clase_to_delete.length > 0) {
+          toastr.success("Clases y ".concat(response.data));
+        } else {
+          toastr.success('Ciclo Eliminado');
+        }
+
+        window.location = "/docente/clases";
+      });
     }
   }
 });
@@ -401,7 +494,25 @@ var render = function() {
                                                 }
                                               },
                                               [_vm._v("Ir a Ciclo")]
-                                            )
+                                            ),
+                                            _vm._v(" "),
+                                            clas.activateButton
+                                              ? _c(
+                                                  "button",
+                                                  {
+                                                    staticClass:
+                                                      "btn btn-primary",
+                                                    on: {
+                                                      click: function($event) {
+                                                        return _vm.ClassAndCicle(
+                                                          clas.id
+                                                        )
+                                                      }
+                                                    }
+                                                  },
+                                                  [_vm._v("Eliminar")]
+                                                )
+                                              : _vm._e()
                                           ])
                                         ])
                                       : _vm._e()
@@ -422,7 +533,94 @@ var render = function() {
           ])
         ])
       ])
-    ])
+    ]),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "modal fade",
+        attrs: {
+          id: "infoClass",
+          tabindex: "-1",
+          role: "dialog",
+          "aria-labelledby": "infoClassLabel",
+          "aria-hidden": "true"
+        }
+      },
+      [
+        _c(
+          "div",
+          { staticClass: "modal-dialog", attrs: { role: "document" } },
+          [
+            _c("div", { staticClass: "modal-content" }, [
+              _vm._m(1),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-body" }, [
+                _vm.clase_to_delete.length > 0
+                  ? _c("div", [
+                      _c("p", { staticClass: "mb-4" }, [
+                        _vm._v(
+                          "Se eliminarán las siguientes Clases del Ciclo: "
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "table",
+                        { staticClass: "table table-stripped table-hover" },
+                        [
+                          _vm._m(2),
+                          _vm._v(" "),
+                          _c(
+                            "tbody",
+                            _vm._l(_vm.clase_to_delete, function(
+                              clasDelete,
+                              key
+                            ) {
+                              return _c("tr", { key: key }, [
+                                _c("td", [_vm._v(_vm._s(clasDelete.name))]),
+                                _vm._v(" "),
+                                _c("td", [
+                                  _vm._v(_vm._s(clasDelete.description))
+                                ])
+                              ])
+                            }),
+                            0
+                          )
+                        ]
+                      )
+                    ])
+                  : _c("div", [
+                      _vm._v(
+                        "\n                      No hay Clases asignadas al Ciclo\n                  "
+                      )
+                    ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-footer" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-secondary",
+                    attrs: { type: "button", "data-dismiss": "modal" }
+                  },
+                  [_vm._v("Cerrar")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-primary",
+                    attrs: { type: "button" },
+                    on: { click: _vm.deleteClassAndCicles }
+                  },
+                  [_vm._v("Eliminar de todas Formas")]
+                )
+              ])
+            ])
+          ]
+        )
+      ]
+    )
   ])
 }
 var staticRenderFns = [
@@ -439,6 +637,43 @@ var staticRenderFns = [
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [_vm._v("Acción")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header" }, [
+      _c(
+        "h5",
+        { staticClass: "modal-title", attrs: { id: "infoClassLabel" } },
+        [_vm._v("Información de Clases del Ciclo")]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Nombre")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Descripción")])
       ])
     ])
   }

@@ -1038,6 +1038,9 @@ class ClassController extends Controller
      */
     public function destroy($id)
     {
+        $clase = Classs::findOrFail($id);
+        $clase->delete();
+        return response()->json('Clase Eliminado');
     }
     public function getNameArea(String $id_area, String $id_classroom)
     {
