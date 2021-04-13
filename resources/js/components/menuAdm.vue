@@ -161,6 +161,18 @@
                       Ciclos y clases
                     </a>
 
+                    <a width="30px" href="/activeElimination">
+                      <img
+                        width="35px"
+                        src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/MIS-CURSOS.png?alt=media&token=93ec6b97-e5a6-4eca-891e-b63bf2a352ad"
+                        alt
+                      />
+                      
+                      <span>
+                        Permiso Eliminar Ciclos&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        </span>
+                    </a>
+
                     <a href="/notas_d">
                       <img
                         width="35px"
