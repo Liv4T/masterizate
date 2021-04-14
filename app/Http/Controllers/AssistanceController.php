@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Assistance;
 use Illuminate\Http\Request;
-
+use Auth;
 class AssistanceController extends Controller
 {
     /**
@@ -18,7 +18,10 @@ class AssistanceController extends Controller
     }
 
     public function showAssistance(){
+        $user_id = Auth::user()->id;
+        $assistance = Assistance::where('id_teacher','=',$user_id)->orderBy('created_at')->get();
 
+        return response()->json($assistance);
     }
 
     /**

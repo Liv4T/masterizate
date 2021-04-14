@@ -268,6 +268,9 @@ Vue.component("members-chat", ()=> import("./components/modalMembers.vue"));
 //Modulo para eliminar clases y ciclos 
 Vue.component("component-delete-class-and-cicles", ()=> import("./components/deleteClassAndCicles.vue"));
 
+//Modulo para registro de asistencia
+Vue.component("assistance-component",()=>import("./components/assistance.vue"));
+
 Vue.use(CKEditor);
 
 
