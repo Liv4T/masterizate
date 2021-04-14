@@ -16,6 +16,7 @@ class Assistance extends Model
         'id_teacher',
         'assistance',
         'excuse',
-        'other_motive'
+        'other_motive',
+        'motive'
     ];
 }

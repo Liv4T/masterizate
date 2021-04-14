@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Assistance;
+use App\User;
 use Illuminate\Http\Request;
 use Auth;
 class AssistanceController extends Controller
@@ -19,9 +20,26 @@ class AssistanceController extends Controller
 
     public function showAssistance(){
         $user_id = Auth::user()->id;
-        $assistance = Assistance::where('id_teacher','=',$user_id)->orderBy('created_at')->get();
+        $assistances = Assistance::where('id_teacher','=',$user_id)->orderBy('created_at')->get();
+        $assistants = [];
 
-        return response()->json($assistance);
+        foreach ($assistances as $key => $assis) {
+            $student = User::where('id','=',$assis->id_student)->first();
+            $teacher = User::where('id','=',$assis->id_teacher)->first();
+
+            array_push($assistants, [
+                'id'           => $assis->id,
+                'student_name' => $student->name,
+                'teacher_name' => $teacher->name,
+                'course'       => $assis->course,
+                'assistance'   => $assis->assistance,
+                'excuse'       => $assis->excuse,
+                'other_motive' => $assis->other_motive,
+                'motive'       => $assis->motive,
+                'created_at'   => $assis->created_at
+            ]);
+        }
+        return response()->json($assistants);
     }
 
     /**
@@ -49,6 +67,7 @@ class AssistanceController extends Controller
         $assistance->assistance = $request->assistance;
         $assistance->excuse = $request->excuse;
         $assistance->other_motive = $request->other_motive;
+        $assistance->motive = $request->motive;
 
         $assistance->save();
 
@@ -93,6 +112,7 @@ class AssistanceController extends Controller
         $assistance->assistance = $request->assistance;
         $assistance->excuse = $request->excuse;
         $assistance->other_motive = $request->other_motive;
+        $assistance->motive = $request->motive;
 
         $assistance->update();
 

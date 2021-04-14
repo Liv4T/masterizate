@@ -20,7 +20,8 @@ class CreateAssistancesTable extends Migration
             $table->bigInteger('id_teacher');
             $table->boolean('assistance');
             $table->boolean('excuse');
-            $table->text('other_motive')->nullable();
+            $table->boolean('other_motive');
+            $table->string('motive')->nullable();
             $table->timestamps();
         });
     }

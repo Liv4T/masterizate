@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-<menu-adm></menu-adm>
-<assistance-component></assistance-component>
+<menu-docente></menu-docente>
+<assistance-component :user="{{Auth::user()}}"></assistance-component>
 <div class="container">
 
     <div class="row justify-content-center">
