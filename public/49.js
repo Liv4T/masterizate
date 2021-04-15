@@ -100,6 +100,55 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 moment__WEBPACK_IMPORTED_MODULE_0___default.a.tz.setDefault("America/Bogota");
 moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale("es");
@@ -110,30 +159,89 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale("es");
       areas: [],
       schedules: [],
       date_find: "",
-      loading: false
+      loading: false,
+      schedule_selected: {},
+      schedule_preloaded: {}
     };
   },
+  props: ["schedule_id"],
   components: {
     datetime: vuejs_datetimepicker__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
   mounted: function mounted() {
-    this.getAreas();
+    var _this = this;
+
+    this.getAreas().then(function () {
+      if (_this.schedule_id) {
+        //this.areas[0].expand = true;
+        //$(`#collapse${0}`).collapse('show');
+        _this.getScheduleEvent();
+      }
+    });
   },
   methods: {
     getAreas: function getAreas() {
-      var _this = this;
+      var _this2 = this;
 
-      axios.get("/GetArearByUser").then(function (response) {
-        _this.areas = response.data;
+      return new Promise(function (resolve, reject) {
+        axios.get("/GetArearByUser").then(function (response) {
+          _this2.areas = response.data;
+          return resolve();
+        })["catch"](function (e) {
+          return reject(e);
+        });
       });
     },
     SearchSchedules: function SearchSchedules(area_id, classroom_id) {
-      var _this2 = this;
+      var _this3 = this;
+
+      this.schedule_selected = {};
+      this.loading = true;
+      axios.get("/api/student/area/".concat(area_id, "/classroom/").concat(classroom_id, "/schedule/").concat(this.date_find)).then(function (response) {
+        _this3.schedules = response.data;
+        _this3.loading = false;
+      })["catch"](function (e) {
+        _this3.loading = false;
+      });
+    },
+    SelectSchedule: function SelectSchedule(area_id, classroom_id, schedule) {
+      $("#modalSelectSchedule").modal("show");
+      this.schedule_selected = {
+        area_id: area_id,
+        classroom_id: classroom_id,
+        schedule: schedule,
+        observations: ""
+      };
+    },
+    SaveProgramSchedule: function SaveProgramSchedule() {
+      var _this4 = this;
 
       this.loading = true;
-      axios.get("/api/student/area/".concat(area_id, "/classroom/").concat(classroom_id, "/available-schedule/").concat(this.date_find)).then(function (response) {
-        _this2.schedules = response.data;
-        _this2.loading = false;
+      $("#modalSelectSchedule").modal("hide");
+      axios.put("/api/student/area/".concat(this.schedule_selected.area_id, "/classroom/").concat(this.schedule_selected.classroom_id, "/schedule/programe"), this.schedule_selected).then(function () {
+        toastr.success("Tutoría programada correctamente.");
+
+        _this4.SearchSchedules(_this4.schedule_selected.area_id, _this4.schedule_selected.classroom_id);
+      })["catch"](function (e) {
+        _this4.loading = false;
+      });
+    },
+    getScheduleEvent: function getScheduleEvent() {
+      var _this5 = this;
+
+      axios.get("/api/tutor-schedule/event/".concat(this.schedule_id)).then(function (response) {
+        _this5.schedule_preloaded = response.data;
+
+        var area_index = _this5.areas.findIndex(function (p) {
+          return p.id == _this5.schedule_preloaded.area.id;
+        });
+
+        if (area_index > -1) {
+          $("#collapse".concat(area_index)).collapse('show');
+          _this5.date_find = _this5.schedule_preloaded.date_from.substring(0, 10);
+
+          _this5.SearchSchedules(_this5.schedule_preloaded.area.id, _this5.schedule_preloaded.classroom.id);
+        }
       });
     }
   },
@@ -160,7 +268,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.td-btn .btn {\n  width: 80%;\n  margin-bottom: 20px;\n}\n.td-days {\n  text-align: left;\n  width: 150px;\n}\n.td-btn {\n  width: 150px;\n}\n.collapse-body-container {\n  overflow-y: auto;\n  height:450px;\n}\n", ""]);
+exports.push([module.i, "\n.td-btn .btn {\n  width: 80%;\n  margin-bottom: 20px;\n}\n.td-days {\n  text-align: left;\n  width: 150px;\n}\n.td-btn {\n  width: 150px;\n}\n.collapse-body-container {\n  overflow-y: auto;\n  height: 450px;\n}\n", ""]);
 
 // exports
 
@@ -235,7 +343,6 @@ var render = function() {
                               type: "button",
                               "data-toggle": "collapse",
                               "data-target": "#collapse" + t,
-                              "aria-expanded": "false",
                               "aria-controls": "collapse"
                             }
                           },
@@ -307,7 +414,30 @@ var render = function() {
                                           },
                                           [_vm._v("Consultar disponibilidad")]
                                         )
-                                      ])
+                                      ]),
+                                      _vm._v(" "),
+                                      _c(
+                                        "div",
+                                        { staticClass: "col-5 text-right" },
+                                        [
+                                          _c(
+                                            "button",
+                                            {
+                                              staticClass: "btn btn-default",
+                                              on: {
+                                                click: function($event) {
+                                                  $event.preventDefault()
+                                                  return _vm.SearchSchedules(
+                                                    area.id,
+                                                    area.id_classroom
+                                                  )
+                                                }
+                                              }
+                                            },
+                                            [_vm._v("Refrescar")]
+                                          )
+                                        ]
+                                      )
                                     ])
                                   ]
                                 )
@@ -340,7 +470,10 @@ var render = function() {
                                       return _c("tr", { key: s_key }, [
                                         _c(
                                           "td",
-                                          { staticClass: "text-center" },
+                                          {
+                                            staticClass: "text-left",
+                                            staticStyle: { width: "200px" }
+                                          },
                                           [
                                             _c("div", { staticClass: "row" }, [
                                               _vm._m(2, true),
@@ -384,29 +517,116 @@ var render = function() {
                                           ]
                                         ),
                                         _vm._v(" "),
+                                        _c("td", { staticClass: "text-left" }, [
+                                          _c("div", { staticClass: "row" }, [
+                                            _c(
+                                              "div",
+                                              { staticClass: "col-12" },
+                                              [
+                                                _vm._v(
+                                                  "\n                                  " +
+                                                    _vm._s(
+                                                      schedule.teacher.name
+                                                    ) +
+                                                    "\n                                "
+                                                )
+                                              ]
+                                            ),
+                                            _vm._v(" "),
+                                            _c(
+                                              "div",
+                                              { staticClass: "col-12" },
+                                              [
+                                                _c("small", [
+                                                  _vm._v(
+                                                    _vm._s(
+                                                      schedule.teacher.email
+                                                    )
+                                                  )
+                                                ])
+                                              ]
+                                            ),
+                                            _vm._v(" "),
+                                            _c(
+                                              "div",
+                                              { staticClass: "col-12" },
+                                              [
+                                                _c(
+                                                  "a",
+                                                  {
+                                                    staticClass:
+                                                      "btn btn-primary",
+                                                    attrs: {
+                                                      href:
+                                                        "/tutor/" +
+                                                        schedule.teacher.id +
+                                                        "/perfil"
+                                                    }
+                                                  },
+                                                  [_vm._v("Ver experiencia")]
+                                                )
+                                              ]
+                                            )
+                                          ])
+                                        ]),
+                                        _vm._v(" "),
                                         _c(
                                           "td",
                                           { staticClass: "text-center" },
                                           [
-                                            _c("div", { staticClass: "row" }, [
-                                              _c(
-                                                "div",
-                                                { staticClass: "col-12" },
-                                                [
+                                            !schedule.reserved.id
+                                              ? _c(
+                                                  "button",
+                                                  {
+                                                    staticClass:
+                                                      "btn btn-primary",
+                                                    on: {
+                                                      click: function($event) {
+                                                        return _vm.SelectSchedule(
+                                                          area.id,
+                                                          area.id_classroom,
+                                                          schedule
+                                                        )
+                                                      }
+                                                    }
+                                                  },
+                                                  [_vm._v("Tomar tutoría")]
+                                                )
+                                              : _vm._e(),
+                                            _vm._v(" "),
+                                            schedule.reserved.id &&
+                                            schedule.reserved.meetup
+                                              ? _c(
+                                                  "button",
+                                                  {
+                                                    staticClass:
+                                                      "btn btn-success",
+                                                    on: {
+                                                      click: function($event) {
+                                                        return _vm.OpenSchedule(
+                                                          schedule
+                                                        )
+                                                      }
+                                                    }
+                                                  },
+                                                  [
+                                                    _vm._v(
+                                                      "Ingresar a la tutoría"
+                                                    )
+                                                  ]
+                                                )
+                                              : _vm._e(),
+                                            _vm._v(" "),
+                                            schedule.reserved.id &&
+                                            !schedule.reserved.meetup
+                                              ? _c("span", [
                                                   _vm._v(
-                                                    "\n                                 " +
-                                                      _vm._s(
-                                                        schedule.teacher.name
-                                                      ) +
-                                                      "\n                                "
+                                                    "(Tutor no ha generado link de reunión)"
                                                   )
-                                                ]
-                                              )
-                                            ])
+                                                ])
+                                              : _vm._e()
                                           ]
-                                        ),
-                                        _vm._v(" "),
-                                        _c("td", { staticClass: "text-center" })
+                                        )
                                       ])
                                     })
                                   : _vm._e()
@@ -424,7 +644,113 @@ var render = function() {
             ])
           ])
         ])
-      ])
+      ]),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "modal fade", attrs: { id: "modalSelectSchedule" } },
+        [
+          _c("div", { staticClass: "modal-dialog" }, [
+            _c("div", { staticClass: "modal-content" }, [
+              _c("div", { staticClass: "card" }, [
+                _vm._m(4),
+                _vm._v(" "),
+                _c("div", { staticClass: "card-body" }, [
+                  _c("div", { staticClass: "row" }, [
+                    _c("div", { staticClass: "col-sm-12" }, [
+                      _c("small", [_vm._v("Tutor:")]),
+                      _vm._v(" "),
+                      _c("p", [
+                        _vm._v(
+                          "\n                    " +
+                            _vm._s(
+                              _vm.schedule_selected.schedule
+                                ? _vm.schedule_selected.schedule.teacher.name
+                                : ""
+                            ) +
+                            "\n                  "
+                        )
+                      ])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "row" }, [
+                    _c("div", { staticClass: "col-sm-12" }, [
+                      _c("small", [_vm._v("Horario:")]),
+                      _vm._v(" "),
+                      _c("p", [
+                        _vm._v(
+                          _vm._s(
+                            _vm._f("formatDate")(
+                              _vm.schedule_selected.schedule
+                                ? _vm.schedule_selected.schedule.date_from
+                                : ""
+                            )
+                          ) +
+                            " - " +
+                            _vm._s(
+                              _vm._f("formatDate")(
+                                _vm.schedule_selected.schedule
+                                  ? _vm.schedule_selected.schedule.date_to
+                                  : ""
+                              )
+                            )
+                        )
+                      ])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "row" }, [
+                    _c("div", { staticClass: "col-sm-12" }, [
+                      _c("label", [_vm._v("¿Qué temas desea reforzar?")]),
+                      _vm._v(" "),
+                      _c("textarea", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.schedule_selected.observations,
+                            expression: "schedule_selected.observations"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { rows: "5" },
+                        domProps: { value: _vm.schedule_selected.observations },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.schedule_selected,
+                              "observations",
+                              $event.target.value
+                            )
+                          }
+                        }
+                      })
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "a",
+                    {
+                      staticClass: "btn btn-primary",
+                      attrs: { href: "javascript:void(0)" },
+                      on: {
+                        click: function($event) {
+                          return _vm.SaveProgramSchedule()
+                        }
+                      }
+                    },
+                    [_vm._v("Programar tutoría")]
+                  )
+                ])
+              ])
+            ])
+          ])
+        ]
+      )
     ])
   ])
 }
@@ -444,9 +770,9 @@ var staticRenderFns = [
     return _c("tr", [
       _c("th", { staticClass: "text-center" }, [_vm._v("Horario")]),
       _vm._v(" "),
-      _c("th", { staticClass: "text-center" }, [_vm._v("Profesor")]),
-      _vm._v(" "),
-      _c("th")
+      _c("th", { staticClass: "text-center", attrs: { colspan: "2" } }, [
+        _vm._v("Profesor")
+      ])
     ])
   },
   function() {
@@ -454,7 +780,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "col-12" }, [
-      _c("label", [_vm._v("Desde:")])
+      _c("small", [_vm._v("Desde:")])
     ])
   },
   function() {
@@ -462,7 +788,23 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "col-12" }, [
-      _c("label", [_vm._v("Hasta:")])
+      _c("small", [_vm._v("Hasta:")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("h3", { staticClass: "card-header fondo text-center" }, [
+      _vm._v("\n              Programar tutoría\n              "),
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: { type: "button", "data-dismiss": "modal" }
+        },
+        [_c("span", [_vm._v("×")])]
+      )
     ])
   }
 ]
