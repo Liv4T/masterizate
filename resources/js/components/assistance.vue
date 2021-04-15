@@ -32,7 +32,7 @@
                                         <td v-else-if="assistant.other_motive === 1">{{assistant.motive}}</td>
                                         <td>{{assistant.created_at.date}}</td>
                                         <td>
-                                            <button class="btn btn-primary" v-on:click="updateData(assistant)">Actualizar</button>
+                                            <button class="btn btn-primary" v-on:click="updateData(assistant.id)">Actualizar</button>
                                             <button class="btn btn-danger" v-on:click="deleteData(assistant.id)">Eliminar</button>
                                         </td>
                                     </tr>
@@ -55,54 +55,60 @@
                     </div>
                     <div class="modal-body">
                         <div class="form-group">
-                            <label for="students">Areas</label>
+                            <div v-if="updated === false">
+                                <label for="students">Areas</label>
 
-                            <multiselect v-model="areaSave" :options="area_option" :multiple="false"
-                                :close-on-select="false" :clear-on-select="false"
-                                :preserve-search="true" placeholder="Seleccione una o varias"
-                                label="text" track-by="id" :preselect-first="true">
-                                    <template slot="selection" slot-scope="{ values, isOpen }">
-                                        <span
-                                            class="multiselect__single"
-                                            v-if="values.length &amp;&amp; !isOpen">{{ values.length }}
-                                                opciones
-                                                selecionadas
-                                            </span>
-                                    </template>
-                            </multiselect>
+                                <multiselect v-model="areaSave" :options="area_option" :multiple="false"
+                                    :close-on-select="false" :clear-on-select="false"
+                                    :preserve-search="true" placeholder="Seleccione una o varias"
+                                    label="text" track-by="id" :preselect-first="true">
+                                        <template slot="selection" slot-scope="{ values, isOpen }">
+                                            <span
+                                                class="multiselect__single"
+                                                v-if="values.length &amp;&amp; !isOpen">{{ values.length }}
+                                                    opciones
+                                                    selecionadas
+                                                </span>
+                                        </template>
+                                    </multiselect>
+                                <button class="btn btn-primary" v-on:click="getStudents">Consultar Estudiantes</button>
+                                <div v-if="studentsOption.length > 0" class="form-group">
+                                    <label for="students">Estudiante</label>
+
+                                    <multiselect v-model="student" :options="studentsOption" :multiple="false"
+                                        :close-on-select="false" :clear-on-select="false"
+                                        :preserve-search="true" placeholder="Seleccione una o varias"
+                                        label="text" track-by="id" :preselect-first="true">
+                                            <template slot="selection" slot-scope="{ values, isOpen }">
+                                                <span
+                                                    class="multiselect__single"
+                                                    v-if="values.length &amp;&amp; !isOpen">{{ values.length }}
+                                                        opciones
+                                                        selecionadas
+                                                    </span>
+                                            </template>
+                                    </multiselect>
+                                </div>
+                            </div>
+                            <div v-else>
+                                <p>Estudiante: {{student_name}}</p>
+                                <br>
+                                <p>Curso / Salon: {{course_registred}}</p>
+                            </div>
                         </div>
-                        <button class="btn btn-primary" v-on:click="getStudents">Consultar Estudiantes</button>
-                        <div v-if="studentsOption.length > 0" class="form-group">
-                            <label for="students">Estudiante</label>
-
-                            <multiselect v-model="student" :options="studentsOption" :multiple="false"
-                                :close-on-select="false" :clear-on-select="false"
-                                :preserve-search="true" placeholder="Seleccione una o varias"
-                                label="text" track-by="id" :preselect-first="true">
-                                    <template slot="selection" slot-scope="{ values, isOpen }">
-                                        <span
-                                            class="multiselect__single"
-                                            v-if="values.length &amp;&amp; !isOpen">{{ values.length }}
-                                                opciones
-                                                selecionadas
-                                            </span>
-                                    </template>
-                            </multiselect>
-                        </div>
-
                         <div class="form-group">
                             <label for="flexRadioDefault1">Asistió</label>
-                            <input class="form-check-input ml-3" :value="assistance" v-on:click="activeMotive" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                            <input class="form-check-input ml-3"  v-on:click="activeMotive" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
                         </div>
 
                         <div class="form-group">
                             <label for="flexRadioDefault2">Excusa</label>
-                            <input class="form-check-input ml-3" :value="excuse" v-on:click="activeMotive" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
+                            <input class="form-check-input ml-3" v-on:click="activeMotive" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
                         </div>
 
                         <div class="form-group">
                             <label for="flexRadioDefault3">Otro Motivo</label>
-                            <input class="form-check-input ml-3" :value="other_motive" v-on:click="activeMotive" type="radio" name="flexRadioDefault" id="flexRadioDefault3">
+                            <input class="form-check-input ml-3" v-on:click="activeMotive" type="radio" name="flexRadioDefault" id="flexRadioDefault3">
                             <input v-if="other_motive === true" type="text" class="form-control" v-model="motive"/>
                         </div>
                     </div>
@@ -128,10 +134,13 @@ Vue.component("multiselect", Multiselect);
                 other_motive:false,
                 assistance: false,
                 excuse: false,
-                other_motive: false,
                 area_option:[],
                 areaSave:{},
-                assistants:[]
+                assistants:[],
+                updated:false,
+                student_name:'',
+                course_registred:'',
+                id_to_update: ''
             }
         },
         mounted(){
@@ -179,35 +188,79 @@ Vue.component("multiselect", Multiselect);
                 }
             },
             saveAssistants(){
-                axios.post('assistance',{
-                    id_student:this.student.id,
-                    id_teacher: this.user.id,
-                    assistance: this.assistance,
-                    excuse: this.excuse,
-                    other_motive: this.other_motive,
-                    motive: this.motive,
-                    course: this.areaSave.text
-                }).then((response)=>{
-                    toastr.success(response.data);
-                    this.getAssistants();
-                }).catch((error) => {
-                    toastr.info('Ha ocurrido algo, Intenta de nuevo mas tarde');
-                    console.log(error);
-                })
+                if(this.updated === false){
+                    axios.post('assistance',{
+                        id_student:this.student.id,
+                        id_teacher: this.user.id,
+                        assistance: this.assistance,
+                        excuse: this.excuse,
+                        other_motive: this.other_motive,
+                        motive: this.motive,
+                        course: this.areaSave.text
+                    }).then((response)=>{
+                        toastr.success(response.data);
+                        this.getAssistants();
+                        $('#createAssistants').modal('hide');
+                    }).catch((error) => {
+                        toastr.info('Ha ocurrido algo, Intenta de nuevo mas tarde');
+                        console.log(error);
+                    })
+                }else if(this.updated === true){
+                    axios.put(`assistance/${this.id_to_update}`,{
+                        assistance: this.assistance,
+                        excuse: this.excuse,
+                        other_motive: this.other_motive,
+                        motive: this.motive
+                    }).then((response)=>{
+                        toastr.success(response.data);
+                        this.getAssistants();
+                        this.updated = false;
+                        $('#createAssistants').modal('hide');
+                    }).catch((error) => {
+                        toastr.info('Ha ocurrido algo, Intenta de nuevo mas tarde');
+                        console.log(error);
+                    })
+                }
             },
-            updateData(data){
-                this.student.id = data.id_student,
-                this.assistance = data.assistance === 1 ? 'on' : 'off',
-                this.excuse = data.excuse === 1 ? 'on' : 'off',
-                this.other_motive = data.other_motive === 1 ? 'on' : 'off',
-                this.motive = data.motive,
-                this.course = data.course
+            updateData(id){
+                this.id_to_update = id;
+                axios.get(`assistance/${id}`).then((response)=>{
+                    let assistant = response.data;
+                    assistant.forEach((assist)=>{
+                        this.student_name = assist.student_name;
+                        if(assist.assistance === 1){
+                            this.assistance = true;
+                            $('input[id="flexRadioDefault1"]').prop("checked", true) 
+                        }else{
+                            this.assistance = false;
+                        }
 
+                        if(assist.excuse === 1){
+                            this.excuse = true;    
+                            $('input[id="flexRadioDefault2"]').prop("checked", true)
+                        }else{
+                            this.excuse = false;
+                        }
+
+                        if(assist.other_motive === 1){
+                            this.other_motive = true;
+                            $('input[id="flexRadioDefault3"]').prop("checked", true)
+                        }
+                        else{
+                            this.other_motive = false;
+                        }
+
+                        this.motive = assist.motive,
+                        this.course_registred = assist.course
+                    })
+                })
+                this.updated = true;
                 $('#createAssistants').modal('show');
             },
             deleteData(id){
                 axios.delete(`assistance/${id}`).then((response)=>{
-                    toastr.success(response.data)
+                    toastr.success(response.data);
+                    this.getAssistants();
                 }).catch((error)=>{
                     toastr.info('No se ha podido eliminar el dato, Intenta de nuevo mas tarde');
                     console.log(error);

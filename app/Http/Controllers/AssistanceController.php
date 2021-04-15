@@ -29,8 +29,8 @@ class AssistanceController extends Controller
 
             array_push($assistants, [
                 'id'           => $assis->id,
-                'student_name' => $student->name,
-                'teacher_name' => $teacher->name,
+                'student_name' => $student->name.' '.$student->last_name,
+                'teacher_name' => $teacher->name.' '.$teacher->last_name,
                 'course'       => $assis->course,
                 'assistance'   => $assis->assistance,
                 'excuse'       => $assis->excuse,
@@ -80,9 +80,28 @@ class AssistanceController extends Controller
      * @param  \App\Assistance  $assistance
      * @return \Illuminate\Http\Response
      */
-    public function show(Assistance $assistance)
+    public function show($id)
     {
-        //
+        $assistant = Assistance::where('id','=',$id)->get();
+        $assistants = [];
+
+        foreach ($assistant as $key => $assis) {
+            $student = User::where('id','=',$assis->id_student)->first();
+            $teacher = User::where('id','=',$assis->id_teacher)->first();
+
+            array_push($assistants, [
+                'id'           => $assis->id,
+                'student_name' => $student->name.' '.$student->last_name,
+                'teacher_name' => $teacher->name.' '.$teacher->last_name,
+                'course'       => $assis->course,
+                'assistance'   => $assis->assistance,
+                'excuse'       => $assis->excuse,
+                'other_motive' => $assis->other_motive,
+                'motive'       => $assis->motive,
+                'created_at'   => $assis->created_at
+            ]);
+        }
+        return response()->json($assistants);
     }
 
     /**
@@ -106,9 +125,6 @@ class AssistanceController extends Controller
     public function update(Request $request, $id)
     {
         $assistance = Assistance::findOrFail($id);
-        $assistance->course = $request->course;
-        $assistance->id_student = $request->id_student;
-        $assistance->id_teacher = $request->id_teacher;
         $assistance->assistance = $request->assistance;
         $assistance->excuse = $request->excuse;
         $assistance->other_motive = $request->other_motive;
@@ -116,7 +132,7 @@ class AssistanceController extends Controller
 
         $assistance->update();
 
-        return response()->json('Asistencia Actializada');
+        return response()->json('Asistencia Actualizada');
     }
 
     /**
@@ -125,7 +141,7 @@ class AssistanceController extends Controller
      * @param  \App\Assistance  $assistance
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Assistance $assistance)
+    public function destroy($id)
     {
         $assistance = Assistance::findOrFail($id);
         $assistance->delete();
