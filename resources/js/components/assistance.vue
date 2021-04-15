@@ -11,7 +11,7 @@
                 <div>
                     <div class="card">
                         <div class="card-body">
-                            <input type="text" class="form-control" placeholder="Buscar Por Curso" v-model="search_filter">
+                            <input type="text" class="form-control" placeholder="Buscar Por Nombre del Estudiante" v-model="search_filter">
                             <table class="table table-stripped table-hover">
                                 <thead>
                                     <tr>
@@ -22,9 +22,8 @@
                                         <th>Acción</th>
                                     </tr>
                                 </thead>
-                                <tbody class="card-header" v-for="(assistant, key) in assistants" :key="key">
-                                    
-                                    <tr v-if="search_filter =='' || filterClass(assistant.course)">
+                                <tbody class="card-header" v-for="(assistant, key) in assistants" :key="key"> 
+                                    <tr v-if="search_filter =='' || filterNameStudent(assistant.student_name)">
                                         <td>{{assistant.student_name}}</td>
                                         <td>{{assistant.course}}</td>
                                         <td v-if="assistant.assistance === 1">Asistencia Confirmada</td>
@@ -267,8 +266,8 @@ Vue.component("multiselect", Multiselect);
                     console.log(error);
                 })
             },
-            filterClass(course){
-                return course.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(this.search_filter.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, ""));
+            filterNameStudent(studentName){
+                return studentName.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(this.search_filter.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, ""));
             },
         }
     }

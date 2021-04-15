@@ -134,7 +134,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___default.a);
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -290,8 +289,8 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
         console.log(error);
       });
     },
-    filterClass: function filterClass(course) {
-      return course.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(this.search_filter.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, ""));
+    filterNameStudent: function filterNameStudent(studentName) {
+      return studentName.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(this.search_filter.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, ""));
     }
   }
 });
@@ -343,7 +342,10 @@ var render = function() {
                   }
                 ],
                 staticClass: "form-control",
-                attrs: { type: "text", placeholder: "Buscar Por Curso" },
+                attrs: {
+                  type: "text",
+                  placeholder: "Buscar Por Nombre del Estudiante"
+                },
                 domProps: { value: _vm.search_filter },
                 on: {
                   input: function($event) {
@@ -367,7 +369,7 @@ var render = function() {
                       { key: key, staticClass: "card-header" },
                       [
                         _vm.search_filter == "" ||
-                        _vm.filterClass(assistant.course)
+                        _vm.filterNameStudent(assistant.student_name)
                           ? _c("tr", [
                               _c("td", [
                                 _vm._v(_vm._s(assistant.student_name))
