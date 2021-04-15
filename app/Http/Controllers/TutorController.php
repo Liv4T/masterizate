@@ -279,7 +279,7 @@ class TutorController extends Controller
                "date_to"=>$data['schedule']['date_to'],
                "date_from"=>$data['schedule']['date_from'],
                "id_user"=>$data['schedule']['teacher']['id'],
-               "url"=>"/tutor/evento/".$scheduleCreated->id,
+               "url"=>"",
                "state"=>1,
                "deleted"=>0
            ]);
@@ -287,7 +287,7 @@ class TutorController extends Controller
            TutorScheduleEvent::create([
                 "id_classroom"=>$classroom_id,
                 "id_area"=>$area_id,
-                "name"=>$area->name.' '.$classroom->name.' - '.$user->name.' '.$user->last_name,
+                "name"=>$area->name.' '.$classroom->name.' - '.$data['schedule']['teacher']['name'].' '.$data['schedule']['teacher']['last_name'],
                 "date_to"=>$data['schedule']['date_to'],
                 "date_from"=>$data['schedule']['date_from'],
                 "id_user"=>$user->id,
@@ -335,8 +335,15 @@ class TutorController extends Controller
         {
             return response('[]',200);
         }
+
         $current_date=date("Y-m-d H:i:s");
         $events=TutorScheduleEvent::where('id_user',$user->id)->where('date_to','>=',$current_date)->where('deleted',0)->get();
+
+        foreach ($events as $key => $event) {
+           $studentSchedule= TutorScheduleStudent::find($event->id_schedulestudent);
+           $events[$key]->observations=$studentSchedule->observations;
+
+        }
 
         return response()->json($events);
 
