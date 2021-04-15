@@ -183,9 +183,9 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale('es');
           for (var i = 0; i < permissions.length; i++) {
             for (var a = 0; a < clases.length; a++) {
               if (permissions[i] && permissions[i].id_cicle === clases[a].id) {
-                if (permissions[i].date_to_activate_btn >= moment__WEBPACK_IMPORTED_MODULE_0___default()(new Date()).format('YYYY-MM-DD') || moment__WEBPACK_IMPORTED_MODULE_0___default()(new Date()).format('YYYY-MM-DD') <= permissions[i].date_to_deactivate_btn) {
+                if (permissions[i].date_to_activate_btn >= moment__WEBPACK_IMPORTED_MODULE_0___default()(new Date()).format('YYYY-MM-DD')) {
                   clases[a].activateButton = true;
-                } else {
+                } else if (moment__WEBPACK_IMPORTED_MODULE_0___default()(new Date()).format('YYYY-MM-DD') <= permissions[i].date_to_deactivate_btn) {
                   clases[a].activateButton = false;
                 }
               }
