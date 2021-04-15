@@ -74,16 +74,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 moment__WEBPACK_IMPORTED_MODULE_0___default.a.tz.setDefault("America/Bogota");
 moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale('es');
@@ -95,8 +85,6 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_2___defaul
   props: ["concurrent", "type_u", "dias", "clases", "user", "getMenu"],
   data: function data() {
     return {
-      desde: "",
-      hasta: "",
       nameEvent: "",
       nameMeet: "",
       diaSemana: "",
@@ -150,8 +138,6 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_2___defaul
       this.invitationsGet.forEach(function (element) {
         axios.post(url, {
           name_event: _this2.nameEvent,
-          date_start: _this2.desde,
-          date_end: _this2.hasta,
           link: _this2.nameMeet,
           day_week: _this2.diaSemana,
           email_invited: element.email,
@@ -163,7 +149,7 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_2___defaul
       });
       this.getMenu();
       $("#createEvent").modal("hide");
-      this.nameEvent = "", this.desde = "", this.hasta = "", this.nameMeet = "", this.diaSemana = "", this.invitationsGet = [], this.arrayDaysEvent = [], this.arrayDaysEventMes = [];
+      this.nameEvent = "", this.nameMeet = "", this.diaSemana = "", this.invitationsGet = [], this.arrayDaysEvent = [], this.arrayDaysEventMes = [];
     }
   }
 });
@@ -360,54 +346,6 @@ var render = function() {
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "form-group row" }, [
-                  _c(
-                    "div",
-                    { staticClass: "col-md-6" },
-                    [
-                      _c("label", { attrs: { for: "name" } }, [
-                        _vm._v("Desde")
-                      ]),
-                      _vm._v(" "),
-                      _c("datetime", {
-                        model: {
-                          value: _vm.desde,
-                          callback: function($$v) {
-                            _vm.desde = $$v
-                          },
-                          expression: "desde"
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "invalid-feedback" }, [
-                        _vm._v("Please fill out this field")
-                      ])
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    { staticClass: "col-md-6" },
-                    [
-                      _c("label", { attrs: { for: "name" } }, [
-                        _vm._v("Hasta")
-                      ]),
-                      _vm._v(" "),
-                      _c("datetime", {
-                        model: {
-                          value: _vm.hasta,
-                          callback: function($$v) {
-                            _vm.hasta = $$v
-                          },
-                          expression: "hasta"
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "invalid-feedback" })
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
                   _c("div", { staticClass: "col-md-6" }, [
                     _c("strong", { attrs: { for: "name" } }, [
                       _vm._v("Enlace de Meet")

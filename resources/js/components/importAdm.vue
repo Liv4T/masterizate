@@ -23,6 +23,7 @@
                         <option value="4">Coordinador</option>
                         <option value="2">Docente</option>
                         <option value="3">Estudiante</option>
+                        <option value="7">Tutor</option>
                       </select>
                     </div>
 
@@ -87,9 +88,11 @@ export default {
   data() {
     return {
       allowedExtensions: ["xlsx"],
+      types:[]
     };
   },
-  mounted() {},
+  mounted() {
+  },
   methods: {
     getMenu() {
       window.location = "/salon_adm";

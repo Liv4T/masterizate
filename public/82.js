@@ -458,11 +458,9 @@ var staticRenderFns = [
         [_vm._v("Crear Estamento")]
       ),
       _vm._v(" "),
-      _c(
-        "a",
-        { staticClass: "btn btn-primary", attrs: { href: "chatGobernment" } },
-        [_vm._v("Chats")]
-      )
+      _c("a", { staticClass: "btn btn-primary", attrs: { href: "chat" } }, [
+        _vm._v("Chats")
+      ])
     ])
   },
   function() {

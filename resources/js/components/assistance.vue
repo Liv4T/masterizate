@@ -11,6 +11,7 @@
                 <div>
                     <div class="card">
                         <div class="card-body">
+                            <input type="text" class="form-control" placeholder="Buscar Por Curso" v-model="search_filter">
                             <table class="table table-stripped table-hover">
                                 <thead>
                                     <tr>
@@ -21,12 +22,12 @@
                                         <th>Acción</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr v-for="(assistant, key) in assistants" :key="key">
+                                <tbody class="card-header" v-for="(assistant, key) in assistants" :key="key">
+                                    
+                                    <tr v-if="search_filter =='' || filterClass(assistant.course)">
                                         <td>{{assistant.student_name}}</td>
                                         <td>{{assistant.course}}</td>
                                         <td v-if="assistant.assistance === 1">Asistencia Confirmada</td>
-
                                         <td v-else-if="assistant.excuse === 1">Excusa Presentada</td>
 
                                         <td v-else-if="assistant.other_motive === 1">{{assistant.motive}}</td>
@@ -35,7 +36,7 @@
                                             <button class="btn btn-primary" v-on:click="updateData(assistant.id)">Actualizar</button>
                                             <button class="btn btn-danger" v-on:click="deleteData(assistant.id)">Eliminar</button>
                                         </td>
-                                    </tr>
+                                    </tr>                                
                                 </tbody>
                             </table>
                         </div>
@@ -71,7 +72,7 @@
                                                 </span>
                                         </template>
                                     </multiselect>
-                                <button class="btn btn-primary" v-on:click="getStudents">Consultar Estudiantes</button>
+                                <button class="btn btn-primary mt-2" v-on:click="getStudents">Consultar Estudiantes</button>
                                 <div v-if="studentsOption.length > 0" class="form-group">
                                     <label for="students">Estudiante</label>
 
@@ -140,7 +141,8 @@ Vue.component("multiselect", Multiselect);
                 updated:false,
                 student_name:'',
                 course_registred:'',
-                id_to_update: ''
+                id_to_update: '',
+                search_filter: ''
             }
         },
         mounted(){
@@ -200,7 +202,6 @@ Vue.component("multiselect", Multiselect);
                     }).then((response)=>{
                         toastr.success(response.data);
                         this.getAssistants();
-                        $('#createAssistants').modal('hide');
                     }).catch((error) => {
                         toastr.info('Ha ocurrido algo, Intenta de nuevo mas tarde');
                         console.log(error);
@@ -265,7 +266,10 @@ Vue.component("multiselect", Multiselect);
                     toastr.info('No se ha podido eliminar el dato, Intenta de nuevo mas tarde');
                     console.log(error);
                 })
-            }
+            },
+            filterClass(course){
+                return course.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(this.search_filter.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, ""));
+            },
         }
     }
 </script>

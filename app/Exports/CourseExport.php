@@ -84,9 +84,6 @@ class CourseExport implements FromCollection , ShouldAutoSize, WithMapping, With
 
                     $activities_pending+=count($activities_interaction);
                 }
-
-
-
             }
 
             $students[$key_student]->progress = round(($weekly_plans_with_progress>0)?($progress/$weekly_plans_with_progress):-1,2);

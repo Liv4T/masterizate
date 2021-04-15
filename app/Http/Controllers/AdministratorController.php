@@ -14,6 +14,7 @@ use App\State;
 use App\User;
 use App\ClassroomStudent;
 use App\ClassroomTeacher;
+use App\TypeUser;
 use Auth;
 
 class AdministratorController extends Controller
@@ -121,7 +122,11 @@ class AdministratorController extends Controller
      */
     public function indexTeachers()
     {
-        $users = User::where('type_user', 2)->get();
+        $users = User::whereIn('type_user',[2,5,7])->get();//docente,psiclogia,tutor
+
+        foreach ($users as $key => $user) {
+            $users[$key]->type=TypeUser::find($user->type_user);
+        }
 
         return $users;
     }

@@ -20,7 +20,7 @@ class AssistanceController extends Controller
 
     public function showAssistance(){
         $user_id = Auth::user()->id;
-        $assistances = Assistance::where('id_teacher','=',$user_id)->orderBy('created_at')->get();
+        $assistances = Assistance::where('id_teacher','=',$user_id)->orderBy('course')->get();
         $assistants = [];
 
         foreach ($assistances as $key => $assis) {

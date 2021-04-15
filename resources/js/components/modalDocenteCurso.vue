@@ -9,6 +9,12 @@
                     </button>
                 </div>
                 <div class="modal-body">
+                    <div class="form-check mb-5">
+                        <input class="form-check-input" type="checkbox" v-model="show_type_import" id="defaultCheck1">
+                        <label class="form-check-label" for="defaultCheck1">
+                            <span class="dot dot_orange"></span> Reporte por curso
+                        </label>
+                    </div>
                     <div class="form-goup">
                         <label>Docente</label>
                         <multiselect v-model="saveTeachers" :options="teachersOptions" :multiple="false"
@@ -21,9 +27,10 @@
                                         opciones
                                         selecionadas
                                     </span>
-                                </template>
+                            </template>
                         </multiselect>
                     </div>
+                    
                     <div class="form-group">
                         <button class="btn btn-primary mt-2 mb-2" v-on:click="getArea()">
                             Consultar Area
@@ -46,10 +53,10 @@
                     </div>    
                     <div v-else class="form-goup">
                         <strong>No existen Areas Disponibles</strong>
-                    </div>                
+                    </div>                        
                 </div>
                 <div class="modal-footer">
-                    <button v-show="areaOptions.length > 0" type="button" class="btn btn-primary" v-on:click="exportData()">Exportar</button>
+                    <button type="button" class="btn btn-primary" v-on:click="exportData()">Exportar</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                 </div>
             </div>
@@ -67,7 +74,8 @@ export default {
             areaOptions:[],
             dataToExport:[],
             saveArea:{},
-            saveTeachers:{}
+            saveTeachers:{},
+            show_type_import: true
         }
     },
     mounted(){
@@ -90,7 +98,6 @@ export default {
         getArea(){
             axios.get(`GetAreaTeacher/${this.saveTeachers.id}`).then((response) => {
                 let area = response.data;
-                
                 area.forEach(element => {
                     this.areaOptions.push({
                         id: element.id,
@@ -103,8 +110,13 @@ export default {
             });
         },
         
-        exportData(){        
-            window.open(`reportCourse/${parseInt( this.saveArea.id_area)}/${parseInt( this.saveArea.id_classroom)}/${this.saveTeachers.text}/${ this.saveArea.text}`, "_self");          
+        exportData(){      
+            if(this.show_type_import === true){
+                window.open(`reportCourse/${parseInt( this.saveArea.id_area)}/${parseInt( this.saveArea.id_classroom)}/${this.saveTeachers.text}/${ this.saveArea.text}`, "_self");
+            }else{
+                window.open(`reportAllCourse/${parseInt(this.saveArea.id_classroom)}`, "_self");
+            }
+            
         }
     }
 }

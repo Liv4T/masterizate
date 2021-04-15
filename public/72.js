@@ -101,6 +101,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 moment__WEBPACK_IMPORTED_MODULE_1___default.a.tz.setDefault("America/Bogota");
@@ -257,23 +266,49 @@ var render = function() {
                   _vm._v(" "),
                   _c("div", { staticClass: "class-event-footer " }, [
                     _c("div", { staticClass: "class-event-action" }, [
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-primary",
-                          on: {
-                            click: function($event) {
-                              $event.preventDefault()
-                              return _vm.editE(parents.id)
-                            }
-                          }
-                        },
-                        [_vm._v("Editar")]
-                      ),
+                      _vm.type_u === 4
+                        ? _c("div", [
+                            _c(
+                              "button",
+                              {
+                                staticClass: "btn btn-primary",
+                                on: {
+                                  click: function($event) {
+                                    $event.preventDefault()
+                                    return _vm.editE(parents.id)
+                                  }
+                                }
+                              },
+                              [_vm._v("Editar")]
+                            )
+                          ])
+                        : _c("div", [
+                            _c(
+                              "button",
+                              {
+                                staticClass: "btn btn-success",
+                                on: {
+                                  click: function($event) {
+                                    $event.preventDefault()
+                                    return _vm.editE(parents.id)
+                                  }
+                                }
+                              },
+                              [_vm._v("Agregar fecha de Reunion")]
+                            )
+                          ]),
                       _vm._v(" "),
                       _c(
                         "button",
                         {
+                          directives: [
+                            {
+                              name: "show",
+                              rawName: "v-show",
+                              value: _vm.type_u === 4,
+                              expression: "type_u === 4"
+                            }
+                          ],
                           staticClass: "btn btn-danger",
                           on: {
                             click: function($event) {
@@ -330,7 +365,11 @@ var render = function() {
                         }
                       ],
                       staticClass: "form-control",
-                      attrs: { type: "text", name: "name" },
+                      attrs: {
+                        type: "text",
+                        name: "name",
+                        disabled: _vm.type_u !== 4
+                      },
                       domProps: { value: _vm.name_event },
                       on: {
                         input: function($event) {
@@ -348,55 +387,71 @@ var render = function() {
                   ])
                 ]),
                 _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: _vm.type_u == 1 || _vm.type_u == 2,
+                        expression: "type_u == 1 || type_u == 2"
+                      }
+                    ],
+                    staticClass: "form-group row"
+                  },
+                  [
+                    _c(
+                      "div",
+                      { staticClass: "col-md-6" },
+                      [
+                        _c("label", { attrs: { for: "name" } }, [
+                          _vm._v("Desde")
+                        ]),
+                        _vm._v(" "),
+                        _c("datetime", {
+                          model: {
+                            value: _vm.date_start,
+                            callback: function($$v) {
+                              _vm.date_start = $$v
+                            },
+                            expression: "date_start"
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "invalid-feedback" }, [
+                          _vm._v("Please fill out this field")
+                        ])
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "col-md-6" },
+                      [
+                        _c("label", { attrs: { for: "name" } }, [
+                          _vm._v("Hasta")
+                        ]),
+                        _vm._v(" "),
+                        _c("datetime", {
+                          model: {
+                            value: _vm.date_end,
+                            callback: function($$v) {
+                              _vm.date_end = $$v
+                            },
+                            expression: "date_end"
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "invalid-feedback" })
+                      ],
+                      1
+                    )
+                  ]
+                ),
+                _vm._v(" "),
                 _c("div", { staticClass: "form-group row" }, [
-                  _c(
-                    "div",
-                    { staticClass: "col-md-6" },
-                    [
-                      _c("label", { attrs: { for: "name" } }, [
-                        _vm._v("Desde")
-                      ]),
-                      _vm._v(" "),
-                      _c("datetime", {
-                        model: {
-                          value: _vm.date_start,
-                          callback: function($$v) {
-                            _vm.date_start = $$v
-                          },
-                          expression: "date_start"
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "invalid-feedback" }, [
-                        _vm._v("Please fill out this field")
-                      ])
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    { staticClass: "col-md-6" },
-                    [
-                      _c("label", { attrs: { for: "name" } }, [
-                        _vm._v("Hasta")
-                      ]),
-                      _vm._v(" "),
-                      _c("datetime", {
-                        model: {
-                          value: _vm.date_end,
-                          callback: function($$v) {
-                            _vm.date_end = $$v
-                          },
-                          expression: "date_end"
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "invalid-feedback" })
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
                   _c("div", { staticClass: "col-md-6" }, [
                     _c("strong", { attrs: { for: "name" } }, [
                       _vm._v("Enlace de Meet")
@@ -412,7 +467,11 @@ var render = function() {
                         }
                       ],
                       staticClass: "form-control",
-                      attrs: { type: "text", name: "name" },
+                      attrs: {
+                        type: "text",
+                        name: "name",
+                        disabled: _vm.type_u !== 4
+                      },
                       domProps: { value: _vm.link },
                       on: {
                         input: function($event) {

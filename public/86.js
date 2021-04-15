@@ -57,32 +57,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 (function () {
   "use strict";
 
@@ -301,14 +275,25 @@ var render = function() {
                                 }
                               }
                             },
-                            _vm._l(_vm.myOptions, function(option) {
-                              return _c(
-                                "option",
-                                { domProps: { value: option.id } },
-                                [_vm._v(_vm._s(option.name))]
-                              )
-                            }),
-                            0
+                            [
+                              _vm._l(_vm.myOptions, function(option, k) {
+                                return [
+                                  _c(
+                                    "option",
+                                    { key: k, domProps: { value: option.id } },
+                                    [
+                                      _vm._v(
+                                        "[" +
+                                          _vm._s(option.type.name) +
+                                          "] " +
+                                          _vm._s(option.name)
+                                      )
+                                    ]
+                                  )
+                                ]
+                              })
+                            ],
+                            2
                           )
                         ]),
                         _vm._v(" "),

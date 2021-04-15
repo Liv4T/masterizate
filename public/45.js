@@ -199,288 +199,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
+      types: [],
       clases: [],
       allowedExtensions: ["jpg", "jpeg", "png"],
       descripcion: "",
@@ -515,6 +237,9 @@ __webpack_require__.r(__webpack_exports__);
     axios.get(urlr).then(function (response) {
       _this.clases = response.data;
     });
+    axios.get("/types").then(function (response) {
+      _this.types = response.data;
+    });
     console.log("Component mounted.");
   },
   methods: {
@@ -522,10 +247,6 @@ __webpack_require__.r(__webpack_exports__);
       window.location = "/salon_adm";
     },
     editNames: function editNames(clas) {
-      //   var urlr = "showClass/" + clas;
-      //   axios.get(urlr).then(response => {
-      //     this.fillS = response.data;
-      //   });
       $("#createZ").modal("show");
     },
     createUser: function createUser() {
@@ -694,7 +415,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.background2 {\r\n    background: url(" + escape(__webpack_require__(/*! ../assets/img/Fondo5.jpg */ "./resources/js/assets/img/Fondo5.jpg")) + ");\r\n    background-size: contain;\r\n    background-repeat: no-repeat;\r\n    background-position: center;\r\n    position: relative;\n}\r\n", ""]);
+exports.push([module.i, "\n.background2 {\n  background: url(" + escape(__webpack_require__(/*! ../assets/img/Fondo5.jpg */ "./resources/js/assets/img/Fondo5.jpg")) + ");\n  background-size: contain;\n  background-repeat: no-repeat;\n  background-position: center;\n  position: relative;\n}\n", ""]);
 
 // exports
 
@@ -918,59 +639,62 @@ var render = function() {
                           _vm._m(2),
                           _vm._v(" "),
                           _c("div", [
-                            _c(
-                              "select",
-                              {
-                                directives: [
+                            _vm.types == []
+                              ? _c("span", [_vm._v("Cargando...")])
+                              : _vm._e(),
+                            _vm._v(" "),
+                            _vm.types != []
+                              ? _c(
+                                  "select",
                                   {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value: _vm.newType_user,
-                                    expression: "newType_user"
-                                  }
-                                ],
-                                staticClass: "form-control",
-                                staticStyle: { background: "gainsboro" },
-                                attrs: { required: "" },
-                                on: {
-                                  change: function($event) {
-                                    var $$selectedVal = Array.prototype.filter
-                                      .call($event.target.options, function(o) {
-                                        return o.selected
-                                      })
-                                      .map(function(o) {
-                                        var val =
-                                          "_value" in o ? o._value : o.value
-                                        return val
-                                      })
-                                    _vm.newType_user = $event.target.multiple
-                                      ? $$selectedVal
-                                      : $$selectedVal[0]
-                                  }
-                                }
-                              },
-                              [
-                                _c("option", { attrs: { value: "2" } }, [
-                                  _vm._v("Docente")
-                                ]),
-                                _vm._v(" "),
-                                _c("option", { attrs: { value: "3" } }, [
-                                  _vm._v("Estudiante")
-                                ]),
-                                _vm._v(" "),
-                                _c("option", { attrs: { value: "4" } }, [
-                                  _vm._v("Acudiente")
-                                ]),
-                                _vm._v(" "),
-                                _c("option", { attrs: { value: "5" } }, [
-                                  _vm._v("Psicología")
-                                ]),
-                                _vm._v(" "),
-                                _c("option", { attrs: { value: "6" } }, [
-                                  _vm._v("Gobierno Escolar")
-                                ])
-                              ]
-                            )
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.newType_user,
+                                        expression: "newType_user"
+                                      }
+                                    ],
+                                    staticClass: "form-control",
+                                    staticStyle: { background: "gainsboro" },
+                                    attrs: { required: "" },
+                                    on: {
+                                      change: function($event) {
+                                        var $$selectedVal = Array.prototype.filter
+                                          .call($event.target.options, function(
+                                            o
+                                          ) {
+                                            return o.selected
+                                          })
+                                          .map(function(o) {
+                                            var val =
+                                              "_value" in o ? o._value : o.value
+                                            return val
+                                          })
+                                        _vm.newType_user = $event.target
+                                          .multiple
+                                          ? $$selectedVal
+                                          : $$selectedVal[0]
+                                      }
+                                    }
+                                  },
+                                  [
+                                    _vm._l(_vm.types, function(type, k_type) {
+                                      return [
+                                        _c(
+                                          "option",
+                                          {
+                                            key: k_type,
+                                            domProps: { value: type.id }
+                                          },
+                                          [_vm._v(_vm._s(type.name))]
+                                        )
+                                      ]
+                                    })
+                                  ],
+                                  2
+                                )
+                              : _vm._e()
                           ])
                         ]
                       )
@@ -1500,9 +1224,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("h3", { staticClass: "card-header fondo text-center" }, [
-      _vm._v(
-        "\n                            Usuarios\n                            "
-      ),
+      _vm._v("\n              Usuarios\n              "),
       _c(
         "button",
         {
@@ -1526,7 +1248,7 @@ var staticRenderFns = [
           alt: ""
         }
       }),
-      _vm._v("Rol\n                                        ")
+      _vm._v("Rol ")
     ])
   },
   function() {
@@ -1542,7 +1264,7 @@ var staticRenderFns = [
           alt: ""
         }
       }),
-      _vm._v("Nombres\n                                        ")
+      _vm._v("Nombres ")
     ])
   },
   function() {
@@ -1558,7 +1280,7 @@ var staticRenderFns = [
           alt: ""
         }
       }),
-      _vm._v("Apellidos\n                                        ")
+      _vm._v("Apellidos ")
     ])
   },
   function() {
@@ -1574,7 +1296,7 @@ var staticRenderFns = [
           alt: ""
         }
       }),
-      _vm._v("Correo\n                                        ")
+      _vm._v("Correo ")
     ])
   },
   function() {
@@ -1590,7 +1312,7 @@ var staticRenderFns = [
           alt: ""
         }
       }),
-      _vm._v("Teléfono\n                                        ")
+      _vm._v("Teléfono ")
     ])
   },
   function() {
@@ -1606,7 +1328,7 @@ var staticRenderFns = [
           alt: ""
         }
       }),
-      _vm._v("Materia\n                                        ")
+      _vm._v("Materia ")
     ])
   },
   function() {
@@ -1622,7 +1344,7 @@ var staticRenderFns = [
           alt: ""
         }
       }),
-      _vm._v("Acudiente\n                                        ")
+      _vm._v("Acudiente ")
     ])
   },
   function() {
@@ -1638,7 +1360,7 @@ var staticRenderFns = [
           alt: ""
         }
       }),
-      _vm._v("Experiencia\n                                        ")
+      _vm._v("Experiencia ")
     ])
   },
   function() {
@@ -1654,9 +1376,7 @@ var staticRenderFns = [
           alt: ""
         }
       }),
-      _vm._v(
-        "Número de Identificación\n                                        "
-      )
+      _vm._v("Número de Identificación ")
     ])
   },
   function() {
@@ -1672,7 +1392,7 @@ var staticRenderFns = [
           alt: ""
         }
       }),
-      _vm._v("Foto\n                                        ")
+      _vm._v("Foto ")
     ])
   },
   function() {
@@ -1688,7 +1408,7 @@ var staticRenderFns = [
           alt: ""
         }
       }),
-      _vm._v("Nombre de usuario\n                                        ")
+      _vm._v("Nombre de usuario ")
     ])
   },
   function() {
@@ -1704,7 +1424,7 @@ var staticRenderFns = [
           alt: ""
         }
       }),
-      _vm._v("Contraseña\n                                        ")
+      _vm._v("Contraseña ")
     ])
   },
   function() {
@@ -1720,7 +1440,7 @@ var staticRenderFns = [
           alt: ""
         }
       }),
-      _vm._v("Dirección\n                                        ")
+      _vm._v("Dirección ")
     ])
   },
   function() {

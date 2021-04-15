@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\DeleteClassAndCicles;
 use Illuminate\Http\Request;
+use DB;
 
 class DeleteClassAndCiclesController extends Controller
 {
@@ -18,7 +19,7 @@ class DeleteClassAndCiclesController extends Controller
     }
 
     public function getPermissions(){
-        $permissions = DeleteClassAndCicles::all();
+        $permissions = DB::table('delete_class_and_cicles')->orderBy('id','DESC')->get();
         return response()->json($permissions);
     }
     /**

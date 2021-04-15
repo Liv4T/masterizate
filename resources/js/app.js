@@ -261,7 +261,6 @@ Vue.component("modal-planif-docente", ()=> import("./components/modalDocentePlan
 Vue.component("modal-course", ()=> import("./components/modalDocenteCurso.vue"));
 Vue.component("modal-materias", ()=> import("./components/modalMaterias.vue"));
 Vue.component("staments-component", ()=> import("./components/Staments.vue"));
-Vue.component("staments-chat-component", ()=> import("./components/StamentsChat.vue"));
 Vue.component("modal-chat", ()=> import("./components/modalChat.vue"));
 Vue.component("members-chat", ()=> import("./components/modalMembers.vue"));
 
