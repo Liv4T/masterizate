@@ -274,6 +274,7 @@ class TutorController extends Controller
             //programe events
             TutorScheduleEvent::create([
                "id_classroom"=>$classroom_id,
+               "id_schedulestudent"=>$scheduleCreated->id,
                "id_area"=>$area_id,
                "name"=>$area->name.' '.$classroom->name.' - '.$user->name.' '.$user->last_name,
                "date_to"=>$data['schedule']['date_to'],
@@ -286,6 +287,7 @@ class TutorController extends Controller
 
            TutorScheduleEvent::create([
                 "id_classroom"=>$classroom_id,
+                "id_schedulestudent"=>$scheduleCreated->id,
                 "id_area"=>$area_id,
                 "name"=>$area->name.' '.$classroom->name.' - '.$data['schedule']['teacher']['name'].' '.$data['schedule']['teacher']['last_name'],
                 "date_to"=>$data['schedule']['date_to'],
