@@ -1,6 +1,7 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[132],{
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/tutorScheduleComponent.vue?vue&type=script&lang=js&":
 /*!*********************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/tutorScheduleComponent.vue?vue&type=script&lang=js& ***!
@@ -11,11 +12,18 @@
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/modalEstudiante.vue?vue&type=script&lang=js& ***!
   \**************************************************************************************************************************************************************************/
 >>>>>>> 78f65927de18d95b2c523a66a6fbf4d4affbca15
+=======
+/***/ "./resources/js/components/lectivesTeacherNotesComponent.vue":
+/*!*******************************************************************!*\
+  !*** ./resources/js/components/lectivesTeacherNotesComponent.vue ***!
+  \*******************************************************************/
+>>>>>>> 4b16866e051afb46c624b7b7edb206625755789b
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+<<<<<<< HEAD
 <<<<<<< HEAD
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_0__);
@@ -1843,10 +1851,16 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+=======
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+var render, staticRenderFns
+var script = {}
+>>>>>>> 4b16866e051afb46c624b7b7edb206625755789b
 
 
 /* normalize component */
 
+<<<<<<< HEAD
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
 <<<<<<< HEAD
   _tutorScheduleComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
@@ -1857,6 +1871,12 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
   _modalEstudiante_vue_vue_type_template_id_79dfe538___WEBPACK_IMPORTED_MODULE_0__["render"],
   _modalEstudiante_vue_vue_type_template_id_79dfe538___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
 >>>>>>> 78f65927de18d95b2c523a66a6fbf4d4affbca15
+=======
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_0__["default"])(
+  script,
+  render,
+  staticRenderFns,
+>>>>>>> 4b16866e051afb46c624b7b7edb206625755789b
   false,
   null,
   null,
@@ -1864,6 +1884,7 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
   
 )
 
+<<<<<<< HEAD
 /* hot reload */
 if (false) { var api; }
 <<<<<<< HEAD
@@ -1947,6 +1968,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+=======
+component.options.__file = "resources/js/components/lectivesTeacherNotesComponent.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+>>>>>>> 4b16866e051afb46c624b7b7edb206625755789b
 /***/ })
 
 }]);

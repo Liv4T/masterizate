@@ -416,9 +416,11 @@ class CoursesController extends Controller
      * @param  \App\Courses  $courses
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Courses $courses)
+    public function destroy($id)
     {
-        //
+        $week = Weekly::findOrFail($id);
+        $week->delete();
+        return response()->json('Ciclo Eliminados');
     }
 
     public function getWeek()

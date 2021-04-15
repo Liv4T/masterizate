@@ -264,6 +264,8 @@ Vue.component("staments-component", ()=> import("./components/Staments.vue"));
 Vue.component("modal-chat", ()=> import("./components/modalChat.vue"));
 Vue.component("members-chat", ()=> import("./components/modalMembers.vue"));
 
+//Modulo para eliminar clases y ciclos 
+Vue.component("component-delete-class-and-cicles", ()=> import("./components/deleteClassAndCicles.vue"));
 
 Vue.use(CKEditor);
 

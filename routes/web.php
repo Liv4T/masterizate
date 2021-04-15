@@ -337,6 +337,8 @@ Route::resource('Courses', 'CoursesController', ['except' => 'show', 'create', '
 Route::resource('Class', 'ClassController', ['except' => 'show', 'create', 'edit']);
 Route::get('GetClass', 'ClassController@getClass');
 Route::get('showClass/{id}', 'ClassController@show')->name('showClass');
+Route::delete('deleteClasses/{id}', 'ClassController@destroy');
+
 Route::put('test', 'ClassController@deactivateClass')->name('test');
 Route::get('editClass/{id}', 'ClassController@findClass')->name('editClass');
 Route::get('GetNameArea/{id_area}/{id_classroom}', 'ClassController@getNameArea')->name('GetNameArea');
@@ -395,6 +397,7 @@ Route::get('getAllActivitiesUser', 'ActivityController@getAllActivitiesRepositor
 Route::get('getEvenNearStudent/{id_area}/{id_classroom}', 'EventsController@eventNearStudent')->name('getEvenNearStudent');
 
 Route::get('GetWeek', 'CoursesController@getWeek');
+Route::delete('DeleteCicle/{id_cicle}','CoursesController@destroy');
 Route::get('editGetWeek/{id_area}/{id_classroom}', 'CoursesController@editGetWeek')->name('editGetWeek');
 Route::get('editOneWeek/{id_area}/{id_classroom}', 'CoursesController@editOneWeek')->name('editOneWeek');
 Route::get('viewGetWeek/{id_area}/{id_classrom}', 'CoursesController@viewGetWeek')->name('viewGetWeek');
@@ -835,3 +838,8 @@ Route::get('getStaments', 'StamentsController@getStaments');
 Route::get('/getChatAsigment','StamentsChatController@getStamentsByUser');
 Route::get('getChat/{chat}','StamentsChatController@getChats');
 Route::get('getAllStudents','SchoolGovernmentController@students');
+
+
+//Modulo para habilitar eliminacion de clases o ciclos
+Route::resource('activeElimination','DeleteClassAndCiclesController');
+Route::get('getPermissions','DeleteClassAndCiclesController@getPermissions');
