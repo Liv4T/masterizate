@@ -1,7 +1,11 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Area;
+use App\Classroom;
+use App\Eventos;
 use App\TutorSchedule;
+use App\TutorScheduleEvent;
 use App\TutorScheduleStudent;
 use App\User;
 use DateInterval;
@@ -81,6 +85,31 @@ class TutorController extends Controller
 
         return response()->json($data);
     }
+    public function GetScheduleStudent(int $schedulestudent_id){
+        $user=User::find(Auth::id());
+
+        $scheduleStudent=TutorScheduleStudent::where('id',$schedulestudent_id)->where('deleted',0)->first();
+
+        if(!isset($scheduleStudent))
+        {
+            return response('programacion de tutoria no encontrada',400);
+        }
+
+
+        $schedule=TutorSchedule::find($scheduleStudent->tutorschedule_id);
+
+        if(!isset($schedule))
+        {
+            return response('programacion de tutoria no encontrada',400);
+        }
+
+        $scheduleStudent->area=Area::find($schedule->area_id);
+        $scheduleStudent->classroom=Classroom::find($schedule->classroom_id);
+        $scheduleStudent->teacher=User::find($schedule->teacher_id);
+        $scheduleStudent->duration=$schedule->duration_minutes;
+
+        return response()->json($scheduleStudent);
+    }
     public function GetAvailableSchedule(int $area_id,int $classroom_id, string $date_find)
     {
         $user=User::find(Auth::id());
@@ -90,7 +119,7 @@ class TutorController extends Controller
             return response('user invalid',400);
         }
 
-        //$current_date=date("Y-m-d H:i:s");
+        $current_date=date("Y-m-d H:i:s");
         $data=[];
 
         $schedules=TutorSchedule::where('area_id',$area_id)->where('classroom_id',$classroom_id)->whereDate('date_from','<=',$date_find)->whereDate('date_to','>=',$date_find)->where('deleted',0)->where('state',1)->get();
@@ -112,6 +141,11 @@ class TutorController extends Controller
            //range minutes
            $ever_time=floor($minutes/$row['duration_minutes']);
 
+           if($ever_time<1)
+           {
+                $ever_time=1;
+           }
+
            $teacher=User::find($row->teacher_id);
 
            for ($i=1; $i<=$ever_time ; $i++) {
@@ -131,6 +165,11 @@ class TutorController extends Controller
                     continue;
                 }
 
+                if($current_date>$date_from){
+                    continue;
+                }
+
+
                 //evalue hours
                 $time_from=new DateTime($row->date_from);
                 $time_to=new DateTime($row->date_to);
@@ -147,31 +186,30 @@ class TutorController extends Controller
 
 
                  //get schedules other
-                if(isset($schedules_busy)&& count($busy_schedules_mine)>0)
-                    $available_schedules = array_filter($schedules_busy, function($schedule_busy) use ($i){
+                if(isset($schedules_busy)&& count($schedules_busy)>0)
+                {
+
+                    foreach ($schedules_busy as $schedule_busy) {
                         if($schedule_busy->time_index==$i)
                         {
-                            return true;
+                            array_push($available_schedules,$schedule_busy);
                         }
-
-                        return false;
-                    });
+                    }
+                }
 
                 //get schedules mine
-                if(isset($busy_schedules_mine)&& count($busy_schedules_mine)>0)
-                    $busy_schedules_mine = array_filter($schedules_busy_mine, function($schedule_busy) use ($i){
+                if(isset($schedules_busy_mine)&& count($schedules_busy_mine)>0)
+                {
+                    foreach ($schedules_busy_mine as $schedule_busy) {
                         if($schedule_busy->time_index==$i)
                         {
-                            return true;
+                            array_push($busy_schedules_mine,$schedule_busy);
                         }
-
-                        return false;
-                    });
-
-
+                    }
+                }
 
                 //schedule is available
-                if(count($available_schedules)==0)
+                if(count($available_schedules)==0 && count($busy_schedules_mine)==0)
                 {
 
                     array_push($data,[
@@ -183,7 +221,8 @@ class TutorController extends Controller
                         'state'=>1,
                         'reserved'=>[]
                     ]);
-                } else if(count($busy_schedules_mine)>0)
+                }
+                else if(count($busy_schedules_mine)>0)
                 {
                     array_push($data,[
                         'time_index'=>$i,
@@ -202,6 +241,71 @@ class TutorController extends Controller
         }
 
         return response()->json($data);
+    }
+    public function ProgrameSchedule(Request $request,int $area_id,int $classroom_id)
+    {
+        $user=User::find(Auth::id());
+
+        if(!$user->isStudent())
+        {
+            return response('user invalid',400);
+        }
+
+        $data = $request->all();
+
+
+        $existScheduleStudent=TutorScheduleStudent::where('tutorschedule_id',$data['schedule']['schedule_id'])->where('time_index',$data['schedule']['time_index'])->where('deleted',0)->first();
+
+        if(isset($existScheduleStudent))
+        {
+            return response('Horario ya se encuentra programado',400);
+        }
+        else
+        {
+            $scheduleCreated= TutorScheduleStudent::create([
+                "tutorschedule_id"=>$data['schedule']['schedule_id'],
+                "student_id"=>$user->id,
+                "date_from"=>$data['schedule']['date_from'],
+                "date_to"=>$data['schedule']['date_to'],
+                "time_index"=>$data['schedule']['time_index'],
+                "observations"=>$data['observations'],
+                "state"=>1,
+                "deleted"=>0
+            ]);
+
+            $area=Area::find($area_id);
+            $classroom=Classroom::find($classroom_id);
+
+            //programe events
+            TutorScheduleEvent::create([
+               "id_classroom"=>$classroom_id,
+               "id_schedulestudent"=>$scheduleCreated->id,
+               "id_area"=>$area_id,
+               "name"=>$area->name.' '.$classroom->name.' - '.$user->name.' '.$user->last_name,
+               "date_to"=>$data['schedule']['date_to'],
+               "date_from"=>$data['schedule']['date_from'],
+               "id_user"=>$data['schedule']['teacher']['id'],
+               "url"=>"",
+               "state"=>1,
+               "deleted"=>0
+           ]);
+
+           TutorScheduleEvent::create([
+                "id_classroom"=>$classroom_id,
+                "id_schedulestudent"=>$scheduleCreated->id,
+                "id_area"=>$area_id,
+                "name"=>$area->name.' '.$classroom->name.' - '.$data['schedule']['teacher']['name'],
+                "date_to"=>$data['schedule']['date_to'],
+                "date_from"=>$data['schedule']['date_from'],
+                "id_user"=>$user->id,
+                "url"=>"/estudiante/tutorias/".$scheduleCreated->id,
+                "state"=>1,
+                "deleted"=>0
+            ]);
+
+            return response('OK',200);
+        }
+
     }
     public function DeleteSchedule(Request $request,int $area_id,int $classroom_id,int $schedule_id)
     {
@@ -229,6 +333,55 @@ class TutorController extends Controller
         $schedule->save();
 
         return response('',200);
+    }
+    public function GetScheduleEvents(){
+
+        $user=User::find(Auth::id());
+
+        if(!$user->isStudent() && !$user->isTutor())
+        {
+            return response('[]',200);
+        }
+
+        $current_date=date("Y-m-d H:i:s");
+        $events=TutorScheduleEvent::where('id_user',$user->id)->where('date_to','>=',$current_date)->where('deleted',0)->get();
+
+        foreach ($events as $key => $event) {
+           $studentSchedule= TutorScheduleStudent::find($event->id_schedulestudent);
+           $events[$key]->observations=$studentSchedule->observations;
+
+        }
+
+        return response()->json($events);
+
+    }
+    public function UpdateLinkMeet(Request $request,int $schedulestudent_id){
+        $user=User::find(Auth::id());
+
+        if(!$user->isTutor())
+        {
+            return response('User invalid',400);
+        }
+
+        $data = $request->all();
+
+        $tutorScheduleStudent=TutorScheduleStudent::find($schedulestudent_id);
+
+        if(!isset($tutorScheduleStudent))
+        {
+            return response('Tutorial not found',400);
+        }
+
+        $tutorScheduleStudent->meetup=$data['link'];
+
+
+        $tutorScheduleStudent->save();
+
+        TutorScheduleEvent::where('id_schedulestudent',$schedulestudent_id)->where('deleted',0)->update(["url"=>$data['link']]);
+
+
+         return response('ok',200);
+
     }
 
 }

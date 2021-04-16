@@ -712,14 +712,26 @@ Route::middleware('auth')->get('/estudiante/modulo/{id_module}/clase/{id_class}'
 Route::middleware('auth')->get('/admin/clases', function () {
     return view('adminCourses');
 });
-
+Route::middleware('auth')->get('/tutor/{tutor_id}/perfil', function (int $tutor_id) {
+    return view('tutorProfile')->with('tutor_id',  $tutor_id);
+});
 Route::middleware('auth')->get('/tutor/cronograma', function () {
     return view('tutorSchedule');
 });
-
-Route::middleware('auth')->get('/estudiante/tutorias', function () {
-    return view('studentSchedule');
+Route::middleware('auth')->get('/tutor/evento/{scheduleStudent_id}', function (int $scheduleStudent_id) {
+    return view('tutorEvent')->with('scheduleStudent_id', $scheduleStudent_id);
 });
+Route::middleware('auth')->get('/tutor/evento', function () {
+    return view('tutorEvent')->with('scheduleStudent_id', 0);
+});
+
+Route::middleware('auth')->get('/estudiante/tutorias/{scheduleStudent_id}', function (int $scheduleStudent_id) {
+    return view('studentSchedule')->with('scheduleStudent_id', $scheduleStudent_id);
+});
+Route::middleware('auth')->get('/estudiante/tutorias', function () {
+    return view('studentSchedule')->with('scheduleStudent_id', 0);
+});
+
 
 Route::put('/test','ClassController@deactivateClass')->name('test');
 
@@ -752,7 +764,12 @@ Route::get('/api/tutor/area/{area_id}/classroom/{classroom_id}/schedule', 'Tutor
 Route::post('/api/tutor/area/{area_id}/classroom/{classroom_id}/schedule', 'TutorController@AddSchedule');
 Route::put('/api/tutor/area/{area_id}/classroom/{classroom_id}/schedule/{schedule_id}', 'TutorController@UpdateSchedule');
 Route::delete('/api/tutor/area/{area_id}/classroom/{classroom_id}/schedule/{schedule_id}', 'TutorController@DeleteSchedule');
-Route::get('/api/student/area/{area_id}/classroom/{classroom_id}/available-schedule/{date_find}', 'TutorController@GetAvailableSchedule');
+Route::get('/api/student/area/{area_id}/classroom/{classroom_id}/schedule/{date_find}', 'TutorController@GetAvailableSchedule');
+Route::put('/api/student/area/{area_id}/classroom/{classroom_id}/schedule/programe', 'TutorController@ProgrameSchedule');
+Route::get('/api/tutor-schedule/event', 'TutorController@GetScheduleEvents');
+Route::get('/api/tutor-schedule/event/{schedulestudent_id}', 'TutorController@GetScheduleStudent');
+Route::get('/api/tutor/{user_id}/profile', 'UserProfileController@GetByUserId');
+Route::put('/api/tutor-schedule/event/{schedulestudent_id}/link', 'TutorController@UpdateLinkMeet');
 
 
 Route::get('/api/lectives', 'LectivesController@getLectives');

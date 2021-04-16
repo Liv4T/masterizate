@@ -4,7 +4,7 @@
     @if (Auth::user()->isTeacher()||Auth::user()->isPsychology()||Auth::user()->isTutor())
         <inicio-component></inicio-component>
     @endif
-    <student-schedule></student-schedule>
+    <student-schedule :schedule_id="'{{ $scheduleStudent_id }}'"></student-schedule>
     <footers></footers>
     <div class="container">
       <!--<app-vue></app-vue>-->
