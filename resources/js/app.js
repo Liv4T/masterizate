@@ -233,6 +233,7 @@ Vue.component("modal-create-reason-component", () => import("./components/ModalR
 Vue.component("menu-tutor", () => import("./components/menuTutor.vue"));
 Vue.component("tutor-schedule", () => import("./components/tutorScheduleComponent.vue"));
 Vue.component("student-schedule", () => import("./components/studentScheduleComponent.vue"));
+Vue.component("tutor-profile", () => import("./components/tutorProfileComponent.vue"));
 
 //Observer
 Vue.component("observer-component", () => import("./components/Observer.vue"));
