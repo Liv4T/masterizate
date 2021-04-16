@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content') 
-    <menu-tutor></menu-tutor>
+    <menu-docente></menu-docente>
     <effectiveness-component></effectiveness-component>
 <div class="container">
 
