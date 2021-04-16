@@ -141,6 +141,11 @@ class TutorController extends Controller
            //range minutes
            $ever_time=floor($minutes/$row['duration_minutes']);
 
+           if($ever_time<1)
+           {
+                $ever_time=1;
+           }
+
            $teacher=User::find($row->teacher_id);
 
            for ($i=1; $i<=$ever_time ; $i++) {
@@ -289,7 +294,7 @@ class TutorController extends Controller
                 "id_classroom"=>$classroom_id,
                 "id_schedulestudent"=>$scheduleCreated->id,
                 "id_area"=>$area_id,
-                "name"=>$area->name.' '.$classroom->name.' - '.$data['schedule']['teacher']['name'].' '.$data['schedule']['teacher']['last_name'],
+                "name"=>$area->name.' '.$classroom->name.' - '.$data['schedule']['teacher']['name'],
                 "date_to"=>$data['schedule']['date_to'],
                 "date_from"=>$data['schedule']['date_from'],
                 "id_user"=>$user->id,
@@ -348,6 +353,16 @@ class TutorController extends Controller
         }
 
         return response()->json($events);
+
+    }
+    public function UpdateLinkMeet(int $tutoria_id){
+        $user=User::find(Auth::id());
+
+        if(!$user->isTutor())
+        {
+            return response('[]',200);
+        }
+
 
     }
 
