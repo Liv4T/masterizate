@@ -70,12 +70,12 @@
                       </div>
                       <div class="class-event-action">
                         <a class="btn btn-primary" html:type="_blank" :href="clas.hangout">Ir a clase</a>
+                        <a href="/assistance" class="btn btn-primary ml-1" v-show="type_u == 2">Asistencia</a>
                       </div>
                     </div>
                     <div class="class-event-footer ">
                       <div class="class-event-action">
                         <button class="btn btn-primary" v-show="type_u == 2" v-on:click.prevent="editE(clas.id)">Editar</button>
-                        <a href="/assistance" class="btn btn-primary mr-1" v-show="type_u == 2">Asistencia</a>
                         <button class="btn btn-danger" v-show="type_u == 2" v-on:click.prevent="viewDelete(clas.id, clas.name)">Eliminar</button>
                       </div>
                     </div>
