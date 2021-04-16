@@ -769,6 +769,7 @@ Route::put('/api/student/area/{area_id}/classroom/{classroom_id}/schedule/progra
 Route::get('/api/tutor-schedule/event', 'TutorController@GetScheduleEvents');
 Route::get('/api/tutor-schedule/event/{schedulestudent_id}', 'TutorController@GetScheduleStudent');
 Route::get('/api/tutor/{user_id}/profile', 'UserProfileController@GetByUserId');
+Route::put('/api/tutor-schedule/event/{schedulestudent_id}/link', 'TutorController@UpdateLinkMeet');
 
 
 Route::get('/api/lectives', 'LectivesController@getLectives');

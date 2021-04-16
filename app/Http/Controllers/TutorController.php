@@ -355,14 +355,32 @@ class TutorController extends Controller
         return response()->json($events);
 
     }
-    public function UpdateLinkMeet(int $tutoria_id){
+    public function UpdateLinkMeet(Request $request,int $schedulestudent_id){
         $user=User::find(Auth::id());
 
         if(!$user->isTutor())
         {
-            return response('[]',200);
+            return response('User invalid',400);
         }
 
+        $data = $request->all();
+
+        $tutorScheduleStudent=TutorScheduleStudent::find($schedulestudent_id);
+
+        if(!isset($tutorScheduleStudent))
+        {
+            return response('Tutorial not found',400);
+        }
+
+        $tutorScheduleStudent->meetup=$data['link'];
+
+
+        $tutorScheduleStudent->save();
+
+        TutorScheduleEvent::where('id_schedulestudent',$schedulestudent_id)->where('deleted',0)->update(["url"=>$data['link']]);
+
+
+         return response('ok',200);
 
     }
 

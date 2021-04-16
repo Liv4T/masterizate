@@ -102,20 +102,23 @@
                           </div>
                         </div>
                         <div class="class-event-action">
-                          <a class="btn btn-primary" v-if="tutorial.url" html:type="_blank" :href="tutorial.url" >Ir a clase</a>
+                          <a class="btn btn-primary" v-if="tutorial.url" :type="'_blank'" :href="tutorial.url">Ir a clase</a>
                         </div>
                       </div>
-                       <div class="row padding-10">
+                      <div class="row padding-10">
                         <div class="col-12">
-                            <textarea class="form-control" rows="3" readonly="readonly" v-model="tutorial.observations"></textarea>
+                          <label>Temas a revisar:</label>
+                        </div>
+                        <div class="col-12">
+                          <textarea class="form-control" rows="3" readonly="readonly" v-model="tutorial.observations"></textarea>
                         </div>
                       </div>
                       <div class="row padding-10">
                         <div class="col-8">
-                            <input type="text" class="form-control" placeholder="Link de reunión" v-model="tutorial.url" />
+                          <input type="text" class="form-control" placeholder="Link de reunión" v-model="tutorial.url" />
                         </div>
                         <div class="col-4">
-                            <button class="btn btn-primary" @click="UpdateLinkTutorial()">Actualizar link</button>
+                          <button class="btn btn-primary" @click="UpdateLinkTutorial(tutorial)">Actualizar link</button>
                         </div>
                       </div>
                     </div>
@@ -639,6 +642,11 @@
           }
         });
       },
+      UpdateLinkTutorial(tutorial) {
+        axios.put(`/api/tutor-schedule/event/${tutorial.id_schedulestudent}/link`, { link: tutorial.url }).then((response) => {
+          toastr.success("Link de evento actualizado correctamente");
+        });
+      },
       handleDateClick(arg) {
         //alert('date click! ' + arg.dateStr)
       },
@@ -1017,7 +1025,7 @@
   .dot_red {
     background-color: #d8374d;
   }
-  .padding-10{
-      padding: 10px;
+  .padding-10 {
+    padding: 10px;
   }
 </style>
