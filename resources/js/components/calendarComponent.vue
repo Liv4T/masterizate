@@ -86,6 +86,8 @@
                                                 <a href="/assistance" class="btn btn-primary mr-1" v-show="type_u==2">Asistencia</a>
                                                 <button class="btn btn-danger" v-show="type_u==2"
                                                     v-on:click.prevent="viewDelete(clas.id,clas.name)">Eliminar</button>
+
+                                                <a href="/effectiveness" v-show="type_u==7 && clas.dateTo < actual_date|formatDate" class="btn btn-primary">Efectividad</a>
                                             </div>
                                         </div>
                                     </div>
@@ -428,7 +430,8 @@
                     events: [],
                     eventClick: this.handleEventClick,
                     eventDidMount: this.handleEventDidMount
-                }
+                },
+                actual_date: new Date()
             };
         },
         components: {

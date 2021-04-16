@@ -178,12 +178,18 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
         });
       }
     },
-    editEffectiveness: function editEffectiveness(id) {
+    editEffectiveness: function editEffectiveness(data) {
       var _this4 = this;
 
-      axios.get("effectiveness/".concat(id)).then(function (response) {
-        _this4.saveStudent.id_student = response.data.student_id, _this4.saveStudent.course = response.data.course, _this4.score_effectiveness = response.data.score_effectiveness, _this4.update = true;
-        _this4.id_to_update = id;
+      axios.get("effectiveness/".concat(data.id)).then(function (response) {
+        _this4.dataToCreateEffectiveness.forEach(function (effec) {
+          if (effec.id_student === data.id_student) {
+            _this4.saveStudent = effec;
+          }
+        });
+
+        _this4.score_effectiveness = response.data.score_effectiveness, _this4.update = true;
+        _this4.id_to_update = data.id;
         $('#createEffectiveness').modal('show');
       });
     },
@@ -299,7 +305,7 @@ var render = function() {
                                     on: {
                                       click: function($event) {
                                         return _vm.editEffectiveness(
-                                          effectiveness.id
+                                          effectiveness
                                         )
                                       }
                                     }

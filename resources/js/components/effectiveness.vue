@@ -27,7 +27,7 @@
                                         <td>{{effectiveness.course}}</td>
                                         <td>{{effectiveness.effectiveness}}</td>
                                         <td>
-                                            <button class="btn btn-primary" v-on:click="editEffectiveness(effectiveness.id)">Actualizar</button>
+                                            <button class="btn btn-primary" v-on:click="editEffectiveness(effectiveness)">Actualizar</button>
                                             <button class="btn btn-danger" v-on:click="deleteEffectiveness(effectiveness.id)">Eliminar</button>
                                         </td>
                                     </tr>                                
@@ -157,13 +157,16 @@ Vue.component("multiselect", Multiselect);
                 }
                 
             },
-            editEffectiveness(id){
-                axios.get(`effectiveness/${id}`).then((response)=>{
-                    this.saveStudent.id_student = response.data.student_id,
-                    this.saveStudent.course = response.data.course,
+            editEffectiveness(data){
+                axios.get(`effectiveness/${data.id}`).then((response)=>{
+                    this.dataToCreateEffectiveness.forEach((effec)=>{
+                        if(effec.id_student === data.id_student){
+                            this.saveStudent = effec
+                        }
+                    })
                     this.score_effectiveness = response.data.score_effectiveness,
                     this.update = true;
-                    this.id_to_update = id
+                    this.id_to_update = data.id
                     $('#createEffectiveness').modal('show');
                 })
             },
