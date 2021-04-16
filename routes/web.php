@@ -847,3 +847,8 @@ Route::get('getPermissions','DeleteClassAndCiclesController@getPermissions');
 //Modulo para registrar las asistencias 
 Route::resource('assistance','AssistanceController');
 Route::get('getAssistants','AssistanceController@showAssistance');
+
+//Modulo de Efectividad
+
+Route::resource('effectiveness','EffectivenessController');
+Route::get('getEffectiveness','EffectivenessController@getEffectiveness');

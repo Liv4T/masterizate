@@ -270,6 +270,9 @@ Vue.component("component-delete-class-and-cicles", ()=> import("./components/del
 //Modulo para registro de asistencia
 Vue.component("assistance-component",()=>import("./components/assistance.vue"));
 
+//Modulo de Efectividad
+Vue.component("effectiveness-component", ()=>import("./components/effectiveness.vue"));
+
 Vue.use(CKEditor);
 
 

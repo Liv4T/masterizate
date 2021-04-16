@@ -29,6 +29,7 @@ class AssistanceController extends Controller
 
             array_push($assistants, [
                 'id'           => $assis->id,
+                'id_student'   => $student->id,
                 'student_name' => $student->name.' '.$student->last_name,
                 'teacher_name' => $teacher->name.' '.$teacher->last_name,
                 'course'       => $assis->course,
