@@ -137,7 +137,8 @@
             meetUp: "",
             id_padreUp: "",
             idUp: "",
-            delName:""
+            delName:"",
+            delId: "",
         };
     },
     components: {

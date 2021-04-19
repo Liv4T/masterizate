@@ -92,6 +92,7 @@ Vue.component("anuncio-docente", require("./components/anunciodocente.vue").defa
 Vue.component("actividadg-docente",  () => import ("./components/actividadGDocente.vue"));
 Vue.component("anunciomc-component", require("./components/anunciomc.vue").default);
 
+//Componente de Calendario separado
 Vue.component("calendar-component", require("./components/calendarComponent.vue").default);
 Vue.component("calendar-class-component", ()=> import("./components/calendarClassComponent.vue"));
 Vue.component("calendar-modal-event", ()=> import("./components/ModalEventsCalendarComponent.vue"));

@@ -78,18 +78,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component("multiselect", vue_multisel
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["concurrent", "dias", "myOptions", "getMenu", "evenUp", "nameUp", "areaUp", "fromUp", "toUp", "meetUp", "id_padreUp", "idUp"],
   data: function data() {
-    return {
-      typeEvent: '',
-      diaSemana: '',
-      nameEvent: '',
-      materia: '',
-      desde: '',
-      hasta: '',
-      nameMeet: '',
-      lastId: '',
-      formatDate: "",
-      display: "none"
-    };
+    return {};
   },
   components: {
     datetime: vuejs_datetimepicker__WEBPACK_IMPORTED_MODULE_3__["default"],
@@ -104,167 +93,8 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component("multiselect", vue_multisel
   },
   mounted: function mounted() {},
   methods: {
-    createEvent: function createEvent() {
-      var _this = this;
-
-      var url = "createEvent";
-      this.concurrentDays();
-
-      if (this.typeEvent == 0) {
-        if (this.materia.length >= 1) {
-          for (var i = 0; i < this.materia.length; i++) {
-            axios.post(url, {
-              //Cursos generales
-              name: this.nameEvent,
-              startDateTime: this.desde,
-              endDateTime: this.hasta,
-              id_area: this.materia[i].id,
-              id_classroom: this.materia[i].id_classroom,
-              url: this.nameMeet,
-              id_padre: null
-            }).then(function (response) {
-              toastr.success("Nuevo evento creado exitosamente");
-
-              _this.getMenu();
-            })["catch"](function (error) {});
-          }
-        }
-      } else if (this.typeEvent == 1 || this.typeEvent == 2) {
-        if (this.materia.length >= 1 && this.arrayDaysEvent.length >= 1) {
-          for (var _i = 0; _i < this.materia.length; _i++) {
-            for (var j = 0; j < this.arrayDaysEvent.length; j++) {
-              axios.post(url, {
-                //Cursos generales
-                name: this.nameEvent,
-                startDateTime: this.arrayDaysEvent[j] + " " + this.desde,
-                endDateTime: this.arrayDaysEvent[j] + " " + this.hasta,
-                id_area: this.materia[_i].id,
-                id_classroom: this.materia[_i].id_classroom,
-                url: this.nameMeet,
-                id_padre: this.lastId + 1
-              }).then(function (response) {
-                toastr.success("Nuevo evento creado exitosamente");
-
-                _this.getMenu();
-              })["catch"](function (error) {});
-            }
-          }
-        }
-      } else if (this.typeEvent == 3) {
-        if (this.materia.length >= 1 && this.arrayDaysEvent.length >= 1) {
-          for (var _i2 = 0; _i2 < this.materia.length; _i2++) {
-            for (var _j = 0; _j < this.arrayDaysEvent.length; _j++) {
-              axios.post(url, {
-                //Cursos generales
-                name: this.nameEvent,
-                startDateTime: this.arrayDaysEvent[_j],
-                endDateTime: this.arrayDaysEventMes[_j],
-                id_area: this.materia[_i2].id,
-                id_classroom: this.materia[_i2].id_classroom,
-                url: this.nameMeet,
-                id_padre: this.lastId + 1
-              }).then(function (response) {
-                toastr.success("Nuevo evento creado exitosamente");
-
-                _this.getMenu();
-              })["catch"](function (error) {});
-            }
-          }
-        }
-      }
-    },
-    concurrentDays: function concurrentDays() {
-      if (this.typeEvent == 1) {
-        //Crear eventos de lunes a viernes y omitimos los dias que ya pasaron de la semana
-        var date2 = new Date();
-
-        if (date2.getDay() == 6) {
-          date2.setDate(date2.getDate() + 2);
-        }
-
-        if (date2.getDay() == 0) {
-          date2.setDate(date2.getDate() + 1);
-        }
-
-        var dayOfWeek = date2.getDay();
-        this.arrayDaysEvent = [];
-
-        for (var i = 0; i < 5; i++) {
-          if (i - dayOfWeek != -1) {
-            var days = i - dayOfWeek + 1;
-            var newDate = new Date(date2.getTime() + days * 24 * 60 * 60 * 1000);
-            newDate = moment__WEBPACK_IMPORTED_MODULE_1___default()(String(newDate)).format("YYYY-MM-DD");
-
-            if (i + 1 >= dayOfWeek) {
-              this.arrayDaysEvent.push(newDate);
-            }
-          } else {
-            var date3 = moment__WEBPACK_IMPORTED_MODULE_1___default()(String(date2)).format("YYYY-MM-DD");
-            this.arrayDaysEvent.push(date3);
-          }
-        }
-      }
-
-      if (this.typeEvent == 2) {
-        //Crear eventos un dia especifico de la semana
-        this.arrayDaysEvent = [];
-        var hoy = new Date();
-        var hasta = new Date();
-        hasta.setDate(hasta.getDate() + 365);
-
-        while (moment__WEBPACK_IMPORTED_MODULE_1___default()(hoy).isSameOrBefore(hasta)) {
-          if (this.diaSemana == hoy.getDay()) {
-            this.arrayDaysEvent.push(moment__WEBPACK_IMPORTED_MODULE_1___default()(hoy).format("YYYY-MM-DD"));
-          }
-
-          hoy.setDate(hoy.getDate() + 1);
-        } //console.log(this.arrayDaysEvent);
-
-      }
-
-      if (this.typeEvent == 3) {
-        //Crear evento una vez por mes
-        this.arrayDaysEvent = [];
-        this.arrayDaysEventMes = [];
-        var desde = new Date(this.desde);
-        var hasta = new Date(this.desde);
-        var desde2 = new Date(this.hasta);
-        var hasta2 = new Date(this.hasta);
-        hasta.setDate(hasta.getDate() + 365);
-        hasta2.setDate(hasta2.getDate() + 365);
-        var dia = desde.getDate(desde);
-        var dia2 = desde2.getDate(desde2);
-
-        while (moment__WEBPACK_IMPORTED_MODULE_1___default()(desde).isSameOrBefore(hasta)) {
-          var dayMonth = desde.getDate(desde);
-
-          if (dayMonth == dia) {
-            this.arrayDaysEvent.push(moment__WEBPACK_IMPORTED_MODULE_1___default()(desde).format("YYYY-MM-DD H:mm:ss"));
-          }
-
-          desde.setDate(desde.getDate() + 1);
-        }
-
-        while (moment__WEBPACK_IMPORTED_MODULE_1___default()(desde2).isSameOrBefore(hasta2)) {
-          var dayMonth = desde2.getDate(desde2);
-
-          if (dayMonth == dia2) {
-            this.arrayDaysEventMes.push(moment__WEBPACK_IMPORTED_MODULE_1___default()(desde2).format("YYYY-MM-DD H:mm:ss"));
-          }
-
-          desde2.setDate(desde2.getDate() + 1);
-        }
-
-        console.log(this.arrayDaysEventMes);
-      }
-
-      if (this.typeEvent == 0) {
-        this.arrayDaysEvent = [];
-        this.formatDate = "YYYY-MM-DD H:i:s";
-      }
-    },
     updateEvent: function updateEvent() {
-      var _this2 = this;
+      var _this = this;
 
       var url = "updateEvent";
 
@@ -280,7 +110,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component("multiselect", vue_multisel
           id_padre: this.id_padreUp,
           todos: false
         }).then(function (response) {
-          _this2.getMenu();
+          _this.getMenu();
 
           toastr.success("Evento actualizado exitosamente");
         })["catch"](function (error) {});
@@ -297,7 +127,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component("multiselect", vue_multisel
           id_padre: this.id_padreUp,
           todos: resp
         }).then(function (response) {
-          _this2.getMenu();
+          _this.getMenu();
 
           toastr.success("Evento actualizado exitosamente");
         })["catch"](function (error) {});

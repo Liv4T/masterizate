@@ -13,7 +13,7 @@
                         <div class="form-group row justify-content-center">
                             <div class="col-md-6">
                                 <label style="display: none;" id="labeldia">Dia de la semana</label>
-                                <select class="form-control" name="dia" id="dia" v-model="diaSemana"
+                                <select class="form-control" name="dia" v-model="diaSemana"
                                     style="display:none">
                                     <option :value="options.id" v-for="(options, key) in dias" :key="key">
                                         {{

@@ -178,16 +178,19 @@ __webpack_require__.r(__webpack_exports__);
   props: ["concurrent", "dias", "myOptions", "getMenu"],
   data: function data() {
     return {
+      arrayDaysEvent: [],
       typeEvent: '',
       diaSemana: '',
       nameEvent: '',
-      materia: '',
+      materia: [],
       desde: '',
       hasta: '',
       nameMeet: '',
       lastId: '',
       formatDate: "",
-      display: "none"
+      display: "none",
+      meetUp: "",
+      id_padreUp: ""
     };
   },
   components: {
@@ -378,6 +381,14 @@ __webpack_require__.r(__webpack_exports__);
         this.arrayDaysEvent = [];
         this.formatDate = "YYYY-MM-DD H:i:s";
       }
+    },
+    last_insert: function last_insert() {
+      var _this2 = this;
+
+      var urlId = "lastId";
+      axios.get(urlId).then(function (response) {
+        _this2.lastId = response.data;
+      });
     }
   }
 });
@@ -543,7 +554,7 @@ var render = function() {
                           ],
                           staticClass: "form-control",
                           style: { display: _vm.display },
-                          attrs: { name: "dia", id: "dia" },
+                          attrs: { name: "dia" },
                           on: {
                             change: function($event) {
                               var $$selectedVal = Array.prototype.filter
@@ -899,7 +910,7 @@ var render = function() {
                           ],
                           staticClass: "form-control",
                           staticStyle: { display: "none" },
-                          attrs: { name: "dia", id: "dia" },
+                          attrs: { name: "dia" },
                           on: {
                             change: function($event) {
                               var $$selectedVal = Array.prototype.filter

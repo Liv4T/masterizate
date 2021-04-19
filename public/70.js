@@ -220,7 +220,7 @@ var render = function() {
                           ],
                           staticClass: "form-control",
                           staticStyle: { display: "none" },
-                          attrs: { name: "dia", id: "dia" },
+                          attrs: { name: "dia" },
                           on: {
                             change: function($event) {
                               var $$selectedVal = Array.prototype.filter

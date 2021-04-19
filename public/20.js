@@ -147,7 +147,8 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale("es");
       meetUp: "",
       id_padreUp: "",
       idUp: "",
-      delName: ""
+      delName: "",
+      delId: ""
     };
   },
   components: {},

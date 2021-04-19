@@ -73,292 +73,244 @@
   moment.tz.setDefault("America/Bogota");
   moment.locale("es");
 
-  import datetime from "vuejs-datetimepicker";
-  import Multiselect from "vue-multiselect";
   Vue.use(require("vue-moment"));
-  Vue.component("multiselect", Multiselect);
   export default {
-    props: ["type_u", "user"],
-    data() {
-      return {
-        diaSemana: null,
-        typeEvent: null,
-        concurrent: [],
-        dias: [],
-        display_events: true,
-        display_activities: true,
-        display_tutorials: true,
-        desde: "",
-        hasta: "",
-        nameEvent: "",
-        nameMeet: "",
-        clases: [],
-        value: [],
-        myOptions: [],
-        materia: [],
-        concurrent: [
-          { id: "0", type: "No" },
-          { id: "1", type: "De lunes a viernes" },
-          { id: "2", type: "Un dia en especifico" },
-          { id: "3", type: "Menusal" },
-        ],
-        dias: [
-          { id: "0", dia: "Domingo" },
-          { id: "1", dia: "Lunes" },
-          { id: "2", dia: "Martes" },
-          { id: "3", dia: "Miercoles" },
-          { id: "4", dia: "Jueves" },
-          { id: "5", dia: "Viernes" },
-          { id: "6", dia: "Sabado" },
-        ],
-        diaSemana: "",
-        meetUp: "",
-        nameUp: "",
-        fromUp: "",
-        toUp: "",
-        formatDate: "",
-        id_padreUp: "",
-        id_padreDel: "",
-        editConcurrent: "",
-        areaUp: "",
-        evenUp: [],
-        display: "none",
-        delId: "",
-        delName: "",
-        idUp: "",
-        typeEvent: "",
-        daysWeek: [],
-        lastId: [],
-        lective_planification: {},
-        initialView: "dayGridMonth",
-        arrayDaysEvent: [],
-        arrayDaysEventMes: [],
-        calendarOptions: {
-          locale: esLocale,
-          plugins: [dayGridPlugin, interactionPlugin, timeGridPlugin, momentTimezonePlugin, momentPlugin],
-          initialView: "dayGridMonth", //timeGridWeek
-          themeSystem: "bootstrap",
-          dateClick: this.handleDateClick,
-          timeZone: "America/Bogota",
-          titleFormat: "D MMMM YYYY",
-          events: [],
-          eventClick: this.handleEventClick,
-          eventDidMount: this.handleEventDidMount,
+        props: ["type_u", "user"],
+        data() {
+            return {
+                display_events: true,
+                display_activities: true,
+                display_tutorials: true,
+                clases: [],
+                myOptions: [],
+                concurrent: [
+                    { id: "0", type: "No" },
+                    { id: "1", type: "De lunes a viernes" },
+                    { id: "2", type: "Un dia en especifico" },
+                    { id: "3", type: "Menusal" },
+                ],
+                dias: [
+                    { id: "0", dia: "Domingo" },
+                    { id: "1", dia: "Lunes" },
+                    { id: "2", dia: "Martes" },
+                    { id: "3", dia: "Miercoles" },
+                    { id: "4", dia: "Jueves" },
+                    { id: "5", dia: "Viernes" },
+                    { id: "6", dia: "Sabado" },
+                ],
+                diaSemana: "",
+                typeEvent: "",
+                lective_planification: {},
+                initialView: "dayGridMonth",
+                arrayDaysEventMes: [],
+                calendarOptions: {
+                    locale: esLocale,
+                    plugins: [dayGridPlugin, interactionPlugin, timeGridPlugin, momentTimezonePlugin, momentPlugin],
+                    initialView: "dayGridMonth", //timeGridWeek
+                    themeSystem: "bootstrap",
+                    //   dateClick: this.handleDateClick,
+                    timeZone: "America/Bogota",
+                    titleFormat: "D MMMM YYYY",
+                    events: [],
+                    eventClick: this.handleEventClick,
+                    eventDidMount: this.handleEventDidMount,
+                },
+                tutorEvents: [],
+            };
         },
-        tutorEvents: [],
-        actualDate: new Date(),
-      };
-    },
-    components: {
-      datetime,
-      FullCalendar,
-      Multiselect,
-    },
-    filters: {
-      formatDate: (value) => {
-        if (value) {
-          return moment(String(value)).format("DD MMMM YYYY hh:mm a");
-        }
-      },
-    },
-    mounted() {
-      this.getTutorEvents();
-      this.getData();
-    },
-    methods: {
-      selectChange() {},
-      getData() {
-        const fullCalendarApi = this.$refs.fullCalendar.getApi();
-        this.getInvitations();
+        components: {
+            FullCalendar,
+        },
+        mounted() {
+            this.getTutorEvents();
+            this.getData();
+        },
+        methods: {
+            getData() {
+                const fullCalendarApi = this.$refs.fullCalendar.getApi();
+                this.getInvitations();
 
-        if (this.type_u === 4) {
-          var urlP = window.location.origin + "/api/event/getStudentsClass";
-          axios.get(urlP).then((response) => {
-            this.clases = response.data;
-            if (this.clases && this.clases.length > 0) {
-              this.clases.forEach((meeting) => {
-                fullCalendarApi.addEvent({
-                  title: `${meeting.student_name} | ${meeting.area} ${meeting.classroom} | Clase ${meeting.name}`,
-                  start: meeting.dateFrom,
-                  end: meeting.dateTo,
-                  description: meeting.name,
-                  url: meeting.hangout,
-                  backgroundColor: "blue",
-                });
-              });
-            }
-          });
-        }
-
-        var urlM = window.location.origin + "/getAllEvents";
-        axios.get(urlM).then((response) => {
-          this.clases = response.data;
-          if (this.clases && this.clases.length > 0) {
-            this.clases.forEach((meeting) => {
-              fullCalendarApi.addEvent({
-                title: `${meeting.area} ${meeting.classroom} | Clase ${meeting.name}`,
-                start: meeting.dateFrom,
-                end: meeting.dateTo,
-                description: meeting.name,
-                url: meeting.hangout,
-                backgroundColor: "red",
-              });
-            });
-          }
-        });
-        var url = window.location.origin + "/GetArearByUser";
-        axios.get(url).then((response) => {
-          this.myOptions = response.data;
-
-          axios.get("/api/lectives").then((response) => {
-            this.lective_planification = response.data;
-
-            response.data.forEach((e) => {
-              this.myOptions.push({
-                is_lective: true,
-                id: e.lective.id,
-                id_classroom: 0,
-                id_planification: e.id_planification,
-                text: `Electiva ${e.lective.name} Trimestre ${e.period_consecutive}`,
-              });
-            });
-          });
-        });
-      },
-      getInvitations() {
-        const fullCalendarApi = this.$refs.fullCalendar.getApi();
-        if (this.type_u != 3) {
-          axios.get("/getInvitations").then((response) => {
-            this.clases = response.data;
-            console.log("datos aqui", response.data);
-            if (this.clases && this.clases.length > 0) {
-              this.clases.forEach((dataParent) => {
-                if (dataParent.id_sender === this.user.id || dataParent.id_invited === this.user.id) {
-                  console.log("pasé");
-                  fullCalendarApi.addEvent({
-                    title: dataParent.name_event,
-                    start: dataParent.date_start,
-                    end: dataParent.date_end,
-                    description: dataParent.description ? dataParent.description : "",
-                    url: dataParent.link,
-                    backgroundColor: "blue",
-                  });
+                if (this.type_u === 4) {
+                    var urlP = window.location.origin + "/api/event/getStudentsClass";
+                    axios.get(urlP).then((response) => {
+                        this.clases = response.data;
+                        if (this.clases && this.clases.length > 0) {
+                            this.clases.forEach((meeting) => {
+                                fullCalendarApi.addEvent({
+                                title: `${meeting.student_name} | ${meeting.area} ${meeting.classroom} | Clase ${meeting.name}`,
+                                start: meeting.dateFrom,
+                                end: meeting.dateTo,
+                                description: meeting.name,
+                                url: meeting.hangout,
+                                backgroundColor: "blue",
+                                });
+                            });
+                        }
+                    });
                 }
-              });
-            }
-          });
-        }
-      },
-      displayActivitiesChange() {
-        const fullCalendarApi = this.$refs.fullCalendar.getApi();
 
-        if (this.display_activities) {
-          this.getInvitations();
-        } else {
-          const currentEvents = fullCalendarApi.getEvents();
-          currentEvents.forEach((event) => {
-            if (event.backgroundColor == "blue") {
-              event.remove();
-            }
-          });
-        }
-      },
-      displayEventsChange() {
-        const fullCalendarApi = this.$refs.fullCalendar.getApi();
+                var urlM = window.location.origin + "/getAllEvents";
+                axios.get(urlM).then((response) => {
+                    this.clases = response.data;
+                    if (this.clases && this.clases.length > 0) {
+                        this.clases.forEach((meeting) => {
+                            fullCalendarApi.addEvent({
+                                title: `${meeting.area} ${meeting.classroom} | Clase ${meeting.name}`,
+                                start: meeting.dateFrom,
+                                end: meeting.dateTo,
+                                description: meeting.name,
+                                url: meeting.hangout,
+                                backgroundColor: "red",
+                            });
+                        });
+                    }
+                });
+                var url = window.location.origin + "/GetArearByUser";
+                axios.get(url).then((response) => {
+                    this.myOptions = response.data;
 
-        if (this.display_events) {
-          this.clases.forEach((meeting) => {
-            fullCalendarApi.addEvent({
-              title: `${meeting.area} ${meeting.classroom} | Clase ${meeting.name}`,
-              start: meeting.dateFrom,
-              end: meeting.dateTo,
-              description: meeting.name,
-              url: meeting.hangout,
-              backgroundColor: "red",
-            });
-          });
-        } else {
-          const currentEvents = fullCalendarApi.getEvents();
-          currentEvents.forEach((event) => {
-            if (event.backgroundColor == "red") {
-              event.remove();
-            }
-          });
-        }
-      },
-      displayTutorialsChange() {
-        const fullCalendarApi = this.$refs.fullCalendar.getApi();
+                    axios.get("/api/lectives").then((response) => {
+                        this.lective_planification = response.data;
 
-        if (this.display_tutorials) {
-          this.tutorEvents.forEach((tutorial) => {
-            fullCalendarApi.addEvent({ title: `TUTORÍA: ${tutorial.name}`, start: tutorial.date_from, end: tutorial.date_to, description: tutorial.name, url: tutorial.url, backgroundColor: "#37d875" });
-          });
-        } else {
-          const currentEvents = fullCalendarApi.getEvents();
-          currentEvents.forEach((event) => {
-            if (event.backgroundColor == "#37d875") {
-              event.remove();
-            }
-          });
-        }
-      },
-      getTutorEvents() {
-        const fullCalendarApi = this.$refs.fullCalendar.getApi();
+                        response.data.forEach((e) => {
+                            this.myOptions.push({
+                                is_lective: true,
+                                id: e.lective.id,
+                                id_classroom: 0,
+                                id_planification: e.id_planification,
+                                text: `Electiva ${e.lective.name} Trimestre ${e.period_consecutive}`,
+                            });
+                        });
+                    });
+                });
+            },
+            getInvitations() {
+                const fullCalendarApi = this.$refs.fullCalendar.getApi();
+                if (this.type_u != 3) {
+                    axios.get("/getInvitations").then((response) => {
+                        this.clases = response.data;
+                        console.log("datos aqui", response.data);
+                        if (this.clases && this.clases.length > 0) {
+                            this.clases.forEach((dataParent) => {
+                                if (dataParent.id_sender === this.user.id || dataParent.id_invited === this.user.id) {
+                                    console.log("pasé");
+                                    fullCalendarApi.addEvent({
+                                        title: dataParent.name_event,
+                                        start: dataParent.date_start,
+                                        end: dataParent.date_end,
+                                        description: dataParent.description ? dataParent.description : "",
+                                        url: dataParent.link,
+                                        backgroundColor: "blue",
+                                    });
+                                }
+                            });
+                        }
+                    });
+                }
+            },
+            displayActivitiesChange() {
+                const fullCalendarApi = this.$refs.fullCalendar.getApi();
 
-        axios.get("/api/tutor-schedule/event").then((response) => {
-          this.tutorEvents = response.data;
-          if (this.tutorEvents && this.tutorEvents.length > 0) {
-            this.tutorEvents.forEach((tutorial) => {
-              fullCalendarApi.addEvent({ title: `TUTORÍA: ${tutorial.name}`, start: tutorial.date_from, end: tutorial.date_to, description: tutorial.name, url: tutorial.url, backgroundColor: "#37d875" });
-            });
-          }
-        });
-      },
-      
-      handleDateClick(arg) {
-        //alert('date click! ' + arg.dateStr)
-      },
-      handleEventClick(info) {
-        info.jsEvent.preventDefault();
+                if (this.display_activities) {
+                    this.getInvitations();
+                } else {
+                    const currentEvents = fullCalendarApi.getEvents();
+                    currentEvents.forEach((event) => {
+                        if (event.backgroundColor == "blue") {
+                            event.remove();
+                        }
+                    });
+                }
+            },
+            displayEventsChange() {
+                const fullCalendarApi = this.$refs.fullCalendar.getApi();
 
-        if (info.event.url) {
-          window.open(info.event.url);
-        }
-      },
-      handleEventDidMount(info) {
-        console.log("PREV");
-        /* var tooltip = new Tooltip(info.el, {
+                if (this.display_events) {
+                    this.clases.forEach((meeting) => {
+                        fullCalendarApi.addEvent({
+                        title: `${meeting.area} ${meeting.classroom} | Clase ${meeting.name}`,
+                        start: meeting.dateFrom,
+                        end: meeting.dateTo,
+                        description: meeting.name,
+                        url: meeting.hangout,
+                        backgroundColor: "red",
+                        });
+                    });
+                } else {
+                    const currentEvents = fullCalendarApi.getEvents();
+                    currentEvents.forEach((event) => {
+                        if (event.backgroundColor == "red") {
+                            event.remove();
+                        }
+                    });
+                }
+            },
+            displayTutorialsChange() {
+                const fullCalendarApi = this.$refs.fullCalendar.getApi();
+
+                if (this.display_tutorials) {
+                    this.tutorEvents.forEach((tutorial) => {
+                        fullCalendarApi.addEvent({ title: `TUTORÍA: ${tutorial.name}`, start: tutorial.date_from, end: tutorial.date_to, description: tutorial.name, url: tutorial.url, backgroundColor: "#37d875" });
+                    });
+                } else {
+                    const currentEvents = fullCalendarApi.getEvents();
+                    currentEvents.forEach((event) => {
+                        if (event.backgroundColor == "#37d875") {
+                            event.remove();
+                        }
+                    });
+                }
+            },
+            getTutorEvents() {
+                const fullCalendarApi = this.$refs.fullCalendar.getApi();
+
+                axios.get("/api/tutor-schedule/event").then((response) => {
+                    this.tutorEvents = response.data;
+                    if (this.tutorEvents && this.tutorEvents.length > 0) {
+                        this.tutorEvents.forEach((tutorial) => {
+                            fullCalendarApi.addEvent({ title: `TUTORÍA: ${tutorial.name}`, start: tutorial.date_from, end: tutorial.date_to, description: tutorial.name, url: tutorial.url, backgroundColor: "#37d875" });
+                        });
+                    }
+                });
+            },
+        
+            // handleDateClick(arg) {
+            //     //alert('date click! ' + arg.dateStr)
+            // },
+            handleEventClick(info) {
+                info.jsEvent.preventDefault();
+
+                if (info.event.url) {
+                    window.open(info.event.url);
+                }
+            },
+            handleEventDidMount(info) {
+                console.log("PREV");
+                /* var tooltip = new Tooltip(info.el, {
                     title: info.event.extendedProps.description,
                     placement: 'top',
                     trigger: 'hover',
                     container: 'body'
                 });*/
-      },
-      changeCalendarView(view) {
-        this.initialView = view;
-        this.calendarOptions.initialView = view;
-        this.$refs.fullCalendar.getApi().changeView(view);
-      },
-      getMenu() {
-        window.location = "/calendar";
-      },
-      createE() {
-        if (this.type_u != 4) {
-          $("#createE").modal("show");
-        } else {
-          $("#createEvent").modal("show");
-        }
-      },
-      last_insert() {
-        var urlId = "lastId";
-        axios.get(urlId).then((response) => {
-          this.lastId = response.data;
-        });
-      },
-    },
-  };
+            },
+            changeCalendarView(view) {
+                this.initialView = view;
+                this.calendarOptions.initialView = view;
+                this.$refs.fullCalendar.getApi().changeView(view);
+            },
+            getMenu() {
+                window.location = "/calendar";
+            },
+            createE() {
+                if (this.type_u != 4) {
+                    $("#createE").modal("show");
+                } else {
+                    $("#createEvent").modal("show");
+                }
+            },
+        },
+    };
 </script>
-<style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
 <style>
   .back-calendar {
     padding-left: 290px;

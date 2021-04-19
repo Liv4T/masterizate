@@ -128,8 +128,8 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component("multiselect", vue_multisel
       link: "",
       idToEdit: "",
       day_week: "",
-      date_start: [],
-      date_end: []
+      date_start: "",
+      date_end: ""
     };
   },
   mounted: function mounted() {

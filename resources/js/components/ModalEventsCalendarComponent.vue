@@ -23,7 +23,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <label v-bind:style="{ display: display }">Dia de la semana</label>
-                                    <select class="form-control" name="dia" id="dia" v-model="diaSemana" v-bind:style="{ display: display }">
+                                    <select class="form-control" name="dia" v-model="diaSemana" v-bind:style="{ display: display }">
                                         <option :value="options.id" v-for="(options, key) in dias" :key="key">
                                         {{ options.dia }}
                                         </option>
@@ -98,7 +98,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <label style="display: none;" id="labeldia">Dia de la semana</label>
-                                    <select class="form-control" name="dia" id="dia" v-model="diaSemana" style="display:none">
+                                    <select class="form-control" name="dia" v-model="diaSemana" style="display:none">
                                         <option :value="options.id" v-for="(options, key) in dias" :key="key">
                                             {{ options.dia }}
                                         </option>
@@ -167,16 +167,19 @@
         props:["concurrent","dias","myOptions","getMenu"],
         data() {
             return {
+                arrayDaysEvent: [],
                 typeEvent:'',
                 diaSemana:'',
                 nameEvent:'',
-                materia: '',
+                materia: [],
                 desde: '',
                 hasta: '',
                 nameMeet:'',
                 lastId: '',
                 formatDate: "",
                 display: "none",
+                meetUp: "",
+                id_padreUp: "",
             };
         },
         components: {
@@ -361,6 +364,12 @@
                 this.arrayDaysEvent = [];
                 this.formatDate = "YYYY-MM-DD H:i:s";
                 }
+            },
+            last_insert() {
+                var urlId = "lastId";
+                axios.get(urlId).then((response) => {
+                    this.lastId = response.data;
+                });
             },
         },
     };
