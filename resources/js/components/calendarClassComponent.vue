@@ -80,18 +80,18 @@
             </div>
         </div>
         <calendar-modal-edit-event 
-            :concurrent="concurrent" 
-            :dias="dias" 
-            :myOptions="myOptions" 
-            :getMenu="getMenu"
-            :evenUp="evenUp" 
-            :nameUp="nameUp" 
-            :areaUp="areaUp" 
-            :fromUp="fromUp" 
-            :toUp="toUp" 
-            :meetUp="meetUp" 
-            :id_padreUp="id_padreUp" 
-            :idUp="idUp"
+            :concurrent.sync="concurrent" 
+            :dias.sync="dias" 
+            :myOptions.sync="myOptions" 
+            :getMenu.sync="getMenu"
+            :evenUp.sync="evenUp" 
+            :nameUp.sync="nameUp" 
+            :areaUp.sync="areaUp" 
+            :fromUp.sync="fromUp" 
+            :toUp.sync="toUp" 
+            :meetUp.sync="meetUp" 
+            :id_padreUp.sync="id_padreUp" 
+            :idUp.sync="idUp"
         ></calendar-modal-edit-event>
         <!-- Modal para eliminar evento -->
         <div class="modal fade" id="deleteE">
@@ -137,6 +137,7 @@
             meetUp: "",
             id_padreUp: "",
             idUp: "",
+            delName:""
         };
     },
     components: {

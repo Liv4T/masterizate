@@ -39,6 +39,9 @@
                             </div>
                         </div>
                     </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" type="submit">Guardar</button>
+                    </div>
                 </form>
             </div>
         </div>
