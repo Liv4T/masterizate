@@ -192,7 +192,7 @@ moment__WEBPACK_IMPORTED_MODULE_1___default.a.locale("es");
       hasta: '',
       nameMeet: '',
       lastId: '',
-      formatDate: "",
+      formatDate: new Date(),
       display: "none",
       meetUp: "",
       id_padreUp: ""
@@ -1054,7 +1054,7 @@ var render = function() {
                       ]),
                       _vm._v(" "),
                       _c("datetime", {
-                        attrs: { format: "YYYY-MM-DD H:i:s" },
+                        attrs: { format: _vm.formatDate },
                         model: {
                           value: _vm.desde,
                           callback: function($$v) {
@@ -1080,7 +1080,7 @@ var render = function() {
                       ]),
                       _vm._v(" "),
                       _c("datetime", {
-                        attrs: { format: "YYYY-MM-DD H:i:s" },
+                        attrs: { format: _vm.formatDate },
                         model: {
                           value: _vm.hasta,
                           callback: function($$v) {

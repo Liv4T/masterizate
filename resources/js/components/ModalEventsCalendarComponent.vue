@@ -123,12 +123,12 @@
                             <div class="form-group row">
                                 <div class="col-md-6">
                                     <label for="name">Desde</label>
-                                    <datetime format="YYYY-MM-DD H:i:s" v-model="desde"></datetime>
+                                    <datetime :format="formatDate" v-model="desde"></datetime>
                                     <div class="invalid-feedback">Please fill out this field</div>
                                 </div>
                                 <div class="col-md-6">
                                     <label for="name">Hasta</label>
-                                    <datetime format="YYYY-MM-DD H:i:s" v-model="hasta"></datetime>
+                                    <datetime :format="formatDate" v-model="hasta"></datetime>
                                     <div class="invalid-feedback"></div>
                                 </div>
                                 <div class="col-md-6">
@@ -180,7 +180,7 @@
                 hasta: '',
                 nameMeet:'',
                 lastId: '',
-                formatDate: "",
+                formatDate: new Date(),
                 display: "none",
                 meetUp: "",
                 id_padreUp: "",
