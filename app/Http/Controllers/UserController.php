@@ -118,6 +118,12 @@ class UserController extends Controller
         return $user;
     }
 
+    public function showCoordinator()
+    {
+        $user = User::where('type_user','=',8)->get();
+        return response()->json($user);
+    }
+
     /**
      * Show the form for editing the specified resource.
      *

@@ -148,7 +148,11 @@ Vue.component("chart-adm", ()=>import("./components/chart.vue"));
 Vue.component("vclases-adm", ()=>import("./components/clases_adm.vue"));
 Vue.component("institu-adm", ()=>import("./components/institucionesAdm.vue"));
 Vue.component("cinstitu-adm", ()=>import("./components/crearInstituciones.vue"));
+//componentes de coordinador
 Vue.component("coordinador-adm", ()=>import("./components/coordinadorAdm.vue"));
+Vue.component("create-coord", ()=>import("./components/coordinadorCreateAdm.vue"));
+Vue.component("update-coord",() => import("./components/coordinadorUpdateAdm.vue"));
+
 Vue.component("salon-adm", ()=>import("./components/salonAdm.vue"));
 Vue.component("matricula", ()=>import("./components/matricula.vue"));
 Vue.component("aperfil-adm", ()=>import("./components/AsignarPerfil.vue"));

@@ -588,7 +588,9 @@ Route::post('/resetPassword', 'UserController@resetPassword')->name('resetPasswo
 Route::post('users_save', 'UserController@store')->name('users_save');
 Route::get('Courses_save', 'CoursesController@storeNew')->name('Courses_save');
 Route::get('/logout2', 'UserController@logOut')->name('logout2');
-
+Route::get('/showCoord','UserController@showCoordinator');
+Route::delete('/destroyUser/{id_user}', 'UserController@destroy');
+Route::get('/showSpecificCoord/{id}','UserController@showSpecificCoord');
 
 
 
