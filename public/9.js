@@ -10,6 +10,8 @@
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuejs_datetimepicker__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuejs-datetimepicker */ "./node_modules/vuejs-datetimepicker/src/datetime_picker.vue");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_1__);
 //
 //
 //
@@ -174,6 +176,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
+moment__WEBPACK_IMPORTED_MODULE_1___default.a.tz.setDefault("America/Bogota");
+moment__WEBPACK_IMPORTED_MODULE_1___default.a.locale("es");
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["concurrent", "dias", "myOptions", "getMenu"],
   data: function data() {
@@ -199,7 +204,7 @@ __webpack_require__.r(__webpack_exports__);
   filters: {
     formatDate: function formatDate(value) {
       if (value) {
-        return moment(String(value)).format("DD MMMM YYYY hh:mm a");
+        return moment__WEBPACK_IMPORTED_MODULE_1___default()(String(value)).format("DD MMMM YYYY hh:mm a");
       }
     }
   },
@@ -312,13 +317,13 @@ __webpack_require__.r(__webpack_exports__);
           if (i - dayOfWeek != -1) {
             var days = i - dayOfWeek + 1;
             var newDate = new Date(date2.getTime() + days * 24 * 60 * 60 * 1000);
-            newDate = moment(String(newDate)).format("YYYY-MM-DD");
+            newDate = moment__WEBPACK_IMPORTED_MODULE_1___default()(String(newDate)).format("YYYY-MM-DD");
 
             if (i + 1 >= dayOfWeek) {
               this.arrayDaysEvent.push(newDate);
             }
           } else {
-            var date3 = moment(String(date2)).format("YYYY-MM-DD");
+            var date3 = moment__WEBPACK_IMPORTED_MODULE_1___default()(String(date2)).format("YYYY-MM-DD");
             this.arrayDaysEvent.push(date3);
           }
         }
@@ -331,9 +336,9 @@ __webpack_require__.r(__webpack_exports__);
         var hasta = new Date();
         hasta.setDate(hasta.getDate() + 365);
 
-        while (moment(hoy).isSameOrBefore(hasta)) {
+        while (moment__WEBPACK_IMPORTED_MODULE_1___default()(hoy).isSameOrBefore(hasta)) {
           if (this.diaSemana == hoy.getDay()) {
-            this.arrayDaysEvent.push(moment(hoy).format("YYYY-MM-DD"));
+            this.arrayDaysEvent.push(moment__WEBPACK_IMPORTED_MODULE_1___default()(hoy).format("YYYY-MM-DD"));
           }
 
           hoy.setDate(hoy.getDate() + 1);
@@ -354,21 +359,21 @@ __webpack_require__.r(__webpack_exports__);
         var dia = desde.getDate(desde);
         var dia2 = desde2.getDate(desde2);
 
-        while (moment(desde).isSameOrBefore(hasta)) {
+        while (moment__WEBPACK_IMPORTED_MODULE_1___default()(desde).isSameOrBefore(hasta)) {
           var dayMonth = desde.getDate(desde);
 
           if (dayMonth == dia) {
-            this.arrayDaysEvent.push(moment(desde).format("YYYY-MM-DD H:mm:ss"));
+            this.arrayDaysEvent.push(moment__WEBPACK_IMPORTED_MODULE_1___default()(desde).format("YYYY-MM-DD H:mm:ss"));
           }
 
           desde.setDate(desde.getDate() + 1);
         }
 
-        while (moment(desde2).isSameOrBefore(hasta2)) {
+        while (moment__WEBPACK_IMPORTED_MODULE_1___default()(desde2).isSameOrBefore(hasta2)) {
           var dayMonth = desde2.getDate(desde2);
 
           if (dayMonth == dia2) {
-            this.arrayDaysEventMes.push(moment(desde2).format("YYYY-MM-DD H:mm:ss"));
+            this.arrayDaysEventMes.push(moment__WEBPACK_IMPORTED_MODULE_1___default()(desde2).format("YYYY-MM-DD H:mm:ss"));
           }
 
           desde2.setDate(desde2.getDate() + 1);

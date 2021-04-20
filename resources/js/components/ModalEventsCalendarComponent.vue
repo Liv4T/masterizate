@@ -163,6 +163,10 @@
 
 <script>
     import datetime from "vuejs-datetimepicker";
+    import moment from "moment";
+
+    moment.tz.setDefault("America/Bogota");
+    moment.locale("es");
     export default {
         props:["concurrent","dias","myOptions","getMenu"],
         data() {
