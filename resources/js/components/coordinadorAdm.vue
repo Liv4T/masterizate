@@ -36,7 +36,7 @@
                                     <td class="float-right">
                                         <a
                                             class="btn btn-sm"
-                                            href="#"
+                                            v-on:click="showData(cord)"                                            
                                             style="color: grey;"
                                         >
                                             <i class="fa fa-eye"></i>
@@ -66,6 +66,48 @@
         </div>
         <create-coord></create-coord>
         <update-coord :data="dataToEdit"></update-coord>
+
+        <div class="modal fade" id="showCoord" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Información de Coordinador</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="name">Nombre: </label>
+                            <strong>{{dataToShow.name}}</strong>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="name">Apellido: </label>
+                            <strong>{{dataToShow.last_name}}</strong>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="name">Correo: </label>
+                            <strong>{{dataToShow.email}}</strong>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="name">Telefono: </label>
+                            <strong>{{dataToShow.phone}}</strong>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="name">Dirección: </label>
+                            <strong>{{dataToShow.address}}</strong>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 <script>
@@ -73,7 +115,8 @@ export default {
     data() {
         return {
             coord:[],
-            dataToEdit:[]
+            dataToEdit:{},
+            dataToShow:{}
         };
     },
     created() {},
@@ -92,7 +135,6 @@ export default {
                 this.coord = response.data;
             })
         },
-
         createS(clas) {
             //   var urlr = "showClass/" + clas;
             //   axios.get(urlr).then(response => {
@@ -116,6 +158,11 @@ export default {
             this.dataToEdit = data;
             console.log(data);
             $('#updateCoord').modal('show');
+        },
+
+        showData(data){
+            this.dataToShow = data;
+            $('#showCoord').modal('show');
         }
     }
 };

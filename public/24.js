@@ -79,11 +79,54 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       coord: [],
-      dataToEdit: []
+      dataToEdit: {},
+      dataToShow: {}
     };
   },
   created: function created() {},
@@ -126,6 +169,10 @@ __webpack_require__.r(__webpack_exports__);
       this.dataToEdit = data;
       console.log(data);
       $('#updateCoord').modal('show');
+    },
+    showData: function showData(data) {
+      this.dataToShow = data;
+      $('#showCoord').modal('show');
     }
   }
 });
@@ -265,7 +312,19 @@ var render = function() {
                           _c("td", [_vm._v(_vm._s(cord.phone))]),
                           _vm._v(" "),
                           _c("td", { staticClass: "float-right" }, [
-                            _vm._m(1, true),
+                            _c(
+                              "a",
+                              {
+                                staticClass: "btn btn-sm",
+                                staticStyle: { color: "grey" },
+                                on: {
+                                  click: function($event) {
+                                    return _vm.showData(cord)
+                                  }
+                                }
+                              },
+                              [_c("i", { staticClass: "fa fa-eye" })]
+                            ),
                             _vm._v(" "),
                             _c(
                               "a",
@@ -309,7 +368,79 @@ var render = function() {
       _vm._v(" "),
       _c("create-coord"),
       _vm._v(" "),
-      _c("update-coord", { attrs: { data: _vm.dataToEdit } })
+      _c("update-coord", { attrs: { data: _vm.dataToEdit } }),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass: "modal fade",
+          attrs: {
+            id: "showCoord",
+            tabindex: "-1",
+            role: "dialog",
+            "aria-labelledby": "exampleModalCenterTitle",
+            "aria-hidden": "true"
+          }
+        },
+        [
+          _c(
+            "div",
+            {
+              staticClass: "modal-dialog modal-dialog-centered",
+              attrs: { role: "document" }
+            },
+            [
+              _c("div", { staticClass: "modal-content" }, [
+                _vm._m(1),
+                _vm._v(" "),
+                _c("div", { staticClass: "modal-body" }, [
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", { attrs: { for: "name" } }, [
+                      _vm._v("Nombre: ")
+                    ]),
+                    _vm._v(" "),
+                    _c("strong", [_vm._v(_vm._s(_vm.dataToShow.name))])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", { attrs: { for: "name" } }, [
+                      _vm._v("Apellido: ")
+                    ]),
+                    _vm._v(" "),
+                    _c("strong", [_vm._v(_vm._s(_vm.dataToShow.last_name))])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", { attrs: { for: "name" } }, [
+                      _vm._v("Correo: ")
+                    ]),
+                    _vm._v(" "),
+                    _c("strong", [_vm._v(_vm._s(_vm.dataToShow.email))])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", { attrs: { for: "name" } }, [
+                      _vm._v("Telefono: ")
+                    ]),
+                    _vm._v(" "),
+                    _c("strong", [_vm._v(_vm._s(_vm.dataToShow.phone))])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", { attrs: { for: "name" } }, [
+                      _vm._v("Dirección: ")
+                    ]),
+                    _vm._v(" "),
+                    _c("strong", [_vm._v(_vm._s(_vm.dataToShow.address))])
+                  ])
+                ]),
+                _vm._v(" "),
+                _vm._m(2)
+              ])
+            ]
+          )
+        ]
+      )
     ],
     1
   )
@@ -333,15 +464,41 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c(
-      "a",
-      {
-        staticClass: "btn btn-sm",
-        staticStyle: { color: "grey" },
-        attrs: { href: "#" }
-      },
-      [_c("i", { staticClass: "fa fa-eye" })]
-    )
+    return _c("div", { staticClass: "modal-header" }, [
+      _c(
+        "h5",
+        { staticClass: "modal-title", attrs: { id: "exampleModalLongTitle" } },
+        [_vm._v("Información de Coordinador")]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-footer" }, [
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-secondary",
+          attrs: { type: "button", "data-dismiss": "modal" }
+        },
+        [_vm._v("Cerrar")]
+      )
+    ])
   }
 ]
 render._withStripped = true

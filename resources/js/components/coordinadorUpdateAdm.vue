@@ -8,25 +8,15 @@
                         <div class="card">
                             <h3 class="card-header fondo text-center">
                                 Usuarios
-                                <button
-                                    type="button"
-                                    class="close"
-                                    data-dismiss="modal"
-                                >
+                                <button type="button" class="close" data-dismiss="modal">
                                     <span>&times;</span>
                                 </button>
                             </h3>
 
                             <div class="card-body">
-                                <form
-                                    class="needs-validation"
-                                    v-on:submit.prevent="createUser"
-                                    novalidate
-                                >
+                                <form class="needs-validation" v-on:submit.prevent="createUser" novalidate>
                                     <div class="form-group row mx-auto">
-                                        <div
-                                            class="col-md-8 text-center mx-auto"
-                                        >
+                                        <div class="col-md-8 text-center mx-auto">
                                             <label for="name">
                                                 <img
                                                     width="35px"
@@ -49,9 +39,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group row mx-auto">
-                                        <div
-                                            class="col-md-8 text-center mx-auto"
-                                        >
+                                        <div class="col-md-8 text-center mx-auto">
                                             <label for="name">
                                                 <img
                                                     width="35px"
@@ -77,9 +65,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group row mx-auto">
-                                        <div
-                                            class="col-md-8 text-center mx-auto"
-                                        >
+                                        <div class="col-md-8 text-center mx-auto">
                                             <label for="name">
                                                 <img
                                                     width="35px"
@@ -100,9 +86,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group row mx-auto">
-                                        <div
-                                            class="col-md-8 text-center mx-auto"
-                                        >
+                                        <div class="col-md-8 text-center mx-auto">
                                             <label for="name">
                                                 <img
                                                     width="35px"
@@ -123,34 +107,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group row mx-auto">
-                                        <div
-                                            class="col-md-8 text-center mx-auto"
-                                        >
-                                            <label for="name">
-                                                <img
-                                                    width="35px"
-                                                    src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/MI-MENSAJES_naranja.png?alt=media&token=317fc013-8cce-448f-9af9-54e2981274d0"
-                                                    alt
-                                                />Correo
-                                            </label>
-                                            <div>
-                                                <input
-                                                    type="email"
-                                                    name="objetive1"
-                                                    class="form-control"
-                                                    v-model="newEmail"
-                                                    placeholder="Ej.: usuario@servidor.com"
-                                                    size="30"
-                                                    style="background: gainsboro;"
-                                                    required
-                                                />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row mx-auto">
-                                        <div
-                                            class="col-md-8 text-center mx-auto"
-                                        >
+                                        <div class="col-md-8 text-center mx-auto">
                                             <label for="name">
                                                 <img
                                                     width="35px"
@@ -170,10 +127,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div
-                                        class="form-group row mx-auto"
-                                        v-show="docente == 2"
-                                    >
+                                    <div class="form-group row mx-auto" v-show="docente == 2">
                                         <div
                                             class="col-md-8 text-center mx-auto"
                                         >
@@ -201,13 +155,8 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div
-                                        class="form-group row mx-auto"
-                                        v-show="docente == 3"
-                                    >
-                                        <div
-                                            class="col-md-8 text-center mx-auto"
-                                        >
+                                    <div class="form-group row mx-auto" v-show="docente == 3">
+                                        <div class="col-md-8 text-center mx-auto">
                                             <label for="name">
                                                 <img
                                                     width="35px"
@@ -227,13 +176,8 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div
-                                        class="form-group row mx-auto"
-                                        v-show="docente == 2"
-                                    >
-                                        <div
-                                            class="col-md-8 text-center mx-auto"
-                                        >
+                                    <div class="form-group row mx-auto" v-show="docente == 2">
+                                        <div class="col-md-8 text-center mx-auto">
                                             <label for="name">
                                                 <img
                                                     width="35px"
@@ -254,9 +198,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group row mx-auto">
-                                        <div
-                                            class="col-md-8 text-center mx-auto"
-                                        >
+                                        <div class="col-md-8 text-center mx-auto">
                                             <label for="name">
                                                 <img
                                                     width="35px"
@@ -278,33 +220,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group row mx-auto">
-                                        <div
-                                            class="col-md-8 text-center mx-auto"
-                                        >
-                                            <label for="name">
-                                                <img
-                                                    width="35px"
-                                                    src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/MI-PERFIL.png?alt=media&token=317fc013-8cce-448f-9af9-54e2981274d0"
-                                                    alt
-                                                />Foto
-                                            </label>
-                                            <div>
-                                                <input
-                                                    type="file"
-                                                    name="picture"
-                                                    class="form-control"
-                                                    accept="image/*"
-                                                    style="background: gainsboro;"
-                                                    @change="onFlieChange"
-                                                    required
-                                                />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row mx-auto">
-                                        <div
-                                            class="col-md-8 text-center mx-auto"
-                                        >
+                                        <div class="col-md-8 text-center mx-auto">
                                             <label for="name">
                                                 <img
                                                     width="35px"
@@ -325,32 +241,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group row mx-auto">
-                                        <div
-                                            class="col-md-8 text-center mx-auto"
-                                        >
-                                            <label for="name">
-                                                <img
-                                                    width="35px"
-                                                    src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/MI-PERFIL.png?alt=media&token=317fc013-8cce-448f-9af9-54e2981274d0"
-                                                    alt
-                                                />Contraseña
-                                            </label>
-                                            <div>
-                                                <input
-                                                    type="password"
-                                                    name="objetive1"
-                                                    class="form-control"
-                                                    v-model="newPassword"
-                                                    style="background: gainsboro;"
-                                                    required
-                                                />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row mx-auto">
-                                        <div
-                                            class="col-md-8 text-center mx-auto"
-                                        >
+                                        <div class="col-md-8 text-center mx-auto">
                                             <label for="name">
                                                 <img
                                                     width="35px"
@@ -403,14 +294,14 @@ export default {
             docente: "",
             id_act: "",
             institution: "",
-            newName: this.data.name,
-            newLastName: this.data.last_name,
+            newName: "",
+            newLastName: "",
             newPassword: "",
             newEmail: "",
-            newUserName: this.data.user_name,
+            newUserName: "",
             newType_user: "",
-            newAddress: this.data.address,
-            newPicture: this.data.picture,
+            newAddress: "",
+            newPicture: "",
             newPhone: "",
             newId_number: "",
             errors: [],
@@ -422,13 +313,25 @@ export default {
             ]
         };
     },
-    created() {},
     mounted() {
         var urlr = "getInstitution";
         axios.get(urlr).then(response => {
             this.myOptions = response.data;
         });
-        console.log(this.data);
+        console.log('Componente Montado')
+    },
+    watch:{
+        data(newVal, oldVal){
+            if(newVal !== oldVal){
+                this.newName = newVal.name;
+                this.newLastName = newVal.last_name;
+                this.newUserName = newVal.user_name;
+                this.newAddress = newVal.address;
+                this.newPhone = newVal.phone;
+                this.newId_number = newVal.id_number;
+                this.newType_user = '8'
+            }
+        }
     },
     methods: {
         createS(clas) {
@@ -440,37 +343,32 @@ export default {
         },
 
         createUser() {
-            var url = "users_save";
+            var url = `users/${this.data.id}`;
 
             axios
-                .post(url, {
+                .put(url, {
                     name: this.newName,
                     last_name: this.newLastName,
-                    password: this.newPassword,
                     user_name: this.newUserName,
-                    email: this.newEmail,
-                    type_user: this.newType_user,
                     address: this.newAddress,
-                    picture: this.newPicture,
                     phone: this.newPhone,
                     id_number: this.newId_number
                 })
                 .then(response => {
                     this.newName = "";
                     this.newLastName = "";
-                    this.newPassword = "";
-                    this.newEmail = "";
                     this.newUserName = "";
                     this.newType_user = "";
                     this.newAddress = "";
-                    this.newPicture = "";
                     this.newPhone = "";
                     this.newId_number = "";
                     this.errors = [];
-                    toastr.success("Nuevo usuario creado");
-                    this.getNames();
+                    toastr.success("Nuevo usuario Actualizado");
+                    // this.getNames();
+                    window.location = "/coordinador_adm";
                 })
                 .catch(error => {
+                    console.log(error)
                     this.errors = error.response.data;
                 });
         },

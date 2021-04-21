@@ -475,7 +475,8 @@ export default {
                     this.newId_number = "";
                     this.errors = [];
                     toastr.success("Nuevo usuario creado");
-                    this.getNames();
+                    // this.getNames();
+                    window.location = "/coordinador_adm";
                 })
                 .catch(error => {
                     this.errors = error.response.data;
