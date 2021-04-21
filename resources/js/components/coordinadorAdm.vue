@@ -20,7 +20,7 @@
                             <thead>
                                 <tr>
                                     <th>Nombre</th>
-                                    <th>Telefono</th>
+                                    <th>Correo</th>
                                     <th>Acción</th>
                                 </tr>
                             </thead>
@@ -31,7 +31,7 @@
                                     class="clickable"
                                 >
                                     <td>{{cord.name +' '+cord.last_name}}</td>
-                                    <td>{{cord.phone}}</td>
+                                    <td>{{cord.email}}</td>
 
                                     <td class="float-right">
                                         <a
@@ -85,6 +85,11 @@
                         <div class="form-group">
                             <label for="name">Apellido: </label>
                             <strong>{{dataToShow.last_name}}</strong>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="name">Grupo a Coordinar: </label>
+                            <strong>{{dataToShow.newCoordArea}}</strong>
                         </div>
 
                         <div class="form-group">
@@ -156,7 +161,6 @@ export default {
 
         editCoord(data){
             this.dataToEdit = data;
-            console.log(data);
             $('#updateCoord').modal('show');
         },
 

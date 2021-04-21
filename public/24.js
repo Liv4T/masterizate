@@ -121,6 +121,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -167,7 +172,6 @@ __webpack_require__.r(__webpack_exports__);
     },
     editCoord: function editCoord(data) {
       this.dataToEdit = data;
-      console.log(data);
       $('#updateCoord').modal('show');
     },
     showData: function showData(data) {
@@ -309,7 +313,7 @@ var render = function() {
                             _vm._v(_vm._s(cord.name + " " + cord.last_name))
                           ]),
                           _vm._v(" "),
-                          _c("td", [_vm._v(_vm._s(cord.phone))]),
+                          _c("td", [_vm._v(_vm._s(cord.email))]),
                           _vm._v(" "),
                           _c("td", { staticClass: "float-right" }, [
                             _c(
@@ -412,6 +416,14 @@ var render = function() {
                   _vm._v(" "),
                   _c("div", { staticClass: "form-group" }, [
                     _c("label", { attrs: { for: "name" } }, [
+                      _vm._v("Grupo a Coordinar: ")
+                    ]),
+                    _vm._v(" "),
+                    _c("strong", [_vm._v(_vm._s(_vm.dataToShow.newCoordArea))])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", { attrs: { for: "name" } }, [
                       _vm._v("Correo: ")
                     ]),
                     _vm._v(" "),
@@ -454,7 +466,7 @@ var staticRenderFns = [
       _c("tr", [
         _c("th", [_vm._v("Nombre")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Telefono")]),
+        _c("th", [_vm._v("Correo")]),
         _vm._v(" "),
         _c("th", [_vm._v("Acción")])
       ])

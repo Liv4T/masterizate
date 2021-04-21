@@ -14,7 +14,7 @@
                             </h3>
 
                             <div class="card-body">
-                                <form class="needs-validation" v-on:submit.prevent="createUser" novalidate>
+                                <form class="needs-validation" v-on:submit.prevent="updateUser" novalidate>
                                     <div class="form-group row mx-auto">
                                         <div class="col-md-8 text-center mx-auto">
                                             <label for="name">
@@ -100,6 +100,29 @@
                                                     name="objetive1"
                                                     class="form-control"
                                                     v-model="newLastName"
+                                                    style="background: gainsboro;"
+                                                    required
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row mx-auto">
+                                        <div
+                                            class="col-md-8 text-center mx-auto"
+                                        >
+                                            <label for="name">
+                                                <img
+                                                    width="35px"
+                                                    src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/MI-MENSAJES_naranja.png?alt=media&token=317fc013-8cce-448f-9af9-54e2981274d0"
+                                                    alt
+                                                />Grupo a Coordinar
+                                            </label>
+                                            <div>
+                                                <input
+                                                    type="text"
+                                                    class="form-control"
+                                                    v-model="newCoordArea"
+                                                    size="30"
                                                     style="background: gainsboro;"
                                                     required
                                                 />
@@ -297,6 +320,7 @@ export default {
             newName: "",
             newLastName: "",
             newPassword: "",
+            newCoordArea: "",
             newEmail: "",
             newUserName: "",
             newType_user: "",
@@ -318,7 +342,6 @@ export default {
         axios.get(urlr).then(response => {
             this.myOptions = response.data;
         });
-        console.log('Componente Montado')
     },
     watch:{
         data(newVal, oldVal){
@@ -326,6 +349,7 @@ export default {
                 this.newName = newVal.name;
                 this.newLastName = newVal.last_name;
                 this.newUserName = newVal.user_name;
+                this.newCoordArea = newVal.newCoordArea;
                 this.newAddress = newVal.address;
                 this.newPhone = newVal.phone;
                 this.newId_number = newVal.id_number;
@@ -342,7 +366,7 @@ export default {
             $("#createCoord").modal("show");
         },
 
-        createUser() {
+        updateUser() {
             var url = `users/${this.data.id}`;
 
             axios
@@ -352,7 +376,8 @@ export default {
                     user_name: this.newUserName,
                     address: this.newAddress,
                     phone: this.newPhone,
-                    id_number: this.newId_number
+                    id_number: this.newId_number,
+                    newCoordArea: this.newCoordArea
                 })
                 .then(response => {
                     this.newName = "";
@@ -362,6 +387,7 @@ export default {
                     this.newAddress = "";
                     this.newPhone = "";
                     this.newId_number = "";
+                    this.newCoordArea ="";
                     this.errors = [];
                     toastr.success("Nuevo usuario Actualizado");
                     // this.getNames();

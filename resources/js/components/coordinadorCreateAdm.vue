@@ -154,6 +154,29 @@
                                             <label for="name">
                                                 <img
                                                     width="35px"
+                                                    src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/MI-MENSAJES_naranja.png?alt=media&token=317fc013-8cce-448f-9af9-54e2981274d0"
+                                                    alt
+                                                />Grupo a Coordinar
+                                            </label>
+                                            <div>
+                                                <input
+                                                    type="text"
+                                                    class="form-control"
+                                                    v-model="newCoordArea"
+                                                    size="30"
+                                                    style="background: gainsboro;"
+                                                    required
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row mx-auto">
+                                        <div
+                                            class="col-md-8 text-center mx-auto"
+                                        >
+                                            <label for="name">
+                                                <img
+                                                    width="35px"
                                                     src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/MIS-CURSOS.png?alt=media&token=317fc013-8cce-448f-9af9-54e2981274d0"
                                                     alt
                                                 />Teléfono
@@ -407,6 +430,7 @@ export default {
             newLastName: "",
             newPassword: "",
             newEmail: "",
+            newCoordArea:"",
             newUserName: "",
             newType_user: "",
             newAddress: "",
@@ -428,7 +452,6 @@ export default {
         axios.get(urlr).then(response => {
             this.myOptions = response.data;
         });
-        console.log("Component mounted.");
 
         this.getCoord();
     },
@@ -460,7 +483,8 @@ export default {
                     address: this.newAddress,
                     picture: this.newPicture,
                     phone: this.newPhone,
-                    id_number: this.newId_number
+                    id_number: this.newId_number,
+                    coursesToCoord: this.newCoordArea
                 })
                 .then(response => {
                     this.newName = "";
@@ -473,6 +497,7 @@ export default {
                     this.newPicture = "";
                     this.newPhone = "";
                     this.newId_number = "";
+                    this.newCoordArea = "";
                     this.errors = [];
                     toastr.success("Nuevo usuario creado");
                     // this.getNames();

@@ -290,6 +290,29 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['data'],
   data: function data() {
@@ -307,6 +330,7 @@ __webpack_require__.r(__webpack_exports__);
       newName: "",
       newLastName: "",
       newPassword: "",
+      newCoordArea: "",
       newEmail: "",
       newUserName: "",
       newType_user: "",
@@ -328,7 +352,6 @@ __webpack_require__.r(__webpack_exports__);
     axios.get(urlr).then(function (response) {
       _this.myOptions = response.data;
     });
-    console.log('Componente Montado');
   },
   watch: {
     data: function data(newVal, oldVal) {
@@ -336,6 +359,7 @@ __webpack_require__.r(__webpack_exports__);
         this.newName = newVal.name;
         this.newLastName = newVal.last_name;
         this.newUserName = newVal.user_name;
+        this.newCoordArea = newVal.newCoordArea;
         this.newAddress = newVal.address;
         this.newPhone = newVal.phone;
         this.newId_number = newVal.id_number;
@@ -351,7 +375,7 @@ __webpack_require__.r(__webpack_exports__);
       //   });
       $("#createCoord").modal("show");
     },
-    createUser: function createUser() {
+    updateUser: function updateUser() {
       var _this2 = this;
 
       var url = "users/".concat(this.data.id);
@@ -361,7 +385,8 @@ __webpack_require__.r(__webpack_exports__);
         user_name: this.newUserName,
         address: this.newAddress,
         phone: this.newPhone,
-        id_number: this.newId_number
+        id_number: this.newId_number,
+        newCoordArea: this.newCoordArea
       }).then(function (response) {
         _this2.newName = "";
         _this2.newLastName = "";
@@ -370,6 +395,7 @@ __webpack_require__.r(__webpack_exports__);
         _this2.newAddress = "";
         _this2.newPhone = "";
         _this2.newId_number = "";
+        _this2.newCoordArea = "";
         _this2.errors = [];
         toastr.success("Nuevo usuario Actualizado"); // this.getNames();
 
@@ -580,7 +606,7 @@ var render = function() {
                     on: {
                       submit: function($event) {
                         $event.preventDefault()
-                        return _vm.createUser($event)
+                        return _vm.updateUser($event)
                       }
                     }
                   },
@@ -779,6 +805,41 @@ var render = function() {
                                 {
                                   name: "model",
                                   rawName: "v-model",
+                                  value: _vm.newCoordArea,
+                                  expression: "newCoordArea"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              staticStyle: { background: "gainsboro" },
+                              attrs: { type: "text", size: "30", required: "" },
+                              domProps: { value: _vm.newCoordArea },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.newCoordArea = $event.target.value
+                                }
+                              }
+                            })
+                          ])
+                        ]
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group row mx-auto" }, [
+                      _c(
+                        "div",
+                        { staticClass: "col-md-8 text-center mx-auto" },
+                        [
+                          _vm._m(6),
+                          _vm._v(" "),
+                          _c("div", [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
                                   value: _vm.newPhone,
                                   expression: "newPhone"
                                 }
@@ -823,7 +884,7 @@ var render = function() {
                           "div",
                           { staticClass: "col-md-8 text-center mx-auto" },
                           [
-                            _vm._m(6),
+                            _vm._m(7),
                             _vm._v(" "),
                             _c("div", [
                               _c(
@@ -868,7 +929,7 @@ var render = function() {
                           "div",
                           { staticClass: "col-md-8 text-center mx-auto" },
                           [
-                            _vm._m(7),
+                            _vm._m(8),
                             _vm._v(" "),
                             _c("div", [
                               _c("input", {
@@ -921,7 +982,7 @@ var render = function() {
                           "div",
                           { staticClass: "col-md-8 text-center mx-auto" },
                           [
-                            _vm._m(8),
+                            _vm._m(9),
                             _vm._v(" "),
                             _c("div", [
                               _c("input", {
@@ -961,7 +1022,7 @@ var render = function() {
                         "div",
                         { staticClass: "col-md-8 text-center mx-auto" },
                         [
-                          _vm._m(9),
+                          _vm._m(10),
                           _vm._v(" "),
                           _c("div", [
                             _c("input", {
@@ -1001,7 +1062,7 @@ var render = function() {
                         "div",
                         { staticClass: "col-md-8 text-center mx-auto" },
                         [
-                          _vm._m(10),
+                          _vm._m(11),
                           _vm._v(" "),
                           _c("div", [
                             _c("input", {
@@ -1040,7 +1101,7 @@ var render = function() {
                         "div",
                         { staticClass: "col-md-8 text-center mx-auto" },
                         [
-                          _vm._m(11),
+                          _vm._m(12),
                           _vm._v(" "),
                           _c("div", [
                             _c("input", {
@@ -1075,7 +1136,7 @@ var render = function() {
                       )
                     ]),
                     _vm._v(" "),
-                    _vm._m(12)
+                    _vm._m(13)
                   ]
                 )
               ])
@@ -1167,6 +1228,22 @@ var staticRenderFns = [
         }
       }),
       _vm._v("Apellidos\n                                        ")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { attrs: { for: "name" } }, [
+      _c("img", {
+        attrs: {
+          width: "35px",
+          src:
+            "https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/MI-MENSAJES_naranja.png?alt=media&token=317fc013-8cce-448f-9af9-54e2981274d0",
+          alt: ""
+        }
+      }),
+      _vm._v("Grupo a Coordinar\n                                        ")
     ])
   },
   function() {
