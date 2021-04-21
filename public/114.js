@@ -1,9 +1,9 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[114],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/modalDocenteReport.vue?vue&type=script&lang=js&":
-/*!*****************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/modalDocenteReport.vue?vue&type=script&lang=js& ***!
-  \*****************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/modalDocentePlanifReport.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/modalDocentePlanifReport.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -82,17 +82,27 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___default.a);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      type_export: true,
       teachersOptions: [],
       areaOptions: [],
-      saveArea: {},
-      DataToExport: [],
-      saveTeachers: {}
+      saveTeachers: {},
+      planification: "",
+      saveArea: [],
+      anualPlanification: [],
+      quaterlyPlanification: [],
+      DataToExport: []
     };
   },
   mounted: function mounted() {
@@ -114,39 +124,29 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
         });
       });
     },
-    getAreaOrClassroom: function getAreaOrClassroom() {
+    getArea: function getArea() {
       var _this2 = this;
 
-      if (this.type_export === true) {
-        axios.get("GetAreaTeacher/".concat(this.saveTeachers.id)).then(function (response) {
-          var area = response.data;
-          area.forEach(function (element) {
-            _this2.areaOptions.push({
-              id: element.id,
-              id_area: element.id_area,
-              id_classroom: element.id_classroom,
-              text: element.text
-            });
+      axios.get("GetAreaTeacher/".concat(this.saveTeachers.id)).then(function (response) {
+        var area = response.data;
+        area.forEach(function (element) {
+          _this2.areaOptions.push({
+            id: element.id,
+            id_area: element.id_area,
+            id_classroom: element.id_classroom,
+            text: element.text
           });
         });
-      } else {
-        axios.get("getClassroom").then(function (response) {
-          var areaOrClassroom = response.data;
-          console.log(areaOrClassroom);
-          areaOrClassroom.forEach(function (element) {
-            _this2.areaOptions.push({
-              id: element.id,
-              text: element.clasroom
-            });
-          });
-        });
-      }
+      });
     },
-    exportData: function exportData() {
-      if (this.type_export === true) {
-        window.open("reportNotes/".concat(parseInt(this.saveArea.id), "/").concat(parseInt(this.saveArea.id_classroom), "/").concat(this.saveTeachers.text, "/").concat(this.saveArea.text), "_self");
-      } else {
-        window.open("reportAllCourse/".concat(parseInt(this.saveArea.id)), "_self");
+    dataExport: function dataExport() {
+      //Organizacion de datos para exportacion mediante Planificación Anual
+      if (this.planification === "anual") {
+        window.open("GetPlanificationTeacher/".concat(this.saveTeachers.id, "/").concat(this.saveArea.id_area, "/").concat(this.saveArea.id_classroom, "/").concat(this.saveTeachers.text), "_self"); //Organizacion de datos para exportacion mediante Planificación Trimestral
+      } else if (this.planification === "quarters") {
+        window.open("GetPlanificationQuaterlyTeacher/".concat(this.saveTeachers.id, "/").concat(this.saveArea.id_area, "/").concat(this.saveArea.id_classroom, "/").concat(this.saveTeachers.text), "_self");
+      } else if (this.planification === "clases") {
+        window.open("GetPlanificationCoursesTeacher/".concat(this.saveArea.id_area, "/").concat(this.saveArea.id_classroom, "/").concat(this.saveTeachers.text), "_self");
       }
     }
   }
@@ -154,10 +154,10 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/modalDocenteReport.vue?vue&type=template&id=2c17d944&":
-/*!*********************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/modalDocenteReport.vue?vue&type=template&id=2c17d944& ***!
-  \*********************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/modalDocentePlanifReport.vue?vue&type=template&id=26355dea&":
+/*!***************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/modalDocentePlanifReport.vue?vue&type=template&id=26355dea& ***!
+  \***************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -174,7 +174,7 @@ var render = function() {
     {
       staticClass: "modal fade bd-example-modal-lg",
       attrs: {
-        id: "reportTeacherModal",
+        id: "reportTeacherPlanifModal",
         tabindex: "-1",
         role: "dialog",
         "aria-labelledby": "myLargeModalLabel",
@@ -187,131 +187,58 @@ var render = function() {
           _vm._m(0),
           _vm._v(" "),
           _c("div", { staticClass: "modal-body" }, [
-            _c("div", { staticClass: "form-goup" }, [
-              _c("div", { staticClass: "form-check mb-5" }, [
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.type_export,
-                      expression: "type_export"
-                    }
-                  ],
-                  staticClass: "form-check-input",
-                  attrs: { type: "checkbox", id: "defaultCheck1" },
-                  domProps: {
-                    checked: Array.isArray(_vm.type_export)
-                      ? _vm._i(_vm.type_export, null) > -1
-                      : _vm.type_export
-                  },
-                  on: {
-                    change: function($event) {
-                      var $$a = _vm.type_export,
-                        $$el = $event.target,
-                        $$c = $$el.checked ? true : false
-                      if (Array.isArray($$a)) {
-                        var $$v = null,
-                          $$i = _vm._i($$a, $$v)
-                        if ($$el.checked) {
-                          $$i < 0 && (_vm.type_export = $$a.concat([$$v]))
-                        } else {
-                          $$i > -1 &&
-                            (_vm.type_export = $$a
-                              .slice(0, $$i)
-                              .concat($$a.slice($$i + 1)))
-                        }
-                      } else {
-                        _vm.type_export = $$c
-                      }
-                    }
-                  }
-                }),
-                _vm._v(" "),
-                _vm._m(1)
-              ]),
-              _vm._v(" "),
-              _c(
-                "div",
-                {
-                  directives: [
-                    {
-                      name: "show",
-                      rawName: "v-show",
-                      value: _vm.type_export === true,
-                      expression: "type_export === true"
-                    }
-                  ]
-                },
-                [
-                  _c("label", [_vm._v("Docente")]),
-                  _vm._v(" "),
-                  _c("multiselect", {
-                    attrs: {
-                      options: _vm.teachersOptions,
-                      multiple: false,
-                      "close-on-select": false,
-                      "clear-on-select": false,
-                      "preserve-search": true,
-                      placeholder: "Seleccione una",
-                      label: "text",
-                      "track-by": "id",
-                      "preselect-first": true
-                    },
-                    scopedSlots: _vm._u([
-                      {
-                        key: "selection",
-                        fn: function(ref) {
-                          var values = ref.values
-                          var isOpen = ref.isOpen
-                          return [
-                            values.length && !isOpen
-                              ? _c(
-                                  "span",
-                                  { staticClass: "multiselect__single" },
-                                  [
-                                    _vm._v(
-                                      "\n                                        " +
-                                        _vm._s(values.length) +
-                                        "\n                                        opciones\n                                        selecionadas\n                                    "
-                                    )
-                                  ]
-                                )
-                              : _vm._e()
-                          ]
-                        }
-                      }
-                    ]),
-                    model: {
-                      value: _vm.saveTeachers,
-                      callback: function($$v) {
-                        _vm.saveTeachers = $$v
-                      },
-                      expression: "saveTeachers"
-                    }
-                  })
-                ],
-                1
-              )
-            ]),
-            _vm._v(" "),
             _c(
               "div",
-              {
-                directives: [
-                  {
-                    name: "show",
-                    rawName: "v-show",
-                    value: _vm.type_export === false,
-                    expression: "type_export === false"
-                  }
-                ]
-              },
+              { staticClass: "form-goup" },
               [
-                _c("p", [
-                  _vm._v("Consulta el salon requerido y realiza la exportación")
-                ])
-              ]
+                _c("label", [_vm._v("Docente")]),
+                _vm._v(" "),
+                _c("multiselect", {
+                  attrs: {
+                    options: _vm.teachersOptions,
+                    multiple: false,
+                    "close-on-select": false,
+                    "clear-on-select": false,
+                    "preserve-search": true,
+                    placeholder: "Seleccione una",
+                    label: "text",
+                    "track-by": "id",
+                    "preselect-first": true
+                  },
+                  scopedSlots: _vm._u([
+                    {
+                      key: "selection",
+                      fn: function(ref) {
+                        var values = ref.values
+                        var isOpen = ref.isOpen
+                        return [
+                          values.length && !isOpen
+                            ? _c(
+                                "span",
+                                { staticClass: "multiselect__single" },
+                                [
+                                  _vm._v(
+                                    "\n                                    " +
+                                      _vm._s(values.length) +
+                                      "\n                                    opciones\n                                    selecionadas\n                                "
+                                  )
+                                ]
+                              )
+                            : _vm._e()
+                        ]
+                      }
+                    }
+                  ]),
+                  model: {
+                    value: _vm.saveTeachers,
+                    callback: function($$v) {
+                      _vm.saveTeachers = $$v
+                    },
+                    expression: "saveTeachers"
+                  }
+                })
+              ],
+              1
             ),
             _vm._v(" "),
             _c("div", { staticClass: "form-group" }, [
@@ -321,19 +248,13 @@ var render = function() {
                   staticClass: "btn btn-primary mt-2 mb-2",
                   on: {
                     click: function($event) {
-                      return _vm.getAreaOrClassroom()
+                      return _vm.getArea()
                     }
                   }
                 },
                 [
                   _vm._v(
-                    "\n                       " +
-                      _vm._s(
-                        _vm.type_export === true
-                          ? "Consultar Area"
-                          : "Consultar Salon"
-                      ) +
-                      "\n                    "
+                    "\n                        Consultar Area\n                    "
                   )
                 ]
               )
@@ -344,11 +265,7 @@ var render = function() {
                   "div",
                   { staticClass: "form-goup" },
                   [
-                    _vm.type_export === true
-                      ? _c("div", [_c("label", [_vm._v("Areas Consultadas")])])
-                      : _c("div", [
-                          _c("label", [_vm._v("Salones Consultados")])
-                        ]),
+                    _c("label", [_vm._v("Areas Disponibles")]),
                     _vm._v(" "),
                     _c("multiselect", {
                       attrs: {
@@ -402,12 +319,12 @@ var render = function() {
                   ],
                   1
                 )
-              : _vm._e()
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "modal-footer" }, [
+              : _c("div", [
+                  _c("strong", [_vm._v("No se encuentran areas disponibles")])
+                ]),
+            _vm._v(" "),
             _c(
-              "button",
+              "div",
               {
                 directives: [
                   {
@@ -417,11 +334,142 @@ var render = function() {
                     expression: "areaOptions.length > 0"
                   }
                 ],
+                staticClass: "form-goup"
+              },
+              [
+                _c("label", [_vm._v("Filtro")]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-check" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.planification,
+                        expression: "planification"
+                      }
+                    ],
+                    staticClass: "form-check-input",
+                    attrs: {
+                      type: "radio",
+                      name: "filter",
+                      id: "filter1",
+                      value: "anual"
+                    },
+                    domProps: { checked: _vm._q(_vm.planification, "anual") },
+                    on: {
+                      change: function($event) {
+                        _vm.planification = "anual"
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "label",
+                    {
+                      staticClass: "form-check-label",
+                      attrs: { for: "filter1" }
+                    },
+                    [
+                      _vm._v(
+                        "\n                            Anual\n                        "
+                      )
+                    ]
+                  )
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-check" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.planification,
+                        expression: "planification"
+                      }
+                    ],
+                    staticClass: "form-check-input",
+                    attrs: {
+                      type: "radio",
+                      name: "filter",
+                      id: "filter2",
+                      value: "quarters"
+                    },
+                    domProps: {
+                      checked: _vm._q(_vm.planification, "quarters")
+                    },
+                    on: {
+                      change: function($event) {
+                        _vm.planification = "quarters"
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "label",
+                    {
+                      staticClass: "form-check-label",
+                      attrs: { for: "filter2" }
+                    },
+                    [
+                      _vm._v(
+                        "\n                            Trimestral\n                        "
+                      )
+                    ]
+                  )
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-check" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.planification,
+                        expression: "planification"
+                      }
+                    ],
+                    staticClass: "form-check-input",
+                    attrs: {
+                      type: "radio",
+                      name: "filter",
+                      id: "filter3",
+                      value: "clases"
+                    },
+                    domProps: { checked: _vm._q(_vm.planification, "clases") },
+                    on: {
+                      change: function($event) {
+                        _vm.planification = "clases"
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "label",
+                    {
+                      staticClass: "form-check-label",
+                      attrs: { for: "filter3" }
+                    },
+                    [
+                      _vm._v(
+                        "\n                            Clases\n                        "
+                      )
+                    ]
+                  )
+                ])
+              ]
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "modal-footer" }, [
+            _c(
+              "button",
+              {
                 staticClass: "btn btn-primary",
                 attrs: { type: "button" },
                 on: {
                   click: function($event) {
-                    return _vm.exportData()
+                    return _vm.dataExport()
                   }
                 }
               },
@@ -448,7 +496,9 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "modal-header" }, [
-      _c("h5", { staticClass: "modal-title" }, [_vm._v("Reporte de Notas")]),
+      _c("h5", { staticClass: "modal-title" }, [
+        _vm._v("Reporte de Planeación")
+      ]),
       _vm._v(" "),
       _c(
         "button",
@@ -463,19 +513,6 @@ var staticRenderFns = [
         [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
       )
     ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "label",
-      { staticClass: "form-check-label", attrs: { for: "defaultCheck1" } },
-      [
-        _c("span", { staticClass: "dot dot_orange" }),
-        _vm._v(" Reporte de Notas por Docente\n                        ")
-      ]
-    )
   }
 ]
 render._withStripped = true
@@ -484,17 +521,17 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./resources/js/components/modalDocenteReport.vue":
-/*!********************************************************!*\
-  !*** ./resources/js/components/modalDocenteReport.vue ***!
-  \********************************************************/
+/***/ "./resources/js/components/modalDocentePlanifReport.vue":
+/*!**************************************************************!*\
+  !*** ./resources/js/components/modalDocentePlanifReport.vue ***!
+  \**************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _modalDocenteReport_vue_vue_type_template_id_2c17d944___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modalDocenteReport.vue?vue&type=template&id=2c17d944& */ "./resources/js/components/modalDocenteReport.vue?vue&type=template&id=2c17d944&");
-/* harmony import */ var _modalDocenteReport_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modalDocenteReport.vue?vue&type=script&lang=js& */ "./resources/js/components/modalDocenteReport.vue?vue&type=script&lang=js&");
+/* harmony import */ var _modalDocentePlanifReport_vue_vue_type_template_id_26355dea___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modalDocentePlanifReport.vue?vue&type=template&id=26355dea& */ "./resources/js/components/modalDocentePlanifReport.vue?vue&type=template&id=26355dea&");
+/* harmony import */ var _modalDocentePlanifReport_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modalDocentePlanifReport.vue?vue&type=script&lang=js& */ "./resources/js/components/modalDocentePlanifReport.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var vue_multiselect_dist_vue_multiselect_min_css_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue-multiselect/dist/vue-multiselect.min.css?vue&type=style&index=0&lang=css& */ "./node_modules/vue-multiselect/dist/vue-multiselect.min.css?vue&type=style&index=0&lang=css&");
 /* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
@@ -506,9 +543,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
-  _modalDocenteReport_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _modalDocenteReport_vue_vue_type_template_id_2c17d944___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _modalDocenteReport_vue_vue_type_template_id_2c17d944___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _modalDocentePlanifReport_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _modalDocentePlanifReport_vue_vue_type_template_id_26355dea___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _modalDocentePlanifReport_vue_vue_type_template_id_26355dea___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -518,38 +555,38 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/components/modalDocenteReport.vue"
+component.options.__file = "resources/js/components/modalDocentePlanifReport.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/components/modalDocenteReport.vue?vue&type=script&lang=js&":
-/*!*********************************************************************************!*\
-  !*** ./resources/js/components/modalDocenteReport.vue?vue&type=script&lang=js& ***!
-  \*********************************************************************************/
+/***/ "./resources/js/components/modalDocentePlanifReport.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************!*\
+  !*** ./resources/js/components/modalDocentePlanifReport.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_modalDocenteReport_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./modalDocenteReport.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/modalDocenteReport.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_modalDocenteReport_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_modalDocentePlanifReport_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./modalDocentePlanifReport.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/modalDocentePlanifReport.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_modalDocentePlanifReport_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/components/modalDocenteReport.vue?vue&type=template&id=2c17d944&":
-/*!***************************************************************************************!*\
-  !*** ./resources/js/components/modalDocenteReport.vue?vue&type=template&id=2c17d944& ***!
-  \***************************************************************************************/
+/***/ "./resources/js/components/modalDocentePlanifReport.vue?vue&type=template&id=26355dea&":
+/*!*********************************************************************************************!*\
+  !*** ./resources/js/components/modalDocentePlanifReport.vue?vue&type=template&id=26355dea& ***!
+  \*********************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_modalDocenteReport_vue_vue_type_template_id_2c17d944___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./modalDocenteReport.vue?vue&type=template&id=2c17d944& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/modalDocenteReport.vue?vue&type=template&id=2c17d944&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_modalDocenteReport_vue_vue_type_template_id_2c17d944___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_modalDocentePlanifReport_vue_vue_type_template_id_26355dea___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./modalDocentePlanifReport.vue?vue&type=template&id=26355dea& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/modalDocentePlanifReport.vue?vue&type=template&id=26355dea&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_modalDocentePlanifReport_vue_vue_type_template_id_26355dea___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_modalDocenteReport_vue_vue_type_template_id_2c17d944___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_modalDocentePlanifReport_vue_vue_type_template_id_26355dea___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

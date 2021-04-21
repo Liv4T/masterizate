@@ -144,6 +144,7 @@ Vue.component("planificacion-adm", ()=>import("./components/planificacionAdm.vue
 Vue.component("vplan-adm", ()=>import("./components/vplanAdm.vue"));
 Vue.component("reportes-adm", ()=>import("./components/reportesAdm.vue"));
 Vue.component("menu-adm", ()=>import("./components/menuAdm.vue"));
+Vue.component("menu-coord", ()=>import("./components/menuCoord.vue"));
 Vue.component("chart-adm", ()=>import("./components/chart.vue"));
 Vue.component("vclases-adm", ()=>import("./components/clases_adm.vue"));
 Vue.component("institu-adm", ()=>import("./components/institucionesAdm.vue"));

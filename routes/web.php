@@ -871,3 +871,9 @@ Route::get('getAssistants','AssistanceController@showAssistance');
 
 Route::resource('effectiveness','EffectivenessController');
 Route::get('getEffectiveness','EffectivenessController@getEffectiveness');
+
+
+//Coordinador
+Route::get('showPrimaryStudents','CoordinatorController@showPrimaryStudents');
+Route::get('showSecundaryStudents','CoordinatorController@showSecundaryStudents');
+Route::get('showStudentsGrade','CoordinatorController@showStudentsGrade');

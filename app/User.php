@@ -118,6 +118,18 @@ class User extends Authenticatable
         return intval($this->type_user) === 7;
     }
 
+    /**
+     * Returns whether a user has a role of 'coordinator'
+     *
+     * @return boolean
+     */
+    public function isCoordinator()
+    {
+        if(!isset($this->type_user)) return false;
+
+        return intval($this->type_user) === 8;
+    }
+
 
 
     /**
