@@ -192,7 +192,6 @@ moment__WEBPACK_IMPORTED_MODULE_1___default.a.locale("es");
       hasta: '',
       nameMeet: '',
       lastId: '',
-      formatDate: new Date(),
       display: "none",
       meetUp: "",
       id_padreUp: ""
