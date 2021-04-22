@@ -55,7 +55,8 @@
 
     <calendar-modal-event :concurrent="concurrent" :dias="dias" :myOptions="myOptions" :getMenu="getMenu"></calendar-modal-event>
 
-    <!-- Hasta aquí el modal de eliminar evento -->
+    <!-- Modal creación de evento de padres -->
+    <event-parents-modal :concurrent="concurrent" :type_u="type_u" :dias="dias" :clases="clases" :user="user" :getMenu="getMenu"></event-parents-modal>
     </div>
 </template>
 
@@ -302,11 +303,11 @@
                 window.location = "/calendar";
             },
             createE() {
-                if (this.type_u != 4 || this.type_u != 8) {
-                    $("#createE").modal("show");
-                } else {
+                // if (this.type_u != 4 || this.type_u != 8) {
+                //     $("#createE").modal("show");
+                // } else {
                     $("#createEvent").modal("show");
-                }
+                // }
             },
         },
     };
