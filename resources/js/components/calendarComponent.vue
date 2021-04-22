@@ -35,7 +35,7 @@
               <FullCalendar ref="fullCalendar" :options="calendarOptions" />
             </div>
           </div>
-          <div class="row" v-show="type_u === 2 || type_u === 4">
+          <div class="row" v-show="type_u === 2 || type_u === 4 || type_u === 8">
             <a class="btn btn-warning float-right mt-2 ml-3" v-on:click.prevent="createE()">Crear evento</a>
           </div>
           <div v-show="type_u == 4">
@@ -302,7 +302,7 @@
                 window.location = "/calendar";
             },
             createE() {
-                if (this.type_u != 4) {
+                if (this.type_u != 4 || this.type_u != 8) {
                     $("#createE").modal("show");
                 } else {
                     $("#createEvent").modal("show");

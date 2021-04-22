@@ -180,7 +180,6 @@
                 hasta: '',
                 nameMeet:'',
                 lastId: '',
-                formatDate: new Date(),
                 display: "none",
                 meetUp: "",
                 id_padreUp: "",
