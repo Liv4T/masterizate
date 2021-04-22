@@ -874,7 +874,13 @@ Route::get('getEffectiveness','EffectivenessController@getEffectiveness');
 
 
 //Coordinador
+Route::middleware('auth')->get('/claseCoord', function () {
+    return view('coursesCoord');
+});
 Route::resource('materiasCoord','CoordinatorController');
 Route::get('showPrimaryStudents','CoordinatorController@showPrimaryStudents');
 Route::get('showSecundaryStudents','CoordinatorController@showSecundaryStudents');
 Route::get('showStudentsGrade','CoordinatorController@showStudentsGrade');
+Route::get('showClassPrimary','CoordinatorController@getPrimaryCourses');
+Route::get('showClassSecundary','CoordinatorController@getSecundaryCourses');
+Route::get('showAllClass','CoordinatorController@getAllCourses');

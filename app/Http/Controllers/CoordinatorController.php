@@ -44,6 +44,45 @@ class CoordinatorController extends Controller
         return response()->json($allGrade);
     }
 
+    /*
+        return the courses for primary Courses
+    */
+    public function getPrimaryCourses(){
+        $primary = DB::table('weekly_plan')
+            ->join('area','area.id','=','weekly_plan.id_area')
+            ->join('classroom','classroom.id','=','weekly_plan.id_classroom')
+            ->select('classroom.id_grade as id_grade','area.name AS materia','classroom.name AS grade','weekly_plan.driving_question AS ciclo','weekly_plan.class_development AS class')
+            ->where('classroom.id_grade','<=',6)
+            ->orderBy('id_grade')
+            ->get();
+        return response()->json($primary);
+    }
+    /* 
+        return thoe courses for secundary Courses
+    */
+    public function getSecundaryCourses(){
+        $secundary = DB::table('weekly_plan')
+            ->join('area','area.id','=','weekly_plan.id_area')
+            ->join('classroom','classroom.id','=','weekly_plan.id_classroom')
+            ->select('classroom.id_grade as id_grade','area.name AS materia','classroom.name AS grade','weekly_plan.driving_question AS ciclo','weekly_plan.class_development AS class')
+            ->where('classroom.id_grade','>=',7)
+            ->orderBy('id_grade')
+            ->get();
+        return response()->json($secundary);
+    }
+
+    /*
+        return all Courses
+    */
+    public function getAllCourses(){
+        $allCourses = DB::table('weekly_plan')
+            ->join('area','area.id','=','weekly_plan.id_area')
+            ->join('classroom','classroom.id','=','weekly_plan.id_classroom')
+            ->select('classroom.id_grade as id_grade','area.name AS materia','classroom.name AS grade','weekly_plan.driving_question AS ciclo','weekly_plan.class_development AS class')
+            ->orderBy('id_grade')
+            ->get();
+        return response()->json($allCourses);
+    }
     /**
      * Show the form for creating a new resource.
      *

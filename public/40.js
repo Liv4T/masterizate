@@ -368,7 +368,7 @@ var staticRenderFns = [
                         )
                       ]),
                       _vm._v(" "),
-                      _c("a", { attrs: { href: "#" } }, [
+                      _c("a", { attrs: { href: "/claseCoord" } }, [
                         _c("img", {
                           attrs: {
                             width: "35px",
