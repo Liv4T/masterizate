@@ -354,7 +354,7 @@ var staticRenderFns = [
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "dropdown-content" }, [
-                      _c("a", { attrs: { href: "#" } }, [
+                      _c("a", { attrs: { href: "/materiasCoord" } }, [
                         _c("img", {
                           attrs: {
                             width: "35px",
