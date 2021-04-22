@@ -129,7 +129,7 @@ __webpack_require__.r(__webpack_exports__);
 
 Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___default.a);
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['studentsEdit'],
+  props: ['user', 'studentsEdit', 'dataObserver'],
   data: function data() {
     return {
       newStudentEdit: {},
@@ -150,6 +150,7 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
       // watch it
       if (newVal !== oldVal) {
         this.newStudentEdit = newVal;
+        console.log(newVal);
         this.showDataParents();
         this.showDataStudents();
       }
@@ -168,15 +169,20 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
       var _this = this;
 
       this.getParents();
-      axios.get('/GetArearByUser').then(function (response) {
-        _this.areas = response.data;
 
-        if (_this.areas.length > 0) {
-          _this.current_area = _this.areas[0];
+      if (this.user.type_user === 4) {
+        axios.get('/GetArearByUser').then(function (response) {
+          _this.areas = response.data;
 
-          _this.getStudents();
-        }
-      });
+          if (_this.areas.length > 0) {
+            _this.current_area = _this.areas[0];
+
+            _this.getStudents();
+          }
+        });
+      } else if (this.user.type_user === 8) {
+        this.getStudents();
+      }
     },
     getParents: function getParents() {
       var _this2 = this;
@@ -199,17 +205,58 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
       var _this3 = this;
 
       this.students = [];
-      axios.get("/api/teacher/area/".concat(this.current_area.id, "/classroom/").concat(this.current_area.id_classroom, "/student")).then(function (response) {
-        _this3.students = response.data;
 
-        _this3.students.forEach(function (e) {
-          _this3.studentsOptions.push({
-            id: e.user_id,
-            id_student: e.user_id,
-            text: "".concat(e.user_name)
+      if (this.user.type_user === 4) {
+        axios.get("/api/teacher/area/".concat(this.current_area.id, "/classroom/").concat(this.current_area.id_classroom, "/student")).then(function (response) {
+          _this3.students = response.data;
+
+          _this3.students.forEach(function (e) {
+            _this3.studentsOptions.push({
+              id: e.user_id,
+              id_student: e.user_id,
+              text: "".concat(e.user_name)
+            });
           });
         });
-      });
+      } else if (this.user.type_user === 8) {
+        if (this.user.newCoordArea === 'Primaria') {
+          axios.get("getStudentsPrimary").then(function (response) {
+            _this3.students = response.data;
+
+            _this3.students.forEach(function (e) {
+              _this3.studentsOptions.push({
+                id: e.user_id,
+                id_student: e.user_id,
+                text: "".concat(e.name + ' ' + e.last_name, "___Grado ").concat(e.grade)
+              });
+            });
+          });
+        } else if (this.user.newCoordArea === 'Secundaria') {
+          axios.get("getStudentsSecundary").then(function (response) {
+            _this3.students = response.data;
+
+            _this3.students.forEach(function (e) {
+              _this3.studentsOptions.push({
+                id: e.user_id,
+                id_student: e.user_id,
+                text: "".concat(e.name + ' ' + e.last_name, "___Grado ").concat(e.grade)
+              });
+            });
+          });
+        } else if (this.user.newCoordArea === 'General') {
+          axios.get("getAllStudents").then(function (response) {
+            _this3.students = response.data;
+
+            _this3.students.forEach(function (e) {
+              _this3.studentsOptions.push({
+                id: e.user_id,
+                id_student: e.user_id,
+                text: "".concat(e.name + ' ' + e.last_name, "___Grado ").concat(e.grade)
+              });
+            });
+          });
+        }
+      }
     },
     showDataParents: function showDataParents() {
       var _this4 = this;
@@ -236,12 +283,22 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
       var _this5 = this;
 
       this.students.forEach(function (e) {
-        if (e.user_id === _this5.newStudentEdit.id_student) {
-          _this5.studentToSave = {
-            id: e.user_id,
-            id_student: e.user_id,
-            text: "".concat(e.user_name)
-          };
+        if (_this5.user.type_user === 4) {
+          if (e.user_id === _this5.newStudentEdit.id_student) {
+            _this5.studentToSave = {
+              id: e.user_id,
+              id_student: e.user_id,
+              text: "".concat(e.user_name)
+            };
+          }
+        } else if (_this5.user.type_user === 8) {
+          if (e.user_id === _this5.newStudentEdit.id_student) {
+            _this5.studentToSave = {
+              id: e.user_id,
+              id_student: e.user_id,
+              text: "".concat(e.name + ' ' + e.last_name, "___Grado ").concat(e.grade)
+            };
+          }
         }
       });
     },

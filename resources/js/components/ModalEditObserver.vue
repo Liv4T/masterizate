@@ -117,7 +117,7 @@
     import Multiselect from "vue-multiselect";
     Vue.component("multiselect", Multiselect);
     export default {
-        props:['studentsEdit'],
+        props:['user','studentsEdit','dataObserver'],
         data(){
             return {
                 newStudentEdit:{},
@@ -137,6 +137,7 @@
             studentsEdit: function(newVal, oldVal) { // watch it
                 if(newVal !== oldVal){
                     this.newStudentEdit = newVal;
+                    console.log(newVal);
                     this.showDataParents();
                     this.showDataStudents();
                 }
@@ -153,15 +154,19 @@
         methods:{
             getData(){
                 this.getParents();
-                axios.get('/GetArearByUser').then(response => {
-                    this.areas = response.data;
+                if(this.user.type_user === 4){
+                    axios.get('/GetArearByUser').then(response => {
+                        this.areas = response.data;
 
-                    if(this.areas.length>0)
-                    {
-                        this.current_area=this.areas[0];
-                        this.getStudents();
-                    }
-                });
+                        if(this.areas.length>0)
+                        {
+                            this.current_area=this.areas[0];
+                            this.getStudents();
+                        }
+                    });
+                }else if(this.user.type_user === 8){
+                    this.getStudents();
+                }
             },
             getParents(){
                 axios.get('/getParents').then((response)=>{
@@ -180,17 +185,58 @@
 
             getStudents(){
                 this.students = [];
-                axios.get(`/api/teacher/area/${this.current_area.id}/classroom/${this.current_area.id_classroom}/student`).then(response => {
-                    this.students = response.data;
-                    this.students.forEach(e => {   
-                        this.studentsOptions.push({
-                            id: e.user_id,
-                            id_student:e.user_id,
-                            text: `${e.user_name}`
+                if(this.user.type_user === 4){
+                    axios.get(`/api/teacher/area/${this.current_area.id}/classroom/${this.current_area.id_classroom}/student`).then(response => {
+                        this.students = response.data;
+                        this.students.forEach(e => {   
+                            this.studentsOptions.push({
+                                id: e.user_id,
+                                id_student:e.user_id,
+                                text: `${e.user_name}`
+                            });
                         });
                     });
-                });
+                }
                 
+                else if(this.user.type_user === 8){
+                    if(this.user.newCoordArea === 'Primaria'){
+                        axios.get(`getStudentsPrimary`).then(response => {
+                            this.students = response.data;
+                            
+                            this.students.forEach(e => {   
+                                this.studentsOptions.push({
+                                    id: e.user_id,
+                                    id_student:e.user_id,
+                                    text: `${e.name+' '+e.last_name}___Grado ${e.grade}`
+                                });
+                            });
+                        });
+                    }else if(this.user.newCoordArea === 'Secundaria'){
+                        axios.get(`getStudentsSecundary`).then(response => {
+                            this.students = response.data;
+                            
+                            this.students.forEach(e => {   
+                                this.studentsOptions.push({
+                                    id: e.user_id,
+                                    id_student:e.user_id,
+                                    text: `${e.name+' '+e.last_name}___Grado ${e.grade}`
+                                });
+                            });
+                        });
+                    }else if(this.user.newCoordArea === 'General'){
+                        axios.get(`getAllStudents`).then(response => {
+                            this.students = response.data;
+                            
+                            this.students.forEach(e => {   
+                                this.studentsOptions.push({
+                                    id: e.user_id,
+                                    id_student:e.user_id,
+                                    text: `${e.name+' '+e.last_name}___Grado ${e.grade}`
+                                });
+                            });
+                        });
+                    }
+                }
             },
             showDataParents(){
                 this.parents.forEach(e => {
@@ -214,12 +260,22 @@
 
             showDataStudents(){
                 this.students.forEach(e => { 
-                    if(e.user_id === this.newStudentEdit.id_student){ 
-                        this.studentToSave= {
-                            id: e.user_id,
-                            id_student: e.user_id,
-                            text: `${e.user_name}`,
-                        };
+                    if(this.user.type_user === 4){
+                        if(e.user_id === this.newStudentEdit.id_student){ 
+                            this.studentToSave= {
+                                id: e.user_id,
+                                id_student: e.user_id,
+                                text: `${e.user_name}`,
+                            };
+                        }
+                    }else if(this.user.type_user === 8){
+                        if(e.user_id === this.newStudentEdit.id_student){ 
+                            this.studentToSave= {
+                                id: e.user_id,
+                                id_student:e.user_id,
+                                text: `${e.name+' '+e.last_name}___Grado ${e.grade}`
+                            };
+                        }
                     }
                 });
             },

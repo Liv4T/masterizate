@@ -215,10 +215,16 @@ var render = function() {
         ])
       ]),
       _vm._v(" "),
-      _c("modal-observer-component", { attrs: { user: _vm.user } }),
+      _c("modal-observer-component", {
+        attrs: { user: _vm.user, getData: _vm.getData }
+      }),
       _vm._v(" "),
       _c("modal-edit-observer-component", {
-        attrs: { studentsEdit: _vm.studentEdit }
+        attrs: {
+          user: _vm.user,
+          studentsEdit: _vm.studentEdit,
+          dataObserver: _vm.getData
+        }
       }),
       _vm._v(" "),
       _c("modal-view-observer-component", {

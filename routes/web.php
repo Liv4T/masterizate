@@ -884,3 +884,6 @@ Route::get('showStudentsGrade','CoordinatorController@showStudentsGrade');
 Route::get('showClassPrimary','CoordinatorController@getPrimaryCourses');
 Route::get('showClassSecundary','CoordinatorController@getSecundaryCourses');
 Route::get('showAllClass','CoordinatorController@getAllCourses');
+Route::get('getStudentsPrimary','CoordinatorController@getStudentsPrimary');
+Route::get('getStudentsSecundary','CoordinatorController@getStudentsSecundary');
+Route::get('getAllStudents','CoordinatorController@getAllStudents');

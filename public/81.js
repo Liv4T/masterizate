@@ -129,7 +129,7 @@ __webpack_require__.r(__webpack_exports__);
 
 Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___default.a);
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['user'],
+  props: ['user', 'getData'],
   data: function data() {
     return {
       dateBirth: "",
@@ -163,15 +163,20 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
     var _this = this;
 
     this.getParents();
-    axios.get('/GetArearByUser').then(function (response) {
-      _this.areas = response.data;
 
-      if (_this.areas.length > 0) {
-        _this.current_area = _this.areas[0];
+    if (this.user.type_user === 4) {
+      axios.get('/GetArearByUser').then(function (response) {
+        _this.areas = response.data;
 
-        _this.getStudents();
-      }
-    });
+        if (_this.areas.length > 0) {
+          _this.current_area = _this.areas[0];
+
+          _this.getStudents();
+        }
+      });
+    } else if (this.user.type_user === 8) {
+      this.getStudents();
+    }
   },
   methods: {
     getParents: function getParents() {
@@ -195,19 +200,62 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
       var _this3 = this;
 
       this.students = [];
-      axios.get("/api/teacher/area/".concat(this.current_area.id, "/classroom/").concat(this.current_area.id_classroom, "/student")).then(function (response) {
-        _this3.students = response.data;
 
-        _this3.students.forEach(function (e) {
-          _this3.studentsOptions.push({
-            id: e.user_id,
-            id_student: e.user_id,
-            text: "".concat(e.user_name)
+      if (this.user.type_user === 4) {
+        axios.get("/api/teacher/area/".concat(this.current_area.id, "/classroom/").concat(this.current_area.id_classroom, "/student")).then(function (response) {
+          _this3.students = response.data;
+
+          _this3.students.forEach(function (e) {
+            _this3.studentsOptions.push({
+              id: e.user_id,
+              id_student: e.user_id,
+              text: "".concat(e.user_name)
+            });
           });
         });
-      });
+      } else if (this.user.type_user === 8) {
+        if (this.user.newCoordArea === 'Primaria') {
+          axios.get("getStudentsPrimary").then(function (response) {
+            _this3.students = response.data;
+
+            _this3.students.forEach(function (e) {
+              _this3.studentsOptions.push({
+                id: e.user_id,
+                id_student: e.user_id,
+                text: "".concat(e.name + ' ' + e.last_name, "___Grado ").concat(e.grade)
+              });
+            });
+          });
+        } else if (this.user.newCoordArea === 'Secundaria') {
+          axios.get("getStudentsSecundary").then(function (response) {
+            _this3.students = response.data;
+
+            _this3.students.forEach(function (e) {
+              _this3.studentsOptions.push({
+                id: e.user_id,
+                id_student: e.user_id,
+                text: "".concat(e.name + ' ' + e.last_name, "___Grado ").concat(e.grade)
+              });
+            });
+          });
+        } else if (this.user.newCoordArea === 'General') {
+          axios.get("getAllStudents").then(function (response) {
+            _this3.students = response.data;
+
+            _this3.students.forEach(function (e) {
+              _this3.studentsOptions.push({
+                id: e.user_id,
+                id_student: e.user_id,
+                text: "".concat(e.name + ' ' + e.last_name, "___Grado ").concat(e.grade)
+              });
+            });
+          });
+        }
+      }
     },
     saveObservation: function saveObservation() {
+      var _this4 = this;
+
       var data = {
         'name_student': this.studentToSave.text,
         'id_student': this.studentToSave.id_student,
@@ -228,6 +276,9 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
       };
       axios.post('/observer', data).then(function (response) {
         toastr.success("Datos Guardados");
+
+        _this4.getData();
+
         $("#createModal").modal("hide");
       })["catch"](function (error) {
         toastr.error("Diligencia los campos requeridos");
