@@ -159,14 +159,19 @@
                                                 />Grupo a Coordinar
                                             </label>
                                             <div>
-                                                <input
-                                                    type="text"
-                                                    class="form-control"
-                                                    v-model="newCoordArea"
-                                                    size="30"
-                                                    style="background: gainsboro;"
-                                                    required
-                                                />
+                                                <select class="form-control" v-model="newCoordArea" style="background: gainsboro;" required>
+                                                    <option value="Primaria">
+                                                        Coordinador de Primaria    
+                                                    </option>
+
+                                                    <option value="Secundaria">
+                                                        Coordinador de Secundaria    
+                                                    </option>
+
+                                                    <option value="General">
+                                                        Coordinador    
+                                                    </option>
+                                                </select>
                                             </div>
                                         </div>
                                     </div>
@@ -484,7 +489,7 @@ export default {
                     picture: this.newPicture,
                     phone: this.newPhone,
                     id_number: this.newId_number,
-                    coursesToCoord: this.newCoordArea
+                    newCoordArea: this.newCoordArea
                 })
                 .then(response => {
                     this.newName = "";
@@ -500,7 +505,7 @@ export default {
                     this.newCoordArea = "";
                     this.errors = [];
                     toastr.success("Nuevo usuario creado");
-                    // this.getNames();
+                    //this.getNames();
                     window.location = "/coordinador_adm";
                 })
                 .catch(error => {
