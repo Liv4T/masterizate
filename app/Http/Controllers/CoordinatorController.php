@@ -14,7 +14,7 @@ class CoordinatorController extends Controller
      */
     public function index()
     {
-        //
+        return view('materiasCoord');
     }
 
     /**
@@ -22,7 +22,7 @@ class CoordinatorController extends Controller
     */
 
     public function showPrimaryStudents(){
-        $primary = DB::select('call obtener_materias_grados_primaria()')->get();
+        $primary = DB::select('call obtener_materias_grados_primaria()');
         return response()->json($primary);
     }
 
@@ -31,7 +31,7 @@ class CoordinatorController extends Controller
     */
 
     public function showSecundaryStudents(){
-        $secundary = DB::select('call obtener_materias_grados_secundaria()')->get();
+        $secundary = DB::select('call obtener_materias_grados_secundaria()');
         return response()->json($secundary);
     }
 
@@ -40,7 +40,7 @@ class CoordinatorController extends Controller
     */
 
     public function showStudentsGrade(){
-        $allGrade = DB::select('call obtener_materias_grados()')->get();
+        $allGrade = DB::select('call obtener_materias_grados()');
         return response()->json($allGrade);
     }
 

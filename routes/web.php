@@ -874,6 +874,7 @@ Route::get('getEffectiveness','EffectivenessController@getEffectiveness');
 
 
 //Coordinador
+Route::resource('materiasCoord','CoordinatorController');
 Route::get('showPrimaryStudents','CoordinatorController@showPrimaryStudents');
 Route::get('showSecundaryStudents','CoordinatorController@showSecundaryStudents');
 Route::get('showStudentsGrade','CoordinatorController@showStudentsGrade');
