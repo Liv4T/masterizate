@@ -38,7 +38,7 @@
           <div class="row" v-show="type_u === 2 || type_u === 4 || type_u === 8">
             <a class="btn btn-warning float-right mt-2 ml-3" v-on:click.prevent="createE()">Crear evento</a>
           </div>
-          <div v-show="type_u == 4">
+          <div v-show="type_u == 4 || type_u == 8">
             <event-parents-modal :concurrent="concurrent" :type_u="type_u" :dias="dias" :clases="clases" :user="user" :getMenu="getMenu"></event-parents-modal>
           </div>
           <div v-show="type_u == 1 || type_u == 2 || type_u == 4">
@@ -55,8 +55,6 @@
 
     <calendar-modal-event :concurrent="concurrent" :dias="dias" :myOptions="myOptions" :getMenu="getMenu"></calendar-modal-event>
 
-    <!-- Modal creación de evento de padres -->
-    <event-parents-modal :concurrent="concurrent" :type_u="type_u" :dias="dias" :clases="clases" :user="user" :getMenu="getMenu"></event-parents-modal>
     </div>
 </template>
 

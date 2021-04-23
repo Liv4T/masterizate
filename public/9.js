@@ -614,7 +614,6 @@ var render = function() {
                       ]),
                       _vm._v(" "),
                       _c("datetime", {
-                        attrs: { format: _vm.formatDate },
                         model: {
                           value: _vm.desde,
                           callback: function($$v) {
@@ -640,7 +639,6 @@ var render = function() {
                       ]),
                       _vm._v(" "),
                       _c("datetime", {
-                        attrs: { format: _vm.formatDate },
                         model: {
                           value: _vm.hasta,
                           callback: function($$v) {
