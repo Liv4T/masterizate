@@ -6,7 +6,7 @@
                     <h4>Utiles</h4>
                 </div>
             </div>
-            <button class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Crear Utiles</button>
+            <button class="mt-2 mb-2 btn btn-primary" data-toggle="modal" data-target="#exampleModal">Crear Utiles</button>
             <div class="card">
                 <div class="card-body">
                     <div id="accordion">
@@ -34,7 +34,7 @@
                                                 <td>{{utils.util}}</td>
                                                 <td>{{utils.quantity}}</td>
                                                 <td>
-                                                    <button class="btn btn-primary">Editar</button>
+                                                    <button class="btn btn-primary" v-on:click="updateUtil(utils)">Editar</button>
                                                     <button class="btn btn-danger" v-on:click="deleteUtil(utils.id)">Eliminar</button>
                                                 </td>
                                             </tr>
@@ -47,22 +47,30 @@
                 </div>
             </div>
         </div>
-        <utils-modal-create-coord></utils-modal-create-coord>
+        <utils-modal-create-coord :gradeOptions="gradeOptions"></utils-modal-create-coord>
+        <utils-modal-edit-coord :utilsToEdit="utilsToEdit" :gradeOptions="gradeOptions"></utils-modal-edit-coord>
     </div>
 </template>
 <script>
 import _ from 'lodash'; 
 import UtilsModalCreateCoord from './UtilsModalCreateCoord.vue';
+import UtilsModalEditCoord from './UtilsModalUpdateCoord';
 export default {
-  components: { UtilsModalCreateCoord },
+    components: { 
+      UtilsModalCreateCoord,
+      UtilsModalEditCoord
+    },
     props:["user"],
     data(){
         return{
+            gradeOptions:[],
             utils:[],
+            utilsToEdit:{}
         }
     },
     mounted(){
         this.getUtils();
+        this.getGrades();
     },
     methods:{
         getUtils(){
@@ -71,10 +79,21 @@ export default {
             })
         },
 
+        getGrades(){
+            axios.get('getGrades').then((response)=>{
+                this.gradeOptions= response.data
+            })
+        },
+
         groupData(data){
             const result = _.chain(data).groupBy("grade").value();
             this.utils = result
         },
+
+        updateUtil(data){
+            this.utilsToEdit = data;
+            $('#updateUtils').modal('show');
+        },     
 
         deleteUtil(id){
             if (window.confirm("Deseas eliminar este dato?")) {

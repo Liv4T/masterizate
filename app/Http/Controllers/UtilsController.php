@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Utils;
+use Auth;
+use DB;
 use Illuminate\Http\Request;
 
 class UtilsController extends Controller
@@ -20,6 +22,29 @@ class UtilsController extends Controller
     public function getUtils(){
         $utils = Utils::all();
         return response()->json($utils);
+    }
+
+    public function getGrades(){
+        $user = Auth::user();
+
+        if($user->newCoordArea === 'Primaria'){
+            $primary = DB::table("classroom")
+                ->select('classroom.id_grade as id_grade','classroom.name as grade')
+                ->where('classroom.id_grade','<=',6)
+                ->get();
+            return response()->json($primary);
+        }else if($user->newCoordArea === 'Secundaria'){
+            $secundary = DB::table("classroom")
+                ->select('classroom.id_grade as id_grade','classroom.name as grade')
+                ->where('classroom.id_grade','>=',7)
+                ->get();
+            return response()->json($secundary);
+        }else if($user->newCoordArea === 'General'){
+            $general = DB::table("classroom")
+                ->select('classroom.id_grade as id_grade','classroom.name as grade')
+                ->get();
+            return response()->json($general);
+        }
     }
     /**
      * Store a newly created resource in storage.
