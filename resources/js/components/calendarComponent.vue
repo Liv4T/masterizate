@@ -39,20 +39,23 @@
             <a class="btn btn-warning float-right mt-2 ml-3" v-on:click.prevent="createE()">Crear evento</a>
           </div>
           <div v-show="type_u == 4 || type_u == 8">
+            <!-- Modal para crear evento para padres y coordinadores -->
             <event-parents-modal :concurrent="concurrent" :type_u="type_u" :dias="dias" :clases="clases" :user="user" :getMenu="getMenu"></event-parents-modal>
           </div>
           <div v-show="type_u == 1 || type_u == 2 || type_u == 4 || type_u == 8">
+            <!-- Modal para editar información del evento -->
             <modal-edit-parents-info :concurrent="concurrent" :type_u="type_u" :user="this.user" :dias="dias" :getMenu="getMenu"></modal-edit-parents-info>
           </div>
           <div class="row" v-show="type_u == 7">
             <a class="btn btn-warning float-right mt-2 ml-3" href="/tutor/cronograma">Registrar horario de tutorías</a>
           </div>
           <br />
+          <!-- Modal para listar clases, listar tutorias y eliminar eventos -->
           <calendar-class-component :type_u="type_u" :clases="clases" :tutorEvents="tutorEvents" :concurrent="concurrent" :dias="dias" :myOptions="myOptions" :getMenu="getMenu"></calendar-class-component>
         </div>
       </div>
     </div>
-
+    <!-- Modal para crear eventos -->
     <calendar-modal-event :concurrent="concurrent" :dias="dias" :myOptions="myOptions" :getMenu="getMenu"></calendar-modal-event>
 
     </div>
