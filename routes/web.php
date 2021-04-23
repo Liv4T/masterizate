@@ -891,3 +891,6 @@ Route::get('getAllStudents','CoordinatorController@getAllStudents');
 Route::resource('utils','UtilsController');
 Route::get('getUtils','UtilsController@getUtils');
 Route::get('getGrades','UtilsController@getGrades');
+
+Route::resource('pedagogic','PedagogicalCourseController');
+Route::get('getPedagogic','PedagogicalCourseController@getPedagogic');
