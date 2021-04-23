@@ -149,7 +149,7 @@
         },
         mounted(){
             this.getParents();
-            if(this.user.type_user === 4){
+            if(this.user.type_user === 2){
                 axios.get('/GetArearByUser').then(response => {
                     this.areas = response.data;
 
@@ -181,7 +181,7 @@
 
             getStudents(){
                 this.students = [];
-                if(this.user.type_user === 4){
+                if(this.user.type_user === 2){
                     axios.get(`/api/teacher/area/${this.current_area.id}/classroom/${this.current_area.id_classroom}/student`).then(response => {
                         this.students = response.data;
                         this.students.forEach(e => {   

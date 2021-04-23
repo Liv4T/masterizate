@@ -154,7 +154,7 @@
         methods:{
             getData(){
                 this.getParents();
-                if(this.user.type_user === 4){
+                if(this.user.type_user === 2){
                     axios.get('/GetArearByUser').then(response => {
                         this.areas = response.data;
 
@@ -185,7 +185,7 @@
 
             getStudents(){
                 this.students = [];
-                if(this.user.type_user === 4){
+                if(this.user.type_user === 2){
                     axios.get(`/api/teacher/area/${this.current_area.id}/classroom/${this.current_area.id_classroom}/student`).then(response => {
                         this.students = response.data;
                         this.students.forEach(e => {   
@@ -260,7 +260,8 @@
 
             showDataStudents(){
                 this.students.forEach(e => { 
-                    if(this.user.type_user === 4){
+                    if(this.user.type_user === 2){
+                        console.log("id de usuario",e)
                         if(e.user_id === this.newStudentEdit.id_student){ 
                             this.studentToSave= {
                                 id: e.user_id,

@@ -170,7 +170,7 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
 
       this.getParents();
 
-      if (this.user.type_user === 4) {
+      if (this.user.type_user === 2) {
         axios.get('/GetArearByUser').then(function (response) {
           _this.areas = response.data;
 
@@ -206,7 +206,7 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
 
       this.students = [];
 
-      if (this.user.type_user === 4) {
+      if (this.user.type_user === 2) {
         axios.get("/api/teacher/area/".concat(this.current_area.id, "/classroom/").concat(this.current_area.id_classroom, "/student")).then(function (response) {
           _this3.students = response.data;
 
@@ -283,7 +283,9 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
       var _this5 = this;
 
       this.students.forEach(function (e) {
-        if (_this5.user.type_user === 4) {
+        if (_this5.user.type_user === 2) {
+          console.log("id de usuario", e);
+
           if (e.user_id === _this5.newStudentEdit.id_student) {
             _this5.studentToSave = {
               id: e.user_id,
