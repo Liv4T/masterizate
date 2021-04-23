@@ -308,7 +308,7 @@ var render = function() {
     "div",
     { staticClass: "row" },
     [
-      _vm.type_u != 4
+      _vm.type_u != 4 || _vm.type_u != 8
         ? _c(
             "div",
             { staticClass: "col-md-11" },

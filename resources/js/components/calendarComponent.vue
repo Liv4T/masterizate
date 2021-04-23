@@ -41,7 +41,7 @@
           <div v-show="type_u == 4 || type_u == 8">
             <event-parents-modal :concurrent="concurrent" :type_u="type_u" :dias="dias" :clases="clases" :user="user" :getMenu="getMenu"></event-parents-modal>
           </div>
-          <div v-show="type_u == 1 || type_u == 2 || type_u == 4">
+          <div v-show="type_u == 1 || type_u == 2 || type_u == 4 || type_u == 8">
             <modal-edit-parents-info :concurrent="concurrent" :type_u="type_u" :user="this.user" :dias="dias" :getMenu="getMenu"></modal-edit-parents-info>
           </div>
           <div class="row" v-show="type_u == 7">
@@ -301,11 +301,11 @@
                 window.location = "/calendar";
             },
             createE() {
-                // if (this.type_u != 4 || this.type_u != 8) {
-                //     $("#createE").modal("show");
-                // } else {
-                    $("#createEvent").modal("show");
-                // }
+                if(this.type_u === 4 || this.type_u === 8) {
+                  $("#createEvent").modal("show");
+                } else {
+                    $("#createE").modal("show");
+                }
             },
         },
     };

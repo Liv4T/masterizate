@@ -266,7 +266,7 @@ var render = function() {
                   _vm._v(" "),
                   _c("div", { staticClass: "class-event-footer " }, [
                     _c("div", { staticClass: "class-event-action" }, [
-                      _vm.type_u === 4
+                      _vm.type_u === 4 || _vm.type_u === 8
                         ? _c("div", [
                             _c(
                               "button",
@@ -305,8 +305,8 @@ var render = function() {
                             {
                               name: "show",
                               rawName: "v-show",
-                              value: _vm.type_u === 4,
-                              expression: "type_u === 4"
+                              value: _vm.type_u === 4 || _vm.type_u === 8,
+                              expression: "type_u === 4 || type_u === 8"
                             }
                           ],
                           staticClass: "btn btn-danger",

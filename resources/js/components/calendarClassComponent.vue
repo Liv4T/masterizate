@@ -1,7 +1,7 @@
 <template>
     <!-- Se podria separar -->
     <div class="row">
-        <div class="col-md-11" v-if="type_u != 4">
+        <div class="col-md-11" v-if="type_u != 4 || type_u != 8">
             <div v-if="type_u != 7" class="row justify-content-center">
                 <h4>Clases presenciales</h4>
             </div>
