@@ -6,7 +6,7 @@
                     <h4>Utiles</h4>
                 </div>
             </div>
-            <button class="mt-2 mb-2 btn btn-primary" data-toggle="modal" data-target="#exampleModal">Crear Utiles</button>
+            <button class="mb-4 btn btn-primary" data-toggle="modal" data-target="#exampleModal">Crear Utiles</button>
             <div class="card">
                 <div class="card-body">
                     <div id="accordion">

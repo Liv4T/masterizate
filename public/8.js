@@ -311,7 +311,7 @@ var render = function() {
         _c(
           "button",
           {
-            staticClass: "mt-2 mb-2 btn btn-primary",
+            staticClass: "mb-4 btn btn-primary",
             attrs: { "data-toggle": "modal", "data-target": "#exampleModal" }
           },
           [_vm._v("Crear Utiles")]
