@@ -132,6 +132,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 moment__WEBPACK_IMPORTED_MODULE_0___default.a.tz.setDefault("America/Bogota");
 moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale("es");
@@ -414,6 +415,23 @@ var render = function() {
                                 }
                               },
                               [_vm._v("Editar")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "a",
+                              {
+                                directives: [
+                                  {
+                                    name: "show",
+                                    rawName: "v-show",
+                                    value: _vm.type_u == 2,
+                                    expression: "type_u == 2"
+                                  }
+                                ],
+                                staticClass: "btn btn-primary mr-1",
+                                attrs: { href: "/effectiveness" }
+                              },
+                              [_vm._v("Efectividad")]
                             ),
                             _vm._v(" "),
                             _c(
