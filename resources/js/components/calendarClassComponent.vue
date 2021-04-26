@@ -1,8 +1,8 @@
 <template>
-    <!-- Clase cambiada de row a col-12 ya que se observaba el componente mas pequeño  -->
-    <div class="col-12">
+    <!-- Clase row de div de linea 3 retirada ya que se observaba el componente mas pequeño  -->
+    <div>
         <div class="row">
-            <div class="col-md-11" v-if="type_u != 4">
+            <div class="col-md-11" v-if="type_u != 4 || type_u != 8">
               <div v-if="type_u != 7" class="row justify-content-center">
                 <h4>Clases presenciales</h4>
               </div>

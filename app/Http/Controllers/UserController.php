@@ -94,6 +94,7 @@ class UserController extends Controller
         $user->address = isset($data['address']) ? $data['address'] : "";
         $user->type_user = isset($data['type_user']) ? $data['type_user'] : "";
         $user->picture = isset($data['user_name']) ? $url . "/uploads/images/" . $data['user_name'] . ".png" : "";
+        $user->newCoordArea = isset($data['newCoordArea']) ? $data['newCoordArea'] : "";
         $user->save();
 
         /* Send email register */
@@ -116,6 +117,12 @@ class UserController extends Controller
     {
         $user = Auth::user();
         return $user;
+    }
+
+    public function showCoordinator()
+    {
+        $user = User::where('type_user','=',8)->get();
+        return response()->json($user);
     }
 
     /**

@@ -48,12 +48,12 @@
                             <div class="form-group row">
                                 <div class="col-md-6">
                                     <label for="name">Desde</label>
-                                    <datetime :format="formatDate" v-model="desde"></datetime>
+                                    <datetime v-model="desde"></datetime>
                                     <div class="invalid-feedback">Please fill out this field</div>
                                 </div>
                                     <div class="col-md-6">
                                     <label for="name">Hasta</label>
-                                    <datetime :format="formatDate" v-model="hasta"></datetime>
+                                    <datetime v-model="hasta"></datetime>
                                     <div class="invalid-feedback"></div>
                                 </div>
                                 <div class="col-md-6">
@@ -73,89 +73,6 @@
                         </div>
                     </form>
                 </div>
-            </div>
-        </div>
-        <!-- Modal creación de evento de padres -->
-        <div class="modal fade" id="createE">
-            <div class="modal-lg modal-dialog">
-                <div class="modal-content">
-                    <form class="needs-validation" v-on:submit.prevent="createEvent" novalidate>
-                        <div class="modal-header">
-                            <h4>Crear evento</h4>
-                            <button type="button" class="close" data-dismiss="modal">
-                                <span>&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="form-group row justify-content-center">
-                                <div class="col-md-6">
-                                    <label for="name">Evento concurrente</label>
-                                    <select class="form-control" v-model="typeEvent">
-                                        <option :value="options.id" v-for="(options, key) in concurrent" :key="key">
-                                            {{ options.type }}
-                                        </option>
-                                    </select>
-                                </div>
-                                <div class="col-md-6">
-                                    <label style="display: none;" id="labeldia">Dia de la semana</label>
-                                    <select class="form-control" name="dia" v-model="diaSemana" style="display:none">
-                                        <option :value="options.id" v-for="(options, key) in dias" :key="key">
-                                            {{ options.dia }}
-                                        </option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group row justify-content-center">
-                                <div class="col-md-6">
-                                    <label for="name">Nombre del evento</label>
-                                    <input type="text" name="name" class="form-control" v-model="nameEvent" />
-                                    <div class="invalid-feedback">Please fill out this field</div>
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="name">Materia</label>
-                                    <multiselect v-model="materia" :options="myOptions ? myOptions : []" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" placeholder="Seleccione una o varias" label="text" track-by="id" :preselect-first="true">
-                                        <template slot="selection" slot-scope="{ values, isOpen }">
-                                            <span class="multiselect__single" v-if="values.length &amp;&amp; !isOpen">{{ values.length }} opciones selecionadas</span>
-                                        </template>
-                                    </multiselect>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <div class="col-md-6">
-                                    <label for="name">Desde</label>
-                                    <datetime :format="formatDate" v-model="desde"></datetime>
-                                    <div class="invalid-feedback">Please fill out this field</div>
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="name">Hasta</label>
-                                    <datetime :format="formatDate" v-model="hasta"></datetime>
-                                    <div class="invalid-feedback"></div>
-                                </div>
-                                <div class="col-md-6">
-                                    <strong for="name">Enlace de Meet</strong>
-                                    <input type="text" name="name" class="form-control" v-model="nameMeet" />
-                                    <div class="invalid-feedback">Please fill out this field</div>
-                                </div>
-                            </div>
-                                <div class="modal-footer">
-                                    <input type="submit" class="btn btn-warning" value="Guardar" />
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="col-md-6">
-                        <strong for="name">Enlace de Meet</strong>
-                        <input type="text" name="name" class="form-control" v-model="meetUp" />
-                        <div class="invalid-feedback">Por favor ingresa la fecha</div>
-                    </div>
-                    <div class="col-md-6" style="display: none;">
-                        <strong for="name">id ultimo</strong>
-                        <input type="text" name="id_padre" class="form-control" v-model="id_padreUp" />
-                    <div class="invalid-feedback">Please fill out this field</div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <input type="submit" class="btn btn-warning" value="Guardar" />
             </div>
         </div>
     </div>

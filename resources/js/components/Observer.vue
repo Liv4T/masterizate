@@ -36,10 +36,10 @@
                 </div>
             </div>
         </div>
-        <modal-observer-component v-bind:user="user">
+        <modal-observer-component v-bind:user="user" :getData="getData">
         </modal-observer-component>
 
-        <modal-edit-observer-component v-bind:studentsEdit="studentEdit">
+        <modal-edit-observer-component v-bind:user="user" v-bind:studentsEdit="studentEdit" :dataObserver="getData">
         </modal-edit-observer-component>
 
         <modal-view-observer-component v-bind:studentsView="studentsView">            

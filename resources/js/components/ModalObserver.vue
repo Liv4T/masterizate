@@ -117,7 +117,7 @@
     import Multiselect from "vue-multiselect";
     Vue.component("multiselect", Multiselect);
     export default {
-        props:['user'],
+        props:['user','getData'],
         data(){
             return {
                 dateBirth:"",
@@ -149,15 +149,19 @@
         },
         mounted(){
             this.getParents();
-            axios.get('/GetArearByUser').then(response => {
-                this.areas = response.data;
+            if(this.user.type_user === 2){
+                axios.get('/GetArearByUser').then(response => {
+                    this.areas = response.data;
 
-                if(this.areas.length>0)
-                {
-                    this.current_area=this.areas[0];
-                    this.getStudents();
-                }
-            });
+                    if(this.areas.length>0)
+                    {
+                        this.current_area=this.areas[0];
+                        this.getStudents();
+                    }
+                });
+            }else if(this.user.type_user === 8){
+                this.getStudents();
+            }
         },
         methods:{
             getParents(){
@@ -177,17 +181,58 @@
 
             getStudents(){
                 this.students = [];
-                axios.get(`/api/teacher/area/${this.current_area.id}/classroom/${this.current_area.id_classroom}/student`).then(response => {
-                    this.students = response.data;
-                    this.students.forEach(e => {   
-                        this.studentsOptions.push({
-                            id: e.user_id,
-                            id_student:e.user_id,
-                            text: `${e.user_name}`
+                if(this.user.type_user === 2){
+                    axios.get(`/api/teacher/area/${this.current_area.id}/classroom/${this.current_area.id_classroom}/student`).then(response => {
+                        this.students = response.data;
+                        this.students.forEach(e => {   
+                            this.studentsOptions.push({
+                                id: e.user_id,
+                                id_student:e.user_id,
+                                text: `${e.user_name}`
+                            });
                         });
                     });
-                });
+                }
                 
+                else if(this.user.type_user === 8){
+                    if(this.user.newCoordArea === 'Primaria'){
+                        axios.get(`getStudentsPrimary`).then(response => {
+                            this.students = response.data;
+                            
+                            this.students.forEach(e => {   
+                                this.studentsOptions.push({
+                                    id: e.user_id,
+                                    id_student:e.user_id,
+                                    text: `${e.name+' '+e.last_name}___Grado ${e.grade}`
+                                });
+                            });
+                        });
+                    }else if(this.user.newCoordArea === 'Secundaria'){
+                        axios.get(`getStudentsSecundary`).then(response => {
+                            this.students = response.data;
+                            
+                            this.students.forEach(e => {   
+                                this.studentsOptions.push({
+                                    id: e.user_id,
+                                    id_student:e.user_id,
+                                    text: `${e.name+' '+e.last_name}___Grado ${e.grade}`
+                                });
+                            });
+                        });
+                    }else if(this.user.newCoordArea === 'General'){
+                        axios.get(`getAllStudents`).then(response => {
+                            this.students = response.data;
+                            
+                            this.students.forEach(e => {   
+                                this.studentsOptions.push({
+                                    id: e.user_id,
+                                    id_student:e.user_id,
+                                    text: `${e.name+' '+e.last_name}___Grado ${e.grade}`
+                                });
+                            });
+                        });
+                    }
+                }
             },
 
             saveObservation(){
@@ -211,6 +256,7 @@
                 }
                 axios.post('/observer',data).then((response)=>{
                     toastr.success("Datos Guardados")
+                    this.getData();
                     $("#createModal").modal("hide");
                 }).catch((error)=>{                    
                     toastr.error("Diligencia los campos requeridos")

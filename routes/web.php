@@ -588,7 +588,9 @@ Route::post('/resetPassword', 'UserController@resetPassword')->name('resetPasswo
 Route::post('users_save', 'UserController@store')->name('users_save');
 Route::get('Courses_save', 'CoursesController@storeNew')->name('Courses_save');
 Route::get('/logout2', 'UserController@logOut')->name('logout2');
-
+Route::get('/showCoord','UserController@showCoordinator');
+Route::delete('/destroyUser/{id_user}', 'UserController@destroy');
+Route::get('/showSpecificCoord/{id}','UserController@showSpecificCoord');
 
 
 
@@ -869,3 +871,23 @@ Route::get('getAssistants','AssistanceController@showAssistance');
 
 Route::resource('effectiveness','EffectivenessController');
 Route::get('getEffectiveness','EffectivenessController@getEffectiveness');
+
+
+//Coordinador
+Route::middleware('auth')->get('/claseCoord', function () {
+    return view('coursesCoord');
+});
+Route::resource('materiasCoord','CoordinatorController');
+Route::get('showPrimaryStudents','CoordinatorController@showPrimaryStudents');
+Route::get('showSecundaryStudents','CoordinatorController@showSecundaryStudents');
+Route::get('showStudentsGrade','CoordinatorController@showStudentsGrade');
+Route::get('showClassPrimary','CoordinatorController@getPrimaryCourses');
+Route::get('showClassSecundary','CoordinatorController@getSecundaryCourses');
+Route::get('showAllClass','CoordinatorController@getAllCourses');
+Route::get('getStudentsPrimary','CoordinatorController@getStudentsPrimary');
+Route::get('getStudentsSecundary','CoordinatorController@getStudentsSecundary');
+Route::get('getAllStudents','CoordinatorController@getAllStudents');
+
+Route::resource('utils','UtilsController');
+Route::get('getUtils','UtilsController@getUtils');
+Route::get('getGrades','UtilsController@getGrades');

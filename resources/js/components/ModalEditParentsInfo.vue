@@ -27,7 +27,7 @@
                             </div>
                             <div class="class-event-footer ">
                                 <div class="class-event-action">
-                                    <div v-if="type_u === 4">
+                                    <div v-if="type_u === 4 || type_u === 8">
                                         <button class="btn btn-primary"
                                             v-on:click.prevent="editE(parents.id)">Editar</button>
                                     </div>
@@ -36,7 +36,7 @@
                                             v-on:click.prevent="editE(parents.id)">Agregar fecha de Reunion</button>
                                     </div>
                                     
-                                    <button v-show="type_u === 4" class="btn btn-danger"
+                                    <button v-show="type_u === 4 || type_u === 8" class="btn btn-danger"
                                         v-on:click.prevent="deleteE(parents.id)">Eliminar</button>
                                 </div>
                             </div>

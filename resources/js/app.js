@@ -144,11 +144,19 @@ Vue.component("planificacion-adm", ()=>import("./components/planificacionAdm.vue
 Vue.component("vplan-adm", ()=>import("./components/vplanAdm.vue"));
 Vue.component("reportes-adm", ()=>import("./components/reportesAdm.vue"));
 Vue.component("menu-adm", ()=>import("./components/menuAdm.vue"));
+Vue.component("menu-coord", ()=>import("./components/menuCoord.vue"));
 Vue.component("chart-adm", ()=>import("./components/chart.vue"));
 Vue.component("vclases-adm", ()=>import("./components/clases_adm.vue"));
 Vue.component("institu-adm", ()=>import("./components/institucionesAdm.vue"));
 Vue.component("cinstitu-adm", ()=>import("./components/crearInstituciones.vue"));
+//componentes de coordinador
 Vue.component("coordinador-adm", ()=>import("./components/coordinadorAdm.vue"));
+Vue.component("create-coord", ()=>import("./components/coordinadorCreateAdm.vue"));
+Vue.component("update-coord",() => import("./components/coordinadorUpdateAdm.vue"));
+Vue.component("materias-coord",()=>import("./components/MateriasCoord.vue"));
+Vue.component("courses-coord", () =>import("./components/CourseCoord.vue"));
+Vue.component("utils-coord", () =>import("./components/UtilsCoord.vue"));
+
 Vue.component("salon-adm", ()=>import("./components/salonAdm.vue"));
 Vue.component("matricula", ()=>import("./components/matricula.vue"));
 Vue.component("aperfil-adm", ()=>import("./components/AsignarPerfil.vue"));

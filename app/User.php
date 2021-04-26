@@ -17,7 +17,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'last_name', 'password', 'user_name', 'email', 'type_user', 'address', 'picture', 'phone', 'id_number', 'parent_id'
+        'name', 'last_name', 'newCoordArea','password', 'user_name', 'email', 'type_user', 'address', 'picture', 'phone', 'id_number', 'parent_id'
     ];
 
     /**
@@ -116,6 +116,18 @@ class User extends Authenticatable
         if(!isset($this->type_user)) return false;
 
         return intval($this->type_user) === 7;
+    }
+
+    /**
+     * Returns whether a user has a role of 'coordinator'
+     *
+     * @return boolean
+     */
+    public function isCoordinator()
+    {
+        if(!isset($this->type_user)) return false;
+
+        return intval($this->type_user) === 8;
     }
 
 

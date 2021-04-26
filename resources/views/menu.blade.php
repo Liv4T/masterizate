@@ -27,3 +27,7 @@
 <menu-tutor></menu-tutor>
 @endif
 
+@if(Auth::user()->isCoordinator())
+<menu-coord></menu-coord>
+@endif
+
