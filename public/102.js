@@ -1,374 +1,222 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[102],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/lectivesTeacherPlanningEditComponent.vue?vue&type=script&lang=js&":
-/*!***********************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/lectivesTeacherPlanningEditComponent.vue?vue&type=script&lang=js& ***!
-  \***********************************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/effectiveness.vue?vue&type=script&lang=js&":
+/*!************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/effectiveness.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vue_form_wizard__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-form-wizard */ "./node_modules/vue-form-wizard/dist/vue-form-wizard.js");
-/* harmony import */ var vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var vue_form_wizard_dist_vue_form_wizard_min_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-form-wizard/dist/vue-form-wizard.min.css */ "./node_modules/vue-form-wizard/dist/vue-form-wizard.min.css");
-/* harmony import */ var vue_form_wizard_dist_vue_form_wizard_min_css__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue_form_wizard_dist_vue_form_wizard_min_css__WEBPACK_IMPORTED_MODULE_1__);
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+/* harmony import */ var vue_multiselect__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-multiselect */ "./node_modules/vue-multiselect/dist/vue-multiselect.min.js");
+/* harmony import */ var vue_multiselect__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue_multiselect__WEBPACK_IMPORTED_MODULE_0__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-(function () {
-  "use strict";
-
-  window.addEventListener("load", function () {
-    // Fetch all the forms we want to apply custom Bootstrap validation styles to
-    var forms = document.getElementsByClassName("needs-validation"); // Loop over them and prevent submission
-
-    var validation = Array.prototype.filter.call(forms, function (form) {
-      form.addEventListener("submit", function (event) {
-        if (form.checkValidity() === false) {
-          event.preventDefault();
-          event.stopPropagation();
-        }
-
-        form.classList.add("was-validated");
-      }, false);
-    });
-  }, false);
-})();
-
-$(function () {
-  // Get the form fields and hidden div
-  var checkbox = $("#gridCheck1");
-  var hidden = $("#hidden_fields1");
-  hidden.hide();
-  checkbox.change(function () {
-    if (checkbox.is(":checked")) {
-      // Show the hidden fields.
-      hidden.show();
-    } else {
-      hidden.hide();
-    }
-  });
-});
-
-
-Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
+Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___default.a);
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["id_lective_planification"],
   data: function data() {
-    var _ref;
-
-    return _ref = {
-      serialLocalStorage: '5t284918-f0f6-4369-a368-eaf6321b6855',
-      planification: {
-        lective: {},
-        achievements: [],
-        quarterlies: []
-      },
-      quarterlies: [{
-        name: "",
-        content: "",
-        order: 1,
-        observation: ''
-      }],
-      achievements: [{
-        content: "",
-        rate: 0
-      }],
-      achievements_saved: [],
-      quarterlies_saved: [],
-      newquaterly: [],
-      newLogro1: "",
-      newLogro2: "",
-      newLogro3: "",
-      newLogro4: ""
-    }, _defineProperty(_ref, "newquaterly", []), _defineProperty(_ref, "newLogro", []), _defineProperty(_ref, "quaterly", false), _defineProperty(_ref, "logro_1", ""), _defineProperty(_ref, "logro_2", ""), _defineProperty(_ref, "logro_3", ""), _defineProperty(_ref, "logro_4", ""), _defineProperty(_ref, "anual", []), _defineProperty(_ref, "newAnual", []), _defineProperty(_ref, "errors", []), _defineProperty(_ref, "isSynchronized", true), _defineProperty(_ref, "isLoading", false), _ref;
+    return {
+      dataEffectiveness: [],
+      dataToCreateEffectiveness: [],
+      search_filter: '',
+      saveStudent: [],
+      score_effectiveness: '',
+      update: false,
+      id_to_update: ''
+    };
   },
   mounted: function mounted() {
-    var _this = this;
-
-    //load from localstorage
-    this.serialLocalStorage = this.serialLocalStorage + "-" + this.id_lective_planification;
-    var urlsel = "/api/lectives/planification/" + this.id_lective_planification;
-    axios.get(urlsel).then(function (response) {
-      _this.planification = response.data; //set current data
-
-      if (_this.planification.achievements.length > 0) {
-        _this.achievements = _this.planification.achievements.map(function (p) {
-          return {
-            id: p.id,
-            content: p.content,
-            rate: "".concat(p.rate)
-          };
-        });
-        _this.achievements_saved = JSON.parse(JSON.stringify(_this.achievements));
-      }
-
-      if (_this.planification.quarterlies.length > 0) {
-        _this.quarterlies = _this.planification.quarterlies.map(function (p) {
-          return {
-            id: p.id,
-            content: p.content,
-            name: p.name,
-            order: p.order
-          };
-        });
-        _this.quarterlies_saved = JSON.parse(JSON.stringify(_this.quarterlies));
-      }
-
-      console.log(_this.achievements);
-
-      if (localStorage.getItem(_this.serialLocalStorage)) {
-        var savedPlanificationModel = JSON.parse(decodeURIComponent(escape(window.atob(localStorage.getItem(_this.serialLocalStorage)))));
-
-        if (JSON.stringify(savedPlanificationModel.quarterlies) !== JSON.stringify(_this.quarterlies_saved)) {
-          _this.quarterlies = savedPlanificationModel.quarterlies;
-          _this.isSynchronized = false;
-        }
-
-        if (JSON.stringify(savedPlanificationModel.achievements) !== JSON.stringify(_this.achievements_saved)) {
-          _this.achievements = savedPlanificationModel.achievements;
-          _this.isSynchronized = false;
-        }
-      }
-
-      console.log(_this.achievements);
-
-      if (_this.planification.quarterlies.length > 0) {
-        _this.quaterly = true;
-      } else {
-        _this.quaterly = false;
-      }
-    });
+    this.getData();
   },
   methods: {
-    contentUpdateEvent: function contentUpdateEvent(index, property) {
-      this.inputs[index][property] = this.inputs[index][property].replace(/[^a-zA-Z0-9-.ñáéíóú_*+-/=&%$#!()?¡¿ ]/g, "|");
+    getData: function getData() {
+      var _this = this;
+
+      this.getAssistants();
+      axios.get('getEffectiveness').then(function (response) {
+        _this.dataEffectiveness = response.data;
+      });
     },
-    planificationContentUpdateEvent: function planificationContentUpdateEvent(e, i, type) {
-      var property = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : null;
-
-      if (type == 'achievements') {
-        this.achievements[i][property] = this.achievements[i][property].replace(/[^a-zA-Z0-9-.ñáéíóú_*+-/=&%$#!()?¡¿ ]/g, "|");
-      } else if (type == 'quarterlies') {
-        this.quarterlies[i][property] = this.quarterlies[i][property].replace(/[^a-zA-Z0-9-.ñáéíóú_*+-/=&%$#!()?¡¿ ]/g, "|");
-      } //serialize data on localstorage
-
-
-      localStorage.setItem(this.serialLocalStorage, window.btoa(unescape(encodeURIComponent(JSON.stringify({
-        achievements: this.achievements,
-        quarterlies: this.quarterlies
-      })))));
-      this.isSynchronized = false;
-    },
-    returnToMenu: function returnToMenu() {
+    getAssistants: function getAssistants() {
       var _this2 = this;
 
-      setTimeout(function () {
-        _this2.isLoading = false;
-        window.location = "/teacher/lectives/planning";
-      }, 2000);
-    },
-    addQuarterly: function addQuarterly(index) {
-      this.quarterlies.push({
-        name: "",
-        content: "",
-        order: this.quarterlies.length,
-        observation: ''
+      axios.get('/getAssistants').then(function (response) {
+        var assistants = response.data;
+        assistants.forEach(function (element) {
+          if (element.assistance === 1) {
+            _this2.dataToCreateEffectiveness.push({
+              id: element.id,
+              id_student: element.id_student,
+              course: element.course,
+              text: element.student_name + ' ' + element.course
+            });
+          }
+        });
+      })["catch"](function (error) {
+        console.log(error);
       });
     },
-    removeQuarterly: function removeQuarterly(index) {
-      this.quarterlies.splice(index, 1);
-    },
-    addAchievement: function addAchievement(index) {
-      this.achievements.push({
-        content: '',
-        rate: 0
-      });
-    },
-    removeAchievement: function removeAchievement(index) {
-      this.achievements.splice(index, 1);
-    },
-    isLoadingEvent: function isLoadingEvent() {
-      return this.isLoading;
-    },
-    saveData: function saveData() {
+    saveEffectiveness: function saveEffectiveness() {
       var _this3 = this;
 
-      this.isLoading = true;
-      var url = "/api/lectives/planification";
-      if (this.quarterlies.length == 0 || this.achievements.length == 0) return;
-      axios.put(url, {
-        id_planification: this.planification.id_planification,
-        achievements: this.achievements,
-        quarterlies: this.quarterlies
-      }).then(function (response) {
-        _this3.errors = [];
-        toastr.success("Nuevo plan general creado exitosamente");
+      if (this.update === false) {
+        axios.post('effectiveness', {
+          student_id: this.saveStudent.id_student,
+          course: this.saveStudent.course,
+          score_effectiveness: this.score_effectiveness
+        }).then(function (response) {
+          toastr.success(response.data);
+          _this3.saveStudent = {};
+          _this3.score_effectiveness = '';
 
-        _this3.returnToMenu();
-      })["catch"](function (error) {
-        _this3.errors = error.response.data;
-        _this3.isLoading = false;
+          _this3.getData();
+
+          $('#createEffectiveness').modal('hide');
+        })["catch"](function (error) {
+          toastr.info('Algo anda mal, intenta de nuevo mas tarde');
+          console.log(error);
+        });
+      } else if (this.update === true) {
+        axios.put("effectiveness/".concat(this.id_to_update), {
+          student_id: this.saveStudent.id_student,
+          course: this.saveStudent.course,
+          score_effectiveness: this.score_effectiveness
+        }).then(function (response) {
+          toastr.success(response.data);
+          _this3.saveStudent = {};
+          _this3.score_effectiveness = '';
+          _this3.update = false;
+          _this3.id_to_update = '';
+
+          _this3.getData();
+
+          $('#createEffectiveness').modal('hide');
+        })["catch"](function (error) {
+          toastr.info('Algo anda mal, intenta de nuevo mas tarde');
+          console.log(error);
+        });
+      }
+    },
+    editEffectiveness: function editEffectiveness(data) {
+      var _this4 = this;
+
+      axios.get("effectiveness/".concat(data.id)).then(function (response) {
+        _this4.dataToCreateEffectiveness.forEach(function (effec) {
+          if (effec.id_student === data.id_student) {
+            _this4.saveStudent = effec;
+          }
+        });
+
+        _this4.score_effectiveness = response.data.score_effectiveness, _this4.update = true;
+        _this4.id_to_update = data.id;
+        $('#createEffectiveness').modal('show');
       });
     },
-    updateCourses: function updateCourses() {
-      window.location = "/actividad_g";
+    deleteEffectiveness: function deleteEffectiveness(id) {
+      var _this5 = this;
+
+      axios["delete"]("effectiveness/".concat(id)).then(function (response) {
+        toastr.success(response.data);
+
+        _this5.getData();
+      })["catch"](function (error) {
+        toastr.info('Algo anda Mal, intenta de nuevo mas tarde');
+        console.log(error);
+      });
     },
-    editNames: function editNames(clas) {
-      //   var urlr = "showClass/" + clas;
-      //   axios.get(urlr).then(response => {
-      //     this.fillS = response.data;
-      //   });
-      $("#createZ").modal("show");
+    filterNameStudent: function filterNameStudent(studentName) {
+      return studentName.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(this.search_filter.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, ""));
     }
   }
 });
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/lectivesTeacherPlanningEditComponent.vue?vue&type=template&id=da5f3db8&":
-/*!***************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/lectivesTeacherPlanningEditComponent.vue?vue&type=template&id=da5f3db8& ***!
-  \***************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/effectiveness.vue?vue&type=template&id=59d0157a&":
+/*!****************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/effectiveness.vue?vue&type=template&id=59d0157a& ***!
+  \****************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -380,382 +228,250 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _vm._m(0),
-    _vm._v(" "),
-    _c("div", { staticClass: "back" }, [
-      _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-md-11 mx-auto" }, [
-          _c("div", { staticClass: "custom-card text-center" }, [
-            _c("h3", { staticClass: "card-header fondo" }, [
-              _vm._v("Planificación general")
-            ]),
-            _vm._v(" "),
-            _c("span", { staticClass: "classroom-label" }, [
-              _vm._v(
-                _vm._s(_vm.planification.lective.name) +
-                  " Trimestre " +
-                  _vm._s(_vm.planification.period_consecutive)
-              )
-            ]),
-            _vm._v(" "),
-            _c(
-              "span",
-              {
+  return _c("div", { staticClass: "back" }, [
+    _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-md-11 mx-auto" }, [
+        _vm._m(0),
+        _vm._v(" "),
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-primary mt-3 mb-3",
+            attrs: {
+              "data-toggle": "modal",
+              "data-target": "#createEffectiveness"
+            }
+          },
+          [_vm._v("Crear Efectividad")]
+        ),
+        _vm._v(" "),
+        _c("div", [
+          _c("div", { staticClass: "card" }, [
+            _c("div", { staticClass: "card-body" }, [
+              _c("input", {
                 directives: [
                   {
-                    name: "show",
-                    rawName: "v-show",
-                    value: !_vm.isSynchronized,
-                    expression: "!isSynchronized"
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.search_filter,
+                    expression: "search_filter"
                   }
-                ]
-              },
-              [_vm._v("(Hay cambios que no han sido guardados)")]
-            ),
-            _vm._v(" "),
-            _c(
-              "form",
-              { staticClass: "needs-validation", attrs: { novalidate: "" } },
-              [
-                _c(
-                  "form-wizard",
-                  {
-                    attrs: {
-                      title: "",
-                      subtitle: "",
-                      color: "#ffc107",
-                      "next-button-text": "Siguiente",
-                      "back-button-text": "Atrás",
-                      "finish-button-text": "Guardar y enviar"
-                    },
-                    on: { "on-complete": _vm.saveData }
-                  },
-                  [
-                    _vm.isLoading
-                      ? _c("span", {
-                          staticClass: "spinner-border spinner-border",
-                          attrs: { role: "status", "aria-hidden": "true" }
-                        })
-                      : _vm._e(),
-                    _vm._v(" "),
-                    _c(
-                      "tab-content",
-                      { attrs: { title: "Anual" } },
-                      _vm._l(_vm.achievements, function(achievement, t) {
-                        return _c(
-                          "div",
-                          { key: t, staticClass: "form-group mx-auto" },
-                          [
-                            _c(
-                              "div",
-                              { staticClass: "classroom-planning-section" },
-                              [
-                                _c("strong", [_vm._v("Logro:")]),
-                                _vm._v(" "),
-                                _c("input", {
-                                  directives: [
-                                    {
-                                      name: "model",
-                                      rawName: "v-model",
-                                      value: achievement.rate,
-                                      expression: "achievement.rate"
-                                    }
-                                  ],
-                                  staticClass: "form-control form-control-sm",
-                                  staticStyle: { width: "50px" },
-                                  attrs: { type: "number" },
-                                  domProps: { value: achievement.rate },
-                                  on: {
-                                    change: function($event) {
-                                      return _vm.planificationContentUpdateEvent(
-                                        $event,
-                                        t,
-                                        "achievements",
-                                        "rate"
-                                      )
-                                    },
-                                    input: function($event) {
-                                      if ($event.target.composing) {
-                                        return
-                                      }
-                                      _vm.$set(
-                                        achievement,
-                                        "rate",
-                                        $event.target.value
-                                      )
-                                    }
-                                  }
-                                }),
-                                _vm._v("%\r\n                    "),
-                                _c("span", [
-                                  _c(
-                                    "a",
-                                    {
-                                      directives: [
-                                        {
-                                          name: "show",
-                                          rawName: "v-show",
-                                          value:
-                                            t > 0 &&
-                                            _vm.achievements_saved.length <= t,
-                                          expression:
-                                            "(t>0 && achievements_saved.length<=t)"
-                                        }
-                                      ],
-                                      staticClass: "badge badge-danger",
-                                      attrs: { href: "#" },
-                                      on: {
-                                        click: function($event) {
-                                          $event.preventDefault()
-                                          return _vm.removeAchievement(t)
-                                        }
-                                      }
-                                    },
-                                    [_vm._v("-")]
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "a",
-                                    {
-                                      directives: [
-                                        {
-                                          name: "show",
-                                          rawName: "v-show",
-                                          value:
-                                            t == _vm.achievements.length - 1,
-                                          expression:
-                                            "t == achievements.length -1"
-                                        }
-                                      ],
-                                      staticClass: "badge badge-primary",
-                                      attrs: { href: "#" },
-                                      on: {
-                                        click: function($event) {
-                                          $event.preventDefault()
-                                          return _vm.addAchievement(t)
-                                        }
-                                      }
-                                    },
-                                    [_vm._v("+")]
-                                  )
-                                ])
-                              ]
-                            ),
-                            _vm._v(" "),
-                            _c("textarea", {
-                              directives: [
-                                {
-                                  name: "model",
-                                  rawName: "v-model",
-                                  value: achievement.content,
-                                  expression: "achievement.content"
-                                }
-                              ],
-                              staticClass: "form-control",
-                              attrs: { name: "welcome", required: "" },
-                              domProps: { value: achievement.content },
-                              on: {
-                                change: function($event) {
-                                  return _vm.planificationContentUpdateEvent(
-                                    $event,
-                                    t,
-                                    "achievements",
-                                    "content"
-                                  )
-                                },
-                                input: function($event) {
-                                  if ($event.target.composing) {
-                                    return
-                                  }
-                                  _vm.$set(
-                                    achievement,
-                                    "content",
-                                    $event.target.value
-                                  )
-                                }
-                              }
-                            }),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "invalid-feedback" }, [
-                              _vm._v("Please fill out this field")
-                            ])
-                          ]
-                        )
-                      }),
-                      0
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "tab-content",
-                      { attrs: { title: "Trimestral" } },
-                      _vm._l(_vm.quarterlies, function(quarterly, t) {
-                        return _c(
-                          "div",
-                          { key: t, staticClass: "form-group row mx-auto" },
-                          [
-                            _c("div", { staticClass: "col-md-6" }, [
-                              _c("label", { attrs: { for: "name" } }, [
-                                _vm._v("Indicador")
+                ],
+                staticClass: "form-control",
+                attrs: {
+                  type: "text",
+                  placeholder: "Buscar Por Nombre del Estudiante"
+                },
+                domProps: { value: _vm.search_filter },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.search_filter = $event.target.value
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c(
+                "table",
+                { staticClass: "table table-stripped table-hover" },
+                [
+                  _vm._m(1),
+                  _vm._v(" "),
+                  _vm._l(_vm.dataEffectiveness, function(effectiveness, key) {
+                    return _c(
+                      "tbody",
+                      { key: key, staticClass: "card-header" },
+                      [
+                        _vm.search_filter == "" ||
+                        _vm.filterNameStudent(effectiveness.student_name)
+                          ? _c("tr", [
+                              _c("td", [
+                                _vm._v(_vm._s(effectiveness.student_name))
                               ]),
                               _vm._v(" "),
-                              _c("span", [
+                              _c("td", [_vm._v(_vm._s(effectiveness.course))]),
+                              _vm._v(" "),
+                              _c("td", [
+                                _vm._v(_vm._s(effectiveness.effectiveness))
+                              ]),
+                              _vm._v(" "),
+                              _c("td", [
                                 _c(
-                                  "a",
+                                  "button",
                                   {
-                                    directives: [
-                                      {
-                                        name: "show",
-                                        rawName: "v-show",
-                                        value:
-                                          t > 0 &&
-                                          _vm.quarterlies_saved.length <= t,
-                                        expression:
-                                          "(t>0 && quarterlies_saved.length<=t)"
-                                      }
-                                    ],
-                                    staticClass: "badge badge-danger",
-                                    attrs: { href: "#" },
+                                    staticClass: "btn btn-primary",
                                     on: {
                                       click: function($event) {
-                                        $event.preventDefault()
-                                        return _vm.removeQuarterly(t)
+                                        return _vm.editEffectiveness(
+                                          effectiveness
+                                        )
                                       }
                                     }
                                   },
-                                  [_vm._v("-")]
+                                  [_vm._v("Actualizar")]
                                 ),
                                 _vm._v(" "),
                                 _c(
-                                  "a",
+                                  "button",
                                   {
-                                    directives: [
-                                      {
-                                        name: "show",
-                                        rawName: "v-show",
-                                        value: t == _vm.quarterlies.length - 1,
-                                        expression:
-                                          "t == quarterlies.length - 1"
-                                      }
-                                    ],
-                                    staticClass: "badge badge-primary",
-                                    attrs: { href: "#" },
+                                    staticClass: "btn btn-danger",
                                     on: {
                                       click: function($event) {
-                                        $event.preventDefault()
-                                        return _vm.addQuarterly(t)
+                                        return _vm.deleteEffectiveness(
+                                          effectiveness.id
+                                        )
                                       }
                                     }
                                   },
-                                  [_vm._v("+")]
+                                  [_vm._v("Eliminar")]
                                 )
-                              ]),
-                              _vm._v(" "),
-                              _c("div", [
-                                _c("input", {
-                                  directives: [
-                                    {
-                                      name: "model",
-                                      rawName: "v-model",
-                                      value: quarterly.name,
-                                      expression: "quarterly.name"
-                                    }
-                                  ],
-                                  staticClass: "form-control",
-                                  attrs: {
-                                    type: "text",
-                                    name: "objetive1",
-                                    placeholder: "Nombre de la unidad",
-                                    required: ""
-                                  },
-                                  domProps: { value: quarterly.name },
-                                  on: {
-                                    change: function($event) {
-                                      return _vm.planificationContentUpdateEvent(
-                                        $event,
-                                        t,
-                                        "quarterlies",
-                                        "name"
-                                      )
-                                    },
-                                    input: function($event) {
-                                      if ($event.target.composing) {
-                                        return
-                                      }
-                                      _vm.$set(
-                                        quarterly,
-                                        "name",
-                                        $event.target.value
-                                      )
-                                    }
-                                  }
-                                })
-                              ])
-                            ]),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "col-md-6" }, [
-                              _c("label", { attrs: { for: "name" } }, [
-                                _vm._v("Contenido")
-                              ]),
-                              _vm._v(" "),
-                              _c("textarea", {
-                                directives: [
-                                  {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value: quarterly.content,
-                                    expression: "quarterly.content"
-                                  }
-                                ],
-                                staticClass: "form-control",
-                                attrs: {
-                                  name: "competences",
-                                  placeholder:
-                                    "Es la explicacion o sintesis de la unidad.",
-                                  required: ""
-                                },
-                                domProps: { value: quarterly.content },
-                                on: {
-                                  change: function($event) {
-                                    return _vm.planificationContentUpdateEvent(
-                                      $event,
-                                      t,
-                                      "quarterlies",
-                                      "content"
-                                    )
-                                  },
-                                  input: function($event) {
-                                    if ($event.target.composing) {
-                                      return
-                                    }
-                                    _vm.$set(
-                                      quarterly,
-                                      "content",
-                                      $event.target.value
-                                    )
-                                  }
-                                }
-                              }),
-                              _vm._v(" "),
-                              _c("div", { staticClass: "invalid-feedback" }, [
-                                _vm._v("Please fill out this field")
                               ])
                             ])
-                          ]
-                        )
-                      }),
-                      0
+                          : _vm._e()
+                      ]
                     )
-                  ],
-                  1
-                )
-              ],
-              1
-            )
+                  })
+                ],
+                2
+              )
+            ])
           ])
         ])
       ])
-    ])
+    ]),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "modal fade",
+        attrs: {
+          id: "createEffectiveness",
+          tabindex: "-1",
+          role: "dialog",
+          "aria-labelledby": "createEffectivenessLabel",
+          "aria-hidden": "true"
+        }
+      },
+      [
+        _c(
+          "div",
+          { staticClass: "modal-dialog", attrs: { role: "document" } },
+          [
+            _c("div", { staticClass: "modal-content" }, [
+              _vm._m(2),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-body" }, [
+                _c(
+                  "div",
+                  { staticClass: "form-group" },
+                  [
+                    _c("label", { attrs: { for: "students" } }, [
+                      _vm._v("Estudiantes con asistencias confirmadas")
+                    ]),
+                    _vm._v(" "),
+                    _c("multiselect", {
+                      attrs: {
+                        options: _vm.dataToCreateEffectiveness,
+                        multiple: false,
+                        "close-on-select": false,
+                        "clear-on-select": false,
+                        "preserve-search": true,
+                        placeholder: "Seleccione una o varias",
+                        label: "text",
+                        "track-by": "id",
+                        "preselect-first": true
+                      },
+                      scopedSlots: _vm._u([
+                        {
+                          key: "selection",
+                          fn: function(ref) {
+                            var values = ref.values
+                            var isOpen = ref.isOpen
+                            return [
+                              values.length && !isOpen
+                                ? _c(
+                                    "span",
+                                    { staticClass: "multiselect__single" },
+                                    [
+                                      _vm._v(
+                                        _vm._s(values.length) +
+                                          "\n                                            opciones\n                                            selecionadas\n                                    "
+                                      )
+                                    ]
+                                  )
+                                : _vm._e()
+                            ]
+                          }
+                        }
+                      ]),
+                      model: {
+                        value: _vm.saveStudent,
+                        callback: function($$v) {
+                          _vm.saveStudent = $$v
+                        },
+                        expression: "saveStudent"
+                      }
+                    })
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group" }, [
+                  _c("label", { attrs: { for: "effectiveness" } }, [
+                    _vm._v("Efectividad")
+                  ]),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.score_effectiveness,
+                        expression: "score_effectiveness"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: { type: "number", name: "effectiveness" },
+                    domProps: { value: _vm.score_effectiveness },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.score_effectiveness = $event.target.value
+                      }
+                    }
+                  })
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-footer" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-secondary",
+                    attrs: { type: "button", "data-dismiss": "modal" }
+                  },
+                  [_vm._v("Cerrar")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-primary",
+                    attrs: { type: "button" },
+                    on: { click: _vm.saveEffectiveness }
+                  },
+                  [_vm._v("Guardar Efectividad")]
+                )
+              ])
+            ])
+          ]
+        )
+      ]
+    )
   ])
 }
 var staticRenderFns = [
@@ -763,37 +479,54 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("head", [
-      _c("link", {
-        attrs: {
-          rel: "stylesheet",
-          href: "https://use.fontawesome.com/releases/v5.8.2/css/solid.css",
-          integrity:
-            "sha384-ioUrHig76ITq4aEJ67dHzTvqjsAP/7IzgwE7lgJcg2r7BRNGYSK0LwSmROzYtgzs",
-          crossorigin: "anonymous"
-        }
-      }),
+    return _c("div", { staticClass: "card mb-3" }, [
+      _c("div", { staticClass: "card-header fondo text-center" }, [
+        _c("h3", [_vm._v("Efectividad")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("Estudiante")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Curso")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Efectividad")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Acción")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header" }, [
+      _c(
+        "h5",
+        {
+          staticClass: "modal-title",
+          attrs: { id: "createEffectivenessLabel" }
+        },
+        [_vm._v("Efectividad")]
+      ),
       _vm._v(" "),
-      _c("link", {
-        attrs: {
-          rel: "stylesheet",
-          href: "https://use.fontawesome.com/releases/v5.8.2/css/brands.css",
-          integrity:
-            "sha384-i2PyM6FMpVnxjRPi0KW/xIS7hkeSznkllv+Hx/MtYDaHA5VcF0yL3KVlvzp8bWjQ",
-          crossorigin: "anonymous"
-        }
-      }),
-      _vm._v(" "),
-      _c("link", {
-        attrs: {
-          rel: "stylesheet",
-          href:
-            "https://use.fontawesome.com/releases/v5.8.2/css/fontawesome.css",
-          integrity:
-            "sha384-sri+NftO+0hcisDKgr287Y/1LVnInHJ1l+XC7+FOabmTTIK0HnE2ID+xxvJ21c5J",
-          crossorigin: "anonymous"
-        }
-      })
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+      )
     ])
   }
 ]
@@ -803,18 +536,20 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./resources/js/components/lectivesTeacherPlanningEditComponent.vue":
-/*!**************************************************************************!*\
-  !*** ./resources/js/components/lectivesTeacherPlanningEditComponent.vue ***!
-  \**************************************************************************/
+/***/ "./resources/js/components/effectiveness.vue":
+/*!***************************************************!*\
+  !*** ./resources/js/components/effectiveness.vue ***!
+  \***************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _lectivesTeacherPlanningEditComponent_vue_vue_type_template_id_da5f3db8___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./lectivesTeacherPlanningEditComponent.vue?vue&type=template&id=da5f3db8& */ "./resources/js/components/lectivesTeacherPlanningEditComponent.vue?vue&type=template&id=da5f3db8&");
-/* harmony import */ var _lectivesTeacherPlanningEditComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./lectivesTeacherPlanningEditComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/lectivesTeacherPlanningEditComponent.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony import */ var _effectiveness_vue_vue_type_template_id_59d0157a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./effectiveness.vue?vue&type=template&id=59d0157a& */ "./resources/js/components/effectiveness.vue?vue&type=template&id=59d0157a&");
+/* harmony import */ var _effectiveness_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./effectiveness.vue?vue&type=script&lang=js& */ "./resources/js/components/effectiveness.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var vue_multiselect_dist_vue_multiselect_min_css_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue-multiselect/dist/vue-multiselect.min.css?vue&type=style&index=0&lang=css& */ "./node_modules/vue-multiselect/dist/vue-multiselect.min.css?vue&type=style&index=0&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
 
 
 
@@ -822,10 +557,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /* normalize component */
 
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _lectivesTeacherPlanningEditComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _lectivesTeacherPlanningEditComponent_vue_vue_type_template_id_da5f3db8___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _lectivesTeacherPlanningEditComponent_vue_vue_type_template_id_da5f3db8___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _effectiveness_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _effectiveness_vue_vue_type_template_id_59d0157a___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _effectiveness_vue_vue_type_template_id_59d0157a___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -835,38 +570,38 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/components/lectivesTeacherPlanningEditComponent.vue"
+component.options.__file = "resources/js/components/effectiveness.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/components/lectivesTeacherPlanningEditComponent.vue?vue&type=script&lang=js&":
-/*!***************************************************************************************************!*\
-  !*** ./resources/js/components/lectivesTeacherPlanningEditComponent.vue?vue&type=script&lang=js& ***!
-  \***************************************************************************************************/
+/***/ "./resources/js/components/effectiveness.vue?vue&type=script&lang=js&":
+/*!****************************************************************************!*\
+  !*** ./resources/js/components/effectiveness.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_lectivesTeacherPlanningEditComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./lectivesTeacherPlanningEditComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/lectivesTeacherPlanningEditComponent.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_lectivesTeacherPlanningEditComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_effectiveness_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./effectiveness.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/effectiveness.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_effectiveness_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/components/lectivesTeacherPlanningEditComponent.vue?vue&type=template&id=da5f3db8&":
-/*!*********************************************************************************************************!*\
-  !*** ./resources/js/components/lectivesTeacherPlanningEditComponent.vue?vue&type=template&id=da5f3db8& ***!
-  \*********************************************************************************************************/
+/***/ "./resources/js/components/effectiveness.vue?vue&type=template&id=59d0157a&":
+/*!**********************************************************************************!*\
+  !*** ./resources/js/components/effectiveness.vue?vue&type=template&id=59d0157a& ***!
+  \**********************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_lectivesTeacherPlanningEditComponent_vue_vue_type_template_id_da5f3db8___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./lectivesTeacherPlanningEditComponent.vue?vue&type=template&id=da5f3db8& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/lectivesTeacherPlanningEditComponent.vue?vue&type=template&id=da5f3db8&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_lectivesTeacherPlanningEditComponent_vue_vue_type_template_id_da5f3db8___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_effectiveness_vue_vue_type_template_id_59d0157a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./effectiveness.vue?vue&type=template&id=59d0157a& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/effectiveness.vue?vue&type=template&id=59d0157a&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_effectiveness_vue_vue_type_template_id_59d0157a___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_lectivesTeacherPlanningEditComponent_vue_vue_type_template_id_da5f3db8___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_effectiveness_vue_vue_type_template_id_59d0157a___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

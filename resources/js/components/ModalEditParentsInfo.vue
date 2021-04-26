@@ -119,8 +119,8 @@
                 link: "",
                 idToEdit:"",
                 day_week:"",
-                date_start: [],
-                date_end: [],
+                date_start: "",
+                date_end: "",
             }
         },
         mounted() {

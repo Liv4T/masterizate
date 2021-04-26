@@ -91,7 +91,13 @@ Vue.component("perfil-psychology", require("./components/perfilPsy.vue").default
 Vue.component("anuncio-docente", require("./components/anunciodocente.vue").default);
 Vue.component("actividadg-docente",  () => import ("./components/actividadGDocente.vue"));
 Vue.component("anunciomc-component", require("./components/anunciomc.vue").default);
+
+//Componente de Calendario separado
 Vue.component("calendar-component", require("./components/calendarComponent.vue").default);
+Vue.component("calendar-class-component", ()=> import("./components/calendarClassComponent.vue"));
+Vue.component("calendar-modal-event", ()=> import("./components/ModalEventsCalendarComponent.vue"));
+Vue.component("calendar-modal-edit-event", () => import("./components/ModalEventsEditCalendarComponent.vue"));
+
 Vue.component("psychology-calendar-component", require("./components/psychologyComponent.vue").default);
 Vue.component("student-calendar-component", require("./components/studentCalendarComponent.vue").default);
 Vue.component("redactar-component", require("./components/redactar.vue").default);
@@ -270,6 +276,9 @@ Vue.component("component-delete-class-and-cicles", ()=> import("./components/del
 
 //Modulo para registro de asistencia
 Vue.component("assistance-component",()=>import("./components/assistance.vue"));
+
+//Modulo de Efectividad
+Vue.component("effectiveness-component", ()=>import("./components/effectiveness.vue"));
 
 Vue.use(CKEditor);
 
