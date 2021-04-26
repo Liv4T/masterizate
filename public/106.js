@@ -338,7 +338,7 @@ var render = function() {
                                 }
                               }
                             },
-                            [_vm._v("Actualizar")]
+                            [_vm._v("Editar")]
                           ),
                           _vm._v(" "),
                           _c(

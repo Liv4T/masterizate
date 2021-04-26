@@ -58,18 +58,40 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["user"],
   data: function data() {
     return {
-      courses: []
+      courses: [],
+      search_filter: "",
+      materias: []
     };
   },
   mounted: function mounted() {
     this.getCourses();
   },
+  watch: {
+    courses: function courses(value) {
+      var data = value;
+      console.log(data);
+    }
+  },
   methods: {
+    filterPlanification: function filterPlanification(class_name) {
+      return class_name.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(this.search_filter.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, ""));
+    },
     getCourses: function getCourses() {
       var _this = this;
 
@@ -118,38 +140,106 @@ var render = function() {
       _vm._v(" "),
       _c("div", { staticClass: "card" }, [
         _c("div", { staticClass: "card-body" }, [
+          _c("div", { staticClass: "input-group mb-3 mt-3" }, [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.search_filter,
+                  expression: "search_filter"
+                }
+              ],
+              staticClass: "form-control",
+              attrs: { type: "text", placeholder: "Buscar Salón" },
+              domProps: { value: _vm.search_filter },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.search_filter = $event.target.value
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c("div", { staticClass: "input-group-prepend" }, [
+              _c(
+                "span",
+                {
+                  staticClass: "input-group-text",
+                  attrs: { id: "basic-addon1" }
+                },
+                [
+                  _c(
+                    "svg",
+                    {
+                      staticClass: "bi bi-search",
+                      attrs: {
+                        width: "1em",
+                        height: "1em",
+                        viewBox: "0 0 16 16",
+                        fill: "currentColor",
+                        xmlns: "http://www.w3.org/2000/svg"
+                      }
+                    },
+                    [
+                      _c("path", {
+                        attrs: {
+                          "fill-rule": "evenodd",
+                          d:
+                            "M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z"
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("path", {
+                        attrs: {
+                          "fill-rule": "evenodd",
+                          d:
+                            "M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z"
+                        }
+                      })
+                    ]
+                  )
+                ]
+              )
+            ])
+          ]),
+          _vm._v(" "),
           _c(
             "div",
             { attrs: { id: "accordion" } },
             _vm._l(_vm.courses, function(courses, grade) {
               return _c("div", { key: grade, staticClass: "card" }, [
-                _c(
-                  "div",
-                  { staticClass: "card-header", attrs: { id: "" + grade } },
-                  [
-                    _c("h5", { staticClass: "mb-0" }, [
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-link",
-                          attrs: {
-                            "data-toggle": "collapse",
-                            "data-target": "#heading" + grade,
-                            "aria-expanded": "true",
-                            "aria-controls": "collapseOne"
-                          }
-                        },
-                        [
-                          _vm._v(
-                            "\n                                    " +
-                              _vm._s(grade) +
-                              "\n                                "
+                _vm.search_filter == "" || _vm.filterPlanification(grade)
+                  ? _c(
+                      "div",
+                      { staticClass: "card-header", attrs: { id: "" + grade } },
+                      [
+                        _c("h5", { staticClass: "mb-0" }, [
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-link",
+                              attrs: {
+                                "data-toggle": "collapse",
+                                "data-target": "#heading" + grade,
+                                "aria-expanded": "true",
+                                "aria-controls": "collapseOne"
+                              }
+                            },
+                            [
+                              _vm._v(
+                                "\n                                    " +
+                                  _vm._s(grade) +
+                                  "\n                                "
+                              )
+                            ]
                           )
-                        ]
-                      )
-                    ])
-                  ]
-                ),
+                        ])
+                      ]
+                    )
+                  : _vm._e(),
                 _vm._v(" "),
                 _c(
                   "div",
@@ -171,13 +261,15 @@ var render = function() {
                           _vm._v(" "),
                           _vm._l(courses, function(course, key) {
                             return _c("tbody", { key: key }, [
-                              _c("tr", [
-                                _c("td", [_vm._v(_vm._s(course.materia))]),
-                                _vm._v(" "),
-                                _c("td", [_vm._v(_vm._s(course.ciclo))]),
-                                _vm._v(" "),
-                                _c("td", [_vm._v(_vm._s(course.class))])
-                              ])
+                              (course.materia = "Español")
+                                ? _c("tr", [
+                                    _c("td", [_vm._v(_vm._s(course.materia))]),
+                                    _vm._v(" "),
+                                    _c("td", [_vm._v(_vm._s(course.ciclo))]),
+                                    _vm._v(" "),
+                                    _c("td", [_vm._v(_vm._s(course.class))])
+                                  ])
+                                : _vm._e()
                             ])
                           })
                         ],

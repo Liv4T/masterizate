@@ -25,7 +25,7 @@
                                     <td>{{data.date_to_activate_btn}}</td>
                                     <td>{{data.date_to_deactivate_btn}}</td>
                                     <td>
-                                        <button class="btn btn-primary mb-2 mr-2" v-on:click="update(data)">Actualizar</button>
+                                        <button class="btn btn-primary mb-2 mr-2" v-on:click="update(data)">Editar</button>
                                         <button class="btn btn-primary" v-on:click="dropData(data.id)">Eliminar</button>    
                                     </td>
                                 </tr>
