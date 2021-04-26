@@ -130,6 +130,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 moment__WEBPACK_IMPORTED_MODULE_0___default.a.tz.setDefault("America/Bogota");
 moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale("es");
@@ -305,314 +308,334 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "row" },
     [
-      _vm.type_u != 4 || _vm.type_u != 8
-        ? _c(
-            "div",
-            { staticClass: "col-md-11" },
-            [
-              _vm.type_u != 7
-                ? _c("div", { staticClass: "row justify-content-center" }, [
-                    _c("h4", [_vm._v("Clases presenciales")])
-                  ])
-                : _vm._e(),
-              _vm._v(" "),
-              _vm._l(_vm.filterPendingEvents(_vm.clases), function(clas, k) {
-                return _c("div", { key: k, staticClass: "row" }, [
-                  _c("div", { staticClass: "col-12" }, [
-                    _c("div", { staticClass: "card" }, [
-                      _c("div", { staticClass: "class-event" }, [
-                        _c("div", { staticClass: "class-event-info" }, [
-                          _vm._v(
-                            _vm._s(!clas.classroom ? "Lectiva " : "") +
-                              " " +
-                              _vm._s(clas.area) +
-                              " " +
-                              _vm._s(clas.classroom ? clas.classroom : "") +
-                              ": " +
-                              _vm._s(clas.name)
-                          )
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "class-event-date" }, [
-                          _c("div", [
-                            _c("small", [_vm._v("Desde:")]),
+      _c("div", { staticClass: "row" }, [
+        _vm.type_u != 4 || _vm.type_u != 8
+          ? _c(
+              "div",
+              { staticClass: "col-md-11" },
+              [
+                _vm.type_u != 7
+                  ? _c("div", { staticClass: "row justify-content-center" }, [
+                      _c("h4", [_vm._v("Clases presenciales")])
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm._l(_vm.filterPendingEvents(_vm.clases), function(clas, k) {
+                  return _c("div", { key: k, staticClass: "row" }, [
+                    _c("div", { staticClass: "col-12" }, [
+                      _c("div", { staticClass: "card" }, [
+                        _c("div", { staticClass: "class-event" }, [
+                          _c("div", { staticClass: "class-event-info" }, [
+                            _vm._v(
+                              _vm._s(!clas.classroom ? "Lectiva " : "") +
+                                " " +
+                                _vm._s(clas.area) +
+                                " " +
+                                _vm._s(clas.classroom ? clas.classroom : "") +
+                                ": " +
+                                _vm._s(clas.name)
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "class-event-date" }, [
+                            _c("div", [
+                              _c("small", [_vm._v("Desde:")]),
+                              _vm._v(" "),
+                              _c("span", [
+                                _vm._v(
+                                  _vm._s(_vm._f("formatDate")(clas.dateFrom))
+                                )
+                              ])
+                            ]),
                             _vm._v(" "),
-                            _c("span", [
-                              _vm._v(
-                                _vm._s(_vm._f("formatDate")(clas.dateFrom))
-                              )
+                            _c("div", [
+                              _c("small", [_vm._v("Hasta:")]),
+                              _vm._v(" "),
+                              _c("span", [
+                                _vm._v(
+                                  _vm._s(_vm._f("formatDate")(clas.dateTo))
+                                )
+                              ])
                             ])
                           ]),
                           _vm._v(" "),
-                          _c("div", [
-                            _c("small", [_vm._v("Hasta:")]),
+                          _c("div", { staticClass: "class-event-action" }, [
+                            _c(
+                              "a",
+                              {
+                                staticClass: "btn btn-primary",
+                                attrs: {
+                                  "html:type": "_blank",
+                                  href: clas.hangout
+                                }
+                              },
+                              [_vm._v("Ir a clase")]
+                            ),
                             _vm._v(" "),
-                            _c("span", [
-                              _vm._v(_vm._s(_vm._f("formatDate")(clas.dateTo)))
-                            ])
+                            _c(
+                              "a",
+                              {
+                                directives: [
+                                  {
+                                    name: "show",
+                                    rawName: "v-show",
+                                    value: _vm.type_u == 2,
+                                    expression: "type_u == 2"
+                                  }
+                                ],
+                                staticClass: "btn btn-primary ml-1",
+                                attrs: { href: "/assistance" }
+                              },
+                              [_vm._v("Asistencia")]
+                            )
                           ])
                         ]),
                         _vm._v(" "),
-                        _c("div", { staticClass: "class-event-action" }, [
-                          _c(
-                            "a",
-                            {
-                              staticClass: "btn btn-primary",
-                              attrs: {
-                                "html:type": "_blank",
-                                href: clas.hangout
-                              }
-                            },
-                            [_vm._v("Ir a clase")]
-                          )
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "class-event-footer " }, [
-                        _c("div", { staticClass: "class-event-action" }, [
-                          _c(
-                            "button",
-                            {
-                              directives: [
-                                {
-                                  name: "show",
-                                  rawName: "v-show",
-                                  value: _vm.type_u == 2,
-                                  expression: "type_u == 2"
+                        _c("div", { staticClass: "class-event-footer " }, [
+                          _c("div", { staticClass: "class-event-action" }, [
+                            _c(
+                              "button",
+                              {
+                                directives: [
+                                  {
+                                    name: "show",
+                                    rawName: "v-show",
+                                    value: _vm.type_u == 2,
+                                    expression: "type_u == 2"
+                                  }
+                                ],
+                                staticClass: "btn btn-primary",
+                                on: {
+                                  click: function($event) {
+                                    $event.preventDefault()
+                                    return _vm.editE(clas.id)
+                                  }
                                 }
-                              ],
-                              staticClass: "btn btn-primary",
-                              on: {
-                                click: function($event) {
-                                  $event.preventDefault()
-                                  return _vm.editE(clas.id)
+                              },
+                              [_vm._v("Editar")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "a",
+                              {
+                                directives: [
+                                  {
+                                    name: "show",
+                                    rawName: "v-show",
+                                    value: _vm.type_u == 2,
+                                    expression: "type_u == 2"
+                                  }
+                                ],
+                                staticClass: "btn btn-primary mr-1",
+                                attrs: { href: "/effectiveness" }
+                              },
+                              [_vm._v("Efectividad")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "button",
+                              {
+                                directives: [
+                                  {
+                                    name: "show",
+                                    rawName: "v-show",
+                                    value: _vm.type_u == 2,
+                                    expression: "type_u == 2"
+                                  }
+                                ],
+                                staticClass: "btn btn-danger",
+                                on: {
+                                  click: function($event) {
+                                    $event.preventDefault()
+                                    return _vm.viewDelete(clas.id, clas.name)
+                                  }
                                 }
-                              }
-                            },
-                            [_vm._v("Editar")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "a",
-                            {
-                              directives: [
-                                {
-                                  name: "show",
-                                  rawName: "v-show",
-                                  value: _vm.type_u == 2,
-                                  expression: "type_u == 2"
-                                }
-                              ],
-                              staticClass: "btn btn-primary mr-1",
-                              attrs: { href: "/effectiveness" }
-                            },
-                            [_vm._v("Efectividad")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "button",
-                            {
-                              directives: [
-                                {
-                                  name: "show",
-                                  rawName: "v-show",
-                                  value: _vm.type_u == 2,
-                                  expression: "type_u == 2"
-                                }
-                              ],
-                              staticClass: "btn btn-danger",
-                              on: {
-                                click: function($event) {
-                                  $event.preventDefault()
-                                  return _vm.viewDelete(clas.id, clas.name)
-                                }
-                              }
-                            },
-                            [_vm._v("Eliminar")]
-                          )
+                              },
+                              [_vm._v("Eliminar")]
+                            )
+                          ])
                         ])
                       ])
                     ])
                   ])
-                ])
-              }),
-              _vm._v(" "),
-              _vm.type_u == 7
-                ? _c(
-                    "div",
-                    [
-                      _vm._m(0),
-                      _vm._v(" "),
-                      _vm._l(_vm.tutorEvents, function(tutorial, k_tutorial) {
-                        return _c(
-                          "div",
-                          { key: k_tutorial, staticClass: "row" },
-                          [
-                            _c("div", { staticClass: "col-12" }, [
-                              _c("div", { staticClass: "card" }, [
-                                _c("div", { staticClass: "class-event" }, [
-                                  _c(
-                                    "div",
-                                    { staticClass: "class-event-info" },
-                                    [_vm._v(_vm._s(tutorial.name))]
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "div",
-                                    { staticClass: "class-event-date" },
-                                    [
-                                      _c("div", [
-                                        _c("small", [_vm._v("Desde:")]),
-                                        _vm._v(" "),
-                                        _c("span", [
-                                          _vm._v(
-                                            _vm._s(
-                                              _vm._f("formatDate")(
-                                                tutorial.date_from
+                }),
+                _vm._v(" "),
+                _vm.type_u == 7
+                  ? _c(
+                      "div",
+                      [
+                        _vm._m(0),
+                        _vm._v(" "),
+                        _vm._l(_vm.tutorEvents, function(tutorial, k_tutorial) {
+                          return _c(
+                            "div",
+                            { key: k_tutorial, staticClass: "row" },
+                            [
+                              _c("div", { staticClass: "col-12" }, [
+                                _c("div", { staticClass: "card" }, [
+                                  _c("div", { staticClass: "class-event" }, [
+                                    _c(
+                                      "div",
+                                      { staticClass: "class-event-info" },
+                                      [_vm._v(_vm._s(tutorial.name))]
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "div",
+                                      { staticClass: "class-event-date" },
+                                      [
+                                        _c("div", [
+                                          _c("small", [_vm._v("Desde:")]),
+                                          _vm._v(" "),
+                                          _c("span", [
+                                            _vm._v(
+                                              _vm._s(
+                                                _vm._f("formatDate")(
+                                                  tutorial.date_from
+                                                )
                                               )
                                             )
-                                          )
-                                        ])
-                                      ]),
-                                      _vm._v(" "),
-                                      _c("div", [
-                                        _c("small", [_vm._v("Hasta:")]),
+                                          ])
+                                        ]),
                                         _vm._v(" "),
-                                        _c("span", [
-                                          _vm._v(
-                                            _vm._s(
-                                              _vm._f("formatDate")(
-                                                tutorial.date_to
+                                        _c("div", [
+                                          _c("small", [_vm._v("Hasta:")]),
+                                          _vm._v(" "),
+                                          _c("span", [
+                                            _vm._v(
+                                              _vm._s(
+                                                _vm._f("formatDate")(
+                                                  tutorial.date_to
+                                                )
                                               )
                                             )
-                                          )
+                                          ])
                                         ])
-                                      ])
-                                    ]
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "div",
-                                    { staticClass: "class-event-action" },
-                                    [
-                                      tutorial.url
-                                        ? _c(
-                                            "a",
-                                            {
-                                              staticClass: "btn btn-primary",
-                                              attrs: {
-                                                type: "_blank",
-                                                href: tutorial.url
-                                              }
-                                            },
-                                            [_vm._v("Ir a clase")]
-                                          )
-                                        : _vm._e()
-                                    ]
-                                  )
-                                ]),
-                                _vm._v(" "),
-                                _c("div", { staticClass: "row padding-10" }, [
-                                  _vm._m(1, true),
-                                  _vm._v(" "),
-                                  _c("div", { staticClass: "col-12" }, [
-                                    _c("textarea", {
-                                      directives: [
-                                        {
-                                          name: "model",
-                                          rawName: "v-model",
-                                          value: tutorial.observations,
-                                          expression: "tutorial.observations"
-                                        }
-                                      ],
-                                      staticClass: "form-control",
-                                      attrs: {
-                                        rows: "3",
-                                        readonly: "readonly"
-                                      },
-                                      domProps: {
-                                        value: tutorial.observations
-                                      },
-                                      on: {
-                                        input: function($event) {
-                                          if ($event.target.composing) {
-                                            return
-                                          }
-                                          _vm.$set(
-                                            tutorial,
-                                            "observations",
-                                            $event.target.value
-                                          )
-                                        }
-                                      }
-                                    })
-                                  ])
-                                ]),
-                                _vm._v(" "),
-                                _c("div", { staticClass: "row padding-10" }, [
-                                  _c("div", { staticClass: "col-8" }, [
-                                    _c("input", {
-                                      directives: [
-                                        {
-                                          name: "model",
-                                          rawName: "v-model",
-                                          value: tutorial.url,
-                                          expression: "tutorial.url"
-                                        }
-                                      ],
-                                      staticClass: "form-control",
-                                      attrs: {
-                                        type: "text",
-                                        placeholder: "Link de reunión"
-                                      },
-                                      domProps: { value: tutorial.url },
-                                      on: {
-                                        input: function($event) {
-                                          if ($event.target.composing) {
-                                            return
-                                          }
-                                          _vm.$set(
-                                            tutorial,
-                                            "url",
-                                            $event.target.value
-                                          )
-                                        }
-                                      }
-                                    })
+                                      ]
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "div",
+                                      { staticClass: "class-event-action" },
+                                      [
+                                        tutorial.url
+                                          ? _c(
+                                              "a",
+                                              {
+                                                staticClass: "btn btn-primary",
+                                                attrs: {
+                                                  type: "_blank",
+                                                  href: tutorial.url
+                                                }
+                                              },
+                                              [_vm._v("Ir a clase")]
+                                            )
+                                          : _vm._e()
+                                      ]
+                                    )
                                   ]),
                                   _vm._v(" "),
-                                  _c("div", { staticClass: "col-4" }, [
-                                    _c(
-                                      "button",
-                                      {
-                                        staticClass: "btn btn-primary",
+                                  _c("div", { staticClass: "row padding-10" }, [
+                                    _vm._m(1, true),
+                                    _vm._v(" "),
+                                    _c("div", { staticClass: "col-12" }, [
+                                      _c("textarea", {
+                                        directives: [
+                                          {
+                                            name: "model",
+                                            rawName: "v-model",
+                                            value: tutorial.observations,
+                                            expression: "tutorial.observations"
+                                          }
+                                        ],
+                                        staticClass: "form-control",
+                                        attrs: {
+                                          rows: "3",
+                                          readonly: "readonly"
+                                        },
+                                        domProps: {
+                                          value: tutorial.observations
+                                        },
                                         on: {
-                                          click: function($event) {
-                                            return _vm.UpdateLinkTutorial(
-                                              tutorial
+                                          input: function($event) {
+                                            if ($event.target.composing) {
+                                              return
+                                            }
+                                            _vm.$set(
+                                              tutorial,
+                                              "observations",
+                                              $event.target.value
                                             )
                                           }
                                         }
-                                      },
-                                      [_vm._v("Actualizar link")]
-                                    )
+                                      })
+                                    ])
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("div", { staticClass: "row padding-10" }, [
+                                    _c("div", { staticClass: "col-8" }, [
+                                      _c("input", {
+                                        directives: [
+                                          {
+                                            name: "model",
+                                            rawName: "v-model",
+                                            value: tutorial.url,
+                                            expression: "tutorial.url"
+                                          }
+                                        ],
+                                        staticClass: "form-control",
+                                        attrs: {
+                                          type: "text",
+                                          placeholder: "Link de reunión"
+                                        },
+                                        domProps: { value: tutorial.url },
+                                        on: {
+                                          input: function($event) {
+                                            if ($event.target.composing) {
+                                              return
+                                            }
+                                            _vm.$set(
+                                              tutorial,
+                                              "url",
+                                              $event.target.value
+                                            )
+                                          }
+                                        }
+                                      })
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("div", { staticClass: "col-4" }, [
+                                      _c(
+                                        "button",
+                                        {
+                                          staticClass: "btn btn-primary",
+                                          on: {
+                                            click: function($event) {
+                                              return _vm.UpdateLinkTutorial(
+                                                tutorial
+                                              )
+                                            }
+                                          }
+                                        },
+                                        [_vm._v("Actualizar link")]
+                                      )
+                                    ])
                                   ])
                                 ])
                               ])
-                            ])
-                          ]
-                        )
-                      })
-                    ],
-                    2
-                  )
-                : _vm._e()
-            ],
-            2
-          )
-        : _vm._e(),
+                            ]
+                          )
+                        })
+                      ],
+                      2
+                    )
+                  : _vm._e()
+              ],
+              2
+            )
+          : _vm._e()
+      ]),
       _vm._v(" "),
       _c("calendar-modal-edit-event", {
         attrs: {

@@ -199,7 +199,7 @@
                 }
                 
                 else if(this.user.type_user === 8){
-                    if(this.user.newCoordArea === 'Primaria'){
+                    if(this.user.new_coord_area === 'Primaria'){
                         axios.get(`getStudentsPrimary`).then(response => {
                             this.students = response.data;
                             
@@ -211,7 +211,7 @@
                                 });
                             });
                         });
-                    }else if(this.user.newCoordArea === 'Secundaria'){
+                    }else if(this.user.new_coord_area === 'Secundaria'){
                         axios.get(`getStudentsSecundary`).then(response => {
                             this.students = response.data;
                             
@@ -223,7 +223,7 @@
                                 });
                             });
                         });
-                    }else if(this.user.newCoordArea === 'General'){
+                    }else if(this.user.new_coord_area === 'General'){
                         axios.get(`getAllStudents`).then(response => {
                             this.students = response.data;
                             

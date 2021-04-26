@@ -1,81 +1,85 @@
 <template>
-    <div class="row">
-        <div class="col-md-11" v-if="type_u != 4 || type_u != 8">
-            <div v-if="type_u != 7" class="row justify-content-center">
+    <!-- Clase row de div de linea 3 retirada ya que se observaba el componente mas pequeño  -->
+    <div>
+        <div class="row">
+            <div class="col-md-11" v-if="type_u != 4 || type_u != 8">
+              <div v-if="type_u != 7" class="row justify-content-center">
                 <h4>Clases presenciales</h4>
-            </div>
-            <div class="row" v-for="(clas, k) in filterPendingEvents(clases)" v-bind:key="k">
+              </div>
+              <div class="row" v-for="(clas, k) in filterPendingEvents(clases)" v-bind:key="k">
                 <div class="col-12">
-                    <div class="card">
-                        <div class="class-event">
-                            <div class="class-event-info">{{ !clas.classroom ? "Lectiva " : "" }} {{ clas.area }} {{ clas.classroom ? clas.classroom : "" }}: {{ clas.name }}</div>
-                                <div class="class-event-date">
-                                    <div>
-                                        <small>Desde:</small>
-                                        <span>{{ clas.dateFrom | formatDate }}</span>
-                                    </div>
-                                    <div>
-                                        <small>Hasta:</small>
-                                        <span>{{ clas.dateTo | formatDate }}</span>
-                                    </div>
-                                </div>
-                                <div class="class-event-action">
-                                    <a class="btn btn-primary" html:type="_blank" :href="clas.hangout">Ir a clase</a>
-                                </div>
-                            </div>
-                        <div class="class-event-footer ">
-                            <div class="class-event-action">
-                                <button class="btn btn-primary" v-show="type_u == 2" v-on:click.prevent="editE(clas.id)">Editar</button>
-                                <a class="btn btn-primary mr-1" v-show="type_u == 2" href="/effectiveness">Efectividad</a>
-                                <button class="btn btn-danger" v-show="type_u == 2" v-on:click.prevent="viewDelete(clas.id, clas.name)">Eliminar</button>
-                            </div>
+                  <div class="card">
+                    <div class="class-event">
+                      <div class="class-event-info">{{ !clas.classroom ? "Lectiva " : "" }} {{ clas.area }} {{ clas.classroom ? clas.classroom : "" }}: {{ clas.name }}</div>
+                      <div class="class-event-date">
+                        <div>
+                          <small>Desde:</small>
+                          <span>{{ clas.dateFrom | formatDate }}</span>
                         </div>
+                        <div>
+                          <small>Hasta:</small>
+                          <span>{{ clas.dateTo | formatDate }}</span>
+                        </div>
+                      </div>
+                      <div class="class-event-action">
+                        <a class="btn btn-primary" html:type="_blank" :href="clas.hangout">Ir a clase</a>
+                        <a href="/assistance" class="btn btn-primary ml-1" v-show="type_u == 2">Asistencia</a>
+                      </div>
                     </div>
+                    <div class="class-event-footer ">
+                      <div class="class-event-action">
+                        <button class="btn btn-primary" v-show="type_u == 2" v-on:click.prevent="editE(clas.id)">Editar</button>
+                        <a class="btn btn-primary mr-1" v-show="type_u == 2" href="/effectiveness">Efectividad</a>
+                        <button class="btn btn-danger" v-show="type_u == 2" v-on:click.prevent="viewDelete(clas.id, clas.name)">Eliminar</button>
+                      </div>
+                    </div>
+                  </div>
                 </div>
             </div>
             <div v-if="type_u == 7">
-                    <!-- IS TUTOR -->
+                <!-- IS TUTOR -->
                 <div class="row justify-content-center">
-                    <h4>Tutorías programadas</h4>
+                  <h4>Tutorías programadas</h4>
                 </div>
                 <div class="row" v-for="(tutorial, k_tutorial) in tutorEvents" v-bind:key="k_tutorial">
-                    <div class="col-12">
-                        <div class="card">
-                            <div class="class-event">
-                                <div class="class-event-info">{{ tutorial.name }}</div>
-                                <div class="class-event-date">
-                                    <div>
-                                        <small>Desde:</small>
-                                        <span>{{ tutorial.date_from | formatDate }}</span>
-                                    </div>
-                                    <div>
-                                        <small>Hasta:</small>
-                                        <span>{{ tutorial.date_to | formatDate }}</span>
-                                    </div>
-                                </div>
-                                <div class="class-event-action">
-                                    <a class="btn btn-primary" v-if="tutorial.url" :type="'_blank'" :href="tutorial.url">Ir a clase</a>
-                                </div>
-                            </div>
-                            <div class="row padding-10">
-                                <div class="col-12">
-                                    <label>Temas a revisar:</label>
-                                </div>
-                                <div class="col-12">
-                                    <textarea class="form-control" rows="3" readonly="readonly" v-model="tutorial.observations"></textarea>
-                                </div>
-                            </div>
-                            <div class="row padding-10">
-                                <div class="col-8">
-                                    <input type="text" class="form-control" placeholder="Link de reunión" v-model="tutorial.url" />
-                                </div>
-                                <div class="col-4">
-                                    <button class="btn btn-primary" @click="UpdateLinkTutorial(tutorial)">Actualizar link</button>
-                                </div>
-                            </div>
+                  <div class="col-12">
+                    <div class="card">
+                      <div class="class-event">
+                        <div class="class-event-info">{{ tutorial.name }}</div>
+                        <div class="class-event-date">
+                          <div>
+                            <small>Desde:</small>
+                            <span>{{ tutorial.date_from | formatDate }}</span>
+                          </div>
+                          <div>
+                            <small>Hasta:</small>
+                            <span>{{ tutorial.date_to | formatDate }}</span>
+                          </div>
                         </div>
+                        <div class="class-event-action">
+                          <a class="btn btn-primary" v-if="tutorial.url" :type="'_blank'" :href="tutorial.url">Ir a clase</a>
+                        </div>
+                      </div>
+                      <div class="row padding-10">
+                        <div class="col-12">
+                          <label>Temas a revisar:</label>
+                        </div>
+                        <div class="col-12">
+                          <textarea class="form-control" rows="3" readonly="readonly" v-model="tutorial.observations"></textarea>
+                        </div>
+                      </div>
+                      <div class="row padding-10">
+                        <div class="col-8">
+                          <input type="text" class="form-control" placeholder="Link de reunión" v-model="tutorial.url" />
+                        </div>
+                        <div class="col-4">
+                          <button class="btn btn-primary" @click="UpdateLinkTutorial(tutorial)">Actualizar link</button>
+                        </div>
+                      </div>
                     </div>
+                  </div>
                 </div>
+              </div>
             </div>
         </div>
         <calendar-modal-edit-event 
@@ -114,7 +118,6 @@
             </div>
         </div>
     </div>
-    <!-- Hasta aqui seria un componente -->
 </template>
 
 <script>

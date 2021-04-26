@@ -5,9 +5,20 @@
         <div class="card text-center">
           <h3 class="card-header fondo">Planificación</h3>
           <div class="card-body">
+            <div class="input-group mb-3 mt-3">
+              <input type="text" class="form-control" placeholder="Buscar Planificación" v-model="search_filter">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">
+                  <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-search" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z"/>
+                    <path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z"/>
+                  </svg>
+                </span>
+              </div>
+            </div>
             <div class="accordion" id="accordionExample">
               <div class="card" v-for="(area,t) in areas" :key="t">
-                <div class="card-header">
+                <div v-if="search_filter =='' || filterPlanification(area.text)" class="card-header">
                   <h2 class="mb-0">
                     <button
                       class="btn btn-link"
@@ -70,6 +81,7 @@ export default {
       general: false,
       anual: [],
       areas: [],
+      search_filter:""
     };
   },
 
@@ -80,6 +92,9 @@ export default {
     });
   },
   methods: {
+    filterPlanification(class_name){
+      return class_name.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(this.search_filter.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, ""));
+    },
     botones(area, classroom) {
       var urlsl =
         window.location.origin +

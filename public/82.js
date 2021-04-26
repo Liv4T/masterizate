@@ -219,7 +219,7 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
           });
         });
       } else if (this.user.type_user === 8) {
-        if (this.user.newCoordArea === 'Primaria') {
+        if (this.user.new_coord_area === 'Primaria') {
           axios.get("getStudentsPrimary").then(function (response) {
             _this3.students = response.data;
 
@@ -231,7 +231,7 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
               });
             });
           });
-        } else if (this.user.newCoordArea === 'Secundaria') {
+        } else if (this.user.new_coord_area === 'Secundaria') {
           axios.get("getStudentsSecundary").then(function (response) {
             _this3.students = response.data;
 
@@ -243,7 +243,7 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
               });
             });
           });
-        } else if (this.user.newCoordArea === 'General') {
+        } else if (this.user.new_coord_area === 'General') {
           axios.get("getAllStudents").then(function (response) {
             _this3.students = response.data;
 

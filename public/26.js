@@ -419,7 +419,9 @@ var render = function() {
                       _vm._v("Grupo a Coordinar: ")
                     ]),
                     _vm._v(" "),
-                    _c("strong", [_vm._v(_vm._s(_vm.dataToShow.newCoordArea))])
+                    _c("strong", [
+                      _vm._v(_vm._s(_vm.dataToShow.new_coord_area))
+                    ])
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "form-group" }, [

@@ -330,7 +330,7 @@ __webpack_require__.r(__webpack_exports__);
       newName: "",
       newLastName: "",
       newPassword: "",
-      newCoordArea: "",
+      new_coord_area: "",
       newEmail: "",
       newUserName: "",
       newType_user: "",
@@ -359,7 +359,7 @@ __webpack_require__.r(__webpack_exports__);
         this.newName = newVal.name;
         this.newLastName = newVal.last_name;
         this.newUserName = newVal.user_name;
-        this.newCoordArea = newVal.newCoordArea;
+        this.new_coord_area = newVal.new_coord_area;
         this.newAddress = newVal.address;
         this.newPhone = newVal.phone;
         this.newId_number = newVal.id_number;
@@ -386,7 +386,7 @@ __webpack_require__.r(__webpack_exports__);
         address: this.newAddress,
         phone: this.newPhone,
         id_number: this.newId_number,
-        newCoordArea: this.newCoordArea
+        new_coord_area: this.new_coord_area
       }).then(function (response) {
         _this2.newName = "";
         _this2.newLastName = "";
@@ -395,7 +395,7 @@ __webpack_require__.r(__webpack_exports__);
         _this2.newAddress = "";
         _this2.newPhone = "";
         _this2.newId_number = "";
-        _this2.newCoordArea = "";
+        _this2.new_coord_area = "";
         _this2.errors = [];
         toastr.success("Nuevo usuario Actualizado"); // this.getNames();
 
@@ -805,20 +805,20 @@ var render = function() {
                                 {
                                   name: "model",
                                   rawName: "v-model",
-                                  value: _vm.newCoordArea,
-                                  expression: "newCoordArea"
+                                  value: _vm.new_coord_area,
+                                  expression: "new_coord_area"
                                 }
                               ],
                               staticClass: "form-control",
                               staticStyle: { background: "gainsboro" },
                               attrs: { type: "text", size: "30", required: "" },
-                              domProps: { value: _vm.newCoordArea },
+                              domProps: { value: _vm.new_coord_area },
                               on: {
                                 input: function($event) {
                                   if ($event.target.composing) {
                                     return
                                   }
-                                  _vm.newCoordArea = $event.target.value
+                                  _vm.new_coord_area = $event.target.value
                                 }
                               }
                             })

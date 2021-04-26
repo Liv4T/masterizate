@@ -59,15 +59,15 @@ export default {
     },
     methods:{
         getCourses(){
-            if(this.user.newCoordArea === "Primaria"){
+            if(this.user.new_coord_area === "Primaria"){
                 axios.get('showClassPrimary').then((response)=>{
                     this.groupData(response.data);
                 })
-            }else if(this.user.newCoordArea === "Secundaria"){
+            }else if(this.user.new_coord_area === "Secundaria"){
                 axios.get('showClassSecundary').then((response)=>{
                     this.groupData(response.data);
                 })
-            }else if(this.user.newCoordArea === "General"){
+            }else if(this.user.new_coord_area === "General"){
                 axios.get('showAllClass').then((response)=>{
                     this.groupData(response.data);
                 })

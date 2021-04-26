@@ -76,6 +76,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 $(".collapse").on("show.bs.collapse", function () {
   $(".collapse.in").collapse("hide");
 });
@@ -87,6 +98,7 @@ $(".collapse").on("show.bs.collapse", function () {
       general: false,
       anual: [],
       areas: [],
+      search_filter: "",
       id_area: "",
       id_classroom: ""
     };
@@ -100,6 +112,9 @@ $(".collapse").on("show.bs.collapse", function () {
     });
   },
   methods: {
+    filterPlanDoc: function filterPlanDoc(class_name) {
+      return class_name.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(this.search_filter.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, ""));
+    },
     botones: function botones(area, classroom) {
       var _this2 = this;
 
@@ -202,35 +217,103 @@ var render = function() {
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "card-body" }, [
+            _c("div", { staticClass: "input-group mb-3 mt-3" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.search_filter,
+                    expression: "search_filter"
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: { type: "text", placeholder: "Buscar Planificación" },
+                domProps: { value: _vm.search_filter },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.search_filter = $event.target.value
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c("div", { staticClass: "input-group-prepend" }, [
+                _c(
+                  "span",
+                  {
+                    staticClass: "input-group-text",
+                    attrs: { id: "basic-addon1" }
+                  },
+                  [
+                    _c(
+                      "svg",
+                      {
+                        staticClass: "bi bi-search",
+                        attrs: {
+                          width: "1em",
+                          height: "1em",
+                          viewBox: "0 0 16 16",
+                          fill: "currentColor",
+                          xmlns: "http://www.w3.org/2000/svg"
+                        }
+                      },
+                      [
+                        _c("path", {
+                          attrs: {
+                            "fill-rule": "evenodd",
+                            d:
+                              "M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z"
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("path", {
+                          attrs: {
+                            "fill-rule": "evenodd",
+                            d:
+                              "M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z"
+                          }
+                        })
+                      ]
+                    )
+                  ]
+                )
+              ])
+            ]),
+            _vm._v(" "),
             _c(
               "div",
               { staticClass: "accordion", attrs: { id: "accordionExample" } },
               _vm._l(_vm.areas, function(area, t) {
                 return _c("div", { key: t, staticClass: "card" }, [
-                  _c("div", { staticClass: "card-header" }, [
-                    _c("h2", { staticClass: "mb-0" }, [
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-link",
-                          attrs: {
-                            type: "button",
-                            "data-toggle": "collapse",
-                            "data-target": "#collapse" + t,
-                            "aria-expanded": "false",
-                            "aria-controls": "collapse"
-                          },
-                          on: {
-                            click: function($event) {
-                              $event.preventDefault()
-                              return _vm.botones(area.id, area.id_classroom)
-                            }
-                          }
-                        },
-                        [_c("label", [_vm._v(_vm._s(area.text))])]
-                      )
-                    ])
-                  ]),
+                  _vm.search_filter == "" || _vm.filterPlanDoc(area.text)
+                    ? _c("div", { staticClass: "card-header" }, [
+                        _c("h2", { staticClass: "mb-0" }, [
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-link",
+                              attrs: {
+                                type: "button",
+                                "data-toggle": "collapse",
+                                "data-target": "#collapse" + t,
+                                "aria-expanded": "false",
+                                "aria-controls": "collapse"
+                              },
+                              on: {
+                                click: function($event) {
+                                  $event.preventDefault()
+                                  return _vm.botones(area.id, area.id_classroom)
+                                }
+                              }
+                            },
+                            [_c("label", [_vm._v(_vm._s(area.text))])]
+                          )
+                        ])
+                      ])
+                    : _vm._e(),
                   _vm._v(" "),
                   _c(
                     "div",
