@@ -89,7 +89,7 @@
 
                         <div class="form-group">
                             <label for="name">Grupo a Coordinar: </label>
-                            <strong>{{dataToShow.newCoordArea}}</strong>
+                            <strong>{{dataToShow.new_coord_area}}</strong>
                         </div>
 
                         <div class="form-group">

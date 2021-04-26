@@ -59,15 +59,15 @@ export default {
     },
     methods:{
         getMaterias(){
-            if(this.user.newCoordArea === "Primaria"){
+            if(this.user.new_coord_area === "Primaria"){
                 axios.get('showPrimaryStudents').then((response)=>{
                     this.groupData(response.data);
                 })
-            }else if(this.user.newCoordArea === "Secundaria"){
+            }else if(this.user.new_coord_area === "Secundaria"){
                 axios.get('showSecundaryStudents').then((response)=>{
                     this.groupData(response.data);
                 })
-            }else if(this.user.newCoordArea === "General"){
+            }else if(this.user.new_coord_area === "General"){
                 axios.get('showStudentsGrade').then((response)=>{
                     this.groupData(response.data);
                 })

@@ -121,7 +121,7 @@
                                                 <input
                                                     type="text"
                                                     class="form-control"
-                                                    v-model="newCoordArea"
+                                                    v-model="new_coord_area"
                                                     size="30"
                                                     style="background: gainsboro;"
                                                     required
@@ -320,7 +320,7 @@ export default {
             newName: "",
             newLastName: "",
             newPassword: "",
-            newCoordArea: "",
+            new_coord_area: "",
             newEmail: "",
             newUserName: "",
             newType_user: "",
@@ -349,7 +349,7 @@ export default {
                 this.newName = newVal.name;
                 this.newLastName = newVal.last_name;
                 this.newUserName = newVal.user_name;
-                this.newCoordArea = newVal.newCoordArea;
+                this.new_coord_area = newVal.new_coord_area;
                 this.newAddress = newVal.address;
                 this.newPhone = newVal.phone;
                 this.newId_number = newVal.id_number;
@@ -377,7 +377,7 @@ export default {
                     address: this.newAddress,
                     phone: this.newPhone,
                     id_number: this.newId_number,
-                    newCoordArea: this.newCoordArea
+                    new_coord_area: this.new_coord_area
                 })
                 .then(response => {
                     this.newName = "";
@@ -387,7 +387,7 @@ export default {
                     this.newAddress = "";
                     this.newPhone = "";
                     this.newId_number = "";
-                    this.newCoordArea ="";
+                    this.new_coord_area ="";
                     this.errors = [];
                     toastr.success("Nuevo usuario Actualizado");
                     // this.getNames();

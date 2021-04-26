@@ -73,15 +73,15 @@ __webpack_require__.r(__webpack_exports__);
     getCourses: function getCourses() {
       var _this = this;
 
-      if (this.user.newCoordArea === "Primaria") {
+      if (this.user.new_coord_area === "Primaria") {
         axios.get('showClassPrimary').then(function (response) {
           _this.groupData(response.data);
         });
-      } else if (this.user.newCoordArea === "Secundaria") {
+      } else if (this.user.new_coord_area === "Secundaria") {
         axios.get('showClassSecundary').then(function (response) {
           _this.groupData(response.data);
         });
-      } else if (this.user.newCoordArea === "General") {
+      } else if (this.user.new_coord_area === "General") {
         axios.get('showAllClass').then(function (response) {
           _this.groupData(response.data);
         });

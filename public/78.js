@@ -73,15 +73,15 @@ __webpack_require__.r(__webpack_exports__);
     getMaterias: function getMaterias() {
       var _this = this;
 
-      if (this.user.newCoordArea === "Primaria") {
+      if (this.user.new_coord_area === "Primaria") {
         axios.get('showPrimaryStudents').then(function (response) {
           _this.groupData(response.data);
         });
-      } else if (this.user.newCoordArea === "Secundaria") {
+      } else if (this.user.new_coord_area === "Secundaria") {
         axios.get('showSecundaryStudents').then(function (response) {
           _this.groupData(response.data);
         });
-      } else if (this.user.newCoordArea === "General") {
+      } else if (this.user.new_coord_area === "General") {
         axios.get('showStudentsGrade').then(function (response) {
           _this.groupData(response.data);
         });

@@ -27,19 +27,19 @@ class UtilsController extends Controller
     public function getGrades(){
         $user = Auth::user();
 
-        if($user->newCoordArea === 'Primaria'){
+        if($user->new_coord_area === 'Primaria'){
             $primary = DB::table("classroom")
                 ->select('classroom.id_grade as id_grade','classroom.name as grade')
                 ->where('classroom.id_grade','<=',6)
                 ->get();
             return response()->json($primary);
-        }else if($user->newCoordArea === 'Secundaria'){
+        }else if($user->new_coord_area === 'Secundaria'){
             $secundary = DB::table("classroom")
                 ->select('classroom.id_grade as id_grade','classroom.name as grade')
                 ->where('classroom.id_grade','>=',7)
                 ->get();
             return response()->json($secundary);
-        }else if($user->newCoordArea === 'General'){
+        }else if($user->new_coord_area === 'General'){
             $general = DB::table("classroom")
                 ->select('classroom.id_grade as id_grade','classroom.name as grade')
                 ->get();

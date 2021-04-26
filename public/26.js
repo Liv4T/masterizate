@@ -445,7 +445,7 @@ __webpack_require__.r(__webpack_exports__);
       newLastName: "",
       newPassword: "",
       newEmail: "",
-      newCoordArea: "",
+      new_coord_area: "",
       newUserName: "",
       newType_user: "",
       newAddress: "",
@@ -499,7 +499,7 @@ __webpack_require__.r(__webpack_exports__);
         picture: this.newPicture,
         phone: this.newPhone,
         id_number: this.newId_number,
-        newCoordArea: this.newCoordArea
+        new_coord_area: this.new_coord_area
       }).then(function (response) {
         _this3.newName = "";
         _this3.newLastName = "";
@@ -511,7 +511,7 @@ __webpack_require__.r(__webpack_exports__);
         _this3.newPicture = "";
         _this3.newPhone = "";
         _this3.newId_number = "";
-        _this3.newCoordArea = "";
+        _this3.new_coord_area = "";
         _this3.errors = [];
         toastr.success("Nuevo usuario creado"); //this.getNames();
 
@@ -963,8 +963,8 @@ var render = function() {
                                   {
                                     name: "model",
                                     rawName: "v-model",
-                                    value: _vm.newCoordArea,
-                                    expression: "newCoordArea"
+                                    value: _vm.new_coord_area,
+                                    expression: "new_coord_area"
                                   }
                                 ],
                                 staticClass: "form-control",
@@ -981,7 +981,7 @@ var render = function() {
                                           "_value" in o ? o._value : o.value
                                         return val
                                       })
-                                    _vm.newCoordArea = $event.target.multiple
+                                    _vm.new_coord_area = $event.target.multiple
                                       ? $$selectedVal
                                       : $$selectedVal[0]
                                   }

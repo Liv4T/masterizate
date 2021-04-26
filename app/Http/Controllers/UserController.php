@@ -94,7 +94,7 @@ class UserController extends Controller
         $user->address = isset($data['address']) ? $data['address'] : "";
         $user->type_user = isset($data['type_user']) ? $data['type_user'] : "";
         $user->picture = isset($data['user_name']) ? $url . "/uploads/images/" . $data['user_name'] . ".png" : "";
-        $user->newCoordArea = isset($data['newCoordArea']) ? $data['newCoordArea'] : "";
+        $user->new_coord_area = isset($data['new_coord_area']) ? $data['new_coord_area'] : "";
         $user->save();
 
         /* Send email register */

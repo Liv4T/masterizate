@@ -159,7 +159,7 @@
                                                 />Grupo a Coordinar
                                             </label>
                                             <div>
-                                                <select class="form-control" v-model="newCoordArea" style="background: gainsboro;" required>
+                                                <select class="form-control" v-model="new_coord_area" style="background: gainsboro;" required>
                                                     <option value="Primaria">
                                                         Coordinador de Primaria    
                                                     </option>
@@ -435,7 +435,7 @@ export default {
             newLastName: "",
             newPassword: "",
             newEmail: "",
-            newCoordArea:"",
+            new_coord_area:"",
             newUserName: "",
             newType_user: "",
             newAddress: "",
@@ -489,7 +489,7 @@ export default {
                     picture: this.newPicture,
                     phone: this.newPhone,
                     id_number: this.newId_number,
-                    newCoordArea: this.newCoordArea
+                    new_coord_area: this.new_coord_area
                 })
                 .then(response => {
                     this.newName = "";
@@ -502,7 +502,7 @@ export default {
                     this.newPicture = "";
                     this.newPhone = "";
                     this.newId_number = "";
-                    this.newCoordArea = "";
+                    this.new_coord_area = "";
                     this.errors = [];
                     toastr.success("Nuevo usuario creado");
                     //this.getNames();
