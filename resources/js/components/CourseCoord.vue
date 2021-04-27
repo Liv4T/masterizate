@@ -20,6 +20,7 @@
                         </div>
                     </div>
                     <div id="accordion">
+                        <!-- Acordeon para mostrar las materias por grado -->
                         <div class="card" v-for="(courses, grade) in courses" :key="grade">
                             <div v-if="search_filter =='' || filterPlanification(grade)" class="card-header" :id="`${grade}`">
                                 <h5 class="mb-0">
@@ -31,22 +32,41 @@
 
                             <div :id="`heading${grade}`" class="collapse hide" :aria-labelledby="`${grade}`" data-parent="#accordion">
                                 <div class="card-body">
-                                    <table class="table table-striped table-hover">
-                                        <thead>
-                                            <tr>
-                                                <th>Materia</th>
-                                                <th>Ciclo</th>
-                                                <th>Clase</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody v-for="(course, key) in courses" :key="key">
-                                            <tr v-if="course.materia = 'Español'">
-                                                <td>{{course.materia}}</td>
-                                                <td>{{course.ciclo}}</td>
-                                                <td>{{course.class}}</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                                    <!-- Acordeon para mostrar los ciclos por materias -->
+                                    <div id="accordion1" v-for="(mat, llave) in materias" :key="llave">
+                                        <div v-for="(mate, key) in mat" :key="key">
+                                            <div v-show="grade === mate[0].grade" class="card">
+                            
+                                                <div class="card-header" :id="`headingOne${key}`">
+                                                    <h5 class="mb-0">
+                                                        <button class="btn btn-link" data-toggle="collapse" :data-target="`#collapseOne${key.replace(/\s+/g, '')}`" aria-expanded="true" :aria-controls="`collapseOne${key.replace(/\s+/g, '')}`">
+                                                            {{key}}
+                                                        </button>
+                                                    </h5>
+                                                </div>
+
+                                                <div :id="`collapseOne${key.replace(/\s+/g, '')}`" class="collapse show" :aria-labelledby="`headingOne${key}`" data-parent="#accordion1">
+                                                    <div class="card-body">
+                                                        <table>
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Ciclo</th>
+                                                                    <th>Clase</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody v-for="(mater, id) in mate" :key="id">
+                                                                <tr>
+                                                                    <td>{{mater.ciclo}}</td>
+                                                                    <td>{{mater.class}}</td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>                                                        
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                
                                 </div>
                             </div>
                         </div>
@@ -64,17 +84,11 @@ export default {
         return{
             courses:[],
             search_filter:"",
-            materias:[]
+            materias:[],
         }
     },
     mounted(){
         this.getCourses();
-    },
-    watch: {
-      courses: (value) => {
-          const data = value;
-          console.log(data);
-      },
     },
     methods:{
         filterPlanification(class_name){
@@ -97,7 +111,13 @@ export default {
         },
 
         groupData(data){
+            let materiasClean = []
             const result = _.chain(data).groupBy("grade").value();
+            Object.keys(result).map(function(key, index) {
+                let data = _.chain(result[key]).groupBy("materia").value();
+                materiasClean.push(data);
+            });
+            this.materias = materiasClean;
             this.courses = result
         }
     }

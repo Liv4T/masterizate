@@ -69,6 +69,26 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["user"],
@@ -81,12 +101,6 @@ __webpack_require__.r(__webpack_exports__);
   },
   mounted: function mounted() {
     this.getCourses();
-  },
-  watch: {
-    courses: function courses(value) {
-      var data = value;
-      console.log(data);
-    }
   },
   methods: {
     filterPlanification: function filterPlanification(class_name) {
@@ -110,8 +124,16 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     groupData: function groupData(data) {
+      var materiasClean = [];
+
       var result = lodash__WEBPACK_IMPORTED_MODULE_0___default.a.chain(data).groupBy("grade").value();
 
+      Object.keys(result).map(function (key, index) {
+        var data = lodash__WEBPACK_IMPORTED_MODULE_0___default.a.chain(result[key]).groupBy("materia").value();
+
+        materiasClean.push(data);
+      });
+      this.materias = materiasClean;
       this.courses = result;
     }
   }
@@ -252,30 +274,111 @@ var render = function() {
                     }
                   },
                   [
-                    _c("div", { staticClass: "card-body" }, [
-                      _c(
-                        "table",
-                        { staticClass: "table table-striped table-hover" },
-                        [
-                          _vm._m(1, true),
-                          _vm._v(" "),
-                          _vm._l(courses, function(course, key) {
-                            return _c("tbody", { key: key }, [
-                              (course.materia = "Español")
-                                ? _c("tr", [
-                                    _c("td", [_vm._v(_vm._s(course.materia))]),
-                                    _vm._v(" "),
-                                    _c("td", [_vm._v(_vm._s(course.ciclo))]),
-                                    _vm._v(" "),
-                                    _c("td", [_vm._v(_vm._s(course.class))])
-                                  ])
-                                : _vm._e()
+                    _c(
+                      "div",
+                      { staticClass: "card-body" },
+                      _vm._l(_vm.materias, function(mat, llave) {
+                        return _c(
+                          "div",
+                          { key: llave, attrs: { id: "accordion1" } },
+                          _vm._l(mat, function(mate, key) {
+                            return _c("div", { key: key }, [
+                              _c(
+                                "div",
+                                {
+                                  directives: [
+                                    {
+                                      name: "show",
+                                      rawName: "v-show",
+                                      value: grade === mate[0].grade,
+                                      expression: "grade === mate[0].grade"
+                                    }
+                                  ],
+                                  staticClass: "card"
+                                },
+                                [
+                                  _c(
+                                    "div",
+                                    {
+                                      staticClass: "card-header",
+                                      attrs: { id: "headingOne" + key }
+                                    },
+                                    [
+                                      _c("h5", { staticClass: "mb-0" }, [
+                                        _c(
+                                          "button",
+                                          {
+                                            staticClass: "btn btn-link",
+                                            attrs: {
+                                              "data-toggle": "collapse",
+                                              "data-target":
+                                                "#collapseOne" +
+                                                key.replace(/\s+/g, ""),
+                                              "aria-expanded": "true",
+                                              "aria-controls":
+                                                "collapseOne" +
+                                                key.replace(/\s+/g, "")
+                                            }
+                                          },
+                                          [
+                                            _vm._v(
+                                              "\n                                                        " +
+                                                _vm._s(key) +
+                                                "\n                                                    "
+                                            )
+                                          ]
+                                        )
+                                      ])
+                                    ]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "div",
+                                    {
+                                      staticClass: "collapse show",
+                                      attrs: {
+                                        id:
+                                          "collapseOne" +
+                                          key.replace(/\s+/g, ""),
+                                        "aria-labelledby": "headingOne" + key,
+                                        "data-parent": "#accordion1"
+                                      }
+                                    },
+                                    [
+                                      _c("div", { staticClass: "card-body" }, [
+                                        _c(
+                                          "table",
+                                          [
+                                            _vm._m(1, true),
+                                            _vm._v(" "),
+                                            _vm._l(mate, function(mater, id) {
+                                              return _c("tbody", { key: id }, [
+                                                _c("tr", [
+                                                  _c("td", [
+                                                    _vm._v(_vm._s(mater.ciclo))
+                                                  ]),
+                                                  _vm._v(" "),
+                                                  _c("td", [
+                                                    _vm._v(_vm._s(mater.class))
+                                                  ])
+                                                ])
+                                              ])
+                                            })
+                                          ],
+                                          2
+                                        )
+                                      ])
+                                    ]
+                                  )
+                                ]
+                              )
                             ])
-                          })
-                        ],
-                        2
-                      )
-                    ])
+                          }),
+                          0
+                        )
+                      }),
+                      0
+                    )
                   ]
                 )
               ])
@@ -304,8 +407,6 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
-        _c("th", [_vm._v("Materia")]),
-        _vm._v(" "),
         _c("th", [_vm._v("Ciclo")]),
         _vm._v(" "),
         _c("th", [_vm._v("Clase")])
