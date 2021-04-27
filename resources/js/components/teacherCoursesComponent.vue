@@ -169,9 +169,9 @@ export default {
                     for(let i =0; i < permissions.length; i++){
                         for(let a = 0; a < clases.length; a++){
                             if(permissions[i] && permissions[i].id_cicle === clases[a].id){
-                                if(permissions[i].date_to_activate_btn >= moment(new Date()).format('YYYY-MM-DD')){
+                                if(permissions[i].date_to_deactivate_btn >= moment(new Date()).format('YYYY-MM-DD')){                                    
                                     clases[a].activateButton = true
-                                }else if(moment(new Date()).format('YYYY-MM-DD') <= permissions[i].date_to_deactivate_btn){
+                                }else if(moment(new Date()).format('YYYY-MM-DD') >= permissions[i].date_to_activate_btn){
                                     clases[a].activateButton = false
                                 }
                             }
