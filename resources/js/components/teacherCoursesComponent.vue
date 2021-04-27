@@ -70,6 +70,7 @@
                             :href="'/docente/modulo/'+clas.id"
                           >Ir a Ciclo</a>
                           <button v-if="clas.activateButton" v-on:click="ClassAndCicle(clas.id)" class="btn btn-primary">Eliminar</button>
+                          <button v-if="!clas.activateButton" class="btn btn-primary">Solicitar Permiso para Eliminar</button>
                         </td>
 
                       </tr>

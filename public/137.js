@@ -137,6 +137,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 moment__WEBPACK_IMPORTED_MODULE_0___default.a.tz.setDefault("America/Bogota");
 moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale('es');
@@ -511,6 +512,21 @@ var render = function() {
                                                     }
                                                   },
                                                   [_vm._v("Eliminar")]
+                                                )
+                                              : _vm._e(),
+                                            _vm._v(" "),
+                                            !clas.activateButton
+                                              ? _c(
+                                                  "button",
+                                                  {
+                                                    staticClass:
+                                                      "btn btn-primary"
+                                                  },
+                                                  [
+                                                    _vm._v(
+                                                      "Solicitar Permiso para Eliminar"
+                                                    )
+                                                  ]
                                                 )
                                               : _vm._e()
                                           ])
