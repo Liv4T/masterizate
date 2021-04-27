@@ -8,6 +8,35 @@
                 <div>
                     <button class="btn btn-primary mb-3" data-toggle="modal" data-target="#createRegister">Crear Registro</button>
                 </div>
+
+                <div v-if="urgentPermissons.length > 0" class="card">
+                    <div>
+                        <div class="card-header fondo text-center mb-3">
+                            <h4>Permisos Solicitados</h4>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-responsive-xl table-hover table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Ciclos</th>
+                                    <th>Materia - Salon</th>
+                                    <th>Acción</th>
+                                </tr>
+                            </thead>
+                            <tbody v-for="(data, key) in urgentPermissons" :key="key">
+                                <tr>
+                                    <td>{{data.cicle}}</td>
+                                    <td>{{data.course}}</td>
+                                    <td>
+                                        <button class="btn btn-primary" v-on:click="createUrgentPermission(data)">Crear</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
                 <div class="card">
                     <div class="card-body">
                         <table class="table table-responsive-xl table-hover table-striped">
@@ -113,6 +142,7 @@
                 date_end:'',
                 is_updated: false,
                 id_to_update:'',
+                urgentPermissons:[]
             }
         },
         mounted() {
@@ -128,6 +158,10 @@
                     this.dataToIterate= response.data;
                 }).catch((error)=>{
                     console.log(error);
+                })
+
+                axios.get('requestPermission').then((response)=>{
+                    this.urgentPermissons = response.data;
                 })
             },
             getArea(){
@@ -183,7 +217,7 @@
                 if(this.is_updated === false){
                     if(this.saveCicle.length > 0){
                         this.saveCicle.forEach(cicle => {
-                            axios.post('activeElimination',{
+                            axios.post('deleteClassAndCicles',{
                                 id_cicle: cicle.id,
                                 date_to_activate_btn:this.date,
                                 date_to_deactivate_btn:this.date_end,
@@ -205,7 +239,7 @@
                 }else{
                     if(this.saveCicle.length > 0){
                         this.saveCicle.forEach(cicle => {
-                            axios.put(`activeElimination/${this.id_to_update}`,{
+                            axios.put(`deleteClassAndCicles/${this.id_to_update}`,{
                                 id_cicle: cicle.id,
                                 date_to_activate_btn:this.date,
                                 date_to_deactivate_btn:this.date_end,
@@ -235,17 +269,29 @@
                 this.date_end = data.date_to_deactivate_btn
                 this.saveClass.push({
                     id: data.area_selected+data.class_selected,
-                    id_area: data.area_selected,
-                    id_classroom: data.class_selected,
-                    text: data.text,
+                    id_area: data.area_selected ? data.area_selected : data.id_area,
+                    id_classroom: data.class_selected ? data.class_selected : data.id_classroom,
+                    text: data.text ? data.text : data.cicle,
                 })
                 this.id_to_update = data.id;
                 this.getCicles(data.id_cicle);
                     
                 $('#createRegister').modal('show');
             },
+            createUrgentPermission(data){
+                console.log(data)
+                this.is_updated = false;
+                this.saveClass.push({
+                    id: data.id_area+data.id_classroom,
+                    id_area: data.id_area,
+                    id_classroom: data.id_classroom,
+                    text: data.course,
+                })
+                this.getCicles(data.id_cicle);
+                $('#createRegister').modal('show');
+            },
             dropData(id){
-                axios.delete(`activeElimination/${id}`).then((response)=>{
+                axios.delete(`deleteClassAndCicles/${id}`).then((response)=>{
                     toastr.info(response.data);
                     this.getPermissions();
                 }).catch((error)=>{

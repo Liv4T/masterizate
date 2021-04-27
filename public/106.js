@@ -111,6 +111,35 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___default.a);
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -124,7 +153,8 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
       date: '',
       date_end: '',
       is_updated: false,
-      id_to_update: ''
+      id_to_update: '',
+      urgentPermissons: []
     };
   },
   mounted: function mounted() {
@@ -142,6 +172,9 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
         _this.dataToIterate = response.data;
       })["catch"](function (error) {
         console.log(error);
+      });
+      axios.get('requestPermission').then(function (response) {
+        _this.urgentPermissons = response.data;
       });
     },
     getArea: function getArea() {
@@ -206,7 +239,7 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
       if (this.is_updated === false) {
         if (this.saveCicle.length > 0) {
           this.saveCicle.forEach(function (cicle) {
-            axios.post('activeElimination', {
+            axios.post('deleteClassAndCicles', {
               id_cicle: cicle.id,
               date_to_activate_btn: _this4.date,
               date_to_deactivate_btn: _this4.date_end,
@@ -227,7 +260,7 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
       } else {
         if (this.saveCicle.length > 0) {
           this.saveCicle.forEach(function (cicle) {
-            axios.put("activeElimination/".concat(_this4.id_to_update), {
+            axios.put("deleteClassAndCicles/".concat(_this4.id_to_update), {
               id_cicle: cicle.id,
               date_to_activate_btn: _this4.date,
               date_to_deactivate_btn: _this4.date_end,
@@ -255,18 +288,30 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
       this.date_end = data.date_to_deactivate_btn;
       this.saveClass.push({
         id: data.area_selected + data.class_selected,
-        id_area: data.area_selected,
-        id_classroom: data.class_selected,
-        text: data.text
+        id_area: data.area_selected ? data.area_selected : data.id_area,
+        id_classroom: data.class_selected ? data.class_selected : data.id_classroom,
+        text: data.text ? data.text : data.cicle
       });
       this.id_to_update = data.id;
+      this.getCicles(data.id_cicle);
+      $('#createRegister').modal('show');
+    },
+    createUrgentPermission: function createUrgentPermission(data) {
+      console.log(data);
+      this.is_updated = false;
+      this.saveClass.push({
+        id: data.id_area + data.id_classroom,
+        id_area: data.id_area,
+        id_classroom: data.id_classroom,
+        text: data.course
+      });
       this.getCicles(data.id_cicle);
       $('#createRegister').modal('show');
     },
     dropData: function dropData(id) {
       var _this5 = this;
 
-      axios["delete"]("activeElimination/".concat(id)).then(function (response) {
+      axios["delete"]("deleteClassAndCicles/".concat(id)).then(function (response) {
         toastr.info(response.data);
 
         _this5.getPermissions();
@@ -307,6 +352,51 @@ var render = function() {
           _vm._v(" "),
           _vm._m(1),
           _vm._v(" "),
+          _vm.urgentPermissons.length > 0
+            ? _c("div", { staticClass: "card" }, [
+                _vm._m(2),
+                _vm._v(" "),
+                _c("div", { staticClass: "card-body" }, [
+                  _c(
+                    "table",
+                    {
+                      staticClass:
+                        "table table-responsive-xl table-hover table-striped"
+                    },
+                    [
+                      _vm._m(3),
+                      _vm._v(" "),
+                      _vm._l(_vm.urgentPermissons, function(data, key) {
+                        return _c("tbody", { key: key }, [
+                          _c("tr", [
+                            _c("td", [_vm._v(_vm._s(data.cicle))]),
+                            _vm._v(" "),
+                            _c("td", [_vm._v(_vm._s(data.course))]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _c(
+                                "button",
+                                {
+                                  staticClass: "btn btn-primary",
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.createUrgentPermission(data)
+                                    }
+                                  }
+                                },
+                                [_vm._v("Crear")]
+                              )
+                            ])
+                          ])
+                        ])
+                      })
+                    ],
+                    2
+                  )
+                ])
+              ])
+            : _vm._e(),
+          _vm._v(" "),
           _c("div", { staticClass: "card" }, [
             _c("div", { staticClass: "card-body" }, [
               _c(
@@ -316,7 +406,7 @@ var render = function() {
                     "table table-responsive-xl table-hover table-striped"
                 },
                 [
-                  _vm._m(2),
+                  _vm._m(4),
                   _vm._v(" "),
                   _vm._l(_vm.dataToIterate, function(data, key) {
                     return _c("tbody", { key: key }, [
@@ -384,7 +474,7 @@ var render = function() {
           { staticClass: "modal-dialog", attrs: { role: "document" } },
           [
             _c("div", { staticClass: "modal-content" }, [
-              _vm._m(3),
+              _vm._m(5),
               _vm._v(" "),
               _c("div", { staticClass: "modal-body" }, [
                 _c(
@@ -626,6 +716,30 @@ var staticRenderFns = [
         },
         [_vm._v("Crear Registro")]
       )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", [
+      _c("div", { staticClass: "card-header fondo text-center mb-3" }, [
+        _c("h4", [_vm._v("Permisos Solicitados")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("Ciclos")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Materia - Salon")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Acción")])
+      ])
     ])
   },
   function() {

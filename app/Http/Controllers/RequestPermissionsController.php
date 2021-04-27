@@ -31,6 +31,7 @@ class RequestPermissionsController extends Controller
         $newPermission->id_cicle = $request->id_cicle;
         $newPermission->id_area = $request->id_area;
         $newPermission->id_classroom = $request->id_classroom;
+        $newPermission->course = $request->course;
         $newPermission->save();
 
         return response()->json('Solicitud de Permiso Creada');
@@ -72,6 +73,7 @@ class RequestPermissionsController extends Controller
         $newPermission->id_cicle = $request->id_cicle;
         $newPermission->id_area = $request->id_area;
         $newPermission->id_classroom = $request->id_classroom;
+        $newPermission->course = $request->course;
         $newPermission->update();
         
         return response()->json('Solicitud de Permiso Actualizada');

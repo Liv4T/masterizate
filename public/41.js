@@ -721,7 +721,7 @@ var staticRenderFns = [
               _vm._v(" "),
               _c(
                 "a",
-                { attrs: { width: "30px", href: "/activeElimination" } },
+                { attrs: { width: "30px", href: "/deleteClassAndCicles" } },
                 [
                   _c("img", {
                     attrs: {

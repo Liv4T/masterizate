@@ -184,7 +184,7 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale('es');
           for (var i = 0; i < permissions.length; i++) {
             for (var a = 0; a < clases.length; a++) {
               if (permissions[i] && permissions[i].id_cicle === clases[a].id) {
-                if (permissions[i].date_to_deactivate_btn >= moment__WEBPACK_IMPORTED_MODULE_0___default()(new Date()).format('YYYY-MM-DD')) {
+                if (permissions[i].date_to_activate_btn <= moment__WEBPACK_IMPORTED_MODULE_0___default()(new Date()).format('YYYY-MM-DD')) {
                   clases[a].activateButton = true;
                 } else if (moment__WEBPACK_IMPORTED_MODULE_0___default()(new Date()).format('YYYY-MM-DD') >= permissions[i].date_to_activate_btn) {
                   clases[a].activateButton = false;
@@ -231,12 +231,20 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale('es');
         window.location = "/docente/clases";
       });
     },
-    RequestPermissions: function RequestPermissions(data) {
+    RequestPermissions: function RequestPermissions(data, curso) {
+      console.log({
+        cicle: data.text,
+        id_area: data.id_area,
+        id_classroom: data.id_classroom,
+        id_cicle: data.id,
+        course: curso
+      });
       axios.post('/requestPermission', {
         cicle: data.text,
         id_area: data.id_area,
         id_classroom: data.id_classroom,
-        id_cicle: data.id
+        id_cicle: data.id,
+        course: curso
       }).then(function (response) {
         toastr.success(response.data);
       })["catch"](function (error) {
@@ -537,7 +545,8 @@ var render = function() {
                                                     on: {
                                                       click: function($event) {
                                                         return _vm.RequestPermissions(
-                                                          clas
+                                                          clas,
+                                                          area.text
                                                         )
                                                       }
                                                     }

@@ -16,6 +16,7 @@ class CreateRequestPermissionsTable extends Migration
         Schema::create('request_permissions', function (Blueprint $table) {
             $table->increments('id');
             $table->string('cicle')->unique();
+            $table->string('course')->unique();
             $table->integer('id_cicle');
             $table->integer('id_area');
             $table->integer('id_classroom');

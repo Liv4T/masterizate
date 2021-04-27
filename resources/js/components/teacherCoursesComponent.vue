@@ -70,7 +70,7 @@
                             :href="'/docente/modulo/'+clas.id"
                           >Ir a Ciclo</a>
                           <button v-if="clas.activateButton" v-on:click="ClassAndCicle(clas.id)" class="btn btn-primary">Eliminar</button>
-                          <button v-if="!clas.activateButton" v-on:click="RequestPermissions(clas)" class="btn btn-primary">Solicitar Permiso para Eliminar</button>
+                          <button v-if="!clas.activateButton" v-on:click="RequestPermissions(clas, area.text)" class="btn btn-primary">Solicitar Permiso para Eliminar</button>
                         </td>
 
                       </tr>
@@ -170,7 +170,7 @@ export default {
                     for(let i =0; i < permissions.length; i++){
                         for(let a = 0; a < clases.length; a++){
                             if(permissions[i] && permissions[i].id_cicle === clases[a].id){
-                                if(permissions[i].date_to_deactivate_btn >= moment(new Date()).format('YYYY-MM-DD')){                                    
+                                if(permissions[i].date_to_activate_btn <= moment(new Date()).format('YYYY-MM-DD')){                                    
                                     clases[a].activateButton = true
                                 }else if(moment(new Date()).format('YYYY-MM-DD') >= permissions[i].date_to_activate_btn){
                                     clases[a].activateButton = false
@@ -214,12 +214,18 @@ export default {
                 window.location = "/docente/clases";
             });
         },
-        RequestPermissions(data){
+        RequestPermissions(data, curso){
+            console.log({cicle: data.text,
+                id_area: data.id_area,
+                id_classroom: data.id_classroom,
+                id_cicle: data.id,
+                course: curso})
             axios.post('/requestPermission',{
                 cicle: data.text,
                 id_area: data.id_area,
                 id_classroom: data.id_classroom,
-                id_cicle: data.id
+                id_cicle: data.id,
+                course: curso
             }).then((response)=>{
                 toastr.success(response.data);
             }).catch((error)=>{
