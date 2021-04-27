@@ -230,6 +230,19 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale('es');
 
         window.location = "/docente/clases";
       });
+    },
+    RequestPermissions: function RequestPermissions(data) {
+      axios.post('/requestPermission', {
+        cicle: data.text,
+        id_area: data.id_area,
+        id_classroom: data.id_classroom,
+        id_cicle: data.id
+      }).then(function (response) {
+        toastr.success(response.data);
+      })["catch"](function (error) {
+        toastr.info('El dato ya fue creado, Consulte con el Administrador');
+        console.log(error);
+      });
     }
   }
 });
@@ -520,7 +533,14 @@ var render = function() {
                                                   "button",
                                                   {
                                                     staticClass:
-                                                      "btn btn-primary"
+                                                      "btn btn-primary",
+                                                    on: {
+                                                      click: function($event) {
+                                                        return _vm.RequestPermissions(
+                                                          clas
+                                                        )
+                                                      }
+                                                    }
                                                   },
                                                   [
                                                     _vm._v(

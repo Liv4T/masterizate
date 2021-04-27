@@ -894,3 +894,6 @@ Route::get('getGrades','UtilsController@getGrades');
 
 Route::resource('pedagogic','PedagogicalCourseController');
 Route::get('getPedagogic','PedagogicalCourseController@getPedagogic');
+
+//Ruta para permiso de elimminar Ciclo
+Route::resource('requestPermission','RequestPermissionsController');
