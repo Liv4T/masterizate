@@ -7,33 +7,39 @@
                 </div>
                 <div>
                     <button class="btn btn-primary mb-3" data-toggle="modal" data-target="#createRegister">Crear Registro</button>
+                    <button class="btn btn-primary mb-3" v-on:click="showTablePermission">{{showPermission ? 'Ocultar Permisos': 'Mostrar Permisos'}}</button>
                 </div>
 
-                <div v-if="urgentPermissons.length > 0" class="card">
+                <div v-show="showPermission == true" class="card">
                     <div>
-                        <div class="card-header fondo text-center mb-3">
-                            <h4>Permisos Solicitados</h4>
+                        <div>
+                            <div class="card-header fondo text-center mb-3">
+                                <h4>Permisos Solicitados</h4>
+                            </div>
                         </div>
-                    </div>
-                    <div class="card-body">
-                        <table class="table table-responsive-xl table-hover table-striped">
-                            <thead>
-                                <tr>
-                                    <th>Ciclos</th>
-                                    <th>Materia - Salon</th>
-                                    <th>Acción</th>
-                                </tr>
-                            </thead>
-                            <tbody v-for="(data, key) in urgentPermissons" :key="key">
-                                <tr>
-                                    <td>{{data.cicle}}</td>
-                                    <td>{{data.course}}</td>
-                                    <td>
-                                        <button class="btn btn-primary" v-on:click="createUrgentPermission(data)">Crear</button>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <div v-if="urgentPermissons.length > 0" class="card-body">
+                            <table class="table table-responsive-xl table-hover table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Ciclos</th>
+                                        <th>Materia - Salon</th>
+                                        <th>Acción</th>
+                                    </tr>
+                                </thead>
+                                <tbody v-for="(data, key) in urgentPermissons" :key="key">
+                                    <div v-if="data.responded_at">
+                                        <p>No hay datos que mostrar</p>
+                                    </div>                
+                                    <tr v-else>
+                                        <td>{{data.cicle}}</td>
+                                        <td>{{data.course}}</td>
+                                        <td>
+                                            <button class="btn btn-primary" v-on:click="createUrgentPermission(data)">Crear</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
 
@@ -72,7 +78,7 @@
                     <div class="modal-header">
                         <h5 class="modal-title" id="createRegisterLabel">Creación de Permiso</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
+                            <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
@@ -142,7 +148,8 @@
                 date_end:'',
                 is_updated: false,
                 id_to_update:'',
-                urgentPermissons:[]
+                urgentPermissons:[],
+                showPermission: false
             }
         },
         mounted() {
@@ -163,6 +170,9 @@
                 axios.get('requestPermission').then((response)=>{
                     this.urgentPermissons = response.data;
                 })
+            },
+            showTablePermission(){
+                this.showPermission = !this.showPermission;
             },
             getArea(){
                 axios.get(`GetArearByUser`).then((response) => {
@@ -225,6 +235,9 @@
                                 class_selected: cicle.class_selected,
                                 area_selected: cicle.area_selected,
                             }).then((response)=> {
+                                if(this.id_to_update){
+                                    axios.put(`updatedResponded_at/${this.id_to_update}`);
+                                }
                                 this.date = '',
                                 this.date_end = '',
                                 this.saveCicle = []
@@ -234,6 +247,8 @@
                             })
                         })
                     }
+                    this.saveClass = [];
+                    this.saveCicle = [];
                     this.getPermissions();
                     $('#createRegister').modal('hide');
                 }else{
@@ -279,7 +294,6 @@
                 $('#createRegister').modal('show');
             },
             createUrgentPermission(data){
-                console.log(data)
                 this.is_updated = false;
                 this.saveClass.push({
                     id: data.id_area+data.id_classroom,
@@ -288,6 +302,7 @@
                     text: data.course,
                 })
                 this.getCicles(data.id_cicle);
+                this.id_to_update = data.id;
                 $('#createRegister').modal('show');
             },
             dropData(id){

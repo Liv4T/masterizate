@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\RequestPermissions;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class RequestPermissionsController extends Controller
 {
@@ -32,6 +33,7 @@ class RequestPermissionsController extends Controller
         $newPermission->id_area = $request->id_area;
         $newPermission->id_classroom = $request->id_classroom;
         $newPermission->course = $request->course;
+        $newPermission->responded_at = $request->responded_at;
         $newPermission->save();
 
         return response()->json('Solicitud de Permiso Creada');
@@ -74,9 +76,14 @@ class RequestPermissionsController extends Controller
         $newPermission->id_area = $request->id_area;
         $newPermission->id_classroom = $request->id_classroom;
         $newPermission->course = $request->course;
+        $newPermission->responded_at = $request->responded_at;
         $newPermission->update();
         
         return response()->json('Solicitud de Permiso Actualizada');
+    }
+
+    public function updatedResponded_at($id){
+        $newPermission = RequestPermissions::where('id','=',$id)->update(['responded_at'=>Carbon::now()]);
     }
 
     /**

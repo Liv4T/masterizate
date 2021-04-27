@@ -13,6 +13,7 @@ class RequestPermissions extends Model
         'id_cicle',
         'id_area',
         'id_classroom',
-        'course'
+        'course',
+        'responded_at'
     ];
 }

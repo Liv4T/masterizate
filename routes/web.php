@@ -897,3 +897,4 @@ Route::get('getPedagogic','PedagogicalCourseController@getPedagogic');
 
 //Ruta para permiso de elimminar Ciclo
 Route::resource('requestPermission','RequestPermissionsController');
+Route::put('updatedResponded_at/{id}','RequestPermissionsController@updatedResponded_at');

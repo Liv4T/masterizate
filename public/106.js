@@ -140,6 +140,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___default.a);
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -154,7 +160,8 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
       date_end: '',
       is_updated: false,
       id_to_update: '',
-      urgentPermissons: []
+      urgentPermissons: [],
+      showPermission: false
     };
   },
   mounted: function mounted() {
@@ -176,6 +183,9 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
       axios.get('requestPermission').then(function (response) {
         _this.urgentPermissons = response.data;
       });
+    },
+    showTablePermission: function showTablePermission() {
+      this.showPermission = !this.showPermission;
     },
     getArea: function getArea() {
       var _this2 = this;
@@ -247,6 +257,10 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
               class_selected: cicle.class_selected,
               area_selected: cicle.area_selected
             }).then(function (response) {
+              if (_this4.id_to_update) {
+                axios.put("updatedResponded_at/".concat(_this4.id_to_update));
+              }
+
               _this4.date = '', _this4.date_end = '', _this4.saveCicle = [];
               toastr.success(response.data);
             })["catch"](function (error) {
@@ -255,6 +269,8 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
           });
         }
 
+        this.saveClass = [];
+        this.saveCicle = [];
         this.getPermissions();
         $('#createRegister').modal('hide');
       } else {
@@ -297,7 +313,6 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
       $('#createRegister').modal('show');
     },
     createUrgentPermission: function createUrgentPermission(data) {
-      console.log(data);
       this.is_updated = false;
       this.saveClass.push({
         id: data.id_area + data.id_classroom,
@@ -306,6 +321,7 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
         text: data.course
       });
       this.getCicles(data.id_cicle);
+      this.id_to_update = data.id;
       $('#createRegister').modal('show');
     },
     dropData: function dropData(id) {
@@ -350,52 +366,103 @@ var render = function() {
         _c("div", { staticClass: "col-sm-10" }, [
           _vm._m(0),
           _vm._v(" "),
-          _vm._m(1),
-          _vm._v(" "),
-          _vm.urgentPermissons.length > 0
-            ? _c("div", { staticClass: "card" }, [
-                _vm._m(2),
-                _vm._v(" "),
-                _c("div", { staticClass: "card-body" }, [
-                  _c(
-                    "table",
-                    {
-                      staticClass:
-                        "table table-responsive-xl table-hover table-striped"
-                    },
-                    [
-                      _vm._m(3),
-                      _vm._v(" "),
-                      _vm._l(_vm.urgentPermissons, function(data, key) {
-                        return _c("tbody", { key: key }, [
-                          _c("tr", [
-                            _c("td", [_vm._v(_vm._s(data.cicle))]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(data.course))]),
-                            _vm._v(" "),
-                            _c("td", [
-                              _c(
-                                "button",
-                                {
-                                  staticClass: "btn btn-primary",
-                                  on: {
-                                    click: function($event) {
-                                      return _vm.createUrgentPermission(data)
-                                    }
-                                  }
-                                },
-                                [_vm._v("Crear")]
-                              )
-                            ])
-                          ])
-                        ])
-                      })
-                    ],
-                    2
+          _c("div", [
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-primary mb-3",
+                attrs: {
+                  "data-toggle": "modal",
+                  "data-target": "#createRegister"
+                }
+              },
+              [_vm._v("Crear Registro")]
+            ),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-primary mb-3",
+                on: { click: _vm.showTablePermission }
+              },
+              [
+                _vm._v(
+                  _vm._s(
+                    _vm.showPermission ? "Ocultar Permisos" : "Mostrar Permisos"
                   )
-                ])
+                )
+              ]
+            )
+          ]),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.showPermission == true,
+                  expression: "showPermission == true"
+                }
+              ],
+              staticClass: "card"
+            },
+            [
+              _c("div", [
+                _vm._m(1),
+                _vm._v(" "),
+                _vm.urgentPermissons.length > 0
+                  ? _c("div", { staticClass: "card-body" }, [
+                      _c(
+                        "table",
+                        {
+                          staticClass:
+                            "table table-responsive-xl table-hover table-striped"
+                        },
+                        [
+                          _vm._m(2),
+                          _vm._v(" "),
+                          _vm._l(_vm.urgentPermissons, function(data, key) {
+                            return _c("tbody", { key: key }, [
+                              data.responded_at
+                                ? _c("div", [
+                                    _c("p", [
+                                      _vm._v("No hay datos que mostrar")
+                                    ])
+                                  ])
+                                : _c("tr", [
+                                    _c("td", [_vm._v(_vm._s(data.cicle))]),
+                                    _vm._v(" "),
+                                    _c("td", [_vm._v(_vm._s(data.course))]),
+                                    _vm._v(" "),
+                                    _c("td", [
+                                      _c(
+                                        "button",
+                                        {
+                                          staticClass: "btn btn-primary",
+                                          on: {
+                                            click: function($event) {
+                                              return _vm.createUrgentPermission(
+                                                data
+                                              )
+                                            }
+                                          }
+                                        },
+                                        [_vm._v("Crear")]
+                                      )
+                                    ])
+                                  ])
+                            ])
+                          })
+                        ],
+                        2
+                      )
+                    ])
+                  : _vm._e()
               ])
-            : _vm._e(),
+            ]
+          ),
           _vm._v(" "),
           _c("div", { staticClass: "card" }, [
             _c("div", { staticClass: "card-body" }, [
@@ -406,7 +473,7 @@ var render = function() {
                     "table table-responsive-xl table-hover table-striped"
                 },
                 [
-                  _vm._m(4),
+                  _vm._m(3),
                   _vm._v(" "),
                   _vm._l(_vm.dataToIterate, function(data, key) {
                     return _c("tbody", { key: key }, [
@@ -474,7 +541,7 @@ var render = function() {
           { staticClass: "modal-dialog", attrs: { role: "document" } },
           [
             _c("div", { staticClass: "modal-content" }, [
-              _vm._m(5),
+              _vm._m(4),
               _vm._v(" "),
               _c("div", { staticClass: "modal-body" }, [
                 _c(
@@ -701,21 +768,6 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "card-header fondo text-center mb-3" }, [
       _c("h4", [_vm._v("Activación de permiso para eliminar Ciclo")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", [
-      _c(
-        "button",
-        {
-          staticClass: "btn btn-primary mb-3",
-          attrs: { "data-toggle": "modal", "data-target": "#createRegister" }
-        },
-        [_vm._v("Crear Registro")]
-      )
     ])
   },
   function() {
