@@ -89,6 +89,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["user"],
@@ -96,7 +103,9 @@ __webpack_require__.r(__webpack_exports__);
     return {
       courses: [],
       search_filter: "",
-      materias: []
+      search_filter_cicle: "",
+      materias: [],
+      loaded: false
     };
   },
   mounted: function mounted() {
@@ -105,6 +114,9 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     filterPlanification: function filterPlanification(class_name) {
       return class_name.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(this.search_filter.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, ""));
+    },
+    filterCiclo: function filterCiclo(class_name) {
+      return class_name.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(this.search_filter_cicle.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, ""));
     },
     getCourses: function getCourses() {
       var _this = this;
@@ -122,6 +134,8 @@ __webpack_require__.r(__webpack_exports__);
           _this.groupData(response.data);
         });
       }
+
+      this.loaded = true;
     },
     groupData: function groupData(data) {
       var materiasClean = [];
@@ -160,233 +174,312 @@ var render = function() {
     _c("div", { staticClass: "col-sm-10" }, [
       _vm._m(0),
       _vm._v(" "),
-      _c("div", { staticClass: "card" }, [
-        _c("div", { staticClass: "card-body" }, [
-          _c("div", { staticClass: "input-group mb-3 mt-3" }, [
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.search_filter,
-                  expression: "search_filter"
-                }
-              ],
-              staticClass: "form-control",
-              attrs: { type: "text", placeholder: "Buscar Salón" },
-              domProps: { value: _vm.search_filter },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.search_filter = $event.target.value
-                }
-              }
-            }),
-            _vm._v(" "),
-            _c("div", { staticClass: "input-group-prepend" }, [
-              _c(
-                "span",
-                {
-                  staticClass: "input-group-text",
-                  attrs: { id: "basic-addon1" }
-                },
-                [
-                  _c(
-                    "svg",
+      _vm.loaded === true
+        ? _c("div", { staticClass: "card" }, [
+            _c("div", { staticClass: "card-body" }, [
+              _c("div", { staticClass: "input-group mb-3 mt-3" }, [
+                _c("input", {
+                  directives: [
                     {
-                      staticClass: "bi bi-search",
-                      attrs: {
-                        width: "1em",
-                        height: "1em",
-                        viewBox: "0 0 16 16",
-                        fill: "currentColor",
-                        xmlns: "http://www.w3.org/2000/svg"
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.search_filter,
+                      expression: "search_filter"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: { type: "text", placeholder: "Buscar Salón" },
+                  domProps: { value: _vm.search_filter },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
                       }
+                      _vm.search_filter = $event.target.value
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c("div", { staticClass: "input-group-prepend" }, [
+                  _c(
+                    "span",
+                    {
+                      staticClass: "input-group-text",
+                      attrs: { id: "basic-addon1" }
                     },
                     [
-                      _c("path", {
-                        attrs: {
-                          "fill-rule": "evenodd",
-                          d:
-                            "M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z"
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c("path", {
-                        attrs: {
-                          "fill-rule": "evenodd",
-                          d:
-                            "M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z"
-                        }
-                      })
+                      _c(
+                        "svg",
+                        {
+                          staticClass: "bi bi-search",
+                          attrs: {
+                            width: "1em",
+                            height: "1em",
+                            viewBox: "0 0 16 16",
+                            fill: "currentColor",
+                            xmlns: "http://www.w3.org/2000/svg"
+                          }
+                        },
+                        [
+                          _c("path", {
+                            attrs: {
+                              "fill-rule": "evenodd",
+                              d:
+                                "M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z"
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("path", {
+                            attrs: {
+                              "fill-rule": "evenodd",
+                              d:
+                                "M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z"
+                            }
+                          })
+                        ]
+                      )
                     ]
                   )
-                ]
-              )
-            ])
-          ]),
-          _vm._v(" "),
-          _c(
-            "div",
-            { attrs: { id: "accordion" } },
-            _vm._l(_vm.courses, function(courses, grade) {
-              return _c("div", { key: grade, staticClass: "card" }, [
-                _vm.search_filter == "" || _vm.filterPlanification(grade)
-                  ? _c(
-                      "div",
-                      { staticClass: "card-header", attrs: { id: "" + grade } },
-                      [
-                        _c("h5", { staticClass: "mb-0" }, [
-                          _c(
-                            "button",
-                            {
-                              staticClass: "btn btn-link",
-                              attrs: {
-                                "data-toggle": "collapse",
-                                "data-target": "#heading" + grade,
-                                "aria-expanded": "true",
-                                "aria-controls": "collapseOne"
-                              }
-                            },
-                            [
-                              _vm._v(
-                                "\n                                    " +
-                                  _vm._s(grade) +
-                                  "\n                                "
-                              )
-                            ]
-                          )
-                        ])
-                      ]
-                    )
-                  : _vm._e(),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  {
-                    staticClass: "collapse hide",
-                    attrs: {
-                      id: "heading" + grade,
-                      "aria-labelledby": "" + grade,
-                      "data-parent": "#accordion"
-                    }
-                  },
-                  [
-                    _c(
-                      "div",
-                      { staticClass: "card-body" },
-                      _vm._l(_vm.materias, function(mat, llave) {
-                        return _c(
+                ])
+              ]),
+              _vm._v(" "),
+              _c(
+                "div",
+                { attrs: { id: "accordion" } },
+                _vm._l(_vm.courses, function(courses, grade) {
+                  return _c("div", { key: grade, staticClass: "card" }, [
+                    _vm.search_filter == "" || _vm.filterPlanification(grade)
+                      ? _c(
                           "div",
-                          { key: llave, attrs: { id: "accordion1" } },
-                          _vm._l(mat, function(mate, key) {
-                            return _c("div", { key: key }, [
+                          {
+                            staticClass: "card-header",
+                            attrs: { id: "" + grade }
+                          },
+                          [
+                            _c("h5", { staticClass: "mb-0" }, [
                               _c(
-                                "div",
+                                "button",
                                 {
-                                  directives: [
-                                    {
-                                      name: "show",
-                                      rawName: "v-show",
-                                      value: grade === mate[0].grade,
-                                      expression: "grade === mate[0].grade"
-                                    }
-                                  ],
-                                  staticClass: "card"
+                                  staticClass: "btn btn-link",
+                                  attrs: {
+                                    "data-toggle": "collapse",
+                                    "data-target": "#heading" + grade,
+                                    "aria-controls": "collapseOne"
+                                  }
                                 },
                                 [
-                                  _c(
-                                    "div",
-                                    {
-                                      staticClass: "card-header",
-                                      attrs: { id: "headingOne" + key }
-                                    },
-                                    [
-                                      _c("h5", { staticClass: "mb-0" }, [
-                                        _c(
-                                          "button",
-                                          {
-                                            staticClass: "btn btn-link",
-                                            attrs: {
-                                              "data-toggle": "collapse",
-                                              "data-target":
-                                                "#collapseOne" +
-                                                key.replace(/\s+/g, ""),
-                                              "aria-expanded": "true",
-                                              "aria-controls":
-                                                "collapseOne" +
-                                                key.replace(/\s+/g, "")
-                                            }
-                                          },
-                                          [
-                                            _vm._v(
-                                              "\n                                                        " +
-                                                _vm._s(key) +
-                                                "\n                                                    "
-                                            )
-                                          ]
-                                        )
-                                      ])
-                                    ]
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "div",
-                                    {
-                                      staticClass: "collapse show",
-                                      attrs: {
-                                        id:
-                                          "collapseOne" +
-                                          key.replace(/\s+/g, ""),
-                                        "aria-labelledby": "headingOne" + key,
-                                        "data-parent": "#accordion1"
-                                      }
-                                    },
-                                    [
-                                      _c("div", { staticClass: "card-body" }, [
-                                        _c(
-                                          "table",
-                                          [
-                                            _vm._m(1, true),
-                                            _vm._v(" "),
-                                            _vm._l(mate, function(mater, id) {
-                                              return _c("tbody", { key: id }, [
-                                                _c("tr", [
-                                                  _c("td", [
-                                                    _vm._v(_vm._s(mater.ciclo))
-                                                  ]),
-                                                  _vm._v(" "),
-                                                  _c("td", [
-                                                    _vm._v(_vm._s(mater.class))
-                                                  ])
-                                                ])
-                                              ])
-                                            })
-                                          ],
-                                          2
-                                        )
-                                      ])
-                                    ]
+                                  _vm._v(
+                                    "\n                                    " +
+                                      _vm._s(grade) +
+                                      "\n                                "
                                   )
                                 ]
                               )
                             ])
-                          }),
-                          0
+                          ]
                         )
-                      }),
-                      0
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        staticClass: "collapse hide",
+                        attrs: {
+                          id: "heading" + grade,
+                          "aria-labelledby": "" + grade,
+                          "data-parent": "#accordion"
+                        }
+                      },
+                      [
+                        _c(
+                          "div",
+                          { staticClass: "card-body" },
+                          [
+                            _c(
+                              "div",
+                              { staticClass: "input-group mb-3 mt-3" },
+                              [
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.search_filter_cicle,
+                                      expression: "search_filter_cicle"
+                                    }
+                                  ],
+                                  staticClass: "form-control",
+                                  attrs: {
+                                    type: "text",
+                                    placeholder: "Buscar Ciclo"
+                                  },
+                                  domProps: { value: _vm.search_filter_cicle },
+                                  on: {
+                                    input: function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.search_filter_cicle =
+                                        $event.target.value
+                                    }
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c(
+                                  "div",
+                                  { staticClass: "input-group-prepend" },
+                                  [
+                                    _c(
+                                      "span",
+                                      {
+                                        staticClass: "input-group-text",
+                                        attrs: { id: "basic-addon1" }
+                                      },
+                                      [
+                                        _c(
+                                          "svg",
+                                          {
+                                            staticClass: "bi bi-search",
+                                            attrs: {
+                                              width: "1em",
+                                              height: "1em",
+                                              viewBox: "0 0 16 16",
+                                              fill: "currentColor",
+                                              xmlns:
+                                                "http://www.w3.org/2000/svg"
+                                            }
+                                          },
+                                          [
+                                            _c("path", {
+                                              attrs: {
+                                                "fill-rule": "evenodd",
+                                                d:
+                                                  "M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z"
+                                              }
+                                            }),
+                                            _vm._v(" "),
+                                            _c("path", {
+                                              attrs: {
+                                                "fill-rule": "evenodd",
+                                                d:
+                                                  "M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z"
+                                              }
+                                            })
+                                          ]
+                                        )
+                                      ]
+                                    )
+                                  ]
+                                )
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _vm._l(_vm.materias, function(mat, llave) {
+                              return _c(
+                                "div",
+                                { key: llave },
+                                _vm._l(mat, function(mate, key) {
+                                  return _c("div", { key: key }, [
+                                    _c(
+                                      "div",
+                                      {
+                                        directives: [
+                                          {
+                                            name: "show",
+                                            rawName: "v-show",
+                                            value: grade === mate[0].grade,
+                                            expression:
+                                              "grade === mate[0].grade"
+                                          }
+                                        ],
+                                        staticClass: "card"
+                                      },
+                                      [
+                                        _c(
+                                          "div",
+                                          { staticClass: "card-header" },
+                                          [
+                                            _vm._v(
+                                              "                                                    \n                                                " +
+                                                _vm._s(key) +
+                                                "\n                                            "
+                                            )
+                                          ]
+                                        ),
+                                        _vm._v(" "),
+                                        _c("div", [
+                                          _c(
+                                            "div",
+                                            { staticClass: "card-body" },
+                                            [
+                                              _c(
+                                                "table",
+                                                {
+                                                  staticClass:
+                                                    "table table-stripped table-hover"
+                                                },
+                                                [
+                                                  _vm._m(1, true),
+                                                  _vm._v(" "),
+                                                  _vm._l(mate, function(
+                                                    mater,
+                                                    id
+                                                  ) {
+                                                    return _c(
+                                                      "tbody",
+                                                      { key: id },
+                                                      [
+                                                        _vm.search_filter_cicle ==
+                                                          "" ||
+                                                        _vm.filterCiclo(
+                                                          mater.ciclo
+                                                        )
+                                                          ? _c("tr", [
+                                                              _c("td", [
+                                                                _vm._v(
+                                                                  _vm._s(
+                                                                    mater.ciclo
+                                                                  )
+                                                                )
+                                                              ]),
+                                                              _vm._v(" "),
+                                                              _c("td", [
+                                                                _vm._v(
+                                                                  _vm._s(
+                                                                    mater.class
+                                                                  )
+                                                                )
+                                                              ])
+                                                            ])
+                                                          : _vm._e()
+                                                      ]
+                                                    )
+                                                  })
+                                                ],
+                                                2
+                                              )
+                                            ]
+                                          )
+                                        ])
+                                      ]
+                                    )
+                                  ])
+                                }),
+                                0
+                              )
+                            })
+                          ],
+                          2
+                        )
+                      ]
                     )
-                  ]
-                )
-              ])
-            }),
-            0
-          )
-        ])
-      ])
+                  ])
+                }),
+                0
+              )
+            ])
+          ])
+        : _vm._e()
     ])
   ])
 }
