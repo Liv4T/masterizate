@@ -56,59 +56,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      getPermission: [],
-      pedagogical_activity: '',
-      departure_time: '',
-      time_arrival: '',
-      description: '',
-      permission: null
+      permissions: []
     };
   },
   mounted: function mounted() {
@@ -118,32 +69,11 @@ __webpack_require__.r(__webpack_exports__);
     getPedagogics: function getPedagogics() {
       var _this = this;
 
-      axios.get('/getPedagogicalToAprove').then(function (response) {
-        _this.getPermission = response.data;
-      })["catch"](function (error) {
-        console.log(error);
-      });
-    },
-    aprobalReject: function aprobalReject(data) {
-      //datos por defecto en el modal
-      this.pedagogical_activity = data.pedagogical_activity, this.departure_time = data.departure_time, this.time_arrival = data.time_arrival, this.description = data.description, //Datos ids para guardar en tabla
-      this.pedagogical_id = data.pedagogical_id;
-      this.id_student = data.id_student;
-      this.parent_id = data.parent_id;
-      $('#exampleModal').modal('show');
-    },
-    savePermission: function savePermission() {
-      axios.post('/permissionPedagogics', {
-        pedagogical_activity: this.pedagogical_activity,
-        pedagogical_id: this.pedagogical_id,
-        id_student: this.id_student,
-        parent_id: this.parent_id,
-        permission: this.permission
-      }).then(function (response) {
-        toastr.success(response.data);
-      })["catch"](function (error) {
-        toastr.info('Ups, algo ha sucedido, intenta mas tarde');
-        console.log(error);
+      axios.get('permissionPedagogics').then(function (response) {
+        var result = _.chain(response.data).groupBy("pedagogical_activity").value();
+
+        console.log(result);
+        _this.permissions = result;
       });
     }
   }
@@ -171,193 +101,115 @@ var render = function() {
       _c("div", { staticClass: "col-sm-10", attrs: { id: "crud" } }, [
         _vm._m(0),
         _vm._v(" "),
-        _c("div", { staticClass: "card" }, [
-          _c("div", { staticClass: "card-body" }, [
-            _c(
-              "table",
-              {
-                staticClass:
-                  "table table-responsive-xl table-hover table-striped center"
-              },
-              [
-                _vm._m(1),
-                _vm._v(" "),
-                _vm._l(_vm.getPermission, function(pedag, key) {
-                  return _c("tbody", { key: key }, [
-                    _c("tr", [
-                      _c("td", [_vm._v(_vm._s(pedag.pedagogical_activity))]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(pedag.departure_time))]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(pedag.time_arrival))]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(pedag.name_student))]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(pedag.description))]),
-                      _vm._v(" "),
-                      _c("td", [
-                        _c(
-                          "button",
-                          {
-                            staticClass: "btn btn-primary",
-                            on: {
-                              click: function($event) {
-                                return _vm.aprobalReject(pedag)
-                              }
-                            }
-                          },
-                          [_vm._v("Aprobar / Rechazar")]
-                        )
-                      ])
-                    ])
-                  ])
-                })
-              ],
-              2
-            )
-          ])
-        ])
-      ])
-    ]),
-    _vm._v(" "),
-    _c(
-      "div",
-      {
-        staticClass: "modal fade",
-        attrs: {
-          id: "exampleModal",
-          tabindex: "-1",
-          role: "dialog",
-          "aria-labelledby": "exampleModalLabel",
-          "aria-hidden": "true"
-        }
-      },
-      [
         _c(
           "div",
-          { staticClass: "modal-dialog", attrs: { role: "document" } },
-          [
-            _c("div", { staticClass: "modal-content" }, [
-              _vm._m(2),
-              _vm._v(" "),
-              _c("div", { staticClass: "modal-body" }, [
-                _c("div", { staticClass: "form-group" }, [
-                  _c("label", { attrs: { for: "" } }, [_vm._v("Actividad: ")]),
-                  _vm._v(" "),
-                  _c("br"),
-                  _vm._v(" "),
-                  _c("strong", [_vm._v(_vm._s(_vm.pedagogical_activity))])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "form-group" }, [
-                  _c("label", { attrs: { for: "" } }, [
-                    _vm._v("Fecha / Hora Salida: ")
-                  ]),
-                  _vm._v(" "),
-                  _c("br"),
-                  _vm._v(" "),
-                  _c("strong", [_vm._v(_vm._s(_vm.departure_time))])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "form-group" }, [
-                  _c("label", { attrs: { for: "" } }, [
-                    _vm._v("Fecha / Hora Llegada: ")
-                  ]),
-                  _vm._v(" "),
-                  _c("br"),
-                  _vm._v(" "),
-                  _c("strong", [_vm._v(_vm._s(_vm.time_arrival))])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "form-group" }, [
-                  _c("label", { attrs: { for: "" } }, [
-                    _vm._v("Descripción: ")
-                  ]),
-                  _vm._v(" "),
-                  _c("br"),
-                  _vm._v(" "),
-                  _c("strong", [_vm._v(_vm._s(_vm.description))])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "form-group" }, [
-                  _c("label", { attrs: { for: "" } }, [_vm._v("Permiso")]),
-                  _vm._v(" "),
-                  _c("br"),
-                  _vm._v(" "),
-                  _c("input", {
-                    directives: [
+          { attrs: { id: "accordion" } },
+          _vm._l(_vm.permissions, function(perm, key) {
+            return _c("div", { key: key, staticClass: "card" }, [
+              _c(
+                "div",
+                { staticClass: "card-header", attrs: { id: "headingOne" } },
+                [
+                  _c("h5", { staticClass: "mb-0" }, [
+                    _c(
+                      "button",
                       {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.permission,
-                        expression: "permission"
-                      }
-                    ],
-                    attrs: { type: "radio", name: "gender" },
-                    domProps: {
-                      value: true,
-                      checked: _vm._q(_vm.permission, true)
-                    },
-                    on: {
-                      change: function($event) {
-                        _vm.permission = true
-                      }
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c("label", [_vm._v("Permitir")]),
-                  _vm._v(" "),
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.permission,
-                        expression: "permission"
-                      }
-                    ],
-                    attrs: { type: "radio", name: "gender" },
-                    domProps: {
-                      value: false,
-                      checked: _vm._q(_vm.permission, false)
-                    },
-                    on: {
-                      change: function($event) {
-                        _vm.permission = false
-                      }
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c("label", [_vm._v("Denegar")]),
-                  _c("br")
-                ])
-              ]),
+                        staticClass: "btn btn-link",
+                        attrs: {
+                          "data-toggle": "collapse",
+                          "data-target":
+                            "#collapse" + key.trim().replace(/\s/g, ""),
+                          "aria-expanded": "true",
+                          "aria-controls":
+                            "collapse" + key.trim().replace(/\s/g, "")
+                        }
+                      },
+                      [
+                        _vm._v(
+                          "\n                                " +
+                            _vm._s(key) +
+                            "\n                            "
+                        )
+                      ]
+                    )
+                  ])
+                ]
+              ),
               _vm._v(" "),
-              _c("div", { staticClass: "modal-footer" }, [
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-secondary",
-                    attrs: { type: "button", "data-dismiss": "modal" }
-                  },
-                  [_vm._v("Cerrar")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-primary",
-                    attrs: { type: "button" },
-                    on: { click: _vm.savePermission }
-                  },
-                  [_vm._v("Guardar")]
-                )
-              ])
+              _c(
+                "div",
+                {
+                  staticClass: "collapse show",
+                  attrs: {
+                    id: "collapse" + key.trim().replace(/\s/g, ""),
+                    "aria-labelledby": "headingOne",
+                    "data-parent": "#accordion"
+                  }
+                },
+                [
+                  _c("div", { staticClass: "card-body" }, [
+                    _c(
+                      "table",
+                      {
+                        staticClass:
+                          "table table-responsive-xl table-hover table-striped center"
+                      },
+                      [
+                        _vm._m(1, true),
+                        _vm._v(" "),
+                        _vm._l(perm, function(pedag, key) {
+                          return _c("tbody", { key: key }, [
+                            _c("tr", [
+                              _c("td", [
+                                _vm._v(_vm._s(pedag.pedagogical_activity))
+                              ]),
+                              _vm._v(" "),
+                              _c("td", [
+                                _vm._v(
+                                  _vm._s(
+                                    pedag.student_name +
+                                      " " +
+                                      pedag.student_last_name
+                                  )
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("td", [
+                                _vm._v(
+                                  _vm._s(
+                                    pedag.parent_name +
+                                      " " +
+                                      pedag.parent_last_name
+                                  )
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("td", [_vm._v(_vm._s(pedag.parent_phone))]),
+                              _vm._v(" "),
+                              _c("td", [
+                                _vm._v(
+                                  _vm._s(
+                                    pedag.permission === "1"
+                                      ? "Autorizado"
+                                      : "Sin Autorización"
+                                  )
+                                )
+                              ])
+                            ])
+                          ])
+                        })
+                      ],
+                      2
+                    )
+                  ])
+                ]
+              )
             ])
-          ]
+          }),
+          0
         )
-      ]
-    )
+      ])
+    ])
   ])
 }
 var staticRenderFns = [
@@ -366,7 +218,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "card-header fondo text-center mb-3" }, [
-      _c("h4", [_vm._v("Académico")])
+      _c("h4", [_vm._v("Permisos de Salidas Pedagogicas")])
     ])
   },
   function() {
@@ -377,41 +229,14 @@ var staticRenderFns = [
       _c("tr", [
         _c("th", [_vm._v("Actividad Pedagogica")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Fecha / hora de Salida")]),
+        _c("th", [_vm._v("Estudiante")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Fecha / hora de LLegada")]),
+        _c("th", [_vm._v("Acudiente")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Estudiante Invitado")]),
+        _c("th", [_vm._v("Telefono Acudiente")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Descripción")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Acción")])
+        _c("th", [_vm._v("Permiso")])
       ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "modal-header" }, [
-      _c(
-        "h5",
-        { staticClass: "modal-title", attrs: { id: "exampleModalLabel" } },
-        [_vm._v("Permiso de Salida")]
-      ),
-      _vm._v(" "),
-      _c(
-        "button",
-        {
-          staticClass: "close",
-          attrs: {
-            type: "button",
-            "data-dismiss": "modal",
-            "aria-label": "Close"
-          }
-        },
-        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
-      )
     ])
   }
 ]

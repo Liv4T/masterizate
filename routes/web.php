@@ -811,7 +811,7 @@ Route::middleware('auth')->get('/parentsPedagogic', function () {
     return view('parentsPedagogic');
 });
 
-//Ruta para guardar Permisos de salidas Pedagogicas
+//Ruta para Permisos de salidas Pedagogicas
 Route::resource('permissionPedagogics','PermissionToPedagogicsController');
 Route::middleware('auth')->get('/permissionPedagogic',function(){
     return view('permissionPedagogic');
