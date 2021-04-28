@@ -15,6 +15,6 @@ class PedagogicalCourse extends Model
         'departure_time',
         'time_arrival',
         'description',
-        'permission'
+        'id_classroom'
     ];
 }

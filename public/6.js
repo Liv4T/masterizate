@@ -194,29 +194,52 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['gradeOptions'],
   data: function data() {
     return {
       name_activity: '',
-      grade: '',
+      grade: {},
       place: '',
       departure_time: '',
       time_arrival: '',
       description: '',
-      permission: false
+      permission: false,
+      newGradeOptions: []
     };
+  },
+  watch: {
+    gradeOptions: function gradeOptions(newVal, oldVal) {
+      var _this = this;
+
+      if (newVal !== oldVal) {
+        newVal.forEach(function (element) {
+          _this.newGradeOptions.push({
+            id: element.id_grade,
+            id_classroom: element.id_grade,
+            text: element.grade
+          });
+        });
+      }
+    }
   },
   methods: {
     savePedagogic: function savePedagogic() {
       axios.post("pedagogic", {
         name_activity: this.name_activity,
-        grade: this.grade,
+        grade: this.grade.text,
+        id_classroom: this.grade.id_classroom,
         place: this.place,
         departure_time: this.departure_time,
         time_arrival: this.time_arrival,
-        description: this.description,
-        permission: this.permission
+        description: this.description
       }).then(function (response) {
         toastr.success(response.data);
         window.location = "/pedagogic";
@@ -293,23 +316,48 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['pedagogicalToEdit', 'gradeOptions'],
   data: function data() {
     return {
       name_activity: '',
-      grade: '',
+      grade: {},
       place: '',
       departure_time: '',
       time_arrival: '',
       description: '',
-      id: ''
+      id: '',
+      newGradeOptions: []
     };
   },
   watch: {
     pedagogicalToEdit: function pedagogicalToEdit(newValue, oldValue) {
       if (newValue != oldValue) {
-        this.name_activity = newValue.name_activity, this.grade = newValue.grade, this.place = newValue.place, this.departure_time = newValue.departure_time, this.time_arrival = newValue.time_arrival, this.description = newValue.description, this.id = newValue.id;
+        this.name_activity = newValue.name_activity, this.grade = {
+          id: newValue.id_classroom,
+          id_classroom: newValue.id_classroom,
+          text: newValue.grade
+        }, this.place = newValue.place, this.description = newValue.description, this.departure_time = newValue.departure_time, this.time_arrival = newValue.time_arrival, this.id = newValue.id;
+      }
+    },
+    gradeOptions: function gradeOptions(newVal, oldVal) {
+      var _this = this;
+
+      if (newVal !== oldVal) {
+        newVal.forEach(function (element) {
+          _this.newGradeOptions.push({
+            id: element.id_grade,
+            id_classroom: element.id_grade,
+            text: element.grade
+          });
+        });
       }
     }
   },
@@ -317,7 +365,8 @@ __webpack_require__.r(__webpack_exports__);
     savePedagogic: function savePedagogic() {
       axios.put("pedagogic/".concat(this.id), {
         name_activity: this.name_activity,
-        grade: this.grade,
+        grade: this.grade.text,
+        id_classroom: this.grade.id_classroom,
         place: this.place,
         departure_time: this.departure_time,
         time_arrival: this.time_arrival,
@@ -597,53 +646,62 @@ var render = function() {
               })
             ]),
             _vm._v(" "),
-            _c("div", { staticClass: "form-group" }, [
-              _c("label", [_vm._v("Grado")]),
-              _vm._v(" "),
-              _c(
-                "select",
-                {
-                  directives: [
+            _c(
+              "div",
+              { staticClass: "form-group" },
+              [
+                _c("label", { attrs: { for: "selectClass" } }, [
+                  _vm._v("Grado")
+                ]),
+                _vm._v(" "),
+                _c("multiselect", {
+                  attrs: {
+                    name: "selectClass",
+                    options: _vm.newGradeOptions,
+                    multiple: false,
+                    "close-on-select": false,
+                    "clear-on-select": false,
+                    "preserve-search": true,
+                    placeholder: "Seleccione una",
+                    label: "text",
+                    "track-by": "id",
+                    "preselect-first": true
+                  },
+                  scopedSlots: _vm._u([
                     {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.grade,
-                      expression: "grade"
+                      key: "selection",
+                      fn: function(ref) {
+                        var values = ref.values
+                        var isOpen = ref.isOpen
+                        return [
+                          values.length && !isOpen
+                            ? _c(
+                                "span",
+                                { staticClass: "multiselect__single" },
+                                [
+                                  _vm._v(
+                                    "\n                                " +
+                                      _vm._s(values.length) +
+                                      "\n                                opciones\n                                selecionadas\n                            "
+                                  )
+                                ]
+                              )
+                            : _vm._e()
+                        ]
+                      }
                     }
-                  ],
-                  staticClass: "form-control",
-                  on: {
-                    change: function($event) {
-                      var $$selectedVal = Array.prototype.filter
-                        .call($event.target.options, function(o) {
-                          return o.selected
-                        })
-                        .map(function(o) {
-                          var val = "_value" in o ? o._value : o.value
-                          return val
-                        })
-                      _vm.grade = $event.target.multiple
-                        ? $$selectedVal
-                        : $$selectedVal[0]
-                    }
+                  ]),
+                  model: {
+                    value: _vm.grade,
+                    callback: function($$v) {
+                      _vm.grade = $$v
+                    },
+                    expression: "grade"
                   }
-                },
-                _vm._l(_vm.gradeOptions, function(grades, key) {
-                  return _c(
-                    "option",
-                    { key: key, domProps: { value: grades.grade } },
-                    [
-                      _vm._v(
-                        "\n                            " +
-                          _vm._s(grades.grade) +
-                          "\n                        "
-                      )
-                    ]
-                  )
-                }),
-                0
-              )
-            ]),
+                })
+              ],
+              1
+            ),
             _vm._v(" "),
             _c("div", { staticClass: "form-group" }, [
               _c("label", [_vm._v("Lugar")]),
@@ -866,53 +924,62 @@ var render = function() {
               })
             ]),
             _vm._v(" "),
-            _c("div", { staticClass: "form-group" }, [
-              _c("label", [_vm._v("Grado")]),
-              _vm._v(" "),
-              _c(
-                "select",
-                {
-                  directives: [
+            _c(
+              "div",
+              { staticClass: "form-group" },
+              [
+                _c("label", { attrs: { for: "selectClass" } }, [
+                  _vm._v("Grado")
+                ]),
+                _vm._v(" "),
+                _c("multiselect", {
+                  attrs: {
+                    name: "selectClass",
+                    options: _vm.newGradeOptions,
+                    multiple: false,
+                    "close-on-select": false,
+                    "clear-on-select": false,
+                    "preserve-search": true,
+                    placeholder: "Seleccione una",
+                    label: "text",
+                    "track-by": "id",
+                    "preselect-first": true
+                  },
+                  scopedSlots: _vm._u([
                     {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.grade,
-                      expression: "grade"
+                      key: "selection",
+                      fn: function(ref) {
+                        var values = ref.values
+                        var isOpen = ref.isOpen
+                        return [
+                          values.length && !isOpen
+                            ? _c(
+                                "span",
+                                { staticClass: "multiselect__single" },
+                                [
+                                  _vm._v(
+                                    "\n                                " +
+                                      _vm._s(values.length) +
+                                      "\n                                opciones\n                                selecionadas\n                            "
+                                  )
+                                ]
+                              )
+                            : _vm._e()
+                        ]
+                      }
                     }
-                  ],
-                  staticClass: "form-control",
-                  on: {
-                    change: function($event) {
-                      var $$selectedVal = Array.prototype.filter
-                        .call($event.target.options, function(o) {
-                          return o.selected
-                        })
-                        .map(function(o) {
-                          var val = "_value" in o ? o._value : o.value
-                          return val
-                        })
-                      _vm.grade = $event.target.multiple
-                        ? $$selectedVal
-                        : $$selectedVal[0]
-                    }
+                  ]),
+                  model: {
+                    value: _vm.grade,
+                    callback: function($$v) {
+                      _vm.grade = $$v
+                    },
+                    expression: "grade"
                   }
-                },
-                _vm._l(_vm.gradeOptions, function(grades, key) {
-                  return _c(
-                    "option",
-                    { key: key, domProps: { value: grades.grade } },
-                    [
-                      _vm._v(
-                        "\n                            " +
-                          _vm._s(grades.grade) +
-                          "\n                        "
-                      )
-                    ]
-                  )
-                }),
-                0
-              )
-            ]),
+                })
+              ],
+              1
+            ),
             _vm._v(" "),
             _c("div", { staticClass: "form-group" }, [
               _c("label", [_vm._v("Lugar")]),

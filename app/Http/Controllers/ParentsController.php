@@ -12,6 +12,7 @@ use App\Classroom;
 use App\Area;
 use App\Weekly;
 use App\Observer;
+use App\RequestPermissions;
 
 class ParentsController extends Controller
 {
@@ -47,6 +48,29 @@ class ParentsController extends Controller
         }else {
             return [];
         }
+    }
+
+    public function getPedagogicToPermission(){
+        $user_id = Auth::user()->id;
+        $getPedagogicalPermission = DB::table('pedagogical_courses')
+            ->join('classroom_student','classroom_student.id_classroom','=','pedagogical_courses.id_classroom')
+            ->join('users','classroom_student.id_user','=','users.id')
+            ->join('users as us2','us2.id','=','users.parent_id')
+            ->select(
+                'pedagogical_courses.id as pedagogical_id',
+                'pedagogical_courses.name_activity as pedagogical_activity',
+                'pedagogical_courses.departure_time as departure_time',
+                'pedagogical_courses.time_arrival as time_arrival',
+                'pedagogical_courses.description as description',
+                'classroom_student.id_user as id_student',
+                'users.name as name_student',
+                'users.parent_id as parent_id',
+                'us2.name as parent_name',
+            )
+            ->where('us2.id','=',$user_id)
+            ->get();
+
+        return response()->json($getPedagogicalPermission);
     }
 
     public function getInvitatios(){

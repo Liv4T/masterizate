@@ -33,11 +33,11 @@ class PedagogicalCourseController extends Controller
         $pedagogicalCourse = new PedagogicalCourse();
         $pedagogicalCourse->name_activity = $request->name_activity;
         $pedagogicalCourse->grade = $request->grade;
+        $pedagogicalCourse->id_classroom = $request->id_classroom;
         $pedagogicalCourse->place = $request->place;
         $pedagogicalCourse->departure_time = $request->departure_time;
         $pedagogicalCourse->time_arrival = $request->time_arrival;
         $pedagogicalCourse->description = $request->description;
-        $pedagogicalCourse->permission = $request->permission;
 
         $pedagogicalCourse->save();
 
@@ -67,11 +67,11 @@ class PedagogicalCourseController extends Controller
         $pedagogicalCourse = PedagogicalCourse::findOrFail($id);
         $pedagogicalCourse->name_activity = $request->name_activity;
         $pedagogicalCourse->grade = $request->grade;
+        $pedagogicalCourse->id_classroom = $request->id_classroom;
         $pedagogicalCourse->place = $request->place;
         $pedagogicalCourse->departure_time = $request->departure_time;
         $pedagogicalCourse->time_arrival = $request->time_arrival;
         $pedagogicalCourse->description = $request->description;
-        $pedagogicalCourse->permission = $request->permission;
 
         $pedagogicalCourse->update();
 

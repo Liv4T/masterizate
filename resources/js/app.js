@@ -237,6 +237,7 @@ Vue.component("parents-component", () => import("./components/parents.vue"));
 Vue.component("event-parents-modal", () => import("./components/EventParentsModal.vue"));
 Vue.component("modal-edit-parents-info", () => import("./components/ModalEditParentsInfo.vue"));
 Vue.component("parents-observer", () => import("./components/ParentsObserver.vue"));
+Vue.component("parents-pedagogic", ()=>import("./components/parentsPedagogic.vue"));
 
 //Psicologia
 Vue.component("comunicates-component", () => import("./components/Comunicates.vue"));

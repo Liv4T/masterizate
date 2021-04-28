@@ -805,6 +805,12 @@ Route::get('/getAreas','ParentsController@getAreas');
 Route::get('/getNotes/{id_student}/{id_area}/{id_classroom}', 'ParentsController@getNotes');
 Route::get('/dataObserver','ParentsController@getDataObserverStudents');
 Route::view('/getParentsObserver', 'getParentsObserver');
+//Ruta para aprovar la salida pedagogica para acudientes;
+Route::get('getPedagogicalToAprove','ParentsController@getPedagogicToPermission');
+Route::middleware('auth')->get('/parentsPedagogic', function () {
+    return view('parentsPedagogic');
+});
+
 //psicology
 Route::resource('/historyPsicology', 'HistoryPsicologyController');
 Route::resource('/followUps', 'FollowUpsController');

@@ -16,12 +16,19 @@
                     </div>
 
                     <div class="form-group">
-                        <label>Grado</label>
-                        <select class="form-control" v-model="grade">
-                            <option :value="grades.grade" v-for="(grades, key) in gradeOptions" :key="key">
-                                {{grades.grade}}
-                            </option>
-                        </select>
+                        <label for="selectClass">Grado</label>
+                        <multiselect name="selectClass" v-model="grade" :options="newGradeOptions" :multiple="false"
+                            :close-on-select="false" :clear-on-select="false"
+                            :preserve-search="true" placeholder="Seleccione una"
+                            label="text" track-by="id" :preselect-first="true">
+                            <template slot="selection" slot-scope="{ values, isOpen }">
+                                <span class="multiselect__single" v-if="values.length &amp;&amp; !isOpen">
+                                    {{ values.length }}
+                                    opciones
+                                    selecionadas
+                                </span>
+                            </template>
+                        </multiselect>
                     </div>
 
                     <div class="form-group">
@@ -58,24 +65,38 @@ export default {
     data(){
         return{
             name_activity: '',
-            grade: '',
+            grade: {},
             place: '',
             departure_time: '',
             time_arrival: '',
             description: '',
             permission: false,
+            newGradeOptions:[]
+        }
+    },
+    watch:{
+        gradeOptions(newVal, oldVal){
+            if(newVal !== oldVal){
+                newVal.forEach((element)=>{
+                    this.newGradeOptions.push({
+                        id:element.id_grade,
+                        id_classroom: element.id_grade,
+                        text: element.grade
+                    })
+                })
+            }
         }
     },
     methods:{
         savePedagogic(){
             axios.post(`pedagogic`,{
                 name_activity: this.name_activity,
-                grade: this.grade,
+                grade: this.grade.text,
+                id_classroom: this.grade.id_classroom,
                 place: this.place,
                 departure_time: this.departure_time,
                 time_arrival: this.time_arrival,
                 description: this.description,
-                permission: this.permission
             }).then((response)=>{
                 toastr.success(response.data)
                 window.location = "/pedagogic";
