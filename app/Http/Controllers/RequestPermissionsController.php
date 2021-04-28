@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\RequestPermissions;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use DB;
 
 class RequestPermissionsController extends Controller
 {
@@ -15,7 +16,9 @@ class RequestPermissionsController extends Controller
      */
     public function index()
     {
-        $getPermissions = RequestPermissions::all();
+        $getPermissions = DB::table('request_permissions')
+                            ->orderByRaw('created_at DESC')
+                            ->get();
         return response()->json($getPermissions);
     }
 

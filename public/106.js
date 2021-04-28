@@ -146,6 +146,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___default.a);
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -364,8 +366,6 @@ var render = function() {
       { staticClass: "row justify-content-center", attrs: { id: "crud" } },
       [
         _c("div", { staticClass: "col-sm-10" }, [
-          _vm._m(0),
-          _vm._v(" "),
           _c("div", [
             _c(
               "button",
@@ -410,7 +410,7 @@ var render = function() {
             },
             [
               _c("div", [
-                _vm._m(1),
+                _vm._m(0),
                 _vm._v(" "),
                 _vm.urgentPermissons.length > 0
                   ? _c("div", { staticClass: "card-body" }, [
@@ -421,17 +421,12 @@ var render = function() {
                             "table table-responsive-xl table-hover table-striped"
                         },
                         [
-                          _vm._m(2),
+                          _vm._m(1),
                           _vm._v(" "),
                           _vm._l(_vm.urgentPermissons, function(data, key) {
                             return _c("tbody", { key: key }, [
-                              data.responded_at
-                                ? _c("div", [
-                                    _c("p", [
-                                      _vm._v("No hay datos que mostrar")
-                                    ])
-                                  ])
-                                : _c("tr", [
+                              data.responded_at === null
+                                ? _c("tr", [
                                     _c("td", [_vm._v(_vm._s(data.cicle))]),
                                     _vm._v(" "),
                                     _c("td", [_vm._v(_vm._s(data.course))]),
@@ -453,6 +448,13 @@ var render = function() {
                                       )
                                     ])
                                   ])
+                                : _c("tr", [
+                                    _c("td", [_vm._v(_vm._s(data.cicle))]),
+                                    _vm._v(" "),
+                                    _c("td", [_vm._v(_vm._s(data.course))]),
+                                    _vm._v(" "),
+                                    _vm._m(2, true)
+                                  ])
                             ])
                           })
                         ],
@@ -464,6 +466,8 @@ var render = function() {
             ]
           ),
           _vm._v(" "),
+          _vm._m(3),
+          _vm._v(" "),
           _c("div", { staticClass: "card" }, [
             _c("div", { staticClass: "card-body" }, [
               _c(
@@ -473,7 +477,7 @@ var render = function() {
                     "table table-responsive-xl table-hover table-striped"
                 },
                 [
-                  _vm._m(3),
+                  _vm._m(4),
                   _vm._v(" "),
                   _vm._l(_vm.dataToIterate, function(data, key) {
                     return _c("tbody", { key: key }, [
@@ -541,7 +545,7 @@ var render = function() {
           { staticClass: "modal-dialog", attrs: { role: "document" } },
           [
             _c("div", { staticClass: "modal-content" }, [
-              _vm._m(4),
+              _vm._m(5),
               _vm._v(" "),
               _c("div", { staticClass: "modal-body" }, [
                 _c(
@@ -766,14 +770,6 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-header fondo text-center mb-3" }, [
-      _c("h4", [_vm._v("Activación de permiso para eliminar Ciclo")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c("div", [
       _c("div", { staticClass: "card-header fondo text-center mb-3" }, [
         _c("h4", [_vm._v("Permisos Solicitados")])
@@ -792,6 +788,20 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Acción")])
       ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", [_c("p", [_vm._v("Respondido")])])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card-header fondo text-center mb-3" }, [
+      _c("h4", [_vm._v("Activación de permiso para eliminar Ciclo")])
     ])
   },
   function() {

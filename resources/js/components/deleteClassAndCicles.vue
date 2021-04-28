@@ -2,14 +2,10 @@
     <div class="back">
         <div id="crud" class="row justify-content-center">
             <div class="col-sm-10">
-                <div class="card-header fondo text-center mb-3">
-                    <h4>Activación de permiso para eliminar Ciclo</h4>
-                </div>
                 <div>
                     <button class="btn btn-primary mb-3" data-toggle="modal" data-target="#createRegister">Crear Registro</button>
                     <button class="btn btn-primary mb-3" v-on:click="showTablePermission">{{showPermission ? 'Ocultar Permisos': 'Mostrar Permisos'}}</button>
                 </div>
-
                 <div v-show="showPermission == true" class="card">
                     <div>
                         <div>
@@ -27,14 +23,18 @@
                                     </tr>
                                 </thead>
                                 <tbody v-for="(data, key) in urgentPermissons" :key="key">
-                                    <div v-if="data.responded_at">
-                                        <p>No hay datos que mostrar</p>
-                                    </div>                
-                                    <tr v-else>
+                                    <tr v-if="data.responded_at === null">
                                         <td>{{data.cicle}}</td>
                                         <td>{{data.course}}</td>
                                         <td>
                                             <button class="btn btn-primary" v-on:click="createUrgentPermission(data)">Crear</button>
+                                        </td>
+                                    </tr>                
+                                    <tr v-else>
+                                        <td>{{data.cicle}}</td>
+                                        <td>{{data.course}}</td>
+                                        <td>
+                                            <p>Respondido</p>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -42,7 +42,9 @@
                         </div>
                     </div>
                 </div>
-
+                <div class="card-header fondo text-center mb-3">
+                    <h4>Activación de permiso para eliminar Ciclo</h4>
+                </div>
                 <div class="card">
                     <div class="card-body">
                         <table class="table table-responsive-xl table-hover table-striped">
