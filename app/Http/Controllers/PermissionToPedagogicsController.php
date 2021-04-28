@@ -14,17 +14,8 @@ class PermissionToPedagogicsController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        $pedagogicsPermissions = PermissionToPedagogics::all();
+        return response()->json($pedagogicsPermissions);
     }
 
     /**
@@ -35,31 +26,22 @@ class PermissionToPedagogicsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $pedagogicsPermissions = new PermissionToPedagogics();
+        $pedagogicsPermissions->pedagogical_activity = $request->pedagogical_activity;
+        $pedagogicsPermissions->pedagogical_id = $request->pedagogical_id;
+        $pedagogicsPermissions->id_student = $request->id_student;
+        $pedagogicsPermissions->parent_id = $request->parent_id;
+        $pedagogicsPermissions->permission = $request->permission;
+        $pedagogicsPermissions->save();
+        
+        return response()->json('Permiso Guardado');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\PermissionToPedagogics  $permissionToPedagogics
-     * @return \Illuminate\Http\Response
-     */
-    public function show(PermissionToPedagogics $permissionToPedagogics)
-    {
-        //
-    }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\PermissionToPedagogics  $permissionToPedagogics
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(PermissionToPedagogics $permissionToPedagogics)
-    {
-        //
+    public function show($id_student){
+        $showedagogic = PermissionToPedagogics::where('id_student','=',$id_student)->first();
+        return $showedagogic;
     }
-
     /**
      * Update the specified resource in storage.
      *
@@ -67,9 +49,17 @@ class PermissionToPedagogicsController extends Controller
      * @param  \App\PermissionToPedagogics  $permissionToPedagogics
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, PermissionToPedagogics $permissionToPedagogics)
+    public function update(Request $request, $id)
     {
-        //
+        $pedagogicsPermissions = PermissionToPedagogics::findOrFail($id);
+        $pedagogicsPermissions->pedagogical_activity = $request->pedagogical_activity;
+        $pedagogicsPermissions->pedagogical_id = $request->pedagogical_id;
+        $pedagogicsPermissions->id_student = $request->id_student;
+        $pedagogicsPermissions->parent_id = $request->parent_id;
+        $pedagogicsPermissions->permission = $request->permission;
+        $pedagogicsPermissions->update();
+        
+        return response()->json('Permiso Actualizado');
     }
 
     /**
@@ -78,8 +68,10 @@ class PermissionToPedagogicsController extends Controller
      * @param  \App\PermissionToPedagogics  $permissionToPedagogics
      * @return \Illuminate\Http\Response
      */
-    public function destroy(PermissionToPedagogics $permissionToPedagogics)
+    public function destroy($id)
     {
-        //
+        $pedagogicsPermissions = PermissionToPedagogics::findOrFail($id);
+        $pedagogicsPermissions->delete();
+        return response()->json('Permiso Eliminado');
     }
 }

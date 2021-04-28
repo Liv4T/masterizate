@@ -15,6 +15,7 @@
                                     <th>Fecha / hora de LLegada</th>
                                     <th>Estudiante Invitado</th>
                                     <th>Descripción</th>
+                                    <th>Permiso</th>
                                     <th>Acción</th>
                                 </tr>
                             </thead>
@@ -25,8 +26,9 @@
                                     <td>{{pedag.time_arrival}}</td>
                                     <td>{{pedag.name_student}}</td>
                                     <td>{{pedag.description}}</td>
+                                    <th>{{pedag.permission === true ? 'Permitido' : 'Sin Permiso'}}</th>
                                     <td>
-                                        <button class="btn btn-primary" v-on:click="aprobalReject(pedag)">Aprovar / Rechazar</button>
+                                        <button class="btn btn-primary" v-on:click="aprobalReject(pedag)">Aprobar / Rechazar</button>
                                     </td>
                                 </tr>
                             </tbody>
@@ -98,7 +100,8 @@
                 departure_time:'',
                 time_arrival:'',
                 description:'',
-                permission:null
+                permission:null,
+                id_to_update:''
             }
         },
         mounted() {
@@ -106,14 +109,42 @@
         },
         
         methods: {
-            getPedagogics() {  
+            getPedagogics() {
                 axios.get('/getPedagogicalToAprove').then((response) => {
-                    this.getPermission= response.data
-                }).catch((error) => {
-                    console.log(error);
-                })
+                    let getPermission = response.data;
+                    getPermission.forEach((element)=>{
+                        axios.get(`permissionPedagogics/${element.id_student}`).then((response)=>{
+                            if(response.data.permission !== undefined){
+                                this.getPermission.push({
+                                    id_to_update: response.data.id,
+                                    pedagogical_activity: element.pedagogical_activity,
+                                    departure_time: element.departure_time,
+                                    time_arrival: element.time_arrival,
+                                    description: element.description,
+                                    pedagogical_id: element.pedagogical_id,
+                                    id_student: element.id_student,
+                                    name_student: element.name_student,
+                                    parent_id: element.parent_id,
+                                    permission: response.data.permission === "1" ? true : false
+                                })
+                            }else{
+                                this.getPermission.push({
+                                    pedagogical_activity: element.pedagogical_activity,
+                                    departure_time: element.departure_time,
+                                    time_arrival: element.time_arrival,
+                                    description: element.description,
+                                    pedagogical_id: element.pedagogical_id,
+                                    id_student: element.id_student,
+                                    name_student: element.name_student,
+                                    parent_id: element.parent_id
+                                })
+                            }
+                        })
+                    })
+                }) 
             },
             aprobalReject(data){
+                this.id_to_update= data.id_to_update,
                 //datos por defecto en el modal
                 this.pedagogical_activity = data.pedagogical_activity,
                 this.departure_time = data.departure_time,
@@ -124,16 +155,39 @@
                 this.pedagogical_id = data.pedagogical_id
                 this.id_student = data.id_student
                 this.parent_id = data.parent_id
+                this.permission = data.permission
                 $('#exampleModal').modal('show');
             },
             savePermission(){
-                console.log({
-                    pedagogical_activity:this.pedagogical_activity,
-                    pedagogical_id: this.pedagogical_id,
-                    id_student:this.id_student,
-                    parent_id: this.parent_id,
-                    permission: this.permission
-                })
+                if(this.id_to_update){
+                    axios.put(`/permissionPedagogics/${this.id_to_update}`,{
+                        pedagogical_activity:this.pedagogical_activity,
+                        pedagogical_id: this.pedagogical_id,
+                        id_student:this.id_student,
+                        parent_id: this.parent_id,
+                        permission: this.permission
+                    }).then((response)=>{
+                        toastr.success(response.data);
+                        window.location = '/parentsPedagogic';
+                    }).catch((error)=>{
+                        toastr.info('Ups, algo ha sucedido, intenta mas tarde');
+                        console.log(error)
+                    })
+                }else{
+                    axios.post('/permissionPedagogics',{
+                        pedagogical_activity:this.pedagogical_activity,
+                        pedagogical_id: this.pedagogical_id,
+                        id_student:this.id_student,
+                        parent_id: this.parent_id,
+                        permission: this.permission
+                    }).then((response)=>{
+                        toastr.success(response.data);
+                        window.location= '/parentsPedagogic';
+                    }).catch((error)=>{
+                        toastr.info('Ups, algo ha sucedido, intenta mas tarde');
+                        console.log(error)
+                    })
+                }
             }
         }
     }

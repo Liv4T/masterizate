@@ -57,6 +57,7 @@ class ParentsController extends Controller
             ->join('users','classroom_student.id_user','=','users.id')
             ->join('users as us2','us2.id','=','users.parent_id')
             ->select(
+                'pedagogical_courses.id as id',
                 'pedagogical_courses.id as pedagogical_id',
                 'pedagogical_courses.name_activity as pedagogical_activity',
                 'pedagogical_courses.departure_time as departure_time',

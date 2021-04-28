@@ -15,6 +15,11 @@ class CreatePermissionToPedagogicsTable extends Migration
     {
         Schema::create('permission_to_pedagogics', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('pedagogical_activity');
+            $table->bigInteger('pedagogical_id');
+            $table->bigInteger('id_student');
+            $table->bigInteger('parent_id');
+            $table->string('permission');
             $table->timestamps();
         });
     }

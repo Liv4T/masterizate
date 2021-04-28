@@ -157,6 +157,7 @@ Vue.component("materias-coord",()=>import("./components/MateriasCoord.vue"));
 Vue.component("courses-coord", () =>import("./components/CourseCoord.vue"));
 Vue.component("utils-coord", () =>import("./components/UtilsCoord.vue"));
 Vue.component("pedagogical-course", ()=>import("./components/PedagogicalCourse.vue"));
+Vue.component("permission-pedagogic", ()=>import("./components/permissionPedagogic.vue"));
 
 Vue.component("salon-adm", ()=>import("./components/salonAdm.vue"));
 Vue.component("matricula", ()=>import("./components/matricula.vue"));
