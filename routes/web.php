@@ -910,3 +910,7 @@ Route::get('getPedagogic','PedagogicalCourseController@getPedagogic');
 //Ruta para permiso de elimminar Ciclo
 Route::resource('requestPermission','RequestPermissionsController');
 Route::put('updatedResponded_at/{id}','RequestPermissionsController@updatedResponded_at');
+
+//Ruta para Componente de alimentos
+Route::resource('foods','FoodComponentController');
+Route::get('getFoods','FoodComponentController@getFoodInformation');

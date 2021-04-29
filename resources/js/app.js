@@ -291,6 +291,9 @@ Vue.component("assistance-component",()=>import("./components/assistance.vue"));
 //Modulo de Efectividad
 Vue.component("effectiveness-component", ()=>import("./components/effectiveness.vue"));
 
+//Moodulo de Alimentos
+Vue.component("food-component", ()=>import("./components/FoodComponent.vue"));
+
 Vue.use(CKEditor);
 
 
