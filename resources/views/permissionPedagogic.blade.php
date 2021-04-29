@@ -1,7 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
+@if(Auth::user()->isAdmin())
+<menu-adm></menu-adm>
+@endif
+
+@if(Auth::user()->isCoordinator())
 <menu-coord></menu-coord>
+@endif
 <permission-pedagogic></permission-pedagogic>
  <footers></footers>
 <div class="container">
