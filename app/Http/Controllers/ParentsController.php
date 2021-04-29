@@ -66,7 +66,7 @@ class ParentsController extends Controller
                 'classroom_student.id_user as id_student',
                 'users.name as name_student',
                 'users.parent_id as parent_id',
-                'us2.name as parent_name',
+                'us2.name as parent_name'
             )
             ->where('us2.id','=',$user_id)
             ->get();
