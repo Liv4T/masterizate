@@ -308,14 +308,16 @@
                 $('#createRegister').modal('show');
             },
             dropData(id){
-                axios.delete(`deleteClassAndCicles/${id}`).then((response)=>{
-                    toastr.info(response.data);
-                    this.getPermissions();
-                }).catch((error)=>{
-                    toastr.error('Hubo un problema, intentelo de nuevo mas tarde');
-                    console.log(error);
-                    this.getPermissions();
-                })
+                if (window.confirm("Desea Eliminar este Ciclo?")) {
+                    axios.delete(`deleteClassAndCicles/${id}`).then((response)=>{
+                        toastr.info(response.data);
+                        this.getPermissions();
+                    }).catch((error)=>{
+                        toastr.error('Hubo un problema, intentelo de nuevo mas tarde');
+                        console.log(error);
+                        this.getPermissions();
+                    })
+                }
             }
         }
     }

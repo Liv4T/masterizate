@@ -329,16 +329,18 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
     dropData: function dropData(id) {
       var _this5 = this;
 
-      axios["delete"]("deleteClassAndCicles/".concat(id)).then(function (response) {
-        toastr.info(response.data);
+      if (window.confirm("Desea Eliminar este Ciclo?")) {
+        axios["delete"]("deleteClassAndCicles/".concat(id)).then(function (response) {
+          toastr.info(response.data);
 
-        _this5.getPermissions();
-      })["catch"](function (error) {
-        toastr.error('Hubo un problema, intentelo de nuevo mas tarde');
-        console.log(error);
+          _this5.getPermissions();
+        })["catch"](function (error) {
+          toastr.error('Hubo un problema, intentelo de nuevo mas tarde');
+          console.log(error);
 
-        _this5.getPermissions();
-      });
+          _this5.getPermissions();
+        });
+      }
     }
   }
 });

@@ -44,6 +44,11 @@ class UtilsController extends Controller
                 ->select('classroom.id_grade as id_grade','classroom.name as grade')
                 ->get();
             return response()->json($general);
+        }else if($user->type_user === 1){
+            $general = DB::table("classroom")
+                ->select('classroom.id_grade as id_grade','classroom.name as grade')
+                ->get();
+            return response()->json($general);
         }
     }
     /**

@@ -841,7 +841,7 @@ var staticRenderFns = [
       _c(
         "h5",
         { staticClass: "modal-title", attrs: { id: "exampleModalLabel" } },
-        [_vm._v("Creación de Utiles")]
+        [_vm._v("Creación de Salidas Pedagogicas")]
       ),
       _vm._v(" "),
       _c(
@@ -1119,7 +1119,7 @@ var staticRenderFns = [
       _c(
         "h5",
         { staticClass: "modal-title", attrs: { id: "updatePedagogicalLabel" } },
-        [_vm._v("Actualización de Utiles")]
+        [_vm._v("Actualización de Salidas Pedagogicas")]
       ),
       _vm._v(" "),
       _c(
