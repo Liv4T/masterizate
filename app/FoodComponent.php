@@ -11,6 +11,10 @@ class FoodComponent extends Model
     protected $fillable = [
         'name_student',
         'diet',
-        'observation'
+        'observation',
+        'id_classroom',
+        'id_course',
+        'course',
+        'id_student'
     ];
 }

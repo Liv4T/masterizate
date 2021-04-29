@@ -6,7 +6,7 @@
                     <h4>Alimentos</h4>
                 </div>
             </div>
-            <button class="mb-4 btn btn-primary" data-toggle="modal" data-target="#exampleModal">Crear Registro</button>
+            <button class="mb-4 btn btn-primary" data-toggle="modal" data-target="#modalFoodCreate">Crear Registro</button>
             <div id="accordion">
                 <div class="card">
                     <div class="card-header" id="headingOne">
@@ -23,14 +23,17 @@
                     </div>
                     </div>
                 </div>
+                <food-create-component></food-create-component>
             </div>
         </div>
     </div>
 </template>
 <script>
 import _ from 'lodash'; 
+import foodCreateComponent from './FoodCreateComponent'
 export default {
     components: { 
+        foodCreateComponent
     },
     data(){
         return{

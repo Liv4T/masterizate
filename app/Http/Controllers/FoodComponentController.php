@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\FoodComponent;
+use Auth;
+use DB;
 use Illuminate\Http\Request;
 
 class FoodComponentController extends Controller
@@ -22,6 +24,47 @@ class FoodComponentController extends Controller
         return response()->json($food);
     }
 
+    public function getCoursesAndStudents(){
+        $user = Auth::user();
+        if($user->new_coord_area === 'Primaria'){
+            $filterPrimarySecundary = 6;
+        }else if($user->new_coord_area === 'Secundaria'){
+            $filterPrimarySecundary = 7;
+        }
+
+        if($user->new_coord_area === 'Primaria' || $user->new_coord_area === 'Secundaria'){
+            $getCoursesAndStudents = DB::table('classroom')
+            ->join('classroom_student','classroom_student.id_classroom','=','classroom.id')
+            ->join('users','users.id','=','classroom_student.id_user')
+            ->select(
+                'classroom.id as id_classroom',
+                'classroom.id_grade as id_grade',
+                'classroom.name as grade',
+                'classroom_student.id_user as id_student',
+                'users.name as name_student',
+                'users.last_name as lastName_student'
+            )
+            ->where('classroom.id_grade','<=',$filterPrimarySecundary)
+            ->orderBy('grade')
+            ->get();
+            return response()->json($getCoursesAndStudents);
+        }else if($user->new_coord_area === 'General'){
+            $getCoursesAndStudents = DB::table('classroom')
+            ->join('classroom_student','classroom_student.id_classroom','=','classroom.id')
+            ->join('users','classroom_student.id_user','=','users.id')
+            ->select(
+                'classroom.id as id_classroom',
+                'classroom.id_grade as id_grade',
+                'classroom.name as grade',
+                'classroom_student.id_user as id_student',
+                'users.name as name_student',
+                'users.last_name as lastName_student'
+            )
+            ->orderBy('grade')
+            ->get();
+            return response()->json($getCoursesAndStudents);
+        }
+    }
     /**
      * Store a newly created resource in storage.
      *
@@ -31,6 +74,10 @@ class FoodComponentController extends Controller
     public function store(Request $request)
     {
         $newFood = new FoodComponent();
+        $newFood->id_classroom = $request->id_classroom;
+        $newFood->id_course = $request->id_course;
+        $newFood->course = $request->course;
+        $newFood->id_student = $request->id_student;
         $newFood->name_student = $request->name_student;
         $newFood->diet = $request->diet;
         $newFood->observation = $request->observation;
@@ -49,9 +96,13 @@ class FoodComponentController extends Controller
     public function update(Request $request, $id)
     {
         $updateFood = FoodComponent::findOrFail($id);
-        $updateFood->name_student = $request->name_student;
-        $updateFood->diet = $request->diet;
-        $updateFood->observation = $request->observation;
+        $newFood->id_classroom = $request->id_classroom;
+        $newFood->id_course = $request->id_course;
+        $newFood->course = $request->course;
+        $newFood->id_student = $request->id_student;
+        $newFood->name_student = $request->name_student;
+        $newFood->diet = $request->diet;
+        $newFood->observation = $request->observation;
 
         $updateFood->update();
         return response()->json('Dato de Alimento Actualizado');

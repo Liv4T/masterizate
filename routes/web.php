@@ -914,3 +914,4 @@ Route::put('updatedResponded_at/{id}','RequestPermissionsController@updatedRespo
 //Ruta para Componente de alimentos
 Route::resource('foods','FoodComponentController');
 Route::get('getFoods','FoodComponentController@getFoodInformation');
+Route::get('getCoursesAndStudents','FoodComponentController@getCoursesAndStudents');
