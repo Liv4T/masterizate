@@ -294,6 +294,9 @@ Vue.component("effectiveness-component", ()=>import("./components/effectiveness.
 //Moodulo de Alimentos
 Vue.component("food-component", ()=>import("./components/FoodComponent.vue"));
 
+//Modulo de Enfermería
+Vue.component("nursing-component", ()=>import("./components/NurseComponent.vue"));
+
 Vue.use(CKEditor);
 
 

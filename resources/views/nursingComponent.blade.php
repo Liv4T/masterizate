@@ -2,7 +2,7 @@
 
 @section('content') 
     <menu-coord></menu-coord>
-    <food-component></food-component>
+    <nursing-component></nursing-component>
 <div class="container">
 
     <div class="row justify-content-center">

@@ -915,3 +915,7 @@ Route::put('updatedResponded_at/{id}','RequestPermissionsController@updatedRespo
 Route::resource('foods','FoodComponentController');
 Route::get('getFoods','FoodComponentController@getFoodInformation');
 Route::get('getCoursesAndStudents','FoodComponentController@getCoursesAndStudents');
+
+//Ruta para componente de Enfermeria
+Route::resource('nursing', 'NursingComponentController');
+Route::get('getNursing','NursingComponentController@getNursignData');

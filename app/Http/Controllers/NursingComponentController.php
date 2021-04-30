@@ -31,11 +31,14 @@ class NursingComponentController extends Controller
     public function store(Request $request)
     {
         $createNursing = new NursingComponent();
+        $createNursing->id_course = $request->id_course;
         $createNursing->course = $request->course;
+        $createNursing->id_student = $request->id_student;
         $createNursing->student = $request->student;
         $createNursing->alergies = $request->alergies;
         $createNursing->diet = $request->diet;
         $createNursing->observation = $request->observation;
+        $createNursing->blood_rh = $request->blood_rh;
         $createNursing->save();
         return response()->json("Datos de Enfermeria Creado");
     }
@@ -72,11 +75,14 @@ class NursingComponentController extends Controller
     public function update(Request $request, $id)
     {
         $updateNursing = NursingComponent::findOrFail($id);
+        $updateNursing->id_course = $request->id_course;
         $updateNursing->course = $request->course;
+        $updateNursing->id_student = $request->id_student;
         $updateNursing->student = $request->student;
         $updateNursing->alergies = $request->alergies;
         $updateNursing->diet = $request->diet;
         $updateNursing->observation = $request->observation;
+        $updateNursing->blood_rh = $request->blood_rh;
         $updateNursing->update();
         return response()->json("Datos de enfermeria actualizado");
     }

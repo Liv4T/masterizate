@@ -19,6 +19,7 @@ class CreateNursingComponentsTable extends Migration
             $table->string('student');
             $table->string('alergies');
             $table->string('diet');
+            $table->string('blood_rh');
             $table->string('observation');
             $table->timestamps();
         });
