@@ -87,7 +87,7 @@ export default {
                 students.forEach((element)=>{
                     console.log()
                     element.forEach((el)=>{
-                       this.studentsOptions.push({
+                        this.studentsOptions.push({
                             id: el.id_student,
                             id_student: el.id_student,
                             text: `${el.name_student}`+'' +`${el.lastName_student}`,
@@ -96,18 +96,21 @@ export default {
                             id_classroom: el.id_classroom,
                         }); 
                     })
-
                 })
             })
         },
         saveFood(){
-            console.log({
+            axios.post('foods',{
+                id_student: this.saveStudents.id_student,
                 name_student: this.saveStudents.text,
                 diet: this.diet === 'otro' ? this.other_diet : this.diet,
                 observation: this.observation,
                 id_classroom: this.saveStudents.id_classroom,
                 id_course: this.saveStudents.id_grade,
                 course: this.saveStudents.grade
+            }).then((response)=>{
+                toastr.success(response.data);
+                window.location = "/foods"
             })
         },
     }

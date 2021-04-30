@@ -96,13 +96,13 @@ class FoodComponentController extends Controller
     public function update(Request $request, $id)
     {
         $updateFood = FoodComponent::findOrFail($id);
-        $newFood->id_classroom = $request->id_classroom;
-        $newFood->id_course = $request->id_course;
-        $newFood->course = $request->course;
-        $newFood->id_student = $request->id_student;
-        $newFood->name_student = $request->name_student;
-        $newFood->diet = $request->diet;
-        $newFood->observation = $request->observation;
+        $updateFood->id_classroom = $request->id_classroom;
+        $updateFood->id_course = $request->id_course;
+        $updateFood->course = $request->course;
+        $updateFood->id_student = $request->id_student;
+        $updateFood->name_student = $request->name_student;
+        $updateFood->diet = $request->diet;
+        $updateFood->observation = $request->observation;
 
         $updateFood->update();
         return response()->json('Dato de Alimento Actualizado');

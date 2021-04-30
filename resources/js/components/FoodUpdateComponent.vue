@@ -50,7 +50,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" v-on:clicl="saveFood">Save changes</button>
+                    <button type="button" class="btn btn-primary" v-on:click="updateFood">Save changes</button>
                 </div>
             </div>
         </div>
@@ -64,14 +64,11 @@ Vue.component("multiselect", Multiselect);
 export default {
     components: { 
     },
+    props:["saveStudents","diet","other_diet","observation", "id_to_update"],
     data(){
         return{
             getDataFoods:[],
-            saveStudents:{},
             studentsOptions:[],
-            diet:"",
-            other_diet: "",
-            observation:""
         }
     },
     mounted(){
@@ -100,14 +97,28 @@ export default {
                 })
             })
         },
-        saveFood(){
-            console.log({
+        updateFood(){
+            // id_classroom
+            // id_course
+            // course
+            // id_student
+            // name_student
+            // diet
+            // observation
+
+            axios.put(`foods/${this.id_to_update}`,{
+                id_student: this.saveStudents.id_student,
                 name_student: this.saveStudents.text,
-                diet: this.diet === 'otro' ? this.other_diet : this.diet,
+                diet: this.diet !== 'otro' ? this.diet : this.other_diet,
                 observation: this.observation,
                 id_classroom: this.saveStudents.id_classroom,
                 id_course: this.saveStudents.id_grade,
                 course: this.saveStudents.grade
+            }).then((response)=>{
+                toastr.success(response.data);
+                window.location = "foods"
+            }).catch((error)=>{
+                console.log(error);
             })
         },
     }

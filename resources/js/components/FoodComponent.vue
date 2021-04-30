@@ -8,36 +8,64 @@
             </div>
             <button class="mb-4 btn btn-primary" data-toggle="modal" data-target="#modalFoodCreate">Crear Registro</button>
             <div id="accordion">
-                <div class="card">
+                <div class="card" v-for="(food, key) in getDataFoods" :key="key">
                     <div class="card-header" id="headingOne">
                     <h5 class="mb-0">
-                        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                        Collapsible Group Item #1
+                        <button class="btn btn-link" data-toggle="collapse" :data-target="`#collapse${key}`" aria-expanded="true" :aria-controls="`collapse${key}`">
+                        {{key}}
                         </button>
                     </h5>
                     </div>
 
-                    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                    <div :id="`collapse${key}`" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
                     <div class="card-body">
-                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                        <table class="table table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Estudiante</th>
+                                    <th>Dieta</th>
+                                    <th>Observación</th>
+                                    <th>Acción</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="(fod, key) in food" :key="key">
+                                    <td>{{fod.name_student}}</td>
+                                    <td>{{fod.diet}}</td>
+                                    <td>{{fod.observation}}</td>
+                                    <td>
+                                        <button class="btn btn-primary" v-on:click="editFood(fod)">Editar</button>
+                                        <button class="btn btn-danger" v-on:click="deleteFood(fod.id)">Eliminar</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                     </div>
                 </div>
                 <food-create-component></food-create-component>
+                <food-update-component :saveStudents="saveStudents" :diet="diet" :other_diet="other_diet" :observation="observation" :id_to_update="id_to_update"></food-update-component>
             </div>
         </div>
     </div>
 </template>
 <script>
 import _ from 'lodash'; 
-import foodCreateComponent from './FoodCreateComponent'
+import foodCreateComponent from './FoodCreateComponent';
+import foodUpdateComponent from './FoodUpdateComponent';
 export default {
     components: { 
-        foodCreateComponent
+        foodCreateComponent,
+        foodUpdateComponent
     },
     data(){
         return{
-            getDataFoods:[]  
+            getDataFoods:[],
+            saveStudents:{},
+            id_to_update:"",
+            diet: "",
+            other_diet:"",
+            observation: "",
         }
     },
     mounted(){
@@ -46,13 +74,41 @@ export default {
     methods:{
         getFoods(){
             axios.get('getFoods').then((response)=>{
-                this.getDataFoods = response.data
+                let getDataFoods = response.data
+                this.groupData(getDataFoods)
             })
         },
         groupData(data){
-            const result = _.chain(data).groupBy("grade").value();
-            this.utils = result
+            const result = _.chain(data).groupBy("course").value();
+            this.getDataFoods = result
         },
+        editFood(data){
+            this.id_to_update = data.id,
+            this.saveStudents ={
+                id: data.id_student,
+                id_student: data.id_student,
+                text: `${data.name_student}`,
+                grade: data.course,
+                id_grade: data.id_course,
+                id_classroom: data.id_classroom,
+            };
+            if(data.diet !== 'Normal' || data.diet !== 'Vegetariano'){
+                this.diet = 'otro'
+                this.other_diet = data.diet
+            }else{
+                this.diet = data.diet
+            }
+            this.observation = data.observation
+            $("#modalFoodUpdate").modal('show');
+        },
+        deleteFood(id){
+            if(window.confirm("Desea Eliminar El dato?")){
+                axios.delete(`foods/${id}`).then((response)=>{
+                    toastr.info(response.data);
+                    this.getFoods();
+                })
+            }
+        }
     }
 }
 </script>
