@@ -31,3 +31,7 @@
 <menu-coord></menu-coord>
 @endif
 
+@if(Auth::user()->isNurse())
+<menu-nurse></menu-nurse>
+@endif
+

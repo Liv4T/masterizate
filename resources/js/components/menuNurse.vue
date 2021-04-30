@@ -10,12 +10,6 @@
                                     <span class="menu">Mi perfil</span>
                             </li>
                         </a>
-                        <a href="/calendar">
-                            <li class="item-menu">
-                                <img width="35px" src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/HORARIO_narnja.png?alt=media&token=93ec6b97-e5a6-4eca-891e-b63bf2a352ad" alt/>
-                                <span class="menu">Calendario</span>
-                            </li>
-                        </a>
                         <div class="dropdown1">
                             <a>
                                 <li class="item-menu">
@@ -52,49 +46,17 @@
                                 </li>
                             </a>
                         </div>
-                        <div class="dropdown">
-                            <a>
-                                <li class="item-menu">
-                                    <img width="35px" src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/ANUNCIOS_naranja.png?alt=media&token=539c1428-c480-43bf-a132-73be35386940" alt/>
-                                    <span class="menu">
-                                        Académico&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    </span>
-                                    <div class="dropdown-content">
-                                        <a href="/materiasCoord">
-                                            <img width="35px" src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/ACTIVIDADES_naranja.png?alt=media&token=93ec6b97-e5a6-4eca-891e-b63bf2a352ad" alt />
-                                            Materias&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                        </a>
-                                        <a href="/claseCoord">
-                                            <img width="35px" src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/ACTIVIDADES_naranja.png?alt=media&token=93ec6b97-e5a6-4eca-891e-b63bf2a352ad" alt />
-                                            Clases&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                        </a>
-                                        <a href="/utils">
-                                            <img width="35px" src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/ACTIVIDADES_naranja.png?alt=media&token=93ec6b97-e5a6-4eca-891e-b63bf2a352ad" alt />
-                                            Utiles&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                        </a>
-                                        <a href="/pedagogic">
-                                            <img width="35px" src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/ACTIVIDADES_naranja.png?alt=media&token=93ec6b97-e5a6-4eca-891e-b63bf2a352ad" alt />
-                                            Salidas Pedagogicas&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                        </a>
-                                        <a href="/permissionPedagogic">
-                                            <img width="35px" src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/ACTIVIDADES_naranja.png?alt=media&token=93ec6b97-e5a6-4eca-891e-b63bf2a352ad" alt />
-                                            Permisos Salidas&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                        </a>
-                                    </div>
-                                </li>
-                            </a>
-                        </div>
-                        <a href="/board">
-                            <li class="item-menu">
-                                <img width="35px" src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/NOTAS_naranja.png?alt=media&token=93ec6b97-e5a6-4eca-891e-b63bf2a352ad" alt/>
-                                <span class="menu">Pizarra</span>
-                            </li>
+                        <a href="/foods">
+                          <li class="item-menu">
+                            <img width="35px" src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/sicologia_naranja.png?alt=media&token=93ec6b97-e5a6-4eca-891e-b63bf2a352ad" alt/>
+                              <span class="menu">Alimentos</span>
+                          </li>
                         </a>
-                        <a href="/observer">
-                            <li class="item-menu">
-                                <img width="35px" src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/MIS-CURSOS.png?alt=media&token=93ec6b97-e5a6-4eca-891e-b63bf2a352ad" alt/>
-                                <span class="menu">Observador</span>
-                            </li>
+                        <a href="/nursing">
+                          <li class="item-menu">
+                            <img width="35px" src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/sicologia_naranja.png?alt=media&token=93ec6b97-e5a6-4eca-891e-b63bf2a352ad" alt/>
+                              <span class="menu">Enfermería</span>
+                          </li>
                         </a>
                         <a href="/manual">
                             <li class="item-menu">
