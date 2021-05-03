@@ -20,7 +20,7 @@ class CreateNursingComponentsTable extends Migration
             $table->string('alergies');
             $table->string('diet');
             $table->string('blood_rh');
-            $table->string('observation');
+            $table->string('observation')->nullable();
             $table->timestamps();
         });
     }

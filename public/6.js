@@ -64,6 +64,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -90,9 +94,25 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       axios.get('getFoods').then(function (response) {
-        var getDataFoods = response.data;
+        var foodResult = [];
+        var foods = response.data;
+        foods.forEach(function (food) {
+          axios.get("nursing/".concat(food.id_student)).then(function (response) {
+            foodResult.push({
+              name_student: food.name_student,
+              diet: food.diet,
+              observation: food.observation,
+              id_classroom: food.id_student,
+              id_course: food.id_classroom,
+              course: food.course,
+              id_student: food.id_student,
+              medic_alergies: response.data.alergies ? response.data.alergies : 'No Registra',
+              medic_observation: response.data.observation ? response.data.observation : 'No Registra'
+            });
 
-        _this.groupData(getDataFoods);
+            _this.groupData(foodResult);
+          });
+        });
       });
     },
     groupData: function groupData(data) {
@@ -202,11 +222,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
 
 
 Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_1___default.a);
@@ -254,7 +269,7 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_1___defaul
       axios.post('foods', {
         id_student: this.saveStudents.id_student,
         name_student: this.saveStudents.text,
-        diet: this.diet === 'otro' ? this.other_diet : this.diet,
+        diet: this.diet === 'Otro' ? this.other_diet : this.diet,
         observation: this.observation,
         id_classroom: this.saveStudents.id_classroom,
         id_course: this.saveStudents.id_grade,
@@ -282,11 +297,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vue_multiselect__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-multiselect */ "./node_modules/vue-multiselect/dist/vue-multiselect.min.js");
 /* harmony import */ var vue_multiselect__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue_multiselect__WEBPACK_IMPORTED_MODULE_1__);
-//
-//
-//
-//
-//
 //
 //
 //
@@ -381,17 +391,10 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_1___defaul
       });
     },
     updateFood: function updateFood() {
-      // id_classroom
-      // id_course
-      // course
-      // id_student
-      // name_student
-      // diet
-      // observation
       axios.put("foods/".concat(this.id_to_update), {
         id_student: this.saveStudents.id_student,
         name_student: this.saveStudents.text,
-        diet: this.diet !== 'otro' ? this.diet : this.other_diet,
+        diet: this.diet !== 'Otro' ? this.diet : this.other_diet,
         observation: this.observation,
         id_classroom: this.saveStudents.id_classroom,
         id_course: this.saveStudents.id_grade,
@@ -498,6 +501,10 @@ var render = function() {
                               _vm._v(" "),
                               _c("td", [_vm._v(_vm._s(fod.observation))]),
                               _vm._v(" "),
+                              _c("td", [_vm._v(_vm._s(fod.medic_observation))]),
+                              _vm._v(" "),
+                              _c("td", [_vm._v(_vm._s(fod.medic_alergies))]),
+                              _vm._v(" "),
                               _c("td", [
                                 _c(
                                   "button",
@@ -576,6 +583,10 @@ var staticRenderFns = [
         _c("th", [_vm._v("Dieta")]),
         _vm._v(" "),
         _c("th", [_vm._v("Observación")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Observación Medica")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Alergias Medicas")]),
         _vm._v(" "),
         _c("th", [_vm._v("Acción")])
       ])
@@ -708,26 +719,22 @@ var render = function() {
                 },
                 [
                   _c("option", { attrs: { value: "Normal" } }, [
-                    _vm._v(
-                      "\n                            Normal\n                        "
-                    )
+                    _vm._v("Normal")
                   ]),
                   _vm._v(" "),
                   _c("option", { attrs: { value: "Vegetariano" } }, [
-                    _vm._v(
-                      "\n                            Vegetariano\n                        "
-                    )
+                    _vm._v("Vegetariano")
                   ]),
                   _vm._v(" "),
-                  _c("option", { attrs: { value: "otro" } }, [
-                    _vm._v(
-                      "\n                            Otro\n                        "
-                    )
-                  ])
+                  _c("option", { attrs: { value: "Dieta" } }, [
+                    _vm._v("Dieta")
+                  ]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "Otro" } }, [_vm._v("Otro")])
                 ]
               ),
               _vm._v(" "),
-              _vm.diet === "otro"
+              _vm.diet === "Otro" || _vm.diet === "Dieta"
                 ? _c("div", [
                     _c("input", {
                       directives: [
@@ -739,7 +746,7 @@ var render = function() {
                         }
                       ],
                       staticClass: "form-control mt-2",
-                      attrs: { type: "text", placeholder: "Ej: Veganismo" },
+                      attrs: { type: "text", placeholder: "Especificar Dieta" },
                       domProps: { value: _vm.other_diet },
                       on: {
                         input: function($event) {
@@ -961,26 +968,22 @@ var render = function() {
                 },
                 [
                   _c("option", { attrs: { value: "Normal" } }, [
-                    _vm._v(
-                      "\n                            Normal\n                        "
-                    )
+                    _vm._v("Normal")
                   ]),
                   _vm._v(" "),
                   _c("option", { attrs: { value: "Vegetariano" } }, [
-                    _vm._v(
-                      "\n                            Vegetariano\n                        "
-                    )
+                    _vm._v("Vegetariano")
                   ]),
                   _vm._v(" "),
-                  _c("option", { attrs: { value: "otro" } }, [
-                    _vm._v(
-                      "\n                            Otro\n                        "
-                    )
-                  ])
+                  _c("option", { attrs: { value: "Dieta" } }, [
+                    _vm._v("Dieta")
+                  ]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "Otro" } }, [_vm._v("Otro")])
                 ]
               ),
               _vm._v(" "),
-              _vm.diet === "otro"
+              _vm.diet === "Otro" || _vm.diet === "Dieta"
                 ? _c("div", [
                     _c("input", {
                       directives: [
@@ -992,7 +995,7 @@ var render = function() {
                         }
                       ],
                       staticClass: "form-control mt-2",
-                      attrs: { type: "text", placeholder: "Ej: Veganismo" },
+                      attrs: { type: "text", placeholder: "Especificar Dieta" },
                       domProps: { value: _vm.other_diet },
                       on: {
                         input: function($event) {

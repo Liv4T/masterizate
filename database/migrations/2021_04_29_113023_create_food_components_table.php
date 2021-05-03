@@ -17,7 +17,7 @@ class CreateFoodComponentsTable extends Migration
             $table->increments('id');
             $table->string('name_student');
             $table->string('diet');
-            $table->text('observation');
+            $table->text('observation')->nullable();
             $table->timestamps();
         });
     }

@@ -25,6 +25,8 @@
                                     <th>Estudiante</th>
                                     <th>Dieta</th>
                                     <th>Observación</th>
+                                    <th>Observación Medica</th>
+                                    <th>Alergias Medicas</th>
                                     <th>Acción</th>
                                 </tr>
                             </thead>
@@ -33,6 +35,8 @@
                                     <td>{{fod.name_student}}</td>
                                     <td>{{fod.diet}}</td>
                                     <td>{{fod.observation}}</td>
+                                    <td>{{fod.medic_observation}}</td>
+                                    <td>{{fod.medic_alergies}}</td>
                                     <td>
                                         <button class="btn btn-primary" v-on:click="editFood(fod)">Editar</button>
                                         <button class="btn btn-danger" v-on:click="deleteFood(fod.id)">Eliminar</button>
@@ -74,8 +78,24 @@ export default {
     methods:{
         getFoods(){
             axios.get('getFoods').then((response)=>{
-                let getDataFoods = response.data
-                this.groupData(getDataFoods)
+                let foodResult = []
+                let foods = response.data;
+                foods.forEach((food)=>{
+                    axios.get(`nursing/${food.id_student}`).then(response=>{
+                        foodResult.push({
+                            name_student: food.name_student,
+                            diet: food.diet,
+                            observation: food.observation,
+                            id_classroom: food.id_student,
+                            id_course: food.id_classroom,
+                            course: food.course,
+                            id_student: food.id_student,
+                            medic_alergies: response.data.alergies ? response.data.alergies: 'No Registra',
+                            medic_observation: response.data.observation ? response.data.observation : 'No Registra'
+                        })
+                        this.groupData(foodResult);
+                    })
+                })
             })
         },
         groupData(data){

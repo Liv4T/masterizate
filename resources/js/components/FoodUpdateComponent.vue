@@ -28,19 +28,14 @@
                     <div class="form-group">
                         <label for="dieta">Alimento</label>
                         <select class="form-control" name="dieta" v-model="diet">
-                            <option value="Normal">
-                                Normal
-                            </option>
-                            <option value="Vegetariano">
-                                Vegetariano
-                            </option>
-                            <option value="otro">
-                                Otro
-                            </option>
+                            <option value="Normal">Normal</option>
+                            <option value="Vegetariano">Vegetariano</option>
+                            <option value="Dieta">Dieta</option>
+                            <option value="Otro">Otro</option>
                         </select>
 
-                        <div v-if="diet === 'otro'">
-                            <input type="text" class="form-control mt-2" placeholder="Ej: Veganismo" v-model="other_diet"/>
+                        <div v-if="diet === 'Otro' || diet === 'Dieta'">
+                            <input type="text" class="form-control mt-2" placeholder="Especificar Dieta" v-model="other_diet"/>
                         </div>
                     </div>
                     <div class="form-group">
@@ -98,18 +93,10 @@ export default {
             })
         },
         updateFood(){
-            // id_classroom
-            // id_course
-            // course
-            // id_student
-            // name_student
-            // diet
-            // observation
-
             axios.put(`foods/${this.id_to_update}`,{
                 id_student: this.saveStudents.id_student,
                 name_student: this.saveStudents.text,
-                diet: this.diet !== 'otro' ? this.diet : this.other_diet,
+                diet: this.diet !== 'Otro' ? this.diet : this.other_diet,
                 observation: this.observation,
                 id_classroom: this.saveStudents.id_classroom,
                 id_course: this.saveStudents.id_grade,

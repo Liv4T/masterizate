@@ -49,9 +49,10 @@ class NursingComponentController extends Controller
      * @param  \App\NursingComponent  $nursingComponent
      * @return \Illuminate\Http\Response
      */
-    public function show(NursingComponent $nursingComponent)
+    public function show($id)
     {
-        //
+        $shoeNursing = NursingComponent::where('id_student','=',$id)->first();
+        return $shoeNursing;
     }
 
     /**

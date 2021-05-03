@@ -867,7 +867,7 @@ var render = function() {
                 staticClass: "btn btn-secondary",
                 attrs: { type: "button", "data-dismiss": "modal" }
               },
-              [_vm._v("Close")]
+              [_vm._v("Cerrar")]
             ),
             _vm._v(" "),
             _c(
@@ -877,7 +877,7 @@ var render = function() {
                 attrs: { type: "button" },
                 on: { click: _vm.saveNursing }
               },
-              [_vm._v("Save changes")]
+              [_vm._v("Guardar")]
             )
           ])
         ])
@@ -1181,7 +1181,7 @@ var render = function() {
                 staticClass: "btn btn-secondary",
                 attrs: { type: "button", "data-dismiss": "modal" }
               },
-              [_vm._v("Close")]
+              [_vm._v("Cerrar")]
             ),
             _vm._v(" "),
             _c(
@@ -1191,7 +1191,7 @@ var render = function() {
                 attrs: { type: "button" },
                 on: { click: _vm.updateNursing }
               },
-              [_vm._v("Save changes")]
+              [_vm._v("Actualizar")]
             )
           ])
         ])
@@ -1211,7 +1211,7 @@ var staticRenderFns = [
           staticClass: "modal-title",
           attrs: { id: "modalNursingUpdateLabel" }
         },
-        [_vm._v("Creación de Registro")]
+        [_vm._v("Edición de Registro")]
       ),
       _vm._v(" "),
       _c(
