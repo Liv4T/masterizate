@@ -35,6 +35,7 @@ class DeleteClassAndCiclesController extends Controller
         $deleteClassAndCicles->date_to_activate_btn = $request->date_to_activate_btn;
         $deleteClassAndCicles->date_to_deactivate_btn = $request->date_to_deactivate_btn;
         $deleteClassAndCicles->text = $request->text;
+        $deleteClassAndCicles->class = $request->class;
         $deleteClassAndCicles->class_selected = $request->class_selected;
         $deleteClassAndCicles->area_selected = $request->area_selected;
         $deleteClassAndCicles->save();
@@ -66,6 +67,7 @@ class DeleteClassAndCiclesController extends Controller
         $deleteClassAndCicles->date_to_activate_btn = $request->date_to_activate_btn;
         $deleteClassAndCicles->date_to_deactivate_btn = $request->date_to_deactivate_btn;
         $deleteClassAndCicles->text = $request->text;
+        $deleteClassAndCicles->class = $request->class;
         $deleteClassAndCicles->class_selected = $request->class_selected;
         $deleteClassAndCicles->area_selected = $request->area_selected;
         $deleteClassAndCicles->update();

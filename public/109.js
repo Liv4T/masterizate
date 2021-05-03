@@ -1,5 +1,102 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[109],{
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/TableDeleteClassAndCicles.vue?vue&type=script&lang=js&":
+/*!************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/TableDeleteClassAndCicles.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['showPermission'],
+  data: function data() {
+    return {
+      urgentPermissons: [],
+      search_urgent_class: "",
+      search_urgent_filter: ""
+    };
+  },
+  mounted: function mounted() {
+    this.getPermissions();
+  },
+  methods: {
+    getPermissions: function getPermissions() {
+      var _this = this;
+
+      axios.get('requestPermission').then(function (response) {
+        _this.groupUrgentData(response.data);
+      });
+    },
+    groupUrgentData: function groupUrgentData(data) {
+      var result = _.chain(data).groupBy("course").value();
+
+      this.urgentPermissons = result;
+    },
+    filterUrgentCicle: function filterUrgentCicle(cicleUrgentName) {
+      return cicleUrgentName.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(this.search_urgent_filter.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, ""));
+    },
+    filterUrgentClass: function filterUrgentClass(UrgentClass) {
+      return UrgentClass.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(this.search_urgent_class.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, ""));
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/deleteClassAndCicles.vue?vue&type=script&lang=js&":
 /*!*******************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/deleteClassAndCicles.vue?vue&type=script&lang=js& ***!
@@ -11,6 +108,7 @@
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_multiselect__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-multiselect */ "./node_modules/vue-multiselect/dist/vue-multiselect.min.js");
 /* harmony import */ var vue_multiselect__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue_multiselect__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _TableDeleteClassAndCicles_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./TableDeleteClassAndCicles.vue */ "./resources/js/components/TableDeleteClassAndCicles.vue");
 //
 //
 //
@@ -131,21 +229,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+
 
 Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___default.a);
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -160,9 +244,8 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
       date_end: '',
       is_updated: false,
       search_filter: '',
-      search_urgent_filter: '',
+      search_class: '',
       id_to_update: '',
-      urgentPermissons: [],
       showPermission: false
     };
   },
@@ -171,20 +254,23 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
     this.getPermissions();
   },
   components: {
-    Multiselect: vue_multiselect__WEBPACK_IMPORTED_MODULE_0___default.a
+    Multiselect: vue_multiselect__WEBPACK_IMPORTED_MODULE_0___default.a,
+    TableDeleteClassAndCicles: _TableDeleteClassAndCicles_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
   methods: {
     getPermissions: function getPermissions() {
       var _this = this;
 
       axios.get('getPermissions').then(function (response) {
-        _this.dataToIterate = response.data;
+        _this.groupData(response.data);
       })["catch"](function (error) {
         console.log(error);
       });
-      axios.get('requestPermission').then(function (response) {
-        _this.urgentPermissons = response.data;
-      });
+    },
+    groupData: function groupData(data) {
+      var result = _.chain(data).groupBy("class").value();
+
+      this.dataToIterate = result;
     },
     showTablePermission: function showTablePermission() {
       this.showPermission = !this.showPermission;
@@ -251,11 +337,13 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
       if (this.is_updated === false) {
         if (this.saveCicle.length > 0) {
           this.saveCicle.forEach(function (cicle) {
+            console.log('Ciclo', cicle);
             axios.post('deleteClassAndCicles', {
               id_cicle: cicle.id,
               date_to_activate_btn: _this4.date,
               date_to_deactivate_btn: _this4.date_end,
               text: cicle.text,
+              "class": cicle["class"],
               class_selected: cicle.class_selected,
               area_selected: cicle.area_selected
             }).then(function (response) {
@@ -283,6 +371,7 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
               date_to_activate_btn: _this4.date,
               date_to_deactivate_btn: _this4.date_end,
               text: cicle.text,
+              "class": cicle["class"],
               class_selected: cicle.class_selected,
               area_selected: cicle.area_selected
             }).then(function (response) {
@@ -345,11 +434,242 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
     filterCicle: function filterCicle(cicleName) {
       return cicleName.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(this.search_filter.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, ""));
     },
-    filterUrgentCicle: function filterUrgentCicle(cicleUrgentName) {
-      return cicleUrgentName.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(this.search_urgent_filter.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, ""));
+    filterClass: function filterClass(clas) {
+      return clas.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(this.search_class.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, ""));
     }
   }
 });
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/TableDeleteClassAndCicles.vue?vue&type=template&id=268a177a&":
+/*!****************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/TableDeleteClassAndCicles.vue?vue&type=template&id=268a177a& ***!
+  \****************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    {
+      directives: [
+        {
+          name: "show",
+          rawName: "v-show",
+          value: _vm.showPermission == true,
+          expression: "showPermission == true"
+        }
+      ],
+      staticClass: "card"
+    },
+    [
+      _c("div", [
+        _vm._m(0),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "card-body" },
+          [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.search_urgent_class,
+                  expression: "search_urgent_class"
+                }
+              ],
+              staticClass: "form-control mb-2",
+              attrs: {
+                type: "text",
+                placeholder: "Buscar Por Materia - Salon"
+              },
+              domProps: { value: _vm.search_urgent_class },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.search_urgent_class = $event.target.value
+                }
+              }
+            }),
+            _vm._v(" "),
+            _vm._l(_vm.urgentPermissons, function(urgentP, key) {
+              return _c("div", { key: key, attrs: { id: "accordion" } }, [
+                _vm.search_urgent_class == "" || _vm.filterUrgentClass(key)
+                  ? _c("div", { staticClass: "card" }, [
+                      _c(
+                        "div",
+                        {
+                          staticClass: "card-header",
+                          attrs: { id: "headingOne" }
+                        },
+                        [
+                          _c("h5", { staticClass: "mb-0" }, [
+                            _c(
+                              "button",
+                              {
+                                staticClass: "btn btn-link",
+                                attrs: {
+                                  "data-toggle": "collapse",
+                                  "data-target":
+                                    "#collapse1" + key.replace(/ /g, ""),
+                                  "aria-expanded": "true",
+                                  "aria-controls":
+                                    "collapse1" + key.replace(/ /g, "")
+                                }
+                              },
+                              [
+                                _vm._v(
+                                  "\n                                " +
+                                    _vm._s(key) +
+                                    "\n                            "
+                                )
+                              ]
+                            )
+                          ])
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          staticClass: "collapse hide",
+                          attrs: {
+                            id: "collapse1" + key.replace(/ /g, ""),
+                            "aria-labelledby": "headingOne",
+                            "data-parent": "#accordion"
+                          }
+                        },
+                        [
+                          _c("div", { staticClass: "card-body" }, [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.search_urgent_filter,
+                                  expression: "search_urgent_filter"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              attrs: {
+                                type: "text",
+                                placeholder: "Buscar Por Ciclo"
+                              },
+                              domProps: { value: _vm.search_urgent_filter },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.search_urgent_filter = $event.target.value
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c(
+                              "table",
+                              {
+                                staticClass:
+                                  "table table-responsive-xl table-hover table-striped"
+                              },
+                              [
+                                _vm._m(1, true),
+                                _vm._v(" "),
+                                _vm._l(urgentP, function(data, key) {
+                                  return _c("tbody", { key: key }, [
+                                    _vm.search_urgent_filter == "" ||
+                                    _vm.filterUrgentCicle(data.cicle)
+                                      ? _c("tr", [
+                                          _c("td", [
+                                            _vm._v(_vm._s(data.cicle))
+                                          ]),
+                                          _vm._v(" "),
+                                          _c("td", [
+                                            _vm._v(_vm._s(data.course))
+                                          ]),
+                                          _vm._v(" "),
+                                          data.responded_at === null
+                                            ? _c("td", [
+                                                _c(
+                                                  "button",
+                                                  {
+                                                    staticClass:
+                                                      "btn btn-primary",
+                                                    on: {
+                                                      click: function($event) {
+                                                        return _vm.createUrgentPermission(
+                                                          data
+                                                        )
+                                                      }
+                                                    }
+                                                  },
+                                                  [_vm._v("Crear")]
+                                                )
+                                              ])
+                                            : _c("td", [
+                                                _c("p", [_vm._v("Respondido")])
+                                              ])
+                                        ])
+                                      : _vm._e()
+                                  ])
+                                })
+                              ],
+                              2
+                            )
+                          ])
+                        ]
+                      )
+                    ])
+                  : _vm._e()
+              ])
+            })
+          ],
+          2
+        )
+      ])
+    ]
+  )
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", [
+      _c("div", { staticClass: "card-header fondo text-center mb-3" }, [
+        _c("h4", [_vm._v("Permisos Solicitados")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("Ciclos")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Materia - Salon")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Acción")])
+      ])
+    ])
+  }
+]
+render._withStripped = true
+
+
 
 /***/ }),
 
@@ -373,207 +693,232 @@ var render = function() {
       "div",
       { staticClass: "row justify-content-center", attrs: { id: "crud" } },
       [
-        _c("div", { staticClass: "col-sm-10" }, [
-          _c("div", [
-            _c(
-              "button",
-              {
-                staticClass: "btn btn-primary mb-3",
-                attrs: {
-                  "data-toggle": "modal",
-                  "data-target": "#createRegister"
-                }
-              },
-              [_vm._v("Crear Registro")]
-            ),
-            _vm._v(" "),
-            _c(
-              "button",
-              {
-                staticClass: "btn btn-primary mb-3",
-                on: { click: _vm.showTablePermission }
-              },
-              [
-                _vm._v(
-                  _vm._s(
-                    _vm.showPermission ? "Ocultar Permisos" : "Mostrar Permisos"
-                  )
-                )
-              ]
-            )
-          ]),
-          _vm._v(" "),
-          _c(
-            "div",
-            {
-              directives: [
-                {
-                  name: "show",
-                  rawName: "v-show",
-                  value: _vm.showPermission == true,
-                  expression: "showPermission == true"
-                }
-              ],
-              staticClass: "card"
-            },
-            [
-              _c("div", [
-                _vm._m(0),
-                _vm._v(" "),
-                _vm.urgentPermissons.length > 0
-                  ? _c("div", { staticClass: "card-body" }, [
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.search_urgent_filter,
-                            expression: "search_urgent_filter"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        attrs: {
-                          type: "text",
-                          placeholder: "Buscar Por Ciclo"
-                        },
-                        domProps: { value: _vm.search_urgent_filter },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.search_urgent_filter = $event.target.value
-                          }
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c(
-                        "table",
-                        {
-                          staticClass:
-                            "table table-responsive-xl table-hover table-striped"
-                        },
-                        [
-                          _vm._m(1),
-                          _vm._v(" "),
-                          _vm._l(_vm.urgentPermissons, function(data, key) {
-                            return _c("tbody", { key: key }, [
-                              _vm.search_urgent_filter == "" ||
-                              _vm.filterUrgentCicle(data.cicle)
-                                ? _c("tr", [
-                                    _c("td", [_vm._v(_vm._s(data.cicle))]),
-                                    _vm._v(" "),
-                                    _c("td", [_vm._v(_vm._s(data.course))]),
-                                    _vm._v(" "),
-                                    data.responded_at === null
-                                      ? _c("td", [
-                                          _c(
-                                            "button",
-                                            {
-                                              staticClass: "btn btn-primary",
-                                              on: {
-                                                click: function($event) {
-                                                  return _vm.createUrgentPermission(
-                                                    data
-                                                  )
-                                                }
-                                              }
-                                            },
-                                            [_vm._v("Crear")]
-                                          )
-                                        ])
-                                      : _c("td", [
-                                          _c("p", [_vm._v("Respondido")])
-                                        ])
-                                  ])
-                                : _vm._e()
-                            ])
-                          })
-                        ],
-                        2
-                      )
-                    ])
-                  : _vm._e()
-              ])
-            ]
-          ),
-          _vm._v(" "),
-          _vm._m(2),
-          _vm._v(" "),
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.search_filter,
-                expression: "search_filter"
-              }
-            ],
-            staticClass: "form-control",
-            attrs: { type: "text", placeholder: "Buscar Por Ciclo" },
-            domProps: { value: _vm.search_filter },
-            on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.search_filter = $event.target.value
-              }
-            }
-          }),
-          _vm._v(" "),
-          _c("div", { staticClass: "card" }, [
-            _c("div", { staticClass: "card-body" }, [
+        _c(
+          "div",
+          { staticClass: "col-sm-10" },
+          [
+            _c("div", [
               _c(
-                "table",
+                "button",
                 {
-                  staticClass:
-                    "table table-responsive-xl table-hover table-striped"
+                  staticClass: "btn btn-primary mb-3",
+                  attrs: {
+                    "data-toggle": "modal",
+                    "data-target": "#createRegister"
+                  }
+                },
+                [_vm._v("Crear Registro")]
+              ),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-primary mb-3",
+                  on: { click: _vm.showTablePermission }
                 },
                 [
-                  _vm._m(3),
+                  _vm._v(
+                    _vm._s(
+                      _vm.showPermission
+                        ? "Ocultar Permisos"
+                        : "Mostrar Permisos"
+                    )
+                  )
+                ]
+              )
+            ]),
+            _vm._v(" "),
+            _c("table-delete-class-and-cicles", {
+              attrs: { showPermission: _vm.showPermission }
+            }),
+            _vm._v(" "),
+            _vm._m(0),
+            _vm._v(" "),
+            _c("div", { staticClass: "card" }, [
+              _c(
+                "div",
+                { staticClass: "card-body" },
+                [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.search_class,
+                        expression: "search_class"
+                      }
+                    ],
+                    staticClass: "form-control mb-2",
+                    attrs: {
+                      type: "text",
+                      placeholder: "Buscar Por Materia - Salon"
+                    },
+                    domProps: { value: _vm.search_class },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.search_class = $event.target.value
+                      }
+                    }
+                  }),
                   _vm._v(" "),
                   _vm._l(_vm.dataToIterate, function(data, key) {
-                    return _c("tbody", { key: key }, [
-                      _vm.search_filter == "" || _vm.filterCicle(data.text)
-                        ? _c("tr", [
-                            _c("td", [_vm._v(_vm._s(data.text))]),
+                    return _c("div", { key: key, attrs: { id: "accordion" } }, [
+                      _vm.search_class == "" || _vm.filterClass(key)
+                        ? _c("div", { staticClass: "card" }, [
+                            _c(
+                              "div",
+                              {
+                                staticClass: "card-header",
+                                attrs: { id: "headingOne" }
+                              },
+                              [
+                                _c("h5", { staticClass: "mb-0" }, [
+                                  _c(
+                                    "button",
+                                    {
+                                      staticClass: "btn btn-link",
+                                      attrs: {
+                                        "data-toggle": "collapse",
+                                        "data-target":
+                                          "#collapse" + key.replace(/ /g, ""),
+                                        "aria-expanded": "true",
+                                        "aria-controls":
+                                          "collapse" + key.replace(/ /g, "")
+                                      }
+                                    },
+                                    [
+                                      _vm._v(
+                                        "\n                                        " +
+                                          _vm._s(key) +
+                                          "\n                                    "
+                                      )
+                                    ]
+                                  )
+                                ])
+                              ]
+                            ),
                             _vm._v(" "),
-                            _c("td", [
-                              _vm._v(_vm._s(data.date_to_activate_btn))
-                            ]),
-                            _vm._v(" "),
-                            _c("td", [
-                              _vm._v(_vm._s(data.date_to_deactivate_btn))
-                            ]),
-                            _vm._v(" "),
-                            _c("td", [
-                              _c(
-                                "button",
-                                {
-                                  staticClass: "btn btn-primary mb-2 mr-2",
-                                  on: {
-                                    click: function($event) {
-                                      return _vm.update(data)
+                            _c(
+                              "div",
+                              {
+                                staticClass: "collapse hide",
+                                attrs: {
+                                  id: "collapse" + key.replace(/ /g, ""),
+                                  "aria-labelledby": "headingOne",
+                                  "data-parent": "#accordion"
+                                }
+                              },
+                              [
+                                _c("div", { staticClass: "card-body" }, [
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.search_filter,
+                                        expression: "search_filter"
+                                      }
+                                    ],
+                                    staticClass: "form-control",
+                                    attrs: {
+                                      type: "text",
+                                      placeholder: "Buscar Por Ciclo"
+                                    },
+                                    domProps: { value: _vm.search_filter },
+                                    on: {
+                                      input: function($event) {
+                                        if ($event.target.composing) {
+                                          return
+                                        }
+                                        _vm.search_filter = $event.target.value
+                                      }
                                     }
-                                  }
-                                },
-                                [_vm._v("Editar")]
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "button",
-                                {
-                                  staticClass: "btn btn-primary",
-                                  on: {
-                                    click: function($event) {
-                                      return _vm.dropData(data.id)
-                                    }
-                                  }
-                                },
-                                [_vm._v("Eliminar")]
-                              )
-                            ])
+                                  }),
+                                  _vm._v(" "),
+                                  _c(
+                                    "table",
+                                    {
+                                      staticClass:
+                                        "table table-responsive-xl table-hover table-striped"
+                                    },
+                                    [
+                                      _vm._m(1, true),
+                                      _vm._v(" "),
+                                      _vm._l(data, function(data, key) {
+                                        return _c("tbody", { key: key }, [
+                                          _vm.search_filter == "" ||
+                                          _vm.filterCicle(data.text)
+                                            ? _c("tr", [
+                                                _c("td", [
+                                                  _vm._v(_vm._s(data.text))
+                                                ]),
+                                                _vm._v(" "),
+                                                _c("td", [
+                                                  _vm._v(
+                                                    _vm._s(
+                                                      data.date_to_activate_btn
+                                                    )
+                                                  )
+                                                ]),
+                                                _vm._v(" "),
+                                                _c("td", [
+                                                  _vm._v(
+                                                    _vm._s(
+                                                      data.date_to_deactivate_btn
+                                                    )
+                                                  )
+                                                ]),
+                                                _vm._v(" "),
+                                                _c("td", [
+                                                  _c(
+                                                    "button",
+                                                    {
+                                                      staticClass:
+                                                        "btn btn-primary mb-2 mr-2",
+                                                      on: {
+                                                        click: function(
+                                                          $event
+                                                        ) {
+                                                          return _vm.update(
+                                                            data
+                                                          )
+                                                        }
+                                                      }
+                                                    },
+                                                    [_vm._v("Editar")]
+                                                  ),
+                                                  _vm._v(" "),
+                                                  _c(
+                                                    "button",
+                                                    {
+                                                      staticClass:
+                                                        "btn btn-primary",
+                                                      on: {
+                                                        click: function(
+                                                          $event
+                                                        ) {
+                                                          return _vm.dropData(
+                                                            data.id
+                                                          )
+                                                        }
+                                                      }
+                                                    },
+                                                    [_vm._v("Eliminar")]
+                                                  )
+                                                ])
+                                              ])
+                                            : _vm._e()
+                                        ])
+                                      })
+                                    ],
+                                    2
+                                  )
+                                ])
+                              ]
+                            )
                           ])
                         : _vm._e()
                     ])
@@ -582,8 +927,9 @@ var render = function() {
                 2
               )
             ])
-          ])
-        ])
+          ],
+          1
+        )
       ]
     ),
     _vm._v(" "),
@@ -605,7 +951,7 @@ var render = function() {
           { staticClass: "modal-dialog", attrs: { role: "document" } },
           [
             _c("div", { staticClass: "modal-content" }, [
-              _vm._m(4),
+              _vm._m(2),
               _vm._v(" "),
               _c("div", { staticClass: "modal-body" }, [
                 _c(
@@ -830,30 +1176,6 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", [
-      _c("div", { staticClass: "card-header fondo text-center mb-3" }, [
-        _c("h4", [_vm._v("Permisos Solicitados")])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("thead", [
-      _c("tr", [
-        _c("th", [_vm._v("Ciclos")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Materia - Salon")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Acción")])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c("div", { staticClass: "card-header fondo text-center mb-3" }, [
       _c("h4", [_vm._v("Activación de permiso para eliminar Ciclo")])
     ])
@@ -901,6 +1223,75 @@ var staticRenderFns = [
   }
 ]
 render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/TableDeleteClassAndCicles.vue":
+/*!***************************************************************!*\
+  !*** ./resources/js/components/TableDeleteClassAndCicles.vue ***!
+  \***************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _TableDeleteClassAndCicles_vue_vue_type_template_id_268a177a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./TableDeleteClassAndCicles.vue?vue&type=template&id=268a177a& */ "./resources/js/components/TableDeleteClassAndCicles.vue?vue&type=template&id=268a177a&");
+/* harmony import */ var _TableDeleteClassAndCicles_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./TableDeleteClassAndCicles.vue?vue&type=script&lang=js& */ "./resources/js/components/TableDeleteClassAndCicles.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _TableDeleteClassAndCicles_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _TableDeleteClassAndCicles_vue_vue_type_template_id_268a177a___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _TableDeleteClassAndCicles_vue_vue_type_template_id_268a177a___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/TableDeleteClassAndCicles.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/TableDeleteClassAndCicles.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************!*\
+  !*** ./resources/js/components/TableDeleteClassAndCicles.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_TableDeleteClassAndCicles_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./TableDeleteClassAndCicles.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/TableDeleteClassAndCicles.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_TableDeleteClassAndCicles_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/TableDeleteClassAndCicles.vue?vue&type=template&id=268a177a&":
+/*!**********************************************************************************************!*\
+  !*** ./resources/js/components/TableDeleteClassAndCicles.vue?vue&type=template&id=268a177a& ***!
+  \**********************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_TableDeleteClassAndCicles_vue_vue_type_template_id_268a177a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./TableDeleteClassAndCicles.vue?vue&type=template&id=268a177a& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/TableDeleteClassAndCicles.vue?vue&type=template&id=268a177a&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_TableDeleteClassAndCicles_vue_vue_type_template_id_268a177a___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_TableDeleteClassAndCicles_vue_vue_type_template_id_268a177a___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

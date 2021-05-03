@@ -6,66 +6,51 @@
                     <button class="btn btn-primary mb-3" data-toggle="modal" data-target="#createRegister">Crear Registro</button>
                     <button class="btn btn-primary mb-3" v-on:click="showTablePermission">{{showPermission ? 'Ocultar Permisos': 'Mostrar Permisos'}}</button>
                 </div>
-                <div v-show="showPermission == true" class="card">
-                    <div>
-                        <div>
-                            <div class="card-header fondo text-center mb-3">
-                                <h4>Permisos Solicitados</h4>
-                            </div>
-                        </div>
-                        <div v-if="urgentPermissons.length > 0" class="card-body">
-                            <input type="text" class="form-control" placeholder="Buscar Por Ciclo" v-model="search_urgent_filter">
-                            <table class="table table-responsive-xl table-hover table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>Ciclos</th>
-                                        <th>Materia - Salon</th>
-                                        <th>Acción</th>
-                                    </tr>
-                                </thead>                                
-                                <tbody v-for="(data, key) in urgentPermissons" :key="key">
-                                    <tr v-if="search_urgent_filter =='' || filterUrgentCicle(data.cicle)">
-                                        <td>{{data.cicle}}</td>
-                                        <td>{{data.course}}</td>
-                                        <td v-if="data.responded_at === null">                                                                                            
-                                            <button class="btn btn-primary" v-on:click="createUrgentPermission(data)">Crear</button>                                                                    
-                                        </td>
-                                        <td v-else> 
-                                            <p>Respondido</p>
-                                        </td>
-                                    </tr>                
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
+                <table-delete-class-and-cicles :showPermission="showPermission"></table-delete-class-and-cicles>
                 <div class="card-header fondo text-center mb-3">
                     <h4>Activación de permiso para eliminar Ciclo</h4>
                 </div>
-                <input type="text" class="form-control" placeholder="Buscar Por Ciclo" v-model="search_filter">
                 <div class="card">
                     <div class="card-body">
-                        <table class="table table-responsive-xl table-hover table-striped">
-                            <thead>
-                                <tr>
-                                    <th>Ciclos</th>
-                                    <th>Fecha Inicio de permiso para Eliminar Dato</th>
-                                    <th>Fecha Fin de permiso para Eliminar Dato</th>
-                                    <th>Acción</th>
-                                </tr>
-                            </thead>
-                            <tbody v-for="(data, key) in dataToIterate" :key="key">
-                                <tr v-if="search_filter =='' || filterCicle(data.text)">
-                                    <td>{{data.text}}</td>
-                                    <td>{{data.date_to_activate_btn}}</td>
-                                    <td>{{data.date_to_deactivate_btn}}</td>
-                                    <td>
-                                        <button class="btn btn-primary mb-2 mr-2" v-on:click="update(data)">Editar</button>
-                                        <button class="btn btn-primary" v-on:click="dropData(data.id)">Eliminar</button>    
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <input type="text" class="form-control mb-2" placeholder="Buscar Por Materia - Salon" v-model="search_class">
+                        <div id="accordion" v-for="(data, key) in dataToIterate" :key="key">
+                                <div class="card" v-if="search_class =='' || filterClass(key)">
+                                <div class="card-header" id="headingOne">
+                                    <h5 class="mb-0">
+                                        <button class="btn btn-link" data-toggle="collapse" :data-target="`#collapse${key.replace(/ /g, '')}`" aria-expanded="true" :aria-controls="`collapse${key.replace(/ /g, '')}`">
+                                            {{key}}
+                                        </button>
+                                    </h5>
+                                </div>
+
+                                <div :id="`collapse${key.replace(/ /g, '')}`" class="collapse hide" aria-labelledby="headingOne" data-parent="#accordion">
+                                    <div class="card-body">
+                                        <input type="text" class="form-control" placeholder="Buscar Por Ciclo" v-model="search_filter">
+                                        <table class="table table-responsive-xl table-hover table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>Ciclos</th>
+                                                    <th>Fecha Inicio de permiso para Eliminar Dato</th>
+                                                    <th>Fecha Fin de permiso para Eliminar Dato</th>
+                                                    <th>Acción</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody v-for="(data, key) in data" :key="key">
+                                                <tr v-if="search_filter =='' || filterCicle(data.text)">
+                                                    <td>{{data.text}}</td>
+                                                    <td>{{data.date_to_activate_btn}}</td>
+                                                    <td>{{data.date_to_deactivate_btn}}</td>
+                                                    <td>
+                                                        <button class="btn btn-primary mb-2 mr-2" v-on:click="update(data)">Editar</button>
+                                                        <button class="btn btn-primary" v-on:click="dropData(data.id)">Eliminar</button>    
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -134,7 +119,8 @@
     </div>
 </template>
 <script>
-    import Multiselect from "vue-multiselect";
+import Multiselect from "vue-multiselect";
+import TableDeleteClassAndCicles from './TableDeleteClassAndCicles.vue';
     Vue.component("multiselect", Multiselect);
     export default {
         data() {
@@ -148,9 +134,8 @@
                 date_end:'',
                 is_updated: false,
                 search_filter:'',
-                search_urgent_filter: '',
+                search_class: '',
                 id_to_update:'',
-                urgentPermissons:[],
                 showPermission: false
             }
         },
@@ -160,18 +145,20 @@
         },
         components: {
             Multiselect,
+            TableDeleteClassAndCicles,
         },
         methods: {
             getPermissions(){
                 axios.get('getPermissions').then((response)=>{
-                    this.dataToIterate= response.data;
+                    this.groupData(response.data);
+                    
                 }).catch((error)=>{
                     console.log(error);
                 })
-
-                axios.get('requestPermission').then((response)=>{
-                    this.urgentPermissons = response.data;
-                })
+            },
+            groupData(data){
+                const result = _.chain(data).groupBy("class").value();
+                this.dataToIterate = result
             },
             showTablePermission(){
                 this.showPermission = !this.showPermission;
@@ -229,11 +216,13 @@
                 if(this.is_updated === false){
                     if(this.saveCicle.length > 0){
                         this.saveCicle.forEach(cicle => {
+                            console.log('Ciclo',cicle)
                             axios.post('deleteClassAndCicles',{
                                 id_cicle: cicle.id,
                                 date_to_activate_btn:this.date,
                                 date_to_deactivate_btn:this.date_end,
                                 text: cicle.text,
+                                class: cicle.class,
                                 class_selected: cicle.class_selected,
                                 area_selected: cicle.area_selected,
                             }).then((response)=> {
@@ -261,6 +250,7 @@
                                 date_to_activate_btn:this.date,
                                 date_to_deactivate_btn:this.date_end,
                                 text: cicle.text,
+                                class: cicle.class,
                                 class_selected: cicle.class_selected,
                                 area_selected: cicle.area_selected
                             }).then((response)=> {
@@ -321,11 +311,10 @@
             },
             filterCicle(cicleName){
                 return cicleName.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(this.search_filter.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, ""));
-            },
-            filterUrgentCicle(cicleUrgentName){
-                return cicleUrgentName.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(this.search_urgent_filter.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, ""));
+            },        
+            filterClass(clas){
+                return clas.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(this.search_class.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, ""));
             },
         }
     }
-
 </script>
