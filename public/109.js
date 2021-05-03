@@ -146,8 +146,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 
 Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___default.a);
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -161,6 +159,8 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
       date: '',
       date_end: '',
       is_updated: false,
+      search_filter: '',
+      search_urgent_filter: '',
       id_to_update: '',
       urgentPermissons: [],
       showPermission: false
@@ -341,6 +341,12 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
           _this5.getPermissions();
         });
       }
+    },
+    filterCicle: function filterCicle(cicleName) {
+      return cicleName.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(this.search_filter.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, ""));
+    },
+    filterUrgentCicle: function filterUrgentCicle(cicleUrgentName) {
+      return cicleUrgentName.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(this.search_urgent_filter.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, ""));
     }
   }
 });
@@ -416,6 +422,31 @@ var render = function() {
                 _vm._v(" "),
                 _vm.urgentPermissons.length > 0
                   ? _c("div", { staticClass: "card-body" }, [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.search_urgent_filter,
+                            expression: "search_urgent_filter"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: {
+                          type: "text",
+                          placeholder: "Buscar Por Ciclo"
+                        },
+                        domProps: { value: _vm.search_urgent_filter },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.search_urgent_filter = $event.target.value
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
                       _c(
                         "table",
                         {
@@ -427,36 +458,35 @@ var render = function() {
                           _vm._v(" "),
                           _vm._l(_vm.urgentPermissons, function(data, key) {
                             return _c("tbody", { key: key }, [
-                              data.responded_at === null
+                              _vm.search_urgent_filter == "" ||
+                              _vm.filterUrgentCicle(data.cicle)
                                 ? _c("tr", [
                                     _c("td", [_vm._v(_vm._s(data.cicle))]),
                                     _vm._v(" "),
                                     _c("td", [_vm._v(_vm._s(data.course))]),
                                     _vm._v(" "),
-                                    _c("td", [
-                                      _c(
-                                        "button",
-                                        {
-                                          staticClass: "btn btn-primary",
-                                          on: {
-                                            click: function($event) {
-                                              return _vm.createUrgentPermission(
-                                                data
-                                              )
-                                            }
-                                          }
-                                        },
-                                        [_vm._v("Crear")]
-                                      )
-                                    ])
+                                    data.responded_at === null
+                                      ? _c("td", [
+                                          _c(
+                                            "button",
+                                            {
+                                              staticClass: "btn btn-primary",
+                                              on: {
+                                                click: function($event) {
+                                                  return _vm.createUrgentPermission(
+                                                    data
+                                                  )
+                                                }
+                                              }
+                                            },
+                                            [_vm._v("Crear")]
+                                          )
+                                        ])
+                                      : _c("td", [
+                                          _c("p", [_vm._v("Respondido")])
+                                        ])
                                   ])
-                                : _c("tr", [
-                                    _c("td", [_vm._v(_vm._s(data.cicle))]),
-                                    _vm._v(" "),
-                                    _c("td", [_vm._v(_vm._s(data.course))]),
-                                    _vm._v(" "),
-                                    _vm._m(2, true)
-                                  ])
+                                : _vm._e()
                             ])
                           })
                         ],
@@ -468,7 +498,29 @@ var render = function() {
             ]
           ),
           _vm._v(" "),
-          _vm._m(3),
+          _vm._m(2),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.search_filter,
+                expression: "search_filter"
+              }
+            ],
+            staticClass: "form-control",
+            attrs: { type: "text", placeholder: "Buscar Por Ciclo" },
+            domProps: { value: _vm.search_filter },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.search_filter = $event.target.value
+              }
+            }
+          }),
           _vm._v(" "),
           _c("div", { staticClass: "card" }, [
             _c("div", { staticClass: "card-body" }, [
@@ -479,45 +531,51 @@ var render = function() {
                     "table table-responsive-xl table-hover table-striped"
                 },
                 [
-                  _vm._m(4),
+                  _vm._m(3),
                   _vm._v(" "),
                   _vm._l(_vm.dataToIterate, function(data, key) {
                     return _c("tbody", { key: key }, [
-                      _c("tr", [
-                        _c("td", [_vm._v(_vm._s(data.text))]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(data.date_to_activate_btn))]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(data.date_to_deactivate_btn))]),
-                        _vm._v(" "),
-                        _c("td", [
-                          _c(
-                            "button",
-                            {
-                              staticClass: "btn btn-primary mb-2 mr-2",
-                              on: {
-                                click: function($event) {
-                                  return _vm.update(data)
-                                }
-                              }
-                            },
-                            [_vm._v("Editar")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "button",
-                            {
-                              staticClass: "btn btn-primary",
-                              on: {
-                                click: function($event) {
-                                  return _vm.dropData(data.id)
-                                }
-                              }
-                            },
-                            [_vm._v("Eliminar")]
-                          )
-                        ])
-                      ])
+                      _vm.search_filter == "" || _vm.filterCicle(data.text)
+                        ? _c("tr", [
+                            _c("td", [_vm._v(_vm._s(data.text))]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _vm._v(_vm._s(data.date_to_activate_btn))
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _vm._v(_vm._s(data.date_to_deactivate_btn))
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _c(
+                                "button",
+                                {
+                                  staticClass: "btn btn-primary mb-2 mr-2",
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.update(data)
+                                    }
+                                  }
+                                },
+                                [_vm._v("Editar")]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "button",
+                                {
+                                  staticClass: "btn btn-primary",
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.dropData(data.id)
+                                    }
+                                  }
+                                },
+                                [_vm._v("Eliminar")]
+                              )
+                            ])
+                          ])
+                        : _vm._e()
                     ])
                   })
                 ],
@@ -547,7 +605,7 @@ var render = function() {
           { staticClass: "modal-dialog", attrs: { role: "document" } },
           [
             _c("div", { staticClass: "modal-content" }, [
-              _vm._m(5),
+              _vm._m(4),
               _vm._v(" "),
               _c("div", { staticClass: "modal-body" }, [
                 _c(
@@ -791,12 +849,6 @@ var staticRenderFns = [
         _c("th", [_vm._v("Acción")])
       ])
     ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", [_c("p", [_vm._v("Respondido")])])
   },
   function() {
     var _vm = this

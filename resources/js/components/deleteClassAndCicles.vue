@@ -14,6 +14,7 @@
                             </div>
                         </div>
                         <div v-if="urgentPermissons.length > 0" class="card-body">
+                            <input type="text" class="form-control" placeholder="Buscar Por Ciclo" v-model="search_urgent_filter">
                             <table class="table table-responsive-xl table-hover table-striped">
                                 <thead>
                                     <tr>
@@ -21,22 +22,18 @@
                                         <th>Materia - Salon</th>
                                         <th>Acción</th>
                                     </tr>
-                                </thead>
+                                </thead>                                
                                 <tbody v-for="(data, key) in urgentPermissons" :key="key">
-                                    <tr v-if="data.responded_at === null">
+                                    <tr v-if="search_urgent_filter =='' || filterUrgentCicle(data.cicle)">
                                         <td>{{data.cicle}}</td>
                                         <td>{{data.course}}</td>
-                                        <td>
-                                            <button class="btn btn-primary" v-on:click="createUrgentPermission(data)">Crear</button>
+                                        <td v-if="data.responded_at === null">                                                                                            
+                                            <button class="btn btn-primary" v-on:click="createUrgentPermission(data)">Crear</button>                                                                    
                                         </td>
-                                    </tr>                
-                                    <tr v-else>
-                                        <td>{{data.cicle}}</td>
-                                        <td>{{data.course}}</td>
-                                        <td>
+                                        <td v-else> 
                                             <p>Respondido</p>
                                         </td>
-                                    </tr>
+                                    </tr>                
                                 </tbody>
                             </table>
                         </div>
@@ -45,6 +42,7 @@
                 <div class="card-header fondo text-center mb-3">
                     <h4>Activación de permiso para eliminar Ciclo</h4>
                 </div>
+                <input type="text" class="form-control" placeholder="Buscar Por Ciclo" v-model="search_filter">
                 <div class="card">
                     <div class="card-body">
                         <table class="table table-responsive-xl table-hover table-striped">
@@ -57,7 +55,7 @@
                                 </tr>
                             </thead>
                             <tbody v-for="(data, key) in dataToIterate" :key="key">
-                                <tr>
+                                <tr v-if="search_filter =='' || filterCicle(data.text)">
                                     <td>{{data.text}}</td>
                                     <td>{{data.date_to_activate_btn}}</td>
                                     <td>{{data.date_to_deactivate_btn}}</td>
@@ -149,6 +147,8 @@
                 date:'',
                 date_end:'',
                 is_updated: false,
+                search_filter:'',
+                search_urgent_filter: '',
                 id_to_update:'',
                 urgentPermissons:[],
                 showPermission: false
@@ -318,7 +318,13 @@
                         this.getPermissions();
                     })
                 }
-            }
+            },
+            filterCicle(cicleName){
+                return cicleName.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(this.search_filter.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, ""));
+            },
+            filterUrgentCicle(cicleUrgentName){
+                return cicleUrgentName.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(this.search_urgent_filter.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, ""));
+            },
         }
     }
 
