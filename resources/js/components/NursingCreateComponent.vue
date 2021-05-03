@@ -38,7 +38,15 @@
 
                     <div class="form-group">
                         <label for="diet">Dieta</label>
-                        <input type="text" name="diet" class="form-control" v-model="diet"/>
+                        <select name="diet" class="form-control" v-model="diet">
+                            <option value="Normal">Normal</option>
+                            <option value="Vegetariano">Vegetariano</option>
+                            <option value="Dieta">Dieta</option>
+                            <option value="Otro">Otro</option>
+                        </select>
+                        <div v-if="diet === 'Otro' || diet === 'Dieta'">
+                            <input type="text" placeholder="Especificar Dieta" name="diet" class="form-control mt-3" v-model="other_diet"/>
+                        </div>
                     </div>
 
                     <div class="form-group">
@@ -70,6 +78,7 @@ export default {
             blood_rh:"",
             alergies:"",
             diet:"",
+            other_diet:"",
             observation:""
         }
     },
@@ -79,7 +88,7 @@ export default {
     methods:{
         getCoursesAndStudents(){
             axios.get('getCoursesAndStudents').then((response)=>{
-                let coursesStudents = response.data
+                let coursesStudents = response.data;
                 const result = _.chain(coursesStudents).groupBy("grade").value();
                     
                 const students = Object.values(result);
@@ -97,7 +106,7 @@ export default {
                 })
             })
         },
-        saveNursing(){
+        saveNursing(){  
             axios.post('nursing',{
                 id_student: this.saveStudents.id_student,
                 student: this.saveStudents.text,
@@ -105,7 +114,7 @@ export default {
                 course: this.saveStudents.grade,
                 blood_rh: this.blood_rh,
                 alergies: this.alergies,
-                diet: this.diet,
+                diet: this.diet === 'Otro' ? this.other_diet : this.diet,
                 observation: this.observation
             }).then((response)=>{
                 toastr.success(response.data);

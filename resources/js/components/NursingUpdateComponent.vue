@@ -38,7 +38,15 @@
 
                     <div class="form-group">
                         <label for="diet">Dieta</label>
-                        <input type="text" name="diet" class="form-control" v-model="diet"/>
+                        <select name="diet" class="form-control" v-model="diet">
+                            <option value="Normal">Normal</option>
+                            <option value="Vegetariano">Vegetariano</option>
+                            <option value="Dieta">Dieta</option>
+                            <option value="Otro">Otro</option>
+                        </select>
+                        <div v-if="diet === 'Otro' || diet === 'Dieta'">
+                            <input type="text" placeholder="Especificar Dieta" name="diet" class="form-control mt-3" v-model="other_diet"/>
+                        </div>
                     </div>
 
                     <div class="form-group">
@@ -62,7 +70,7 @@ Vue.component("multiselect", Multiselect);
 export default {
     components: { 
     },
-    props:["saveStudents", "blood_rh", "alergies", "diet", "observation", "id_to_update"],
+    props:["saveStudents", "blood_rh", "alergies", "diet", "other_diet", "observation", "id_to_update"],
     data(){
         return{
             getDataFoods:[],

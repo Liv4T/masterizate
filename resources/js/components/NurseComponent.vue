@@ -48,7 +48,7 @@
                     </div>
                 </div>
                 <nurse-create-component></nurse-create-component>
-                <nurse-update-component :saveStudents="saveStudents" :blood_rh="blood_rh" :alergies="alergies" :diet="diet" :observation="observation" :id_to_update="id_to_update"></nurse-update-component>
+                <nurse-update-component :saveStudents="saveStudents" :blood_rh="blood_rh" :alergies="alergies" :diet="diet" :other_diet="other_diet" :observation="observation" :id_to_update="id_to_update"></nurse-update-component>
             </div>
         </div>
     </div>
@@ -99,14 +99,15 @@ export default {
             }
             this.blood_rh = data.blood_rh;
             this.alergies = data.alergies;
-            this.diet = data.diet;
+            data.diet === 'Normal' || data.diet === 'Vegetariano' || data.diet === 'Dieta' ? (this.diet = data.diet) : (this.diet =  'Otro');
+            this.diet === 'Otro' ? (this.other_diet = data.diet) : '',
             this.observation = data.observation;
             $("#modalNursingUpdate").modal('show');
         },
 
         deleteData(id){
             if(window.confirm("Realmente deseas Eliminar este dato?")){
-                axios.delelte(`nursing/${id}`).then((response)=>{
+                axios.delete(`nursing/${id}`).then((response)=>{
                     toastr.info(response.data);
                     this.getNursing();
                 })

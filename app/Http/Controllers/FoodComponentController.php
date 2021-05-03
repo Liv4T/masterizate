@@ -48,7 +48,7 @@ class FoodComponentController extends Controller
             ->orderBy('grade')
             ->get();
             return response()->json($getCoursesAndStudents);
-        }else if($user->new_coord_area === 'General'){
+        }else if($user->new_coord_area === 'General' || $user->type_user === 9){
             $getCoursesAndStudents = DB::table('classroom')
             ->join('classroom_student','classroom_student.id_classroom','=','classroom.id')
             ->join('users','classroom_student.id_user','=','users.id')

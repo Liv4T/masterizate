@@ -93,7 +93,7 @@ class NursingComponentController extends Controller
      * @param  \App\NursingComponent  $nursingComponent
      * @return \Illuminate\Http\Response
      */
-    public function destroy(NursingComponent $nursingComponent)
+    public function destroy($id)
     {
         $updateNursing = NursingComponent::findOrFail($id);
         $updateNursing->delete();
