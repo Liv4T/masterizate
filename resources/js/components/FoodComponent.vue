@@ -6,7 +6,10 @@
                     <h4>Alimentos</h4>
                 </div>
             </div>
-            <button class="mb-4 btn btn-primary" data-toggle="modal" data-target="#modalFoodCreate">Crear Registro</button>
+            <div class="form-group">
+                <button class="btn btn-primary" data-toggle="modal" data-target="#modalFoodCreate">Crear Registro</button>
+                <a class="btn btn-primary" href="/nursing">Enfermeria</a>
+            </div>
             <div id="accordion">
                 <div class="card" v-for="(food, key) in getDataFoods" :key="key">
                     <div class="card-header" id="headingOne">
@@ -83,6 +86,7 @@ export default {
                 foods.forEach((food)=>{
                     axios.get(`nursing/${food.id_student}`).then(response=>{
                         foodResult.push({
+                            id: food.id,
                             name_student: food.name_student,
                             diet: food.diet,
                             observation: food.observation,
@@ -112,12 +116,9 @@ export default {
                 id_grade: data.id_course,
                 id_classroom: data.id_classroom,
             };
-            if(data.diet !== 'Normal' || data.diet !== 'Vegetariano'){
-                this.diet = 'otro'
-                this.other_diet = data.diet
-            }else{
-                this.diet = data.diet
-            }
+            data.diet === 'Normal' || data.diet === 'Vegetariano' || data.diet === 'Dieta' ? (this.diet = data.diet) : (this.diet =  'Otro');
+            this.diet === 'Otro' ? (this.other_diet = data.diet) : '',
+
             this.observation = data.observation
             $("#modalFoodUpdate").modal('show');
         },

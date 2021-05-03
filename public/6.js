@@ -68,6 +68,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 
 
@@ -99,6 +102,7 @@ __webpack_require__.r(__webpack_exports__);
         foods.forEach(function (food) {
           axios.get("nursing/".concat(food.id_student)).then(function (response) {
             foodResult.push({
+              id: food.id,
               name_student: food.name_student,
               diet: food.diet,
               observation: food.observation,
@@ -129,15 +133,8 @@ __webpack_require__.r(__webpack_exports__);
         id_grade: data.id_course,
         id_classroom: data.id_classroom
       };
-
-      if (data.diet !== 'Normal' || data.diet !== 'Vegetariano') {
-        this.diet = 'otro';
-        this.other_diet = data.diet;
-      } else {
-        this.diet = data.diet;
-      }
-
-      this.observation = data.observation;
+      data.diet === 'Normal' || data.diet === 'Vegetariano' || data.diet === 'Dieta' ? this.diet = data.diet : this.diet = 'Otro';
+      this.diet === 'Otro' ? this.other_diet = data.diet : '', this.observation = data.observation;
       $("#modalFoodUpdate").modal('show');
     },
     deleteFood: function deleteFood(id) {
@@ -430,14 +427,7 @@ var render = function() {
     _c("div", { staticClass: "col-sm-10" }, [
       _vm._m(0),
       _vm._v(" "),
-      _c(
-        "button",
-        {
-          staticClass: "mb-4 btn btn-primary",
-          attrs: { "data-toggle": "modal", "data-target": "#modalFoodCreate" }
-        },
-        [_vm._v("Crear Registro")]
-      ),
+      _vm._m(1),
       _vm._v(" "),
       _c(
         "div",
@@ -489,7 +479,7 @@ var render = function() {
                       "table",
                       { staticClass: "table table-striped table-hover" },
                       [
-                        _vm._m(1, true),
+                        _vm._m(2, true),
                         _vm._v(" "),
                         _c(
                           "tbody",
@@ -569,6 +559,25 @@ var staticRenderFns = [
     return _c("div", { staticClass: "card text-center" }, [
       _c("div", { staticClass: "card-header fondo" }, [
         _c("h4", [_vm._v("Alimentos")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-group" }, [
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-primary",
+          attrs: { "data-toggle": "modal", "data-target": "#modalFoodCreate" }
+        },
+        [_vm._v("Crear Registro")]
+      ),
+      _vm._v(" "),
+      _c("a", { staticClass: "btn btn-primary", attrs: { href: "/nursing" } }, [
+        _vm._v("Enfermeria")
       ])
     ])
   },
@@ -797,7 +806,7 @@ var render = function() {
                 staticClass: "btn btn-secondary",
                 attrs: { type: "button", "data-dismiss": "modal" }
               },
-              [_vm._v("Close")]
+              [_vm._v("Cerrar")]
             ),
             _vm._v(" "),
             _c(
@@ -807,7 +816,7 @@ var render = function() {
                 attrs: { type: "button" },
                 on: { click: _vm.saveFood }
               },
-              [_vm._v("Save changes")]
+              [_vm._v("Guardar")]
             )
           ])
         ])
@@ -1046,7 +1055,7 @@ var render = function() {
                 staticClass: "btn btn-secondary",
                 attrs: { type: "button", "data-dismiss": "modal" }
               },
-              [_vm._v("Close")]
+              [_vm._v("Cerrar")]
             ),
             _vm._v(" "),
             _c(
@@ -1056,7 +1065,7 @@ var render = function() {
                 attrs: { type: "button" },
                 on: { click: _vm.updateFood }
               },
-              [_vm._v("Save changes")]
+              [_vm._v("Actualizar")]
             )
           ])
         ])

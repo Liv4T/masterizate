@@ -3,66 +3,12 @@
         <div class="container">
             <div class="row">
                 <div class="left">
-                    <ul>
-                        <a href="/perfil_d">
-                            <li class="item-menu">
-                                <img width="35px" src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/MI-PERFIL.png?alt=media&token=317fc013-8cce-448f-9af9-54e2981274d0" alt/>
-                                    <span class="menu">Mi perfil</span>
-                            </li>
-                        </a>
-                        <div class="dropdown1">
-                            <a>
-                                <li class="item-menu">
-                                    <img width="35px" src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/ANUNCIOS_naranja.png?alt=media&token=539c1428-c480-43bf-a132-73be35386940" alt/>
-                                    <span class="menu">
-                                        Comunicaciones&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    </span>
-                                    <div class="dropdown1-content">
-                                        <a href="/mensajes">
-                                            <img width="35px" src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/MENSAJES_naranja.png?alt=media&token=93ec6b97-e5a6-4eca-891e-b63bf2a352ad" alt/>
-                                            Mensajes
-                                        </a>
-                                        <a href="/calendar">
-                                            <img width="35px" src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/ANUNCIOS_naranja.png?alt=media&token=93ec6b97-e5a6-4eca-891e-b63bf2a352ad" alt/>
-                                            Calendario
-                                        </a>
-                                        <a href="/questions">
-                                            <img width="35px" src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/FOROS_naranja.png?alt=media&token=93ec6b97-e5a6-4eca-891e-b63bf2a352ad" alt />
-                                            Foro
-                                        </a>
-                                        <a href="/chat">
-                                            <img width="35px" src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/FOROS_naranja.png?alt=media&token=93ec6b97-e5a6-4eca-891e-b63bf2a352ad" alt/>
-                                            Chat
-                                        </a>
-                                        <a href="/chatGobernment">
-                                            <img width="35px" src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/FOROS_naranja.png?alt=media&token=93ec6b97-e5a6-4eca-891e-b63bf2a352ad" alt />
-                                            Chat Estamentos
-                                        </a>
-                                        <a href="/mensajes">
-                                            <img width="35px" src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/sicologia_naranja.png?alt=media&token=93ec6b97-e5a6-4eca-891e-b63bf2a352ad" alt/>
-                                            Psicología
-                                        </a>
-                                    </div>
-                                </li>
-                            </a>
-                        </div>
+                    <ul>                    
                         <a href="/foods">
                           <li class="item-menu">
                             <img width="35px" src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/sicologia_naranja.png?alt=media&token=93ec6b97-e5a6-4eca-891e-b63bf2a352ad" alt/>
                               <span class="menu">Alimentos</span>
                           </li>
-                        </a>
-                        <a href="/nursing">
-                          <li class="item-menu">
-                            <img width="35px" src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/sicologia_naranja.png?alt=media&token=93ec6b97-e5a6-4eca-891e-b63bf2a352ad" alt/>
-                              <span class="menu">Enfermería</span>
-                          </li>
-                        </a>
-                        <a href="/manual">
-                            <li class="item-menu">
-                                <img width="35px" src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/MANUAL-DE-USUARIO_naranja.png?alt=media&token=bd2488fb-e121-432d-afd2-f223fcc0f29e" alt/>
-                                <span class="menu">Manual de usuario</span>
-                            </li>
                         </a>
                     </ul>
                 </div>
