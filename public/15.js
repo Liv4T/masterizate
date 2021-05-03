@@ -87,6 +87,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 $(".collapse").on("show.bs.collapse", function () {
   $(".collapse.in").collapse("hide");
 });
@@ -287,149 +289,167 @@ var render = function() {
               "div",
               { staticClass: "accordion", attrs: { id: "accordionExample" } },
               _vm._l(_vm.areas, function(area, t) {
-                return _c("div", { key: t, staticClass: "card" }, [
+                return _c("div", { key: t }, [
                   _vm.search_filter == "" || _vm.filterPlanDoc(area.text)
-                    ? _c("div", { staticClass: "card-header" }, [
-                        _c("h2", { staticClass: "mb-0" }, [
-                          _c(
-                            "button",
-                            {
-                              staticClass: "btn btn-link",
-                              attrs: {
-                                type: "button",
-                                "data-toggle": "collapse",
-                                "data-target": "#collapse" + t,
-                                "aria-expanded": "false",
-                                "aria-controls": "collapse"
-                              },
-                              on: {
-                                click: function($event) {
-                                  $event.preventDefault()
-                                  return _vm.botones(area.id, area.id_classroom)
+                    ? _c("div", { staticClass: "card" }, [
+                        _c("div", { staticClass: "card-header" }, [
+                          _c("h2", { staticClass: "mb-0" }, [
+                            _c(
+                              "button",
+                              {
+                                staticClass: "btn btn-link",
+                                attrs: {
+                                  type: "button",
+                                  "data-toggle": "collapse",
+                                  "data-target": "#collapse" + t,
+                                  "aria-expanded": "false",
+                                  "aria-controls": "collapse"
+                                },
+                                on: {
+                                  click: function($event) {
+                                    $event.preventDefault()
+                                    return _vm.botones(
+                                      area.id,
+                                      area.id_classroom
+                                    )
+                                  }
                                 }
-                              }
-                            },
-                            [_c("label", [_vm._v(_vm._s(area.text))])]
-                          )
-                        ])
+                              },
+                              [_c("label", [_vm._v(_vm._s(area.text))])]
+                            )
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          {
+                            staticClass: "collapse hide accordion-content",
+                            attrs: {
+                              id: "collapse" + t,
+                              "aria-labelledby": "heading",
+                              "data-parent": "#accordionExample"
+                            }
+                          },
+                          [
+                            _c(
+                              "a",
+                              {
+                                staticClass: "btn btn-warning",
+                                attrs: {
+                                  href:
+                                    "/course/" +
+                                    area.id +
+                                    "/" +
+                                    area.id_classroom
+                                }
+                              },
+                              [_vm._v("General")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "a",
+                              {
+                                staticClass: "btn btn-warning",
+                                attrs: {
+                                  href:
+                                    "/duplicar/" +
+                                    area.id +
+                                    "/" +
+                                    area.id_classroom
+                                }
+                              },
+                              [_vm._v("Duplicar")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "a",
+                              {
+                                directives: [
+                                  {
+                                    name: "show",
+                                    rawName: "v-show",
+                                    value: _vm.general == true,
+                                    expression: "general==true"
+                                  }
+                                ],
+                                staticClass: "btn btn-warning",
+                                attrs: {
+                                  href:
+                                    "/porcentaje/" +
+                                    area.id +
+                                    "/" +
+                                    area.id_classroom
+                                }
+                              },
+                              [_vm._v("Porcentaje de notas")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "a",
+                              {
+                                directives: [
+                                  {
+                                    name: "show",
+                                    rawName: "v-show",
+                                    value: _vm.general == true,
+                                    expression: "general==true"
+                                  }
+                                ],
+                                staticClass: "btn btn-warning",
+                                attrs: { href: "/duplicar-semana/" }
+                              },
+                              [_vm._v("Duplicar Ciclo")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "a",
+                              {
+                                directives: [
+                                  {
+                                    name: "show",
+                                    rawName: "v-show",
+                                    value: _vm.general == true,
+                                    expression: "general==true"
+                                  }
+                                ],
+                                staticClass: "btn btn-warning",
+                                attrs: {
+                                  href:
+                                    "/crear_semana/" +
+                                    area.id +
+                                    "/" +
+                                    area.id_classroom
+                                }
+                              },
+                              [_vm._v("Crear Ciclo")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "a",
+                              {
+                                directives: [
+                                  {
+                                    name: "show",
+                                    rawName: "v-show",
+                                    value: _vm.general == true,
+                                    expression: "general==true"
+                                  }
+                                ],
+                                staticClass: "btn btn-warning",
+                                attrs: {
+                                  href:
+                                    "/act_semana/" +
+                                    area.id +
+                                    "/" +
+                                    area.id_classroom
+                                }
+                              },
+                              [_vm._v("Actualizar Ciclo")]
+                            )
+                          ]
+                        )
                       ])
-                    : _vm._e(),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    {
-                      staticClass: "collapse hide accordion-content",
-                      attrs: {
-                        id: "collapse" + t,
-                        "aria-labelledby": "heading",
-                        "data-parent": "#accordionExample"
-                      }
-                    },
-                    [
-                      _c(
-                        "a",
-                        {
-                          staticClass: "btn btn-warning",
-                          attrs: {
-                            href: "/course/" + area.id + "/" + area.id_classroom
-                          }
-                        },
-                        [_vm._v("General")]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "a",
-                        {
-                          staticClass: "btn btn-warning",
-                          attrs: {
-                            href:
-                              "/duplicar/" + area.id + "/" + area.id_classroom
-                          }
-                        },
-                        [_vm._v("Duplicar")]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "a",
-                        {
-                          directives: [
-                            {
-                              name: "show",
-                              rawName: "v-show",
-                              value: _vm.general == true,
-                              expression: "general==true"
-                            }
-                          ],
-                          staticClass: "btn btn-warning",
-                          attrs: {
-                            href:
-                              "/porcentaje/" + area.id + "/" + area.id_classroom
-                          }
-                        },
-                        [_vm._v("Porcentaje de notas")]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "a",
-                        {
-                          directives: [
-                            {
-                              name: "show",
-                              rawName: "v-show",
-                              value: _vm.general == true,
-                              expression: "general==true"
-                            }
-                          ],
-                          staticClass: "btn btn-warning",
-                          attrs: { href: "/duplicar-semana/" }
-                        },
-                        [_vm._v("Duplicar Ciclo")]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "a",
-                        {
-                          directives: [
-                            {
-                              name: "show",
-                              rawName: "v-show",
-                              value: _vm.general == true,
-                              expression: "general==true"
-                            }
-                          ],
-                          staticClass: "btn btn-warning",
-                          attrs: {
-                            href:
-                              "/crear_semana/" +
-                              area.id +
-                              "/" +
-                              area.id_classroom
-                          }
-                        },
-                        [_vm._v("Crear Ciclo")]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "a",
-                        {
-                          directives: [
-                            {
-                              name: "show",
-                              rawName: "v-show",
-                              value: _vm.general == true,
-                              expression: "general==true"
-                            }
-                          ],
-                          staticClass: "btn btn-warning",
-                          attrs: {
-                            href:
-                              "/act_semana/" + area.id + "/" + area.id_classroom
-                          }
-                        },
-                        [_vm._v("Actualizar Ciclo")]
-                      )
-                    ]
-                  )
+                    : _vm._e()
                 ])
               }),
               0

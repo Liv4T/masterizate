@@ -17,56 +17,58 @@
               </div>
             </div>
             <div class="accordion" id="accordionExample">
-              <div class="card" v-for="(area,t) in areas" :key="t">
-                <div v-if="search_filter =='' || filterPlanDoc(area.text)" class="card-header">
-                  <h2 class="mb-0">
-                    <button
-                      class="btn btn-link"
-                      type="button"
-                      data-toggle="collapse"
-                      :data-target="'#collapse'+t"
-                      aria-expanded="false"
-                      @click.prevent="botones(area.id, area.id_classroom)"
-                      aria-controls="collapse"
-                    >
-                      <label>{{ area.text }}</label>
-                    </button>
-                  </h2>
-                </div>
-                <div
-                  :id="'collapse'+t"
-                  class="collapse hide accordion-content"
-                  aria-labelledby="heading"
-                  data-parent="#accordionExample"
-                >
-                  <a
-                    :href="'/course/'+ area.id +'/'+ area.id_classroom"
-                    class="btn btn-warning"
-                  >General</a>
-                  <a
-                    :href="'/duplicar/'+ area.id +'/'+ area.id_classroom"
-                    class="btn btn-warning"
-                  >Duplicar</a>
-                  <a
-                    v-show="general==true"
-                    :href="'/porcentaje/'+ area.id +'/'+ area.id_classroom"
-                    class="btn btn-warning"
-                  >Porcentaje de notas</a>
-                  <a
-                    v-show="general==true"
-                    :href="'/duplicar-semana/'"
-                    class="btn btn-warning"
-                  >Duplicar Ciclo</a>
-                  <a
-                    v-show="general==true"
-                    :href="'/crear_semana/'+ area.id +'/'+ area.id_classroom"
-                    class="btn btn-warning"
-                  >Crear Ciclo</a>
-                  <a
-                    v-show="general==true"
-                    :href="'/act_semana/'+ area.id +'/'+ area.id_classroom"
-                    class="btn btn-warning"
-                  >Actualizar Ciclo</a>
+              <div v-for="(area,t) in areas" :key="t">
+                <div class="card" v-if="search_filter =='' || filterPlanDoc(area.text)">
+                  <div class="card-header">
+                    <h2 class="mb-0">
+                      <button
+                        class="btn btn-link"
+                        type="button"
+                        data-toggle="collapse"
+                        :data-target="'#collapse'+t"
+                        aria-expanded="false"
+                        @click.prevent="botones(area.id, area.id_classroom)"
+                        aria-controls="collapse"
+                      >
+                        <label>{{ area.text }}</label>
+                      </button>
+                    </h2>
+                  </div>
+                  <div
+                    :id="'collapse'+t"
+                    class="collapse hide accordion-content"
+                    aria-labelledby="heading"
+                    data-parent="#accordionExample"
+                  >
+                    <a
+                      :href="'/course/'+ area.id +'/'+ area.id_classroom"
+                      class="btn btn-warning"
+                    >General</a>
+                    <a
+                      :href="'/duplicar/'+ area.id +'/'+ area.id_classroom"
+                      class="btn btn-warning"
+                    >Duplicar</a>
+                    <a
+                      v-show="general==true"
+                      :href="'/porcentaje/'+ area.id +'/'+ area.id_classroom"
+                      class="btn btn-warning"
+                    >Porcentaje de notas</a>
+                    <a
+                      v-show="general==true"
+                      :href="'/duplicar-semana/'"
+                      class="btn btn-warning"
+                    >Duplicar Ciclo</a>
+                    <a
+                      v-show="general==true"
+                      :href="'/crear_semana/'+ area.id +'/'+ area.id_classroom"
+                      class="btn btn-warning"
+                    >Crear Ciclo</a>
+                    <a
+                      v-show="general==true"
+                      :href="'/act_semana/'+ area.id +'/'+ area.id_classroom"
+                      class="btn btn-warning"
+                    >Actualizar Ciclo</a>
+                  </div>
                 </div>
               </div>
             </div>
