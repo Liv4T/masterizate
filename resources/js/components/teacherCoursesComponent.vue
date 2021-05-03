@@ -17,69 +17,68 @@
                         </span>
                     </div>
                 </div>
-              <div class="card" v-for="(area,t) in areas" :key="t">
-                <div v-if="search_filter =='' || filterClass(area.text)" class="card-header">
-                  <h2 class="mb-0">
-                    <button
-                      class="btn btn-link"
-                      type="button"
-                      data-toggle="collapse"
-                      :data-target="'#collapse'+t"
-                      aria-expanded="false"
-                      @click.prevent="botones(area.id, area.id_classroom)"
-                      aria-controls="collapse"
-                    >
-                      <label class="btn-link_bold">{{ area.text }}</label>
-                    </button>
-                  </h2>
-                </div>
-                <div
-                  :id="'collapse'+t"
-                  class="collapse hide"
-                  aria-labelledby="heading"
-                  data-parent="#accordionExample"
-                >
-                <div class="input-group mb-3 mt-3">
-                    <input type="text" class="form-control" placeholder="Buscar Ciclo" v-model="search_filter_cicle">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="basic-addon2">
-                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-search" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z"/>
-                                <path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z"/>
-                            </svg>
-                        </span>
+                <div v-for="(area,t) in areas" :key="t">
+                    <div class="card" v-if="search_filter =='' || filterClass(area.text)">
+                        <div class="card-header">
+                            <h2 class="mb-0">
+                                <button
+                                class="btn btn-link"
+                                type="button"
+                                data-toggle="collapse"
+                                :data-target="'#collapse'+t"
+                                aria-expanded="false"
+                                @click.prevent="botones(area.id, area.id_classroom)"
+                                aria-controls="collapse"
+                                >
+                                <label class="btn-link_bold">{{ area.text }}</label>
+                                </button>
+                            </h2>
+                        </div>
+                        <div
+                            :id="'collapse'+t"
+                            class="collapse hide"
+                            aria-labelledby="heading"
+                            data-parent="#accordionExample"
+                        >
+                            <div class="input-group mb-3 mt-3">
+                                <input type="text" class="form-control" placeholder="Buscar Ciclo" v-model="search_filter_cicle">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon2">
+                                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-search" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z"/>
+                                            <path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z"/>
+                                        </svg>
+                                    </span>
+                                </div>
+                            </div>
+                            <table class="table table-responsive-xl table-hover table-striped center">
+                                <thead>
+                                    <tr>
+                                            <th></th>
+                                            <th class="text-center">Ciclo de aprendizaje</th>
+                                            <th class="text-center">Acción</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <template  v-for="(clas, k) in clases">
+                                        <tr :key="k" v-if="clas.id_classroom==area.id_classroom && clas.id_area==area.id && search_filter_cicle =='' || filterCicle(clas.text)">
+                                            <td> <a class="btn btn-primary"  :href="'/act_semana/'+clas.id_area+'/'+clas.id_classroom">Editar</a> </td>
+                                            <td>{{ clas.text }}</td>
+                                            <td>
+                                            <a
+                                                class="btn btn-primary"
+                                                :href="'/docente/modulo/'+clas.id"
+                                            >Ir a Ciclo</a>
+                                            <button v-if="clas.activateButton" v-on:click="ClassAndCicle(clas.id)" class="btn btn-primary">Eliminar</button>
+                                            <button v-if="!clas.activateButton" v-on:click="RequestPermissions(clas, area.text)" class="btn btn-primary">Solicitar Permiso para Eliminar</button>
+                                            </td>
+                                        </tr>
+                                    </template>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
-                  <table class="table table-responsive-xl table-hover table-striped center">
-                    <thead>
-                      <tr>
-                            <th></th>
-                            <th class="text-center">Ciclo de aprendizaje</th>
-                            <th class="text-center">Acción</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                        <template  v-for="(clas, k) in clases">
-                        <tr :key="k" v-if="clas.id_classroom==area.id_classroom && clas.id_area==area.id && search_filter_cicle =='' || filterCicle(clas.text)"
-                      >
-                         <td> <a class="btn btn-primary"  :href="'/act_semana/'+clas.id_area+'/'+clas.id_classroom">Editar</a> </td>
-                        <td>{{ clas.text }}</td>
-                        <td>
-                          <a
-                            class="btn btn-primary"
-                            :href="'/docente/modulo/'+clas.id"
-                          >Ir a Ciclo</a>
-                          <button v-if="clas.activateButton" v-on:click="ClassAndCicle(clas.id)" class="btn btn-primary">Eliminar</button>
-                          <button v-if="!clas.activateButton" v-on:click="RequestPermissions(clas, area.text)" class="btn btn-primary">Solicitar Permiso para Eliminar</button>
-                        </td>
-
-                      </tr>
-                        </template>
-
-                    </tbody>
-                  </table>
-                </div>
-              </div>
             </div>
           </div>
         </div>

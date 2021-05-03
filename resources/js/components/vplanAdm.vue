@@ -17,48 +17,50 @@
               </div>
             </div>
             <div class="accordion" id="accordionExample">
-              <div class="card" v-for="(area,t) in areas" :key="t">
-                <div v-if="search_filter =='' || filterPlanification(area.text)" class="card-header">
-                  <h2 class="mb-0">
-                    <button
-                      class="btn btn-link"
-                      style="color:grey"
-                      type="button"
-                      data-toggle="collapse"
-                      :data-target="'#collapse'+t"
-                      aria-expanded="false"
-                      @click.prevent="botones(area.id, area.id_classroom)"
-                      aria-controls="collapse"
+              <div v-for="(area,t) in areas" :key="t">
+                  <div class="card mb-2" v-if="search_filter =='' || filterPlanification(area.text)">
+                    <div class="card-header">
+                        <h2 class="mb-0">
+                        <button
+                          class="btn btn-link"
+                          style="color:grey"
+                          type="button"
+                          data-toggle="collapse"
+                          :data-target="'#collapse'+t"
+                          aria-expanded="false"
+                          @click.prevent="botones(area.id, area.id_classroom)"
+                          aria-controls="collapse"
+                        >
+                          <label>{{ area.text }}</label>
+                        </button>
+                      </h2>
+                    </div>
+                    <div
+                      :id="'collapse'+t"
+                      class="collapse hide"
+                      aria-labelledby="heading"
+                      data-parent="#accordionExample"
                     >
-                      <label>{{ area.text }}</label>
-                    </button>
-                  </h2>
-                </div>
-                <div
-                  :id="'collapse'+t"
-                  class="collapse hide"
-                  aria-labelledby="heading"
-                  data-parent="#accordionExample"
-                >
-                  <a
-                    :href="'/course/'+ area.id +'/'+ area.id_classroom"
-                    class="btn btn-warning"
-                  >General</a>
+                      <a
+                        :href="'/course/'+ area.id +'/'+ area.id_classroom"
+                        class="btn btn-warning"
+                      >General</a>
 
-                  <a
-                    :href="'/porcentaje/'+ area.id +'/'+ area.id_classroom"
-                    class="btn btn-warning"
-                  >Porcentaje de notas</a>
+                      <a
+                        :href="'/porcentaje/'+ area.id +'/'+ area.id_classroom"
+                        class="btn btn-warning"
+                      >Porcentaje de notas</a>
 
-                  <a href="/docente/clases" class="btn btn-warning">Ciclos y clases</a>
-<!--
-                   <a
-                    :href="'/act_semana/'+ area.id +'/'+ area.id_classroom"
-                    class="btn btn-warning"
-                  >Ciclos</a>
--->
+                      <a href="/docente/clases" class="btn btn-warning">Ciclos y clases</a>
+    <!--
+                      <a
+                        :href="'/act_semana/'+ area.id +'/'+ area.id_classroom"
+                        class="btn btn-warning"
+                      >Ciclos</a>
+    -->
 
-
+                    </div>
+                  
                 </div>
               </div>
             </div>
