@@ -1,7 +1,7 @@
 <!-- Define el menu del aplicativo -->
 @if (Auth::user()->isAdmin())
-<menu-component></menu-component>
-<menu-adm></menu-adm>
+<menu-adm-component></menu-adm-component>
+<!-- <menu-adm></menu-adm> -->
 @endif
 
 @if (Auth::user()->isTeacher())

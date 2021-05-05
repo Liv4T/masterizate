@@ -1,7 +1,12 @@
 @extends('layouts.app')
 
 @section('content') 
-    <menu-nurse></menu-nurse>
+    @if(Auth::user()->isAdmin())
+      <menu-adm-component></menu-adm-component>
+    @endif
+    @if(Auth::user()->isNurse())
+      <menu-nurse></menu-nurse>
+    @endif
     <food-component></food-component>
 <div class="container">
 

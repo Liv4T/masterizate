@@ -2,7 +2,8 @@
 
 @section('content')
     @if(Auth::user()->isAdmin())
-    <menu-adm></menu-adm>
+    <menu-adm-component></menu-adm-component>
+    <!-- <menu-adm></menu-adm> -->
     @endif
 
     @if(Auth::user()->isCoordinator())

@@ -10,7 +10,9 @@
     <menu-lateral></menu-lateral>
  @endif
   @if (Auth::user()->type_user == '1')
-    <menu-adm></menu-adm>
+  <!-- Se visualiza doble el menu en el componente de chat -->
+  <!-- <menu-adm-component></menu-adm-component> -->
+    <!-- <menu-adm></menu-adm> -->
  @endif
  @if (Auth::user()->type_user == '4')
     <menu-padres></menu-padres>

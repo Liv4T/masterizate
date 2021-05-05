@@ -1,7 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-<menu-adm></menu-adm>
+<menu-adm-component></menu-adm-component>
+<!-- <menu-adm></menu-adm> -->
 <lectives-teacher-students-list></lectives-teacher-students-list>
 <chart-adm></chart-adm>
  <footers></footers>

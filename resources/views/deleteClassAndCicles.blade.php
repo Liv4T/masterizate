@@ -1,7 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-<menu-adm></menu-adm>
+<menu-adm-component></menu-adm-component>
+<!-- <menu-adm></menu-adm> -->
 <component-delete-class-and-cicles></component-delete-class-and-cicles>
 <div class="container">
     <div class="row justify-content-center">

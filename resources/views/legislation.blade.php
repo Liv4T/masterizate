@@ -1,7 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
-<menu-school></menu-school>
+    @if(Auth::user()->isAdmin())
+      <menu-adm-component></menu-adm-component>
+    @endif
+
+    @if(Auth::user()->isNurse())
+        <menu-school></menu-school>
+    @endif
 <legislation-component :user="{{Auth::user()}}"></legislation-component>
 <div class="container">
     <div class="row justify-content-center">

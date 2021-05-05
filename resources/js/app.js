@@ -298,7 +298,7 @@ Vue.component("food-component", ()=>import("./components/FoodComponent.vue"));
 Vue.component("menu-nurse", ()=>import("./components/menuNurse.vue"));
 Vue.component("nursing-component", ()=>import("./components/NurseComponent.vue"));
 
-Vue.component("menu-component", ()=>import("./components/newMenuAdm.vue"));
+Vue.component("menu-adm-component", ()=>import("./components/newMenuAdm.vue"));
 
 Vue.use(CKEditor);
 

@@ -383,19 +383,14 @@ export default {
 </script>
 
 <style>
-/* Las lineas comentadas son para no alterar la visibilidad de la pagina */
 .left {
-  /* width: 225px; */
-  width:auto;
+  width: 225px;
   height: auto;
   background: #f5f5f5;
   white-space: nowrap;
   transition: width 0.5s;
-  /* position: absolute; */
-  position: fixed;
+  position: absolute;
   z-index: 1;
-  overflow-x: hidden;
-  overflow-y: scroll;
 }
 .left ul {
   padding: 0;

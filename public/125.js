@@ -164,7 +164,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", [
+    return _c("div", { staticClass: "mb-3" }, [
       _c(
         "a",
         {
@@ -569,9 +569,18 @@ var staticRenderFns = [
         "a",
         { attrs: { href: "../../uploads/Terminos _Condiciones_liv4t.pdf" } },
         [
-          _c("button", { staticClass: "btn btn-sm btn-secondary" }, [
-            _vm._v("\n            Terminos y Condiciones\n        ")
-          ])
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-sm btn-secondary text-center",
+              staticStyle: {
+                width: "144px",
+                height: "28px",
+                "font-size": "11px"
+              }
+            },
+            [_vm._v("\n            Terminos y Condiciones\n        ")]
+          )
         ]
       )
     ])

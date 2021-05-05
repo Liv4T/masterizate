@@ -1,7 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-<menu-adm></menu-adm>
+<menu-adm-component></menu-adm-component>
+<!-- <menu-adm></menu-adm> -->
 <lectives-adm-assing-teacher></lectives-adm-assing-teacher>
  <footers></footers>
 <div class="container">

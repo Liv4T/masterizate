@@ -919,7 +919,3 @@ Route::get('getCoursesAndStudents','FoodComponentController@getCoursesAndStudent
 //Ruta para componente de Enfermeria
 Route::resource('nursing', 'NursingComponentController');
 Route::get('getNursing','NursingComponentController@getNursignData');
-
-Route::middleware('auth')->get('/newMenu', function () {
-    return view('newMenu');
-});

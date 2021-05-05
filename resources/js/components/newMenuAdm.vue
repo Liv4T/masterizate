@@ -1,5 +1,5 @@
 <template> 
-    <div>
+    <div class="mb-3">
         <a href="/perfil_d" class="btn btn-sm btn-secondary">
             Mi Perfil
         </a>
@@ -110,7 +110,7 @@
         </a>
 
         <a href="../../uploads/Terminos _Condiciones_liv4t.pdf">
-            <button class="btn btn-sm btn-secondary">
+            <button style="width: 144px; height: 28px; font-size: 11px;" class="btn btn-sm btn-secondary text-center">
                 Terminos y Condiciones
             </button>
         </a>
