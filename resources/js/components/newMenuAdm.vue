@@ -1,5 +1,5 @@
-<template class="text-center"> 
-    <div >
+<template> 
+    <div>
         <a href="/perfil_d" class="btn btn-sm btn-secondary">
             Mi Perfil
         </a>
@@ -96,28 +96,24 @@
                 <a class="dropdown-item" href="#">Actas y Circulares</a>
             </div>
         </div>
+        
+        <a href="#">
+            <button class="btn btn-sm btn-secondary">
+                Exalumnos
+            </button>
+        </a>
+        
+        <a href="">
+            <button class="btn btn-sm btn-secondary">
+                Mis Reportes
+            </button>
+        </a>
 
-        
-            <a href="#">
-                <button class="btn btn-sm btn-secondary">
-                    Exalumnos
-                </button>
-            </a>
-        
-                        
-        
-            <a href="">
-                <button class="btn btn-sm btn-secondary">
-                    Mis Reportes
-                </button>
-            </a>
-
-        
-            <a href="../../uploads/Terminos _Condiciones_liv4t.pdf">
-                <button class="btn btn-sm btn-secondary">
-                    Terminos y Condiciones
-                </button>
-            </a>
+        <a href="../../uploads/Terminos _Condiciones_liv4t.pdf">
+            <button class="btn btn-sm btn-secondary">
+                Terminos y Condiciones
+            </button>
+        </a>
     </div>
 </template>
 <script>
