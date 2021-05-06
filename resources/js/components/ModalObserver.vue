@@ -149,7 +149,7 @@
         },
         mounted(){
             this.getParents();
-            if(this.user.type_user === 2){
+            if(this.user.type_user === 2 || this.user.type_user === 7){
                 axios.get('/GetArearByUser').then(response => {
                     this.areas = response.data;
 
@@ -181,7 +181,7 @@
 
             getStudents(){
                 this.students = [];
-                if(this.user.type_user === 2){
+                // if(this.user.type_user === 2){
                     axios.get(`/api/teacher/area/${this.current_area.id}/classroom/${this.current_area.id_classroom}/student`).then(response => {
                         this.students = response.data;
                         this.students.forEach(e => {   
@@ -192,9 +192,9 @@
                             });
                         });
                     });
-                }
+                // }
                 
-                else if(this.user.type_user === 8){
+                if(this.user.type_user === 8){
                     if(this.user.new_coord_area === 'Primaria'){
                         axios.get(`getStudentsPrimary`).then(response => {
                             this.students = response.data;

@@ -164,7 +164,7 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
 
     this.getParents();
 
-    if (this.user.type_user === 2) {
+    if (this.user.type_user === 2 || this.user.type_user === 7) {
       axios.get('/GetArearByUser').then(function (response) {
         _this.areas = response.data;
 
@@ -199,21 +199,21 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
     getStudents: function getStudents() {
       var _this3 = this;
 
-      this.students = [];
+      this.students = []; // if(this.user.type_user === 2){
 
-      if (this.user.type_user === 2) {
-        axios.get("/api/teacher/area/".concat(this.current_area.id, "/classroom/").concat(this.current_area.id_classroom, "/student")).then(function (response) {
-          _this3.students = response.data;
+      axios.get("/api/teacher/area/".concat(this.current_area.id, "/classroom/").concat(this.current_area.id_classroom, "/student")).then(function (response) {
+        _this3.students = response.data;
 
-          _this3.students.forEach(function (e) {
-            _this3.studentsOptions.push({
-              id: e.user_id,
-              id_student: e.user_id,
-              text: "".concat(e.user_name)
-            });
+        _this3.students.forEach(function (e) {
+          _this3.studentsOptions.push({
+            id: e.user_id,
+            id_student: e.user_id,
+            text: "".concat(e.user_name)
           });
         });
-      } else if (this.user.type_user === 8) {
+      }); // }
+
+      if (this.user.type_user === 8) {
         if (this.user.new_coord_area === 'Primaria') {
           axios.get("getStudentsPrimary").then(function (response) {
             _this3.students = response.data;

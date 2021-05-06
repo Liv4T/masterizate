@@ -5,6 +5,9 @@
         <menu-psychology></menu-psychology>
         <inicio-component></inicio-component>
   @endif
+  @if (Auth::user()->type_user == '7')
+    <menu-tutor></menu-tutor>
+  @endif
   <psychologymenu></psychologymenu>
   <footers></footers>
 <div class="container">

@@ -5,7 +5,7 @@
 @if (Auth::user()->isTeacher()||Auth::user()->isPsychology()||Auth::user()->isTutor())
     <inicio-component></inicio-component>
 @endif
-@if (Auth::user()->isTeacher()||Auth::user()->isCoordinator()||Auth::user()->isAdmin())
+@if (Auth::user()->isTeacher()||Auth::user()->isCoordinator()||Auth::user()->isAdmin()||Auth::user()->isTutor())
     <observer-component :user="{{Auth::user()}}"></observer-component>
 @endif
 

@@ -168,19 +168,19 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
     getData: function getData() {
       var _this = this;
 
-      this.getParents();
+      this.getParents(); // if(this.user.type_user === 2){
 
-      if (this.user.type_user === 2) {
-        axios.get('/GetArearByUser').then(function (response) {
-          _this.areas = response.data;
+      axios.get('/GetArearByUser').then(function (response) {
+        _this.areas = response.data;
 
-          if (_this.areas.length > 0) {
-            _this.current_area = _this.areas[0];
+        if (_this.areas.length > 0) {
+          _this.current_area = _this.areas[0];
 
-            _this.getStudents();
-          }
-        });
-      } else if (this.user.type_user === 8) {
+          _this.getStudents();
+        }
+      }); // }
+
+      if (this.user.type_user === 8) {
         this.getStudents();
       }
     },
@@ -206,7 +206,7 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
 
       this.students = [];
 
-      if (this.user.type_user === 2) {
+      if (this.user.type_user === 2 || this.user.type_user === 7) {
         axios.get("/api/teacher/area/".concat(this.current_area.id, "/classroom/").concat(this.current_area.id_classroom, "/student")).then(function (response) {
           _this3.students = response.data;
 

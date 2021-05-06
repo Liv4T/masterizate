@@ -521,7 +521,7 @@ var staticRenderFns = [
                 _vm._v("\n                   Chat\n                 ")
               ]),
               _vm._v(" "),
-              _c("a", { attrs: { href: "/chatGobernment" } }, [
+              _c("a", { attrs: { href: "/chat" } }, [
                 _c("img", {
                   attrs: {
                     width: "35px",
