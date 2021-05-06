@@ -6,7 +6,10 @@
               <div v-if="type_u != 7" class="row justify-content-center">
                 <h4>Clases presenciales</h4>
               </div>
-              <div class="row" v-for="(clas, k) in filterPendingEvents(clases)" v-bind:key="k">
+              <!-- Se comentarea la linea ya que el filtro aparentemente esta quitando eventos tanto del calendario como de listado
+              Pendiente por realizar pruebas  -->
+              <!-- <div class="row" v-for="(clas, k) in filterPendingEvents(clases)" v-bind:key="k"> -->
+                <div class="row" v-for="(clas, k) in clases" v-bind:key="k">
                 <div class="col-12">
                   <div class="card">
                     <div class="class-event">

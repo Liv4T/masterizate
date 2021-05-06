@@ -133,6 +133,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 moment__WEBPACK_IMPORTED_MODULE_0___default.a.tz.setDefault("America/Bogota");
 moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale("es");
@@ -321,7 +324,7 @@ var render = function() {
                     ])
                   : _vm._e(),
                 _vm._v(" "),
-                _vm._l(_vm.filterPendingEvents(_vm.clases), function(clas, k) {
+                _vm._l(_vm.clases, function(clas, k) {
                   return _c("div", { key: k, staticClass: "row" }, [
                     _c("div", { staticClass: "col-12" }, [
                       _c("div", { staticClass: "card" }, [
