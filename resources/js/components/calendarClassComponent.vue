@@ -6,10 +6,9 @@
               <div v-if="type_u != 7" class="row justify-content-center">
                 <h4>Clases presenciales</h4>
               </div>
-              <!-- Se comentarea la linea ya que el filtro aparentemente esta quitando eventos tanto del calendario como de listado
-              Pendiente por realizar pruebas  -->
-              <!-- <div class="row" v-for="(clas, k) in filterPendingEvents(clases)" v-bind:key="k"> -->
-                <div class="row" v-for="(clas, k) in clases" v-bind:key="k">
+        
+              <div class="row" v-for="(clas, k) in filterPendingEvents(clases)" v-bind:key="k">
+                <!-- <div class="row" v-for="(clas, k) in clases" v-bind:key="k"> -->
                 <div class="col-12">
                   <div class="card">
                     <div class="class-event">
@@ -160,7 +159,10 @@
     },
     methods: {
         filterPendingEvents: (events) => {
-            return events.filter((e) => moment(e.dateTo) >= moment());
+          /* Se da formato a fechas para poder comparar las 
+          *  reuniones que sucedieron en el dia y las que estan agendadas a futuro
+          */
+            return events.filter((e) => moment(e.dateTo).format('YYYY-MM-DD') >= moment().format('YYYY-MM-DD'));
         },
 
         UpdateLinkTutorial(tutorial) {

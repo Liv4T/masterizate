@@ -135,7 +135,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 moment__WEBPACK_IMPORTED_MODULE_0___default.a.tz.setDefault("America/Bogota");
 moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale("es");
@@ -167,8 +166,11 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale("es");
   mounted: function mounted() {},
   methods: {
     filterPendingEvents: function filterPendingEvents(events) {
+      /* Se da formato a fechas para poder comparar las 
+      *  reuniones que sucedieron en el dia y las que estan agendadas a futuro
+      */
       return events.filter(function (e) {
-        return moment__WEBPACK_IMPORTED_MODULE_0___default()(e.dateTo) >= moment__WEBPACK_IMPORTED_MODULE_0___default()();
+        return moment__WEBPACK_IMPORTED_MODULE_0___default()(e.dateTo).format('YYYY-MM-DD') >= moment__WEBPACK_IMPORTED_MODULE_0___default()().format('YYYY-MM-DD');
       });
     },
     UpdateLinkTutorial: function UpdateLinkTutorial(tutorial) {
@@ -324,7 +326,7 @@ var render = function() {
                     ])
                   : _vm._e(),
                 _vm._v(" "),
-                _vm._l(_vm.clases, function(clas, k) {
+                _vm._l(_vm.filterPendingEvents(_vm.clases), function(clas, k) {
                   return _c("div", { key: k, staticClass: "row" }, [
                     _c("div", { staticClass: "col-12" }, [
                       _c("div", { staticClass: "card" }, [

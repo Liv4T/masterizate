@@ -24,14 +24,14 @@
                             </thead>
                             <tbody>
                                 <tr v-for="(clas, t) in fillS" :key="t">
-                                    <td v-if="clas.status===1">{{ clas.name }}</td>
-                                    <td v-if="clas.status===1">
+                                    <td v-if="clas.status!=0">{{ clas.name }}</td>
+                                    <td v-if="clas.status!=0">
                                         <a class="btn btn-primary" :href="
-                                                '/docente/modulo/' +
-                                                    id_module +
-                                                    '/clase/' +
-                                                    clas.id
-                                            ">Ir a clase</a>
+                                            '/docente/modulo/' +
+                                                id_module +
+                                            '/clase/' +
+                                                clas.id
+                                        ">Ir a clase</a>
                                     </td>
                                     <!-- <td>
                                           <span class="class-inactive" v-if="clas.status==1">Clase cerrada</span>

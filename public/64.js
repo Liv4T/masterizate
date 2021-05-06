@@ -391,11 +391,11 @@ var render = function() {
                   "tbody",
                   _vm._l(_vm.fillS, function(clas, t) {
                     return _c("tr", { key: t }, [
-                      clas.status === 1
+                      clas.status != 0
                         ? _c("td", [_vm._v(_vm._s(clas.name))])
                         : _vm._e(),
                       _vm._v(" "),
-                      clas.status === 1
+                      clas.status != 0
                         ? _c("td", [
                             _c(
                               "a",

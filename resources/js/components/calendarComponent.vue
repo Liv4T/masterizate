@@ -155,7 +155,6 @@
                 axios.get(urlM).then((response) => {
                     this.clases = response.data;
                     if (this.clases && this.clases.length > 0) {
-                      console.log(response.data,'Todos los datos del evento');
                         this.clases.forEach((meeting) => {
                             fullCalendarApi.addEvent({
                                 title: `${meeting.area} ${meeting.classroom} | Clase ${meeting.name}`,
