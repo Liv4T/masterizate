@@ -126,7 +126,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   methods: {
     logout: function logout() {
@@ -164,7 +163,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "mb-3" }, [
+    return _c("div", { staticClass: "mb-3 text-center" }, [
       _c(
         "a",
         {
@@ -357,26 +356,21 @@ var staticRenderFns = [
             ),
             _vm._v(" "),
             _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
+              _vm._v("Transporte")
+            ]),
+            _vm._v(" "),
+            _c(
+              "a",
+              { staticClass: "dropdown-item", attrs: { href: "/foods" } },
+              [_vm._v("Alimentación")]
+            ),
+            _vm._v(" "),
+            _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
               _vm._v("Informes")
             ])
           ]
         )
       ]),
-      _vm._v(" "),
-      _c(
-        "a",
-        { staticClass: "btn btn-sm btn-secondary", attrs: { href: "/foods" } },
-        [_vm._v("Alimentación")]
-      ),
-      _vm._v(" "),
-      _c(
-        "a",
-        {
-          staticClass: "btn btn-sm btn-secondary",
-          attrs: { href: "/pedagogic" }
-        },
-        [_vm._v("Transporte")]
-      ),
       _vm._v(" "),
       _c("div", { staticClass: "btn-group dropdown" }, [
         _c(

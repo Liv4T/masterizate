@@ -1,5 +1,5 @@
 <template> 
-    <div class="mb-3">
+    <div class="mb-3 text-center">
         <a href="/perfil_d" class="btn btn-sm btn-secondary">
             Mi Perfil
         </a>
@@ -42,13 +42,12 @@
                 <a class="dropdown-item" href="/notas_d">Notas</a>
                 <a class="dropdown-item" href="/utils">Utiles</a>
                 <a class="dropdown-item" href="/pedagogic">Salidas Pedagogicas</a>
+                <a class="dropdown-item" href="#">Transporte</a>
+                <a class="dropdown-item" href="/foods">Alimentación</a>
                 <!-- Modulo Informes pendiente por aclaración -->
                 <a class="dropdown-item" href="#">Informes</a>
             </div>
         </div>
-
-        <a href="/foods" class="btn btn-sm btn-secondary">Alimentación</a>
-        <a href="/pedagogic" class="btn btn-sm btn-secondary">Transporte</a>
 
         <div class="btn-group dropdown">
             <button type="button" class="btn btn-sm btn-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
