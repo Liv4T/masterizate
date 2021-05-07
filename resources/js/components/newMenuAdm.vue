@@ -14,6 +14,8 @@
                 <a class="dropdown-item" href="#">Crear Perfiles</a>
                 <a class="dropdown-item" href="/salon_adm">Crear Usuarios</a>
                 <a class="dropdown-item" href="/admin/configuracion">Parametros de Notas</a>
+                <a class="dropdown-item" href="#">Transporte</a>
+                <a class="dropdown-item" href="/foods">Alimentación</a>
             </div>
         </div>
 
@@ -42,8 +44,6 @@
                 <a class="dropdown-item" href="/notas_d">Notas</a>
                 <a class="dropdown-item" href="/utils">Utiles</a>
                 <a class="dropdown-item" href="/pedagogic">Salidas Pedagogicas</a>
-                <a class="dropdown-item" href="#">Transporte</a>
-                <a class="dropdown-item" href="/foods">Alimentación</a>
                 <!-- Modulo Informes pendiente por aclaración -->
                 <a class="dropdown-item" href="#">Informes</a>
             </div>

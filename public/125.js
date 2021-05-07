@@ -228,6 +228,16 @@ var staticRenderFns = [
                 attrs: { href: "/admin/configuracion" }
               },
               [_vm._v("Parametros de Notas")]
+            ),
+            _vm._v(" "),
+            _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
+              _vm._v("Transporte")
+            ]),
+            _vm._v(" "),
+            _c(
+              "a",
+              { staticClass: "dropdown-item", attrs: { href: "/foods" } },
+              [_vm._v("Alimentación")]
             )
           ]
         )
@@ -353,16 +363,6 @@ var staticRenderFns = [
               "a",
               { staticClass: "dropdown-item", attrs: { href: "/pedagogic" } },
               [_vm._v("Salidas Pedagogicas")]
-            ),
-            _vm._v(" "),
-            _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
-              _vm._v("Transporte")
-            ]),
-            _vm._v(" "),
-            _c(
-              "a",
-              { staticClass: "dropdown-item", attrs: { href: "/foods" } },
-              [_vm._v("Alimentación")]
             ),
             _vm._v(" "),
             _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
