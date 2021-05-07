@@ -1,52 +1,57 @@
 <template>
-    <div class="back">
+    <div>
         <div id="crud" class="row justify-content-center">
-            <div class="col-sm-10">
-                <div>
-                    <button class="btn btn-primary mb-3" data-toggle="modal" data-target="#createRegister">Crear Registro</button>
-                    <button class="btn btn-primary mb-3" v-on:click="showTablePermission">{{showPermission ? 'Ocultar Permisos': 'Mostrar Permisos'}}</button>
-                </div>
-                <table-delete-class-and-cicles :showPermission="showPermission"></table-delete-class-and-cicles>
-                <div class="card-header fondo text-center mb-3">
-                    <h4>Activación de permiso para eliminar Ciclo</h4>
-                </div>
-                <div class="card">
-                    <div class="card-body">
-                        <input type="text" class="form-control mb-2" placeholder="Buscar Por Materia - Salon" v-model="search_class">
-                        <div id="accordion" v-for="(data, key) in dataToIterate" :key="key">
-                                <div class="card" v-if="search_class =='' || filterClass(key)">
-                                <div class="card-header" id="headingOne">
-                                    <h5 class="mb-0">
-                                        <button class="btn btn-link" data-toggle="collapse" :data-target="`#collapse${key.replace(/ /g, '')}`" aria-expanded="true" :aria-controls="`collapse${key.replace(/ /g, '')}`">
-                                            {{key}}
-                                        </button>
-                                    </h5>
-                                </div>
+            <button class="btn btn-primary mb-3 ml-2" data-toggle="modal" data-target="#createRegister">Crear Registro</button>
+            <button class="btn btn-primary mb-3 ml-2" v-on:click="showTablePermission">{{showPermission ? 'Ocultar Permisos': 'Mostrar Permisos'}}</button>
+            <button class="btn btn-primary mb-3 ml-2" v-on:click="showAllCicles">{{showCicles ? 'Ocultar Todos Ciclos': 'Mostrar Todos Ciclos'}}</button>
+        </div>
+        <div v-if="showCicles === false">
+            <div>
+                <div id="crud" class="row justify-content-center">
+                    <div class="col-sm-11">
+                        <table-delete-class-and-cicles :showPermission="showPermission"></table-delete-class-and-cicles>
+                        <div class="card-header fondo text-center mb-3">
+                            <h4>Registro de Permiso para eliminar Ciclo</h4>
+                        </div>
+                        <div class="card">
+                            <div class="card-body">
+                                <input type="text" class="form-control mb-2" placeholder="Buscar Por Materia - Salon" v-model="search_class">
+                                <div id="accordion" v-for="(data, key) in dataToIterate" :key="key">
+                                    <div class="card" v-if="search_class =='' || filterClass(key)">
+                                        <div class="card-header" id="headingOne">
+                                            <h5 class="mb-0">
+                                                <button class="btn btn-link" data-toggle="collapse" :data-target="`#collapse${key.replace(/ /g, '')}`" aria-expanded="true" :aria-controls="`collapse${key.replace(/ /g, '')}`">
+                                                    {{key}}
+                                                </button>
+                                            </h5>
+                                        </div>
 
-                                <div :id="`collapse${key.replace(/ /g, '')}`" class="collapse hide" aria-labelledby="headingOne" data-parent="#accordion">
-                                    <div class="card-body">
-                                        <input type="text" class="form-control" placeholder="Buscar Por Ciclo" v-model="search_filter">
-                                        <table class="table table-responsive-xl table-hover table-striped">
-                                            <thead>
-                                                <tr>
-                                                    <th>Ciclos</th>
-                                                    <th>Fecha Inicio de permiso para Eliminar Dato</th>
-                                                    <th>Fecha Fin de permiso para Eliminar Dato</th>
-                                                    <th>Acción</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody v-for="(data, key) in data" :key="key">
-                                                <tr v-if="search_filter =='' || filterCicle(data.text)">
-                                                    <td>{{data.text}}</td>
-                                                    <td>{{data.date_to_activate_btn}}</td>
-                                                    <td>{{data.date_to_deactivate_btn}}</td>
-                                                    <td>
-                                                        <button class="btn btn-primary mb-2 mr-2" v-on:click="update(data)">Editar</button>
-                                                        <button class="btn btn-primary" v-on:click="dropData(data.id)">Eliminar</button>    
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
+                                        <div :id="`collapse${key.replace(/ /g, '')}`" class="collapse hide" aria-labelledby="headingOne" data-parent="#accordion">
+                                            <div class="card-body">
+                                                <input type="text" class="form-control" placeholder="Buscar Por Ciclo" v-model="search_filter">
+                                                <table class="table table-responsive-xl table-hover table-striped">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Ciclos</th>
+                                                            <th>Fecha Inicio de permiso para Eliminar Dato</th>
+                                                            <th>Fecha Fin de permiso para Eliminar Dato</th>
+                                                            <th>Acción</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody v-for="(data, key) in data" :key="key">
+                                                        <tr v-if="search_filter =='' || filterCicle(data.text)">
+                                                            <td>{{data.text}}</td>
+                                                            <td>{{data.date_to_activate_btn}}</td>
+                                                            <td>{{data.date_to_deactivate_btn}}</td>
+                                                            <td>
+                                                                <button class="btn btn-primary mb-2 mr-2" v-on:click="update(data)">Editar</button>
+                                                                <button class="btn btn-primary" v-on:click="dropData(data.id)">Eliminar</button>    
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -55,7 +60,9 @@
                 </div>
             </div>
         </div>
-
+        <div v-else>
+            <teacher-courses></teacher-courses>
+        </div>
         <!-- Modal -->
         <div class="modal fade" id="createRegister" tabindex="-1" role="dialog" aria-labelledby="createRegisterLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
@@ -125,6 +132,7 @@ import TableDeleteClassAndCicles from './TableDeleteClassAndCicles.vue';
     export default {
         data() {
             return {
+                showCicles:false,
                 saveClass:[],
                 ClassOptions:[],
                 CicleOptions:[],
@@ -140,14 +148,17 @@ import TableDeleteClassAndCicles from './TableDeleteClassAndCicles.vue';
             }
         },
         mounted() {
-            this.getArea();
-            this.getPermissions();
+            this.getData();
         },
         components: {
             Multiselect,
             TableDeleteClassAndCicles,
         },
         methods: {
+            getData(){
+                this.getArea();
+                this.getPermissions();
+            },
             getPermissions(){
                 axios.get('getPermissions').then((response)=>{
                     this.groupData(response.data);
@@ -162,6 +173,9 @@ import TableDeleteClassAndCicles from './TableDeleteClassAndCicles.vue';
             },
             showTablePermission(){
                 this.showPermission = !this.showPermission;
+            },
+            showAllCicles(){
+                this.showCicles = !this.showCicles;
             },
             getArea(){
                 axios.get(`GetArearByUser`).then((response) => {
