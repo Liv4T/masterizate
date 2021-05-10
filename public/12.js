@@ -229,12 +229,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 
 Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___default.a);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
+      showCicles: false,
       saveClass: [],
       ClassOptions: [],
       CicleOptions: [],
@@ -250,14 +258,17 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
     };
   },
   mounted: function mounted() {
-    this.getArea();
-    this.getPermissions();
+    this.getData();
   },
   components: {
     Multiselect: vue_multiselect__WEBPACK_IMPORTED_MODULE_0___default.a,
     TableDeleteClassAndCicles: _TableDeleteClassAndCicles_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
   methods: {
+    getData: function getData() {
+      this.getArea();
+      this.getPermissions();
+    },
     getPermissions: function getPermissions() {
       var _this = this;
 
@@ -274,6 +285,9 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
     },
     showTablePermission: function showTablePermission() {
       this.showPermission = !this.showPermission;
+    },
+    showAllCicles: function showAllCicles() {
+      this.showCicles = !this.showCicles;
     },
     getArea: function getArea() {
       var _this2 = this;
@@ -688,250 +702,313 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "back" }, [
+  return _c("div", [
     _c(
       "div",
       { staticClass: "row justify-content-center", attrs: { id: "crud" } },
       [
         _c(
-          "div",
-          { staticClass: "col-sm-10" },
+          "button",
+          {
+            staticClass: "btn btn-primary mb-3 ml-2",
+            attrs: { "data-toggle": "modal", "data-target": "#createRegister" }
+          },
+          [_vm._v("Crear Registro")]
+        ),
+        _vm._v(" "),
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-primary mb-3 ml-2",
+            on: { click: _vm.showTablePermission }
+          },
           [
-            _c("div", [
-              _c(
-                "button",
-                {
-                  staticClass: "btn btn-primary mb-3",
-                  attrs: {
-                    "data-toggle": "modal",
-                    "data-target": "#createRegister"
-                  }
-                },
-                [_vm._v("Crear Registro")]
-              ),
-              _vm._v(" "),
-              _c(
-                "button",
-                {
-                  staticClass: "btn btn-primary mb-3",
-                  on: { click: _vm.showTablePermission }
-                },
-                [
-                  _vm._v(
-                    _vm._s(
-                      _vm.showPermission
-                        ? "Ocultar Permisos"
-                        : "Mostrar Permisos"
-                    )
-                  )
-                ]
+            _vm._v(
+              _vm._s(
+                _vm.showPermission ? "Ocultar Permisos" : "Mostrar Permisos"
               )
-            ]),
-            _vm._v(" "),
-            _c("table-delete-class-and-cicles", {
-              attrs: { showPermission: _vm.showPermission }
-            }),
-            _vm._v(" "),
-            _vm._m(0),
-            _vm._v(" "),
-            _c("div", { staticClass: "card" }, [
-              _c(
-                "div",
-                { staticClass: "card-body" },
-                [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.search_class,
-                        expression: "search_class"
-                      }
-                    ],
-                    staticClass: "form-control mb-2",
-                    attrs: {
-                      type: "text",
-                      placeholder: "Buscar Por Materia - Salon"
-                    },
-                    domProps: { value: _vm.search_class },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.search_class = $event.target.value
-                      }
-                    }
-                  }),
-                  _vm._v(" "),
-                  _vm._l(_vm.dataToIterate, function(data, key) {
-                    return _c("div", { key: key, attrs: { id: "accordion" } }, [
-                      _vm.search_class == "" || _vm.filterClass(key)
-                        ? _c("div", { staticClass: "card" }, [
-                            _c(
-                              "div",
-                              {
-                                staticClass: "card-header",
-                                attrs: { id: "headingOne" }
-                              },
-                              [
-                                _c("h5", { staticClass: "mb-0" }, [
-                                  _c(
-                                    "button",
-                                    {
-                                      staticClass: "btn btn-link",
-                                      attrs: {
-                                        "data-toggle": "collapse",
-                                        "data-target":
-                                          "#collapse" + key.replace(/ /g, ""),
-                                        "aria-expanded": "true",
-                                        "aria-controls":
-                                          "collapse" + key.replace(/ /g, "")
-                                      }
-                                    },
-                                    [
-                                      _vm._v(
-                                        "\n                                        " +
-                                          _vm._s(key) +
-                                          "\n                                    "
-                                      )
-                                    ]
-                                  )
-                                ])
-                              ]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "div",
-                              {
-                                staticClass: "collapse hide",
-                                attrs: {
-                                  id: "collapse" + key.replace(/ /g, ""),
-                                  "aria-labelledby": "headingOne",
-                                  "data-parent": "#accordion"
-                                }
-                              },
-                              [
-                                _c("div", { staticClass: "card-body" }, [
-                                  _c("input", {
-                                    directives: [
-                                      {
-                                        name: "model",
-                                        rawName: "v-model",
-                                        value: _vm.search_filter,
-                                        expression: "search_filter"
-                                      }
-                                    ],
-                                    staticClass: "form-control",
-                                    attrs: {
-                                      type: "text",
-                                      placeholder: "Buscar Por Ciclo"
-                                    },
-                                    domProps: { value: _vm.search_filter },
-                                    on: {
-                                      input: function($event) {
-                                        if ($event.target.composing) {
-                                          return
-                                        }
-                                        _vm.search_filter = $event.target.value
-                                      }
-                                    }
-                                  }),
-                                  _vm._v(" "),
-                                  _c(
-                                    "table",
-                                    {
-                                      staticClass:
-                                        "table table-responsive-xl table-hover table-striped"
-                                    },
-                                    [
-                                      _vm._m(1, true),
-                                      _vm._v(" "),
-                                      _vm._l(data, function(data, key) {
-                                        return _c("tbody", { key: key }, [
-                                          _vm.search_filter == "" ||
-                                          _vm.filterCicle(data.text)
-                                            ? _c("tr", [
-                                                _c("td", [
-                                                  _vm._v(_vm._s(data.text))
-                                                ]),
-                                                _vm._v(" "),
-                                                _c("td", [
-                                                  _vm._v(
-                                                    _vm._s(
-                                                      data.date_to_activate_btn
-                                                    )
-                                                  )
-                                                ]),
-                                                _vm._v(" "),
-                                                _c("td", [
-                                                  _vm._v(
-                                                    _vm._s(
-                                                      data.date_to_deactivate_btn
-                                                    )
-                                                  )
-                                                ]),
-                                                _vm._v(" "),
-                                                _c("td", [
-                                                  _c(
-                                                    "button",
-                                                    {
-                                                      staticClass:
-                                                        "btn btn-primary mb-2 mr-2",
-                                                      on: {
-                                                        click: function(
-                                                          $event
-                                                        ) {
-                                                          return _vm.update(
-                                                            data
-                                                          )
-                                                        }
-                                                      }
-                                                    },
-                                                    [_vm._v("Editar")]
-                                                  ),
-                                                  _vm._v(" "),
-                                                  _c(
-                                                    "button",
-                                                    {
-                                                      staticClass:
-                                                        "btn btn-primary",
-                                                      on: {
-                                                        click: function(
-                                                          $event
-                                                        ) {
-                                                          return _vm.dropData(
-                                                            data.id
-                                                          )
-                                                        }
-                                                      }
-                                                    },
-                                                    [_vm._v("Eliminar")]
-                                                  )
-                                                ])
-                                              ])
-                                            : _vm._e()
-                                        ])
-                                      })
-                                    ],
-                                    2
-                                  )
-                                ])
-                              ]
-                            )
-                          ])
-                        : _vm._e()
-                    ])
-                  })
-                ],
-                2
+            )
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-primary mb-3 ml-2",
+            on: { click: _vm.showAllCicles }
+          },
+          [
+            _vm._v(
+              _vm._s(
+                _vm.showCicles ? "Ocultar Todos Ciclos" : "Mostrar Todos Ciclos"
               )
-            ])
-          ],
-          1
+            )
+          ]
         )
       ]
     ),
+    _vm._v(" "),
+    _vm.showCicles === false
+      ? _c("div", [
+          _c("div", [
+            _c(
+              "div",
+              {
+                staticClass: "row justify-content-center",
+                attrs: { id: "crud" }
+              },
+              [
+                _c(
+                  "div",
+                  { staticClass: "col-sm-11" },
+                  [
+                    _c("table-delete-class-and-cicles", {
+                      attrs: { showPermission: _vm.showPermission }
+                    }),
+                    _vm._v(" "),
+                    _vm._m(0),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "card" }, [
+                      _c(
+                        "div",
+                        { staticClass: "card-body" },
+                        [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.search_class,
+                                expression: "search_class"
+                              }
+                            ],
+                            staticClass: "form-control mb-2",
+                            attrs: {
+                              type: "text",
+                              placeholder: "Buscar Por Materia - Salon"
+                            },
+                            domProps: { value: _vm.search_class },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.search_class = $event.target.value
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _vm._l(_vm.dataToIterate, function(data, key) {
+                            return _c(
+                              "div",
+                              { key: key, attrs: { id: "accordion" } },
+                              [
+                                _vm.search_class == "" || _vm.filterClass(key)
+                                  ? _c("div", { staticClass: "card" }, [
+                                      _c(
+                                        "div",
+                                        {
+                                          staticClass: "card-header",
+                                          attrs: { id: "headingOne" }
+                                        },
+                                        [
+                                          _c("h5", { staticClass: "mb-0" }, [
+                                            _c(
+                                              "button",
+                                              {
+                                                staticClass: "btn btn-link",
+                                                attrs: {
+                                                  "data-toggle": "collapse",
+                                                  "data-target":
+                                                    "#collapse" +
+                                                    key.replace(/ /g, ""),
+                                                  "aria-expanded": "true",
+                                                  "aria-controls":
+                                                    "collapse" +
+                                                    key.replace(/ /g, "")
+                                                }
+                                              },
+                                              [
+                                                _vm._v(
+                                                  "\n                                                " +
+                                                    _vm._s(key) +
+                                                    "\n                                            "
+                                                )
+                                              ]
+                                            )
+                                          ])
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "div",
+                                        {
+                                          staticClass: "collapse hide",
+                                          attrs: {
+                                            id:
+                                              "collapse" +
+                                              key.replace(/ /g, ""),
+                                            "aria-labelledby": "headingOne",
+                                            "data-parent": "#accordion"
+                                          }
+                                        },
+                                        [
+                                          _c(
+                                            "div",
+                                            { staticClass: "card-body" },
+                                            [
+                                              _c("input", {
+                                                directives: [
+                                                  {
+                                                    name: "model",
+                                                    rawName: "v-model",
+                                                    value: _vm.search_filter,
+                                                    expression: "search_filter"
+                                                  }
+                                                ],
+                                                staticClass: "form-control",
+                                                attrs: {
+                                                  type: "text",
+                                                  placeholder:
+                                                    "Buscar Por Ciclo"
+                                                },
+                                                domProps: {
+                                                  value: _vm.search_filter
+                                                },
+                                                on: {
+                                                  input: function($event) {
+                                                    if (
+                                                      $event.target.composing
+                                                    ) {
+                                                      return
+                                                    }
+                                                    _vm.search_filter =
+                                                      $event.target.value
+                                                  }
+                                                }
+                                              }),
+                                              _vm._v(" "),
+                                              _c(
+                                                "table",
+                                                {
+                                                  staticClass:
+                                                    "table table-responsive-xl table-hover table-striped"
+                                                },
+                                                [
+                                                  _vm._m(1, true),
+                                                  _vm._v(" "),
+                                                  _vm._l(data, function(
+                                                    data,
+                                                    key
+                                                  ) {
+                                                    return _c(
+                                                      "tbody",
+                                                      { key: key },
+                                                      [
+                                                        _vm.search_filter ==
+                                                          "" ||
+                                                        _vm.filterCicle(
+                                                          data.text
+                                                        )
+                                                          ? _c("tr", [
+                                                              _c("td", [
+                                                                _vm._v(
+                                                                  _vm._s(
+                                                                    data.text
+                                                                  )
+                                                                )
+                                                              ]),
+                                                              _vm._v(" "),
+                                                              _c("td", [
+                                                                _vm._v(
+                                                                  _vm._s(
+                                                                    data.date_to_activate_btn
+                                                                  )
+                                                                )
+                                                              ]),
+                                                              _vm._v(" "),
+                                                              _c("td", [
+                                                                _vm._v(
+                                                                  _vm._s(
+                                                                    data.date_to_deactivate_btn
+                                                                  )
+                                                                )
+                                                              ]),
+                                                              _vm._v(" "),
+                                                              _c("td", [
+                                                                _c(
+                                                                  "button",
+                                                                  {
+                                                                    staticClass:
+                                                                      "btn btn-primary mb-2 mr-2",
+                                                                    on: {
+                                                                      click: function(
+                                                                        $event
+                                                                      ) {
+                                                                        return _vm.update(
+                                                                          data
+                                                                        )
+                                                                      }
+                                                                    }
+                                                                  },
+                                                                  [
+                                                                    _vm._v(
+                                                                      "Editar"
+                                                                    )
+                                                                  ]
+                                                                ),
+                                                                _vm._v(" "),
+                                                                _c(
+                                                                  "button",
+                                                                  {
+                                                                    staticClass:
+                                                                      "btn btn-primary",
+                                                                    on: {
+                                                                      click: function(
+                                                                        $event
+                                                                      ) {
+                                                                        return _vm.dropData(
+                                                                          data.id
+                                                                        )
+                                                                      }
+                                                                    }
+                                                                  },
+                                                                  [
+                                                                    _vm._v(
+                                                                      "Eliminar"
+                                                                    )
+                                                                  ]
+                                                                )
+                                                              ])
+                                                            ])
+                                                          : _vm._e()
+                                                      ]
+                                                    )
+                                                  })
+                                                ],
+                                                2
+                                              )
+                                            ]
+                                          )
+                                        ]
+                                      )
+                                    ])
+                                  : _vm._e()
+                              ]
+                            )
+                          })
+                        ],
+                        2
+                      )
+                    ])
+                  ],
+                  1
+                )
+              ]
+            )
+          ])
+        ])
+      : _c("div", [_c("teacher-courses")], 1),
     _vm._v(" "),
     _c(
       "div",
@@ -1177,7 +1254,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "card-header fondo text-center mb-3" }, [
-      _c("h4", [_vm._v("Activación de permiso para eliminar Ciclo")])
+      _c("h4", [_vm._v("Registro de Permiso para eliminar Ciclo")])
     ])
   },
   function() {
