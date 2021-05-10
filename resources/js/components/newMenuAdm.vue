@@ -14,8 +14,9 @@
                 <a class="dropdown-item" href="#">Crear Perfiles</a>
                 <a class="dropdown-item" href="/salon_adm">Crear Usuarios</a>
                 <a class="dropdown-item" href="/admin/configuracion">Parametros de Notas</a>
-                <a class="dropdown-item" href="#">Transporte</a>
+                <a class="dropdown-item" href="/nursing">Enfermeria</a>
                 <a class="dropdown-item" href="/foods">Alimentación</a>
+                <a class="dropdown-item" href="/pedagogic">Transporte</a>
             </div>
         </div>
 
@@ -44,17 +45,11 @@
                 <a class="dropdown-item" href="/notas_d">Notas</a>
                 <a class="dropdown-item" href="/utils">Utiles</a>
                 <a class="dropdown-item" href="/pedagogic">Salidas Pedagogicas</a>
-                <!-- Modulo Informes pendiente por aclaración -->
+                <a class="dropdown-item" href="/teacher/lectives/planning">Administrar Electivas</a>
+                <a class="dropdown-item" href="/teacher/lectives/courses">Clases Electivas</a>
+                <a class="dropdown-item" href="#">Exalumnos</a>
+                <!-- Modulo de Informes Pendiente por aclaración -->
                 <a class="dropdown-item" href="#">Informes</a>
-            </div>
-        </div>
-
-        <div class="btn-group dropdown">
-            <button type="button" class="btn btn-sm btn-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Enfermeria
-            </button>
-            <div class="dropdown-menu">
-                <a class="dropdown-item" href="/nursing">Estudiantes</a>
             </div>
         </div>
 
@@ -75,16 +70,6 @@
 
         <div class="dropdown">
             <button class="btn btn-sm btn-secondary dropdown-toggle" type="button" id="electives" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Electivas
-            </button>
-            <div class="dropdown-menu" aria-labelledby="electives">
-                <a class="dropdown-item" href="/teacher/lectives/planning">Administrar Electivas</a>
-                <a class="dropdown-item" href="/teacher/lectives/courses">Clases Electivas</a>
-            </div>
-        </div>
-
-        <div class="dropdown">
-            <button class="btn btn-sm btn-secondary dropdown-toggle" type="button" id="electives" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Gobierno Escolar
             </button>
             <div class="dropdown-menu" aria-labelledby="electives">
@@ -96,21 +81,9 @@
             </div>
         </div>
         
-        <a href="#">
-            <button class="btn btn-sm btn-secondary">
-                Exalumnos
-            </button>
-        </a>
-        
-        <a href="">
+        <a href="/reportes">
             <button class="btn btn-sm btn-secondary">
                 Mis Reportes
-            </button>
-        </a>
-
-        <a href="../../uploads/Terminos _Condiciones_liv4t.pdf">
-            <button style="width: 144px; height: 28px; font-size: 11px;" class="btn btn-sm btn-secondary text-center">
-                Terminos y Condiciones
             </button>
         </a>
     </div>
