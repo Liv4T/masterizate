@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\TutorCode;
+use App\ClassroomStudent;
 
 class TutorCodeController extends Controller
 {
@@ -16,6 +17,11 @@ class TutorCodeController extends Controller
     {
         $tutorCode = TutorCode::all();
         return response()->json($tutorCode);
+    }
+
+    public function getClassroomStudent($id_user){
+        $classroom = ClassroomStudent::where('id_user','=',$id_user)->get();
+        return response()->json($classroom);
     }
 
     /**
@@ -40,7 +46,9 @@ class TutorCodeController extends Controller
         $newTutorCode->name = $request->name;
         $newTutorCode->description = $request->description;
         $newTutorCode->code = $request->code;
-        $newTutorCode->course = $request->course;
+        $newTutorCode->id_class = $request->id_class;
+        $newTutorCode->id_classroom = $request->id_classroom;
+        $newTutorCode->text = $request->text;
         $newTutorCode->date = $request->date;
         $newTutorCode->save();
         return response()->json('Codigo Creado');
@@ -81,7 +89,9 @@ class TutorCodeController extends Controller
         $updateTutorCode->name = $request->name;
         $updateTutorCode->description = $request->description;
         $updateTutorCode->code = $request->code;
-        $updateTutorCode->course = $request->course;
+        $updateTutorCode->id_class = $request->id_class;
+        $updateTutorCode->id_classroom = $request->id_classroom;
+        $updateTutorCode->text = $request->text;
         $updateTutorCode->date = $request->date;
         $updateTutorCode->update();
         return response()->json('Codigo Actualizado');

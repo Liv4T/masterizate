@@ -14,12 +14,14 @@ class CreateTutorCodesTable extends Migration
     public function up()
     {
         Schema::create('tutor_codes', function (Blueprint $table) {
-            $table->increments('id');
+            $table->BigIncrements('id');
             $table->string('name');
-            $table->text('description')
+            $table->text('description');
             $table->string('code');
-            $table->string('course');
-            $table->date('date');
+            $table->bigInteger('id_class');
+            $table->bigInteger('id_classroom');
+            $table->string('text');
+            $table->datetime('date');
             $table->timestamps();
         });
     }

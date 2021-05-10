@@ -252,6 +252,7 @@ Vue.component("tutor-schedule", () => import("./components/tutorScheduleComponen
 Vue.component("student-schedule", () => import("./components/studentScheduleComponent.vue"));
 Vue.component("tutor-profile", () => import("./components/tutorProfileComponent.vue"));
 Vue.component("tutor-code", ()=>import("./components/tutorCode.vue"));
+Vue.component("tutor-code-student", ()=>import("./components/tutorCodeStudent.vue"));
 
 //Observer
 Vue.component("observer-component", () => import("./components/Observer.vue"));
