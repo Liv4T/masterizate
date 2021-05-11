@@ -3,7 +3,7 @@
         <div class="row justify-content-center">
             <div id="crud" class="col-sm-10">
                 <div class="card-header text-center fondo">
-                    <h4>Codigos Vinculador</h4>
+                    <h4>Codigos Vinculados</h4>
                 </div>
                 <button type="button" class="btn btn-primary mt-2 mb-2" data-toggle="modal" data-target="#code">
                     Vincular Codigo
@@ -13,15 +13,16 @@
                         <tr>
                             <th>Nombre Tutor</th>
                             <th>Codigo</th>
+                            <th>Acción</th>
                         </tr>
                     </thead>
                     <tbody v-for="(code, key) in codes" :key="key">
                         <tr>
-                            <td>{{code.name}}</td>
-                            <td>{{code.description}}</td>
+                            <td>{{code.name_tutor}}</td>
+                            <td>{{code.code_vinculated}}</td>
                             <td>
                                 <button class="btn btn-primary" v-on:click="edit(code)">Editar</button>
-                                <button class="btn btn-danger" v-on:click="dropCode(code.id)">Eliminar</button>
+                                <button class="btn btn-danger" v-on:click="dropVinculation(code.id)">Eliminar</button>
                             </td>
                         </tr>
                     </tbody>
@@ -44,8 +45,11 @@
                                 <div class="form-group">
                                     <button class="btn btn-primary" v-on:click="consultCode">Consultar Codigo</button>
                                 </div>
+                                <div v-if="isEmpty === true">
+                                    <p>No se encuentra información del codigo</p>
+                                </div>
                             </div>
-                            <div class="modal-footer">
+                            <div class="modal-footer" v-show="isEmpty === false">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                                 <button type="button" class="btn btn-primary" v-on:click="saveCodes">Guardar</button>
                             </div>
@@ -58,9 +62,13 @@
 </template>
 <script>
     export default {
+        props:['user'],
         data(){
             return{
-                code:""
+                code:"",
+                codes:[],
+                contentData:{},
+                isEmpty: true
             }
         },
         mounted(){
@@ -68,10 +76,76 @@
         },
         methods:{
             getCodes(){
-                axios.get('vinculationsTutor').then((response)=>{
-                    this.codes = response.data
+                axios.get('vinculationsTutor').then((response)=>{                    
+                    let codes = response.data;                
+                    codes.forEach((element)=>{
+                        axios.get(`api/tutor/${element.id_tutor}/profile`).then((response)=>{
+                            this.codes.push({
+                                id: element.id,
+                                code_vinculated: element.code_vinculated,
+                                name_tutor: response.data.name+' '+response.data.last_name  
+                            })
+                        })
+                    })
                 })
             },
+            
+            consultCode(){
+                axios.get(`codes/${this.code}`).then((response)=>{
+                    this.contentData = response.data;
+                    if(Object.keys(response.data).length === 0 ){
+                        this.isEmpty = true
+                    }else{                    
+                        this.isEmpty = false
+                    }
+                })
+            },
+
+            edit(data){
+                console.log(data);
+                this.code = data.code_vinculated,
+                this.id_to_edit= data.id;
+                $("#code").modal("show");
+            },
+
+            saveCodes(){
+                if(this.id_to_edit === ""){
+                    axios.post('vinculationsTutor',{
+                        id_tutor: this.contentData.id_tutor,
+                        id_student: this.user.id,
+                        code_vinculated: this.code
+                    }).then((response)=>{
+                        toastr.success(response.data);
+                        window.location = "/tutorCodeVinculation"
+                        $("#code").modal("hide");
+                    }).catch((error)=>{
+                        toastr.info("Upss ha ocurrido un error, intenta de nuevo mas tarde");
+                        console.log(error)
+                    })   
+                }else{
+                    axios.patch(`vinculationsTutor/${this.id_to_edit}`,{
+                        id_tutor: this.contentData.id_tutor,
+                        id_student: this.user.id,
+                        code_vinculated: this.code
+                    }).then((response)=>{
+                        toastr.success(response.data);
+                        window.location = "/tutorCodeVinculation"
+                        $("#code").modal("hide");
+                    }).catch((error)=>{
+                        toastr.info("Upss ha ocurrido un error, intenta de nuevo mas tarde");
+                        console.log(error)
+                    })
+                }            
+            },
+
+            dropVinculation(id){
+                if(window.confirm("Seguro que desea eliminar este dato?")){
+                    axios.delete(`vinculationsTutor/${id}`).then((response)=>{
+                        toastr.success(response.data);
+                        window.location = "/tutorCodeVinculation"
+                    })
+                }
+            }
         }
     }
 </script>

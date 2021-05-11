@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\VinculationTutorStudent;
 use Illuminate\Http\Request;
+use Auth;
 
 class VinculationTutorStudentController extends Controller
 {
@@ -15,15 +16,15 @@ class VinculationTutorStudentController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $getVinculationsToStudents = VinculationTutorStudent::where('id_student','=', $user->id);
-        return $getVinculationsToStudents
+        $getVinculationsToStudents = VinculationTutorStudent::where('id_student','=', $user->id)->get();
+        return response()->json($getVinculationsToStudents);
     }
 
     public function getVinculationsTutor()
     {
         $user = Auth::user();
-        $getVinculationsToTutors = VinculationTutorStudent::where('id_tutor','=', $user->id);
-        return $getVinculationsToTutors
+        $getVinculationsToTutors = VinculationTutorStudent::where('id_tutor','=', $user->id)->get();
+        return response()->json($getVinculationsToTutors);
     }
 
     /**
@@ -97,7 +98,7 @@ class VinculationTutorStudentController extends Controller
      * @param  \App\VinculationTutorStudent  $vinculationTutorStudent
      * @return \Illuminate\Http\Response
      */
-    public function destroy(VinculationTutorStudent $vinculationTutorStudent)
+    public function destroy($id)
     {
         $destroyVinculation = VinculationTutorStudent::findOrFail($id);
         $destroyVinculation->delete();

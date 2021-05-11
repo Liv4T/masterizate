@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-    <menu-lateral></menu-lateral>
+    <menu-tutor></menu-tutor>
     <tutor-code-student :user="{{Auth::user()}}"></tutor-code-student>
     <footers></footers>
     <div class="container">

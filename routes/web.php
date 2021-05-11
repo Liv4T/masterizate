@@ -732,6 +732,9 @@ Route::middleware('auth')->get('/tutorCode', function () {
 Route::middleware('auth')->get('/tutorCodeStudent', function () {
     return view('tutorCodeStudent');
 });
+Route::middleware('auth')->get('/tutorCodeVinculation', function () {
+    return view('tutorCodeVinculation');
+});
 
 Route::middleware('auth')->get('/estudiante/tutorias/{scheduleStudent_id}', function (int $scheduleStudent_id) {
     return view('studentSchedule')->with('scheduleStudent_id', $scheduleStudent_id);
@@ -779,7 +782,8 @@ Route::get('/api/tutor-schedule/event/{schedulestudent_id}', 'TutorController@Ge
 Route::get('/api/tutor/{user_id}/profile', 'UserProfileController@GetByUserId');
 Route::put('/api/tutor-schedule/event/{schedulestudent_id}/link', 'TutorController@UpdateLinkMeet');
 Route::resource('codes','TutorCodeController');
-Roite::resource('vinculationsTutor','VinculationTutorStudentController');
+Route::resource('vinculationsTutor','VinculationTutorStudentController');
+Route::get('getVinculationsTutor','VinculationTutorStudentController@getVinculationsTutor');
 
 
 Route::get('/api/lectives', 'LectivesController@getLectives');
