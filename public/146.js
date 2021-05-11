@@ -87,38 +87,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___default.a);
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -129,8 +97,6 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
       name: "",
       description: "",
       code: "",
-      course: {},
-      coursesOptions: [],
       date: ""
     };
   },
@@ -139,44 +105,24 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
   },
   mounted: function mounted() {
     this.getCodes();
-    this.getCourses();
   },
   methods: {
     getCodes: function getCodes() {
       var _this = this;
 
       axios.get('codes').then(function (response) {
-        _this.groupData(response.data);
+        console.log(response.data);
+        _this.codes = response.data;
       });
-    },
-    getCourses: function getCourses() {
-      var _this2 = this;
-
-      axios.get('/GetArearByUser').then(function (response) {
-        var courses = response.data;
-        courses.forEach(function (element) {
-          _this2.coursesOptions.push({
-            id: element.id,
-            id_class: element.id,
-            id_classroom: element.id_classroom,
-            text: element.text
-          });
-        });
-      });
-    },
-    groupData: function groupData(data) {
-      var result = _.chain(data).groupBy("text").value();
-
-      this.codes = result;
     },
     dropCode: function dropCode(id) {
-      var _this3 = this;
+      var _this2 = this;
 
       if (window.confirm("Seguro que desea eliminar este dato?")) {
         axios["delete"]("codes/".concat(id)).then(function (response) {
           toastr.info(response.data);
 
-          _this3.getCodes();
+          _this2.getCodes();
         })["catch"](function (error) {
           toastr.info("Upps ha ocurrido algo, intenta de nuevo mas tarde");
           console.log(error);
@@ -184,17 +130,10 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
       }
     },
     edit: function edit(data) {
-      console.log(data);
       this.id_to_update = data.id;
       this.name = data.name;
       this.description = data.description;
       this.code = data.code;
-      this.course = {
-        id: data.id_class,
-        id_class: data.id_class,
-        id_classroom: data.id_classroom,
-        text: data.text
-      };
       this.date = data.date;
       $("#code").modal("show");
     },
@@ -207,23 +146,19 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
       this.date = "";
     },
     saveCodes: function saveCodes() {
-      var _this4 = this;
+      var _this3 = this;
 
       if (this.id_to_update != "") {
-        axios.put("codes/".concat(this.id_to_update), {
+        axios.patch("codes/".concat(this.id_to_update), {
           name: this.name,
           description: this.description,
-          code: this.code,
-          id_class: this.course.id_class,
-          id_classroom: this.course.id_classroom,
-          text: this.course.text,
           date: this.date
         }).then(function (response) {
           toastr.success(response.data);
 
-          _this4.getCodes();
+          _this3.getCodes();
 
-          _this4.cleanForm();
+          _this3.cleanForm();
 
           $("#code").modal("hide");
         })["catch"](function (error) {
@@ -234,17 +169,13 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
         axios.post('codes', {
           name: this.name,
           description: this.description,
-          code: this.code,
-          id_class: this.course.id_class,
-          id_classroom: this.course.id_classroom,
-          text: this.course.text,
           date: this.date
         }).then(function (response) {
           toastr.success(response.data);
 
-          _this4.getCodes();
+          _this3.getCodes();
 
-          _this4.cleanForm();
+          _this3.cleanForm();
 
           $("#code").modal("hide");
         })["catch"](function (error) {
@@ -291,327 +222,232 @@ var render = function() {
           [_vm._v("\n                Crear Codigo\n            ")]
         ),
         _vm._v(" "),
-        _c("div", { staticClass: "card" }, [
-          _c(
-            "div",
-            { staticClass: "card-body" },
-            _vm._l(_vm.codes, function(codes, key) {
-              return _c("div", { key: key, attrs: { id: "accordion" } }, [
-                _c("div", { staticClass: "card" }, [
-                  _c(
-                    "div",
-                    { staticClass: "card-header", attrs: { id: "headingOne" } },
-                    [
-                      _c("h5", { staticClass: "mb-0" }, [
-                        _c(
-                          "button",
-                          {
-                            staticClass: "btn btn-link",
-                            attrs: {
-                              "data-toggle": "collapse",
-                              "data-target":
-                                "#collapseOne" + key.replace(/ /g, ""),
-                              "aria-expanded": "true",
-                              "aria-controls":
-                                "collapseOne" + key.replace(/ /g, "")
-                            }
-                          },
-                          [
-                            _vm._v(
-                              "\n                                        " +
-                                _vm._s(key) +
-                                "\n                                    "
-                            )
-                          ]
-                        )
-                      ])
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    {
-                      staticClass: "collapse show",
-                      attrs: {
-                        id: "collapseOne" + key.replace(/ /g, ""),
-                        "aria-labelledby": "headingOne",
-                        "data-parent": "#accordion"
-                      }
-                    },
-                    [
-                      _c("div", { staticClass: "card-body" }, [
-                        _c(
-                          "table",
-                          { staticClass: "table table-striped table-hover" },
-                          [
-                            _vm._m(1, true),
-                            _vm._v(" "),
-                            _vm._l(codes, function(code, key) {
-                              return _c("tbody", { key: key }, [
-                                _c("tr", [
-                                  _c("td", [_vm._v(_vm._s(code.name))]),
-                                  _vm._v(" "),
-                                  _c("td", [_vm._v(_vm._s(code.description))]),
-                                  _vm._v(" "),
-                                  _c("td", [_vm._v(_vm._s(code.code))]),
-                                  _vm._v(" "),
-                                  _c("td", [_vm._v(_vm._s(code.date))]),
-                                  _vm._v(" "),
-                                  _c("td", [
-                                    _c(
-                                      "button",
-                                      {
-                                        staticClass: "btn btn-primary",
-                                        on: {
-                                          click: function($event) {
-                                            return _vm.edit(code)
-                                          }
-                                        }
-                                      },
-                                      [_vm._v("Editar")]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "button",
-                                      {
-                                        staticClass: "btn btn-danger",
-                                        on: {
-                                          click: function($event) {
-                                            return _vm.dropCode(code.id)
-                                          }
-                                        }
-                                      },
-                                      [_vm._v("Eliminar")]
-                                    )
-                                  ])
-                                ])
-                              ])
-                            })
-                          ],
-                          2
-                        )
-                      ])
-                    ]
-                  )
-                ])
-              ])
-            }),
-            0
-          )
-        ])
-      ])
-    ]),
-    _vm._v(" "),
-    _c(
-      "div",
-      {
-        staticClass: "modal fade",
-        attrs: {
-          id: "code",
-          tabindex: "-1",
-          role: "dialog",
-          "aria-labelledby": "codeLabel",
-          "aria-hidden": "true"
-        }
-      },
-      [
         _c(
-          "div",
-          { staticClass: "modal-dialog", attrs: { role: "document" } },
+          "table",
+          { staticClass: "table table-striped table-hover" },
           [
-            _c("div", { staticClass: "modal-content" }, [
-              _vm._m(2),
-              _vm._v(" "),
-              _c("div", { staticClass: "modal-body" }, [
-                _c("div", { staticClass: "form-group" }, [
-                  _c("label", { attrs: { for: "name" } }, [_vm._v("Nombre")]),
+            _vm._m(1),
+            _vm._v(" "),
+            _vm._l(_vm.codes, function(code, key) {
+              return _c("tbody", { key: key }, [
+                _c("tr", [
+                  _c("td", [_vm._v(_vm._s(code.name))]),
                   _vm._v(" "),
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.name,
-                        expression: "name"
-                      }
-                    ],
-                    staticClass: "form-control",
-                    attrs: { type: "text", name: "name" },
-                    domProps: { value: _vm.name },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.name = $event.target.value
-                      }
-                    }
-                  })
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "form-group" }, [
-                  _c("label", { attrs: { for: "description" } }, [
-                    _vm._v("Descripción")
-                  ]),
+                  _c("td", [_vm._v(_vm._s(code.description))]),
                   _vm._v(" "),
-                  _c("textarea", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.description,
-                        expression: "description"
-                      }
-                    ],
-                    staticClass: "form-control",
-                    attrs: { name: "description", id: "description" },
-                    domProps: { value: _vm.description },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.description = $event.target.value
-                      }
-                    }
-                  })
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "form-group" }, [
-                  _c("label", { attrs: { for: "code" } }, [_vm._v("Codigo")]),
+                  _c("td", [_vm._v(_vm._s(code.code))]),
                   _vm._v(" "),
-                  _c("input", {
-                    directives: [
+                  _c("td", [_vm._v(_vm._s(code.date))]),
+                  _vm._v(" "),
+                  _c("td", [
+                    _c(
+                      "button",
                       {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.code,
-                        expression: "code"
-                      }
-                    ],
-                    staticClass: "form-control",
-                    attrs: { type: "code", name: "code" },
-                    domProps: { value: _vm.code },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.code = $event.target.value
-                      }
-                    }
-                  })
-                ]),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "form-group" },
-                  [
-                    _c("label", { attrs: { for: "course" } }, [
-                      _vm._v("Curso")
-                    ]),
-                    _vm._v(" "),
-                    _c("multiselect", {
-                      attrs: {
-                        options: _vm.coursesOptions,
-                        multiple: false,
-                        "close-on-select": false,
-                        "clear-on-select": false,
-                        "preserve-search": true,
-                        placeholder: "Seleccione una",
-                        label: "text",
-                        "track-by": "id",
-                        "preselect-first": false
-                      },
-                      scopedSlots: _vm._u([
-                        {
-                          key: "selection",
-                          fn: function(ref) {
-                            var values = ref.values
-                            var isOpen = ref.isOpen
-                            return [
-                              values.length && !isOpen
-                                ? _c(
-                                    "span",
-                                    { staticClass: "multiselect__single" },
-                                    [
-                                      _vm._v(
-                                        _vm._s(values.length) +
-                                          " opciones\n                                    selecionadas"
-                                      )
-                                    ]
-                                  )
-                                : _vm._e()
-                            ]
+                        staticClass: "btn btn-primary",
+                        on: {
+                          click: function($event) {
+                            return _vm.edit(code)
                           }
                         }
+                      },
+                      [_vm._v("Editar")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-danger",
+                        on: {
+                          click: function($event) {
+                            return _vm.dropCode(code.id)
+                          }
+                        }
+                      },
+                      [_vm._v("Eliminar")]
+                    )
+                  ])
+                ])
+              ])
+            })
+          ],
+          2
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass: "modal fade",
+            attrs: {
+              id: "code",
+              tabindex: "-1",
+              role: "dialog",
+              "aria-labelledby": "codeLabel",
+              "aria-hidden": "true"
+            }
+          },
+          [
+            _c(
+              "div",
+              { staticClass: "modal-dialog", attrs: { role: "document" } },
+              [
+                _c("div", { staticClass: "modal-content" }, [
+                  _vm._m(2),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "modal-body" }, [
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("label", { attrs: { for: "name" } }, [
+                        _vm._v("Nombre")
                       ]),
-                      model: {
-                        value: _vm.course,
-                        callback: function($$v) {
-                          _vm.course = $$v
-                        },
-                        expression: "course"
-                      }
-                    })
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _c("div", { staticClass: "form-group" }, [
-                  _c("label", { attrs: { for: "dateCode" } }, [
-                    _vm._v("Fecha inicio Reunion")
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.name,
+                            expression: "name"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { type: "text", name: "name" },
+                        domProps: { value: _vm.name },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.name = $event.target.value
+                          }
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("label", { attrs: { for: "description" } }, [
+                        _vm._v("Descripción")
+                      ]),
+                      _vm._v(" "),
+                      _c("textarea", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.description,
+                            expression: "description"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { name: "description", id: "description" },
+                        domProps: { value: _vm.description },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.description = $event.target.value
+                          }
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: _vm.id_to_update !== "",
+                            expression: "id_to_update !== ''"
+                          }
+                        ],
+                        staticClass: "form-group"
+                      },
+                      [
+                        _c("label", { attrs: { for: "code" } }, [
+                          _vm._v("Codigo")
+                        ]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.code,
+                              expression: "code"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: { type: "code", name: "code", disabled: "" },
+                          domProps: { value: _vm.code },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.code = $event.target.value
+                            }
+                          }
+                        })
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("label", { attrs: { for: "dateCode" } }, [
+                        _vm._v("Fecha inicio Reunion")
+                      ]),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.date,
+                            expression: "date"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { type: "datetime-local", name: "dateCode" },
+                        domProps: { value: _vm.date },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.date = $event.target.value
+                          }
+                        }
+                      })
+                    ])
                   ]),
                   _vm._v(" "),
-                  _c("input", {
-                    directives: [
+                  _c("div", { staticClass: "modal-footer" }, [
+                    _c(
+                      "button",
                       {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.date,
-                        expression: "date"
-                      }
-                    ],
-                    staticClass: "form-control",
-                    attrs: { type: "datetime-local", name: "dateCode" },
-                    domProps: { value: _vm.date },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.date = $event.target.value
-                      }
-                    }
-                  })
+                        staticClass: "btn btn-secondary",
+                        attrs: { type: "button", "data-dismiss": "modal" }
+                      },
+                      [_vm._v("Cerrar")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-primary",
+                        attrs: { type: "button" },
+                        on: { click: _vm.saveCodes }
+                      },
+                      [_vm._v("Guardar")]
+                    )
+                  ])
                 ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "modal-footer" }, [
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-secondary",
-                    attrs: { type: "button", "data-dismiss": "modal" }
-                  },
-                  [_vm._v("Cerrar")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-primary",
-                    attrs: { type: "button" },
-                    on: { click: _vm.saveCodes }
-                  },
-                  [_vm._v("Guardar")]
-                )
-              ])
-            ])
+              ]
+            )
           ]
         )
-      ]
-    )
+      ])
+    ])
   ])
 }
 var staticRenderFns = [

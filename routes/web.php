@@ -779,7 +779,7 @@ Route::get('/api/tutor-schedule/event/{schedulestudent_id}', 'TutorController@Ge
 Route::get('/api/tutor/{user_id}/profile', 'UserProfileController@GetByUserId');
 Route::put('/api/tutor-schedule/event/{schedulestudent_id}/link', 'TutorController@UpdateLinkMeet');
 Route::resource('codes','TutorCodeController');
-Route::get('getClassroomStudent/{id_classroom}', 'TutorCodeController@getClassroomStudent');
+Roite::resource('vinculationsTutor','VinculationTutorStudentController');
 
 
 Route::get('/api/lectives', 'LectivesController@getLectives');

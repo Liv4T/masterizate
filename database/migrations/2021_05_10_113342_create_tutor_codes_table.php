@@ -18,9 +18,7 @@ class CreateTutorCodesTable extends Migration
             $table->string('name');
             $table->text('description');
             $table->string('code');
-            $table->bigInteger('id_class');
-            $table->bigInteger('id_classroom');
-            $table->string('text');
+            $table->bigInteger('id_tutor');
             $table->datetime('date');
             $table->timestamps();
         });

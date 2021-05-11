@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\TutorCode;
 use App\ClassroomStudent;
+use Auth;
 
 class TutorCodeController extends Controller
 {
@@ -15,15 +16,10 @@ class TutorCodeController extends Controller
      */
     public function index()
     {
-        $tutorCode = TutorCode::all();
+        $user = Auth::user();
+        $tutorCode = TutorCode::where('id_tutor','=',$user->id)->get();
         return response()->json($tutorCode);
     }
-
-    public function getClassroomStudent($id_user){
-        $classroom = ClassroomStudent::where('id_user','=',$id_user)->get();
-        return response()->json($classroom);
-    }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -42,13 +38,12 @@ class TutorCodeController extends Controller
      */
     public function store(Request $request)
     {
+        $user = Auth::user();
         $newTutorCode = new TutorCode();
         $newTutorCode->name = $request->name;
+        $newTutorCode->id_tutor = $user->id;
         $newTutorCode->description = $request->description;
-        $newTutorCode->code = $request->code;
-        $newTutorCode->id_class = $request->id_class;
-        $newTutorCode->id_classroom = $request->id_classroom;
-        $newTutorCode->text = $request->text;
+        $newTutorCode->code = str_random(6);
         $newTutorCode->date = $request->date;
         $newTutorCode->save();
         return response()->json('Codigo Creado');
@@ -60,9 +55,10 @@ class TutorCodeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($code)
     {
-        //
+        $tutorCode = TutorCode::where('code','=',$code)->first();
+        return response()->json($tutorCode);
     }
 
     /**
@@ -85,13 +81,11 @@ class TutorCodeController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $user = Auth::user();
         $updateTutorCode = TutorCode::findOrFail($id);
         $updateTutorCode->name = $request->name;
+        $updateTutorCode->id_tutor = $user->id;
         $updateTutorCode->description = $request->description;
-        $updateTutorCode->code = $request->code;
-        $updateTutorCode->id_class = $request->id_class;
-        $updateTutorCode->id_classroom = $request->id_classroom;
-        $updateTutorCode->text = $request->text;
         $updateTutorCode->date = $request->date;
         $updateTutorCode->update();
         return response()->json('Codigo Actualizado');
