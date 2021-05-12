@@ -179,9 +179,10 @@
         axios.get('/codes').then((response)=>{
           let codes = response.data;
           codes.forEach((element)=>{
+            console.log(element)
             this.areas.push({
               calification_base: 0,
-              id: 0,
+              id: element.id,
               id_classroom: 0,
               id_code: element.id,
               text: element.code 
