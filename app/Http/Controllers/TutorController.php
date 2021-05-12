@@ -32,12 +32,17 @@ class TutorController extends Controller
             'date_to'=>$data['date_to'],
             'duration_minutes'=>$data['duration_minutes'],
             'area_id'=>$area_id,
+            'code_id'=>$data['code_id'],
             'classroom_id'=>$classroom_id,
             'teacher_id'=>$user->id,
             'state'=>1,
             'deleted'=>0,
         ]);
         return response()->json($data);
+    }
+    public function getScheduleCodes($id_code){
+        $scheduleCode = TutorSchedule::where('code_id','=',$id_code)->get();
+        return response()->json($scheduleCode);
     }
     public function UpdateSchedule(Request $request,int $area_id,int $classroom_id,int $schedule_id)
     {

@@ -97,7 +97,6 @@
         methods:{
             getCodes(){
                 axios.get('codes').then((response)=>{
-                    console.log(response.data);
                     this.codes = response.data
                 })
             },

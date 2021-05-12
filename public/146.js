@@ -111,7 +111,6 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
       var _this = this;
 
       axios.get('codes').then(function (response) {
-        console.log(response.data);
         _this.codes = response.data;
       });
     },

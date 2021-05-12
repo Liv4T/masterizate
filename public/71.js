@@ -171,8 +171,34 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale("es");
     getAreas: function getAreas() {
       var _this = this;
 
+      /*
+        Se realiza forEach para agregar tanto las areas 
+        y dejar la logica encontrada de forma similar y agregarle el codigo para establecer un horario
+        con base a la logica encontrada, para los codigos se establece el id y id_classroom en 0 para no generar
+        confusion en las areas
+      */
       axios.get("/GetArearByUser").then(function (response) {
-        _this.areas = response.data;
+        var areas = response.data;
+        areas.forEach(function (element) {
+          _this.areas.push({
+            calification_base: element.calification_base,
+            id: element.id,
+            id_classroom: element.id_classroom,
+            text: element.text
+          });
+        });
+      });
+      axios.get('/codes').then(function (response) {
+        var codes = response.data;
+        codes.forEach(function (element) {
+          _this.areas.push({
+            calification_base: 0,
+            id: 0,
+            id_classroom: 0,
+            id_code: element.id,
+            text: element.code
+          });
+        });
       });
     },
     GetSchedule: function GetSchedule(area_id, classroom_id) {
@@ -184,7 +210,7 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale("es");
         _this2.loading = false;
       });
     },
-    AddSchedule: function AddSchedule(area_id, classroom_id) {
+    AddSchedule: function AddSchedule(area_id, classroom_id, code_id) {
       this.schedules.push({
         date_from: "",
         date_to: "",
@@ -199,6 +225,7 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale("es");
         },
         area_id: area_id,
         classroom_id: classroom_id,
+        code_id: code_id,
         duration_minutes: 30
       });
     },
@@ -387,7 +414,8 @@ var render = function() {
                                                 $event.preventDefault()
                                                 return _vm.AddSchedule(
                                                   area.id,
-                                                  area.id_classroom
+                                                  area.id_classroom,
+                                                  area.id_code
                                                 )
                                               }
                                             }

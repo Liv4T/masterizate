@@ -78,7 +78,8 @@ __webpack_require__.r(__webpack_exports__);
       code: "",
       codes: [],
       contentData: {},
-      isEmpty: true
+      isEmpty: true,
+      id_to_edit: ""
     };
   },
   mounted: function mounted() {
@@ -120,6 +121,8 @@ __webpack_require__.r(__webpack_exports__);
       $("#code").modal("show");
     },
     saveCodes: function saveCodes() {
+      var _this3 = this;
+
       if (this.id_to_edit === "") {
         axios.post('vinculationsTutor', {
           id_tutor: this.contentData.id_tutor,
@@ -127,6 +130,7 @@ __webpack_require__.r(__webpack_exports__);
           code_vinculated: this.code
         }).then(function (response) {
           toastr.success(response.data);
+          _this3.code = "";
           window.location = "/tutorCodeVinculation";
           $("#code").modal("hide");
         })["catch"](function (error) {
@@ -140,6 +144,8 @@ __webpack_require__.r(__webpack_exports__);
           code_vinculated: this.code
         }).then(function (response) {
           toastr.success(response.data);
+          _this3.id_to_edit = "";
+          _this3.code = "";
           window.location = "/tutorCodeVinculation";
           $("#code").modal("hide");
         })["catch"](function (error) {

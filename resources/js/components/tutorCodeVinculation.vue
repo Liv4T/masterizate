@@ -68,7 +68,8 @@
                 code:"",
                 codes:[],
                 contentData:{},
-                isEmpty: true
+                isEmpty: true,
+                id_to_edit: ""
             }
         },
         mounted(){
@@ -107,7 +108,6 @@
                 this.id_to_edit= data.id;
                 $("#code").modal("show");
             },
-
             saveCodes(){
                 if(this.id_to_edit === ""){
                     axios.post('vinculationsTutor',{
@@ -116,6 +116,7 @@
                         code_vinculated: this.code
                     }).then((response)=>{
                         toastr.success(response.data);
+                        this.code = "";
                         window.location = "/tutorCodeVinculation"
                         $("#code").modal("hide");
                     }).catch((error)=>{
@@ -129,6 +130,8 @@
                         code_vinculated: this.code
                     }).then((response)=>{
                         toastr.success(response.data);
+                        this.id_to_edit = "";
+                        this.code = "";
                         window.location = "/tutorCodeVinculation"
                         $("#code").modal("hide");
                     }).catch((error)=>{
