@@ -59,6 +59,22 @@
                                 </div>
 
                                 <div class="form-group">
+                                    <label for="area">Area a asignar Codigo</label>
+                                    <multiselect name="cicleSelect" v-model="saveAreas" :options="areas" :multiple="false"
+                                        :close-on-select="false" :clear-on-select="false"
+                                        :preserve-search="true" placeholder="Seleccione una"
+                                        label="text" track-by="id" :preselect-first="true">
+                                        <template slot="selection" slot-scope="{ values, isOpen }">
+                                            <span class="multiselect__single" v-if="values.length &amp;&amp; !isOpen">
+                                                {{ values.length }}
+                                                opciones
+                                                selecionadas
+                                            </span>
+                                        </template>
+                                    </multiselect>
+                                </div>
+
+                                <div class="form-group">
                                     <label for="dateCode">Fecha inicio Reunion</label>
                                     <input type="datetime-local" class="form-control" name="dateCode" v-model="date">
                                 </div>
@@ -81,6 +97,8 @@
         data(){
             return{
                 codes:[],
+                areas:[],
+                saveAreas:{},
                 id_to_update:"",
                 name:"",
                 description:"",
@@ -93,12 +111,28 @@
         },
         mounted(){
             this.getCodes();
+            this.getAreas();
         },
         methods:{
             getCodes(){
                 axios.get('codes').then((response)=>{
                     this.codes = response.data
                 })
+            },
+
+            getAreas(){
+                axios.get(`/GetArearByUser`).then((response) => {
+                let areas = response.data;
+                areas.forEach((element)=>{
+                    this.areas.push({
+                        calification_base: element.calification_base,
+                        id: element.id,
+                        id_area: element.id_area,
+                        text: element.text 
+                        })
+                    });
+                    console.log(this.areas);
+                });
             },
 
             dropCode(id){
@@ -137,6 +171,7 @@
                         name: this.name,
                         description: this.description,
                         date: this.date,
+                        id_area: this.saveAreas.id,
                     }).then((response)=>{
                         toastr.success(response.data);
                         this.getCodes();
@@ -151,6 +186,7 @@
                         name: this.name,
                         description: this.description,
                         date: this.date,
+                        id_area: this.saveAreas.id,
                     }).then((response)=>{
                         toastr.success(response.data);
                         this.getCodes();

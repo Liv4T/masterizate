@@ -87,12 +87,30 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___default.a);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       codes: [],
+      areas: [],
+      saveAreas: {},
       id_to_update: "",
       name: "",
       description: "",
@@ -105,6 +123,7 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
   },
   mounted: function mounted() {
     this.getCodes();
+    this.getAreas();
   },
   methods: {
     getCodes: function getCodes() {
@@ -114,14 +133,30 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
         _this.codes = response.data;
       });
     },
-    dropCode: function dropCode(id) {
+    getAreas: function getAreas() {
       var _this2 = this;
+
+      axios.get("/GetArearByUser").then(function (response) {
+        var areas = response.data;
+        areas.forEach(function (element) {
+          _this2.areas.push({
+            calification_base: element.calification_base,
+            id: element.id,
+            id_area: element.id_area,
+            text: element.text
+          });
+        });
+        console.log(_this2.areas);
+      });
+    },
+    dropCode: function dropCode(id) {
+      var _this3 = this;
 
       if (window.confirm("Seguro que desea eliminar este dato?")) {
         axios["delete"]("codes/".concat(id)).then(function (response) {
           toastr.info(response.data);
 
-          _this2.getCodes();
+          _this3.getCodes();
         })["catch"](function (error) {
           toastr.info("Upps ha ocurrido algo, intenta de nuevo mas tarde");
           console.log(error);
@@ -145,19 +180,20 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
       this.date = "";
     },
     saveCodes: function saveCodes() {
-      var _this3 = this;
+      var _this4 = this;
 
       if (this.id_to_update != "") {
         axios.patch("codes/".concat(this.id_to_update), {
           name: this.name,
           description: this.description,
-          date: this.date
+          date: this.date,
+          id_area: this.saveAreas.id
         }).then(function (response) {
           toastr.success(response.data);
 
-          _this3.getCodes();
+          _this4.getCodes();
 
-          _this3.cleanForm();
+          _this4.cleanForm();
 
           $("#code").modal("hide");
         })["catch"](function (error) {
@@ -168,13 +204,14 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
         axios.post('codes', {
           name: this.name,
           description: this.description,
-          date: this.date
+          date: this.date,
+          id_area: this.saveAreas.id
         }).then(function (response) {
           toastr.success(response.data);
 
-          _this3.getCodes();
+          _this4.getCodes();
 
-          _this3.cleanForm();
+          _this4.cleanForm();
 
           $("#code").modal("hide");
         })["catch"](function (error) {
@@ -389,6 +426,63 @@ var render = function() {
                           }
                         })
                       ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "form-group" },
+                      [
+                        _c("label", { attrs: { for: "area" } }, [
+                          _vm._v("Area a asignar Codigo")
+                        ]),
+                        _vm._v(" "),
+                        _c("multiselect", {
+                          attrs: {
+                            name: "cicleSelect",
+                            options: _vm.areas,
+                            multiple: false,
+                            "close-on-select": false,
+                            "clear-on-select": false,
+                            "preserve-search": true,
+                            placeholder: "Seleccione una",
+                            label: "text",
+                            "track-by": "id",
+                            "preselect-first": true
+                          },
+                          scopedSlots: _vm._u([
+                            {
+                              key: "selection",
+                              fn: function(ref) {
+                                var values = ref.values
+                                var isOpen = ref.isOpen
+                                return [
+                                  values.length && !isOpen
+                                    ? _c(
+                                        "span",
+                                        { staticClass: "multiselect__single" },
+                                        [
+                                          _vm._v(
+                                            "\n                                            " +
+                                              _vm._s(values.length) +
+                                              "\n                                            opciones\n                                            selecionadas\n                                        "
+                                          )
+                                        ]
+                                      )
+                                    : _vm._e()
+                                ]
+                              }
+                            }
+                          ]),
+                          model: {
+                            value: _vm.saveAreas,
+                            callback: function($$v) {
+                              _vm.saveAreas = $$v
+                            },
+                            expression: "saveAreas"
+                          }
+                        })
+                      ],
+                      1
                     ),
                     _vm._v(" "),
                     _c("div", { staticClass: "form-group" }, [

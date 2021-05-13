@@ -45,6 +45,7 @@ class TutorCodeController extends Controller
         $newTutorCode->description = $request->description;
         $newTutorCode->code = str_random(6);
         $newTutorCode->date = $request->date;
+        $newTutorCode->id_area = $request->id_area;
         $newTutorCode->save();
         return response()->json('Codigo Creado');
     }
@@ -87,6 +88,7 @@ class TutorCodeController extends Controller
         $updateTutorCode->id_tutor = $user->id;
         $updateTutorCode->description = $request->description;
         $updateTutorCode->date = $request->date;
+        $updateTutorCode->id_area = $request->id_area;
         $updateTutorCode->update();
         return response()->json('Codigo Actualizado');
     }

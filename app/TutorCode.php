@@ -14,7 +14,7 @@ class TutorCode extends Model
         'description',
         'code',
         'id_class',
-        'id_classroom',
+        'id_area',
         'text',
         'date',
     ];
