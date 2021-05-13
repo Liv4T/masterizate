@@ -99,33 +99,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   methods: {
     logout: function logout() {
@@ -230,14 +203,22 @@ var staticRenderFns = [
               [_vm._v("Parametros de Notas")]
             ),
             _vm._v(" "),
-            _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
-              _vm._v("Transporte")
-            ]),
+            _c(
+              "a",
+              { staticClass: "dropdown-item", attrs: { href: "/nursing" } },
+              [_vm._v("Enfermeria")]
+            ),
             _vm._v(" "),
             _c(
               "a",
               { staticClass: "dropdown-item", attrs: { href: "/foods" } },
               [_vm._v("Alimentación")]
+            ),
+            _vm._v(" "),
+            _c(
+              "a",
+              { staticClass: "dropdown-item", attrs: { href: "/pedagogic" } },
+              [_vm._v("Transporte")]
             )
           ]
         )
@@ -365,36 +346,33 @@ var staticRenderFns = [
               [_vm._v("Salidas Pedagogicas")]
             ),
             _vm._v(" "),
+            _c(
+              "a",
+              {
+                staticClass: "dropdown-item",
+                attrs: { href: "/teacher/lectives/planning" }
+              },
+              [_vm._v("Administrar Electivas")]
+            ),
+            _vm._v(" "),
+            _c(
+              "a",
+              {
+                staticClass: "dropdown-item",
+                attrs: { href: "/teacher/lectives/courses" }
+              },
+              [_vm._v("Clases Electivas")]
+            ),
+            _vm._v(" "),
+            _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
+              _vm._v("Exalumnos")
+            ]),
+            _vm._v(" "),
             _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
               _vm._v("Informes")
             ])
           ]
         )
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "btn-group dropdown" }, [
-        _c(
-          "button",
-          {
-            staticClass:
-              "btn btn-sm btn-secondary dropdown-toggle dropdown-toggle-split",
-            attrs: {
-              type: "button",
-              "data-toggle": "dropdown",
-              "aria-haspopup": "true",
-              "aria-expanded": "false"
-            }
-          },
-          [_vm._v("\n            Enfermeria\n        ")]
-        ),
-        _vm._v(" "),
-        _c("div", { staticClass: "dropdown-menu" }, [
-          _c(
-            "a",
-            { staticClass: "dropdown-item", attrs: { href: "/nursing" } },
-            [_vm._v("Estudiantes")]
-          )
-        ])
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "dropdown" }, [
@@ -465,50 +443,6 @@ var staticRenderFns = [
               "aria-expanded": "false"
             }
           },
-          [_vm._v("\n            Electivas\n        ")]
-        ),
-        _vm._v(" "),
-        _c(
-          "div",
-          {
-            staticClass: "dropdown-menu",
-            attrs: { "aria-labelledby": "electives" }
-          },
-          [
-            _c(
-              "a",
-              {
-                staticClass: "dropdown-item",
-                attrs: { href: "/teacher/lectives/planning" }
-              },
-              [_vm._v("Administrar Electivas")]
-            ),
-            _vm._v(" "),
-            _c(
-              "a",
-              {
-                staticClass: "dropdown-item",
-                attrs: { href: "/teacher/lectives/courses" }
-              },
-              [_vm._v("Clases Electivas")]
-            )
-          ]
-        )
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "dropdown" }, [
-        _c(
-          "button",
-          {
-            staticClass: "btn btn-sm btn-secondary dropdown-toggle",
-            attrs: {
-              type: "button",
-              id: "electives",
-              "data-toggle": "dropdown",
-              "aria-haspopup": "true",
-              "aria-expanded": "false"
-            }
-          },
           [_vm._v("\n            Gobierno Escolar\n        ")]
         ),
         _vm._v(" "),
@@ -547,36 +481,11 @@ var staticRenderFns = [
         )
       ]),
       _vm._v(" "),
-      _c("a", { attrs: { href: "#" } }, [
-        _c("button", { staticClass: "btn btn-sm btn-secondary" }, [
-          _vm._v("\n            Exalumnos\n        ")
-        ])
-      ]),
-      _vm._v(" "),
-      _c("a", { attrs: { href: "" } }, [
+      _c("a", { attrs: { href: "/reportes" } }, [
         _c("button", { staticClass: "btn btn-sm btn-secondary" }, [
           _vm._v("\n            Mis Reportes\n        ")
         ])
-      ]),
-      _vm._v(" "),
-      _c(
-        "a",
-        { attrs: { href: "../../uploads/Terminos _Condiciones_liv4t.pdf" } },
-        [
-          _c(
-            "button",
-            {
-              staticClass: "btn btn-sm btn-secondary text-center",
-              staticStyle: {
-                width: "144px",
-                height: "28px",
-                "font-size": "11px"
-              }
-            },
-            [_vm._v("\n            Terminos y Condiciones\n        ")]
-          )
-        ]
-      )
+      ])
     ])
   }
 ]
