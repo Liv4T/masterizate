@@ -14,6 +14,7 @@
                             <th>Nombre</th>
                             <th>Descripción</th>
                             <th>Codigo</th>
+                            <th>Area</th>
                             <th>Fecha</th>
                             <th>Acción</th>
                         </tr>
@@ -23,6 +24,7 @@
                             <td>{{code.name}}</td>
                             <td>{{code.description}}</td>
                             <td>{{code.code}}</td>
+                            <td>{{code.area_name}}</td>
                             <td>{{code.date}}</td>
                             <td>
                                 <button class="btn btn-primary" v-on:click="edit(code)">Editar</button>
@@ -115,7 +117,7 @@
         },
         methods:{
             getCodes(){
-                axios.get('codes').then((response)=>{
+                axios.get('codes').then((response)=>{                
                     this.codes = response.data
                 })
             },
@@ -131,7 +133,6 @@
                         text: element.text 
                         })
                     });
-                    console.log(this.areas);
                 });
             },
 
@@ -151,7 +152,12 @@
                 this.id_to_update = data.id;
                 this.name = data.name;
                 this.description = data.description;   
-                this.code = data.code;             
+                this.code = data.code;  
+                this.saveAreas={
+                    id: data.id_area,
+                    id_area: data.id_area,
+                    text: data.area_name 
+                }           
                 this.date = data.date;
                 $("#code").modal("show");
             },

@@ -29,6 +29,7 @@
                         <tr>
                           <th class="text-center">Días</th>
                           <th class="text-center">Horario</th>
+                          <th class="text-center">Valor</th>
                           <th></th>
                         </tr>
                       </thead>
@@ -110,6 +111,10 @@
                               </div>
                             </div>
                           </td>
+                          <td>
+                            <label for="">Valor de Tutoria</label>
+                            <input type="text" placeholder="Ej: 50.000" class="form-control" v-model="schedule.tutorial_value">
+                          </td>
                           <td class="td-btn">
                             <div class="row">
                               <div class="col-12">
@@ -185,7 +190,7 @@
               id: element.id,
               id_classroom: 0,
               id_code: element.id,
-              text: element.code 
+              text: element.area_name+' - '+element.code
             })
           })
         })
@@ -198,7 +203,7 @@
         });
       },
       AddSchedule(area_id, classroom_id, code_id) {
-        this.schedules.push({ date_from: "", date_to: "", days: { monday: true, tuesday: true, wednesday: true, thursday: true, friday: true, saturday: false, sunday: false }, area_id: area_id, classroom_id: classroom_id, code_id: code_id ,duration_minutes:30});
+        this.schedules.push({ date_from: "", date_to: "", tutorial_value:"", days: { monday: true, tuesday: true, wednesday: true, thursday: true, friday: true, saturday: false, sunday: false }, area_id: area_id, classroom_id: classroom_id, code_id: code_id ,duration_minutes:30});
       },
       SaveSchedule(area_id, classroom_id, schedule) {
         if (schedule.id) {

@@ -149,6 +149,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 moment__WEBPACK_IMPORTED_MODULE_0___default.a.tz.setDefault("America/Bogota");
 moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale("es");
@@ -198,7 +203,7 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale("es");
             id: element.id,
             id_classroom: 0,
             id_code: element.id,
-            text: element.code
+            text: element.area_name + ' - ' + element.code
           });
         });
       });
@@ -216,6 +221,7 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale("es");
       this.schedules.push({
         date_from: "",
         date_to: "",
+        tutorial_value: "",
         days: {
           monday: true,
           tuesday: true,
@@ -1201,6 +1207,44 @@ var render = function() {
                                         ])
                                       ]),
                                       _vm._v(" "),
+                                      _c("td", [
+                                        _c("label", { attrs: { for: "" } }, [
+                                          _vm._v("Valor de Tutoria")
+                                        ]),
+                                        _vm._v(" "),
+                                        _c("input", {
+                                          directives: [
+                                            {
+                                              name: "model",
+                                              rawName: "v-model",
+                                              value: schedule.tutorial_value,
+                                              expression:
+                                                "schedule.tutorial_value"
+                                            }
+                                          ],
+                                          staticClass: "form-control",
+                                          attrs: {
+                                            type: "text",
+                                            placeholder: "Ej: 50.000"
+                                          },
+                                          domProps: {
+                                            value: schedule.tutorial_value
+                                          },
+                                          on: {
+                                            input: function($event) {
+                                              if ($event.target.composing) {
+                                                return
+                                              }
+                                              _vm.$set(
+                                                schedule,
+                                                "tutorial_value",
+                                                $event.target.value
+                                              )
+                                            }
+                                          }
+                                        })
+                                      ]),
+                                      _vm._v(" "),
                                       _c("td", { staticClass: "td-btn" }, [
                                         _c("div", { staticClass: "row" }, [
                                           _c("div", { staticClass: "col-12" }, [
@@ -1289,6 +1333,8 @@ var staticRenderFns = [
       _c("th", { staticClass: "text-center" }, [_vm._v("Días")]),
       _vm._v(" "),
       _c("th", { staticClass: "text-center" }, [_vm._v("Horario")]),
+      _vm._v(" "),
+      _c("th", { staticClass: "text-center" }, [_vm._v("Valor")]),
       _vm._v(" "),
       _c("th")
     ])

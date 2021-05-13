@@ -148,7 +148,6 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale("es");
             resultCode.push(response.data);
             resultCode.forEach(function (element1) {
               axios.get("/getScheduleCode/".concat(element1.id)).then(function (response) {
-                console.log(response.data);
                 response.data.forEach(function (element2) {
                   _this.schedules.push({
                     days: JSON.parse(element2.days),
@@ -156,7 +155,7 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale("es");
                     deleted: element2.deleted,
                     date_to: element2.date_to,
                     date_from: element2.date_from,
-                    code_vinculated: element1.code
+                    code_vinculated: element1.area_name + ' - ' + element1.code
                   });
                 });
               });

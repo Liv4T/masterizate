@@ -136,7 +136,6 @@
               resultCode.forEach((element1)=>{
                 
                 axios.get(`/getScheduleCode/${element1.id}`).then((response)=>{
-                  console.log(response.data)
                   response.data.forEach(element2=>{
                     this.schedules.push({
                       days:JSON.parse(element2.days),
@@ -144,7 +143,7 @@
                       deleted: element2.deleted,
                       date_to: element2.date_to,
                       date_from: element2.date_from,
-                      code_vinculated: element1.code
+                      code_vinculated: element1.area_name+' - '+element1.code
                     });
                   })        
                 })

@@ -103,6 +103,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___default.a);
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -146,7 +148,6 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
             text: element.text
           });
         });
-        console.log(_this2.areas);
       });
     },
     dropCode: function dropCode(id) {
@@ -168,6 +169,11 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
       this.name = data.name;
       this.description = data.description;
       this.code = data.code;
+      this.saveAreas = {
+        id: data.id_area,
+        id_area: data.id_area,
+        text: data.area_name
+      };
       this.date = data.date;
       $("#code").modal("show");
     },
@@ -272,6 +278,8 @@ var render = function() {
                   _c("td", [_vm._v(_vm._s(code.description))]),
                   _vm._v(" "),
                   _c("td", [_vm._v(_vm._s(code.code))]),
+                  _vm._v(" "),
+                  _c("td", [_vm._v(_vm._s(code.area_name))]),
                   _vm._v(" "),
                   _c("td", [_vm._v(_vm._s(code.date))]),
                   _vm._v(" "),
@@ -563,6 +571,8 @@ var staticRenderFns = [
         _c("th", [_vm._v("Descripción")]),
         _vm._v(" "),
         _c("th", [_vm._v("Codigo")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Area")]),
         _vm._v(" "),
         _c("th", [_vm._v("Fecha")]),
         _vm._v(" "),

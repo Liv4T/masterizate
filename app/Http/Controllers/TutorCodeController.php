@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\TutorCode;
 use App\ClassroomStudent;
 use Auth;
+use DB;
 
 class TutorCodeController extends Controller
 {
@@ -17,7 +18,10 @@ class TutorCodeController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $tutorCode = TutorCode::where('id_tutor','=',$user->id)->get();
+        $tutorCode = DB::table('tutor_codes')->join('area', 'area.id', '=', 'tutor_codes.id_area')
+                    ->select('tutor_codes.id','tutor_codes.name','tutor_codes.description','tutor_codes.code','tutor_codes.date','area.id as id_area','area.name as area_name')
+                    ->get();
+        // $tutorCode = TutorCode::where('id_tutor','=',$user->id)->get();
         return response()->json($tutorCode);
     }
     /**
@@ -58,7 +62,10 @@ class TutorCodeController extends Controller
      */
     public function show($code)
     {
-        $tutorCode = TutorCode::where('code','=',$code)->first();
+        $tutorCode = DB::table('tutor_codes')->join('area', 'area.id', '=', 'tutor_codes.id_area')
+            ->select('tutor_codes.id','tutor_codes.name','tutor_codes.description','tutor_codes.code','tutor_codes.date','area.id as id_area','area.name as area_name')
+            ->where('tutor_codes.code','=',$code)
+            ->first();
         return response()->json($tutorCode);
     }
 

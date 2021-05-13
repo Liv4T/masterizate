@@ -30,6 +30,7 @@ class TutorController extends Controller
             'days'=>json_encode($data['days']),
             'date_from'=>$data['date_from'],
             'date_to'=>$data['date_to'],
+            'tutorial_value'=>$data['tutorial_value'],
             'duration_minutes'=>$data['duration_minutes'],
             'area_id'=>$area_id,
             'code_id'=>$data['code_id'],
@@ -66,6 +67,7 @@ class TutorController extends Controller
         $schedule->days=json_encode($data['days']);
         $schedule->date_from=$data['date_from'];
         $schedule->date_to=$data['date_to'];
+        $schedule->tutorial_value = $data['tutorial_value'];
         $schedule->duration_minutes=$data['duration_minutes'];
         $schedule->save();
 
