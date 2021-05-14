@@ -198,17 +198,19 @@
                 axios.get(`/getScheduleCode/${element1.id}`).then((response)=>{                  
                   response.data.forEach(element2=>{
                     console.log(element2)
-                    this.areas.push({
-                      days:JSON.parse(element2.days),
-                      duration_minutes: element2.duration_minutes,
-                      deleted: element2.deleted,
-                      date_to: element2.date_to,
-                      date_from: element2.date_from,
-                      id: element1.id_area,
-                      area_id: element1.id_area,
-                      code_id: element2.code_id,
-                      text: element1.area_name+' - '+element1.code
-                    });
+                    if(element2.deleted === 0){
+                      this.areas.push({
+                        days:JSON.parse(element2.days),
+                        duration_minutes: element2.duration_minutes,
+                        deleted: element2.deleted,
+                        date_to: element2.date_to,
+                        date_from: element2.date_from,
+                        id: element1.id_area,
+                        area_id: element1.id_area,
+                        code_id: element2.code_id,
+                        text: element1.area_name+' - '+element1.code
+                      });
+                    }                    
                   })        
                 })
               })                
