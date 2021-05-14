@@ -110,7 +110,12 @@ class CoursesController extends Controller
                     $class = Area::find($area->id_area);
                     $areas[$key] = [
                         'id'           => $class->id,
-                        'text'         => $class->name . " - " . $classroom->name,
+                        'text'         => $class->name,
+                        /*
+                            Se comenta la linea para no obtener el curso ya que se darán tutorias para  
+                            De la materia como tal
+                        */
+                        // 'text'         => $class->name . " - " . $classroom->name,
                         'id_classroom' => $classroom->id,
                         'calification_base'=>$area->percent_calification
                     ];

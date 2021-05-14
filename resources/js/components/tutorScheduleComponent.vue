@@ -23,12 +23,13 @@
                       <thead>
                         <tr>
                           <th colspan="3" class="text-left">
-                            <button class="btn btn-primary" @click.prevent="AddSchedule(area.id, area.id_classroom)">Agregar Horario</button>
+                            <button class="btn btn-primary" @click.prevent="AddSchedule(area.id, area.id_classroom, area.id_code)">Agregar Horario</button>
                           </th>
                         </tr>
                         <tr>
                           <th class="text-center">Días</th>
                           <th class="text-center">Horario</th>
+                          <th class="text-center">Valor</th>
                           <th></th>
                         </tr>
                       </thead>
@@ -110,6 +111,10 @@
                               </div>
                             </div>
                           </td>
+                          <td>
+                            <label for="">Valor de Tutoria</label>
+                            <input type="text" placeholder="Ej: 50.000" class="form-control" v-model="schedule.tutorial_value">
+                          </td>
                           <td class="td-btn">
                             <div class="row">
                               <div class="col-12">
@@ -158,9 +163,37 @@
     },
     methods: {
       getAreas() {
+        /*
+          Se realiza forEach para agregar tanto las areas 
+          y dejar la logica encontrada de forma similar y agregarle el codigo para establecer un horario
+          con base a la logica encontrada, para los codigos se establece el id y id_classroom en 0 para no generar
+          confusion en las areas
+        */
         axios.get(`/GetArearByUser`).then((response) => {
-          this.areas = response.data;
+          let areas = response.data;
+          areas.forEach((element)=>{
+            this.areas.push({
+              calification_base: element.calification_base,
+              id: element.id,
+              id_classroom: element.id_classroom,
+              text: element.text 
+            })
+          })
         });
+
+        axios.get('/codes').then((response)=>{
+          let codes = response.data;
+          codes.forEach((element)=>{
+            console.log(element)
+            this.areas.push({
+              calification_base: 0,
+              id: element.id,
+              id_classroom: 0,
+              id_code: element.id,
+              text: element.area_name+' - '+element.code
+            })
+          })
+        })
       },
       GetSchedule(area_id, classroom_id) {
         this.loading = true;
@@ -169,8 +202,8 @@
           this.loading = false;
         });
       },
-      AddSchedule(area_id, classroom_id) {
-        this.schedules.push({ date_from: "", date_to: "", days: { monday: true, tuesday: true, wednesday: true, thursday: true, friday: true, saturday: false, sunday: false }, area_id: area_id, classroom_id: classroom_id ,duration_minutes:30});
+      AddSchedule(area_id, classroom_id, code_id) {
+        this.schedules.push({ date_from: "", date_to: "", tutorial_value:"", days: { monday: true, tuesday: true, wednesday: true, thursday: true, friday: true, saturday: false, sunday: false }, area_id: area_id, classroom_id: classroom_id, code_id: code_id ,duration_minutes:30});
       },
       SaveSchedule(area_id, classroom_id, schedule) {
         if (schedule.id) {
