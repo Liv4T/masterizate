@@ -779,6 +779,7 @@ Route::post('/api/tutor/area/{area_id}/classroom/{classroom_id}/schedule', 'Tuto
 Route::put('/api/tutor/area/{area_id}/classroom/{classroom_id}/schedule/{schedule_id}', 'TutorController@UpdateSchedule');
 Route::delete('/api/tutor/area/{area_id}/classroom/{classroom_id}/schedule/{schedule_id}', 'TutorController@DeleteSchedule');
 Route::get('/api/student/area/{area_id}/classroom/{classroom_id}/schedule/{date_find}', 'TutorController@GetAvailableSchedule');
+Route::get('/api/student/area/{area_id}/code/{code_id}/schedule/{date_find}', 'TutorController@GetAvailableScheduleCode');
 Route::put('/api/student/area/{area_id}/classroom/{classroom_id}/schedule/programe', 'TutorController@ProgrameSchedule');
 Route::get('/api/tutor-schedule/event', 'TutorController@GetScheduleEvents');
 Route::get('/api/tutor-schedule/event/{schedulestudent_id}', 'TutorController@GetScheduleStudent');

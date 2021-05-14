@@ -28,10 +28,10 @@
                                   <datetime format="YYYY-MM-DD" v-model="date_find"></datetime>
                                 </div>
                                 <div class="col-4">
-                                  <button class="btn btn-primary" @click.prevent="SearchSchedules(area.id, area.id_classroom)" :disabled="!date_find">Consultar disponibilidad</button>
+                                  <button class="btn btn-primary" @click.prevent="SearchSchedules(area.id, area.id_classroom, area.code_id)" :disabled="!date_find">Consultar disponibilidad</button>
                                 </div>
                                 <div class="col-5 text-right">
-                                  <button class="btn btn-default" @click.prevent="SearchSchedules(area.id, area.id_classroom)">Refrescar</button>
+                                  <button class="btn btn-default" @click.prevent="SearchSchedules(area.id, area.id_classroom, area.code_id)">Refrescar</button>
                                 </div>
                               </div>
                             </th>
@@ -168,6 +168,7 @@
            this.getScheduleEvent();
         }
       });
+      this.getAreasCode();
     },
     methods: {
       getAreas() {
@@ -175,6 +176,7 @@
           axios
             .get(`/GetArearByUser`)
             .then((response) => {
+              console.log(response.data);
               this.areas = response.data;
               return resolve();
             })
@@ -184,18 +186,64 @@
         });
       },
 
-      SearchSchedules(area_id, classroom_id) {
-        this.schedule_selected = {};
-        this.loading = true;
-        axios
-          .get(`/api/student/area/${area_id}/classroom/${classroom_id}/schedule/${this.date_find}`)
-          .then((response) => {
-            this.schedules = response.data;
-            this.loading = false;
+      getAreasCode() {
+        axios.get('/vinculationsTutor').then((response)=>{
+          let codes = response.data;
+          codes.forEach((element)=>{
+            axios.get(`/codes/${element.code_vinculated}`).then((response)=>{
+              let resultCode = [];
+              resultCode.push(response.data);
+              resultCode.forEach((element1)=>{
+                
+                axios.get(`/getScheduleCode/${element1.id}`).then((response)=>{                  
+                  response.data.forEach(element2=>{
+                    console.log(element2)
+                    this.areas.push({
+                      days:JSON.parse(element2.days),
+                      duration_minutes: element2.duration_minutes,
+                      deleted: element2.deleted,
+                      date_to: element2.date_to,
+                      date_from: element2.date_from,
+                      id: element1.id_area,
+                      area_id: element1.id_area,
+                      code_id: element2.code_id,
+                      text: element1.area_name+' - '+element1.code
+                    });
+                  })        
+                })
+              })                
+            })
           })
-          .catch((e) => {
-            this.loading = false;
-          });
+        })
+      },
+
+      SearchSchedules(area_id, classroom_id, code_id) {
+          if(!classroom_id){
+            console.log('aquí')
+            this.schedule_selected = {};
+            this.loading = true;
+            axios.get(`/api/student/area/${area_id}/code/${code_id}/schedule/${this.date_find}`)
+            .then((response) => {
+              console.log(response.data)
+              this.schedules = response.data;
+              this.loading = false;
+            })
+            .catch((e) => {
+              this.loading = false;
+            });
+          }else{
+            this.schedule_selected = {};
+            this.loading = true;
+            axios
+              .get(`/api/student/area/${area_id}/classroom/${classroom_id}/schedule/${this.date_find}`)
+              .then((response) => {
+                this.schedules = response.data;
+                this.loading = false;
+              })
+              .catch((e) => {
+                this.loading = false;
+              });
+          }
       },
       SelectSchedule(area_id, classroom_id, schedule) {
         $("#modalSelectSchedule").modal("show");

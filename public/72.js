@@ -195,12 +195,13 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale("es");
       });
       axios.get('/codes').then(function (response) {
         var codes = response.data;
+        console.log(codes);
         codes.forEach(function (element) {
           console.log(element);
 
           _this.areas.push({
             calification_base: 0,
-            id: element.id,
+            id: element.id_area,
             id_classroom: 0,
             id_code: element.id,
             text: element.area_name + ' - ' + element.code

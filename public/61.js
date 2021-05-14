@@ -178,6 +178,7 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale("es");
         _this.getScheduleEvent();
       }
     });
+    this.getAreasCode();
   },
   methods: {
     getAreas: function getAreas() {
@@ -185,6 +186,7 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale("es");
 
       return new Promise(function (resolve, reject) {
         axios.get("/GetArearByUser").then(function (response) {
+          console.log(response.data);
           _this2.areas = response.data;
           return resolve();
         })["catch"](function (e) {
@@ -192,17 +194,62 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale("es");
         });
       });
     },
-    SearchSchedules: function SearchSchedules(area_id, classroom_id) {
+    getAreasCode: function getAreasCode() {
       var _this3 = this;
 
-      this.schedule_selected = {};
-      this.loading = true;
-      axios.get("/api/student/area/".concat(area_id, "/classroom/").concat(classroom_id, "/schedule/").concat(this.date_find)).then(function (response) {
-        _this3.schedules = response.data;
-        _this3.loading = false;
-      })["catch"](function (e) {
-        _this3.loading = false;
+      axios.get('/vinculationsTutor').then(function (response) {
+        var codes = response.data;
+        codes.forEach(function (element) {
+          axios.get("/codes/".concat(element.code_vinculated)).then(function (response) {
+            var resultCode = [];
+            resultCode.push(response.data);
+            resultCode.forEach(function (element1) {
+              axios.get("/getScheduleCode/".concat(element1.id)).then(function (response) {
+                response.data.forEach(function (element2) {
+                  console.log(element2);
+
+                  _this3.areas.push({
+                    days: JSON.parse(element2.days),
+                    duration_minutes: element2.duration_minutes,
+                    deleted: element2.deleted,
+                    date_to: element2.date_to,
+                    date_from: element2.date_from,
+                    id: element1.id_area,
+                    area_id: element1.id_area,
+                    code_id: element2.code_id,
+                    text: element1.area_name + ' - ' + element1.code
+                  });
+                });
+              });
+            });
+          });
+        });
       });
+    },
+    SearchSchedules: function SearchSchedules(area_id, classroom_id, code_id) {
+      var _this4 = this;
+
+      if (!classroom_id) {
+        console.log('aquí');
+        this.schedule_selected = {};
+        this.loading = true;
+        axios.get("/api/student/area/".concat(area_id, "/code/").concat(code_id, "/schedule/").concat(this.date_find)).then(function (response) {
+          console.log(response.data);
+          _this4.schedules = response.data;
+          _this4.loading = false;
+        })["catch"](function (e) {
+          _this4.loading = false;
+        });
+      } else {
+        this.schedule_selected = {};
+        this.loading = true;
+        axios.get("/api/student/area/".concat(area_id, "/classroom/").concat(classroom_id, "/schedule/").concat(this.date_find)).then(function (response) {
+          _this4.schedules = response.data;
+          _this4.loading = false;
+        })["catch"](function (e) {
+          _this4.loading = false;
+        });
+      }
     },
     SelectSchedule: function SelectSchedule(area_id, classroom_id, schedule) {
       $("#modalSelectSchedule").modal("show");
@@ -214,33 +261,33 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale("es");
       };
     },
     SaveProgramSchedule: function SaveProgramSchedule() {
-      var _this4 = this;
+      var _this5 = this;
 
       this.loading = true;
       $("#modalSelectSchedule").modal("hide");
       axios.put("/api/student/area/".concat(this.schedule_selected.area_id, "/classroom/").concat(this.schedule_selected.classroom_id, "/schedule/programe"), this.schedule_selected).then(function () {
         toastr.success("Tutoría programada correctamente.");
 
-        _this4.SearchSchedules(_this4.schedule_selected.area_id, _this4.schedule_selected.classroom_id);
+        _this5.SearchSchedules(_this5.schedule_selected.area_id, _this5.schedule_selected.classroom_id);
       })["catch"](function (e) {
-        _this4.loading = false;
+        _this5.loading = false;
       });
     },
     getScheduleEvent: function getScheduleEvent() {
-      var _this5 = this;
+      var _this6 = this;
 
       axios.get("/api/tutor-schedule/event/".concat(this.schedule_id)).then(function (response) {
-        _this5.schedule_preloaded = response.data;
+        _this6.schedule_preloaded = response.data;
 
-        var area_index = _this5.areas.findIndex(function (p) {
-          return p.id == _this5.schedule_preloaded.area.id;
+        var area_index = _this6.areas.findIndex(function (p) {
+          return p.id == _this6.schedule_preloaded.area.id;
         });
 
         if (area_index > -1) {
           $("#collapse".concat(area_index)).collapse('show');
-          _this5.date_find = _this5.schedule_preloaded.date_from.substring(0, 10);
+          _this6.date_find = _this6.schedule_preloaded.date_from.substring(0, 10);
 
-          _this5.SearchSchedules(_this5.schedule_preloaded.area.id, _this5.schedule_preloaded.classroom.id);
+          _this6.SearchSchedules(_this6.schedule_preloaded.area.id, _this6.schedule_preloaded.classroom.id);
         }
       });
     }
@@ -407,7 +454,8 @@ var render = function() {
                                                 $event.preventDefault()
                                                 return _vm.SearchSchedules(
                                                   area.id,
-                                                  area.id_classroom
+                                                  area.id_classroom,
+                                                  area.code_id
                                                 )
                                               }
                                             }
@@ -429,7 +477,8 @@ var render = function() {
                                                   $event.preventDefault()
                                                   return _vm.SearchSchedules(
                                                     area.id,
-                                                    area.id_classroom
+                                                    area.id_classroom,
+                                                    area.code_id
                                                   )
                                                 }
                                               }
