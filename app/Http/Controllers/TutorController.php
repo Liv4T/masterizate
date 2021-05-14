@@ -131,10 +131,7 @@ class TutorController extends Controller
 
         $schedules=TutorSchedule::where('area_id',$area_id)->where('classroom_id',$classroom_id)->whereDate('date_from','<=',$date_find)->whereDate('date_to','>=',$date_find)->where('deleted',0)->where('state',1)->get();
 
-
-
         foreach ($schedules as $key => $row) {
-
            $schedules[$key]->days=json_decode($row['days']);
 
            $schedules_busy=TutorScheduleStudent::where('tutorschedule_id',$row->id)->where('student_id','!=',$user->id)->where('deleted',0)->get();
@@ -218,7 +215,6 @@ class TutorController extends Controller
                 //schedule is available
                 if(count($available_schedules)==0 && count($busy_schedules_mine)==0)
                 {
-
                     array_push($data,[
                         'time_index'=>$i,
                         'schedule_id'=>$row->id,
@@ -241,8 +237,6 @@ class TutorController extends Controller
                         'reserved'=>$busy_schedules_mine[0]
                     ]);
                 }
-
-
            }
 
         }
@@ -267,10 +261,9 @@ class TutorController extends Controller
         foreach ($schedules as $key => $row) {
            $schedules[$key]->days=json_decode($row['days']);
 
-           $schedules_busy=TutorScheduleStudent::where('tutorschedule_id','=',$row->id)->where('student_id','!=',$user->id)->where('deleted',0)->get();
+           $schedules_busy=TutorScheduleStudent::where('tutorschedule_id','=',$row->teacher_id)->where('student_id','!=',$user->id)->where('deleted',0)->get();
 
-           $schedules_busy_mine=TutorScheduleStudent::where('tutorschedule_id','=',$row->id)->where('student_id',$user->id)->where('deleted',0)->get();
-
+           $schedules_busy_mine=TutorScheduleStudent::where('tutorschedule_id','=',$row->teacher_id)->where('student_id',$user->id)->where('deleted',0)->get();
            //calculate minutes
            $minutes = (strtotime($row['date_from'])-strtotime($row['date_to']))/60;
            $minutes = abs($minutes); $minutes = floor($minutes);
@@ -284,8 +277,8 @@ class TutorController extends Controller
            }
 
            $teacher=User::find($row->teacher_id);
-
            for ($i=1; $i<=$ever_time ; $i++) {
+               
                 $available_schedules =[];
                 $busy_schedules_mine =[];
 
@@ -301,7 +294,6 @@ class TutorController extends Controller
                 if($date_finded!=$date_find){
                     continue;
                 }
-
                 if($current_date>$date_from){
                     continue;
                 }
@@ -310,22 +302,23 @@ class TutorController extends Controller
                 //evalue hours
                 $time_from=new DateTime($row->date_from);
                 $time_to=new DateTime($row->date_to);
+                
                 if(strtotime($date_find.' '.$time_from->format('H:i'))>strtotime($date_from))
-                {
+                {                    
                     continue;
                 }
-                if(strtotime($date_find.' '.$time_to->format('H:i'))<strtotime($date_to))
-                {
-                    continue;
-                }
+                
+                // if(strtotime($date_find.' '.$time_to->format('H:i'))<strtotime($date_to))
+                // {
+                //     continue;
+                // }  
+                // echo($teacher); 
+                
                 //setDate
-
-
 
                  //get schedules other
                 if(isset($schedules_busy)&& count($schedules_busy)>0)
-                {
-
+                {                   
                     foreach ($schedules_busy as $schedule_busy) {
                         if($schedule_busy->time_index==$i)
                         {
@@ -337,18 +330,17 @@ class TutorController extends Controller
                 //get schedules mine
                 if(isset($schedules_busy_mine)&& count($schedules_busy_mine)>0)
                 {
+            
                     foreach ($schedules_busy_mine as $schedule_busy) {
                         if($schedule_busy->time_index==$i)
                         {
                             array_push($busy_schedules_mine,$schedule_busy);
                         }
                     }
-                }
-
+                }                
                 //schedule is available
                 if(count($available_schedules)==0 && count($busy_schedules_mine)==0)
-                {
-
+                {                
                     array_push($data,[
                         'time_index'=>$i,
                         'schedule_id'=>$row->id,
@@ -360,7 +352,7 @@ class TutorController extends Controller
                     ]);
                 }
                 else if(count($busy_schedules_mine)>0)
-                {
+                {                    
                     array_push($data,[
                         'time_index'=>$i,
                         'schedule_id'=>$row->id,
