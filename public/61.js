@@ -236,7 +236,6 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale("es");
         this.schedule_selected = {};
         this.loading = true;
         axios.get("/api/student/area/".concat(area_id, "/code/").concat(code_id, "/schedule/").concat(this.date_find)).then(function (response) {
-          console.log(response.data);
           _this4.schedules = response.data;
           _this4.loading = false;
         })["catch"](function (e) {

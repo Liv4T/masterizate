@@ -226,7 +226,6 @@
             this.loading = true;
             axios.get(`/api/student/area/${area_id}/code/${code_id}/schedule/${this.date_find}`)
             .then((response) => {
-              console.log(response.data)
               this.schedules = response.data;
               this.loading = false;
             })
