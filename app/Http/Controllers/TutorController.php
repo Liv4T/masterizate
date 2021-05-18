@@ -11,7 +11,7 @@ use App\User;
 use DateInterval;
 use DateTime;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Auth;
 
 class TutorController extends Controller
 {
@@ -119,7 +119,7 @@ class TutorController extends Controller
     }
 
     public function getSchedule($schedules, $date_find){
-        $user=User::find(Auth::id());
+        $user=Auth::user();
         $current_date=date("Y-m-d H:i:s");
         $data=[];
 
@@ -144,101 +144,106 @@ class TutorController extends Controller
  
             if($ever_time<1)
             {
-                 $ever_time=1;
+                $ever_time=1;
             }
  
             $teacher=User::find($row->teacher_id);
  
             for ($i=1; $i<=$ever_time ; $i++) {
-                 $available_schedules =[];
-                 $busy_schedules_mine =[];
+                $available_schedules =[];
+                $busy_schedules_mine =[];
  
-                 //calcule time
-                 $time = new DateTime($row->date_from);
-                 $time->add(new DateInterval('PT' . (($i-1)*$row['duration_minutes']) . 'M'));
-                 $date_from=$time->format('Y-m-d H:i');
-                 $date_finded=$time->format('Y-m-d');
-                 $time->add(new DateInterval('PT' . ($row['duration_minutes']) . 'M'));
-                 $date_to=$time->format('Y-m-d H:i');
+                //calcule time
+                $time = new DateTime($row->date_from);
+                $time->add(new DateInterval('PT' . (($i-1)*$row['duration_minutes']) . 'M'));
+                $date_from=$time->format('Y-m-d H:i');
+                $date_finded=$time->format('Y-m-d');
+                $time->add(new DateInterval('PT' . ($row['duration_minutes']) . 'M'));
+                $date_to=$time->format('Y-m-d H:i');
  
                  //evalue day
-                 if($date_finded!=$date_find){
-                     continue;
-                 }
+                if($date_finded!=$date_find){
+                    continue;
+                }
  
-                 if($current_date>$date_from){
-                     continue;
-                 }
- 
- 
-                 //evalue hours
-                 $time_from=new DateTime($row->date_from);
-                 $time_to=new DateTime($row->date_to);
-                 if(strtotime($date_find.' '.$time_from->format('H:i'))>strtotime($date_from))
-                 {
-                     continue;
-                 }
-                //  if(strtotime($date_find.' '.$time_to->format('H:i'))<strtotime($date_to))
-                //  {
-                //      continue;
-                //  }
-                 //setDate
+                if($current_date>$date_from){
+                    continue;
+                }
  
  
+                //evalue hours
+                $time_from=new DateTime($row->date_from);
+                $time_to=new DateTime($row->date_to);
+                if(strtotime($date_find.' '.$time_from->format('H:i'))>strtotime($date_from))
+                {
+                    continue;
+                }
+
+                /*
+                    Se comenta la condicional ya que es la responsable de no traer 
+                    la data debido a que la fecha que llega debe ser menor a la fecha actual
+                */
+
+                // if(strtotime($date_find.' '.$time_to->format('H:i'))<strtotime($date_to))
+                // {
+                //     continue;
+                // }
+                //setDate
  
-                  //get schedules other
-                 if(isset($schedules_busy)&& count($schedules_busy)>0)
-                 {
  
-                     foreach ($schedules_busy as $schedule_busy) {
-                         if($schedule_busy->time_index==$i)
-                         {
-                             array_push($available_schedules,$schedule_busy);
-                         }
-                     }
-                 }
  
-                 //get schedules mine
-                 if(isset($schedules_busy_mine)&& count($schedules_busy_mine)>0)
-                 {
-                     foreach ($schedules_busy_mine as $schedule_busy) {
-                         if($schedule_busy->time_index==$i)
-                         {
-                             array_push($busy_schedules_mine,$schedule_busy);
-                         }
-                     }
-                 }
+                //get schedules other
+                if(isset($schedules_busy)&& count($schedules_busy)>0)
+                {
  
-                 //schedule is available
-                 if(count($available_schedules)==0 && count($busy_schedules_mine)==0)
-                 {
-                     array_push($data,[
-                         'time_index'=>$i,
-                         'schedule_id'=>$row->id,
-                         'date_from'=>$date_from,
-                         'date_to'=>$date_to,
-                         'teacher'=>['name'=>$teacher->name.' '.$teacher->last_name,'id'=>$teacher->id,'email'=>$teacher->email],
-                         'state'=>1,
-                         'reserved'=>[]
-                     ]);
-                 }
-                 else if(count($busy_schedules_mine)>0)
-                 {
-                     array_push($data,[
-                         'time_index'=>$i,
-                         'schedule_id'=>$row->id,
-                         'date_from'=>$date_from,
-                         'date_to'=>$date_to,
-                         'teacher'=>['name'=>$teacher->name.' '.$teacher->last_name,'id'=>$teacher->id,'email'=>$teacher->email],
-                         'state'=>2,
-                         'reserved'=>$busy_schedules_mine[0]
-                     ]);
-                 }
-            }
+                    foreach ($schedules_busy as $schedule_busy) {
+                        if($schedule_busy->time_index==$i)
+                        {
+                            array_push($available_schedules,$schedule_busy);
+                        }
+                    }
+                }
  
-         }
+                //get schedules mine
+                if(isset($schedules_busy_mine)&& count($schedules_busy_mine)>0)
+                {
+                    foreach ($schedules_busy_mine as $schedule_busy) {
+                        if($schedule_busy->time_index==$i)
+                        {
+                            array_push($busy_schedules_mine,$schedule_busy);
+                        }
+                    }
+                }
  
-         return response()->json($data);
+                //schedule is available
+                if(count($available_schedules)==0 && count($busy_schedules_mine)==0)
+                {
+                    array_push($data,[
+                        'time_index'=>$i,
+                        'schedule_id'=>$row->id,
+                        'date_from'=>$date_from,
+                        'date_to'=>$date_to,
+                        'teacher'=>['name'=>$teacher->name.' '.$teacher->last_name,'id'=>$teacher->id,'email'=>$teacher->email],
+                        'state'=>1,
+                        'reserved'=>[]
+                    ]);
+                }
+                else if(count($busy_schedules_mine)>0)
+                {
+                    array_push($data,[
+                        'time_index'=>$i,
+                        'schedule_id'=>$row->id,
+                        'date_from'=>$date_from,
+                        'date_to'=>$date_to,
+                        'teacher'=>['name'=>$teacher->name.' '.$teacher->last_name,'id'=>$teacher->id,'email'=>$teacher->email],
+                        'state'=>2,
+                        'reserved'=>$busy_schedules_mine[0]
+                    ]);
+                }
+            } 
+        }
+ 
+        return response()->json($data);
     }
 
     public function GetAvailableSchedule(int $area_id,int $classroom_id, string $date_find)
