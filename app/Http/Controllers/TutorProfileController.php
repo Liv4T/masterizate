@@ -14,6 +14,10 @@ class TutorProfileController extends Controller
      */
     public function index()
     {
+        return view('tutorRegister');
+    }
+
+    public function getTutorProfile(){
         $user_id = Auth::user()->id;
         $tutor =  TutorProfile::where('user_id','=', $user_id)->get();
         return response()->json($tutor);
@@ -58,9 +62,9 @@ class TutorProfileController extends Controller
 
         $user->name = $request->name;
         $user->last_name = $request->last_name;
-        $user->password = isset( $request->password;) ? Hash::make( $request->password;) : Hash::make( $request->password;);
+        $user->password = isset( $request->password) ? Hash::make( $request->password) : Hash::make( $request->password);
         $user->email = $request->email;
-        $user->type_user = 7
+        $user->type_user = 7;
         $user->address = $request->address;
         $user->picture = $request->picture;
         $user->phone = $request->phone;
@@ -106,6 +110,7 @@ class TutorProfileController extends Controller
     {
         $tutorProfile = TutorProfile::findOrFail($user_id);
         $user = User::findOrFail($user_id);
+        
         $tutorProfile->description = $request->description;
         $tutorProfile->background_information = $request->background_information;
         $tutorProfile->twitter_profile = $request->twitter_profile;
@@ -126,7 +131,7 @@ class TutorProfileController extends Controller
         $user->last_name = $request->last_name;
         $user->password = isset($request->password) ? Hash::make($request->password) : Hash::make($request->password);
         $user->email = $request->email;
-        $user->type_user = 7
+        $user->type_user = 7;
         $user->address = $request->address;
         $user->picture = $request->picture;
         $user->phone = $request->phone;

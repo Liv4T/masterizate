@@ -32,7 +32,7 @@ class CreateTutorProfilesTable extends Migration
             $table->string('email');
             $table->json('education_information');
             $table->json('experience_education');
-            $table->json('cartification');
+            $table->json('certification');
             $table->json('recommendation');
             $table->json('class_offer');
             $table->json('key_words');

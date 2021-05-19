@@ -1,211 +1,218 @@
 <template>
-    <div class="back">
+    <div style="padding-left: 109px; padding-right: 109px;">
         <div class="row justify-content-center">
-            <div id="crud" class="col-sm-10">
-                <div class="card-header text-center fondo">
-                    <h4>Codigos</h4>
-                </div>
-                <button type="button" class="btn btn-primary mt-2 mb-2" data-toggle="modal" data-target="#code">
-                    Crear Codigo
-                </button>
-                <table class="table table-striped table-hover">
-                    <thead>
-                        <tr>
-                            <th>Nombre</th>
-                            <th>Descripción</th>
-                            <th>Codigo</th>
-                            <th>Area</th>
-                            <th>Fecha</th>
-                            <th>Acción</th>
-                        </tr>
-                    </thead>
-                    <tbody v-for="(code, key) in codes" :key="key">
-                        <tr>
-                            <td>{{code.name}}</td>
-                            <td>{{code.description}}</td>
-                            <td>{{code.code}}</td>
-                            <td>{{code.area_name}}</td>
-                            <td>{{code.date}}</td>
-                            <td>
-                                <button class="btn btn-primary" v-on:click="edit(code)">Editar</button>
-                                <button class="btn btn-danger" v-on:click="dropCode(code.id)">Eliminar</button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                                    
-
-                <div class="modal fade" id="code" tabindex="-1" role="dialog" aria-labelledby="codeLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="codeLabel">Codigo a Guardar</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <div class="form-group">
-                                    <label for="name">Nombre</label>
-                                    <input type="text" class="form-control" name="name" v-model="name">
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="description">Descripción</label>
-                                    <textarea name="description" id="description" class="form-control" v-model="description"></textarea>
-                                </div>
-
-                                <div class="form-group" v-show="id_to_update !== ''">
-                                    <label for="code">Codigo</label>
-                                    <input type="code" class="form-control" name="code" v-model="code" disabled>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="area">Area a asignar Codigo</label>
-                                    <multiselect name="cicleSelect" v-model="saveAreas" :options="areas" :multiple="false"
-                                        :close-on-select="false" :clear-on-select="false"
-                                        :preserve-search="true" placeholder="Seleccione una"
-                                        label="text" track-by="id" :preselect-first="true">
-                                        <template slot="selection" slot-scope="{ values, isOpen }">
-                                            <span class="multiselect__single" v-if="values.length &amp;&amp; !isOpen">
-                                                {{ values.length }}
-                                                opciones
-                                                selecionadas
-                                            </span>
-                                        </template>
-                                    </multiselect>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="dateCode">Fecha inicio Reunion</label>
-                                    <input type="datetime-local" class="form-control" name="dateCode" v-model="date">
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                                <button type="button" class="btn btn-primary" v-on:click="saveCodes">Guardar</button>
-                            </div>
-                        </div>
+            <div id="crud" class="col-sm-12">
+                <div class="card">
+                    <div class="card-header fondo">
+                        <h2>Registro de Tutor</h2>
                     </div>
-                </div>
+                    <div class="card-body">
+                        <form>
+                            <div class="container">
+                                <div class="text-center">
+                                    <h4>Datos de Usuario</h4>
+                                </div>
+                                <div class="row shadow p-3 mb-5 bg-body rounded">
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label for="email">Email</label>
+                                            <input type="email" class="form-control" id="email" v-model="email">
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label for="password">Contraseña</label>
+                                            <input type="password" class="form-control" id="password" v-model="password">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="text-center">
+                                    <h4>Datos Personales</h4>
+                                </div>
+                                <div class="row row-cols-3 shadow p-3 mb-5 bg-body rounded">
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label for="name">Nombre</label>
+                                            <input type="name" class="form-control" id="name" v-model="name">
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label for="last_name">Apellido</label>
+                                            <input type="last_name" class="form-control" id="last_name" v-model="last_name">
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label for="id_number">Identificación</label>
+                                            <input type="id_number" class="form-control" id="id_number" v-model="id_model">
+                                        </div>
+                                    </div>
+
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label for="country">Pais</label>
+                                            <input type="text" class="form-control" id="country" v-model="country">
+                                        </div>
+                                    </div>
+
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label for="city">Ciudad</label>
+                                            <input type="text" class="form-control" id="city" v-model="city">
+                                        </div>
+                                    </div>
+
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label for="address">Dirección</label>
+                                            <input type="text" class="form-control" id="address" v-model="address">
+                                        </div>
+                                    </div>
+
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label for="phone">Telefono</label>
+                                            <input type="number" class="form-control" id="phone" v-model="phone">
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label for="picture">Foto</label>
+                                            <input type="file" class="form-control-file" id="picture" @change="previewFiles">
+                                        </div>
+                                    </div>                            
+
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label for="description">Descripción</label>
+                                            <textarea class="form-control" id="description" rows="3" v-model="description"/>
+                                        </div>
+                                    </div>
+
+                                    <div class="col mt-5">
+                                        <div class="form-group">
+                                            <label for="twitter_profile">Perfil de Twitter</label>
+                                            <input type="text" class="form-control" id="twitter_profile" v-model="twitter_profile">
+                                        </div>
+                                    </div>
+
+                                    <div class="col mt-5">
+                                        <div class="form-group">
+                                            <label for="facebook_profile">Perfil de Facebook</label>
+                                            <input type="text" class="form-control" id="facebook_profile" v-model="facebook_profile">
+                                        </div>
+                                    </div>
+
+                                    <div class="col mt-5">
+                                        <div class="form-group">
+                                            <label for="instagram_profile">Perfil de Instagram</label>
+                                            <input type="text" class="form-control" id="instagram_profile" v-model="instagram_profile">
+                                        </div>
+                                    </div>
+
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label for="linkedin_profile">Perfil de Linkedin</label>
+                                            <input type="text" class="form-control" id="linkedin_profile" v-model="linkedin_profile">
+                                        </div>
+                                    </div>
+                                </div> 
+                                <div class="text-center">
+                                    <h4>Datos Profesionales</h4>
+                                </div>
+                                <div class="row row-cols-2 shadow p-3 mb-5 bg-body rounded">
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label for="education_information">Información de Educación</label>
+                                            <textarea class="form-control" id="education_information" rows="3" v-model="education_information" />
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label for="certification">Certificado de Educacion</label>
+                                            <input type="file" class="form-control-file" id="certification" @change="previewFiles">
+                                        </div>  
+                                    </div> 
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label for="experience_information">Información de Experiencia</label>
+                                            <textarea class="form-control" id="experience_information" rows="3" v-model="experience_information" />
+                                        </div>
+                                    </div>
+
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label for="recommendation">Recomendación</label>
+                                            <input type="file" class="form-control-file" id="recommendation" @change="previewFiles">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="text-center">
+                                    <h4>Busqueda en plataforma</h4>
+                                </div>
+                                <div class="row row-cols-1 shadow p-3 mb-5 bg-body rounded">
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label for="class_offer">Clase Ofrecida</label>
+                                            <input type="text" class="form-control" id="class_offer" v-model="class_offer">
+                                        </div>
+                                    </div>
+
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label for="key_words">Palabras Clave</label>
+                                            <input type="text" class="form-control" id="key_words" v-model="key_words">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="btn btn-primary">Registrarme</button>                                                       
+                        </form>
+                    </div>
+                </div>                
             </div>
         </div>
     </div>
 </template>
 <script>
-    import Multiselect from "vue-multiselect";
-    Vue.component("multiselect", Multiselect);
     export default {
         data(){
             return{
-                codes:[],
-                areas:[],
-                saveAreas:{},
-                id_to_update:"",
                 name:"",
+                last_name:"",
+                email:"",
+                id_number:"",
+                password:"",
+                country:"",
+                city:"",
+                address:"",
+                phone:"",
                 description:"",
-                code:"",
-                date:""
+                twitter_profile:"",
+                facebook_profile:"",
+                instagram_profile:"",
+                linkedin_profile:"",
+                education_information:"",
+                certification:"",
+                experience_information:"",
+                recommendation:"",
+                class_offer:"",
+                key_words:""
             }
         },
-        components: {
-            Multiselect
-        },
-        mounted(){
-            this.getCodes();
-            this.getAreas();
-        },
         methods:{
-            getCodes(){
-                axios.get('codes').then((response)=>{                
-                    this.codes = response.data
-                })
-            },
+            addData(){
 
-            getAreas(){
-                axios.get(`/GetArearByUser`).then((response) => {
-                let areas = response.data;
-                areas.forEach((element)=>{
-                    this.areas.push({
-                        calification_base: element.calification_base,
-                        id: element.id,
-                        id_area: element.id_area,
-                        text: element.text 
-                        })
-                    });
-                });
             },
-
-            dropCode(id){
-                if(window.confirm("Seguro que desea eliminar este dato?")){
-                    axios.delete(`codes/${id}`).then((response)=>{
-                        toastr.info(response.data);
-                        this.getCodes();
-                    }).catch((error)=>{
-                        toastr.info("Upps ha ocurrido algo, intenta de nuevo mas tarde");
-                        console.log(error)
-                    })
-                }
-            },
-
-            edit(data){
-                this.id_to_update = data.id;
-                this.name = data.name;
-                this.description = data.description;   
-                this.code = data.code;  
-                this.saveAreas={
-                    id: data.id_area,
-                    id_area: data.id_area,
-                    text: data.area_name 
-                }           
-                this.date = data.date;
-                $("#code").modal("show");
-            },
-
-            cleanForm(){
-                this.id_to_update = "";
-                this.name = "";
-                this.description = "";
-                this.code = "";
-                this.course ={};
-                this.date = "";
-            },
-
-            saveCodes(){
-                if(this.id_to_update != ""){
-                    axios.patch(`codes/${this.id_to_update}`,{
-                        name: this.name,
-                        description: this.description,
-                        date: this.date,
-                        id_area: this.saveAreas.id,
-                    }).then((response)=>{
-                        toastr.success(response.data);
-                        this.getCodes();
-                        this.cleanForm()
-                        $("#code").modal("hide");
-                    }).catch((error)=>{
-                        toastr.info("Upps ha ocurrido algo, intenta de nuevo mas tarde");
-                        console.log(error)
-                    })
-                }else{                    
-                    axios.post('codes',{
-                        name: this.name,
-                        description: this.description,
-                        date: this.date,
-                        id_area: this.saveAreas.id,
-                    }).then((response)=>{
-                        toastr.success(response.data);
-                        this.getCodes();
-                        this.cleanForm()
-                        $("#code").modal("hide");
-                    }).catch((error)=>{
-                        toastr.info("Upps ha ocurrido algo, intenta de nuevo mas tarde");
-                        console.log(error)
-                    })
-                }
+            files(event){
+                console.log(event)
             }
         }
     }
 </script>
-<style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
 

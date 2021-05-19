@@ -745,7 +745,7 @@ Route::middleware('auth')->get('/estudiante/tutorias/{scheduleStudent_id}', func
 Route::middleware('auth')->get('/estudiante/tutorias', function () {
     return view('studentSchedule')->with('scheduleStudent_id', 0);
 });
-
+Route::resource('tutorRegister','TutorProfileController');
 
 Route::put('/test','ClassController@deactivateClass')->name('test');
 
