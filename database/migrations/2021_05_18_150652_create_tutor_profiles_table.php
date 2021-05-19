@@ -29,7 +29,6 @@ class CreateTutorProfilesTable extends Migration
             $table->string('city');
             $table->string('address');
             $table->string('phone');
-            $table->string('email');
             $table->json('education_information');
             $table->json('experience_education');
             $table->json('certification');

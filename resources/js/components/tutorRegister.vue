@@ -47,7 +47,7 @@
                                     <div class="col">
                                         <div class="form-group">
                                             <label for="id_number">Identificación</label>
-                                            <input type="id_number" class="form-control" id="id_number" v-model="id_model">
+                                            <input type="id_number" class="form-control" id="id_number" v-model="id_number">
                                         </div>
                                     </div>
 
@@ -82,7 +82,7 @@
                                     <div class="col">
                                         <div class="form-group">
                                             <label for="picture">Foto</label>
-                                            <input type="file" class="form-control-file" id="picture" @change="previewFiles">
+                                            <input type="file" name="picture" class="form-control-file" id="picture" @change="previewFiles">
                                         </div>
                                     </div>                            
 
@@ -135,7 +135,7 @@
                                     <div class="col">
                                         <div class="form-group">
                                             <label for="certification">Certificado de Educacion</label>
-                                            <input type="file" class="form-control-file" id="certification" @change="previewFiles">
+                                            <input type="file" name="certification" class="form-control-file" id="certification" @change="previewFiles">
                                         </div>  
                                     </div> 
                                     <div class="col">
@@ -148,7 +148,7 @@
                                     <div class="col">
                                         <div class="form-group">
                                             <label for="recommendation">Recomendación</label>
-                                            <input type="file" class="form-control-file" id="recommendation" @change="previewFiles">
+                                            <input type="file" name="recommendation" class="form-control-file" id="recommendation" @change="previewFiles">
                                         </div>
                                     </div>
                                 </div>
@@ -170,9 +170,9 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <button class="btn btn-primary">Registrarme</button>                                                       
+                            </div>                        
                         </form>
+                        <button type="submit" class="btn btn-primary" v-on:click="addData">Registrarme</button>
                     </div>
                 </div>                
             </div>
@@ -180,6 +180,7 @@
     </div>
 </template>
 <script>
+    import firebase from '../../../connectionDbFirebase';
     export default {
         data(){
             return{
@@ -201,16 +202,48 @@
                 certification:"",
                 experience_information:"",
                 recommendation:"",
+                picture:"",
                 class_offer:"",
                 key_words:""
             }
         },
         methods:{
             addData(){
-
+                axios.post('tutorRegister',{
+                    name: this.name,
+                    last_name: this.last_name,
+                    picture:this.picture,
+                    email: this.email,
+                    id_number: this.id_number,
+                    password: this.password,
+                    country: this.country,
+                    city: this.city,
+                    address: this.address,
+                    phone: this.phone,
+                    description: this.description,
+                    twitter_profile: this.twitter_profile,
+                    facebook_profile: this.facebook_profile,
+                    instagram_profile: this.instagram_profile,
+                    linkedin_profile: this.linkedin_profile,
+                    education_information: this.education_information,
+                    certification: this.certification,
+                    experience_information: this.experience_information,
+                    recommendation: this.recommendation,
+                    class_offer: this.class_offer,
+                    key_words: this.key_words
+                }).then((response)=>{
+                    toastr.success('Información guardada');
+                    console.log(response.data)
+                })
             },
-            files(event){
-                console.log(event)
+            previewFiles(event){
+                const files = event.target.files[0]
+                
+                var storageRef = firebase.storage.ref(`TutorRegister/files/${this.name+' '+this.last_name}`);
+
+                let uploadTask = storageRef.put(files);
+
+                console.log(uploadTask);
             }
         }
     }

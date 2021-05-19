@@ -211,14 +211,49 @@ __webpack_require__.r(__webpack_exports__);
       certification: "",
       experience_information: "",
       recommendation: "",
+      picture: "",
       class_offer: "",
       key_words: ""
     };
   },
   methods: {
-    addData: function addData() {},
-    files: function files(event) {
-      console.log(event);
+    addData: function addData() {
+      axios.post('tutorRegister', {
+        name: this.name,
+        last_name: this.last_name,
+        picture: this.picture,
+        email: this.email,
+        id_number: this.id_number,
+        password: this.password,
+        country: this.country,
+        city: this.city,
+        address: this.address,
+        phone: this.phone,
+        description: this.description,
+        twitter_profile: this.twitter_profile,
+        facebook_profile: this.facebook_profile,
+        instagram_profile: this.instagram_profile,
+        linkedin_profile: this.linkedin_profile,
+        education_information: this.education_information,
+        certification: this.certification,
+        experience_information: this.experience_information,
+        recommendation: this.recommendation,
+        class_offer: this.class_offer,
+        key_words: this.key_words
+      }).then(function (response) {
+        toastr.success('Información guardada');
+        console.log(response.data);
+      });
+    },
+    previewFiles: function previewFiles(event) {
+      var _this = this;
+
+      var files = event.target.files;
+      var fileReader = new FileReader();
+      fileReader.addEventListener('load', function () {
+        _this[event.target.name] = fileReader.result;
+      });
+      fileReader.readAsDataURL(files[0]);
     }
   }
 });
@@ -400,19 +435,19 @@ var render = function() {
                               {
                                 name: "model",
                                 rawName: "v-model",
-                                value: _vm.id_model,
-                                expression: "id_model"
+                                value: _vm.id_number,
+                                expression: "id_number"
                               }
                             ],
                             staticClass: "form-control",
                             attrs: { type: "id_number", id: "id_number" },
-                            domProps: { value: _vm.id_model },
+                            domProps: { value: _vm.id_number },
                             on: {
                               input: function($event) {
                                 if ($event.target.composing) {
                                   return
                                 }
-                                _vm.id_model = $event.target.value
+                                _vm.id_number = $event.target.value
                               }
                             }
                           })
@@ -547,7 +582,11 @@ var render = function() {
                           _vm._v(" "),
                           _c("input", {
                             staticClass: "form-control-file",
-                            attrs: { type: "file", id: "picture" },
+                            attrs: {
+                              type: "file",
+                              name: "picture",
+                              id: "picture"
+                            },
                             on: { change: _vm.previewFiles }
                           })
                         ])
@@ -754,7 +793,11 @@ var render = function() {
                           _vm._v(" "),
                           _c("input", {
                             staticClass: "form-control-file",
-                            attrs: { type: "file", id: "certification" },
+                            attrs: {
+                              type: "file",
+                              name: "certification",
+                              id: "certification"
+                            },
                             on: { change: _vm.previewFiles }
                           })
                         ])
@@ -800,7 +843,11 @@ var render = function() {
                           _vm._v(" "),
                           _c("input", {
                             staticClass: "form-control-file",
-                            attrs: { type: "file", id: "recommendation" },
+                            attrs: {
+                              type: "file",
+                              name: "recommendation",
+                              id: "recommendation"
+                            },
                             on: { change: _vm.previewFiles }
                           })
                         ])
@@ -878,12 +925,18 @@ var render = function() {
                       ])
                     ]
                   )
-                ]),
-                _vm._v(" "),
-                _c("button", { staticClass: "btn btn-primary" }, [
-                  _vm._v("Registrarme")
                 ])
-              ])
+              ]),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-primary",
+                  attrs: { type: "submit" },
+                  on: { click: _vm.addData }
+                },
+                [_vm._v("Registrarme")]
+              )
             ])
           ])
         ])
@@ -943,15 +996,14 @@ render._withStripped = true
 /*!***************************************************!*\
   !*** ./resources/js/components/tutorRegister.vue ***!
   \***************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _tutorRegister_vue_vue_type_template_id_2b79cb3e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./tutorRegister.vue?vue&type=template&id=2b79cb3e& */ "./resources/js/components/tutorRegister.vue?vue&type=template&id=2b79cb3e&");
 /* harmony import */ var _tutorRegister_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./tutorRegister.vue?vue&type=script&lang=js& */ "./resources/js/components/tutorRegister.vue?vue&type=script&lang=js&");
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _tutorRegister_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _tutorRegister_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -981,7 +1033,7 @@ component.options.__file = "resources/js/components/tutorRegister.vue"
 /*!****************************************************************************!*\
   !*** ./resources/js/components/tutorRegister.vue?vue&type=script&lang=js& ***!
   \****************************************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class TutorProfile extends Model
 {
     protected $table = 'tutor_profiles';
-    protected $guarded = ['id']
+    protected $guarded = ['id'];
     protected $fillable = [
         'name',
         'last_name',
@@ -26,9 +26,10 @@ class TutorProfile extends Model
         'email',
         'education_information',
         'experience_education',
-        'cartification',
+        'certification',
         'recommendation',
         'class_offer',
         'key_words',
-        'user_id',
+        'user_id'
+    ];
 }

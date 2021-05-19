@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\TutorProfile;
+use App\User;
+use Hash;
 use Illuminate\Http\Request;
 
 class TutorProfileController extends Controller
@@ -44,34 +46,42 @@ class TutorProfileController extends Controller
         $tutorProfile = new TutorProfile();
         $user = new User();
 
-        $tutorProfile->description = $request->description;
-        $tutorProfile->background_information = $request->background_information;
-        $tutorProfile->twitter_profile = $request->twitter_profile;
-        $tutorProfile->facebook_profile = $request->facebook_profile;
-        $tutorProfile->instagram_profile = $request->instagram_profile;
-        $tutorProfile->linkedin_profile = $request->linkedin_profile;
-        $tutorProfile->country = $request->country;
-        $tutorProfile->city = $request->city;
-        $tutorProfile->education_information = $request->education_information;
-        $tutorProfile->experience_education = $request->experience_education;
-        $tutorProfile->cartification = $request->cartification;
-        $tutorProfile->recommendation = $request->recommendation;
-        $tutorProfile->class_offer = $request->class_offer;
-        $tutorProfile->key_words = $request->key_words;
-        $tutorProfile->user_id = $request->user_id;
-
         $user->name = $request->name;
         $user->last_name = $request->last_name;
+        $user->user_name = $request->email;
         $user->password = isset( $request->password) ? Hash::make( $request->password) : Hash::make( $request->password);
         $user->email = $request->email;
         $user->type_user = 7;
         $user->address = $request->address;
         $user->picture = $request->picture;
         $user->phone = $request->phone;
-        $user->id_number = $request->document;
+        $user->id_number = $request->id_number;
 
-        $tutorProfile->save();
-        $user->save();
+        if($user->save()){
+            $tutorProfile->name = $request->name;
+            $tutorProfile->last_name = $request->last_name;
+            $tutorProfile->description = $request->description;
+            $tutorProfile->document = $request->document;
+            $tutorProfile->picture = $request->picture;
+            $tutorProfile->address = $request->address;
+            $tutorProfile->phone = $request->phone;
+            $tutorProfile->background_information = $request->background_information;
+            $tutorProfile->twitter_profile = $request->twitter_profile;
+            $tutorProfile->facebook_profile = $request->facebook_profile;
+            $tutorProfile->instagram_profile = $request->instagram_profile;
+            $tutorProfile->linkedin_profile = $request->linkedin_profile;
+            $tutorProfile->country = $request->country;
+            $tutorProfile->city = $request->city;
+            $tutorProfile->education_information = $request->education_information;
+            $tutorProfile->experience_education = $request->experience_education;
+            $tutorProfile->certification = $request->certification;
+            $tutorProfile->recommendation = $request->recommendation;
+            $tutorProfile->class_offer = $request->class_offer;
+            $tutorProfile->key_words = $request->key_words;
+            $tutorProfile->user_id = $user->id;
+
+            $tutorProfile->save();
+        }
 
         return view('home');
 
@@ -110,35 +120,43 @@ class TutorProfileController extends Controller
     {
         $tutorProfile = TutorProfile::findOrFail($user_id);
         $user = User::findOrFail($user_id);
-        
-        $tutorProfile->description = $request->description;
-        $tutorProfile->background_information = $request->background_information;
-        $tutorProfile->twitter_profile = $request->twitter_profile;
-        $tutorProfile->facebook_profile = $request->facebook_profile;
-        $tutorProfile->instagram_profile = $request->instagram_profile;
-        $tutorProfile->linkedin_profile = $request->linkedin_profile;
-        $tutorProfile->country = $request->country;
-        $tutorProfile->city = $request->city;
-        $tutorProfile->education_information = $request->education_information;
-        $tutorProfile->experience_education = $request->experience_education;
-        $tutorProfile->cartification = $request->cartification;
-        $tutorProfile->recommendation = $request->recommendation;
-        $tutorProfile->class_offer = $request->class_offer;
-        $tutorProfile->key_words = $request->key_words;
-        $tutorProfile->user_id = $request->user_id;
 
         $user->name = $request->name;
         $user->last_name = $request->last_name;
-        $user->password = isset($request->password) ? Hash::make($request->password) : Hash::make($request->password);
+        $user->user_name = $request->email;
+        $user->password = isset( $request->password) ? Hash::make( $request->password) : Hash::make( $request->password);
         $user->email = $request->email;
         $user->type_user = 7;
         $user->address = $request->address;
         $user->picture = $request->picture;
         $user->phone = $request->phone;
-        $user->id_number = $request->document;
+        $user->id_number = $request->id_number;
 
-        $tutorProfile->update();
-        $user->update();
+        if($user){
+            $tutorProfile->name = $request->name;
+            $tutorProfile->last_name = $request->last_name;
+            $tutorProfile->description = $request->description;
+            $tutorProfile->document = $request->document;
+            $tutorProfile->picture = $request->picture;
+            $tutorProfile->address = $request->address;
+            $tutorProfile->phone = $request->phone;
+            $tutorProfile->background_information = $request->background_information;
+            $tutorProfile->twitter_profile = $request->twitter_profile;
+            $tutorProfile->facebook_profile = $request->facebook_profile;
+            $tutorProfile->instagram_profile = $request->instagram_profile;
+            $tutorProfile->linkedin_profile = $request->linkedin_profile;
+            $tutorProfile->country = $request->country;
+            $tutorProfile->city = $request->city;
+            $tutorProfile->education_information = $request->education_information;
+            $tutorProfile->experience_education = $request->experience_education;
+            $tutorProfile->certification = $request->certification;
+            $tutorProfile->recommendation = $request->recommendation;
+            $tutorProfile->class_offer = $request->class_offer;
+            $tutorProfile->key_words = $request->key_words;
+            $tutorProfile->user_id = $user->id;
+
+            $tutorProfile->update();
+        }
 
         return response()->json('Datos Actualizados');
     }
