@@ -347,21 +347,13 @@ var render = function() {
                             _c("div", [
                               _c("small", [_vm._v("Desde:")]),
                               _vm._v(" "),
-                              _c("span", [
-                                _vm._v(
-                                  _vm._s(_vm._f("formatDate")(clas.dateFrom))
-                                )
-                              ])
+                              _c("span", [_vm._v(_vm._s(clas.dateFrom))])
                             ]),
                             _vm._v(" "),
                             _c("div", [
                               _c("small", [_vm._v("Hasta:")]),
                               _vm._v(" "),
-                              _c("span", [
-                                _vm._v(
-                                  _vm._s(_vm._f("formatDate")(clas.dateTo))
-                                )
-                              ])
+                              _c("span", [_vm._v(_vm._s(clas.dateTo))])
                             ])
                           ]),
                           _vm._v(" "),
