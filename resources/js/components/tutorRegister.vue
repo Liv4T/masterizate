@@ -244,8 +244,8 @@
                     user_name: this.user_name,
                     password: this.password,
                 }).then((response)=>{
-                    toastr.success('Información guardada');
-                    console.log(response.data)
+                    console.log(response.data);
+                    window.location = '/inicio';
                 }).catch((error)=>{
                     toastr.info('Ha ocurrido un error, intenta de nuevo mas tarde');
                     console.log(error)

@@ -82,7 +82,7 @@ class TutorProfileController extends Controller
 
             $tutorProfile->save();
             
-            if (Auth::attempt(['user_name' => $user->user_name, 'password' => $user->password], false)) {
+            if (Auth::attempt(['user_name' => $request->user_name, 'password' => $request->password], false)) {
                 $user = Auth::user();
                 return redirect('/inicio');
             }else {
