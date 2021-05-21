@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\TutorProfile;
 use App\User;
 use Hash;
+use Auth;
 use Illuminate\Http\Request;
 
 class TutorProfileController extends Controller
@@ -48,7 +49,7 @@ class TutorProfileController extends Controller
 
         $user->name = $request->name;
         $user->last_name = $request->last_name;
-        $user->user_name = $request->email;
+        $user->user_name = $request->user_name;
         $user->password = isset( $request->password) ? Hash::make( $request->password) : Hash::make( $request->password);
         $user->email = $request->email;
         $user->type_user = 7;
@@ -61,11 +62,10 @@ class TutorProfileController extends Controller
             $tutorProfile->name = $request->name;
             $tutorProfile->last_name = $request->last_name;
             $tutorProfile->description = $request->description;
-            $tutorProfile->document = $request->document;
+            $tutorProfile->document = $request->id_number;
             $tutorProfile->picture = $request->picture;
             $tutorProfile->address = $request->address;
             $tutorProfile->phone = $request->phone;
-            $tutorProfile->background_information = $request->background_information;
             $tutorProfile->twitter_profile = $request->twitter_profile;
             $tutorProfile->facebook_profile = $request->facebook_profile;
             $tutorProfile->instagram_profile = $request->instagram_profile;
@@ -81,10 +81,14 @@ class TutorProfileController extends Controller
             $tutorProfile->user_id = $user->id;
 
             $tutorProfile->save();
+            
+            if (Auth::attempt(['user_name' => $user->user_name, 'password' => $user->password], false)) {
+                $user = Auth::user();
+                return redirect('/inicio');
+            }else {
+                return 'Ha ocurrido un error, intenta mas tarde';
+            }
         }
-
-        return view('home');
-
     }
 
     /**
@@ -123,7 +127,7 @@ class TutorProfileController extends Controller
 
         $user->name = $request->name;
         $user->last_name = $request->last_name;
-        $user->user_name = $request->email;
+        $user->user_name = $request->user_name;
         $user->password = isset( $request->password) ? Hash::make( $request->password) : Hash::make( $request->password);
         $user->email = $request->email;
         $user->type_user = 7;
@@ -136,11 +140,10 @@ class TutorProfileController extends Controller
             $tutorProfile->name = $request->name;
             $tutorProfile->last_name = $request->last_name;
             $tutorProfile->description = $request->description;
-            $tutorProfile->document = $request->document;
+            $tutorProfile->document = $request->id_number;
             $tutorProfile->picture = $request->picture;
             $tutorProfile->address = $request->address;
             $tutorProfile->phone = $request->phone;
-            $tutorProfile->background_information = $request->background_information;
             $tutorProfile->twitter_profile = $request->twitter_profile;
             $tutorProfile->facebook_profile = $request->facebook_profile;
             $tutorProfile->instagram_profile = $request->instagram_profile;

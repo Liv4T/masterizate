@@ -19,6 +19,14 @@
                                             <input type="email" class="form-control" id="email" v-model="email">
                                         </div>
                                     </div>
+
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label for="email">Nombre de Usuario</label>
+                                            <input type="email" class="form-control" id="email" v-model="user_name">
+                                        </div>
+                                    </div>
+
                                     <div class="col">
                                         <div class="form-group">
                                             <label for="password">Contraseña</label>
@@ -187,6 +195,7 @@
                 name:"",
                 last_name:"",
                 email:"",
+                user_name:"",
                 id_number:"",
                 password:"",
                 country:"",
@@ -212,38 +221,48 @@
                 axios.post('tutorRegister',{
                     name: this.name,
                     last_name: this.last_name,
-                    picture:this.picture,
-                    email: this.email,
+                    description: this.description,
                     id_number: this.id_number,
-                    password: this.password,
-                    country: this.country,
-                    city: this.city,
+                    document: this.id_number,
+                    picture: this.picture,
                     address: this.address,
                     phone: this.phone,
-                    description: this.description,
                     twitter_profile: this.twitter_profile,
                     facebook_profile: this.facebook_profile,
                     instagram_profile: this.instagram_profile,
                     linkedin_profile: this.linkedin_profile,
+                    country: this.country,
+                    city: this.city,
                     education_information: this.education_information,
+                    experience_education: this.experience_information,
                     certification: this.certification,
-                    experience_information: this.experience_information,
                     recommendation: this.recommendation,
                     class_offer: this.class_offer,
-                    key_words: this.key_words
+                    key_words: this.key_words,
+
+                    email: this.email,
+                    user_name: this.user_name,
+                    password: this.password,
                 }).then((response)=>{
                     toastr.success('Información guardada');
                     console.log(response.data)
+                }).catch((error)=>{
+                    toastr.info('Ha ocurrido un error, intenta de nuevo mas tarde');
+                    console.log(error)
                 })
             },
             previewFiles(event){
                 const files = event.target.files[0]
+                const storageRef=firebase.storage().ref(`images/tutorProfile/${this.name+'-'+this.last_name}`).put(files);
                 
-                var storageRef = firebase.storage.ref(`TutorRegister/files/${this.name+' '+this.last_name}`);
-
-                let uploadTask = storageRef.put(files);
-
-                console.log(uploadTask);
+                
+                storageRef.on(`images/tutorProfile/${this.name+' '+this.last_name}`,()=>
+                    {
+                        storageRef.snapshot.ref.getDownloadURL().then((url)=>{
+                            this[event.target.name] = url;
+                        });
+                    }
+                );
             }
         }
     }
