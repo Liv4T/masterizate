@@ -7,8 +7,7 @@
                     <div class="container-mensaje">
                         <div class="row">
                             <h5>Destinatarios</h5><br>
-                        </div>
-                        <students-course-component></students-course-component>
+                        </div>                        
                         <div class="row">
                             <h6>Tus contactos</h6>
                             <a class="btn btn-info float-left" href="#" v-on:click.prevent="btD()"
@@ -31,9 +30,7 @@
                         <br />
                         <div v-show="estudiante == true">
                             <label for>Estudiantes</label>
-                            <multiselect v-model="cestudiante" :options="optionse" tag-placeholder="Add this as new tag"
-                                placeholder="Search or add a tag" label="name" track-by="id" :multiple="true"
-                                :taggable="true" @tag="addTage"></multiselect>
+                            <students-course :getIdStudents="getIdStudents"></students-course>
                         </div>
                         <br />
                         <div v-show="padres == true">
@@ -96,7 +93,7 @@
 <script>
     import Multiselect from "vue-multiselect";
     import DecoupledEditor from "@ckeditor/ckeditor5-build-decoupled-document";
-    import StudentsCourseComponent from "./studentsCourse";
+    import StudentsCourse from './studentsCourse.vue';
     // register globally
     Vue.component("multiselect", Multiselect);
     export default {
@@ -104,7 +101,7 @@
         // OR register locally
         components: {
             Multiselect,
-            StudentsCourseComponent
+            StudentsCourse
         },
         data() {
             return {
@@ -147,7 +144,6 @@
                     }
                     if (this.options[i].type_user == 3) {
                         this.optionse.push(this.options[i]);
-                        console.log(this.options[i])
                     }
                     if (this.options[i].type_user == 4) {
                         this.optionsp.push(this.options[i]);
@@ -188,6 +184,12 @@
                         editor.ui.view.toolbar.element,
                         editor.ui.getEditableElement()
                     );
+            },
+            getIdStudents(data){
+                if(data){
+                    this.correos.push(data.user_id)
+                    toastr.success(`Estudiante ${data.user_name} Seleccionado`);
+                }
             },
             btD() {
                 if (this.docente == false) {
