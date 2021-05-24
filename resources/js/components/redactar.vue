@@ -30,7 +30,7 @@
                         <br />
                         <div v-show="estudiante == true">
                             <label for>Estudiantes</label>
-                            <students-course :getIdStudents="getIdStudents"></students-course>
+                            <students-course :getIdStudents="getIdStudents" :findStudentOrTeacher="findStudentOrTeacher"></students-course>
                         </div>
                         <br />
                         <div v-show="padres == true">
@@ -107,6 +107,7 @@
             return {
                 user_rol: this.user.type_user === 4 ? true : false,
                 editor: DecoupledEditor,
+                findStudentOrTeacher: '',
                 editorData: "<p>Escribir...</p>",
                 dataBoard: {},
                 value: [{
@@ -197,13 +198,16 @@
                 } else {
                     this.docente = false;
                 }
+                this.findStudentOrTeacher = 2;
             },
             btE() {
                 if (this.estudiante == false) {
                     this.estudiante = true;
+                    this.findStudentOrTeacher = 1;
                 } else {
                     this.estudiante = false;
                 }
+                
             },
             btA() {
                 if (this.administrative == false) {

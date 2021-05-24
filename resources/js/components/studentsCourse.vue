@@ -42,25 +42,36 @@
 <script>
     import _ from 'lodash';
     export default {
-        props:["getIdStudents"],
+        props:["getIdStudents","findStudentOrTeacher"],
         data() {
             return {
                 optionse: [],
                 search_class:"",
-                search_student:""
+                search_student:"",
+                findDataEst:""
             };
         },
-        mounted() {
-            this.getStudents()
+        watch:{
+            findStudentOrTeacher: function(val) {
+                if(val == 1){
+                this.getStudents()
+                }else if(val == 2){
+                    this.getTeachers()
+                }
+            }
         },
         methods: {
+            getTeachers(){
+                axios.get('#').then((response) => {
+                    this.groupData(response.data);
+                });
+            },
             getStudents(){
                 axios.get('getStudentsByClassroom').then((response) => {
                     this.groupData(response.data);
                 });
             },
             groupData(data){
-                console.log("datosya.com",data)
                 const result = _.chain(data).groupBy("classroom_name").value();
                 this.optionse = result
             },
