@@ -8,6 +8,7 @@
                         <div class="row">
                             <h5>Destinatarios</h5><br>
                         </div>
+                        <students-course-component></students-course-component>
                         <div class="row">
                             <h6>Tus contactos</h6>
                             <a class="btn btn-info float-left" href="#" v-on:click.prevent="btD()"
@@ -95,13 +96,15 @@
 <script>
     import Multiselect from "vue-multiselect";
     import DecoupledEditor from "@ckeditor/ckeditor5-build-decoupled-document";
+    import StudentsCourseComponent from "./studentsCourse";
     // register globally
     Vue.component("multiselect", Multiselect);
     export default {
         props: ['user'],
         // OR register locally
         components: {
-            Multiselect
+            Multiselect,
+            StudentsCourseComponent
         },
         data() {
             return {
@@ -140,10 +143,11 @@
                     }
                     if (this.options[i].type_user == 1) {
                         this.optionsa.push(this.options[i]);
-                        console.log(this.optionsa);
+                        // console.log(this.optionsa);
                     }
                     if (this.options[i].type_user == 3) {
                         this.optionse.push(this.options[i]);
+                        console.log(this.options[i])
                     }
                     if (this.options[i].type_user == 4) {
                         this.optionsp.push(this.options[i]);
@@ -218,7 +222,7 @@
                 let hourly = date.getHours();
                 let minutes = date.getMinutes();
 
-                console.log("data: ", this.editorData);
+                // console.log("data: ", this.editorData);
                 var url = "sendMessages";
                 if (this.cadministrative.length >= 1) {
                     for (let i = 0; i < this.cadministrative.length; i++) {
@@ -236,7 +240,7 @@
                     }
                 }
                 if (this.cpadres.length >= 1) {
-                    console.log(this.cpadres);
+                    // console.log(this.cpadres);
                     for (let i = 0; i < this.cpadres.length; i++) {
                         this.correos.push(this.cpadres[i].id);
                     }

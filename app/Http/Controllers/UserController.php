@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Mail;
 use App\User;
 use Illuminate\Support\Facades\Hash;
 use Auth;
+use DB;
 
 class UserController extends Controller
 {
@@ -47,6 +48,15 @@ class UserController extends Controller
         }
     }
 
+    public function getStudentsByClassroom(){
+        $students = DB::table('classroom_student')
+            ->join('users', 'classroom_student.id_user', '=', 'users.id')
+            ->join('classroom', 'classroom_student.id_classroom', '=', 'classroom.id')
+            ->select('classroom_student.id as classroom_student_id','classroom_student.id_classroom as classroom_id','classroom.name as classroom_name','users.id as user_id','users.name as user_name','users.last_name as user_last_name','users.user_name as userName','users.email as email')
+            ->get();
+
+        return response()->json($students);
+    }
     /**
      * Show the form for creating a new resource.
      *
