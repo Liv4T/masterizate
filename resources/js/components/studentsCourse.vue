@@ -3,15 +3,15 @@
         <input type="text" class="form-control mb-2" placeholder="Buscar Salon" v-model="search_class">
         <div v-for="(students, key) in optionsMap" :key="key" >
             <div class="card" v-if="search_class =='' || filterClass(key)">
-                <div class="card-header" :id="`headingOne${key}`">
+                <div class="card-header" :id="`headingOne${key.replace(/ /g, '')}`">
                     <h5 class="mb-0">
-                        <button class="btn btn-link" data-toggle="collapse" :data-target="`#collapse${key}`" aria-expanded="false" :aria-controls="`collapse${key}`">
+                        <button class="btn btn-link" data-toggle="collapse" :data-target="`#collapse${key.replace(/ /g, '')}`" aria-expanded="false" :aria-controls="`collapse${key.replace(/ /g, '')}`">
                             {{key}}
                         </button>
                     </h5>
                 </div>
 
-                <div :id="`collapse${key}`"  class="collapse show" :aria-labelledby="`headingOne${key}`" data-parent="#accordion">
+                <div :id="`collapse${key.replace(/ /g, '')}`"  class="collapse show" :aria-labelledby="`headingOne${key.replace(/ /g, '')}`" data-parent="#accordion">
                     <input type="text" class="form-control mb-2" placeholder="Buscar Por Nombre" v-model="search_student">
                     <div class="card-body">
                         <table class="table table-striped">
@@ -19,7 +19,6 @@
                                 <tr>
                                     <th>Nombre</th>
                                     <th>Apellido</th>
-                                    <th>Usuario</th>
                                     <th>Acción</th>
                                 </tr>
                             </thead>
@@ -27,7 +26,6 @@
                                 <tr v-if="search_student =='' || filterStudent(student.user_name)">
                                     <td>{{student.user_name}}</td>
                                     <td>{{student.user_last_name}}</td>
-                                    <td>{{student.userName}}</td>
                                     <td><button class="btn btn-primary" v-on:click="()=>getIdUser(student)">Enviar Mensaje</button></td>
                                 </tr>
                             </tbody>
@@ -82,7 +80,7 @@
                 this.optionsEst = result
             },
             groupDataDoc(data){
-                const result = _.chain(data).groupBy("classroom_name").value();
+                const result = _.chain(data).groupBy("area_name").value();
                 this.optionsDoc = result
             },
             filterClass(clas){

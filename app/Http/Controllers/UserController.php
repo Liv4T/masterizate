@@ -52,7 +52,7 @@ class UserController extends Controller
         $students = DB::table('classroom_student')
             ->join('users', 'classroom_student.id_user', '=', 'users.id')
             ->join('classroom', 'classroom_student.id_classroom', '=', 'classroom.id')
-            ->select('classroom_student.id as classroom_student_id','classroom_student.id_classroom as classroom_id','classroom.name as classroom_name','users.id as user_id','users.name as user_name','users.last_name as user_last_name','users.user_name as userName','users.email as email')
+            ->select('classroom_student.id as classroom_student_id','classroom_student.id_classroom as classroom_id','classroom.name as classroom_name','users.id as user_id','users.name as user_name','users.last_name as user_last_name')
             ->get();
 
         return response()->json($students);
@@ -61,8 +61,8 @@ class UserController extends Controller
     public function getTeachersByClassroom(){
         $teachers = DB::table('classroom_teacher')
             ->join('users','classroom_teacher.id_user','=','users.id')
-            ->join('classroom','classroom_teacher.id_classroom','=','classroom.id')
-            ->select('users.id as user_id','users.name as user_name','users.last_name as user_last_name','classroom_teacher.id_classroom as id_classroom','classroom.name as classroom_name')
+            ->join('area','classroom_teacher.id_classroom','=','area.id')
+            ->select('users.id as user_id','users.name as user_name','users.last_name as user_last_name','area.name as area_name')
             ->get();
 
         return response()->json($teachers);
