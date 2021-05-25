@@ -5,7 +5,7 @@
             <div class="card" v-if="search_class =='' || filterClass(key)">
                 <div class="card-header" :id="`headingOne${key.replace(/ /g, '')}`">
                     <h5 class="mb-0">
-                        <button class="btn btn-link" data-toggle="collapse" :data-target="`#collapse${key.replace(/ /g, '')}`" aria-expanded="false" :aria-controls="`collapse${key.replace(/ /g, '')}`">
+                        <button type="button" class="btn btn-link" data-toggle="collapse" :data-target="`#collapse${key.replace(/ /g, '')}`" aria-expanded="false" :aria-controls="`collapse${key.replace(/ /g, '')}`">
                             {{key}}
                         </button>
                     </h5>
@@ -26,7 +26,7 @@
                                 <tr v-if="search_student =='' || filterStudent(student.user_name)">
                                     <td>{{student.user_name}}</td>
                                     <td>{{student.user_last_name}}</td>
-                                    <td><button class="btn btn-primary" v-on:click="()=>getIdUser(student)">Enviar Mensaje</button></td>
+                                    <td><button type="button" class="btn btn-primary" v-on:click="()=>getIdUser(student)">Enviar Mensaje</button></td>
                                 </tr>
                             </tbody>
                         </table>

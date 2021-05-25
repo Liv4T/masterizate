@@ -14,6 +14,10 @@
                                 style="margin: 10px;">Docentes</a>
                             <a class="btn btn-info float-left" href="#" v-on:click.prevent="btE()"
                                 style="margin: 10px;">Estudiantes</a>
+                            
+                            <a class="btn btn-info" v-if="teacher" href="#" v-on:click.prevent="btA()"
+                                style="margin: 10px;">Administrativa</a>
+
                             <template v-if="user_rol" class="float-left">
                                 <a class="btn btn-info" href="#" v-on:click.prevent="btP()"
                                     style="margin: 10px;">Padres</a>
@@ -107,6 +111,7 @@
         data() {
             return {
                 user_rol: this.user.type_user === 4 ? true : false,
+                teacher: this.user.type_user === 2 ? true : false,
                 editor: DecoupledEditor,
                 findStudentOrTeacher: '',
                 editorData: "<p>Escribir...</p>",

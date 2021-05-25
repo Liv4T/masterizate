@@ -459,7 +459,7 @@ export default {
     setInterval(() => {
       this.listenForNewMessage();
     }, 15000);
-    this.llenarLista();
+    // this.llenarLista();
   },
 
   methods: {
