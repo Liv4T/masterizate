@@ -23,14 +23,15 @@
                         </div>
                         <div v-show="docente == true">
                             <label for>Docentes</label>
-                            <multiselect v-model="cdocente" :options="optionsd" tag-placeholder="Add this as new tag"
+                            <students-course :getIdUser="getIdUser" :findStudentOrTeacher="findStudentOrTeacher"></students-course>
+                            <!-- <multiselect v-model="cdocente" :options="optionsd" tag-placeholder="Add this as new tag"
                                 placeholder="Search or add a tag" label="name" track-by="id" :multiple="true"
-                                :taggable="true" @tag="addTagd"></multiselect>
+                                :taggable="true" @tag="addTagd"></multiselect> -->
                         </div>
                         <br />
                         <div v-show="estudiante == true">
                             <label for>Estudiantes</label>
-                            <students-course :getIdStudents="getIdStudents" :findStudentOrTeacher="findStudentOrTeacher"></students-course>
+                            <students-course :getIdUser="getIdUser" :findStudentOrTeacher="findStudentOrTeacher"></students-course>
                         </div>
                         <br />
                         <div v-show="padres == true">
@@ -186,7 +187,7 @@
                         editor.ui.getEditableElement()
                     );
             },
-            getIdStudents(data){
+            getIdUser(data){
                 if(data){
                     this.correos.push(data.user_id)
                     toastr.success(`Estudiante ${data.user_name} Seleccionado`);

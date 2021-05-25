@@ -57,6 +57,16 @@ class UserController extends Controller
 
         return response()->json($students);
     }
+
+    public function getTeachersByClassroom(){
+        $teachers = DB::table('classroom_teacher')
+            ->join('users','classroom_teacher.id_user','=','users.id')
+            ->join('classroom','classroom_teacher.id_classroom','=','classroom.id')
+            ->select('users.id as user_id','users.name as user_name','users.last_name as user_last_name','classroom_teacher.id_classroom as id_classroom','classroom.name as classroom_name')
+            ->get();
+
+        return response()->json($teachers);
+    }
     /**
      * Show the form for creating a new resource.
      *

@@ -1,7 +1,7 @@
 <template>
     <div id="accordion">
         <input type="text" class="form-control mb-2" placeholder="Buscar Salon" v-model="search_class">
-        <div v-for="(students, key) in optionse" :key="key" >
+        <div v-for="(students, key) in optionsMap" :key="key" >
             <div class="card" v-if="search_class =='' || filterClass(key)">
                 <div class="card-header" :id="`headingOne${key}`">
                     <h5 class="mb-0">
@@ -12,7 +12,7 @@
                 </div>
 
                 <div :id="`collapse${key}`"  class="collapse show" :aria-labelledby="`headingOne${key}`" data-parent="#accordion">
-                    <input type="text" class="form-control mb-2" placeholder="Buscar Por Estudiante" v-model="search_student">
+                    <input type="text" class="form-control mb-2" placeholder="Buscar Por Nombre" v-model="search_student">
                     <div class="card-body">
                         <table class="table table-striped">
                             <thead>
@@ -28,7 +28,7 @@
                                     <td>{{student.user_name}}</td>
                                     <td>{{student.user_last_name}}</td>
                                     <td>{{student.userName}}</td>
-                                    <td><button class="btn btn-primary" v-on:click="()=>getIdStudents(student)">Enviar Mensaje</button></td>
+                                    <td><button class="btn btn-primary" v-on:click="()=>getIdUser(student)">Enviar Mensaje</button></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -42,10 +42,12 @@
 <script>
     import _ from 'lodash';
     export default {
-        props:["getIdStudents","findStudentOrTeacher"],
+        props:["getIdUser","findStudentOrTeacher"],
         data() {
             return {
-                optionse: [],
+                optionsEst: [],
+                optionsDoc: [],
+                optionsMap: [],
                 search_class:"",
                 search_student:"",
                 findDataEst:""
@@ -54,16 +56,20 @@
         watch:{
             findStudentOrTeacher: function(val) {
                 if(val == 1){
-                this.getStudents()
+                    this.optionsMap = this.optionsEst
                 }else if(val == 2){
-                    this.getTeachers()
+                    this.optionsMap = this.optionsDoc
                 }
             }
         },
+        mounted(){
+            this.getStudents();
+            this.getTeachers();
+        },
         methods: {
             getTeachers(){
-                axios.get('#').then((response) => {
-                    this.groupData(response.data);
+                axios.get('getTeachersByClassroom').then((response) => {
+                    this.groupDataDoc(response.data);
                 });
             },
             getStudents(){
@@ -73,7 +79,11 @@
             },
             groupData(data){
                 const result = _.chain(data).groupBy("classroom_name").value();
-                this.optionse = result
+                this.optionsEst = result
+            },
+            groupDataDoc(data){
+                const result = _.chain(data).groupBy("classroom_name").value();
+                this.optionsDoc = result
             },
             filterClass(clas){
                 return clas.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(this.search_class.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, ""));

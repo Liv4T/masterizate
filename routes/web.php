@@ -332,6 +332,7 @@ Route::resource('tasks', 'TaskController', ['except' => 'show', 'create', 'edit'
 Route::resource('categories', 'CategoryController', ['except' => 'show', 'create', 'edit']);;
 Route::resource('users', 'UserController', ['except' => 'show', 'create', 'edit']);;
 Route::get('getStudentsByClassroom','UserController@getStudentsByClassroom');
+Route::get('getTeachersByClassroom','UserController@getTeachersByClassroom');
 Route::resource('resumes', 'ResumeController', ['except' => 'show', 'create', 'edit']);;
 Route::resource('courses', 'courseController', ['except' => 'show', 'create', 'edit']);
 Route::resource('Courses', 'CoursesController', ['except' => 'show', 'create', 'edit']);
