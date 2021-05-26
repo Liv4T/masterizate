@@ -41,8 +41,10 @@ Vue.component("blog-component", require("./components/BlogComponent.vue").defaul
 Vue.component("draw-c", require("./components/draw.vue").default);
 
 Vue.component("home", require("./components/home.vue").default);
+Vue.component("new-home", require("./components/newHome.vue").default);
 Vue.component("board", require("./components/board.vue").default);
 Vue.component("footers", require("./components/footer.vue").default);
+Vue.component("footer-home", require("./components/footerHome.vue").default);
 Vue.component("unit-class", require("./components/unitComponent.vue").default);
 Vue.component("free-component", require("./components/freeComponent.vue").default);
 Vue.component("freeu-component", require("./components/freeUnitComponent.vue").default);
