@@ -18,7 +18,7 @@
       </div>
       <div class="panel-collapse" :id="'collapseOne-' + group.id">
         <div class="panel-body chat-panel msg_container_base" id="messages">
-          <span v-for="conversation in conversations">
+          <span v-for="(conversation, key) in conversations" :key="key">
             <div v-if="user_auth == conversation.user_id" class="row msg_container base_sent">
               <div v-if="conversation.type == 1" class="col-md-10 col-xs-10">
                 <div class="messages msg_sent">
@@ -198,7 +198,7 @@
                 </svg>
               </div>
 
-              <div slot="emoji-picker" slot-scope="{ emojis, insert, display }">
+              <div slot="emoji-picker" slot-scope="{ emojis, insert }">
                 <div class="emoji-picker">
                   <div class="emoji-picker__search">
                     <input type="text" v-model="search" v-focus />

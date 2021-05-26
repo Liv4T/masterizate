@@ -41,6 +41,55 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["initialUsers"],
@@ -49,14 +98,231 @@ __webpack_require__.r(__webpack_exports__);
       nombre: "",
       estudiante: false,
       docente: false,
+      showAdm: false,
+      showP: false,
+      showT: false,
+      showG: false,
+      showN: false,
+      showC: false,
+      showPs: false,
       findStudentOrTeacher: "",
-      users: []
+      users: [],
+      data: [],
+      admin: [],
+      parents: [],
+      tutors: [],
+      government: [],
+      nursing: [],
+      psicology: [],
+      coordinator: []
     };
   },
   components: {
     StudentsCourse: _studentsCourse_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
+  mounted: function mounted() {
+    this.getAdmins();
+    this.getParents();
+    this.getTutors();
+    this.getGovenrments();
+    this.getNursings();
+    this.getPsicologist();
+    this.getCoordinators();
+  },
   methods: {
+    getAdmins: function getAdmins() {
+      var _this = this;
+
+      axios.get('/getAdministrators').then(function (response) {
+        _this.admin = response.data;
+      });
+    },
+    getParents: function getParents() {
+      var _this2 = this;
+
+      axios.get('/getParents').then(function (response) {
+        _this2.parents = response.data;
+      });
+    },
+    getTutors: function getTutors() {
+      var _this3 = this;
+
+      axios.get('/getTutor').then(function (response) {
+        _this3.tutors = response.data;
+      });
+    },
+    getGovenrments: function getGovenrments() {
+      var _this4 = this;
+
+      axios.get('/getSchoolGovernment').then(function (response) {
+        _this4.government = response.data;
+      });
+    },
+    getNursings: function getNursings() {
+      var _this5 = this;
+
+      axios.get('/getNurse').then(function (response) {
+        _this5.nursing = response.data;
+      });
+    },
+    getPsicologist: function getPsicologist() {
+      var _this6 = this;
+
+      axios.get('/getPsicologist').then(function (response) {
+        _this6.psicology = response.data;
+      });
+    },
+    getCoordinators: function getCoordinators() {
+      var _this7 = this;
+
+      axios.get('/getCoordinador').then(function (response) {
+        _this7.coordinator = response.data;
+      });
+    },
+    activeParents: function activeParents() {
+      if (this.showP === false) {
+        this.showP = true;
+        this.data = this.parents;
+        this.showAdm = false;
+        this.showT = false;
+        this.showG = false;
+        this.showN = false;
+        this.showC = false;
+        this.showPs = false;
+      } else {
+        this.showP = false;
+        this.showAdm = false;
+        this.showT = false;
+        this.showG = false;
+        this.showN = false;
+        this.showC = false;
+        this.showPs = false;
+      }
+    },
+    activeTutors: function activeTutors() {
+      if (this.showT === false) {
+        this.data = this.tutors;
+        this.showT = true;
+        this.showP = false;
+        this.showAdm = false;
+        this.showG = false;
+        this.showN = false;
+        this.showC = false;
+        this.showPs = false;
+      } else {
+        this.showT = false;
+        this.showP = true;
+        this.showAdm = false;
+        this.showG = false;
+        this.showN = false;
+        this.showC = false;
+        this.showPs = false;
+      }
+    },
+    activeGoverment: function activeGoverment() {
+      if (this.showG === false) {
+        this.data = this.government;
+        this.showG = true;
+        this.showP = false;
+        this.showT = false;
+        this.showAdm = false;
+        this.showN = false;
+        this.showC = false;
+        this.showPs = false;
+      } else {
+        this.showG = false;
+        this.showP = false;
+        this.showT = false;
+        this.showAdm = false;
+        this.showN = false;
+        this.showC = false;
+        this.showPs = false;
+      }
+    },
+    activeNursing: function activeNursing() {
+      if (this.showN === false) {
+        this.showN = true;
+        this.data = this.nursing;
+        this.showG = false;
+        this.showP = false;
+        this.showT = false;
+        this.showAdm = false;
+        this.showC = false;
+        this.showPs = false;
+      } else {
+        this.showN = false;
+        this.showG = false;
+        this.showP = false;
+        this.showT = false;
+        this.showAdm = false;
+        this.showC = false;
+        this.showPs = false;
+      }
+    },
+    activeCoordinator: function activeCoordinator() {
+      if (this.showC === false) {
+        this.showN = false;
+        this.data = this.coordinator;
+        this.showG = false;
+        this.showP = false;
+        this.showT = false;
+        this.showAdm = false;
+        this.showC = true;
+        this.showPs = false;
+      } else {
+        this.showN = false;
+        this.showG = false;
+        this.showP = false;
+        this.showT = false;
+        this.showAdm = false;
+        this.showC = false;
+        this.showPs = false;
+      }
+    },
+    activePsicologiest: function activePsicologiest() {
+      if (this.showPs === false) {
+        this.showN = false;
+        this.data = this.psicology;
+        this.showG = false;
+        this.showP = false;
+        this.showT = false;
+        this.showAdm = false;
+        this.showC = false;
+        this.showPs = true;
+      } else {
+        this.showN = false;
+        this.showG = false;
+        this.showP = false;
+        this.showT = false;
+        this.showAdm = false;
+        this.showC = false;
+        this.showPs = false;
+      }
+    },
+    activeAdmin: function activeAdmin() {
+      if (this.showAdm === false) {
+        this.showAdm = true;
+        this.data = this.admin;
+        this.docente = false;
+        this.estudiante = false;
+        this.showN = false;
+        this.showG = false;
+        this.showP = false;
+        this.showT = false;
+        this.showC = false;
+        this.showPs = false;
+      } else {
+        this.showAdm = false;
+        this.docente = false;
+        this.estudiante = false;
+        this.showN = false;
+        this.showG = false;
+        this.showP = false;
+        this.showT = false;
+        this.showC = false;
+        this.showPs = false;
+      }
+    },
     getIdUser: function getIdUser(data) {
       if (data) {
         this.users.push(data.user_id);
@@ -67,24 +333,41 @@ __webpack_require__.r(__webpack_exports__);
       if (val == 1) {
         this.docente = true;
         this.findStudentOrTeacher = 2;
+        this.showAdm = false;
         this.estudiante = false;
+        this.showN = false;
+        this.showG = false;
+        this.showP = false;
+        this.showT = false;
+        this.showAdm = false;
+        this.showC = false;
+        this.showPs = false;
       } else {
         this.docente = false;
         this.estudiante = true;
+        this.showAdm = false;
+        this.docente = false;
+        this.showN = false;
+        this.showG = false;
+        this.showP = false;
+        this.showT = false;
+        this.showAdm = false;
+        this.showC = false;
+        this.showPs = false;
         this.findStudentOrTeacher = 1;
       }
     },
     createGroup: function createGroup() {
-      var _this = this;
-
-      axios.post("/groups", {
+      console.log({
         name: this.nombre,
         users: this.users
-      }).then(function (response) {
-        _this.name = "";
-        _this.users = [];
-        Bus.$emit("groupCreated", response.data);
-      });
+      }); // axios
+      //   .post("/groups", { name: this.nombre, users: this.users })
+      //   .then(response => {
+      //     this.name = "";
+      //     this.users = [];
+      //     Bus.$emit("groupCreated", response.data);
+      //   });
     }
   }
 });
@@ -189,7 +472,39 @@ var render = function() {
             _c(
               "button",
               {
-                staticClass: "btn btn-primary",
+                staticClass: "btn btn-primary mt-2",
+                on: {
+                  click: function($event) {
+                    $event.preventDefault()
+                    return (function() {
+                      return _vm.activeAdmin()
+                    })($event)
+                  }
+                }
+              },
+              [_vm._v("Administradores")]
+            ),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-primary mt-2",
+                on: {
+                  click: function($event) {
+                    $event.preventDefault()
+                    return (function() {
+                      return _vm.changeConsult(1)
+                    })($event)
+                  }
+                }
+              },
+              [_vm._v("Docentes")]
+            ),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-primary mt-2",
                 on: {
                   click: function($event) {
                     $event.preventDefault()
@@ -205,17 +520,97 @@ var render = function() {
             _c(
               "button",
               {
-                staticClass: "btn btn-primary",
+                staticClass: "btn btn-primary mt-2",
                 on: {
                   click: function($event) {
                     $event.preventDefault()
                     return (function() {
-                      return _vm.changeConsult(1)
+                      return _vm.activeParents()
                     })($event)
                   }
                 }
               },
-              [_vm._v("Docentes")]
+              [_vm._v("Padres")]
+            ),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-primary mt-2",
+                on: {
+                  click: function($event) {
+                    $event.preventDefault()
+                    return (function() {
+                      return _vm.activeTutors()
+                    })($event)
+                  }
+                }
+              },
+              [_vm._v("Tutores")]
+            ),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-primary mt-2",
+                on: {
+                  click: function($event) {
+                    $event.preventDefault()
+                    return (function() {
+                      return _vm.activeGoverment()
+                    })($event)
+                  }
+                }
+              },
+              [_vm._v("Gobierno Escolar")]
+            ),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-primary mt-2",
+                on: {
+                  click: function($event) {
+                    $event.preventDefault()
+                    return (function() {
+                      return _vm.activeNursing()
+                    })($event)
+                  }
+                }
+              },
+              [_vm._v("Enfermeria")]
+            ),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-primary mt-2",
+                on: {
+                  click: function($event) {
+                    $event.preventDefault()
+                    return (function() {
+                      return _vm.activeCoordinator()
+                    })($event)
+                  }
+                }
+              },
+              [_vm._v("Coordinadores")]
+            ),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-primary mt-2",
+                on: {
+                  click: function($event) {
+                    $event.preventDefault()
+                    return (function() {
+                      return _vm.activePsicologiest()
+                    })($event)
+                  }
+                }
+              },
+              [_vm._v("Psicologia")]
             )
           ]),
           _vm._v(" "),
@@ -242,6 +637,88 @@ var render = function() {
               })
             ],
             1
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value:
+                    _vm.showAdm == true ||
+                    _vm.showP == true ||
+                    _vm.showT == true ||
+                    _vm.showG == true ||
+                    _vm.showN == true ||
+                    _vm.showC == true ||
+                    _vm.showPs == true,
+                  expression:
+                    "showAdm == true || showP == true || showT == true || showG == true || showN == true || showC == true || showPs == true"
+                }
+              ]
+            },
+            [
+              _c("label", [
+                _vm._v(
+                  _vm._s(
+                    _vm.showAdm == true
+                      ? "Administradores"
+                      : _vm.showP == true
+                      ? "Padres"
+                      : _vm.showT == true
+                      ? "Tutores"
+                      : _vm.showG == true
+                      ? "Gobierno Escolar"
+                      : _vm.showN == true
+                      ? "Enfermeria"
+                      : _vm.showC == true
+                      ? "Coordinadores"
+                      : _vm.showPs == true
+                      ? "Psicologia"
+                      : ""
+                  )
+                )
+              ]),
+              _vm._v(" "),
+              _c("br"),
+              _vm._v(" "),
+              _c(
+                "table",
+                { staticClass: "table table-striped" },
+                [
+                  _vm._m(0),
+                  _vm._v(" "),
+                  _vm._l(_vm.data, function(user, key) {
+                    return _c("tbody", { key: key }, [
+                      _c("tr", [
+                        _c("td", [_vm._v(_vm._s(user.name))]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(user.last_name))]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-primary",
+                              attrs: { type: "button" },
+                              on: {
+                                click: function() {
+                                  return _vm.getIdUser(_vm.student)
+                                }
+                              }
+                            },
+                            [_vm._v("Seleccionar")]
+                          )
+                        ])
+                      ])
+                    ])
+                  })
+                ],
+                2
+              )
+            ]
           ),
           _vm._v(" "),
           _c("br"),
@@ -292,7 +769,22 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("Nombre")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Apellido")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Acción")])
+      ])
+    ])
+  }
+]
 render._withStripped = true
 
 

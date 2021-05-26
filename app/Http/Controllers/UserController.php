@@ -67,6 +67,44 @@ class UserController extends Controller
 
         return response()->json($teachers);
     }
+
+    public function getAdministrators(){
+        $administrators = User::where('type_user','=',1)->get();
+        return response()->json($administrators);
+    }
+
+    public function getParents(){
+        $parents = User::where('type_user','=',4)->get();
+        return response()->json($parents);
+    }
+
+
+    public function getPsicologist(){
+        $psicologist = User::where('type_user','=',5)->get();
+        return response()->json($psicologist);   
+    }
+
+    public function getSchoolGovernment(){
+        $administrators = User::where('type_user','=',6)->get();
+        return response()->json($administrators);   
+    }
+
+    public function getTutor(){
+        $psicologist = User::where('type_user','=',7)->get();
+        return response()->json($psicologist);   
+    }
+
+    public function getCoordinador(){
+        $psicologist = User::where('type_user','=',8)->get();
+        return response()->json($psicologist);   
+    }
+
+    public function getNurse(){
+        $nurse = User::where('type_user','=',9)->get();
+        return response()->json($nurse);
+    }
+
+
     /**
      * Show the form for creating a new resource.
      *

@@ -26,7 +26,7 @@
                                 <tr v-if="search_student =='' || filterStudent(student.user_name)">
                                     <td>{{student.user_name}}</td>
                                     <td>{{student.user_last_name}}</td>
-                                    <td><button type="button" class="btn btn-primary" v-on:click="()=>getIdUser(student)">Enviar Mensaje</button></td>
+                                    <td><button type="button" class="btn btn-primary" v-on:click="()=>getIdUser(student)">Seleccionar</button></td>
                                 </tr>
                             </tbody>
                         </table>
