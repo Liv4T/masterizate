@@ -659,6 +659,7 @@ Route::middleware('auth')->get('/admin/clases', function () {
 
 
 //api rest
+
 Route::get('/api/achievement/{id_achievement}/indicator', 'IndicatorController@getByAchievement');
 Route::put('/api/teacher/activity/{id_activity}/student/{id_student}/score', 'ActivityController@saveTeacherScore');
 Route::get('/api/teacher/module/{id_module}/class/{id_course}', 'ClassController@getCourse');
