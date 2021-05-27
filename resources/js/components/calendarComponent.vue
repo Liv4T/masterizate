@@ -60,7 +60,7 @@
                                         </div>
                                     </div>
                                     <div class="class-event-action">
-                                        <a class="btn btn-primary" html:type="_blank" :href="clas.hangout">Ir a clase</a>
+                                        <a class="btn btn-primary" target="_blank" html:type="_blank" :href="clas.hangout">Ir a clase</a>
                                     </div>
                                 </div>
                                 <div class="class-event-footer ">

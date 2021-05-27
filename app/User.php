@@ -48,6 +48,101 @@ class User extends Authenticatable
     }
 
     /**
+     * Returns whether a user has a role of 'teacher'
+     *
+     * @return boolean
+     */
+    public function isTeacher()
+    {
+        if(!isset($this->type_user)) return false;
+
+        return intval($this->type_user) === 2;
+    }
+
+    /**
+     * Returns whether a user has a role of 'student'
+     *
+     * @return boolean
+     */
+    public function isStudent()
+    {
+        if(!isset($this->type_user)) return false;
+
+        return intval($this->type_user) === 3;
+    }
+
+    /**
+     * Returns whether a user has a role of 'parent'
+     *
+     * @return boolean
+     */
+    public function isParent()
+    {
+        if(!isset($this->type_user)) return false;
+
+        return intval($this->type_user) === 4;
+    }
+
+     /**
+     * Returns whether a user has a role of 'psychology'
+     *
+     * @return boolean
+     */
+    public function isPsychology()
+    {
+        if(!isset($this->type_user)) return false;
+
+        return intval($this->type_user) === 5;
+    }
+
+     /**
+     * Returns whether a user has a role of 'school government'
+     *
+     * @return boolean
+     */
+    public function isSchoolGovernment()
+    {
+        if(!isset($this->type_user)) return false;
+
+        return intval($this->type_user) === 6;
+    }
+
+    /**
+     * Returns whether a user has a role of 'tutor'
+     *
+     * @return boolean
+     */
+    public function isTutor()
+    {
+        if(!isset($this->type_user)) return false;
+
+        return intval($this->type_user) === 7;
+    }
+
+    /**
+     * Returns whether a user has a role of 'coordinator'
+     *
+     * @return boolean
+     */
+    public function isCoordinator()
+    {
+        if(!isset($this->type_user)) return false;
+
+        return intval($this->type_user) === 8;
+    }
+
+    /**
+     * Returns whether a user has a role of 'nurse'
+     *
+     * @return boolean
+     */
+    public function isNurse()
+    {
+        if(!isset($this->type_user)) return false;
+
+        return intval($this->type_user) === 9;
+    }
+    /**
      * Returns whether a user has a role of 'moderator' or 'admin'
      *
      * @return boolean
