@@ -16,11 +16,11 @@
                       <div class="class-event-date">
                         <div>
                           <small>Desde:</small>
-                          <span>{{ clas.dateFrom | formatDate }}</span>
+                          <span>{{ clas.dateFrom }}</span>
                         </div>
                         <div>
                           <small>Hasta:</small>
-                          <span>{{ clas.dateTo | formatDate }}</span>
+                          <span>{{ clas.dateTo }}</span>
                         </div>
                       </div>
                       <div class="class-event-action">

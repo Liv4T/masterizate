@@ -40,23 +40,23 @@
           </div>
           <div v-show="type_u == 4 || type_u == 8">
             <!-- Modal para crear evento para padres y coordinadores -->
-            <event-parents-modal :concurrent="concurrent" :type_u="type_u" :dias="dias" :clases="clases" :user="user" :getMenu="getMenu"></event-parents-modal>
+            <event-parents-modal :concurrent.sync="concurrent" :type_u.sync="type_u" :dias.sync="dias" :clases.sync="clases" :user.sync="user" :getMenu.sync="getMenu"></event-parents-modal>
           </div>
           <div v-show="type_u == 1 || type_u == 2 || type_u == 4 || type_u == 8">
             <!-- Modal para editar información del evento -->
-            <modal-edit-parents-info :concurrent="concurrent" :type_u="type_u" :user="this.user" :dias="dias" :getMenu="getMenu"></modal-edit-parents-info>
+            <modal-edit-parents-info :concurrent.sync="concurrent" :type_u.sync="type_u" :user.sync="this.user" :dias.sync="dias" :getMenu.sync="getMenu"></modal-edit-parents-info>
           </div>
           <div class="row" v-show="type_u == 7">
             <a class="btn btn-warning float-right mt-2 ml-3" href="/tutor/cronograma">Registrar horario de tutorías</a>
           </div>
           <br />
           <!-- Modal para listar clases, listar tutorias y eliminar eventos -->
-          <calendar-class-component :type_u="type_u" :clases="clases" :tutorEvents="tutorEvents" :concurrent="concurrent" :dias="dias" :myOptions="myOptions" :getMenu="getMenu"></calendar-class-component>
+          <calendar-class-component :type_u.sync="type_u" :clases.sync="clases" :tutorEvents.sync="tutorEvents" :concurrent.sync="concurrent" :dias.sync="dias" :myOptions.sync="myOptions" :getMenu.sync="getMenu"></calendar-class-component>
         </div>
       </div>
     </div>
     <!-- Modal para crear eventos -->
-    <calendar-modal-event :concurrent="concurrent" :dias="dias" :myOptions="myOptions" :getMenu="getMenu"></calendar-modal-event>
+    <calendar-modal-event :concurrent.sync="concurrent" :dias.sync="dias" :myOptions.sync="myOptions" :getMenu.sync="getMenu"></calendar-modal-event>
 
     </div>
 </template>
