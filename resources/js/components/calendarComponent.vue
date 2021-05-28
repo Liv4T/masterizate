@@ -332,7 +332,8 @@ export default {
   },
   methods: {
       filterPendingEvents:(events)=>{
-          return events.filter(e=>moment(e.dateTo)>=moment());
+          // return events.filter(e=>moment(e.dateTo)>=moment());
+          return events.filter((e) => moment(e.dateTo).format('MMMM Do YYYY, h:mm:ss a') >= moment().format('MMMM Do YYYY, h:mm:ss a'));
       },
       displayActivitiesChange(){
         const fullCalendarApi=this.$refs.fullCalendar.getApi();
