@@ -169,7 +169,7 @@ class EventsController extends Controller
         } elseif (isset($user) && $user->type_user == 1) {
             $initial_range_date_adm = date ( 'Y-m-d' , strtotime ( '-0 day' , strtotime ($current_date ) )) ;
             $end_range_date_adm =date ( 'Y-m-d' ,  strtotime ( '+7 day' , strtotime ($current_date ) )) ;
-            $eventos_all = Eventos::whereDate('date_from','>=',$initial_range_date_adm)->whereDate('date_to','<=',$end_range_date_adm)->where('delete_at','=', null)->orderBy('date_from', 'ASC')->limit(50)->get();
+            $eventos_all = Eventos::whereDate('date_from','>=',$initial_range_date_adm)->whereDate('date_to','<=',$end_range_date_adm)->where('deleted_at','=', null)->orderBy('date_from', 'ASC')->limit(50)->get();
             foreach ($eventos_all as $index => $evento) {
 
                     if ($evento->id_classroom == 0) // is lective
