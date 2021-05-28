@@ -71,6 +71,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['user'],
   data: function data() {
@@ -116,7 +119,6 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     edit: function edit(data) {
-      console.log(data);
       this.code = data.code_vinculated, this.id_to_edit = data.id;
       $("#code").modal("show");
     },
@@ -311,6 +313,16 @@ var render = function() {
                       ? _c("div", [
                           _c("p", [
                             _vm._v("No se encuentra información del codigo")
+                          ])
+                        ])
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _vm.isEmpty === false
+                      ? _c("div", [
+                          _c("p", [
+                            _vm._v(
+                              "Codigo Encontrado, Puedes vincular el codigo dando click en Guardar"
+                            )
                           ])
                         ])
                       : _vm._e()
