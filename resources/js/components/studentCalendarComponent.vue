@@ -210,6 +210,8 @@ components: {
   },
   methods: {
       filterPendingEvents:(events)=>{
+            var momento = moment();
+            console.log(momento);
           return events.filter(e=>moment(e.dateTo)>=moment().add(5, 'hours'));
           // return events.filter((e) => moment(e.dateTo).format('MMMM Do YYYY, h:mm:ss a') >= moment().format('MMMM Do YYYY, h:mm:ss a'));
       },

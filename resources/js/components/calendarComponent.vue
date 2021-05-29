@@ -44,7 +44,7 @@
               <div class="row justify-content-center">
                 <h4>Clases presenciales</h4>
               </div>
-              <div class="row" v-for="(clas, k) in filterPendingEvents(eventsAdmin)" v-bind:key="k">
+              <div class="row" v-for="(clas, k) in filterPendingEvents(clases)" v-bind:key="k">
                         <div class="col-12">
                             <div class="card">
                                 <div class="class-event">
@@ -289,59 +289,57 @@ export default {
       }
   },
   mounted() {
-    this.getAllEventsAdmin();
     const fullCalendarApi=this.$refs.fullCalendar.getApi();
+    if(this.type_u == 1){
+      this.getAllEventsAdmin();
+    }else{
 
-    var urlM = window.location.origin + "/getAllEvents";
-    axios.get(urlM).then((response) => {
-      this.clases = response.data;
-      if(this.clases && this.clases.length>0)
-        {
+      var urlM = window.location.origin + "/getAllEvents";
+      axios.get(urlM).then((response) => {
+        this.clases = response.data;
+        if(this.clases && this.clases.length>0)
+          {
 
-            this.clases.forEach(meeting=>{
-               fullCalendarApi.addEvent({ title: `${meeting.area} ${meeting.classroom} | Clase ${meeting.name}`, start: meeting.dateFrom,end:meeting.dateTo,description: meeting.name,url:meeting.hangout ,backgroundColor:'red'});
-            })
+              this.clases.forEach(meeting=>{
+                fullCalendarApi.addEvent({ title: `${meeting.area} ${meeting.classroom} | Clase ${meeting.name}`, start: meeting.dateFrom,end:meeting.dateTo,description: meeting.name,url:meeting.hangout ,backgroundColor:'red'});
+              })
 
-        }
-    });
-    var url = window.location.origin + "/GetArearByUser";
-    axios.get(url).then((response) => {
-      this.myOptions = response.data;
-
-
-        axios.get("/api/lectives").then((response) => {
-          this.lective_planification= response.data;
+          }
+      });
+      var url = window.location.origin + "/GetArearByUser";
+      axios.get(url).then((response) => {
+        this.myOptions = response.data;
 
 
-          response.data.forEach(e=>{
-              this.myOptions.push({
-                  is_lective:true,
-                  id:e.lective.id,
-                  id_classroom:0,
-                  id_planification:e.id_planification,
-                  text:`Electiva ${e.lective.name} Trimestre ${e.period_consecutive}`
-              });
+          axios.get("/api/lectives").then((response) => {
+            this.lective_planification= response.data;
+
+
+            response.data.forEach(e=>{
+                this.myOptions.push({
+                    is_lective:true,
+                    id:e.lective.id,
+                    id_classroom:0,
+                    id_planification:e.id_planification,
+                    text:`Electiva ${e.lective.name} Trimestre ${e.period_consecutive}`
+                });
+            });
+
           });
 
-        });
-
-    });
-
-
-
-
-
+      });
+    }
   },
   methods: {
       filterPendingEvents:(events)=>{
-          // var momento = moment().add(5, 'hours');
-          // console.log(momento);
+          var momento = moment();
+          console.log(momento);
           return events.filter(e=>moment(e.dateTo)>=moment().add(5, 'hours'));
           // return events.filter((e) => moment(e.dateTo).format('MMMM Do YYYY, h:mm:ss a') >= moment().format('MMMM Do YYYY, h:mm:ss a'));
       },
       getAllEventsAdmin(){
         axios.get('/getAllEventsAdmin').then((response)=>{
-          this.eventsAdmin = response.data;
+          this.clases = response.data;
         })
       },
       displayActivitiesChange(){
