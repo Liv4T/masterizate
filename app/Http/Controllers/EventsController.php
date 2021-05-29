@@ -601,10 +601,21 @@ class EventsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    // public function destroy($id)
+    // {
+    //     //
+    //     $eventos = Eventos::findOrFail($id);
+    //     $eventos->delete();
+    // }
+
+    public function deleteEvent(Request $request)
     {
-        //
-        $eventos = Eventos::findOrFail($id);
-        $eventos->delete();
+    	$data = $request->all();
+
+        $eventos = Eventos::findOrFail($data['id']);
+        $eventos->deleted_at = Carbon::now();
+        $eventos->save();
+        
+            return 'ok';
     }
 }

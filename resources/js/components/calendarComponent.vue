@@ -433,13 +433,15 @@ export default {
       $("#deleteE").modal("hide");
     },
     deleteEvent(id) {
-      var url = "deleteEvent/" + id;
-      axios.get(url).then((response) => {
-        toastr.success("Eliminado exitosamente"); //mensaje
-        // eliminamos
-        this.getMenu(); //listamos
-
-      });
+      var url = "deleteEvent/";
+      axios.put(url, {
+        id: id,
+      })
+      .then((response) => {
+        this.getMenu();
+        toastr.success("Evento actualizado exitosamente");
+      })
+      .catch((error) => {});
     },
     viewDelete(id, name) {
       this.delName = name;
