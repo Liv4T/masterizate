@@ -290,10 +290,9 @@ export default {
   },
   mounted() {
     const fullCalendarApi=this.$refs.fullCalendar.getApi();
-    if(this.type_u == 1){
+    
       this.getAllEventsAdmin();
-    }else{
-
+    
       var urlM = window.location.origin + "/getAllEvents";
       axios.get(urlM).then((response) => {
         this.clases = response.data;
@@ -326,15 +325,18 @@ export default {
             });
 
           });
-
       });
-    }
   },
   methods: {
       filterPendingEvents:(events)=>{
           var momento = moment();
           console.log(momento);
-          return events.filter(e=>moment(e.dateTo)>=moment().add(5, 'hours'));
+          // events.forEach(e=>{
+          //   console.log(e);
+          //   console.log(moment(e.dateTo)>= moment());
+          // })
+          
+          return events.filter(e=>moment(e.dateTo)>= moment());
           // return events.filter((e) => moment(e.dateTo).format('MMMM Do YYYY, h:mm:ss a') >= moment().format('MMMM Do YYYY, h:mm:ss a'));
       },
       getAllEventsAdmin(){
