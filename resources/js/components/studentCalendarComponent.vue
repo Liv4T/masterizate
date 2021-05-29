@@ -157,7 +157,7 @@ components: {
   mounted() {
     const fullCalendarApi=this.$refs.fullCalendar.getApi();
 
-    axios.get("/api/student/event").then((response) => {
+    axios.get("/getAllEvents").then((response) => {
         this.meetings = response.data;
         if(this.meetings && this.meetings.length>0)
         {
