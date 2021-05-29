@@ -178,7 +178,11 @@ class EventsController extends Controller
                         $area = Lective::find($evento->id_area);
                     } else {
                         $classroom = Classroom::find($evento->id_classroom);
-                        $area = Area::find($evento->id_area);
+                        $area = Area::find($evento->id_area); 
+                        // $area = Area::where('id', $evento->id_area)->get();
+                        
+                        // var_dump($evento->id_area.' - ');
+                        // die;                       
                     }
 
                     //$area = Area::find($evento->id_area);
@@ -188,7 +192,53 @@ class EventsController extends Controller
                         "dateFrom" => $evento->date_from,
                         "dateTo" => $evento->date_to,
                         "hangout" => $evento->url,
-                        "area" => $area->name,
+                        // "area" => $area->name,
+                        "area" => isset($area->name) ? $area->name : 'Empty',
+                        // "area" => isset($area['name']) ? $area['name'] : 'Empty',
+                        "classroom" =>  $classroom ? $classroom->name : '',
+                    ];
+
+            }
+        }
+        return response()->json($eventos);
+    }
+
+    public function getAllEventsAdmin(){
+        $eventos = [];
+        $user = Auth::user();
+        $date =  Carbon::now();
+        $current_date=date('Y-m-d');
+        $initial_range_date = date ( 'Y-m-d' , strtotime ( '-90 day' , strtotime ($current_date ) ));
+        $end_range_date =date ( 'Y-m-d' ,  strtotime ( '+90 day' , strtotime ($current_date ) ));
+        if (isset($user) && $user->type_user == 1) {
+            $initial_range_date_adm = date ( 'Y-m-d' , strtotime ( '-0 day' , strtotime ($current_date ) )) ;
+            $end_range_date_adm =date ( 'Y-m-d' ,  strtotime ( '+7 day' , strtotime ($current_date ) )) ;
+            $eventos_all = Eventos::whereDate('date_from','>=',$initial_range_date_adm)->whereDate('date_to','<=',$end_range_date_adm)->where('deleted_at','=', null)->orderBy('date_from', 'ASC')->limit(100)->get();
+            foreach ($eventos_all as $index => $evento) {
+
+                    if ($evento->id_classroom == 0) // is lective
+                    {
+                        $classroom = null;
+                        $area = Lective::find($evento->id_area);
+                    } else {
+                        $classroom = Classroom::find($evento->id_classroom);
+                        $area = Area::find($evento->id_area); 
+                        // $area = Area::where('id', $evento->id_area)->get();
+                        
+                        // var_dump($evento->id_area.' - ');
+                        // die;                       
+                    }
+
+                    //$area = Area::find($evento->id_area);
+                    // $classroom = Classroom::find($evento->id_classroom);
+                    $eventos[$index] = [
+                        "name" => $evento->name,
+                        "dateFrom" => $evento->date_from,
+                        "dateTo" => $evento->date_to,
+                        "hangout" => $evento->url,
+                        // "area" => $area->name,
+                        "area" => isset($area->name) ? $area->name : 'Empty',
+                        // "area" => isset($area['name']) ? $area['name'] : 'Empty',
                         "classroom" =>  $classroom ? $classroom->name : '',
                     ];
 

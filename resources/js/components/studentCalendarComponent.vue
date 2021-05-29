@@ -45,7 +45,7 @@
             <div class="row" style="margin-top:20px">
                 <div class="col-8">
                     <h4>Clases presenciales</h4>
-                    <div class="row" v-for="(meeting, i_meeting) in meetings" v-bind:key="i_meeting">
+                    <div class="row" v-for="(meeting, i_meeting) in filterPendingEvents(meetings)" v-bind:key="i_meeting">
                         <div class="col-12">
                             <div class="card class-event">
                                 <div class="class-event-info"> {{meeting.area}} {{meeting.classroom}}: {{meeting.name}} </div>
@@ -209,6 +209,10 @@ components: {
 
   },
   methods: {
+      filterPendingEvents:(events)=>{
+          return events.filter(e=>moment(e.dateTo)>=moment().add(5, 'hours'));
+          // return events.filter((e) => moment(e.dateTo).format('MMMM Do YYYY, h:mm:ss a') >= moment().format('MMMM Do YYYY, h:mm:ss a'));
+      },
        displayActivitiesChange(){
         const fullCalendarApi=this.$refs.fullCalendar.getApi();
 

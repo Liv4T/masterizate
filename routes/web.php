@@ -323,6 +323,7 @@ Route::get('showTrivia/{id}', 'ActivityController@showTrivia');
 
 Route::post('createEvent', 'EventsController@createEvent')->name('createEvent');
 Route::get('/getAllEvents', 'EventsController@indexEvents')->name('getAllEvents');
+Route::get('/getAllEventsAdmin', 'EventsController@getAllEventsAdmin')->name('getAllEventsAdmin');
 Route::get('editEvent/{id}', 'EventsController@findEvent')->name('editEvent');
 Route::get('lastId', 'EventsController@lastID')->name('lastID');
 Route::get('updatePadre/{id}', 'EventsController@Update_padre')->name('Update_padre');

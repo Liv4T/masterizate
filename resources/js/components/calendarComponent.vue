@@ -44,7 +44,7 @@
               <div class="row justify-content-center">
                 <h4>Clases presenciales</h4>
               </div>
-              <div class="row" v-for="(clas, k) in filterPendingEvents(clases)" v-bind:key="k">
+              <div class="row" v-for="(clas, k) in filterPendingEvents(eventsAdmin)" v-bind:key="k">
                         <div class="col-12">
                             <div class="card">
                                 <div class="class-event">
@@ -256,6 +256,7 @@ export default {
       toUp: "",
       areaUp: "",
       evenUp: [],
+      eventsAdmin:[],
       delId: "",
       delName: "",
       idUp: "",
@@ -288,6 +289,7 @@ export default {
       }
   },
   mounted() {
+    this.getAllEventsAdmin();
     const fullCalendarApi=this.$refs.fullCalendar.getApi();
 
     var urlM = window.location.origin + "/getAllEvents";
@@ -332,8 +334,16 @@ export default {
   },
   methods: {
       filterPendingEvents:(events)=>{
-          // return events.filter(e=>moment(e.dateTo)>=moment());
-          return events.filter((e) => moment(e.dateTo).format('MMMM Do YYYY, h:mm:ss a') >= moment().format('MMMM Do YYYY, h:mm:ss a'));
+          // var momento = moment().add(5, 'hours');
+          // console.log(momento);
+          return events.filter(e=>moment(e.dateTo)>=moment().add(5, 'hours'));
+          // return events.filter((e) => moment(e.dateTo).format('MMMM Do YYYY, h:mm:ss a') >= moment().format('MMMM Do YYYY, h:mm:ss a'));
+      },
+      getAllEventsAdmin(){
+        axios.get('/getAllEventsAdmin').then((response)=>{
+          console.log(response.data)
+          this.eventsAdmin = response.data;
+        })
       },
       displayActivitiesChange(){
         const fullCalendarApi=this.$refs.fullCalendar.getApi();
