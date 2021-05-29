@@ -341,7 +341,6 @@ export default {
       },
       getAllEventsAdmin(){
         axios.get('/getAllEventsAdmin').then((response)=>{
-          console.log(response.data)
           this.eventsAdmin = response.data;
         })
       },
