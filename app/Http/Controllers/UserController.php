@@ -7,9 +7,13 @@ use Illuminate\Support\Facades\Mail;
 use App\User;
 use Illuminate\Support\Facades\Hash;
 use Auth;
+use Illuminate\Foundation\Auth\ThrottlesLogins;
 
 class UserController extends Controller
 {
+    use ThrottlesLogins;
+    protected $maxAttempts = 2; // Default is 5
+    protected $decayMinutes = 2; // Default is 1
     /**
      * Display a listing of the resource.
      *
@@ -43,7 +47,7 @@ class UserController extends Controller
             $user = Auth::user();
             return redirect('/inicio');
         } else {
-            return redirect('/login')->with('status', 'Usuario no encontrado!');
+            return redirect()->back()->with(['status' => 'Usuario y/o Contraseña Incorrectos']);
         }
     }
 
