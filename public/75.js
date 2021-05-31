@@ -401,7 +401,6 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_1___defaul
       });
     },
     addData: function addData() {
-      console.log({});
       axios.post('tutorRegister', {
         email: this.email,
         user_name: this.user_name,
@@ -419,12 +418,12 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_1___defaul
         facebook_profile: this.facebook_profile,
         instagram_profile: this.instagram_profile,
         linkedin_profile: this.linkedin_profile,
-        section_education: this.section_education.join('; '),
-        section_experience: this.section_experience.join('; '),
+        section_education: JSON.stringify(this.section_education),
+        section_experience: JSON.stringify(this.section_experience),
         documento_certificacion: this.documento_certificacion,
         documento_recomendacion: this.documento_recomendacion,
-        classes: this.classes.join('; '),
-        keywords: this.keywords.join('; ')
+        classes: JSON.stringify(this.classes),
+        keywords: this.keywords.toString()
       }).then(function (response) {
         console.log(response.data);
         window.location = '/inicio';
