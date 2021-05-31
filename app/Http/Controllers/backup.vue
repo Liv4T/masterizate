@@ -89,7 +89,6 @@
                                     
                                     <div class="col">
                                         <div class="form-group">
-                                            <a v-if="picture" :href="picture" target="_blank" class="btn btn-primary btn-block letra-poppins">Foto cargada</a>
                                             <label for="picture">Foto</label>
                                             <input type="file" name="picture" class="form-control-file" id="picture" @change="previewFiles">
                                         </div>
@@ -209,16 +208,16 @@
                                                         <div class="form-group">
                                                             <div class="row">
                                                                 <div class="col-6">
-                                                                    <a v-if="documento_certificacion" :href="documento_certificacion" target="_blank" class="btn btn-primary btn-block letra-poppins">Certificación cargada</a>
+                                                                    <a v-if="section_experience[k_item].documento_certificacion" :href="section_experience[k_item].documento_certificacion" target="_blank" class="btn btn-primary btn-block letra-poppins">Certificación cargada</a>
                                                                     <div class="custom-file">
-                                                                    <input type="file" class="custom-file-input" name="documento_certificacion" id="documentCertifyFile" @change="previewFiles" />
+                                                                    <input type="file" class="custom-file-input" id="documentCertifyFile" @change="uploadDocumentExperienceFile($event, person.id, 'documento_certificacion',k_item)" />
                                                                     <label class="custom-file-label letra-boldfont" for="documentCertifyFile">Cargar certificación</label>
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-6 text-center">
-                                                                    <a v-if="documento_recomendacion" :href="documento_recomendacion" target="_blank" class="btn btn-primary btn-block letra-poppins">Recomendación cargada</a>
+                                                                    <a v-if="section_experience[k_item].documento_recomendacion" :href="section_experience[k_item].documento_recomendacion" target="_blank" class="btn btn-primary btn-block letra-poppins">Recomendación cargada</a>
                                                                     <div class="custom-file">
-                                                                        <input type="file" class="custom-file-input" name="documento_recomendacion" id="documentRecommendationFile" @change="previewFiles"/>
+                                                                        <input type="file" class="custom-file-input" id="documentRecommendationFile" @change="uploadDocumentExperienceFile($event, person.id, 'documento_recomendacion',k_item)" />
                                                                         <label class="custom-file-label letra-boldfont" for="documentRecommendationFile">Cargar recomendación</label>
                                                                     </div>
                                                                 </div>
@@ -237,22 +236,13 @@
                                                 </div>
                                                 <div>
                                                     <section v-for="(classs, k_class) in classes" v-bind:key="k_class">
-                                                    <div class="form-group text-left" v-if="k_class">
+                                                    <div class="form-group text-left" v-if="k_class > 0">
                                                         <button class="btn btn-secondary letra-boldfont" v-on:click.prevent="()=>RemoveClasses(k_class)">-</button>
                                                     </div>
                                                     <div class="form-group">
-                                                        <multiselect name="type" v-model="classs.type" :options="areas" :multiple="false"
-                                                            :close-on-select="false" :clear-on-select="false"
-                                                            :preserve-search="false" placeholder="Seleccione una"
-                                                            label="text" track-by="id" :preselect-first="false">
-                                                                <template slot="selection" slot-scope="{ values, isOpen }">
-                                                                    <span class="multiselect__single" v-if="values.length &amp;&amp; !isOpen">
-                                                                        {{ values.length }}
-                                                                        opciones
-                                                                        selecionadas
-                                                                    </span>
-                                                                </template>
-                                                        </multiselect>
+                                                        <select class="form-control letra-boldfont" name="type" v-model="classs.type" v-for="(area, key) in areas" :key="key">
+                                                            <option :value="area.id">{{area.name}}</option>                                                            
+                                                        </select>
                                                     </div>
                                                     <div class="form-group">
                                                         <textarea class="form-control letra-boldfont" rows="4" placeholder="Descripción" v-model="classs.description"></textarea>
@@ -290,9 +280,9 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <button type="submit" class="btn btn-primary" v-on:click.prevent="()=>addData()">Registrarme</button>                        
+                            </div>                        
                         </form>
+                        <button type="submit" class="btn btn-primary" v-on:click.prevent="()=>addData">Registrarme</button>
                     </div>
                 </div>                
             </div>
@@ -301,10 +291,7 @@
 </template>
 <script>
     import firebase from '../../../connectionDbFirebase';
-    import Multiselect from "vue-multiselect";
-    Vue.component("multiselect", Multiselect);
     export default {
-        components: { Multiselect },
         data(){
             return{
                 name:"",
@@ -322,10 +309,14 @@
                 facebook_profile:"",
                 instagram_profile:"",
                 linkedin_profile:"",
+                education_information:"",
+                certification:"",
+                experience_information:"",
+                recommendation:"",
                 picture:"",
-                documento_certificacion:"",
-                documento_recomendacion:"",
                 areas:[],
+                class_offer:"",
+                key_words:"",
                 section_education:[],
                 section_experience:[],
                 classes:[],
@@ -339,47 +330,35 @@
         methods:{
             getArea(){
                 axios.get('/getArea').then((response)=>{
-                    let area = response.data;
-
-                    for(let i = 0; i < area.length; i++){
-                        this.areas.push({
-                            id: area[i].id,
-                            text: area[i].area
-                        })
-                    }
+                    this.areas = response.data;
                 })
             },
-            
             addData(){
-                console.log({
-                    
-                })
                 axios.post('tutorRegister',{
-                    email: this.email,
-                    user_name: this.user_name,
-                    password: this.password,
-                    
                     name: this.name,
                     last_name: this.last_name,
+                    description: this.description,
                     id_number: this.id_number,
-                    country: this.country,
-                    city: this.city,
+                    document: this.id_number,
+                    picture: this.picture,
                     address: this.address,
                     phone: this.phone,
-                    picture: this.picture,
-                    description: this.description,
-                    
                     twitter_profile: this.twitter_profile,
                     facebook_profile: this.facebook_profile,
                     instagram_profile: this.instagram_profile,
                     linkedin_profile: this.linkedin_profile,
-                    
-                    section_education: this.section_education.join('; '),
-                    section_experience: this.section_experience.join('; '),
-                    documento_certificacion: this.documento_certificacion,
-                    documento_recomendacion: this.documento_recomendacion,
-                    classes: this.classes.join('; '),
-                    keywords: this.keywords.join('; '),
+                    country: this.country,
+                    city: this.city,
+                    education_information: this.education_information,
+                    experience_education: this.experience_information,
+                    certification: this.certification,
+                    recommendation: this.recommendation,
+                    class_offer: this.class_offer,
+                    key_words: this.key_words,
+
+                    email: this.email,
+                    user_name: this.user_name,
+                    password: this.password,
                 }).then((response)=>{
                     console.log(response.data);
                     window.location = '/inicio';
@@ -390,10 +369,10 @@
             },
             previewFiles(event){
                 const files = event.target.files[0]
-                const storageRef=firebase.storage().ref(`images/tutorProfile/${this.id_number}`).put(files);
+                const storageRef=firebase.storage().ref(`images/tutorProfile/${this.name+'-'+this.last_name}`).put(files);
                 
                 
-                storageRef.on(`images/tutorProfile/${this.id_number}`,()=>
+                storageRef.on(`images/tutorProfile/${this.name+' '+this.last_name}`,()=>
                     {
                         storageRef.snapshot.ref.getDownloadURL().then((url)=>{
                             this[event.target.name] = url;
@@ -433,8 +412,9 @@
             },
             AddClasses() {
                 this.classes.push({
-                    type: "",
+                    type: "colegio",
                     description: "",
+                    area: {},
                 });
             },
             RemoveClasses(k_item) {
