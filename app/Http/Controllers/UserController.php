@@ -51,6 +51,9 @@ class UserController extends Controller
         if (Auth::attempt(['user_name' => $user_name, 'password' => $password, 'status'=> 1], false)) {
             $user = Auth::user();
             return redirect('/inicio');
+        } else if(Auth::attempt(['user_name' => $user_name, 'password' => $password, 'status'=> 0], false)){
+            session()->put('login.attempts', 0);
+            return redirect()->back()->with(['status' => 'Usuario Bloqueado espera 5 Minutos Para acceder de nuevo']);   
         } else {
             if ($attempts<2) {
                 session()->put('login.attempts', $attempts + 1); // incrementrar intentos
