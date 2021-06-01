@@ -14,6 +14,11 @@ class UserController extends Controller
     use ThrottlesLogins;
     protected $maxAttempts = 2; // Default is 5
     protected $decayMinutes = 2; // Default is 1
+
+    public function __construct()
+    {
+        $this->middleware('throttle:3,1')->only('loginWeb');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -35,7 +40,6 @@ class UserController extends Controller
          'users' => $users
      ];*/
     }
-
     /**
      * login
      */
@@ -43,11 +47,23 @@ class UserController extends Controller
     {
         $user_name = $request->input('user_name');
         $password = $request->input('password');
-        if (Auth::attempt(['user_name' => $user_name, 'password' => $password], false)) {
+        $attempts = session()->get('login.attempts', 0); // obtener intentos, default: 0
+        if (Auth::attempt(['user_name' => $user_name, 'password' => $password, 'status'=> 1], false)) {
             $user = Auth::user();
             return redirect('/inicio');
         } else {
-            return redirect()->back()->with(['status' => 'Usuario y/o Contraseña Incorrectos']);
+            if ($attempts<2) {
+                session()->put('login.attempts', $attempts + 1); // incrementrar intentos
+                return redirect()->back()->with(['status' => 'Usuario y/o Contraseña Incorrectos']);   
+            }
+            if ($attempts>=2) {
+                $user = User::where('user_name',$user_name)->first();
+                $user->status = 0;
+                $user->update();
+                // $schedule->call(new updateStatusUsers)->daily();
+                return redirect()->back()->with(['status' => 'Usuario Bloqueado espera 5 Minutos']);   
+            }   
+            
         }
     }
 
