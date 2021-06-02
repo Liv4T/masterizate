@@ -60,24 +60,26 @@ class TutorProfileController extends Controller
 
         if($user->save()){
             $tutorProfile->name = $request->name;
-            $tutorProfile->last_name = $request->last_name;
-            $tutorProfile->description = $request->description;
-            $tutorProfile->document = $request->id_number;
-            $tutorProfile->picture = $request->picture;
+            $tutorProfile->last_name = $request->last_name;            
+            $tutorProfile->id_number = $request->id_number;
+            $tutorProfile->country = $request->country;
+            $tutorProfile->city = $request->city;
             $tutorProfile->address = $request->address;
             $tutorProfile->phone = $request->phone;
+            $tutorProfile->picture = $request->picture;
+            $tutorProfile->description = $request->description;
+            
             $tutorProfile->twitter_profile = $request->twitter_profile;
             $tutorProfile->facebook_profile = $request->facebook_profile;
             $tutorProfile->instagram_profile = $request->instagram_profile;
             $tutorProfile->linkedin_profile = $request->linkedin_profile;
-            $tutorProfile->country = $request->country;
-            $tutorProfile->city = $request->city;
-            $tutorProfile->education_information = $request->education_information;
-            $tutorProfile->experience_education = $request->experience_education;
-            $tutorProfile->certification = $request->certification;
-            $tutorProfile->recommendation = $request->recommendation;
-            $tutorProfile->class_offer = $request->class_offer;
-            $tutorProfile->key_words = $request->key_words;
+            
+            $tutorProfile->section_education = $request->section_education;
+            $tutorProfile->section_experience = $request->section_experience;
+            $tutorProfile->documento_certificacion = $request->documento_certificacion;
+            $tutorProfile->documento_recomendacion = $request->documento_recomendacion;
+            $tutorProfile->classes = $request->classes;
+            $tutorProfile->keywords = $request->keywords;
             $tutorProfile->user_id = $user->id;
 
             $tutorProfile->save();
@@ -138,25 +140,26 @@ class TutorProfileController extends Controller
 
         if($user){
             $tutorProfile->name = $request->name;
-            $tutorProfile->last_name = $request->last_name;
-            $tutorProfile->description = $request->description;
-            $tutorProfile->document = $request->id_number;
-            $tutorProfile->picture = $request->picture;
+            $tutorProfile->last_name = $request->last_name;            
+            $tutorProfile->id_number = $request->id_number;
+            $tutorProfile->country = $request->country;
+            $tutorProfile->city = $request->city;
             $tutorProfile->address = $request->address;
             $tutorProfile->phone = $request->phone;
+            $tutorProfile->picture = $request->picture;
+            $tutorProfile->description = $request->description;
+            
             $tutorProfile->twitter_profile = $request->twitter_profile;
             $tutorProfile->facebook_profile = $request->facebook_profile;
             $tutorProfile->instagram_profile = $request->instagram_profile;
             $tutorProfile->linkedin_profile = $request->linkedin_profile;
-            $tutorProfile->country = $request->country;
-            $tutorProfile->city = $request->city;
-            $tutorProfile->education_information = $request->education_information;
-            $tutorProfile->experience_education = $request->experience_education;
-            $tutorProfile->certification = $request->certification;
-            $tutorProfile->recommendation = $request->recommendation;
-            $tutorProfile->class_offer = $request->class_offer;
-            $tutorProfile->key_words = $request->key_words;
-            $tutorProfile->user_id = $user->id;
+            
+            $tutorProfile->section_education = $request->section_education;
+            $tutorProfile->section_experience = $request->section_experience;
+            $tutorProfile->documento_certificacion = $request->documento_certificacion;
+            $tutorProfile->documento_recomendacion = $request->documento_recomendacion;
+            $tutorProfile->classes = $request->classes;
+            $tutorProfile->keywords = $request->keywords;
 
             $tutorProfile->update();
         }
