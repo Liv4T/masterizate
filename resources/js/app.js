@@ -307,6 +307,9 @@ Vue.component("nursing-component", ()=>import("./components/NurseComponent.vue")
 
 Vue.component("menu-adm-component", ()=>import("./components/newMenuAdm.vue"));
 
+//Modulo PIAR 
+Vue.component("piar-component", ()=>import("./components/PIARStudentSelect.vue"));
+
 Vue.use(CKEditor);
 
 

@@ -938,3 +938,6 @@ Route::get('getCoursesAndStudents','FoodComponentController@getCoursesAndStudent
 //Ruta para componente de Enfermeria
 Route::resource('nursing', 'NursingComponentController');
 Route::get('getNursing','NursingComponentController@getNursignData');
+
+//Ruta para estudiantes PIAR
+Route::resource('piar','PiarController');
