@@ -55,11 +55,11 @@ class UserController extends Controller
             session()->put('login.attempts', 0);
             return redirect()->back()->with(['status' => 'Usuario Bloqueado espera 5 Minutos Para acceder de nuevo']);   
         } else {
-            if ($attempts<2) {
+            if ($attempts<10) {
                 session()->put('login.attempts', $attempts + 1); // incrementrar intentos
                 return redirect()->back()->with(['status' => 'Usuario y/o Contraseña Incorrectos']);   
             }
-            if ($attempts>=2) {
+            if ($attempts>=10) {
                 $user = User::where('user_name',$user_name)->first();
                 $user->status = 0;
                 $user->update();
