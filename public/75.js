@@ -38,6 +38,120 @@ firebase__WEBPACK_IMPORTED_MODULE_0__["default"].analytics();
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _connectionDbFirebase__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../connectionDbFirebase */ "./connectionDbFirebase.js");
+/* harmony import */ var vue_multiselect__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-multiselect */ "./node_modules/vue-multiselect/dist/vue-multiselect.min.js");
+/* harmony import */ var vue_multiselect__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue_multiselect__WEBPACK_IMPORTED_MODULE_1__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -228,7 +342,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
+Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_1___default.a);
 /* harmony default export */ __webpack_exports__["default"] = ({
+  components: {
+    Multiselect: vue_multiselect__WEBPACK_IMPORTED_MODULE_1___default.a
+  },
   data: function data() {
     return {
       name: "",
@@ -246,41 +365,65 @@ __webpack_require__.r(__webpack_exports__);
       facebook_profile: "",
       instagram_profile: "",
       linkedin_profile: "",
-      education_information: "",
-      certification: "",
-      experience_information: "",
-      recommendation: "",
       picture: "",
-      class_offer: "",
-      key_words: ""
+      documento_certificacion: "",
+      documento_recomendacion: "",
+      areas: [],
+      section_education: [],
+      section_experience: [],
+      classes: [],
+      keywords: [],
+      person: {
+        profile: {
+          EDUCACION: [],
+          EXPERIENCIA: [],
+          PAIS: ""
+        }
+      }
     };
   },
+  mounted: function mounted() {
+    this.getArea();
+  },
   methods: {
+    getArea: function getArea() {
+      var _this = this;
+
+      axios.get('/getArea').then(function (response) {
+        var area = response.data;
+
+        for (var i = 0; i < area.length; i++) {
+          _this.areas.push({
+            id: area[i].id,
+            text: area[i].area
+          });
+        }
+      });
+    },
     addData: function addData() {
       axios.post('tutorRegister', {
+        email: this.email,
+        user_name: this.user_name,
+        password: this.password,
         name: this.name,
         last_name: this.last_name,
-        description: this.description,
         id_number: this.id_number,
-        document: this.id_number,
-        picture: this.picture,
+        country: this.country,
+        city: this.city,
         address: this.address,
         phone: this.phone,
+        picture: this.picture,
+        description: this.description,
         twitter_profile: this.twitter_profile,
         facebook_profile: this.facebook_profile,
         instagram_profile: this.instagram_profile,
         linkedin_profile: this.linkedin_profile,
-        country: this.country,
-        city: this.city,
-        education_information: this.education_information,
-        experience_education: this.experience_information,
-        certification: this.certification,
-        recommendation: this.recommendation,
-        class_offer: this.class_offer,
-        key_words: this.key_words,
-        email: this.email,
-        user_name: this.user_name,
-        password: this.password
+        section_education: JSON.stringify(this.section_education),
+        section_experience: JSON.stringify(this.section_experience),
+        documento_certificacion: this.documento_certificacion,
+        documento_recomendacion: this.documento_recomendacion,
+        classes: JSON.stringify(this.classes),
+        keywords: this.keywords.toString()
       }).then(function (response) {
         console.log(response.data);
         window.location = '/inicio';
@@ -290,15 +433,59 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     previewFiles: function previewFiles(event) {
-      var _this = this;
+      var _this2 = this;
 
       var files = event.target.files[0];
-      var storageRef = _connectionDbFirebase__WEBPACK_IMPORTED_MODULE_0__["default"].storage().ref("images/tutorProfile/".concat(this.name + '-' + this.last_name)).put(files);
-      storageRef.on("images/tutorProfile/".concat(this.name + ' ' + this.last_name), function () {
+      var storageRef = _connectionDbFirebase__WEBPACK_IMPORTED_MODULE_0__["default"].storage().ref("images/tutorProfile/".concat(this.id_number)).put(files);
+      storageRef.on("images/tutorProfile/".concat(this.id_number), function () {
         storageRef.snapshot.ref.getDownloadURL().then(function (url) {
-          _this[event.target.name] = url;
+          _this2[event.target.name] = url;
         });
       });
+    },
+    AddEducation: function AddEducation() {
+      this.section_education.push({
+        titulo: "",
+        universidad: "",
+        fechagrado: "",
+        descripcion: ""
+      });
+    },
+    RemoveEducation: function RemoveEducation(k) {
+      this.section_education.splice(k, 1);
+    },
+    AddExperience: function AddExperience() {
+      this.section_experience.push({
+        institucion: "",
+        fechainicio: "",
+        fechafin: "",
+        materias: [""],
+        descripcion: ""
+      });
+    },
+    RemoveExperience: function RemoveExperience(k) {
+      this.section_experience.splice(k, 1);
+    },
+    AddAssignature: function AddAssignature(k_item) {
+      this.section_experience[k_item].materias.push("");
+    },
+    RemoveAssignature: function RemoveAssignature(k_item, k_assignature) {
+      this.section_experience[k_item].materias.splice(k_assignature, 1);
+    },
+    AddClasses: function AddClasses() {
+      this.classes.push({
+        type: "",
+        description: ""
+      });
+    },
+    RemoveClasses: function RemoveClasses(k_item) {
+      this.classes.splice(k_item, 1);
+    },
+    AddKeyWord: function AddKeyWord() {
+      this.keywords.push("");
+    },
+    RemoveKeyWord: function RemoveKeyWord(index) {
+      this.keywords.splice(index, 1);
     }
   }
 });
@@ -651,6 +838,18 @@ var render = function() {
                       _vm._v(" "),
                       _c("div", { staticClass: "col" }, [
                         _c("div", { staticClass: "form-group" }, [
+                          _vm.picture
+                            ? _c(
+                                "a",
+                                {
+                                  staticClass:
+                                    "btn btn-primary btn-block letra-poppins",
+                                  attrs: { href: _vm.picture, target: "_blank" }
+                                },
+                                [_vm._v("Foto cargada")]
+                              )
+                            : _vm._e(),
+                          _vm._v(" "),
                           _c("label", { attrs: { for: "picture" } }, [
                             _vm._v("Foto")
                           ]),
@@ -819,199 +1018,1077 @@ var render = function() {
                     ]
                   ),
                   _vm._v(" "),
-                  _vm._m(3),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    {
-                      staticClass:
-                        "row row-cols-2 shadow p-3 mb-5 bg-body rounded"
-                    },
-                    [
-                      _c("div", { staticClass: "col" }, [
-                        _c("div", { staticClass: "form-group" }, [
-                          _c(
-                            "label",
-                            { attrs: { for: "education_information" } },
-                            [_vm._v("Información de Educación")]
-                          ),
-                          _vm._v(" "),
-                          _c("textarea", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.education_information,
-                                expression: "education_information"
-                              }
-                            ],
-                            staticClass: "form-control",
-                            attrs: { id: "education_information", rows: "3" },
-                            domProps: { value: _vm.education_information },
-                            on: {
-                              input: function($event) {
-                                if ($event.target.composing) {
-                                  return
-                                }
-                                _vm.education_information = $event.target.value
-                              }
-                            }
-                          })
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "col" }, [
-                        _c("div", { staticClass: "form-group" }, [
-                          _c("label", { attrs: { for: "certification" } }, [
-                            _vm._v("Certificado de Educacion")
+                  _c("div", { staticClass: "row" }, [
+                    _c("div", { staticClass: "col-12" }, [
+                      _c("div", { staticClass: "card-background" }, [
+                        _c("div", { staticClass: "row" }, [
+                          _c("div", { staticClass: "col-12 col-sm-6" }, [
+                            _vm._m(3),
+                            _vm._v(" "),
+                            _c(
+                              "div",
+                              [
+                                _vm._l(_vm.section_education, function(
+                                  item,
+                                  k_item
+                                ) {
+                                  return _c("div", { key: k_item }, [
+                                    k_item > 0
+                                      ? _c(
+                                          "div",
+                                          {
+                                            staticClass: "form-group text-left"
+                                          },
+                                          [
+                                            _c(
+                                              "button",
+                                              {
+                                                staticClass:
+                                                  "btn btn-secondary letra-boldfont",
+                                                on: {
+                                                  click: function($event) {
+                                                    $event.preventDefault()
+                                                    return (function() {
+                                                      return _vm.RemoveEducation(
+                                                        k_item
+                                                      )
+                                                    })($event)
+                                                  }
+                                                }
+                                              },
+                                              [_vm._v("-")]
+                                            )
+                                          ]
+                                        )
+                                      : _vm._e(),
+                                    _vm._v(" "),
+                                    _c("div", { staticClass: "form-group" }, [
+                                      _c("input", {
+                                        directives: [
+                                          {
+                                            name: "model",
+                                            rawName: "v-model",
+                                            value:
+                                              _vm.section_education[k_item]
+                                                .titulo,
+                                            expression:
+                                              "section_education[k_item].titulo"
+                                          }
+                                        ],
+                                        staticClass:
+                                          "form-control letra-boldfont",
+                                        attrs: {
+                                          type: "text",
+                                          name: "title",
+                                          placeholder: "Titulo"
+                                        },
+                                        domProps: {
+                                          value:
+                                            _vm.section_education[k_item].titulo
+                                        },
+                                        on: {
+                                          input: function($event) {
+                                            if ($event.target.composing) {
+                                              return
+                                            }
+                                            _vm.$set(
+                                              _vm.section_education[k_item],
+                                              "titulo",
+                                              $event.target.value
+                                            )
+                                          }
+                                        }
+                                      })
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("div", { staticClass: "form-group" }, [
+                                      _c("input", {
+                                        directives: [
+                                          {
+                                            name: "model",
+                                            rawName: "v-model",
+                                            value:
+                                              _vm.section_education[k_item]
+                                                .universidad,
+                                            expression:
+                                              "section_education[k_item].universidad"
+                                          }
+                                        ],
+                                        staticClass:
+                                          "form-control letra-boldfont",
+                                        attrs: {
+                                          type: "text",
+                                          name: "university",
+                                          placeholder: "Universidad"
+                                        },
+                                        domProps: {
+                                          value:
+                                            _vm.section_education[k_item]
+                                              .universidad
+                                        },
+                                        on: {
+                                          input: function($event) {
+                                            if ($event.target.composing) {
+                                              return
+                                            }
+                                            _vm.$set(
+                                              _vm.section_education[k_item],
+                                              "universidad",
+                                              $event.target.value
+                                            )
+                                          }
+                                        }
+                                      })
+                                    ]),
+                                    _vm._v(" "),
+                                    _c(
+                                      "div",
+                                      { staticClass: "form-group text-left" },
+                                      [
+                                        _vm._m(4, true),
+                                        _vm._v(" "),
+                                        _c("input", {
+                                          directives: [
+                                            {
+                                              name: "model",
+                                              rawName: "v-model",
+                                              value:
+                                                _vm.section_education[k_item]
+                                                  .fechagrado,
+                                              expression:
+                                                "section_education[k_item].fechagrado"
+                                            }
+                                          ],
+                                          staticClass:
+                                            "form-control letra-boldfont",
+                                          attrs: {
+                                            type: "date",
+                                            name: "gradeDate",
+                                            id: "gradeDate",
+                                            placeholder: "Fecha grado"
+                                          },
+                                          domProps: {
+                                            value:
+                                              _vm.section_education[k_item]
+                                                .fechagrado
+                                          },
+                                          on: {
+                                            input: function($event) {
+                                              if ($event.target.composing) {
+                                                return
+                                              }
+                                              _vm.$set(
+                                                _vm.section_education[k_item],
+                                                "fechagrado",
+                                                $event.target.value
+                                              )
+                                            }
+                                          }
+                                        })
+                                      ]
+                                    ),
+                                    _vm._v(" "),
+                                    _c("div", { staticClass: "form-group" }, [
+                                      _c("textarea", {
+                                        directives: [
+                                          {
+                                            name: "model",
+                                            rawName: "v-model",
+                                            value:
+                                              _vm.section_education[k_item]
+                                                .descripcion,
+                                            expression:
+                                              "section_education[k_item].descripcion"
+                                          }
+                                        ],
+                                        staticClass:
+                                          "form-control letra-boldfont",
+                                        attrs: {
+                                          rows: "4",
+                                          name: "description",
+                                          placeholder: "Descripción"
+                                        },
+                                        domProps: {
+                                          value:
+                                            _vm.section_education[k_item]
+                                              .descripcion
+                                        },
+                                        on: {
+                                          input: function($event) {
+                                            if ($event.target.composing) {
+                                              return
+                                            }
+                                            _vm.$set(
+                                              _vm.section_education[k_item],
+                                              "descripcion",
+                                              $event.target.value
+                                            )
+                                          }
+                                        }
+                                      })
+                                    ])
+                                  ])
+                                }),
+                                _vm._v(" "),
+                                _c("div", [
+                                  _c(
+                                    "button",
+                                    {
+                                      staticClass:
+                                        "btn btn-primary letra-poppins",
+                                      on: {
+                                        click: function($event) {
+                                          $event.preventDefault()
+                                          return (function() {
+                                            return _vm.AddEducation()
+                                          })($event)
+                                        }
+                                      }
+                                    },
+                                    [_vm._v("Agregar otra educación")]
+                                  )
+                                ])
+                              ],
+                              2
+                            )
                           ]),
                           _vm._v(" "),
-                          _c("input", {
-                            staticClass: "form-control-file",
-                            attrs: {
-                              type: "file",
-                              name: "certification",
-                              id: "certification"
-                            },
-                            on: { change: _vm.previewFiles }
-                          })
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "col" }, [
-                        _c("div", { staticClass: "form-group" }, [
-                          _c(
-                            "label",
-                            { attrs: { for: "experience_information" } },
-                            [_vm._v("Información de Experiencia")]
-                          ),
-                          _vm._v(" "),
-                          _c("textarea", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.experience_information,
-                                expression: "experience_information"
-                              }
-                            ],
-                            staticClass: "form-control",
-                            attrs: { id: "experience_information", rows: "3" },
-                            domProps: { value: _vm.experience_information },
-                            on: {
-                              input: function($event) {
-                                if ($event.target.composing) {
-                                  return
-                                }
-                                _vm.experience_information = $event.target.value
-                              }
-                            }
-                          })
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "col" }, [
-                        _c("div", { staticClass: "form-group" }, [
-                          _c("label", { attrs: { for: "recommendation" } }, [
-                            _vm._v("Recomendación")
+                          _c("div", { staticClass: "col-12 col-sm-6" }, [
+                            _vm._m(5),
+                            _vm._v(" "),
+                            _c(
+                              "div",
+                              [
+                                _vm._l(_vm.section_experience, function(
+                                  item,
+                                  k_item
+                                ) {
+                                  return _c("div", { key: k_item }, [
+                                    k_item > 0
+                                      ? _c(
+                                          "div",
+                                          {
+                                            staticClass: "form-group text-left"
+                                          },
+                                          [
+                                            _c(
+                                              "button",
+                                              {
+                                                staticClass:
+                                                  "btn btn-secondary letra-boldfont",
+                                                on: {
+                                                  click: function($event) {
+                                                    $event.preventDefault()
+                                                    return (function() {
+                                                      return _vm.RemoveExperience(
+                                                        k_item
+                                                      )
+                                                    })($event)
+                                                  }
+                                                }
+                                              },
+                                              [_vm._v("-")]
+                                            )
+                                          ]
+                                        )
+                                      : _vm._e(),
+                                    _vm._v(" "),
+                                    _c("div", { staticClass: "form-group" }, [
+                                      _c("input", {
+                                        directives: [
+                                          {
+                                            name: "model",
+                                            rawName: "v-model",
+                                            value:
+                                              _vm.section_experience[k_item]
+                                                .institucion,
+                                            expression:
+                                              "section_experience[k_item].institucion"
+                                          }
+                                        ],
+                                        staticClass:
+                                          "form-control letra-boldfont",
+                                        attrs: {
+                                          type: "text",
+                                          id: "institucion",
+                                          placeholder: "Institución"
+                                        },
+                                        domProps: {
+                                          value:
+                                            _vm.section_experience[k_item]
+                                              .institucion
+                                        },
+                                        on: {
+                                          input: function($event) {
+                                            if ($event.target.composing) {
+                                              return
+                                            }
+                                            _vm.$set(
+                                              _vm.section_experience[k_item],
+                                              "institucion",
+                                              $event.target.value
+                                            )
+                                          }
+                                        }
+                                      })
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("div", { staticClass: "form-group" }, [
+                                      _c("div", { staticClass: "row" }, [
+                                        _c(
+                                          "div",
+                                          { staticClass: "col-6 text-left" },
+                                          [
+                                            _vm._m(6, true),
+                                            _vm._v(" "),
+                                            _c("input", {
+                                              directives: [
+                                                {
+                                                  name: "model",
+                                                  rawName: "v-model",
+                                                  value:
+                                                    _vm.section_experience[
+                                                      k_item
+                                                    ].fechainicio,
+                                                  expression:
+                                                    "section_experience[k_item].fechainicio"
+                                                }
+                                              ],
+                                              staticClass:
+                                                "form-control letra-boldfont",
+                                              attrs: {
+                                                type: "date",
+                                                name: "initialDate",
+                                                id: "initialDate",
+                                                placeholder: "Fecha inicio"
+                                              },
+                                              domProps: {
+                                                value:
+                                                  _vm.section_experience[k_item]
+                                                    .fechainicio
+                                              },
+                                              on: {
+                                                input: function($event) {
+                                                  if ($event.target.composing) {
+                                                    return
+                                                  }
+                                                  _vm.$set(
+                                                    _vm.section_experience[
+                                                      k_item
+                                                    ],
+                                                    "fechainicio",
+                                                    $event.target.value
+                                                  )
+                                                }
+                                              }
+                                            })
+                                          ]
+                                        ),
+                                        _vm._v(" "),
+                                        _c(
+                                          "div",
+                                          { staticClass: "col-6 text-left" },
+                                          [
+                                            _vm._m(7, true),
+                                            _vm._v(" "),
+                                            _c("input", {
+                                              directives: [
+                                                {
+                                                  name: "model",
+                                                  rawName: "v-model",
+                                                  value:
+                                                    _vm.section_experience[
+                                                      k_item
+                                                    ].fechafin,
+                                                  expression:
+                                                    "section_experience[k_item].fechafin"
+                                                }
+                                              ],
+                                              staticClass:
+                                                "form-control letra-boldfont",
+                                              attrs: {
+                                                type: "date",
+                                                name: "endDate",
+                                                id: "endDate",
+                                                placeholder: "Fecha fin"
+                                              },
+                                              domProps: {
+                                                value:
+                                                  _vm.section_experience[k_item]
+                                                    .fechafin
+                                              },
+                                              on: {
+                                                input: function($event) {
+                                                  if ($event.target.composing) {
+                                                    return
+                                                  }
+                                                  _vm.$set(
+                                                    _vm.section_experience[
+                                                      k_item
+                                                    ],
+                                                    "fechafin",
+                                                    $event.target.value
+                                                  )
+                                                }
+                                              }
+                                            })
+                                          ]
+                                        )
+                                      ])
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("div", { staticClass: "form-group" }, [
+                                      _c(
+                                        "div",
+                                        { staticClass: "row" },
+                                        [
+                                          _vm._l(
+                                            _vm.section_experience[k_item]
+                                              .materias,
+                                            function(
+                                              assignature,
+                                              k_assignature
+                                            ) {
+                                              return _c(
+                                                "div",
+                                                {
+                                                  key: k_assignature,
+                                                  staticClass: "col-6 col-sm-4"
+                                                },
+                                                [
+                                                  _c(
+                                                    "div",
+                                                    {
+                                                      staticClass:
+                                                        "input-group mb-3"
+                                                    },
+                                                    [
+                                                      _c("input", {
+                                                        directives: [
+                                                          {
+                                                            name: "model",
+                                                            rawName: "v-model",
+                                                            value:
+                                                              _vm
+                                                                .section_experience[
+                                                                k_item
+                                                              ].materias[
+                                                                k_assignature
+                                                              ],
+                                                            expression:
+                                                              "section_experience[k_item].materias[k_assignature]"
+                                                          }
+                                                        ],
+                                                        staticClass:
+                                                          "form-control letra-boldfont",
+                                                        attrs: {
+                                                          type: "text",
+                                                          placeholder:
+                                                            "Materia",
+                                                          "aria-label":
+                                                            "Materia"
+                                                        },
+                                                        domProps: {
+                                                          value:
+                                                            _vm
+                                                              .section_experience[
+                                                              k_item
+                                                            ].materias[
+                                                              k_assignature
+                                                            ]
+                                                        },
+                                                        on: {
+                                                          input: function(
+                                                            $event
+                                                          ) {
+                                                            if (
+                                                              $event.target
+                                                                .composing
+                                                            ) {
+                                                              return
+                                                            }
+                                                            _vm.$set(
+                                                              _vm
+                                                                .section_experience[
+                                                                k_item
+                                                              ].materias,
+                                                              k_assignature,
+                                                              $event.target
+                                                                .value
+                                                            )
+                                                          }
+                                                        }
+                                                      }),
+                                                      _vm._v(" "),
+                                                      k_assignature > 0
+                                                        ? _c(
+                                                            "div",
+                                                            {
+                                                              staticClass:
+                                                                "input-group-append"
+                                                            },
+                                                            [
+                                                              _c(
+                                                                "button",
+                                                                {
+                                                                  staticClass:
+                                                                    "btn btn-outline-secondary letra-boldfont",
+                                                                  attrs: {
+                                                                    type:
+                                                                      "button"
+                                                                  },
+                                                                  on: {
+                                                                    click: function(
+                                                                      $event
+                                                                    ) {
+                                                                      $event.preventDefault()
+                                                                      return (function() {
+                                                                        return _vm.RemoveAssignature(
+                                                                          k_item,
+                                                                          k_assignature
+                                                                        )
+                                                                      })($event)
+                                                                    }
+                                                                  }
+                                                                },
+                                                                [_vm._v("-")]
+                                                              )
+                                                            ]
+                                                          )
+                                                        : _vm._e()
+                                                    ]
+                                                  )
+                                                ]
+                                              )
+                                            }
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "div",
+                                            {
+                                              staticClass:
+                                                "col-6 col-sm-4 text-center"
+                                            },
+                                            [
+                                              _c(
+                                                "button",
+                                                {
+                                                  staticClass:
+                                                    "btn btn-primary letra-boldfont",
+                                                  on: {
+                                                    click: function($event) {
+                                                      $event.preventDefault()
+                                                      return (function() {
+                                                        return _vm.AddAssignature(
+                                                          k_item
+                                                        )
+                                                      })($event)
+                                                    }
+                                                  }
+                                                },
+                                                [_vm._v("+")]
+                                              )
+                                            ]
+                                          )
+                                        ],
+                                        2
+                                      )
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("div", { staticClass: "form-group" }, [
+                                      _c("textarea", {
+                                        directives: [
+                                          {
+                                            name: "model",
+                                            rawName: "v-model",
+                                            value:
+                                              _vm.section_experience[k_item]
+                                                .descripcion,
+                                            expression:
+                                              "section_experience[k_item].descripcion"
+                                          }
+                                        ],
+                                        staticClass:
+                                          "form-control letra-boldfont",
+                                        attrs: {
+                                          rows: "4",
+                                          placeholder: "Descripción del cargo"
+                                        },
+                                        domProps: {
+                                          value:
+                                            _vm.section_experience[k_item]
+                                              .descripcion
+                                        },
+                                        on: {
+                                          input: function($event) {
+                                            if ($event.target.composing) {
+                                              return
+                                            }
+                                            _vm.$set(
+                                              _vm.section_experience[k_item],
+                                              "descripcion",
+                                              $event.target.value
+                                            )
+                                          }
+                                        }
+                                      })
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("div", { staticClass: "form-group" }, [
+                                      _c("div", { staticClass: "row" }, [
+                                        _c("div", { staticClass: "col-6" }, [
+                                          _vm.documento_certificacion
+                                            ? _c(
+                                                "a",
+                                                {
+                                                  staticClass:
+                                                    "btn btn-primary btn-block letra-poppins",
+                                                  attrs: {
+                                                    href:
+                                                      _vm.documento_certificacion,
+                                                    target: "_blank"
+                                                  }
+                                                },
+                                                [
+                                                  _vm._v(
+                                                    "Certificación cargada"
+                                                  )
+                                                ]
+                                              )
+                                            : _vm._e(),
+                                          _vm._v(" "),
+                                          _c(
+                                            "div",
+                                            { staticClass: "custom-file" },
+                                            [
+                                              _c("input", {
+                                                staticClass:
+                                                  "custom-file-input",
+                                                attrs: {
+                                                  type: "file",
+                                                  name:
+                                                    "documento_certificacion",
+                                                  id: "documentCertifyFile"
+                                                },
+                                                on: { change: _vm.previewFiles }
+                                              }),
+                                              _vm._v(" "),
+                                              _c(
+                                                "label",
+                                                {
+                                                  staticClass:
+                                                    "custom-file-label letra-boldfont",
+                                                  attrs: {
+                                                    for: "documentCertifyFile"
+                                                  }
+                                                },
+                                                [_vm._v("Cargar certificación")]
+                                              )
+                                            ]
+                                          )
+                                        ]),
+                                        _vm._v(" "),
+                                        _c(
+                                          "div",
+                                          { staticClass: "col-6 text-center" },
+                                          [
+                                            _vm.documento_recomendacion
+                                              ? _c(
+                                                  "a",
+                                                  {
+                                                    staticClass:
+                                                      "btn btn-primary btn-block letra-poppins",
+                                                    attrs: {
+                                                      href:
+                                                        _vm.documento_recomendacion,
+                                                      target: "_blank"
+                                                    }
+                                                  },
+                                                  [
+                                                    _vm._v(
+                                                      "Recomendación cargada"
+                                                    )
+                                                  ]
+                                                )
+                                              : _vm._e(),
+                                            _vm._v(" "),
+                                            _c(
+                                              "div",
+                                              { staticClass: "custom-file" },
+                                              [
+                                                _c("input", {
+                                                  staticClass:
+                                                    "custom-file-input",
+                                                  attrs: {
+                                                    type: "file",
+                                                    name:
+                                                      "documento_recomendacion",
+                                                    id:
+                                                      "documentRecommendationFile"
+                                                  },
+                                                  on: {
+                                                    change: _vm.previewFiles
+                                                  }
+                                                }),
+                                                _vm._v(" "),
+                                                _c(
+                                                  "label",
+                                                  {
+                                                    staticClass:
+                                                      "custom-file-label letra-boldfont",
+                                                    attrs: {
+                                                      for:
+                                                        "documentRecommendationFile"
+                                                    }
+                                                  },
+                                                  [
+                                                    _vm._v(
+                                                      "Cargar recomendación"
+                                                    )
+                                                  ]
+                                                )
+                                              ]
+                                            )
+                                          ]
+                                        )
+                                      ])
+                                    ])
+                                  ])
+                                }),
+                                _vm._v(" "),
+                                _c("div", [
+                                  _c(
+                                    "button",
+                                    {
+                                      staticClass:
+                                        "btn btn-primary letra-poppins",
+                                      on: {
+                                        click: function($event) {
+                                          $event.preventDefault()
+                                          return (function() {
+                                            return _vm.AddExperience()
+                                          })($event)
+                                        }
+                                      }
+                                    },
+                                    [_vm._v("Agregar otra experiencia")]
+                                  )
+                                ])
+                              ],
+                              2
+                            )
                           ]),
                           _vm._v(" "),
-                          _c("input", {
-                            staticClass: "form-control-file",
-                            attrs: {
-                              type: "file",
-                              name: "recommendation",
-                              id: "recommendation"
-                            },
-                            on: { change: _vm.previewFiles }
-                          })
+                          _c("div", { staticClass: "col-12 col-sm-6" }, [
+                            _vm._m(8),
+                            _vm._v(" "),
+                            _c(
+                              "div",
+                              [
+                                _vm._l(_vm.classes, function(classs, k_class) {
+                                  return _c("section", { key: k_class }, [
+                                    k_class
+                                      ? _c(
+                                          "div",
+                                          {
+                                            staticClass: "form-group text-left"
+                                          },
+                                          [
+                                            _c(
+                                              "button",
+                                              {
+                                                staticClass:
+                                                  "btn btn-secondary letra-boldfont",
+                                                on: {
+                                                  click: function($event) {
+                                                    $event.preventDefault()
+                                                    return (function() {
+                                                      return _vm.RemoveClasses(
+                                                        k_class
+                                                      )
+                                                    })($event)
+                                                  }
+                                                }
+                                              },
+                                              [_vm._v("-")]
+                                            )
+                                          ]
+                                        )
+                                      : _vm._e(),
+                                    _vm._v(" "),
+                                    _c(
+                                      "div",
+                                      { staticClass: "form-group" },
+                                      [
+                                        _c("multiselect", {
+                                          attrs: {
+                                            name: "type",
+                                            options: _vm.areas,
+                                            multiple: false,
+                                            "close-on-select": false,
+                                            "clear-on-select": false,
+                                            "preserve-search": false,
+                                            placeholder: "Seleccione una",
+                                            label: "text",
+                                            "track-by": "id",
+                                            "preselect-first": false
+                                          },
+                                          scopedSlots: _vm._u(
+                                            [
+                                              {
+                                                key: "selection",
+                                                fn: function(ref) {
+                                                  var values = ref.values
+                                                  var isOpen = ref.isOpen
+                                                  return [
+                                                    values.length && !isOpen
+                                                      ? _c(
+                                                          "span",
+                                                          {
+                                                            staticClass:
+                                                              "multiselect__single"
+                                                          },
+                                                          [
+                                                            _vm._v(
+                                                              "\n                                                                    " +
+                                                                _vm._s(
+                                                                  values.length
+                                                                ) +
+                                                                "\n                                                                    opciones\n                                                                    selecionadas\n                                                                "
+                                                            )
+                                                          ]
+                                                        )
+                                                      : _vm._e()
+                                                  ]
+                                                }
+                                              }
+                                            ],
+                                            null,
+                                            true
+                                          ),
+                                          model: {
+                                            value: classs.type,
+                                            callback: function($$v) {
+                                              _vm.$set(classs, "type", $$v)
+                                            },
+                                            expression: "classs.type"
+                                          }
+                                        })
+                                      ],
+                                      1
+                                    ),
+                                    _vm._v(" "),
+                                    _c("div", { staticClass: "form-group" }, [
+                                      _c("textarea", {
+                                        directives: [
+                                          {
+                                            name: "model",
+                                            rawName: "v-model",
+                                            value: classs.description,
+                                            expression: "classs.description"
+                                          }
+                                        ],
+                                        staticClass:
+                                          "form-control letra-boldfont",
+                                        attrs: {
+                                          rows: "4",
+                                          placeholder: "Descripción"
+                                        },
+                                        domProps: { value: classs.description },
+                                        on: {
+                                          input: function($event) {
+                                            if ($event.target.composing) {
+                                              return
+                                            }
+                                            _vm.$set(
+                                              classs,
+                                              "description",
+                                              $event.target.value
+                                            )
+                                          }
+                                        }
+                                      })
+                                    ])
+                                  ])
+                                }),
+                                _vm._v(" "),
+                                _c("div", [
+                                  _c(
+                                    "button",
+                                    {
+                                      staticClass:
+                                        "btn btn-primary letra-poppins",
+                                      on: {
+                                        click: function($event) {
+                                          $event.preventDefault()
+                                          return (function() {
+                                            return _vm.AddClasses()
+                                          })($event)
+                                        }
+                                      }
+                                    },
+                                    [_vm._v("Agregar otra clase")]
+                                  )
+                                ])
+                              ],
+                              2
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "col-12 col-sm-6" }, [
+                            _vm._m(9),
+                            _vm._v(" "),
+                            _c("div", [
+                              _c("div", { staticClass: "form-group" }, [
+                                _c(
+                                  "div",
+                                  { staticClass: "row" },
+                                  [
+                                    _vm._l(_vm.keywords, function(
+                                      word,
+                                      k_word
+                                    ) {
+                                      return _c(
+                                        "div",
+                                        {
+                                          key: k_word,
+                                          staticClass: "col-6 col-sm-4"
+                                        },
+                                        [
+                                          _c(
+                                            "div",
+                                            { staticClass: "input-group mb-3" },
+                                            [
+                                              _c("input", {
+                                                directives: [
+                                                  {
+                                                    name: "model",
+                                                    rawName: "v-model",
+                                                    value: _vm.keywords[k_word],
+                                                    expression:
+                                                      "keywords[k_word]"
+                                                  }
+                                                ],
+                                                staticClass:
+                                                  "form-control letra-boldfont",
+                                                attrs: {
+                                                  type: "text",
+                                                  placeholder: "Palabra",
+                                                  "aria-label": "Materia"
+                                                },
+                                                domProps: {
+                                                  value: _vm.keywords[k_word]
+                                                },
+                                                on: {
+                                                  input: function($event) {
+                                                    if (
+                                                      $event.target.composing
+                                                    ) {
+                                                      return
+                                                    }
+                                                    _vm.$set(
+                                                      _vm.keywords,
+                                                      k_word,
+                                                      $event.target.value
+                                                    )
+                                                  }
+                                                }
+                                              }),
+                                              _vm._v(" "),
+                                              k_word > 0
+                                                ? _c(
+                                                    "div",
+                                                    {
+                                                      staticClass:
+                                                        "input-group-append"
+                                                    },
+                                                    [
+                                                      _c(
+                                                        "button",
+                                                        {
+                                                          staticClass:
+                                                            "btn btn-outline-secondary letra-boldfont",
+                                                          attrs: {
+                                                            type: "button"
+                                                          },
+                                                          on: {
+                                                            click: function(
+                                                              $event
+                                                            ) {
+                                                              $event.preventDefault()
+                                                              return (function() {
+                                                                return _vm.RemoveKeyWord(
+                                                                  k_word
+                                                                )
+                                                              })($event)
+                                                            }
+                                                          }
+                                                        },
+                                                        [_vm._v("-")]
+                                                      )
+                                                    ]
+                                                  )
+                                                : _vm._e()
+                                            ]
+                                          )
+                                        ]
+                                      )
+                                    }),
+                                    _vm._v(" "),
+                                    _c(
+                                      "div",
+                                      {
+                                        staticClass:
+                                          "col-6 col-sm-4 text-center"
+                                      },
+                                      [
+                                        _c(
+                                          "button",
+                                          {
+                                            staticClass:
+                                              "btn btn-primary letra-boldfont",
+                                            on: {
+                                              click: function($event) {
+                                                $event.preventDefault()
+                                                return (function() {
+                                                  return _vm.AddKeyWord()
+                                                })($event)
+                                              }
+                                            }
+                                          },
+                                          [_vm._v("+")]
+                                        )
+                                      ]
+                                    )
+                                  ],
+                                  2
+                                )
+                              ])
+                            ])
+                          ])
                         ])
                       ])
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _vm._m(4),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    {
-                      staticClass:
-                        "row row-cols-1 shadow p-3 mb-5 bg-body rounded"
-                    },
-                    [
-                      _c("div", { staticClass: "col" }, [
-                        _c("div", { staticClass: "form-group" }, [
-                          _c("label", { attrs: { for: "class_offer" } }, [
-                            _vm._v("Clase Ofrecida")
-                          ]),
-                          _vm._v(" "),
-                          _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.class_offer,
-                                expression: "class_offer"
-                              }
-                            ],
-                            staticClass: "form-control",
-                            attrs: { type: "text", id: "class_offer" },
-                            domProps: { value: _vm.class_offer },
-                            on: {
-                              input: function($event) {
-                                if ($event.target.composing) {
-                                  return
-                                }
-                                _vm.class_offer = $event.target.value
-                              }
-                            }
-                          })
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "col" }, [
-                        _c("div", { staticClass: "form-group" }, [
-                          _c("label", { attrs: { for: "key_words" } }, [
-                            _vm._v("Palabras Clave")
-                          ]),
-                          _vm._v(" "),
-                          _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.key_words,
-                                expression: "key_words"
-                              }
-                            ],
-                            staticClass: "form-control",
-                            attrs: { type: "text", id: "key_words" },
-                            domProps: { value: _vm.key_words },
-                            on: {
-                              input: function($event) {
-                                if ($event.target.composing) {
-                                  return
-                                }
-                                _vm.key_words = $event.target.value
-                              }
-                            }
-                          })
-                        ])
-                      ])
-                    ]
-                  )
-                ])
-              ]),
-              _vm._v(" "),
-              _c(
-                "button",
-                {
-                  staticClass: "btn btn-primary",
-                  attrs: { type: "submit" },
-                  on: { click: _vm.addData }
-                },
-                [_vm._v("Registrarme")]
-              )
+                    ])
+                  ])
+                ]),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-primary",
+                    attrs: { type: "submit" },
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        return (function() {
+                          return _vm.addData()
+                        })($event)
+                      }
+                    }
+                  },
+                  [_vm._v("Registrarme")]
+                )
+              ])
             ])
           ])
         ])
@@ -1048,16 +2125,92 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "text-center" }, [
-      _c("h4", [_vm._v("Datos Profesionales")])
+    return _c("div", { staticClass: "header_info" }, [
+      _c("img", {
+        attrs: {
+          width: "35px",
+          src:
+            "https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/TAREAS_naranja.png?alt=media&token=0ffb3c21-349a-4615-b57c-50dac3db8285",
+          alt: "icon"
+        }
+      }),
+      _vm._v(" "),
+      _c("h5", [_vm._v("Educación")])
     ])
   },
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "text-center" }, [
-      _c("h4", [_vm._v("Busqueda en plataforma")])
+    return _c("label", { attrs: { for: "gradeDate" } }, [
+      _c("small", [_vm._v("Fecha grado:")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "header_info" }, [
+      _c("img", {
+        attrs: {
+          width: "35px",
+          src:
+            "https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/MIS-CURSOS.png?alt=media&token=47515df0-5b95-48b4-bb08-10257108169b",
+          alt: "icon"
+        }
+      }),
+      _vm._v(" "),
+      _c("h5", [_vm._v("Experiencia como educador")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { attrs: { for: "gradeDate" } }, [
+      _c("small", [_vm._v("Fecha inicio:")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { attrs: { for: "endDate" } }, [
+      _c("small", [_vm._v("Fecha de finalización:")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "header_info" }, [
+      _c("img", {
+        attrs: {
+          width: "35px",
+          src:
+            "https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/MIS-CURSOS.png?alt=media&token=47515df0-5b95-48b4-bb08-10257108169b",
+          alt: "icon"
+        }
+      }),
+      _vm._v(" "),
+      _c("h5", [_vm._v("Clases a ofrecer")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "header_info" }, [
+      _c("img", {
+        attrs: {
+          width: "35px",
+          src:
+            "https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/MIS-CURSOS.png?alt=media&token=47515df0-5b95-48b4-bb08-10257108169b",
+          alt: "icon"
+        }
+      }),
+      _vm._v(" "),
+      _c("h5", [_vm._v("Palabras clave")])
     ])
   }
 ]
