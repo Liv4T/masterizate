@@ -48,6 +48,9 @@
                                 <div v-if="isEmpty === true">
                                     <p>No se encuentra información del codigo</p>
                                 </div>
+                                <div v-if="isEmpty === false">
+                                    <p>Codigo Encontrado, Puedes vincular el codigo dando click en Guardar</p>
+                                </div>
                             </div>
                             <div class="modal-footer" v-show="isEmpty === false">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
@@ -103,7 +106,6 @@
             },
 
             edit(data){
-                console.log(data);
                 this.code = data.code_vinculated,
                 this.id_to_edit= data.id;
                 $("#code").modal("show");
