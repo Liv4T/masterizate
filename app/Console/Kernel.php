@@ -29,7 +29,7 @@ class Kernel extends ConsoleKernel
         // $schedule->command('inspire')
         //          ->hourly();
 
-        $schedule->command('activate:users')->everyFiveMinute();
+        $schedule->command('activate:users')->everyFiveMinutes();
     }
 
     /**
