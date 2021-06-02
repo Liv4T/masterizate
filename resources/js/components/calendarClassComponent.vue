@@ -162,7 +162,15 @@
           /* Se da formato a fechas para poder comparar las 
           *  reuniones que sucedieron en el dia y las que estan agendadas a futuro
           */
-            return events.filter((e) => moment(e.dateTo).format('YYYY-MM-DD') >= moment().format('YYYY-MM-DD'));
+          var momento = moment();
+          console.log(momento);
+          // events.forEach(e=>{
+          //   console.log(e);
+          //   console.log(moment(e.dateTo)>= moment());
+          // })
+          
+          return events.filter(e=>moment(e.dateTo)>= moment());
+          // return events.filter((e) => moment(e.dateTo).format('MMMM Do YYYY, h:mm:ss a') >= moment().format('MMMM Do YYYY, h:mm:ss a'));
         },
 
         UpdateLinkTutorial(tutorial) {

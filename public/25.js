@@ -169,9 +169,15 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale("es");
       /* Se da formato a fechas para poder comparar las 
       *  reuniones que sucedieron en el dia y las que estan agendadas a futuro
       */
+      var momento = moment__WEBPACK_IMPORTED_MODULE_0___default()();
+      console.log(momento); // events.forEach(e=>{
+      //   console.log(e);
+      //   console.log(moment(e.dateTo)>= moment());
+      // })
+
       return events.filter(function (e) {
-        return moment__WEBPACK_IMPORTED_MODULE_0___default()(e.dateTo).format('YYYY-MM-DD') >= moment__WEBPACK_IMPORTED_MODULE_0___default()().format('YYYY-MM-DD');
-      });
+        return moment__WEBPACK_IMPORTED_MODULE_0___default()(e.dateTo) >= moment__WEBPACK_IMPORTED_MODULE_0___default()();
+      }); // return events.filter((e) => moment(e.dateTo).format('MMMM Do YYYY, h:mm:ss a') >= moment().format('MMMM Do YYYY, h:mm:ss a'));
     },
     UpdateLinkTutorial: function UpdateLinkTutorial(tutorial) {
       axios.put("/api/tutor-schedule/event/".concat(tutorial.id_schedulestudent, "/link"), {
