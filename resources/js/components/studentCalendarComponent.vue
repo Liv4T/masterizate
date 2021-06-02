@@ -63,30 +63,27 @@
                 </div>
               </div>
             </div>
-            <div class="col-4">
-              <div class="row">
-                <div class="col-12">
-                  <h4>Actividades pendientes</h4>
-                  <div class="row">
-                    <div class="col-12">
-                      <div class="card activity-event-container">
-                        <div class="activity-event event-blue" v-for="(activity, i_activity) in activities" v-bind:key="i_activity">
-                          <div class="activity-event-info">
-                            <span>[{{ activity.area_name }} {{ activity.classroom_name }}]<br />{{ activity.name }}</span>
-                          </div>
-                          <div class="activity-event-date" v-if="activity.interaction_state == 2">
-                            <small>Fecha Retroalimentación:</small>
-                            <span>{{ activity.feedback_date | formatDate }}</span>
-                          </div>
-                          <div class="activity-event-date" v-else>
-                            <small>Fecha máxima entrega:</small>
-                            <span>{{ activity.delivery_max_date | formatDate }}</span>
-                          </div>
-
-                          <div class="activity-event-action">
-                            <a v-if="activity.interaction_state == 2" class="btn btn-link" :href="`/estudiante/modulo/${activity.weekly_plan_id}/clase/${activity.id_class}`">Retroalimentación</a>
-                            <a v-else class="btn btn-link" :href="`/estudiante/modulo/${activity.weekly_plan_id}/clase/${activity.id_class}`">Entregar</a>
-                          </div>
+            <div class="row" style="margin-top:20px">
+                <div class="col-8">
+                    <h4>Clases presenciales</h4>
+                    <div class="row" v-for="(meeting, i_meeting) in filterPendingEvents(meetings)" v-bind:key="i_meeting">
+                        <div class="col-12">
+                            <div class="card class-event">
+                                <div class="class-event-info"> {{meeting.area}} {{meeting.classroom}}: {{meeting.name}} </div>
+                                <div class="class-event-date">
+                                    <div>
+                                        <small>Desde:</small>
+                                        <span>{{meeting.dateFrom|formatDate}}</span>
+                                    </div>
+                                    <div>
+                                        <small>Hasta:</small>
+                                        <span>{{meeting.dateTo|formatDate}}</span>
+                                    </div>
+                                </div>
+                                <div class="class-event-action">
+                                    <a class="btn btn-primary" html:type="_blank" :href="meeting.hangout">Ir a clase</a>
+                                </div>
+                            </div>
                         </div>
                       </div>
                     </div>
@@ -123,9 +120,7 @@
             </div>
           </div>
         </div>
-      </div>
-    </div>
-  </div>
+      
 </template>
 
 <script>
@@ -178,7 +173,7 @@
     mounted() {
       const fullCalendarApi = this.$refs.fullCalendar.getApi();
 
-      axios.get("/api/student/event").then((response) => {
+    axios.get("/getAllEvents").then((response) => {
         this.meetings = response.data;
         if (this.meetings && this.meetings.length > 0) {
           this.meetings.forEach((meeting) => {
@@ -276,6 +271,44 @@
             }
           });
         }
+  },
+  methods: {
+      filterPendingEvents:(events)=>{
+            var momento = moment();
+            console.log(momento);
+            return events.filter(e=>moment(e.dateTo)>= moment());
+        //   return events.filter(e=>moment(e.dateTo)>=moment().add(5, 'hours'));
+          // return events.filter((e) => moment(e.dateTo).format('MMMM Do YYYY, h:mm:ss a') >= moment().format('MMMM Do YYYY, h:mm:ss a'));
+      },
+       displayActivitiesChange(){
+        const fullCalendarApi=this.$refs.fullCalendar.getApi();
+
+          if(this.display_activities)
+          {
+              this.activities.forEach(activity=>{
+                if(activity.interaction_state==1)//delivery max
+                {
+                    fullCalendarApi.addEvent({ title: `${activity.area_name} ${activity.classroom_name} | Actividad: ${activity.name}`, date: activity.delivery_max_date ,description: activity.description,url:`/estudiante/modulo/${activity.weekly_plan_id}/clase/${activity.id_class}` ,backgroundColor:'blue' });
+                }
+                else if(activity.interaction_state==2){//feedback
+                    fullCalendarApi.addEvent({ title: `${activity.area_name} ${activity.classroom_name} | Actividad: ${activity.name}`, date: activity.feedback_date ,description: activity.description,url:`/estudiante/modulo/${activity.weekly_plan_id}/clase/${activity.id_class}` ,backgroundColor:'blue' });
+                }
+                else
+                {
+                     fullCalendarApi.addEvent({ title: `${activity.area_name} ${activity.classroom_name} | Actividad: ${activity.name}`, date: activity.delivery_max_date ,description: activity.description,url:`/estudiante/modulo/${activity.weekly_plan_id}/clase/${activity.id_class}` ,backgroundColor:'blue' });
+                }
+
+            })
+          }
+          else{
+            const currentEvents=  fullCalendarApi.getEvents();
+            currentEvents.forEach(event=>{
+                if(event.backgroundColor=='blue')
+                {
+                    event.remove();
+                }
+            });
+          }
       },
       displayEventsChange() {
         const fullCalendarApi = this.$refs.fullCalendar.getApi();
@@ -368,7 +401,8 @@
         }
       },
     },
-  };
+  }
+  }
 </script>
 <style>
   .fc-daygrid-event .fc-event-title {

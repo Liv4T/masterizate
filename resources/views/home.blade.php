@@ -1,7 +1,8 @@
-@extends('layouts.app')
+@extends('layouts.appHome')
 
 @section('content')
-<home></home>
+<new-home></new-home>
+<footer-home></footer-home>
 <div class="container">
 
     <div class="row justify-content-center">

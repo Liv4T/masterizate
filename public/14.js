@@ -111,6 +111,7 @@ moment__WEBPACK_IMPORTED_MODULE_1___default.a.locale("es");
       lastId: '',
       display: "none",
       meetUp: "",
+      formatDate: "",
       id_padreUp: ""
     };
   },

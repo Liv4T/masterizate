@@ -1,5 +1,6 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[156],{
 
+<<<<<<< HEAD
 /***/ "./resources/js/components/tutorRegister.vue":
 /*!***************************************************!*\
   !*** ./resources/js/components/tutorRegister.vue ***!
@@ -35,6 +36,16 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 component.options.__file = "resources/js/components/tutorRegister.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 >>>>>>> cfdd8fff4b467d637eba6dc6355ee15471428d65
+=======
+/***/ "./resources/js/components/ModalCreateGovernmentMember.vue":
+/*!*****************************************************************!*\
+  !*** ./resources/js/components/ModalCreateGovernmentMember.vue ***!
+  \*****************************************************************/
+/*! exports provided: default */
+/***/ (function(module, exports) {
+
+throw new Error("Module build failed (from ./node_modules/vue-loader/lib/index.js):\nError: ENOENT: no such file or directory, open 'D:\\Trabajo\\Liv4t\\Web\\Liv4t-Web\\resources\\js\\components\\ModalCreateGovernmentMember.vue'");
+>>>>>>> 67c8d783352e8ff9628d268f43da2e4473a0f5d0
 
 /***/ })
 

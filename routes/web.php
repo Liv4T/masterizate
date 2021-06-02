@@ -354,6 +354,7 @@ Route::get('showTrivia/{id}', 'ActivityController@showTrivia');
 
 Route::post('createEvent', 'EventsController@createEvent')->name('createEvent');
 Route::get('/getAllEvents', 'EventsController@indexEvents')->name('getAllEvents');
+Route::get('/getAllEventsAdmin', 'EventsController@getAllEventsAdmin')->name('getAllEventsAdmin');
 Route::get('editEvent/{id}', 'EventsController@findEvent')->name('editEvent');
 Route::get('lastId', 'EventsController@lastID')->name('lastID');
 Route::get('updatePadre/{id}', 'EventsController@Update_padre')->name('Update_padre');
@@ -750,6 +751,7 @@ Route::resource('tutorRegister','TutorProfileController');
 Route::put('/test','ClassController@deactivateClass')->name('test');
 
 //api rest
+
 Route::get('/api/achievement/{id_achievement}/indicator', 'IndicatorController@getByAchievement');
 Route::put('/api/teacher/activity/{id_activity}/student/{id_student}/score', 'ActivityController@saveTeacherScore');
 Route::get('/api/teacher/module/{id_module}/class/{id_course}', 'ClassController@getCourse');

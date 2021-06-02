@@ -613,7 +613,7 @@ class CoursesController extends Controller
 
                     if(isset($class))
                     {
-                        $classes_content=ClassContent::where('id_class',$class_planning->id)->where('deleted',0)->get();
+                        $classes_content=ClassContent::where('id_class',$clase->id)->where('deleted',0)->get();
                         foreach ($classes_content as $key_cc => $class_content) {
                             ClassContent::create([
                                 'id_class'=>$class->id,

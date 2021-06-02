@@ -80,7 +80,8 @@
             <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5LM3568"
             height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <!-- End Google Tag Manager (noscript) -->
-       <nav class="navbar fixed-top navbar-expand-md navbar-light navbar-laravel">
+        
+        <nav class="navbar fixed-top navbar-expand-md navbar-light navbar-laravel">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     <div>
                         {{ config('Life4teach') }}

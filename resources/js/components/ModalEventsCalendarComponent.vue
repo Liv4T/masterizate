@@ -99,6 +99,7 @@
                 lastId: '',
                 display: "none",
                 meetUp: "",
+                formatDate:"",
                 id_padreUp: "",
             };
         },
