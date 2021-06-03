@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
     @include('menu')
-    <piar-piar-planification ></piar-piar-planification>
+    <piar-planification ></piar-planification>
     <footers></footers>
     <div class="container">
       <!--<app-vue></app-vue>-->

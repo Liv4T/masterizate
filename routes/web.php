@@ -941,3 +941,4 @@ Route::get('getNursing','NursingComponentController@getNursignData');
 
 //Ruta para estudiantes PIAR
 Route::resource('piar','PiarController');
+Route::resource('piarPlanification','PIARPlanificationController');

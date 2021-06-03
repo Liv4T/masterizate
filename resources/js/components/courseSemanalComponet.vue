@@ -1,8 +1,6 @@
 <template>
   <div>
-    <div class="back">
-      <div class="row">
-        <div class="col-md-11 mx-auto">
+        <div class="col-md-12 mx-auto">
           <div class="custom-card text-center">
             <h3 class="card-header fondo">Mis Cursos</h3>
             <form class="needs-validation" novalidate>
@@ -83,8 +81,6 @@
           </div>
         </div>
       </div>
-    </div>
-  </div>
 </template>
 <script>
 (function () {
