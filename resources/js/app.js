@@ -310,7 +310,7 @@ Vue.component("menu-adm-component", ()=>import("./components/newMenuAdm.vue"));
 //Modulo PIAR 
 Vue.component("piar-component", ()=>import("./components/PIARStudentSelect.vue"));
 Vue.component("piar-planification", ()=>import("./components/PIARPlanification.vue"));
-
+Vue.component("piar-anual-planification", ()=>import("./components/PIARAnualPlanificationComponent.vue"));
 Vue.use(CKEditor);
 
 
