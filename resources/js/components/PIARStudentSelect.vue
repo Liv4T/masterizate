@@ -1,24 +1,27 @@
 <template>
-    <div class="back">
+    <div>
         <div class="row justify-content-center">
-            <div id="crud" class="col-sm-10">
-                <div class="card">
-                    <div class="card-header">
-                        <p>Selección de estudiantes PIAR
+            <div id="crud" class="col-sm-12">
+                <div class="card mt-2 ml-3 mr-3">
+                    <div class="card-header text-center">
+                        <h4>Selección de estudiantes PIAR</h4>
                     </div>
                     <div>
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Crear Registro</button>
+                        <button type="button" class="btn btn-primary mt-2 ml-3" data-toggle="modal" data-target="#exampleModal">Crear Registro</button>
                     </div>
                     <div class="card-body">
-                        <table>
-                            <thead class="table table-striped table-hover">
+                        <table class="table table-striped table-hover">
+                            <thead>
                                 <tr>
                                     <th>Nombre</th>
                                     <th>Apellido</th>
+                                    <th>Grado</th>
+                                    <th>Acción</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
+                                    <td></td>
                                     <td></td>
                                     <td></td>
                                 </tr>
@@ -64,20 +67,38 @@
 </template>
 
 <script>
+    import Multiselect from "vue-multiselect";
+    Vue.component("multiselect", Multiselect);
     export default {
         data(){
             return{
+                allStudents:[],
+                studentsOptions:[]
             }
         },
         
         mounted(){
+            this.getAllStudents();
+        },
 
+        components: {
+            Multiselect
         },
 
         methods:{
             getAllStudents(){
                 axios.get('getAllStudents').then((response)=>{
-                    this.allStudents = response.data
+                    let students = response.data;
+                    console.log(students);
+                    students.forEach((el)=>{
+                        this.allStudents.push({
+                            id: el.user_id,
+                            id_grade: el.id_grade,
+                            grade: el.grade,
+                            course: el.course,
+                            text: el.name+' '+el.last_name
+                        })
+                    })
                 })
             }
         }
