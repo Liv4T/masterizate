@@ -20,12 +20,56 @@
                                     <input type="number" class="form-control" v-model="course.hourly_intensity" v-bind:readonly="course.state==2"/>
                                 </div>
                             </div>
-                             <div class="row">
+                            <div class="row">
                                 <div class="col-12">
                                     <label><span class="required">*</span>Descripción:</label>
                                     <textarea class="form-control" cols="40" rows="4" v-model="course.description" v-bind:readonly="course.state==2"></textarea>
                                 </div>
                             </div>
+
+                            <div class="row">
+                                <div class="col-12">
+                                    <label><span class="required">*</span>Actividad Para :</label>
+                                    <div>
+                                        <label for="piar">Todos los Estudiantes</label>
+                                        <input type="checkbox" id="students" name="students" v-model="activityForAllStudents">
+                                    </div>
+
+                                    <div v-if="activityForAllStudents == true">
+                                        <input type="checkbox" id="piar" name="students" :value="true" v-model="activityForPIARStudents" disabled>
+                                        <label for="piar">Estudiantes PIAR</label><br>
+
+                                        <input type="checkbox" id="specific" name="students" :value="true" v-model="activityForSelectStudents" disabled>
+                                        <label for="specific">Estudiantes en Especifico</label>
+                                    </div>
+
+                                    <div v-else>
+                                        <input type="checkbox" id="piar" name="students" v-model="activityForPIARStudents">
+                                        <label for="piar">Estudiantes PIAR</label><br>
+
+                                        <input type="checkbox" id="specific" name="students" v-model="activityForSelectStudents">
+                                        <label for="specific">Estudiantes en Especifico</label>
+                                    </div>
+                                    
+                                    <div v-if="activityForPIARStudents == true || activityForSelectStudents == true">
+                                        <label>Selecciona Los estudiantes</label>
+                                        <multiselect v-model="saveStudent" :options="selectedStudentsData" :multiple="true"
+                                            :close-on-select="false" :clear-on-select="false"
+                                            :preserve-search="true" placeholder="Seleccione una o varias"
+                                            label="text" track-by="id" :preselect-first="true">
+                                                <template slot="selection" slot-scope="{ values, isOpen }">
+                                                    <span
+                                                        class="multiselect__single"
+                                                        v-if="values.length &amp;&amp; !isOpen">{{ values.length }}
+                                                            opciones
+                                                            selecionadas
+                                                    </span>
+                                                </template>
+                                        </multiselect>
+                                    </div>
+                                </div>
+                            </div>
+                            
                             <div class="row justify-content-center">
                                   <div class="col-5 div-resource" v-for="(item_content,key_c) in course.content" v-bind:key="key_c">
 
@@ -201,8 +245,12 @@ export default {
             is_loading:false,
             weekly_plan:{},
             errors: [],
+            selectedStudentsData:[],
+            saveStudents:[],
             weekly_plan_detail:[],
-
+            activityForAllStudents:false,
+            activityForPIARStudents:this.activityForAllStudents == true ? false : "",
+            activityForSelectStudents:this.activityForAllStudents == true ? false : "",
             course:{
                 content:[
                     {
@@ -232,7 +280,6 @@ export default {
         };
     },
     mounted() {
-
         axios.get(`/showClass/${this.id_module}`).then((response) => {
             this.achievements=response.data.achievements;
              this.nameArea = `${response.data.area.name} ${response.data.classroom.name}`;
@@ -278,13 +325,7 @@ export default {
                         });
                     }
             });
-
         }
-
-
-
-
-
     },
     methods: {
 
