@@ -154,6 +154,46 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 (function () {
   "use strict";
 
@@ -206,14 +246,19 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
         logro: "",
         porcentaje: "0"
       }],
+      inputsPIAR: [{
+        logroPIAR: "",
+        porcentajePIAR: "0"
+      }],
       inputs1_saved: [],
+      inputsPIAR_saved: [],
       inputs_saved: [],
       newTrimestre: [],
       newLogro1: "",
       newLogro2: "",
       newLogro3: "",
       newLogro4: ""
-    }, _defineProperty(_ref, "newTrimestre", []), _defineProperty(_ref, "newLogro", []), _defineProperty(_ref, "trimestre", false), _defineProperty(_ref, "logro_1", ""), _defineProperty(_ref, "logro_2", ""), _defineProperty(_ref, "logro_3", ""), _defineProperty(_ref, "logro_4", ""), _defineProperty(_ref, "fillC", []), _defineProperty(_ref, "anual", []), _defineProperty(_ref, "newAnual", []), _defineProperty(_ref, "errors", []), _defineProperty(_ref, "isSynchronized", true), _defineProperty(_ref, "isLoading", false), _ref;
+    }, _defineProperty(_ref, "newTrimestre", []), _defineProperty(_ref, "newLogro", []), _defineProperty(_ref, "trimestre", false), _defineProperty(_ref, "logro_1", ""), _defineProperty(_ref, "logro_2", ""), _defineProperty(_ref, "logro_3", ""), _defineProperty(_ref, "logro_4", ""), _defineProperty(_ref, "fillC", []), _defineProperty(_ref, "anual", []), _defineProperty(_ref, "newAnual", []), _defineProperty(_ref, "errors", []), _defineProperty(_ref, "isSynchronized", true), _defineProperty(_ref, "isLoading", false), _defineProperty(_ref, "showPiarPlan", false), _ref;
   },
   mounted: function mounted() {
     var _this = this;
@@ -275,19 +320,25 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
         this.inputs[i][property] = this.inputs[i][property].replace(/[^a-zA-Z0-9-.ñáéíóú_*+-/=&%$#!()?¡¿ ]/g, "|");
       } else if (type == 'inputs1') {
         this.inputs1[i][property] = this.inputs1[i][property].replace(/[^a-zA-Z0-9-.ñáéíóú_*+-/=&%$#!()?¡¿ ]/g, "|");
+      } else if (type == 'inputsPIAR') {
+        this.inputsPIAR[i][property] = this.inputsPIAR[i][property].replace(/[^a-zA-Z0-9-.ñáéíóú_*+-/=&%$#!()?¡¿ ]/g, "|");
       } //console.log(l.normalize('NFD').replace(/([^n\u0300-\u036f]|n(?!\u0303(?![\u0300-\u036f])))[\u0300-\u036f]+/gi,"$1"));
       //serialize data on localstorage
 
 
       localStorage.setItem(this.serialLocalStorage, window.btoa(unescape(encodeURIComponent(JSON.stringify({
         inputs1: this.inputs1,
-        inputs: this.inputs
+        inputs: this.inputs,
+        inputsPIAR: this.inputsPIAR
       })))));
       this.isSynchronized = false;
     },
     getMenu: function getMenu() {
       window.location = "/actividad_g";
       this.isLoading = false;
+    },
+    showPIARPlan: function showPIARPlan() {
+      this.showPiarPlan = !this.showPiarPlan;
     },
     add: function add(index) {
       this.inputs.push({
@@ -306,6 +357,15 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
     },
     remove1: function remove1(index) {
       this.inputs1.splice(index, 1);
+    },
+    addPIAR: function addPIAR(index) {
+      this.inputsPIAR.push({
+        logroPIAR: "",
+        porcentajePIAR: "0"
+      });
+    },
+    removePIAR: function removePIAR(index) {
+      this.inputsPIAR.splice(index, 1);
     },
     isLoadingEvent: function isLoadingEvent() {
       return this.isLoading;
@@ -435,141 +495,312 @@ var render = function() {
                     _c(
                       "tab-content",
                       { attrs: { title: "Anual" } },
-                      _vm._l(_vm.inputs1, function(input1, t) {
-                        return _c(
-                          "div",
-                          { key: t, staticClass: "form-group mx-auto" },
-                          [
-                            _c(
-                              "div",
-                              { staticClass: "classroom-planning-section" },
-                              [
-                                _c("strong", [_vm._v("Logro:")]),
-                                _vm._v(" "),
-                                _c("input", {
-                                  directives: [
-                                    {
-                                      name: "model",
-                                      rawName: "v-model",
-                                      value: input1.porcentaje,
-                                      expression: "input1.porcentaje"
-                                    }
-                                  ],
-                                  staticClass: "form-control form-control-sm",
-                                  staticStyle: { width: "50px" },
-                                  attrs: { type: "number" },
-                                  domProps: { value: input1.porcentaje },
-                                  on: {
-                                    change: function($event) {
-                                      return _vm.annualContentUpdateEvent(
-                                        $event,
-                                        t,
-                                        "inputs1"
-                                      )
-                                    },
-                                    input: function($event) {
-                                      if ($event.target.composing) {
-                                        return
-                                      }
-                                      _vm.$set(
-                                        input1,
-                                        "porcentaje",
-                                        $event.target.value
-                                      )
-                                    }
-                                  }
-                                }),
-                                _vm._v("%\r\n                    "),
-                                _c("span", [
-                                  _c(
-                                    "a",
-                                    {
-                                      directives: [
-                                        {
-                                          name: "show",
-                                          rawName: "v-show",
-                                          value:
-                                            t > 0 &&
-                                            _vm.inputs1_saved.length <= t,
-                                          expression:
-                                            "(t>0 && inputs1_saved.length<=t)"
-                                        }
-                                      ],
-                                      staticClass: "badge badge-danger",
-                                      attrs: { href: "#" },
-                                      on: {
-                                        click: function($event) {
-                                          $event.preventDefault()
-                                          return _vm.remove1(t)
-                                        }
-                                      }
-                                    },
-                                    [_vm._v("-")]
-                                  ),
+                      [
+                        _vm._l(_vm.inputs1, function(input1, t) {
+                          return _c(
+                            "div",
+                            { key: t, staticClass: "form-group mx-auto" },
+                            [
+                              _c(
+                                "div",
+                                { staticClass: "classroom-planning-section" },
+                                [
+                                  _c("strong", [_vm._v("Logro:")]),
                                   _vm._v(" "),
-                                  _c(
-                                    "a",
-                                    {
-                                      directives: [
-                                        {
-                                          name: "show",
-                                          rawName: "v-show",
-                                          value: t == _vm.inputs1.length - 1,
-                                          expression: "t == inputs1.length -1"
-                                        }
-                                      ],
-                                      staticClass: "badge badge-primary",
-                                      attrs: { href: "#" },
-                                      on: {
-                                        click: function($event) {
-                                          $event.preventDefault()
-                                          return _vm.add1(t)
-                                        }
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: input1.porcentaje,
+                                        expression: "input1.porcentaje"
                                       }
-                                    },
-                                    [_vm._v("+")]
-                                  )
-                                ])
-                              ]
-                            ),
-                            _vm._v(" "),
-                            _c("textarea", {
-                              directives: [
-                                {
-                                  name: "model",
-                                  rawName: "v-model",
-                                  value: input1.logro,
-                                  expression: "input1.logro"
-                                }
-                              ],
-                              staticClass: "form-control",
-                              attrs: { name: "welcome", required: "" },
-                              domProps: { value: input1.logro },
-                              on: {
-                                change: function($event) {
-                                  return _vm.annualContentUpdateEvent(
-                                    $event,
-                                    t,
-                                    "inputs1",
-                                    "logro"
-                                  )
-                                },
-                                input: function($event) {
-                                  if ($event.target.composing) {
-                                    return
+                                    ],
+                                    staticClass: "form-control form-control-sm",
+                                    staticStyle: { width: "50px" },
+                                    attrs: { type: "number" },
+                                    domProps: { value: input1.porcentaje },
+                                    on: {
+                                      change: function($event) {
+                                        return _vm.annualContentUpdateEvent(
+                                          $event,
+                                          t,
+                                          "inputs1"
+                                        )
+                                      },
+                                      input: function($event) {
+                                        if ($event.target.composing) {
+                                          return
+                                        }
+                                        _vm.$set(
+                                          input1,
+                                          "porcentaje",
+                                          $event.target.value
+                                        )
+                                      }
+                                    }
+                                  }),
+                                  _vm._v(
+                                    "%\n                                        "
+                                  ),
+                                  _c("span", [
+                                    _c(
+                                      "a",
+                                      {
+                                        directives: [
+                                          {
+                                            name: "show",
+                                            rawName: "v-show",
+                                            value:
+                                              t > 0 &&
+                                              _vm.inputs1_saved.length <= t,
+                                            expression:
+                                              "(t>0 && inputs1_saved.length<=t)"
+                                          }
+                                        ],
+                                        staticClass: "badge badge-danger",
+                                        attrs: { href: "#" },
+                                        on: {
+                                          click: function($event) {
+                                            $event.preventDefault()
+                                            return _vm.remove1(t)
+                                          }
+                                        }
+                                      },
+                                      [_vm._v("-")]
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "a",
+                                      {
+                                        directives: [
+                                          {
+                                            name: "show",
+                                            rawName: "v-show",
+                                            value: t == _vm.inputs1.length - 1,
+                                            expression: "t == inputs1.length -1"
+                                          }
+                                        ],
+                                        staticClass: "badge badge-primary",
+                                        attrs: { href: "#" },
+                                        on: {
+                                          click: function($event) {
+                                            $event.preventDefault()
+                                            return _vm.add1(t)
+                                          }
+                                        }
+                                      },
+                                      [_vm._v("+")]
+                                    )
+                                  ])
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c("textarea", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: input1.logro,
+                                    expression: "input1.logro"
                                   }
-                                  _vm.$set(input1, "logro", $event.target.value)
+                                ],
+                                staticClass: "form-control",
+                                attrs: { name: "welcome", required: "" },
+                                domProps: { value: input1.logro },
+                                on: {
+                                  change: function($event) {
+                                    return _vm.annualContentUpdateEvent(
+                                      $event,
+                                      t,
+                                      "inputs1",
+                                      "logro"
+                                    )
+                                  },
+                                  input: function($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.$set(
+                                      input1,
+                                      "logro",
+                                      $event.target.value
+                                    )
+                                  }
                                 }
-                              }
-                            }),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "invalid-feedback" }, [
-                              _vm._v("Please fill out this field")
-                            ])
+                              }),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "invalid-feedback" }, [
+                                _vm._v("Please fill out this field")
+                              ])
+                            ]
+                          )
+                        }),
+                        _vm._v(" "),
+                        _c(
+                          "a",
+                          {
+                            staticClass: "btn btn-primary",
+                            on: { click: _vm.showPIARPlan }
+                          },
+                          [
+                            _vm._v(
+                              "Crear Planificación General Estudiantes PIAR"
+                            )
                           ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          {
+                            directives: [
+                              {
+                                name: "show",
+                                rawName: "v-show",
+                                value: _vm.showPiarPlan == true,
+                                expression: "showPiarPlan == true"
+                              }
+                            ]
+                          },
+                          _vm._l(_vm.inputsPIAR, function(inputsP, key) {
+                            return _c("div", { key: "-" + key }, [
+                              _c(
+                                "div",
+                                { staticClass: "classroom-planning-section" },
+                                [
+                                  _c("strong", [_vm._v("Logro:")]),
+                                  _vm._v(" "),
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: inputsP.porcentajePIAR,
+                                        expression: "inputsP.porcentajePIAR"
+                                      }
+                                    ],
+                                    staticClass: "form-control form-control-sm",
+                                    staticStyle: { width: "50px" },
+                                    attrs: { type: "number" },
+                                    domProps: { value: inputsP.porcentajePIAR },
+                                    on: {
+                                      change: function($event) {
+                                        return _vm.annualContentUpdateEvent(
+                                          $event,
+                                          key,
+                                          "inputsPIAR"
+                                        )
+                                      },
+                                      input: function($event) {
+                                        if ($event.target.composing) {
+                                          return
+                                        }
+                                        _vm.$set(
+                                          inputsP,
+                                          "porcentajePIAR",
+                                          $event.target.value
+                                        )
+                                      }
+                                    }
+                                  }),
+                                  _vm._v(
+                                    "%\n\n                                            "
+                                  ),
+                                  _c("span", [
+                                    _c(
+                                      "a",
+                                      {
+                                        directives: [
+                                          {
+                                            name: "show",
+                                            rawName: "v-show",
+                                            value:
+                                              key > 0 &&
+                                              _vm.inputsPIAR_saved.length <=
+                                                key,
+                                            expression:
+                                              "(key >0 && inputsPIAR_saved.length<=key)"
+                                          }
+                                        ],
+                                        staticClass: "badge badge-danger",
+                                        attrs: { href: "#" },
+                                        on: {
+                                          click: function($event) {
+                                            $event.preventDefault()
+                                            return _vm.removePIAR(key)
+                                          }
+                                        }
+                                      },
+                                      [_vm._v("-")]
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "a",
+                                      {
+                                        directives: [
+                                          {
+                                            name: "show",
+                                            rawName: "v-show",
+                                            value:
+                                              key == _vm.inputsPIAR.length - 1,
+                                            expression:
+                                              "key == inputsPIAR.length -1"
+                                          }
+                                        ],
+                                        staticClass: "badge badge-primary",
+                                        attrs: { href: "#" },
+                                        on: {
+                                          click: function($event) {
+                                            $event.preventDefault()
+                                            return _vm.addPIAR(key)
+                                          }
+                                        }
+                                      },
+                                      [_vm._v("+")]
+                                    )
+                                  ])
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c("textarea", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: inputsP.logroPIAR,
+                                    expression: "inputsP.logroPIAR"
+                                  }
+                                ],
+                                staticClass: "form-control",
+                                attrs: { name: "welcome", required: "" },
+                                domProps: { value: inputsP.logroPIAR },
+                                on: {
+                                  change: function($event) {
+                                    return _vm.annualContentUpdateEvent(
+                                      $event,
+                                      key,
+                                      "inputsPIAR",
+                                      "logroPIAR"
+                                    )
+                                  },
+                                  input: function($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.$set(
+                                      inputsP,
+                                      "logroPIAR",
+                                      $event.target.value
+                                    )
+                                  }
+                                }
+                              })
+                            ])
+                          }),
+                          0
                         )
-                      }),
-                      0
+                      ],
+                      2
                     ),
                     _vm._v(" "),
                     _c(
