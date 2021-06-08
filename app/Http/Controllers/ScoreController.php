@@ -43,6 +43,7 @@ class ScoreController extends Controller
                 $scoreCumulative = ScoreCumulative::where('id_user', $student->id)->where('id_area', $id_area)->first();
                 $scores[$index] = [
                     'name' => $student->name . " " . $student->last_name,
+                    'id_student' => $student->id,
                     'score' => isset($scoreCumulative->score) ? $scoreCumulative->score : 0,
                 ];
             }

@@ -31,24 +31,16 @@
                                 <div class="col-12">
                                     <label><span class="required">*</span>Actividad Para :</label>
                                     <div>
-                                        <label for="piar">Todos los Estudiantes</label>
                                         <input type="checkbox" id="students" name="students" v-model="activityForAllStudents">
+                                        <label for="piar"> Todos los Estudiantes</label>
                                     </div>
-
-                                    <div v-if="activityForAllStudents == true">
-                                        <input type="checkbox" id="piar" name="students" :value="true" v-model="activityForPIARStudents" disabled>
-                                        <label for="piar">Estudiantes PIAR</label><br>
-
-                                        <input type="checkbox" id="specific" name="students" :value="true" v-model="activityForSelectStudents" disabled>
-                                        <label for="specific">Estudiantes en Especifico</label>
-                                    </div>
-
-                                    <div v-else>
+                        
+                                    <div>
                                         <input type="checkbox" id="piar" name="students" v-model="activityForPIARStudents">
-                                        <label for="piar">Estudiantes PIAR</label><br>
-
+                                        <label for="piar"> Estudiantes PIAR</label><br>
+                                        
                                         <input type="checkbox" id="specific" name="students" v-model="activityForSelectStudents">
-                                        <label for="specific">Estudiantes en Especifico</label>
+                                        <label for="specific"> Estudiantes en Especifico</label>                                        
                                     </div>
                                     
                                     <div v-if="activityForPIARStudents == true || activityForSelectStudents == true">
@@ -56,7 +48,7 @@
                                         <multiselect v-model="saveStudent" :options="selectedStudentsData" :multiple="true"
                                             :close-on-select="false" :clear-on-select="false"
                                             :preserve-search="true" placeholder="Seleccione una o varias"
-                                            label="text" track-by="id" :preselect-first="true">
+                                            label="text" track-by="id" :preselect-first="false">
                                                 <template slot="selection" slot-scope="{ values, isOpen }">
                                                     <span
                                                         class="multiselect__single"
@@ -246,11 +238,12 @@ export default {
             weekly_plan:{},
             errors: [],
             selectedStudentsData:[],
-            saveStudents:[],
+            studentsOptions:[],
+            saveStudent:[],
             weekly_plan_detail:[],
             activityForAllStudents:false,
-            activityForPIARStudents:this.activityForAllStudents == true ? false : "",
-            activityForSelectStudents:this.activityForAllStudents == true ? false : "",
+            activityForPIARStudents: false,
+            activityForSelectStudents: false,
             course:{
                 content:[
                     {
@@ -279,10 +272,43 @@ export default {
 
         };
     },
+    watch: {
+        activityForAllStudents: function(newVal){
+            if(newVal == true){
+                this.activityForPIARStudents = false;
+                this.activityForSelectStudents = false;
+            }
+        },
+
+        activityForPIARStudents: function(newVal){
+            if(newVal == true){
+                this.activityForAllStudents = false;
+                this.activityForSelectStudents = false;
+                this.selectedStudentsData = [];
+            }
+        },
+
+        activityForSelectStudents: function(newVal){
+            if(newVal == true){
+                this.activityForPIARStudents = false;
+                this.activityForAllStudents = false;
+                this.selectedStudentsData = this.studentsOptions;
+            }
+        }        
+    },
     mounted() {
         axios.get(`/showClass/${this.id_module}`).then((response) => {
-            this.achievements=response.data.achievements;
-             this.nameArea = `${response.data.area.name} ${response.data.classroom.name}`;
+            this.achievements=response.data.achievements;            
+            this.nameArea = `${response.data.area.name} ${response.data.classroom.name}`;
+            axios.get(`/StudentsByArea/${response.data.area.id}/${response.data.classroom.id}`).then((response)=>{
+                let data = response.data;
+                data.forEach((e)=>{
+                    this.studentsOptions.push({
+                        id: e.id_student,
+                        text: e.name
+                    })
+                })
+            })
         });
         axios.get(`/GetNameWeekly/${this.id_module}`).then((response) => {
             this.weekly_plan={name:response.data};
@@ -328,7 +354,6 @@ export default {
         }
     },
     methods: {
-
         returnPage() {
           window.location =`/docente/modulo/${this.id_module}`;
         },
