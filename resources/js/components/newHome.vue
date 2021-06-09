@@ -7,21 +7,21 @@
                         <img class="logo-liv4t" thumbnail fluid src="../assets/img/home6.png"  alt="4"/>
                     </li>
                     <li class="nav-pad">
-                        <a class="color-nav" href="">Programas</a>
+                        <a class="color-nav" href="#roles">Programas</a>
                     </li>
                     <li class="nav-pad">
-                        <a class="color-nav" href="">Qué es</a>
+                        <a class="color-nav" href="#queEs">Qué es</a>
                     </li>
                     <li class="nav-pad">
-                        <a class="color-nav" href="">Contáctanos</a>
+                        <a class="color-nav" href="#contactanos">Contáctanos</a>
                     </li>
                 </ul>
             </nav>
         </div>
-        <div class="col fondo1">
-
+        <div class="col" style="padding: 0; margin: 0;">
+            <a href="#contactanos"><img class="fondo1" src="../assets/img/home1.png" alt="unete"></a>
         </div>
-        <div class="row fondo2">
+        <div class="row fondo2" id="queEs">
             <div class="col-md-5"></div>
             <div class="col-md-7">
                 <div class="row">
@@ -85,7 +85,7 @@
                 </div>
             </div>
         </div>
-        <div class="row margin-estudiante">
+        <div class="row margin-estudiante" id="roles">
             <div class="col-lg-12">
                 <img class="img-roles" src="../assets/img/home9.png" >
             </div>
@@ -167,7 +167,7 @@
         </div>
         <div class="fondo5">
         </div>
-        <div class="text-center">
+        <div class="text-center" id="contactanos">
             <label class="form-tittle-text">TU COLEGIO A UN CLIC</label>
             <p class="line-yellow-form"></p>
             <br>
@@ -304,7 +304,6 @@ export default {
     padding-top: 20px;
 }
 .fondo1 {
-    background-image: url("../assets/img/home1.png");
     background-repeat: no-repeat;
     height: 600px;
 }
