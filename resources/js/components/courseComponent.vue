@@ -24,9 +24,40 @@
             <div class="row">
                 <div class="col-md-11 mx-auto">
                     <div class="custom-card text-center">
-                        <h3 class="card-header fondo">Planificación general</h3>
+                        <h3 class="card-header fondo">Planificación general</h3>                        
                         <span class="classroom-label">{{fillC.classroom_name}}</span>
                         <span v-show="!isSynchronized">(Hay cambios que no han sido guardados)</span>
+                        <div class="row">
+                            <div class="col-12 mt-2">
+                                <label><span class="required">*</span>Planificación Para :</label><br>
+                                
+                                    <input type="checkbox" id="students" name="students" v-model="activityForAllStudents">
+                                    <label for="piar" class="mr-3"> Todos los Estudiantes</label>
+                                
+                                    <input type="checkbox" id="piar" name="students" v-model="activityForPIARStudents">
+                                    <label for="piar" class="mr-3"> Estudiantes PIAR</label>
+                                    
+                                    <input type="checkbox" id="specific" name="students" v-model="activityForSelectStudents">
+                                    <label for="specific"> Estudiantes en Especifico</label>
+                                
+                                <div v-if="activityForPIARStudents == true || activityForSelectStudents == true">
+                                    <label>Selecciona Los estudiantes</label>
+                                    <multiselect v-model="saveStudent" :options="selectedStudentsData" :multiple="true"
+                                        :close-on-select="false" :clear-on-select="false"
+                                        :preserve-search="true" placeholder="Seleccione una o varias"
+                                        label="text" track-by="id" :preselect-first="false">
+                                            <template slot="selection" slot-scope="{ values, isOpen }">
+                                                <span
+                                                    class="multiselect__single"
+                                                    v-if="values.length &amp;&amp; !isOpen">{{ values.length }}
+                                                        opciones
+                                                        selecionadas
+                                                </span>
+                                            </template>
+                                    </multiselect>
+                                </div>
+                            </div>
+                        </div>
                         <form class="needs-validation" novalidate>
                             <form-wizard
                                 title
@@ -326,9 +357,49 @@ export default {
             isLoading:false,
             showPiarPlan: false,
             showPIARPlanTrimestral: false,
+            activityForAllStudents:false,
+            activityForPIARStudents: false,
+            activityForSelectStudents: false,
+            studentsOptions:[],
+            saveStudent:[]
         };
     },
+    watch: {
+        activityForAllStudents: function(newVal){
+            if(newVal == true){
+                this.activityForPIARStudents = false;
+                this.activityForSelectStudents = false;
+            }
+        },
+
+        activityForPIARStudents: function(newVal){
+            if(newVal == true){
+                this.activityForAllStudents = false;
+                this.activityForSelectStudents = false;
+                this.selectedStudentsData = [];
+            }
+        },
+
+        activityForSelectStudents: function(newVal){
+            if(newVal == true){
+                this.activityForPIARStudents = false;
+                this.activityForAllStudents = false;
+                this.selectedStudentsData = this.studentsOptions;
+            }
+        }        
+    },
     mounted() {
+        
+        axios.get(`/StudentsByArea/${this.id_area}/${this.id_classroom}`).then((response)=>{
+            let data = response.data;
+            data.forEach((e)=>{
+                this.studentsOptions.push({
+                    id: e.id_student,
+                    text: e.name
+                })
+            })
+        })
+        
         //load from localstorage
         console.log()
         this.serialLocalStorage=this.serialLocalStorage+"-"+this.id_area+"-"+this.id_classroom;

@@ -242,6 +242,37 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 (function () {
   "use strict";
 
@@ -311,12 +342,43 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
       newLogro2: "",
       newLogro3: "",
       newLogro4: ""
-    }, _defineProperty(_ref, "newTrimestre", []), _defineProperty(_ref, "newLogro", []), _defineProperty(_ref, "trimestre", false), _defineProperty(_ref, "logro_1", ""), _defineProperty(_ref, "logro_2", ""), _defineProperty(_ref, "logro_3", ""), _defineProperty(_ref, "logro_4", ""), _defineProperty(_ref, "fillC", []), _defineProperty(_ref, "anual", []), _defineProperty(_ref, "newAnual", []), _defineProperty(_ref, "errors", []), _defineProperty(_ref, "isSynchronized", true), _defineProperty(_ref, "isLoading", false), _defineProperty(_ref, "showPiarPlan", false), _defineProperty(_ref, "showPIARPlanTrimestral", false), _ref;
+    }, _defineProperty(_ref, "newTrimestre", []), _defineProperty(_ref, "newLogro", []), _defineProperty(_ref, "trimestre", false), _defineProperty(_ref, "logro_1", ""), _defineProperty(_ref, "logro_2", ""), _defineProperty(_ref, "logro_3", ""), _defineProperty(_ref, "logro_4", ""), _defineProperty(_ref, "fillC", []), _defineProperty(_ref, "anual", []), _defineProperty(_ref, "newAnual", []), _defineProperty(_ref, "errors", []), _defineProperty(_ref, "isSynchronized", true), _defineProperty(_ref, "isLoading", false), _defineProperty(_ref, "showPiarPlan", false), _defineProperty(_ref, "showPIARPlanTrimestral", false), _defineProperty(_ref, "activityForAllStudents", false), _defineProperty(_ref, "activityForPIARStudents", false), _defineProperty(_ref, "activityForSelectStudents", false), _defineProperty(_ref, "studentsOptions", []), _defineProperty(_ref, "saveStudent", []), _ref;
+  },
+  watch: {
+    activityForAllStudents: function activityForAllStudents(newVal) {
+      if (newVal == true) {
+        this.activityForPIARStudents = false;
+        this.activityForSelectStudents = false;
+      }
+    },
+    activityForPIARStudents: function activityForPIARStudents(newVal) {
+      if (newVal == true) {
+        this.activityForAllStudents = false;
+        this.activityForSelectStudents = false;
+        this.selectedStudentsData = [];
+      }
+    },
+    activityForSelectStudents: function activityForSelectStudents(newVal) {
+      if (newVal == true) {
+        this.activityForPIARStudents = false;
+        this.activityForAllStudents = false;
+        this.selectedStudentsData = this.studentsOptions;
+      }
+    }
   },
   mounted: function mounted() {
     var _this = this;
 
-    //load from localstorage
+    axios.get("/StudentsByArea/".concat(this.id_area, "/").concat(this.id_classroom)).then(function (response) {
+      var data = response.data;
+      data.forEach(function (e) {
+        _this.studentsOptions.push({
+          id: e.id_student,
+          text: e.name
+        });
+      });
+    }); //load from localstorage
+
     console.log();
     this.serialLocalStorage = this.serialLocalStorage + "-" + this.id_area + "-" + this.id_classroom;
     var urlsel = window.location.origin + "/coursePlanification/" + this.id_area + "/" + this.id_classroom;
@@ -534,6 +596,204 @@ var render = function() {
               },
               [_vm._v("(Hay cambios que no han sido guardados)")]
             ),
+            _vm._v(" "),
+            _c("div", { staticClass: "row" }, [
+              _c("div", { staticClass: "col-12 mt-2" }, [
+                _vm._m(1),
+                _c("br"),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.activityForAllStudents,
+                      expression: "activityForAllStudents"
+                    }
+                  ],
+                  attrs: { type: "checkbox", id: "students", name: "students" },
+                  domProps: {
+                    checked: Array.isArray(_vm.activityForAllStudents)
+                      ? _vm._i(_vm.activityForAllStudents, null) > -1
+                      : _vm.activityForAllStudents
+                  },
+                  on: {
+                    change: function($event) {
+                      var $$a = _vm.activityForAllStudents,
+                        $$el = $event.target,
+                        $$c = $$el.checked ? true : false
+                      if (Array.isArray($$a)) {
+                        var $$v = null,
+                          $$i = _vm._i($$a, $$v)
+                        if ($$el.checked) {
+                          $$i < 0 &&
+                            (_vm.activityForAllStudents = $$a.concat([$$v]))
+                        } else {
+                          $$i > -1 &&
+                            (_vm.activityForAllStudents = $$a
+                              .slice(0, $$i)
+                              .concat($$a.slice($$i + 1)))
+                        }
+                      } else {
+                        _vm.activityForAllStudents = $$c
+                      }
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c("label", { staticClass: "mr-3", attrs: { for: "piar" } }, [
+                  _vm._v(" Todos los Estudiantes")
+                ]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.activityForPIARStudents,
+                      expression: "activityForPIARStudents"
+                    }
+                  ],
+                  attrs: { type: "checkbox", id: "piar", name: "students" },
+                  domProps: {
+                    checked: Array.isArray(_vm.activityForPIARStudents)
+                      ? _vm._i(_vm.activityForPIARStudents, null) > -1
+                      : _vm.activityForPIARStudents
+                  },
+                  on: {
+                    change: function($event) {
+                      var $$a = _vm.activityForPIARStudents,
+                        $$el = $event.target,
+                        $$c = $$el.checked ? true : false
+                      if (Array.isArray($$a)) {
+                        var $$v = null,
+                          $$i = _vm._i($$a, $$v)
+                        if ($$el.checked) {
+                          $$i < 0 &&
+                            (_vm.activityForPIARStudents = $$a.concat([$$v]))
+                        } else {
+                          $$i > -1 &&
+                            (_vm.activityForPIARStudents = $$a
+                              .slice(0, $$i)
+                              .concat($$a.slice($$i + 1)))
+                        }
+                      } else {
+                        _vm.activityForPIARStudents = $$c
+                      }
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c("label", { staticClass: "mr-3", attrs: { for: "piar" } }, [
+                  _vm._v(" Estudiantes PIAR")
+                ]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.activityForSelectStudents,
+                      expression: "activityForSelectStudents"
+                    }
+                  ],
+                  attrs: { type: "checkbox", id: "specific", name: "students" },
+                  domProps: {
+                    checked: Array.isArray(_vm.activityForSelectStudents)
+                      ? _vm._i(_vm.activityForSelectStudents, null) > -1
+                      : _vm.activityForSelectStudents
+                  },
+                  on: {
+                    change: function($event) {
+                      var $$a = _vm.activityForSelectStudents,
+                        $$el = $event.target,
+                        $$c = $$el.checked ? true : false
+                      if (Array.isArray($$a)) {
+                        var $$v = null,
+                          $$i = _vm._i($$a, $$v)
+                        if ($$el.checked) {
+                          $$i < 0 &&
+                            (_vm.activityForSelectStudents = $$a.concat([$$v]))
+                        } else {
+                          $$i > -1 &&
+                            (_vm.activityForSelectStudents = $$a
+                              .slice(0, $$i)
+                              .concat($$a.slice($$i + 1)))
+                        }
+                      } else {
+                        _vm.activityForSelectStudents = $$c
+                      }
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c("label", { attrs: { for: "specific" } }, [
+                  _vm._v(" Estudiantes en Especifico")
+                ]),
+                _vm._v(" "),
+                _vm.activityForPIARStudents == true ||
+                _vm.activityForSelectStudents == true
+                  ? _c(
+                      "div",
+                      [
+                        _c("label", [_vm._v("Selecciona Los estudiantes")]),
+                        _vm._v(" "),
+                        _c("multiselect", {
+                          attrs: {
+                            options: _vm.selectedStudentsData,
+                            multiple: true,
+                            "close-on-select": false,
+                            "clear-on-select": false,
+                            "preserve-search": true,
+                            placeholder: "Seleccione una o varias",
+                            label: "text",
+                            "track-by": "id",
+                            "preselect-first": false
+                          },
+                          scopedSlots: _vm._u(
+                            [
+                              {
+                                key: "selection",
+                                fn: function(ref) {
+                                  var values = ref.values
+                                  var isOpen = ref.isOpen
+                                  return [
+                                    values.length && !isOpen
+                                      ? _c(
+                                          "span",
+                                          {
+                                            staticClass: "multiselect__single"
+                                          },
+                                          [
+                                            _vm._v(
+                                              _vm._s(values.length) +
+                                                "\n                                                    opciones\n                                                    selecionadas\n                                            "
+                                            )
+                                          ]
+                                        )
+                                      : _vm._e()
+                                  ]
+                                }
+                              }
+                            ],
+                            null,
+                            false,
+                            3178573262
+                          ),
+                          model: {
+                            value: _vm.saveStudent,
+                            callback: function($$v) {
+                              _vm.saveStudent = $$v
+                            },
+                            expression: "saveStudent"
+                          }
+                        })
+                      ],
+                      1
+                    )
+                  : _vm._e()
+              ])
+            ]),
             _vm._v(" "),
             _c(
               "form",
@@ -1271,6 +1531,15 @@ var staticRenderFns = [
           crossorigin: "anonymous"
         }
       })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", [
+      _c("span", { staticClass: "required" }, [_vm._v("*")]),
+      _vm._v("Planificación Para :")
     ])
   }
 ]
