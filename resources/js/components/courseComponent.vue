@@ -138,7 +138,7 @@
                                                 class="badge badge-primary"
                                                 @click.prevent="add(t)"
                                                 v-show="t == inputs.length - 1"
-                                            >+</a>
+                                            >+</a>                                            
                                             </span>
                                             <div>
                                                 <input
@@ -168,6 +168,54 @@
                                     <!-- <div class="modal-footer">
                                     <a submit="createCourses" class="btn btn-warning float-right">Guardar</a>
                                     </div>-->
+
+                                    <a v-on:click="showPIARPlanT" class="btn btn-primary">Crear Planificación General Estudiantes PIAR</a>
+                                
+                                    <div class="mt-3" v-show="showPIARPlanTrimestral == true">
+                                        <div class="form-group row mx-auto" v-for="(inputsP1, keyy) in inputsPIAR1" :key="keyy">
+                                            <div class="col-md-6">
+                                                <label for="name">Indicador</label>
+                                                <span>
+                                                <a
+                                                    href="#"
+                                                    class="badge badge-danger"
+                                                    @click.prevent="removeP1(keyy)"
+                                                    v-show="(keyy > 0 && inputsP1_saved.length<=keyy)"
+                                                >-</a>
+                                                <a
+                                                    href="#"
+                                                    class="badge badge-primary"
+                                                    @click.prevent="addP1(keyy)"                                                   
+                                                    v-show="keyy == inputsPIAR1.length -1"
+                                                >+</a>
+                                                </span>
+                                                
+                                                <div>
+                                                    <input
+                                                        type="text"
+                                                        name="objetive1"
+                                                        class="form-control"
+                                                        v-model="inputsP1.namePIAR"
+                                                        v-on:change="annualContentUpdateEvent($event,keyy,'inputsPIAR1','namePIAR')"
+                                                        placeholder="Nombre de la unidad"
+                                                        required
+                                                    />                                                    
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="name">Contenido</label>
+                                                <textarea
+                                                name="competences"
+                                                class="form-control"
+                                                v-model="inputsP1.contenidoPIAR"
+                                                v-on:change="annualContentUpdateEvent($event,keyy,'inputsPIAR1','contenidoPIAR')"
+                                                placeholder="Es la explicacion o sintesis de la unidad."
+                                                required
+                                                ></textarea>
+                                                <div class="invalid-feedback">Please fill out this field</div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </tab-content>              
                             </form-wizard>            
                         </form>
@@ -247,8 +295,16 @@ export default {
                     porcentajePIAR: "0",
                 },
             ],
+
+            inputsPIAR1: [
+                {
+                    namePIAR: "",
+                    contenidoPIAR: "",
+                },
+            ],
             inputs1_saved:[],
             inputsPIAR_saved:[],
+            inputsP1_saved:[],
             inputs_saved:[],
             newTrimestre: [],
             newLogro1: "",
@@ -268,15 +324,16 @@ export default {
             errors: [],
             isSynchronized:true,
             isLoading:false,
-            showPiarPlan: false
+            showPiarPlan: false,
+            showPIARPlanTrimestral: false,
         };
     },
     mounted() {
         //load from localstorage
+        console.log()
         this.serialLocalStorage=this.serialLocalStorage+"-"+this.id_area+"-"+this.id_classroom;
 
         var urlsel = window.location.origin + "/coursePlanification/" + this.id_area + "/" + this.id_classroom;
-
         axios.get(urlsel).then((response) => {
             this.fillC = response.data;
             //set current data
@@ -328,6 +385,9 @@ export default {
             else if (type=='inputsPIAR'){
                 this.inputsPIAR[i][property] = this.inputsPIAR[i][property].replace(/[^a-zA-Z0-9-.ñáéíóú_*+-/=&%$#!()?¡¿ ]/g, "|");
             }
+            else if (type=='inputsPIAR1'){
+                this.inputsPIAR1[i][property] = this.inputsPIAR1[i][property].replace(/[^a-zA-Z0-9-.ñáéíóú_*+-/=&%$#!()?¡¿ ]/g, "|");
+            }
             //console.log(l.normalize('NFD').replace(/([^n\u0300-\u036f]|n(?!\u0303(?![\u0300-\u036f])))[\u0300-\u036f]+/gi,"$1"));
             //serialize data on localstorage
             localStorage.setItem(this.serialLocalStorage, window.btoa(unescape(encodeURIComponent(JSON.stringify({inputs1:this.inputs1,inputs:this.inputs, inputsPIAR: this.inputsPIAR})))));
@@ -340,6 +400,9 @@ export default {
         },
         showPIARPlan(){
             this.showPiarPlan = !this.showPiarPlan
+        },
+        showPIARPlanT(){
+            this.showPIARPlanTrimestral = !this.showPIARPlanTrimestral
         },
         add(index) {
             this.inputs.push({ name: "", contenido: "" });
@@ -360,6 +423,13 @@ export default {
         
         removePIAR(index) {
             this.inputsPIAR.splice(index, 1);
+        },
+
+        addP1(index) {
+            this.inputsPIAR1.push({ namePIAR: "", contenidoPIAR: "" });
+        },
+        removeP1(index) {
+            this.inputsPIAR1.splice(index, 1);
         },
 
         isLoadingEvent(){

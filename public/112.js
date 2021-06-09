@@ -194,6 +194,54 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 (function () {
   "use strict";
 
@@ -250,20 +298,26 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
         logroPIAR: "",
         porcentajePIAR: "0"
       }],
+      inputsPIAR1: [{
+        namePIAR: "",
+        contenidoPIAR: ""
+      }],
       inputs1_saved: [],
       inputsPIAR_saved: [],
+      inputsP1_saved: [],
       inputs_saved: [],
       newTrimestre: [],
       newLogro1: "",
       newLogro2: "",
       newLogro3: "",
       newLogro4: ""
-    }, _defineProperty(_ref, "newTrimestre", []), _defineProperty(_ref, "newLogro", []), _defineProperty(_ref, "trimestre", false), _defineProperty(_ref, "logro_1", ""), _defineProperty(_ref, "logro_2", ""), _defineProperty(_ref, "logro_3", ""), _defineProperty(_ref, "logro_4", ""), _defineProperty(_ref, "fillC", []), _defineProperty(_ref, "anual", []), _defineProperty(_ref, "newAnual", []), _defineProperty(_ref, "errors", []), _defineProperty(_ref, "isSynchronized", true), _defineProperty(_ref, "isLoading", false), _defineProperty(_ref, "showPiarPlan", false), _ref;
+    }, _defineProperty(_ref, "newTrimestre", []), _defineProperty(_ref, "newLogro", []), _defineProperty(_ref, "trimestre", false), _defineProperty(_ref, "logro_1", ""), _defineProperty(_ref, "logro_2", ""), _defineProperty(_ref, "logro_3", ""), _defineProperty(_ref, "logro_4", ""), _defineProperty(_ref, "fillC", []), _defineProperty(_ref, "anual", []), _defineProperty(_ref, "newAnual", []), _defineProperty(_ref, "errors", []), _defineProperty(_ref, "isSynchronized", true), _defineProperty(_ref, "isLoading", false), _defineProperty(_ref, "showPiarPlan", false), _defineProperty(_ref, "showPIARPlanTrimestral", false), _ref;
   },
   mounted: function mounted() {
     var _this = this;
 
     //load from localstorage
+    console.log();
     this.serialLocalStorage = this.serialLocalStorage + "-" + this.id_area + "-" + this.id_classroom;
     var urlsel = window.location.origin + "/coursePlanification/" + this.id_area + "/" + this.id_classroom;
     axios.get(urlsel).then(function (response) {
@@ -322,6 +376,8 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
         this.inputs1[i][property] = this.inputs1[i][property].replace(/[^a-zA-Z0-9-.ñáéíóú_*+-/=&%$#!()?¡¿ ]/g, "|");
       } else if (type == 'inputsPIAR') {
         this.inputsPIAR[i][property] = this.inputsPIAR[i][property].replace(/[^a-zA-Z0-9-.ñáéíóú_*+-/=&%$#!()?¡¿ ]/g, "|");
+      } else if (type == 'inputsPIAR1') {
+        this.inputsPIAR1[i][property] = this.inputsPIAR1[i][property].replace(/[^a-zA-Z0-9-.ñáéíóú_*+-/=&%$#!()?¡¿ ]/g, "|");
       } //console.log(l.normalize('NFD').replace(/([^n\u0300-\u036f]|n(?!\u0303(?![\u0300-\u036f])))[\u0300-\u036f]+/gi,"$1"));
       //serialize data on localstorage
 
@@ -339,6 +395,9 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
     },
     showPIARPlan: function showPIARPlan() {
       this.showPiarPlan = !this.showPiarPlan;
+    },
+    showPIARPlanT: function showPIARPlanT() {
+      this.showPIARPlanTrimestral = !this.showPIARPlanTrimestral;
     },
     add: function add(index) {
       this.inputs.push({
@@ -366,6 +425,15 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
     },
     removePIAR: function removePIAR(index) {
       this.inputsPIAR.splice(index, 1);
+    },
+    addP1: function addP1(index) {
+      this.inputsPIAR1.push({
+        namePIAR: "",
+        contenidoPIAR: ""
+      });
+    },
+    removeP1: function removeP1(index) {
+      this.inputsPIAR1.splice(index, 1);
     },
     isLoadingEvent: function isLoadingEvent() {
       return this.isLoading;
@@ -806,91 +874,139 @@ var render = function() {
                     _c(
                       "tab-content",
                       { attrs: { title: "Trimestral" } },
-                      _vm._l(_vm.inputs, function(input, t) {
-                        return _c(
-                          "div",
-                          { key: t, staticClass: "form-group row mx-auto" },
-                          [
-                            _c("div", { staticClass: "col-md-6" }, [
-                              _c("label", { attrs: { for: "name" } }, [
-                                _vm._v("Indicador")
-                              ]),
-                              _vm._v(" "),
-                              _c("span", [
-                                _c(
-                                  "a",
-                                  {
-                                    directives: [
-                                      {
-                                        name: "show",
-                                        rawName: "v-show",
-                                        value:
-                                          t > 0 && _vm.inputs_saved.length <= t,
-                                        expression:
-                                          "(t>0 && inputs_saved.length<=t)"
-                                      }
-                                    ],
-                                    staticClass: "badge badge-danger",
-                                    attrs: { href: "#" },
-                                    on: {
-                                      click: function($event) {
-                                        $event.preventDefault()
-                                        return _vm.remove(t)
-                                      }
-                                    }
-                                  },
-                                  [_vm._v("-")]
-                                ),
+                      [
+                        _vm._l(_vm.inputs, function(input, t) {
+                          return _c(
+                            "div",
+                            { key: t, staticClass: "form-group row mx-auto" },
+                            [
+                              _c("div", { staticClass: "col-md-6" }, [
+                                _c("label", { attrs: { for: "name" } }, [
+                                  _vm._v("Indicador")
+                                ]),
                                 _vm._v(" "),
-                                _c(
-                                  "a",
-                                  {
+                                _c("span", [
+                                  _c(
+                                    "a",
+                                    {
+                                      directives: [
+                                        {
+                                          name: "show",
+                                          rawName: "v-show",
+                                          value:
+                                            t > 0 &&
+                                            _vm.inputs_saved.length <= t,
+                                          expression:
+                                            "(t>0 && inputs_saved.length<=t)"
+                                        }
+                                      ],
+                                      staticClass: "badge badge-danger",
+                                      attrs: { href: "#" },
+                                      on: {
+                                        click: function($event) {
+                                          $event.preventDefault()
+                                          return _vm.remove(t)
+                                        }
+                                      }
+                                    },
+                                    [_vm._v("-")]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "a",
+                                    {
+                                      directives: [
+                                        {
+                                          name: "show",
+                                          rawName: "v-show",
+                                          value: t == _vm.inputs.length - 1,
+                                          expression: "t == inputs.length - 1"
+                                        }
+                                      ],
+                                      staticClass: "badge badge-primary",
+                                      attrs: { href: "#" },
+                                      on: {
+                                        click: function($event) {
+                                          $event.preventDefault()
+                                          return _vm.add(t)
+                                        }
+                                      }
+                                    },
+                                    [_vm._v("+")]
+                                  )
+                                ]),
+                                _vm._v(" "),
+                                _c("div", [
+                                  _c("input", {
                                     directives: [
                                       {
-                                        name: "show",
-                                        rawName: "v-show",
-                                        value: t == _vm.inputs.length - 1,
-                                        expression: "t == inputs.length - 1"
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: input.name,
+                                        expression: "input.name"
                                       }
                                     ],
-                                    staticClass: "badge badge-primary",
-                                    attrs: { href: "#" },
+                                    staticClass: "form-control",
+                                    attrs: {
+                                      type: "text",
+                                      name: "objetive1",
+                                      placeholder: "Nombre de la unidad",
+                                      required: ""
+                                    },
+                                    domProps: { value: input.name },
                                     on: {
-                                      click: function($event) {
-                                        $event.preventDefault()
-                                        return _vm.add(t)
+                                      change: function($event) {
+                                        return _vm.annualContentUpdateEvent(
+                                          $event,
+                                          t,
+                                          "inputs",
+                                          "name"
+                                        )
+                                      },
+                                      input: function($event) {
+                                        if ($event.target.composing) {
+                                          return
+                                        }
+                                        _vm.$set(
+                                          input,
+                                          "name",
+                                          $event.target.value
+                                        )
                                       }
                                     }
-                                  },
-                                  [_vm._v("+")]
-                                )
+                                  })
+                                ])
                               ]),
                               _vm._v(" "),
-                              _c("div", [
-                                _c("input", {
+                              _c("div", { staticClass: "col-md-6" }, [
+                                _c("label", { attrs: { for: "name" } }, [
+                                  _vm._v("Contenido")
+                                ]),
+                                _vm._v(" "),
+                                _c("textarea", {
                                   directives: [
                                     {
                                       name: "model",
                                       rawName: "v-model",
-                                      value: input.name,
-                                      expression: "input.name"
+                                      value: input.contenido,
+                                      expression: "input.contenido"
                                     }
                                   ],
                                   staticClass: "form-control",
                                   attrs: {
-                                    type: "text",
-                                    name: "objetive1",
-                                    placeholder: "Nombre de la unidad",
+                                    name: "competences",
+                                    placeholder:
+                                      "Es la explicacion o sintesis de la unidad.",
                                     required: ""
                                   },
-                                  domProps: { value: input.name },
+                                  domProps: { value: input.contenido },
                                   on: {
                                     change: function($event) {
                                       return _vm.annualContentUpdateEvent(
                                         $event,
                                         t,
                                         "inputs",
-                                        "name"
+                                        "contenido"
                                       )
                                     },
                                     input: function($event) {
@@ -899,67 +1015,213 @@ var render = function() {
                                       }
                                       _vm.$set(
                                         input,
-                                        "name",
+                                        "contenido",
                                         $event.target.value
                                       )
                                     }
                                   }
-                                })
+                                }),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "invalid-feedback" }, [
+                                  _vm._v("Please fill out this field")
+                                ])
                               ])
-                            ]),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "col-md-6" }, [
-                              _c("label", { attrs: { for: "name" } }, [
-                                _vm._v("Contenido")
-                              ]),
-                              _vm._v(" "),
-                              _c("textarea", {
-                                directives: [
-                                  {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value: input.contenido,
-                                    expression: "input.contenido"
-                                  }
-                                ],
-                                staticClass: "form-control",
-                                attrs: {
-                                  name: "competences",
-                                  placeholder:
-                                    "Es la explicacion o sintesis de la unidad.",
-                                  required: ""
-                                },
-                                domProps: { value: input.contenido },
-                                on: {
-                                  change: function($event) {
-                                    return _vm.annualContentUpdateEvent(
-                                      $event,
-                                      t,
-                                      "inputs",
-                                      "contenido"
-                                    )
-                                  },
-                                  input: function($event) {
-                                    if ($event.target.composing) {
-                                      return
-                                    }
-                                    _vm.$set(
-                                      input,
-                                      "contenido",
-                                      $event.target.value
-                                    )
-                                  }
-                                }
-                              }),
-                              _vm._v(" "),
-                              _c("div", { staticClass: "invalid-feedback" }, [
-                                _vm._v("Please fill out this field")
-                              ])
-                            ])
+                            ]
+                          )
+                        }),
+                        _vm._v(" "),
+                        _c(
+                          "a",
+                          {
+                            staticClass: "btn btn-primary",
+                            on: { click: _vm.showPIARPlanT }
+                          },
+                          [
+                            _vm._v(
+                              "Crear Planificación General Estudiantes PIAR"
+                            )
                           ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          {
+                            directives: [
+                              {
+                                name: "show",
+                                rawName: "v-show",
+                                value: _vm.showPIARPlanTrimestral == true,
+                                expression: "showPIARPlanTrimestral == true"
+                              }
+                            ],
+                            staticClass: "mt-3"
+                          },
+                          _vm._l(_vm.inputsPIAR1, function(inputsP1, keyy) {
+                            return _c(
+                              "div",
+                              {
+                                key: keyy,
+                                staticClass: "form-group row mx-auto"
+                              },
+                              [
+                                _c("div", { staticClass: "col-md-6" }, [
+                                  _c("label", { attrs: { for: "name" } }, [
+                                    _vm._v("Indicador")
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("span", [
+                                    _c(
+                                      "a",
+                                      {
+                                        directives: [
+                                          {
+                                            name: "show",
+                                            rawName: "v-show",
+                                            value:
+                                              keyy > 0 &&
+                                              _vm.inputsP1_saved.length <= keyy,
+                                            expression:
+                                              "(keyy > 0 && inputsP1_saved.length<=keyy)"
+                                          }
+                                        ],
+                                        staticClass: "badge badge-danger",
+                                        attrs: { href: "#" },
+                                        on: {
+                                          click: function($event) {
+                                            $event.preventDefault()
+                                            return _vm.removeP1(keyy)
+                                          }
+                                        }
+                                      },
+                                      [_vm._v("-")]
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "a",
+                                      {
+                                        directives: [
+                                          {
+                                            name: "show",
+                                            rawName: "v-show",
+                                            value:
+                                              keyy ==
+                                              _vm.inputsPIAR1.length - 1,
+                                            expression:
+                                              "keyy == inputsPIAR1.length -1"
+                                          }
+                                        ],
+                                        staticClass: "badge badge-primary",
+                                        attrs: { href: "#" },
+                                        on: {
+                                          click: function($event) {
+                                            $event.preventDefault()
+                                            return _vm.addP1(keyy)
+                                          }
+                                        }
+                                      },
+                                      [_vm._v("+")]
+                                    )
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("div", [
+                                    _c("input", {
+                                      directives: [
+                                        {
+                                          name: "model",
+                                          rawName: "v-model",
+                                          value: inputsP1.namePIAR,
+                                          expression: "inputsP1.namePIAR"
+                                        }
+                                      ],
+                                      staticClass: "form-control",
+                                      attrs: {
+                                        type: "text",
+                                        name: "objetive1",
+                                        placeholder: "Nombre de la unidad",
+                                        required: ""
+                                      },
+                                      domProps: { value: inputsP1.namePIAR },
+                                      on: {
+                                        change: function($event) {
+                                          return _vm.annualContentUpdateEvent(
+                                            $event,
+                                            keyy,
+                                            "inputsPIAR1",
+                                            "namePIAR"
+                                          )
+                                        },
+                                        input: function($event) {
+                                          if ($event.target.composing) {
+                                            return
+                                          }
+                                          _vm.$set(
+                                            inputsP1,
+                                            "namePIAR",
+                                            $event.target.value
+                                          )
+                                        }
+                                      }
+                                    })
+                                  ])
+                                ]),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "col-md-6" }, [
+                                  _c("label", { attrs: { for: "name" } }, [
+                                    _vm._v("Contenido")
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("textarea", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: inputsP1.contenidoPIAR,
+                                        expression: "inputsP1.contenidoPIAR"
+                                      }
+                                    ],
+                                    staticClass: "form-control",
+                                    attrs: {
+                                      name: "competences",
+                                      placeholder:
+                                        "Es la explicacion o sintesis de la unidad.",
+                                      required: ""
+                                    },
+                                    domProps: { value: inputsP1.contenidoPIAR },
+                                    on: {
+                                      change: function($event) {
+                                        return _vm.annualContentUpdateEvent(
+                                          $event,
+                                          keyy,
+                                          "inputsPIAR1",
+                                          "contenidoPIAR"
+                                        )
+                                      },
+                                      input: function($event) {
+                                        if ($event.target.composing) {
+                                          return
+                                        }
+                                        _vm.$set(
+                                          inputsP1,
+                                          "contenidoPIAR",
+                                          $event.target.value
+                                        )
+                                      }
+                                    }
+                                  }),
+                                  _vm._v(" "),
+                                  _c(
+                                    "div",
+                                    { staticClass: "invalid-feedback" },
+                                    [_vm._v("Please fill out this field")]
+                                  )
+                                ])
+                              ]
+                            )
+                          }),
+                          0
                         )
-                      }),
-                      0
+                      ],
+                      2
                     )
                   ],
                   1
