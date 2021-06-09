@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\PIARAnualPlanification;
 use Illuminate\Http\Request;
+use Auth;
 
 class PIARAnualPlanificationController extends Controller
 {
@@ -14,7 +15,13 @@ class PIARAnualPlanificationController extends Controller
      */
     public function index()
     {
-        return view('piarAnualPlanification');
+        // return view('piarAnualPlanification');
+    }
+
+    public function getData(){
+        $user_id = Auth::user()->id;
+        $getPlanif = PIARAnualPlanification::where('id_teacher','=',$user_id)->get();
+        return response()->json($getPlanif);
     }
 
     /**
@@ -35,7 +42,17 @@ class PIARAnualPlanificationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $user = Auth::user();
+        $PIARAnualPlanification = new PIARAnualPlanification();
+        $PIARAnualPlanification->id_area = $request->id_area;
+        $PIARAnualPlanification->id_classroom = $request->id_classroom;
+        $PIARAnualPlanification->logros = $request->logros;
+        $PIARAnualPlanification->trimestres = $request->trimestres;
+        $PIARAnualPlanification->students = $request->students;
+        $pIARAnualPlanification->id_teacher = $user->id;
+        $PIARAnualPlanification->save();
+
+        return response()->json('Planificación PIAR Guardada');
     }
 
     /**
@@ -67,9 +84,17 @@ class PIARAnualPlanificationController extends Controller
      * @param  \App\PIARAnualPlanification  $pIARAnualPlanification
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, PIARAnualPlanification $pIARAnualPlanification)
+    public function update(Request $request, $id)
     {
-        //
+        $PIARAnualPlanification = PIARAnualPlanification::findOrFail($id);
+        $PIARAnualPlanification->id_area = $request->id_area;
+        $PIARAnualPlanification->id_classroom = $request->id_classroom;
+        $PIARAnualPlanification->logros = $request->logros;
+        $PIARAnualPlanification->trimestres = $request->trimestres;
+        $PIARAnualPlanification->students = $request->students;
+        $PIARAnualPlanification->update();
+
+        return response()->json('Planificación PIAR Actualizada');
     }
 
     /**
@@ -80,6 +105,8 @@ class PIARAnualPlanificationController extends Controller
      */
     public function destroy(PIARAnualPlanification $pIARAnualPlanification)
     {
-        //
+        $PIARAnualPlanification = PIARAnualPlanification::findOrFail($id);
+        $PIARAnualPlanification->delete();
+        return response()->json('Planificación PIAR Eliminada');
     }
 }

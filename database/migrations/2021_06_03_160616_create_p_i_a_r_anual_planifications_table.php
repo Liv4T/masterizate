@@ -15,6 +15,12 @@ class CreatePIARAnualPlanificationsTable extends Migration
     {
         Schema::create('p_i_a_r_anual_planifications', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('id_area');
+            $table->integer('id_classroom');
+            $table->longText('logros');
+            $table->longText('trimestres');
+            $table->longText('students');
+            $table->integer('id_teacher');
             $table->timestamps();
         });
     }

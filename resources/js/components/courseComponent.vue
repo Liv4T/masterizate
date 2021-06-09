@@ -399,9 +399,38 @@ export default {
                 })
             })
         })
+
+        axios.get('/getPlanificationPiar').then((response)=>{
+            console.log('datos piar:',response);
+            let data = response.data;
+            if(data.length >= 1){
+                data.forEach((el)=>{
+                    let logros = JSON.parse(el.logros)
+                    let trimestres = JSON.parse(el.trimestres)
+
+                    this.inputsPIAR1.splice(0);
+                    logros.forEach((lg)=>{
+                        this.inputsPIAR1.push({
+                            contenidoPIAR: lg.contenidoPIAR,
+                            namePIAR: lg.namePIAR
+                        })
+                    })
+
+                    this.inputsPIAR.splice(0);
+                    trimestres.forEach((lg)=>{
+                        this.inputsPIAR.push({
+                            logroPIAR: lg.logroPIAR,
+                            porcentajePIAR: lg.porcentajePIAR
+                        })
+                    })
+                });
+                this.showPiarPlan = true,
+                this.showPIARPlanTrimestral = true,
+                this.activityForPIARStudents = true;
+            }
+        })
         
         //load from localstorage
-        console.log()
         this.serialLocalStorage=this.serialLocalStorage+"-"+this.id_area+"-"+this.id_classroom;
 
         var urlsel = window.location.origin + "/coursePlanification/" + this.id_area + "/" + this.id_classroom;
@@ -437,7 +466,6 @@ export default {
                     }
                 }
             }
-
             if (this.fillC.quaterly.length > 0) {
                 this.trimestre = true;
             } else {
@@ -507,42 +535,82 @@ export default {
             return this.isLoading;
         },
         createCourses() {
-            this.isLoading=true;
-            var url = window.location.origin + "/Courses";
+            if(this.activityForAllStudents == true){
+                this.isLoading=true;
+                var url = window.location.origin + "/Courses";
 
-            if(this.inputs.length<1 ||  this.inputs1.length<1)
-                return;
+                if(this.inputs.length<1 ||  this.inputs1.length<1)
+                    return;
 
-            this.newTrimestre = [];
-            this.newLogro = [];
+                this.newTrimestre = [];
+                this.newLogro = [];
 
-            if (this.inputs.length >= 1) {
-                for (let i = 0; i < this.inputs.length; i++) {
-                    this.newTrimestre.push(this.inputs[i]);
+                if (this.inputs.length >= 1) {
+                    for (let i = 0; i < this.inputs.length; i++) {
+                        this.newTrimestre.push(this.inputs[i]);
+                    }
                 }
-            }
-        
-            if (this.inputs1.length >= 1) {
-                for (let i = 0; i < this.inputs1.length; i++) {
-                this.newLogro.push(this.inputs1[i]);
+            
+                if (this.inputs1.length >= 1) {
+                    for (let i = 0; i < this.inputs1.length; i++) {
+                    this.newLogro.push(this.inputs1[i]);
+                    }
                 }
-            }
 
-            axios.post(url, {
-                //Cursos generales
-                id_area: this.id_area,
-                id_classroom: this.id_classroom,
-                logros: this.newLogro,
-                trimestres: this.newTrimestre,
-            }).then((response) => {
-                this.errors = [];
-                toastr.success("Nuevo plan general creado exitosamente");
-                this.getMenu();
-                    
-            }).catch((error) => {
-                this.errors = error.response.data;
-                this.isLoading=false;
-            });
+                axios.post(url, {
+                    //Cursos generales
+                    id_area: this.id_area,
+                    id_classroom: this.id_classroom,
+                    logros: this.newLogro,
+                    trimestres: this.newTrimestre,
+                }).then((response) => {
+                    this.errors = [];
+                    toastr.success("Nuevo plan general creado exitosamente");
+                    this.getMenu();
+                        
+                }).catch((error) => {
+                    this.errors = error.response.data;
+                    this.isLoading=false;
+                });
+
+            }else if(this.activityForPIARStudents){
+                this.isLoading=true;
+
+                if(this.inputsPIAR.length<1 ||  this.inputsPIAR1.length<1)
+                    return;
+
+                this.newTrimestre = [];
+                this.newLogro = [];
+
+                if (this.inputsPIAR.length >= 1) {
+                    for (let i = 0; i < this.inputsPIAR.length; i++) {
+                        this.newTrimestre.push(this.inputsPIAR[i]);
+                    }
+                }
+            
+                if (this.inputsPIAR1.length >= 1) {
+                    for (let i = 0; i < this.inputsPIAR1.length; i++) {
+                    this.newLogro.push(this.inputsPIAR1[i]);
+                    }
+                }
+
+                axios.post('/piarAnualPlanification', {
+                    //Cursos generales
+                    id_area: this.id_area,
+                    id_classroom: this.id_classroom,
+                    logros: JSON.stringify(this.newLogro),
+                    trimestres: JSON.stringify(this.newTrimestre),
+                    students: JSON.stringify(this.saveStudent),
+                }).then((response) => {
+                    this.errors = [];
+                    toastr.success(response.data);
+                    this.getMenu();
+                        
+                }).catch((error) => {
+                    this.errors = error.response.data;
+                    this.isLoading=false;
+                });
+            }      
         },
         updateCourses() {
             window.location = "/actividad_g";
