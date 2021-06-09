@@ -150,24 +150,6 @@
                         }
                     });
                 }
-                if(this.type_u === 1){
-                    var urlM = window.location.origin + "/getAllEventsAdmin";
-                    axios.get(urlM).then((response) => {
-                        this.clases = response.data;
-                        if (this.clases && this.clases.length > 0) {
-                            this.clases.forEach((meeting) => {
-                                fullCalendarApi.addEvent({
-                                    title: `${meeting.area} ${meeting.classroom} | Clase ${meeting.name}`,
-                                    start: meeting.dateFrom,
-                                    end: meeting.dateTo,
-                                    description: meeting.name,
-                                    url: meeting.hangout,
-                                    backgroundColor: "red",
-                                });
-                            });
-                        }
-                    });    
-                }
                 var urlM = window.location.origin + "/getAllEvents";
                 axios.get(urlM).then((response) => {
                     this.clases = response.data;

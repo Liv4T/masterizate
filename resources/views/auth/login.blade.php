@@ -4,6 +4,9 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
+            @if (session('status'))
+                <div class="col-md-12 alert alert-danger" role="alert">{{ session('status') }}</div>
+            @endif
             <div class="card">
                 <div class="card-header">{{ __('Login') }}</div>
 
@@ -12,6 +15,7 @@
                         @csrf
 
                         <div class="form-group row">
+                    
                             <label for="user_name" class="col-md-4 col-form-label text-md-right">{{ __('Nombre de Usuario') }}</label>
 
                             <div class="col-md-6">
