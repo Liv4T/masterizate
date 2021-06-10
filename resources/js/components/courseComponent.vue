@@ -558,7 +558,6 @@ export default {
                 }
 
                 axios.post(url, {
-                    //Cursos generales
                     id_area: this.id_area,
                     id_classroom: this.id_classroom,
                     logros: this.newLogro,

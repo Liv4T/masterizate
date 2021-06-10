@@ -42,14 +42,14 @@ class PIARAnualPlanificationController extends Controller
      */
     public function store(Request $request)
     {
-        $user = Auth::user();
-        $PIARAnualPlanification = new PIARAnualPlanification();
+        $user_id = Auth::user()->id;
+        $PIARAnualPlanification = new PIARAnualPlanification;
         $PIARAnualPlanification->id_area = $request->id_area;
         $PIARAnualPlanification->id_classroom = $request->id_classroom;
         $PIARAnualPlanification->logros = $request->logros;
         $PIARAnualPlanification->trimestres = $request->trimestres;
         $PIARAnualPlanification->students = $request->students;
-        $pIARAnualPlanification->id_teacher = $user->id;
+        $PIARAnualPlanification->id_teacher = $user_id;
         $PIARAnualPlanification->save();
 
         return response()->json('Planificación PIAR Guardada');

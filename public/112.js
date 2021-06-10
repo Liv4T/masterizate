@@ -552,7 +552,6 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
         }
 
         axios.post(url, {
-          //Cursos generales
           id_area: this.id_area,
           id_classroom: this.id_classroom,
           logros: this.newLogro,
