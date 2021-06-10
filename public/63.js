@@ -386,16 +386,23 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
     SaveDataEvent: function SaveDataEvent() {
       var _this2 = this;
 
-      console.log(this.course);
-      axios.put("/api/teacher/module/".concat(this.id_module, "/class"), this.course).then(function (response) {
-        // this.getPlanificationEvent(this.id_lective_planification);
-        toastr.success("Clases actualizadas correctamente");
+      if (this.activityForAllStudents) {
+        axios.put("/api/teacher/module/".concat(this.id_module, "/class"), this.course).then(function (response) {
+          // this.getPlanificationEvent(this.id_lective_planification);
+          toastr.success("Clases actualizadas correctamente");
 
-        _this2.returnPage();
-      }, function (error) {
-        console.log(error);
-        toastr.error("ERROR:Por favor valide que la información esta completa");
-      });
+          _this2.returnPage();
+        }, function (error) {
+          console.log(error);
+          toastr.error("ERROR:Por favor valide que la información esta completa");
+        });
+      } else if (this.activityForPIARStudents) {
+        console.log(this.course);
+      } else if (this.activityForSelectStudents) {
+        console.log('Estudiantes Especificos');
+      } else if (this.activityForAllStudents == false && this.activityForPIARStudents == false && this.activityForSelectStudents == false) {
+        toastr.info("Selecciona una opcion en Actividad Para");
+      }
     },
     selectActivityType: function selectActivityType(index_activity, activity) {
       switch (activity.activity_type) {

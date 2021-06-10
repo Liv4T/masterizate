@@ -385,14 +385,19 @@ export default {
         },
 
         SaveDataEvent(){
-            console.log(this.course)
-
-             axios.put(`/api/teacher/module/${this.id_module}/class`,this.course).then((response) => {
-
-               // this.getPlanificationEvent(this.id_lective_planification);
-                toastr.success("Clases actualizadas correctamente");
-                this.returnPage();
-            },(error)=>{console.log(error);toastr.error("ERROR:Por favor valide que la información esta completa");});
+            if(this.activityForAllStudents){
+                axios.put(`/api/teacher/module/${this.id_module}/class`,this.course).then((response) => {
+                   // this.getPlanificationEvent(this.id_lective_planification);
+                    toastr.success("Clases actualizadas correctamente");
+                    this.returnPage();
+                },(error)=>{console.log(error);toastr.error("ERROR:Por favor valide que la información esta completa");});
+            }else if(this.activityForPIARStudents){
+                console.log(this.course)
+            }else if(this.activityForSelectStudents){
+                console.log('Estudiantes Especificos')
+            }else if(this.activityForAllStudents == false && this.activityForPIARStudents == false && this.activityForSelectStudents == false){
+                toastr.info("Selecciona una opcion en Actividad Para")   
+            }
 
         },
         selectActivityType(index_activity,activity){
