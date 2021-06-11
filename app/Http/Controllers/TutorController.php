@@ -33,7 +33,7 @@ class TutorController extends Controller
             'tutorial_value'=>$data['tutorial_value'],
             'duration_minutes'=>$data['duration_minutes'],
             'area_id'=>$area_id,
-            'code_id'=>$data['code_id'],
+            'code_id'=>isset($data['code_id']),
             'classroom_id'=>$classroom_id,
             'teacher_id'=>$user->id,
             'state'=>1,
