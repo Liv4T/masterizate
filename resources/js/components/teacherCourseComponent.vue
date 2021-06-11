@@ -275,6 +275,10 @@ export default {
     watch: {
         activityForAllStudents: function(newVal){
             if(newVal == true){
+                this.course.activityForPIARStudents = false;
+                this.course.activityForSelectStudents = false;
+                this.course.activityForAllStudents = true;
+                
                 this.activityForPIARStudents = false;
                 this.activityForSelectStudents = false;
             }
@@ -282,6 +286,11 @@ export default {
 
         activityForPIARStudents: function(newVal){
             if(newVal == true){
+                this.course.activityForPIARStudents = true;
+                this.course.activityForSelectStudents = false;
+                this.course.activityForAllStudents = false;
+
+
                 this.activityForAllStudents = false;
                 this.activityForSelectStudents = false;
                 this.selectedStudentsData = [];
@@ -290,6 +299,11 @@ export default {
 
         activityForSelectStudents: function(newVal){
             if(newVal == true){
+                this.course.activityForPIARStudents = false;
+                this.course.activityForSelectStudents = true;
+                this.course.activityForAllStudents = false;
+
+
                 this.activityForPIARStudents = false;
                 this.activityForAllStudents = false;
                 this.selectedStudentsData = this.studentsOptions;
@@ -391,10 +405,6 @@ export default {
                     toastr.success("Clases actualizadas correctamente");
                     this.returnPage();
                 },(error)=>{console.log(error);toastr.error("ERROR:Por favor valide que la información esta completa");});
-            }else if(this.activityForPIARStudents){
-                console.log(this.course)
-            }else if(this.activityForSelectStudents){
-                console.log('Estudiantes Especificos')
             }else if(this.activityForAllStudents == false && this.activityForPIARStudents == false && this.activityForSelectStudents == false){
                 toastr.info("Selecciona una opcion en Actividad Para")   
             }

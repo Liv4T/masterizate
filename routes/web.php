@@ -953,3 +953,6 @@ Route::get('getPlanificationPiar','PIARAnualPlanificationController@getData');
 Route::middleware('auth')->get('/piarAnualPlanification/{id_area}/{id_classroom}', function (String $id_area, String $id_classroom) {
     return view('piarAnualPlanification')->with('id_area', $id_area)->with('id_classroom', $id_classroom);
 });
+
+Route::resource('piarClass','PIARClassController');
+Route::get('getClass','PIARClassController@getClass');

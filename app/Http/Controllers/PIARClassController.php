@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\PIARClass;
 use Illuminate\Http\Request;
+use Auth;
 
 class PIARClassController extends Controller
 {
@@ -17,6 +18,11 @@ class PIARClassController extends Controller
         //
     }
 
+    public function getClass(){
+        $user_id = Auth::user()->id;
+        $classesPiar = PIARClass::where('teacher_id','=',$user_id)->get();
+        return response()->json($classesPiar);
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -35,8 +41,16 @@ class PIARClassController extends Controller
      */
     public function store(Request $request)
     {
+        $user_id = Auth::user()->id;
         $classPIAR = new PIARClass;
-        $classPIAR->create($request->all());
+        $classPIAR->activities = $request->activities;
+        $classPIAR->content = $request->content;
+        $classPIAR->description = $request->description;
+        $classPIAR->hourly_intensity = $request->hourly_intensity;
+        $classPIAR->name = $request->name;
+        $classPIAR->state = $request->state;
+        $classPIAR->teacher_id = $user_id;
+        $classPIAR->save();
         return response()->json("Clase para estudiantes PIAR Guardado");
     }
 
@@ -72,7 +86,13 @@ class PIARClassController extends Controller
     public function update(Request $request, $id)
     {
         $classPIAR = PIARClass::findOrFail($id);
-        $classPIAR->update($request->all());
+        $classPIAR->activities = $request->activities;
+        $classPIAR->content = $request->content;
+        $classPIAR->description = $request->description;
+        $classPIAR->hourly_intensity = $request->hourly_intensity;
+        $classPIAR->name = $request->name;
+        $classPIAR->state = $request->state;        
+        $classPIAR->update();
         return response()->json("Clase para estudiantes PIAR Actualizado");
     }
 

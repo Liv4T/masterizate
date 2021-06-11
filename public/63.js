@@ -281,12 +281,18 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
   watch: {
     activityForAllStudents: function activityForAllStudents(newVal) {
       if (newVal == true) {
+        this.course.activityForPIARStudents = false;
+        this.course.activityForSelectStudents = false;
+        this.course.activityForAllStudents = true;
         this.activityForPIARStudents = false;
         this.activityForSelectStudents = false;
       }
     },
     activityForPIARStudents: function activityForPIARStudents(newVal) {
       if (newVal == true) {
+        this.course.activityForPIARStudents = true;
+        this.course.activityForSelectStudents = false;
+        this.course.activityForAllStudents = false;
         this.activityForAllStudents = false;
         this.activityForSelectStudents = false;
         this.selectedStudentsData = [];
@@ -294,6 +300,9 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
     },
     activityForSelectStudents: function activityForSelectStudents(newVal) {
       if (newVal == true) {
+        this.course.activityForPIARStudents = false;
+        this.course.activityForSelectStudents = true;
+        this.course.activityForAllStudents = false;
         this.activityForPIARStudents = false;
         this.activityForAllStudents = false;
         this.selectedStudentsData = this.studentsOptions;
@@ -396,10 +405,6 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
           console.log(error);
           toastr.error("ERROR:Por favor valide que la información esta completa");
         });
-      } else if (this.activityForPIARStudents) {
-        console.log(this.course);
-      } else if (this.activityForSelectStudents) {
-        console.log('Estudiantes Especificos');
       } else if (this.activityForAllStudents == false && this.activityForPIARStudents == false && this.activityForSelectStudents == false) {
         toastr.info("Selecciona una opcion en Actividad Para");
       }

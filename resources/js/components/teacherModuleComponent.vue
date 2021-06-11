@@ -136,9 +136,10 @@
                     this.getClasses();
                 });
             },
-            getClasses() {
+            getClasses() {                
                 var urlr = window.location.origin + "/showClass/" + this.id_module;
                 axios.get(urlr).then(response => {
+                    console.log(response.data.clase)
                     this.fillS = response.data.clase;
 
                     if (response.data.area && response.data.classroom)
