@@ -34,7 +34,7 @@
                                         <input type="checkbox" id="students" name="students" v-model="activityForAllStudents">
                                         <label for="piar"> Todos los Estudiantes</label>
                                     </div>
-                        
+                                    
                                     <div>
                                         <input type="checkbox" id="piar" name="students" v-model="activityForPIARStudents">
                                         <label for="piar"> Estudiantes PIAR</label><br>
@@ -275,9 +275,9 @@ export default {
     watch: {
         activityForAllStudents: function(newVal){
             if(newVal == true){
-                this.course.activityForPIARStudents = false;
-                this.course.activityForSelectStudents = false;
-                this.course.activityForAllStudents = true;
+                this.course.activityForPIARStudents = 0;
+                this.course.activityForSelectStudents = 0;
+                this.course.activityForAllStudents = 1;
                 
                 this.activityForPIARStudents = false;
                 this.activityForSelectStudents = false;
@@ -286,9 +286,9 @@ export default {
 
         activityForPIARStudents: function(newVal){
             if(newVal == true){
-                this.course.activityForPIARStudents = true;
-                this.course.activityForSelectStudents = false;
-                this.course.activityForAllStudents = false;
+                this.course.activityForPIARStudents = 1;
+                this.course.activityForSelectStudents = 0;
+                this.course.activityForAllStudents = 0;
 
 
                 this.activityForAllStudents = false;
@@ -299,9 +299,9 @@ export default {
 
         activityForSelectStudents: function(newVal){
             if(newVal == true){
-                this.course.activityForPIARStudents = false;
-                this.course.activityForSelectStudents = true;
-                this.course.activityForAllStudents = false;
+                this.course.activityForPIARStudents = 0;
+                this.course.activityForSelectStudents = 1;
+                this.course.activityForAllStudents = 0;
 
 
                 this.activityForPIARStudents = false;
@@ -333,7 +333,11 @@ export default {
             axios.get(`/api/teacher/module/${this.id_module}/class/${this.id_class}`).then((response) => {
                     this.course=response.data;
 
-                    if(this.course.content.length==0)
+                    this.activityForPIARStudents = this.course.activityForPIARStudents
+                    this.activityForSelectStudents = this.course.activityForSelectStudents
+                    this.activityForAllStudents = this.course.activityForAllStudents
+                
+                if(this.course.content.length==0)
                     {
                         this.course.content=[
                                 {
@@ -399,16 +403,12 @@ export default {
         },
 
         SaveDataEvent(){
-            if(this.activityForAllStudents){
-                axios.put(`/api/teacher/module/${this.id_module}/class`,this.course).then((response) => {
-                   // this.getPlanificationEvent(this.id_lective_planification);
-                    toastr.success("Clases actualizadas correctamente");
-                    this.returnPage();
-                },(error)=>{console.log(error);toastr.error("ERROR:Por favor valide que la información esta completa");});
-            }else if(this.activityForAllStudents == false && this.activityForPIARStudents == false && this.activityForSelectStudents == false){
-                toastr.info("Selecciona una opcion en Actividad Para")   
-            }
-
+            console.log(this.course);
+            axios.put(`/api/teacher/module/${this.id_module}/class`,this.course).then((response) => {
+               // this.getPlanificationEvent(this.id_lective_planification);
+                toastr.success("Clases actualizadas correctamente");
+                this.returnPage();
+            },(error)=>{console.log(error);toastr.error("ERROR:Por favor valide que la información esta completa");});
         },
         selectActivityType(index_activity,activity){
 

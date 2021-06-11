@@ -281,18 +281,18 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
   watch: {
     activityForAllStudents: function activityForAllStudents(newVal) {
       if (newVal == true) {
-        this.course.activityForPIARStudents = false;
-        this.course.activityForSelectStudents = false;
-        this.course.activityForAllStudents = true;
+        this.course.activityForPIARStudents = 0;
+        this.course.activityForSelectStudents = 0;
+        this.course.activityForAllStudents = 1;
         this.activityForPIARStudents = false;
         this.activityForSelectStudents = false;
       }
     },
     activityForPIARStudents: function activityForPIARStudents(newVal) {
       if (newVal == true) {
-        this.course.activityForPIARStudents = true;
-        this.course.activityForSelectStudents = false;
-        this.course.activityForAllStudents = false;
+        this.course.activityForPIARStudents = 1;
+        this.course.activityForSelectStudents = 0;
+        this.course.activityForAllStudents = 0;
         this.activityForAllStudents = false;
         this.activityForSelectStudents = false;
         this.selectedStudentsData = [];
@@ -300,9 +300,9 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
     },
     activityForSelectStudents: function activityForSelectStudents(newVal) {
       if (newVal == true) {
-        this.course.activityForPIARStudents = false;
-        this.course.activityForSelectStudents = true;
-        this.course.activityForAllStudents = false;
+        this.course.activityForPIARStudents = 0;
+        this.course.activityForSelectStudents = 1;
+        this.course.activityForAllStudents = 0;
         this.activityForPIARStudents = false;
         this.activityForAllStudents = false;
         this.selectedStudentsData = this.studentsOptions;
@@ -334,6 +334,9 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
     if (this.id_class != 0) {
       axios.get("/api/teacher/module/".concat(this.id_module, "/class/").concat(this.id_class)).then(function (response) {
         _this.course = response.data;
+        _this.activityForPIARStudents = _this.course.activityForPIARStudents;
+        _this.activityForSelectStudents = _this.course.activityForSelectStudents;
+        _this.activityForAllStudents = _this.course.activityForAllStudents;
 
         if (_this.course.content.length == 0) {
           _this.course.content = [{
@@ -395,19 +398,16 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
     SaveDataEvent: function SaveDataEvent() {
       var _this2 = this;
 
-      if (this.activityForAllStudents) {
-        axios.put("/api/teacher/module/".concat(this.id_module, "/class"), this.course).then(function (response) {
-          // this.getPlanificationEvent(this.id_lective_planification);
-          toastr.success("Clases actualizadas correctamente");
+      console.log(this.course);
+      axios.put("/api/teacher/module/".concat(this.id_module, "/class"), this.course).then(function (response) {
+        // this.getPlanificationEvent(this.id_lective_planification);
+        toastr.success("Clases actualizadas correctamente");
 
-          _this2.returnPage();
-        }, function (error) {
-          console.log(error);
-          toastr.error("ERROR:Por favor valide que la información esta completa");
-        });
-      } else if (this.activityForAllStudents == false && this.activityForPIARStudents == false && this.activityForSelectStudents == false) {
-        toastr.info("Selecciona una opcion en Actividad Para");
-      }
+        _this2.returnPage();
+      }, function (error) {
+        console.log(error);
+        toastr.error("ERROR:Por favor valide que la información esta completa");
+      });
     },
     selectActivityType: function selectActivityType(index_activity, activity) {
       switch (activity.activity_type) {
