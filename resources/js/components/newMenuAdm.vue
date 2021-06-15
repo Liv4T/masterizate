@@ -12,6 +12,7 @@
                 <a class="dropdown-item" href="general_adm">Crear Salones</a>
                 <!-- Pendiente creación de Perfiles -->
                 <a class="dropdown-item" href="#">Crear Perfiles</a>
+                <a class="dropdown-item" href="/piar">Estudiantes PIAR</a>
                 <a class="dropdown-item" href="/salon_adm">Crear Usuarios</a>
                 <a class="dropdown-item" href="/admin/configuracion">Parametros de Notas</a>
                 <a class="dropdown-item" href="/nursing">Enfermeria</a>

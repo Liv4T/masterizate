@@ -33,14 +33,15 @@
                                 
                                     <input type="checkbox" id="students" name="students" v-model="activityForAllStudents">
                                     <label for="piar" class="mr-3"> Todos los Estudiantes</label>
-                                
-                                    <input type="checkbox" id="piar" name="students" v-model="activityForPIARStudents">
-                                    <label for="piar" class="mr-3"> Estudiantes PIAR</label>
+
+                                    <input v-show="piarStudents.length > 0" type="checkbox" id="piar" name="students" v-model="activityForPIARStudents">
+                                    <label v-if="piarStudents.length == 0" for="piar" class="mr-3"> No se encuentran Estudiantes PIAR</label>
+                                    <label v-else for="piar" class="mr-3"> Estudiantes PIAR</label>
                                     
                                     <input type="checkbox" id="specific" name="students" v-model="activityForSelectStudents">
                                     <label for="specific"> Estudiantes en Especifico</label>
                                 
-                                <div v-if="activityForPIARStudents == true || activityForSelectStudents == true">
+                                <div v-if="(activityForPIARStudents == true && piarStudents.length > 0) || activityForSelectStudents == true">
                                     <label>Selecciona Los estudiantes</label>
                                     <multiselect v-model="saveStudent" :options="selectedStudentsData" :multiple="true"
                                         :close-on-select="false" :clear-on-select="false"
@@ -112,9 +113,9 @@
                                         <div class="invalid-feedback">Please fill out this field</div>
                                     </div>
                                     
-                                    <a v-on:click="showPIARPlan" class="btn btn-primary">Crear Planificación General Estudiantes PIAR</a>
+                                    <a v-show="(activityForPIARStudents == true && piarStudents.length > 0)" v-on:click="showPIARPlan" class="btn btn-primary">Crear Planificación General Estudiantes PIAR</a>
                                     
-                                    <div v-show="showPiarPlan == true">
+                                    <div v-show="(activityForPIARStudents == true && piarStudents.length > 0)">
                                         <div v-for="(inputsP, key) in inputsPIAR" :key="'-'+key">
                                             <div class="classroom-planning-section">
                                                 <strong>Logro:</strong>
@@ -200,9 +201,9 @@
                                     <a submit="createCourses" class="btn btn-warning float-right">Guardar</a>
                                     </div>-->
 
-                                    <a v-on:click="showPIARPlanT" class="btn btn-primary">Crear Planificación General Estudiantes PIAR</a>
+                                    <a v-show="(activityForPIARStudents == true && piarStudents.length > 0)" v-on:click="showPIARPlanT" class="btn btn-primary">Crear Planificación General Estudiantes PIAR</a>
                                 
-                                    <div class="mt-3" v-show="showPIARPlanTrimestral == true">
+                                    <div class="mt-3" v-show="(activityForPIARStudents == true && piarStudents.length > 0)">
                                         <div class="form-group row mx-auto" v-for="(inputsP1, keyy) in inputsPIAR1" :key="keyy">
                                             <div class="col-md-6">
                                                 <label for="name">Indicador</label>
@@ -361,7 +362,8 @@ export default {
             activityForPIARStudents: false,
             activityForSelectStudents: false,
             studentsOptions:[],
-            saveStudent:[]
+            saveStudent:[],
+            piarStudents:[]
         };
     },
     watch: {
@@ -376,7 +378,7 @@ export default {
             if(newVal == true){
                 this.activityForAllStudents = false;
                 this.activityForSelectStudents = false;
-                this.selectedStudentsData = [];
+                this.selectedStudentsData = this.piarStudents;
             }
         },
 
@@ -389,7 +391,12 @@ export default {
         }        
     },
     mounted() {
-        
+        axios.get(`/PIARStudentsByArea/${this.id_area}/${this.id_classroom}`).then((response)=>{
+            this.piarStudents = response.data;
+        }).catch((error)=>{
+            console.log(error)
+        })
+
         axios.get(`/StudentsByArea/${this.id_area}/${this.id_classroom}`).then((response)=>{
             let data = response.data;
             data.forEach((e)=>{
@@ -535,7 +542,7 @@ export default {
             return this.isLoading;
         },
         createCourses() {
-            if(this.activityForAllStudents == true){
+            if(this.inputs.length >= 1 || this.inputs1.length >= 1 ){
                 this.isLoading=true;
                 var url = window.location.origin + "/Courses";
 
@@ -572,7 +579,7 @@ export default {
                     this.isLoading=false;
                 });
 
-            }else if(this.activityForPIARStudents){
+            }else if(this.inputsPIAR.length >= 1){
                 this.isLoading=true;
 
                 if(this.inputsPIAR.length<1 ||  this.inputsPIAR1.length<1)

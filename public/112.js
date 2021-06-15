@@ -273,6 +273,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 (function () {
   "use strict";
 
@@ -342,7 +343,7 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
       newLogro2: "",
       newLogro3: "",
       newLogro4: ""
-    }, _defineProperty(_ref, "newTrimestre", []), _defineProperty(_ref, "newLogro", []), _defineProperty(_ref, "trimestre", false), _defineProperty(_ref, "logro_1", ""), _defineProperty(_ref, "logro_2", ""), _defineProperty(_ref, "logro_3", ""), _defineProperty(_ref, "logro_4", ""), _defineProperty(_ref, "fillC", []), _defineProperty(_ref, "anual", []), _defineProperty(_ref, "newAnual", []), _defineProperty(_ref, "errors", []), _defineProperty(_ref, "isSynchronized", true), _defineProperty(_ref, "isLoading", false), _defineProperty(_ref, "showPiarPlan", false), _defineProperty(_ref, "showPIARPlanTrimestral", false), _defineProperty(_ref, "activityForAllStudents", false), _defineProperty(_ref, "activityForPIARStudents", false), _defineProperty(_ref, "activityForSelectStudents", false), _defineProperty(_ref, "studentsOptions", []), _defineProperty(_ref, "saveStudent", []), _ref;
+    }, _defineProperty(_ref, "newTrimestre", []), _defineProperty(_ref, "newLogro", []), _defineProperty(_ref, "trimestre", false), _defineProperty(_ref, "logro_1", ""), _defineProperty(_ref, "logro_2", ""), _defineProperty(_ref, "logro_3", ""), _defineProperty(_ref, "logro_4", ""), _defineProperty(_ref, "fillC", []), _defineProperty(_ref, "anual", []), _defineProperty(_ref, "newAnual", []), _defineProperty(_ref, "errors", []), _defineProperty(_ref, "isSynchronized", true), _defineProperty(_ref, "isLoading", false), _defineProperty(_ref, "showPiarPlan", false), _defineProperty(_ref, "showPIARPlanTrimestral", false), _defineProperty(_ref, "activityForAllStudents", false), _defineProperty(_ref, "activityForPIARStudents", false), _defineProperty(_ref, "activityForSelectStudents", false), _defineProperty(_ref, "studentsOptions", []), _defineProperty(_ref, "saveStudent", []), _defineProperty(_ref, "piarStudents", []), _ref;
   },
   watch: {
     activityForAllStudents: function activityForAllStudents(newVal) {
@@ -355,7 +356,7 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
       if (newVal == true) {
         this.activityForAllStudents = false;
         this.activityForSelectStudents = false;
-        this.selectedStudentsData = [];
+        this.selectedStudentsData = this.piarStudents;
       }
     },
     activityForSelectStudents: function activityForSelectStudents(newVal) {
@@ -369,6 +370,11 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
   mounted: function mounted() {
     var _this = this;
 
+    axios.get("/PIARStudentsByArea/".concat(this.id_area, "/").concat(this.id_classroom)).then(function (response) {
+      _this.piarStudents = response.data;
+    })["catch"](function (error) {
+      console.log(error);
+    });
     axios.get("/StudentsByArea/".concat(this.id_area, "/").concat(this.id_classroom)).then(function (response) {
       var data = response.data;
       data.forEach(function (e) {
@@ -532,7 +538,7 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
     createCourses: function createCourses() {
       var _this2 = this;
 
-      if (this.activityForAllStudents == true) {
+      if (this.inputs.length >= 1 || this.inputs1.length >= 1) {
         this.isLoading = true;
         var url = window.location.origin + "/Courses";
         if (this.inputs.length < 1 || this.inputs1.length < 1) return;
@@ -565,7 +571,7 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
           _this2.errors = error.response.data;
           _this2.isLoading = false;
         });
-      } else if (this.activityForPIARStudents) {
+      } else if (this.inputsPIAR.length >= 1) {
         this.isLoading = true;
         if (this.inputsPIAR.length < 1 || this.inputsPIAR1.length < 1) return;
         this.newTrimestre = [];
@@ -712,6 +718,12 @@ var render = function() {
                 _c("input", {
                   directives: [
                     {
+                      name: "show",
+                      rawName: "v-show",
+                      value: _vm.piarStudents.length > 0,
+                      expression: "piarStudents.length > 0"
+                    },
+                    {
                       name: "model",
                       rawName: "v-model",
                       value: _vm.activityForPIARStudents,
@@ -748,9 +760,17 @@ var render = function() {
                   }
                 }),
                 _vm._v(" "),
-                _c("label", { staticClass: "mr-3", attrs: { for: "piar" } }, [
-                  _vm._v(" Estudiantes PIAR")
-                ]),
+                _vm.piarStudents.length == 0
+                  ? _c(
+                      "label",
+                      { staticClass: "mr-3", attrs: { for: "piar" } },
+                      [_vm._v(" No se encuentran Estudiantes PIAR")]
+                    )
+                  : _c(
+                      "label",
+                      { staticClass: "mr-3", attrs: { for: "piar" } },
+                      [_vm._v(" Estudiantes PIAR")]
+                    ),
                 _vm._v(" "),
                 _c("input", {
                   directives: [
@@ -795,7 +815,8 @@ var render = function() {
                   _vm._v(" Estudiantes en Especifico")
                 ]),
                 _vm._v(" "),
-                _vm.activityForPIARStudents == true ||
+                (_vm.activityForPIARStudents == true &&
+                  _vm.piarStudents.length > 0) ||
                 _vm.activityForSelectStudents == true
                   ? _c(
                       "div",
@@ -1032,6 +1053,17 @@ var render = function() {
                         _c(
                           "a",
                           {
+                            directives: [
+                              {
+                                name: "show",
+                                rawName: "v-show",
+                                value:
+                                  _vm.activityForPIARStudents == true &&
+                                  _vm.piarStudents.length > 0,
+                                expression:
+                                  "(activityForPIARStudents == true && piarStudents.length > 0)"
+                              }
+                            ],
                             staticClass: "btn btn-primary",
                             on: { click: _vm.showPIARPlan }
                           },
@@ -1049,8 +1081,11 @@ var render = function() {
                               {
                                 name: "show",
                                 rawName: "v-show",
-                                value: _vm.showPiarPlan == true,
-                                expression: "showPiarPlan == true"
+                                value:
+                                  _vm.activityForPIARStudents == true &&
+                                  _vm.piarStudents.length > 0,
+                                expression:
+                                  "(activityForPIARStudents == true && piarStudents.length > 0)"
                               }
                             ]
                           },
@@ -1357,6 +1392,17 @@ var render = function() {
                         _c(
                           "a",
                           {
+                            directives: [
+                              {
+                                name: "show",
+                                rawName: "v-show",
+                                value:
+                                  _vm.activityForPIARStudents == true &&
+                                  _vm.piarStudents.length > 0,
+                                expression:
+                                  "(activityForPIARStudents == true && piarStudents.length > 0)"
+                              }
+                            ],
                             staticClass: "btn btn-primary",
                             on: { click: _vm.showPIARPlanT }
                           },
@@ -1374,8 +1420,11 @@ var render = function() {
                               {
                                 name: "show",
                                 rawName: "v-show",
-                                value: _vm.showPIARPlanTrimestral == true,
-                                expression: "showPIARPlanTrimestral == true"
+                                value:
+                                  _vm.activityForPIARStudents == true &&
+                                  _vm.piarStudents.length > 0,
+                                expression:
+                                  "(activityForPIARStudents == true && piarStudents.length > 0)"
                               }
                             ],
                             staticClass: "mt-3"

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\PIAR;
 use App\User;
+use App\ClassroomStudent;
+use App\ScoreCumulative;
 use Illuminate\Http\Request;
 
 class PIARController extends Controller
@@ -22,6 +24,27 @@ class PIARController extends Controller
     public function getPIARStudents(){
         $PIARStudents = User::where('isPIAR','=',true)->get();
         return response()->json($PIARStudents);
+    }
+
+    public function getPIARStudentsArea(String $id_area, String $id_classroom){
+        //
+        $scores = [];
+        $studenAsigned = ClassroomStudent::where('id_classroom', $id_classroom)->get();
+        if (isset($studenAsigned)) {
+            foreach ($studenAsigned as $index => $asigned) {
+                $student = User::where([
+                    ['isPIAR','1'],
+                    ['id',$asigned->id_user]
+                ])->first();
+                if(isset($student)){
+                    $scores[$index] = [
+                        'text' => $student->name . " " . $student->last_name,
+                        'id' => $student->id
+                    ];
+                }
+            }
+        }
+        return $scores;
     }
     /**
      * Show the form for creating a new resource.
