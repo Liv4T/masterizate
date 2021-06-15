@@ -18,6 +18,11 @@ class PIARController extends Controller
         return view('piar');
     }
 
+
+    public function getPIARStudents(){
+        $PIARStudents = User::where('isPIAR','=',true)->get();
+        return response()->json($PIARStudents);
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -47,7 +52,7 @@ class PIARController extends Controller
      */
     public function show(PIAR $pIAR)
     {
-        //
+    
     }
 
     /**

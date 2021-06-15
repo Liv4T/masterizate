@@ -15,15 +15,17 @@
                                 <tr>
                                     <th>Nombre</th>
                                     <th>Apellido</th>
-                                    <th>Grado</th>
                                     <th>Acción</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
+                                <tr v-for="(student, key) in students" :key="key">
+                                    <td>{{student.name}}</td>
+                                    <td>{{student.last_name}}</td>
+                                    <td>
+                                        <button class="btn btn-primary" v-on:click="()=>updateStudents(student)">Editar</button>
+                                        <button class="btn btn-danger" v-on:click="()=>deleteStudents(student)">Eliminar</button>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
@@ -72,13 +74,16 @@
     export default {
         data(){
             return{
+                isUpdate: null,
                 allStudents:[],
-                studentsOptions:[]
+                studentsOptions:[],
+                students:[]
             }
         },
         
         mounted(){
             this.getAllStudents();
+            this.getData();
         },
 
         components: {
@@ -86,15 +91,17 @@
         },
 
         methods:{
+            getData(){
+                axios.get('getPIARStudents').then((response)=>{
+                    this.students = response.data;
+                })
+            },
             getAllStudents(){
                 axios.get('getAllStudents').then((response)=>{
                     let students = response.data;
                     students.forEach((el)=>{
                         this.allStudents.push({
-                            id: el.user_id,
-                            id_grade: el.id_grade,
-                            grade: el.grade,
-                            course: el.course,
+                            id: el.user_id,                            
                             text: el.name+' '+el.last_name
                         })
                     })
@@ -102,11 +109,49 @@
             },
 
             updatePIARStudents(){
-                this.studentsOptions.forEach((el)=>{
-                    axios.put(`piar/${el.id}`,{                        
-                        isPiar: true,
+                if(this.isUpdate == null){
+                    this.studentsOptions.forEach((el)=>{
+                        axios.put(`piar/${el.id}`,{                        
+                            isPiar: true,
+                        }).then((response)=>{
+                            toastr.success(response.data);
+                            $("#exampleModal").modal("hide");
+                            this.getData();
+                        })
                     })
-                })
+                    this.studentsOptions = [];
+                }else{        
+                    axios.put(`piar/${this.isUpdate}`,{                        
+                        isPiar: false,
+                    }).then((response)=>{
+                        toastr.success('Estudiante retirado de clasificación PIAR');
+                        $("#exampleModal").modal("hide");
+                        this.getData();
+                    })
+
+                    this.studentsOptions = [];
+                }
+            },
+
+            updateStudents(e){
+                this.isUpdate = e.id;
+                this.studentsOptions.push({
+                    id: e.id,
+                    text: e.name+' '+e.last_name
+                });
+
+                $("#exampleModal").modal("show");
+            },
+
+            deleteStudents(e){
+                if(window.confirm('Desea Eliminar este dato?')){
+                    axios.put(`piar/${e.id}`,{
+                        isPiar: null
+                    }).then((response)=>{
+                        toastr.success('Estudiante retirado de clasificación PIAR');
+                        this.getData();
+                    })
+                }
             }
         }
     }

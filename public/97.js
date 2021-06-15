@@ -79,44 +79,94 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___default.a);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
+      isUpdate: null,
       allStudents: [],
-      studentsOptions: []
+      studentsOptions: [],
+      students: []
     };
   },
   mounted: function mounted() {
     this.getAllStudents();
+    this.getData();
   },
   components: {
     Multiselect: vue_multiselect__WEBPACK_IMPORTED_MODULE_0___default.a
   },
   methods: {
-    getAllStudents: function getAllStudents() {
+    getData: function getData() {
       var _this = this;
+
+      axios.get('getPIARStudents').then(function (response) {
+        _this.students = response.data;
+      });
+    },
+    getAllStudents: function getAllStudents() {
+      var _this2 = this;
 
       axios.get('getAllStudents').then(function (response) {
         var students = response.data;
         students.forEach(function (el) {
-          _this.allStudents.push({
+          _this2.allStudents.push({
             id: el.user_id,
-            id_grade: el.id_grade,
-            grade: el.grade,
-            course: el.course,
             text: el.name + ' ' + el.last_name
           });
         });
       });
     },
     updatePIARStudents: function updatePIARStudents() {
-      this.studentsOptions.forEach(function (el) {
-        axios.put("piar/".concat(el.id), {
-          isPiar: true
+      var _this3 = this;
+
+      if (this.isUpdate == null) {
+        this.studentsOptions.forEach(function (el) {
+          axios.put("piar/".concat(el.id), {
+            isPiar: true
+          }).then(function (response) {
+            toastr.success(response.data);
+            $("#exampleModal").modal("hide");
+
+            _this3.getData();
+          });
         });
+        this.studentsOptions = [];
+      } else {
+        axios.put("piar/".concat(this.isUpdate), {
+          isPiar: false
+        }).then(function (response) {
+          toastr.success('Estudiante retirado de clasificación PIAR');
+          $("#exampleModal").modal("hide");
+
+          _this3.getData();
+        });
+        this.studentsOptions = [];
+      }
+    },
+    updateStudents: function updateStudents(e) {
+      this.isUpdate = e.id;
+      this.studentsOptions.push({
+        id: e.id,
+        text: e.name + ' ' + e.last_name
       });
+      $("#exampleModal").modal("show");
+    },
+    deleteStudents: function deleteStudents(e) {
+      var _this4 = this;
+
+      if (window.confirm('Desea Eliminar este dato?')) {
+        axios.put("piar/".concat(e.id), {
+          isPiar: null
+        }).then(function (response) {
+          toastr.success('Estudiante retirado de clasificación PIAR');
+
+          _this4.getData();
+        });
+      }
     }
   }
 });
@@ -139,7 +189,61 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _vm._m(0),
+    _c("div", { staticClass: "row justify-content-center" }, [
+      _c("div", { staticClass: "col-sm-12", attrs: { id: "crud" } }, [
+        _c("div", { staticClass: "card mt-2 ml-3 mr-3" }, [
+          _vm._m(0),
+          _vm._v(" "),
+          _vm._m(1),
+          _vm._v(" "),
+          _c("div", { staticClass: "card-body" }, [
+            _c("table", { staticClass: "table table-striped table-hover" }, [
+              _vm._m(2),
+              _vm._v(" "),
+              _c(
+                "tbody",
+                _vm._l(_vm.students, function(student, key) {
+                  return _c("tr", { key: key }, [
+                    _c("td", [_vm._v(_vm._s(student.name))]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(student.last_name))]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-primary",
+                          on: {
+                            click: function() {
+                              return _vm.updateStudents(student)
+                            }
+                          }
+                        },
+                        [_vm._v("Editar")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-danger",
+                          on: {
+                            click: function() {
+                              return _vm.deleteStudents(student)
+                            }
+                          }
+                        },
+                        [_vm._v("Eliminar")]
+                      )
+                    ])
+                  ])
+                }),
+                0
+              )
+            ])
+          ])
+        ])
+      ])
+    ]),
     _vm._v(" "),
     _c(
       "div",
@@ -159,7 +263,7 @@ var render = function() {
           { staticClass: "modal-dialog", attrs: { role: "document" } },
           [
             _c("div", { staticClass: "modal-content" }, [
-              _vm._m(1),
+              _vm._m(3),
               _vm._v(" "),
               _c("div", { staticClass: "modal-body" }, [
                 _c(
@@ -251,54 +355,40 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row justify-content-center" }, [
-      _c("div", { staticClass: "col-sm-12", attrs: { id: "crud" } }, [
-        _c("div", { staticClass: "card mt-2 ml-3 mr-3" }, [
-          _c("div", { staticClass: "card-header text-center" }, [
-            _c("h4", [_vm._v("Selección de estudiantes PIAR")])
-          ]),
-          _vm._v(" "),
-          _c("div", [
-            _c(
-              "button",
-              {
-                staticClass: "btn btn-primary mt-2 ml-3",
-                attrs: {
-                  type: "button",
-                  "data-toggle": "modal",
-                  "data-target": "#exampleModal"
-                }
-              },
-              [_vm._v("Crear Registro")]
-            )
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "card-body" }, [
-            _c("table", { staticClass: "table table-striped table-hover" }, [
-              _c("thead", [
-                _c("tr", [
-                  _c("th", [_vm._v("Nombre")]),
-                  _vm._v(" "),
-                  _c("th", [_vm._v("Apellido")]),
-                  _vm._v(" "),
-                  _c("th", [_vm._v("Grado")]),
-                  _vm._v(" "),
-                  _c("th", [_vm._v("Acción")])
-                ])
-              ]),
-              _vm._v(" "),
-              _c("tbody", [
-                _c("tr", [
-                  _c("td"),
-                  _vm._v(" "),
-                  _c("td"),
-                  _vm._v(" "),
-                  _c("td")
-                ])
-              ])
-            ])
-          ])
-        ])
+    return _c("div", { staticClass: "card-header text-center" }, [
+      _c("h4", [_vm._v("Selección de estudiantes PIAR")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", [
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-primary mt-2 ml-3",
+          attrs: {
+            type: "button",
+            "data-toggle": "modal",
+            "data-target": "#exampleModal"
+          }
+        },
+        [_vm._v("Crear Registro")]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("Nombre")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Apellido")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Acción")])
       ])
     ])
   },
