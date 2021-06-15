@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\PIAR;
+use App\User;
 use Illuminate\Http\Request;
 
 class PIARController extends Controller
@@ -67,9 +68,12 @@ class PIARController extends Controller
      * @param  \App\PIAR  $pIAR
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, PIAR $pIAR)
+    public function update(Request $request, $id)
     {
-        //
+        $userUpdate = User::findOrFail($id);
+        $userUpdate->isPiar = $request->isPiar;
+        $userUpdate->save();
+        return response()->json('Estudiante PIAR Registrado');
     }
 
     /**

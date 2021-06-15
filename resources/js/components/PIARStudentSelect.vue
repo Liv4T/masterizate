@@ -58,7 +58,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                        <button type="button" class="btn btn-primary">Guardar</button>
+                        <button type="button" class="btn btn-primary" v-on:click="updatePIARStudents">Guardar</button>
                     </div>
                 </div>
             </div>
@@ -89,7 +89,6 @@
             getAllStudents(){
                 axios.get('getAllStudents').then((response)=>{
                     let students = response.data;
-                    console.log(students);
                     students.forEach((el)=>{
                         this.allStudents.push({
                             id: el.user_id,
@@ -98,6 +97,14 @@
                             course: el.course,
                             text: el.name+' '+el.last_name
                         })
+                    })
+                })
+            },
+
+            updatePIARStudents(){
+                this.studentsOptions.forEach((el)=>{
+                    axios.put(`piar/${el.id}`,{                        
+                        isPiar: true,
                     })
                 })
             }

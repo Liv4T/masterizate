@@ -100,7 +100,6 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
 
       axios.get('getAllStudents').then(function (response) {
         var students = response.data;
-        console.log(students);
         students.forEach(function (el) {
           _this.allStudents.push({
             id: el.user_id,
@@ -109,6 +108,13 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
             course: el.course,
             text: el.name + ' ' + el.last_name
           });
+        });
+      });
+    },
+    updatePIARStudents: function updatePIARStudents() {
+      this.studentsOptions.forEach(function (el) {
+        axios.put("piar/".concat(el.id), {
+          isPiar: true
         });
       });
     }
@@ -213,7 +219,26 @@ var render = function() {
                 )
               ]),
               _vm._v(" "),
-              _vm._m(2)
+              _c("div", { staticClass: "modal-footer" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-secondary",
+                    attrs: { type: "button", "data-dismiss": "modal" }
+                  },
+                  [_vm._v("Cerrar")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-primary",
+                    attrs: { type: "button" },
+                    on: { click: _vm.updatePIARStudents }
+                  },
+                  [_vm._v("Guardar")]
+                )
+              ])
             ])
           ]
         )
@@ -299,27 +324,6 @@ var staticRenderFns = [
           }
         },
         [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "modal-footer" }, [
-      _c(
-        "button",
-        {
-          staticClass: "btn btn-secondary",
-          attrs: { type: "button", "data-dismiss": "modal" }
-        },
-        [_vm._v("Cerrar")]
-      ),
-      _vm._v(" "),
-      _c(
-        "button",
-        { staticClass: "btn btn-primary", attrs: { type: "button" } },
-        [_vm._v("Guardar")]
       )
     ])
   }
