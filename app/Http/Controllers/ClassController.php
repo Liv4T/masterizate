@@ -143,6 +143,7 @@ class ClassController extends Controller
             'activityForPIARStudents' => $course->activityForPIARStudents == 0 ? false : true,
             'activityForSelectStudents' => $course->activityForSelectStudents == 0 ? false : true,
             'activityForAllStudents' => $course->activityForAllStudents == 0 ? false : true,
+            'selectedStudents' => $course->selectedStudents,
         ];
 
 
@@ -634,8 +635,10 @@ class ClassController extends Controller
                     'content_quantity'=>count($data['content']), 
                     'activityForPIARStudents' => $data['activityForPIARStudents'],
                     'activityForSelectStudents' => $data['activityForSelectStudents'],  
-                    'activityForAllStudents' => $data['activityForAllStudents']));
-                    $id_course=$data['id_class'];
+                    'activityForAllStudents' => $data['activityForAllStudents'],
+                    'selectedStudents' => $data['selectedStudents']
+                ));
+                $id_course=$data['id_class'];
         }
         else{
 
@@ -649,6 +652,7 @@ class ClassController extends Controller
                 'activityForPIARStudents' => $data['activityForPIARStudents'],
                 'activityForSelectStudents' => $data['activityForSelectStudents'],  
                 'activityForAllStudents' => $data['activityForAllStudents'],
+                'selectedStudents' => $data['selectedStudents'],
                 'state'=>1,
                 'updated_user'=>$auth->id,
                 'deleted'=>0
@@ -943,6 +947,7 @@ class ClassController extends Controller
             'activityForPIARStudents' => (isset($data['activityForPIARStudents']) && $data['activityForPIARStudents'] !== "") ? $data['activityForPIARStudents'] : false,  
             'activityForSelectStudents' => (isset($data['activityForSelectStudents']) && $data['activityForSelectStudents'] !== "") ? $data['activityForSelectStudents'] : false,  
             'activityForAllStudents' => (isset($data['activityForAllStudents']) && $data['activityForAllStudents'] !== "") ? $data['activityForAllStudents'] : false,  
+            'selectedStudents' => $data['selectedStudents'],
         ]);
         return 'ok';
         $arch = Files::findOrFail($documento->id);
@@ -1046,6 +1051,7 @@ class ClassController extends Controller
         $class->activityForPIARStudents = $data['activityForPIARStudents'];
         $class->activityForSelectStudents = $data['activityForSelectStudents'];  
         $class->activityForAllStudents = $data['activityForAllStudents'];
+        $class->selectedStudents = $data['selectedStudents'];
         $class->save();
 
         return 'class update';

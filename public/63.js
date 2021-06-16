@@ -275,7 +275,8 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
         list: "ordered"
       }, {
         list: "bullet"
-      }], ["image"]]
+      }], ["image"]],
+      piarStudents: []
     };
   },
   watch: {
@@ -284,6 +285,7 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
         this.course.activityForPIARStudents = 0;
         this.course.activityForSelectStudents = 0;
         this.course.activityForAllStudents = 1;
+        this.course.selectedStudents = [];
         this.activityForPIARStudents = false;
         this.activityForSelectStudents = false;
       }
@@ -293,9 +295,10 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
         this.course.activityForPIARStudents = 1;
         this.course.activityForSelectStudents = 0;
         this.course.activityForAllStudents = 0;
+        this.course.selectedStudents = JSON.stringify(this.saveStudent);
         this.activityForAllStudents = false;
         this.activityForSelectStudents = false;
-        this.selectedStudentsData = [];
+        this.selectedStudentsData = this.piarStudents;
       }
     },
     activityForSelectStudents: function activityForSelectStudents(newVal) {
@@ -303,6 +306,8 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
         this.course.activityForPIARStudents = 0;
         this.course.activityForSelectStudents = 1;
         this.course.activityForAllStudents = 0;
+        this.course.selectedStudents = JSON.stringify(this.saveStudent);
+        console.log(this.saveStudent);
         this.activityForPIARStudents = false;
         this.activityForAllStudents = false;
         this.selectedStudentsData = this.studentsOptions;
@@ -315,6 +320,11 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
     axios.get("/showClass/".concat(this.id_module)).then(function (response) {
       _this.achievements = response.data.achievements;
       _this.nameArea = "".concat(response.data.area.name, " ").concat(response.data.classroom.name);
+      axios.get("/PIARStudentsByArea/".concat(response.data.area.id, "/").concat(response.data.classroom.id)).then(function (response) {
+        _this.piarStudents = Object.values(response.data);
+      })["catch"](function (error) {
+        console.log(error);
+      });
       axios.get("/StudentsByArea/".concat(response.data.area.id, "/").concat(response.data.classroom.id)).then(function (response) {
         var data = response.data;
         data.forEach(function (e) {
@@ -337,6 +347,7 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
         _this.activityForPIARStudents = _this.course.activityForPIARStudents;
         _this.activityForSelectStudents = _this.course.activityForSelectStudents;
         _this.activityForAllStudents = _this.course.activityForAllStudents;
+        _this.saveStudent = JSON.parse(_this.course.selectedStudents);
 
         if (_this.course.content.length == 0) {
           _this.course.content = [{
@@ -398,7 +409,6 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
     SaveDataEvent: function SaveDataEvent() {
       var _this2 = this;
 
-      console.log(this.course);
       axios.put("/api/teacher/module/".concat(this.id_module, "/class"), this.course).then(function (response) {
         // this.getPlanificationEvent(this.id_lective_planification);
         toastr.success("Clases actualizadas correctamente");

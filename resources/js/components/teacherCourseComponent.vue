@@ -268,8 +268,8 @@ export default {
             achievements:[],
             indicators:[],
             nameArea:'',
-            custom_editor_toolbar_justify:[["bold", "italic", "underline"], [{ list: "ordered" }, { list: "bullet" }],["image"]]
-
+            custom_editor_toolbar_justify:[["bold", "italic", "underline"], [{ list: "ordered" }, { list: "bullet" }],["image"]],
+            piarStudents:[]
         };
     },
     watch: {
@@ -278,6 +278,7 @@ export default {
                 this.course.activityForPIARStudents = 0;
                 this.course.activityForSelectStudents = 0;
                 this.course.activityForAllStudents = 1;
+                this.course.selectedStudents = []
                 
                 this.activityForPIARStudents = false;
                 this.activityForSelectStudents = false;
@@ -289,11 +290,11 @@ export default {
                 this.course.activityForPIARStudents = 1;
                 this.course.activityForSelectStudents = 0;
                 this.course.activityForAllStudents = 0;
-
+                this.course.selectedStudents = JSON.stringify(this.saveStudent);
 
                 this.activityForAllStudents = false;
                 this.activityForSelectStudents = false;
-                this.selectedStudentsData = [];
+                this.selectedStudentsData = this.piarStudents;
             }
         },
 
@@ -302,6 +303,8 @@ export default {
                 this.course.activityForPIARStudents = 0;
                 this.course.activityForSelectStudents = 1;
                 this.course.activityForAllStudents = 0;
+                this.course.selectedStudents = JSON.stringify(this.saveStudent);
+                console.log(this.saveStudent);
 
 
                 this.activityForPIARStudents = false;
@@ -311,9 +314,17 @@ export default {
         }        
     },
     mounted() {
+
         axios.get(`/showClass/${this.id_module}`).then((response) => {
             this.achievements=response.data.achievements;            
             this.nameArea = `${response.data.area.name} ${response.data.classroom.name}`;
+            
+            axios.get(`/PIARStudentsByArea/${response.data.area.id}/${response.data.classroom.id}`).then((response)=>{
+                this.piarStudents = Object.values(response.data);
+            }).catch((error)=>{
+                console.log(error)
+            });
+
             axios.get(`/StudentsByArea/${response.data.area.id}/${response.data.classroom.id}`).then((response)=>{
                 let data = response.data;
                 data.forEach((e)=>{
@@ -321,7 +332,7 @@ export default {
                         id: e.id_student,
                         text: e.name
                     })
-                })
+                });                
             })
         });
         axios.get(`/GetNameWeekly/${this.id_module}`).then((response) => {
@@ -336,6 +347,7 @@ export default {
                     this.activityForPIARStudents = this.course.activityForPIARStudents
                     this.activityForSelectStudents = this.course.activityForSelectStudents
                     this.activityForAllStudents = this.course.activityForAllStudents
+                    this.saveStudent = JSON.parse(this.course.selectedStudents);
                 
                 if(this.course.content.length==0)
                     {
@@ -403,7 +415,6 @@ export default {
         },
 
         SaveDataEvent(){
-            console.log(this.course);
             axios.put(`/api/teacher/module/${this.id_module}/class`,this.course).then((response) => {
                // this.getPlanificationEvent(this.id_lective_planification);
                 toastr.success("Clases actualizadas correctamente");
@@ -499,8 +510,6 @@ export default {
         },
         GetIndicatorsEvent(activity)
         {
-
-
             if(!activity || !activity.id_achievement) return;
 
              if(this.indicators==null)
