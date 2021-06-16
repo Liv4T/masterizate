@@ -371,7 +371,7 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
     var _this = this;
 
     axios.get("/PIARStudentsByArea/".concat(this.id_area, "/").concat(this.id_classroom)).then(function (response) {
-      _this.piarStudents = response.data;
+      _this.piarStudents = Object.values(response.data);
     })["catch"](function (error) {
       console.log(error);
     });

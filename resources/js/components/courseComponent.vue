@@ -392,7 +392,7 @@ export default {
     },
     mounted() {
         axios.get(`/PIARStudentsByArea/${this.id_area}/${this.id_classroom}`).then((response)=>{
-            this.piarStudents = response.data;
+            this.piarStudents = Object.values(response.data);
         }).catch((error)=>{
             console.log(error)
         })
