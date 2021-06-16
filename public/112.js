@@ -388,22 +388,20 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
       console.log('datos piar:', response);
       var data = response.data;
 
-      if (data.length >= 1) {
+      if (data.length > 0) {
+        _this.inputsPIAR1.splice(0);
+
+        _this.inputsPIAR.splice(0);
+
         data.forEach(function (el) {
           var logros = JSON.parse(el.logros);
           var trimestres = JSON.parse(el.trimestres);
-
-          _this.inputsPIAR1.splice(0);
-
           logros.forEach(function (lg) {
             _this.inputsPIAR1.push({
               contenidoPIAR: lg.contenidoPIAR,
               namePIAR: lg.namePIAR
             });
           });
-
-          _this.inputsPIAR.splice(0);
-
           trimestres.forEach(function (lg) {
             _this.inputsPIAR.push({
               logroPIAR: lg.logroPIAR,
@@ -411,6 +409,7 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
             });
           });
         });
+        console.log(_this.inputsPIAR1);
         _this.showPiarPlan = true, _this.showPIARPlanTrimestral = true, _this.activityForPIARStudents = true;
       }
     }); //load from localstorage
@@ -538,52 +537,52 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
     createCourses: function createCourses() {
       var _this2 = this;
 
-      if (this.inputs.length >= 1 || this.inputs1.length >= 1) {
-        this.isLoading = true;
-        var url = window.location.origin + "/Courses";
-        if (this.inputs.length < 1 || this.inputs1.length < 1) return;
-        this.newTrimestre = [];
-        this.newLogro = [];
+      this.isLoading = true;
+      var url = window.location.origin + "/Courses";
+      if (this.inputs.length < 1 || this.inputs1.length < 1) return;
+      this.newTrimestre = [];
+      this.newLogro = [];
 
-        if (this.inputs.length >= 1) {
-          for (var i = 0; i < this.inputs.length; i++) {
-            this.newTrimestre.push(this.inputs[i]);
-          }
+      if (this.inputs.length >= 1) {
+        for (var i = 0; i < this.inputs.length; i++) {
+          this.newTrimestre.push(this.inputs[i]);
         }
+      }
 
-        if (this.inputs1.length >= 1) {
-          for (var _i = 0; _i < this.inputs1.length; _i++) {
-            this.newLogro.push(this.inputs1[_i]);
-          }
+      if (this.inputs1.length >= 1) {
+        for (var _i = 0; _i < this.inputs1.length; _i++) {
+          this.newLogro.push(this.inputs1[_i]);
         }
+      }
 
-        axios.post(url, {
-          id_area: this.id_area,
-          id_classroom: this.id_classroom,
-          logros: this.newLogro,
-          trimestres: this.newTrimestre
-        }).then(function (response) {
-          _this2.errors = [];
-          toastr.success("Nuevo plan general creado exitosamente");
+      axios.post(url, {
+        id_area: this.id_area,
+        id_classroom: this.id_classroom,
+        logros: this.newLogro,
+        trimestres: this.newTrimestre
+      }).then(function (response) {
+        _this2.errors = [];
+        toastr.success("Nuevo plan general creado exitosamente");
 
-          _this2.getMenu();
-        })["catch"](function (error) {
-          _this2.errors = error.response.data;
-          _this2.isLoading = false;
-        });
-      } else if (this.inputsPIAR.length >= 1) {
+        _this2.getMenu();
+      })["catch"](function (error) {
+        _this2.errors = error.response.data;
+        _this2.isLoading = false;
+      });
+
+      if (this.inputsPIAR.length > 0 || this.inputsPIAR1.length > 0) {
         this.isLoading = true;
         if (this.inputsPIAR.length < 1 || this.inputsPIAR1.length < 1) return;
         this.newTrimestre = [];
         this.newLogro = [];
 
-        if (this.inputsPIAR.length >= 1) {
+        if (this.inputsPIAR.length > 0) {
           for (var _i2 = 0; _i2 < this.inputsPIAR.length; _i2++) {
             this.newTrimestre.push(this.inputsPIAR[_i2]);
           }
         }
 
-        if (this.inputsPIAR1.length >= 1) {
+        if (this.inputsPIAR1.length > 0) {
           for (var _i3 = 0; _i3 < this.inputsPIAR1.length; _i3++) {
             this.newLogro.push(this.inputsPIAR1[_i3]);
           }

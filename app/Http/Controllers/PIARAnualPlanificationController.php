@@ -20,7 +20,7 @@ class PIARAnualPlanificationController extends Controller
 
     public function getData(){
         $user_id = Auth::user()->id;
-        $getPlanif = PIARAnualPlanification::where('id_teacher','=',$user_id)->get();
+        $getPlanif = PIARAnualPlanification::where('id_teacher','=',$user_id)->orderBy('created_at','DESC')->take(1)->get();
         return response()->json($getPlanif);
     }
 

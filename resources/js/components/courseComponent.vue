@@ -410,20 +410,20 @@ export default {
         axios.get('/getPlanificationPiar').then((response)=>{
             console.log('datos piar:',response);
             let data = response.data;
-            if(data.length >= 1){
+            if(data.length > 0){
+                this.inputsPIAR1.splice(0);
+                this.inputsPIAR.splice(0);
                 data.forEach((el)=>{
                     let logros = JSON.parse(el.logros)
                     let trimestres = JSON.parse(el.trimestres)
-
-                    this.inputsPIAR1.splice(0);
+  
                     logros.forEach((lg)=>{
                         this.inputsPIAR1.push({
                             contenidoPIAR: lg.contenidoPIAR,
                             namePIAR: lg.namePIAR
                         })
                     })
-
-                    this.inputsPIAR.splice(0);
+ 
                     trimestres.forEach((lg)=>{
                         this.inputsPIAR.push({
                             logroPIAR: lg.logroPIAR,
@@ -431,6 +431,8 @@ export default {
                         })
                     })
                 });
+                
+                console.log(this.inputsPIAR1)
                 this.showPiarPlan = true,
                 this.showPIARPlanTrimestral = true,
                 this.activityForPIARStudents = true;
@@ -542,7 +544,7 @@ export default {
             return this.isLoading;
         },
         createCourses() {
-            if(this.inputs.length >= 1 || this.inputs1.length >= 1 ){
+            
                 this.isLoading=true;
                 var url = window.location.origin + "/Courses";
 
@@ -579,7 +581,7 @@ export default {
                     this.isLoading=false;
                 });
 
-            }else if(this.inputsPIAR.length >= 1){
+            if(this.inputsPIAR.length > 0 ||  this.inputsPIAR1.length > 0){
                 this.isLoading=true;
 
                 if(this.inputsPIAR.length<1 ||  this.inputsPIAR1.length<1)
@@ -588,13 +590,13 @@ export default {
                 this.newTrimestre = [];
                 this.newLogro = [];
 
-                if (this.inputsPIAR.length >= 1) {
+                if (this.inputsPIAR.length > 0) {
                     for (let i = 0; i < this.inputsPIAR.length; i++) {
                         this.newTrimestre.push(this.inputsPIAR[i]);
                     }
                 }
             
-                if (this.inputsPIAR1.length >= 1) {
+                if (this.inputsPIAR1.length > 0) {
                     for (let i = 0; i < this.inputsPIAR1.length; i++) {
                     this.newLogro.push(this.inputsPIAR1[i]);
                     }
