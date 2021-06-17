@@ -79,6 +79,7 @@
                       <option value="3">Estudiante</option>
                       <option value="4">Acudiente</option>
                       <option value="6">Gobierno Escolar</option>
+                      <option value="10">Cliente</option>
                     </select>
                   </div>
                   <div class="col">

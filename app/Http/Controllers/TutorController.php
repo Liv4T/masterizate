@@ -123,7 +123,7 @@ class TutorController extends Controller
         $current_date=date("Y-m-d H:i:s");
         $data=[];
 
-        if(!$user->isStudent())
+        if(!$user->isClient())
         {
             return response('user invalid',400);
         }
@@ -270,7 +270,7 @@ class TutorController extends Controller
     {
         $user=User::find(Auth::id());
 
-        if(!$user->isStudent())
+        if(!$user->isClient())
         {
             return response('user invalid',400);
         }
@@ -362,7 +362,7 @@ class TutorController extends Controller
 
         $user=User::find(Auth::id());
 
-        if(!$user->isStudent() && !$user->isTutor())
+        if(!$user->isClient() && !$user->isTutor())
         {
             return response('[]',200);
         }

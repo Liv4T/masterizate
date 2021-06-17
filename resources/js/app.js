@@ -304,8 +304,10 @@ Vue.component("food-component", ()=>import("./components/FoodComponent.vue"));
 //Modulo de Enfermería Con menú
 Vue.component("menu-nurse", ()=>import("./components/menuNurse.vue"));
 Vue.component("nursing-component", ()=>import("./components/NurseComponent.vue"));
-
 Vue.component("menu-adm-component", ()=>import("./components/newMenuAdm.vue"));
+
+//Modulo Cliente
+Vue.component("menu-cliente", ()=>import("./components/menuCliente.vue"));
 
 Vue.use(CKEditor);
 
