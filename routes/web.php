@@ -293,6 +293,9 @@ Route::middleware('auth')->get('/matricula', function () {
 Route::middleware('auth')->get('/porcentaje/{id_area}/{id_classroom}', function (String $id_area, String $id_classroom) {
     return view('porcentajeNotas')->with('id_area', $id_area)->with('id_classroom', $id_classroom);
 });
+Route::get('/compra/plan/{plan_type}/tutoria/{group_name}/{area_id}/{schedulearea_id}/{time_index}/resumen', function (String $plan_type, String $group_name, int $area_id, int $schedulearea_id, int $time_index) {
+    return view('purchaseTutoriaResume')->with('voucher', '')->with('plan_type', $plan_type)->with('area_id', $area_id)->with('group_name', $group_name)->with('schedulearea_id', $schedulearea_id)->with('time_index', $time_index);
+});
 Route::middleware('auth')->get('/chat', 'HomeController@CreateGroup')->name('chat');
 // Lessons
 Route::middleware('auth')->delete('lessons/destroy', 'LessonsController@massDestroy')->name('lessons.massDestroy');
@@ -747,6 +750,8 @@ Route::middleware('auth')->get('/estudiante/tutorias', function () {
     return view('studentSchedule')->with('scheduleStudent_id', 0);
 });
 Route::resource('tutorRegister','TutorProfileController');
+
+Route::post('/paypal/purchase/complete','PaypalController@getOrder');
 
 Route::put('/test','ClassController@deactivateClass')->name('test');
 
