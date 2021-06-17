@@ -264,8 +264,9 @@
             },
             getTutorEvents() {
                 const fullCalendarApi = this.$refs.fullCalendar.getApi();
-
-                axios.get("/api/tutor-schedule/event").then((response) => {
+                
+                axios.get("/api/tutor-schedule/event/getSchedulesByTeacher").then((response) => {
+                    console.log(response)
                     this.tutorEvents = response.data;
                     if (this.tutorEvents && this.tutorEvents.length > 0) {
                         this.tutorEvents.forEach((tutorial) => {

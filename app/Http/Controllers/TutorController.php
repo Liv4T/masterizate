@@ -368,7 +368,7 @@ class TutorController extends Controller
         }
 
         $current_date=date("Y-m-d H:i:s");
-        $events=TutorScheduleEvent::where('id_user',$user->id)->where('date_to','>=',$current_date)->where('state',1)->where('deleted',0)->get();
+        $events=TutorScheduleEvent::where('id_user','>=',$user->id)->where('date_to','>=',$current_date)->where('state',1)->where('deleted',0)->get();
 
         foreach ($events as $key => $event) {
            $studentSchedule= TutorScheduleStudent::find($event->id_schedulestudent);
@@ -379,6 +379,29 @@ class TutorController extends Controller
         return response()->json($events);
 
     }
+
+    public function GetScheduleEventsTeacher(){
+
+        $user=User::find(Auth::id());
+
+        if(!$user->isClient() && !$user->isTutor())
+        {
+            return response('[]',200);
+        }
+
+        $current_date=date("Y-m-d H:i:s");
+        $events=TutorScheduleEvent::where('date_to','>=',$current_date)->where('state',1)->where('deleted',0)->get();
+
+        foreach ($events as $key => $event) {
+           $studentSchedule= TutorScheduleStudent::find($event->id_schedulestudent);
+           $events[$key]->observations=$studentSchedule->observations;
+
+        }
+
+        return response()->json($events);
+
+    }
+
     public function UpdateLinkMeet(Request $request,int $schedulestudent_id){
         $user=User::find(Auth::id());
 
