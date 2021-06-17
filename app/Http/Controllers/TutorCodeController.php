@@ -67,7 +67,8 @@ class TutorCodeController extends Controller
         $tutorCode = DB::table('tutor_codes')
             ->join('area', 'area.id', '=', 'tutor_codes.id_area')
             ->join('classroom_teacher','classroom_teacher.id_area', '=', 'area.id')
-            ->select('tutor_codes.id','tutor_codes.id_tutor','tutor_codes.name','tutor_codes.description','tutor_codes.code','tutor_codes.date','area.id as id_area','area.name as area_name', 'classroom_teacher.id_classroom as id_classroom')
+            ->join('tutor_schedule','tutor_schedule.code_id','=','tutor_codes.id')
+            ->select('tutor_codes.id','tutor_codes.id_tutor','tutor_codes.name','tutor_codes.description','tutor_codes.code','tutor_codes.date','area.id as id_area','area.name as area_name', 'classroom_teacher.id_classroom as id_classroom','tutor_schedule.tutorial_value as tutorial_value')
             ->where('tutor_codes.code','=',$code)
             ->first();
         return response()->json($tutorCode);

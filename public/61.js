@@ -204,9 +204,7 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale("es");
             var resultCode = [];
             resultCode.push(response.data);
             resultCode.forEach(function (element1) {
-              console.log(element1.id);
               axios.get("/getScheduleCode/".concat(element1.id)).then(function (response) {
-                console.log(response);
                 response.data.forEach(function (element2) {
                   if (element2.deleted === 0) {
                     _this3.areas.push({
@@ -218,11 +216,10 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale("es");
                       id: element1.id_area,
                       area_id: element1.id_area,
                       id_classroom: element1.id_classroom,
+                      tutorial_value: element1.tutorial_value,
                       code_id: element2.code_id,
                       text: element1.area_name + ' - ' + element1.code
                     });
-
-                    console.log('areas', _this3.areas);
                   }
                 });
               });
@@ -235,7 +232,6 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale("es");
       var _this4 = this;
 
       if (code_id) {
-        console.log('aquí');
         this.schedule_selected = {};
         this.loading = true;
         axios.get("/api/student/area/".concat(area_id, "/code/").concat(code_id, "/schedule/").concat(this.date_find)).then(function (response) {
@@ -255,44 +251,44 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale("es");
         });
       }
     },
-    SelectSchedule: function SelectSchedule(area_id, classroom_id, schedule) {
+    SelectSchedule: function SelectSchedule(area_id, classroom_id, schedule, tutorial_value) {
       $("#modalSelectSchedule").modal("show");
       this.schedule_selected = {
         area_id: area_id,
         classroom_id: classroom_id,
         schedule: schedule,
-        observations: ""
+        observations: "",
+        tutorial_value: tutorial_value
       };
     },
     SaveProgramSchedule: function SaveProgramSchedule() {
-      var _this5 = this;
-
-      console.log('schedule Selected', this.schedule_selected);
-      this.loading = true;
-      $("#modalSelectSchedule").modal("hide");
-      axios.put("/api/student/area/".concat(this.schedule_selected.area_id, "/classroom/").concat(this.schedule_selected.classroom_id, "/schedule/programe"), this.schedule_selected).then(function () {
-        toastr.success("Tutoría programada correctamente.");
-
-        _this5.SearchSchedules(_this5.schedule_selected.area_id, _this5.schedule_selected.classroom_id);
-      })["catch"](function (e) {
-        _this5.loading = false;
-      });
+      console.log('schedule Selected', this.schedule_selected); // this.loading = true;
+      // $("#modalSelectSchedule").modal("hide");
+      // axios
+      //   .put(`/api/student/area/${this.schedule_selected.area_id}/classroom/${this.schedule_selected.classroom_id}/schedule/programe`, this.schedule_selected)
+      //   .then(() => {
+      //     toastr.success("Tutoría programada correctamente.");
+      //     this.SearchSchedules(this.schedule_selected.area_id, this.schedule_selected.classroom_id);
+      //   })
+      //   .catch((e) => {
+      //     this.loading = false;
+      //   });
     },
     getScheduleEvent: function getScheduleEvent() {
-      var _this6 = this;
+      var _this5 = this;
 
       axios.get("/api/tutor-schedule/event/".concat(this.schedule_id)).then(function (response) {
-        _this6.schedule_preloaded = response.data;
+        _this5.schedule_preloaded = response.data;
 
-        var area_index = _this6.areas.findIndex(function (p) {
-          return p.id == _this6.schedule_preloaded.area.id;
+        var area_index = _this5.areas.findIndex(function (p) {
+          return p.id == _this5.schedule_preloaded.area.id;
         });
 
         if (area_index > -1) {
           $("#collapse".concat(area_index)).collapse('show');
-          _this6.date_find = _this6.schedule_preloaded.date_from.substring(0, 10);
+          _this5.date_find = _this5.schedule_preloaded.date_from.substring(0, 10);
 
-          _this6.SearchSchedules(_this6.schedule_preloaded.area.id, _this6.schedule_preloaded.classroom.id);
+          _this5.SearchSchedules(_this5.schedule_preloaded.area.id, _this5.schedule_preloaded.classroom.id);
         }
       });
     }
@@ -639,7 +635,8 @@ var render = function() {
                                                         return _vm.SelectSchedule(
                                                           area.id,
                                                           area.id_classroom,
-                                                          schedule
+                                                          schedule,
+                                                          area.tutorial_value
                                                         )
                                                       }
                                                     }

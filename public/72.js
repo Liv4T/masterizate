@@ -194,10 +194,11 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale("es");
         });
       });
       axios.get('/codes').then(function (response) {
-        console.log(response.data);
         var codes = response.data;
         console.log(codes);
         codes.forEach(function (element) {
+          console.log(element);
+
           _this.areas.push({
             calification_base: 0,
             id: element.id_area,
@@ -218,7 +219,6 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale("es");
       });
     },
     AddSchedule: function AddSchedule(area_id, classroom_id, code_id) {
-      console.log(code_id);
       this.schedules.push({
         date_from: "",
         date_to: "",

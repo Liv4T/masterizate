@@ -79,7 +79,7 @@
                                 </div>
                               </td>
                               <td class="text-center">
-                                <button v-if="!schedule.reserved.id" class="btn btn-primary" @click="SelectSchedule(area.id, area.id_classroom, schedule)">Tomar tutoría</button>
+                                <button v-if="!schedule.reserved.id" class="btn btn-primary" @click="SelectSchedule(area.id, area.id_classroom, schedule, area.tutorial_value)">Tomar tutoría</button>
                                 <button v-if="schedule.reserved.id && schedule.reserved.meetup" class="btn btn-success" @click="OpenSchedule(schedule)">Ingresar a la tutoría</button>
                                 <span v-if="schedule.reserved.id && !schedule.reserved.meetup">(Tutor no ha generado link de reunión)</span>
                               </td>
@@ -194,9 +194,8 @@
               let resultCode = [];
               resultCode.push(response.data);
               resultCode.forEach((element1)=>{
-                console.log(element1.id);
-                axios.get(`/getScheduleCode/${element1.id}`).then((response)=>{     
-                  console.log(response)             
+                
+                axios.get(`/getScheduleCode/${element1.id}`).then((response)=>{                  
                   response.data.forEach(element2=>{
                     if(element2.deleted === 0){
                       this.areas.push({
@@ -208,10 +207,10 @@
                         id: element1.id_area,
                         area_id: element1.id_area,
                         id_classroom: element1.id_classroom,
+                        tutorial_value: element1.tutorial_value,
                         code_id: element2.code_id,
                         text: element1.area_name+' - '+element1.code
                       });
-                      console.log('areas',this.areas);
                     }                    
                   })        
                 })
@@ -223,7 +222,6 @@
 
       SearchSchedules(area_id, classroom_id, code_id) {
           if(code_id){
-            console.log('aquí')
             this.schedule_selected = {};
             this.loading = true;
             axios.get(`/api/student/area/${area_id}/code/${code_id}/schedule/${this.date_find}`)
@@ -248,23 +246,23 @@
               });
           }
       },
-      SelectSchedule(area_id, classroom_id, schedule) {
+      SelectSchedule(area_id, classroom_id, schedule, tutorial_value) {
         $("#modalSelectSchedule").modal("show");
-        this.schedule_selected = { area_id: area_id, classroom_id: classroom_id, schedule: schedule, observations: "" };
+        this.schedule_selected = { area_id: area_id, classroom_id: classroom_id, schedule: schedule, observations: "", tutorial_value };
       },
       SaveProgramSchedule() {
         console.log('schedule Selected',this.schedule_selected)
-        this.loading = true;
-        $("#modalSelectSchedule").modal("hide");
-        axios
-          .put(`/api/student/area/${this.schedule_selected.area_id}/classroom/${this.schedule_selected.classroom_id}/schedule/programe`, this.schedule_selected)
-          .then(() => {
-            toastr.success("Tutoría programada correctamente.");
-            this.SearchSchedules(this.schedule_selected.area_id, this.schedule_selected.classroom_id);
-          })
-          .catch((e) => {
-            this.loading = false;
-          });
+        // this.loading = true;
+        // $("#modalSelectSchedule").modal("hide");
+        // axios
+        //   .put(`/api/student/area/${this.schedule_selected.area_id}/classroom/${this.schedule_selected.classroom_id}/schedule/programe`, this.schedule_selected)
+        //   .then(() => {
+        //     toastr.success("Tutoría programada correctamente.");
+        //     this.SearchSchedules(this.schedule_selected.area_id, this.schedule_selected.classroom_id);
+        //   })
+        //   .catch((e) => {
+        //     this.loading = false;
+        //   });
       },
       getScheduleEvent(){
            axios
