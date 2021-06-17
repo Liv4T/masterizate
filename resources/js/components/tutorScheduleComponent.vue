@@ -182,10 +182,10 @@
         });
 
         axios.get('/codes').then((response)=>{
+          console.log(response.data)
           let codes = response.data;
           console.log(codes);
           codes.forEach((element)=>{
-            console.log(element)
             this.areas.push({
               calification_base: 0,
               id: element.id_area,
@@ -204,6 +204,7 @@
         });
       },
       AddSchedule(area_id, classroom_id, code_id) {
+        console.log(code_id);
         this.schedules.push({ date_from: "", date_to: "", tutorial_value:"", days: { monday: true, tuesday: true, wednesday: true, thursday: true, friday: true, saturday: false, sunday: false }, area_id: area_id, classroom_id: classroom_id, code_id: code_id ,duration_minutes:30});
       },
       SaveSchedule(area_id, classroom_id, schedule) {

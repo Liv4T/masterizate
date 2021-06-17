@@ -194,8 +194,9 @@
               let resultCode = [];
               resultCode.push(response.data);
               resultCode.forEach((element1)=>{
-                
-                axios.get(`/getScheduleCode/${element1.id}`).then((response)=>{                  
+                console.log(element1.id);
+                axios.get(`/getScheduleCode/${element1.id}`).then((response)=>{     
+                  console.log(response)             
                   response.data.forEach(element2=>{
                     if(element2.deleted === 0){
                       this.areas.push({

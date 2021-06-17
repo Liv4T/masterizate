@@ -204,7 +204,9 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale("es");
             var resultCode = [];
             resultCode.push(response.data);
             resultCode.forEach(function (element1) {
+              console.log(element1.id);
               axios.get("/getScheduleCode/".concat(element1.id)).then(function (response) {
+                console.log(response);
                 response.data.forEach(function (element2) {
                   if (element2.deleted === 0) {
                     _this3.areas.push({
