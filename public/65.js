@@ -285,7 +285,7 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
         this.course.activityForPIARStudents = 0;
         this.course.activityForSelectStudents = 0;
         this.course.activityForAllStudents = 1;
-        this.course.selectedStudents = [];
+        this.course.selectedStudents = "[]";
         this.activityForPIARStudents = false;
         this.activityForSelectStudents = false;
       }
@@ -298,7 +298,7 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
         this.course.selectedStudents = JSON.stringify(this.saveStudent);
         this.activityForAllStudents = false;
         this.activityForSelectStudents = false;
-        this.selectedStudentsData = this.piarStudents;
+        this.selectedStudentsData = JSON.stringify(this.piarStudents);
       }
     },
     activityForSelectStudents: function activityForSelectStudents(newVal) {
@@ -310,7 +310,7 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
         console.log(this.saveStudent);
         this.activityForPIARStudents = false;
         this.activityForAllStudents = false;
-        this.selectedStudentsData = this.studentsOptions;
+        this.selectedStudentsData = JSON.stringify(this.studentsOptions);
       }
     }
   },

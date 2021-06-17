@@ -278,7 +278,7 @@ export default {
                 this.course.activityForPIARStudents = 0;
                 this.course.activityForSelectStudents = 0;
                 this.course.activityForAllStudents = 1;
-                this.course.selectedStudents = []
+                this.course.selectedStudents = "[]"
                 
                 this.activityForPIARStudents = false;
                 this.activityForSelectStudents = false;
@@ -294,7 +294,7 @@ export default {
 
                 this.activityForAllStudents = false;
                 this.activityForSelectStudents = false;
-                this.selectedStudentsData = this.piarStudents;
+                this.selectedStudentsData = JSON.stringify(this.piarStudents);
             }
         },
 
@@ -309,7 +309,7 @@ export default {
 
                 this.activityForPIARStudents = false;
                 this.activityForAllStudents = false;
-                this.selectedStudentsData = this.studentsOptions;
+                this.selectedStudentsData = JSON.stringify(this.studentsOptions);
             }
         }        
     },

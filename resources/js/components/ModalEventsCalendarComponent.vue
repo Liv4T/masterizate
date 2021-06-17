@@ -48,12 +48,12 @@
                             <div class="form-group row">
                                 <div class="col-md-6">
                                     <label for="name">Desde</label>
-                                    <datetime :format="formatDate" v-model="desde"></datetime>
+                                    <datetime v-model="desde"></datetime>
                                     <div class="invalid-feedback">Please fill out this field</div>
                                 </div>
                                     <div class="col-md-6">
                                     <label for="name">Hasta</label>
-                                    <datetime :format="formatDate" v-model="hasta"></datetime>
+                                    <datetime v-model="hasta"></datetime>
                                     <div class="invalid-feedback"></div>
                                 </div>
                                 <div class="col-md-6">
