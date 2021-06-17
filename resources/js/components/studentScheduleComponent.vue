@@ -79,7 +79,7 @@
                                 </div>
                               </td>
                               <td class="text-center">
-                                <button v-if="!schedule.reserved.id" class="btn btn-primary" @click="SelectSchedule(area.id, area.id_classroom, schedule, area.tutorial_value)">Tomar tutoría</button>
+                                <button v-if="!schedule.reserved.id" class="btn btn-primary" @click="SelectSchedule(area.id, area.id_classroom, schedule, area.tutorial_value, area.description_code)">Tomar tutoría</button>
                                 <button v-if="schedule.reserved.id && schedule.reserved.meetup" class="btn btn-success" @click="OpenSchedule(schedule)">Ingresar a la tutoría</button>
                                 <span v-if="schedule.reserved.id && !schedule.reserved.meetup">(Tutor no ha generado link de reunión)</span>
                               </td>
@@ -208,6 +208,7 @@
                         area_id: element1.id_area,
                         id_classroom: element1.id_classroom,
                         tutorial_value: element1.tutorial_value,
+                        description_code: element1.description,
                         code_id: element2.code_id,
                         text: element1.area_name+' - '+element1.code
                       });
@@ -246,23 +247,23 @@
               });
           }
       },
-      SelectSchedule(area_id, classroom_id, schedule, tutorial_value) {
+      SelectSchedule(area_id, classroom_id, schedule, tutorial_value, description_code) {
         $("#modalSelectSchedule").modal("show");
-        this.schedule_selected = { area_id: area_id, classroom_id: classroom_id, schedule: schedule, observations: "", tutorial_value };
+        this.schedule_selected = { area_id: area_id, classroom_id: classroom_id, schedule: schedule, observations: "", tutorial_value: tutorial_value, description_code:description_code };
       },
       SaveProgramSchedule() {
         console.log('schedule Selected',this.schedule_selected)
-        // this.loading = true;
-        // $("#modalSelectSchedule").modal("hide");
-        // axios
-        //   .put(`/api/student/area/${this.schedule_selected.area_id}/classroom/${this.schedule_selected.classroom_id}/schedule/programe`, this.schedule_selected)
-        //   .then(() => {
-        //     toastr.success("Tutoría programada correctamente.");
-        //     this.SearchSchedules(this.schedule_selected.area_id, this.schedule_selected.classroom_id);
-        //   })
-        //   .catch((e) => {
-        //     this.loading = false;
-        //   });
+        this.loading = true;
+        $("#modalSelectSchedule").modal("hide");
+        axios
+          .put(`/api/student/area/${this.schedule_selected.area_id}/classroom/${this.schedule_selected.classroom_id}/schedule/programe`, this.schedule_selected)
+          .then(() => {
+            toastr.success("Tutoría programada correctamente.");
+            this.SearchSchedules(this.schedule_selected.area_id, this.schedule_selected.classroom_id);
+          })
+          .catch((e) => {
+            this.loading = false;
+          });
       },
       getScheduleEvent(){
            axios

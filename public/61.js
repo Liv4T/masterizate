@@ -217,6 +217,7 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale("es");
                       area_id: element1.id_area,
                       id_classroom: element1.id_classroom,
                       tutorial_value: element1.tutorial_value,
+                      description_code: element1.description,
                       code_id: element2.code_id,
                       text: element1.area_name + ' - ' + element1.code
                     });
@@ -251,44 +252,46 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale("es");
         });
       }
     },
-    SelectSchedule: function SelectSchedule(area_id, classroom_id, schedule, tutorial_value) {
+    SelectSchedule: function SelectSchedule(area_id, classroom_id, schedule, tutorial_value, description_code) {
       $("#modalSelectSchedule").modal("show");
       this.schedule_selected = {
         area_id: area_id,
         classroom_id: classroom_id,
         schedule: schedule,
         observations: "",
-        tutorial_value: tutorial_value
+        tutorial_value: tutorial_value,
+        description_code: description_code
       };
     },
     SaveProgramSchedule: function SaveProgramSchedule() {
-      console.log('schedule Selected', this.schedule_selected); // this.loading = true;
-      // $("#modalSelectSchedule").modal("hide");
-      // axios
-      //   .put(`/api/student/area/${this.schedule_selected.area_id}/classroom/${this.schedule_selected.classroom_id}/schedule/programe`, this.schedule_selected)
-      //   .then(() => {
-      //     toastr.success("Tutoría programada correctamente.");
-      //     this.SearchSchedules(this.schedule_selected.area_id, this.schedule_selected.classroom_id);
-      //   })
-      //   .catch((e) => {
-      //     this.loading = false;
-      //   });
-    },
-    getScheduleEvent: function getScheduleEvent() {
       var _this5 = this;
 
-      axios.get("/api/tutor-schedule/event/".concat(this.schedule_id)).then(function (response) {
-        _this5.schedule_preloaded = response.data;
+      console.log('schedule Selected', this.schedule_selected);
+      this.loading = true;
+      $("#modalSelectSchedule").modal("hide");
+      axios.put("/api/student/area/".concat(this.schedule_selected.area_id, "/classroom/").concat(this.schedule_selected.classroom_id, "/schedule/programe"), this.schedule_selected).then(function () {
+        toastr.success("Tutoría programada correctamente.");
 
-        var area_index = _this5.areas.findIndex(function (p) {
-          return p.id == _this5.schedule_preloaded.area.id;
+        _this5.SearchSchedules(_this5.schedule_selected.area_id, _this5.schedule_selected.classroom_id);
+      })["catch"](function (e) {
+        _this5.loading = false;
+      });
+    },
+    getScheduleEvent: function getScheduleEvent() {
+      var _this6 = this;
+
+      axios.get("/api/tutor-schedule/event/".concat(this.schedule_id)).then(function (response) {
+        _this6.schedule_preloaded = response.data;
+
+        var area_index = _this6.areas.findIndex(function (p) {
+          return p.id == _this6.schedule_preloaded.area.id;
         });
 
         if (area_index > -1) {
           $("#collapse".concat(area_index)).collapse('show');
-          _this5.date_find = _this5.schedule_preloaded.date_from.substring(0, 10);
+          _this6.date_find = _this6.schedule_preloaded.date_from.substring(0, 10);
 
-          _this5.SearchSchedules(_this5.schedule_preloaded.area.id, _this5.schedule_preloaded.classroom.id);
+          _this6.SearchSchedules(_this6.schedule_preloaded.area.id, _this6.schedule_preloaded.classroom.id);
         }
       });
     }
@@ -636,7 +639,8 @@ var render = function() {
                                                           area.id,
                                                           area.id_classroom,
                                                           schedule,
-                                                          area.tutorial_value
+                                                          area.tutorial_value,
+                                                          area.description_code
                                                         )
                                                       }
                                                     }
