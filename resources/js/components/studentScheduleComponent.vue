@@ -197,7 +197,6 @@
                 
                 axios.get(`/getScheduleCode/${element1.id}`).then((response)=>{                  
                   response.data.forEach(element2=>{
-                    console.log(element2)
                     if(element2.deleted === 0){
                       this.areas.push({
                         days:JSON.parse(element2.days),
@@ -207,9 +206,11 @@
                         date_from: element2.date_from,
                         id: element1.id_area,
                         area_id: element1.id_area,
+                        id_classroom: element1.id_classroom,
                         code_id: element2.code_id,
                         text: element1.area_name+' - '+element1.code
                       });
+                      console.log('areas',this.areas);
                     }                    
                   })        
                 })
@@ -220,7 +221,7 @@
       },
 
       SearchSchedules(area_id, classroom_id, code_id) {
-          if(!classroom_id){
+          if(code_id){
             console.log('aquí')
             this.schedule_selected = {};
             this.loading = true;
@@ -251,6 +252,7 @@
         this.schedule_selected = { area_id: area_id, classroom_id: classroom_id, schedule: schedule, observations: "" };
       },
       SaveProgramSchedule() {
+        console.log('schedule Selected',this.schedule_selected)
         this.loading = true;
         $("#modalSelectSchedule").modal("hide");
         axios

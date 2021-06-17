@@ -229,49 +229,49 @@
       });
       this.getTutorEvents();
     },
-    methods: {
-      displayActivitiesChange() {
-        const fullCalendarApi = this.$refs.fullCalendar.getApi();
+    // methods: {
+//       displayActivitiesChange() {
+//         const fullCalendarApi = this.$refs.fullCalendar.getApi();
 
-        if (this.display_activities) {
-          this.activities.forEach((activity) => {
-            if (activity.interaction_state == 1) {
-              //delivery max
-              fullCalendarApi.addEvent({
-                title: `${activity.area_name} ${activity.classroom_name} | Actividad: ${activity.name}`,
-                date: activity.delivery_max_date,
-                description: activity.description,
-                url: `/estudiante/modulo/${activity.weekly_plan_id}/clase/${activity.id_class}`,
-                backgroundColor: "blue",
-              });
-            } else if (activity.interaction_state == 2) {
-              //feedback
-              fullCalendarApi.addEvent({
-                title: `${activity.area_name} ${activity.classroom_name} | Actividad: ${activity.name}`,
-                date: activity.feedback_date,
-                description: activity.description,
-                url: `/estudiante/modulo/${activity.weekly_plan_id}/clase/${activity.id_class}`,
-                backgroundColor: "blue",
-              });
-            } else {
-              fullCalendarApi.addEvent({
-                title: `${activity.area_name} ${activity.classroom_name} | Actividad: ${activity.name}`,
-                date: activity.delivery_max_date,
-                description: activity.description,
-                url: `/estudiante/modulo/${activity.weekly_plan_id}/clase/${activity.id_class}`,
-                backgroundColor: "blue",
-              });
-            }
-          });
-        } else {
-          const currentEvents = fullCalendarApi.getEvents();
-          currentEvents.forEach((event) => {
-            if (event.backgroundColor == "blue") {
-              event.remove();
-            }
-          });
-        }
-  },
+//         if (this.display_activities) {
+//           this.activities.forEach((activity) => {
+//             if (activity.interaction_state == 1) {
+//               //delivery max
+//               fullCalendarApi.addEvent({
+//                 title: `${activity.area_name} ${activity.classroom_name} | Actividad: ${activity.name}`,
+//                 date: activity.delivery_max_date,
+//                 description: activity.description,
+//                 url: `/estudiante/modulo/${activity.weekly_plan_id}/clase/${activity.id_class}`,
+//                 backgroundColor: "blue",
+//               });
+//             } else if (activity.interaction_state == 2) {
+//               //feedback
+//               fullCalendarApi.addEvent({
+//                 title: `${activity.area_name} ${activity.classroom_name} | Actividad: ${activity.name}`,
+//                 date: activity.feedback_date,
+//                 description: activity.description,
+//                 url: `/estudiante/modulo/${activity.weekly_plan_id}/clase/${activity.id_class}`,
+//                 backgroundColor: "blue",
+//               });
+//             } else {
+//               fullCalendarApi.addEvent({
+//                 title: `${activity.area_name} ${activity.classroom_name} | Actividad: ${activity.name}`,
+//                 date: activity.delivery_max_date,
+//                 description: activity.description,
+//                 url: `/estudiante/modulo/${activity.weekly_plan_id}/clase/${activity.id_class}`,
+//                 backgroundColor: "blue",
+//               });
+//             }
+//           });
+//         } else {
+//           const currentEvents = fullCalendarApi.getEvents();
+//           currentEvents.forEach((event) => {
+//             if (event.backgroundColor == "blue") {
+//               event.remove();
+//             }
+//           });
+//         }
+//   },
   methods: {
       filterPendingEvents:(events)=>{
             var momento = moment();
@@ -402,7 +402,7 @@
       },
     },
   }
-  }
+//   }
 </script>
 <style>
   .fc-daygrid-event .fc-event-title {

@@ -18,7 +18,9 @@ class TutorCodeController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $tutorCode = DB::table('tutor_codes')->join('area', 'area.id', '=', 'tutor_codes.id_area')
+        $tutorCode = DB::table('tutor_codes')
+                    ->join('area', 'area.id', '=', 'tutor_codes.id_area')
+                    // ->join('classroom_teacher','classroom_teacher.id_area', '=', 'area.id')
                     ->select('tutor_codes.id','tutor_codes.name','tutor_codes.description','tutor_codes.code','tutor_codes.date','area.id as id_area','area.name as area_name')
                     ->get();
         // $tutorCode = TutorCode::where('id_tutor','=',$user->id)->get();
@@ -62,8 +64,10 @@ class TutorCodeController extends Controller
      */
     public function show($code)
     {
-        $tutorCode = DB::table('tutor_codes')->join('area', 'area.id', '=', 'tutor_codes.id_area')
-            ->select('tutor_codes.id','tutor_codes.id_tutor','tutor_codes.name','tutor_codes.description','tutor_codes.code','tutor_codes.date','area.id as id_area','area.name as area_name')
+        $tutorCode = DB::table('tutor_codes')
+            ->join('area', 'area.id', '=', 'tutor_codes.id_area')
+            ->join('classroom_teacher','classroom_teacher.id_area', '=', 'area.id')
+            ->select('tutor_codes.id','tutor_codes.id_tutor','tutor_codes.name','tutor_codes.description','tutor_codes.code','tutor_codes.date','area.id as id_area','area.name as area_name', 'classroom_teacher.id_classroom as id_classroom')
             ->where('tutor_codes.code','=',$code)
             ->first();
         return response()->json($tutorCode);

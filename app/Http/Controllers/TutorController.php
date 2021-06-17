@@ -266,7 +266,7 @@ class TutorController extends Controller
         return $data;
     }
 
-    public function ProgrameSchedule(Request $request,int $area_id,int $classroom_id)
+    public function ProgrameSchedule(Request $request,String $area_id,String $classroom_id)
     {
         $user=User::find(Auth::id());
 
@@ -293,12 +293,12 @@ class TutorController extends Controller
                 "date_to"=>$data['schedule']['date_to'],
                 "time_index"=>$data['schedule']['time_index'],
                 "observations"=>$data['observations'],
-                "state"=>1,
+                "state"=>0,
                 "deleted"=>0
             ]);
 
-            $area=Area::find($area_id);
-            $classroom=Classroom::find($classroom_id);
+            $area=Area::where('id',$area_id)->first();
+            $classroom=Classroom::where('id',$classroom_id)->first();
 
             //programe events
             TutorScheduleEvent::create([
@@ -310,7 +310,7 @@ class TutorController extends Controller
                "date_from"=>$data['schedule']['date_from'],
                "id_user"=>$data['schedule']['teacher']['id'],
                "url"=>"",
-               "state"=>1,
+               "state"=>0,
                "deleted"=>0
            ]);
 
@@ -323,7 +323,7 @@ class TutorController extends Controller
                 "date_from"=>$data['schedule']['date_from'],
                 "id_user"=>$user->id,
                 "url"=>"/estudiante/tutorias/".$scheduleCreated->id,
-                "state"=>1,
+                "state"=>0,
                 "deleted"=>0
             ]);
 
@@ -368,7 +368,7 @@ class TutorController extends Controller
         }
 
         $current_date=date("Y-m-d H:i:s");
-        $events=TutorScheduleEvent::where('id_user',$user->id)->where('date_to','>=',$current_date)->where('deleted',0)->get();
+        $events=TutorScheduleEvent::where('id_user',$user->id)->where('date_to','>=',$current_date)->where('state',1)->where('deleted',0)->get();
 
         foreach ($events as $key => $event) {
            $studentSchedule= TutorScheduleStudent::find($event->id_schedulestudent);
