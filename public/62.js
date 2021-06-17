@@ -216,11 +216,11 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale("es");
                       id: element1.id_area,
                       area_id: element1.id_area,
                       id_classroom: element1.id_classroom,
+                      tutorial_value: element1.tutorial_value,
+                      description_code: element1.description,
                       code_id: element2.code_id,
                       text: element1.area_name + ' - ' + element1.code
                     });
-
-                    console.log('areas', _this3.areas);
                   }
                 });
               });
@@ -233,7 +233,6 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale("es");
       var _this4 = this;
 
       if (code_id) {
-        console.log('aquí');
         this.schedule_selected = {};
         this.loading = true;
         axios.get("/api/student/area/".concat(area_id, "/code/").concat(code_id, "/schedule/").concat(this.date_find)).then(function (response) {
@@ -253,13 +252,15 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale("es");
         });
       }
     },
-    SelectSchedule: function SelectSchedule(area_id, classroom_id, schedule) {
+    SelectSchedule: function SelectSchedule(area_id, classroom_id, schedule, tutorial_value, description_code) {
       $("#modalSelectSchedule").modal("show");
       this.schedule_selected = {
         area_id: area_id,
         classroom_id: classroom_id,
         schedule: schedule,
-        observations: ""
+        observations: "",
+        tutorial_value: tutorial_value,
+        description_code: description_code
       };
     },
     SaveProgramSchedule: function SaveProgramSchedule() {
@@ -637,7 +638,9 @@ var render = function() {
                                                         return _vm.SelectSchedule(
                                                           area.id,
                                                           area.id_classroom,
-                                                          schedule
+                                                          schedule,
+                                                          area.tutorial_value,
+                                                          area.description_code
                                                         )
                                                       }
                                                     }

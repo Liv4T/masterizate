@@ -127,6 +127,123 @@ __webpack_require__.r(__webpack_exports__);
     axios.get(urls).then(function (response) {
       _this.nameWeekly = response.data;
     });
+    this.getAreasCode();
+  },
+  methods: {
+    getAreas: function getAreas() {
+      var _this2 = this;
+
+      return new Promise(function (resolve, reject) {
+        axios.get("/GetArearByUser").then(function (response) {
+          console.log(response.data);
+          _this2.areas = response.data;
+          return resolve();
+        })["catch"](function (e) {
+          return reject(e);
+        });
+      });
+    },
+    getAreasCode: function getAreasCode() {
+      var _this3 = this;
+
+      axios.get('/vinculationsTutor').then(function (response) {
+        var codes = response.data;
+        codes.forEach(function (element) {
+          axios.get("/codes/".concat(element.code_vinculated)).then(function (response) {
+            var resultCode = [];
+            resultCode.push(response.data);
+            resultCode.forEach(function (element1) {
+              axios.get("/getScheduleCode/".concat(element1.id)).then(function (response) {
+                response.data.forEach(function (element2) {
+                  if (element2.deleted === 0) {
+                    _this3.areas.push({
+                      days: JSON.parse(element2.days),
+                      duration_minutes: element2.duration_minutes,
+                      deleted: element2.deleted,
+                      date_to: element2.date_to,
+                      date_from: element2.date_from,
+                      id: element1.id_area,
+                      area_id: element1.id_area,
+                      id_classroom: element1.id_classroom,
+                      tutorial_value: element1.tutorial_value,
+                      description_code: element1.description,
+                      code_id: element2.code_id,
+                      text: element1.area_name + ' - ' + element1.code
+                    });
+                  }
+                });
+              });
+            });
+          });
+        });
+      });
+    },
+    SearchSchedules: function SearchSchedules(area_id, classroom_id, code_id) {
+      var _this4 = this;
+
+      if (code_id) {
+        this.schedule_selected = {};
+        this.loading = true;
+        axios.get("/api/student/area/".concat(area_id, "/code/").concat(code_id, "/schedule/").concat(this.date_find)).then(function (response) {
+          _this4.schedules = response.data;
+          _this4.loading = false;
+        })["catch"](function (e) {
+          _this4.loading = false;
+        });
+      } else {
+        this.schedule_selected = {};
+        this.loading = true;
+        axios.get("/api/student/area/".concat(area_id, "/classroom/").concat(classroom_id, "/schedule/").concat(this.date_find)).then(function (response) {
+          _this4.schedules = response.data;
+          _this4.loading = false;
+        })["catch"](function (e) {
+          _this4.loading = false;
+        });
+      }
+    },
+    SelectSchedule: function SelectSchedule(area_id, classroom_id, schedule, tutorial_value, description_code) {
+      $("#modalSelectSchedule").modal("show");
+      this.schedule_selected = {
+        area_id: area_id,
+        classroom_id: classroom_id,
+        schedule: schedule,
+        observations: "",
+        tutorial_value: tutorial_value,
+        description_code: description_code
+      };
+    },
+    SaveProgramSchedule: function SaveProgramSchedule() {
+      var _this5 = this;
+
+      console.log('schedule Selected', this.schedule_selected);
+      this.loading = true;
+      $("#modalSelectSchedule").modal("hide");
+      axios.put("/api/student/area/".concat(this.schedule_selected.area_id, "/classroom/").concat(this.schedule_selected.classroom_id, "/schedule/programe"), this.schedule_selected).then(function () {
+        toastr.success("Tutoría programada correctamente.");
+
+        _this5.SearchSchedules(_this5.schedule_selected.area_id, _this5.schedule_selected.classroom_id);
+      })["catch"](function (e) {
+        _this5.loading = false;
+      });
+    },
+    getScheduleEvent: function getScheduleEvent() {
+      var _this6 = this;
+
+      axios.get("/api/tutor-schedule/event/".concat(this.schedule_id)).then(function (response) {
+        _this6.schedule_preloaded = response.data;
+
+        var area_index = _this6.areas.findIndex(function (p) {
+          return p.id == _this6.schedule_preloaded.area.id;
+        });
+
+        if (area_index > -1) {
+          $("#collapse".concat(area_index)).collapse('show');
+          _this6.date_find = _this6.schedule_preloaded.date_from.substring(0, 10);
+
+          _this6.SearchSchedules(_this6.schedule_preloaded.area.id, _this6.schedule_preloaded.classroom.id);
+        }
+      });
+    }
   },
   methods: {}
 });
@@ -242,7 +359,317 @@ var render = function() {
                           },
                           [_vm._v("Ir a clase")]
                         )
-                      ]),
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        staticClass: "collapse hide collapse-body",
+                        attrs: {
+                          id: "collapse" + t,
+                          "aria-labelledby": "heading",
+                          "data-parent": "#accordionExample"
+                        }
+                      },
+                      [
+                        _c("div", { staticClass: "collapse-body-container" }, [
+                          _c("table", { staticClass: "table table-bordered" }, [
+                            _c("thead", [
+                              _c("tr", [
+                                _c(
+                                  "th",
+                                  {
+                                    staticClass: "text-left",
+                                    attrs: { colspan: "3" }
+                                  },
+                                  [
+                                    _c("div", { staticClass: "row" }, [
+                                      _c(
+                                        "div",
+                                        { staticClass: "col-3" },
+                                        [
+                                          _c("datetime", {
+                                            attrs: { format: "YYYY-MM-DD" },
+                                            model: {
+                                              value: _vm.date_find,
+                                              callback: function($$v) {
+                                                _vm.date_find = $$v
+                                              },
+                                              expression: "date_find"
+                                            }
+                                          })
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c("div", { staticClass: "col-4" }, [
+                                        _c(
+                                          "button",
+                                          {
+                                            staticClass: "btn btn-primary",
+                                            attrs: { disabled: !_vm.date_find },
+                                            on: {
+                                              click: function($event) {
+                                                $event.preventDefault()
+                                                return _vm.SearchSchedules(
+                                                  area.id,
+                                                  area.id_classroom,
+                                                  area.code_id
+                                                )
+                                              }
+                                            }
+                                          },
+                                          [_vm._v("Consultar disponibilidad")]
+                                        )
+                                      ]),
+                                      _vm._v(" "),
+                                      _c(
+                                        "div",
+                                        { staticClass: "col-5 text-right" },
+                                        [
+                                          _c(
+                                            "button",
+                                            {
+                                              staticClass: "btn btn-default",
+                                              on: {
+                                                click: function($event) {
+                                                  $event.preventDefault()
+                                                  return _vm.SearchSchedules(
+                                                    area.id,
+                                                    area.id_classroom,
+                                                    area.code_id
+                                                  )
+                                                }
+                                              }
+                                            },
+                                            [_vm._v("Refrescar")]
+                                          )
+                                        ]
+                                      )
+                                    ])
+                                  ]
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _vm._m(1, true)
+                            ]),
+                            _vm._v(" "),
+                            _c(
+                              "tbody",
+                              [
+                                _vm.loading
+                                  ? _c("tr", [
+                                      _c(
+                                        "td",
+                                        {
+                                          staticClass: "text-center",
+                                          attrs: { colspan: "3" }
+                                        },
+                                        [_vm._v("Cargando...")]
+                                      )
+                                    ])
+                                  : _vm._e(),
+                                _vm._v(" "),
+                                !_vm.loading
+                                  ? _vm._l(_vm.schedules, function(
+                                      schedule,
+                                      s_key
+                                    ) {
+                                      return _c("tr", { key: s_key }, [
+                                        _c(
+                                          "td",
+                                          {
+                                            staticClass: "text-left",
+                                            staticStyle: { width: "200px" }
+                                          },
+                                          [
+                                            _c("div", { staticClass: "row" }, [
+                                              _vm._m(2, true),
+                                              _vm._v(" "),
+                                              _c(
+                                                "div",
+                                                { staticClass: "col-12" },
+                                                [
+                                                  _vm._v(
+                                                    "\n                                  " +
+                                                      _vm._s(
+                                                        _vm._f("formatDate")(
+                                                          schedule.date_from
+                                                        )
+                                                      ) +
+                                                      "\n                                "
+                                                  )
+                                                ]
+                                              )
+                                            ]),
+                                            _vm._v(" "),
+                                            _c("div", { staticClass: "row" }, [
+                                              _vm._m(3, true),
+                                              _vm._v(" "),
+                                              _c(
+                                                "div",
+                                                { staticClass: "col-12" },
+                                                [
+                                                  _vm._v(
+                                                    "\n                                  " +
+                                                      _vm._s(
+                                                        _vm._f("formatDate")(
+                                                          schedule.date_to
+                                                        )
+                                                      ) +
+                                                      "\n                                "
+                                                  )
+                                                ]
+                                              )
+                                            ])
+                                          ]
+                                        ),
+                                        _vm._v(" "),
+                                        _c("td", { staticClass: "text-left" }, [
+                                          _c("div", { staticClass: "row" }, [
+                                            _c(
+                                              "div",
+                                              { staticClass: "col-12" },
+                                              [
+                                                _vm._v(
+                                                  "\n                                  " +
+                                                    _vm._s(
+                                                      schedule.teacher.name
+                                                    ) +
+                                                    "\n                                "
+                                                )
+                                              ]
+                                            ),
+                                            _vm._v(" "),
+                                            _c(
+                                              "div",
+                                              { staticClass: "col-12" },
+                                              [
+                                                _c("small", [
+                                                  _vm._v(
+                                                    _vm._s(
+                                                      schedule.teacher.email
+                                                    )
+                                                  )
+                                                ])
+                                              ]
+                                            ),
+                                            _vm._v(" "),
+                                            _c(
+                                              "div",
+                                              { staticClass: "col-12" },
+                                              [
+                                                _c(
+                                                  "a",
+                                                  {
+                                                    staticClass:
+                                                      "btn btn-primary",
+                                                    attrs: {
+                                                      href:
+                                                        "/tutor/" +
+                                                        schedule.teacher.id +
+                                                        "/perfil"
+                                                    }
+                                                  },
+                                                  [_vm._v("Ver experiencia")]
+                                                )
+                                              ]
+                                            )
+                                          ])
+                                        ]),
+                                        _vm._v(" "),
+                                        _c(
+                                          "td",
+                                          { staticClass: "text-center" },
+                                          [
+                                            !schedule.reserved.id
+                                              ? _c(
+                                                  "button",
+                                                  {
+                                                    staticClass:
+                                                      "btn btn-primary",
+                                                    on: {
+                                                      click: function($event) {
+                                                        return _vm.SelectSchedule(
+                                                          area.id,
+                                                          area.id_classroom,
+                                                          schedule,
+                                                          area.tutorial_value,
+                                                          area.description_code
+                                                        )
+                                                      }
+                                                    }
+                                                  },
+                                                  [_vm._v("Tomar tutoría")]
+                                                )
+                                              : _vm._e(),
+                                            _vm._v(" "),
+                                            schedule.reserved.id &&
+                                            schedule.reserved.meetup
+                                              ? _c(
+                                                  "button",
+                                                  {
+                                                    staticClass:
+                                                      "btn btn-success",
+                                                    on: {
+                                                      click: function($event) {
+                                                        return _vm.OpenSchedule(
+                                                          schedule
+                                                        )
+                                                      }
+                                                    }
+                                                  },
+                                                  [
+                                                    _vm._v(
+                                                      "Ingresar a la tutoría"
+                                                    )
+                                                  ]
+                                                )
+                                              : _vm._e(),
+                                            _vm._v(" "),
+                                            schedule.reserved.id &&
+                                            !schedule.reserved.meetup
+                                              ? _c("span", [
+                                                  _vm._v(
+                                                    "(Tutor no ha generado link de reunión)"
+                                                  )
+                                                ])
+                                              : _vm._e()
+                                          ]
+                                        )
+                                      ])
+                                    })
+                                  : _vm._e()
+                              ],
+                              2
+                            )
+                          ])
+                        ])
+                      ]
+                    )
+                  ])
+                }),
+                0
+              )
+            ])
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "modal fade", attrs: { id: "modalSelectSchedule" } },
+        [
+          _c("div", { staticClass: "modal-dialog" }, [
+            _c("div", { staticClass: "modal-content" }, [
+              _c("div", { staticClass: "card" }, [
+                _vm._m(4),
+                _vm._v(" "),
+                _c("div", { staticClass: "card-body" }, [
+                  _c("div", { staticClass: "row" }, [
+                    _c("div", { staticClass: "col-sm-12" }, [
+                      _c("small", [_vm._v("Tutor:")]),
                       _vm._v(" "),
                       _c("td", [
                         clas.progress == 100
