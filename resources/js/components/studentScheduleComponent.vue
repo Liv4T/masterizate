@@ -79,7 +79,7 @@
                                 </div>
                               </td>
                               <td class="text-center">
-                                <button v-if="!schedule.reserved.id" class="btn btn-primary" @click="SelectSchedule(area.id, area.id_classroom, schedule)">Tomar tutoría</button>
+                                <button v-if="!schedule.reserved.id" class="btn btn-primary" @click="SelectSchedule(area.id, area.id_classroom, schedule, area.tutorial_value, area.description_code)">Tomar tutoría</button>
                                 <button v-if="schedule.reserved.id && schedule.reserved.meetup" class="btn btn-success" @click="OpenSchedule(schedule)">Ingresar a la tutoría</button>
                                 <span v-if="schedule.reserved.id && !schedule.reserved.meetup">(Tutor no ha generado link de reunión)</span>
                               </td>
@@ -197,7 +197,6 @@
                 
                 axios.get(`/getScheduleCode/${element1.id}`).then((response)=>{                  
                   response.data.forEach(element2=>{
-                    console.log(element2)
                     if(element2.deleted === 0){
                       this.areas.push({
                         days:JSON.parse(element2.days),
@@ -207,6 +206,9 @@
                         date_from: element2.date_from,
                         id: element1.id_area,
                         area_id: element1.id_area,
+                        id_classroom: element1.id_classroom,
+                        tutorial_value: element1.tutorial_value,
+                        description_code: element1.description,
                         code_id: element2.code_id,
                         text: element1.area_name+' - '+element1.code
                       });
@@ -220,8 +222,7 @@
       },
 
       SearchSchedules(area_id, classroom_id, code_id) {
-          if(!classroom_id){
-            console.log('aquí')
+          if(code_id){
             this.schedule_selected = {};
             this.loading = true;
             axios.get(`/api/student/area/${area_id}/code/${code_id}/schedule/${this.date_find}`)
@@ -246,11 +247,12 @@
               });
           }
       },
-      SelectSchedule(area_id, classroom_id, schedule) {
+      SelectSchedule(area_id, classroom_id, schedule, tutorial_value, description_code) {
         $("#modalSelectSchedule").modal("show");
-        this.schedule_selected = { area_id: area_id, classroom_id: classroom_id, schedule: schedule, observations: "" };
+        this.schedule_selected = { area_id: area_id, classroom_id: classroom_id, schedule: schedule, observations: "", tutorial_value: tutorial_value, description_code:description_code };
       },
       SaveProgramSchedule() {
+        console.log('schedule Selected',this.schedule_selected)
         this.loading = true;
         $("#modalSelectSchedule").modal("hide");
         axios

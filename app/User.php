@@ -142,6 +142,18 @@ class User extends Authenticatable
         return intval($this->type_user) === 9;
     }
 
+    /**
+     * Returns whether a user has a role of 'nurse'
+     *
+     * @return boolean
+     */
+    public function isClient()
+    {
+        if(!isset($this->type_user)) return false;
+
+        return intval($this->type_user) === 10;
+    }
+
 
 
     /**

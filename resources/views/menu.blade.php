@@ -36,3 +36,7 @@
 <menu-nurse></menu-nurse>
 @endif
 
+@if(Auth::user()->isClient())
+<menu-cliente></menu-cliente>
+@endif
+

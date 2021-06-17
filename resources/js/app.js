@@ -289,6 +289,9 @@ Vue.component("staments-component", ()=> import("./components/Staments.vue"));
 Vue.component("modal-chat", ()=> import("./components/modalChat.vue"));
 Vue.component("members-chat", ()=> import("./components/modalMembers.vue"));
 
+//Tutorships
+Vue.component("purchase-tutorial-resume", () => import ("./components/purchaseTutorshipsResumeComponent.vue"));  
+
 //Modulo para eliminar clases y ciclos 
 Vue.component("component-delete-class-and-cicles", ()=> import("./components/deleteClassAndCicles.vue"));
 
@@ -304,13 +307,15 @@ Vue.component("food-component", ()=>import("./components/FoodComponent.vue"));
 //Modulo de Enfermería Con menú
 Vue.component("menu-nurse", ()=>import("./components/menuNurse.vue"));
 Vue.component("nursing-component", ()=>import("./components/NurseComponent.vue"));
-
 Vue.component("menu-adm-component", ()=>import("./components/newMenuAdm.vue"));
 
 //Modulo PIAR 
 Vue.component("piar-component", ()=>import("./components/PIARStudentSelect.vue"));
 Vue.component("piar-planification", ()=>import("./components/PIARPlanification.vue"));
 Vue.component("piar-anual-planification", ()=>import("./components/PIARAnualPlanificationComponent.vue"));
+//Modulo Cliente
+Vue.component("menu-cliente", ()=>import("./components/menuCliente.vue"));
+
 Vue.use(CKEditor);
 
 

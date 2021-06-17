@@ -91,9 +91,6 @@
                                             <a v-else class="btn btn-link" :href="`/estudiante/modulo/${activity.weekly_plan_id}/clase/${activity.id_class}`">Entregar</a>
                                         </div>
                                     </div>
-
-
-
                             </div>
                         </div>
                     </div>
@@ -103,8 +100,6 @@
         </div>
       </div>
     </div>
-
-
   </div>
 </template>
 
@@ -196,7 +191,6 @@ components: {
   methods: {
       filterPendingEvents:(events)=>{
             var momento = moment();
-            console.log(momento);
             return events.filter(e=>moment(e.dateTo)>= moment());
         //   return events.filter(e=>moment(e.dateTo)>=moment().add(5, 'hours'));
           // return events.filter((e) => moment(e.dateTo).format('MMMM Do YYYY, h:mm:ss a') >= moment().format('MMMM Do YYYY, h:mm:ss a'));
