@@ -8,7 +8,7 @@
  @if (Auth::user()->type_user == '4')
     <menu-padres></menu-padres>
  @endif
-  <student-calendar-component :type_u="{{ $type_user }}"></student-calendar-component>
+  <student-calendar-component :type_u="{{ $type_user }}" :user="{{Auth::user()}}"></student-calendar-component>
   <footers></footers>
 <div class="container">
   <!--<app-vue></app-vue>-->

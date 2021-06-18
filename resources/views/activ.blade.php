@@ -2,7 +2,7 @@
 
 @section('content')
 <menu-lateral></menu-lateral>
-  <activ-component></activ-component>
+  <activ-component :user="{{Auth::user()}}"></activ-component>
   <footers></footers>
 <div class="container">
   <!--<app-vue></app-vue>-->
