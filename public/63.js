@@ -218,6 +218,7 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale("es");
                       id_classroom: element1.id_classroom,
                       tutorial_value: element1.tutorial_value,
                       description_code: element1.description,
+                      id_teacher: element2.teacher_id,
                       code_id: element2.code_id,
                       text: element1.area_name + ' - ' + element1.code
                     });
@@ -252,7 +253,7 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale("es");
         });
       }
     },
-    SelectSchedule: function SelectSchedule(area_id, classroom_id, schedule, tutorial_value, description_code) {
+    SelectSchedule: function SelectSchedule(area_id, classroom_id, schedule, tutorial_value, description_code, id_teacher) {
       $("#modalSelectSchedule").modal("show");
       this.schedule_selected = {
         area_id: area_id,
@@ -260,7 +261,8 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale("es");
         schedule: schedule,
         observations: "",
         tutorial_value: tutorial_value,
-        description_code: description_code
+        description_code: description_code,
+        id_teacher: id_teacher
       };
     },
     SaveProgramSchedule: function SaveProgramSchedule() {
@@ -640,7 +642,8 @@ var render = function() {
                                                           area.id_classroom,
                                                           schedule,
                                                           area.tutorial_value,
-                                                          area.description_code
+                                                          area.description_code,
+                                                          area.id_teacher
                                                         )
                                                       }
                                                     }

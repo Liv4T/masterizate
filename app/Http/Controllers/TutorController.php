@@ -309,6 +309,7 @@ class TutorController extends Controller
                "date_to"=>$data['schedule']['date_to'],
                "date_from"=>$data['schedule']['date_from'],
                "id_user"=>$data['schedule']['teacher']['id'],
+               "id_teacher"=>$data['id_teacher'],
                "url"=>"",
                "state"=>0,
                "deleted"=>0
@@ -322,6 +323,7 @@ class TutorController extends Controller
                 "date_to"=>$data['schedule']['date_to'],
                 "date_from"=>$data['schedule']['date_from'],
                 "id_user"=>$user->id,
+                "id_teacher"=>$data['id_teacher'],
                 "url"=>"/estudiante/tutorias/".$scheduleCreated->id,
                 "state"=>0,
                 "deleted"=>0
@@ -390,7 +392,7 @@ class TutorController extends Controller
         }
 
         $current_date=date("Y-m-d H:i:s");
-        $events=TutorScheduleEvent::where('date_to','>=',$current_date)->where('state',1)->where('deleted',0)->get();
+        $events=TutorScheduleEvent::where('id_teacher','>=',$user->id)->where('date_to','>=',$current_date)->where('state',1)->where('deleted',0)->get();
 
         foreach ($events as $key => $event) {
            $studentSchedule= TutorScheduleStudent::find($event->id_schedulestudent);
