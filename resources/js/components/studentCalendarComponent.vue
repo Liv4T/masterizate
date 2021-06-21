@@ -184,7 +184,10 @@
         }
       });
         axios.get("/api/student/activity").then((response) => {
-            response.data.forEach((el)=>{
+            let activs = []
+            activs = Object.values(response.data);
+            console.log(activs)
+            activs.forEach((el)=>{
                 if(el.activityForAllStudents == 1){
                     
                     if(el.selectedStudents == "[]" || el.selectedStudents == null){
