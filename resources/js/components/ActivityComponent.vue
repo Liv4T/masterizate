@@ -83,7 +83,8 @@ export default {
   mounted() {
         var urlsel =window.location.origin +"/api/student/activity"
         axios.get(urlsel).then((response) => {
-            let activs = response.data;
+            let activs = []
+            activs = Object.values(response.data);
             
             activs.forEach((el)=>{
                 if(el.activityForAllStudents == 1){
