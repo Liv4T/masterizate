@@ -15,9 +15,16 @@ class SchoolGovernmentMembersController extends Controller
      */
     public function index()
     {
-        $user_id = Auth::user()->id;
-        $members = SchoolGovernmentMembers::where('user_creator_id','=',$user_id)->orderBy('order','asc')->get();
-        return response()->json($members);
+        $user = Auth::user();
+        if($user->type_user == 1){
+            $user_id = Auth::user()->id;
+            $members = SchoolGovernmentMembers::orderBy('order','asc')->get();
+            return response()->json($members);    
+        }else{
+            $user_id = Auth::user()->id;
+            $members = SchoolGovernmentMembers::where('user_creator_id','=',$user_id)->orderBy('order','asc')->get();
+            return response()->json($members);
+        }
     }
 
     /**
