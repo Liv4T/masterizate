@@ -156,7 +156,7 @@ class ActivityController extends Controller
                     ->select('area.name as area_name','classroom.name as classroom_name','activity.*','activity_interaction.score as interaction_score','activity_interaction.state as interaction_state','class.id_weekly_plan as weekly_plan_id','class.activityForPIARStudents','class.activityForSelectStudents','class.activityForAllStudents','class.selectedStudents')
                     ->where('classroom_student.id_user', $user->id)
                     ->where('activity.deleted',0)
-                    ->orderBy('activity.delivery_max_date')
+                    ->orderBy('id','desc')
                     ->limit(30)
                     ->get();
 
