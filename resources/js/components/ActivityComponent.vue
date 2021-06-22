@@ -62,7 +62,7 @@ import Multiselect from "vue-multiselect";
 Vue.component("multiselect", Multiselect);
 export default {
   components: { Multiselect },
-  props: ["id_grade", "id_area"],
+  props: ["id_grade", "id_area","user"],
   data() {
     return {
       activities: [],
@@ -81,10 +81,40 @@ export default {
   },
   created() {},
   mounted() {
-      var urlsel =window.location.origin +"/api/student/activity"
-      axios.get(urlsel).then((response) => {
-        this.activities = response.data;
-      });
+        var urlsel =window.location.origin +"/api/student/activity"
+        axios.get(urlsel).then((response) => {
+            let activs = []
+            activs = Object.values(response.data);
+            
+            activs.forEach((el)=>{
+                if(el.activityForAllStudents == 1){
+                    
+                    if(el.selectedStudents == "[]" || el.selectedStudents == null){
+                        this.activities.push(el)
+                    }
+
+                }else if(el.activityForPIARStudents == 1){
+
+                    let PIARStudents= JSON.parse(el.selectedStudents);
+                    PIARStudents.forEach((e)=>{
+                        if(e.id == this.user.id){
+                            this.activities.push(el)   
+                        }
+                    });
+
+                }else if(el.activityForSelectStudents == 1){
+                    
+                    let selectedStudents= JSON.parse(el.selectedStudents);
+                    selectedStudents.forEach((e)=>{
+                        if(e.id == this.user.id){
+                            this.activities.push(el)   
+                        }
+                    });
+
+                }
+            })
+            
+        });
 
     console.log(this.activities);
   },

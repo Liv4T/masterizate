@@ -946,9 +946,9 @@ Route::resource('nursing', 'NursingComponentController');
 Route::get('getNursing','NursingComponentController@getNursignData');
 
 //Ruta para estudiantes PIAR
-Route::resource('piar','PiarController');
-Route::get('getPIARStudents','PiarController@getPIARStudents');
-Route::get('PIARStudentsByArea/{id_1}/{id_2}','PiarController@getPIARStudentsArea');
+Route::resource('piar','PIARController');
+Route::get('getPIARStudents','PIARController@getPIARStudents');
+Route::get('PIARStudentsByArea/{id_1}/{id_2}','PIARController@getPIARStudentsArea');
 
 // Route::resource('piarPlanification','PIARPlanificationController');
 Route::middleware('auth')->get('/piarPlanification/{id_area}/{id_classroom}', function (String $id_area, String $id_classroom) {

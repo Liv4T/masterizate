@@ -23,10 +23,14 @@ class ObserverController extends Controller
 
     public function getDataParentsStudents(){
         $user_name = Auth::user()->name;
-
-        $observer = Observer::where('user_creator','=', $user_name)->get();
-
-        return response()->json($observer);
+        $user = Auth::user();
+        if($user->type_user == 1){
+            $observer = Observer::all();
+            return response()->json($observer);
+        }else{
+            $observer = Observer::where('user_creator','=', $user_name)->get();
+            return response()->json($observer);
+        }
     }
 
     /**

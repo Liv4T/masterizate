@@ -79,7 +79,7 @@
                                 </div>
                               </td>
                               <td class="text-center">
-                                <button v-if="!schedule.reserved.id" class="btn btn-primary" @click="SelectSchedule(area.id, area.id_classroom, schedule, area.tutorial_value, area.description_code)">Tomar tutoría</button>
+                                <button v-if="!schedule.reserved.id" class="btn btn-primary" @click="SelectSchedule(area.id, area.id_classroom, schedule, area.tutorial_value, area.description_code, area.id_teacher)">Tomar tutoría</button>
                                 <button v-if="schedule.reserved.id && schedule.reserved.meetup" class="btn btn-success" @click="OpenSchedule(schedule)">Ingresar a la tutoría</button>
                                 <span v-if="schedule.reserved.id && !schedule.reserved.meetup">(Tutor no ha generado link de reunión)</span>
                               </td>
@@ -209,6 +209,7 @@
                         id_classroom: element1.id_classroom,
                         tutorial_value: element1.tutorial_value,
                         description_code: element1.description,
+                        id_teacher: element2.teacher_id,
                         code_id: element2.code_id,
                         text: element1.area_name+' - '+element1.code
                       });
@@ -247,9 +248,9 @@
               });
           }
       },
-      SelectSchedule(area_id, classroom_id, schedule, tutorial_value, description_code) {
+      SelectSchedule(area_id, classroom_id, schedule, tutorial_value, description_code, id_teacher) {
         $("#modalSelectSchedule").modal("show");
-        this.schedule_selected = { area_id: area_id, classroom_id: classroom_id, schedule: schedule, observations: "", tutorial_value: tutorial_value, description_code:description_code };
+        this.schedule_selected = { area_id: area_id, classroom_id: classroom_id, schedule: schedule, observations: "", tutorial_value: tutorial_value, description_code:description_code, id_teacher:id_teacher };
       },
       SaveProgramSchedule() {
         console.log('schedule Selected',this.schedule_selected)

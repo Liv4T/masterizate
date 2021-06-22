@@ -48,12 +48,12 @@
                             <div class="form-group row">
                                 <div class="col-md-6">
                                     <label for="name">Desde</label>
-                                    <datetime :format="formatDate" v-model="desde"></datetime>
+                                    <datetime format="YYYY-MM-DD H:i:s" v-model="desde"></datetime>
                                     <div class="invalid-feedback">Please fill out this field</div>
                                 </div>
                                     <div class="col-md-6">
                                     <label for="name">Hasta</label>
-                                    <datetime :format="formatDate" v-model="hasta"></datetime>
+                                    <datetime format="YYYY-MM-DD H:i:s" v-model="hasta"></datetime>
                                     <div class="invalid-feedback"></div>
                                 </div>
                                 <div class="col-md-6">
@@ -149,8 +149,8 @@
                                 .post(url, {
                                     //Cursos generales
                                     name: this.nameEvent,
-                                    startDateTime: this.arrayDaysEvent[j] + " " + this.desde,
-                                    endDateTime: this.arrayDaysEvent[j] + " " + this.hasta,
+                                    startDateTime: this.arrayDaysEvent[j],
+                                    endDateTime: this.arrayDaysEvent[j],
                                     id_area: this.materia[i].id,
                                     id_classroom: this.materia[i].id_classroom,
                                     url: this.nameMeet,

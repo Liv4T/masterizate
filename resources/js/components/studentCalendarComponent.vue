@@ -143,7 +143,7 @@
     components: {
       FullCalendar, // make the <FullCalendar> tag available
     },
-    props: ["type_u"],
+    props: ["type_u","user"],
     data() {
       return {
         display_events: true,
@@ -183,40 +183,70 @@
           //this.calendarOptions.events= this.meetings.map(meeting=>{return { title: `[${meeting.area} ${meeting.classroom}] ${meeting.name}`, date: meeting.dateFrom,description: meeting.name,url:meeting.hangout }});
         }
       });
-      axios.get("/api/student/activity").then((response) => {
-        this.activities = response.data;
-        if (this.activities && this.activities.length > 0) {
-          this.activities.forEach((activity) => {
-            if (activity.interaction_state == 1) {
-              //delivery max
-              fullCalendarApi.addEvent({
-                title: `${activity.area_name} ${activity.classroom_name} | Actividad: ${activity.name}`,
-                date: activity.delivery_max_date,
-                description: activity.description,
-                url: `/estudiante/modulo/${activity.weekly_plan_id}/clase/${activity.id_class}`,
-                backgroundColor: "blue",
-              });
-            } else if (activity.interaction_state == 2) {
-              //feedback
-              fullCalendarApi.addEvent({
-                title: `${activity.area_name} ${activity.classroom_name} | Actividad: ${activity.name}`,
-                date: activity.feedback_date,
-                description: activity.description,
-                url: `/estudiante/modulo/${activity.weekly_plan_id}/clase/${activity.id_class}`,
-                backgroundColor: "blue",
-              });
-            } else {
-              fullCalendarApi.addEvent({
-                title: `${activity.area_name} ${activity.classroom_name} | Actividad: ${activity.name}`,
-                date: activity.delivery_max_date,
-                description: activity.description,
-                url: `/estudiante/modulo/${activity.weekly_plan_id}/clase/${activity.id_class}`,
-                backgroundColor: "blue",
-              });
+        axios.get("/api/student/activity").then((response) => {
+            let activs = []
+            activs = Object.values(response.data);
+            console.log(activs)
+            activs.forEach((el)=>{
+                if(el.activityForAllStudents == 1){
+                    
+                    if(el.selectedStudents == "[]" || el.selectedStudents == null){
+                        this.activities.push(el)
+                    }
+
+                }else if(el.activityForPIARStudents == 1){
+
+                    let PIARStudents= JSON.parse(el.selectedStudents);
+                    PIARStudents.forEach((e)=>{
+                        if(e.id == this.user.id){
+                            this.activities.push(el)   
+                        }
+                    });
+
+                }else if(el.activityForSelectStudents == 1){
+                    
+                    let selectedStudents= JSON.parse(el.selectedStudents);
+                    selectedStudents.forEach((e)=>{
+                        if(e.id == this.user.id){
+                            this.activities.push(el)   
+                        }
+                    });
+
+                }
+            })
+
+            if (this.activities && this.activities.length > 0) {
+                this.activities.forEach((activity) => {
+                    if (activity.interaction_state == 1) {
+                        //delivery max
+                        fullCalendarApi.addEvent({
+                            title: `${activity.area_name} ${activity.classroom_name} | Actividad: ${activity.name}`,
+                            date: activity.delivery_max_date,
+                            description: activity.description,
+                            url: `/estudiante/modulo/${activity.weekly_plan_id}/clase/${activity.id_class}`,
+                            backgroundColor: "blue",
+                        });
+                    } else if (activity.interaction_state == 2) {
+                        //feedback
+                        fullCalendarApi.addEvent({
+                            title: `${activity.area_name} ${activity.classroom_name} | Actividad: ${activity.name}`,
+                            date: activity.feedback_date,
+                            description: activity.description,
+                            url: `/estudiante/modulo/${activity.weekly_plan_id}/clase/${activity.id_class}`,
+                            backgroundColor: "blue",
+                        });
+                    } else {
+                        fullCalendarApi.addEvent({
+                            title: `${activity.area_name} ${activity.classroom_name} | Actividad: ${activity.name}`,
+                            date: activity.delivery_max_date,
+                            description: activity.description,
+                            url: `/estudiante/modulo/${activity.weekly_plan_id}/clase/${activity.id_class}`,
+                            backgroundColor: "blue",
+                        });
+                    }
+                });
+                //this.calendarOptions.events= this.meetings.map(meeting=>{return { title: `[${meeting.area} ${meeting.classroom}] ${meeting.name}`, date: meeting.dateFrom,description: meeting.name,url:meeting.hangout }});
             }
-          });
-          //this.calendarOptions.events= this.meetings.map(meeting=>{return { title: `[${meeting.area} ${meeting.classroom}] ${meeting.name}`, date: meeting.dateFrom,description: meeting.name,url:meeting.hangout }});
-        }
       });
       axios.get("/api/repository/student").then((response) => {
         this.respositories = response.data;

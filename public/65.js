@@ -285,7 +285,7 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
         this.course.activityForPIARStudents = 0;
         this.course.activityForSelectStudents = 0;
         this.course.activityForAllStudents = 1;
-        this.course.selectedStudents = [];
+        this.course.selectedStudents = "[]";
         this.activityForPIARStudents = false;
         this.activityForSelectStudents = false;
       }
@@ -307,7 +307,6 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
         this.course.activityForSelectStudents = 1;
         this.course.activityForAllStudents = 0;
         this.course.selectedStudents = JSON.stringify(this.saveStudent);
-        console.log(this.saveStudent);
         this.activityForPIARStudents = false;
         this.activityForAllStudents = false;
         this.selectedStudentsData = this.studentsOptions;
@@ -409,6 +408,7 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
     SaveDataEvent: function SaveDataEvent() {
       var _this2 = this;
 
+      console.log(this.course);
       axios.put("/api/teacher/module/".concat(this.id_module, "/class"), this.course).then(function (response) {
         // this.getPlanificationEvent(this.id_lective_planification);
         toastr.success("Clases actualizadas correctamente");

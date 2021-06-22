@@ -278,7 +278,7 @@ export default {
                 this.course.activityForPIARStudents = 0;
                 this.course.activityForSelectStudents = 0;
                 this.course.activityForAllStudents = 1;
-                this.course.selectedStudents = []
+                this.course.selectedStudents = "[]"
                 
                 this.activityForPIARStudents = false;
                 this.activityForSelectStudents = false;
@@ -304,8 +304,6 @@ export default {
                 this.course.activityForSelectStudents = 1;
                 this.course.activityForAllStudents = 0;
                 this.course.selectedStudents = JSON.stringify(this.saveStudent);
-                console.log(this.saveStudent);
-
 
                 this.activityForPIARStudents = false;
                 this.activityForAllStudents = false;
@@ -415,6 +413,7 @@ export default {
         },
 
         SaveDataEvent(){
+            console.log(this.course)
             axios.put(`/api/teacher/module/${this.id_module}/class`,this.course).then((response) => {
                // this.getPlanificationEvent(this.id_lective_planification);
                 toastr.success("Clases actualizadas correctamente");
