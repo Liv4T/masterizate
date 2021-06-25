@@ -110,6 +110,7 @@ $(".collapse").on("show.bs.collapse", function () {
 
     var url = "GetArearByUser";
     axios.get(url).then(function (response) {
+      console.log(response.data);
       _this.areas = response.data;
     });
   },

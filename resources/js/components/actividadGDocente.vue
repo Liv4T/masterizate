@@ -100,6 +100,7 @@ export default {
   mounted() {
     var url = "GetArearByUser";
     axios.get(url).then((response) => {
+      console.log(response.data)
       this.areas = response.data;
     });
   },
