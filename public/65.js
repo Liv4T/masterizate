@@ -288,6 +288,7 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
         this.course.selectedStudents = "[]";
         this.activityForPIARStudents = false;
         this.activityForSelectStudents = false;
+        this.saveStudent = [];
       }
     },
     activityForPIARStudents: function activityForPIARStudents(newVal) {
@@ -310,6 +311,11 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
         this.activityForPIARStudents = false;
         this.activityForAllStudents = false;
         this.selectedStudentsData = this.studentsOptions;
+      }
+    },
+    saveStudent: function saveStudent(newVal) {
+      if (this.activityForAllStudents == false && this.activityForPIARStudents == true || this.activityForSelectStudents == true && newVal) {
+        this.course.selectedStudents = JSON.stringify(this.saveStudent);
       }
     }
   },
@@ -408,7 +414,6 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
     SaveDataEvent: function SaveDataEvent() {
       var _this2 = this;
 
-      console.log(this.course);
       axios.put("/api/teacher/module/".concat(this.id_module, "/class"), this.course).then(function (response) {
         // this.getPlanificationEvent(this.id_lective_planification);
         toastr.success("Clases actualizadas correctamente");
