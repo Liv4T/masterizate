@@ -408,7 +408,7 @@ export default {
         })
 
         axios.get('/getPlanificationPiar').then((response)=>{
-            console.log('datos piar:',response);
+            console.log('datos piar:',response.data);
             let data = response.data;
             if(data.length > 0){
                 this.inputsPIAR1.splice(0);
@@ -416,6 +416,7 @@ export default {
                 data.forEach((el)=>{
                     let logros = JSON.parse(el.logros)
                     let trimestres = JSON.parse(el.trimestres)
+                    this.saveStudent = JSON.parse(el.students)
   
                     logros.forEach((lg)=>{
                         this.inputsPIAR1.push({

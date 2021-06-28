@@ -385,7 +385,7 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
       });
     });
     axios.get('/getPlanificationPiar').then(function (response) {
-      console.log('datos piar:', response);
+      console.log('datos piar:', response.data);
       var data = response.data;
 
       if (data.length > 0) {
@@ -396,6 +396,7 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
         data.forEach(function (el) {
           var logros = JSON.parse(el.logros);
           var trimestres = JSON.parse(el.trimestres);
+          _this.saveStudent = JSON.parse(el.students);
           logros.forEach(function (lg) {
             _this.inputsPIAR1.push({
               contenidoPIAR: lg.contenidoPIAR,
