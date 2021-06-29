@@ -25,7 +25,7 @@
                       </div>
                       <div class="class-event-action">
                         <a class="btn btn-primary" html:type="_blank" :href="clas.hangout">Ir a clase</a>
-                        <a href="/assistance" class="btn btn-primary ml-1" v-show="type_u == 2">Asistencia</a>
+                        <a :href="`/assistance/${clas.id_area}/${clas.id_classroom}`" class="btn btn-primary ml-1" v-show="type_u == 2">Asistencia</a>
                       </div>
                     </div>
                     <div class="class-event-footer ">

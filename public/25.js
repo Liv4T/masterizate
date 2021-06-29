@@ -388,7 +388,13 @@ var render = function() {
                                   }
                                 ],
                                 staticClass: "btn btn-primary ml-1",
-                                attrs: { href: "/assistance" }
+                                attrs: {
+                                  href:
+                                    "/assistance/" +
+                                    clas.id_area +
+                                    "/" +
+                                    clas.id_classroom
+                                }
                               },
                               [_vm._v("Asistencia")]
                             )

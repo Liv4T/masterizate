@@ -119,73 +119,64 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___default.a);
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["user"],
   data: function data() {
     return {
+      classroom_name: "",
       studentsOption: [],
       student: {},
       motive: '',
       other_motive: false,
       assistance: false,
       excuse: false,
-      area_option: [],
-      areaSave: {},
       assistants: [],
       updated: false,
       student_name: '',
       course_registred: '',
       id_to_update: '',
-      search_filter: ''
+      search_filter: '',
+      idClass: null,
+      idArea: null
     };
   },
   mounted: function mounted() {
-    var _this = this;
-
     this.getAssistants();
-    axios.get('/GetArearByUser').then(function (response) {
-      _this.areas = response.data;
-
-      if (_this.areas.length > 0) {
-        _this.area_option = _this.areas;
-      }
-    });
+    this.getStudents();
   },
   methods: {
     getAssistants: function getAssistants() {
-      var _this2 = this;
+      var _this = this;
 
-      axios.get('/getAssistants').then(function (response) {
-        _this2.assistants = response.data;
-      })["catch"](function (error) {
-        console.log(error);
+      //Se obtiene el valor de la URL desde el navegador
+      var actual = window.location + ''; //Se realiza la división de la URL
+
+      var split = actual.split("/"); //Se obtiene el ultimo valor de la URL
+
+      this.idClass = split[split.length - 1];
+      this.idArea = split[split.length - 2];
+      axios.get("/getClassroom/".concat(this.idArea, "/").concat(this.idClass)).then(function (response) {
+        var classroom = response.data;
+        classroom.forEach(function (e) {
+          _this.classroom_name = e.area_name + ' - ' + e.classroom_name;
+          axios.get("/getAssistants/".concat(e.area_name + ' - ' + e.classroom_name)).then(function (response) {
+            _this.assistants = response.data;
+          })["catch"](function (error) {
+            console.log(error);
+          });
+        });
       });
     },
     getStudents: function getStudents() {
-      var _this3 = this;
+      var _this2 = this;
 
       this.studentsOption = [];
-      axios.get("/api/teacher/area/".concat(this.areaSave.id, "/classroom/").concat(this.areaSave.id_classroom, "/student")).then(function (response) {
+      axios.get("/api/teacher/area/".concat(this.idArea, "/classroom/").concat(this.idClass, "/student")).then(function (response) {
         var students = response.data;
         students.forEach(function (student) {
-          _this3.studentsOption.push({
+          _this2.studentsOption.push({
             id: student.user_id,
             text: student.user_name
           });
@@ -203,7 +194,7 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
       }
     },
     saveAssistants: function saveAssistants() {
-      var _this4 = this;
+      var _this3 = this;
 
       if (this.updated === false) {
         axios.post('assistance', {
@@ -213,17 +204,19 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
           excuse: this.excuse,
           other_motive: this.other_motive,
           motive: this.motive,
-          course: this.areaSave.text
+          course: this.classroom_name
         }).then(function (response) {
           toastr.success(response.data);
 
-          _this4.getAssistants();
+          _this3.getAssistants();
+
+          $('#createAssistants').modal('hide');
         })["catch"](function (error) {
           toastr.info('Ha ocurrido algo, Intenta de nuevo mas tarde');
           console.log(error);
         });
       } else if (this.updated === true) {
-        axios.put("assistance/".concat(this.id_to_update), {
+        axios.put("/assistance/".concat(this.id_to_update), {
           assistance: this.assistance,
           excuse: this.excuse,
           other_motive: this.other_motive,
@@ -231,9 +224,9 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
         }).then(function (response) {
           toastr.success(response.data);
 
-          _this4.getAssistants();
+          _this3.getAssistants();
 
-          _this4.updated = false;
+          _this3.updated = false;
           $('#createAssistants').modal('hide');
         })["catch"](function (error) {
           toastr.info('Ha ocurrido algo, Intenta de nuevo mas tarde');
@@ -242,48 +235,48 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
       }
     },
     updateData: function updateData(id) {
-      var _this5 = this;
+      var _this4 = this;
 
       this.id_to_update = id;
-      axios.get("assistance/".concat(id)).then(function (response) {
+      axios.get("/assistance/".concat(id)).then(function (response) {
         var assistant = response.data;
         assistant.forEach(function (assist) {
-          _this5.student_name = assist.student_name;
+          _this4.student_name = assist.student_name;
 
           if (assist.assistance === 1) {
-            _this5.assistance = true;
+            _this4.assistance = true;
             $('input[id="flexRadioDefault1"]').prop("checked", true);
           } else {
-            _this5.assistance = false;
+            _this4.assistance = false;
           }
 
           if (assist.excuse === 1) {
-            _this5.excuse = true;
+            _this4.excuse = true;
             $('input[id="flexRadioDefault2"]').prop("checked", true);
           } else {
-            _this5.excuse = false;
+            _this4.excuse = false;
           }
 
           if (assist.other_motive === 1) {
-            _this5.other_motive = true;
+            _this4.other_motive = true;
             $('input[id="flexRadioDefault3"]').prop("checked", true);
           } else {
-            _this5.other_motive = false;
+            _this4.other_motive = false;
           }
 
-          _this5.motive = assist.motive, _this5.course_registred = assist.course;
+          _this4.motive = assist.motive, _this4.course_registred = assist.course;
         });
       });
       this.updated = true;
       $('#createAssistants').modal('show');
     },
     deleteData: function deleteData(id) {
-      var _this6 = this;
+      var _this5 = this;
 
-      axios["delete"]("assistance/".concat(id)).then(function (response) {
+      axios["delete"]("/assistance/".concat(id)).then(function (response) {
         toastr.success(response.data);
 
-        _this6.getAssistants();
+        _this5.getAssistants();
       })["catch"](function (error) {
         toastr.info('No se ha podido eliminar el dato, Intenta de nuevo mas tarde');
         console.log(error);
@@ -453,140 +446,77 @@ var render = function() {
               _c("div", { staticClass: "modal-body" }, [
                 _c("div", { staticClass: "form-group" }, [
                   _vm.updated === false
-                    ? _c(
-                        "div",
-                        [
-                          _c("label", { attrs: { for: "students" } }, [
-                            _vm._v("Areas")
-                          ]),
-                          _vm._v(" "),
-                          _c("multiselect", {
-                            attrs: {
-                              options: _vm.area_option,
-                              multiple: false,
-                              "close-on-select": false,
-                              "clear-on-select": false,
-                              "preserve-search": true,
-                              placeholder: "Seleccione una o varias",
-                              label: "text",
-                              "track-by": "id",
-                              "preselect-first": true
-                            },
-                            scopedSlots: _vm._u(
+                    ? _c("div", [
+                        _c("label", [
+                          _vm._v("Area: "),
+                          _c("strong", [_vm._v(_vm._s(_vm.classroom_name))])
+                        ]),
+                        _vm._v(" "),
+                        _vm.studentsOption.length > 0
+                          ? _c(
+                              "div",
+                              { staticClass: "form-group" },
                               [
-                                {
-                                  key: "selection",
-                                  fn: function(ref) {
-                                    var values = ref.values
-                                    var isOpen = ref.isOpen
-                                    return [
-                                      values.length && !isOpen
-                                        ? _c(
-                                            "span",
-                                            {
-                                              staticClass: "multiselect__single"
-                                            },
-                                            [
-                                              _vm._v(
-                                                _vm._s(values.length) +
-                                                  "\n                                                opciones\n                                                selecionadas\n                                            "
-                                              )
-                                            ]
-                                          )
-                                        : _vm._e()
-                                    ]
-                                  }
-                                }
-                              ],
-                              null,
-                              false,
-                              4211883726
-                            ),
-                            model: {
-                              value: _vm.areaSave,
-                              callback: function($$v) {
-                                _vm.areaSave = $$v
-                              },
-                              expression: "areaSave"
-                            }
-                          }),
-                          _vm._v(" "),
-                          _c(
-                            "button",
-                            {
-                              staticClass: "btn btn-primary mt-2",
-                              on: { click: _vm.getStudents }
-                            },
-                            [_vm._v("Consultar Estudiantes")]
-                          ),
-                          _vm._v(" "),
-                          _vm.studentsOption.length > 0
-                            ? _c(
-                                "div",
-                                { staticClass: "form-group" },
-                                [
-                                  _c("label", { attrs: { for: "students" } }, [
-                                    _vm._v("Estudiante")
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("multiselect", {
-                                    attrs: {
-                                      options: _vm.studentsOption,
-                                      multiple: false,
-                                      "close-on-select": false,
-                                      "clear-on-select": false,
-                                      "preserve-search": true,
-                                      placeholder: "Seleccione una o varias",
-                                      label: "text",
-                                      "track-by": "id",
-                                      "preselect-first": true
-                                    },
-                                    scopedSlots: _vm._u(
-                                      [
-                                        {
-                                          key: "selection",
-                                          fn: function(ref) {
-                                            var values = ref.values
-                                            var isOpen = ref.isOpen
-                                            return [
-                                              values.length && !isOpen
-                                                ? _c(
-                                                    "span",
-                                                    {
-                                                      staticClass:
-                                                        "multiselect__single"
-                                                    },
-                                                    [
-                                                      _vm._v(
-                                                        _vm._s(values.length) +
-                                                          "\n                                                    opciones\n                                                    selecionadas\n                                                "
-                                                      )
-                                                    ]
-                                                  )
-                                                : _vm._e()
-                                            ]
-                                          }
+                                _c("label", { attrs: { for: "students" } }, [
+                                  _vm._v("Estudiante")
+                                ]),
+                                _vm._v(" "),
+                                _c("multiselect", {
+                                  attrs: {
+                                    options: _vm.studentsOption,
+                                    multiple: false,
+                                    "close-on-select": false,
+                                    "clear-on-select": false,
+                                    "preserve-search": true,
+                                    placeholder: "Seleccione una o varias",
+                                    label: "text",
+                                    "track-by": "id",
+                                    "preselect-first": true
+                                  },
+                                  scopedSlots: _vm._u(
+                                    [
+                                      {
+                                        key: "selection",
+                                        fn: function(ref) {
+                                          var values = ref.values
+                                          var isOpen = ref.isOpen
+                                          return [
+                                            values.length && !isOpen
+                                              ? _c(
+                                                  "span",
+                                                  {
+                                                    staticClass:
+                                                      "multiselect__single"
+                                                  },
+                                                  [
+                                                    _vm._v(
+                                                      _vm._s(values.length) +
+                                                        "\n                                                    opciones\n                                                    selecionadas\n                                                "
+                                                    )
+                                                  ]
+                                                )
+                                              : _vm._e()
+                                          ]
                                         }
-                                      ],
-                                      null,
-                                      false,
-                                      1927334094
-                                    ),
-                                    model: {
-                                      value: _vm.student,
-                                      callback: function($$v) {
-                                        _vm.student = $$v
-                                      },
-                                      expression: "student"
-                                    }
-                                  })
-                                ],
-                                1
-                              )
-                            : _vm._e()
-                        ],
-                        1
-                      )
+                                      }
+                                    ],
+                                    null,
+                                    false,
+                                    1927334094
+                                  ),
+                                  model: {
+                                    value: _vm.student,
+                                    callback: function($$v) {
+                                      _vm.student = $$v
+                                    },
+                                    expression: "student"
+                                  }
+                                })
+                              ],
+                              1
+                            )
+                          : _vm._e()
+                      ])
                     : _c("div", [
                         _c("p", [
                           _vm._v("Estudiante: " + _vm._s(_vm.student_name))
@@ -721,7 +651,7 @@ var staticRenderFns = [
       _c("tr", [
         _c("th", [_vm._v("Estudiante")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Curso")]),
+        _c("th", [_vm._v("Clase")]),
         _vm._v(" "),
         _c("th", [_vm._v("Asistencia")]),
         _vm._v(" "),

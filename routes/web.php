@@ -901,8 +901,12 @@ Route::resource('deleteClassAndCicles','DeleteClassAndCiclesController');
 Route::get('getPermissions','DeleteClassAndCiclesController@getPermissions');
 
 //Modulo para registrar las asistencias 
-Route::resource('assistance','AssistanceController');
-Route::get('getAssistants','AssistanceController@showAssistance');
+Route::resource('assistance/{id_area}/{id_classroom}','AssistanceController', ['parameters' => ['{id_class}' => 'idclass','{id_classroom}' => 'idClassroom']]);
+Route::get('getClassroom/{id_area}/{id_classromm}','AssistanceController@getClassroom');
+Route::get('getAssistants/{classroom_name}','AssistanceController@showAssistance');
+Route::get('assistance/{id_student}','AssistanceController@show');
+Route::put('assistance/{id_assistance}','AssistanceController@update');
+Route::delete('assistance/{id_assistance}','AssistanceController@destroy');
 
 //Modulo de Efectividad
 

@@ -97,7 +97,9 @@ class EventsController extends Controller
                         "dateTo" => $evento->date_to,
                         "hangout" => $evento->url,
                         "area" => isset($area->name) ? $area->name : 'Empty',
+                        "id_area" => isset($area->id) ? $area->id : '',
                         "classroom" => $classroom ? $classroom->name : '',
+                        "id_classroom" => $classroom ? $classroom->id : '',
                     ]);
 
             }

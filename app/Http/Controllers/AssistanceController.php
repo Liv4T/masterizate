@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Assistance;
 use App\User;
+use App\Area;
+use App\Classroom;
 use Illuminate\Http\Request;
 use Auth;
 class AssistanceController extends Controller
@@ -18,9 +20,22 @@ class AssistanceController extends Controller
         return view('assistance'); 
     }
 
-    public function showAssistance(){
+    public function getClassroom(String $area_id, String $classroom_id){
+        $data = [];
+        $area = Area::where('id',$area_id)->first();
+        $classroom = Classroom::where('id',$classroom_id)->first();
+
+        array_push($data,[
+            "area_name" => $area->name,
+            "classroom_name" => $classroom->name
+        ]);
+
+        return response()->json($data);
+    }
+
+    public function showAssistance(String $classroom_name){
         $user_id = Auth::user()->id;
-        $assistances = Assistance::where('id_teacher','=',$user_id)->orderBy('course')->get();
+        $assistances = Assistance::where('id_teacher',$user_id)->where('course',$classroom_name)->orderBy('course')->get();
         $assistants = [];
 
         foreach ($assistances as $key => $assis) {

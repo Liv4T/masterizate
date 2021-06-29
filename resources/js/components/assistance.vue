@@ -16,7 +16,7 @@
                                 <thead>
                                     <tr>
                                         <th>Estudiante</th>
-                                        <th>Curso</th>
+                                        <th>Clase</th>
                                         <th>Asistencia</th>
                                         <th>Fecha</th>
                                         <th>Acción</th>
@@ -56,22 +56,7 @@
                     <div class="modal-body">
                         <div class="form-group">
                             <div v-if="updated === false">
-                                <label for="students">Areas</label>
-
-                                <multiselect v-model="areaSave" :options="area_option" :multiple="false"
-                                    :close-on-select="false" :clear-on-select="false"
-                                    :preserve-search="true" placeholder="Seleccione una o varias"
-                                    label="text" track-by="id" :preselect-first="true">
-                                        <template slot="selection" slot-scope="{ values, isOpen }">
-                                            <span
-                                                class="multiselect__single"
-                                                v-if="values.length &amp;&amp; !isOpen">{{ values.length }}
-                                                    opciones
-                                                    selecionadas
-                                                </span>
-                                        </template>
-                                    </multiselect>
-                                <button class="btn btn-primary mt-2" v-on:click="getStudents">Consultar Estudiantes</button>
+                                <label>Area: <strong>{{classroom_name}}</strong></label>
                                 <div v-if="studentsOption.length > 0" class="form-group">
                                     <label for="students">Estudiante</label>
 
@@ -128,44 +113,56 @@ Vue.component("multiselect", Multiselect);
         props: ["user"],
         data(){
             return{
+                classroom_name:"",
                 studentsOption:[],
                 student:{},
                 motive:'',
                 other_motive:false,
                 assistance: false,
                 excuse: false,
-                area_option:[],
-                areaSave:{},
                 assistants:[],
                 updated:false,
                 student_name:'',
                 course_registred:'',
                 id_to_update: '',
-                search_filter: ''
+                search_filter: '',
+                idClass:null,
+                idArea:null,
             }
         },
         mounted(){
             this.getAssistants();
-            axios.get('/GetArearByUser').then(response => {
-                this.areas = response.data;
-                if(this.areas.length>0)
-                {
-                    this.area_option=this.areas;
-                }
-            });
+            this.getStudents();            
         },
         methods:{
             getAssistants(){
-                axios.get('/getAssistants').then((response)=>{
-                    this.assistants = response.data;
-                }).catch((error)=>{
-                    console.log(error);
-                })
+                //Se obtiene el valor de la URL desde el navegador
+                let actual = window.location+'';
+                //Se realiza la división de la URL
+                let split = actual.split("/");
+                //Se obtiene el ultimo valor de la URL
+                this.idClass = split[split.length-1];
+                this.idArea = split[split.length-2];
+
+                axios.get(`/getClassroom/${this.idArea}/${this.idClass}`).then((response)=>{
+                    let classroom = response.data;
+
+                    classroom.forEach(e=>{
+                        this.classroom_name = e.area_name+' - '+e.classroom_name
+
+                        axios.get(`/getAssistants/${e.area_name+' - '+e.classroom_name}`).then((response)=>{
+                            this.assistants = response.data;
+                        }).catch((error)=>{
+                            console.log(error);
+                        })
+                    })
+                    
+                })    
             },
             getStudents()
-            {
+            {                
                 this.studentsOption=[]
-                    axios.get(`/api/teacher/area/${this.areaSave.id}/classroom/${this.areaSave.id_classroom}/student`).then(response => {
+                    axios.get(`/api/teacher/area/${this.idArea}/classroom/${this.idClass}/student`).then(response => {
                         let students = response.data;
                         students.forEach((student)=>{
                             this.studentsOption.push({
@@ -197,16 +194,17 @@ Vue.component("multiselect", Multiselect);
                         excuse: this.excuse,
                         other_motive: this.other_motive,
                         motive: this.motive,
-                        course: this.areaSave.text
+                        course: this.classroom_name
                     }).then((response)=>{
                         toastr.success(response.data);
                         this.getAssistants();
+                        $('#createAssistants').modal('hide');
                     }).catch((error) => {
                         toastr.info('Ha ocurrido algo, Intenta de nuevo mas tarde');
                         console.log(error);
                     })
                 }else if(this.updated === true){
-                    axios.put(`assistance/${this.id_to_update}`,{
+                    axios.put(`/assistance/${this.id_to_update}`,{
                         assistance: this.assistance,
                         excuse: this.excuse,
                         other_motive: this.other_motive,
@@ -224,7 +222,7 @@ Vue.component("multiselect", Multiselect);
             },
             updateData(id){
                 this.id_to_update = id;
-                axios.get(`assistance/${id}`).then((response)=>{
+                axios.get(`/assistance/${id}`).then((response)=>{
                     let assistant = response.data;
                     assistant.forEach((assist)=>{
                         this.student_name = assist.student_name;
@@ -258,7 +256,7 @@ Vue.component("multiselect", Multiselect);
                 $('#createAssistants').modal('show');
             },
             deleteData(id){
-                axios.delete(`assistance/${id}`).then((response)=>{
+                axios.delete(`/assistance/${id}`).then((response)=>{
                     toastr.success(response.data);
                     this.getAssistants();
                 }).catch((error)=>{
