@@ -618,18 +618,6 @@ var staticRenderFns = [
                 _vm._v("Entregas")
               ]),
               _vm._v(" "),
-              _c("a", { attrs: { href: "/notas_d" } }, [
-                _c("img", {
-                  attrs: {
-                    width: "35px",
-                    src:
-                      "https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/NOTAS_naranja.png?alt=media&token=93ec6b97-e5a6-4eca-891e-b63bf2a352ad",
-                    alt: ""
-                  }
-                }),
-                _vm._v("\n                   Notas\n                 ")
-              ]),
-              _vm._v(" "),
               _c("a", { attrs: { href: "/board" } }, [
                 _c("img", {
                   attrs: {
