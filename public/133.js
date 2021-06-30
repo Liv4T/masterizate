@@ -91,6 +91,11 @@ __webpack_require__.r(__webpack_exports__);
         _this.motives = response.data;
       });
     },
+    CleanData: function CleanData() {
+      this.saveMotiveInput = '';
+      this.idToUpdate = '';
+      $("#motiveModal").modal('hide');
+    },
     saveMotive: function saveMotive() {
       var _this2 = this;
 
@@ -102,7 +107,7 @@ __webpack_require__.r(__webpack_exports__);
 
           _this2.getMotives();
 
-          $("#motiveModal").modal('hide');
+          _this2.CleanData();
         })["catch"](function (error) {
           toastr.info('Ha ocurrido un error, intenta de nuevo mas tarde');
           console.log(error);
@@ -112,12 +117,10 @@ __webpack_require__.r(__webpack_exports__);
           motive: this.saveMotiveInput
         }).then(function (response) {
           toastr.success(response.data);
-          _this2.saveMotiveInput = '';
-          _this2.idToUpdate = '';
 
           _this2.getMotives();
 
-          $("#motiveModal").modal('hide');
+          _this2.CleanData();
         })["catch"](function (error) {
           toastr.info('Ha ocurrido un error, intenta de nuevo mas tarde');
           console.log(error);
@@ -269,7 +272,34 @@ var render = function() {
           { staticClass: "modal-dialog", attrs: { role: "document" } },
           [
             _c("div", { staticClass: "modal-content" }, [
-              _vm._m(1),
+              _c("div", { staticClass: "modal-header" }, [
+                _c(
+                  "h5",
+                  {
+                    staticClass: "modal-title",
+                    attrs: { id: "motiveModalLabel" }
+                  },
+                  [_vm._v("Motivo de Inasistencia")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "close",
+                    attrs: {
+                      type: "button",
+                      "data-dismiss": "modal",
+                      "aria-label": "Close"
+                    },
+                    on: { click: _vm.CleanData }
+                  },
+                  [
+                    _c("span", { attrs: { "aria-hidden": "true" } }, [
+                      _vm._v("×")
+                    ])
+                  ]
+                )
+              ]),
               _vm._v(" "),
               _c("div", { staticClass: "modal-body" }, [
                 _c("div", { staticClass: "form-group" }, [
@@ -304,7 +334,8 @@ var render = function() {
                   "button",
                   {
                     staticClass: "btn btn-secondary",
-                    attrs: { type: "button", "data-bs-dismiss": "modal" }
+                    attrs: { type: "button", "data-bs-dismiss": "modal" },
+                    on: { click: _vm.CleanData }
                   },
                   [_vm._v("Cerrar")]
                 ),
@@ -341,31 +372,6 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Acción")])
       ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "modal-header" }, [
-      _c(
-        "h5",
-        { staticClass: "modal-title", attrs: { id: "motiveModalLabel" } },
-        [_vm._v("Motivo de Inasistencia")]
-      ),
-      _vm._v(" "),
-      _c(
-        "button",
-        {
-          staticClass: "close",
-          attrs: {
-            type: "button",
-            "data-dismiss": "modal",
-            "aria-label": "Close"
-          }
-        },
-        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
-      )
     ])
   }
 ]

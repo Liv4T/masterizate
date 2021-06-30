@@ -39,8 +39,8 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="motiveModalLabel">Motivo de Inasistencia</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" v-on:click="CleanData">
+                            <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
@@ -50,7 +50,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" v-on:click="CleanData">Cerrar</button>
                         <button type="button" class="btn btn-primary" v-on:click="saveMotive()">Guardar</button>
                     </div>
                 </div>
@@ -78,6 +78,12 @@ export default {
             });
         },
 
+        CleanData(){
+            this.saveMotiveInput = '';
+            this.idToUpdate = '';
+            $("#motiveModal").modal('hide');
+        },
+
         saveMotive(){
             if(this.idToUpdate == null){
                 axios.post('motiveAssistants',{
@@ -85,7 +91,7 @@ export default {
                 }).then((response)=>{
                     toastr.success(response.data);
                     this.getMotives();
-                    $("#motiveModal").modal('hide');                    
+                    this.CleanData();
                 }).catch((error)=>{
                     toastr.info('Ha ocurrido un error, intenta de nuevo mas tarde');
                     console.log(error)
@@ -94,11 +100,9 @@ export default {
                 axios.put(`motiveAssistants/${this.idToUpdate}`,{
                     motive: this.saveMotiveInput,
                 }).then((response)=>{
-                    toastr.success(response.data);
-                    this.saveMotiveInput = '';
-                    this.idToUpdate = '';
+                    toastr.success(response.data);                    
                     this.getMotives();
-                    $("#motiveModal").modal('hide');                    
+                    this.CleanData();
                 }).catch((error)=>{
                     toastr.info('Ha ocurrido un error, intenta de nuevo mas tarde');
                     console.log(error)
