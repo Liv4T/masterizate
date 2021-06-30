@@ -5,7 +5,7 @@
       <menu-adm-component></menu-adm-component>
     @endif
 
-    @if(Auth::user()->isNurse())
+    @if(Auth::user()->isNurse() || Auth::user()->isSchoolGovernment())
         <menu-school></menu-school>
     @endif
 <legislation-component :user="{{Auth::user()}}"></legislation-component>

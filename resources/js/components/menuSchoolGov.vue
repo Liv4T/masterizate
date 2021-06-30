@@ -59,7 +59,7 @@
                                     src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/MANUAL-DE-USUARIO_naranja.png?alt=media&token=bd2488fb-e121-432d-afd2-f223fcc0f29e"
                                     alt />
                                 <span class="badge text-wrap" style="width: 6rem; font-size: 13px">
-                                    Quienes lo Conforman
+                                    Quiénes lo Conforman
                                 </span>
                             </li>
                         </a>

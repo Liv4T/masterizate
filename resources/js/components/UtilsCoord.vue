@@ -3,10 +3,10 @@
         <div class="col-sm-10">
             <div class="card text-center">
                 <div class="card-header fondo">
-                    <h4>Utiles</h4>
+                    <h4>Útiles</h4>
                 </div>
             </div>
-            <button class="mb-4 btn btn-primary" data-toggle="modal" data-target="#exampleModal">Crear Utiles</button>
+            <button class="mb-4 btn btn-primary" data-toggle="modal" data-target="#exampleModal">Crear Útiles</button>
             <div class="card">
                 <div class="card-body">
                     <div id="accordion">

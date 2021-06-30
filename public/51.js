@@ -352,7 +352,7 @@ var staticRenderFns = [
             },
             [
               _vm._v(
-                "\n                                Quienes lo Conforman\n                            "
+                "\n                                Quiénes lo Conforman\n                            "
               )
             ]
           )

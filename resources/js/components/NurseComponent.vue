@@ -3,7 +3,7 @@
         <div class="col-sm-10">
             <div class="card text-center">
                 <div class="card-header fondo">
-                    <h4>Enfermeria</h4>
+                    <h4>Enfermería</h4>
                 </div>
             </div>
             <button class="mb-4 btn btn-primary" data-toggle="modal" data-target="#modalNursingCreate">Crear Registro</button>
@@ -23,7 +23,7 @@
                             <thead>
                                 <tr>
                                     <th>Estudiante</th>
-                                    <th>RH Sanguineo</th>
+                                    <th>RH Sanguíneo</th>
                                     <th>Alergias</th>
                                     <th>Dieta</th>
                                     <th>Observación</th>

@@ -388,7 +388,7 @@ var staticRenderFns = [
             }
           }),
           _vm._v(" "),
-          _c("span", { staticClass: "menu" }, [_vm._v("Permiso Pedagogico")])
+          _c("span", { staticClass: "menu" }, [_vm._v("Permiso Pedagógico")])
         ])
       ]),
       _vm._v(" "),

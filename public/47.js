@@ -404,7 +404,7 @@ var staticRenderFns = [
                           }
                         }),
                         _vm._v(
-                          "\n                                        Utiles          \n                                    "
+                          "\n                                        Útiles          \n                                    "
                         )
                       ]),
                       _vm._v(" "),
@@ -418,7 +418,7 @@ var staticRenderFns = [
                           }
                         }),
                         _vm._v(
-                          "\n                                        Salidas Pedagogicas          \n                                    "
+                          "\n                                        Salidas Pedagógicas          \n                                    "
                         )
                       ]),
                       _vm._v(" "),
