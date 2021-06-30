@@ -128,7 +128,7 @@
                                 <a class="dropdown-item" href="/inicio">Ir a clase</a>
                                     <a class="dropdown-item" href="/changePassword">Cambiar Contraseña</a>
                                     <a class="dropdown-item" href="/manual">Ayuda</a>
-                                    <a class="dropdown-item" href="../../uploads/Terminos _Condiciones_liv4t.pdf">Terminos y Condiciones</a>
+                                    <a class="dropdown-item" href="../../uploads/Terminos _Condiciones_liv4t.pdf">Términos y Condiciones</a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                     onclick="event.preventDefault();
                                                     document.getElementById('logout-form').submit();">
