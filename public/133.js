@@ -351,7 +351,7 @@ var staticRenderFns = [
       _c(
         "h5",
         { staticClass: "modal-title", attrs: { id: "motiveModalLabel" } },
-        [_vm._v("Modal title")]
+        [_vm._v("Motivo de Inasistencia")]
       ),
       _vm._v(" "),
       _c(
