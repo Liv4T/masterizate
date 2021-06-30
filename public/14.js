@@ -92,7 +92,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["initialUsers"],
+  props: ["initialUsers", "user"],
   data: function data() {
     return {
       nombre: "",
@@ -121,6 +121,7 @@ __webpack_require__.r(__webpack_exports__);
     StudentsCourse: _studentsCourse_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
   mounted: function mounted() {
+    console.log(this.user);
     this.getAdmins();
     this.getParents();
     this.getTutors();
@@ -439,334 +440,348 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "caja" }, [
-    _c("div", { staticClass: "panel panel-primary" }, [
-      _c("h4", { staticClass: "panel-heading" }, [_vm._v("Grupos")]),
-      _vm._v(" "),
-      _c("div", [
-        _c("form", [
-          _c("div", { staticClass: "form-group" }, [
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.nombre,
-                  expression: "nombre"
-                }
-              ],
-              staticClass: "form-control",
-              attrs: { type: "text", placeholder: "Nombre del grupo" },
-              domProps: { value: _vm.nombre },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
+    _c(
+      "div",
+      {
+        directives: [
+          {
+            name: "show",
+            rawName: "v-show",
+            value: _vm.user.type_user !== 3,
+            expression: "user.type_user !== 3"
+          }
+        ],
+        staticClass: "panel panel-primary"
+      },
+      [
+        _c("h4", { staticClass: "panel-heading" }, [_vm._v("Grupos")]),
+        _vm._v(" "),
+        _c("div", [
+          _c("form", [
+            _c("div", { staticClass: "form-group" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.nombre,
+                    expression: "nombre"
                   }
-                  _vm.nombre = $event.target.value
-                }
-              }
-            })
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "form-group" }, [
-            _c(
-              "button",
-              {
-                staticClass: "btn btn-primary mt-2",
+                ],
+                staticClass: "form-control",
+                attrs: { type: "text", placeholder: "Nombre del grupo" },
+                domProps: { value: _vm.nombre },
                 on: {
-                  click: function($event) {
-                    $event.preventDefault()
-                    return (function() {
-                      return _vm.activeAdmin()
-                    })($event)
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.nombre = $event.target.value
                   }
-                }
-              },
-              [_vm._v("Administradores")]
-            ),
-            _vm._v(" "),
-            _c(
-              "button",
-              {
-                staticClass: "btn btn-primary mt-2",
-                on: {
-                  click: function($event) {
-                    $event.preventDefault()
-                    return (function() {
-                      return _vm.changeConsult(1)
-                    })($event)
-                  }
-                }
-              },
-              [_vm._v("Docentes")]
-            ),
-            _vm._v(" "),
-            _c(
-              "button",
-              {
-                staticClass: "btn btn-primary mt-2",
-                on: {
-                  click: function($event) {
-                    $event.preventDefault()
-                    return (function() {
-                      return _vm.changeConsult(2)
-                    })($event)
-                  }
-                }
-              },
-              [_vm._v("Estudiante")]
-            ),
-            _vm._v(" "),
-            _c(
-              "button",
-              {
-                staticClass: "btn btn-primary mt-2",
-                on: {
-                  click: function($event) {
-                    $event.preventDefault()
-                    return (function() {
-                      return _vm.activeParents()
-                    })($event)
-                  }
-                }
-              },
-              [_vm._v("Padres")]
-            ),
-            _vm._v(" "),
-            _c(
-              "button",
-              {
-                staticClass: "btn btn-primary mt-2",
-                on: {
-                  click: function($event) {
-                    $event.preventDefault()
-                    return (function() {
-                      return _vm.activeTutors()
-                    })($event)
-                  }
-                }
-              },
-              [_vm._v("Tutores")]
-            ),
-            _vm._v(" "),
-            _c(
-              "button",
-              {
-                staticClass: "btn btn-primary mt-2",
-                on: {
-                  click: function($event) {
-                    $event.preventDefault()
-                    return (function() {
-                      return _vm.activeGoverment()
-                    })($event)
-                  }
-                }
-              },
-              [_vm._v("Gobierno Escolar")]
-            ),
-            _vm._v(" "),
-            _c(
-              "button",
-              {
-                staticClass: "btn btn-primary mt-2",
-                on: {
-                  click: function($event) {
-                    $event.preventDefault()
-                    return (function() {
-                      return _vm.activeNursing()
-                    })($event)
-                  }
-                }
-              },
-              [_vm._v("Enfermería")]
-            ),
-            _vm._v(" "),
-            _c(
-              "button",
-              {
-                staticClass: "btn btn-primary mt-2",
-                on: {
-                  click: function($event) {
-                    $event.preventDefault()
-                    return (function() {
-                      return _vm.activeCoordinator()
-                    })($event)
-                  }
-                }
-              },
-              [_vm._v("Coordinadores")]
-            ),
-            _vm._v(" "),
-            _c(
-              "button",
-              {
-                staticClass: "btn btn-primary mt-2",
-                on: {
-                  click: function($event) {
-                    $event.preventDefault()
-                    return (function() {
-                      return _vm.activePsicologiest()
-                    })($event)
-                  }
-                }
-              },
-              [_vm._v("Psicología")]
-            )
-          ]),
-          _vm._v(" "),
-          _c(
-            "div",
-            {
-              directives: [
-                {
-                  name: "show",
-                  rawName: "v-show",
-                  value: _vm.docente == true,
-                  expression: "docente == true"
-                }
-              ]
-            },
-            [
-              _c("label", { attrs: { for: "" } }, [_vm._v("Docentes")]),
-              _vm._v(" "),
-              _c("students-course", {
-                attrs: {
-                  getIdUser: _vm.getIdUser,
-                  findStudentOrTeacher: _vm.findStudentOrTeacher
                 }
               })
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "div",
-            {
-              directives: [
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group" }, [
+              _c(
+                "button",
                 {
-                  name: "show",
-                  rawName: "v-show",
-                  value:
-                    _vm.showAdm == true ||
-                    _vm.showP == true ||
-                    _vm.showT == true ||
-                    _vm.showG == true ||
-                    _vm.showN == true ||
-                    _vm.showC == true ||
-                    _vm.showPs == true,
-                  expression:
-                    "showAdm == true || showP == true || showT == true || showG == true || showN == true || showC == true || showPs == true"
-                }
-              ]
-            },
-            [
-              _c("label", [
-                _vm._v(
-                  _vm._s(
-                    _vm.showAdm == true
-                      ? "Administradores"
-                      : _vm.showP == true
-                      ? "Padres"
-                      : _vm.showT == true
-                      ? "Tutores"
-                      : _vm.showG == true
-                      ? "Gobierno Escolar"
-                      : _vm.showN == true
-                      ? "Enfermeria"
-                      : _vm.showC == true
-                      ? "Coordinadores"
-                      : _vm.showPs == true
-                      ? "Psicologia"
-                      : ""
-                  )
-                )
-              ]),
-              _vm._v(" "),
-              _c("br"),
+                  staticClass: "btn btn-primary mt-2",
+                  on: {
+                    click: function($event) {
+                      $event.preventDefault()
+                      return (function() {
+                        return _vm.activeAdmin()
+                      })($event)
+                    }
+                  }
+                },
+                [_vm._v("Administradores")]
+              ),
               _vm._v(" "),
               _c(
-                "table",
-                { staticClass: "table table-striped" },
-                [
-                  _vm._m(0),
-                  _vm._v(" "),
-                  _vm._l(_vm.data, function(user, key) {
-                    return _c("tbody", { key: key }, [
-                      _c("tr", [
-                        _c("td", [_vm._v(_vm._s(user.name))]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(user.last_name))]),
-                        _vm._v(" "),
-                        _c("td", [
-                          _c(
-                            "button",
-                            {
-                              staticClass: "btn btn-primary",
-                              attrs: { type: "button" },
-                              on: {
-                                click: function() {
-                                  return _vm.getIdUser(_vm.student)
+                "button",
+                {
+                  staticClass: "btn btn-primary mt-2",
+                  on: {
+                    click: function($event) {
+                      $event.preventDefault()
+                      return (function() {
+                        return _vm.changeConsult(1)
+                      })($event)
+                    }
+                  }
+                },
+                [_vm._v("Docentes")]
+              ),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-primary mt-2",
+                  on: {
+                    click: function($event) {
+                      $event.preventDefault()
+                      return (function() {
+                        return _vm.changeConsult(2)
+                      })($event)
+                    }
+                  }
+                },
+                [_vm._v("Estudiante")]
+              ),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-primary mt-2",
+                  on: {
+                    click: function($event) {
+                      $event.preventDefault()
+                      return (function() {
+                        return _vm.activeParents()
+                      })($event)
+                    }
+                  }
+                },
+                [_vm._v("Padres")]
+              ),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-primary mt-2",
+                  on: {
+                    click: function($event) {
+                      $event.preventDefault()
+                      return (function() {
+                        return _vm.activeTutors()
+                      })($event)
+                    }
+                  }
+                },
+                [_vm._v("Tutores")]
+              ),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-primary mt-2",
+                  on: {
+                    click: function($event) {
+                      $event.preventDefault()
+                      return (function() {
+                        return _vm.activeGoverment()
+                      })($event)
+                    }
+                  }
+                },
+                [_vm._v("Gobierno Escolar")]
+              ),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-primary mt-2",
+                  on: {
+                    click: function($event) {
+                      $event.preventDefault()
+                      return (function() {
+                        return _vm.activeNursing()
+                      })($event)
+                    }
+                  }
+                },
+                [_vm._v("Enfermería")]
+              ),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-primary mt-2",
+                  on: {
+                    click: function($event) {
+                      $event.preventDefault()
+                      return (function() {
+                        return _vm.activeCoordinator()
+                      })($event)
+                    }
+                  }
+                },
+                [_vm._v("Coordinadores")]
+              ),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-primary mt-2",
+                  on: {
+                    click: function($event) {
+                      $event.preventDefault()
+                      return (function() {
+                        return _vm.activePsicologiest()
+                      })($event)
+                    }
+                  }
+                },
+                [_vm._v("Psicología")]
+              )
+            ]),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value: _vm.docente == true,
+                    expression: "docente == true"
+                  }
+                ]
+              },
+              [
+                _c("label", { attrs: { for: "" } }, [_vm._v("Docentes")]),
+                _vm._v(" "),
+                _c("students-course", {
+                  attrs: {
+                    getIdUser: _vm.getIdUser,
+                    findStudentOrTeacher: _vm.findStudentOrTeacher
+                  }
+                })
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value:
+                      _vm.showAdm == true ||
+                      _vm.showP == true ||
+                      _vm.showT == true ||
+                      _vm.showG == true ||
+                      _vm.showN == true ||
+                      _vm.showC == true ||
+                      _vm.showPs == true,
+                    expression:
+                      "showAdm == true || showP == true || showT == true || showG == true || showN == true || showC == true || showPs == true"
+                  }
+                ]
+              },
+              [
+                _c("label", [
+                  _vm._v(
+                    _vm._s(
+                      _vm.showAdm == true
+                        ? "Administradores"
+                        : _vm.showP == true
+                        ? "Padres"
+                        : _vm.showT == true
+                        ? "Tutores"
+                        : _vm.showG == true
+                        ? "Gobierno Escolar"
+                        : _vm.showN == true
+                        ? "Enfermeria"
+                        : _vm.showC == true
+                        ? "Coordinadores"
+                        : _vm.showPs == true
+                        ? "Psicologia"
+                        : ""
+                    )
+                  )
+                ]),
+                _vm._v(" "),
+                _c("br"),
+                _vm._v(" "),
+                _c(
+                  "table",
+                  { staticClass: "table table-striped" },
+                  [
+                    _vm._m(0),
+                    _vm._v(" "),
+                    _vm._l(_vm.data, function(user, key) {
+                      return _c("tbody", { key: key }, [
+                        _c("tr", [
+                          _c("td", [_vm._v(_vm._s(user.name))]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(user.last_name))]),
+                          _vm._v(" "),
+                          _c("td", [
+                            _c(
+                              "button",
+                              {
+                                staticClass: "btn btn-primary",
+                                attrs: { type: "button" },
+                                on: {
+                                  click: function() {
+                                    return _vm.getIdUser(_vm.student)
+                                  }
                                 }
-                              }
-                            },
-                            [_vm._v("Seleccionar")]
-                          )
+                              },
+                              [_vm._v("Seleccionar")]
+                            )
+                          ])
                         ])
                       ])
-                    ])
-                  })
-                ],
-                2
-              )
-            ]
-          ),
-          _vm._v(" "),
-          _c("br"),
-          _vm._v(" "),
-          _c(
-            "div",
-            {
-              directives: [
-                {
-                  name: "show",
-                  rawName: "v-show",
-                  value: _vm.estudiante == true,
-                  expression: "estudiante == true"
-                }
+                    })
+                  ],
+                  2
+                )
               ]
-            },
-            [
-              _c("label", { attrs: { for: "" } }, [_vm._v("Estudiantes")]),
-              _vm._v(" "),
-              _c("students-course", {
-                attrs: {
-                  getIdUser: _vm.getIdUser,
-                  findStudentOrTeacher: _vm.findStudentOrTeacher
+            ),
+            _vm._v(" "),
+            _c("br"),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value: _vm.estudiante == true,
+                    expression: "estudiante == true"
+                  }
+                ]
+              },
+              [
+                _c("label", { attrs: { for: "" } }, [_vm._v("Estudiantes")]),
+                _vm._v(" "),
+                _c("students-course", {
+                  attrs: {
+                    getIdUser: _vm.getIdUser,
+                    findStudentOrTeacher: _vm.findStudentOrTeacher
+                  }
+                })
+              ],
+              1
+            )
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "panel-footer text-center" }, [
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-info",
+              attrs: { type: "submit" },
+              on: {
+                click: function($event) {
+                  $event.preventDefault()
+                  return _vm.createGroup($event)
                 }
-              })
-            ],
-            1
+              }
+            },
+            [_vm._v("Crear grupo")]
           )
         ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "panel-footer text-center" }, [
-        _c(
-          "button",
-          {
-            staticClass: "btn btn-info",
-            attrs: { type: "submit" },
-            on: {
-              click: function($event) {
-                $event.preventDefault()
-                return _vm.createGroup($event)
-              }
-            }
-          },
-          [_vm._v("Crear grupo")]
-        )
-      ])
-    ])
+      ]
+    )
   ])
 }
 var staticRenderFns = [

@@ -26,7 +26,7 @@
                                 style="margin: 10px;">Psicologia</a>
 
                             <a class="btn btn-info" href="#" v-on:click.prevent="btSchoolGov()"
-                                style="margin: 10px;">Govierno Escolar</a>
+                                style="margin: 10px;">Gobierno Escolar</a>
 
                             <a class="btn btn-info" href="#" v-on:click.prevent="btC()"
                                 style="margin: 10px;">Coordinadores</a>

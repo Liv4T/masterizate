@@ -1,6 +1,6 @@
 <template>
   <div class="caja">
-    <div class="panel panel-primary">
+    <div v-show="user.type_user !== 3" class="panel panel-primary">
       <h4 class="panel-heading">Grupos</h4>
       <div>
         <form>
@@ -81,7 +81,7 @@
 <script>
 import StudentsCourse from './studentsCourse.vue';
 export default {
-  props: ["initialUsers"],
+  props: ["initialUsers","user"],
 
   data() {
     return {
@@ -113,6 +113,7 @@ export default {
   },
 
   mounted(){
+    console.log(this.user)
     this.getAdmins();
     this.getParents();
     this.getTutors();
