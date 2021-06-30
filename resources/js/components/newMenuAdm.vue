@@ -15,7 +15,7 @@
                 <a class="dropdown-item" href="/piar">Estudiantes PIAR</a>
                 <a class="dropdown-item" href="/salon_adm">Crear Usuarios</a>
                 <a class="dropdown-item" href="/admin/configuracion">Parametros de Notas</a>
-                <a class="dropdown-item" href="/nursing">Enfermeria</a>
+                <a class="dropdown-item" href="/nursing">Enfermería</a>
                 <a class="dropdown-item" href="/foods">Alimentación</a>
                 <a class="dropdown-item" href="/pedagogic">Transporte</a>
             </div>
@@ -44,8 +44,8 @@
                 <a class="dropdown-item" href="/docente/clases">Ciclos Y Clases</a>
                 <a class="dropdown-item" href="/deleteClassAndCicles">Permisos Eliminar Ciclos</a>
                 <a class="dropdown-item" href="/notas_d">Notas</a>
-                <a class="dropdown-item" href="/utils">Utiles</a>
-                <a class="dropdown-item" href="/pedagogic">Salidas Pedagogicas</a>
+                <a class="dropdown-item" href="/utils">Útiles</a>
+                <a class="dropdown-item" href="/pedagogic">Salidas Pedagógicas</a>
                 <a class="dropdown-item" href="/teacher/lectives/planning">Administrar Electivas</a>
                 <a class="dropdown-item" href="/teacher/lectives/courses">Clases Electivas</a>
                 <a class="dropdown-item" href="#">Exalumnos</a>
@@ -59,7 +59,7 @@
                 Formación
             </button>
             <div class="dropdown-menu" aria-labelledby="formation">
-                <a class="dropdown-item" href="/mensajes">Psicologia</a>
+                <a class="dropdown-item" href="/mensajes">Psicología</a>
                 <!-- Modulo de Casos pendiente por aclaración -->
                 <a class="dropdown-item" href="#">Casos</a>
                 <a class="dropdown-item" href="permissionPedagogic">Permisos</a>
@@ -75,7 +75,7 @@
             </button>
             <div class="dropdown-menu" aria-labelledby="electives">
                 <a class="dropdown-item" href="/chat">Chat</a>
-                <a class="dropdown-item" href="/governmentMembers">Quienes lo Conforman</a>
+                <a class="dropdown-item" href="/governmentMembers">Quiénes lo Conforman</a>
                 <a class="dropdown-item" href="/legislation">Legislación</a>
                 <!-- Modulo de actas y circulares pendiente -->
                 <a class="dropdown-item" href="#">Actas y Circulares</a>

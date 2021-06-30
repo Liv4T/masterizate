@@ -14,9 +14,9 @@
             <button class="btn btn-primary mt-2" v-on:click.prevent="()=>activeParents()">Padres</button>
             <button class="btn btn-primary mt-2" v-on:click.prevent="()=>activeTutors()">Tutores</button>
             <button class="btn btn-primary mt-2" v-on:click.prevent="()=>activeGoverment()">Gobierno Escolar</button>
-            <button class="btn btn-primary mt-2" v-on:click.prevent="()=>activeNursing()">Enfermeria</button>
+            <button class="btn btn-primary mt-2" v-on:click.prevent="()=>activeNursing()">Enfermería</button>
             <button class="btn btn-primary mt-2" v-on:click.prevent="()=>activeCoordinator()">Coordinadores</button>
-            <button class="btn btn-primary mt-2" v-on:click.prevent="()=>activePsicologiest()">Psicologia</button>
+            <button class="btn btn-primary mt-2" v-on:click.prevent="()=>activePsicologiest()">Psicología</button>
           </div>
           <div v-show="docente == true">
             <label for>Docentes</label>

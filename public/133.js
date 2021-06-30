@@ -213,7 +213,7 @@ var staticRenderFns = [
             _c(
               "a",
               { staticClass: "dropdown-item", attrs: { href: "/nursing" } },
-              [_vm._v("Enfermeria")]
+              [_vm._v("Enfermería")]
             ),
             _vm._v(" "),
             _c(
@@ -344,13 +344,13 @@ var staticRenderFns = [
             _c(
               "a",
               { staticClass: "dropdown-item", attrs: { href: "/utils" } },
-              [_vm._v("Utiles")]
+              [_vm._v("Útiles")]
             ),
             _vm._v(" "),
             _c(
               "a",
               { staticClass: "dropdown-item", attrs: { href: "/pedagogic" } },
-              [_vm._v("Salidas Pedagogicas")]
+              [_vm._v("Salidas Pedagógicas")]
             ),
             _vm._v(" "),
             _c(
@@ -408,7 +408,7 @@ var staticRenderFns = [
             _c(
               "a",
               { staticClass: "dropdown-item", attrs: { href: "/mensajes" } },
-              [_vm._v("Psicologia")]
+              [_vm._v("Psicología")]
             ),
             _vm._v(" "),
             _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
@@ -472,7 +472,7 @@ var staticRenderFns = [
                 staticClass: "dropdown-item",
                 attrs: { href: "/governmentMembers" }
               },
-              [_vm._v("Quienes lo Conforman")]
+              [_vm._v("Quiénes lo Conforman")]
             ),
             _vm._v(" "),
             _c(

@@ -63,7 +63,7 @@
                 </tr>
 
                 <tr data-toggle="collapse" data-target="#accordion4" class="clickable">
-                  <td>Psicologia</td>
+                  <td>Psicología</td>
                   <td></td>
                   <td></td>
 

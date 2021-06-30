@@ -1750,7 +1750,7 @@ var staticRenderFns = [
         attrs: { "data-toggle": "collapse", "data-target": "#accordion4" }
       },
       [
-        _c("td", [_vm._v("Psicologia")]),
+        _c("td", [_vm._v("Psicología")]),
         _vm._v(" "),
         _c("td"),
         _vm._v(" "),

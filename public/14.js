@@ -578,7 +578,7 @@ var render = function() {
                   }
                 }
               },
-              [_vm._v("Enfermeria")]
+              [_vm._v("Enfermería")]
             ),
             _vm._v(" "),
             _c(
@@ -610,7 +610,7 @@ var render = function() {
                   }
                 }
               },
-              [_vm._v("Psicologia")]
+              [_vm._v("Psicología")]
             )
           ]),
           _vm._v(" "),
