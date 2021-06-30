@@ -113,7 +113,7 @@ Vue.component("duplicarsemana-component", require("./components/duplicarSemana.v
 Vue.component("game-component", require("./components/Game.vue").default);
 Vue.component("juegos-component", require("./components/juegos.vue").default);
 Vue.component("groups", require("./components/Groups.vue").default);
-Vue.component("create-group", require("./components/CreateGroup.vue").default);
+Vue.component("create-group", () => import("./components/CreateGroup.vue"));
 Vue.component("group-chat", require("./components/GroupChat.vue").default);
 Vue.component("clasesst-component", require("./components/clasesSt.vue").default);
 Vue.component("notasd-component", require("./components/notasDocente.vue").default);

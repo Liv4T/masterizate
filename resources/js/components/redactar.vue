@@ -7,13 +7,17 @@
                     <div class="container-mensaje">
                         <div class="row">
                             <h5>Destinatarios</h5><br>
-                        </div>
+                        </div>                        
                         <div class="row">
                             <h6>Tus contactos</h6>
                             <a class="btn btn-info float-left" href="#" v-on:click.prevent="btD()"
                                 style="margin: 10px;">Docentes</a>
                             <a class="btn btn-info float-left" href="#" v-on:click.prevent="btE()"
                                 style="margin: 10px;">Estudiantes</a>
+                            
+                            <a class="btn btn-info" v-if="teacher" href="#" v-on:click.prevent="btA()"
+                                style="margin: 10px;">Administrativa</a>
+
                             <template v-if="user_rol" class="float-left">
                                 <a class="btn btn-info" href="#" v-on:click.prevent="btP()"
                                     style="margin: 10px;">Padres</a>
@@ -23,16 +27,15 @@
                         </div>
                         <div v-show="docente == true">
                             <label for>Docentes</label>
-                            <multiselect v-model="cdocente" :options="optionsd" tag-placeholder="Add this as new tag"
+                            <students-course :getIdUser="getIdUser" :findStudentOrTeacher="findStudentOrTeacher"></students-course>
+                            <!-- <multiselect v-model="cdocente" :options="optionsd" tag-placeholder="Add this as new tag"
                                 placeholder="Search or add a tag" label="name" track-by="id" :multiple="true"
-                                :taggable="true" @tag="addTagd"></multiselect>
+                                :taggable="true" @tag="addTagd"></multiselect> -->
                         </div>
                         <br />
                         <div v-show="estudiante == true">
                             <label for>Estudiantes</label>
-                            <multiselect v-model="cestudiante" :options="optionse" tag-placeholder="Add this as new tag"
-                                placeholder="Search or add a tag" label="name" track-by="id" :multiple="true"
-                                :taggable="true" @tag="addTage"></multiselect>
+                            <students-course :getIdUser="getIdUser" :findStudentOrTeacher="findStudentOrTeacher"></students-course>
                         </div>
                         <br />
                         <div v-show="padres == true">
@@ -95,18 +98,22 @@
 <script>
     import Multiselect from "vue-multiselect";
     import DecoupledEditor from "@ckeditor/ckeditor5-build-decoupled-document";
+    import StudentsCourse from './studentsCourse.vue';
     // register globally
     Vue.component("multiselect", Multiselect);
     export default {
         props: ['user'],
         // OR register locally
         components: {
-            Multiselect
+            Multiselect,
+            StudentsCourse
         },
         data() {
             return {
                 user_rol: this.user.type_user === 4 ? true : false,
+                teacher: this.user.type_user === 2 ? true : false,
                 editor: DecoupledEditor,
+                findStudentOrTeacher: '',
                 editorData: "<p>Escribir...</p>",
                 dataBoard: {},
                 value: [{
@@ -140,7 +147,7 @@
                     }
                     if (this.options[i].type_user == 1) {
                         this.optionsa.push(this.options[i]);
-                        console.log(this.optionsa);
+                        // console.log(this.optionsa);
                     }
                     if (this.options[i].type_user == 3) {
                         this.optionse.push(this.options[i]);
@@ -185,19 +192,28 @@
                         editor.ui.getEditableElement()
                     );
             },
+            getIdUser(data){
+                if(data){
+                    this.correos.push(data.user_id)
+                    toastr.success(`Estudiante ${data.user_name} Seleccionado`);
+                }
+            },
             btD() {
                 if (this.docente == false) {
                     this.docente = true;
                 } else {
                     this.docente = false;
                 }
+                this.findStudentOrTeacher = 2;
             },
             btE() {
                 if (this.estudiante == false) {
                     this.estudiante = true;
+                    this.findStudentOrTeacher = 1;
                 } else {
                     this.estudiante = false;
                 }
+                
             },
             btA() {
                 if (this.administrative == false) {
@@ -218,7 +234,7 @@
                 let hourly = date.getHours();
                 let minutes = date.getMinutes();
 
-                console.log("data: ", this.editorData);
+                // console.log("data: ", this.editorData);
                 var url = "sendMessages";
                 if (this.cadministrative.length >= 1) {
                     for (let i = 0; i < this.cadministrative.length; i++) {
@@ -236,7 +252,7 @@
                     }
                 }
                 if (this.cpadres.length >= 1) {
-                    console.log(this.cpadres);
+                    // console.log(this.cpadres);
                     for (let i = 0; i < this.cpadres.length; i++) {
                         this.correos.push(this.cpadres[i].id);
                     }
