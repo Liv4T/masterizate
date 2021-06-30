@@ -917,6 +917,10 @@ Route::get('assistance/{id_student}','AssistanceController@show');
 Route::put('assistance/{id_assistance}','AssistanceController@update');
 Route::delete('assistance/{id_assistance}','AssistanceController@destroy');
 
+//Modulo de motivo de faltas de asistencias
+Route::resource('motiveAssistants','AssitantsMotivesController');
+Route::get('getMotives','AssitantsMotivesController@getMotives');
+
 //Modulo de Efectividad
 
 Route::resource('effectiveness','EffectivenessController');

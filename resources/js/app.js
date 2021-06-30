@@ -169,6 +169,7 @@ Vue.component("aestudiante-adm", ()=>import("./components/asignarEstudiante.vue"
 Vue.component("aparent-adm", ()=>import("./components/asignarPariente.vue"));
 Vue.component("importar-adm", ()=>import("./components/importAdm.vue"));
 Vue.component("asistencia-adm", ()=>import("./components/asistencia.vue"));
+Vue.component("motive-assistants", ()=>import("./components/motiveAssistants.vue"));
 
 
 Vue.component("duplicar-component",  () => import ("./components/duplicarGeneral.vue"));
