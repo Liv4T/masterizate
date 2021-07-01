@@ -20,7 +20,7 @@ class AssitantsMotivesController extends Controller
 
     public function getMotives()
     {
-        if(Auth::user() &&  Auth::user()->type_user == 1){
+        if(Auth::user() &&  Auth::user()->type_user == 1 || Auth::user()->type_user == 2){
             $motivesAssistants = AssitantsMotives::all();
             return response()->json($motivesAssistants);
         }else{
