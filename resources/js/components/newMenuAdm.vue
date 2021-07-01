@@ -48,6 +48,7 @@
                 <a class="dropdown-item" href="/pedagogic">Salidas Pedagógicas</a>
                 <a class="dropdown-item" href="/teacher/lectives/planning">Administrar Electivas</a>
                 <a class="dropdown-item" href="/teacher/lectives/courses">Clases Electivas</a>
+                <a class="dropdown-item" href="/motiveAssistants">Creación de Motivos de Asistencia</a>            
                 <a class="dropdown-item" href="#">Exalumnos</a>
                 <!-- Modulo de Informes Pendiente por aclaración -->
                 <a class="dropdown-item" href="#">Informes</a>

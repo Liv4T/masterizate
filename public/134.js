@@ -100,6 +100,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   methods: {
     logout: function logout() {
@@ -369,6 +370,15 @@ var staticRenderFns = [
                 attrs: { href: "/teacher/lectives/courses" }
               },
               [_vm._v("Clases Electivas")]
+            ),
+            _vm._v(" "),
+            _c(
+              "a",
+              {
+                staticClass: "dropdown-item",
+                attrs: { href: "/motiveAssistants" }
+              },
+              [_vm._v("Creación de Motivos de Asistencia")]
             ),
             _vm._v(" "),
             _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [

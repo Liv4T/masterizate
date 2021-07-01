@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\AssitantsMotives;
 use Illuminate\Http\Request;
+use Auth;
 
 class AssitantsMotivesController extends Controller
 {
@@ -19,8 +20,13 @@ class AssitantsMotivesController extends Controller
 
     public function getMotives()
     {
-        $motivesAssistants = AssitantsMotives::all();
-        return response()->json($motivesAssistants);
+        if(Auth::user() &&  Auth::user()->type_user == 1){
+            $motivesAssistants = AssitantsMotives::all();
+            return response()->json($motivesAssistants);
+        }else{
+            return response()->json('[]');
+        }
+        
     }
 
     /**
@@ -41,11 +47,15 @@ class AssitantsMotivesController extends Controller
      */
     public function store(Request $request)
     {
-        $newassistantMotive = new AssitantsMotives();
-        $newassistantMotive->motive = $request->motive;
-        $newassistantMotive->save();
+        if(Auth::user() && Auth::user()->type_user == 1){
+            $newassistantMotive = new AssitantsMotives();
+            $newassistantMotive->motive = $request->motive;
+            $newassistantMotive->save();
 
-        return response()->json('Motivo de falta de asistencia Guardado');
+            return response()->json('Motivo de falta de asistencia Guardado');
+        }else{
+            return response()->json('No tiene permisos para Realizar esta acción');
+        }
     }
 
     /**
@@ -79,11 +89,15 @@ class AssitantsMotivesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $newassistantMotive = AssitantsMotives::findOrFail($id);
-        $newassistantMotive->motive = $request->motive;
-        $newassistantMotive->update();
+        if(Auth::user() && Auth::user()->type_user == 1){
+            $newassistantMotive = AssitantsMotives::findOrFail($id);
+            $newassistantMotive->motive = $request->motive;
+            $newassistantMotive->update();
 
-        return response()->json('Motivo de falta de asistencia Actualizado');
+            return response()->json('Motivo de falta de asistencia Actualizado');
+        }else{
+            return response()->json('No tiene permisos para realizar esta acción');
+        }
     }
 
     /**
