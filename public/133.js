@@ -100,7 +100,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this2 = this;
 
       if (this.idToUpdate == null) {
-        axios.post('motiveAssistants', {
+        axios.post('/motiveAssistants', {
           motive: this.saveMotiveInput
         }).then(function (response) {
           toastr.success(response.data);

@@ -86,7 +86,7 @@ export default {
 
         saveMotive(){
             if(this.idToUpdate == null){
-                axios.post('motiveAssistants',{
+                axios.post('/motiveAssistants',{
                     motive: this.saveMotiveInput,
                 }).then((response)=>{
                     toastr.success(response.data);
