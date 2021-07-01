@@ -6,6 +6,7 @@ use App\Assistance;
 use App\User;
 use App\Area;
 use App\Classroom;
+use App\AssitantsMotives;
 use Illuminate\Http\Request;
 use Auth;
 class AssistanceController extends Controller
@@ -41,6 +42,9 @@ class AssistanceController extends Controller
         foreach ($assistances as $key => $assis) {
             $student = User::where('id','=',$assis->id_student)->first();
             $teacher = User::where('id','=',$assis->id_teacher)->first();
+            if($assis->id_motive !== null){
+                $motives = AssitantsMotives::where('id',$assis->id_motive)->first();
+            }
 
             array_push($assistants, [
                 'id'           => $assis->id,
@@ -48,10 +52,8 @@ class AssistanceController extends Controller
                 'student_name' => $student->name.' '.$student->last_name,
                 'teacher_name' => $teacher->name.' '.$teacher->last_name,
                 'course'       => $assis->course,
-                'assistance'   => $assis->assistance,
-                'excuse'       => $assis->excuse,
-                'other_motive' => $assis->other_motive,
-                'motive'       => $assis->motive,
+                'motive'       => isset($motives) ? $motives->motive : '',
+                'id_motive'    => isset($motives) ? $motives->id : '',
                 'created_at'   => $assis->created_at
             ]);
         }
@@ -80,10 +82,7 @@ class AssistanceController extends Controller
         $assistance->course = $request->course;
         $assistance->id_student = $request->id_student;
         $assistance->id_teacher = $request->id_teacher;
-        $assistance->assistance = $request->assistance;
-        $assistance->excuse = $request->excuse;
-        $assistance->other_motive = $request->other_motive;
-        $assistance->motive = $request->motive;
+        $assistance->id_motive = $request->id_motive;
 
         $assistance->save();
 
@@ -104,16 +103,18 @@ class AssistanceController extends Controller
         foreach ($assistant as $key => $assis) {
             $student = User::where('id','=',$assis->id_student)->first();
             $teacher = User::where('id','=',$assis->id_teacher)->first();
+            if($assis->id_motive !== null){
+                $motives = AssitantsMotives::where('id',$assis->id_motive)->first();
+            }
 
             array_push($assistants, [
                 'id'           => $assis->id,
+                'id_student'   => $student->id,
                 'student_name' => $student->name.' '.$student->last_name,
                 'teacher_name' => $teacher->name.' '.$teacher->last_name,
                 'course'       => $assis->course,
-                'assistance'   => $assis->assistance,
-                'excuse'       => $assis->excuse,
-                'other_motive' => $assis->other_motive,
-                'motive'       => $assis->motive,
+                'motive'       => isset($motives) ? $motives->motive : '',
+                'id_motive'    => isset($motives) ? $motives->id : '',
                 'created_at'   => $assis->created_at
             ]);
         }
@@ -141,10 +142,7 @@ class AssistanceController extends Controller
     public function update(Request $request, $id)
     {
         $assistance = Assistance::findOrFail($id);
-        $assistance->assistance = $request->assistance;
-        $assistance->excuse = $request->excuse;
-        $assistance->other_motive = $request->other_motive;
-        $assistance->motive = $request->motive;
+        $assistance->id_motive = $request->id_motive;
 
         $assistance->update();
 

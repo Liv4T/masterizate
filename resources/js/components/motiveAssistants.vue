@@ -3,10 +3,10 @@
         <div id="crud" class="row justify-content-center">
             <div class="col-sm-10">
                 <div class="custom-card">
-                    <h3 class="card-header fondo text-center">Motivos de falta de asistencias</h3>
+                    <h3 class="card-header fondo text-center">Asistencias</h3>
                     
                     <button type="button" class="btn btn-primary mt-2" data-toggle="modal" data-target="#motiveModal">
-                        Crear Motivo de Inasistencia
+                        Crear Asistencia
                     </button>
                     
                     <div class="card-body">
