@@ -112,6 +112,7 @@ class CoursesController extends Controller
                         'id'           => $class->id,
                         'text'         => $class->name.' '.$classroom->name,
                         'classroom_name'    => $classroom->name,
+                        'area_name'         => $class->name,
                         /*
                             Se comenta la linea para no obtener el curso ya que se darán tutorias para  
                             De la materia como tal

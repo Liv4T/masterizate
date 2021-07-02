@@ -983,5 +983,6 @@ Route::resource('piarClass','PIARClassController');
 Route::get('getClass','PIARClassController@getClass');
 
 //Reporte a padres
-Route::get('getAllRecentActivities/{classroom_name}','ReportsParentsController@getAllRecentActivities');
 Route::resource('resportSendParents','ReportsParentsController');
+Route::get('getAllRecentActivities/{classroom_name}/{area_name}','ReportsParentsController@getAllRecentActivities');
+Route::get('getAllAssistances/{area_name}/{classroom_name}','ReportsParentsController@getAllAssistances');
