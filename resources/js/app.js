@@ -317,6 +317,9 @@ Vue.component("piar-anual-planification", ()=>import("./components/PIARAnualPlan
 //Modulo Cliente
 Vue.component("menu-cliente", ()=>import("./components/menuCliente.vue"));
 
+//Modulo envio de reporte a padres
+Vue.component("report-send-parents",()=>import("./components/reportSendParents.vue"));
+
 Vue.use(CKEditor);
 
 

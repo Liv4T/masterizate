@@ -981,3 +981,7 @@ Route::middleware('auth')->get('/piarAnualPlanification/{id_area}/{id_classroom}
 
 Route::resource('piarClass','PIARClassController');
 Route::get('getClass','PIARClassController@getClass');
+
+//Reporte a padres
+Route::get('getAllRecentActivities/{classroom_name}','ReportsParentsController@getAllRecentActivities');
+Route::resource('resportSendParents','ReportsParentsController');
