@@ -31,7 +31,7 @@
                                                 <tr v-for="(student, key) in students" :key="key">
                                                     <td>{{student.user_name}}</td>
                                                     <td>{{student.user_lastname}}</td>
-                                                    <td><button class="btn btn-primary" v-on:click="sendMessage(student, data.classroom_name, data.area_name)">Enviar Reporte a Padres</button></td>
+                                                    <td><button class="btn btn-primary" v-on:click="sendMessage(student, data.id_classroom, data.id_area)">Enviar Reporte a Padres</button></td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -70,11 +70,11 @@ export default {
             })
         },
 
-        sendMessage(data, classroom_name, area_name){
-            axios.get(`/getAllRecentActivities/${classroom_name}/${area_name}`).then((response)=>{
+        sendMessage(data, classroom_id, area_id){
+            axios.get(`/getAllRecentActivities/${classroom_id}/${area_id}`).then((response)=>{
                 let activities = response.data;
 
-                axios.get(`/getAllAssistances/${area_name}/${classroom_name}`).then((response)=>{
+                axios.get(`/getAllAssistances/${data.user_name}`).then((response)=>{
                     console.log(response.data);
                 })
                 

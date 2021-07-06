@@ -19,30 +19,32 @@ class ReportsParentsController extends Controller
         return view('reportSendParents');
     }
 
-    public function getAllRecentActivities(String $classroom_name, String $area_name){
+    public function getAllRecentActivities(String $classroom_id, String $area_id){
         $data = DB::table('activity')
                 ->join('class','activity.id_class','=','class.id')
                 ->join('weekly_plan','class.id_weekly_plan','=','weekly_plan.id')
                 ->join('area','weekly_plan.id_area','=','area.id')
-                ->join('classroom','area.id_grade','=','classroom.id_grade')
+                ->join('classroom','weekly_plan.id_classroom','=','classroom.id')
+                ->join('annual_planification','classroom.id','=','annual_planification.id_classroom')
+                ->join('achievement_planification','achievement_planification.id_planification','=','annual_planification.id')
                 ->select(
                     'area.name as area_name',
                     'classroom.name as classroom_name',
                     'class.name as class_name',
+                    'achievement_planification.achievement as logro',
+                    'achievement_planification.percentage as percentage',
                     'activity.name as activity_name',
                     'activity.description as activity_description',
                     'activity.delivery_max_date as activity_date',
                     'weekly_plan.driving_question as weekly_plan_driving_question',
                     'weekly_plan.observation as weekly_plan_observation',
-                )->where('classroom.name','=',$classroom_name)
-                 ->where('area.name','=',$area_name)
+                )->where('classroom.id','=',$classroom_id)
+                 ->where('area.id','=',$area_id)
                  ->get();
         return response()->json($data);
     }
 
-    public function getAllAssistances(String $area_name, String $classroom_name){
-        $class_name = $area_name.' - '.$classroom_name;
-
+    public function getAllAssistances(String $user_name){
         $data = DB::table('assistances')
                 ->join('users','assistances.id_student','=','users.id')
                 ->join('assitants_motives','assistances.id_motive','=','assitants_motives.id')
@@ -52,12 +54,30 @@ class ReportsParentsController extends Controller
                     'assistances.id_motive',
                     'assitants_motives.motive'
                 )
-                ->where('assistances.course','=',$class_name)
+                ->where('users.name','=',$user_name)
                 ->selectRaw('count(assitants_motives.motive) as count_assistances')
-                ->selectRaw('count(assistances.course) as total_courses')
                 ->groupBy('assistances.course','users.name','assistances.id_motive','assitants_motives.motive')
                 ->get();
 
+        return response()->json($data);
+    }
+
+    public function getNotesBySudentAndArea($id_student){
+        $data = DB::table('score_cumulative')
+                  ->join('users','score_cumulative.id_user','=','users.id')
+                  ->join('area','score_cumulative.id_area','=','area.id')
+                  ->join('classroom_student','users.id','=','classroom_student.id_user')
+                  ->join('classroom','classroom_student.id_classroom','=','classroom.id')
+                  ->select(
+                      'users.id as user_id',
+                      'users.name as student_name',
+                      'users.last_name as student_last_name',
+                      'area.name as area_name',
+                      'classroom.name as classroom_name',
+                      'score_cumulative.score as score'
+                  )
+                  ->where('users.id','=',$id_student)
+                  ->get();
         return response()->json($data);
     }
 

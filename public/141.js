@@ -84,10 +84,10 @@ __webpack_require__.r(__webpack_exports__);
         _this2.students = response.data;
       });
     },
-    sendMessage: function sendMessage(data, classroom_name, area_name) {
-      axios.get("/getAllRecentActivities/".concat(classroom_name, "/").concat(area_name)).then(function (response) {
+    sendMessage: function sendMessage(data, classroom_id, area_id) {
+      axios.get("/getAllRecentActivities/".concat(classroom_id, "/").concat(area_id)).then(function (response) {
         var activities = response.data;
-        axios.get("/getAllAssistances/".concat(area_name, "/").concat(classroom_name)).then(function (response) {
+        axios.get("/getAllAssistances/".concat(data.user_name)).then(function (response) {
           console.log(response.data);
         });
         activities.forEach(function (e) {
@@ -219,8 +219,8 @@ var render = function() {
                                           click: function($event) {
                                             return _vm.sendMessage(
                                               student,
-                                              data.classroom_name,
-                                              data.area_name
+                                              data.id_classroom,
+                                              data.id_area
                                             )
                                           }
                                         }
