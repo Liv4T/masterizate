@@ -19,14 +19,16 @@ class ReportsParentsController extends Controller
         return view('reportSendParents');
     }
 
-    public function getAllRecentActivities(String $classroom_id, String $area_id){
+    public function getAllRecentActivities(String $area_id){
+        $actual_date = Carbon::today();
+        
         $data = DB::table('activity')
                 ->join('class','activity.id_class','=','class.id')
                 ->join('weekly_plan','class.id_weekly_plan','=','weekly_plan.id')
                 ->join('area','weekly_plan.id_area','=','area.id')
                 ->join('classroom','weekly_plan.id_classroom','=','classroom.id')
-                ->join('annual_planification','classroom.id','=','annual_planification.id_classroom')
-                ->join('achievement_planification','achievement_planification.id_planification','=','annual_planification.id')
+                // ->join('annual_planification','classroom.id','=','annual_planification.id_classroom')
+                ->join('achievement_planification','achievement_planification.id','=','activity.id_achievement')
                 ->select(
                     'area.name as area_name',
                     'classroom.name as classroom_name',
@@ -38,9 +40,10 @@ class ReportsParentsController extends Controller
                     'activity.delivery_max_date as activity_date',
                     'weekly_plan.driving_question as weekly_plan_driving_question',
                     'weekly_plan.observation as weekly_plan_observation',
-                )->where('classroom.id','=',$classroom_id)
+                )
                  ->where('area.id','=',$area_id)
-                 ->get();
+                 ->where('activity.delivery_max_date','>=',$actual_date)
+                 ->first();
         return response()->json($data);
     }
 
@@ -56,6 +59,7 @@ class ReportsParentsController extends Controller
                 )
                 ->where('users.name','=',$user_name)
                 ->selectRaw('count(assitants_motives.motive) as count_assistances')
+                ->selectRaw('count(assistances.course) as total_assistances')
                 ->groupBy('assistances.course','users.name','assistances.id_motive','assitants_motives.motive')
                 ->get();
 
@@ -77,7 +81,8 @@ class ReportsParentsController extends Controller
                       'score_cumulative.score as score'
                   )
                   ->where('users.id','=',$id_student)
-                  ->get();
+                  ->orderBy('score_cumulative.created_at','ASC')
+                  ->first();
         return response()->json($data);
     }
 

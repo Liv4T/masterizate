@@ -31,7 +31,7 @@
                                                 <tr v-for="(student, key) in students" :key="key">
                                                     <td>{{student.user_name}}</td>
                                                     <td>{{student.user_lastname}}</td>
-                                                    <td><button class="btn btn-primary" v-on:click="sendMessage(student, data.id_classroom, data.id_area)">Enviar Reporte a Padres</button></td>
+                                                    <td><button class="btn btn-primary" v-on:click="sendMessage(student, data.id_area)">Enviar Reporte a Padres</button></td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -52,6 +52,8 @@ export default {
         return{
             students:[],
             areas:[],
+            assistances:[],
+            notes:[]
         }
     },
     mounted(){
@@ -70,33 +72,33 @@ export default {
             })
         },
 
-        sendMessage(data, classroom_id, area_id){
-            axios.get(`/getAllRecentActivities/${classroom_id}/${area_id}`).then((response)=>{
+        sendMessage(data, area_id){
+            this.dataInformation = [];
+            axios.get(`/getAllRecentActivities/${area_id}`).then((response)=>{
                 let activities = response.data;
 
                 axios.get(`/getAllAssistances/${data.user_name}`).then((response)=>{
-                    console.log(response.data);
-                })
+                    this.assistances = response.data;
+                    console.log('Asistencias: ',response.data)
                 
-                activities.forEach((e)=>{   
-                    let actualDate= moment().format('YYYY-MM-DD');
-                    let activityDate = moment(e.activity_date).format('YYYY-MM-DD');
 
-                    if(actualDate <= activityDate){
+                    axios.get(`/getNotesBySudentAndArea/${data.user_id}`).then((response)=>{
+                        let notes = response.data;
+
                         console.log({
-                            name_student: data.user_name+' '+data.user_lastname,
-                            student_email: data.user_email,
-                            classroom: area_name+' '+classroom_name,
-                            progress: data.progress,
-                            score: data.score = -1 ? 0 : data.score,
-                            score_base: data.score_base,
-                            actual_class: e.class_name,
-                            actual_activity_name: e.activity_name,
-                            actual_activity_date_delivery: e.activity_date,
-                            actual_cicle: e.weekly_plan_driving_question                            
-                        });
-                    }
-                })
+                            class: activities.area_name+' '+activities.classroom_name,
+                            logro: activities.logro,                        
+                            title_activity: activities.activity_name,
+                            activity_date: activities.activity_date,
+                            activity_description: activities.activity_description,                        
+                            activity: activities.weekly_plan_driving_question,
+                            percentage_activity: activities.percentage+' %',
+                            nota_class: notes.score,
+                            student: data.user_name+' '+data.user_lastname,
+                            email: data.user_email
+                        })
+                    })
+                })                
             })
         }
     }

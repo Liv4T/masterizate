@@ -984,6 +984,6 @@ Route::get('getClass','PIARClassController@getClass');
 
 //Reporte a padres
 Route::resource('resportSendParents','ReportsParentsController');
-Route::get('getAllRecentActivities/{classroom_id}/{area_id}','ReportsParentsController@getAllRecentActivities');
+Route::get('getAllRecentActivities/{area_id}','ReportsParentsController@getAllRecentActivities');
 Route::get('getAllAssistances/{user_name}','ReportsParentsController@getAllAssistances');
 Route::get('getNotesBySudentAndArea/{student_id}','ReportsParentsController@getNotesBySudentAndArea');

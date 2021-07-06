@@ -63,7 +63,9 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       students: [],
-      areas: []
+      areas: [],
+      assistances: [],
+      notes: []
     };
   },
   mounted: function mounted() {
@@ -84,30 +86,30 @@ __webpack_require__.r(__webpack_exports__);
         _this2.students = response.data;
       });
     },
-    sendMessage: function sendMessage(data, classroom_id, area_id) {
-      axios.get("/getAllRecentActivities/".concat(classroom_id, "/").concat(area_id)).then(function (response) {
+    sendMessage: function sendMessage(data, area_id) {
+      var _this3 = this;
+
+      this.dataInformation = [];
+      axios.get("/getAllRecentActivities/".concat(area_id)).then(function (response) {
         var activities = response.data;
         axios.get("/getAllAssistances/".concat(data.user_name)).then(function (response) {
-          console.log(response.data);
-        });
-        activities.forEach(function (e) {
-          var actualDate = moment__WEBPACK_IMPORTED_MODULE_0___default()().format('YYYY-MM-DD');
-          var activityDate = moment__WEBPACK_IMPORTED_MODULE_0___default()(e.activity_date).format('YYYY-MM-DD');
-
-          if (actualDate <= activityDate) {
+          _this3.assistances = response.data;
+          console.log('Asistencias: ', response.data);
+          axios.get("/getNotesBySudentAndArea/".concat(data.user_id)).then(function (response) {
+            var notes = response.data;
             console.log({
-              name_student: data.user_name + ' ' + data.user_lastname,
-              student_email: data.user_email,
-              classroom: area_name + ' ' + classroom_name,
-              progress: data.progress,
-              score: data.score = -1 ? 0 : data.score,
-              score_base: data.score_base,
-              actual_class: e.class_name,
-              actual_activity_name: e.activity_name,
-              actual_activity_date_delivery: e.activity_date,
-              actual_cicle: e.weekly_plan_driving_question
+              "class": activities.area_name + ' ' + activities.classroom_name,
+              logro: activities.logro,
+              title_activity: activities.activity_name,
+              activity_date: activities.activity_date,
+              activity_description: activities.activity_description,
+              activity: activities.weekly_plan_driving_question,
+              percentage_activity: activities.percentage + ' %',
+              nota_class: notes.score,
+              student: data.user_name + ' ' + data.user_lastname,
+              email: data.user_email
             });
-          }
+          });
         });
       });
     }
@@ -219,7 +221,6 @@ var render = function() {
                                           click: function($event) {
                                             return _vm.sendMessage(
                                               student,
-                                              data.id_classroom,
                                               data.id_area
                                             )
                                           }
