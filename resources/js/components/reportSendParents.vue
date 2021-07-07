@@ -83,10 +83,51 @@
                 </div>
             </div>
         </div>
+
+        <table id="tableReport">
+            <thead>
+                <tr>
+                    <th>Clase</th>
+                    <th>Logro Actual</th>
+                    <th>Titulo de Actividad</th>
+                    <th>Fecha de actividad</th>
+                    <th>Descripción </th>
+                    <th>Actividad</th>
+                    <th>Porcentaje</th>
+                    <th>Nota</th>
+                    <th>Estudiante</th>
+                    <th>Correo</th>
+                    <th>Asistencia</th>
+                    <th>Clases en Total</th>
+                    <th>Correo de Acudiente</th>
+                    <th>Nombre de Acudiente</th>
+                </tr>
+            </thead> 
+            <tbody>
+                <tr>
+                    <td>{{dataStudent.class}}</td>
+                    <td>{{dataStudent.logro}}</td>
+                    <td>{{dataStudent.title_activity}}</td>
+                    <td>{{dataStudent.activity_date}}</td>
+                    <td>{{dataStudent.activity_description}}</td>
+                    <td>{{dataStudent.activity}}</td>
+                    <td>{{dataStudent.percentage_activity}}</td>
+                    <td>{{dataStudent.nota_class}}</td>
+                    <td>{{dataStudent.student}}</td>
+                    <td>{{dataStudent.email}}</td>
+                    <td>{{dataStudent.Assistances}}</td>
+                    <td>{{dataStudent.total_classes}}</td>
+                    <td>{{dataStudent.parent_email}}</td>
+                    <td>{{dataStudent.parent_name}}</td>
+                </tr>
+            </tbody>   
+        </table>
     </div>
 </template>
 <script>
 // import moment from 'moment';
+import jsPDF from 'jspdf';
+import 'jspdf-autotable'
 export default {
     data(){
         return{
@@ -155,7 +196,16 @@ export default {
         saveData(){
             console.log(this.dataStudent)
             console.log(this.observation)
-        },
+
+            var pdf = new jsPDF('p', 'pt', 'letter');
+    
+            pdf.autoTable({ 
+                html: '#tableReport',
+                columnStyles: { halign: 'center', fillColor: [0, 255, 0] }
+            })
+        
+            pdf.save('Test.pdf');
+        }
     }
 }
 </script>
