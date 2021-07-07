@@ -31,7 +31,7 @@
                                                 <tr v-for="(student, key) in students" :key="key">
                                                     <td>{{student.user_name}}</td>
                                                     <td>{{student.user_lastname}}</td>
-                                                    <td><button class="btn btn-primary" v-on:click="sendMessage(student, data.id_area)">Enviar Reporte a Padres</button></td>
+                                                    <td><button class="btn btn-primary" v-on:click="sendMessage(student, data.id_area, data.id_classroom)">Enviar Reporte a Padres</button></td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -43,17 +43,58 @@
                 </div>
             </div>
         </div>
+        <!-- Modal -->
+        <div class="modal fade" id="reports" tabindex="-1" role="dialog" aria-labelledby="reportsLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="reportsLabel">Enviar Reporta a Padres</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label><strong>Nombre de Estudiante</strong></label>
+                            <p>{{dataStudent.student}}</p>
+                        </div>
+                        <div class="form-group">
+                            <label><strong>Nombre de Acudiente</strong></label>
+                            <p>{{dataStudent.parent_name}}</p>
+                        </div>
+                        <div class="form-group">
+                            <label><strong>Email de Acudiente</strong></label>
+                            <p> {{dataStudent.parent_email}}</p>
+                        </div>
+                        <div class="form-group">
+                            <label><strong>Nota del Estudiante</strong></label>
+                            <p>{{dataStudent.nota_class}}</p>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Observación</label>
+                            <input type="text" class="form-control" v-model="observation">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                        <button type="button" class="btn btn-primary" v-on:click="saveData">Guardar Cambios</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 <script>
-import moment from 'moment';
+// import moment from 'moment';
 export default {
     data(){
         return{
             students:[],
             areas:[],
-            assistances:[],
-            notes:[]
+            parent:{},
+            dataStudent:{},
+            observation:""
         }
     },
     mounted(){
@@ -72,20 +113,23 @@ export default {
             })
         },
 
-        sendMessage(data, area_id){
+        sendMessage(data, area_id, classroom_id){
             this.dataInformation = [];
             axios.get(`/getAllRecentActivities/${area_id}`).then((response)=>{
                 let activities = response.data;
 
-                axios.get(`/getAllAssistances/${data.user_name}`).then((response)=>{
-                    this.assistances = response.data;
-                    console.log('Asistencias: ',response.data)
-                
-
+                axios.get(`/getAllAssistances/${data.user_id}/${area_id}/${classroom_id}`).then((response)=>{
+                    let assistances = response.data;
+                    
+                    if(assistances.parent_id){
+                        axios.get(`/showUser/${assistances.parent_id}`).then((response)=>{
+                            this.parent = response.data;                            
+                        })
+                    }
                     axios.get(`/getNotesBySudentAndArea/${data.user_id}`).then((response)=>{
                         let notes = response.data;
-
-                        console.log({
+                        this.dataStudent={}
+                        this.dataStudent = {
                             class: activities.area_name+' '+activities.classroom_name,
                             logro: activities.logro,                        
                             title_activity: activities.activity_name,
@@ -93,14 +137,25 @@ export default {
                             activity_description: activities.activity_description,                        
                             activity: activities.weekly_plan_driving_question,
                             percentage_activity: activities.percentage+' %',
-                            nota_class: notes.score,
+                            nota_class: notes.score ? notes.score : 0,
                             student: data.user_name+' '+data.user_lastname,
-                            email: data.user_email
-                        })
+                            email: data.user_email,
+                            Assistances: assistances.total_assistances,
+                            total_classes: assistances.total_class,
+                            parent_id: assistances.parent_id ? assistances.parent_id : null,
+                            parent_email: this.parent.email ? this.parent.email : null,
+                            parent_name: (this.parent.name && this.parent.last_name) ? this.parent.name+' '+this.parent.last_name: null
+                        }
                     })
                 })                
             })
-        }
+            $('#reports').modal('show');
+        },
+
+        saveData(){
+            console.log(this.dataStudent)
+            console.log(this.observation)
+        },
     }
 }
 </script>

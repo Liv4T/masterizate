@@ -209,7 +209,9 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
           id_teacher: this.user.id,
           assistance: this.assistance,
           id_motive: this.saveMotives.id,
-          course: this.classroom_name
+          course: this.classroom_name,
+          id_area: this.idArea,
+          id_classroom: this.idClass
         }).then(function (response) {
           toastr.success(response.data);
 
@@ -225,7 +227,9 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
       } else if (this.updated === true) {
         axios.put("/assistance/".concat(this.id_to_update), {
           assistance: this.assistance,
-          id_motive: this.saveMotives.id
+          id_motive: this.saveMotives.id,
+          id_area: this.idArea,
+          id_classroom: this.idClass
         }).then(function (response) {
           toastr.success(response.data);
 

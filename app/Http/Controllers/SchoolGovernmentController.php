@@ -109,7 +109,7 @@ class SchoolGovernmentController extends Controller
     }
 
     public function user(String $userid){
-        $user = User::where('id',$userid)->get();
+        $user = User::where('id',$userid)->first();
         return response()->json($user);
     }
 

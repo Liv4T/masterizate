@@ -9,8 +9,6 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_0__);
 //
 //
 //
@@ -58,14 +56,55 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+// import moment from 'moment';
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       students: [],
       areas: [],
-      assistances: [],
-      notes: []
+      parent: {},
+      dataStudent: {},
+      observation: ""
     };
   },
   mounted: function mounted() {
@@ -86,18 +125,25 @@ __webpack_require__.r(__webpack_exports__);
         _this2.students = response.data;
       });
     },
-    sendMessage: function sendMessage(data, area_id) {
+    sendMessage: function sendMessage(data, area_id, classroom_id) {
       var _this3 = this;
 
       this.dataInformation = [];
       axios.get("/getAllRecentActivities/".concat(area_id)).then(function (response) {
         var activities = response.data;
-        axios.get("/getAllAssistances/".concat(data.user_name)).then(function (response) {
-          _this3.assistances = response.data;
-          console.log('Asistencias: ', response.data);
+        axios.get("/getAllAssistances/".concat(data.user_id, "/").concat(area_id, "/").concat(classroom_id)).then(function (response) {
+          var assistances = response.data;
+
+          if (assistances.parent_id) {
+            axios.get("/showUser/".concat(assistances.parent_id)).then(function (response) {
+              _this3.parent = response.data;
+            });
+          }
+
           axios.get("/getNotesBySudentAndArea/".concat(data.user_id)).then(function (response) {
             var notes = response.data;
-            console.log({
+            _this3.dataStudent = {};
+            _this3.dataStudent = {
               "class": activities.area_name + ' ' + activities.classroom_name,
               logro: activities.logro,
               title_activity: activities.activity_name,
@@ -105,13 +151,23 @@ __webpack_require__.r(__webpack_exports__);
               activity_description: activities.activity_description,
               activity: activities.weekly_plan_driving_question,
               percentage_activity: activities.percentage + ' %',
-              nota_class: notes.score,
+              nota_class: notes.score ? notes.score : 0,
               student: data.user_name + ' ' + data.user_lastname,
-              email: data.user_email
-            });
+              email: data.user_email,
+              Assistances: assistances.total_assistances,
+              total_classes: assistances.total_class,
+              parent_id: assistances.parent_id ? assistances.parent_id : null,
+              parent_email: _this3.parent.email ? _this3.parent.email : null,
+              parent_name: _this3.parent.name && _this3.parent.last_name ? _this3.parent.name + ' ' + _this3.parent.last_name : null
+            };
           });
         });
       });
+      $('#reports').modal('show');
+    },
+    saveData: function saveData() {
+      console.log(this.dataStudent);
+      console.log(this.observation);
     }
   }
 });
@@ -221,7 +277,8 @@ var render = function() {
                                           click: function($event) {
                                             return _vm.sendMessage(
                                               student,
-                                              data.id_area
+                                              data.id_area,
+                                              data.id_classroom
                                             )
                                           }
                                         }
@@ -245,7 +302,105 @@ var render = function() {
           ])
         ])
       ])
-    ])
+    ]),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "modal fade",
+        attrs: {
+          id: "reports",
+          tabindex: "-1",
+          role: "dialog",
+          "aria-labelledby": "reportsLabel",
+          "aria-hidden": "true"
+        }
+      },
+      [
+        _c(
+          "div",
+          { staticClass: "modal-dialog", attrs: { role: "document" } },
+          [
+            _c("div", { staticClass: "modal-content" }, [
+              _vm._m(2),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-body" }, [
+                _c("div", { staticClass: "form-group" }, [
+                  _vm._m(3),
+                  _vm._v(" "),
+                  _c("p", [_vm._v(_vm._s(_vm.dataStudent.student))])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group" }, [
+                  _vm._m(4),
+                  _vm._v(" "),
+                  _c("p", [_vm._v(_vm._s(_vm.dataStudent.parent_name))])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group" }, [
+                  _vm._m(5),
+                  _vm._v(" "),
+                  _c("p", [_vm._v(" " + _vm._s(_vm.dataStudent.parent_email))])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group" }, [
+                  _vm._m(6),
+                  _vm._v(" "),
+                  _c("p", [_vm._v(_vm._s(_vm.dataStudent.nota_class))])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group" }, [
+                  _c("label", [_vm._v("Observación")]),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.observation,
+                        expression: "observation"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: { type: "text" },
+                    domProps: { value: _vm.observation },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.observation = $event.target.value
+                      }
+                    }
+                  })
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-footer" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-secondary",
+                    attrs: { type: "button", "data-dismiss": "modal" }
+                  },
+                  [_vm._v("Cerrar")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-primary",
+                    attrs: { type: "button" },
+                    on: { click: _vm.saveData }
+                  },
+                  [_vm._v("Guardar Cambios")]
+                )
+              ])
+            ])
+          ]
+        )
+      ]
+    )
   ])
 }
 var staticRenderFns = [
@@ -270,6 +425,53 @@ var staticRenderFns = [
         _c("th", [_vm._v("acción")])
       ])
     ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header" }, [
+      _c("h5", { staticClass: "modal-title", attrs: { id: "reportsLabel" } }, [
+        _vm._v("Enviar Reporta a Padres")
+      ]),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", [_c("strong", [_vm._v("Nombre de Estudiante")])])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", [_c("strong", [_vm._v("Nombre de Acudiente")])])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", [_c("strong", [_vm._v("Email de Acudiente")])])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", [_c("strong", [_vm._v("Nota del Estudiante")])])
   }
 ]
 render._withStripped = true

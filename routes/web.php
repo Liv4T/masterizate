@@ -7,7 +7,10 @@ use App\Exports\ProductsExport;
 use App\Exports\StudentsExport;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Excel;
+// use Illuminate\Support\Facades\Excel;
+use App\Exports\ClassExport;
+use Maatwebsite\Excel\Facades\Excel;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -985,5 +988,11 @@ Route::get('getClass','PIARClassController@getClass');
 //Reporte a padres
 Route::resource('resportSendParents','ReportsParentsController');
 Route::get('getAllRecentActivities/{area_id}','ReportsParentsController@getAllRecentActivities');
-Route::get('getAllAssistances/{user_name}','ReportsParentsController@getAllAssistances');
+Route::get('getAllAssistances/{user_name}/{id_area}/{id_classroom}','ReportsParentsController@getAllAssistances');
 Route::get('getNotesBySudentAndArea/{student_id}','ReportsParentsController@getNotesBySudentAndArea');
+
+// excel
+Route::get('/excelClass', function () {
+    return Excel::download(new ClassExport(2020), 'class.xlsx');
+});
+Route::get('sqlQuery', 'TestingController@sqlQuery')->name('sqlQuery');

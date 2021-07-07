@@ -47,21 +47,33 @@ class ReportsParentsController extends Controller
         return response()->json($data);
     }
 
-    public function getAllAssistances(String $user_name){
+    public function getAllAssistances(String $user_id, String $id_area, String $id_classroom){
         $data = DB::table('assistances')
-                ->join('users','assistances.id_student','=','users.id')
-                ->join('assitants_motives','assistances.id_motive','=','assitants_motives.id')
-                ->select(
-                    'assistances.course',
-                    'users.name',
-                    'assistances.id_motive',
-                    'assitants_motives.motive'
-                )
-                ->where('users.name','=',$user_name)
-                ->selectRaw('count(assitants_motives.motive) as count_assistances')
-                ->selectRaw('count(assistances.course) as total_assistances')
-                ->groupBy('assistances.course','users.name','assistances.id_motive','assitants_motives.motive')
-                ->get();
+            ->join('users','assistances.id_student','=','users.id')
+            ->join('assitants_motives','assistances.id_motive','=','assitants_motives.id')
+            ->select(
+                'assistances.id_area',
+                'assistances.id_classroom',
+                'assistances.course',
+                'users.name',
+                'users.parent_id',
+                'assistances.id_motive',
+                'assitants_motives.motive'
+            )
+            ->where('users.id','=',$user_id)
+            ->where('assistances.id_area',$id_area)
+            ->where('assistances.id_classroom',$id_classroom)
+            ->selectRaw('count(assistances.course) as total_assistances')
+            ->groupBy('assistances.course','users.name','assistances.id_motive','assitants_motives.motive','assistances.id_area',
+            'assistances.id_classroom','users.parent_id')
+            ->first();
+
+        $data_total_class = DB::table('assistances')
+            ->selectRaw('count(assistances.id_area) as total_class')
+            ->where('assistances.id_area','=', $id_area)
+            ->first();
+
+        $data->total_class = $data_total_class->total_class;
 
         return response()->json($data);
     }

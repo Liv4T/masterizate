@@ -83,6 +83,8 @@ class AssistanceController extends Controller
         $assistance->id_student = $request->id_student;
         $assistance->id_teacher = $request->id_teacher;
         $assistance->id_motive = $request->id_motive;
+        $assistance->id_area = $request->id_area;
+        $assistance->id_classroom = $request->id_classroom;
 
         $assistance->save();
 
@@ -115,6 +117,8 @@ class AssistanceController extends Controller
                 'course'       => $assis->course,
                 'motive'       => isset($motives) ? $motives->motive : '',
                 'id_motive'    => isset($motives) ? $motives->id : '',
+                'id_area'      => $motives->id_area,
+                'id_classroom' => $motives->id_classroom,
                 'created_at'   => $assis->created_at
             ]);
         }
@@ -143,6 +147,8 @@ class AssistanceController extends Controller
     {
         $assistance = Assistance::findOrFail($id);
         $assistance->id_motive = $request->id_motive;
+        $assistance->id_area = $request->id_area;
+        $assistance->id_classroom = $request->id_classroom;
 
         $assistance->update();
 

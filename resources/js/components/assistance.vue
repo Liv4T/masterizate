@@ -194,7 +194,9 @@ Vue.component("multiselect", Multiselect);
                         id_teacher: this.user.id,
                         assistance: this.assistance,
                         id_motive: this.saveMotives.id,
-                        course: this.classroom_name
+                        course: this.classroom_name,
+                        id_area: this.idArea,
+                        id_classroom: this.idClass
                     }).then((response)=>{
                         toastr.success(response.data);
                         this.cleanData();
@@ -208,6 +210,8 @@ Vue.component("multiselect", Multiselect);
                     axios.put(`/assistance/${this.id_to_update}`,{
                         assistance: this.assistance,                    
                         id_motive: this.saveMotives.id,
+                        id_area: this.idArea,
+                        id_classroom: this.idClass
                     }).then((response)=>{
                         toastr.success(response.data);
                         this.cleanData();
