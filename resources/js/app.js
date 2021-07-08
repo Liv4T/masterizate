@@ -320,6 +320,7 @@ Vue.component("menu-cliente", ()=>import("./components/menuCliente.vue"));
 
 //Modulo envio de reporte a padres
 Vue.component("report-send-parents",()=>import("./components/reportSendParents.vue"));
+Vue.component("report-monthly-component", ()=>import("./components/mothlyReportParent.vue"));
 
 Vue.use(CKEditor);
 

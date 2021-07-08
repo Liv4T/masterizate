@@ -191,9 +191,6 @@
     </div>
 </template>
 <script>
-// import moment from 'moment';
-import jsPDF from 'jspdf';
-import 'jspdf-autotable'
 export default {
     data(){
         return{
@@ -272,20 +269,9 @@ export default {
                 toastr.success(response.data);
                 $('#reports').modal('hide');
             })
-            // var pdf = new jsPDF('p', 'pt', 'letter');
     
-            // pdf.autoTable({ 
-            //     html: '#tableReport',
-            //     columnStyles: { halign: 'center', fillColor: [0, 255, 0] }
-            // })
-        
-            // pdf.save(`Informe ${this.dataStudent.student}.pdf`);
-
-            // let out = pdf.output('datauri');
-            // console.log(out)
-    
-            axios.post('sendMessages', {
-                receptor: this.dataStudent.parent_email,
+            axios.post('sendSingleMessage', {
+                email: this.dataStudent.parent_email, //'brayantriana22@gmail.com'
                 subject: `Reporte Mensual del Curso ${this.dataStudent.class} ya ha sido generado, Podras visualizarlo en la plataforma 'https://www.liv4t.com' En la sección reportes del menú`,
                 message: `Reporte ${this.dataStudent.class}`,
             }).then((response) => {

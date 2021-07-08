@@ -990,9 +990,15 @@ Route::resource('resportSendParents','ReportsParentsController');
 Route::get('getAllRecentActivities/{area_id}','ReportsParentsController@getAllRecentActivities');
 Route::get('getAllAssistances/{user_name}/{id_area}/{id_classroom}','ReportsParentsController@getAllAssistances');
 Route::get('getNotesBySudentAndArea/{student_id}','ReportsParentsController@getNotesBySudentAndArea');
+Route::post('sendSingleMessage','ReportsParentsController@sendSingleMessage');
+Route::get('getReportsByParent','ReportsParentsController@getReportsByParent');
 
 // excel
 Route::get('/excelClass', function () {
     return Excel::download(new ClassExport(2020), 'class.xlsx');
 });
 Route::get('sqlQuery', 'TestingController@sqlQuery')->name('sqlQuery');
+
+Route::middleware('auth')->get('/monthlyReport', function () {
+    return view('monthlyReportParents');
+});

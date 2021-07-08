@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\ReportsParents;
+use Illuminate\Support\Facades\Mail;
 use DB;
 use Auth;
 use Carbon\Carbon;
@@ -18,6 +19,13 @@ class ReportsParentsController extends Controller
     public function index()
     {
         return view('reportSendParents');
+    }
+
+    public function getReportsByParent(){
+        $user = Auth::user();
+        $data = ReportsParents::where('id_parent','=',$user->id)->get();
+
+        return response()->json($data);
     }
 
     public function getAllRecentActivities(String $area_id){
@@ -131,6 +139,18 @@ class ReportsParentsController extends Controller
         return response()->json('Reporte Guardado');
     }
 
+    public function sendSingleMessage(Request $request){
+        $data_email = [
+            'body' => $request->message,
+            'subject' => $request->subject,
+            'email' => $request->email,
+        ];
+
+        Mail::send('emails.sendMessages', $data_email, function ($msj) use ($data_email) {
+            $msj->subject($data_email['subject'])
+                ->bcc($data_email['email']);
+        });
+    }
     /**
      * Display the specified resource.
      *
