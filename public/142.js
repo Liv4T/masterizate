@@ -138,6 +138,72 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 // import moment from 'moment';
 
 
@@ -188,6 +254,8 @@ __webpack_require__.r(__webpack_exports__);
             var notes = response.data;
             _this3.dataStudent = {};
             _this3.dataStudent = {
+              area_id: activities.area_id,
+              classroom_id: activities.classroom_id,
               "class": activities.area_name + ' ' + activities.classroom_name,
               logro: activities.logro,
               title_activity: activities.activity_name,
@@ -202,7 +270,8 @@ __webpack_require__.r(__webpack_exports__);
               total_classes: assistances.total_class,
               parent_id: assistances.parent_id ? assistances.parent_id : null,
               parent_email: _this3.parent.email ? _this3.parent.email : null,
-              parent_name: _this3.parent.name && _this3.parent.last_name ? _this3.parent.name + ' ' + _this3.parent.last_name : null
+              parent_name: _this3.parent.name && _this3.parent.last_name ? _this3.parent.name + ' ' + _this3.parent.last_name : null,
+              observation: _this3.observation
             };
           });
         });
@@ -210,17 +279,33 @@ __webpack_require__.r(__webpack_exports__);
       $('#reports').modal('show');
     },
     saveData: function saveData() {
-      console.log(this.dataStudent);
-      console.log(this.observation);
-      var pdf = new jspdf__WEBPACK_IMPORTED_MODULE_0__["default"]('p', 'pt', 'letter');
-      pdf.autoTable({
-        html: '#tableReport',
-        columnStyles: {
-          halign: 'center',
-          fillColor: [0, 255, 0]
-        }
+      axios.post('resportSendParents', {
+        dataStudent: JSON.stringify(this.dataStudent),
+        id_parent: this.dataStudent.parent_id,
+        id_area: this.dataStudent.area_id,
+        id_classroom: this.dataStudent.classroom_id
+      }).then(function (response) {
+        toastr.success(response.data);
+        $('#reports').modal('hide');
+      }); // var pdf = new jsPDF('p', 'pt', 'letter');
+      // pdf.autoTable({ 
+      //     html: '#tableReport',
+      //     columnStyles: { halign: 'center', fillColor: [0, 255, 0] }
+      // })
+      // pdf.save(`Informe ${this.dataStudent.student}.pdf`);
+      // let out = pdf.output('datauri');
+      // console.log(out)
+
+      axios.post('sendMessages', {
+        receptor: this.dataStudent.parent_email,
+        subject: "Reporte Mensual del Curso ".concat(this.dataStudent["class"], " ya ha sido generado, Podras visualizarlo en la plataforma 'https://www.liv4t.com' En la secci\xF3n reportes del men\xFA"),
+        message: "Reporte ".concat(this.dataStudent["class"])
+      }).then(function (response) {
+        toastr.success("Mensaje enviado");
+      })["catch"](function (error) {
+        console.log(error);
       });
-      pdf.save('Test.pdf');
+      this.dataStudent = {};
     }
   }
 });
@@ -455,41 +540,169 @@ var render = function() {
       ]
     ),
     _vm._v(" "),
-    _c("table", { attrs: { id: "tableReport" } }, [
-      _vm._m(7),
-      _vm._v(" "),
-      _c("tbody", [
+    _c(
+      "table",
+      {
+        staticStyle: { width: "100%" },
+        attrs: { id: "tableReport", hidden: "" }
+      },
+      [
+        _c("tr", { staticClass: "header" }, [
+          _c("th", { attrs: { colspan: "8" } }, [
+            _vm._v(
+              "REPORTE DE " +
+                _vm._s(
+                  _vm.dataStudent.student
+                    ? _vm.dataStudent.student.toUpperCase()
+                    : ""
+                )
+            )
+          ])
+        ]),
+        _vm._v(" "),
+        _vm._m(7),
+        _vm._v(" "),
         _c("tr", [
-          _c("td", [_vm._v(_vm._s(_vm.dataStudent.class))]),
+          _c("th", { staticClass: "label" }, [_vm._v("CLASE: ")]),
           _vm._v(" "),
-          _c("td", [_vm._v(_vm._s(_vm.dataStudent.logro))]),
+          _c("td", { staticClass: "label-content" }, [
+            _vm._v(_vm._s(_vm.dataStudent.class))
+          ]),
           _vm._v(" "),
-          _c("td", [_vm._v(_vm._s(_vm.dataStudent.title_activity))]),
+          _c("td"),
           _vm._v(" "),
-          _c("td", [_vm._v(_vm._s(_vm.dataStudent.activity_date))]),
+          _c("th", { staticClass: "label" }, [_vm._v("LOGRO: ")]),
           _vm._v(" "),
-          _c("td", [_vm._v(_vm._s(_vm.dataStudent.activity_description))]),
+          _c("td", { staticClass: "label-content" }, [
+            _vm._v(_vm._s(_vm.dataStudent.logro))
+          ])
+        ]),
+        _vm._v(" "),
+        _c("tr", [
+          _c("th", { staticClass: "label" }, [_vm._v(" ESTUDIANTE: ")]),
           _vm._v(" "),
-          _c("td", [_vm._v(_vm._s(_vm.dataStudent.activity))]),
+          _c("td", { staticClass: "label-content" }, [
+            _vm._v(_vm._s(_vm.dataStudent.student))
+          ]),
           _vm._v(" "),
-          _c("td", [_vm._v(_vm._s(_vm.dataStudent.percentage_activity))]),
+          _c("td"),
           _vm._v(" "),
-          _c("td", [_vm._v(_vm._s(_vm.dataStudent.nota_class))]),
+          _c("th", { staticClass: "label" }, [_vm._v("CORREO: ")]),
           _vm._v(" "),
-          _c("td", [_vm._v(_vm._s(_vm.dataStudent.student))]),
+          _c("td", { staticClass: "label-content" }, [
+            _vm._v(_vm._s(_vm.dataStudent.email))
+          ]),
           _vm._v(" "),
-          _c("td", [_vm._v(_vm._s(_vm.dataStudent.email))]),
+          _c("td")
+        ]),
+        _vm._v(" "),
+        _vm._m(8),
+        _vm._v(" "),
+        _c("tr", [
+          _c("th", { staticClass: "label" }, [_vm._v("ACTIVIDAD: ")]),
           _vm._v(" "),
-          _c("td", [_vm._v(_vm._s(_vm.dataStudent.Assistances))]),
+          _c("td", { staticClass: "label-content" }, [
+            _vm._v(_vm._s(_vm.dataStudent.activity))
+          ]),
           _vm._v(" "),
-          _c("td", [_vm._v(_vm._s(_vm.dataStudent.total_classes))]),
+          _c("td"),
           _vm._v(" "),
-          _c("td", [_vm._v(_vm._s(_vm.dataStudent.parent_email))]),
+          _c("th", { staticClass: "label" }, [_vm._v("DESCRIPCIÓN: ")]),
           _vm._v(" "),
-          _c("td", [_vm._v(_vm._s(_vm.dataStudent.parent_name))])
-        ])
-      ])
-    ])
+          _c("td", { staticClass: "label-content" }, [
+            _vm._v(_vm._s(_vm.dataStudent.activity_description))
+          ]),
+          _vm._v(" "),
+          _c("td"),
+          _vm._v(" "),
+          _c("th", { staticClass: "label" }, [_vm._v("FECHA ACTIVIDAD")]),
+          _vm._v(" "),
+          _c("td", { staticClass: "label-content" }, [
+            _vm._v(_vm._s(_vm.dataStudent.activity_date))
+          ])
+        ]),
+        _vm._v(" "),
+        _vm._m(9),
+        _vm._v(" "),
+        _c("tr", [
+          _c("th", { staticClass: "label" }, [
+            _vm._v("PORCENTAJE DE ACTIVIDAD: ")
+          ]),
+          _vm._v(" "),
+          _c("td", { staticClass: "label-content" }, [
+            _vm._v(_vm._s(_vm.dataStudent.percentage_activity))
+          ]),
+          _vm._v(" "),
+          _c("td"),
+          _vm._v(" "),
+          _c("th", { staticClass: "label" }, [_vm._v("NOTA GENERAL: ")]),
+          _vm._v(" "),
+          _c("td", { staticClass: "label-content" }, [
+            _vm._v(_vm._s(_vm.dataStudent.nota_class))
+          ])
+        ]),
+        _vm._v(" "),
+        _vm._m(10),
+        _vm._v(" "),
+        _c("tr", [
+          _c("th", { staticClass: "label" }, [_vm._v("TOTAL ASISTENCIAS: ")]),
+          _vm._v(" "),
+          _c("td", { staticClass: "label-content" }, [
+            _vm._v(_vm._s(_vm.dataStudent.Assistances))
+          ]),
+          _vm._v(" "),
+          _c("td"),
+          _vm._v(" "),
+          _c("th", { staticClass: "label" }, [_vm._v("TOTAL CLASES: ")]),
+          _vm._v(" "),
+          _c("td", { staticClass: "label-content" }, [
+            _vm._v(_vm._s(_vm.dataStudent.total_classes))
+          ])
+        ]),
+        _vm._v(" "),
+        _vm._m(11),
+        _vm._v(" "),
+        _c("tr", [
+          _c("th", { staticClass: "label" }, [_vm._v("NOMBRE DE ACUDIENTE: ")]),
+          _vm._v(" "),
+          _c("td", { staticClass: "label-content" }, [
+            _vm._v(
+              _vm._s(
+                _vm.dataStudent.parent_name
+                  ? _vm.dataStudent.parent_name
+                  : "Sin Información"
+              )
+            )
+          ]),
+          _vm._v(" "),
+          _c("td"),
+          _vm._v(" "),
+          _c("th", { staticClass: "label" }, [_vm._v("CORREO DE ACUDIENTE: ")]),
+          _vm._v(" "),
+          _c("td", { staticClass: "label-content" }, [
+            _vm._v(
+              _vm._s(
+                _vm.dataStudent.parent_email
+                  ? _vm.dataStudent.parent_email
+                  : "Sin Información"
+              )
+            )
+          ])
+        ]),
+        _vm._v(" "),
+        _vm._m(12),
+        _vm._v(" "),
+        _c("tr", [
+          _c("th", { staticClass: "label" }, [
+            _vm._v("OBSERVACIÓN DEL DOCENTE: ")
+          ]),
+          _vm._v(" "),
+          _c("td", [_vm._v(_vm._s(_vm.observation))])
+        ]),
+        _vm._v(" "),
+        _vm._m(13)
+      ]
+    )
   ])
 }
 var staticRenderFns = [
@@ -566,36 +779,56 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("thead", [
-      _c("tr", [
-        _c("th", [_vm._v("Clase")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Logro Actual")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Titulo de Actividad")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Fecha de actividad")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Descripción ")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Actividad")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Porcentaje")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Nota")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Estudiante")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Correo")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Asistencia")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Clases en Total")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Correo de Acudiente")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Nombre de Acudiente")])
-      ])
+    return _c("tr", [
+      _c("td", { staticStyle: { height: "10px" }, attrs: { colspan: "8" } })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("tr", [
+      _c("td", { staticStyle: { height: "5px" }, attrs: { colspan: "8" } })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("tr", [
+      _c("td", { staticStyle: { height: "10px" }, attrs: { colspan: "8" } })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("tr", [
+      _c("td", { staticStyle: { height: "10px" }, attrs: { colspan: "8" } })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("tr", [
+      _c("td", { staticStyle: { height: "10px" }, attrs: { colspan: "8" } })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("tr", [
+      _c("td", { staticStyle: { height: "10px" }, attrs: { colspan: "8" } })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("tr", [
+      _c("td", { staticStyle: { height: "10px" }, attrs: { colspan: "8" } })
     ])
   }
 ]

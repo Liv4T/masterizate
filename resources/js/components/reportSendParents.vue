@@ -84,43 +84,109 @@
             </div>
         </div>
 
-        <table id="tableReport">
-            <thead>
-                <tr>
-                    <th>Clase</th>
-                    <th>Logro Actual</th>
-                    <th>Titulo de Actividad</th>
-                    <th>Fecha de actividad</th>
-                    <th>Descripción </th>
-                    <th>Actividad</th>
-                    <th>Porcentaje</th>
-                    <th>Nota</th>
-                    <th>Estudiante</th>
-                    <th>Correo</th>
-                    <th>Asistencia</th>
-                    <th>Clases en Total</th>
-                    <th>Correo de Acudiente</th>
-                    <th>Nombre de Acudiente</th>
-                </tr>
-            </thead> 
-            <tbody>
-                <tr>
-                    <td>{{dataStudent.class}}</td>
-                    <td>{{dataStudent.logro}}</td>
-                    <td>{{dataStudent.title_activity}}</td>
-                    <td>{{dataStudent.activity_date}}</td>
-                    <td>{{dataStudent.activity_description}}</td>
-                    <td>{{dataStudent.activity}}</td>
-                    <td>{{dataStudent.percentage_activity}}</td>
-                    <td>{{dataStudent.nota_class}}</td>
-                    <td>{{dataStudent.student}}</td>
-                    <td>{{dataStudent.email}}</td>
-                    <td>{{dataStudent.Assistances}}</td>
-                    <td>{{dataStudent.total_classes}}</td>
-                    <td>{{dataStudent.parent_email}}</td>
-                    <td>{{dataStudent.parent_name}}</td>
-                </tr>
-            </tbody>   
+        <table id="tableReport" style="width:100%" hidden>
+            <tr class="header">
+                <th colspan="8">REPORTE DE {{dataStudent.student ? dataStudent.student.toUpperCase() : ''}}</th>
+            </tr>
+            
+            <tr>
+                <td style="height:10px" colspan="8"></td>
+            </tr>
+            
+            <tr>                  
+                <th class="label">CLASE: </th>
+                <td class="label-content">{{dataStudent.class}}</td>
+                
+                <td></td>
+                
+                <th class="label">LOGRO: </th>
+                <td class="label-content">{{dataStudent.logro}}</td>
+            </tr>
+            
+            <tr>
+                <th class="label"> ESTUDIANTE: </th>
+                <td class="label-content">{{dataStudent.student}}</td>
+                  
+                <td></td>
+
+                <th class="label">CORREO: </th>
+                <td class="label-content">{{dataStudent.email}}</td>
+            
+                <td></td>
+            </tr>
+            
+            <tr>
+                <td style="height:5px" colspan="8"></td>
+            </tr>
+            <tr>
+                <th class="label">ACTIVIDAD: </th>
+                <td class="label-content">{{dataStudent.activity}}</td>
+                
+                <td></td>
+                
+                <th class="label">DESCRIPCIÓN: </th>
+                <td class="label-content">{{dataStudent.activity_description}}</td>
+                
+                <td></td>
+                
+                <th class="label">FECHA ACTIVIDAD</th>
+                <td class="label-content">{{dataStudent.activity_date}}</td>
+                
+            </tr>
+            <tr>
+                <td style="height:10px" colspan="8"></td>
+            </tr>
+                
+            <tr>
+                <th class="label">PORCENTAJE DE ACTIVIDAD: </th>
+                <td class="label-content">{{dataStudent.percentage_activity}}</td>
+                
+                <td></td>
+                
+                <th class="label">NOTA GENERAL: </th>
+                <td class="label-content">{{dataStudent.nota_class}}</td>
+            </tr>
+            
+            <tr>
+                <td style="height:10px" colspan="8"></td>
+            </tr>
+            
+            <tr>
+                <th class="label">TOTAL ASISTENCIAS: </th>
+                <td class="label-content">{{dataStudent.Assistances}}</td>
+                
+                <td></td>
+                
+                <th class="label">TOTAL CLASES: </th>
+                <td class="label-content">{{dataStudent.total_classes}}</td>
+            </tr>
+
+            <tr>
+                <td style="height:10px" colspan="8"></td>
+            </tr>
+            
+            <tr>
+                <th class="label">NOMBRE DE ACUDIENTE: </th>
+                <td class="label-content">{{dataStudent.parent_name ? dataStudent.parent_name : 'Sin Información'}}</td>
+                  
+                <td></td>
+                  
+                <th class="label">CORREO DE ACUDIENTE: </th>
+                <td class="label-content">{{dataStudent.parent_email ? dataStudent.parent_email : 'Sin Información'}}</td>
+            </tr>
+            
+            <tr>
+                <td style="height:10px" colspan="8"></td>
+            </tr>
+                
+            <tr>
+                <th class="label">OBSERVACIÓN DEL DOCENTE: </th>
+                <td>{{observation}}</td>         
+            </tr>
+            
+            <tr>
+                <td style="height:10px" colspan="8"></td>
+            </tr>
         </table>
     </div>
 </template>
@@ -171,6 +237,8 @@ export default {
                         let notes = response.data;
                         this.dataStudent={}
                         this.dataStudent = {
+                            area_id: activities.area_id,
+                            classroom_id: activities.classroom_id,
                             class: activities.area_name+' '+activities.classroom_name,
                             logro: activities.logro,                        
                             title_activity: activities.activity_name,
@@ -185,7 +253,8 @@ export default {
                             total_classes: assistances.total_class,
                             parent_id: assistances.parent_id ? assistances.parent_id : null,
                             parent_email: this.parent.email ? this.parent.email : null,
-                            parent_name: (this.parent.name && this.parent.last_name) ? this.parent.name+' '+this.parent.last_name: null
+                            parent_name: (this.parent.name && this.parent.last_name) ? this.parent.name+' '+this.parent.last_name: null,
+                            observation: this.observation
                         }
                     })
                 })                
@@ -194,17 +263,39 @@ export default {
         },
 
         saveData(){
-            console.log(this.dataStudent)
-            console.log(this.observation)
-
-            var pdf = new jsPDF('p', 'pt', 'letter');
-    
-            pdf.autoTable({ 
-                html: '#tableReport',
-                columnStyles: { halign: 'center', fillColor: [0, 255, 0] }
+            axios.post('resportSendParents',{
+                dataStudent: JSON.stringify(this.dataStudent),
+                id_parent: this.dataStudent.parent_id,
+                id_area: this.dataStudent.area_id,
+                id_classroom: this.dataStudent.classroom_id
+            }).then((response)=>{
+                toastr.success(response.data);
+                $('#reports').modal('hide');
             })
+            // var pdf = new jsPDF('p', 'pt', 'letter');
+    
+            // pdf.autoTable({ 
+            //     html: '#tableReport',
+            //     columnStyles: { halign: 'center', fillColor: [0, 255, 0] }
+            // })
         
-            pdf.save('Test.pdf');
+            // pdf.save(`Informe ${this.dataStudent.student}.pdf`);
+
+            // let out = pdf.output('datauri');
+            // console.log(out)
+    
+            axios.post('sendMessages', {
+                receptor: this.dataStudent.parent_email,
+                subject: `Reporte Mensual del Curso ${this.dataStudent.class} ya ha sido generado, Podras visualizarlo en la plataforma 'https://www.liv4t.com' En la sección reportes del menú`,
+                message: `Reporte ${this.dataStudent.class}`,
+            }).then((response) => {
+                toastr.success("Mensaje enviado");              
+            }).catch((error) => {
+                console.log(error)
+            });
+
+            this.dataStudent = {}
+
         }
     }
 }

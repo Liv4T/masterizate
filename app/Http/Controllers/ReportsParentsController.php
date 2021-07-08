@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\ReportsParents;
 use DB;
+use Auth;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -30,8 +31,10 @@ class ReportsParentsController extends Controller
                 // ->join('annual_planification','classroom.id','=','annual_planification.id_classroom')
                 ->join('achievement_planification','achievement_planification.id','=','activity.id_achievement')
                 ->select(
+                    'area.id as area_id',
                     'area.name as area_name',
                     'classroom.name as classroom_name',
+                    'classroom.id as classroom_id',
                     'class.name as class_name',
                     'achievement_planification.achievement as logro',
                     'achievement_planification.percentage as percentage',
@@ -105,7 +108,7 @@ class ReportsParentsController extends Controller
      */
     public function create()
     {
-        //
+         
     }
 
     /**
@@ -116,7 +119,16 @@ class ReportsParentsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $user = Auth::user();
+        $newReport = new ReportsParents();
+        $newReport->dataStudent = $request->dataStudent;
+        $newReport->id_area = $request->id_area;
+        $newReport->id_classroom = $request->id_classroom;
+        $newReport->id_parent = $request->id_parent;
+        $newReport->id_teacher = $user->id;
+
+        $newReport->save();
+        return response()->json('Reporte Guardado');
     }
 
     /**
@@ -148,9 +160,9 @@ class ReportsParentsController extends Controller
      * @param  \App\ReportsParents  $reportsParents
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ReportsParents $reportsParents)
+    public function update(Request $request, $id)
     {
-        //
+
     }
 
     /**
@@ -159,8 +171,8 @@ class ReportsParentsController extends Controller
      * @param  \App\ReportsParents  $reportsParents
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ReportsParents $reportsParents)
+    public function destroy($id)
     {
-        //
+
     }
 }
