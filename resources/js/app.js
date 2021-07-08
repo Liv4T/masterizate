@@ -322,6 +322,8 @@ Vue.component("menu-cliente", ()=>import("./components/menuCliente.vue"));
 Vue.component("report-send-parents",()=>import("./components/reportSendParents.vue"));
 Vue.component("report-monthly-component", ()=>import("./components/mothlyReportParent.vue"));
 
+Vue.component("report-admin", ()=>import("./components/reportAdmin.vue"));
+
 Vue.use(CKEditor);
 
 

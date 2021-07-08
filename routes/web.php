@@ -1002,3 +1002,10 @@ Route::get('sqlQuery', 'TestingController@sqlQuery')->name('sqlQuery');
 Route::middleware('auth')->get('/monthlyReport', function () {
     return view('monthlyReportParents');
 });
+
+Route::get('ReportWeeklyPlan','AdminReportController@ReportWeeklyPlan');
+Route::get('ReportAnnualPlanification','AdminReportController@ReportAnnualPlanification');
+
+Route::middleware('auth')->get('/reportAdmin', function () {
+    return view('reportAdmin');
+});
