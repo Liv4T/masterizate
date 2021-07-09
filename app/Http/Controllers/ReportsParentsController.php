@@ -23,7 +23,7 @@ class ReportsParentsController extends Controller
 
     public function getReportsByParent(){
         $user = Auth::user();
-        $data = ReportsParents::where('id_parent','=',$user->id)->get();
+        $data = ReportsParents::where('id_parent','=',$user->id)->orderBy('id','DESC')->get();
 
         return response()->json($data);
     }
@@ -71,16 +71,18 @@ class ReportsParentsController extends Controller
                 'assistances.id_motive',
                 'assitants_motives.motive'
             )
-            ->where('users.id','=',$user_id)
-            ->where('assistances.id_area',$id_area)
-            ->where('assistances.id_classroom',$id_classroom)
-            ->selectRaw('count(assistances.course) as total_assistances')
+            ->where([
+                ['users.id','=',$user_id],
+                ['assistances.id_area','=',$id_area],
+                ['assistances.id_classroom','=',$id_classroom]
+            ])
+            ->selectRaw('count(assistances.course) as total_assistances ')
             ->groupBy('assistances.course','users.name','assistances.id_motive','assitants_motives.motive','assistances.id_area',
             'assistances.id_classroom','users.parent_id')
             ->first();
 
         $data_total_class = DB::table('assistances')
-            ->selectRaw('count(assistances.id_area) as total_class')
+            ->selectRaw('count(assistances.created_at) as total_class')
             ->where('assistances.id_area','=', $id_area)
             ->first();
 

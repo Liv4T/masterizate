@@ -176,7 +176,7 @@ __webpack_require__.r(__webpack_exports__);
       var data = response.data;
       data.forEach(function (e) {
         _this.dataReport.push({
-          created_at: moment__WEBPACK_IMPORTED_MODULE_0___default()(e.created_at).format('YYYY MMMM DD'),
+          created_at: moment__WEBPACK_IMPORTED_MODULE_0___default()(e.created_at).format('YYYY MMMM DD hh:mm:ss'),
           dataStudent: JSON.parse(e.dataStudent)
         });
 

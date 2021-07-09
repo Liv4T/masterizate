@@ -161,7 +161,7 @@ export default {
 
             data.forEach((e)=>{
                 this.dataReport.push({
-                    created_at: moment(e.created_at).format('YYYY MMMM DD'),
+                    created_at: moment(e.created_at).format('YYYY MMMM DD hh:mm:ss'),
                     dataStudent: JSON.parse(e.dataStudent)
                 })
                 this.dataStudent = JSON.parse(e.dataStudent)
