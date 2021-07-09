@@ -18,6 +18,7 @@
                 <a class="dropdown-item" href="/nursing">Enfermería</a>
                 <a class="dropdown-item" href="/foods">Alimentación</a>
                 <a class="dropdown-item" href="/pedagogic">Transporte</a>
+                <a class="dropdown-item" href="/reportAdmin">Reporte Actividades y Planificación Anual</a>
             </div>
         </div>
 
