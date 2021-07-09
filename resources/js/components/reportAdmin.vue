@@ -1,130 +1,103 @@
 <template>
-    <div class="back">
-        <div class="row justify-content-center">
-            <div id="crud" class="col-sm-10">
-                <div class="card">
-                    <div class="card-header fondo">
-                        <strong>Reportes</strong>
-                    </div>
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-header fondo">
+                Reportes de actividades y planificación anual
+            </div>
+        </div>
+        <div v-show="downloading">
+            <div class="alert alert-success" role="alert">
+                Descargando Reporte
+            </div>
+        </div>        
+        <button v-on:click="download" class="btn btn-primary">
+            Descargar Actividades
+        </button>
+
+        <button v-on:click="download2" class="btn btn-primary">
+            Descargar Planificación Anual
+        </button>
+        <div class="accordion" id="accordionExample">
+            <div class="card">
+                <div class="card-header" id="headingOne">
+                    <h2 class="mb-0">
+                        <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                            Actividades
+                        </button>
+                    </h2>
+                </div>
+                <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
                     <div class="card-body">
-                        
+                        <table id="tableReport" class="table table-striped table-hover table-responsive">
+                            <thead>
+                                <tr>
+                                    <th>Area / Salon</th>
+                                    <th>Clase</th>
+                                    <th>Descripción</th>
+                                    <th>Actividad</th>
+                                    <th>Docente</th>
+                                    
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="(data, key) in weeklyPlan" :key="key">
+                                    <td>{{data.area_name+' '+data.classroom_name}}</td>
+                                    <td>{{data.class_name}}</td>
+                                    <td>{{data.class_description}}</td>
+                                    <td>{{data.driving_question}}</td>                                    
+                                    <td>{{data.user_name+' '+data.user_last_name}}</td>                                
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
+            <div class="card">
+                <div class="card-header" id="headingTwo">
+                    <h2 class="mb-0">
+                        <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="falsee" aria-controls="collapseTwo">
+                        Planificación Anual
+                        </button>
+                    </h2>
+                </div>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                    <div class="card-body">
+                        <table id="tableReport2" class="table table-striped table-hover table-responsive">
+                            <thead>
+                                <tr>
+                                    <th>Area</th>
+                                    <th>Logro</th>
+                                    <th>Salon de Clase</th>
+                                    <th>Docente</th>
+                                    <th>Fecha de Creación</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="(data, key) in annual" :key="key">
+                                    <td>{{data.area_name}}</td>
+                                    <td>{{data.achievement_planification}}</td>
+                                    <td>{{data.classroom_name}}</td>
+                                    <td>{{data.user_name+' '+data.user_last_name}}</td>
+                                    <td>{{data.created_at}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>            
         </div>
-        
-
-        <!-- <table id="tableReport" style="width:100%" hidden>
-            <tr class="header">
-                <th colspan="8">REPORTE DE {{dataStudent.student ? dataStudent.student.toUpperCase() : ''}}</th>
-            </tr>
-            
-            <tr>
-                <td style="height:10px" colspan="8"></td>
-            </tr>
-            
-            <tr>                  
-                <th class="label">CLASE: </th>
-                <td class="label-content">{{dataStudent.class}}</td>
-                
-                <td></td>
-                
-                <th class="label">LOGRO: </th>
-                <td class="label-content">{{dataStudent.logro}}</td>
-            </tr>
-            
-            <tr>
-                <th class="label"> ESTUDIANTE: </th>
-                <td class="label-content">{{dataStudent.student}}</td>
-                  
-                <td></td>
-
-                <th class="label">CORREO: </th>
-                <td class="label-content">{{dataStudent.email}}</td>
-            
-                <td></td>
-            </tr>
-            
-            <tr>
-                <td style="height:5px" colspan="8"></td>
-            </tr>
-            <tr>
-                <th class="label">ACTIVIDAD: </th>
-                <td class="label-content">{{dataStudent.activity}}</td>
-                
-                <td></td>
-                
-                <th class="label">DESCRIPCIÓN: </th>
-                <td class="label-content">{{dataStudent.activity_description}}</td>
-                
-                <td></td>
-                
-                <th class="label">FECHA ACTIVIDAD</th>
-                <td class="label-content">{{dataStudent.activity_date}}</td>
-                
-            </tr>
-            <tr>
-                <td style="height:10px" colspan="8"></td>
-            </tr>
-                
-            <tr>
-                <th class="label">PORCENTAJE DE ACTIVIDAD: </th>
-                <td class="label-content">{{dataStudent.percentage_activity}}</td>
-                
-                <td></td>
-                
-                <th class="label">NOTA GENERAL: </th>
-                <td class="label-content">{{dataStudent.nota_class}}</td>
-            </tr>
-            
-            <tr>
-                <td style="height:10px" colspan="8"></td>
-            </tr>
-            
-            <tr>
-                <th class="label">TOTAL ASISTENCIAS: </th>
-                <td class="label-content">{{dataStudent.Assistances}}</td>
-                
-                <td></td>
-                
-                <th class="label">TOTAL CLASES: </th>
-                <td class="label-content">{{dataStudent.total_classes}}</td>
-            </tr>
-
-            <tr>
-                <td style="height:10px" colspan="8"></td>
-            </tr>
-            
-            <tr>
-                <th class="label">NOMBRE DE ACUDIENTE: </th>
-                <td class="label-content">{{dataStudent.parent_name ? dataStudent.parent_name : 'Sin Información'}}</td>
-                  
-                <td></td>
-                  
-                <th class="label">CORREO DE ACUDIENTE: </th>
-                <td class="label-content">{{dataStudent.parent_email ? dataStudent.parent_email : 'Sin Información'}}</td>
-            </tr>
-            
-            <tr>
-                <td style="height:10px" colspan="8"></td>
-            </tr>
-                
-            <tr>
-                <th class="label">OBSERVACIÓN DEL DOCENTE: </th>
-                <td>{{observation}}</td>         
-            </tr>
-            
-            <tr>
-                <td style="height:10px" colspan="8"></td>
-            </tr>
-        </table> -->
     </div>
 </template>
 <script>
+
+import jsPDF from 'jspdf';
+import 'jspdf-autotable';
 export default {
     data(){
         return{
-            
+            weeklyPlan:[],
+            annual:[],
+            downloading: false
         }
     },
     mounted(){
@@ -133,16 +106,55 @@ export default {
     methods:{
         getData(){
             axios.get('ReportWeeklyPlan').then((response)=>{
-                console.log(response.data);
+                this.weeklyPlan = response.data;
             }).catch((error)=>{
                 console.log(error);
             });
 
             axios.get('ReportAnnualPlanification').then((response)=>{
-                console.log(response.data)
+                this.annual = response.data;
             }).catch((error)=>{
                 console.log(error)
             })
+        },
+        download(){
+            this.downloading = true;   
+            let pdf = new jsPDF('p', 'pt', 'letter');
+            
+            setTimeout(()=>{
+                pdf.autoTable({ 
+                    html: '#tableReport',
+                    columnStyles: {
+                        0: {columnWidth: 110},
+                        1: {columnWidth: 110},
+                        2: {columnWidth: 110},                    
+                        3: {columnWidth: 110},                    
+                        4: {columnWidth: 110},                    
+                    }
+                });
+                
+                pdf.save(`Informe Actividades.pdf`);
+                this.downloading = false;             
+            },1000)                
+        },
+        download2(){
+            this.downloading = true;   
+            let pdf = new jsPDF('p', 'pt', 'letter');
+            setTimeout(()=>{
+                pdf.autoTable({ 
+                    html: '#tableReport2',
+                    columnStyles: {
+                        0: {columnWidth: 110},
+                        1: {columnWidth: 110},
+                        2: {columnWidth: 110},                    
+                        3: {columnWidth: 110},                    
+                        4: {columnWidth: 110},                    
+                    }
+                })
+                pdf.save(`Informe Planificación Anual.pdf`);
+                this.downloading = false;
+
+            },1000)            
         }
     }
 }
