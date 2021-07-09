@@ -59,6 +59,16 @@
                                                 </template>
                                         </multiselect>
                                     </div>
+
+                                    <div class="row">                                        
+                                        <label><span class="required">*</span>Fecha Inicio de Clase:</label>                
+                                        <input type="datetime-local" class="form-control" v-model="course.date_init_class" />
+                                        <input type="hidden" id="timezone" name="timezone" value="-05:00">
+                                    </div>
+                                    <div class="row">                                        
+                                        <label><span class="required">*</span>Link de Clase</label>
+                                        <input type="text-local" class="form-control" v-model="course.url_class" />                                          
+                                    </div>
                                 </div>
                             </div>
                             
@@ -170,7 +180,7 @@
                                                     <div class="col-6">
                                                         <label><span class="required">*</span>Fecha retroalimentación:</label>
                                                         <input type="datetime-local" class="form-control" v-model="activity.feedback_date" />
-                                                    </div>
+                                                    </div>                                                    
                                                 </div>
                                                 <activity-questionary v-if="activity.activity_type=='CUESTIONARIO'" v-bind:module="activity.module" v-bind:disabled="course.state==2"></activity-questionary>
                                                 <activity-complete-sentence v-if="activity.activity_type=='COMPLETAR_ORACION'" v-bind:module="activity.module" v-bind:disabled="course.state==2"></activity-complete-sentence>
@@ -348,6 +358,7 @@ export default {
         {
             axios.get(`/api/teacher/module/${this.id_module}/class/${this.id_class}`).then((response) => {
                     this.course=response.data;
+                    console.log(response.data)
 
                     this.activityForPIARStudents = this.course.activityForPIARStudents
                     this.activityForSelectStudents = this.course.activityForSelectStudents
@@ -385,6 +396,11 @@ export default {
                             this.GetIndicatorsEvent(act);
                         });
                     }
+
+                    if(this.course)
+                    {
+                        this.course.date_init_class =this.course.date_init_class.replace(" ","T");
+                    }
             });
         }
     },
@@ -420,6 +436,7 @@ export default {
         },
 
         SaveDataEvent(){
+            console.log(this.course);
             axios.put(`/api/teacher/module/${this.id_module}/class`,this.course).then((response) => {
                // this.getPlanificationEvent(this.id_lective_planification);
                 toastr.success("Clases actualizadas correctamente");

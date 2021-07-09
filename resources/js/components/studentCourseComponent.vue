@@ -79,7 +79,7 @@
                                         v-model="course.description"
                                         readonly
                                     ></textarea>
-                                </div>
+                                </div>                               
                             </div>
                             <div class="row">
                                 <div class="col-12">
@@ -377,6 +377,8 @@ export default {
         };
     },
     mounted() {
+        this.getCourseData();
+
         axios.get(`/showClass/${this.id_module}`).then(response => {
             this.achievements = response.data.achievements;
 
@@ -386,17 +388,14 @@ export default {
 
            axios.get(`/getEvenNearStudent/${this.id_area}`).then(response => {
                 this.name_event= response.data.name;
-                this.hour_event= response.data.date_from;
-                this.link_event= response.data.url
+                this.hour_event= this.course.date_init_class;
+                this.link_event= this.course.url_class;
         });
 
         });
         axios.get(`/GetNameWeekly/${this.id_module}`).then(response => {
             this.weekly_plan = { name: response.data };
-        });
-
-
-        this.getCourseData();
+        });        
 
     },
     methods: {

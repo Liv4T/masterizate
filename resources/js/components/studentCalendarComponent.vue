@@ -73,6 +73,17 @@
                                     <div class="activity-event-info">
                                         <span>[{{activity.area_name}} {{activity.classroom_name}}]<br>{{activity.name}}</span>
                                     </div>
+
+                                    <div class="activity-event-date">
+                                        <small>Inicio de Clase:</small>
+                                        <span>{{activity.date_init_class|formatDate}}</span>
+                                    </div>
+
+                                    <div class="activity-event-date">   
+                                      <small>URL de Clase:</small>                                     
+                                        <a :href="activity.url_class" class="badge badge-primary" target="_blank">{{activity.url_class}}</a>
+                                    </div>
+
                                     <div class="activity-event-date" v-if="activity.interaction_state==2">
                                         <small>Fecha Retroalimentación:</small>
                                         <span>{{activity.feedback_date|formatDate}}</span>
@@ -80,7 +91,7 @@
                                     <div class="activity-event-date" v-else>
                                         <small>Fecha máxima entrega:</small>
                                         <span>{{activity.delivery_max_date|formatDate}}</span>
-                                    </div>
+                                    </div>                                    
 
                                     <div class="activity-event-action">
                                         <a v-if="activity.interaction_state==2" class="btn btn-link" :href="`/estudiante/modulo/${activity.weekly_plan_id}/clase/${activity.id_class}`">Retroalimentación</a>
@@ -186,7 +197,7 @@
         axios.get("/api/student/activity").then((response) => {
             let activs = []
             activs = Object.values(response.data);
-            console.log(activs)
+            console.log("activs",activs)
             activs.forEach((el)=>{
                 if(el.activityForAllStudents == 1){
                     

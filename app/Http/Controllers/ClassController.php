@@ -144,6 +144,8 @@ class ClassController extends Controller
             'activityForSelectStudents' => $course->activityForSelectStudents == 0 ? false : true,
             'activityForAllStudents' => $course->activityForAllStudents == 0 ? false : true,
             'selectedStudents' => $course->selectedStudents,
+            'url_class' => $course->url_class,
+            'date_init_class' => $course->date_init_class,
         ];
 
 
@@ -636,7 +638,9 @@ class ClassController extends Controller
                     'activityForPIARStudents' => $data['activityForPIARStudents'],
                     'activityForSelectStudents' => $data['activityForSelectStudents'],  
                     'activityForAllStudents' => $data['activityForAllStudents'],
-                    'selectedStudents' => $data['selectedStudents']
+                    'selectedStudents' => $data['selectedStudents'],
+                    'url_class' => $data['url_class'],
+                    'date_init_class' => $data['date_init_class'],
                 ));
                 $id_course=$data['id_class'];
         }
@@ -653,6 +657,8 @@ class ClassController extends Controller
                 'activityForSelectStudents' => $data['activityForSelectStudents'],  
                 'activityForAllStudents' => $data['activityForAllStudents'],
                 'selectedStudents' => $data['selectedStudents'],
+                'url_class' => $data['url_class'],
+                'date_init_class' => $data['date_init_class'],
                 'state'=>1,
                 'updated_user'=>$auth->id,
                 'deleted'=>0
