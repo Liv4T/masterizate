@@ -7,43 +7,62 @@
                     <div class="container-mensaje">
                         <div class="row">
                             <h5>Destinatarios</h5><br>
-                        </div>
+                        </div>                        
                         <div class="row">
                             <h6>Tus contactos</h6>
+                            <a class="btn btn-info" v-if="teacher" href="#" v-on:click.prevent="btA()"
+                                style="margin: 10px;">Administrativa</a>
+
                             <a class="btn btn-info float-left" href="#" v-on:click.prevent="btD()"
                                 style="margin: 10px;">Docentes</a>
+
                             <a class="btn btn-info float-left" href="#" v-on:click.prevent="btE()"
-                                style="margin: 10px;">Estudiantes</a>
-                            <template v-if="user_rol" class="float-left">
-                                <a class="btn btn-info" href="#" v-on:click.prevent="btP()"
-                                    style="margin: 10px;">Padres</a>
-                                <a class="btn btn-info" href="#" v-on:click.prevent="btA()"
-                                    style="margin: 10px;">Administrativa</a>
-                            </template>
+                                style="margin: 10px;">Estudiantes</a>                                        
+
+                            <a class="btn btn-info" href="#" v-on:click.prevent="btP()"
+                                style="margin: 10px;">Padres</a>
+
+                            <a class="btn btn-info" href="#" v-on:click.prevent="btPsi()"
+                                style="margin: 10px;">Psicologia</a>
+
+                            <a class="btn btn-info" href="#" v-on:click.prevent="btSchoolGov()"
+                                style="margin: 10px;">Gobierno Escolar</a>
+
+                            <a class="btn btn-info" href="#" v-on:click.prevent="btC()"
+                                style="margin: 10px;">Coordinadores</a>
+
+                            <a class="btn btn-info" href="#" v-on:click.prevent="btT()"
+                                style="margin: 10px;">Tutores</a>  
+
+                            <a class="btn btn-info" href="#" v-on:click.prevent="btEn()"
+                                style="margin: 10px;">Enfermería</a>                          
+                            
                         </div>
                         <div v-show="docente == true">
                             <label for>Docentes</label>
-                            <multiselect v-model="cdocente" :options="optionsd" tag-placeholder="Add this as new tag"
+                            <students-course :getIdUser="getIdUser" :findStudentOrTeacher="findStudentOrTeacher"></students-course>
+                            <!-- <multiselect v-model="cdocente" :options="optionsd" tag-placeholder="Add this as new tag"
                                 placeholder="Search or add a tag" label="name" track-by="id" :multiple="true"
-                                :taggable="true" @tag="addTagd"></multiselect>
+                                :taggable="true" @tag="addTagd"></multiselect> -->
                         </div>
                         <br />
                         <div v-show="estudiante == true">
                             <label for>Estudiantes</label>
-                            <multiselect v-model="cestudiante" :options="optionse" tag-placeholder="Add this as new tag"
-                                placeholder="Search or add a tag" label="name" track-by="id" :multiple="true"
-                                :taggable="true" @tag="addTage"></multiselect>
+                            <students-course :getIdUser="getIdUser" :findStudentOrTeacher="findStudentOrTeacher"></students-course>
                         </div>
                         <br />
-                        <div v-show="padres == true">
-                            <label for>Padres</label>
-                            <multiselect v-model="cpadres" :options="optionsp" tag-placeholder="Add this as new tag"
-                                placeholder="Search or add a tag" label="name" track-by="id" :multiple="true"
-                                :taggable="true" @tag="addTaga"></multiselect>
-                        </div>
-                        <div v-show="administrative == true">
-                            <label for>Administrativos</label>
-                            <multiselect v-model="cadministrative" :options="optionsa"
+                        <div v-show="results.length >0">
+                            <label for>{{  administrative == true ? 
+                                            'Administrativos' : padres == true ? 
+                                            'Padres' : psicologia == true ? 
+                                            'Psicología' : schoolGov == true ? 
+                                            'Gobierno Escolar' : coordinadores == true ?
+                                            'Coordinadores' : enfermeria == true ?
+                                            'Enfermeria' : tutores == true ? 
+                                            'Tutores' : ''
+                                        }}
+                            </label>
+                            <multiselect v-model="cresult" :options="results"
                                 tag-placeholder="Add this as new tag" placeholder="Search or add a tag" label="name"
                                 track-by="id" :multiple="true" :taggable="true" @tag="addTaga"></multiselect>
                         </div>
@@ -95,18 +114,165 @@
 <script>
     import Multiselect from "vue-multiselect";
     import DecoupledEditor from "@ckeditor/ckeditor5-build-decoupled-document";
+    import StudentsCourse from './studentsCourse.vue';
     // register globally
     Vue.component("multiselect", Multiselect);
     export default {
         props: ['user'],
         // OR register locally
         components: {
-            Multiselect
+            Multiselect,
+            StudentsCourse
+        },
+        watch:{
+            administrative: function(newVal){
+                if(newVal == true){
+                    this.results = this.optionsa;
+
+                    this.administrative = true;
+                    this.docente = false;
+                    this.estudiante = false;
+                    this.padres = false;
+                    this.psicologia = false;
+                    this.schoolGov = false;
+                    this.tutores = false;
+                    this.coordinadores = false;
+                    this.enfermeria = false;
+                }
+            },
+
+            docente: function(newVal){
+                if(newVal == true){
+                    this.results = this.optionsd;
+                    this.administrative = false;
+                    this.docente = true;
+                    this.estudiante = false;
+                    this.padres = false;
+                    this.psicologia = false;
+                    this.schoolGov = false;
+                    this.tutores = false;
+                    this.coordinadores = false;
+                    this.enfermeria = false;
+                }
+            },
+
+            estudiante: function(newVal){
+                if(newVal == true){
+                    this.results = this.optionsp;
+                    this.administrative = false;
+                    this.docente = false;
+                    this.estudiante = true;
+                    this.padres = false;
+                    this.psicologia = false;
+                    this.schoolGov = false;
+                    this.tutores = false;
+                    this.coordinadores = false;
+                    this.enfermeria = false;
+                }
+            },
+
+            padres: function(newVal){
+                if(newVal == true){
+                    this.results = this.optionsp;
+                    this.administrative = false;
+                    this.docente = false;
+                    this.estudiante = false;
+                    this.padres = true;
+                    this.psicologia = false;
+                    this.schoolGov = false;
+                    this.tutores = false;
+                    this.coordinadores = false;
+                    this.enfermeria = false;
+                }
+            },
+
+            psicologia: function(newVal){
+                if(newVal == true){
+                    this.results = this.optionspsi;
+
+                    this.administrative = false;
+                    this.docente = false;
+                    this.estudiante = false;
+                    this.padres = false;
+                    this.psicologia = true;
+                    this.schoolGov = false;
+                    this.tutores = false;
+                    this.coordinadores = false;
+                    this.enfermeria = false;
+                }
+            },
+
+            schoolGov: function(newVal){
+                if(newVal == true){
+                    this.results = this.optionsgov;
+
+                    this.administrative = false;
+                    this.docente = false;
+                    this.estudiante = false;
+                    this.padres = false;
+                    this.psicologia = false;
+                    this.schoolGov = true;
+                    this.tutores = false;
+                    this.coordinadores = false;
+                    this.enfermeria = false;
+                }
+            },
+
+            tutores: function(newVal){
+                if(newVal == true){
+                    this.results = this.optionst;
+
+                    this.administrative = false;
+                    this.docente = false;
+                    this.estudiante = false;
+                    this.padres = false;
+                    this.psicologia = false;
+                    this.schoolGov = false;
+                    this.tutores = true;
+                    this.coordinadores = false;
+                    this.enfermeria = false;
+                }
+            },
+            
+            coordinadores: function(newVal){
+                if(newVal == true){
+                    this.results = this.optionsc;
+
+                    this.administrative = false;
+                    this.docente = false;
+                    this.estudiante = false;
+                    this.padres = false;
+                    this.psicologia = false;
+                    this.schoolGov = false;
+                    this.tutores = false;
+                    this.coordinadores = true;
+                    this.enfermeria = false;
+                }
+            },
+            
+            enfermeria: function(newVal){
+                if(newVal == true){
+                    this.results = this.optionsen;
+
+                    this.administrative = false;
+                    this.docente = false;
+                    this.estudiante = false;
+                    this.padres = false;
+                    this.psicologia = false;
+                    this.schoolGov = false;
+                    this.tutores = false;
+                    this.coordinadores = false;
+                    this.enfermeria = true;
+                }
+            },
+
         },
         data() {
             return {
                 user_rol: this.user.type_user === 4 ? true : false,
+                teacher: this.user.type_user === 2 ? true : false,
                 editor: DecoupledEditor,
+                findStudentOrTeacher: '',
                 editorData: "<p>Escribir...</p>",
                 dataBoard: {},
                 value: [{
@@ -118,15 +284,27 @@
                 optionse: [],
                 optionsd: [],
                 optionsp: [],
+                optionsc: [],
+                optionst: [],
+                optionsen: [],
+                optionspsi:[],
+                optionsgov:[],
+                results: [],
+
+                administrative: false,
                 docente: false,
                 estudiante: false,
-                administrative: false,
                 padres: false,
+                psicologia: false,
+                schoolGov: false,
+                tutores: false,
+                coordinadores: false,
+                enfermeria: false,
+                
                 asunto: "",
                 cdocente: [],
                 cestudiante: [],
-                cadministrative: [],
-                cpadres: [],
+                cresult:[],
                 correos: [],
             };
         },
@@ -135,18 +313,43 @@
             axios.get(urlUsers).then((response) => {
                 this.options = response.data;
                 for (let i = 0; i < this.options.length; i++) {
-                    if (this.options[i].type_user == 2) {
-                        this.optionsd.push(this.options[i]);
-                    }
+                    console.log(this.options[i].name)
+                    // Opciones Administrador
                     if (this.options[i].type_user == 1) {
                         this.optionsa.push(this.options[i]);
-                        console.log(this.optionsa);
+                        // console.log(this.optionsa);
                     }
+                    // Opciones docentes
+                    if (this.options[i].type_user == 2) {
+                        this.optionsd.push(this.options[i]);
+                    }  
+                    //Opciones Estudiantes                  
                     if (this.options[i].type_user == 3) {
                         this.optionse.push(this.options[i]);
                     }
+                    //Opciones Acudientes
                     if (this.options[i].type_user == 4) {
                         this.optionsp.push(this.options[i]);
+                    }
+                    //Opciones Psicologia
+                    if (this.options[i].type_user == 5) {            
+                        this.optionspsi.push(this.options[i]);
+                    }
+                    //Opciones Govierno Escolar
+                    if (this.options[i].type_user == 6) {
+                        this.optionsgov.push(this.options[i]);
+                    }
+                    //Opciones Tutores
+                    if (this.options[i].type_user == 7) {
+                        this.optionst.push(this.options[i]);
+                    }
+                    //Opciones Coordinador
+                    if (this.options[i].type_user == 8) {
+                        this.optionsc.push(this.options[i]);
+                    }
+                    //Opciones Enfermeria
+                    if (this.options[i].type_user == 9) {
+                        this.optionsen.push(this.options[i]);
                     }
                 }
             });
@@ -185,20 +388,13 @@
                         editor.ui.getEditableElement()
                     );
             },
-            btD() {
-                if (this.docente == false) {
-                    this.docente = true;
-                } else {
-                    this.docente = false;
+            getIdUser(data){
+                if(data){
+                    this.correos.push(data.user_id)
+                    toastr.success(`Estudiante ${data.user_name} Seleccionado`);
                 }
             },
-            btE() {
-                if (this.estudiante == false) {
-                    this.estudiante = true;
-                } else {
-                    this.estudiante = false;
-                }
-            },
+            // Administrados
             btA() {
                 if (this.administrative == false) {
                     this.administrative = true;
@@ -206,6 +402,26 @@
                     this.administrative = false;
                 }
             },
+            // Docente
+            btD() {
+                if (this.docente == false) {
+                    this.docente = true;
+                } else {
+                    this.docente = false;
+                }
+                this.findStudentOrTeacher = 2;
+            },
+            // Estudiante
+            btE() {
+                if (this.estudiante == false) {
+                    this.estudiante = true;
+                    this.findStudentOrTeacher = 1;
+                } else {
+                    this.estudiante = false;
+                }
+                
+            },
+            // Padres
             btP() {
                 if (this.padres == false) {
                     this.padres = true;
@@ -213,16 +429,56 @@
                     this.padres = false;
                 }
             },
+            //Psicologia
+            btPsi() {
+                if (this.psicologia == false) {
+                    this.psicologia = true;
+                } else {
+                    this.psicologia = false;
+                }
+            },
+            // Gobierno Escolar
+            btSchoolGov() {
+                if (this.schoolGov == false) {
+                    this.schoolGov = true;
+                } else {
+                    this.schoolGov = false;
+                }
+            },
+            // Tutor
+            btT(){
+                if (this.tutores == false) {
+                    this.tutores = true;
+                } else {
+                    this.tutores = false;
+                }
+            },
+            // Coordinador
+            btC(){
+                if (this.coordinadores == false) {
+                    this.coordinadores = true;
+                } else {
+                    this.coordinadores = false;
+                }
+            },
+            // Enfermeria
+            btEn(){
+                if (this.enfermeria == false) {
+                    this.enfermeria = true;
+                } else {
+                    this.enfermeria = false;
+                }
+            },
             saveM() {
                 let date = new Date();
                 let hourly = date.getHours();
                 let minutes = date.getMinutes();
 
-                console.log("data: ", this.editorData);
+                // console.log("data: ", this.editorData);
                 var url = "sendMessages";
-                if (this.cadministrative.length >= 1) {
-                    for (let i = 0; i < this.cadministrative.length; i++) {
-                        this.correos.push(this.cadministrative[i].id);
+                if (this.cresult.length >= 1) {
+                    for (let i = 0; i < this.cresult.length; i++) {
+                        this.correos.push(this.cresult[i].id);
                     }
                 }
                 if (this.cestudiante.length >= 1) {
@@ -233,12 +489,6 @@
                 if (this.cdocente.length >= 1) {
                     for (let i = 0; i < this.cdocente.length; i++) {
                         this.correos.push(this.cdocente[i].id);
-                    }
-                }
-                if (this.cpadres.length >= 1) {
-                    console.log(this.cpadres);
-                    for (let i = 0; i < this.cpadres.length; i++) {
-                        this.correos.push(this.cpadres[i].id);
                     }
                 }
                 axios

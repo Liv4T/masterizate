@@ -325,6 +325,13 @@ Route::put('/changePassword', 'UserController@changePassword')->name('changePass
 
 Route::middleware('auth')->get('showUser', 'UserController@show')->name('users_save');
 Route::middleware('auth')->post('img_user', 'UserController@uploadFile')->name('img_user');
+Route::get('getAdministrators','UserController@getAdministrators');
+Route::get('getParents','UserController@getParents');
+Route::get('getPsicologist','UserController@getPsicologist');
+Route::get('getSchoolGovernment','UserController@getSchoolGovernment');
+Route::get('getTutor','UserController@getTutor');
+Route::get('getCoordinador','UserController@getCoordinador');
+Route::get('getNurse','UserController@getNurse');
 
 Route::middleware('auth')->post('savePrintDoc', 'HomeController@savePrintDoc')->name('savePrintDoc');
 Route::get('downloadFile', 'HomeController@downloadFile')->name('downloadFile');
@@ -348,6 +355,8 @@ Route::resource('types', 'TypeUserController', ['except' => 'show', 'create', 'e
 Route::resource('tasks', 'TaskController', ['except' => 'show', 'create', 'edit']);;
 Route::resource('categories', 'CategoryController', ['except' => 'show', 'create', 'edit']);;
 Route::resource('users', 'UserController', ['except' => 'show', 'create', 'edit']);;
+Route::get('getStudentsByClassroom','UserController@getStudentsByClassroom');
+Route::get('getTeachersByClassroom','UserController@getTeachersByClassroom');
 Route::resource('resumes', 'ResumeController', ['except' => 'show', 'create', 'edit']);;
 Route::resource('courses', 'courseController', ['except' => 'show', 'create', 'edit']);
 Route::resource('Courses', 'CoursesController', ['except' => 'show', 'create', 'edit']);
@@ -916,8 +925,16 @@ Route::resource('deleteClassAndCicles','DeleteClassAndCiclesController');
 Route::get('getPermissions','DeleteClassAndCiclesController@getPermissions');
 
 //Modulo para registrar las asistencias 
-Route::resource('assistance','AssistanceController');
-Route::get('getAssistants','AssistanceController@showAssistance');
+Route::resource('assistance/{id_area}/{id_classroom}','AssistanceController', ['parameters' => ['{id_class}' => 'idclass','{id_classroom}' => 'idClassroom']]);
+Route::get('getClassroom/{id_area}/{id_classromm}','AssistanceController@getClassroom');
+Route::get('getAssistants/{classroom_name}','AssistanceController@showAssistance');
+Route::get('assistance/{id_student}','AssistanceController@show');
+Route::put('assistance/{id_assistance}','AssistanceController@update');
+Route::delete('assistance/{id_assistance}','AssistanceController@destroy');
+
+//Modulo de motivo de faltas de asistencias
+Route::resource('motiveAssistants','AssitantsMotivesController');
+Route::get('getMotives','AssitantsMotivesController@getMotives');
 
 //Modulo de Efectividad
 

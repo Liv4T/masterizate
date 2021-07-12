@@ -8,6 +8,7 @@ use App\User;
 use Illuminate\Support\Facades\Hash;
 use Auth;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
+use DB;
 
 class UserController extends Controller
 {
@@ -69,6 +70,63 @@ class UserController extends Controller
             
         }
     }
+
+    public function getStudentsByClassroom(){
+        $students = DB::table('classroom_student')
+            ->join('users', 'classroom_student.id_user', '=', 'users.id')
+            ->join('classroom', 'classroom_student.id_classroom', '=', 'classroom.id')
+            ->select('classroom_student.id as classroom_student_id','classroom_student.id_classroom as classroom_id','classroom.name as classroom_name','users.id as user_id','users.name as user_name','users.last_name as user_last_name')
+            ->get();
+
+        return response()->json($students);
+    }
+
+    public function getTeachersByClassroom(){
+        $teachers = DB::table('classroom_teacher')
+            ->join('users','classroom_teacher.id_user','=','users.id')
+            ->join('area','classroom_teacher.id_classroom','=','area.id')
+            ->select('users.id as user_id','users.name as user_name','users.last_name as user_last_name','area.name as area_name')
+            ->get();
+
+        return response()->json($teachers);
+    }
+
+    public function getAdministrators(){
+        $administrators = User::where('type_user','=',1)->get();
+        return response()->json($administrators);
+    }
+
+    public function getParents(){
+        $parents = User::where('type_user','=',4)->get();
+        return response()->json($parents);
+    }
+
+
+    public function getPsicologist(){
+        $psicologist = User::where('type_user','=',5)->get();
+        return response()->json($psicologist);   
+    }
+
+    public function getSchoolGovernment(){
+        $administrators = User::where('type_user','=',6)->get();
+        return response()->json($administrators);   
+    }
+
+    public function getTutor(){
+        $psicologist = User::where('type_user','=',7)->get();
+        return response()->json($psicologist);   
+    }
+
+    public function getCoordinador(){
+        $psicologist = User::where('type_user','=',8)->get();
+        return response()->json($psicologist);   
+    }
+
+    public function getNurse(){
+        $nurse = User::where('type_user','=',9)->get();
+        return response()->json($nurse);
+    }
+
 
     /**
      * Show the form for creating a new resource.

@@ -3,7 +3,7 @@
         <div class="row justify-content-center">
             <div id="crud" class="col-sm-10">
                 <div class="card-header fondo text-center mb-3">
-                    <h4>Permisos de Salidas Pedagogicas</h4>
+                    <h4>Permisos de Salidas Pedagógicas</h4>
                 </div>
                 <div id="accordion">
                     <div class="card" v-for="(perm,key) in permissions" :key="key">

@@ -577,7 +577,7 @@ var staticRenderFns = [
       ),
       _vm._v(" "),
       _c("a", { staticClass: "btn btn-primary", attrs: { href: "/nursing" } }, [
-        _vm._v("Enfermeria")
+        _vm._v("Enfermería")
       ])
     ])
   },
@@ -595,7 +595,7 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Observación Medica")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Alergias Medicas")]),
+        _c("th", [_vm._v("Alergias Médicas")]),
         _vm._v(" "),
         _c("th", [_vm._v("Acción")])
       ])

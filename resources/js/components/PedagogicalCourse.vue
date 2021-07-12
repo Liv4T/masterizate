@@ -3,10 +3,10 @@
         <div class="col-sm-10">
             <div class="card text-center">
                 <div class="card-header fondo">
-                    <h4>Salidas Pedagogicas</h4>
+                    <h4>Salidas Pedagógicas</h4>
                 </div>
             </div>
-            <button class="mb-4 btn btn-primary" data-toggle="modal" data-target="#exampleModal">Crear Salidas Pedagogicas</button>
+            <button class="mb-4 btn btn-primary" data-toggle="modal" data-target="#exampleModal">Crear Salidas Pedagógicas</button>
             <div class="card">
                 <div class="card-body">
                     <div id="accordion">

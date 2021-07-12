@@ -314,7 +314,7 @@ var render = function() {
             staticClass: "mb-4 btn btn-primary",
             attrs: { "data-toggle": "modal", "data-target": "#exampleModal" }
           },
-          [_vm._v("Crear Utiles")]
+          [_vm._v("Crear Útiles")]
         ),
         _vm._v(" "),
         _c("div", { staticClass: "card" }, [
@@ -439,7 +439,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "card text-center" }, [
       _c("div", { staticClass: "card-header fondo" }, [
-        _c("h4", [_vm._v("Utiles")])
+        _c("h4", [_vm._v("Útiles")])
       ])
     ])
   },

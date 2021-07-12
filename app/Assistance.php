@@ -14,9 +14,6 @@ class Assistance extends Model
         'course',
         'id_student',
         'id_teacher',
-        'assistance',
-        'excuse',
-        'other_motive',
-        'motive'
+        'id_motive'
     ];
 }

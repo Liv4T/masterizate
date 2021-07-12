@@ -282,6 +282,7 @@ export default {
                 
                 this.activityForPIARStudents = false;
                 this.activityForSelectStudents = false;
+                this.saveStudent = []
             }
         },
 
@@ -309,7 +310,13 @@ export default {
                 this.activityForAllStudents = false;
                 this.selectedStudentsData = this.studentsOptions;
             }
-        }        
+        },
+        
+        saveStudent: function(newVal){
+            if(this.activityForAllStudents == false && this.activityForPIARStudents == true || this.activityForSelectStudents == true && newVal){
+                this.course.selectedStudents = JSON.stringify(this.saveStudent);
+            }
+        }
     },
     mounted() {
 
@@ -413,7 +420,6 @@ export default {
         },
 
         SaveDataEvent(){
-            console.log(this.course)
             axios.put(`/api/teacher/module/${this.id_module}/class`,this.course).then((response) => {
                // this.getPlanificationEvent(this.id_lective_planification);
                 toastr.success("Clases actualizadas correctamente");

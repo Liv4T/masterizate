@@ -576,7 +576,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "card text-center" }, [
       _c("div", { staticClass: "card-header fondo" }, [
-        _c("h4", [_vm._v("Enfermeria")])
+        _c("h4", [_vm._v("Enfermería")])
       ])
     ])
   },
@@ -588,7 +588,7 @@ var staticRenderFns = [
       _c("tr", [
         _c("th", [_vm._v("Estudiante")]),
         _vm._v(" "),
-        _c("th", [_vm._v("RH Sanguineo")]),
+        _c("th", [_vm._v("RH Sanguíneo")]),
         _vm._v(" "),
         _c("th", [_vm._v("Alergias")]),
         _vm._v(" "),
