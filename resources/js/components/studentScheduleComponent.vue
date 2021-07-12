@@ -126,7 +126,7 @@
                     <textarea class="form-control" rows="5" v-model="schedule_selected.observations"></textarea>
                   </div>
                 </div>
-                <a href="javascript:void(0)" class="btn btn-primary" @click="SaveProgramSchedule()">Programar tutoría</a>
+                <a href="javascript:void(0)" class="btn btn-primary" @click="SaveProgramSchedule()">Pagar tutoría</a>
               </div>
             </div>
           </div>
@@ -148,6 +148,7 @@
       return {
         areas: [],
         schedules: [],
+        events: [],
         date_find: "",
         loading: false,
         schedule_selected: {},
@@ -258,13 +259,19 @@
         $("#modalSelectSchedule").modal("hide");
         axios
           .put(`/api/student/area/${this.schedule_selected.area_id}/classroom/${this.schedule_selected.classroom_id}/schedule/programe`, this.schedule_selected)
-          .then(() => {
+          .then((response) => {
+            this.events=response.data;
+            console.log(this.events);
             toastr.success("Tutoría programada correctamente.");
             this.SearchSchedules(this.schedule_selected.area_id, this.schedule_selected.classroom_id);
+            this.getResumen();
           })
           .catch((e) => {
             this.loading = false;
           });
+      },
+      getResumen(){
+        window.location = `/compra/plan/tutoria/${this.events.id}/${this.events.tutorschedule_id}/resumen`;
       },
       getScheduleEvent(){
            axios

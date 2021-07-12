@@ -315,6 +315,18 @@ Vue.component("piar-planification", ()=>import("./components/PIARPlanification.v
 Vue.component("piar-anual-planification", ()=>import("./components/PIARAnualPlanificationComponent.vue"));
 //Modulo Cliente
 Vue.component("menu-cliente", ()=>import("./components/menuCliente.vue"));
+//Error pay paypal
+Vue.component("purchase-plan-pay-error", () => import ("./components/purchasePlanPayErrorComponent.vue"));
+//Result pay paypal
+Vue.component("purchase-pay-paypal-result", () => import ("./components/purchasePlanPayResultPaypalComponent.vue"));
+//Actas Padres
+Vue.component("proceedings-parents-component", () => import ("./components/proceedingsParentsComponent.vue"));
+Vue.component("list-proceedings-parents-component", () => import ("./components/listProceedingsParents.vue"));
+Vue.component("modal-update-proceedings", () => import ("./components/modalUpdateProceedings.vue"));
+Vue.component("view-proceedings-pdf-component", () => import ("./components/viewProceedingsPdfComponent.vue"));
+//Actas Generales
+Vue.component("list-proceedings-general-component", () => import ("./components/listProceedingsGeneral.vue"));
+Vue.component("proceedings-general-component", () => import ("./components/proceedingsGeneralComponent.vue"));
 
 Vue.use(CKEditor);
 
