@@ -596,6 +596,7 @@ class CoursesController extends Controller
                  foreach ($class_planning as $key_c => $clase) {
                     $class =Classs::create([
                         'name'=>$clase->name,
+                        'date_init_class'=>$data['fromData']['class_planning']['date_init_class'],
                         'description'=> $clase->description,
                         'name_document'=> $clase->name_document,
                         'document'=> $clase->document,
@@ -648,6 +649,7 @@ class CoursesController extends Controller
 
                     $class=Classs::create([
                         'name'=>$clase->name,
+                        'date_init_class'=>$data['fromData']['class_planning']['date_init_class'],
                         'description'=> $clase->description,
                         'name_document'=> $clase->name_document,
                         'document'=> $clase->document,
@@ -692,6 +694,7 @@ class CoursesController extends Controller
 
                     Classs::where('id',$data['toData']['class_planning']['id'])->update([
                         'name'=>$clase->name,
+                        'date_init_class'=>$data['fromData']['class_planning']['date_init_class'],
                         'description'=> $clase->description,
                         'name_document'=> $clase->name_document,
                         'document'=> $clase->document,

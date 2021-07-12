@@ -191,8 +191,35 @@
         <div class="col-md-10 mx-auto text-right">
           <button class="btn btn-warning" 
           :disabled="fromData.area=='null' || toData.area=='null' || toData.weekly_planning=='null'" 
-          @click="copyInformationEvent">Copiar información</button>
+          type="button" data-toggle="modal" data-target="#exampleModal">Copiar información</button>
         </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Cambio de Fecha</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="alert alert-primary" role="alert">
+              Por favor Modifica la fecha de inicio de Clase
+            </div>
+            <div v-show="fromData.class_planning!='all'">
+              <label for="date">Fecha Inicio de Clase</label>
+              <input type="datetime-local" class="form-control" v-model="fromData.class_planning.date_init_class"/>
+            </div>            
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            <button type="button" class="btn btn-primary" v-on:click="copyInformationEvent">Guardar Cambios</button>
+          </div>
+        </div>
+      </div>
     </div>
  
     <!-- END CONTENT -->
@@ -332,16 +359,10 @@ export default {
   methods: {
     copyInformationEvent()
     {
-      //
-       axios.put("/api/planification/copy",{fromData:this.fromData,toData:this.toData}).then((response) => {
+      axios.put("/api/planification/copy",{fromData:this.fromData,toData:this.toData}).then((response) => {
         toastr.success("Información duplicada correctamente");
         //location.href="/actividad_g";
-      });
-     
-     // 
-
-     console.log(this.fromData);
-     console.log(this.toData);
+      });      
     },
     onChangePlanTo($event){
 
