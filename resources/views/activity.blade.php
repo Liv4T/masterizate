@@ -4,7 +4,7 @@
 <!--<formstyle></formstyle>-->
     @include('menu')
     @if (Auth::user()->isTeacher()||Auth::user()->isPsychology()||Auth::user()->isTutor())
-        <inicio-component></inicio-component>
+
     @endif
   <actividad-docente :week="{{ $week }}"></actividad-docente>
   <footers></footers>

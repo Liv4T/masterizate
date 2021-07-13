@@ -4,7 +4,7 @@
 @section('content')
   @include('menu')
     @if (Auth::user()->isTeacher()||Auth::user()->isPsychology()||Auth::user()->isTutor())
-        <inicio-component></inicio-component>
+
     @endif
     <lectives-teacher-indicators :id_lective_planification="{{ $id_lective_planification }}"></lectives-teacher-indicators>
 

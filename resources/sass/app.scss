@@ -120,3 +120,20 @@
     text-decoration: none;
     color: $color-2;
 }
+@font-face {
+    font-family: "Poppins";
+    src: url('fonts/PoppinsRegular.ttf') format("truetype");
+}
+@font-face {
+    font-family: "PoppinsBold";
+    src: url('fonts/PoppinsSemiBold.ttf') format("truetype");
+}
+.letra-poppins{
+font-family: "Poppins";
+}
+.letra-poppins-bold {
+font-family: "PoppinsBold";
+
+}
+
+

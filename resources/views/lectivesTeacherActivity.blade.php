@@ -3,7 +3,7 @@
 @section('content')
       @include('menu')
     @if (Auth::user()->isTeacher()||Auth::user()->isPsychology()||Auth::user()->isTutor())
-        <inicio-component></inicio-component>
+
     @endif
   <lectives-teacher-activity :id_lective_planification="{{ $id_lective_planification }}" :id_weekly_plan="{{ $id_weekly_plan }}" :id_course="{{ $id_course }}"></lectives-teacher-activity>
   <footers></footers>

@@ -3,7 +3,7 @@
 @section('content')
     @include('menu')
     @if (Auth::user()->isTeacher()||Auth::user()->isPsychology()||Auth::user()->isTutor())
-        <inicio-component></inicio-component>
+
     @endif
   <anunciomc-component></anunciomc-component>
   <footers></footers>

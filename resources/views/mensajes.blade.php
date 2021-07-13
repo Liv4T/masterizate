@@ -3,11 +3,10 @@
 @section('content')
       @include('menu')
     @if (Auth::user()->isTeacher()||Auth::user()->isPsychology()||Auth::user()->isTutor())
-        <inicio-component></inicio-component>
+
     @endif
  @if (Auth::user()->type_user == '5')
  <menu-psychology></menu-psychology>
- <inicio-component></inicio-component>
 @endif
  @if (Auth::user()->type_user == '4')
     <menu-padres></menu-padres>

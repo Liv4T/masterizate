@@ -1,8 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
-@include('menu')
-<inicio-component></inicio-component>
+    @if (Auth::user()->isTeacher()||Auth::user()->isPsychology()||Auth::user()->isTutor()||Auth::user()->isAdmin())
+    @include('menu')
+    @endif
+       @if (Auth::user()->isStudent())
+        <inicio-component :user="{{Auth::user()}}"></inicio-component>
+    @endif
+
 {{-- <memory-create></memory-create> --}}
 <div class="container">
 

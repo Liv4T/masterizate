@@ -11011,4 +11011,22 @@ a.text-dark:focus {
   color: #ffffff;
 }
 
+@font-face {
+  font-family: "Poppins";
+  src: url(/fonts/PoppinsRegular.ttf?8b6af8e5e8324edfd77af8b3b35d7f9c) format("truetype");
+}
+
+@font-face {
+  font-family: "PoppinsBold";
+  src: url(/fonts/PoppinsSemiBold.ttf?4cdacb8f89d588d69e8570edcbe49507) format("truetype");
+}
+
+.letra-poppins {
+  font-family: "Poppins";
+}
+
+.letra-poppins-bold {
+  font-family: "PoppinsBold";
+}
+
 /* (ignored) *//* (ignored) *//* (ignored) *//* (ignored) *//* (ignored) */

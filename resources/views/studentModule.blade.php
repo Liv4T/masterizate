@@ -3,7 +3,7 @@
 @section('content')
   @include('menu')
     @if (Auth::user()->isTeacher()||Auth::user()->isPsychology()||Auth::user()->isTutor())
-        <inicio-component></inicio-component>
+
     @endif
 <student-module :id_module="{{ $id_module }}"></student-module>
 <footers></footers>

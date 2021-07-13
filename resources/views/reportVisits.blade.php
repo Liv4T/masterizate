@@ -3,7 +3,6 @@
 @section('content')
   @if (Auth::user()->type_user == '5')
         <menu-psychology></menu-psychology>
-        <inicio-component></inicio-component>
   @endif
   <report-visits-component :id_student="{{ $id_student }}"></report-visits-component>
   <footers></footers>

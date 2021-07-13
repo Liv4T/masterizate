@@ -2,7 +2,7 @@
 
 @section('content')
   @include('menu')
-  <inicio-component></inicio-component>
+
   <classroom-component :type_u="{{ $type_user }}"></classroom-component>
   <footers></footers>
 <div class="container">

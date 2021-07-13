@@ -3,7 +3,7 @@
 @section('content')
       @include('menu')
     @if (Auth::user()->isTeacher()||Auth::user()->isPsychology()||Auth::user()->isTutor())
-        <inicio-component></inicio-component>
+
     @endif
 <semanalact-component :id_area="{{ $id_area }}" :id_classroom="{{ $id_classroom }}"></semanalact-component>
 <div class="container">

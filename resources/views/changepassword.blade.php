@@ -4,7 +4,7 @@
 <!--formstyle></formstyle-->
 @include('menu')
 @if (Auth::user()->isTeacher())
-      <inicio-component></inicio-component>
+
 @endif
 <changepassword-component ></changepassword-component>
   <footers></footers>

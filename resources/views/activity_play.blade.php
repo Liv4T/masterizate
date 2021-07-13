@@ -3,7 +3,7 @@
 @section('content')
     @include('menu')
     @if (Auth::user()->isTeacher()||Auth::user()->isPsychology()||Auth::user()->isTutor())
-        <inicio-component></inicio-component>
+
     @endif
   <activity-student-play-component :id_area="{{ $id_area }}" :id_classroom="{{ $id_classroom }}" :id_activity="{{ $id_activity }}"></activity-student-play-component>
   <footers></footers>
