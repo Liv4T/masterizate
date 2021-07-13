@@ -50,7 +50,7 @@ class ReportsParentsController extends Controller
                     'activity.description as activity_description',
                     'activity.delivery_max_date as activity_date',
                     'weekly_plan.driving_question as weekly_plan_driving_question',
-                    'weekly_plan.observation as weekly_plan_observation',
+                    'weekly_plan.observation as weekly_plan_observation'
                 )
                  ->where('area.id','=',$area_id)
                  ->where('activity.delivery_max_date','>=',$actual_date)
