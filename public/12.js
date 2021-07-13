@@ -65,36 +65,73 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
     pdf: vue_pdf__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
+  props: ["user"],
   data: function data() {
     return {
-      show: true,
-      pdfList: [""],
-      src: "../../uploads/Terminos _Condiciones_liv4t.pdf",
-      loadedRatio: 0,
-      page: 1,
-      numPages: 0,
-      rotate: 0,
-      terminos: []
+      clases: [],
+      areas: [],
+      descripcion: "",
+      logro: "",
+      fechaE: "",
+      fechaR: "",
+      id_act: "",
+      errors: [],
+      fillS: [],
+      activetab: 1,
+      nameArea: "",
+      planifications: ""
     };
   },
   mounted: function mounted() {
     var _this = this;
 
-    var url = window.location.origin + "/getTerms";
-    axios.get(url).then(function (response) {
-      _this.terminos = response.data;
-
-      if (_this.terminos.status == 1) {
-        $("#modalini").modal("hide");
-      } else {
-        $("#modalini").modal("show");
-      }
+    axios.get("/api/lectives").then(function (response) {
+      _this.planifications = response.data;
     });
+    var url = "/GetArearByUser";
+    axios.get(url).then(function (response) {
+      _this.areas = response.data;
+    });
+    console.log("Component mounted.");
   },
   methods: {
     modaliniciar: function modaliniciar() {
@@ -127,7 +164,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\r\n/* .back-calendar {\r\n  padding-left: 290px;\r\n} */\r\n", ""]);
+exports.push([module.i, "\n.mg-btn {\r\n  margin: 10px;\r\n  min-width: 165px;\n}\n.width-r {\r\n  max-width: 97%;\r\n  border: 1px solid #cccccc82;\r\n  border-radius: 10px;\r\n  box-shadow: 3px 3px 3px 3px #b0acac;\n}\n.tabs {\r\n  margin-top: 20px;\r\n  overflow: hidden;\r\n  margin-left: 90px;\r\n  margin-bottom: -2px;\n}\n.tabs ul {\r\n  list-style-type: none;\r\n  margin-left: 20px;\n}\n.tabs a {\r\n  float: left;\r\n  cursor: pointer;\r\n  padding: 12px 24px;\r\n  transition: background-color 0.2s;\r\n  border: 1px solid #ccc;\r\n  border-right: none;\r\n  background-color: #bfbfbf;\r\n  border-radius: 10px 10px 0 0;\r\n  font-weight: bold;\r\n  color: #fff !important;\n}\n.tabs a:last-child {\r\n  border-right: 1px solid #ccc;\n}\n.pd-20 {\r\n  padding: 20px;\n}\r\n\r\n/* Change background color of tabs on hover */\n.tabs a:hover {\r\n  background-color: #aaa;\r\n  color: #fff;\n}\r\n\r\n/* Styling for active tab */\n.tabs a.active {\r\n  background-color: #00cbcec1;\r\n  color: #fff;\r\n  border-bottom: 2px solid #fff;\r\n  cursor: default;\n}\n.tabcontent {\r\n  border: 1px solid #ccc;\r\n  border-radius: 10px;\r\n  box-shadow: 3px 3px 6px #e1e1e1;\n}\n.content-azul {\r\n  background-color: #00cbcec6;\n}\n.flotante {\r\n  position: fixed;\r\n  top: 380px;\r\n  z-index: 1020;\n}\r\n", ""]);
 
 // exports
 
@@ -179,149 +216,607 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "back-calendar" }, [
-    _c("div", { staticClass: "container" }),
-    _vm._v(" "),
-    _c(
-      "div",
-      {
-        staticClass: "modal fade",
-        attrs: {
-          id: "modalini",
-          "data-backdrop": "static",
-          "data-keyboard": "false"
-        }
-      },
-      [
-        _c("div", { staticClass: "modal-lg modal-dialog" }, [
-          _c("div", { staticClass: "modal-content" }, [
-            _c("div", { staticClass: "card" }, [
-              _vm._m(0),
-              _vm._v(" "),
-              _c("div", { staticClass: "card-body" }, [
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model.number",
-                      value: _vm.page,
-                      expression: "page",
-                      modifiers: { number: true }
-                    }
-                  ],
-                  staticStyle: { width: "5em" },
-                  attrs: { type: "number" },
-                  domProps: { value: _vm.page },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.page = _vm._n($event.target.value)
-                    },
-                    blur: function($event) {
-                      return _vm.$forceUpdate()
-                    }
+  return _c("div", [
+    _c("div", { staticClass: "form-group width-r mx-auto" }, [
+      _c(
+        "div",
+        { staticClass: "row pd-20" },
+        [
+          _c(
+            "div",
+            { staticClass: "dropdown col-md-2" },
+            [
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-danger dropdown-toggle mg-btn",
+                  staticStyle: { "box-shadow": "3px 3px 3px 3px #b0acac" },
+                  attrs: {
+                    type: "button",
+                    id: "admin",
+                    "data-toggle": "dropdown",
+                    "aria-haspopup": "true",
+                    "aria-expanded": "false"
                   }
-                }),
-                _vm._v(
-                  "\n            /" + _vm._s(_vm.numPages) + "\n            "
-                ),
-                _c(
-                  "button",
-                  {
-                    on: {
-                      click: function($event) {
-                        _vm.rotate += 90
-                      }
-                    }
-                  },
-                  [_vm._v("⟳")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    on: {
-                      click: function($event) {
-                        _vm.rotate -= 90
-                      }
-                    }
-                  },
-                  [_vm._v("⟲")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  { staticStyle: { width: "100%" } },
-                  [
-                    _vm.loadedRatio > 0 && _vm.loadedRatio < 1
-                      ? _c(
-                          "div",
-                          {
-                            staticStyle: {
-                              "background-color": "green",
-                              color: "white",
-                              "text-align": "center"
-                            },
-                            style: { width: _vm.loadedRatio * 100 + "%" }
-                          },
-                          [
-                            _vm._v(
-                              _vm._s(Math.floor(_vm.loadedRatio * 100)) + "%"
-                            )
-                          ]
-                        )
-                      : _vm._e(),
-                    _vm._v(" "),
-                    _vm.show
-                      ? _c("pdf", {
-                          ref: "pdf",
-                          staticStyle: { border: "1px solid red" },
-                          attrs: {
-                            src: _vm.src,
-                            page: _vm.page,
-                            rotate: _vm.rotate
-                          },
-                          on: {
-                            progress: function($event) {
-                              _vm.loadedRatio = $event
-                            },
-                            "num-pages": function($event) {
-                              _vm.numPages = $event
-                            },
-                            "link-clicked": function($event) {
-                              _vm.page = $event
-                            }
-                          }
-                        })
-                      : _vm._e()
-                  ],
-                  1
-                )
-              ]),
+                },
+                [_vm._v("Electives")]
+              ),
               _vm._v(" "),
-              _c("div", { staticClass: "modal-footer" }, [
-                _c(
-                  "button",
+              _vm._l(_vm.planifications, function(area, k) {
+                return _c(
+                  "div",
                   {
-                    staticClass: "btn btn-warning",
-                    attrs: { type: "button" },
-                    on: {
-                      click: function($event) {
-                        $event.preventDefault()
-                        return _vm.modaliniciar()
-                      }
-                    }
+                    key: k,
+                    staticClass: "dropdown-menu",
+                    attrs: { "aria-labelledby": "admin" }
                   },
-                  [_vm._v("Aceptar")]
+                  [
+                    _c(
+                      "a",
+                      {
+                        staticClass: "dropdown-item",
+                        on: {
+                          click: function($event) {
+                            $event.preventDefault()
+                            _vm.nameArea = area.lective.name
+                          }
+                        }
+                      },
+                      [_vm._v(_vm._s(area.lective.name))]
+                    )
+                  ]
                 )
-              ])
+              })
+            ],
+            2
+          ),
+          _vm._v(" "),
+          _vm._l(_vm.areas, function(area, t) {
+            return _c("div", { key: t, staticClass: "col-md-2" }, [
+              t == 0
+                ? _c(
+                    "a",
+                    {
+                      staticClass: "btn btn-warning mg-btn",
+                      staticStyle: {
+                        "background-color": "#ffb466",
+                        "border-color": "#ffb466",
+                        "box-shadow": "3px 3px 3px 3px #b0acac"
+                      },
+                      attrs: { href: "http://" },
+                      on: {
+                        click: function($event) {
+                          $event.preventDefault()
+                          _vm.nameArea = area.text
+                        }
+                      }
+                    },
+                    [
+                      _c(
+                        "h6",
+                        {
+                          staticClass: "letra-poppins-bold",
+                          staticStyle: { color: "black" }
+                        },
+                        [_vm._v(_vm._s(area.text))]
+                      )
+                    ]
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              t == 1
+                ? _c(
+                    "a",
+                    {
+                      staticClass: "btn btn-warning mg-btn",
+                      staticStyle: {
+                        "background-color": "#ffea47",
+                        "border-color": "#ffea47",
+                        "box-shadow": "3px 3px 3px 3px #b0acac"
+                      },
+                      attrs: { href: "http://" },
+                      on: {
+                        click: function($event) {
+                          $event.preventDefault()
+                          _vm.nameArea = area.text
+                        }
+                      }
+                    },
+                    [
+                      _c(
+                        "h6",
+                        {
+                          staticClass: "letra-poppins-bold",
+                          staticStyle: { color: "black" }
+                        },
+                        [_vm._v(_vm._s(area.text))]
+                      )
+                    ]
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              t == 2
+                ? _c(
+                    "a",
+                    {
+                      staticClass: "btn btn-warning mg-btn",
+                      staticStyle: {
+                        "background-color": "#a639b0",
+                        "border-color": "#a639b0",
+                        "box-shadow": "3px 3px 3px 3px #b0acac"
+                      },
+                      attrs: { href: "http://" },
+                      on: {
+                        click: function($event) {
+                          $event.preventDefault()
+                          _vm.nameArea = area.text
+                        }
+                      }
+                    },
+                    [
+                      _c(
+                        "h6",
+                        {
+                          staticClass: "letra-poppins-bold",
+                          staticStyle: { color: "black" }
+                        },
+                        [_vm._v(_vm._s(area.text))]
+                      )
+                    ]
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              t == 3
+                ? _c(
+                    "a",
+                    {
+                      staticClass: "btn btn-warning mg-btn",
+                      staticStyle: {
+                        "background-color": "#50e9fb",
+                        "border-color": "#50e9fb",
+                        "box-shadow": "3px 3px 3px 3px #b0acac"
+                      },
+                      attrs: { href: "http://" },
+                      on: {
+                        click: function($event) {
+                          $event.preventDefault()
+                          _vm.nameArea = area.text
+                        }
+                      }
+                    },
+                    [
+                      _c(
+                        "h6",
+                        {
+                          staticClass: "letra-poppins-bold",
+                          staticStyle: { color: "black" }
+                        },
+                        [_vm._v(_vm._s(area.text))]
+                      )
+                    ]
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              t == 4
+                ? _c(
+                    "a",
+                    {
+                      staticClass: "btn btn-warning mg-btn",
+                      staticStyle: {
+                        "background-color": "#ffa4f2",
+                        "border-color": "#ffa4f2",
+                        "box-shadow": "3px 3px 3px 3px #b0acac"
+                      },
+                      attrs: { href: "http://" },
+                      on: {
+                        click: function($event) {
+                          $event.preventDefault()
+                          _vm.nameArea = area.text
+                        }
+                      }
+                    },
+                    [
+                      _c(
+                        "h6",
+                        {
+                          staticClass: "letra-poppins-bold",
+                          staticStyle: { color: "black" }
+                        },
+                        [_vm._v(_vm._s(area.text))]
+                      )
+                    ]
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              t == 5
+                ? _c(
+                    "a",
+                    {
+                      staticClass: "btn btn-warning mg-btn",
+                      staticStyle: {
+                        "background-color": "#4e92fd",
+                        "border-color": "#4e92fd",
+                        "box-shadow": "3px 3px 3px 3px #b0acac"
+                      },
+                      attrs: { href: "http://" },
+                      on: {
+                        click: function($event) {
+                          $event.preventDefault()
+                          _vm.nameArea = area.text
+                        }
+                      }
+                    },
+                    [
+                      _c(
+                        "h6",
+                        {
+                          staticClass: "letra-poppins-bold",
+                          staticStyle: { color: "black" }
+                        },
+                        [_vm._v(_vm._s(area.text))]
+                      )
+                    ]
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              t == 6
+                ? _c(
+                    "a",
+                    {
+                      staticClass: "btn btn-warning mg-btn",
+                      staticStyle: {
+                        "background-color": "#ff5552",
+                        "border-color": "#ff5552",
+                        "box-shadow": "3px 3px 3px 3px #b0acac"
+                      },
+                      attrs: { href: "http://" },
+                      on: {
+                        click: function($event) {
+                          $event.preventDefault()
+                          _vm.nameArea = area.text
+                        }
+                      }
+                    },
+                    [
+                      _c(
+                        "h6",
+                        {
+                          staticClass: "letra-poppins-bold",
+                          staticStyle: { color: "black" }
+                        },
+                        [_vm._v(_vm._s(area.text))]
+                      )
+                    ]
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              t == 7
+                ? _c(
+                    "a",
+                    {
+                      staticClass: "btn btn-warning mg-btn",
+                      staticStyle: {
+                        "background-color": "#ffc0f6",
+                        "border-color": "#ffc0f6",
+                        "box-shadow": "3px 3px 3px 3px #b0acac"
+                      },
+                      attrs: { href: "http://" },
+                      on: {
+                        click: function($event) {
+                          $event.preventDefault()
+                          _vm.nameArea = area.text
+                        }
+                      }
+                    },
+                    [
+                      _c(
+                        "h6",
+                        {
+                          staticClass: "letra-poppins-bold",
+                          staticStyle: { color: "black" }
+                        },
+                        [_vm._v(_vm._s(area.text))]
+                      )
+                    ]
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              t == 8
+                ? _c(
+                    "a",
+                    {
+                      staticClass: "btn btn-warning mg-btn",
+                      staticStyle: {
+                        "background-color": "#b8ffc2",
+                        "border-color": "#b8ffc2",
+                        "box-shadow": "3px 3px 3px 3px #b0acac"
+                      },
+                      attrs: { href: "http://" },
+                      on: {
+                        click: function($event) {
+                          $event.preventDefault()
+                          _vm.nameArea = area.text
+                        }
+                      }
+                    },
+                    [
+                      _c(
+                        "h6",
+                        {
+                          staticClass: "letra-poppins-bold",
+                          staticStyle: { color: "black" }
+                        },
+                        [_vm._v(_vm._s(area.text))]
+                      )
+                    ]
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              t == 9
+                ? _c(
+                    "a",
+                    {
+                      staticClass: "btn btn-warning mg-btn",
+                      staticStyle: {
+                        "background-color": "#b8ffc2",
+                        "border-color": "#b8ffc2",
+                        "box-shadow": "3px 3px 3px 3px #b0acac"
+                      },
+                      attrs: { href: "http://" },
+                      on: {
+                        click: function($event) {
+                          $event.preventDefault()
+                          _vm.nameArea = area.text
+                        }
+                      }
+                    },
+                    [
+                      _c(
+                        "h6",
+                        {
+                          staticClass: "letra-poppins-bold",
+                          staticStyle: { color: "black" }
+                        },
+                        [_vm._v(_vm._s(area.text))]
+                      )
+                    ]
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              t == 10
+                ? _c(
+                    "a",
+                    {
+                      staticClass: "btn btn-warning mg-btn",
+                      staticStyle: {
+                        "background-color": "#ffea47",
+                        "border-color": "#ffea47",
+                        "box-shadow": "3px 3px 3px 3px #b0acac"
+                      },
+                      attrs: { href: "http://" },
+                      on: {
+                        click: function($event) {
+                          $event.preventDefault()
+                          _vm.nameArea = area.text
+                        }
+                      }
+                    },
+                    [
+                      _c(
+                        "h6",
+                        {
+                          staticClass: "letra-poppins-bold",
+                          staticStyle: { color: "black" }
+                        },
+                        [_vm._v(_vm._s(area.text))]
+                      )
+                    ]
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              t == 11
+                ? _c(
+                    "a",
+                    {
+                      staticClass: "btn btn-warning mg-btn",
+                      staticStyle: {
+                        "background-color": "#00c9ce",
+                        "border-color": "#00c9ce",
+                        "box-shadow": "3px 3px 3px 3px #b0acac"
+                      },
+                      attrs: { href: "http://" },
+                      on: {
+                        click: function($event) {
+                          $event.preventDefault()
+                          _vm.nameArea = area.text
+                        }
+                      }
+                    },
+                    [
+                      _c(
+                        "h6",
+                        {
+                          staticClass: "letra-poppins-bold",
+                          staticStyle: { color: "black" }
+                        },
+                        [_vm._v(_vm._s(area.text))]
+                      )
+                    ]
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              t > 11
+                ? _c(
+                    "a",
+                    {
+                      staticClass: "btn btn-warning mg-btn",
+                      attrs: { href: "http://" }
+                    },
+                    [
+                      _c(
+                        "h6",
+                        {
+                          staticClass: "letra-poppins-bold",
+                          staticStyle: { color: "black" }
+                        },
+                        [_vm._v(_vm._s(area.text))]
+                      )
+                    ]
+                  )
+                : _vm._e()
             ])
-          ])
+          })
+        ],
+        2
+      )
+    ]),
+    _vm._v(" "),
+    _vm.nameArea != ""
+      ? _c("div", [
+          _c("div", { staticClass: "form-group text-center" }, [
+            _c(
+              "a",
+              {
+                staticClass: "btn btn-warning letra-poppins-bold",
+                staticStyle: {
+                  "background-color": "#ffa4f2",
+                  "border-color": "#ffa4f2"
+                },
+                attrs: { href: "" }
+              },
+              [
+                _c("h1", { staticStyle: { color: "black" } }, [
+                  _vm._v(_vm._s(_vm.nameArea))
+                ])
+              ]
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "row" }, [
+            _vm._m(0),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "col-md-9 mx-auto", attrs: { id: "tabs" } },
+              [
+                _c("div", { staticClass: "tabs" }, [
+                  _c(
+                    "a",
+                    {
+                      class: [_vm.activetab === 1 ? "active" : ""],
+                      on: {
+                        click: function($event) {
+                          _vm.activetab = 1
+                        }
+                      }
+                    },
+                    [
+                      _c("h2", { staticClass: "letra-poppins-bold" }, [
+                        _vm._v("CALENDAR")
+                      ])
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "a",
+                    {
+                      class: [_vm.activetab === 2 ? "active" : ""],
+                      on: {
+                        click: function($event) {
+                          _vm.activetab = 2
+                        }
+                      }
+                    },
+                    [
+                      _c("h2", { staticClass: "letra-poppins-bold" }, [
+                        _vm._v("CLASS")
+                      ])
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "a",
+                    {
+                      class: [_vm.activetab === 3 ? "active" : ""],
+                      on: {
+                        click: function($event) {
+                          _vm.activetab = 3
+                        }
+                      }
+                    },
+                    [
+                      _c("h2", { staticClass: "letra-poppins-bold" }, [
+                        _vm._v("HOMEWORK")
+                      ])
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "a",
+                    {
+                      class: [_vm.activetab === 4 ? "active" : ""],
+                      on: {
+                        click: function($event) {
+                          _vm.activetab = 4
+                        }
+                      }
+                    },
+                    [
+                      _c("h2", { staticClass: "letra-poppins-bold" }, [
+                        _vm._v("GRADES")
+                      ])
+                    ]
+                  )
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "content-azul" }, [
+                  _vm.activetab === 1
+                    ? _c(
+                        "div",
+                        { staticClass: "tabcontent" },
+                        [
+                          _c("calendar-component", {
+                            attrs: { type_u: 3, user: _vm.user }
+                          })
+                        ],
+                        1
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.activetab === 2
+                    ? _c(
+                        "div",
+                        { staticClass: "tabcontent" },
+                        [_c("student-courses")],
+                        1
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.activetab === 3
+                    ? _c(
+                        "div",
+                        { staticClass: "tabcontent" },
+                        [_c("repo-student")],
+                        1
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.activetab === 4
+                    ? _c(
+                        "div",
+                        { staticClass: "tabcontent" },
+                        [_c("notas-component")],
+                        1
+                      )
+                    : _vm._e()
+                ])
+              ]
+            )
+          ]),
+          _vm._v(" "),
+          _vm._m(1)
         ])
-      ]
-    )
+      : _vm._e()
   ])
 }
 var staticRenderFns = [
@@ -329,16 +824,61 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("h3", { staticClass: "card-header fondo text-center" }, [
-      _vm._v("\n            Términos y condiciones\n            "),
+    return _c("div", { staticClass: "col-md-2 pd-20 flotante" }, [
       _c(
-        "button",
+        "a",
         {
-          staticClass: "close",
-          attrs: { type: "button", "data-dismiss": "modal" }
+          staticClass: "btn btn-warning letra-poppins-bold mg-btn",
+          staticStyle: {
+            "background-color": "#e26100",
+            "border-color": "#e26100"
+          },
+          attrs: { href: "" }
         },
-        [_c("span", [_vm._v("×")])]
-      )
+        [_c("h4", [_vm._v("CHAT")])]
+      ),
+      _vm._v(" "),
+      _c("br"),
+      _vm._v(" "),
+      _c(
+        "a",
+        {
+          staticClass: "btn btn-warning letra-poppins-bold mg-btn",
+          staticStyle: {
+            "background-color": "#e26100",
+            "border-color": "#e26100"
+          },
+          attrs: { href: "" }
+        },
+        [_c("h4", [_vm._v("FORUMS")])]
+      ),
+      _c("br"),
+      _vm._v(" "),
+      _c(
+        "a",
+        {
+          staticClass: "btn btn-warning letra-poppins-bold mg-btn",
+          staticStyle: {
+            "background-color": "#e26100",
+            "border-color": "#e26100"
+          },
+          attrs: { href: "" }
+        },
+        [_c("h4", [_vm._v("MENSSAGES")])]
+      ),
+      _c("br")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-group text-center" }, [
+      _c("a", { staticClass: "btn btn-warning mg-btn" }, [
+        _c("h1", { staticClass: "letra-poppins-bold" }, [
+          _vm._v("PENDING WORK")
+        ])
+      ])
     ])
   }
 ]
