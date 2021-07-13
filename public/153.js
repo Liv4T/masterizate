@@ -248,8 +248,8 @@ __webpack_require__.r(__webpack_exports__);
             var notes = response.data;
             _this3.dataStudent = {};
             _this3.dataStudent = {
-              area_id: activities.area_id,
-              classroom_id: activities.classroom_id,
+              area_id: activities.area_id ? activities.area_id : assistances.id_area,
+              classroom_id: activities.classroom_id ? activities.classroom_id : assistances.id_classroom,
               "class": activities.area_name + ' ' + activities.classroom_name,
               logro: activities.logro,
               title_activity: activities.activity_name,
