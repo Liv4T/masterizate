@@ -9,7 +9,7 @@
             <div>
                 <div id="crud" class="row justify-content-center">
                     <div class="col-sm-11">
-                        <table-delete-class-and-cicles :showPermission="showPermission"></table-delete-class-and-cicles>
+                        <table-delete-class-and-cicles :showPermission="showPermission" :getCicles="getCicles"></table-delete-class-and-cicles>
                         <div class="card-header fondo text-center mb-3">
                             <h4>Registro de Permiso para eliminar Ciclo</h4>
                         </div>
@@ -298,19 +298,7 @@ import TableDeleteClassAndCicles from './TableDeleteClassAndCicles.vue';
                 this.getCicles(data.id_cicle);
                     
                 $('#createRegister').modal('show');
-            },
-            createUrgentPermission(data){
-                this.is_updated = false;
-                this.saveClass.push({
-                    id: data.id_area+data.id_classroom,
-                    id_area: data.id_area,
-                    id_classroom: data.id_classroom,
-                    text: data.course,
-                })
-                this.getCicles(data.id_cicle);
-                this.id_to_update = data.id;
-                $('#createRegister').modal('show');
-            },
+            },            
             dropData(id){
                 if (window.confirm("Desea Eliminar este Ciclo?")) {
                     axios.delete(`deleteClassAndCicles/${id}`).then((response)=>{

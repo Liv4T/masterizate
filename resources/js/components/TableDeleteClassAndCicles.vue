@@ -52,9 +52,10 @@
 </template>
 <script>
     export default {
-        props:['showPermission'],
+        props:['showPermission','getCicles'],
         data() {
             return {
+                saveClass:[],
                 urgentPermissons:[],
                 search_urgent_class:"",
                 search_urgent_filter:""
@@ -80,6 +81,18 @@
 
             filterUrgentClass(UrgentClass){
                 return UrgentClass.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(this.search_urgent_class.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, ""));
+            },
+            createUrgentPermission(data){
+                this.is_updated = false;
+                this.saveClass.push({
+                    id: data.id_area+data.id_classroom,
+                    id_area: data.id_area,
+                    id_classroom: data.id_classroom,
+                    text: data.course,
+                })
+                this.getCicles(data.id_cicle);
+                this.id_to_update = data.id;
+                $('#createRegister').modal('show');
             },
         }
     }

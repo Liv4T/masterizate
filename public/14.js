@@ -62,9 +62,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['showPermission'],
+  props: ['showPermission', 'getCicles'],
   data: function data() {
     return {
+      saveClass: [],
       urgentPermissons: [],
       search_urgent_class: "",
       search_urgent_filter: ""
@@ -91,6 +92,18 @@ __webpack_require__.r(__webpack_exports__);
     },
     filterUrgentClass: function filterUrgentClass(UrgentClass) {
       return UrgentClass.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(this.search_urgent_class.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, ""));
+    },
+    createUrgentPermission: function createUrgentPermission(data) {
+      this.is_updated = false;
+      this.saveClass.push({
+        id: data.id_area + data.id_classroom,
+        id_area: data.id_area,
+        id_classroom: data.id_classroom,
+        text: data.course
+      });
+      this.getCicles(data.id_cicle);
+      this.id_to_update = data.id;
+      $('#createRegister').modal('show');
     }
   }
 });
@@ -415,18 +428,6 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
       });
       this.id_to_update = data.id;
       this.getCicles(data.id_cicle);
-      $('#createRegister').modal('show');
-    },
-    createUrgentPermission: function createUrgentPermission(data) {
-      this.is_updated = false;
-      this.saveClass.push({
-        id: data.id_area + data.id_classroom,
-        id_area: data.id_area,
-        id_classroom: data.id_classroom,
-        text: data.course
-      });
-      this.getCicles(data.id_cicle);
-      this.id_to_update = data.id;
       $('#createRegister').modal('show');
     },
     dropData: function dropData(id) {
@@ -763,7 +764,10 @@ var render = function() {
                   { staticClass: "col-sm-11" },
                   [
                     _c("table-delete-class-and-cicles", {
-                      attrs: { showPermission: _vm.showPermission }
+                      attrs: {
+                        showPermission: _vm.showPermission,
+                        getCicles: _vm.getCicles
+                      }
                     }),
                     _vm._v(" "),
                     _vm._m(0),

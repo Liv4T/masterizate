@@ -363,13 +363,13 @@ export default {
   methods: {
     copyInformationEvent()
     {
-      console.log(this.fromData);
-      console.log(this.toData);
-      console.log(this.class_planning)
-      // axios.put("/api/planification/copy",{fromData:this.fromData,toData:this.toData, class_planning:this.class_planning}).then((response) => {
-      //   toastr.success("Información duplicada correctamente");
-      //   //location.href="/actividad_g";
-      // });      
+      // console.log(this.fromData);
+      // console.log(this.toData);
+      // console.log(this.class_planning)
+      axios.put("/api/planification/copy",{fromData:this.fromData,toData:this.toData, class_planning:this.class_planning}).then((response) => {
+        toastr.success("Información duplicada correctamente");
+        //location.href="/actividad_g";
+      });      
     },
     onChangePlanTo($event){
 

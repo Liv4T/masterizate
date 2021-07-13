@@ -547,6 +547,7 @@ class CoursesController extends Controller
     {
         $auth=Auth::user();
         $data = $request->all();
+        $class_plan = $data['class_planning'];
 
         if(isset($data['fromData']) && isset($data['toData']) && isset($data['fromData']['weekly_planning']['id']))
         {
@@ -593,28 +594,28 @@ class CoursesController extends Controller
 
                 $class_planning=Classs::where('id_weekly_plan',$data['fromData']['weekly_planning']['id'])->get();
 
-                 foreach ($class_planning as $key_c => $clase) {
-                    $class =Classs::create([
-                        'name'=>$clase->name,
-                        'date_init_class'=>$clase->date_init_class,
-                        'description'=> $clase->description,
-                        'name_document'=> $clase->name_document,
-                        'document'=> $clase->document,
-                        'url'=> $clase->url,
-                        'video'=> $clase->video,
-                        'id_weekly_plan'=> $weekly_planning_id,
-                        'status'=> $clase->status,
-                        'video1'=> $clase->video1,
-                        'video2'=> $clase->video2,
-                        'url1'=> $clase->url1,
-                        'url2'=> $clase->url2,
-                        'document1'=> $clase->document1,
-                        'document2'=> $clase->document2,
-                        'observation'=> $clase->observation,
-                        'hourly'=> $clase->hourly
-                    ]);
-
-
+                foreach ($class_planning as $key_c => $clase) {            
+                    if($class_plan[$key_c]['id'] === $clase->id){
+                        $class =Classs::create([
+                            'name'=>$clase->name,
+                            'date_init_class'=>$class_plan[$key_c]['date_init_class'],
+                            'description'=> $clase->description,
+                            'name_document'=> $clase->name_document,
+                            'document'=> $clase->document,
+                            'url'=> $clase->url,
+                            'video'=> $clase->video,
+                            'id_weekly_plan'=> $weekly_planning_id,
+                            'status'=> $clase->status,
+                            'video1'=> $clase->video1,
+                            'video2'=> $clase->video2,
+                            'url1'=> $clase->url1,
+                            'url2'=> $clase->url2,
+                            'document1'=> $clase->document1,
+                            'document2'=> $clase->document2,
+                            'observation'=> $clase->observation,
+                            'hourly'=> $clase->hourly
+                        ]);
+                    }                                                             
                     if(isset($class))
                     {
                         $classes_content=ClassContent::where('id_class',$clase->id)->where('deleted',0)->get();
