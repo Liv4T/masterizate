@@ -66,14 +66,53 @@
                             <label><strong>Email de Acudiente</strong></label>
                             <p> {{dataStudent.parent_email}}</p>
                         </div>
-                        <div class="form-group">
-                            <label><strong>Nota del Estudiante</strong></label>
+                        <div class="mb-2">                    
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" :value="true" name="show_notes"  id="showNotes" v-model="show_notes">
+                                <label class="form-check-label" for="showNotes">
+                                    <strong>
+                                        Mostrar Nota
+                                    </strong>
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" :value="false" name="show_notes"  id="hideNotes" v-model="show_notes">
+                                <label class="form-check-label" for="hideNotes">
+                                    <strong>
+                                        Ocultar Nota
+                                    </strong>
+                                </label>
+                            </div>
+                        </div>
+                        <div v-show="show_notes" class="form-group">
+                            <strong>Nota del Estudiante</strong>
                             <p>{{dataStudent.nota_class}}</p>
                         </div>
+                        <div>
+                            <strong>Progreso del Estudiante</strong>
+                            <p>
+                                {{dataStudent.percentage_activity}}
+                            </p>
+                        </div>
+
+                        <div>
+                            <strong>Asistencias del Estudiante</strong>
+                            <p>
+                                {{dataStudent.Assistances}}
+                            </p>
+                        </div>
+
+                        <div>
+                            <strong>Asistencias del Estudiante</strong>
+                            <p>
+                                {{dataStudent.total_classes}}
+                            </p>
+                        </div>
+                        
 
                         <div class="form-group">
                             <label>Observación</label>
-                            <input type="text" class="form-control" v-model="observation">
+                            <input type="text" class="form-control" v-model="dataStudent.observation">
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -142,8 +181,8 @@
                 <td class="label-content">{{dataStudent.percentage_activity}}</td>
                 
                 <td></td>
-                
-                <th class="label">NOTA GENERAL: </th>
+                 
+                <th class="label">NOTA GENERAL</th>
                 <td class="label-content">{{dataStudent.nota_class}}</td>
             </tr>
             
@@ -198,11 +237,19 @@ export default {
             areas:[],
             parent:{},
             dataStudent:{},
-            observation:""
+            observation:"",
+            show_notes:true,
         }
     },
     mounted(){
         this.getAreasByUser();
+    },
+    watch:{
+        show_notes(new_value){
+            if(new_value === false){
+                this.dataStudent.nota_class = ''
+            }
+        }
     },
     methods:{
         getAreasByUser(){
@@ -242,7 +289,7 @@ export default {
                             activity_date: activities.activity_date,
                             activity_description: activities.activity_description,                        
                             activity: activities.weekly_plan_driving_question,
-                            percentage_activity: activities.percentage+' %',
+                            percentage_activity: activities.percentage ? activities.percentage+' %' : 'Sin progreso Registrado',
                             nota_class: notes.score ? notes.score : 0,
                             student: data.user_name+' '+data.user_lastname,
                             email: data.user_email,
@@ -250,8 +297,7 @@ export default {
                             total_classes: assistances.total_class,
                             parent_id: assistances.parent_id ? assistances.parent_id : null,
                             parent_email: this.parent.email ? this.parent.email : null,
-                            parent_name: (this.parent.name && this.parent.last_name) ? this.parent.name+' '+this.parent.last_name: null,
-                            observation: this.observation
+                            parent_name: (this.parent.name && this.parent.last_name) ? this.parent.name+' '+this.parent.last_name: null,                            
                         }
                     })
                 })                
@@ -259,7 +305,7 @@ export default {
             $('#reports').modal('show');
         },
 
-        saveData(){
+        saveData(){            
             axios.post('resportSendParents',{
                 dataStudent: JSON.stringify(this.dataStudent),
                 id_parent: this.dataStudent.parent_id,
@@ -280,8 +326,7 @@ export default {
                 console.log(error)
             });
 
-            this.dataStudent = {}
-
+            this.dataStudent={};
         }
     }
 }

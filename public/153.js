@@ -201,6 +201,45 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -208,11 +247,19 @@ __webpack_require__.r(__webpack_exports__);
       areas: [],
       parent: {},
       dataStudent: {},
-      observation: ""
+      observation: "",
+      show_notes: true
     };
   },
   mounted: function mounted() {
     this.getAreasByUser();
+  },
+  watch: {
+    show_notes: function show_notes(new_value) {
+      if (new_value === false) {
+        this.dataStudent.nota_class = '';
+      }
+    }
   },
   methods: {
     getAreasByUser: function getAreasByUser() {
@@ -256,7 +303,7 @@ __webpack_require__.r(__webpack_exports__);
               activity_date: activities.activity_date,
               activity_description: activities.activity_description,
               activity: activities.weekly_plan_driving_question,
-              percentage_activity: activities.percentage + ' %',
+              percentage_activity: activities.percentage ? activities.percentage + ' %' : 'Sin progreso Registrado',
               nota_class: notes.score ? notes.score : 0,
               student: data.user_name + ' ' + data.user_lastname,
               email: data.user_email,
@@ -264,8 +311,7 @@ __webpack_require__.r(__webpack_exports__);
               total_classes: assistances.total_class,
               parent_id: assistances.parent_id ? assistances.parent_id : null,
               parent_email: _this3.parent.email ? _this3.parent.email : null,
-              parent_name: _this3.parent.name && _this3.parent.last_name ? _this3.parent.name + ' ' + _this3.parent.last_name : null,
-              observation: _this3.observation
+              parent_name: _this3.parent.name && _this3.parent.last_name ? _this3.parent.name + ' ' + _this3.parent.last_name : null
             };
           });
         });
@@ -468,10 +514,122 @@ var render = function() {
                   _c("p", [_vm._v(" " + _vm._s(_vm.dataStudent.parent_email))])
                 ]),
                 _vm._v(" "),
-                _c("div", { staticClass: "form-group" }, [
-                  _vm._m(6),
+                _c("div", { staticClass: "mb-2" }, [
+                  _c("div", { staticClass: "form-check" }, [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.show_notes,
+                          expression: "show_notes"
+                        }
+                      ],
+                      staticClass: "form-check-input",
+                      attrs: {
+                        type: "radio",
+                        name: "show_notes",
+                        id: "showNotes"
+                      },
+                      domProps: {
+                        value: true,
+                        checked: _vm._q(_vm.show_notes, true)
+                      },
+                      on: {
+                        change: function($event) {
+                          _vm.show_notes = true
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _vm._m(6)
+                  ]),
                   _vm._v(" "),
-                  _c("p", [_vm._v(_vm._s(_vm.dataStudent.nota_class))])
+                  _c("div", { staticClass: "form-check" }, [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.show_notes,
+                          expression: "show_notes"
+                        }
+                      ],
+                      staticClass: "form-check-input",
+                      attrs: {
+                        type: "radio",
+                        name: "show_notes",
+                        id: "hideNotes"
+                      },
+                      domProps: {
+                        value: false,
+                        checked: _vm._q(_vm.show_notes, false)
+                      },
+                      on: {
+                        change: function($event) {
+                          _vm.show_notes = false
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _vm._m(7)
+                  ])
+                ]),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: _vm.show_notes,
+                        expression: "show_notes"
+                      }
+                    ],
+                    staticClass: "form-group"
+                  },
+                  [
+                    _c("strong", [_vm._v("Nota del Estudiante")]),
+                    _vm._v(" "),
+                    _c("p", [_vm._v(_vm._s(_vm.dataStudent.nota_class))])
+                  ]
+                ),
+                _vm._v(" "),
+                _c("div", [
+                  _c("strong", [_vm._v("Progreso del Estudiante")]),
+                  _vm._v(" "),
+                  _c("p", [
+                    _vm._v(
+                      "\n                            " +
+                        _vm._s(_vm.dataStudent.percentage_activity) +
+                        "\n                        "
+                    )
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", [
+                  _c("strong", [_vm._v("Asistencias del Estudiante")]),
+                  _vm._v(" "),
+                  _c("p", [
+                    _vm._v(
+                      "\n                            " +
+                        _vm._s(_vm.dataStudent.Assistances) +
+                        "\n                        "
+                    )
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", [
+                  _c("strong", [_vm._v("Asistencias del Estudiante")]),
+                  _vm._v(" "),
+                  _c("p", [
+                    _vm._v(
+                      "\n                            " +
+                        _vm._s(_vm.dataStudent.total_classes) +
+                        "\n                        "
+                    )
+                  ])
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "form-group" }, [
@@ -482,19 +640,23 @@ var render = function() {
                       {
                         name: "model",
                         rawName: "v-model",
-                        value: _vm.observation,
-                        expression: "observation"
+                        value: _vm.dataStudent.observation,
+                        expression: "dataStudent.observation"
                       }
                     ],
                     staticClass: "form-control",
                     attrs: { type: "text" },
-                    domProps: { value: _vm.observation },
+                    domProps: { value: _vm.dataStudent.observation },
                     on: {
                       input: function($event) {
                         if ($event.target.composing) {
                           return
                         }
-                        _vm.observation = $event.target.value
+                        _vm.$set(
+                          _vm.dataStudent,
+                          "observation",
+                          $event.target.value
+                        )
                       }
                     }
                   })
@@ -547,7 +709,7 @@ var render = function() {
           ])
         ]),
         _vm._v(" "),
-        _vm._m(7),
+        _vm._m(8),
         _vm._v(" "),
         _c("tr", [
           _c("th", { staticClass: "label" }, [_vm._v("CLASE: ")]),
@@ -583,7 +745,7 @@ var render = function() {
           _c("td")
         ]),
         _vm._v(" "),
-        _vm._m(8),
+        _vm._m(9),
         _vm._v(" "),
         _c("tr", [
           _c("th", { staticClass: "label" }, [_vm._v("ACTIVIDAD: ")]),
@@ -609,7 +771,7 @@ var render = function() {
           ])
         ]),
         _vm._v(" "),
-        _vm._m(9),
+        _vm._m(10),
         _vm._v(" "),
         _c("tr", [
           _c("th", { staticClass: "label" }, [
@@ -622,14 +784,14 @@ var render = function() {
           _vm._v(" "),
           _c("td"),
           _vm._v(" "),
-          _c("th", { staticClass: "label" }, [_vm._v("NOTA GENERAL: ")]),
+          _c("th", { staticClass: "label" }, [_vm._v("NOTA GENERAL")]),
           _vm._v(" "),
           _c("td", { staticClass: "label-content" }, [
             _vm._v(_vm._s(_vm.dataStudent.nota_class))
           ])
         ]),
         _vm._v(" "),
-        _vm._m(10),
+        _vm._m(11),
         _vm._v(" "),
         _c("tr", [
           _c("th", { staticClass: "label" }, [_vm._v("TOTAL ASISTENCIAS: ")]),
@@ -647,7 +809,7 @@ var render = function() {
           ])
         ]),
         _vm._v(" "),
-        _vm._m(11),
+        _vm._m(12),
         _vm._v(" "),
         _c("tr", [
           _c("th", { staticClass: "label" }, [_vm._v("NOMBRE DE ACUDIENTE: ")]),
@@ -677,7 +839,7 @@ var render = function() {
           ])
         ]),
         _vm._v(" "),
-        _vm._m(12),
+        _vm._m(13),
         _vm._v(" "),
         _c("tr", [
           _c("th", { staticClass: "label" }, [
@@ -687,7 +849,7 @@ var render = function() {
           _c("td", [_vm._v(_vm._s(_vm.observation))])
         ]),
         _vm._v(" "),
-        _vm._m(13)
+        _vm._m(14)
       ]
     )
   ])
@@ -760,7 +922,33 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("label", [_c("strong", [_vm._v("Nota del Estudiante")])])
+    return _c(
+      "label",
+      { staticClass: "form-check-label", attrs: { for: "showNotes" } },
+      [
+        _c("strong", [
+          _vm._v(
+            "\n                                    Mostrar Nota\n                                "
+          )
+        ])
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "label",
+      { staticClass: "form-check-label", attrs: { for: "hideNotes" } },
+      [
+        _c("strong", [
+          _vm._v(
+            "\n                                    Ocultar Nota\n                                "
+          )
+        ])
+      ]
+    )
   },
   function() {
     var _vm = this
