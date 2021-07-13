@@ -159,82 +159,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 $(".collapse").on("show.bs.collapse", function () {
   $(".collapse.in").collapse("hide");
 });
@@ -303,7 +227,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.background2 {\r\n  background: url(" + escape(__webpack_require__(/*! ../assets/img/Fondo5.jpg */ "./resources/js/assets/img/Fondo5.jpg")) + ");\r\n  background-size: contain;\r\n  background-repeat: no-repeat;\r\n  background-position: center;\r\n  position: relative;\n}\r\n", ""]);
+exports.push([module.i, "\n.background2 {\n  background: url(" + escape(__webpack_require__(/*! ../assets/img/Fondo5.jpg */ "./resources/js/assets/img/Fondo5.jpg")) + ");\n  background-size: contain;\n  background-repeat: no-repeat;\n  background-position: center;\n  position: relative;\n}\n", ""]);
 
 // exports
 
@@ -577,7 +501,7 @@ var render = function() {
                                       clas.document1 != "" ||
                                       clas.document2 != "",
                                     expression:
-                                      "clas.document!= ''||clas.document1!= ''||clas.document2!= ''"
+                                      "clas.document != '' || clas.document1 != '' || clas.document2 != ''"
                                   }
                                 ],
                                 staticClass: "form-group text-center"
@@ -595,7 +519,7 @@ var render = function() {
                                         name: "show",
                                         rawName: "v-show",
                                         value: clas.document != "",
-                                        expression: "clas.document!= ''"
+                                        expression: "clas.document != ''"
                                       }
                                     ]
                                   },
@@ -653,7 +577,7 @@ var render = function() {
                                         name: "show",
                                         rawName: "v-show",
                                         value: clas.document1 != "",
-                                        expression: "clas.document1!= ''"
+                                        expression: "clas.document1 != ''"
                                       }
                                     ]
                                   },
@@ -709,7 +633,7 @@ var render = function() {
                                         name: "show",
                                         rawName: "v-show",
                                         value: clas.document2 != "",
-                                        expression: "clas.document2!= ''"
+                                        expression: "clas.document2 != ''"
                                       }
                                     ]
                                   },
@@ -765,7 +689,7 @@ var render = function() {
                                     name: "show",
                                     rawName: "v-show",
                                     value: clas.url != "",
-                                    expression: "clas.url!='' "
+                                    expression: "clas.url != ''"
                                   }
                                 ],
                                 staticClass: "form-group text-center"
@@ -834,7 +758,7 @@ var render = function() {
                                       clas.video1 != "" ||
                                       clas.video2 != "",
                                     expression:
-                                      "clas.video!= ''||clas.video1!= ''||clas.video2!= ''"
+                                      "clas.video != '' || clas.video1 != '' || clas.video2 != ''"
                                   }
                                 ],
                                 staticClass: "form-group text-center"
@@ -858,7 +782,7 @@ var render = function() {
                                         name: "show",
                                         rawName: "v-show",
                                         value: clas.video != "",
-                                        expression: "clas.video!= ''"
+                                        expression: "clas.video != ''"
                                       }
                                     ]
                                   },
@@ -890,7 +814,7 @@ var render = function() {
                                           name: "show",
                                           rawName: "v-show",
                                           value: clas.video_youtube != "",
-                                          expression: "clas.video_youtube!= ''"
+                                          expression: "clas.video_youtube != ''"
                                         }
                                       ],
                                       staticClass: "embed-responsive-item",
@@ -912,7 +836,7 @@ var render = function() {
                                         name: "show",
                                         rawName: "v-show",
                                         value: clas.video1 != "",
-                                        expression: "clas.video1!= ''"
+                                        expression: "clas.video1 != ''"
                                       }
                                     ]
                                   },
@@ -944,7 +868,8 @@ var render = function() {
                                           name: "show",
                                           rawName: "v-show",
                                           value: clas.video1_youtube != "",
-                                          expression: "clas.video1_youtube!= ''"
+                                          expression:
+                                            "clas.video1_youtube != ''"
                                         }
                                       ],
                                       staticClass: "embed-responsive-item",
@@ -966,7 +891,7 @@ var render = function() {
                                         name: "show",
                                         rawName: "v-show",
                                         value: clas.video2 != "",
-                                        expression: "clas.video2!= ''"
+                                        expression: "clas.video2 != ''"
                                       }
                                     ]
                                   },
@@ -998,7 +923,8 @@ var render = function() {
                                           name: "show",
                                           rawName: "v-show",
                                           value: clas.video2_youtube != "",
-                                          expression: "clas.video2_youtube!= ''"
+                                          expression:
+                                            "clas.video2_youtube != ''"
                                         }
                                       ],
                                       staticClass: "embed-responsive-item",

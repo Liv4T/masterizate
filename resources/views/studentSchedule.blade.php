@@ -2,7 +2,7 @@
 @section('content')
     @include('menu')
     @if (Auth::user()->isTeacher()||Auth::user()->isPsychology()||Auth::user()->isTutor())
-        <inicio-component></inicio-component>
+
     @endif
     <student-schedule :schedule_id="'{{ $scheduleStudent_id }}'"></student-schedule>
     <footers></footers>

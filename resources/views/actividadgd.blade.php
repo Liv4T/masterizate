@@ -3,7 +3,7 @@
 @section('content')
   @include('menu')
   @if (Auth::user()->isTeacher())
-        <inicio-component></inicio-component>
+
   @endif
 
   <actividadg-docente></actividadg-docente>

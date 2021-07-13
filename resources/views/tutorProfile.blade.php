@@ -2,7 +2,7 @@
 @section('content')
     @include('menu')
     @if (Auth::user()->isTeacher()||Auth::user()->isPsychology()||Auth::user()->isTutor())
-        <inicio-component></inicio-component>
+
     @endif
     <tutor-profile :tutor_id="{{ $tutor_id }}"></tutor-profile>
     <footers></footers>

@@ -4,11 +4,10 @@
 <!--<formstyle></formstyle>-->
       @include('menu')
     @if (Auth::user()->isTeacher()||Auth::user()->isPsychology()||Auth::user()->isTutor())
-        <inicio-component></inicio-component>
+
     @endif
  @if(Auth::user()->type_user == '6')
     <menu-school></menu-school>
-    <inicio-component></inicio-component>
   @endif
   <perfil-docente></perfil-docente>
   <footers></footers>
