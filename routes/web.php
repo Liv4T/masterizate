@@ -104,7 +104,21 @@ Route::middleware('auth')->get('/evaluation', function () {
 Route::middleware('auth')->get('/vcourse', function () {
     return view('view');
 });
-
+Route::middleware('auth')->get('/proceedings/parents', function () {
+    return view('proceedingsParents');
+});
+Route::middleware('auth')->get('/proceedings/general', function () {
+    return view('proceedingsGeneral');
+});
+Route::middleware('auth')->get('/list/proceedings/parents', function () {
+    return view('listProceedingsParents')->with('type_user', Auth::user()->type_user);
+});
+Route::middleware('auth')->get('/list/proceedings/general', function () {
+    return view('listProceedingsGeneral')->with('type_user', Auth::user()->type_user);
+});
+Route::middleware('auth')->get('/view/proceedings/{id}/{type_view}', function (int $id_proceeding, int $type_view) {
+    return view('viewProceedingsPdf')->with('id_proceeding', $id_proceeding)->with('type_view', $type_view);
+});
 Route::middleware('auth')->get('/consult', function () {
     return view('consult');
 });
@@ -296,8 +310,8 @@ Route::middleware('auth')->get('/matricula', function () {
 Route::middleware('auth')->get('/porcentaje/{id_area}/{id_classroom}', function (String $id_area, String $id_classroom) {
     return view('porcentajeNotas')->with('id_area', $id_area)->with('id_classroom', $id_classroom);
 });
-Route::get('/compra/plan/{plan_type}/tutoria/{group_name}/{area_id}/{schedulearea_id}/{time_index}/resumen', function (String $plan_type, String $group_name, int $area_id, int $schedulearea_id, int $time_index) {
-    return view('purchaseTutoriaResume')->with('voucher', '')->with('plan_type', $plan_type)->with('area_id', $area_id)->with('group_name', $group_name)->with('schedulearea_id', $schedulearea_id)->with('time_index', $time_index);
+Route::get('/compra/plan/tutoria/{tutor_schedule_student_id}/{tutorschedule_id}/resumen', function (int $tutor_schedule_student_id, int $tutorschedule_id) {
+    return view('purchaseTutoriaResume')->with('tutor_schedule_student_id', $tutor_schedule_student_id)->with('tutorschedule_id', $tutorschedule_id);
 });
 Route::middleware('auth')->get('/chat', 'HomeController@CreateGroup')->name('chat');
 // Lessons
@@ -805,6 +819,7 @@ Route::get('/api/tutor-schedule/event/getSchedulesByTeacher','TutorController@Ge
 Route::get('/api/tutor-schedule/event/{schedulestudent_id}', 'TutorController@GetScheduleStudent');
 Route::get('/api/tutor/{user_id}/profile', 'UserProfileController@GetByUserId');
 Route::put('/api/tutor-schedule/event/{schedulestudent_id}/link', 'TutorController@UpdateLinkMeet');
+Route::get('/api/tutor-schedule/event/data/{schedule_id}/{schedulestudent_id}', 'TutorController@tutorScheduleData');
 Route::get('/getScheduleCode/{id_code}','TutorController@getScheduleCodes');
 Route::resource('codes','TutorCodeController');
 Route::resource('vinculationsTutor','VinculationTutorStudentController');
@@ -1009,3 +1024,29 @@ Route::get('ReportAnnualPlanification','AdminReportController@ReportAnnualPlanif
 Route::middleware('auth')->get('/reportAdmin', function () {
     return view('reportAdmin');
 });
+//Paypal pay
+Route::middleware('auth')->get('/compra/pagar/paypal/{data_string}', 'PurchasedController@payPaypal');
+Route::middleware('auth')->get('/compra/currencyExchange', 'PurchasedController@currencyExchange');
+
+//Actas Padres
+Route::middleware('auth')->post('/saveProceedings', 'ProceedingsParentsController@save');
+Route::middleware('auth')->post('/saveProceedingsFile', 'ProceedingsParentsController@uploadFile');
+Route::middleware('auth')->get('/getProceedings', 'ProceedingsParentsController@indexProceedings');
+Route::middleware('auth')->get('/getProceedingsUrl/{id}', 'ProceedingsParentsController@urlArchive');
+Route::middleware('auth')->post('/update/acta/parents/{id}', 'ProceedingsParentsController@uploadFileUpdate');
+Route::middleware('auth')->post('/update/acta/parents/firmar/{id}', 'ProceedingsParentsController@uploadFileUpdateSign');
+Route::get('/api/proceedings/parents/pdf/{id}', 'ProceedingsParentsController@generatePdf');
+Route::middleware('auth')->post('/updateViewedProceedings/{id}', 'ProceedingsParentsController@updateViewed');
+Route::middleware('auth')->get('/api/proceedings/parents/download/{id}', 'ProceedingsParentsController@downloadProceedings');
+
+//Actas Generales
+Route::middleware('auth')->post('/saveProceedings/general', 'ProceedingsGeneralController@save');
+Route::middleware('auth')->post('/saveProceedingsFile/general', 'ProceedingsGeneralController@uploadFile');
+Route::middleware('auth')->get('/getProceedings/general', 'ProceedingsGeneralController@indexProceedings');
+Route::middleware('auth')->get('/getProceedingsUrl/general/{id}', 'ProceedingsGeneralController@urlArchive');
+Route::middleware('auth')->post('/update/acta/general/{id}', 'ProceedingsGeneralController@uploadFileUpdate');
+Route::middleware('auth')->post('/update/acta/general/firmar/{id}', 'ProceedingsGeneralController@uploadFileUpdateSign');
+Route::get('/api/proceedings/general/pdf/{id}', 'ProceedingsGeneralController@generatePdf');
+Route::middleware('auth')->post('/updateViewedProceedings/general/{id}', 'ProceedingsGeneralController@updateViewed');
+Route::middleware('auth')->get('/api/proceedings/general/download/{id}', 'ProceedingsGeneralController@downloadProceedings');
+Route::middleware('auth')->get('/api/proceedings/general/users', 'ProceedingsGeneralController@getUsersToProceedings');

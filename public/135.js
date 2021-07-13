@@ -1,81 +1,16 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[135],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/mothlyReportParent.vue?vue&type=script&lang=js&":
-/*!*****************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/mothlyReportParent.vue?vue&type=script&lang=js& ***!
-  \*****************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/modalDocentePlanifReport.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/modalDocentePlanifReport.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var jspdf__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! jspdf */ "./node_modules/jspdf/dist/jspdf.es.min.js");
-/* harmony import */ var jspdf_autotable__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! jspdf-autotable */ "./node_modules/jspdf-autotable/dist/jspdf.plugin.autotable.js");
-/* harmony import */ var jspdf_autotable__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(jspdf_autotable__WEBPACK_IMPORTED_MODULE_2__);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+/* harmony import */ var vue_multiselect__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-multiselect */ "./node_modules/vue-multiselect/dist/vue-multiselect.min.js");
+/* harmony import */ var vue_multiselect__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue_multiselect__WEBPACK_IMPORTED_MODULE_0__);
 //
 //
 //
@@ -156,62 +91,73 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
-
-
+Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___default.a);
 /* harmony default export */ __webpack_exports__["default"] = ({
-  components: {
-    moment: moment__WEBPACK_IMPORTED_MODULE_0___default.a
-  },
   data: function data() {
     return {
-      dataReport: [],
-      dataStudent: {},
-      downloading: false
+      teachersOptions: [],
+      areaOptions: [],
+      saveTeachers: {},
+      planification: "",
+      saveArea: [],
+      anualPlanification: [],
+      quaterlyPlanification: [],
+      DataToExport: []
     };
   },
   mounted: function mounted() {
-    var _this = this;
-
-    axios.get('getReportsByParent').then(function (response) {
-      var data = response.data;
-      data.forEach(function (e) {
-        _this.dataReport.push({
-          created_at: moment__WEBPACK_IMPORTED_MODULE_0___default()(e.created_at).format('YYYY MMMM DD hh:mm:ss'),
-          dataStudent: JSON.parse(e.dataStudent)
-        });
-
-        _this.dataStudent = JSON.parse(e.dataStudent);
-      });
-    });
+    this.getTeachers();
+  },
+  components: {
+    Multiselect: vue_multiselect__WEBPACK_IMPORTED_MODULE_0___default.a
   },
   methods: {
-    downloadReport: function downloadReport(data) {
+    getTeachers: function getTeachers() {
+      var _this = this;
+
+      axios.get('getTeachers').then(function (response) {
+        response.data.forEach(function (element) {
+          _this.teachersOptions.push({
+            id: element.id,
+            text: "".concat(element.name) + " ".concat(element.last_name)
+          });
+        });
+      });
+    },
+    getArea: function getArea() {
       var _this2 = this;
 
-      this.dataStudent = data;
-      this.downloading = true;
-      setTimeout(function () {
-        var pdf = new jspdf__WEBPACK_IMPORTED_MODULE_1__["default"]('p', 'pt', 'letter');
-        pdf.autoTable({
-          html: '#tableReport',
-          columnStyles: {
-            halign: 'center',
-            fillColor: [0, 255, 0]
-          }
+      axios.get("GetAreaTeacher/".concat(this.saveTeachers.id)).then(function (response) {
+        var area = response.data;
+        area.forEach(function (element) {
+          _this2.areaOptions.push({
+            id: element.id,
+            id_area: element.id_area,
+            id_classroom: element.id_classroom,
+            text: element.text
+          });
         });
-        pdf.save("Informe ".concat(_this2.dataStudent.student, ".pdf"));
-        _this2.downloading = false;
-      }, 1000);
+      });
+    },
+    dataExport: function dataExport() {
+      //Organizacion de datos para exportacion mediante Planificación Anual
+      if (this.planification === "anual") {
+        window.open("GetPlanificationTeacher/".concat(this.saveTeachers.id, "/").concat(this.saveArea.id_area, "/").concat(this.saveArea.id_classroom, "/").concat(this.saveTeachers.text), "_self"); //Organizacion de datos para exportacion mediante Planificación Trimestral
+      } else if (this.planification === "quarters") {
+        window.open("GetPlanificationQuaterlyTeacher/".concat(this.saveTeachers.id, "/").concat(this.saveArea.id_area, "/").concat(this.saveArea.id_classroom, "/").concat(this.saveTeachers.text), "_self");
+      } else if (this.planification === "clases") {
+        window.open("GetPlanificationCoursesTeacher/".concat(this.saveArea.id_area, "/").concat(this.saveArea.id_classroom, "/").concat(this.saveTeachers.text), "_self");
+      }
     }
   }
 });
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/mothlyReportParent.vue?vue&type=template&id=2ad90968&":
-/*!*********************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/mothlyReportParent.vue?vue&type=template&id=2ad90968& ***!
-  \*********************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/modalDocentePlanifReport.vue?vue&type=template&id=26355dea&":
+/*!***************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/modalDocentePlanifReport.vue?vue&type=template&id=26355dea& ***!
+  \***************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -223,302 +169,349 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "back" }, [
-    _c("div", { staticClass: "row justify-content-center" }, [
-      _c("div", { staticClass: "col-sm-10", attrs: { id: "crud" } }, [
-        _c("div", { staticClass: "card" }, [
+  return _c(
+    "div",
+    {
+      staticClass: "modal fade bd-example-modal-lg",
+      attrs: {
+        id: "reportTeacherPlanifModal",
+        tabindex: "-1",
+        role: "dialog",
+        "aria-labelledby": "myLargeModalLabel",
+        "aria-hidden": "true"
+      }
+    },
+    [
+      _c("div", { staticClass: "modal-dialog modal-lg" }, [
+        _c("div", { staticClass: "modal-content" }, [
           _vm._m(0),
           _vm._v(" "),
-          _c("div", { staticClass: "card-body" }, [
-            _c("table", { staticClass: "table table-striped table-hover" }, [
-              _vm._m(1),
-              _vm._v(" "),
+          _c("div", { staticClass: "modal-body" }, [
+            _c(
+              "div",
+              { staticClass: "form-goup" },
+              [
+                _c("label", [_vm._v("Docente")]),
+                _vm._v(" "),
+                _c("multiselect", {
+                  attrs: {
+                    options: _vm.teachersOptions,
+                    multiple: false,
+                    "close-on-select": false,
+                    "clear-on-select": false,
+                    "preserve-search": true,
+                    placeholder: "Seleccione una",
+                    label: "text",
+                    "track-by": "id",
+                    "preselect-first": true
+                  },
+                  scopedSlots: _vm._u([
+                    {
+                      key: "selection",
+                      fn: function(ref) {
+                        var values = ref.values
+                        var isOpen = ref.isOpen
+                        return [
+                          values.length && !isOpen
+                            ? _c(
+                                "span",
+                                { staticClass: "multiselect__single" },
+                                [
+                                  _vm._v(
+                                    "\n                                    " +
+                                      _vm._s(values.length) +
+                                      "\n                                    opciones\n                                    selecionadas\n                                "
+                                  )
+                                ]
+                              )
+                            : _vm._e()
+                        ]
+                      }
+                    }
+                  ]),
+                  model: {
+                    value: _vm.saveTeachers,
+                    callback: function($$v) {
+                      _vm.saveTeachers = $$v
+                    },
+                    expression: "saveTeachers"
+                  }
+                })
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group" }, [
               _c(
-                "tbody",
-                _vm._l(_vm.dataReport, function(data, key) {
-                  return _c("tr", { key: key }, [
-                    _c("td", [
-                      _vm._v(_vm._s(data.dataStudent.student.toUpperCase()))
-                    ]),
+                "button",
+                {
+                  staticClass: "btn btn-primary mt-2 mb-2",
+                  on: {
+                    click: function($event) {
+                      return _vm.getArea()
+                    }
+                  }
+                },
+                [
+                  _vm._v(
+                    "\n                        Consultar Area\n                    "
+                  )
+                ]
+              )
+            ]),
+            _vm._v(" "),
+            _vm.areaOptions.length > 0
+              ? _c(
+                  "div",
+                  { staticClass: "form-goup" },
+                  [
+                    _c("label", [_vm._v("Areas Disponibles")]),
                     _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(data.created_at))]),
-                    _vm._v(" "),
-                    _c("td", [
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-primary",
-                          on: {
-                            click: function($event) {
-                              return _vm.downloadReport(data.dataStudent)
+                    _c("multiselect", {
+                      attrs: {
+                        options: _vm.areaOptions,
+                        multiple: false,
+                        "close-on-select": false,
+                        "clear-on-select": false,
+                        "preserve-search": true,
+                        placeholder: "Seleccione una",
+                        label: "text",
+                        "track-by": "id",
+                        "preselect-first": true
+                      },
+                      scopedSlots: _vm._u(
+                        [
+                          {
+                            key: "selection",
+                            fn: function(ref) {
+                              var values = ref.values
+                              var isOpen = ref.isOpen
+                              return [
+                                values.length && !isOpen
+                                  ? _c(
+                                      "span",
+                                      { staticClass: "multiselect__single" },
+                                      [
+                                        _vm._v(
+                                          "\n                                    " +
+                                            _vm._s(values.length) +
+                                            "\n                                    opciones\n                                    selecionadas\n                                "
+                                        )
+                                      ]
+                                    )
+                                  : _vm._e()
+                              ]
                             }
                           }
+                        ],
+                        null,
+                        false,
+                        1821651511
+                      ),
+                      model: {
+                        value: _vm.saveArea,
+                        callback: function($$v) {
+                          _vm.saveArea = $$v
                         },
-                        [
-                          _vm._v(
-                            "\n                                        " +
-                              _vm._s(
-                                _vm.downloading
-                                  ? "Descargando Reporte"
-                                  : "Descargar Reporte"
-                              ) +
-                              "\n                                    "
-                          )
-                        ]
+                        expression: "saveArea"
+                      }
+                    })
+                  ],
+                  1
+                )
+              : _c("div", [
+                  _c("strong", [_vm._v("No se encuentran areas disponibles")])
+                ]),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value: _vm.areaOptions.length > 0,
+                    expression: "areaOptions.length > 0"
+                  }
+                ],
+                staticClass: "form-goup"
+              },
+              [
+                _c("label", [_vm._v("Filtro")]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-check" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.planification,
+                        expression: "planification"
+                      }
+                    ],
+                    staticClass: "form-check-input",
+                    attrs: {
+                      type: "radio",
+                      name: "filter",
+                      id: "filter1",
+                      value: "anual"
+                    },
+                    domProps: { checked: _vm._q(_vm.planification, "anual") },
+                    on: {
+                      change: function($event) {
+                        _vm.planification = "anual"
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "label",
+                    {
+                      staticClass: "form-check-label",
+                      attrs: { for: "filter1" }
+                    },
+                    [
+                      _vm._v(
+                        "\n                            Anual\n                        "
                       )
-                    ])
-                  ])
-                }),
-                0
-              )
-            ])
+                    ]
+                  )
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-check" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.planification,
+                        expression: "planification"
+                      }
+                    ],
+                    staticClass: "form-check-input",
+                    attrs: {
+                      type: "radio",
+                      name: "filter",
+                      id: "filter2",
+                      value: "quarters"
+                    },
+                    domProps: {
+                      checked: _vm._q(_vm.planification, "quarters")
+                    },
+                    on: {
+                      change: function($event) {
+                        _vm.planification = "quarters"
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "label",
+                    {
+                      staticClass: "form-check-label",
+                      attrs: { for: "filter2" }
+                    },
+                    [
+                      _vm._v(
+                        "\n                            Trimestral\n                        "
+                      )
+                    ]
+                  )
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-check" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.planification,
+                        expression: "planification"
+                      }
+                    ],
+                    staticClass: "form-check-input",
+                    attrs: {
+                      type: "radio",
+                      name: "filter",
+                      id: "filter3",
+                      value: "clases"
+                    },
+                    domProps: { checked: _vm._q(_vm.planification, "clases") },
+                    on: {
+                      change: function($event) {
+                        _vm.planification = "clases"
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "label",
+                    {
+                      staticClass: "form-check-label",
+                      attrs: { for: "filter3" }
+                    },
+                    [
+                      _vm._v(
+                        "\n                            Clases\n                        "
+                      )
+                    ]
+                  )
+                ])
+              ]
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "modal-footer" }, [
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-primary",
+                attrs: { type: "button" },
+                on: {
+                  click: function($event) {
+                    return _vm.dataExport()
+                  }
+                }
+              },
+              [_vm._v("Exportar")]
+            ),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-secondary",
+                attrs: { type: "button", "data-dismiss": "modal" }
+              },
+              [_vm._v("Cerrar")]
+            )
           ])
         ])
       ])
-    ]),
-    _vm._v(" "),
-    _c(
-      "table",
-      {
-        staticStyle: { width: "100%" },
-        attrs: { id: "tableReport", hidden: "" }
-      },
-      [
-        _c("tr", { staticClass: "header" }, [
-          _c("th", { attrs: { colspan: "8" } }, [
-            _vm._v(
-              "REPORTE DE " +
-                _vm._s(
-                  _vm.dataStudent.student
-                    ? _vm.dataStudent.student.toUpperCase()
-                    : ""
-                )
-            )
-          ])
-        ]),
-        _vm._v(" "),
-        _vm._m(2),
-        _vm._v(" "),
-        _c("tr", [
-          _c("th", { staticClass: "label" }, [_vm._v("CLASE: ")]),
-          _vm._v(" "),
-          _c("td", { staticClass: "label-content" }, [
-            _vm._v(_vm._s(_vm.dataStudent.class))
-          ]),
-          _vm._v(" "),
-          _c("td"),
-          _vm._v(" "),
-          _c("th", { staticClass: "label" }, [_vm._v("LOGRO: ")]),
-          _vm._v(" "),
-          _c("td", { staticClass: "label-content" }, [
-            _vm._v(_vm._s(_vm.dataStudent.logro))
-          ])
-        ]),
-        _vm._v(" "),
-        _c("tr", [
-          _c("th", { staticClass: "label" }, [_vm._v(" ESTUDIANTE: ")]),
-          _vm._v(" "),
-          _c("td", { staticClass: "label-content" }, [
-            _vm._v(_vm._s(_vm.dataStudent.student))
-          ]),
-          _vm._v(" "),
-          _c("td"),
-          _vm._v(" "),
-          _c("th", { staticClass: "label" }, [_vm._v("CORREO: ")]),
-          _vm._v(" "),
-          _c("td", { staticClass: "label-content" }, [
-            _vm._v(_vm._s(_vm.dataStudent.email))
-          ]),
-          _vm._v(" "),
-          _c("td")
-        ]),
-        _vm._v(" "),
-        _vm._m(3),
-        _vm._v(" "),
-        _c("tr", [
-          _c("th", { staticClass: "label" }, [_vm._v("ACTIVIDAD: ")]),
-          _vm._v(" "),
-          _c("td", { staticClass: "label-content" }, [
-            _vm._v(_vm._s(_vm.dataStudent.activity))
-          ]),
-          _vm._v(" "),
-          _c("td"),
-          _vm._v(" "),
-          _c("th", { staticClass: "label" }, [_vm._v("DESCRIPCIÓN: ")]),
-          _vm._v(" "),
-          _c("td", { staticClass: "label-content" }, [
-            _vm._v(_vm._s(_vm.dataStudent.activity_description))
-          ]),
-          _vm._v(" "),
-          _c("td"),
-          _vm._v(" "),
-          _c("th", { staticClass: "label" }, [_vm._v("FECHA ACTIVIDAD")]),
-          _vm._v(" "),
-          _c("td", { staticClass: "label-content" }, [
-            _vm._v(_vm._s(_vm.dataStudent.activity_date))
-          ])
-        ]),
-        _vm._v(" "),
-        _vm._m(4),
-        _vm._v(" "),
-        _c("tr", [
-          _c("th", { staticClass: "label" }, [
-            _vm._v("PORCENTAJE DE ACTIVIDAD: ")
-          ]),
-          _vm._v(" "),
-          _c("td", { staticClass: "label-content" }, [
-            _vm._v(_vm._s(_vm.dataStudent.percentage_activity))
-          ]),
-          _vm._v(" "),
-          _c("td"),
-          _vm._v(" "),
-          _c("th", { staticClass: "label" }, [_vm._v("NOTA GENERAL: ")]),
-          _vm._v(" "),
-          _c("td", { staticClass: "label-content" }, [
-            _vm._v(_vm._s(_vm.dataStudent.nota_class))
-          ])
-        ]),
-        _vm._v(" "),
-        _vm._m(5),
-        _vm._v(" "),
-        _c("tr", [
-          _c("th", { staticClass: "label" }, [_vm._v("TOTAL ASISTENCIAS: ")]),
-          _vm._v(" "),
-          _c("td", { staticClass: "label-content" }, [
-            _vm._v(_vm._s(_vm.dataStudent.Assistances))
-          ]),
-          _vm._v(" "),
-          _c("td"),
-          _vm._v(" "),
-          _c("th", { staticClass: "label" }, [_vm._v("TOTAL CLASES: ")]),
-          _vm._v(" "),
-          _c("td", { staticClass: "label-content" }, [
-            _vm._v(_vm._s(_vm.dataStudent.total_classes))
-          ])
-        ]),
-        _vm._v(" "),
-        _vm._m(6),
-        _vm._v(" "),
-        _c("tr", [
-          _c("th", { staticClass: "label" }, [_vm._v("NOMBRE DE ACUDIENTE: ")]),
-          _vm._v(" "),
-          _c("td", { staticClass: "label-content" }, [
-            _vm._v(
-              _vm._s(
-                _vm.dataStudent.parent_name
-                  ? _vm.dataStudent.parent_name
-                  : "Sin Información"
-              )
-            )
-          ]),
-          _vm._v(" "),
-          _c("td"),
-          _vm._v(" "),
-          _c("th", { staticClass: "label" }, [_vm._v("CORREO DE ACUDIENTE: ")]),
-          _vm._v(" "),
-          _c("td", { staticClass: "label-content" }, [
-            _vm._v(
-              _vm._s(
-                _vm.dataStudent.parent_email
-                  ? _vm.dataStudent.parent_email
-                  : "Sin Información"
-              )
-            )
-          ])
-        ]),
-        _vm._v(" "),
-        _vm._m(7),
-        _vm._v(" "),
-        _c("tr", [
-          _c("th", { staticClass: "label" }, [
-            _vm._v("OBSERVACIÓN DEL DOCENTE: ")
-          ]),
-          _vm._v(" "),
-          _c("td", [_vm._v(_vm._s(_vm.dataStudent.observation))])
-        ]),
-        _vm._v(" "),
-        _vm._m(8)
-      ]
-    )
-  ])
+    ]
+  )
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-header fondo" }, [
-      _c("strong", [_vm._v("Reporte Mensual")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("thead", [
-      _c("tr", [
-        _c("th", [_vm._v("Estudiante")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Fecha Creación de Reporte")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Descargar")])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("tr", [
-      _c("td", { staticStyle: { height: "10px" }, attrs: { colspan: "8" } })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("tr", [
-      _c("td", { staticStyle: { height: "5px" }, attrs: { colspan: "8" } })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("tr", [
-      _c("td", { staticStyle: { height: "10px" }, attrs: { colspan: "8" } })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("tr", [
-      _c("td", { staticStyle: { height: "10px" }, attrs: { colspan: "8" } })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("tr", [
-      _c("td", { staticStyle: { height: "10px" }, attrs: { colspan: "8" } })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("tr", [
-      _c("td", { staticStyle: { height: "10px" }, attrs: { colspan: "8" } })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("tr", [
-      _c("td", { staticStyle: { height: "10px" }, attrs: { colspan: "8" } })
+    return _c("div", { staticClass: "modal-header" }, [
+      _c("h5", { staticClass: "modal-title" }, [
+        _vm._v("Reporte de Planeación")
+      ]),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+      )
     ])
   }
 ]
@@ -528,18 +521,20 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./resources/js/components/mothlyReportParent.vue":
-/*!********************************************************!*\
-  !*** ./resources/js/components/mothlyReportParent.vue ***!
-  \********************************************************/
+/***/ "./resources/js/components/modalDocentePlanifReport.vue":
+/*!**************************************************************!*\
+  !*** ./resources/js/components/modalDocentePlanifReport.vue ***!
+  \**************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _mothlyReportParent_vue_vue_type_template_id_2ad90968___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./mothlyReportParent.vue?vue&type=template&id=2ad90968& */ "./resources/js/components/mothlyReportParent.vue?vue&type=template&id=2ad90968&");
-/* harmony import */ var _mothlyReportParent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./mothlyReportParent.vue?vue&type=script&lang=js& */ "./resources/js/components/mothlyReportParent.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony import */ var _modalDocentePlanifReport_vue_vue_type_template_id_26355dea___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modalDocentePlanifReport.vue?vue&type=template&id=26355dea& */ "./resources/js/components/modalDocentePlanifReport.vue?vue&type=template&id=26355dea&");
+/* harmony import */ var _modalDocentePlanifReport_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modalDocentePlanifReport.vue?vue&type=script&lang=js& */ "./resources/js/components/modalDocentePlanifReport.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var vue_multiselect_dist_vue_multiselect_min_css_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue-multiselect/dist/vue-multiselect.min.css?vue&type=style&index=0&lang=css& */ "./node_modules/vue-multiselect/dist/vue-multiselect.min.css?vue&type=style&index=0&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
 
 
 
@@ -547,10 +542,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /* normalize component */
 
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _mothlyReportParent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _mothlyReportParent_vue_vue_type_template_id_2ad90968___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _mothlyReportParent_vue_vue_type_template_id_2ad90968___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _modalDocentePlanifReport_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _modalDocentePlanifReport_vue_vue_type_template_id_26355dea___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _modalDocentePlanifReport_vue_vue_type_template_id_26355dea___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -560,38 +555,38 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/components/mothlyReportParent.vue"
+component.options.__file = "resources/js/components/modalDocentePlanifReport.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/components/mothlyReportParent.vue?vue&type=script&lang=js&":
-/*!*********************************************************************************!*\
-  !*** ./resources/js/components/mothlyReportParent.vue?vue&type=script&lang=js& ***!
-  \*********************************************************************************/
+/***/ "./resources/js/components/modalDocentePlanifReport.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************!*\
+  !*** ./resources/js/components/modalDocentePlanifReport.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_mothlyReportParent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./mothlyReportParent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/mothlyReportParent.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_mothlyReportParent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_modalDocentePlanifReport_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./modalDocentePlanifReport.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/modalDocentePlanifReport.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_modalDocentePlanifReport_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/components/mothlyReportParent.vue?vue&type=template&id=2ad90968&":
-/*!***************************************************************************************!*\
-  !*** ./resources/js/components/mothlyReportParent.vue?vue&type=template&id=2ad90968& ***!
-  \***************************************************************************************/
+/***/ "./resources/js/components/modalDocentePlanifReport.vue?vue&type=template&id=26355dea&":
+/*!*********************************************************************************************!*\
+  !*** ./resources/js/components/modalDocentePlanifReport.vue?vue&type=template&id=26355dea& ***!
+  \*********************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_mothlyReportParent_vue_vue_type_template_id_2ad90968___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./mothlyReportParent.vue?vue&type=template&id=2ad90968& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/mothlyReportParent.vue?vue&type=template&id=2ad90968&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_mothlyReportParent_vue_vue_type_template_id_2ad90968___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_modalDocentePlanifReport_vue_vue_type_template_id_26355dea___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./modalDocentePlanifReport.vue?vue&type=template&id=26355dea& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/modalDocentePlanifReport.vue?vue&type=template&id=26355dea&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_modalDocentePlanifReport_vue_vue_type_template_id_26355dea___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_mothlyReportParent_vue_vue_type_template_id_2ad90968___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_modalDocentePlanifReport_vue_vue_type_template_id_26355dea___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

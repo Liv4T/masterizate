@@ -329,7 +329,7 @@ class TutorController extends Controller
                 "deleted"=>0
             ]);
 
-            return response('OK',200);
+            return response()->json($scheduleCreated);
         }
 
     }
@@ -430,6 +430,22 @@ class TutorController extends Controller
 
 
          return response('ok',200);
+
+    }
+
+    public function tutorScheduleData(int $schedule_id, int $tutorScheduleStudent){
+
+        $user=Auth::user();
+
+        $tutorSchedule=TutorSchedule::where('id', $schedule_id)->first();
+
+        $tutorSchedule->area=Area::find($tutorSchedule->area_id);
+        $tutorSchedule->classroom=Classroom::find($tutorSchedule->classroom_id);
+        $tutorSchedule->teacher=User::find($tutorSchedule->teacher_id);
+        $tutorSchedule->duration=$tutorSchedule->duration_minutes;
+        $tutorSchedule->event_student=TutorScheduleStudent::find($tutorScheduleStudent);
+
+        return response()->json($tutorSchedule);
 
     }
 

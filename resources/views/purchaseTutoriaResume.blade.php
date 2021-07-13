@@ -1,11 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-@include('menu')
-@if (Auth::user()->isTeacher()||Auth::user()->isPsychology()||Auth::user()->isTutor())
-    <inicio-component></inicio-component>
-@endif
-<purchase-tutorial-resume :plan_type="'{{ $plan_type }}'" :group_name="'{{ $group_name }}'" :area_id="'{{ $area_id }}'" :schedulearea_id="'{{ $schedulearea_id }}'" :time_index="'{{ $time_index }}'" :voucher="'{{ $voucher }}'"></purchase-tutorial-resume>
+
+<menu-cliente></menu-cliente>  
+<purchase-tutorial-resume :tutor_schedule_student_id="'{{ $tutor_schedule_student_id }}'" :tutorschedule_id="'{{ $tutorschedule_id }}'"></purchase-tutorial-resume>
 <footers></footers>
 <div class="container">
     <div class="row justify-content-center">

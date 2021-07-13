@@ -34,7 +34,7 @@
                                 </div>
                                 <div class="col-8 col-md-6 div-plan-title">
                                   <h4>
-                                    {{ current_plan.plan_name }} - {{ group_name }} <span style="text-transform: uppercase;">{{ type }}</span>
+                                    {{ current_plan.plan_name }} - {{ current_plan.date_from }} - {{ current_plan.date_to }}
                                   </h4>
                                 </div>
                                 <div class="col-6 col-md-4 text-center">
@@ -45,7 +45,7 @@
                             <td>
                               <div class="row align-items-center">
                                 <div class="col-12 col-md-12 text-right">
-                                  <span>${{ formatPrice(TotalValue()) }}</span>
+                                  <span>${{ TotalValue() }}</span>
                                 </div>
                               </div>
                             </td>
@@ -57,7 +57,7 @@
                             <td>
                               <div class="row align-items-center">
                                 <div class="col-12 col-md-12 text-right">
-                                  <span>${{ formatPrice(TotalValue()) }}</span>
+                                  <span>${{ TotalValue() }}</span>
                                 </div>
                               </div>
                             </td>
@@ -102,7 +102,7 @@
                                   <span>SUBTOTAL</span>
                                 </div>
                                 <div class="col-6 col-md-6 text-right div-plan-title">
-                                  <span>${{ formatPrice(TotalValue()) }}</span>
+                                  <span>${{ TotalValue() }}</span>
                                 </div>
                               </div>
                             </td>
@@ -115,7 +115,7 @@
                                   <small>Descuento: {{ VoucherDiscountApplied() }} dcto.</small>
                                 </div>
                                 <div class="col-6 col-md-6 div-plan-title text-right">
-                                  <span>- ${{ formatPrice(VoucherDiscountValue()) }}</span>
+                                  <span>- ${{ VoucherDiscountValue() }}</span>
                                 </div>
                               </div>
                             </td>
@@ -127,7 +127,7 @@
                                   <span>TOTAL</span>
                                 </div>
                                 <div class="col-6 col-md-6 div-plan-title text-right">
-                                  <span class="span-total">${{ formatPrice(TotalValue() - VoucherDiscountValue()) }}</span>
+                                  <span class="span-total">${{ TotalValue() }}</span>
                                 </div>
                               </div>
                             </td>
@@ -185,7 +185,7 @@
                             <td>
                               <div class="row align-items-center">
                                 <div class="col-12 col-md-12 text-right">
-                                  <span>${{ formatPrice(TotalValue()) }}</span>
+                                  <span>${{ TotalValue() }}</span>
                                 </div>
                               </div>
                             </td>
@@ -203,7 +203,7 @@
                             <td>
                               <div class="row align-items-center">
                                 <div class="col-12 col-md-12 text-right">
-                                  <span>${{ formatPrice(TotalValue()) }}</span>
+                                  <span>${{ TotalValue() }}</span>
                                 </div>
                               </div>
                             </td>
@@ -232,7 +232,7 @@
                             <td>
                               <div class="row align-items-center">
                                 <div class="col-12 col-md-12 text-right div-plan-title">
-                                  <span>${{ formatPrice(TotalValue()) }}</span>
+                                  <span>${{ TotalValue() }}</span>
                                 </div>
                               </div>
                             </td>
@@ -245,7 +245,7 @@
                             <td>
                               <div class="row align-items-center">
                                 <div class="col-12 col-md-12 div-plan-title text-right">
-                                  <span>- ${{ formatPrice(VoucherDiscountValue()) }}</span>
+                                  <span>- ${{ VoucherDiscountValue() }}</span>
                                 </div>
                               </div>
                             </td>
@@ -255,7 +255,7 @@
                             <td>
                               <div class="row align-items-center">
                                 <div class="col-12 col-md-12 div-plan-title text-right">
-                                  <span class="span-total">${{ formatPrice(TotalValue() - VoucherDiscountValue()) }}</span>
+                                  <span class="span-total">${{ TotalValue() }}</span>
                                 </div>
                               </div>
                             </td>
@@ -288,37 +288,22 @@
 </template>
 <script>
 export default {
-  props: ["group_name", "voucher", "area_id", "schedulearea_id", "time_index", "plan_type"],
+  props: ["tutor_schedule_student_id","tutorschedule_id"],
   mounted() {
-    if (this.voucher) {
-      this.voucher_code = `${this.voucher}`;
-      this.validateVoucher();
-    }
-
     this.fillWidthCalculate();
     window.onresize = () => {
       this.fillWidthCalculate();
     };
-
-    if (this.plan_type == "TUTORIA_GRUPAL") {
-      this.type = "grupal";
-       // this.minStudents=3;
-    }
-
-    this.getPlanInformation().then(() => {
-        this.getScheduleSelected();
-    });
-    this.PayPaypal;
+    this.currencyExchange();
+    this.getPlanInformation();
+    this.PayPaypal();
   },
   data() {
     return {
-        minStudents:1,
-      type: "individual",
       fullWidth: true,
-      current_plan: { quantity: 1, plan_price: {}, english_price: {} },
+      current_plan: { quantity: 1, plan_price: {} },
       plan_prices: [],
-      english_price: { total_price: 0, total_tax: 0 },
-      selected_english: true,
+      currencyExchangePrice: "",
       events: {
         pay_loading: false,
         voucher_loading: false,
@@ -340,7 +325,8 @@ export default {
       return ret_stament;
     },
     TotalValue() {
-      return this.current_plan.plan_price.total_price * this.current_plan.quantity;
+      var total=((this.current_plan.plan_price.total_price * this.current_plan.quantity)/this.currencyExchangePrice);
+      return this.formatPrice(total);
     },
     VoucherDiscountApplied() {
       if (!this.voucher_data) return "";
@@ -348,7 +334,7 @@ export default {
       if (this.voucher_data.discount_percent && this.voucher_data.discount_percent > 0) {
         return `${this.voucher_data.discount_percent} % `;
       } else {
-        return `$ ${this.formatPrice(this.voucher_data.discount_value)}`;
+        return `$ ${this.this.voucher_data.discount_value}`;
       }
     },
     VoucherDiscountValue() {
@@ -363,7 +349,7 @@ export default {
     },
     getPlanInformation() {
       return new Promise((resolve, reject) => {
-        var url="";//aqui colacamos la url para traer los datos del plan 
+        var url="/api/tutor-schedule/event/data/" + this.tutorschedule_id + "/" + this.tutor_schedule_student_id;
         axios.get(url).then(
           (response) => {
             this.plan_prices = response.data;
@@ -375,7 +361,8 @@ export default {
                 resolve();
               }, 3000);
             } else {
-              this.current_plan.plan_price = response.data[0];
+              console.log(response.data);
+              this.current_plan = { plan_name: `Tutoría ${response.data.area.name}`, quantity: 1,date_from:response.data.event_student.date_from,date_to:response.data.event_student.date_to, id_event_student:response.data.event_student.id,plan_price: { total_price: response.data.tutorial_value } };
               resolve();
             }
           },
@@ -383,42 +370,9 @@ export default {
         );
       });
     },
-    getScheduleSelected() {
-      return new Promise((resolve, reject) => {
-        axios.get(`/api/tutor/schedule/${this.type}/${this.schedulearea_id}/${this.time_index}`).then((response) => {
-          this.current_plan = { plan_name: `Tutoría ${response.data[0].area_name}`, icon: response.data[0].area_icon, quantity: 1,date_from:response.data[0].date_from,date_to:response.data[0].date_to, plan_price: { total_price: response.data[0].rate*this.minStudents }, english_price: {} };
-        });
-      });
-    },
-    validateVoucher() {
-      this.events.voucher_loading = true;
-      this.events.voucher_error = "";
-      this.voucher_data = null;
-
-      axios.post(`/api/customer-voucher/validate`, { voucher: this.voucher_code }).then(
-        (response) => {
-          this.events.voucher_loading = false;
-          this.voucher_data = response.data;
-          console.log(this.voucher_data);
-          toastr.success("Cupón aplicado");
-        },
-        (error) => {
-          this.events.voucher_loading = false;
-          if (error.response.data) {
-            this.events.voucher_error = error.response.data;
-            toastr.error(error.response.data);
-          } else {
-            console.log(error);
-          }
-        }
-      );
-    },
-    PlanPriceChangeEvent() {
-      //
-    },
     formatPrice(value) {
-      let val = (value / 1).toFixed(0).replace(".", ",");
-      return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+      let val = (value / 1).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'); 
+      return val;
     },
     QuantityValidateEvent() {
       if (this.current_plan.quantity < 1) this.current_plan.quantity = 1;
@@ -442,53 +396,59 @@ export default {
 
             commit: true,
 
-            payment: function(data, actions) {
+            payment: async (data, actions) => {
                 return actions.payment.create({
                     transactions: [{
                         amount: {
-                            total: '11',
+                            total: this.TotalValue(),
                             currency: 'USD'
                         }
                     }]
                 });
             },
 
-            onAuthorize: function(data, actions) {
-                return actions.payment.execute().then(function() {
-                    window.alert('Thank you for your purchase!');
-                });
+            onApprove: async (data, actions) => {
+            const order = await actions.order.capture();
+            console.log(order);
+            this.PayEvent(order);
             }
           }, '#paypal-button');
     },
-    PayEvent() {
+    PayEvent(order) {
       this.events.pay_loading = true;
-
       let model = {
-        plan_id: this.plan_prices[0].id,
         quantity: this.current_plan.quantity,
-        date_from: this.current_plan.date_from,
-        date_to: this.current_plan.date_to,
-        english_id: 0,
-        tutorschedulearea_id: this.schedulearea_id,
-        time_index: this.time_index,
-        voucher: this.voucher_data ? this.voucher_data.code : null,
-
+        schedule_id: this.tutorschedule_id,
+        event_student_id: this.current_plan.id_event_student,
+        amount: order.purchase_units[0].amount.value,
+        ref: order.purchase_units[0].payments.captures[0].id,  
+        result: order.purchase_units[0].payments.captures[0].status,
+        payer_email: order.payer.email_address,
+        payer_id: order.payer.payer_id,
+        merchant_id: order.purchase_units[0].payee.merchant_id,
+        princeExchange: this.currencyExchangePrice,
+        total: this.TotalValue(),
       };
-
-    //location.href = `/compra/plan/${this.plan_type}/tutoria/ingresar/p/${encodeURI(window.btoa(JSON.stringify(model)))}`;
-    //location.href=`/compra/pagar/mercadopago/${encodeURI(window.btoa(JSON.stringify(model)))}`;
-
+      //console.log(model);
+      location.href=`/compra/pagar/paypal/${encodeURI(window.btoa(JSON.stringify(model)))}`;
       setTimeout(() => {
         this.events.pay_loading = false;
       }, 4000);
     },
-    quantityEditEnabled() {
-      if (this.plan_type == "CREDITO") return false;
+    currencyExchange(){
+      var url="/compra/currencyExchange";
+      axios.get(url).then((response) => {
+            this.plan_prices = response.data;
 
-      if (this.plan_type.includes("GRAT")) return false;
-
-      return true;
-    },
+            if (response.data.length == 0) {
+              toastr.error("No hay un cambio válido");
+            } else {
+              console.log(response.data);
+              this.currencyExchangePrice = response.data.exchange;
+            }
+          },
+      );  
+    }
   },
 };
 </script>
