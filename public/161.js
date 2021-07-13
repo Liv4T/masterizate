@@ -75,25 +75,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___default.a);
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
     Multiselect: vue_multiselect__WEBPACK_IMPORTED_MODULE_0___default.a
   },
-  props: ["id_grade", "id_area"],
+  props: ["nameArea"],
   data: function data() {
     return {
       clases: [],
@@ -110,26 +98,37 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
       errors: [],
       fillS: [],
       area: null,
-      filter: "",
-      myOptions: []
+      filter: ""
     };
   },
-  created: function created() {},
   mounted: function mounted() {
-    var _this = this;
-
-    var url = "/GetArearByUser";
-    axios.get(url).then(function (response) {
-      _this.myOptions = response.data;
-    });
-    console.log("Component mounted.");
+    this.getData();
+  },
+  watch: {
+    nameArea: function nameArea(old_value, new_value) {
+      if (old_value != new_value) {
+        this.getData();
+      }
+    }
   },
   methods: {
-    areaClassroom: function areaClassroom() {
+    getData: function getData() {
+      var _this = this;
+
+      this.clases = [];
+      axios.get("/GetArearByUser").then(function (response) {
+        var myOptions = response.data.filter(function (e) {
+          return e.text === _this.nameArea;
+        });
+        myOptions.forEach(function (e) {
+          _this.areaClassroom(e.id, e.id_classroom);
+        });
+      }); // console.log("Component mounted.");
+    },
+    areaClassroom: function areaClassroom(area_id, classroom_id) {
       var _this2 = this;
 
-      var url = window.location.origin + "/getRepoStudent/" + this.area_classroom;
-      axios.get(url).then(function (response) {
+      axios.get("/getRepoStudent/".concat(area_id, "/").concat(classroom_id)).then(function (response) {
         _this2.clases = response.data;
       });
     },
@@ -174,177 +173,117 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "back" }, [
-    _c("div", { staticClass: "row justify-content-center" }, [
-      _c("div", { staticClass: "col-sm-10", attrs: { id: "crud" } }, [
-        _c("div", { staticClass: "card text-center" }, [
-          _c("h3", { staticClass: "card-header fondo" }, [_vm._v("Entregas")]),
-          _vm._v(" "),
-          _c("div", { staticClass: "card-body" }, [
-            _c("div", { staticClass: "float-right" }, [
-              _c("label", { attrs: { for: "" } }, [_vm._v("Buscar")]),
-              _vm._v(" "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.filter,
-                    expression: "filter"
-                  }
-                ],
-                attrs: { type: "text", placeholder: "Buscar" },
-                domProps: { value: _vm.filter },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.filter = $event.target.value
-                  }
-                }
-              })
-            ]),
+  return _c("div", { staticClass: "row justify-content-center" }, [
+    _c("div", { staticClass: "col-sm-12", attrs: { id: "crud" } }, [
+      _c("div", { staticClass: "card text-center" }, [
+        _c("h3", { staticClass: "card-header fondo" }, [_vm._v("Entregas")]),
+        _vm._v(" "),
+        _c("div", { staticClass: "card-body" }, [
+          _c("div", { staticClass: "float-right" }, [
+            _c("label", { attrs: { for: "" } }, [_vm._v("Buscar")]),
             _vm._v(" "),
-            _c("div", { staticClass: "form-group mx-auto" }, [
-              _c("div", { attrs: { align: "center" } }, [
-                _c("div", { staticClass: "col-md-6" }, [
-                  _c("label", { attrs: { for: "" } }, [_vm._v("Materia:")]),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.filter,
+                  expression: "filter"
+                }
+              ],
+              attrs: { type: "text", placeholder: "Buscar" },
+              domProps: { value: _vm.filter },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.filter = $event.target.value
+                }
+              }
+            })
+          ]),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass: "table-responsive",
+              staticStyle: { "border-radius": "20px" }
+            },
+            [
+              _c(
+                "table",
+                {
+                  staticClass: "table table-hover table-striped",
+                  staticStyle: { "border-collapse": "separate !important" }
+                },
+                [
+                  _vm._m(0),
                   _vm._v(" "),
                   _c(
-                    "select",
-                    {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.area_classroom,
-                          expression: "area_classroom"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      attrs: { required: "" },
-                      on: {
-                        change: [
-                          function($event) {
-                            var $$selectedVal = Array.prototype.filter
-                              .call($event.target.options, function(o) {
-                                return o.selected
-                              })
-                              .map(function(o) {
-                                var val = "_value" in o ? o._value : o.value
-                                return val
-                              })
-                            _vm.area_classroom = $event.target.multiple
-                              ? $$selectedVal
-                              : $$selectedVal[0]
-                          },
-                          function($event) {
-                            return _vm.areaClassroom()
-                          }
-                        ]
-                      }
-                    },
-                    _vm._l(_vm.myOptions, function(option) {
-                      return _c(
-                        "option",
-                        {
+                    "tbody",
+                    _vm._l(_vm.filteredRows, function(row, index) {
+                      return _c("tr", { key: index }, [
+                        _c("td", {
+                          staticStyle: { "font-size": "18px" },
                           domProps: {
-                            value: option.id + "/" + option.id_classroom
+                            innerHTML: _vm._s(_vm.highlightMatches(row.date))
                           }
-                        },
-                        [_vm._v(_vm._s(option.text))]
-                      )
+                        }),
+                        _vm._v(" "),
+                        _c("td", {
+                          staticStyle: { "font-size": "18px" },
+                          domProps: {
+                            innerHTML: _vm._s(_vm.highlightMatches(row.name))
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("td", {
+                          staticStyle: { "font-size": "18px" },
+                          domProps: {
+                            innerHTML: _vm._s(_vm.highlightMatches(row.status))
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("td", [
+                          _c(
+                            "a",
+                            {
+                              directives: [
+                                {
+                                  name: "show",
+                                  rawName: "v-show",
+                                  value: row.status != "Calificado",
+                                  expression: "row.status!='Calificado'"
+                                }
+                              ],
+                              staticClass: "btn btn-warning",
+                              attrs: {
+                                href: "/repository/student/upload/" + row.id
+                              }
+                            },
+                            [_vm._v("Ver más")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "a",
+                            {
+                              staticClass: "btn btn-info",
+                              attrs: {
+                                href: "/repository/student/comment/" + row.id
+                              }
+                            },
+                            [_vm._v("Retroalimentación")]
+                          )
+                        ])
+                      ])
                     }),
                     0
                   )
-                ])
-              ])
-            ]),
-            _vm._v(" "),
-            _c(
-              "div",
-              {
-                staticClass: "table-responsive",
-                staticStyle: { "border-radius": "20px" }
-              },
-              [
-                _c(
-                  "table",
-                  {
-                    staticClass: "table table-hover table-striped",
-                    staticStyle: { "border-collapse": "separate !important" }
-                  },
-                  [
-                    _vm._m(0),
-                    _vm._v(" "),
-                    _c(
-                      "tbody",
-                      _vm._l(_vm.filteredRows, function(row, index) {
-                        return _c("tr", { key: index }, [
-                          _c("td", {
-                            staticStyle: { "font-size": "18px" },
-                            domProps: {
-                              innerHTML: _vm._s(_vm.highlightMatches(row.date))
-                            }
-                          }),
-                          _vm._v(" "),
-                          _c("td", {
-                            staticStyle: { "font-size": "18px" },
-                            domProps: {
-                              innerHTML: _vm._s(_vm.highlightMatches(row.name))
-                            }
-                          }),
-                          _vm._v(" "),
-                          _c("td", {
-                            staticStyle: { "font-size": "18px" },
-                            domProps: {
-                              innerHTML: _vm._s(
-                                _vm.highlightMatches(row.status)
-                              )
-                            }
-                          }),
-                          _vm._v(" "),
-                          _c("td", [
-                            _c(
-                              "a",
-                              {
-                                directives: [
-                                  {
-                                    name: "show",
-                                    rawName: "v-show",
-                                    value: row.status != "Calificado",
-                                    expression: "row.status!='Calificado'"
-                                  }
-                                ],
-                                staticClass: "btn btn-warning",
-                                attrs: {
-                                  href: "/repository/student/upload/" + row.id
-                                }
-                              },
-                              [_vm._v("Ver más")]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "a",
-                              {
-                                staticClass: "btn btn-info",
-                                attrs: {
-                                  href: "/repository/student/comment/" + row.id
-                                }
-                              },
-                              [_vm._v("Retroalimentación")]
-                            )
-                          ])
-                        ])
-                      }),
-                      0
-                    )
-                  ]
-                )
-              ]
-            )
-          ])
+                ]
+              )
+            ]
+          )
         ])
       ])
     ])

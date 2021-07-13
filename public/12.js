@@ -787,7 +787,11 @@ var render = function() {
                     ? _c(
                         "div",
                         { staticClass: "tabcontent" },
-                        [_c("student-courses")],
+                        [
+                          _c("student-courses", {
+                            attrs: { nameArea: _vm.nameArea }
+                          })
+                        ],
                         1
                       )
                     : _vm._e(),
@@ -796,7 +800,11 @@ var render = function() {
                     ? _c(
                         "div",
                         { staticClass: "tabcontent" },
-                        [_c("repo-student")],
+                        [
+                          _c("repo-student", {
+                            attrs: { nameArea: _vm.nameArea }
+                          })
+                        ],
                         1
                       )
                     : _vm._e(),

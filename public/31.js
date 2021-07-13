@@ -152,7 +152,9 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale("es");
       id_padreUp: "",
       idUp: "",
       delName: "",
-      delId: ""
+      delId: "",
+      endWeek: moment__WEBPACK_IMPORTED_MODULE_0___default()().endOf('week').format('YYYY-MM-DD'),
+      actualDate: moment__WEBPACK_IMPORTED_MODULE_0___default()().format('YYYY-MM-DD')
     };
   },
   components: {},

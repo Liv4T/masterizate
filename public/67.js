@@ -52,51 +52,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['nameArea'],
   data: function data() {
     return {
       clases: [],
-      areas: [],
       descripcion: "",
       logro: "",
       fechaE: "",
@@ -106,21 +66,38 @@ __webpack_require__.r(__webpack_exports__);
       fillS: []
     };
   },
-  created: function created() {},
   mounted: function mounted() {
-    var _this = this;
-
-    var url = "/GetArearByUser";
-    axios.get(url).then(function (response) {
-      _this.areas = response.data;
-    });
-    console.log("Component mounted.");
+    this.getData();
+  },
+  watch: {
+    nameArea: function nameArea(old_value, new_value) {
+      if (old_value != new_value) {
+        this.getData();
+      }
+    }
   },
   methods: {
-    botones: function botones(area, classroom) {
+    getData: function getData() {
+      var _this = this;
+
+      axios.get("/GetArearByUser").then(function (response) {
+        _this.clases = [];
+        var areas = response.data.filter(function (e) {
+          return e.text === _this.nameArea;
+        });
+        areas.forEach(function (e) {
+          _this.botones(e.id, e.id_classroom);
+        });
+      })["catch"](function (e) {
+        toastr.info("No se encuentran clases Relacionadas");
+        console.log(e);
+      });
+      console.log('Area Activa: ', this.nameArea); // console.log("Component mounted.");
+    },
+    botones: function botones(area_id, classroom_id) {
       var _this2 = this;
 
-      var urlsel = "/viewGetWeek/" + area + "/" + classroom;
+      var urlsel = "/viewGetWeek/" + area_id + "/" + classroom_id;
       axios.get(urlsel).then(function (response) {
         _this2.clases = response.data;
       });
@@ -194,146 +171,82 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "back" }, [
-    _c("div", { staticClass: "row justify-content-center" }, [
-      _c("div", { staticClass: "col-sm-10", attrs: { id: "crud" } }, [
-        _c("div", { staticClass: "card text-center" }, [
-          _c("h3", { staticClass: "card-header fondo" }, [
-            _vm._v("Mis clases")
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "card-body" }, [
-            _c(
-              "div",
-              { staticClass: "accordion", attrs: { id: "accordionExample" } },
-              _vm._l(_vm.areas, function(area, t) {
-                return _c("div", { key: t, staticClass: "card" }, [
-                  _c("div", { staticClass: "card-header" }, [
-                    _c("h2", { staticClass: "mb-0" }, [
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-link",
-                          attrs: {
-                            type: "button",
-                            "data-toggle": "collapse",
-                            "data-target": "#collapse" + t,
-                            "aria-expanded": "false",
-                            "aria-controls": "collapse"
-                          },
-                          on: {
-                            click: function($event) {
-                              $event.preventDefault()
-                              return _vm.botones(area.id, area.id_classroom)
-                            }
-                          }
-                        },
-                        [_c("label", [_vm._v(_vm._s(area.text))])]
-                      )
-                    ])
+  return _c("div", { staticClass: "card text-center" }, [
+    _c("h3", { staticClass: "card-header fondo" }, [_vm._v("Mis clases")]),
+    _vm._v(" "),
+    _c("div", { staticClass: "card-body" }, [
+      _c("div", { staticClass: "card" }, [
+        _c(
+          "table",
+          {
+            staticClass:
+              "table table-responsive-xl table-hover table-striped center"
+          },
+          [
+            _vm._m(0),
+            _vm._v(" "),
+            _vm._l(_vm.clases, function(clas, k) {
+              return _c("tbody", { key: k }, [
+                _c("tr", [
+                  _c("td", [_vm._v(_vm._s(clas.text))]),
+                  _vm._v(" "),
+                  _c("td", [
+                    _c(
+                      "a",
+                      {
+                        staticClass: "btn btn-primary",
+                        attrs: { href: "/estudiante/modulo/" + clas.id }
+                      },
+                      [_vm._v("Ir a Ciclo")]
+                    )
                   ]),
                   _vm._v(" "),
-                  _c(
-                    "div",
-                    {
-                      staticClass: "collapse hide",
-                      attrs: {
-                        id: "collapse" + t,
-                        "aria-labelledby": "heading",
-                        "data-parent": "#accordionExample"
-                      }
-                    },
-                    [
-                      _c(
-                        "table",
-                        {
-                          staticClass:
-                            "table table-responsive-xl table-hover table-striped center"
-                        },
-                        [
-                          _vm._m(0, true),
-                          _vm._v(" "),
+                  _c("td", [
+                    clas.progress == 100
+                      ? _c("div", { staticClass: "check" }, [
                           _c(
-                            "tbody",
-                            _vm._l(_vm.clases, function(clas, k) {
-                              return clas.id_classroom == area.id_classroom &&
-                                clas.id_area == area.id
-                                ? _c("tr", { key: k }, [
-                                    _c("td", [_vm._v(_vm._s(clas.text))]),
-                                    _vm._v(" "),
-                                    _c("td", [
-                                      _c(
-                                        "a",
-                                        {
-                                          staticClass: "btn btn-primary",
-                                          attrs: {
-                                            href:
-                                              "/estudiante/modulo/" + clas.id
-                                          }
-                                        },
-                                        [_vm._v("Ir a Ciclo")]
-                                      )
-                                    ]),
-                                    _vm._v(" "),
-                                    _c("td", [
-                                      clas.progress == 100
-                                        ? _c("div", { staticClass: "check" }, [
-                                            _c(
-                                              "svg",
-                                              {
-                                                staticClass:
-                                                  "bi bi-check-circle-fill",
-                                                attrs: {
-                                                  width: "2em",
-                                                  height: "2em",
-                                                  viewBox: "0 0 16 16",
-                                                  fill: "#28a745",
-                                                  xmlns:
-                                                    "http://www.w3.org/2000/svg"
-                                                }
-                                              },
-                                              [
-                                                _c("path", {
-                                                  attrs: {
-                                                    "fill-rule": "evenodd",
-                                                    d:
-                                                      "M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"
-                                                  }
-                                                }),
-                                                _vm._v(" "),
-                                                _c("path", {
-                                                  attrs: {
-                                                    "fill-rule": "evenodd",
-                                                    d:
-                                                      "M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.236.236 0 0 1 .02-.022z"
-                                                  }
-                                                })
-                                              ]
-                                            ),
-                                            _vm._v(" "),
-                                            _c(
-                                              "p",
-                                              { staticClass: "text-success" },
-                                              [_vm._v("Completado")]
-                                            )
-                                          ])
-                                        : _vm._e()
-                                    ])
-                                  ])
-                                : _vm._e()
-                            }),
-                            0
-                          )
-                        ]
-                      )
-                    ]
-                  )
+                            "svg",
+                            {
+                              staticClass: "bi bi-check-circle-fill",
+                              attrs: {
+                                width: "2em",
+                                height: "2em",
+                                viewBox: "0 0 16 16",
+                                fill: "#28a745",
+                                xmlns: "http://www.w3.org/2000/svg"
+                              }
+                            },
+                            [
+                              _c("path", {
+                                attrs: {
+                                  "fill-rule": "evenodd",
+                                  d:
+                                    "M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c("path", {
+                                attrs: {
+                                  "fill-rule": "evenodd",
+                                  d:
+                                    "M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.236.236 0 0 1 .02-.022z"
+                                }
+                              })
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c("p", { staticClass: "text-success" }, [
+                            _vm._v("Completado")
+                          ])
+                        ])
+                      : _vm._e()
+                  ])
                 ])
-              }),
-              0
-            )
-          ])
-        ])
+              ])
+            })
+          ],
+          2
+        )
       ])
     ])
   ])

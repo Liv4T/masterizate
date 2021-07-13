@@ -143,6 +143,8 @@
             idUp: "",
             delName:"",
             delId: "",
+            endWeek: moment().endOf('week').format('YYYY-MM-DD'),
+            actualDate: moment().format('YYYY-MM-DD'),
         };
     },
     components: {
@@ -155,7 +157,6 @@
         },
     },
     mounted() {
-      
     },
     methods: {
         filterPendingEvents: (events) => {
@@ -169,7 +170,7 @@
           //   console.log(moment(e.dateTo)>= moment());
           // })
           
-          return events.filter(e=>moment(e.dateTo)>= moment());
+          return events.filter(e=>moment(e.dateTo) >= moment());
           // return events.filter((e) => moment(e.dateTo).format('MMMM Do YYYY, h:mm:ss a') >= moment().format('MMMM Do YYYY, h:mm:ss a'));
         },
 
