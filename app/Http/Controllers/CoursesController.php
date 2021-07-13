@@ -111,6 +111,9 @@ class CoursesController extends Controller
                     $areas[$key] = [
                         'id'           => $class->id,
                         'text'         => $class->name.' '.$classroom->name,
+                        'classroom_name'    => $classroom->name,
+                        'id_area'         => $class->id,
+                        'area_name'         => $class->name,
                         /*
                             Se comenta la linea para no obtener el curso ya que se darán tutorias para  
                             De la materia como tal
@@ -544,6 +547,7 @@ class CoursesController extends Controller
     {
         $auth=Auth::user();
         $data = $request->all();
+        $class_plan = $data['class_planning'];
 
         if(isset($data['fromData']) && isset($data['toData']) && isset($data['fromData']['weekly_planning']['id']))
         {
@@ -590,27 +594,28 @@ class CoursesController extends Controller
 
                 $class_planning=Classs::where('id_weekly_plan',$data['fromData']['weekly_planning']['id'])->get();
 
-                 foreach ($class_planning as $key_c => $clase) {
-                    $class =Classs::create([
-                        'name'=>$clase->name,
-                        'description'=> $clase->description,
-                        'name_document'=> $clase->name_document,
-                        'document'=> $clase->document,
-                        'url'=> $clase->url,
-                        'video'=> $clase->video,
-                        'id_weekly_plan'=> $weekly_planning_id,
-                        'status'=> $clase->status,
-                        'video1'=> $clase->video1,
-                        'video2'=> $clase->video2,
-                        'url1'=> $clase->url1,
-                        'url2'=> $clase->url2,
-                        'document1'=> $clase->document1,
-                        'document2'=> $clase->document2,
-                        'observation'=> $clase->observation,
-                        'hourly'=> $clase->hourly
-                    ]);
-
-
+                foreach ($class_planning as $key_c => $clase) {            
+                    if($class_plan[$key_c]['id'] === $clase->id){
+                        $class =Classs::create([
+                            'name'=>$clase->name,
+                            'date_init_class'=>$class_plan[$key_c]['date_init_class'],
+                            'description'=> $clase->description,
+                            'name_document'=> $clase->name_document,
+                            'document'=> $clase->document,
+                            'url'=> $clase->url,
+                            'video'=> $clase->video,
+                            'id_weekly_plan'=> $weekly_planning_id,
+                            'status'=> $clase->status,
+                            'video1'=> $clase->video1,
+                            'video2'=> $clase->video2,
+                            'url1'=> $clase->url1,
+                            'url2'=> $clase->url2,
+                            'document1'=> $clase->document1,
+                            'document2'=> $clase->document2,
+                            'observation'=> $clase->observation,
+                            'hourly'=> $clase->hourly
+                        ]);
+                    }                                                             
                     if(isset($class))
                     {
                         $classes_content=ClassContent::where('id_class',$clase->id)->where('deleted',0)->get();
@@ -645,6 +650,7 @@ class CoursesController extends Controller
 
                     $class=Classs::create([
                         'name'=>$clase->name,
+                        'date_init_class'=>$data['fromData']['class_planning']['date_init_class'],
                         'description'=> $clase->description,
                         'name_document'=> $clase->name_document,
                         'document'=> $clase->document,
@@ -689,6 +695,7 @@ class CoursesController extends Controller
 
                     Classs::where('id',$data['toData']['class_planning']['id'])->update([
                         'name'=>$clase->name,
+                        'date_init_class'=>$data['fromData']['class_planning']['date_init_class'],
                         'description'=> $clase->description,
                         'name_document'=> $clase->name_document,
                         'document'=> $clase->document,

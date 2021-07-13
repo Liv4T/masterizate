@@ -1,14 +1,83 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[58],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/purchaseTutorshipsResumeComponent.vue?vue&type=script&lang=js&":
-/*!********************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/purchaseTutorshipsResumeComponent.vue?vue&type=script&lang=js& ***!
-  \********************************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/menudocente.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/menudocente.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -298,229 +367,24 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["group_name", "voucher", "area_id", "schedulearea_id", "time_index", "plan_type"],
-  mounted: function mounted() {
-    var _this = this;
-
-    if (this.voucher) {
-      this.voucher_code = "".concat(this.voucher);
-      this.validateVoucher();
-    }
-
-    this.fillWidthCalculate();
-
-    window.onresize = function () {
-      _this.fillWidthCalculate();
-    };
-
-    if (this.plan_type == "TUTORIA_GRUPAL") {
-      this.type = "grupal"; // this.minStudents=3;
-    }
-
-    this.getPlanInformation().then(function () {
-      _this.getScheduleSelected();
-    });
-    this.PayPaypal;
-  },
-  data: function data() {
-    return {
-      minStudents: 1,
-      type: "individual",
-      fullWidth: true,
-      current_plan: {
-        quantity: 1,
-        plan_price: {},
-        english_price: {}
-      },
-      plan_prices: [],
-      english_price: {
-        total_price: 0,
-        total_tax: 0
-      },
-      selected_english: true,
-      events: {
-        pay_loading: false,
-        voucher_loading: false,
-        voucher_error: ""
-      },
-      voucher_code: "",
-      voucher_data: null
-    };
-  },
   methods: {
-    fillWidthCalculate: function fillWidthCalculate() {
-      this.fullWidth = window.innerWidth > 1024;
-    },
-    evalue: function evalue(stament) {
-      if (!stament) return "";
-      var ret_stament = "";
-      eval("ret_stament=" + "`" + stament + "`");
-      return ret_stament;
-    },
-    TotalValue: function TotalValue() {
-      return this.current_plan.plan_price.total_price * this.current_plan.quantity;
-    },
-    VoucherDiscountApplied: function VoucherDiscountApplied() {
-      if (!this.voucher_data) return "";
-
-      if (this.voucher_data.discount_percent && this.voucher_data.discount_percent > 0) {
-        return "".concat(this.voucher_data.discount_percent, " % ");
-      } else {
-        return "$ ".concat(this.formatPrice(this.voucher_data.discount_value));
-      }
-    },
-    VoucherDiscountValue: function VoucherDiscountValue() {
-      if (!this.voucher_data) return 0;
-      var total_sale = this.TotalValue();
-
-      if (this.voucher_data.discount_percent && this.voucher_data.discount_percent > 0) {
-        return total_sale * this.voucher_data.discount_percent / 100;
-      } else {
-        return this.voucher_data.discount_value;
-      }
-    },
-    getPlanInformation: function getPlanInformation() {
-      var _this2 = this;
-
-      return new Promise(function (resolve, reject) {
-        var url = ""; //aqui colacamos la url para traer los datos del plan 
-
-        axios.get(url).then(function (response) {
-          _this2.plan_prices = response.data;
-
-          if (response.data.length == 0) {
-            toastr.error("Plan no es válido");
-            setTimeout(function () {
-              location.href = "/compra/plan";
-              resolve();
-            }, 3000);
-          } else {
-            _this2.current_plan.plan_price = response.data[0];
-            resolve();
-          }
-        }, function (e) {
-          return reject(e);
-        });
-      });
-    },
-    getScheduleSelected: function getScheduleSelected() {
-      var _this3 = this;
-
-      return new Promise(function (resolve, reject) {
-        axios.get("/api/tutor/schedule/".concat(_this3.type, "/").concat(_this3.schedulearea_id, "/").concat(_this3.time_index)).then(function (response) {
-          _this3.current_plan = {
-            plan_name: "Tutor\xEDa ".concat(response.data[0].area_name),
-            icon: response.data[0].area_icon,
-            quantity: 1,
-            date_from: response.data[0].date_from,
-            date_to: response.data[0].date_to,
-            plan_price: {
-              total_price: response.data[0].rate * _this3.minStudents
-            },
-            english_price: {}
-          };
-        });
-      });
-    },
-    validateVoucher: function validateVoucher() {
-      var _this4 = this;
-
-      this.events.voucher_loading = true;
-      this.events.voucher_error = "";
-      this.voucher_data = null;
-      axios.post("/api/customer-voucher/validate", {
-        voucher: this.voucher_code
-      }).then(function (response) {
-        _this4.events.voucher_loading = false;
-        _this4.voucher_data = response.data;
-        console.log(_this4.voucher_data);
-        toastr.success("Cupón aplicado");
-      }, function (error) {
-        _this4.events.voucher_loading = false;
-
-        if (error.response.data) {
-          _this4.events.voucher_error = error.response.data;
-          toastr.error(error.response.data);
-        } else {
-          console.log(error);
+    logout: function logout() {
+      axios.post("/logout").then(function (response) {
+        if (response.status === 302 || 401) {
+          window.location.href = "/login";
+        } else {// throw error and go to catch block
         }
-      });
-    },
-    PlanPriceChangeEvent: function PlanPriceChangeEvent() {//
-    },
-    formatPrice: function formatPrice(value) {
-      var val = (value / 1).toFixed(0).replace(".", ",");
-      return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-    },
-    QuantityValidateEvent: function QuantityValidateEvent() {
-      if (this.current_plan.quantity < 1) this.current_plan.quantity = 1;
-      if (this.current_plan.quantity > 20) this.current_plan.quantity = 20;
-    },
-    PayPaypal: function PayPaypal() {
-      paypal.Button.render({
-        env: 'sandbox',
-        client: {
-          sandbox: 'ARQ-WKAkFn3g4C111Ud3lLaUAfzagvJ_pmkLKBVMASvv6nyjX3fv3j0gtBdJEDhRPznYP9sLtf9oiJfH',
-          production: 'EFNo9sAyqiOmnlRHsAdXiGBf6ULysEIfKUVsn58Pq6ilfGHVFn03iVvbWtfiht-irdJD_df1MECvmBC2'
-        },
-        locale: 'es_US',
-        style: {
-          size: 'medium',
-          color: 'gold',
-          shape: 'pill'
-        },
-        commit: true,
-        payment: function payment(data, actions) {
-          return actions.payment.create({
-            transactions: [{
-              amount: {
-                total: '11',
-                currency: 'USD'
-              }
-            }]
-          });
-        },
-        onAuthorize: function onAuthorize(data, actions) {
-          return actions.payment.execute().then(function () {
-            window.alert('Thank you for your purchase!');
-          });
-        }
-      }, '#paypal-button');
-    },
-    PayEvent: function PayEvent() {
-      var _this5 = this;
-
-      this.events.pay_loading = true;
-      var model = {
-        plan_id: this.plan_prices[0].id,
-        quantity: this.current_plan.quantity,
-        date_from: this.current_plan.date_from,
-        date_to: this.current_plan.date_to,
-        english_id: 0,
-        tutorschedulearea_id: this.schedulearea_id,
-        time_index: this.time_index,
-        voucher: this.voucher_data ? this.voucher_data.code : null
-      }; //location.href = `/compra/plan/${this.plan_type}/tutoria/ingresar/p/${encodeURI(window.btoa(JSON.stringify(model)))}`;
-      //location.href=`/compra/pagar/mercadopago/${encodeURI(window.btoa(JSON.stringify(model)))}`;
-
-      setTimeout(function () {
-        _this5.events.pay_loading = false;
-      }, 4000);
-    },
-    quantityEditEnabled: function quantityEditEnabled() {
-      if (this.plan_type == "CREDITO") return false;
-      if (this.plan_type.includes("GRAT")) return false;
-      return true;
+      })["catch"](function (error) {});
     }
   }
 });
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/purchaseTutorshipsResumeComponent.vue?vue&type=style&index=0&lang=css&":
-/*!***************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/purchaseTutorshipsResumeComponent.vue?vue&type=style&index=0&lang=css& ***!
-  \***************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/menudocente.vue?vue&type=style&index=0&lang=css&":
+/*!*****************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/menudocente.vue?vue&type=style&index=0&lang=css& ***!
+  \*****************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -529,22 +393,22 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\nh4 {\r\n  font-size: 1.2em;\n}\n.div-plan-icon {\r\n  display: flex;\r\n  flex-direction: row;\r\n  justify-content: center;\r\n  align-items: center;\n}\n.div-plan-title {\r\n  display: flex;\r\n  flex-direction: row;\r\n  justify-content: flex-start;\r\n  align-items: flex-end;\n}\n.div-plan-item {\r\n  display: flex;\r\n  flex-direction: column;\n}\n.div-plan-item > div {\r\n  display: flex;\r\n  flex-direction: row;\r\n  justify-content: space-between;\n}\n.div-plan-item-total {\r\n  display: flex;\r\n  flex-direction: row;\r\n  justify-content: space-between;\n}\n.span-plan-name {\r\n  font-weight: bold;\r\n  font-size: 1.3em;\r\n  color: #51647c;\n}\n.span-plan-subtotal {\r\n  font-weight: bold;\r\n  font-size: 1.5em;\n}\n.span-plan-total {\r\n  font-weight: bold;\r\n  font-size: 1.8em;\n}\n.span-price {\r\n  font-weight: bold;\r\n  font-size: 1.5em;\n}\n.margin-top-100 {\r\n  margin-top: 100px;\n}\n.border-bottom-1 {\r\n  border-bottom: 1px solid #818181;\n}\n.div-plan-icon > img {\r\n  width: 100px;\n}\n.span-total {\r\n  font-weight: bold;\r\n  font-size: 2em;\n}\n.color-danger {\r\n  color: tomato;\n}\ncard {\r\n  display: flex;\r\n  justify-content: center;\n}\np {\r\n  font-family: \"Century Gothic\";\r\n  font-size: 1.2em;\n}\nspan {\r\n  font-family: \"Century Gothic\";\r\n  font-size: 1.2em;\n}\nul > li {\r\n  font-family: \"Century Gothic\";\r\n  text-align: left;\n}\na {\r\n  color: #0050e3;\n}\n.title-page-section {\r\n  display: flex;\r\n  flex-direction: row;\r\n  justify-content: center;\r\n  align-items: center;\r\n  margin-bottom: 50px;\n}\n.title-page {\r\n  background: #ffc039;\r\n  color: white;\r\n  font-size: 2em;\r\n  padding: 20px;\r\n  border-radius: 5px;\r\n  box-shadow: -1px 4px 9px 0px rgba(148, 148, 148, 1);\n}\n.resume-container {\r\n  background: rgb(0 173 255 / 38%);\r\n  padding: 20px;\r\n  border-radius: 8px;\n}\n.resume-container .table {\r\n  margin-bottom: 20px;\n}\n.section-cupon {\r\n  display: flex;\r\n  flex-direction: row;\r\n  justify-content: space-between;\r\n  align-items: center;\n}\n.resume-table {\r\n  background: #fff;\r\n  padding: 5px;\r\n  border-radius: 8px;\r\n  box-shadow: -1px 4px 9px 0px #7a7a7a;\r\n  width: 100%;\r\n  margin-bottom: 20px;\n}\n.resume-table .table thead th {\r\n  border-bottom: 2px solid #233d68;\n}\n.resume-table .table thead td {\r\n  display: flex;\r\n  flex-direction: row;\r\n  align-items: center;\n}\n.thead-resume th {\r\n  color: black;\n}\n.table-resume th {\r\n  color: black;\n}\n@media (max-width: 768px) {\n[class*=\"col-\"] {\r\n    margin-bottom: 15px;\n}\n.title-page {\r\n    font-size: 1.5em;\r\n    line-height: 40px;\n}\n}\r\n", ""]);
+exports.push([module.i, "\n.left {\r\n    width: 225px;\r\n    height: auto;\r\n    background: #f5f5f5;\r\n    white-space: nowrap;\r\n    transition: width 0.5s;\r\n    position: absolute;\r\n    z-index: 1;\n}\n.left ul {\r\n    padding: 0;\r\n    list-style-type: none;\r\n    text-align: left;\n}\n.left li {\r\n    width: auto;\r\n    height: 60px;\r\n    line-height: 50px;\r\n    padding-left: 18px;\n}\n.left li:hover {\r\n    background: #278080;\r\n    color: white;\n}\n.left .item-menu {\r\n    height: 50px;\r\n    overflow: hidden;\r\n    color: black;\n}\n.left a {\r\n    color: white;\r\n    text-decoration: none;\r\n    font-weight: bold;\n}\nspan.menu {\r\n    padding-left: 17px;\n}\n.t_search {\r\n    color: rgb(200, 200, 200);\r\n    height: 35px;\r\n    margin-left: 15px;\r\n    width: 190px;\n}\n.dropdown {\r\n    position: relative;\r\n    display: inline-block;\n}\n.dropdown-content {\r\n    display: none;\r\n    position: absolute;\r\n    background-color: #f5f5f5;\r\n    min-width: 160px;\r\n    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);\r\n    z-index: 1;\n}\n.dropdown-content a {\r\n    color: black;\r\n    padding: 12px 16px;\r\n    text-decoration: none;\r\n    display: block;\n}\n.dropdown-content a:hover {\r\n    background: #278080;\r\n    color: white;\n}\n.dropdown:hover .dropdown-content {\r\n    display: block;\n}\n.dropdown2 {\r\n    position: relative;\n}\n.dropdown2-content {\r\n    display: none;\r\n    position: absolute;\r\n    background-color: #f5f5f5;\r\n    min-width: 160px;\r\n    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);\r\n    z-index: 1;\n}\n.dropdown2-content a {\r\n    color: black;\r\n    padding: 12px 16px;\r\n    text-decoration: none;\r\n    display: block;\n}\n.dropdown2-content a:hover {\r\n    background: #278080;\r\n    color: white;\n}\n.dropdown2:hover .dropdown2-content {\r\n    display: block;\n}\r\n", ""]);
 
 // exports
 
 
 /***/ }),
 
-/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/purchaseTutorshipsResumeComponent.vue?vue&type=style&index=0&lang=css&":
-/*!*******************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/purchaseTutorshipsResumeComponent.vue?vue&type=style&index=0&lang=css& ***!
-  \*******************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/menudocente.vue?vue&type=style&index=0&lang=css&":
+/*!*********************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/menudocente.vue?vue&type=style&index=0&lang=css& ***!
+  \*********************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var content = __webpack_require__(/*! !../../../node_modules/css-loader??ref--6-1!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--6-2!../../../node_modules/vue-loader/lib??vue-loader-options!./purchaseTutorshipsResumeComponent.vue?vue&type=style&index=0&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/purchaseTutorshipsResumeComponent.vue?vue&type=style&index=0&lang=css&");
+var content = __webpack_require__(/*! !../../../node_modules/css-loader??ref--6-1!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--6-2!../../../node_modules/vue-loader/lib??vue-loader-options!./menudocente.vue?vue&type=style&index=0&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/menudocente.vue?vue&type=style&index=0&lang=css&");
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -566,10 +430,10 @@ if(false) {}
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/purchaseTutorshipsResumeComponent.vue?vue&type=template&id=958191da&":
-/*!************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/purchaseTutorshipsResumeComponent.vue?vue&type=template&id=958191da& ***!
-  \************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/menudocente.vue?vue&type=template&id=7384d158&":
+/*!**************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/menudocente.vue?vue&type=template&id=7384d158& ***!
+  \**************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -581,760 +445,30 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "back row justify-content-center" }, [
-    _c("div", { staticClass: "col-sm-10" }, [
-      _c("div", { staticClass: "fondo-lista" }, [
-        _c("div", { staticClass: "container" }, [
+  return _c("div", { attrs: { id: "app" } }, [
+    _c("div", { staticClass: "container" }, [
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "left" }, [
           _vm._m(0),
           _vm._v(" "),
-          _vm.fullWidth
-            ? _c(
-                "div",
-                {
-                  staticClass: "row justify-content-center",
-                  staticStyle: { "padding-bottom": "1rem" }
-                },
-                [
-                  _c("div", { staticClass: "col-md-10" }, [
-                    _c("section", { staticClass: "resume-container" }, [
-                      _c("div", { staticClass: "row" }, [
-                        _c("div", { staticClass: "col-md-12" }, [
-                          _c("div", { staticClass: "resume-table" }, [
-                            _c("table", { staticClass: "table" }, [
-                              _vm._m(1),
-                              _vm._v(" "),
-                              _c("tbody", [
-                                _c("tr", [
-                                  _c("td", [
-                                    _c(
-                                      "div",
-                                      { staticClass: "row align-items-center" },
-                                      [
-                                        _c(
-                                          "div",
-                                          {
-                                            staticClass:
-                                              "col-4 col-md-2 div-plan-icon"
-                                          },
-                                          [
-                                            _vm.current_plan.icon
-                                              ? _c("img", {
-                                                  attrs: {
-                                                    src: _vm.current_plan.icon,
-                                                    alt: "incono"
-                                                  }
-                                                })
-                                              : _vm._e()
-                                          ]
-                                        ),
-                                        _vm._v(" "),
-                                        _c(
-                                          "div",
-                                          {
-                                            staticClass:
-                                              "col-8 col-md-6 div-plan-title"
-                                          },
-                                          [
-                                            _c("h4", [
-                                              _vm._v(
-                                                "\n                                  " +
-                                                  _vm._s(
-                                                    _vm.current_plan.plan_name
-                                                  ) +
-                                                  " - " +
-                                                  _vm._s(_vm.group_name) +
-                                                  " "
-                                              ),
-                                              _c(
-                                                "span",
-                                                {
-                                                  staticStyle: {
-                                                    "text-transform":
-                                                      "uppercase"
-                                                  }
-                                                },
-                                                [_vm._v(_vm._s(_vm.type))]
-                                              )
-                                            ])
-                                          ]
-                                        ),
-                                        _vm._v(" "),
-                                        _c(
-                                          "div",
-                                          {
-                                            staticClass:
-                                              "col-6 col-md-4 text-center"
-                                          },
-                                          [
-                                            _vm.current_plan.plan_price
-                                              .presentation_url
-                                              ? _c(
-                                                  "a",
-                                                  {
-                                                    attrs: {
-                                                      target: "_blank",
-                                                      href: _vm.evalue(
-                                                        _vm.current_plan
-                                                          .plan_price
-                                                          .presentation_url
-                                                      )
-                                                    }
-                                                  },
-                                                  [_vm._v("Ver detalle")]
-                                                )
-                                              : _vm._e()
-                                          ]
-                                        )
-                                      ]
-                                    )
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("td", [
-                                    _c(
-                                      "div",
-                                      { staticClass: "row align-items-center" },
-                                      [
-                                        _c(
-                                          "div",
-                                          {
-                                            staticClass:
-                                              "col-12 col-md-12 text-right"
-                                          },
-                                          [
-                                            _c("span", [
-                                              _vm._v(
-                                                "$" +
-                                                  _vm._s(
-                                                    _vm.formatPrice(
-                                                      _vm.TotalValue()
-                                                    )
-                                                  )
-                                              )
-                                            ])
-                                          ]
-                                        )
-                                      ]
-                                    )
-                                  ]),
-                                  _vm._v(" "),
-                                  _vm._m(2),
-                                  _vm._v(" "),
-                                  _c("td", [
-                                    _c(
-                                      "div",
-                                      { staticClass: "row align-items-center" },
-                                      [
-                                        _c(
-                                          "div",
-                                          {
-                                            staticClass:
-                                              "col-12 col-md-12 text-right"
-                                          },
-                                          [
-                                            _c("span", [
-                                              _vm._v(
-                                                "$" +
-                                                  _vm._s(
-                                                    _vm.formatPrice(
-                                                      _vm.TotalValue()
-                                                    )
-                                                  )
-                                              )
-                                            ])
-                                          ]
-                                        )
-                                      ]
-                                    )
-                                  ])
-                                ])
-                              ])
-                            ])
-                          ])
-                        ])
-                      ])
-                    ])
-                  ])
-                ]
-              )
-            : _vm._e(),
+          _c("div", { staticClass: "text-center" }, [
+            _c(
+              "a",
+              {
+                staticClass: "btn btn-warning",
+                attrs: { href: "#" },
+                on: {
+                  click: function($event) {
+                    $event.preventDefault()
+                    return _vm.logout($event)
+                  }
+                }
+              },
+              [_vm._v("X Salir")]
+            )
+          ]),
           _vm._v(" "),
-          _vm.fullWidth
-            ? _c(
-                "div",
-                { staticClass: "row justify-content-center margin-top-50" },
-                [
-                  _c("div", { staticClass: "col-md-6" }, [
-                    _c("section", { staticClass: "resume-container" }, [
-                      _c("div", { staticClass: "row" }, [
-                        _c("div", { staticClass: "col-md-12" }, [
-                          _c("div", { staticClass: "resume-table" }, [
-                            _c("table", { staticClass: "table" }, [
-                              _vm._m(3),
-                              _vm._v(" "),
-                              _c("tbody", [
-                                _c("tr", [
-                                  _c("td", [
-                                    _c(
-                                      "div",
-                                      { staticClass: "row align-items-center" },
-                                      [
-                                        _vm._m(4),
-                                        _vm._v(" "),
-                                        _c(
-                                          "div",
-                                          {
-                                            staticClass:
-                                              "col-6 col-md-6 text-right div-plan-title"
-                                          },
-                                          [
-                                            _c("span", [
-                                              _vm._v(
-                                                "$" +
-                                                  _vm._s(
-                                                    _vm.formatPrice(
-                                                      _vm.TotalValue()
-                                                    )
-                                                  )
-                                              )
-                                            ])
-                                          ]
-                                        )
-                                      ]
-                                    )
-                                  ])
-                                ]),
-                                _vm._v(" "),
-                                _vm.voucher_data
-                                  ? _c("tr", [
-                                      _c("td", [
-                                        _c(
-                                          "div",
-                                          {
-                                            staticClass:
-                                              "row align-items-center"
-                                          },
-                                          [
-                                            _c(
-                                              "div",
-                                              {
-                                                staticClass:
-                                                  "col-6 col-md-6 div-plan-icon"
-                                              },
-                                              [
-                                                _c("span", [
-                                                  _vm._v(
-                                                    "CUPÓN " +
-                                                      _vm._s(
-                                                        _vm.voucher_data.code
-                                                      )
-                                                  )
-                                                ]),
-                                                _vm._v(" "),
-                                                _c("small", [
-                                                  _vm._v(
-                                                    "Descuento: " +
-                                                      _vm._s(
-                                                        _vm.VoucherDiscountApplied()
-                                                      ) +
-                                                      " dcto."
-                                                  )
-                                                ])
-                                              ]
-                                            ),
-                                            _vm._v(" "),
-                                            _c(
-                                              "div",
-                                              {
-                                                staticClass:
-                                                  "col-6 col-md-6 div-plan-title text-right"
-                                              },
-                                              [
-                                                _c("span", [
-                                                  _vm._v(
-                                                    "- $" +
-                                                      _vm._s(
-                                                        _vm.formatPrice(
-                                                          _vm.VoucherDiscountValue()
-                                                        )
-                                                      )
-                                                  )
-                                                ])
-                                              ]
-                                            )
-                                          ]
-                                        )
-                                      ])
-                                    ])
-                                  : _vm._e(),
-                                _vm._v(" "),
-                                _c("tr", [
-                                  _c("td", [
-                                    _c(
-                                      "div",
-                                      { staticClass: "row align-items-center" },
-                                      [
-                                        _vm._m(5),
-                                        _vm._v(" "),
-                                        _c(
-                                          "div",
-                                          {
-                                            staticClass:
-                                              "col-6 col-md-6 div-plan-title text-right"
-                                          },
-                                          [
-                                            _c(
-                                              "span",
-                                              { staticClass: "span-total" },
-                                              [
-                                                _vm._v(
-                                                  "$" +
-                                                    _vm._s(
-                                                      _vm.formatPrice(
-                                                        _vm.TotalValue() -
-                                                          _vm.VoucherDiscountValue()
-                                                      )
-                                                    )
-                                                )
-                                              ]
-                                            )
-                                          ]
-                                        )
-                                      ]
-                                    )
-                                  ])
-                                ])
-                              ])
-                            ])
-                          ])
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "content-button" }, [
-                        _c("div", { staticClass: "row align-items-center" }, [
-                          _c(
-                            "div",
-                            { staticClass: "col-md-12 content-button" },
-                            [
-                              !_vm.events.pay_loading &&
-                              _vm.TotalValue() - _vm.VoucherDiscountValue() > 0
-                                ? _c("div", { attrs: { id: "paypal-button" } })
-                                : _vm._e(),
-                              _vm._v(" "),
-                              _vm.events.pay_loading
-                                ? _c(
-                                    "button",
-                                    {
-                                      staticClass:
-                                        "btn btn-primary letra-boldfont",
-                                      attrs: { type: "button", disabled: "" }
-                                    },
-                                    [_vm._v("Procesando...")]
-                                  )
-                                : _vm._e(),
-                              _vm._v(" "),
-                              !_vm.events.pay_loading &&
-                              _vm.TotalValue() - _vm.VoucherDiscountValue() == 0
-                                ? _c(
-                                    "button",
-                                    {
-                                      staticClass:
-                                        "btn btn-Azul letra-boldfont",
-                                      on: {
-                                        click: function($event) {
-                                          return _vm.PayEvent()
-                                        }
-                                      }
-                                    },
-                                    [_vm._v("EMPEZAR")]
-                                  )
-                                : _vm._e()
-                            ]
-                          )
-                        ])
-                      ])
-                    ])
-                  ])
-                ]
-              )
-            : _vm._e(),
-          _vm._v(" "),
-          !_vm.fullWidth
-            ? _c("div", { staticClass: "row justify-content-center" }, [
-                _c("div", { staticClass: "col-md-10" }, [
-                  _c("section", { staticClass: "resume-container" }, [
-                    _c("div", { staticClass: "row" }, [
-                      _c("div", { staticClass: "col-md-12" }, [
-                        _c("div", { staticClass: "resume-table" }, [
-                          _c("table", { staticClass: "table table-resume" }, [
-                            _vm._m(6),
-                            _vm._v(" "),
-                            _c("tbody", [
-                              _c("tr", [
-                                _c("td", { attrs: { colspan: "2" } }, [
-                                  _c(
-                                    "div",
-                                    { staticClass: "row align-items-center" },
-                                    [
-                                      _c(
-                                        "div",
-                                        {
-                                          staticClass:
-                                            "col-3 col-md-2 div-plan-icon"
-                                        },
-                                        [
-                                          _vm.current_plan.icon
-                                            ? _c("img", {
-                                                attrs: {
-                                                  src: _vm.current_plan.icon,
-                                                  alt: "incono"
-                                                }
-                                              })
-                                            : _vm._e()
-                                        ]
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "div",
-                                        { staticClass: "col-9 col-md-6" },
-                                        [
-                                          _c("h4", [
-                                            _vm._v(
-                                              "\n                                  " +
-                                                _vm._s(
-                                                  _vm.current_plan.plan_name
-                                                ) +
-                                                " - " +
-                                                _vm._s(_vm.group_name) +
-                                                " "
-                                            ),
-                                            _c(
-                                              "span",
-                                              {
-                                                staticStyle: {
-                                                  "text-transform": "uppercase"
-                                                }
-                                              },
-                                              [_vm._v(_vm._s(_vm.type))]
-                                            )
-                                          ])
-                                        ]
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "div",
-                                        {
-                                          staticClass:
-                                            "col-12 col-md-4 text-center"
-                                        },
-                                        [
-                                          _vm.current_plan.plan_price
-                                            .presentation_url
-                                            ? _c(
-                                                "a",
-                                                {
-                                                  attrs: {
-                                                    target: "_blank",
-                                                    href: _vm.evalue(
-                                                      _vm.current_plan
-                                                        .plan_price
-                                                        .presentation_url
-                                                    )
-                                                  }
-                                                },
-                                                [_vm._v("Ver detalle")]
-                                              )
-                                            : _vm._e()
-                                        ]
-                                      )
-                                    ]
-                                  )
-                                ])
-                              ]),
-                              _vm._v(" "),
-                              _c("tr", [
-                                _c("th", { staticClass: "letra-boldfont" }, [
-                                  _vm._v("PRECIO")
-                                ]),
-                                _vm._v(" "),
-                                _c("td", [
-                                  _c(
-                                    "div",
-                                    { staticClass: "row align-items-center" },
-                                    [
-                                      _c(
-                                        "div",
-                                        {
-                                          staticClass:
-                                            "col-12 col-md-12 text-right"
-                                        },
-                                        [
-                                          _c("span", [
-                                            _vm._v(
-                                              "$" +
-                                                _vm._s(
-                                                  _vm.formatPrice(
-                                                    _vm.TotalValue()
-                                                  )
-                                                )
-                                            )
-                                          ])
-                                        ]
-                                      )
-                                    ]
-                                  )
-                                ])
-                              ]),
-                              _vm._v(" "),
-                              _vm._m(7),
-                              _vm._v(" "),
-                              _c("tr", [
-                                _c("th", { staticClass: "letra-boldfont" }, [
-                                  _vm._v("SUBTOTAL")
-                                ]),
-                                _vm._v(" "),
-                                _c("td", [
-                                  _c(
-                                    "div",
-                                    { staticClass: "row align-items-center" },
-                                    [
-                                      _c(
-                                        "div",
-                                        {
-                                          staticClass:
-                                            "col-12 col-md-12 text-right"
-                                        },
-                                        [
-                                          _c("span", [
-                                            _vm._v(
-                                              "$" +
-                                                _vm._s(
-                                                  _vm.formatPrice(
-                                                    _vm.TotalValue()
-                                                  )
-                                                )
-                                            )
-                                          ])
-                                        ]
-                                      )
-                                    ]
-                                  )
-                                ])
-                              ]),
-                              _vm._v(" "),
-                              _vm._m(8),
-                              _vm._v(" "),
-                              _c("tr", [
-                                _c("th", { staticClass: "letra-boldfont" }, [
-                                  _vm._v("SUBTOTAL")
-                                ]),
-                                _vm._v(" "),
-                                _c("td", [
-                                  _c(
-                                    "div",
-                                    { staticClass: "row align-items-center" },
-                                    [
-                                      _c(
-                                        "div",
-                                        {
-                                          staticClass:
-                                            "col-12 col-md-12 text-right div-plan-title"
-                                        },
-                                        [
-                                          _c("span", [
-                                            _vm._v(
-                                              "$" +
-                                                _vm._s(
-                                                  _vm.formatPrice(
-                                                    _vm.TotalValue()
-                                                  )
-                                                )
-                                            )
-                                          ])
-                                        ]
-                                      )
-                                    ]
-                                  )
-                                ])
-                              ]),
-                              _vm._v(" "),
-                              _vm.voucher_data
-                                ? _c("tr", [
-                                    _c(
-                                      "th",
-                                      { staticClass: "letra-boldfont" },
-                                      [
-                                        _c("span", [
-                                          _vm._v(
-                                            "CUPÓN " +
-                                              _vm._s(_vm.voucher_data.code)
-                                          )
-                                        ]),
-                                        _vm._v(" "),
-                                        _c("small", [
-                                          _vm._v(
-                                            "Descuento: " +
-                                              _vm._s(
-                                                _vm.VoucherDiscountApplied()
-                                              ) +
-                                              " dcto."
-                                          )
-                                        ])
-                                      ]
-                                    ),
-                                    _vm._v(" "),
-                                    _c("td", [
-                                      _c(
-                                        "div",
-                                        {
-                                          staticClass: "row align-items-center"
-                                        },
-                                        [
-                                          _c(
-                                            "div",
-                                            {
-                                              staticClass:
-                                                "col-12 col-md-12 div-plan-title text-right"
-                                            },
-                                            [
-                                              _c("span", [
-                                                _vm._v(
-                                                  "- $" +
-                                                    _vm._s(
-                                                      _vm.formatPrice(
-                                                        _vm.VoucherDiscountValue()
-                                                      )
-                                                    )
-                                                )
-                                              ])
-                                            ]
-                                          )
-                                        ]
-                                      )
-                                    ])
-                                  ])
-                                : _vm._e(),
-                              _vm._v(" "),
-                              _c("tr", [
-                                _c("th", { staticClass: "letra-boldfont" }, [
-                                  _vm._v("TOTAL")
-                                ]),
-                                _vm._v(" "),
-                                _c("td", [
-                                  _c(
-                                    "div",
-                                    { staticClass: "row align-items-center" },
-                                    [
-                                      _c(
-                                        "div",
-                                        {
-                                          staticClass:
-                                            "col-12 col-md-12 div-plan-title text-right"
-                                        },
-                                        [
-                                          _c(
-                                            "span",
-                                            { staticClass: "span-total" },
-                                            [
-                                              _vm._v(
-                                                "$" +
-                                                  _vm._s(
-                                                    _vm.formatPrice(
-                                                      _vm.TotalValue() -
-                                                        _vm.VoucherDiscountValue()
-                                                    )
-                                                  )
-                                              )
-                                            ]
-                                          )
-                                        ]
-                                      )
-                                    ]
-                                  )
-                                ])
-                              ]),
-                              _vm._v(" "),
-                              _c("tr", [
-                                _c("td", { attrs: { colspan: "2" } }, [
-                                  _c("div", { staticClass: "content-button" }, [
-                                    _c(
-                                      "div",
-                                      { staticClass: "row align-items-center" },
-                                      [
-                                        _c(
-                                          "div",
-                                          {
-                                            staticClass:
-                                              "col-md-12 content-button"
-                                          },
-                                          [
-                                            !_vm.events.pay_loading &&
-                                            _vm.TotalValue() -
-                                              _vm.VoucherDiscountValue() >
-                                              0
-                                              ? _c(
-                                                  "button",
-                                                  {
-                                                    staticClass:
-                                                      "btn btn-Azul letra-boldfont",
-                                                    on: {
-                                                      click: function($event) {
-                                                        return _vm.PayEvent()
-                                                      }
-                                                    }
-                                                  },
-                                                  [_vm._v("FINALIZAR COMPRA")]
-                                                )
-                                              : _vm._e(),
-                                            _vm._v(" "),
-                                            _vm.events.pay_loading
-                                              ? _c(
-                                                  "button",
-                                                  {
-                                                    staticClass:
-                                                      "btn btn-primary letra-boldfont",
-                                                    attrs: {
-                                                      type: "button",
-                                                      disabled: ""
-                                                    }
-                                                  },
-                                                  [_vm._v("Procesando...")]
-                                                )
-                                              : _vm._e(),
-                                            _vm._v(" "),
-                                            !_vm.events.pay_loading &&
-                                            _vm.TotalValue() -
-                                              _vm.VoucherDiscountValue() ==
-                                              0
-                                              ? _c(
-                                                  "button",
-                                                  {
-                                                    staticClass:
-                                                      "btn btn-Azul letra-boldfont",
-                                                    on: {
-                                                      click: function($event) {
-                                                        return _vm.PayEvent()
-                                                      }
-                                                    }
-                                                  },
-                                                  [_vm._v("EMPEZAR")]
-                                                )
-                                              : _vm._e()
-                                          ]
-                                        )
-                                      ]
-                                    )
-                                  ])
-                                ])
-                              ])
-                            ])
-                          ])
-                        ])
-                      ])
-                    ])
-                  ])
-                ])
-              ])
-            : _vm._e()
+          _c("br")
         ])
       ])
     ])
@@ -1345,125 +479,346 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row justify-content-center" }, [
-      _c("div", { staticClass: "col-md-12" }, [
-        _c("section", { staticClass: "title-page-section" }, [
-          _c("span", { staticClass: "title-page letra-boldfont" }, [
-            _vm._v("RESUMEN DE COMPRA")
-          ])
+    return _c("ul", [
+      _c("a", { attrs: { href: "/calendar" } }, [
+        _c("li", { staticClass: "item-menu" }, [
+          _c("img", {
+            attrs: {
+              width: "35px",
+              src:
+                "https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/HORARIO_narnja.png?alt=media&token=93ec6b97-e5a6-4eca-891e-b63bf2a352ad",
+              alt: ""
+            }
+          }),
+          _vm._v(" "),
+          _c("span", { staticClass: "menu" }, [_vm._v("Calendario")])
         ])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("thead", { staticClass: "thead-resume" }, [
-      _c("tr", [
-        _c(
-          "th",
-          {
-            staticClass: "letra-boldfont",
-            staticStyle: { "min-width": "300px" }
-          },
-          [_vm._v("PRODUCTO")]
-        ),
-        _vm._v(" "),
-        _c("th", { staticClass: "letra-boldfont" }, [_vm._v("PRECIO")]),
-        _vm._v(" "),
-        _c("th", { staticClass: "letra-boldfont" }, [_vm._v("CANTIDAD")]),
-        _vm._v(" "),
-        _c("th", { staticClass: "letra-boldfont" }, [_vm._v("SUBTOTAL")])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", [
-      _c("div", { staticClass: "row align-items-center" }, [
-        _c("div", { staticClass: "col-12 col-md-12 text-right" }, [
-          _c("span", [_vm._v("1")])
-        ])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("thead", { staticClass: "thead-resume" }, [
-      _c("tr", [
-        _c(
-          "th",
-          {
-            staticClass: "letra-boldfont",
-            staticStyle: { "min-width": "300px" }
-          },
-          [_vm._v("TOTAL DEL CARRITO")]
-        )
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-6 col-md-6 div-plan-icon" }, [
-      _c("span", [_vm._v("SUBTOTAL")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-6 col-md-6 div-plan-icon" }, [
-      _c("span", [_vm._v("TOTAL")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("thead", [
-      _c("tr", [
-        _c("th", { staticClass: "letra-boldfont", attrs: { colspan: "2" } }, [
-          _vm._v("PRODUCTO")
-        ])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("tr", [
-      _c("th", { staticClass: "letra-boldfont" }, [_vm._v("CANTIDAD")]),
+      ]),
       _vm._v(" "),
-      _c("td", [
-        _c("div", { staticClass: "row align-items-center" }, [
-          _c("div", { staticClass: "col-12 col-md-12 text-right" }, [
-            _c("span", [_vm._v("1")])
+      _c("a", { attrs: { href: "/list/proceedings/parents" } }, [
+        _c("li", { staticClass: "item-menu" }, [
+          _c("img", {
+            attrs: {
+              width: "35px",
+              src:
+                "https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/HORARIO_narnja.png?alt=media&token=93ec6b97-e5a6-4eca-891e-b63bf2a352ad",
+              alt: ""
+            }
+          }),
+          _vm._v(" "),
+          _c("span", { staticClass: "menu" }, [_vm._v("Actas Padres")])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("a", { attrs: { href: "/list/proceedings/general" } }, [
+        _c("li", { staticClass: "item-menu" }, [
+          _c("img", {
+            attrs: {
+              width: "35px",
+              src:
+                "https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/HORARIO_narnja.png?alt=media&token=93ec6b97-e5a6-4eca-891e-b63bf2a352ad",
+              alt: ""
+            }
+          }),
+          _vm._v(" "),
+          _c("span", { staticClass: "menu" }, [_vm._v("Actas Generales")])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "dropdown" }, [
+        _c("a", [
+          _c("li", { staticClass: "item-menu" }, [
+            _c("img", {
+              attrs: {
+                width: "35px",
+                src:
+                  "https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/ANUNCIOS_naranja.png?alt=media&token=539c1428-c480-43bf-a132-73be35386940",
+                alt: ""
+              }
+            }),
+            _vm._v(" "),
+            _c("span", { staticClass: "menu" }, [
+              _vm._v("Comunicaciones          ")
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "dropdown-content" }, [
+              _c("a", { attrs: { href: "/mensajes" } }, [
+                _c("img", {
+                  attrs: {
+                    width: "35px",
+                    src:
+                      "https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/MENSAJES_naranja.png?alt=media&token=93ec6b97-e5a6-4eca-891e-b63bf2a352ad",
+                    alt: ""
+                  }
+                }),
+                _vm._v(
+                  "\n                                         Mensajes\n                                     "
+                )
+              ]),
+              _vm._v(" "),
+              _c("a", { attrs: { href: "/questions" } }, [
+                _c("img", {
+                  attrs: {
+                    width: "35px",
+                    src:
+                      "https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/FOROS_naranja.png?alt=media&token=93ec6b97-e5a6-4eca-891e-b63bf2a352ad",
+                    alt: ""
+                  }
+                }),
+                _vm._v("\n                   Foro\n                 ")
+              ]),
+              _vm._v(" "),
+              _c("a", { attrs: { href: "/chat" } }, [
+                _c("img", {
+                  attrs: {
+                    width: "35px",
+                    src:
+                      "https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/FOROS_naranja.png?alt=media&token=93ec6b97-e5a6-4eca-891e-b63bf2a352ad",
+                    alt: ""
+                  }
+                }),
+                _vm._v("\n                   Chat\n                 ")
+              ]),
+              _vm._v(" "),
+              _c("a", { attrs: { href: "/chat" } }, [
+                _c("img", {
+                  attrs: {
+                    width: "35px",
+                    src:
+                      "https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/FOROS_naranja.png?alt=media&token=93ec6b97-e5a6-4eca-891e-b63bf2a352ad",
+                    alt: ""
+                  }
+                }),
+                _vm._v(
+                  "\n                     Chat Estamentos\n                 "
+                )
+              ]),
+              _vm._v(" "),
+              _c("a", { attrs: { href: "/mensajes" } }, [
+                _c("img", {
+                  attrs: {
+                    width: "35px",
+                    src:
+                      "https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/sicologia_naranja.png?alt=media&token=93ec6b97-e5a6-4eca-891e-b63bf2a352ad",
+                    alt: ""
+                  }
+                }),
+                _vm._v("\n                   Psicología\n                 ")
+              ])
+            ])
           ])
         ])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("tr", [
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "dropdown2" }, [
+        _c("a", [
+          _c("li", { staticClass: "item-menu" }, [
+            _c("img", {
+              attrs: {
+                width: "35px",
+                src:
+                  "https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/ANUNCIOS_naranja.png?alt=media&token=539c1428-c480-43bf-a132-73be35386940",
+                alt: ""
+              }
+            }),
+            _vm._v(" "),
+            _c("span", { staticClass: "menu" }, [
+              _vm._v("Académico          ")
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "dropdown2-content" }, [
+              _c("a", { attrs: { href: "/actividad_g" } }, [
+                _c("img", {
+                  attrs: {
+                    width: "35px",
+                    src:
+                      "https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/MIS-CURSOS.png?alt=media&token=93ec6b97-e5a6-4eca-891e-b63bf2a352ad",
+                    alt: ""
+                  }
+                }),
+                _vm._v("\n                   Planificación\n                 ")
+              ]),
+              _vm._v(" "),
+              _c("a", { attrs: { href: "/docente/clases" } }, [
+                _c("img", {
+                  attrs: {
+                    width: "35px",
+                    src:
+                      "https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/ACTIVIDADES_naranja.png?alt=media&token=93ec6b97-e5a6-4eca-891e-b63bf2a352ad",
+                    alt: ""
+                  }
+                }),
+                _vm._v("\n                   Mis clases\n                 ")
+              ]),
+              _vm._v(" "),
+              _c("a", { attrs: { href: "/resportSendParents" } }, [
+                _c("img", {
+                  attrs: {
+                    width: "35px",
+                    src:
+                      "https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/ACTIVIDADES_naranja.png?alt=media&token=93ec6b97-e5a6-4eca-891e-b63bf2a352ad",
+                    alt: ""
+                  }
+                }),
+                _vm._v(
+                  "\n                     Reporte Mensual Padres          \n                   \n                 "
+                )
+              ]),
+              _vm._v(" "),
+              _c("a", { attrs: { href: "/docente/estudiantes" } }, [
+                _c("img", {
+                  attrs: {
+                    width: "35px",
+                    src:
+                      "https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/ACTIVIDADES_naranja.png?alt=media&token=93ec6b97-e5a6-4eca-891e-b63bf2a352ad",
+                    alt: ""
+                  }
+                }),
+                _vm._v(
+                  "\n                   Mis Estudiantes\n                 "
+                )
+              ]),
+              _vm._v(" "),
+              _c("a", { attrs: { href: "/repository" } }, [
+                _c("img", {
+                  attrs: {
+                    width: "35px",
+                    src:
+                      "https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/NOTAS_naranja.png?alt=media&token=93ec6b97-e5a6-4eca-891e-b63bf2a352ad",
+                    alt: ""
+                  }
+                }),
+                _vm._v("Entregas")
+              ]),
+              _vm._v(" "),
+              _c("a", { attrs: { href: "/board" } }, [
+                _c("img", {
+                  attrs: {
+                    width: "35px",
+                    src:
+                      "https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/NOTAS_naranja.png?alt=media&token=93ec6b97-e5a6-4eca-891e-b63bf2a352ad",
+                    alt: ""
+                  }
+                }),
+                _vm._v("\n                   Pizarra\n                 ")
+              ])
+            ])
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("a", { attrs: { href: "/observer" } }, [
+        _c("li", { staticClass: "item-menu" }, [
+          _c("img", {
+            attrs: {
+              width: "35px",
+              src:
+                "https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/MIS-CURSOS.png?alt=media&token=93ec6b97-e5a6-4eca-891e-b63bf2a352ad",
+              alt: ""
+            }
+          }),
+          _vm._v(" "),
+          _c("span", { staticClass: "menu" }, [_vm._v("Observador")])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "dropdown2" }, [
+        _c("a", [
+          _c("li", { staticClass: "item-menu" }, [
+            _c("img", {
+              attrs: {
+                width: "35px",
+                src:
+                  "https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/ANUNCIOS_naranja.png?alt=media&token=539c1428-c480-43bf-a132-73be35386940",
+                alt: ""
+              }
+            }),
+            _vm._v(" "),
+            _c("span", { staticClass: "menu" }, [_vm._v("Mis Electivas")]),
+            _vm._v(" "),
+            _c("div", { staticClass: "dropdown2-content" }, [
+              _c("a", { attrs: { href: "/teacher/lectives/planning" } }, [
+                _c("img", {
+                  attrs: {
+                    width: "35px",
+                    src:
+                      "https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/MIS-CURSOS.png?alt=media&token=93ec6b97-e5a6-4eca-891e-b63bf2a352ad",
+                    alt: ""
+                  }
+                }),
+                _vm._v("Planificación")
+              ]),
+              _vm._v(" "),
+              _c("a", { attrs: { href: "/teacher/lectives/courses" } }, [
+                _c("img", {
+                  attrs: {
+                    width: "35px",
+                    src:
+                      "https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/ACTIVIDADES_naranja.png?alt=media&token=93ec6b97-e5a6-4eca-891e-b63bf2a352ad",
+                    alt: ""
+                  }
+                }),
+                _vm._v("Mis clases\n                 ")
+              ]),
+              _vm._v(" "),
+              _c("a", { attrs: { href: "/teacher/lectives/students" } }, [
+                _c("img", {
+                  attrs: {
+                    width: "35px",
+                    src:
+                      "https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/ACTIVIDADES_naranja.png?alt=media&token=93ec6b97-e5a6-4eca-891e-b63bf2a352ad",
+                    alt: ""
+                  }
+                }),
+                _vm._v("Mis alumnos\n                     ")
+              ]),
+              _vm._v(" "),
+              _c("a", { attrs: { href: "/teacher/lectives/activities" } }, [
+                _c("img", {
+                  attrs: {
+                    width: "35px",
+                    src:
+                      "https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/ACTIVIDADES_naranja.png?alt=media&token=93ec6b97-e5a6-4eca-891e-b63bf2a352ad",
+                    alt: ""
+                  }
+                }),
+                _vm._v("Mis actividades")
+              ])
+            ])
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("a", { attrs: { href: "/manual" } }, [
+        _c("li", { staticClass: "item-menu" }, [
+          _c("img", {
+            attrs: {
+              width: "35px",
+              src:
+                "https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/MANUAL-DE-USUARIO_naranja.png?alt=media&token=bd2488fb-e121-432d-afd2-f223fcc0f29e",
+              alt: ""
+            }
+          }),
+          _vm._v(" "),
+          _c("span", { staticClass: "menu" }, [_vm._v("Manual de usuario")])
+        ])
+      ]),
+      _vm._v(" "),
       _c(
-        "td",
+        "a",
         {
-          staticClass: "letra-boldfont",
-          staticStyle: { "min-width": "300px", "font-weight": "bold" },
-          attrs: { colspan: "2" }
+          attrs: {
+            href: "../../uploads/Terminos _Condiciones_liv4t.pdf",
+            target: "_blank"
+          }
         },
-        [_vm._v("TOTAL DEL CARRITO")]
+        [
+          _c("li", { staticClass: "item-menu" }, [
+            _c("span", { staticClass: "menu" }, [
+              _vm._v("Términos y condiciones")
+            ])
+          ])
+        ]
       )
     ])
   }
@@ -1474,18 +829,18 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./resources/js/components/purchaseTutorshipsResumeComponent.vue":
-/*!***********************************************************************!*\
-  !*** ./resources/js/components/purchaseTutorshipsResumeComponent.vue ***!
-  \***********************************************************************/
+/***/ "./resources/js/components/menudocente.vue":
+/*!*************************************************!*\
+  !*** ./resources/js/components/menudocente.vue ***!
+  \*************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _purchaseTutorshipsResumeComponent_vue_vue_type_template_id_958191da___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./purchaseTutorshipsResumeComponent.vue?vue&type=template&id=958191da& */ "./resources/js/components/purchaseTutorshipsResumeComponent.vue?vue&type=template&id=958191da&");
-/* harmony import */ var _purchaseTutorshipsResumeComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./purchaseTutorshipsResumeComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/purchaseTutorshipsResumeComponent.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _purchaseTutorshipsResumeComponent_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./purchaseTutorshipsResumeComponent.vue?vue&type=style&index=0&lang=css& */ "./resources/js/components/purchaseTutorshipsResumeComponent.vue?vue&type=style&index=0&lang=css&");
+/* harmony import */ var _menudocente_vue_vue_type_template_id_7384d158___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./menudocente.vue?vue&type=template&id=7384d158& */ "./resources/js/components/menudocente.vue?vue&type=template&id=7384d158&");
+/* harmony import */ var _menudocente_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./menudocente.vue?vue&type=script&lang=js& */ "./resources/js/components/menudocente.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _menudocente_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./menudocente.vue?vue&type=style&index=0&lang=css& */ "./resources/js/components/menudocente.vue?vue&type=style&index=0&lang=css&");
 /* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -1496,9 +851,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
-  _purchaseTutorshipsResumeComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _purchaseTutorshipsResumeComponent_vue_vue_type_template_id_958191da___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _purchaseTutorshipsResumeComponent_vue_vue_type_template_id_958191da___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _menudocente_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _menudocente_vue_vue_type_template_id_7384d158___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _menudocente_vue_vue_type_template_id_7384d158___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -1508,54 +863,54 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/components/purchaseTutorshipsResumeComponent.vue"
+component.options.__file = "resources/js/components/menudocente.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/components/purchaseTutorshipsResumeComponent.vue?vue&type=script&lang=js&":
-/*!************************************************************************************************!*\
-  !*** ./resources/js/components/purchaseTutorshipsResumeComponent.vue?vue&type=script&lang=js& ***!
-  \************************************************************************************************/
+/***/ "./resources/js/components/menudocente.vue?vue&type=script&lang=js&":
+/*!**************************************************************************!*\
+  !*** ./resources/js/components/menudocente.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_purchaseTutorshipsResumeComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./purchaseTutorshipsResumeComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/purchaseTutorshipsResumeComponent.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_purchaseTutorshipsResumeComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_menudocente_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./menudocente.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/menudocente.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_menudocente_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/components/purchaseTutorshipsResumeComponent.vue?vue&type=style&index=0&lang=css&":
-/*!********************************************************************************************************!*\
-  !*** ./resources/js/components/purchaseTutorshipsResumeComponent.vue?vue&type=style&index=0&lang=css& ***!
-  \********************************************************************************************************/
+/***/ "./resources/js/components/menudocente.vue?vue&type=style&index=0&lang=css&":
+/*!**********************************************************************************!*\
+  !*** ./resources/js/components/menudocente.vue?vue&type=style&index=0&lang=css& ***!
+  \**********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_purchaseTutorshipsResumeComponent_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/style-loader!../../../node_modules/css-loader??ref--6-1!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--6-2!../../../node_modules/vue-loader/lib??vue-loader-options!./purchaseTutorshipsResumeComponent.vue?vue&type=style&index=0&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/purchaseTutorshipsResumeComponent.vue?vue&type=style&index=0&lang=css&");
-/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_purchaseTutorshipsResumeComponent_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_purchaseTutorshipsResumeComponent_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_purchaseTutorshipsResumeComponent_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_purchaseTutorshipsResumeComponent_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
- /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_purchaseTutorshipsResumeComponent_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_menudocente_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/style-loader!../../../node_modules/css-loader??ref--6-1!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--6-2!../../../node_modules/vue-loader/lib??vue-loader-options!./menudocente.vue?vue&type=style&index=0&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/menudocente.vue?vue&type=style&index=0&lang=css&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_menudocente_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_menudocente_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_menudocente_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_menudocente_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_menudocente_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
 
 /***/ }),
 
-/***/ "./resources/js/components/purchaseTutorshipsResumeComponent.vue?vue&type=template&id=958191da&":
-/*!******************************************************************************************************!*\
-  !*** ./resources/js/components/purchaseTutorshipsResumeComponent.vue?vue&type=template&id=958191da& ***!
-  \******************************************************************************************************/
+/***/ "./resources/js/components/menudocente.vue?vue&type=template&id=7384d158&":
+/*!********************************************************************************!*\
+  !*** ./resources/js/components/menudocente.vue?vue&type=template&id=7384d158& ***!
+  \********************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_purchaseTutorshipsResumeComponent_vue_vue_type_template_id_958191da___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./purchaseTutorshipsResumeComponent.vue?vue&type=template&id=958191da& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/purchaseTutorshipsResumeComponent.vue?vue&type=template&id=958191da&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_purchaseTutorshipsResumeComponent_vue_vue_type_template_id_958191da___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_menudocente_vue_vue_type_template_id_7384d158___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./menudocente.vue?vue&type=template&id=7384d158& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/menudocente.vue?vue&type=template&id=7384d158&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_menudocente_vue_vue_type_template_id_7384d158___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_purchaseTutorshipsResumeComponent_vue_vue_type_template_id_958191da___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_menudocente_vue_vue_type_template_id_7384d158___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

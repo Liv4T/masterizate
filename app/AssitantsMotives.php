@@ -9,6 +9,8 @@ class AssitantsMotives extends Model
     protected $table = 'assitants_motives';
     protected $guarded = ['id'];
     protected $fillable = [
-        'motive'        
+        'motive',
+        'id_area',
+        'id_classroom'
     ];
 }

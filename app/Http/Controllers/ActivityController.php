@@ -153,7 +153,7 @@ class ActivityController extends Controller
                     ->join('activity', 'activity.id_achievement', '=', 'achievement_planification.id')
                     ->join('class', 'class.id', '=', 'activity.id_class')
                     ->leftJoin('activity_interaction', 'activity_interaction.id_activity', '=', 'activity.id')
-                    ->select('area.name as area_name','classroom.name as classroom_name','activity.*','activity_interaction.score as interaction_score','activity_interaction.state as interaction_state','class.id_weekly_plan as weekly_plan_id','class.activityForPIARStudents','class.activityForSelectStudents','class.activityForAllStudents','class.selectedStudents')
+                    ->select('area.name as area_name','classroom.name as classroom_name','activity.*','activity_interaction.score as interaction_score','activity_interaction.state as interaction_state','class.id_weekly_plan as weekly_plan_id','class.activityForPIARStudents','class.activityForSelectStudents','class.activityForAllStudents','class.selectedStudents','class.date_init_class','class.url_class')
                     ->where('classroom_student.id_user', $user->id)
                     ->where('activity.deleted',0)
                     ->orderBy('id','desc')

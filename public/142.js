@@ -1,14 +1,19 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[142],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/reportsGovernment.vue?vue&type=script&lang=js&":
-/*!****************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/reportsGovernment.vue?vue&type=script&lang=js& ***!
-  \****************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/newMenuAdm.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/newMenuAdm.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
 //
 //
 //
@@ -98,23 +103,24 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  data: function data() {
-    return {};
-  },
-  mounted: function mounted() {},
   methods: {
-    getStudentsReport: function getStudentsReport() {
-      window.open("reportStudents", "_self");
+    logout: function logout() {
+      axios.post("logout").then(function (response) {
+        if (response.status === 302 || 401) {
+          window.location.href = "/login";
+        } else {// throw error and go to catch block
+        }
+      })["catch"](function (error) {});
     }
   }
 });
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/reportsGovernment.vue?vue&type=template&id=4395cb56&":
-/*!********************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/reportsGovernment.vue?vue&type=template&id=4395cb56& ***!
-  \********************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/newMenuAdm.vue?vue&type=template&id=0b798fd4&":
+/*!*************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/newMenuAdm.vue?vue&type=template&id=0b798fd4& ***!
+  \*************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -126,290 +132,385 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { staticClass: "back" },
-    [
-      _c("div", { staticClass: "row justify-content-center" }, [
-        _c("div", { staticClass: "col-sm-10", attrs: { id: "crud" } }, [
-          _c("div", { staticClass: "card" }, [
-            _vm._m(0),
-            _vm._v(" "),
-            _c("div", { staticClass: "card-body" }, [
-              _c("div", { attrs: { id: "accordion" } }, [
-                _vm._m(1),
-                _vm._v(" "),
-                _vm._m(2),
-                _vm._v(" "),
-                _vm._m(3),
-                _vm._v(" "),
-                _c("div", { staticClass: "card" }, [
-                  _vm._m(4),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    {
-                      staticClass: "collapse",
-                      attrs: {
-                        id: "collapseFour",
-                        "aria-labelledby": "headingFour",
-                        "data-parent": "#accordion"
-                      }
-                    },
-                    [
-                      _c("div", { staticClass: "card-body" }, [
-                        _c("div", { staticClass: "form-group text-center" }, [
-                          _c(
-                            "button",
-                            {
-                              staticClass: "btn btn-primary",
-                              on: { click: _vm.getStudentsReport }
-                            },
-                            [_vm._v("Reporte de Estudiantes")]
-                          )
-                        ])
-                      ])
-                    ]
-                  )
-                ])
-              ])
-            ])
-          ])
-        ])
-      ]),
-      _vm._v(" "),
-      _c("modal-docente"),
-      _vm._v(" "),
-      _c("modal-planif-docente"),
-      _vm._v(" "),
-      _c("modal-course"),
-      _vm._v(" "),
-      _c("modal-materias")
-    ],
-    1
-  )
+  return _vm._m(0)
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-header fondo" }, [
-      _c("strong", [_vm._v("Reportes")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card" }, [
-      _c("div", { staticClass: "card-header", attrs: { id: "headingOne" } }, [
-        _c("h5", { staticClass: "mb-0" }, [
-          _c(
-            "button",
-            {
-              staticClass: "btn btn-link",
-              attrs: {
-                "data-toggle": "collapse",
-                "data-target": "#collapseOne",
-                "aria-expanded": "true",
-                "aria-controls": "collapseOne"
-              }
-            },
-            [
-              _vm._v(
-                "\n                                        Reporte de Docentes\n                                    "
-              )
-            ]
-          )
-        ])
+    return _c("div", { staticClass: "mb-3 text-center" }, [
+      _c(
+        "a",
+        {
+          staticClass: "btn btn-sm btn-secondary",
+          attrs: { href: "/perfil_d" }
+        },
+        [_vm._v("\n        Mi Perfil\n    ")]
+      ),
+      _vm._v(" "),
+      _c("div", { staticClass: "dropdown" }, [
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-sm btn-secondary dropdown-toggle",
+            attrs: {
+              type: "button",
+              id: "admin",
+              "data-toggle": "dropdown",
+              "aria-haspopup": "true",
+              "aria-expanded": "false"
+            }
+          },
+          [_vm._v("\n            Administrativo\n        ")]
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass: "dropdown-menu",
+            attrs: { "aria-labelledby": "admin" }
+          },
+          [
+            _c(
+              "a",
+              {
+                staticClass: "dropdown-item",
+                attrs: { href: "instituciones_adm" }
+              },
+              [_vm._v("Crear Instituciones")]
+            ),
+            _vm._v(" "),
+            _c(
+              "a",
+              { staticClass: "dropdown-item", attrs: { href: "general_adm" } },
+              [_vm._v("Crear Salones")]
+            ),
+            _vm._v(" "),
+            _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
+              _vm._v("Crear Perfiles")
+            ]),
+            _vm._v(" "),
+            _c(
+              "a",
+              { staticClass: "dropdown-item", attrs: { href: "/piar" } },
+              [_vm._v("Estudiantes PIAR")]
+            ),
+            _vm._v(" "),
+            _c(
+              "a",
+              { staticClass: "dropdown-item", attrs: { href: "/salon_adm" } },
+              [_vm._v("Crear Usuarios")]
+            ),
+            _vm._v(" "),
+            _c(
+              "a",
+              {
+                staticClass: "dropdown-item",
+                attrs: { href: "/admin/configuracion" }
+              },
+              [_vm._v("Parametros de Notas")]
+            ),
+            _vm._v(" "),
+            _c(
+              "a",
+              { staticClass: "dropdown-item", attrs: { href: "/nursing" } },
+              [_vm._v("Enfermería")]
+            ),
+            _vm._v(" "),
+            _c(
+              "a",
+              { staticClass: "dropdown-item", attrs: { href: "/foods" } },
+              [_vm._v("Alimentación")]
+            ),
+            _vm._v(" "),
+            _c(
+              "a",
+              { staticClass: "dropdown-item", attrs: { href: "/pedagogic" } },
+              [_vm._v("Transporte")]
+            ),
+            _vm._v(" "),
+            _c(
+              "a",
+              { staticClass: "dropdown-item", attrs: { href: "/reportAdmin" } },
+              [_vm._v("Reporte Actividades y Planificación Anual")]
+            )
+          ]
+        )
       ]),
       _vm._v(" "),
-      _c(
-        "div",
-        {
-          staticClass: "collapse show",
-          attrs: {
-            id: "collapseOne",
-            "aria-labelledby": "headingOne",
-            "data-parent": "#accordion"
-          }
-        },
-        [
-          _c("div", { staticClass: "card-body text-center" }, [
-            _c("div", { staticClass: "form-group" }, [
-              _c(
-                "button",
-                {
-                  staticClass: "btn btn-primary",
-                  attrs: {
-                    "data-toggle": "modal",
-                    "data-target": "#reportTeacherModal"
-                  }
-                },
-                [_vm._v("Reporte de Notas")]
-              ),
-              _vm._v(" "),
-              _c(
-                "button",
-                {
-                  staticClass: "btn btn-primary",
-                  attrs: {
-                    "data-toggle": "modal",
-                    "data-target": "#reportTeacherPlanifModal"
-                  }
-                },
-                [_vm._v("Reporte de Planeación")]
-              )
+      _c("div", { staticClass: "dropdown" }, [
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-sm btn-secondary dropdown-toggle",
+            attrs: {
+              type: "button",
+              id: "comunication",
+              "data-toggle": "dropdown",
+              "aria-haspopup": "true",
+              "aria-expanded": "false"
+            }
+          },
+          [_vm._v("\n            Comunicaciones\n        ")]
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass: "dropdown-menu",
+            attrs: { "aria-labelledby": "comunication" }
+          },
+          [
+            _c(
+              "a",
+              { staticClass: "dropdown-item", attrs: { href: "/mensajes" } },
+              [_vm._v("Mensajes")]
+            ),
+            _vm._v(" "),
+            _c(
+              "a",
+              { staticClass: "dropdown-item", attrs: { href: "/calendar" } },
+              [_vm._v("Calendario")]
+            ),
+            _vm._v(" "),
+            _c(
+              "a",
+              { staticClass: "dropdown-item", attrs: { href: "/questions" } },
+              [_vm._v("Foro")]
+            ),
+            _vm._v(" "),
+            _c(
+              "a",
+              { staticClass: "dropdown-item", attrs: { href: "/chat" } },
+              [_vm._v("Chat")]
+            ),
+            _vm._v(" "),
+            _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
+              _vm._v("Universidades")
             ])
-          ])
-        ]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card" }, [
-      _c("div", { staticClass: "card-header", attrs: { id: "headingTwo" } }, [
-        _c("h5", { staticClass: "mb-0" }, [
-          _c(
-            "button",
-            {
-              staticClass: "btn btn-link collapsed",
-              attrs: {
-                "data-toggle": "collapse",
-                "data-target": "#collapseTwo",
-                "aria-expanded": "false",
-                "aria-controls": "collapseTwo"
-              }
-            },
-            [
-              _vm._v(
-                "\n                                        Reporte de Curso\n                                    "
-              )
-            ]
-          )
-        ])
+          ]
+        )
       ]),
       _vm._v(" "),
-      _c(
-        "div",
-        {
-          staticClass: "collapse",
-          attrs: {
-            id: "collapseTwo",
-            "aria-labelledby": "headingTwo",
-            "data-parent": "#accordion"
-          }
-        },
-        [
-          _c("div", { staticClass: "card-body" }, [
-            _c("div", { staticClass: "form-group text-center" }, [
-              _c(
-                "button",
-                {
-                  staticClass: "btn btn-primary",
-                  attrs: {
-                    "data-toggle": "modal",
-                    "data-target": "#reportTeacherCourseModal"
-                  }
-                },
-                [_vm._v("Reporte de Curso")]
-              )
+      _c("div", { staticClass: "dropdown" }, [
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-sm btn-secondary dropdown-toggle",
+            attrs: {
+              type: "button",
+              id: "academic",
+              "data-toggle": "dropdown",
+              "aria-haspopup": "true",
+              "aria-expanded": "false"
+            }
+          },
+          [_vm._v("\n            Académico\n        ")]
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass: "dropdown-menu",
+            attrs: { "aria-labelledby": "academic" }
+          },
+          [
+            _c(
+              "a",
+              {
+                staticClass: "dropdown-item",
+                attrs: { href: "/planificacion" }
+              },
+              [_vm._v("Planificación General")]
+            ),
+            _vm._v(" "),
+            _c(
+              "a",
+              {
+                staticClass: "dropdown-item",
+                attrs: { href: "/docente/clases" }
+              },
+              [_vm._v("Ciclos Y Clases")]
+            ),
+            _vm._v(" "),
+            _c(
+              "a",
+              {
+                staticClass: "dropdown-item",
+                attrs: { href: "/deleteClassAndCicles" }
+              },
+              [_vm._v("Permisos Eliminar Ciclos")]
+            ),
+            _vm._v(" "),
+            _c(
+              "a",
+              { staticClass: "dropdown-item", attrs: { href: "/notas_d" } },
+              [_vm._v("Notas")]
+            ),
+            _vm._v(" "),
+            _c(
+              "a",
+              { staticClass: "dropdown-item", attrs: { href: "/utils" } },
+              [_vm._v("Útiles")]
+            ),
+            _vm._v(" "),
+            _c(
+              "a",
+              { staticClass: "dropdown-item", attrs: { href: "/pedagogic" } },
+              [_vm._v("Salidas Pedagógicas")]
+            ),
+            _vm._v(" "),
+            _c(
+              "a",
+              {
+                staticClass: "dropdown-item",
+                attrs: { href: "/teacher/lectives/planning" }
+              },
+              [_vm._v("Administrar Electivas")]
+            ),
+            _vm._v(" "),
+            _c(
+              "a",
+              {
+                staticClass: "dropdown-item",
+                attrs: { href: "/teacher/lectives/courses" }
+              },
+              [_vm._v("Clases Electivas")]
+            ),
+            _vm._v(" "),
+            _c(
+              "a",
+              {
+                staticClass: "dropdown-item",
+                attrs: { href: "/motiveAssistants" }
+              },
+              [_vm._v("Creación de Motivos de Asistencia")]
+            ),
+            _vm._v(" "),
+            _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
+              _vm._v("Exalumnos")
+            ]),
+            _vm._v(" "),
+            _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
+              _vm._v("Informes")
             ])
-          ])
-        ]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card" }, [
-      _c("div", { staticClass: "card-header", attrs: { id: "headingThree" } }, [
-        _c("h5", { staticClass: "mb-0" }, [
-          _c(
-            "button",
-            {
-              staticClass: "btn btn-link collapsed",
-              attrs: {
-                "data-toggle": "collapse",
-                "data-target": "#collapseThree",
-                "aria-expanded": "false",
-                "aria-controls": "collapseThree"
-              }
-            },
-            [
-              _vm._v(
-                "\n                                        Reporte de Materias\n                                    "
-              )
-            ]
-          )
-        ])
+          ]
+        )
       ]),
       _vm._v(" "),
-      _c(
-        "div",
-        {
-          staticClass: "collapse",
-          attrs: {
-            id: "collapseThree",
-            "aria-labelledby": "headingThree",
-            "data-parent": "#accordion"
-          }
-        },
-        [
-          _c("div", { staticClass: "card-body" }, [
-            _c("div", { staticClass: "form-group text-center" }, [
-              _c(
-                "button",
-                {
-                  staticClass: "btn btn-primary",
-                  attrs: {
-                    "data-toggle": "modal",
-                    "data-target": "#reportMateriasModal"
-                  }
-                },
-                [_vm._v("Reporte de Materias")]
-              )
+      _c("div", { staticClass: "dropdown" }, [
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-sm btn-secondary dropdown-toggle",
+            attrs: {
+              type: "button",
+              id: "formation",
+              "data-toggle": "dropdown",
+              "aria-haspopup": "true",
+              "aria-expanded": "false"
+            }
+          },
+          [_vm._v("\n            Formación\n        ")]
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass: "dropdown-menu",
+            attrs: { "aria-labelledby": "formation" }
+          },
+          [
+            _c(
+              "a",
+              { staticClass: "dropdown-item", attrs: { href: "/mensajes" } },
+              [_vm._v("Psicología")]
+            ),
+            _vm._v(" "),
+            _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
+              _vm._v("Casos")
+            ]),
+            _vm._v(" "),
+            _c(
+              "a",
+              {
+                staticClass: "dropdown-item",
+                attrs: { href: "permissionPedagogic" }
+              },
+              [_vm._v("Permisos")]
+            ),
+            _vm._v(" "),
+            _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
+              _vm._v("Proyectos Transversales")
+            ]),
+            _vm._v(" "),
+            _c(
+              "a",
+              { staticClass: "dropdown-item", attrs: { href: "/observer" } },
+              [_vm._v("Observador del Alumno")]
+            )
+          ]
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "dropdown" }, [
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-sm btn-secondary dropdown-toggle",
+            attrs: {
+              type: "button",
+              id: "electives",
+              "data-toggle": "dropdown",
+              "aria-haspopup": "true",
+              "aria-expanded": "false"
+            }
+          },
+          [_vm._v("\n            Gobierno Escolar\n        ")]
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass: "dropdown-menu",
+            attrs: { "aria-labelledby": "electives" }
+          },
+          [
+            _c(
+              "a",
+              { staticClass: "dropdown-item", attrs: { href: "/chat" } },
+              [_vm._v("Chat")]
+            ),
+            _vm._v(" "),
+            _c(
+              "a",
+              {
+                staticClass: "dropdown-item",
+                attrs: { href: "/governmentMembers" }
+              },
+              [_vm._v("Quiénes lo Conforman")]
+            ),
+            _vm._v(" "),
+            _c(
+              "a",
+              { staticClass: "dropdown-item", attrs: { href: "/legislation" } },
+              [_vm._v("Legislación")]
+            ),
+            _vm._v(" "),
+            _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
+              _vm._v("Actas y Circulares")
             ])
-          ])
-        ]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      { staticClass: "card-header", attrs: { id: "headingFour" } },
-      [
-        _c("h5", { staticClass: "mb-0" }, [
-          _c(
-            "button",
-            {
-              staticClass: "btn btn-link collapsed",
-              attrs: {
-                "data-toggle": "collapse",
-                "data-target": "#collapseFour",
-                "aria-expanded": "false",
-                "aria-controls": "collapseFour"
-              }
-            },
-            [
-              _vm._v(
-                "\n                                        Reporte de Estudiantes\n                                    "
-              )
-            ]
-          )
+          ]
+        )
+      ]),
+      _vm._v(" "),
+      _c("a", { attrs: { href: "/reportes" } }, [
+        _c("button", { staticClass: "btn btn-sm btn-secondary" }, [
+          _vm._v("\n            Mis Reportes\n        ")
         ])
-      ]
-    )
+      ])
+    ])
   }
 ]
 render._withStripped = true
@@ -418,17 +519,17 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./resources/js/components/reportsGovernment.vue":
-/*!*******************************************************!*\
-  !*** ./resources/js/components/reportsGovernment.vue ***!
-  \*******************************************************/
+/***/ "./resources/js/components/newMenuAdm.vue":
+/*!************************************************!*\
+  !*** ./resources/js/components/newMenuAdm.vue ***!
+  \************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _reportsGovernment_vue_vue_type_template_id_4395cb56___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./reportsGovernment.vue?vue&type=template&id=4395cb56& */ "./resources/js/components/reportsGovernment.vue?vue&type=template&id=4395cb56&");
-/* harmony import */ var _reportsGovernment_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./reportsGovernment.vue?vue&type=script&lang=js& */ "./resources/js/components/reportsGovernment.vue?vue&type=script&lang=js&");
+/* harmony import */ var _newMenuAdm_vue_vue_type_template_id_0b798fd4___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./newMenuAdm.vue?vue&type=template&id=0b798fd4& */ "./resources/js/components/newMenuAdm.vue?vue&type=template&id=0b798fd4&");
+/* harmony import */ var _newMenuAdm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./newMenuAdm.vue?vue&type=script&lang=js& */ "./resources/js/components/newMenuAdm.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -438,9 +539,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _reportsGovernment_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _reportsGovernment_vue_vue_type_template_id_4395cb56___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _reportsGovernment_vue_vue_type_template_id_4395cb56___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _newMenuAdm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _newMenuAdm_vue_vue_type_template_id_0b798fd4___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _newMenuAdm_vue_vue_type_template_id_0b798fd4___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -450,38 +551,38 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/components/reportsGovernment.vue"
+component.options.__file = "resources/js/components/newMenuAdm.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/components/reportsGovernment.vue?vue&type=script&lang=js&":
-/*!********************************************************************************!*\
-  !*** ./resources/js/components/reportsGovernment.vue?vue&type=script&lang=js& ***!
-  \********************************************************************************/
+/***/ "./resources/js/components/newMenuAdm.vue?vue&type=script&lang=js&":
+/*!*************************************************************************!*\
+  !*** ./resources/js/components/newMenuAdm.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_reportsGovernment_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./reportsGovernment.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/reportsGovernment.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_reportsGovernment_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_newMenuAdm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./newMenuAdm.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/newMenuAdm.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_newMenuAdm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/components/reportsGovernment.vue?vue&type=template&id=4395cb56&":
-/*!**************************************************************************************!*\
-  !*** ./resources/js/components/reportsGovernment.vue?vue&type=template&id=4395cb56& ***!
-  \**************************************************************************************/
+/***/ "./resources/js/components/newMenuAdm.vue?vue&type=template&id=0b798fd4&":
+/*!*******************************************************************************!*\
+  !*** ./resources/js/components/newMenuAdm.vue?vue&type=template&id=0b798fd4& ***!
+  \*******************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_reportsGovernment_vue_vue_type_template_id_4395cb56___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./reportsGovernment.vue?vue&type=template&id=4395cb56& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/reportsGovernment.vue?vue&type=template&id=4395cb56&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_reportsGovernment_vue_vue_type_template_id_4395cb56___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_newMenuAdm_vue_vue_type_template_id_0b798fd4___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./newMenuAdm.vue?vue&type=template&id=0b798fd4& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/newMenuAdm.vue?vue&type=template&id=0b798fd4&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_newMenuAdm_vue_vue_type_template_id_0b798fd4___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_reportsGovernment_vue_vue_type_template_id_4395cb56___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_newMenuAdm_vue_vue_type_template_id_0b798fd4___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
