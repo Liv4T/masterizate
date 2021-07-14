@@ -139,6 +139,8 @@ moment__WEBPACK_IMPORTED_MODULE_1___default.a.locale("es");
       activities: [],
       activetab: 1,
       nameArea: "",
+      idArea: "",
+      idClassroom: "",
       planifications: "",
       colorTitle: ""
     };
@@ -387,7 +389,9 @@ var render = function() {
                     click: function($event) {
                       $event.preventDefault()
                       ;(_vm.nameArea = area.text),
-                        (_vm.colorTitle = area.titleColor)
+                        (_vm.colorTitle = area.titleColor),
+                        (_vm.idArea = area.id),
+                        (_vm.idClassroom = area.id_classroom)
                     }
                   }
                 },
@@ -548,7 +552,16 @@ var render = function() {
                     ? _c(
                         "div",
                         { staticClass: "tabcontent" },
-                        [_c("notas-component")],
+                        [
+                          _c("notas-component", {
+                            attrs: {
+                              idArea: _vm.idArea,
+                              idClassroom: _vm.idClassroom,
+                              user: _vm.user,
+                              nameArea: _vm.nameArea
+                            }
+                          })
+                        ],
                         1
                       )
                     : _vm._e()

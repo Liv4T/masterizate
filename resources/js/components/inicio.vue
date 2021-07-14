@@ -10,7 +10,7 @@
                 </div>
 
                 <div class="col-md-2" v-for="(area, t) in areas" :key="t">
-                    <a href="http://" class="btn btn-warning mg-btn" :style="area.style" @click.prevent="nameArea = area.text, colorTitle = area.titleColor">
+                    <a href="http://" class="btn btn-warning mg-btn" :style="area.style" @click.prevent="nameArea = area.text, colorTitle = area.titleColor, idArea = area.id, idClassroom = area.id_classroom">
                         <h6 class="letra-poppins-bold" style="color: black">{{ area.text }}</h6>
                     </a>                    
                 </div>
@@ -40,7 +40,7 @@
                         <div v-if="activetab === 1" class="tabcontent"><calendar-component :type_u="3" :user="user"></calendar-component></div>
                         <div v-if="activetab === 2" class="tabcontent"><student-courses :nameArea="nameArea"></student-courses></div>
                         <div v-if="activetab === 3" class="tabcontent"><repo-student :nameArea="nameArea"></repo-student></div>
-                        <div v-if="activetab === 4" class="tabcontent"><notas-component></notas-component></div>
+                        <div v-if="activetab === 4" class="tabcontent"><notas-component :idArea="idArea" :idClassroom="idClassroom" :user="user" :nameArea="nameArea"></notas-component></div>
                     </div>
                 </div>
             </div>
@@ -128,6 +128,8 @@ export default {
             activities:[],
             activetab: 1,
             nameArea: "",
+            idArea:"",
+            idClassroom:"",
             planifications: "",
             colorTitle:"",
         };
@@ -156,7 +158,6 @@ export default {
                 })
             })
         });
-
         // console.log("Component mounted.");        
     },
     watch:{
