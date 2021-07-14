@@ -3,6 +3,7 @@
 @section('content')
     @if (Auth::user()->isTeacher()||Auth::user()->isPsychology()||Auth::user()->isTutor()||Auth::user()->isAdmin())
     @include('menu')
+     <calendar-component :type_u="{{ $type_user }}" :user="{{Auth::user()}}"></calendar-component>
     @endif
        @if (Auth::user()->isStudent())
         <inicio-component :user="{{Auth::user()}}"></inicio-component>

@@ -111,261 +111,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   methods: {
     logout: function logout() {
@@ -393,7 +138,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.left {\r\n    width: 225px;\r\n    height: auto;\r\n    background: #f5f5f5;\r\n    white-space: nowrap;\r\n    transition: width 0.5s;\r\n    position: absolute;\r\n    z-index: 1;\n}\n.left ul {\r\n    padding: 0;\r\n    list-style-type: none;\r\n    text-align: left;\n}\n.left li {\r\n    width: auto;\r\n    height: 60px;\r\n    line-height: 50px;\r\n    padding-left: 18px;\n}\n.left li:hover {\r\n    background: #278080;\r\n    color: white;\n}\n.left .item-menu {\r\n    height: 50px;\r\n    overflow: hidden;\r\n    color: black;\n}\n.left a {\r\n    color: white;\r\n    text-decoration: none;\r\n    font-weight: bold;\n}\nspan.menu {\r\n    padding-left: 17px;\n}\n.t_search {\r\n    color: rgb(200, 200, 200);\r\n    height: 35px;\r\n    margin-left: 15px;\r\n    width: 190px;\n}\n.dropdown {\r\n    position: relative;\r\n    display: inline-block;\n}\n.dropdown-content {\r\n    display: none;\r\n    position: absolute;\r\n    background-color: #f5f5f5;\r\n    min-width: 160px;\r\n    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);\r\n    z-index: 1;\n}\n.dropdown-content a {\r\n    color: black;\r\n    padding: 12px 16px;\r\n    text-decoration: none;\r\n    display: block;\n}\n.dropdown-content a:hover {\r\n    background: #278080;\r\n    color: white;\n}\n.dropdown:hover .dropdown-content {\r\n    display: block;\n}\n.dropdown2 {\r\n    position: relative;\n}\n.dropdown2-content {\r\n    display: none;\r\n    position: absolute;\r\n    background-color: #f5f5f5;\r\n    min-width: 160px;\r\n    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);\r\n    z-index: 1;\n}\n.dropdown2-content a {\r\n    color: black;\r\n    padding: 12px 16px;\r\n    text-decoration: none;\r\n    display: block;\n}\n.dropdown2-content a:hover {\r\n    background: #278080;\r\n    color: white;\n}\n.dropdown2:hover .dropdown2-content {\r\n    display: block;\n}\r\n", ""]);
+exports.push([module.i, "\n.left {\n  width: 225px;\n  height: auto;\n  background: #f5f5f5;\n  white-space: nowrap;\n  transition: width 0.5s;\n  position: absolute;\n  z-index: 1;\n}\n.left ul {\n  padding: 0;\n  list-style-type: none;\n  text-align: left;\n}\n.left li {\n  width: auto;\n  height: 60px;\n  line-height: 50px;\n  padding-left: 18px;\n}\n.left li:hover {\n  background: #01aeb1c1;\n  color: white;\n}\n.left .item-menu {\n  height: 50px;\n  overflow: hidden;\n  color: white;\n}\n.left a {\n  color: white;\n  text-decoration: none;\n  font-weight: bold;\n}\nspan.menu {\n  padding-left: 17px;\n}\n.t_search {\n  color: rgb(200, 200, 200);\n  height: 35px;\n  margin-left: 15px;\n  width: 190px;\n}\n.dropdown {\n  position: relative;\n  display: inline-block;\n}\n.dropdown-content {\n  display: none;\n  position: absolute;\n  background-color: #f5f5f5;\n  min-width: 160px;\n  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);\n  z-index: 1;\n}\n.dropdown-content a {\n  color: black;\n  padding: 12px 16px;\n  text-decoration: none;\n  display: block;\n}\n.left li {\n  background: #00cbcec1;\n  margin: 8px;\n}\n.left #electivas {\n  background: #ffc039;\n  margin: 8px;\n}\n.dropdown-content a:hover {\n  background: #01aeb1c1;\n  color: white;\n}\n.dropdown:hover .dropdown-content {\n  display: block;\n}\n.dropdown2 {\n  position: relative;\n}\n.dropdown2-content {\n  display: none;\n  position: absolute;\n  background-color: #f5f5f5;\n  min-width: 160px;\n  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);\n  z-index: 1;\n}\n.dropdown2-content a {\n  color: black;\n  padding: 12px 16px;\n  text-decoration: none;\n  display: block;\n}\n.dropdown2-content a:hover {\n  background: #01aeb1c1;\n  color: white;\n}\n.dropdown2:hover .dropdown2-content {\n  display: block;\n}\n", ""]);
 
 // exports
 
@@ -451,6 +196,8 @@ var render = function() {
         _c("div", { staticClass: "left" }, [
           _vm._m(0),
           _vm._v(" "),
+          _vm._m(1),
+          _vm._v(" "),
           _c("div", { staticClass: "text-center" }, [
             _c(
               "a",
@@ -480,228 +227,83 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("ul", [
-      _c("a", { attrs: { href: "/calendar" } }, [
-        _c("li", { staticClass: "item-menu" }, [
-          _c("img", {
-            attrs: {
-              width: "35px",
-              src:
-                "https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/HORARIO_narnja.png?alt=media&token=93ec6b97-e5a6-4eca-891e-b63bf2a352ad",
-              alt: ""
-            }
-          }),
-          _vm._v(" "),
-          _c("span", { staticClass: "menu" }, [_vm._v("Calendario")])
-        ])
-      ]),
-      _vm._v(" "),
-      _c("a", { attrs: { href: "/list/proceedings/parents" } }, [
-        _c("li", { staticClass: "item-menu" }, [
-          _c("img", {
-            attrs: {
-              width: "35px",
-              src:
-                "https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/HORARIO_narnja.png?alt=media&token=93ec6b97-e5a6-4eca-891e-b63bf2a352ad",
-              alt: ""
-            }
-          }),
-          _vm._v(" "),
-          _c("span", { staticClass: "menu" }, [_vm._v("Actas Padres")])
-        ])
-      ]),
-      _vm._v(" "),
-      _c("a", { attrs: { href: "/list/proceedings/general" } }, [
-        _c("li", { staticClass: "item-menu" }, [
-          _c("img", {
-            attrs: {
-              width: "35px",
-              src:
-                "https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/HORARIO_narnja.png?alt=media&token=93ec6b97-e5a6-4eca-891e-b63bf2a352ad",
-              alt: ""
-            }
-          }),
-          _vm._v(" "),
-          _c("span", { staticClass: "menu" }, [_vm._v("Actas Generales")])
-        ])
-      ]),
-      _vm._v(" "),
       _c("div", { staticClass: "dropdown" }, [
         _c("a", [
           _c("li", { staticClass: "item-menu" }, [
-            _c("img", {
-              attrs: {
-                width: "35px",
-                src:
-                  "https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/ANUNCIOS_naranja.png?alt=media&token=539c1428-c480-43bf-a132-73be35386940",
-                alt: ""
-              }
-            }),
-            _vm._v(" "),
             _c("span", { staticClass: "menu" }, [
-              _vm._v("Comunicaciones          ")
+              _vm._v("COMUNICACIONES          ")
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "dropdown-content" }, [
-              _c("a", { attrs: { href: "/mensajes" } }, [
-                _c("img", {
-                  attrs: {
-                    width: "35px",
-                    src:
-                      "https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/MENSAJES_naranja.png?alt=media&token=93ec6b97-e5a6-4eca-891e-b63bf2a352ad",
-                    alt: ""
-                  }
-                }),
-                _vm._v(
-                  "\n                                         Mensajes\n                                     "
-                )
-              ]),
+              _c("a", { attrs: { href: "/mensajes" } }, [_vm._v(" Mensajes")]),
               _vm._v(" "),
-              _c("a", { attrs: { href: "/questions" } }, [
-                _c("img", {
-                  attrs: {
-                    width: "35px",
-                    src:
-                      "https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/FOROS_naranja.png?alt=media&token=93ec6b97-e5a6-4eca-891e-b63bf2a352ad",
-                    alt: ""
-                  }
-                }),
-                _vm._v("\n                   Foro\n                 ")
-              ]),
+              _c("a", { attrs: { href: "/questions" } }, [_vm._v(" Foro ")]),
+              _vm._v(" "),
+              _c("a", { attrs: { href: "/chat" } }, [_vm._v(" Chat ")]),
               _vm._v(" "),
               _c("a", { attrs: { href: "/chat" } }, [
-                _c("img", {
-                  attrs: {
-                    width: "35px",
-                    src:
-                      "https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/FOROS_naranja.png?alt=media&token=93ec6b97-e5a6-4eca-891e-b63bf2a352ad",
-                    alt: ""
-                  }
-                }),
-                _vm._v("\n                   Chat\n                 ")
+                _vm._v(" Chat Estamentos          ")
               ]),
               _vm._v(" "),
-              _c("a", { attrs: { href: "/chat" } }, [
-                _c("img", {
-                  attrs: {
-                    width: "35px",
-                    src:
-                      "https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/FOROS_naranja.png?alt=media&token=93ec6b97-e5a6-4eca-891e-b63bf2a352ad",
-                    alt: ""
-                  }
-                }),
-                _vm._v(
-                  "\n                     Chat Estamentos\n                 "
-                )
+              _c("a", { attrs: { href: "/list/proceedings/parents" } }, [
+                _vm._v(" >Actas Padres ")
               ]),
               _vm._v(" "),
-              _c("a", { attrs: { href: "/mensajes" } }, [
-                _c("img", {
-                  attrs: {
-                    width: "35px",
-                    src:
-                      "https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/sicologia_naranja.png?alt=media&token=93ec6b97-e5a6-4eca-891e-b63bf2a352ad",
-                    alt: ""
-                  }
-                }),
-                _vm._v("\n                   Psicología\n                 ")
+              _c("a", { attrs: { href: "/list/proceedings/general" } }, [
+                _vm._v(" Actas Generales ")
               ])
             ])
           ])
         ])
       ]),
       _vm._v(" "),
+      _c("a", { attrs: { href: "/calendar" } }, [
+        _c("li", { staticClass: "item-menu" }, [
+          _c("span", { staticClass: "menu" }, [_vm._v("CALENDARIO")])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("a", { attrs: { href: "/general" } }, [
+        _c("li", { staticClass: "item-menu" }, [
+          _c("span", { staticClass: "menu" }, [_vm._v("PLANIFICACION GENERAL")])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("a", { attrs: { href: "/plan_clases" } }, [
+        _c("li", { staticClass: "item-menu" }, [
+          _c("span", { staticClass: "menu" }, [_vm._v("PLANIFICACION CLASES")])
+        ])
+      ]),
+      _vm._v(" "),
       _c("div", { staticClass: "dropdown2" }, [
         _c("a", [
           _c("li", { staticClass: "item-menu" }, [
-            _c("img", {
-              attrs: {
-                width: "35px",
-                src:
-                  "https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/ANUNCIOS_naranja.png?alt=media&token=539c1428-c480-43bf-a132-73be35386940",
-                alt: ""
-              }
-            }),
-            _vm._v(" "),
             _c("span", { staticClass: "menu" }, [
-              _vm._v("Académico          ")
+              _vm._v("ACADÉMICO          ")
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "dropdown2-content" }, [
               _c("a", { attrs: { href: "/actividad_g" } }, [
-                _c("img", {
-                  attrs: {
-                    width: "35px",
-                    src:
-                      "https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/MIS-CURSOS.png?alt=media&token=93ec6b97-e5a6-4eca-891e-b63bf2a352ad",
-                    alt: ""
-                  }
-                }),
-                _vm._v("\n                   Planificación\n                 ")
+                _vm._v(" Planificación ")
               ]),
               _vm._v(" "),
               _c("a", { attrs: { href: "/docente/clases" } }, [
-                _c("img", {
-                  attrs: {
-                    width: "35px",
-                    src:
-                      "https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/ACTIVIDADES_naranja.png?alt=media&token=93ec6b97-e5a6-4eca-891e-b63bf2a352ad",
-                    alt: ""
-                  }
-                }),
-                _vm._v("\n                   Mis clases\n                 ")
+                _vm._v(" Mis clases ")
               ]),
               _vm._v(" "),
               _c("a", { attrs: { href: "/resportSendParents" } }, [
-                _c("img", {
-                  attrs: {
-                    width: "35px",
-                    src:
-                      "https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/ACTIVIDADES_naranja.png?alt=media&token=93ec6b97-e5a6-4eca-891e-b63bf2a352ad",
-                    alt: ""
-                  }
-                }),
-                _vm._v(
-                  "\n                     Reporte Mensual Padres          \n                   \n                 "
-                )
+                _vm._v(" Reporte Mensual Padres           ")
               ]),
               _vm._v(" "),
               _c("a", { attrs: { href: "/docente/estudiantes" } }, [
-                _c("img", {
-                  attrs: {
-                    width: "35px",
-                    src:
-                      "https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/ACTIVIDADES_naranja.png?alt=media&token=93ec6b97-e5a6-4eca-891e-b63bf2a352ad",
-                    alt: ""
-                  }
-                }),
-                _vm._v(
-                  "\n                   Mis Estudiantes\n                 "
-                )
+                _vm._v(" Mis Estudiantes ")
               ]),
               _vm._v(" "),
               _c("a", { attrs: { href: "/repository" } }, [
-                _c("img", {
-                  attrs: {
-                    width: "35px",
-                    src:
-                      "https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/NOTAS_naranja.png?alt=media&token=93ec6b97-e5a6-4eca-891e-b63bf2a352ad",
-                    alt: ""
-                  }
-                }),
-                _vm._v("Entregas")
+                _vm._v(" Entregas")
               ]),
               _vm._v(" "),
-              _c("a", { attrs: { href: "/board" } }, [
-                _c("img", {
-                  attrs: {
-                    width: "35px",
-                    src:
-                      "https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/NOTAS_naranja.png?alt=media&token=93ec6b97-e5a6-4eca-891e-b63bf2a352ad",
-                    alt: ""
-                  }
-                }),
-                _vm._v("\n                   Pizarra\n                 ")
-              ])
+              _c("a", { attrs: { href: "/board" } }, [_vm._v(" Pizarra ")])
             ])
           ])
         ])
@@ -709,80 +311,30 @@ var staticRenderFns = [
       _vm._v(" "),
       _c("a", { attrs: { href: "/observer" } }, [
         _c("li", { staticClass: "item-menu" }, [
-          _c("img", {
-            attrs: {
-              width: "35px",
-              src:
-                "https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/MIS-CURSOS.png?alt=media&token=93ec6b97-e5a6-4eca-891e-b63bf2a352ad",
-              alt: ""
-            }
-          }),
-          _vm._v(" "),
-          _c("span", { staticClass: "menu" }, [_vm._v("Observador")])
+          _c("span", { staticClass: "menu" }, [_vm._v("OBSERVADOR")])
         ])
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "dropdown2" }, [
         _c("a", [
-          _c("li", { staticClass: "item-menu" }, [
-            _c("img", {
-              attrs: {
-                width: "35px",
-                src:
-                  "https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/ANUNCIOS_naranja.png?alt=media&token=539c1428-c480-43bf-a132-73be35386940",
-                alt: ""
-              }
-            }),
-            _vm._v(" "),
-            _c("span", { staticClass: "menu" }, [_vm._v("Mis Electivas")]),
+          _c("li", { staticClass: "item-menu", attrs: { id: "electivas" } }, [
+            _c("span", { staticClass: "menu" }, [_vm._v("ELECTIVAS")]),
             _vm._v(" "),
             _c("div", { staticClass: "dropdown2-content" }, [
               _c("a", { attrs: { href: "/teacher/lectives/planning" } }, [
-                _c("img", {
-                  attrs: {
-                    width: "35px",
-                    src:
-                      "https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/MIS-CURSOS.png?alt=media&token=93ec6b97-e5a6-4eca-891e-b63bf2a352ad",
-                    alt: ""
-                  }
-                }),
-                _vm._v("Planificación")
+                _vm._v(" Planificación")
               ]),
               _vm._v(" "),
               _c("a", { attrs: { href: "/teacher/lectives/courses" } }, [
-                _c("img", {
-                  attrs: {
-                    width: "35px",
-                    src:
-                      "https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/ACTIVIDADES_naranja.png?alt=media&token=93ec6b97-e5a6-4eca-891e-b63bf2a352ad",
-                    alt: ""
-                  }
-                }),
-                _vm._v("Mis clases\n                 ")
+                _vm._v(" Mis clases ")
               ]),
               _vm._v(" "),
               _c("a", { attrs: { href: "/teacher/lectives/students" } }, [
-                _c("img", {
-                  attrs: {
-                    width: "35px",
-                    src:
-                      "https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/ACTIVIDADES_naranja.png?alt=media&token=93ec6b97-e5a6-4eca-891e-b63bf2a352ad",
-                    alt: ""
-                  }
-                }),
-                _vm._v("Mis alumnos\n                     ")
+                _vm._v(" Mis alumnos ")
               ]),
               _vm._v(" "),
               _c("a", { attrs: { href: "/teacher/lectives/activities" } }, [
-                _c("img", {
-                  attrs: {
-                    width: "35px",
-                    src:
-                      "https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/ACTIVIDADES_naranja.png?alt=media&token=93ec6b97-e5a6-4eca-891e-b63bf2a352ad",
-                    alt: ""
-                  }
-                }),
-                _vm._v("Mis actividades")
+                _vm._v(" Mis actividades")
               ])
             ])
           ])
@@ -791,16 +343,7 @@ var staticRenderFns = [
       _vm._v(" "),
       _c("a", { attrs: { href: "/manual" } }, [
         _c("li", { staticClass: "item-menu" }, [
-          _c("img", {
-            attrs: {
-              width: "35px",
-              src:
-                "https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/MANUAL-DE-USUARIO_naranja.png?alt=media&token=bd2488fb-e121-432d-afd2-f223fcc0f29e",
-              alt: ""
-            }
-          }),
-          _vm._v(" "),
-          _c("span", { staticClass: "menu" }, [_vm._v("Manual de usuario")])
+          _c("span", { staticClass: "menu" }, [_vm._v("MANUAL DE USUARIO")])
         ])
       ]),
       _vm._v(" "),
@@ -820,6 +363,55 @@ var staticRenderFns = [
           ])
         ]
       )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "text-center" }, [
+      _c(
+        "a",
+        {
+          staticClass: "btn btn-warning letra-poppins-bold mg-btn",
+          staticStyle: {
+            "background-color": "#e26100",
+            "border-color": "#e26100"
+          },
+          attrs: { href: "" }
+        },
+        [_c("h4", [_vm._v("CHAT")])]
+      ),
+      _vm._v(" "),
+      _c("br"),
+      _vm._v(" "),
+      _c(
+        "a",
+        {
+          staticClass: "btn btn-warning letra-poppins-bold mg-btn",
+          staticStyle: {
+            "background-color": "#e26100",
+            "border-color": "#e26100"
+          },
+          attrs: { href: "" }
+        },
+        [_c("h4", [_vm._v("FOROS")])]
+      ),
+      _c("br"),
+      _vm._v(" "),
+      _c(
+        "a",
+        {
+          staticClass: "btn btn-warning letra-poppins-bold mg-btn",
+          staticStyle: {
+            "background-color": "#e26100",
+            "border-color": "#e26100"
+          },
+          attrs: { href: "" }
+        },
+        [_c("h4", [_vm._v("MENSAJES")])]
+      ),
+      _c("br")
     ])
   }
 ]
