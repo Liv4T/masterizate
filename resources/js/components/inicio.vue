@@ -51,6 +51,7 @@
         </div>
       </div>
     </div>
+
     <div v-if="nameArea != ''">
       <div class="form-group text-center">
         <a href="" class="btn btn-warning letra-poppins-bold" style="background-color: #ffa4f2; border-color: #ffa4f2"

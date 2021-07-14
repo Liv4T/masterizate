@@ -134,6 +134,10 @@ export default {
   list-style-type: none;
   text-align: left;
 }
+.mg-btn {
+  margin: 10px;
+  min-width: 165px;
+}
 .left li {
   width: auto;
   height: 60px;

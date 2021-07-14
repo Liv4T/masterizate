@@ -166,7 +166,8 @@ __webpack_require__.r(__webpack_exports__);
     return {
       dataReport: [],
       dataStudent: {},
-      downloading: false
+      downloading: false,
+      displayCol: 'inline'
     };
   },
   mounted: function mounted() {
@@ -183,6 +184,17 @@ __webpack_require__.r(__webpack_exports__);
         _this.dataStudent = JSON.parse(e.dataStudent);
       });
     });
+  },
+  watch: {
+    dataStudent: function dataStudent(newVal) {
+      console.log(newVal);
+
+      if (newVal.nota_class.length === 0) {
+        this.displayCol = 'none';
+      } else {
+        this.displayCol = 'inline';
+      }
+    }
   },
   methods: {
     downloadReport: function downloadReport(data) {
@@ -372,11 +384,20 @@ var render = function() {
           _vm._v(" "),
           _c("td"),
           _vm._v(" "),
-          _c("th", { staticClass: "label" }, [_vm._v("NOTA GENERAL: ")]),
+          _c(
+            "th",
+            { staticClass: "label", style: { display: _vm.displayCol } },
+            [_vm._v("NOTA GENERAL: ")]
+          ),
           _vm._v(" "),
-          _c("td", { staticClass: "label-content" }, [
-            _vm._v(_vm._s(_vm.dataStudent.nota_class))
-          ])
+          _c(
+            "td",
+            {
+              staticClass: "label-content",
+              style: { display: _vm.displayCol }
+            },
+            [_vm._v(_vm._s(_vm.dataStudent.nota_class))]
+          )
         ]),
         _vm._v(" "),
         _vm._m(5),

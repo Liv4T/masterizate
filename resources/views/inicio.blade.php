@@ -1,9 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
-    @if (Auth::user()->isTeacher()||Auth::user()->isPsychology()||Auth::user()->isTutor()||Auth::user()->isAdmin())
+    @if (Auth::user()->isTeacher())
     @include('menu')
-     <calendar-component :type_u="{{ $type_user }}" :user="{{Auth::user()}}"></calendar-component>
+     <calendar-component type_u="2" :user="{{Auth::user()}}"></calendar-component>
+    @endif
+      @if (Auth::user()->isPsychology()||Auth::user()->isTutor()||Auth::user()->isAdmin())
+    @include('menu')
+
     @endif
        @if (Auth::user()->isStudent())
         <inicio-component :user="{{Auth::user()}}"></inicio-component>

@@ -92,8 +92,8 @@
                 
                 <td></td>
                 
-                <th class="label">NOTA GENERAL: </th>
-                <td class="label-content">{{dataStudent.nota_class}}</td>
+                <th class="label" :style="{'display':displayCol}">NOTA GENERAL: </th>
+                <td class="label-content" :style="{'display':displayCol}">{{dataStudent.nota_class}}</td>
             </tr>
             
             <tr>
@@ -152,7 +152,8 @@ export default {
         return{
             dataReport:[],
             dataStudent:{},
-            downloading: false
+            downloading: false,
+            displayCol:'inline'
         }
     },
     mounted(){
@@ -164,9 +165,19 @@ export default {
                     created_at: moment(e.created_at).format('YYYY MMMM DD hh:mm:ss'),
                     dataStudent: JSON.parse(e.dataStudent)
                 })
-                this.dataStudent = JSON.parse(e.dataStudent)
+                this.dataStudent = JSON.parse(e.dataStudent)                
             });
         })
+    },
+    watch:{
+        dataStudent(newVal){
+            console.log(newVal)
+            if(newVal.nota_class.length === 0){            
+                this.displayCol='none';                
+            }else{
+                this.displayCol='inline';
+            }
+        }
     },
     methods:{
         downloadReport(data){
