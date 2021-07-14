@@ -159,7 +159,7 @@
     mounted() {
     },
     methods: {
-        filterPendingEvents: (events) => {
+        filterPendingEvents(events){
           /* Se da formato a fechas para poder comparar las 
           *  reuniones que sucedieron en el dia y las que estan agendadas a futuro
           */
@@ -169,8 +169,14 @@
           //   console.log(e);
           //   console.log(moment(e.dateTo)>= moment());
           // })
-          
-          return events.filter(e=>moment(e.dateTo) >= moment());
+          if(this.type_u != 3){
+            return events.filter(e=>moment(e.dateTo) >= moment());
+          }else if(this.type_u === 3){
+            console.log("rol de estudiante")
+            return events.filter(
+              e=>moment(e.dateTo).format('YYYY-MM-DD') >= this.actualDate && moment(e.dateTo).format('YYYY-MM-DD')<= this.endWeek
+            );
+          }
           // return events.filter((e) => moment(e.dateTo).format('MMMM Do YYYY, h:mm:ss a') >= moment().format('MMMM Do YYYY, h:mm:ss a'));
         },
 

@@ -168,6 +168,8 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale("es");
   mounted: function mounted() {},
   methods: {
     filterPendingEvents: function filterPendingEvents(events) {
+      var _this = this;
+
       /* Se da formato a fechas para poder comparar las 
       *  reuniones que sucedieron en el dia y las que estan agendadas a futuro
       */
@@ -177,9 +179,17 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale("es");
       //   console.log(moment(e.dateTo)>= moment());
       // })
 
-      return events.filter(function (e) {
-        return moment__WEBPACK_IMPORTED_MODULE_0___default()(e.dateTo) >= moment__WEBPACK_IMPORTED_MODULE_0___default()();
-      }); // return events.filter((e) => moment(e.dateTo).format('MMMM Do YYYY, h:mm:ss a') >= moment().format('MMMM Do YYYY, h:mm:ss a'));
+      if (this.type_u != 3) {
+        return events.filter(function (e) {
+          return moment__WEBPACK_IMPORTED_MODULE_0___default()(e.dateTo) >= moment__WEBPACK_IMPORTED_MODULE_0___default()();
+        });
+      } else if (this.type_u === 3) {
+        console.log("rol de estudiante");
+        return events.filter(function (e) {
+          return moment__WEBPACK_IMPORTED_MODULE_0___default()(e.dateTo).format('YYYY-MM-DD') >= _this.actualDate && moment__WEBPACK_IMPORTED_MODULE_0___default()(e.dateTo).format('YYYY-MM-DD') <= _this.endWeek;
+        });
+      } // return events.filter((e) => moment(e.dateTo).format('MMMM Do YYYY, h:mm:ss a') >= moment().format('MMMM Do YYYY, h:mm:ss a'));
+
     },
     UpdateLinkTutorial: function UpdateLinkTutorial(tutorial) {
       axios.put("/api/tutor-schedule/event/".concat(tutorial.id_schedulestudent, "/link"), {
@@ -189,19 +199,19 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale("es");
       });
     },
     editE: function editE(id) {
-      var _this = this;
+      var _this2 = this;
 
       this.evenUp = [];
       var urlM = window.location.origin + "/editEvent/" + id;
       axios.get(urlM).then(function (response) {
-        _this.evenUp = response.data;
-        _this.nameUp = _this.evenUp.name;
-        _this.areaUp = _this.evenUp.id_area + "/" + _this.evenUp.id_classroom;
-        _this.fromUp = _this.evenUp.date_from;
-        _this.toUp = _this.evenUp.date_to;
-        _this.meetUp = _this.evenUp.url;
-        _this.id_padreUp = _this.evenUp.id_padre;
-        _this.idUp = id;
+        _this2.evenUp = response.data;
+        _this2.nameUp = _this2.evenUp.name;
+        _this2.areaUp = _this2.evenUp.id_area + "/" + _this2.evenUp.id_classroom;
+        _this2.fromUp = _this2.evenUp.date_from;
+        _this2.toUp = _this2.evenUp.date_to;
+        _this2.meetUp = _this2.evenUp.url;
+        _this2.id_padreUp = _this2.evenUp.id_padre;
+        _this2.idUp = id;
       });
       $("#editEv").modal("show");
     },
@@ -209,7 +219,7 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale("es");
       $("#deleteE").modal("hide");
     },
     deleteEvent: function deleteEvent(id) {
-      var _this2 = this;
+      var _this3 = this;
 
       var url = "deleteEvent";
 
@@ -219,7 +229,7 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale("es");
           id_padre: this.id_padreDel,
           todos: false
         }).then(function (response) {
-          _this2.getMenu();
+          _this3.getMenu();
 
           toastr.success("Evento actualizado exitosamente");
         })["catch"](function (error) {});
@@ -231,22 +241,22 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale("es");
           id_padre: this.id_padreDel,
           todos: resp
         }).then(function (response) {
-          _this2.getMenu();
+          _this3.getMenu();
 
           toastr.success("Evento actualizado exitosamente");
         })["catch"](function (error) {});
       }
     },
     viewDelete: function viewDelete(id, name) {
-      var _this3 = this;
+      var _this4 = this;
 
       this.delName = name;
       this.delId = id;
       this.evenDel = [];
       var urlM = window.location.origin + "/editEvent/" + id;
       axios.get(urlM).then(function (response) {
-        _this3.evenDel = response.data;
-        _this3.id_padreDel = _this3.evenDel.id_padre;
+        _this4.evenDel = response.data;
+        _this4.id_padreDel = _this4.evenDel.id_padre;
       });
       $("#deleteE").modal("show");
     }

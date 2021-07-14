@@ -10,8 +10,8 @@
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_pdf__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-pdf */ "./node_modules/vue-pdf/src/vuePdfNoSss.vue");
-//
-//
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_1__);
 //
 //
 //
@@ -100,6 +100,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
+moment__WEBPACK_IMPORTED_MODULE_1___default.a.tz.setDefault("America/Bogota");
+moment__WEBPACK_IMPORTED_MODULE_1___default.a.locale("es");
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
     pdf: vue_pdf__WEBPACK_IMPORTED_MODULE_0__["default"]
@@ -108,6 +111,23 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       clases: [],
+      colorClass: [{
+        area: 'Ingles',
+        style: "background-color: #ffb466; border-color: #ffb466; box-shadow: 3px 3px 3px 3px #b0acac",
+        title: "background-color: #ffb466;"
+      }, {
+        area: 'Español',
+        style: "background-color: #ffea47; border-color: #ffea47; box-shadow: 3px 3px 3px 3px #b0acac",
+        title: "background-color: #ffea47;"
+      }, {
+        area: 'nueva materia',
+        style: "background-color: #a639b0; border-color: #a639b0; box-shadow: 3px 3px 3px 3px #b0acac",
+        title: "background-color: #a639b0;"
+      }, {
+        area: 'Matematicas',
+        style: "background-color: #0d3cfa; border-color: #0d3cfa; box-shadow: 3px 3px 3px 3px #b0acac",
+        title: "background-color: #0d3cfa;"
+      }],
       areas: [],
       descripcion: "",
       logro: "",
@@ -116,9 +136,11 @@ __webpack_require__.r(__webpack_exports__);
       id_act: "",
       errors: [],
       fillS: [],
+      activities: [],
       activetab: 1,
       nameArea: "",
-      planifications: ""
+      planifications: "",
+      colorTitle: ""
     };
   },
   mounted: function mounted() {
@@ -130,22 +152,104 @@ __webpack_require__.r(__webpack_exports__);
     var url = "/GetArearByUser";
     axios.get(url).then(function (response) {
       _this.areas = response.data;
-    });
-    console.log("Component mounted.");
+
+      _this.areas.forEach(function (e) {
+        _this.colorClass.filter(function (i) {
+          // console.log(i.area === e.text);  
+          var text1 = i.area;
+          var text2 = e.text;
+          text1 = _this.getCleanedString(text1);
+          text2 = _this.getCleanedString(text2);
+
+          if (text1 === text2) {
+            e.style = i.style;
+            e.titleColor = i.title;
+          }
+        });
+      });
+    }); // console.log("Component mounted.");        
+  },
+  watch: {
+    nameArea: function nameArea(new_value, old_value) {
+      if (old_value != new_value) {
+        this.getActivitiesStudents(new_value);
+      }
+    }
   },
   methods: {
-    modaliniciar: function modaliniciar() {
+    getCleanedString: function getCleanedString(string) {
+      // se definen caracteres a eliminar
+      var specialChars = "!@#$^&%*()+=-[]\/{}|:<>?,."; // Los eliminamos todos
+
+      for (var i = 0; i < specialChars.length; i++) {
+        string = string.replace(new RegExp("\\" + specialChars[i], 'gi'), '');
+      } // se pasa a minusculas
+
+
+      string = string.toLowerCase(); // Se reemplazan los espacios por _
+
+      string = string.replace(/ /g, "_"); // Quitamos acentos y "ñ"
+
+      string = string.replace(/á/gi, "a");
+      string = string.replace(/é/gi, "e");
+      string = string.replace(/í/gi, "i");
+      string = string.replace(/ó/gi, "o");
+      string = string.replace(/ú/gi, "u");
+      string = string.replace(/ñ/gi, "n");
+      return string;
+    },
+    getActivitiesStudents: function getActivitiesStudents(nameArea) {
       var _this2 = this;
+
+      this.activities = [];
+      axios.get("/api/student/activity").then(function (response) {
+        var activs = [];
+        activs = Object.values(response.data);
+        activs = activs.filter(function (e) {
+          return e.area_name === nameArea;
+        });
+        activs.forEach(function (el) {
+          if (el.activityForAllStudents == 1) {
+            if (el.selectedStudents == "[]" || el.selectedStudents == null) {
+              _this2.activities.push(el);
+            }
+          } else if (el.activityForPIARStudents == 1) {
+            var PIARStudents = JSON.parse(el.selectedStudents);
+            PIARStudents.forEach(function (e) {
+              if (e.id == _this2.user.id) {
+                _this2.activities.push(el);
+              }
+            });
+          } else if (el.activityForSelectStudents == 1) {
+            var selectedStudents = JSON.parse(el.selectedStudents);
+            selectedStudents.forEach(function (e) {
+              if (e.id == _this2.user.id) {
+                _this2.activities.push(el);
+              }
+            });
+          }
+        });
+      });
+    },
+    modaliniciar: function modaliniciar() {
+      var _this3 = this;
 
       var url = window.location.origin + "/SaveTerms";
       axios.post(url, {
         status: 1
       }).then(function (response) {
-        _this2.errors = [];
+        _this3.errors = [];
         $("#modalini").modal("hide");
       })["catch"](function (error) {
-        _this2.errors = error.response.data;
+        _this3.errors = error.response.data;
       });
+    }
+  },
+  filters: {
+    formatDate: function formatDate(value) {
+      if (value) {
+        return moment__WEBPACK_IMPORTED_MODULE_1___default()(String(value)).format("DD MMMM YYYY hh:mm a");
+      }
     }
   }
 });
@@ -273,397 +377,31 @@ var render = function() {
           _vm._v(" "),
           _vm._l(_vm.areas, function(area, t) {
             return _c("div", { key: t, staticClass: "col-md-2" }, [
-              t == 0
-                ? _c(
-                    "a",
+              _c(
+                "a",
+                {
+                  staticClass: "btn btn-warning mg-btn",
+                  style: area.style,
+                  attrs: { href: "http://" },
+                  on: {
+                    click: function($event) {
+                      $event.preventDefault()
+                      ;(_vm.nameArea = area.text),
+                        (_vm.colorTitle = area.titleColor)
+                    }
+                  }
+                },
+                [
+                  _c(
+                    "h6",
                     {
-                      staticClass: "btn btn-warning mg-btn",
-                      staticStyle: {
-                        "background-color": "#ffb466",
-                        "border-color": "#ffb466",
-                        "box-shadow": "3px 3px 3px 3px #b0acac"
-                      },
-                      attrs: { href: "http://" },
-                      on: {
-                        click: function($event) {
-                          $event.preventDefault()
-                          _vm.nameArea = area.text
-                        }
-                      }
+                      staticClass: "letra-poppins-bold",
+                      staticStyle: { color: "black" }
                     },
-                    [
-                      _c(
-                        "h6",
-                        {
-                          staticClass: "letra-poppins-bold",
-                          staticStyle: { color: "black" }
-                        },
-                        [_vm._v(_vm._s(area.text))]
-                      )
-                    ]
+                    [_vm._v(_vm._s(area.text))]
                   )
-                : _vm._e(),
-              _vm._v(" "),
-              t == 1
-                ? _c(
-                    "a",
-                    {
-                      staticClass: "btn btn-warning mg-btn",
-                      staticStyle: {
-                        "background-color": "#ffea47",
-                        "border-color": "#ffea47",
-                        "box-shadow": "3px 3px 3px 3px #b0acac"
-                      },
-                      attrs: { href: "http://" },
-                      on: {
-                        click: function($event) {
-                          $event.preventDefault()
-                          _vm.nameArea = area.text
-                        }
-                      }
-                    },
-                    [
-                      _c(
-                        "h6",
-                        {
-                          staticClass: "letra-poppins-bold",
-                          staticStyle: { color: "black" }
-                        },
-                        [_vm._v(_vm._s(area.text))]
-                      )
-                    ]
-                  )
-                : _vm._e(),
-              _vm._v(" "),
-              t == 2
-                ? _c(
-                    "a",
-                    {
-                      staticClass: "btn btn-warning mg-btn",
-                      staticStyle: {
-                        "background-color": "#a639b0",
-                        "border-color": "#a639b0",
-                        "box-shadow": "3px 3px 3px 3px #b0acac"
-                      },
-                      attrs: { href: "http://" },
-                      on: {
-                        click: function($event) {
-                          $event.preventDefault()
-                          _vm.nameArea = area.text
-                        }
-                      }
-                    },
-                    [
-                      _c(
-                        "h6",
-                        {
-                          staticClass: "letra-poppins-bold",
-                          staticStyle: { color: "black" }
-                        },
-                        [_vm._v(_vm._s(area.text))]
-                      )
-                    ]
-                  )
-                : _vm._e(),
-              _vm._v(" "),
-              t == 3
-                ? _c(
-                    "a",
-                    {
-                      staticClass: "btn btn-warning mg-btn",
-                      staticStyle: {
-                        "background-color": "#50e9fb",
-                        "border-color": "#50e9fb",
-                        "box-shadow": "3px 3px 3px 3px #b0acac"
-                      },
-                      attrs: { href: "http://" },
-                      on: {
-                        click: function($event) {
-                          $event.preventDefault()
-                          _vm.nameArea = area.text
-                        }
-                      }
-                    },
-                    [
-                      _c(
-                        "h6",
-                        {
-                          staticClass: "letra-poppins-bold",
-                          staticStyle: { color: "black" }
-                        },
-                        [_vm._v(_vm._s(area.text))]
-                      )
-                    ]
-                  )
-                : _vm._e(),
-              _vm._v(" "),
-              t == 4
-                ? _c(
-                    "a",
-                    {
-                      staticClass: "btn btn-warning mg-btn",
-                      staticStyle: {
-                        "background-color": "#ffa4f2",
-                        "border-color": "#ffa4f2",
-                        "box-shadow": "3px 3px 3px 3px #b0acac"
-                      },
-                      attrs: { href: "http://" },
-                      on: {
-                        click: function($event) {
-                          $event.preventDefault()
-                          _vm.nameArea = area.text
-                        }
-                      }
-                    },
-                    [
-                      _c(
-                        "h6",
-                        {
-                          staticClass: "letra-poppins-bold",
-                          staticStyle: { color: "black" }
-                        },
-                        [_vm._v(_vm._s(area.text))]
-                      )
-                    ]
-                  )
-                : _vm._e(),
-              _vm._v(" "),
-              t == 5
-                ? _c(
-                    "a",
-                    {
-                      staticClass: "btn btn-warning mg-btn",
-                      staticStyle: {
-                        "background-color": "#4e92fd",
-                        "border-color": "#4e92fd",
-                        "box-shadow": "3px 3px 3px 3px #b0acac"
-                      },
-                      attrs: { href: "http://" },
-                      on: {
-                        click: function($event) {
-                          $event.preventDefault()
-                          _vm.nameArea = area.text
-                        }
-                      }
-                    },
-                    [
-                      _c(
-                        "h6",
-                        {
-                          staticClass: "letra-poppins-bold",
-                          staticStyle: { color: "black" }
-                        },
-                        [_vm._v(_vm._s(area.text))]
-                      )
-                    ]
-                  )
-                : _vm._e(),
-              _vm._v(" "),
-              t == 6
-                ? _c(
-                    "a",
-                    {
-                      staticClass: "btn btn-warning mg-btn",
-                      staticStyle: {
-                        "background-color": "#ff5552",
-                        "border-color": "#ff5552",
-                        "box-shadow": "3px 3px 3px 3px #b0acac"
-                      },
-                      attrs: { href: "http://" },
-                      on: {
-                        click: function($event) {
-                          $event.preventDefault()
-                          _vm.nameArea = area.text
-                        }
-                      }
-                    },
-                    [
-                      _c(
-                        "h6",
-                        {
-                          staticClass: "letra-poppins-bold",
-                          staticStyle: { color: "black" }
-                        },
-                        [_vm._v(_vm._s(area.text))]
-                      )
-                    ]
-                  )
-                : _vm._e(),
-              _vm._v(" "),
-              t == 7
-                ? _c(
-                    "a",
-                    {
-                      staticClass: "btn btn-warning mg-btn",
-                      staticStyle: {
-                        "background-color": "#ffc0f6",
-                        "border-color": "#ffc0f6",
-                        "box-shadow": "3px 3px 3px 3px #b0acac"
-                      },
-                      attrs: { href: "http://" },
-                      on: {
-                        click: function($event) {
-                          $event.preventDefault()
-                          _vm.nameArea = area.text
-                        }
-                      }
-                    },
-                    [
-                      _c(
-                        "h6",
-                        {
-                          staticClass: "letra-poppins-bold",
-                          staticStyle: { color: "black" }
-                        },
-                        [_vm._v(_vm._s(area.text))]
-                      )
-                    ]
-                  )
-                : _vm._e(),
-              _vm._v(" "),
-              t == 8
-                ? _c(
-                    "a",
-                    {
-                      staticClass: "btn btn-warning mg-btn",
-                      staticStyle: {
-                        "background-color": "#b8ffc2",
-                        "border-color": "#b8ffc2",
-                        "box-shadow": "3px 3px 3px 3px #b0acac"
-                      },
-                      attrs: { href: "http://" },
-                      on: {
-                        click: function($event) {
-                          $event.preventDefault()
-                          _vm.nameArea = area.text
-                        }
-                      }
-                    },
-                    [
-                      _c(
-                        "h6",
-                        {
-                          staticClass: "letra-poppins-bold",
-                          staticStyle: { color: "black" }
-                        },
-                        [_vm._v(_vm._s(area.text))]
-                      )
-                    ]
-                  )
-                : _vm._e(),
-              _vm._v(" "),
-              t == 9
-                ? _c(
-                    "a",
-                    {
-                      staticClass: "btn btn-warning mg-btn",
-                      staticStyle: {
-                        "background-color": "#b8ffc2",
-                        "border-color": "#b8ffc2",
-                        "box-shadow": "3px 3px 3px 3px #b0acac"
-                      },
-                      attrs: { href: "http://" },
-                      on: {
-                        click: function($event) {
-                          $event.preventDefault()
-                          _vm.nameArea = area.text
-                        }
-                      }
-                    },
-                    [
-                      _c(
-                        "h6",
-                        {
-                          staticClass: "letra-poppins-bold",
-                          staticStyle: { color: "black" }
-                        },
-                        [_vm._v(_vm._s(area.text))]
-                      )
-                    ]
-                  )
-                : _vm._e(),
-              _vm._v(" "),
-              t == 10
-                ? _c(
-                    "a",
-                    {
-                      staticClass: "btn btn-warning mg-btn",
-                      staticStyle: {
-                        "background-color": "#ffea47",
-                        "border-color": "#ffea47",
-                        "box-shadow": "3px 3px 3px 3px #b0acac"
-                      },
-                      attrs: { href: "http://" },
-                      on: {
-                        click: function($event) {
-                          $event.preventDefault()
-                          _vm.nameArea = area.text
-                        }
-                      }
-                    },
-                    [
-                      _c(
-                        "h6",
-                        {
-                          staticClass: "letra-poppins-bold",
-                          staticStyle: { color: "black" }
-                        },
-                        [_vm._v(_vm._s(area.text))]
-                      )
-                    ]
-                  )
-                : _vm._e(),
-              _vm._v(" "),
-              t == 11
-                ? _c(
-                    "a",
-                    {
-                      staticClass: "btn btn-warning mg-btn",
-                      staticStyle: {
-                        "background-color": "#00c9ce",
-                        "border-color": "#00c9ce",
-                        "box-shadow": "3px 3px 3px 3px #b0acac"
-                      },
-                      attrs: { href: "http://" },
-                      on: {
-                        click: function($event) {
-                          $event.preventDefault()
-                          _vm.nameArea = area.text
-                        }
-                      }
-                    },
-                    [
-                      _c(
-                        "h6",
-                        {
-                          staticClass: "letra-poppins-bold",
-                          staticStyle: { color: "black" }
-                        },
-                        [_vm._v(_vm._s(area.text))]
-                      )
-                    ]
-                  )
-                : _vm._e(),
-              _vm._v(" "),
-              t > 11
-                ? _c(
-                    "a",
-                    {
-                      staticClass: "btn btn-warning mg-btn",
-                      attrs: { href: "http://" }
-                    },
-                    [
-                      _c(
-                        "h6",
-                        {
-                          staticClass: "letra-poppins-bold",
-                          staticStyle: { color: "black" }
-                        },
-                        [_vm._v(_vm._s(area.text))]
-                      )
-                    ]
-                  )
-                : _vm._e()
+                ]
+              )
             ])
           })
         ],
@@ -678,10 +416,7 @@ var render = function() {
               "a",
               {
                 staticClass: "btn btn-warning letra-poppins-bold",
-                staticStyle: {
-                  "background-color": "#ffa4f2",
-                  "border-color": "#ffa4f2"
-                },
+                style: _vm.colorTitle + " border-color: #ffa4f2;",
                 attrs: { href: "" }
               },
               [
@@ -822,7 +557,126 @@ var render = function() {
             )
           ]),
           _vm._v(" "),
-          _vm._m(1)
+          _c("div", { staticClass: "form-group text-center" }, [
+            _c("a", { staticClass: "btn btn-warning mg-btn" }, [
+              _c("h1", { staticClass: "letra-poppins-bold" }, [
+                _vm._v("PENDING WORK")
+              ]),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "card activity-event-container" },
+                _vm._l(_vm.activities, function(activity, i_activity) {
+                  return _c(
+                    "div",
+                    { key: i_activity, staticClass: "activity-event" },
+                    [
+                      _c("div", { staticClass: "activity-event-info" }, [
+                        _c("span", [
+                          _vm._v(
+                            "[" +
+                              _vm._s(activity.area_name) +
+                              " " +
+                              _vm._s(activity.classroom_name) +
+                              "]"
+                          ),
+                          _c("br"),
+                          _vm._v(_vm._s(activity.name))
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "activity-event-date" }, [
+                        _c("small", [_vm._v("Inicio de Clase:")]),
+                        _vm._v(" "),
+                        _c("span", [
+                          _vm._v(
+                            _vm._s(
+                              _vm._f("formatDate")(activity.date_init_class)
+                            )
+                          )
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "activity-event-date" }, [
+                        _c("small", [_vm._v("URL de Clase:")]),
+                        _vm._v(" "),
+                        _c(
+                          "a",
+                          {
+                            staticClass: "badge badge-primary",
+                            attrs: {
+                              href: activity.url_class,
+                              target: "_blank"
+                            }
+                          },
+                          [_vm._v(_vm._s(activity.url_class))]
+                        )
+                      ]),
+                      _vm._v(" "),
+                      activity.interaction_state == 2
+                        ? _c("div", { staticClass: "activity-event-date" }, [
+                            _c("small", [_vm._v("Fecha Retroalimentación:")]),
+                            _vm._v(" "),
+                            _c("span", [
+                              _vm._v(
+                                _vm._s(
+                                  _vm._f("formatDate")(activity.feedback_date)
+                                )
+                              )
+                            ])
+                          ])
+                        : _c("div", { staticClass: "activity-event-date" }, [
+                            _c("small", [_vm._v("Fecha máxima entrega:")]),
+                            _vm._v(" "),
+                            _c("span", [
+                              _vm._v(
+                                _vm._s(
+                                  _vm._f("formatDate")(
+                                    activity.delivery_max_date
+                                  )
+                                )
+                              )
+                            ])
+                          ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "activity-event-action" }, [
+                        activity.interaction_state == 2
+                          ? _c(
+                              "a",
+                              {
+                                staticClass: "btn btn-link",
+                                attrs: {
+                                  href:
+                                    "/estudiante/modulo/" +
+                                    activity.weekly_plan_id +
+                                    "/clase/" +
+                                    activity.id_class
+                                }
+                              },
+                              [_vm._v("Retroalimentación")]
+                            )
+                          : _c(
+                              "a",
+                              {
+                                staticClass: "btn btn-link",
+                                attrs: {
+                                  href:
+                                    "/estudiante/modulo/" +
+                                    activity.weekly_plan_id +
+                                    "/clase/" +
+                                    activity.id_class
+                                }
+                              },
+                              [_vm._v("Entregar")]
+                            )
+                      ])
+                    ]
+                  )
+                }),
+                0
+              )
+            ])
+          ])
         ])
       : _vm._e()
   ])
@@ -841,7 +695,7 @@ var staticRenderFns = [
             "background-color": "#e26100",
             "border-color": "#e26100"
           },
-          attrs: { href: "" }
+          attrs: { href: "/chat" }
         },
         [_c("h4", [_vm._v("CHAT")])]
       ),
@@ -856,7 +710,7 @@ var staticRenderFns = [
             "background-color": "#e26100",
             "border-color": "#e26100"
           },
-          attrs: { href: "" }
+          attrs: { href: "/questions" }
         },
         [_c("h4", [_vm._v("FORUMS")])]
       ),
@@ -870,23 +724,11 @@ var staticRenderFns = [
             "background-color": "#e26100",
             "border-color": "#e26100"
           },
-          attrs: { href: "" }
+          attrs: { href: "/mensajes" }
         },
         [_c("h4", [_vm._v("MENSSAGES")])]
       ),
       _c("br")
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group text-center" }, [
-      _c("a", { staticClass: "btn btn-warning mg-btn" }, [
-        _c("h1", { staticClass: "letra-poppins-bold" }, [
-          _vm._v("PENDING WORK")
-        ])
-      ])
     ])
   }
 ]

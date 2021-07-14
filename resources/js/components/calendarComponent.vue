@@ -1,4 +1,5 @@
 <template>
+<div class="back">
   <div class="row justify-content-center">
     <div class="col-sm-10">
       <div class="card text-center">
@@ -58,6 +59,7 @@
     <!-- Modal para crear eventos -->
     <calendar-modal-event :concurrent.sync="concurrent" :dias.sync="dias" :myOptions.sync="myOptions" :getMenu.sync="getMenu"></calendar-modal-event>
   </div>
+</div>
 </template>
 
 <script>

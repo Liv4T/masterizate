@@ -9,14 +9,12 @@
                         <thead>
                             <tr>
                                 <th>Nombre de la materia</th>
-
                                 <th>Observación</th>
                             </tr>
                         </thead>
                         <tbody v-for="(area,t) in areas" :key="t">
                             <tr>
                                 <td>{{ area.text}}</td>
-
                                 <td>-</td>
                             </tr>
                         </tbody>
@@ -31,12 +29,18 @@
 </template>
 <script>
 export default {
-  data() {
-    return {};
-  },
-  created() {},
-  mounted() {},
-  methods: {},
+    data() {
+        return {};
+    },
+    created() {
+        
+    },
+    mounted() {
+
+    },
+    methods: {
+
+    },
 };
 </script>
 <style>
