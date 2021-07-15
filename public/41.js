@@ -183,33 +183,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['id_lective_planification'],
   data: function data() {
     return {
       activities: [],
@@ -230,23 +205,17 @@ __webpack_require__.r(__webpack_exports__);
       open_plan: 0
     };
   },
-  created: function created() {},
   mounted: function mounted() {
-    var _this = this;
-
-    axios.get("/api/lectives").then(function (response) {
-      _this.planifications = response.data;
-    });
-    console.log("Component mounted.");
+    this.getActivities(this.id_lective_planification);
   },
   methods: {
     getActivities: function getActivities(id_planification) {
-      var _this2 = this;
+      var _this = this;
 
       if (this.open_plan == id_planification) return;
       this.open_plan = id_planification;
       axios.get("/api/lectives/planification/".concat(id_planification, "/activities")).then(function (response) {
-        _this2.activities = response.data;
+        _this.activities = response.data;
       });
     },
     showActivity: function showActivity(activity) {
@@ -254,7 +223,7 @@ __webpack_require__.r(__webpack_exports__);
 
       for (var ix_question = 0; ix_question < this.activity.module.length; ix_question++) {
         for (var i = 0; i < this.activity.module[ix_question].content.options.length; i++) {
-          var ix_response = this.activity.module[ix_question].response.response.split('|')[0];
+          var ix_response = this.activity.module[ix_question].response != null && this.activity.module[ix_question].response.response.split('|')[0];
           this.activity.module[ix_question].content.options[i].checked = i == ix_response;
         }
       }
@@ -262,17 +231,17 @@ __webpack_require__.r(__webpack_exports__);
       $("#editu").modal("show");
     },
     checkOption: function checkOption(question, option, ix_question, ix_option) {
-      var _this3 = this;
+      var _this2 = this;
 
       axios.put("/api/lectives/planification/".concat(this.open_plan, "/weekly/").concat(this.activity.weekly_plan.id, "/course/").concat(this.activity.course.id, "/activity/").concat(this.activity.id_activity, "/module/").concat(this.activity.activity_type, "/question/").concat(question.id_question), {
         response: "".concat(ix_option, "|").concat(option.content),
         ok: question.content.valid_answer_index == ix_option ? 'S' : 'N'
       }).then(function (response) {
-        for (var i = 0; i < _this3.activity.module[ix_question].content.options.length; i++) {
-          _this3.activity.module[ix_question].content.options[i].checked = i == ix_option;
+        for (var i = 0; i < _this2.activity.module[ix_question].content.options.length; i++) {
+          _this2.activity.module[ix_question].content.options[i].checked = i == ix_option;
         }
 
-        _this3.activity = JSON.parse(JSON.stringify(_this3.activity));
+        _this2.activity = JSON.parse(JSON.stringify(_this2.activity));
       });
     }
   }
@@ -293,7 +262,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.background2 {\r\n  background: url(" + escape(__webpack_require__(/*! ../assets/img/Fondo5.jpg */ "./resources/js/assets/img/Fondo5.jpg")) + ");\r\n  background-size: contain;\r\n  background-repeat: no-repeat;\r\n  background-position: center;\r\n  position: relative;\n}\n.question-module{\r\n  padding:10px;\n}\n.question-module label{\r\n  padding:10px;\n}\n.question-module .q-option{\r\n  background-color:#f2f2f2;\r\n  border-radius:5px;\r\n  padding:5px;\r\n  margin:5px;\r\n  border:1px solid #f2f2f2;\r\n  width:100%;\n}\n.question-module .q-option:hover{\r\n    background-color:#f5e18d;\r\n    cursor:pointer;\n}\n.q-option-checked{\r\n   background-color:#91ffcf !important;\r\n  border-radius:5px;\r\n  padding:5px;\r\n  margin:5px;\r\n  border:1px solid #91ffcf;\n}\r\n", ""]);
+exports.push([module.i, "\n.background2 {\n    background: url(" + escape(__webpack_require__(/*! ../assets/img/Fondo5.jpg */ "./resources/js/assets/img/Fondo5.jpg")) + ");\n    background-size: contain;\n    background-repeat: no-repeat;\n    background-position: center;\n    position: relative;\n}\n.question-module{\n    padding:10px;\n}\n.question-module label{\n    padding:10px;\n}\n.question-module .q-option{\n    background-color:#f2f2f2;\n    border-radius:5px;\n    padding:5px;\n    margin:5px;\n    border:1px solid #f2f2f2;\n    width:100%;\n}\n.question-module .q-option:hover{\n    background-color:#f5e18d;\n    cursor:pointer;\n}\n.q-option-checked{\n    background-color:#91ffcf !important;\n    border-radius:5px;\n    padding:5px;\n    margin:5px;\n    border:1px solid #91ffcf;\n}\n", ""]);
 
 // exports
 
@@ -345,253 +314,186 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "back" }, [
-    _c("div", { staticClass: "row justify-content-center" }, [
-      _c("div", { staticClass: "col-sm-10", attrs: { id: "crud" } }, [
-        _c("div", { staticClass: "card text-center" }, [
-          _c("h3", { staticClass: "card-header fondo" }, [
-            _vm._v("Mis actividades de electivas")
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "card-body" }, [
-            _c(
-              "table",
-              {
-                staticClass:
-                  "table table-responsive-xl table-hover table-striped center"
-              },
-              _vm._l(_vm.planifications, function(plan, t) {
-                return _c("tbody", { key: t }, [
-                  _c(
-                    "tr",
-                    {
-                      staticClass: "clickable",
-                      attrs: {
-                        "data-toggle": "collapse",
-                        "data-target": "#accordion" + t
-                      },
-                      on: {
-                        click: function($event) {
-                          return _vm.getActivities(plan.id_planification)
-                        }
-                      }
-                    },
-                    [
-                      _c("td", [
-                        _vm._v(
-                          _vm._s(plan.lective.name) +
-                            " Trimestre " +
-                            _vm._s(plan.period_consecutive)
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("td"),
-                      _vm._v(" "),
-                      _c("td"),
-                      _vm._v(" "),
-                      _c("td"),
-                      _vm._v(" "),
-                      _c("td"),
-                      _vm._v(" "),
-                      _c("td")
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c("tr", [
-                    _c("td", [
+  return _c("div", { staticClass: "row justify-content-center" }, [
+    _c("div", { staticClass: "col-sm-12", attrs: { id: "crud" } }, [
+      _c("div", { staticClass: "card text-center" }, [
+        _c("h3", { staticClass: "card-header fondo" }, [
+          _vm._v("Mis actividades de electivas")
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "card-body" }, [
+          _c(
+            "table",
+            {
+              staticClass:
+                "table table-responsive table-hover table-striped center"
+            },
+            [
+              _vm._m(0),
+              _vm._v(" "),
+              _c(
+                "tbody",
+                _vm._l(_vm.activities, function(actividad, k) {
+                  return _c("tr", { key: k }, [
+                    _c("td", [_vm._v(_vm._s(actividad.name))]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(actividad.activity_type))]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(actividad.delivery_date))]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(actividad.feedback_date))]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { width: "10px" } }, [
                       _c(
-                        "div",
+                        "a",
                         {
-                          staticClass: "collapse",
-                          attrs: { id: "accordion" + t }
+                          staticClass: "btn btn-warning btn-sm",
+                          on: {
+                            click: function($event) {
+                              $event.preventDefault()
+                              return _vm.showActivity(actividad)
+                            }
+                          }
                         },
-                        [
-                          _c(
-                            "table",
-                            {
-                              staticClass:
-                                "table table-responsive table-hover table-striped center"
-                            },
-                            [
-                              _vm._m(0, true),
-                              _vm._v(" "),
-                              _c(
-                                "tbody",
-                                _vm._l(_vm.activities, function(actividad, k) {
-                                  return _c("tr", { key: k }, [
-                                    _c("td", [_vm._v(_vm._s(actividad.name))]),
-                                    _vm._v(" "),
-                                    _c("td", [
-                                      _vm._v(_vm._s(actividad.activity_type))
-                                    ]),
-                                    _vm._v(" "),
-                                    _c("td", [
-                                      _vm._v(_vm._s(actividad.delivery_date))
-                                    ]),
-                                    _vm._v(" "),
-                                    _c("td", [
-                                      _vm._v(_vm._s(actividad.feedback_date))
-                                    ]),
-                                    _vm._v(" "),
-                                    _c("td", { attrs: { width: "10px" } }, [
-                                      _c(
-                                        "a",
-                                        {
-                                          staticClass: "btn btn-warning btn-sm",
-                                          on: {
-                                            click: function($event) {
-                                              $event.preventDefault()
-                                              return _vm.showActivity(actividad)
-                                            }
-                                          }
-                                        },
-                                        [_c("i", { staticClass: "fa fa-eye" })]
-                                      )
-                                    ])
-                                  ])
-                                }),
-                                0
-                              )
-                            ]
-                          )
-                        ]
+                        [_c("i", { staticClass: "fa fa-eye" })]
                       )
                     ])
                   ])
-                ])
-              }),
-              0
-            )
-          ])
+                }),
+                0
+              )
+            ]
+          )
         ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "modal fade", attrs: { id: "editu" } }, [
-        _c("div", { staticClass: "modal-dialog" }, [
-          _c("div", { staticClass: "modal-content" }, [
-            _c("div", { staticClass: "card" }, [
-              _vm._m(1),
-              _vm._v(" "),
-              _c("div", { staticClass: "card-body" }, [
-                _c(
-                  "div",
-                  {
-                    staticClass: "accordion",
-                    attrs: { id: "accordionExample" }
-                  },
-                  [
-                    _c("div", { staticClass: "card" }, [
-                      _vm._m(2),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        {
-                          staticClass: "collapse show",
-                          attrs: {
-                            id: "collapseOne",
-                            "aria-labelledby": "headingOne",
-                            "data-parent": "#accordionExample"
-                          }
-                        },
-                        [
-                          _c("div", { staticClass: "card-body" }, [
-                            _vm._v(_vm._s(_vm.activity.description))
-                          ])
-                        ]
-                      )
-                    ]),
+      ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "modal fade", attrs: { id: "editu" } }, [
+      _c("div", { staticClass: "modal-dialog" }, [
+        _c("div", { staticClass: "modal-content" }, [
+          _c("div", { staticClass: "card" }, [
+            _vm._m(1),
+            _vm._v(" "),
+            _c("div", { staticClass: "card-body" }, [
+              _c(
+                "div",
+                { staticClass: "accordion", attrs: { id: "accordionExample" } },
+                [
+                  _c("div", { staticClass: "card" }, [
+                    _vm._m(2),
                     _vm._v(" "),
-                    _c("div", { staticClass: "card" }, [
-                      _vm._m(3),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        {
-                          staticClass: "collapse",
-                          attrs: {
-                            id: "collapseTwo",
-                            "aria-labelledby": "headingTwo",
-                            "data-parent": "#accordionExample"
-                          }
-                        },
-                        [
-                          _c("div", { staticClass: "card-body" }, [
-                            _vm._v(
-                              _vm._s(_vm.activity.achievement.content) +
-                                " (" +
-                                _vm._s(_vm.activity.achievement.rate) +
-                                ")%"
-                            )
-                          ])
-                        ]
-                      )
-                    ]),
+                    _c(
+                      "div",
+                      {
+                        staticClass: "collapse show",
+                        attrs: {
+                          id: "collapseOne",
+                          "aria-labelledby": "headingOne",
+                          "data-parent": "#accordionExample"
+                        }
+                      },
+                      [
+                        _c("div", { staticClass: "card-body" }, [
+                          _vm._v(_vm._s(_vm.activity.description))
+                        ])
+                      ]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "card" }, [
+                    _vm._m(3),
                     _vm._v(" "),
-                    _c("div", { staticClass: "card" }, [
-                      _vm._m(4),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        {
-                          staticClass: "collapse",
-                          attrs: {
-                            id: "collapseThree",
-                            "aria-labelledby": "headingThree",
-                            "data-parent": "#accordionExample"
-                          }
-                        },
-                        [
-                          _c("div", { staticClass: "card-body" }, [
-                            _vm._v(_vm._s(_vm.activity.delivery_date))
-                          ])
-                        ]
-                      )
-                    ]),
+                    _c(
+                      "div",
+                      {
+                        staticClass: "collapse",
+                        attrs: {
+                          id: "collapseTwo",
+                          "aria-labelledby": "headingTwo",
+                          "data-parent": "#accordionExample"
+                        }
+                      },
+                      [
+                        _c("div", { staticClass: "card-body" }, [
+                          _vm._v(
+                            _vm._s(_vm.activity.achievement.content) +
+                              " (" +
+                              _vm._s(_vm.activity.achievement.rate) +
+                              ")%"
+                          )
+                        ])
+                      ]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "card" }, [
+                    _vm._m(4),
                     _vm._v(" "),
-                    _c("div", { staticClass: "card" }, [
-                      _vm._m(5),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        {
-                          staticClass: "collapse",
-                          attrs: {
-                            id: "collapseFour",
-                            "aria-labelledby": "headingFour",
-                            "data-parent": "#accordionExample"
-                          }
-                        },
-                        [
-                          _c("div", { staticClass: "card-body" }, [
-                            _vm._v(_vm._s(_vm.activity.feedback_date))
-                          ])
-                        ]
-                      )
-                    ]),
+                    _c(
+                      "div",
+                      {
+                        staticClass: "collapse",
+                        attrs: {
+                          id: "collapseThree",
+                          "aria-labelledby": "headingThree",
+                          "data-parent": "#accordionExample"
+                        }
+                      },
+                      [
+                        _c("div", { staticClass: "card-body" }, [
+                          _vm._v(_vm._s(_vm.activity.delivery_date))
+                        ])
+                      ]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "card" }, [
+                    _vm._m(5),
                     _vm._v(" "),
-                    _c("div", { staticClass: "card" }, [
-                      _vm._m(6),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        {
-                          staticClass: "collapse",
-                          attrs: {
-                            id: "collapseFive",
-                            "aria-labelledby": "headingFive",
-                            "data-parent": "#accordionExample"
-                          }
-                        },
-                        [
-                          _vm.activity.activity_type == "ENCUESTA_UNICA_RTA"
-                            ? _c(
-                                "form",
-                                { staticClass: "question-module" },
-                                _vm._l(_vm.activity.module, function(
-                                  question,
-                                  k_q
-                                ) {
-                                  return _c("div", { staticClass: "row" }, [
+                    _c(
+                      "div",
+                      {
+                        staticClass: "collapse",
+                        attrs: {
+                          id: "collapseFour",
+                          "aria-labelledby": "headingFour",
+                          "data-parent": "#accordionExample"
+                        }
+                      },
+                      [
+                        _c("div", { staticClass: "card-body" }, [
+                          _vm._v(_vm._s(_vm.activity.feedback_date))
+                        ])
+                      ]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "card" }, [
+                    _vm._m(6),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        staticClass: "collapse",
+                        attrs: {
+                          id: "collapseFive",
+                          "aria-labelledby": "headingFive",
+                          "data-parent": "#accordionExample"
+                        }
+                      },
+                      [
+                        _vm.activity.activity_type == "ENCUESTA_UNICA_RTA"
+                          ? _c(
+                              "form",
+                              { staticClass: "question-module" },
+                              _vm._l(_vm.activity.module, function(
+                                question,
+                                k_q
+                              ) {
+                                return _c(
+                                  "div",
+                                  { key: k_q, staticClass: "row" },
+                                  [
                                     _c(
                                       "div",
                                       { staticClass: "col" },
@@ -606,6 +508,7 @@ var render = function() {
                                             return _c(
                                               "button",
                                               {
+                                                key: k_op,
                                                 staticClass: "row q-option",
                                                 class: {
                                                   "q-option-checked":
@@ -630,17 +533,17 @@ var render = function() {
                                       ],
                                       2
                                     )
-                                  ])
-                                }),
-                                0
-                              )
-                            : _vm._e()
-                        ]
-                      )
-                    ])
-                  ]
-                )
-              ])
+                                  ]
+                                )
+                              }),
+                              0
+                            )
+                          : _vm._e()
+                      ]
+                    )
+                  ])
+                ]
+              )
             ])
           ])
         ])
@@ -672,7 +575,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("h3", { staticClass: "card-header fondo text-center" }, [
-      _vm._v("\n              Actividad\n              "),
+      _vm._v("\n                        Actividad\n                        "),
       _c(
         "button",
         {

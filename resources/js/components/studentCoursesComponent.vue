@@ -1,52 +1,58 @@
 <template>
     <div class="card text-center">
-        <h3 class="card-header fondo">Mis clases</h3>
-        <div class="card-body">                        
-            <div class="card">                                
-                <table class="table table-responsive-xl table-hover table-striped center">
-                    <thead>
-                        <tr>
-                            <th>Ciclo de aprendizaje</th>
-                            <th>Acción</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody v-for="(clas, k) in clases" :key="k" >
-                        <tr>
-                            <td>{{ clas.text }}</td>
-                            <td>
-                                <a class="btn btn-primary" :href="'/estudiante/modulo/'+clas.id">Ir a Ciclo</a>
-                            </td>
-                            <td>
-                                <div class="check" v-if="clas.progress==100">
-                                    <svg                                                            
-                                        width="2em"
-                                        height="2em"
-                                        viewBox="0 0 16 16"
-                                        class="bi bi-check-circle-fill"
-                                        fill="#28a745"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                                    
-                                    >
-                                        <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
-                                        <path fill-rule="evenodd" d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.236.236 0 0 1 .02-.022z"/>
-                                    </svg>
-                                    <p class="text-success" >Completado</p>
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>                                
+        <div v-if="showLectives === false">
+            <h3 class="card-header fondo">Mis clases</h3>
+            <div class="card-body">                        
+                <div class="card">                                
+                    <table class="table table-responsive-xl table-hover table-striped center">
+                        <thead>
+                            <tr>
+                                <th>Ciclo de aprendizaje</th>
+                                <th>Acción</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody v-for="(clas, k) in clases" :key="k" >
+                            <tr>
+                                <td>{{ clas.text }}</td>
+                                <td>
+                                    <a class="btn btn-primary" :href="'/estudiante/modulo/'+clas.id">Ir a Ciclo</a>
+                                </td>
+                                <td>
+                                    <div class="check" v-if="clas.progress==100">
+                                        <svg                                                            
+                                            width="2em"
+                                            height="2em"
+                                            viewBox="0 0 16 16"
+                                            class="bi bi-check-circle-fill"
+                                            fill="#28a745"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                                        
+                                        >
+                                            <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                            <path fill-rule="evenodd" d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.236.236 0 0 1 .02-.022z"/>
+                                        </svg>
+                                        <p class="text-success" >Completado</p>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>                                
+                </div>
             </div>
+        </div>
+        <div v-else>
+            <lectives-student-courses :id_lective_planification="id_lective_planification"></lectives-student-courses>
         </div>
     </div>
 </template>
 <script>
 export default {
-    props:['nameArea'],
+    props:['nameArea','id_lective_planification'],
     data() {
         return {
             clases: [],
+            showLectives: false,
             descripcion: "",
             logro: "",
             fechaE: "",
@@ -71,9 +77,15 @@ export default {
             axios.get("/GetArearByUser").then((response) => {
                 this.clases=[]
                 let areas = response.data.filter(e=>e.text === this.nameArea)
-                areas.forEach((e)=>{
-                    this.botones(e.id,e.id_classroom);
-                })
+                if(areas.length > 0){
+                    this.showLectives = false
+                    areas.forEach((e)=>{
+                        this.botones(e.id,e.id_classroom);
+                    })
+                }else{
+                    this.showLectives = true
+                }
+                
             }).catch(e=>{
                 toastr.info("No se encuentran clases Relacionadas")
                 console.log(e);

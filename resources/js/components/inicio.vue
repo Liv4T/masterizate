@@ -5,7 +5,7 @@
                 <div class="dropdown col-md-2">
                     <button class="btn btn-danger dropdown-toggle mg-btn" type="button" id="admin" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="box-shadow: 3px 3px 3px 3px #b0acac">Electives</button>
                     <div class="dropdown-menu" aria-labelledby="admin" v-for="(area, k) in planifications" :key="k">
-                        <a class="dropdown-item" @click.prevent="nameArea = area.lective.name">{{ area.lective.name }}</a>
+                        <a class="dropdown-item" href="" @click.prevent="nameArea = area.lective.name, id_lective_planification = area.id_planification">{{ area.lective.name }}</a>
                     </div>
                 </div>
 
@@ -38,9 +38,9 @@
 
                     <div class="content-azul">
                         <div v-if="activetab === 1" class="tabcontent"><calendar-component :type_u="3" :user="user"></calendar-component></div>
-                        <div v-if="activetab === 2" class="tabcontent"><student-courses :nameArea="nameArea"></student-courses></div>
-                        <div v-if="activetab === 3" class="tabcontent"><repo-student :nameArea="nameArea"></repo-student></div>
-                        <div v-if="activetab === 4" class="tabcontent"><notas-component :idArea="idArea" :idClassroom="idClassroom" :user="user" :nameArea="nameArea"></notas-component></div>
+                        <div v-if="activetab === 2" class="tabcontent"><student-courses :nameArea="nameArea" :planifications="planifications" :id_lective_planification="id_lective_planification"></student-courses></div>
+                        <div v-if="activetab === 3" class="tabcontent"><repo-student :nameArea="nameArea" :planifications="planifications" :id_lective_planification="id_lective_planification"></repo-student></div>
+                        <div v-if="activetab === 4" class="tabcontent"><notas-component :idArea="idArea" :idClassroom="idClassroom" :user="user" :nameArea="nameArea" :planifications="planifications"></notas-component></div>
                     </div>
                 </div>
             </div>
@@ -128,15 +128,22 @@ export default {
             activities:[],
             activetab: 1,
             nameArea: "",
+            id_lective_planification: "",
             idArea:"",
             idClassroom:"",
             planifications: "",
             colorTitle:"",
+            lectivs: false,
         };
     },
     mounted() {
         axios.get("/api/lectives").then((response) => {
-            this.planifications = response.data;
+            if(response.data.length > 0){
+                this.planifications = response.data;
+                this.lectivs = true;
+            }else{
+                this.lectivs = false;
+            }          
         });
     
         var url = "/GetArearByUser";

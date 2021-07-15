@@ -139,17 +139,24 @@ moment__WEBPACK_IMPORTED_MODULE_1___default.a.locale("es");
       activities: [],
       activetab: 1,
       nameArea: "",
+      id_lective_planification: "",
       idArea: "",
       idClassroom: "",
       planifications: "",
-      colorTitle: ""
+      colorTitle: "",
+      lectivs: false
     };
   },
   mounted: function mounted() {
     var _this = this;
 
     axios.get("/api/lectives").then(function (response) {
-      _this.planifications = response.data;
+      if (response.data.length > 0) {
+        _this.planifications = response.data;
+        _this.lectivs = true;
+      } else {
+        _this.lectivs = false;
+      }
     });
     var url = "/GetArearByUser";
     axios.get(url).then(function (response) {
@@ -361,10 +368,13 @@ var render = function() {
                       "a",
                       {
                         staticClass: "dropdown-item",
+                        attrs: { href: "" },
                         on: {
                           click: function($event) {
                             $event.preventDefault()
-                            _vm.nameArea = area.lective.name
+                            ;(_vm.nameArea = area.lective.name),
+                              (_vm.id_lective_planification =
+                                area.id_planification)
                           }
                         }
                       },
@@ -528,7 +538,12 @@ var render = function() {
                         { staticClass: "tabcontent" },
                         [
                           _c("student-courses", {
-                            attrs: { nameArea: _vm.nameArea }
+                            attrs: {
+                              nameArea: _vm.nameArea,
+                              planifications: _vm.planifications,
+                              id_lective_planification:
+                                _vm.id_lective_planification
+                            }
                           })
                         ],
                         1
@@ -541,7 +556,12 @@ var render = function() {
                         { staticClass: "tabcontent" },
                         [
                           _c("repo-student", {
-                            attrs: { nameArea: _vm.nameArea }
+                            attrs: {
+                              nameArea: _vm.nameArea,
+                              planifications: _vm.planifications,
+                              id_lective_planification:
+                                _vm.id_lective_planification
+                            }
                           })
                         ],
                         1
@@ -558,7 +578,8 @@ var render = function() {
                               idArea: _vm.idArea,
                               idClassroom: _vm.idClassroom,
                               user: _vm.user,
-                              nameArea: _vm.nameArea
+                              nameArea: _vm.nameArea,
+                              planifications: _vm.planifications
                             }
                           })
                         ],

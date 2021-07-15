@@ -1,6 +1,6 @@
 <template>
     <div class="row justify-content-center">
-        <div id="crud" class="col-sm-12">
+        <div v-if="showLectives === false" id="crud" class="col-sm-12">
             <div class="card text-center">
                 <h3 class="card-header fondo">Entregas</h3>
                 <div class="card-body">
@@ -60,6 +60,9 @@
                 </div>
             </div>
         </div>
+        <div v-else>
+            <lectives-student-activities :id_lective_planification="id_lective_planification"></lectives-student-activities>
+        </div>
     </div>
 </template>
 <script>
@@ -67,11 +70,12 @@ import Multiselect from "vue-multiselect";
 Vue.component("multiselect", Multiselect);
 export default {
     components: { Multiselect },
-    props: ["nameArea"],
+    props: ["nameArea","id_lective_planification"],
     data() {
         return {
             clases: [],
             area_classroom: "",
+            showLectives: false,
             value: [{ name: "Todos", code: "js" }],
             descripcion: "",
             logro: "",
@@ -99,9 +103,14 @@ export default {
             this.clases = []
             axios.get("/GetArearByUser").then((response) => {
                 let myOptions = response.data.filter(e => e.text === this.nameArea);
-                myOptions.forEach(e=>{
-                    this.areaClassroom(e.id, e.id_classroom)
-                })
+                if(myOptions.length > 0){
+                    this.showLectives = false;
+                    myOptions.forEach(e=>{
+                        this.areaClassroom(e.id, e.id_classroom)
+                    })
+                }else{
+                    this.showLectives = true;
+                }
             });
 
             // console.log("Component mounted.");

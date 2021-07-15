@@ -102,43 +102,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: ["id_lective_planification"],
   data: function data() {
     return {
       planifications: [],
@@ -160,12 +125,11 @@ __webpack_require__.r(__webpack_exports__);
       current_course: {}
     };
   },
-  created: function created() {},
   mounted: function mounted() {
     var _this = this;
 
-    axios.get("/api/lectives").then(function (response) {
-      _this.planifications = response.data;
+    axios.get("/api/lectives/planification/".concat(this.id_lective_planification)).then(function (response) {
+      _this.planification = response.data;
     });
   },
   methods: {
@@ -193,13 +157,6 @@ __webpack_require__.r(__webpack_exports__);
 
         $("#editu").modal("show");
       });
-    },
-    getPlanificationEvent: function getPlanificationEvent(id_lective_planification) {
-      var _this3 = this;
-
-      axios.get("/api/lectives/planification/".concat(id_lective_planification)).then(function (response) {
-        _this3.planification = response.data;
-      });
     }
   }
 });
@@ -219,7 +176,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.background2 {\r\n  background: url(" + escape(__webpack_require__(/*! ../assets/img/Fondo5.jpg */ "./resources/js/assets/img/Fondo5.jpg")) + ");\r\n  background-size: contain;\r\n  background-repeat: no-repeat;\r\n  background-position: center;\r\n  position: relative;\n}\niframe:not(.md-image){\r\n    height:300px !important;\n}\r\n\r\n", ""]);
+exports.push([module.i, "\n.background2 {\n    background: url(" + escape(__webpack_require__(/*! ../assets/img/Fondo5.jpg */ "./resources/js/assets/img/Fondo5.jpg")) + ");\n    background-size: contain;\n    background-repeat: no-repeat;\n    background-position: center;\n    position: relative;\n}\niframe:not(.md-image){\n    height:300px !important;\n}\n", ""]);
 
 // exports
 
@@ -271,291 +228,221 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "back" }, [
-    _c("div", { staticClass: "row justify-content-center" }, [
-      _c("div", { staticClass: "col-sm-10", attrs: { id: "crud" } }, [
-        _c("div", { staticClass: "card text-center" }, [
-          _c("h3", { staticClass: "card-header fondo" }, [
-            _vm._v("Mis clases")
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "card-body" }, [
-            _c(
-              "div",
-              { staticClass: "accordion", attrs: { id: "accordionExample" } },
-              _vm._l(_vm.planifications, function(area, t) {
-                return _c("div", { key: t, staticClass: "card" }, [
-                  _c("div", { staticClass: "card-header" }, [
-                    _c("h2", { staticClass: "mb-0" }, [
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-link",
-                          attrs: {
-                            type: "button",
-                            "data-toggle": "collapse",
-                            "data-target": "#collapse" + t,
-                            "aria-expanded": "false",
-                            "aria-controls": "collapse"
-                          },
-                          on: {
-                            click: function($event) {
-                              $event.preventDefault()
-                              return _vm.getPlanificationEvent(
-                                area.id_planification
-                              )
-                            }
-                          }
-                        },
-                        [
-                          _c("label", [
-                            _vm._v(
-                              _vm._s(area.lective.name) +
-                                " Trimestre " +
-                                _vm._s(area.period_consecutive)
-                            )
-                          ])
-                        ]
-                      )
-                    ])
-                  ]),
-                  _vm._v(" "),
+  return _c("div", { staticClass: "row justify-content-center" }, [
+    _c("div", { staticClass: "col-sm-12", attrs: { id: "crud" } }, [
+      _c("div", { staticClass: "card text-center" }, [
+        _c("h3", { staticClass: "card-header fondo" }, [_vm._v("Mis clases")]),
+        _vm._v(" "),
+        _c("div", { staticClass: "card-body" }, [
+          _c(
+            "tr",
+            _vm._l(_vm.planification.weeklies, function(weekly_plan, k) {
+              return _c(
+                "td",
+                { key: k, staticStyle: { display: "inline-grid" } },
+                [
                   _c(
-                    "div",
+                    "a",
                     {
-                      staticClass: "collapse hide",
-                      attrs: {
-                        id: "collapse" + t,
-                        "aria-labelledby": "heading",
-                        "data-parent": "#accordionExample"
+                      staticClass: "btn btn-warning",
+                      staticStyle: {
+                        "text-overflow": "ellipsis",
+                        "max-width": "250px",
+                        "min-width": "150px",
+                        "white-space": "nowrap",
+                        overflow: "hidden"
+                      },
+                      on: {
+                        click: function($event) {
+                          $event.preventDefault()
+                          return _vm.showModalAddCourses(
+                            weekly_plan.id_lective_planification,
+                            weekly_plan.id
+                          )
+                        }
                       }
                     },
-                    [
-                      _c(
-                        "tr",
-                        _vm._l(_vm.planification.weeklies, function(
-                          weekly_plan,
-                          k
-                        ) {
-                          return _c(
-                            "td",
-                            { key: k, staticStyle: { display: "inline-grid" } },
-                            [
-                              _c(
-                                "a",
-                                {
-                                  staticClass: "btn btn-warning",
-                                  staticStyle: {
-                                    "text-overflow": "ellipsis",
-                                    "max-width": "250px",
-                                    "min-width": "150px",
-                                    "white-space": "nowrap",
-                                    overflow: "hidden"
-                                  },
-                                  on: {
-                                    click: function($event) {
-                                      $event.preventDefault()
-                                      return _vm.showModalAddCourses(
-                                        weekly_plan.id_lective_planification,
-                                        weekly_plan.id
-                                      )
-                                    }
-                                  }
-                                },
-                                [_vm._v(_vm._s(weekly_plan.name) + " ")]
-                              )
-                            ]
-                          )
-                        }),
-                        0
-                      )
-                    ]
+                    [_vm._v(_vm._s(weekly_plan.name) + " ")]
                   )
-                ])
-              }),
-              0
-            )
-          ])
+                ]
+              )
+            }),
+            0
+          )
         ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "modal fade", attrs: { id: "editu" } }, [
-        _c("div", { staticClass: "modal-dialog" }, [
-          _c("div", { staticClass: "modal-content" }, [
-            _c("div", { staticClass: "card" }, [
-              _vm._m(0),
-              _vm._v(" "),
-              _c("div", { staticClass: "card-body" }, [
-                _c(
-                  "div",
-                  {
-                    staticClass: "accordion",
-                    attrs: { id: "accordionExample" }
-                  },
-                  _vm._l(_vm.courses, function(course, t) {
-                    return _c("div", { key: t, staticClass: "card" }, [
-                      _c(
-                        "div",
-                        {
-                          staticClass: "card-header",
-                          attrs: { id: "heading" + t }
-                        },
-                        [
-                          _c("h2", { staticClass: "mb-0" }, [
-                            _c(
-                              "button",
-                              {
-                                staticClass: "btn btn-link",
-                                attrs: {
-                                  type: "button",
-                                  "data-toggle": "collapse",
-                                  "data-target": "#collapse" + t,
-                                  "aria-expanded": "true",
-                                  "aria-controls": "collapse" + t
-                                }
-                              },
-                              [_vm._v("Clase " + _vm._s(t + 1))]
-                            )
-                          ])
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        {
-                          staticClass: "collapse show",
-                          attrs: {
-                            id: "collapse" + t,
-                            "aria-labelledby": "heading" + t,
-                            "data-parent": "#accordionExample"
-                          }
-                        },
-                        [
+      ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "modal fade", attrs: { id: "editu" } }, [
+      _c("div", { staticClass: "modal-dialog" }, [
+        _c("div", { staticClass: "modal-content" }, [
+          _c("div", { staticClass: "card" }, [
+            _vm._m(0),
+            _vm._v(" "),
+            _c("div", { staticClass: "card-body" }, [
+              _c(
+                "div",
+                { staticClass: "accordion", attrs: { id: "accordionExample" } },
+                _vm._l(_vm.courses, function(course, t) {
+                  return _c("div", { key: t, staticClass: "card" }, [
+                    _c(
+                      "div",
+                      {
+                        staticClass: "card-header",
+                        attrs: { id: "heading" + t }
+                      },
+                      [
+                        _c("h2", { staticClass: "mb-0" }, [
                           _c(
-                            "div",
-                            { staticClass: "card-body" },
-                            [
-                              _c(
-                                "div",
-                                { staticClass: "form-group text-center" },
-                                [
-                                  _c("strong", { attrs: { for: "name" } }, [
-                                    _vm._v("Nombre")
-                                  ]),
-                                  _vm._v(" "),
-                                  _c(
-                                    "div",
-                                    { staticStyle: { "font-weight": "bold" } },
-                                    [_vm._v(_vm._s(course.name))]
-                                  )
-                                ]
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "div",
-                                { staticClass: "form-group text-center" },
-                                [
-                                  _c("strong", { attrs: { for: "name" } }, [
-                                    _vm._v("Descripción")
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("p", [_vm._v(_vm._s(course.description))])
-                                ]
-                              ),
-                              _vm._v(" "),
-                              _vm._l(course.content, function(
-                                item_content,
-                                t_c
-                              ) {
-                                return _c(
-                                  "div",
-                                  {
-                                    key: t_c,
-                                    staticClass: "form-group text-center"
-                                  },
-                                  [
-                                    item_content.content_type === "DOCUMENT"
-                                      ? _c("strong", [_vm._v("Documento")])
-                                      : item_content.content_type === "LINK"
-                                      ? _c("strong", [_vm._v("Enlace")])
-                                      : item_content.content_type === "VIDEO"
-                                      ? _c("strong", [_vm._v("Video")])
-                                      : _vm._e(),
-                                    _vm._v(" "),
-                                    _c("p", [
-                                      _vm._v(_vm._s(item_content.description))
-                                    ]),
-                                    _vm._v(" "),
-                                    item_content.content_type === "DOCUMENT" &&
-                                    item_content.content
-                                      ? _c(
-                                          "a",
-                                          {
-                                            staticClass: "form-control",
-                                            attrs: {
-                                              href: item_content.content,
-                                              target: "_blank",
-                                              type: "text"
-                                            }
-                                          },
-                                          [
-                                            _c("i", {
-                                              staticClass: "fa fa-file-download"
-                                            }),
-                                            _vm._v(" Descargar")
-                                          ]
-                                        )
-                                      : _vm._e(),
-                                    _vm._v(" "),
-                                    item_content.content_type === "LINK" &&
-                                    item_content.content
-                                      ? _c(
-                                          "a",
-                                          {
-                                            staticClass: "form-control",
-                                            attrs: {
-                                              href: item_content.content,
-                                              target: "_blank",
-                                              type: "text"
-                                            }
-                                          },
-                                          [
-                                            _c("i", {
-                                              staticClass: "fa fa-link"
-                                            }),
-                                            _vm._v(" Abrir")
-                                          ]
-                                        )
-                                      : _vm._e(),
-                                    _vm._v(" "),
-                                    item_content.content_type === "VIDEO" &&
-                                    item_content.content
-                                      ? _c("iframe", {
-                                          attrs: {
-                                            width: "100%",
-                                            frameborder: "0",
-                                            allow:
-                                              "accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture",
-                                            allowfullscreen: "",
-                                            src:
-                                              "https://www.youtube.com/embed/" +
-                                              item_content.content
-                                          }
-                                        })
-                                      : _vm._e()
-                                  ]
-                                )
-                              })
-                            ],
-                            2
+                            "button",
+                            {
+                              staticClass: "btn btn-link",
+                              attrs: {
+                                type: "button",
+                                "data-toggle": "collapse",
+                                "data-target": "#collapse" + t,
+                                "aria-expanded": "true",
+                                "aria-controls": "collapse" + t
+                              }
+                            },
+                            [_vm._v("Clase " + _vm._s(t + 1))]
                           )
-                        ]
-                      )
-                    ])
-                  }),
-                  0
-                )
-              ])
+                        ])
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        staticClass: "collapse show",
+                        attrs: {
+                          id: "collapse" + t,
+                          "aria-labelledby": "heading" + t,
+                          "data-parent": "#accordionExample"
+                        }
+                      },
+                      [
+                        _c(
+                          "div",
+                          { staticClass: "card-body" },
+                          [
+                            _c(
+                              "div",
+                              { staticClass: "form-group text-center" },
+                              [
+                                _c("strong", { attrs: { for: "name" } }, [
+                                  _vm._v("Nombre")
+                                ]),
+                                _vm._v(" "),
+                                _c(
+                                  "div",
+                                  { staticStyle: { "font-weight": "bold" } },
+                                  [_vm._v(_vm._s(course.name))]
+                                )
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "div",
+                              { staticClass: "form-group text-center" },
+                              [
+                                _c("strong", { attrs: { for: "name" } }, [
+                                  _vm._v("Descripción")
+                                ]),
+                                _vm._v(" "),
+                                _c("p", [_vm._v(_vm._s(course.description))])
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _vm._l(course.content, function(item_content, t_c) {
+                              return _c(
+                                "div",
+                                {
+                                  key: t_c,
+                                  staticClass: "form-group text-center"
+                                },
+                                [
+                                  item_content.content_type === "DOCUMENT"
+                                    ? _c("strong", [_vm._v("Documento")])
+                                    : item_content.content_type === "LINK"
+                                    ? _c("strong", [_vm._v("Enlace")])
+                                    : item_content.content_type === "VIDEO"
+                                    ? _c("strong", [_vm._v("Video")])
+                                    : _vm._e(),
+                                  _vm._v(" "),
+                                  _c("p", [
+                                    _vm._v(_vm._s(item_content.description))
+                                  ]),
+                                  _vm._v(" "),
+                                  item_content.content_type === "DOCUMENT" &&
+                                  item_content.content
+                                    ? _c(
+                                        "a",
+                                        {
+                                          staticClass: "form-control",
+                                          attrs: {
+                                            href: item_content.content,
+                                            target: "_blank",
+                                            type: "text"
+                                          }
+                                        },
+                                        [
+                                          _c("i", {
+                                            staticClass: "fa fa-file-download"
+                                          }),
+                                          _vm._v(" Descargar")
+                                        ]
+                                      )
+                                    : _vm._e(),
+                                  _vm._v(" "),
+                                  item_content.content_type === "LINK" &&
+                                  item_content.content
+                                    ? _c(
+                                        "a",
+                                        {
+                                          staticClass: "form-control",
+                                          attrs: {
+                                            href: item_content.content,
+                                            target: "_blank",
+                                            type: "text"
+                                          }
+                                        },
+                                        [
+                                          _c("i", {
+                                            staticClass: "fa fa-link"
+                                          }),
+                                          _vm._v(" Abrir")
+                                        ]
+                                      )
+                                    : _vm._e(),
+                                  _vm._v(" "),
+                                  item_content.content_type === "VIDEO" &&
+                                  item_content.content
+                                    ? _c("iframe", {
+                                        attrs: {
+                                          width: "100%",
+                                          frameborder: "0",
+                                          allow:
+                                            "accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture",
+                                          allowfullscreen: "",
+                                          src:
+                                            "https://www.youtube.com/embed/" +
+                                            item_content.content
+                                        }
+                                      })
+                                    : _vm._e()
+                                ]
+                              )
+                            })
+                          ],
+                          2
+                        )
+                      ]
+                    )
+                  ])
+                }),
+                0
+              )
             ])
           ])
         ])
@@ -569,7 +456,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("h3", { staticClass: "card-header fondo text-center" }, [
-      _vm._v("\n              Ciclo\n              "),
+      _vm._v("\n                        Ciclo\n                        "),
       _c(
         "button",
         {
