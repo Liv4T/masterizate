@@ -1050,3 +1050,5 @@ Route::get('/api/proceedings/general/pdf/{id}', 'ProceedingsGeneralController@ge
 Route::middleware('auth')->post('/updateViewedProceedings/general/{id}', 'ProceedingsGeneralController@updateViewed');
 Route::middleware('auth')->get('/api/proceedings/general/download/{id}', 'ProceedingsGeneralController@downloadProceedings');
 Route::middleware('auth')->get('/api/proceedings/general/users', 'ProceedingsGeneralController@getUsersToProceedings');
+
+route::resource('CalificationLectivesActivitiesController','CalificationLectivesActivitiesController');
