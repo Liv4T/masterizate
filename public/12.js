@@ -579,7 +579,9 @@ var render = function() {
                               idClassroom: _vm.idClassroom,
                               user: _vm.user,
                               nameArea: _vm.nameArea,
-                              planifications: _vm.planifications
+                              planifications: _vm.planifications,
+                              id_lective_planification:
+                                _vm.id_lective_planification
                             }
                           })
                         ],

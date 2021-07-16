@@ -57,7 +57,7 @@
 </template>
 <script>
 export default {
-    props:["idArea","idClassroom","user","nameArea"],
+    props:["idArea","idClassroom","user","nameArea","id_lective_planification"],
     data() {
         return {
             current_student:{},
@@ -78,13 +78,20 @@ export default {
         getData(){
             this.current_student = {};
             this.modules = [];
-            axios.get(`/api/teacher/area/${this.idArea}/classroom/${this.idClassroom}/student/${this.user.id}`).then((response)=>{
-                this.current_student = response.data;
-            });
+            if(this.idArea === "" && this.idClassroom === ""){
+                axios.get(`getLectivesActivitiesCal/${this.id_lective_planification}`).then((response)=>{
+                    // console.log(response.data)
+                })
+            }else{
+                axios.get(`/api/teacher/area/${this.idArea}/classroom/${this.idClassroom}/student/${this.user.id}`).then((response)=>{
+                    this.current_student = response.data;
+                });
 
-            axios.get(`/api/teacher/area/${this.idArea}/classroom/${this.idClassroom}/student/${this.user.id}/module`).then((response)=>{
-                this.modules = response.data;
-            });
+                axios.get(`/api/teacher/area/${this.idArea}/classroom/${this.idClassroom}/student/${this.user.id}/module`).then((response)=>{
+                    this.modules = response.data;
+                    console.log(response.data)
+                });
+            }
         }
     },
 };

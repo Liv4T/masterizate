@@ -15,8 +15,8 @@ class CreateCalificationLectivesActivitiesTable extends Migration
     {
         Schema::create('calification_lectives_activities', function (Blueprint $table) {
             $table->increments('id');
+            $table->bigInteger('id_lective_planification');            
             $table->bigInteger('id_lective_activity');
-            $table->bigInteger('id_class');
             $table->bigInteger('id_teacher');
             $table->bigInteger('id_student');
             $table->bigInteger('calification');

@@ -7,7 +7,7 @@ use Auth;
 use DB;
 use Illuminate\Http\Request;
 
-class CalificationLectivesActivitiesController extends Controller
+class CalLectivesActivitiesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,7 +16,50 @@ class CalificationLectivesActivitiesController extends Controller
      */
     public function index()
     {
-        //
+        
+    }
+
+    public function getLectivesActivitiesCal(String $lective_collection_id){
+        $data = DB::table('Lective_planification')
+                ->join('lective_collection','lective_planification.id_lective','=','lective_collection.id')
+                ->join('lective_weekly_plan','lective_planification.id','=','lective_weekly_plan.id_lective_planification')
+                ->join('lective_class','lective_weekly_plan.id','=','lective_class.id_lective_weekly_plan')
+                ->join('lective_activity','lective_class.id','=','lective_activity.id_lective_class')
+                ->join('lective_activity_question','lective_activity.id','=','lective_activity_question.id_lective_activity')
+                ->join('lective_activity_question_answer','lective_activity_question.id','=','lective_activity_question_answer.id_lective_activity_question')
+                ->join('users','lective_activity_question_answer.id_student','=','users.id')
+                ->select(
+                    'lective_planification.id as lective_planification_id',
+                    
+                    'lective_collection.id as lective_collection_id',
+                    'lective_collection.name as lective_collection_name',
+
+                    'lective_weekly_plan.id as lective_weekly_id',
+                    'lective_weekly_plan.name as lective_weekly_name',
+
+                    'lective_class.id as lective_class_id',
+                    'lective_class.name as lective_class_name',
+
+                    'lective_activity.id as lective_activity_id',
+                    'lective_activity.name as lective_activity_name',
+                    'lective_activity.activity_type as lective_activity_activity_type',
+
+                    'lective_activity_question.id as lective_activity_question_id',
+                    'lective_activity_question.question as lective_activity_question_question',
+                    'lective_activity_question.type_question as lective_activity_question_type_question',
+                    
+                    'users.id as student_id',
+                    'users.name as student_name',
+                    'users.last_name as student_last_name',
+
+                    'lective_activity_question_answer.id as lective_activity_question_answer_id',
+                    'lective_activity_question_answer.response as lective_activity_question_answer_response',
+                    'lective_activity_question_answer.created_at as lective_activity_question_answer_created_at'
+                )
+                ->where('Lective_planification.id','=', $lective_collection_id)
+                ->orderBy('lective_activity_question_answer.created_at','DESC')
+                ->get();
+        return response()->json($data);
     }
 
     /**

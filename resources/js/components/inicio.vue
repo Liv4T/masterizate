@@ -40,7 +40,7 @@
                         <div v-if="activetab === 1" class="tabcontent"><calendar-component :type_u="3" :user="user"></calendar-component></div>
                         <div v-if="activetab === 2" class="tabcontent"><student-courses :nameArea="nameArea" :planifications="planifications" :id_lective_planification="id_lective_planification"></student-courses></div>
                         <div v-if="activetab === 3" class="tabcontent"><repo-student :nameArea="nameArea" :planifications="planifications" :id_lective_planification="id_lective_planification"></repo-student></div>
-                        <div v-if="activetab === 4" class="tabcontent"><notas-component :idArea="idArea" :idClassroom="idClassroom" :user="user" :nameArea="nameArea" :planifications="planifications"></notas-component></div>
+                        <div v-if="activetab === 4" class="tabcontent"><notas-component :idArea="idArea" :idClassroom="idClassroom" :user="user" :nameArea="nameArea" :planifications="planifications" :id_lective_planification="id_lective_planification"></notas-component></div>
                     </div>
                 </div>
             </div>
