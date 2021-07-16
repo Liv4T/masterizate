@@ -1,9 +1,9 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[9],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/NurseComponent.vue?vue&type=script&lang=js&":
-/*!*************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/NurseComponent.vue?vue&type=script&lang=js& ***!
-  \*************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FoodComponent.vue?vue&type=script&lang=js&":
+/*!************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/FoodComponent.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -11,8 +11,11 @@
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _NursingCreateComponent__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./NursingCreateComponent */ "./resources/js/components/NursingCreateComponent.vue");
-/* harmony import */ var _NursingUpdateComponent__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./NursingUpdateComponent */ "./resources/js/components/NursingUpdateComponent.vue");
+/* harmony import */ var _FoodCreateComponent__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./FoodCreateComponent */ "./resources/js/components/FoodCreateComponent.vue");
+/* harmony import */ var _FoodUpdateComponent__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./FoodUpdateComponent */ "./resources/js/components/FoodUpdateComponent.vue");
+//
+//
+//
 //
 //
 //
@@ -73,61 +76,75 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
-    nurseCreateComponent: _NursingCreateComponent__WEBPACK_IMPORTED_MODULE_1__["default"],
-    nurseUpdateComponent: _NursingUpdateComponent__WEBPACK_IMPORTED_MODULE_2__["default"]
+    foodCreateComponent: _FoodCreateComponent__WEBPACK_IMPORTED_MODULE_1__["default"],
+    foodUpdateComponent: _FoodUpdateComponent__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
   data: function data() {
     return {
-      nurseData: [],
-      id_to_update: "",
+      getDataFoods: [],
       saveStudents: {},
-      blood_rh: "",
-      alergies: "",
+      id_to_update: "",
       diet: "",
+      other_diet: "",
       observation: ""
     };
   },
   mounted: function mounted() {
-    this.getNursing();
+    this.getFoods();
   },
   methods: {
-    getNursing: function getNursing() {
+    getFoods: function getFoods() {
       var _this = this;
 
-      axios.get('getNursing').then(function (response) {
-        var nurseData = response.data;
+      axios.get('getFoods').then(function (response) {
+        var foodResult = [];
+        var foods = response.data;
+        foods.forEach(function (food) {
+          axios.get("nursing/".concat(food.id_student)).then(function (response) {
+            foodResult.push({
+              id: food.id,
+              name_student: food.name_student,
+              diet: food.diet,
+              observation: food.observation,
+              id_classroom: food.id_student,
+              id_course: food.id_classroom,
+              course: food.course,
+              id_student: food.id_student,
+              medic_alergies: response.data.alergies ? response.data.alergies : 'No Registra',
+              medic_observation: response.data.observation ? response.data.observation : 'No Registra'
+            });
 
-        _this.groupData(nurseData);
+            _this.groupData(foodResult);
+          });
+        });
       });
     },
     groupData: function groupData(data) {
       var result = lodash__WEBPACK_IMPORTED_MODULE_0___default.a.chain(data).groupBy("course").value();
 
-      this.nurseData = result;
+      this.getDataFoods = result;
     },
-    editDataNurse: function editDataNurse(data) {
-      this.id_to_update = data.id;
-      this.saveStudents = {
+    editFood: function editFood(data) {
+      this.id_to_update = data.id, this.saveStudents = {
         id: data.id_student,
         id_student: data.id_student,
-        text: "".concat(data.student),
+        text: "".concat(data.name_student),
         grade: data.course,
-        id_grade: data.id_course
+        id_grade: data.id_course,
+        id_classroom: data.id_classroom
       };
-      this.blood_rh = data.blood_rh;
-      this.alergies = data.alergies;
       data.diet === 'Normal' || data.diet === 'Vegetariano' || data.diet === 'Dieta' ? this.diet = data.diet : this.diet = 'Otro';
       this.diet === 'Otro' ? this.other_diet = data.diet : '', this.observation = data.observation;
-      $("#modalNursingUpdate").modal('show');
+      $("#modalFoodUpdate").modal('show');
     },
-    deleteData: function deleteData(id) {
+    deleteFood: function deleteFood(id) {
       var _this2 = this;
 
-      if (window.confirm("Realmente deseas Eliminar este dato?")) {
-        axios["delete"]("nursing/".concat(id)).then(function (response) {
+      if (window.confirm("Desea Eliminar El dato?")) {
+        axios["delete"]("foods/".concat(id)).then(function (response) {
           toastr.info(response.data);
 
-          _this2.getNursing();
+          _this2.getFoods();
         });
       }
     }
@@ -136,10 +153,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/NursingCreateComponent.vue?vue&type=script&lang=js&":
-/*!*********************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/NursingCreateComponent.vue?vue&type=script&lang=js& ***!
-  \*********************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FoodCreateComponent.vue?vue&type=script&lang=js&":
+/*!******************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/FoodCreateComponent.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -149,17 +166,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vue_multiselect__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-multiselect */ "./node_modules/vue-multiselect/dist/vue-multiselect.min.js");
 /* harmony import */ var vue_multiselect__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue_multiselect__WEBPACK_IMPORTED_MODULE_1__);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -223,8 +229,6 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_1___defaul
       getDataFoods: [],
       saveStudents: {},
       studentsOptions: [],
-      blood_rh: "",
-      alergies: "",
       diet: "",
       other_diet: "",
       observation: ""
@@ -251,25 +255,25 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_1___defaul
               id_student: el.id_student,
               text: "".concat(el.name_student) + '' + "".concat(el.lastName_student),
               grade: el.grade,
-              id_grade: el.id_grade
+              id_grade: el.id_grade,
+              id_classroom: el.id_classroom
             });
           });
         });
       });
     },
-    saveNursing: function saveNursing() {
-      axios.post('nursing', {
+    saveFood: function saveFood() {
+      axios.post('foods', {
         id_student: this.saveStudents.id_student,
-        student: this.saveStudents.text,
-        id_course: this.saveStudents.id_grade,
-        course: this.saveStudents.grade,
-        blood_rh: this.blood_rh,
-        alergies: this.alergies,
+        name_student: this.saveStudents.text,
         diet: this.diet === 'Otro' ? this.other_diet : this.diet,
-        observation: this.observation
+        observation: this.observation,
+        id_classroom: this.saveStudents.id_classroom,
+        id_course: this.saveStudents.id_grade,
+        course: this.saveStudents.grade
       }).then(function (response) {
         toastr.success(response.data);
-        window.location = "/nursing";
+        window.location = "/foods";
       });
     }
   }
@@ -277,10 +281,10 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_1___defaul
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/NursingUpdateComponent.vue?vue&type=script&lang=js&":
-/*!*********************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/NursingUpdateComponent.vue?vue&type=script&lang=js& ***!
-  \*********************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FoodUpdateComponent.vue?vue&type=script&lang=js&":
+/*!******************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/FoodUpdateComponent.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -343,23 +347,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_1___default.a);
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {},
-  props: ["saveStudents", "blood_rh", "alergies", "diet", "other_diet", "observation", "id_to_update"],
+  props: ["saveStudents", "diet", "other_diet", "observation", "id_to_update"],
   data: function data() {
     return {
       getDataFoods: [],
@@ -394,19 +387,20 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_1___defaul
         });
       });
     },
-    updateNursing: function updateNursing() {
-      axios.put("nursing/".concat(this.id_to_update), {
+    updateFood: function updateFood() {
+      axios.put("foods/".concat(this.id_to_update), {
         id_student: this.saveStudents.id_student,
-        student: this.saveStudents.text,
+        name_student: this.saveStudents.text,
+        diet: this.diet !== 'Otro' ? this.diet : this.other_diet,
+        observation: this.observation,
+        id_classroom: this.saveStudents.id_classroom,
         id_course: this.saveStudents.id_grade,
-        course: this.saveStudents.grade,
-        blood_rh: this.blood_rh,
-        alergies: this.alergies,
-        diet: this.diet,
-        observation: this.observation
+        course: this.saveStudents.grade
       }).then(function (response) {
         toastr.success(response.data);
-        window.location = "/nursing";
+        window.location = "foods";
+      })["catch"](function (error) {
+        console.log(error);
       });
     }
   }
@@ -414,10 +408,10 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_1___defaul
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/NurseComponent.vue?vue&type=template&id=0564b4ea&":
-/*!*****************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/NurseComponent.vue?vue&type=template&id=0564b4ea& ***!
-  \*****************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FoodComponent.vue?vue&type=template&id=ae99c338&":
+/*!****************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/FoodComponent.vue?vue&type=template&id=ae99c338& ***!
+  \****************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -433,23 +427,13 @@ var render = function() {
     _c("div", { staticClass: "col-sm-10" }, [
       _vm._m(0),
       _vm._v(" "),
-      _c(
-        "button",
-        {
-          staticClass: "mb-4 btn btn-primary",
-          attrs: {
-            "data-toggle": "modal",
-            "data-target": "#modalNursingCreate"
-          }
-        },
-        [_vm._v("Crear Registro")]
-      ),
+      _vm._m(1),
       _vm._v(" "),
       _c(
         "div",
         { attrs: { id: "accordion" } },
         [
-          _vm._l(_vm.nurseData, function(nurse, key) {
+          _vm._l(_vm.getDataFoods, function(food, key) {
             return _c("div", { key: key, staticClass: "card" }, [
               _c(
                 "div",
@@ -495,21 +479,21 @@ var render = function() {
                       "table",
                       { staticClass: "table table-striped table-hover" },
                       [
-                        _vm._m(1, true),
+                        _vm._m(2, true),
                         _vm._v(" "),
                         _c(
                           "tbody",
-                          _vm._l(nurse, function(nurs, key) {
+                          _vm._l(food, function(fod, key) {
                             return _c("tr", { key: key }, [
-                              _c("td", [_vm._v(_vm._s(nurs.student))]),
+                              _c("td", [_vm._v(_vm._s(fod.name_student))]),
                               _vm._v(" "),
-                              _c("td", [_vm._v(_vm._s(nurs.blood_rh))]),
+                              _c("td", [_vm._v(_vm._s(fod.diet))]),
                               _vm._v(" "),
-                              _c("td", [_vm._v(_vm._s(nurs.alergies))]),
+                              _c("td", [_vm._v(_vm._s(fod.observation))]),
                               _vm._v(" "),
-                              _c("td", [_vm._v(_vm._s(nurs.diet))]),
+                              _c("td", [_vm._v(_vm._s(fod.medic_observation))]),
                               _vm._v(" "),
-                              _c("td", [_vm._v(_vm._s(nurs.observation))]),
+                              _c("td", [_vm._v(_vm._s(fod.medic_alergies))]),
                               _vm._v(" "),
                               _c("td", [
                                 _c(
@@ -518,7 +502,7 @@ var render = function() {
                                     staticClass: "btn btn-primary",
                                     on: {
                                       click: function($event) {
-                                        return _vm.editDataNurse(nurs)
+                                        return _vm.editFood(fod)
                                       }
                                     }
                                   },
@@ -531,7 +515,7 @@ var render = function() {
                                     staticClass: "btn btn-danger",
                                     on: {
                                       click: function($event) {
-                                        return _vm.deleteData(nurs.id)
+                                        return _vm.deleteFood(fod.id)
                                       }
                                     }
                                   },
@@ -550,13 +534,11 @@ var render = function() {
             ])
           }),
           _vm._v(" "),
-          _c("nurse-create-component"),
+          _c("food-create-component"),
           _vm._v(" "),
-          _c("nurse-update-component", {
+          _c("food-update-component", {
             attrs: {
               saveStudents: _vm.saveStudents,
-              blood_rh: _vm.blood_rh,
-              alergies: _vm.alergies,
               diet: _vm.diet,
               other_diet: _vm.other_diet,
               observation: _vm.observation,
@@ -576,7 +558,26 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "card text-center" }, [
       _c("div", { staticClass: "card-header fondo" }, [
-        _c("h4", [_vm._v("Enfermería")])
+        _c("h4", [_vm._v("Alimentos")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-group" }, [
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-primary",
+          attrs: { "data-toggle": "modal", "data-target": "#modalFoodCreate" }
+        },
+        [_vm._v("Crear Registro")]
+      ),
+      _vm._v(" "),
+      _c("a", { staticClass: "btn btn-primary", attrs: { href: "/nursing" } }, [
+        _vm._v("Enfermería")
       ])
     ])
   },
@@ -588,13 +589,13 @@ var staticRenderFns = [
       _c("tr", [
         _c("th", [_vm._v("Estudiante")]),
         _vm._v(" "),
-        _c("th", [_vm._v("RH Sanguíneo")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Alergias")]),
-        _vm._v(" "),
         _c("th", [_vm._v("Dieta")]),
         _vm._v(" "),
         _c("th", [_vm._v("Observación")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Observación Medica")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Alergias Médicas")]),
         _vm._v(" "),
         _c("th", [_vm._v("Acción")])
       ])
@@ -607,10 +608,10 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/NursingCreateComponent.vue?vue&type=template&id=56260fdc&":
-/*!*************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/NursingCreateComponent.vue?vue&type=template&id=56260fdc& ***!
-  \*************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FoodCreateComponent.vue?vue&type=template&id=3ccbaf88&":
+/*!**********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/FoodCreateComponent.vue?vue&type=template&id=3ccbaf88& ***!
+  \**********************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -627,10 +628,10 @@ var render = function() {
     {
       staticClass: "modal fade",
       attrs: {
-        id: "modalNursingCreate",
+        id: "modalFoodCreate",
         tabindex: "-1",
         role: "dialog",
-        "aria-labelledby": "modalNursingCreateLabel",
+        "aria-labelledby": "modalFoodCreateLabel",
         "aria-hidden": "true"
       }
     },
@@ -694,65 +695,7 @@ var render = function() {
             ),
             _vm._v(" "),
             _c("div", { staticClass: "form-group" }, [
-              _c("label", { attrs: { for: "blood_rh" } }, [
-                _vm._v("Rh Sanguineo")
-              ]),
-              _vm._v(" "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.blood_rh,
-                    expression: "blood_rh"
-                  }
-                ],
-                staticClass: "form-control",
-                attrs: {
-                  type: "text",
-                  placeholder: "Ej: O+",
-                  name: "blood_rh"
-                },
-                domProps: { value: _vm.blood_rh },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.blood_rh = $event.target.value
-                  }
-                }
-              })
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "form-group" }, [
-              _c("label", { attrs: { for: "alergies" } }, [_vm._v("Alergias")]),
-              _vm._v(" "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.alergies,
-                    expression: "alergies"
-                  }
-                ],
-                staticClass: "form-control",
-                attrs: { type: "text", name: "alergies" },
-                domProps: { value: _vm.alergies },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.alergies = $event.target.value
-                  }
-                }
-              })
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "form-group" }, [
-              _c("label", { attrs: { for: "diet" } }, [_vm._v("Dieta")]),
+              _c("label", { attrs: { for: "dieta" } }, [_vm._v("Alimento")]),
               _vm._v(" "),
               _c(
                 "select",
@@ -766,7 +709,7 @@ var render = function() {
                     }
                   ],
                   staticClass: "form-control",
-                  attrs: { name: "diet" },
+                  attrs: { name: "dieta" },
                   on: {
                     change: function($event) {
                       var $$selectedVal = Array.prototype.filter
@@ -811,12 +754,8 @@ var render = function() {
                           expression: "other_diet"
                         }
                       ],
-                      staticClass: "form-control mt-3",
-                      attrs: {
-                        type: "text",
-                        placeholder: "Especificar Dieta",
-                        name: "diet"
-                      },
+                      staticClass: "form-control mt-2",
+                      attrs: { type: "text", placeholder: "Especificar Dieta" },
                       domProps: { value: _vm.other_diet },
                       on: {
                         input: function($event) {
@@ -875,7 +814,7 @@ var render = function() {
               {
                 staticClass: "btn btn-primary",
                 attrs: { type: "button" },
-                on: { click: _vm.saveNursing }
+                on: { click: _vm.saveFood }
               },
               [_vm._v("Guardar")]
             )
@@ -893,11 +832,8 @@ var staticRenderFns = [
     return _c("div", { staticClass: "modal-header" }, [
       _c(
         "h5",
-        {
-          staticClass: "modal-title",
-          attrs: { id: "modalNursingCreateLabel" }
-        },
-        [_vm._v("Creación de Registro")]
+        { staticClass: "modal-title", attrs: { id: "modalFoodCreateLabel" } },
+        [_vm._v("Creación de Alimentos")]
       ),
       _vm._v(" "),
       _c(
@@ -921,10 +857,10 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/NursingUpdateComponent.vue?vue&type=template&id=711a3565&":
-/*!*************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/NursingUpdateComponent.vue?vue&type=template&id=711a3565& ***!
-  \*************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FoodUpdateComponent.vue?vue&type=template&id=4e0e264a&":
+/*!**********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/FoodUpdateComponent.vue?vue&type=template&id=4e0e264a& ***!
+  \**********************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -941,10 +877,10 @@ var render = function() {
     {
       staticClass: "modal fade",
       attrs: {
-        id: "modalNursingUpdate",
+        id: "modalFoodUpdate",
         tabindex: "-1",
         role: "dialog",
-        "aria-labelledby": "modalNursingUpdateLabel",
+        "aria-labelledby": "modalFoodUpdateLabel",
         "aria-hidden": "true"
       }
     },
@@ -1008,65 +944,7 @@ var render = function() {
             ),
             _vm._v(" "),
             _c("div", { staticClass: "form-group" }, [
-              _c("label", { attrs: { for: "blood_rh" } }, [
-                _vm._v("Rh Sanguineo")
-              ]),
-              _vm._v(" "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.blood_rh,
-                    expression: "blood_rh"
-                  }
-                ],
-                staticClass: "form-control",
-                attrs: {
-                  type: "text",
-                  placeholder: "Ej: O+",
-                  name: "blood_rh"
-                },
-                domProps: { value: _vm.blood_rh },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.blood_rh = $event.target.value
-                  }
-                }
-              })
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "form-group" }, [
-              _c("label", { attrs: { for: "alergies" } }, [_vm._v("Alergias")]),
-              _vm._v(" "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.alergies,
-                    expression: "alergies"
-                  }
-                ],
-                staticClass: "form-control",
-                attrs: { type: "text", name: "alergies" },
-                domProps: { value: _vm.alergies },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.alergies = $event.target.value
-                  }
-                }
-              })
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "form-group" }, [
-              _c("label", { attrs: { for: "diet" } }, [_vm._v("Dieta")]),
+              _c("label", { attrs: { for: "dieta" } }, [_vm._v("Alimento")]),
               _vm._v(" "),
               _c(
                 "select",
@@ -1080,7 +958,7 @@ var render = function() {
                     }
                   ],
                   staticClass: "form-control",
-                  attrs: { name: "diet" },
+                  attrs: { name: "dieta" },
                   on: {
                     change: function($event) {
                       var $$selectedVal = Array.prototype.filter
@@ -1125,12 +1003,8 @@ var render = function() {
                           expression: "other_diet"
                         }
                       ],
-                      staticClass: "form-control mt-3",
-                      attrs: {
-                        type: "text",
-                        placeholder: "Especificar Dieta",
-                        name: "diet"
-                      },
+                      staticClass: "form-control mt-2",
+                      attrs: { type: "text", placeholder: "Especificar Dieta" },
                       domProps: { value: _vm.other_diet },
                       on: {
                         input: function($event) {
@@ -1189,7 +1063,7 @@ var render = function() {
               {
                 staticClass: "btn btn-primary",
                 attrs: { type: "button" },
-                on: { click: _vm.updateNursing }
+                on: { click: _vm.updateFood }
               },
               [_vm._v("Actualizar")]
             )
@@ -1207,11 +1081,8 @@ var staticRenderFns = [
     return _c("div", { staticClass: "modal-header" }, [
       _c(
         "h5",
-        {
-          staticClass: "modal-title",
-          attrs: { id: "modalNursingUpdateLabel" }
-        },
-        [_vm._v("Edición de Registro")]
+        { staticClass: "modal-title", attrs: { id: "modalFoodUpdateLabel" } },
+        [_vm._v("Actualización de Alimentación")]
       ),
       _vm._v(" "),
       _c(
@@ -1235,17 +1106,17 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./resources/js/components/NurseComponent.vue":
-/*!****************************************************!*\
-  !*** ./resources/js/components/NurseComponent.vue ***!
-  \****************************************************/
+/***/ "./resources/js/components/FoodComponent.vue":
+/*!***************************************************!*\
+  !*** ./resources/js/components/FoodComponent.vue ***!
+  \***************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _NurseComponent_vue_vue_type_template_id_0564b4ea___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./NurseComponent.vue?vue&type=template&id=0564b4ea& */ "./resources/js/components/NurseComponent.vue?vue&type=template&id=0564b4ea&");
-/* harmony import */ var _NurseComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./NurseComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/NurseComponent.vue?vue&type=script&lang=js&");
+/* harmony import */ var _FoodComponent_vue_vue_type_template_id_ae99c338___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./FoodComponent.vue?vue&type=template&id=ae99c338& */ "./resources/js/components/FoodComponent.vue?vue&type=template&id=ae99c338&");
+/* harmony import */ var _FoodComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./FoodComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/FoodComponent.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -1255,9 +1126,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _NurseComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _NurseComponent_vue_vue_type_template_id_0564b4ea___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _NurseComponent_vue_vue_type_template_id_0564b4ea___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _FoodComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _FoodComponent_vue_vue_type_template_id_ae99c338___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _FoodComponent_vue_vue_type_template_id_ae99c338___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -1267,54 +1138,54 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/components/NurseComponent.vue"
+component.options.__file = "resources/js/components/FoodComponent.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/components/NurseComponent.vue?vue&type=script&lang=js&":
-/*!*****************************************************************************!*\
-  !*** ./resources/js/components/NurseComponent.vue?vue&type=script&lang=js& ***!
-  \*****************************************************************************/
+/***/ "./resources/js/components/FoodComponent.vue?vue&type=script&lang=js&":
+/*!****************************************************************************!*\
+  !*** ./resources/js/components/FoodComponent.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_NurseComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./NurseComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/NurseComponent.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_NurseComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_FoodComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./FoodComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FoodComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_FoodComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/components/NurseComponent.vue?vue&type=template&id=0564b4ea&":
-/*!***********************************************************************************!*\
-  !*** ./resources/js/components/NurseComponent.vue?vue&type=template&id=0564b4ea& ***!
-  \***********************************************************************************/
+/***/ "./resources/js/components/FoodComponent.vue?vue&type=template&id=ae99c338&":
+/*!**********************************************************************************!*\
+  !*** ./resources/js/components/FoodComponent.vue?vue&type=template&id=ae99c338& ***!
+  \**********************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_NurseComponent_vue_vue_type_template_id_0564b4ea___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./NurseComponent.vue?vue&type=template&id=0564b4ea& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/NurseComponent.vue?vue&type=template&id=0564b4ea&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_NurseComponent_vue_vue_type_template_id_0564b4ea___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_FoodComponent_vue_vue_type_template_id_ae99c338___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./FoodComponent.vue?vue&type=template&id=ae99c338& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FoodComponent.vue?vue&type=template&id=ae99c338&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_FoodComponent_vue_vue_type_template_id_ae99c338___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_NurseComponent_vue_vue_type_template_id_0564b4ea___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_FoodComponent_vue_vue_type_template_id_ae99c338___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
 /***/ }),
 
-/***/ "./resources/js/components/NursingCreateComponent.vue":
-/*!************************************************************!*\
-  !*** ./resources/js/components/NursingCreateComponent.vue ***!
-  \************************************************************/
+/***/ "./resources/js/components/FoodCreateComponent.vue":
+/*!*********************************************************!*\
+  !*** ./resources/js/components/FoodCreateComponent.vue ***!
+  \*********************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _NursingCreateComponent_vue_vue_type_template_id_56260fdc___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./NursingCreateComponent.vue?vue&type=template&id=56260fdc& */ "./resources/js/components/NursingCreateComponent.vue?vue&type=template&id=56260fdc&");
-/* harmony import */ var _NursingCreateComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./NursingCreateComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/NursingCreateComponent.vue?vue&type=script&lang=js&");
+/* harmony import */ var _FoodCreateComponent_vue_vue_type_template_id_3ccbaf88___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./FoodCreateComponent.vue?vue&type=template&id=3ccbaf88& */ "./resources/js/components/FoodCreateComponent.vue?vue&type=template&id=3ccbaf88&");
+/* harmony import */ var _FoodCreateComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./FoodCreateComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/FoodCreateComponent.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var vue_multiselect_dist_vue_multiselect_min_css_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue-multiselect/dist/vue-multiselect.min.css?vue&type=style&index=0&lang=css& */ "./node_modules/vue-multiselect/dist/vue-multiselect.min.css?vue&type=style&index=0&lang=css&");
 /* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
@@ -1326,9 +1197,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
-  _NursingCreateComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _NursingCreateComponent_vue_vue_type_template_id_56260fdc___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _NursingCreateComponent_vue_vue_type_template_id_56260fdc___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _FoodCreateComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _FoodCreateComponent_vue_vue_type_template_id_3ccbaf88___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _FoodCreateComponent_vue_vue_type_template_id_3ccbaf88___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -1338,54 +1209,54 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/components/NursingCreateComponent.vue"
+component.options.__file = "resources/js/components/FoodCreateComponent.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/components/NursingCreateComponent.vue?vue&type=script&lang=js&":
-/*!*************************************************************************************!*\
-  !*** ./resources/js/components/NursingCreateComponent.vue?vue&type=script&lang=js& ***!
-  \*************************************************************************************/
+/***/ "./resources/js/components/FoodCreateComponent.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************!*\
+  !*** ./resources/js/components/FoodCreateComponent.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_NursingCreateComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./NursingCreateComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/NursingCreateComponent.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_NursingCreateComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_FoodCreateComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./FoodCreateComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FoodCreateComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_FoodCreateComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/components/NursingCreateComponent.vue?vue&type=template&id=56260fdc&":
-/*!*******************************************************************************************!*\
-  !*** ./resources/js/components/NursingCreateComponent.vue?vue&type=template&id=56260fdc& ***!
-  \*******************************************************************************************/
+/***/ "./resources/js/components/FoodCreateComponent.vue?vue&type=template&id=3ccbaf88&":
+/*!****************************************************************************************!*\
+  !*** ./resources/js/components/FoodCreateComponent.vue?vue&type=template&id=3ccbaf88& ***!
+  \****************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_NursingCreateComponent_vue_vue_type_template_id_56260fdc___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./NursingCreateComponent.vue?vue&type=template&id=56260fdc& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/NursingCreateComponent.vue?vue&type=template&id=56260fdc&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_NursingCreateComponent_vue_vue_type_template_id_56260fdc___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_FoodCreateComponent_vue_vue_type_template_id_3ccbaf88___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./FoodCreateComponent.vue?vue&type=template&id=3ccbaf88& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FoodCreateComponent.vue?vue&type=template&id=3ccbaf88&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_FoodCreateComponent_vue_vue_type_template_id_3ccbaf88___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_NursingCreateComponent_vue_vue_type_template_id_56260fdc___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_FoodCreateComponent_vue_vue_type_template_id_3ccbaf88___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
 /***/ }),
 
-/***/ "./resources/js/components/NursingUpdateComponent.vue":
-/*!************************************************************!*\
-  !*** ./resources/js/components/NursingUpdateComponent.vue ***!
-  \************************************************************/
+/***/ "./resources/js/components/FoodUpdateComponent.vue":
+/*!*********************************************************!*\
+  !*** ./resources/js/components/FoodUpdateComponent.vue ***!
+  \*********************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _NursingUpdateComponent_vue_vue_type_template_id_711a3565___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./NursingUpdateComponent.vue?vue&type=template&id=711a3565& */ "./resources/js/components/NursingUpdateComponent.vue?vue&type=template&id=711a3565&");
-/* harmony import */ var _NursingUpdateComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./NursingUpdateComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/NursingUpdateComponent.vue?vue&type=script&lang=js&");
+/* harmony import */ var _FoodUpdateComponent_vue_vue_type_template_id_4e0e264a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./FoodUpdateComponent.vue?vue&type=template&id=4e0e264a& */ "./resources/js/components/FoodUpdateComponent.vue?vue&type=template&id=4e0e264a&");
+/* harmony import */ var _FoodUpdateComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./FoodUpdateComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/FoodUpdateComponent.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var vue_multiselect_dist_vue_multiselect_min_css_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue-multiselect/dist/vue-multiselect.min.css?vue&type=style&index=0&lang=css& */ "./node_modules/vue-multiselect/dist/vue-multiselect.min.css?vue&type=style&index=0&lang=css&");
 /* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
@@ -1397,9 +1268,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
-  _NursingUpdateComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _NursingUpdateComponent_vue_vue_type_template_id_711a3565___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _NursingUpdateComponent_vue_vue_type_template_id_711a3565___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _FoodUpdateComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _FoodUpdateComponent_vue_vue_type_template_id_4e0e264a___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _FoodUpdateComponent_vue_vue_type_template_id_4e0e264a___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -1409,38 +1280,38 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/components/NursingUpdateComponent.vue"
+component.options.__file = "resources/js/components/FoodUpdateComponent.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/components/NursingUpdateComponent.vue?vue&type=script&lang=js&":
-/*!*************************************************************************************!*\
-  !*** ./resources/js/components/NursingUpdateComponent.vue?vue&type=script&lang=js& ***!
-  \*************************************************************************************/
+/***/ "./resources/js/components/FoodUpdateComponent.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************!*\
+  !*** ./resources/js/components/FoodUpdateComponent.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_NursingUpdateComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./NursingUpdateComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/NursingUpdateComponent.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_NursingUpdateComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_FoodUpdateComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./FoodUpdateComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FoodUpdateComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_FoodUpdateComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/components/NursingUpdateComponent.vue?vue&type=template&id=711a3565&":
-/*!*******************************************************************************************!*\
-  !*** ./resources/js/components/NursingUpdateComponent.vue?vue&type=template&id=711a3565& ***!
-  \*******************************************************************************************/
+/***/ "./resources/js/components/FoodUpdateComponent.vue?vue&type=template&id=4e0e264a&":
+/*!****************************************************************************************!*\
+  !*** ./resources/js/components/FoodUpdateComponent.vue?vue&type=template&id=4e0e264a& ***!
+  \****************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_NursingUpdateComponent_vue_vue_type_template_id_711a3565___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./NursingUpdateComponent.vue?vue&type=template&id=711a3565& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/NursingUpdateComponent.vue?vue&type=template&id=711a3565&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_NursingUpdateComponent_vue_vue_type_template_id_711a3565___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_FoodUpdateComponent_vue_vue_type_template_id_4e0e264a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./FoodUpdateComponent.vue?vue&type=template&id=4e0e264a& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FoodUpdateComponent.vue?vue&type=template&id=4e0e264a&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_FoodUpdateComponent_vue_vue_type_template_id_4e0e264a___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_NursingUpdateComponent_vue_vue_type_template_id_711a3565___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_FoodUpdateComponent_vue_vue_type_template_id_4e0e264a___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

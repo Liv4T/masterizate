@@ -1051,5 +1051,6 @@ Route::middleware('auth')->post('/updateViewedProceedings/general/{id}', 'Procee
 Route::middleware('auth')->get('/api/proceedings/general/download/{id}', 'ProceedingsGeneralController@downloadProceedings');
 Route::middleware('auth')->get('/api/proceedings/general/users', 'ProceedingsGeneralController@getUsersToProceedings');
 
-Route::resource('CalLectivesActivitiesController','CalLectivesActivitiesController');
-Route::get('getLectivesActivitiesCal/{lective_collection_id}','CalLectivesActivitiesController@getLectivesActivitiesCal');
+Route::resource('CalLectivesActivities','CalLectivesActivitiesController');
+Route::get('getLectivesActivitiesCal/{lective_planification}','CalLectivesActivitiesController@getLectivesActivitiesCal');
+Route::get('getNotesStudents','CalLectivesActivitiesController@getNotesStudents');

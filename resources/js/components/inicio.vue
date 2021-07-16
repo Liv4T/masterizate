@@ -5,7 +5,7 @@
                 <div class="dropdown col-md-2">
                     <button class="btn btn-danger dropdown-toggle mg-btn" type="button" id="admin" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="box-shadow: 3px 3px 3px 3px #b0acac">Electives</button>
                     <div class="dropdown-menu" aria-labelledby="admin" v-for="(area, k) in planifications" :key="k">
-                        <a class="dropdown-item" href="" @click.prevent="nameArea = area.lective.name, id_lective_planification = area.id_planification">{{ area.lective.name }}</a>
+                        <a class="dropdown-item" href="" @click.prevent="nameArea = area.lective.name, id_lective_planification = area.id_planification, idArea = '', idClassroom = ''">{{ area.lective.name }}</a>
                     </div>
                 </div>
 

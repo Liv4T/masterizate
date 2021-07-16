@@ -335,6 +335,7 @@ Vue.component("report-send-parents",()=>import("./components/reportSendParents.v
 Vue.component("report-monthly-component", ()=>import("./components/mothlyReportParent.vue"));
 
 Vue.component("report-admin", ()=>import("./components/reportAdmin.vue"));
+Vue.component("lective_notes", ()=>import("./components/lectivesTeacherNotesComponent.vue"));
 
 Vue.use(CKEditor);
 

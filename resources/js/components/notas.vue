@@ -6,7 +6,7 @@
 
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-12 col-md-4 student_info">
+                        <div :class=" `${current_student.progress ? 'col-12 col-md-4 student_info' : 'col-12 col-md-12 student_info'}`">
                             <img v-if="current_student.picture" :src="current_student.picture" alt="photo" style="width:70px" />
                             <h4>{{ current_student.last_name }} {{ current_student.name }}</h4>
                             <div>
@@ -14,7 +14,7 @@
                                 <span>{{ current_student.email }}</span>
                             </div>                            
                         </div>
-                        <div class="col-12 col-md-8">
+                        <div class="col-12 col-md-8" v-if="current_student.progress">
                             <div class="course_info">
                                 <h5>{{ current_student.area_name }} {{ current_student.classroom_name }}</h5>
                                 <div class="course_resume">
@@ -78,9 +78,32 @@ export default {
         getData(){
             this.current_student = {};
             this.modules = [];
+            console.log(
+                "idArea: ",this.idArea,
+                "idClassroom: ", this.idClassroom,
+                "user: ", this.user,
+                "nameArea :", this.nameArea,
+                "id_lective_planification: ", this.id_lective_planification
+            )
             if(this.idArea === "" && this.idClassroom === ""){
-                axios.get(`getLectivesActivitiesCal/${this.id_lective_planification}`).then((response)=>{
-                    // console.log(response.data)
+                axios.get(`getNotesStudents`).then((response)=>{
+                    let data = response.data;
+
+                    data.forEach((e)=>{
+                        this.modules.push({
+                            driving_question: e.activity_name,
+                            progress: e.calification > 0 ? '100' : 0,
+                            score: e.calification
+                        });
+
+                        this.current_student = {
+                            picture: e.user_picture,
+                            name: e.user_name,
+                            last_name: e.user_last_name,
+                            email: e.user_email
+                        }
+                    })                    
+                                
                 })
             }else{
                 axios.get(`/api/teacher/area/${this.idArea}/classroom/${this.idClassroom}/student/${this.user.id}`).then((response)=>{
@@ -88,8 +111,7 @@ export default {
                 });
 
                 axios.get(`/api/teacher/area/${this.idArea}/classroom/${this.idClassroom}/student/${this.user.id}/module`).then((response)=>{
-                    this.modules = response.data;
-                    console.log(response.data)
+                    this.modules = response.data;                 
                 });
             }
         }

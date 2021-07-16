@@ -196,21 +196,29 @@
                         src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/ACTIVIDADES_naranja.png?alt=media&token=93ec6b97-e5a6-4eca-891e-b63bf2a352ad"
                         alt
                       />Mis clases
-                    </a>
+                    </a>                  
 
                     <a href="/teacher/lectives/students">
                       <img
                         width="35px"
                         src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/ACTIVIDADES_naranja.png?alt=media&token=93ec6b97-e5a6-4eca-891e-b63bf2a352ad"
                         alt/>Mis alumnos
-                        </a>
+                    </a>
 
-                 <a href="/teacher/lectives/activities">
+                    <a href="/teacher/lectives/notes">
                       <img
                         width="35px"
                         src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/ACTIVIDADES_naranja.png?alt=media&token=93ec6b97-e5a6-4eca-891e-b63bf2a352ad"
-                        alt/>Mis actividades</a>
+                        alt
+                      />Notas
+                    </a>
 
+                    <a href="/teacher/lectives/activities">
+                      <img
+                        width="35px"
+                        src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/ACTIVIDADES_naranja.png?alt=media&token=93ec6b97-e5a6-4eca-891e-b63bf2a352ad"
+                        alt/>Mis actividades
+                    </a>
    <!--
                     <a href="/notas_d">
                       <img

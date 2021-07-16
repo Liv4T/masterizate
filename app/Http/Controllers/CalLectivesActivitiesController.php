@@ -19,7 +19,28 @@ class CalLectivesActivitiesController extends Controller
         
     }
 
-    public function getLectivesActivitiesCal(String $lective_collection_id){
+    public function getNotesStudents(){
+        $student = Auth::user();
+
+        $data = DB::table('calification_lectives_activities')
+                ->join('lective_activity','calification_lectives_activities.id_lective_activity','=','lective_activity.id')
+                ->join('lective_activity_question','lective_activity.id','=','lective_activity_question.id_lective_activity')
+                ->join('users','calification_lectives_activities.id_student','=','users.id')
+                ->select(
+                    'lective_activity.name as activity_name',
+                    'lective_activity_question.question as question',
+                    'calification_lectives_activities.calification as calification',
+                    'users.name as user_name',
+                    'users.last_name as user_last_name',
+                    'users.email as user_email',
+                    'users.picture as user_picture'
+                )
+                ->where('users.id','=',$student->id)
+                ->get();
+        return response()->json($data);
+    }
+
+    public function getLectivesActivitiesCal(String $lective_planification){
         $data = DB::table('Lective_planification')
                 ->join('lective_collection','lective_planification.id_lective','=','lective_collection.id')
                 ->join('lective_weekly_plan','lective_planification.id','=','lective_weekly_plan.id_lective_planification')
@@ -28,6 +49,7 @@ class CalLectivesActivitiesController extends Controller
                 ->join('lective_activity_question','lective_activity.id','=','lective_activity_question.id_lective_activity')
                 ->join('lective_activity_question_answer','lective_activity_question.id','=','lective_activity_question_answer.id_lective_activity_question')
                 ->join('users','lective_activity_question_answer.id_student','=','users.id')
+                ->leftJoin('calification_lectives_activities','lective_planification.id','=','calification_lectives_activities.id_lective_planification')
                 ->select(
                     'lective_planification.id as lective_planification_id',
                     
@@ -54,9 +76,13 @@ class CalLectivesActivitiesController extends Controller
 
                     'lective_activity_question_answer.id as lective_activity_question_answer_id',
                     'lective_activity_question_answer.response as lective_activity_question_answer_response',
-                    'lective_activity_question_answer.created_at as lective_activity_question_answer_created_at'
+                    'lective_activity_question_answer.is_correct as lective_activity_question_answer_is_correct',
+                    'lective_activity_question_answer.created_at as lective_activity_question_answer_created_at',
+                    
+                    'calification_lectives_activities.id as calification_lectives_activities_id',
+                    'calification_lectives_activities.calification as calification'
                 )
-                ->where('Lective_planification.id','=', $lective_collection_id)
+                ->where('lective_planification.id','=', $lective_planification)
                 ->orderBy('lective_activity_question_answer.created_at','DESC')
                 ->get();
         return response()->json($data);
@@ -82,6 +108,7 @@ class CalLectivesActivitiesController extends Controller
     {
         $user = Auth::user();
         $calification = new CalificationLectivesActivities();
+        $calification->id_lective_planification = $request->id_lective_planification;
         $calification->id_lective_activity = $request->id_lective_activity;
         $calification->id_teacher = $user->id;
         $calification->id_student = $request->id_student;
@@ -124,6 +151,7 @@ class CalLectivesActivitiesController extends Controller
     public function update(Request $request, $id)
     {
         $calification = CalificationLectivesActivities::findOrFail($id);
+        $calification->id_lective_planification = $request->id_lective_planification;
         $calification->id_lective_activity = $request->id_lective_activity;
         $calification->id_student = $request->id_student;
         $calification->calification = $request->calification;
@@ -141,9 +169,6 @@ class CalLectivesActivitiesController extends Controller
      */
     public function destroy(CalificationLectivesActivities $calificationLectivesActivities)
     {
-        $calification = CalificationLectivesActivities::findOrFail($id);
-        $calification->delelte();
 
-        return response()->json('Calificación Eliminada');
     }
 }

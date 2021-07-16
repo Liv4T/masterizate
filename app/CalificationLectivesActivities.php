@@ -10,6 +10,7 @@ class CalificationLectivesActivities extends Model
     protected $guarded = ['id'];
     protected $fillable = [
         'id',
+        'id_lective_planification',
         'id_lective_activity',
         'id_class',
         'id_teacher',
