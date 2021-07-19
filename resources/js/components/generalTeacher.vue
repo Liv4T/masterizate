@@ -24,7 +24,11 @@
                 <course-component :idArea="idArea"></course-component>
               </div>              
             </div>
-            <div v-if="activetab === 2" class="tabcontent">incluir vista</div>
+            <div v-if="activetab === 2" class="tabcontent">
+              <div v-if="idArea !=='' ">
+                <trim-component :idArea="idArea"></trim-component>
+              </div>
+            </div>
             <div v-if="activetab === 3" class="tabcontent">incluir vista</div>
             <div v-if="activetab === 4" class="tabcontent">incluir vista</div>
           </div>

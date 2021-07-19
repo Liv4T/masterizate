@@ -74,10 +74,10 @@
                                     v-if="isLoading"
                                 ></span>
                                 
-                                <tab-content title="Anual">
+                                
                                     <div class="form-group mx-auto" v-for="(input1, t) in inputs1" :key="t">
                                         <div class="classroom-planning-section">
-                                            <strong>Logro:</strong>
+                                            <strong>Objetivo: </strong>
                                             <input
                                                 v-on:change="annualContentUpdateEvent($event,t,'inputs1')"
                                                 class="form-control form-control-sm"
@@ -116,7 +116,7 @@
                                     <div v-show="(activityForPIARStudents == true && piarStudents.length > 0)">
                                         <div v-for="(inputsP, key) in inputsPIAR" :key="'-'+key">
                                             <div class="classroom-planning-section">
-                                                <strong>Logro:</strong>
+                                                <strong>Objetivo:</strong>
                                                 <input
                                                     v-on:change="annualContentUpdateEvent($event,key,'inputsPIAR')"
                                                     class="form-control form-control-sm"
@@ -149,8 +149,7 @@
                                                 required
                                             ></textarea>
                                         </div>
-                                    </div>                                    
-                                </tab-content>                                
+                                    </div>                              
                             </form-wizard>            
                         </form>
                     </div>
@@ -412,10 +411,6 @@ export default {
 
             this.isSynchronized=false;
         },
-        getMenu() {
-            window.location = "/actividad_g";
-            this.isLoading=false;
-        },
         showPIARPlan(){
             this.showPiarPlan = !this.showPiarPlan
         },
@@ -477,14 +472,14 @@ export default {
                 }
 
                 axios.post(url, {
-                    id_area: this.id_area,
-                    id_classroom: this.id_classroom,
+                    id_area: this.idArea.substring(0, this.idArea.lastIndexOf("/") ),
+                    id_classroom: this.idArea[2],
                     logros: this.newLogro,
                     trimestres: this.newTrimestre,
                 }).then((response) => {
                     this.errors = [];
                     toastr.success("Nuevo plan general creado exitosamente");
-                    this.getMenu();
+                    this.isLoading=false;
                         
                 }).catch((error) => {
                     this.errors = error.response.data;
@@ -514,15 +509,15 @@ export default {
 
                 axios.post('/piarAnualPlanification', {
                     //Cursos generales
-                    id_area: this.id_area,
-                    id_classroom: this.id_classroom,
+                    id_area: this.idArea.substring(0, this.idArea.lastIndexOf("/") ),
+                    id_classroom: this.idArea[2],
                     logros: JSON.stringify(this.newLogro),
                     trimestres: JSON.stringify(this.newTrimestre),
                     students: JSON.stringify(this.saveStudent),
                 }).then((response) => {
                     this.errors = [];
                     toastr.success(response.data);
-                    this.getMenu();
+                    this.isLoading=false;
                         
                 }).catch((error) => {
                     this.errors = error.response.data;

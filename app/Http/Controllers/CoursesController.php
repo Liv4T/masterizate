@@ -51,7 +51,8 @@ class CoursesController extends Controller
                 $quaterly[$key] = [
                     'id' => $Quarterly->id,
                     'content' => $Quarterly->content,
-                    'unit_name' => $Quarterly->unit_name
+                    'unit_name' => $Quarterly->unit_name,
+                    'logro' => $Quarterly->logro,
                 ];
             }
         }
@@ -201,6 +202,7 @@ class CoursesController extends Controller
                 $subCate = Quarterly::create([
                     'content' => $Quarterly['content'],
                     'unit_name' => $Quarterly['unit_name'],
+                    'logro' => $Quarterly['logro'],
                     'id_area'    => $data['id_area'],
                     'id_classroom'    => $data['id_classroom'],
                     'id_teacher'     =>  Auth::user()->id,
@@ -251,12 +253,13 @@ class CoursesController extends Controller
             foreach ($Quarterlies as $index => $Quarterly) {
 
                 if (isset($Quarterly['id_quaterly'])) {
-                    $quarterlyUpdatedRowsCount = Quarterly::where('id', $Quarterly['id_quaterly'])->update(array('content' => $Quarterly['contenido'], 'unit_name' => $Quarterly['name']));
+                    $quarterlyUpdatedRowsCount = Quarterly::where('id', $Quarterly['id_quaterly'])->update(array('content' => $Quarterly['contenido'], 'unit_name' => $Quarterly['name'], 'logro' => $Quarterly['logro']));
 
                     if ($quarterlyUpdatedRowsCount <= 0) {
                         $subCate = Quarterly::create([
                             'content' => $Quarterly['contenido'],
                             'unit_name' => $Quarterly['name'],
+                            'logro' => $Quarterly['logro'],
                             'id_area'    => $data['id_area'],
                             'id_classroom'    => $data['id_classroom'],
                             'id_teacher'     =>  Auth::user()->id,
@@ -266,6 +269,7 @@ class CoursesController extends Controller
                     $subCate = Quarterly::create([
                         'content' => $Quarterly['contenido'],
                         'unit_name' => $Quarterly['name'],
+                        'logro' => $Quarterly['logro'],
                         'id_area'    => $data['id_area'],
                         'id_classroom'    => $data['id_classroom'],
                         'id_teacher'     =>  Auth::user()->id,
