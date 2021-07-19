@@ -146,6 +146,10 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function (error) {
         _this2.errors = error.response.data;
       });
+    },
+    nameMinus: function nameMinus(name) {
+      var nameMinus = name.toLowerCase();
+      return nameMinus.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
     }
   }
 });
@@ -164,7 +168,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.mg-btn {\r\n  margin: 10px;\r\n  min-width: 165px;\n}\n.width-r {\r\n  max-width: 97%;\r\n  border: 1px solid #cccccc82;\r\n  border-radius: 10px;\r\n  box-shadow: 3px 3px 3px 3px #b0acac;\n}\n.tabs {\r\n  margin-top: 20px;\r\n  overflow: hidden;\r\n  margin-left: 90px;\r\n  margin-bottom: -2px;\n}\n.tabs ul {\r\n  list-style-type: none;\r\n  margin-left: 20px;\n}\n.tabs a {\r\n  float: left;\r\n  cursor: pointer;\r\n  padding: 12px 24px;\r\n  transition: background-color 0.2s;\r\n  border: 1px solid #ccc;\r\n  border-right: none;\r\n  background-color: #bfbfbf;\r\n  border-radius: 10px 10px 0 0;\r\n  font-weight: bold;\r\n  color: #fff !important;\n}\n.tabs a:last-child {\r\n  border-right: 1px solid #ccc;\n}\n.pd-20 {\r\n  padding: 20px;\n}\r\n\r\n/* Change background color of tabs on hover */\n.tabs a:hover {\r\n  background-color: #aaa;\r\n  color: #fff;\n}\r\n\r\n/* Styling for active tab */\n.tabs a.active {\r\n  background-color: #00cbcec1;\r\n  color: #fff;\r\n  border-bottom: 2px solid #fff;\r\n  cursor: default;\n}\n.tabcontent {\r\n  border: 1px solid #ccc;\r\n  border-radius: 10px;\r\n  box-shadow: 3px 3px 6px #e1e1e1;\n}\n.content-azul {\r\n  background-color: #00cbcec6;\n}\n.flotante {\r\n  position: fixed;\r\n  top: 380px;\r\n  z-index: 1020;\n}\r\n", ""]);
+exports.push([module.i, "\n.mg-btn {\n  margin: 10px;\n  min-width: 165px;\n}\n.width-r {\n  max-width: 97%;\n  border: 1px solid #cccccc82;\n  border-radius: 10px;\n  box-shadow: 3px 3px 3px 3px #b0acac;\n}\n.tabs {\n  margin-top: 20px;\n  overflow: hidden;\n  margin-left: 90px;\n  margin-bottom: -2px;\n}\n.tabs ul {\n  list-style-type: none;\n  margin-left: 20px;\n}\n.tabs a {\n  float: left;\n  cursor: pointer;\n  padding: 12px 24px;\n  transition: background-color 0.2s;\n  border: 1px solid #ccc;\n  border-right: none;\n  background-color: #bfbfbf;\n  border-radius: 10px 10px 0 0;\n  font-weight: bold;\n  color: #fff !important;\n}\n.tabs a:last-child {\n  border-right: 1px solid #ccc;\n}\n.pd-20 {\n  padding: 20px;\n}\n\n/* Change background color of tabs on hover */\n.tabs a:hover {\n  background-color: #aaa;\n  color: #fff;\n}\n\n/* Styling for active tab */\n.tabs a.active {\n  background-color: #00cbcec1;\n  color: #fff;\n  border-bottom: 2px solid #fff;\n  cursor: default;\n}\n.tabcontent {\n  border: 1px solid #ccc;\n  border-radius: 10px;\n  box-shadow: 3px 3px 6px #e1e1e1;\n}\n.content-azul {\n  background-color: #00cbcec6;\n}\n.flotante {\n  position: fixed;\n  top: 380px;\n  z-index: 1020;\n}\n", ""]);
 
 // exports
 
@@ -239,7 +243,7 @@ var render = function() {
                     "aria-expanded": "false"
                   }
                 },
-                [_vm._v("Electives")]
+                [_vm._v(_vm._s(_vm.$t("lang.area.electivas")))]
               ),
               _vm._v(" "),
               _vm._l(_vm.planifications, function(area, k) {
@@ -298,7 +302,13 @@ var render = function() {
                           staticClass: "letra-poppins-bold",
                           staticStyle: { color: "black" }
                         },
-                        [_vm._v(_vm._s(area.text))]
+                        [
+                          _vm._v(
+                            _vm._s(
+                              _vm.$t("lang.area." + _vm.nameMinus(area.text))
+                            )
+                          )
+                        ]
                       )
                     ]
                   )
@@ -329,7 +339,13 @@ var render = function() {
                           staticClass: "letra-poppins-bold",
                           staticStyle: { color: "black" }
                         },
-                        [_vm._v(_vm._s(area.text))]
+                        [
+                          _vm._v(
+                            _vm._s(
+                              _vm.$t("lang.area." + _vm.nameMinus(area.text))
+                            )
+                          )
+                        ]
                       )
                     ]
                   )
@@ -360,7 +376,13 @@ var render = function() {
                           staticClass: "letra-poppins-bold",
                           staticStyle: { color: "black" }
                         },
-                        [_vm._v(_vm._s(area.text))]
+                        [
+                          _vm._v(
+                            _vm._s(
+                              _vm.$t("lang.area." + _vm.nameMinus(area.text))
+                            )
+                          )
+                        ]
                       )
                     ]
                   )
@@ -391,7 +413,13 @@ var render = function() {
                           staticClass: "letra-poppins-bold",
                           staticStyle: { color: "black" }
                         },
-                        [_vm._v(_vm._s(area.text))]
+                        [
+                          _vm._v(
+                            _vm._s(
+                              _vm.$t("lang.area." + _vm.nameMinus(area.text))
+                            )
+                          )
+                        ]
                       )
                     ]
                   )
@@ -422,7 +450,13 @@ var render = function() {
                           staticClass: "letra-poppins-bold",
                           staticStyle: { color: "black" }
                         },
-                        [_vm._v(_vm._s(area.text))]
+                        [
+                          _vm._v(
+                            _vm._s(
+                              _vm.$t("lang.area." + _vm.nameMinus(area.text))
+                            )
+                          )
+                        ]
                       )
                     ]
                   )
@@ -453,7 +487,13 @@ var render = function() {
                           staticClass: "letra-poppins-bold",
                           staticStyle: { color: "black" }
                         },
-                        [_vm._v(_vm._s(area.text))]
+                        [
+                          _vm._v(
+                            _vm._s(
+                              _vm.$t("lang.area." + _vm.nameMinus(area.text))
+                            )
+                          )
+                        ]
                       )
                     ]
                   )
@@ -484,7 +524,13 @@ var render = function() {
                           staticClass: "letra-poppins-bold",
                           staticStyle: { color: "black" }
                         },
-                        [_vm._v(_vm._s(area.text))]
+                        [
+                          _vm._v(
+                            _vm._s(
+                              _vm.$t("lang.area." + _vm.nameMinus(area.text))
+                            )
+                          )
+                        ]
                       )
                     ]
                   )
@@ -515,7 +561,13 @@ var render = function() {
                           staticClass: "letra-poppins-bold",
                           staticStyle: { color: "black" }
                         },
-                        [_vm._v(_vm._s(area.text))]
+                        [
+                          _vm._v(
+                            _vm._s(
+                              _vm.$t("lang.area." + _vm.nameMinus(area.text))
+                            )
+                          )
+                        ]
                       )
                     ]
                   )
@@ -546,7 +598,13 @@ var render = function() {
                           staticClass: "letra-poppins-bold",
                           staticStyle: { color: "black" }
                         },
-                        [_vm._v(_vm._s(area.text))]
+                        [
+                          _vm._v(
+                            _vm._s(
+                              _vm.$t("lang.area." + _vm.nameMinus(area.text))
+                            )
+                          )
+                        ]
                       )
                     ]
                   )
@@ -577,7 +635,13 @@ var render = function() {
                           staticClass: "letra-poppins-bold",
                           staticStyle: { color: "black" }
                         },
-                        [_vm._v(_vm._s(area.text))]
+                        [
+                          _vm._v(
+                            _vm._s(
+                              _vm.$t("lang.area." + _vm.nameMinus(area.text))
+                            )
+                          )
+                        ]
                       )
                     ]
                   )
@@ -608,7 +672,13 @@ var render = function() {
                           staticClass: "letra-poppins-bold",
                           staticStyle: { color: "black" }
                         },
-                        [_vm._v(_vm._s(area.text))]
+                        [
+                          _vm._v(
+                            _vm._s(
+                              _vm.$t("lang.area." + _vm.nameMinus(area.text))
+                            )
+                          )
+                        ]
                       )
                     ]
                   )
@@ -639,7 +709,13 @@ var render = function() {
                           staticClass: "letra-poppins-bold",
                           staticStyle: { color: "black" }
                         },
-                        [_vm._v(_vm._s(area.text))]
+                        [
+                          _vm._v(
+                            _vm._s(
+                              _vm.$t("lang.area." + _vm.nameMinus(area.text))
+                            )
+                          )
+                        ]
                       )
                     ]
                   )
@@ -659,7 +735,13 @@ var render = function() {
                           staticClass: "letra-poppins-bold",
                           staticStyle: { color: "black" }
                         },
-                        [_vm._v(_vm._s(area.text))]
+                        [
+                          _vm._v(
+                            _vm._s(
+                              _vm.$t("lang.area." + _vm.nameMinus(area.text))
+                            )
+                          )
+                        ]
                       )
                     ]
                   )
@@ -686,14 +768,71 @@ var render = function() {
               },
               [
                 _c("h1", { staticStyle: { color: "black" } }, [
-                  _vm._v(_vm._s(_vm.nameArea))
+                  _vm._v(
+                    _vm._s(_vm.$t("lang.area." + _vm.nameMinus(_vm.nameArea)))
+                  )
                 ])
               ]
             )
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "row" }, [
-            _vm._m(0),
+            _c("div", { staticClass: "col-md-2 pd-20 flotante" }, [
+              _c(
+                "a",
+                {
+                  staticClass: "btn btn-warning letra-poppins-bold mg-btn",
+                  staticStyle: {
+                    "background-color": "#e26100",
+                    "border-color": "#e26100"
+                  },
+                  attrs: { href: "" }
+                },
+                [
+                  _c("h4", [
+                    _vm._v(_vm._s(_vm.$t("lang.menu.chat").toUpperCase()))
+                  ])
+                ]
+              ),
+              _vm._v(" "),
+              _c("br"),
+              _vm._v(" "),
+              _c(
+                "a",
+                {
+                  staticClass: "btn btn-warning letra-poppins-bold mg-btn",
+                  staticStyle: {
+                    "background-color": "#e26100",
+                    "border-color": "#e26100"
+                  },
+                  attrs: { href: "" }
+                },
+                [
+                  _c("h4", [
+                    _vm._v(_vm._s(_vm.$t("lang.menu.forums").toUpperCase()))
+                  ])
+                ]
+              ),
+              _c("br"),
+              _vm._v(" "),
+              _c(
+                "a",
+                {
+                  staticClass: "btn btn-warning letra-poppins-bold mg-btn",
+                  staticStyle: {
+                    "background-color": "#e26100",
+                    "border-color": "#e26100"
+                  },
+                  attrs: { href: "" }
+                },
+                [
+                  _c("h4", [
+                    _vm._v(_vm._s(_vm.$t("lang.menu.menssages").toUpperCase()))
+                  ])
+                ]
+              ),
+              _c("br")
+            ]),
             _vm._v(" "),
             _c(
               "div",
@@ -712,7 +851,9 @@ var render = function() {
                     },
                     [
                       _c("h2", { staticClass: "letra-poppins-bold" }, [
-                        _vm._v("CALENDAR")
+                        _vm._v(
+                          _vm._s(_vm.$t("lang.menu.calendar").toUpperCase())
+                        )
                       ])
                     ]
                   ),
@@ -729,7 +870,7 @@ var render = function() {
                     },
                     [
                       _c("h2", { staticClass: "letra-poppins-bold" }, [
-                        _vm._v("CLASS")
+                        _vm._v(_vm._s(_vm.$t("lang.menu.class").toUpperCase()))
                       ])
                     ]
                   ),
@@ -746,7 +887,9 @@ var render = function() {
                     },
                     [
                       _c("h2", { staticClass: "letra-poppins-bold" }, [
-                        _vm._v("HOMEWORK")
+                        _vm._v(
+                          _vm._s(_vm.$t("lang.menu.homework").toUpperCase())
+                        )
                       ])
                     ]
                   ),
@@ -763,7 +906,7 @@ var render = function() {
                     },
                     [
                       _c("h2", { staticClass: "letra-poppins-bold" }, [
-                        _vm._v("GRADES")
+                        _vm._v(_vm._s(_vm.$t("lang.menu.grades").toUpperCase()))
                       ])
                     ]
                   )
@@ -814,74 +957,18 @@ var render = function() {
             )
           ]),
           _vm._v(" "),
-          _vm._m(1)
+          _c("div", { staticClass: "form-group text-center" }, [
+            _c("a", { staticClass: "btn btn-warning mg-btn" }, [
+              _c("h1", { staticClass: "letra-poppins-bold" }, [
+                _vm._v(_vm._s(_vm.$t("lang.calendar.pendingWork")))
+              ])
+            ])
+          ])
         ])
       : _vm._e()
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-2 pd-20 flotante" }, [
-      _c(
-        "a",
-        {
-          staticClass: "btn btn-warning letra-poppins-bold mg-btn",
-          staticStyle: {
-            "background-color": "#e26100",
-            "border-color": "#e26100"
-          },
-          attrs: { href: "" }
-        },
-        [_c("h4", [_vm._v("CHAT")])]
-      ),
-      _vm._v(" "),
-      _c("br"),
-      _vm._v(" "),
-      _c(
-        "a",
-        {
-          staticClass: "btn btn-warning letra-poppins-bold mg-btn",
-          staticStyle: {
-            "background-color": "#e26100",
-            "border-color": "#e26100"
-          },
-          attrs: { href: "" }
-        },
-        [_c("h4", [_vm._v("FORUMS")])]
-      ),
-      _c("br"),
-      _vm._v(" "),
-      _c(
-        "a",
-        {
-          staticClass: "btn btn-warning letra-poppins-bold mg-btn",
-          staticStyle: {
-            "background-color": "#e26100",
-            "border-color": "#e26100"
-          },
-          attrs: { href: "" }
-        },
-        [_c("h4", [_vm._v("MENSSAGES")])]
-      ),
-      _c("br")
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group text-center" }, [
-      _c("a", { staticClass: "btn btn-warning mg-btn" }, [
-        _c("h1", { staticClass: "letra-poppins-bold" }, [
-          _vm._v("PENDING WORK")
-        ])
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 

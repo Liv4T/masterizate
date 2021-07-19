@@ -152,12 +152,14 @@ var render = function() {
       _c("div", { staticClass: "col-sm-10", attrs: { id: "crud" } }, [
         _c("div", { staticClass: "card text-center" }, [
           _c("h3", { staticClass: "card-header fondo" }, [
-            _vm._v("Entrega de estudiantes")
+            _vm._v(_vm._s(_vm.$t("lang.homework.studentHomework")))
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "card-body" }, [
             _c("div", { staticClass: "float-right" }, [
-              _c("label", { attrs: { for: "" } }, [_vm._v("Buscar")]),
+              _c("label", { attrs: { for: "" } }, [
+                _vm._v(_vm._s(_vm.$t("lang.general.search")))
+              ]),
               _vm._v(" "),
               _c("input", {
                 directives: [
@@ -195,7 +197,19 @@ var render = function() {
                     staticStyle: { "border-collapse": "separate !important" }
                   },
                   [
-                    _vm._m(0),
+                    _c("thead", [
+                      _c("tr", [
+                        _c("th", [
+                          _vm._v(_vm._s(_vm.$t("lang.general.student")))
+                        ]),
+                        _vm._v(" "),
+                        _c("th", [
+                          _vm._v(_vm._s(_vm.$t("lang.general.status")))
+                        ]),
+                        _vm._v(" "),
+                        _c("th", [_vm._v("-")])
+                      ])
+                    ]),
                     _vm._v(" "),
                     _c(
                       "tbody",
@@ -238,7 +252,7 @@ var render = function() {
                                     _vm.id_repo
                                 }
                               },
-                              [_vm._v("Ver más")]
+                              [_vm._v(_vm._s(_vm.$t("lang.general.readMore")))]
                             )
                           ])
                         ])
@@ -255,22 +269,7 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("thead", [
-      _c("tr", [
-        _c("th", [_vm._v("Estudiante")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Estado")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("-")])
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 

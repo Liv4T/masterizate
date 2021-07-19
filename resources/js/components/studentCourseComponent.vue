@@ -15,12 +15,12 @@
                     </div>
                     <div class="row" v-if="link_event">
                         <div class="col-12">
-                            <b>Clase presencial:</b>
+                            <b>{{ $t('lang.class.classAttendance') }}:</b>
                         </div>
                     </div>
                     <div class="row" v-if="link_event">
                         <div class="col-md-6">
-                            {{ name_event +" Fecha y hora: " +hour_event}}
+                            {{ name_event + $t('lang.class.dateAndTime') +hour_event}}
                         </div>
                         <div class="col-md-6">
                               <a
@@ -28,7 +28,7 @@
                                 :href="link_event"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                >Ir a la clase</a>
+                                >{{ $t('lang.general.goToClass') }}</a>
                         </div>
                     </div>
                     <div class="row">
@@ -51,7 +51,7 @@
                         <div class="div-class">
                             <div class="title row">
                                 <div class="col-8">
-                                    <b>Clase:</b>
+                                    <b>{{ $t('lang.menu.class') }}:</b>
                                     <input
                                         type="text"
                                         class="form-control-plaintext"
@@ -60,7 +60,7 @@
                                     />
                                 </div>
                                 <div class="col-4">
-                                    <b>Intensidad:</b>
+                                    <b>{{ $t('lang.class.intensity') }}:</b>
                                     <input
                                         type="number"
                                         class="form-control-plaintext"
@@ -71,7 +71,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-12">
-                                    <b>Descripción:</b>
+                                    <b>{{ $t('lang.general.description') }}:</b>
                                     <textarea
                                         class="form-control-plaintext"
                                         cols="40"
@@ -83,7 +83,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-12">
-                                    <b>Recursos:</b>
+                                    <b>{{ $t('lang.general.resources') }}:</b>
                                 </div>
                             </div>
                             <div class="row justify-content-center">
@@ -102,7 +102,7 @@
                                                 'DOCUMENT'
                                         "
                                     >
-                                        Documento
+                                        {{ $t('lang.general.document') }}
                                     </h4>
                                     <h4
                                         style="color:#f79d52"
@@ -110,7 +110,7 @@
                                             item_content.content_type === 'LINK'
                                         "
                                     >
-                                        Enlace
+                                        {{ $t('lang.general.link') }}
                                     </h4>
                                     <h4
                                         style="color:#f79d52"
@@ -119,7 +119,7 @@
                                                 'VIDEO'
                                         "
                                     >
-                                        Video
+                                        {{ $t('lang.general.video') }}
                                     </h4>
                                      <h4
                                         style="color:#f79d52"
@@ -128,7 +128,7 @@
                                                 'YOUTUBE'
                                         "
                                     >
-                                        Video
+                                        {{ $t('lang.general.video') }}
                                     </h4>
                                     <div class="form-item">
                                         <input
@@ -148,7 +148,7 @@
                                                 v-on:click="
                                                     openDocument(item_content)
                                                 "
-                                                >Leer documento</a
+                                                >{{ $t('lang.general.readDocument') }}</a
                                             >
                                             <a
                                                 class="btn btn-primary"
@@ -159,7 +159,7 @@
                                                     openLink(item_content)
                                                 "
                                                  target="_blank"
-                                                >Vamos a trabajar</a
+                                                >{{ $t('lang.general.letsGoToWork') }}</a
                                             >
                                             <video
                                                 id="vid"
@@ -196,7 +196,7 @@
                                     <div class="card">
                                         <div class="card-header card-title">
                                             <h5 style="color:#f79d52">
-                                                Actividad N°{{ key_a + 1 }} :
+                                                {{ $t('lang.general.activity') }} N°{{ key_a + 1 }} :
                                                 {{ act.name }}
                                             </h5>
                                             <button
@@ -217,7 +217,7 @@
                                                 v-if="activity.id == act.id"
                                                 @click.prevent="closeQuestion()"
                                             >
-                                                Cancelar
+                                                {{ $t('lang.general.cancel') }}
                                             </button>
                                             <button
                                                 class="btn btn-primary"
@@ -229,7 +229,7 @@
                                                     openFeedback(key_a)
                                                 "
                                             >
-                                                Ver retroalimentación
+                                                {{ $t('lang.general.feedback') }}
                                             </button>
                                         </div>
                                         <div
@@ -238,7 +238,7 @@
                                         >
                                             <div class="row">
                                                 <div class="col-12">
-                                                    <b>Descripción:</b>
+                                                    <b>{{ $t('lang.general.description') }}:</b>
                                                     <textarea
                                                         class="form-control-plaintext"
                                                         v-model="
@@ -256,7 +256,7 @@
                                                 <button class="btn btn-primary" v-if="activity.interaction.state==1" @click="SaveResponseEvent(activity)">Enviar respuestas</button>
 
                                             </div>
-                                            <div v-if="activity.interaction.state==3">Calificación: <span class="activity_score" >{{activity.interaction.score}}<small>/5</small></span></div>
+                                            <div v-if="activity.interaction.state==3">{{ $t('lang.class.score') }}: <span class="activity_score" >{{activity.interaction.score}}<small>/5</small></span></div>
                                         </div>
                                     </div>
                                 </div>
@@ -268,7 +268,7 @@
                         <a
                             class="btn btn-warning"
                             :href="'/estudiante/modulo/' + id_module"
-                            >Regresar</a
+                            >{{ $t('lang.general.goBack') }}</a
                         >
                         <a
                             class="btn btn-primary float-right"
@@ -282,7 +282,7 @@
                                     '/clase/' +
                                     course.next_class
                             "
-                            >Continuar</a
+                            >{{ $t('lang.general.continue') }}</a
                         >
                         <a
                             class="btn btn-primary float-right"
@@ -291,7 +291,7 @@
                                     course.next_class == false
                             "
                             :href="'/encuesta_estudiante/' + id_module"
-                            >Continuar</a
+                            >{{ $t('lang.general.continue') }}</a
                         >
                     </div>
                 </div>

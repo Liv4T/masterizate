@@ -3,15 +3,15 @@
     <div class="row justify-content-center">
       <div id="crud" class="col-sm-10">
         <div class="card text-center">
-          <h3 class="card-header fondo">Notas</h3>
+          <h3 class="card-header fondo">{{ $t('lang.grades.score') }}</h3>
 
           <div class="card-body">
             <table class="table table-responsive-xl table-hover table-striped center">
               <thead>
                 <tr>
-                  <th>Nombre de la materia</th>
+                  <th>{{ $t('lang.grades.nameClass') }}</th>
 
-                  <th>Observación</th>
+                  <th>{{ $t('lang.general.observation') }}</th>
                 </tr>
               </thead>
               <tbody v-for="(area,t) in areas" :key="t">

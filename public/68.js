@@ -145,7 +145,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.check{\r\n    margin-left: 8px;\r\n    padding: 0;\r\n    display: flex;\r\n    flex-direction: row;\r\n    justify-content: center;\r\n    align-items: center;\n}\np{\r\n    margin: 0 0 0 8px;\r\n    font-size: 16px;\n}\r\n", ""]);
+exports.push([module.i, "\n.check{\n    margin-left: 8px;\n    padding: 0;\n    display: flex;\n    flex-direction: row;\n    justify-content: center;\n    align-items: center;\n}\np{\n    margin: 0 0 0 8px;\n    font-size: 16px;\n}\n", ""]);
 
 // exports
 
@@ -201,7 +201,9 @@ var render = function() {
     _c("div", { staticClass: "row justify-content-center" }, [
       _c("div", { staticClass: "col-sm-10", attrs: { id: "crud" } }, [
         _c("div", { staticClass: "card text-center" }, [
-          _c("h5", { staticClass: "card-header fondo" }, [_vm._v("Ciclo")]),
+          _c("h5", { staticClass: "card-header fondo" }, [
+            _vm._v(_vm._s(_vm.$t("lang.class.cycle")))
+          ]),
           _vm._v(" "),
           _c("h3", { staticClass: "card-header fondo" }, [
             _vm._v(_vm._s(_vm.nameWeekly))
@@ -219,7 +221,15 @@ var render = function() {
                   "table table-responsive-xl table-hover table-striped center"
               },
               [
-                _vm._m(0),
+                _c("thead", [
+                  _c("tr", [
+                    _c("th", [_vm._v(_vm._s(_vm.$t("lang.menu.classes")))]),
+                    _vm._v(" "),
+                    _c("th", [_vm._v(_vm._s(_vm.$t("lang.class.action")))]),
+                    _vm._v(" "),
+                    _c("th")
+                  ])
+                ]),
                 _vm._v(" "),
                 _c(
                   "tbody",
@@ -240,7 +250,7 @@ var render = function() {
                                 clas.id
                             }
                           },
-                          [_vm._v("Ir a clase")]
+                          [_vm._v(_vm._s(_vm.$t("lang.general.goToClass")))]
                         )
                       ]),
                       _vm._v(" "),
@@ -279,7 +289,7 @@ var render = function() {
                               ),
                               _vm._v(" "),
                               _c("p", { staticClass: "text-success" }, [
-                                _vm._v("Completado")
+                                _vm._v(_vm._s(_vm.$t("lang.general.completed")))
                               ])
                             ])
                           : _vm._e()
@@ -291,44 +301,23 @@ var render = function() {
               ]
             ),
             _vm._v(" "),
-            _vm._m(1)
+            _c("div", { staticClass: "float-left" }, [
+              _c(
+                "a",
+                {
+                  staticClass: "btn btn-warning",
+                  attrs: { href: "/estudiante/clases" }
+                },
+                [_vm._v(_vm._s(_vm.$t("lang.general.goBack")))]
+              )
+            ])
           ])
         ])
       ])
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("thead", [
-      _c("tr", [
-        _c("th", [_vm._v("Clases")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Acción")]),
-        _vm._v(" "),
-        _c("th")
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "float-left" }, [
-      _c(
-        "a",
-        {
-          staticClass: "btn btn-warning",
-          attrs: { href: "/estudiante/clases" }
-        },
-        [_vm._v("Regresar")]
-      )
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 

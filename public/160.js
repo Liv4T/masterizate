@@ -233,7 +233,9 @@ var render = function() {
             [
               _c("h3", { staticClass: "card-header fondo" }, [
                 _vm._v(
-                  "\n                        Entrega Nombre\n                    "
+                  "\n                        " +
+                    _vm._s(_vm.$t("lang.homework.homeworkName")) +
+                    "\n                    "
                 )
               ]),
               _vm._v(" "),
@@ -255,7 +257,7 @@ var render = function() {
                     _c("div", { staticClass: "form-group row mx-auto" }, [
                       _c("div", { staticClass: "col-md-6" }, [
                         _c("label", { attrs: { for: "name" } }, [
-                          _vm._v("*Título")
+                          _vm._v("* " + _vm._s(_vm.$t("lang.general.title")))
                         ]),
                         _vm._v(" "),
                         _c("div", [
@@ -289,7 +291,9 @@ var render = function() {
                       _vm._v(" "),
                       _c("div", { staticClass: "col-md-6" }, [
                         _c("label", { attrs: { for: "name" } }, [
-                          _vm._v("*Instrucciones")
+                          _vm._v(
+                            "* " + _vm._s(_vm.$t("lang.general.instructions"))
+                          )
                         ]),
                         _vm._v(" "),
                         _c("textarea", {
@@ -340,7 +344,7 @@ var render = function() {
                               }),
                               _vm._v(" "),
                               _c("span", { staticStyle: { color: "grey" } }, [
-                                _vm._v("Descargar")
+                                _vm._v(_vm._s(_vm.$t("lang.general.download")))
                               ])
                             ]
                           )
@@ -352,7 +356,9 @@ var render = function() {
                       _c("div", { staticClass: "col-md-6" }, [
                         _c("label", { attrs: { for: "name" } }, [
                           _vm._v(
-                            "\n                                        Nombre\n                                        "
+                            "\n                                        " +
+                              _vm._s(_vm.$t("lang.general.name")) +
+                              "\n                                        "
                           )
                         ]),
                         _vm._v(" "),
@@ -381,7 +387,7 @@ var render = function() {
                       _vm._v(" "),
                       _c("div", { staticClass: "col-md-6" }, [
                         _c("label", { attrs: { for: "name" } }, [
-                          _vm._v("Archivo")
+                          _vm._v(_vm._s(_vm.$t("lang.general.file")))
                         ]),
                         _vm._v(" "),
                         _c(
@@ -390,7 +396,7 @@ var render = function() {
                             staticClass: "form-control",
                             on: { click: _vm.click1 }
                           },
-                          [_vm._v("Seleccione un archivo")]
+                          [_vm._v(_vm._s(_vm.$t("lang.general.selectAFile")))]
                         ),
                         _vm._v(" "),
                         _c("input", {
@@ -431,7 +437,15 @@ var render = function() {
                                     "font-size": "18px"
                                   }
                                 },
-                                [_vm._v("Espere estamos cargando su archivo")]
+                                [
+                                  _vm._v(
+                                    _vm._s(
+                                      _vm.$t(
+                                        "lang.general.waitWeAreUploadingYourFile"
+                                      )
+                                    )
+                                  )
+                                ]
                               )
                             ])
                           : _vm._e()
@@ -446,7 +460,7 @@ var render = function() {
                         staticClass: "btn btn-warning ",
                         attrs: { href: "/repository/student" }
                       },
-                      [_vm._v("Volver")]
+                      [_vm._v(_vm._s(_vm.$t("lang.general.goBack")))]
                     )
                   ])
                 ],

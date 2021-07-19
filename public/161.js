@@ -178,11 +178,15 @@ var render = function() {
     _c("div", { staticClass: "row justify-content-center" }, [
       _c("div", { staticClass: "col-sm-10", attrs: { id: "crud" } }, [
         _c("div", { staticClass: "card text-center" }, [
-          _c("h3", { staticClass: "card-header fondo" }, [_vm._v("Entregas")]),
+          _c("h3", { staticClass: "card-header fondo" }, [
+            _vm._v(_vm._s(_vm.$t("lang.homework.homework")))
+          ]),
           _vm._v(" "),
           _c("div", { staticClass: "card-body" }, [
             _c("div", { staticClass: "float-right" }, [
-              _c("label", { attrs: { for: "" } }, [_vm._v("Buscar")]),
+              _c("label", { attrs: { for: "" } }, [
+                _vm._v(_vm._s(_vm.$t("lang.general.search")))
+              ]),
               _vm._v(" "),
               _c("input", {
                 directives: [
@@ -209,7 +213,9 @@ var render = function() {
             _c("div", { staticClass: "form-group mx-auto" }, [
               _c("div", { attrs: { align: "center" } }, [
                 _c("div", { staticClass: "col-md-6" }, [
-                  _c("label", { attrs: { for: "" } }, [_vm._v("Materia:")]),
+                  _c("label", { attrs: { for: "" } }, [
+                    _vm._v(_vm._s(_vm.$t("lang.menu.classes")) + ":")
+                  ]),
                   _vm._v(" "),
                   _c(
                     "select",
@@ -276,7 +282,21 @@ var render = function() {
                     staticStyle: { "border-collapse": "separate !important" }
                   },
                   [
-                    _vm._m(0),
+                    _c("thead", [
+                      _c("tr", [
+                        _c("th", [_vm._v(_vm._s(_vm.$t("lang.general.date")))]),
+                        _vm._v(" "),
+                        _c("th", [
+                          _vm._v(_vm._s(_vm.$t("lang.homework.task")))
+                        ]),
+                        _vm._v(" "),
+                        _c("th", [
+                          _vm._v(_vm._s(_vm.$t("lang.general.status")))
+                        ]),
+                        _vm._v(" "),
+                        _c("th", [_vm._v("-")])
+                      ])
+                    ]),
                     _vm._v(" "),
                     _c(
                       "tbody",
@@ -322,7 +342,7 @@ var render = function() {
                                   href: "/repository/student/upload/" + row.id
                                 }
                               },
-                              [_vm._v("Ver más")]
+                              [_vm._v(_vm._s(_vm.$t("lang.general.readMore")))]
                             ),
                             _vm._v(" "),
                             _c(
@@ -333,7 +353,7 @@ var render = function() {
                                   href: "/repository/student/comment/" + row.id
                                 }
                               },
-                              [_vm._v("Retroalimentación")]
+                              [_vm._v(_vm._s(_vm.$t("lang.general.feedback")))]
                             )
                           ])
                         ])
@@ -350,24 +370,7 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("thead", [
-      _c("tr", [
-        _c("th", [_vm._v("Fecha")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Tarea")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Estado")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("-")])
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 

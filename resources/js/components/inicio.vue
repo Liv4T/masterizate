@@ -3,50 +3,50 @@
     <div class="form-group width-r mx-auto">
       <div class="row pd-20">
         <div class="dropdown col-md-2">
-          <button class="btn btn-danger dropdown-toggle mg-btn" type="button" id="admin" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="box-shadow: 3px 3px 3px 3px #b0acac">Electives</button>
+          <button class="btn btn-danger dropdown-toggle mg-btn" type="button" id="admin" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="box-shadow: 3px 3px 3px 3px #b0acac">{{ $t('lang.area.electivas') }}</button>
           <div class="dropdown-menu" aria-labelledby="admin" v-for="(area, k) in planifications" :key="k">
             <a class="dropdown-item" @click.prevent="nameArea = area.lective.name">{{ area.lective.name }}</a>
           </div>
         </div>
         <div class="col-md-2" v-for="(area, t) in areas" :key="t">
           <a href="http://" class="btn btn-warning mg-btn" v-if="t == 0" style="background-color: #ffb466; border-color: #ffb466; box-shadow: 3px 3px 3px 3px #b0acac" @click.prevent="nameArea = area.text">
-            <h6 class="letra-poppins-bold" style="color: black">{{ area.text }}</h6>
+            <h6 class="letra-poppins-bold" style="color: black">{{ $t('lang.area.'+nameMinus(area.text)) }}</h6>
           </a>
           <a href="http://" class="btn btn-warning mg-btn" v-if="t == 1" style="background-color: #ffea47; border-color: #ffea47; box-shadow: 3px 3px 3px 3px #b0acac" @click.prevent="nameArea = area.text">
-            <h6 class="letra-poppins-bold" style="color: black">{{ area.text }}</h6>
+            <h6 class="letra-poppins-bold" style="color: black">{{ $t('lang.area.'+nameMinus(area.text)) }}</h6>
           </a>
           <a href="http://" class="btn btn-warning mg-btn" v-if="t == 2" style="background-color: #a639b0; border-color: #a639b0; box-shadow: 3px 3px 3px 3px #b0acac" @click.prevent="nameArea = area.text">
-            <h6 class="letra-poppins-bold" style="color: black">{{ area.text }}</h6>
+            <h6 class="letra-poppins-bold" style="color: black">{{ $t('lang.area.'+nameMinus(area.text)) }}</h6>
           </a>
           <a href="http://" class="btn btn-warning mg-btn" v-if="t == 3" style="background-color: #50e9fb; border-color: #50e9fb; box-shadow: 3px 3px 3px 3px #b0acac" @click.prevent="nameArea = area.text">
-            <h6 class="letra-poppins-bold" style="color: black">{{ area.text }}</h6>
+            <h6 class="letra-poppins-bold" style="color: black">{{ $t('lang.area.'+nameMinus(area.text)) }}</h6>
           </a>
           <a href="http://" class="btn btn-warning mg-btn" v-if="t == 4" style="background-color: #ffa4f2; border-color: #ffa4f2; box-shadow: 3px 3px 3px 3px #b0acac" @click.prevent="nameArea = area.text">
-            <h6 class="letra-poppins-bold" style="color: black">{{ area.text }}</h6>
+            <h6 class="letra-poppins-bold" style="color: black">{{ $t('lang.area.'+nameMinus(area.text)) }}</h6>
           </a>
           <a href="http://" class="btn btn-warning mg-btn" v-if="t == 5" style="background-color: #4e92fd; border-color: #4e92fd; box-shadow: 3px 3px 3px 3px #b0acac" @click.prevent="nameArea = area.text">
-            <h6 class="letra-poppins-bold" style="color: black">{{ area.text }}</h6>
+            <h6 class="letra-poppins-bold" style="color: black">{{ $t('lang.area.'+nameMinus(area.text)) }}</h6>
           </a>
           <a href="http://" class="btn btn-warning mg-btn" v-if="t == 6" style="background-color: #ff5552; border-color: #ff5552; box-shadow: 3px 3px 3px 3px #b0acac" @click.prevent="nameArea = area.text">
-            <h6 class="letra-poppins-bold" style="color: black">{{ area.text }}</h6>
+            <h6 class="letra-poppins-bold" style="color: black">{{ $t('lang.area.'+nameMinus(area.text)) }}</h6>
           </a>
           <a href="http://" class="btn btn-warning mg-btn" v-if="t == 7" style="background-color: #ffc0f6; border-color: #ffc0f6; box-shadow: 3px 3px 3px 3px #b0acac" @click.prevent="nameArea = area.text">
-            <h6 class="letra-poppins-bold" style="color: black">{{ area.text }}</h6>
+            <h6 class="letra-poppins-bold" style="color: black">{{ $t('lang.area.'+nameMinus(area.text)) }}</h6>
           </a>
           <a href="http://" class="btn btn-warning mg-btn" v-if="t == 8" style="background-color: #b8ffc2; border-color: #b8ffc2; box-shadow: 3px 3px 3px 3px #b0acac" @click.prevent="nameArea = area.text">
-            <h6 class="letra-poppins-bold" style="color: black">{{ area.text }}</h6>
+            <h6 class="letra-poppins-bold" style="color: black">{{ $t('lang.area.'+nameMinus(area.text)) }}</h6>
           </a>
           <a href="http://" class="btn btn-warning mg-btn" v-if="t == 9" style="background-color: #b8ffc2; border-color: #b8ffc2; box-shadow: 3px 3px 3px 3px #b0acac" @click.prevent="nameArea = area.text">
-            <h6 class="letra-poppins-bold" style="color: black">{{ area.text }}</h6>
+            <h6 class="letra-poppins-bold" style="color: black">{{ $t('lang.area.'+nameMinus(area.text)) }}</h6>
           </a>
           <a href="http://" class="btn btn-warning mg-btn" v-if="t == 10" style="background-color: #ffea47; border-color: #ffea47; box-shadow: 3px 3px 3px 3px #b0acac" @click.prevent="nameArea = area.text">
-            <h6 class="letra-poppins-bold" style="color: black">{{ area.text }}</h6>
+            <h6 class="letra-poppins-bold" style="color: black">{{ $t('lang.area.'+nameMinus(area.text)) }}</h6>
           </a>
           <a href="http://" class="btn btn-warning mg-btn" v-if="t == 11" style="background-color: #00c9ce; border-color: #00c9ce; box-shadow: 3px 3px 3px 3px #b0acac" @click.prevent="nameArea = area.text">
-            <h6 class="letra-poppins-bold" style="color: black">{{ area.text }}</h6>
+            <h6 class="letra-poppins-bold" style="color: black">{{ $t('lang.area.'+nameMinus(area.text)) }}</h6>
           </a>
           <a href="http://" class="btn btn-warning mg-btn" v-if="t > 11">
-            <h6 class="letra-poppins-bold" style="color: black">{{ area.text }}</h6>
+            <h6 class="letra-poppins-bold" style="color: black">{{ $t('lang.area.'+nameMinus(area.text)) }}</h6>
           </a>
         </div>
       </div>
@@ -54,21 +54,21 @@
     <div v-if="nameArea != ''">
       <div class="form-group text-center">
         <a href="" class="btn btn-warning letra-poppins-bold" style="background-color: #ffa4f2; border-color: #ffa4f2"
-          ><h1 style="color: black">{{ nameArea }}</h1>
+          ><h1 style="color: black">{{ $t('lang.area.'+nameMinus(nameArea)) }}</h1>
         </a>
       </div>
       <div class="row">
         <div class="col-md-2 pd-20 flotante">
-          <a href="" class="btn btn-warning letra-poppins-bold mg-btn" style="background-color: #e26100; border-color: #e26100"><h4>CHAT</h4> </a> <br />
-          <a href="" class="btn btn-warning letra-poppins-bold mg-btn" style="background-color: #e26100; border-color: #e26100"><h4>FORUMS</h4> </a><br />
-          <a href="" class="btn btn-warning letra-poppins-bold mg-btn" style="background-color: #e26100; border-color: #e26100"><h4>MENSSAGES</h4> </a><br />
+          <a href="" class="btn btn-warning letra-poppins-bold mg-btn" style="background-color: #e26100; border-color: #e26100"><h4>{{ $t('lang.menu.chat').toUpperCase() }}</h4> </a> <br />
+          <a href="" class="btn btn-warning letra-poppins-bold mg-btn" style="background-color: #e26100; border-color: #e26100"><h4>{{ $t('lang.menu.forums').toUpperCase() }}</h4> </a><br />
+          <a href="" class="btn btn-warning letra-poppins-bold mg-btn" style="background-color: #e26100; border-color: #e26100"><h4>{{ $t('lang.menu.menssages').toUpperCase() }}</h4> </a><br />
         </div>
         <div id="tabs" class="col-md-9 mx-auto">
           <div class="tabs">
-            <a v-on:click="activetab = 1" v-bind:class="[activetab === 1 ? 'active' : '']"><h2 class="letra-poppins-bold">CALENDAR</h2></a>
-            <a v-on:click="activetab = 2" v-bind:class="[activetab === 2 ? 'active' : '']"><h2 class="letra-poppins-bold">CLASS</h2></a>
-            <a v-on:click="activetab = 3" v-bind:class="[activetab === 3 ? 'active' : '']"><h2 class="letra-poppins-bold">HOMEWORK</h2></a>
-            <a v-on:click="activetab = 4" v-bind:class="[activetab === 4 ? 'active' : '']"><h2 class="letra-poppins-bold">GRADES</h2></a>
+            <a v-on:click="activetab = 1" v-bind:class="[activetab === 1 ? 'active' : '']"><h2 class="letra-poppins-bold">{{ $t('lang.menu.calendar').toUpperCase() }}</h2></a>
+            <a v-on:click="activetab = 2" v-bind:class="[activetab === 2 ? 'active' : '']"><h2 class="letra-poppins-bold">{{ $t('lang.menu.class').toUpperCase() }}</h2></a>
+            <a v-on:click="activetab = 3" v-bind:class="[activetab === 3 ? 'active' : '']"><h2 class="letra-poppins-bold">{{ $t('lang.menu.homework').toUpperCase() }}</h2></a>
+            <a v-on:click="activetab = 4" v-bind:class="[activetab === 4 ? 'active' : '']"><h2 class="letra-poppins-bold">{{ $t('lang.menu.grades').toUpperCase() }}</h2></a>
           </div>
 
           <div class="content-azul">
@@ -81,7 +81,7 @@
       </div>
       <div class="form-group text-center">
         <a class="btn btn-warning mg-btn">
-          <h1 class="letra-poppins-bold">PENDING WORK</h1>
+          <h1 class="letra-poppins-bold">{{ $t('lang.calendar.pendingWork') }}</h1>
         </a>
       </div>
     </div>
@@ -137,6 +137,10 @@ export default {
           this.errors = error.response.data;
         });
     },
+    nameMinus(name){
+      var nameMinus=name.toLowerCase();
+      return nameMinus.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    }
   },
 };
 </script>

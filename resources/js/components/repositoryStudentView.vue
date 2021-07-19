@@ -3,17 +3,17 @@
     <div class="row justify-content-center">
       <div id="crud" class="col-sm-10">
         <div class="card text-center">
-          <h3 class="card-header fondo">Entregas</h3>
+          <h3 class="card-header fondo">{{ $t('lang.homework.homework') }}</h3>
           <div class="card-body">
 
             <div class="float-right">
-              <label for="">Buscar</label>
+              <label for="">{{ $t('lang.general.search') }}</label>
               <input type="text" placeholder="Buscar" v-model="filter" />
             </div>
             <div class="form-group mx-auto">
                 <div align="center">
                     <div class="col-md-6">
-                        <label for>Materia:</label>
+                        <label for>{{ $t('lang.menu.classes') }}:</label>
                         <select class="form-control" v-model="area_classroom"  @change="areaClassroom()" required>
                           <option :value="option.id+'/'+option.id_classroom" v-for="option in myOptions">{{ option.text }}</option>
                         </select>
@@ -27,9 +27,9 @@
               >
                 <thead >
                   <tr>
-                    <th>Fecha</th>
-                    <th>Tarea</th>
-                     <th>Estado</th>
+                    <th>{{ $t('lang.general.date') }}</th>
+                    <th>{{ $t('lang.homework.task') }}</th>
+                     <th>{{ $t('lang.general.status') }}</th>
                     <th>-</th>
                   </tr>
                 </thead>
@@ -55,12 +55,12 @@
                       <a v-show="row.status!='Calificado'"
                         class="btn btn-warning"
                         :href="'/repository/student/upload/'+row.id"
-                        >Ver más</a
+                        >{{ $t('lang.general.readMore') }}</a
                       >
                        <a
                         class="btn btn-info"
                         :href="'/repository/student/comment/'+row.id"
-                        >Retroalimentación</a
+                        >{{ $t('lang.general.feedback') }}</a
                       >
 
                     </td>

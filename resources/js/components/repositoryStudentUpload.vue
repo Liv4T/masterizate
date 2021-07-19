@@ -5,7 +5,7 @@
                 <div class="col-md-11 mx-auto">
                     <div class="custom-card text-center">
                         <h3 class="card-header fondo">
-                            Entrega Nombre
+                            {{ $t('lang.homework.homeworkName') }}
                         </h3>
                         <form-wizard
                                 title
@@ -19,7 +19,7 @@
                             <tab-content title="Cargar entrega">
                                 <div class="form-group row mx-auto">
                                     <div class="col-md-6">
-                                        <label for="name">*Título</label>
+                                        <label for="name">* {{ $t('lang.general.title') }}</label>
                                         <div>
                                             <input
                                             type="text"
@@ -31,7 +31,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6">
-                                        <label for="name">*Instrucciones</label>
+                                        <label for="name">* {{ $t('lang.general.instructions') }}</label>
                                         <textarea
                                             name="competences"
                                             class="form-control"
@@ -49,7 +49,7 @@
                               target="_blank"
                               rel="noopener noreferrer">
                                 <i class="fas fa-file-download fa-2x" style="color: grey;"></i>
-                                <span style="color:grey">Descargar</span>
+                                <span style="color:grey">{{ $t('lang.general.download') }}</span>
                             </a>
 
                                             </div>
@@ -58,13 +58,13 @@
                                     <div class="form-group row">
                                         <div class="col-md-6">
                                             <label for="name">
-                                            Nombre
+                                            {{ $t('lang.general.name') }}
                                             </label>
                                             <input type="text" name="objetive1" class="form-control" v-model="name" />
                                         </div>
                                         <div class="col-md-6">
-                                            <label for="name">Archivo</label>
-                                            <button class="form-control"  @click="click1">Seleccione un archivo</button>
+                                            <label for="name">{{ $t('lang.general.file') }}</label>
+                                            <button class="form-control"  @click="click1">{{ $t('lang.general.selectAFile') }}</button>
                                             <input type="file" ref="input1"
                                                 style="display: none"
                                                 @change="previewImage"  >
@@ -72,14 +72,14 @@
                                                 <span style="color:green; font-size:20px">Archivo cargado con exito nombre:{{ message }} </span>
                                             </div>
                                             <div v-if="message==null">
-                                                <span style="color:red; font-size:18px">Espere estamos cargando su archivo</span>
+                                                <span style="color:red; font-size:18px">{{ $t('lang.general.waitWeAreUploadingYourFile') }}</span>
                                             </div>
                                         </div>
                                         </div>
 
                                 </tab-content>
                                 <div class="float-left">
-                                        <a href="/repository/student" class="btn btn-warning ">Volver</a>
+                                        <a href="/repository/student" class="btn btn-warning ">{{ $t('lang.general.goBack') }}</a>
                                 </div>
                             </form-wizard>
                     </div>

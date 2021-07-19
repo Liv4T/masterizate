@@ -3,10 +3,10 @@
     <div class="row justify-content-center">
       <div id="crud" class="col-sm-10">
         <div class="card text-center">
-          <h3 class="card-header fondo">Entrega de estudiantes</h3>
+          <h3 class="card-header fondo">{{ $t('lang.homework.studentHomework') }}</h3>
           <div class="card-body">
             <div class="float-right">
-              <label for="">Buscar</label>
+              <label for="">{{ $t('lang.general.search') }}</label>
               <input type="text" placeholder="Buscar" v-model="filter" />
             </div>
 
@@ -17,8 +17,8 @@
               >
                 <thead >
                   <tr>
-                    <th>Estudiante</th>
-                    <th>Estado</th>
+                    <th>{{ $t('lang.general.student') }}</th>
+                    <th>{{ $t('lang.general.status') }}</th>
                     <th>-</th>
                   </tr>
                 </thead>
@@ -41,7 +41,7 @@
                         v-show="row.id_student!=null"
                         class="btn btn-warning"
                         :href="'/repository/comments/'+row.id_student+'/'+id_repo"
-                        >Ver más</a
+                        >{{ $t('lang.general.readMore') }}</a
                       >
                     </td>
                   </tr>

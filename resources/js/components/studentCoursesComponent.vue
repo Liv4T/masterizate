@@ -3,7 +3,7 @@
     <div class="row justify-content-center">
       <div id="crud" class="col-sm-10">
         <div class="card text-center">
-          <h3 class="card-header fondo">Mis clases</h3>
+          <h3 class="card-header fondo">{{ $t('lang.class.myClasses') }}</h3>
           <div class="card-body">
             <div class="accordion" id="accordionExample">
               <div class="card" v-for="(area,t) in areas" :key="t">
@@ -18,7 +18,7 @@
                       @click.prevent="botones(area.id, area.id_classroom)"
                       aria-controls="collapse"
                     >
-                      <label>{{ area.text }}</label>
+                      <label>{{ $t('lang.area.'+nameMinus(area.text)) }}</label>
                     </button>
                   </h2>
                 </div>
@@ -31,8 +31,8 @@
                   <table class="table table-responsive-xl table-hover table-striped center">
                     <thead>
                       <tr>
-                        <th>Ciclo de aprendizaje</th>
-                        <th>Acción</th>
+                        <th>{{ $t('lang.class.learningCycle') }}</th>
+                        <th>{{ $t('lang.class.action') }}</th>
                         <th></th>
                       </tr>
                     </thead>
@@ -47,7 +47,7 @@
                           <a
                             class="btn btn-primary"
                             :href="'/estudiante/modulo/'+clas.id"
-                          >Ir a Ciclo</a>
+                          >{{ $t('lang.class.goToCycle') }}</a>
 
                         </td>
                         <td>
@@ -111,6 +111,10 @@ export default {
       axios.get(urlsel).then((response) => {
         this.clases = response.data;
       });
+    },
+    nameMinus(name){
+      var nameMinus=name.toLowerCase();
+      return nameMinus.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
     },
   },
 };

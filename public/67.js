@@ -124,6 +124,10 @@ __webpack_require__.r(__webpack_exports__);
       axios.get(urlsel).then(function (response) {
         _this2.clases = response.data;
       });
+    },
+    nameMinus: function nameMinus(name) {
+      var nameMinus = name.toLowerCase();
+      return nameMinus.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
     }
   }
 });
@@ -142,7 +146,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.check{\r\n    margin-left: 8px;\r\n    padding: 0;\r\n    display: flex;\r\n    flex-direction: row;\r\n    justify-content: center;\r\n    align-items: center;\n}\np{ \r\n    margin: 0 0 0 8px;\r\n    font-size: 16px;\n}\r\n", ""]);
+exports.push([module.i, "\n.check{\n    margin-left: 8px;\n    padding: 0;\n    display: flex;\n    flex-direction: row;\n    justify-content: center;\n    align-items: center;\n}\np{ \n    margin: 0 0 0 8px;\n    font-size: 16px;\n}\n", ""]);
 
 // exports
 
@@ -199,7 +203,7 @@ var render = function() {
       _c("div", { staticClass: "col-sm-10", attrs: { id: "crud" } }, [
         _c("div", { staticClass: "card text-center" }, [
           _c("h3", { staticClass: "card-header fondo" }, [
-            _vm._v("Mis clases")
+            _vm._v(_vm._s(_vm.$t("lang.class.myClasses")))
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "card-body" }, [
@@ -228,7 +232,15 @@ var render = function() {
                             }
                           }
                         },
-                        [_c("label", [_vm._v(_vm._s(area.text))])]
+                        [
+                          _c("label", [
+                            _vm._v(
+                              _vm._s(
+                                _vm.$t("lang.area." + _vm.nameMinus(area.text))
+                              )
+                            )
+                          ])
+                        ]
                       )
                     ])
                   ]),
@@ -251,7 +263,21 @@ var render = function() {
                             "table table-responsive-xl table-hover table-striped center"
                         },
                         [
-                          _vm._m(0, true),
+                          _c("thead", [
+                            _c("tr", [
+                              _c("th", [
+                                _vm._v(
+                                  _vm._s(_vm.$t("lang.class.learningCycle"))
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("th", [
+                                _vm._v(_vm._s(_vm.$t("lang.class.action")))
+                              ]),
+                              _vm._v(" "),
+                              _c("th")
+                            ])
+                          ]),
                           _vm._v(" "),
                           _c(
                             "tbody",
@@ -271,7 +297,13 @@ var render = function() {
                                               "/estudiante/modulo/" + clas.id
                                           }
                                         },
-                                        [_vm._v("Ir a Ciclo")]
+                                        [
+                                          _vm._v(
+                                            _vm._s(
+                                              _vm.$t("lang.class.goToCycle")
+                                            )
+                                          )
+                                        ]
                                       )
                                     ]),
                                     _vm._v(" "),
@@ -338,22 +370,7 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("thead", [
-      _c("tr", [
-        _c("th", [_vm._v("Ciclo de aprendizaje")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Acción")]),
-        _vm._v(" "),
-        _c("th")
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 

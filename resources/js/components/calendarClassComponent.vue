@@ -4,7 +4,7 @@
         <div class="row">
             <div class="col-md-11" v-if="type_u != 4 || type_u != 8">
               <div v-if="type_u != 7" class="row justify-content-center">
-                <h4>Clases presenciales</h4>
+                <h4>{{ $t('lang.calendar.face-to-face classes') }}</h4>
               </div>
         
               <div class="row" v-for="(clas, k) in filterPendingEvents(clases)" v-bind:key="k">
@@ -15,16 +15,16 @@
                       <div class="class-event-info">{{ !clas.classroom ? "Lectiva " : "" }} {{ clas.area }} {{ clas.classroom ? clas.classroom : "" }}: {{ clas.name }}</div>
                       <div class="class-event-date">
                         <div>
-                          <small>Desde:</small>
+                          <small>{{ $t('lang.calendar.dateFrom')}}:</small>
                           <span>{{ clas.dateFrom }}</span>
                         </div>
                         <div>
-                          <small>Hasta:</small>
+                          <small>{{$t('lang.calendar.dateTo')}}:</small>
                           <span>{{ clas.dateTo }}</span>
                         </div>
                       </div>
                       <div class="class-event-action">
-                        <a class="btn btn-primary" html:type="_blank" :href="clas.hangout">Ir a clase</a>
+                        <a class="btn btn-primary" html:type="_blank" :href="clas.hangout">{{$t('lang.general.goToClass')}}</a>
                         <a :href="`/assistance/${clas.id_area}/${clas.id_classroom}`" class="btn btn-primary ml-1" v-show="type_u == 2">Asistencia</a>
                       </div>
                     </div>
