@@ -19,7 +19,11 @@
           </div>
 
           <div class="content-azul">
-            <div v-if="activetab === 1" class="tabcontent">incluir vista</div>
+            <div v-if="activetab === 1" class="tabcontent">
+              <div v-if="idArea !=='' ">
+                <course-component :idArea="idArea"></course-component>
+              </div>              
+            </div>
             <div v-if="activetab === 2" class="tabcontent">incluir vista</div>
             <div v-if="activetab === 3" class="tabcontent">incluir vista</div>
             <div v-if="activetab === 4" class="tabcontent">incluir vista</div>

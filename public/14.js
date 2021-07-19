@@ -41,6 +41,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -290,7 +294,17 @@ var render = function() {
           _c("div", { staticClass: "content-azul" }, [
             _vm.activetab === 1
               ? _c("div", { staticClass: "tabcontent" }, [
-                  _vm._v("incluir vista")
+                  _vm.idArea !== ""
+                    ? _c(
+                        "div",
+                        [
+                          _c("course-component", {
+                            attrs: { idArea: _vm.idArea }
+                          })
+                        ],
+                        1
+                      )
+                    : _vm._e()
                 ])
               : _vm._e(),
             _vm._v(" "),

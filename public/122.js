@@ -176,104 +176,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 (function () {
   "use strict";
 
@@ -312,7 +214,7 @@ $(function () {
 
 Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["id_area", "id_classroom"],
+  props: ["idArea"],
   data: function data() {
     var _ref;
 
@@ -365,105 +267,111 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
         this.activityForAllStudents = false;
         this.selectedStudentsData = this.studentsOptions;
       }
+    },
+    idArea: function idArea(newVal, oldVal) {
+      if (newVal !== oldVal) {
+        this.getData();
+      }
     }
   },
   mounted: function mounted() {
-    var _this = this;
-
-    axios.get("/PIARStudentsByArea/".concat(this.id_area, "/").concat(this.id_classroom)).then(function (response) {
-      _this.piarStudents = Object.values(response.data);
-    })["catch"](function (error) {
-      console.log(error);
-    });
-    axios.get("/StudentsByArea/".concat(this.id_area, "/").concat(this.id_classroom)).then(function (response) {
-      var data = response.data;
-      data.forEach(function (e) {
-        _this.studentsOptions.push({
-          id: e.id_student,
-          text: e.name
-        });
-      });
-    });
-    axios.get('/getPlanificationPiar').then(function (response) {
-      console.log('datos piar:', response.data);
-      var data = response.data;
-
-      if (data.length > 0) {
-        _this.inputsPIAR1.splice(0);
-
-        _this.inputsPIAR.splice(0);
-
-        data.forEach(function (el) {
-          var logros = JSON.parse(el.logros);
-          var trimestres = JSON.parse(el.trimestres);
-          _this.saveStudent = JSON.parse(el.students);
-          logros.forEach(function (lg) {
-            _this.inputsPIAR1.push({
-              contenidoPIAR: lg.contenidoPIAR,
-              namePIAR: lg.namePIAR
-            });
-          });
-          trimestres.forEach(function (lg) {
-            _this.inputsPIAR.push({
-              logroPIAR: lg.logroPIAR,
-              porcentajePIAR: lg.porcentajePIAR
-            });
-          });
-        });
-        console.log(_this.inputsPIAR1);
-        _this.showPiarPlan = true, _this.showPIARPlanTrimestral = true, _this.activityForPIARStudents = true;
-      }
-    }); //load from localstorage
-
-    this.serialLocalStorage = this.serialLocalStorage + "-" + this.id_area + "-" + this.id_classroom;
-    var urlsel = window.location.origin + "/coursePlanification/" + this.id_area + "/" + this.id_classroom;
-    axios.get(urlsel).then(function (response) {
-      _this.fillC = response.data; //set current data
-
-      if (response.data.achievements.length > 0 && response.data.quaterly.length > 0) {
-        _this.inputs1 = [];
-        response.data.achievements.forEach(function (e) {
-          _this.inputs1.push({
-            id_plannification: e.id_planification,
-            id_achievement: e.id,
-            logro: e.achievement,
-            porcentaje: e.percentage
-          });
-        });
-        _this.inputs1_saved = JSON.parse(JSON.stringify(_this.inputs1));
-        _this.inputs = [];
-        response.data.quaterly.forEach(function (e) {
-          _this.inputs.push({
-            id_quaterly: e.id,
-            name: e.unit_name,
-            contenido: e.content
-          });
-        });
-        _this.inputs_saved = JSON.parse(JSON.stringify(_this.inputs));
-      } else {
-        if (localStorage.getItem(_this.serialLocalStorage)) {
-          var savedInputModel = JSON.parse(decodeURIComponent(escape(window.atob(localStorage.getItem(_this.serialLocalStorage)))));
-
-          if (JSON.stringify(savedInputModel.inputs) != JSON.stringify(_this.inputs)) {
-            _this.inputs = savedInputModel.inputs;
-            _this.isSynchronized = false;
-          }
-
-          if (JSON.stringify(savedInputModel.inputs1) != JSON.stringify(_this.inputs1)) {
-            _this.inputs1 = savedInputModel.inputs1;
-            _this.isSynchronized = false;
-          }
-        }
-      }
-
-      if (_this.fillC.quaterly.length > 0) {
-        _this.trimestre = true;
-      } else {
-        _this.trimestre = false;
-      }
-    });
+    this.getData();
   },
   methods: {
+    getData: function getData() {
+      var _this = this;
+
+      axios.get("/PIARStudentsByArea/".concat(this.idArea)).then(function (response) {
+        _this.piarStudents = Object.values(response.data);
+      })["catch"](function (error) {
+        console.log(error);
+      });
+      axios.get("/StudentsByArea/".concat(this.idArea)).then(function (response) {
+        var data = response.data;
+        data.forEach(function (e) {
+          _this.studentsOptions.push({
+            id: e.id_student,
+            text: e.name
+          });
+        });
+      });
+      axios.get('/getPlanificationPiar').then(function (response) {
+        var data = response.data;
+
+        if (data.length > 0) {
+          _this.inputsPIAR1.splice(0);
+
+          _this.inputsPIAR.splice(0);
+
+          data.forEach(function (el) {
+            var logros = JSON.parse(el.logros);
+            var trimestres = JSON.parse(el.trimestres);
+            _this.saveStudent = JSON.parse(el.students);
+            logros.forEach(function (lg) {
+              _this.inputsPIAR1.push({
+                contenidoPIAR: lg.contenidoPIAR,
+                namePIAR: lg.namePIAR
+              });
+            });
+            trimestres.forEach(function (lg) {
+              _this.inputsPIAR.push({
+                logroPIAR: lg.logroPIAR,
+                porcentajePIAR: lg.porcentajePIAR
+              });
+            });
+          });
+          _this.showPiarPlan = true, _this.showPIARPlanTrimestral = true, _this.activityForPIARStudents = true;
+        }
+      }); //load from localstorage
+
+      this.serialLocalStorage = this.serialLocalStorage + "-" + this.idArea;
+      var urlsel = window.location.origin + "/coursePlanification/" + this.idArea;
+      axios.get(urlsel).then(function (response) {
+        _this.fillC = response.data; //set current data
+
+        if (response.data.achievements.length > 0 && response.data.quaterly.length > 0) {
+          _this.inputs1 = [];
+          response.data.achievements.forEach(function (e) {
+            _this.inputs1.push({
+              id_plannification: e.id_planification,
+              id_achievement: e.id,
+              logro: e.achievement,
+              porcentaje: e.percentage
+            });
+          });
+          _this.inputs1_saved = JSON.parse(JSON.stringify(_this.inputs1));
+          _this.inputs = [];
+          response.data.quaterly.forEach(function (e) {
+            _this.inputs.push({
+              id_quaterly: e.id,
+              name: e.unit_name,
+              contenido: e.content
+            });
+          });
+          _this.inputs_saved = JSON.parse(JSON.stringify(_this.inputs));
+        } else {
+          if (localStorage.getItem(_this.serialLocalStorage)) {
+            var savedInputModel = JSON.parse(decodeURIComponent(escape(window.atob(localStorage.getItem(_this.serialLocalStorage)))));
+
+            if (JSON.stringify(savedInputModel.inputs) != JSON.stringify(_this.inputs)) {
+              _this.inputs = savedInputModel.inputs;
+              _this.isSynchronized = false;
+            }
+
+            if (JSON.stringify(savedInputModel.inputs1) != JSON.stringify(_this.inputs1)) {
+              _this.inputs1 = savedInputModel.inputs1;
+              _this.isSynchronized = false;
+            }
+          }
+        }
+
+        if (_this.fillC.quaterly.length > 0) {
+          _this.trimestre = true;
+        } else {
+          _this.trimestre = false;
+        }
+      });
+    },
     annualContentUpdateEvent: function annualContentUpdateEvent(e, i, type) {
       var property = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : null;
 
@@ -640,9 +548,9 @@ var render = function() {
   return _c("div", [
     _vm._m(0),
     _vm._v(" "),
-    _c("div", { staticClass: "back" }, [
+    _c("div", [
       _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-md-11 mx-auto" }, [
+        _c("div", { staticClass: "col-md-12 mx-auto" }, [
           _c("div", { staticClass: "custom-card text-center" }, [
             _c("h3", { staticClass: "card-header fondo" }, [
               _vm._v("Planificación general")
@@ -891,8 +799,6 @@ var render = function() {
                       title: "",
                       subtitle: "",
                       color: "#ffc107",
-                      "next-button-text": "Siguiente",
-                      "back-button-text": "Atrás",
                       "finish-button-text": "Guardar y enviar"
                     },
                     on: { "on-complete": _vm.createCourses }
@@ -1223,373 +1129,6 @@ var render = function() {
                                 }
                               })
                             ])
-                          }),
-                          0
-                        )
-                      ],
-                      2
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "tab-content",
-                      { attrs: { title: "Trimestral" } },
-                      [
-                        _vm._l(_vm.inputs, function(input, t) {
-                          return _c(
-                            "div",
-                            { key: t, staticClass: "form-group row mx-auto" },
-                            [
-                              _c("div", { staticClass: "col-md-6" }, [
-                                _c("label", { attrs: { for: "name" } }, [
-                                  _vm._v("Indicador")
-                                ]),
-                                _vm._v(" "),
-                                _c("span", [
-                                  _c(
-                                    "a",
-                                    {
-                                      directives: [
-                                        {
-                                          name: "show",
-                                          rawName: "v-show",
-                                          value:
-                                            t > 0 &&
-                                            _vm.inputs_saved.length <= t,
-                                          expression:
-                                            "(t>0 && inputs_saved.length<=t)"
-                                        }
-                                      ],
-                                      staticClass: "badge badge-danger",
-                                      attrs: { href: "#" },
-                                      on: {
-                                        click: function($event) {
-                                          $event.preventDefault()
-                                          return _vm.remove(t)
-                                        }
-                                      }
-                                    },
-                                    [_vm._v("-")]
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "a",
-                                    {
-                                      directives: [
-                                        {
-                                          name: "show",
-                                          rawName: "v-show",
-                                          value: t == _vm.inputs.length - 1,
-                                          expression: "t == inputs.length - 1"
-                                        }
-                                      ],
-                                      staticClass: "badge badge-primary",
-                                      attrs: { href: "#" },
-                                      on: {
-                                        click: function($event) {
-                                          $event.preventDefault()
-                                          return _vm.add(t)
-                                        }
-                                      }
-                                    },
-                                    [_vm._v("+")]
-                                  )
-                                ]),
-                                _vm._v(" "),
-                                _c("div", [
-                                  _c("input", {
-                                    directives: [
-                                      {
-                                        name: "model",
-                                        rawName: "v-model",
-                                        value: input.name,
-                                        expression: "input.name"
-                                      }
-                                    ],
-                                    staticClass: "form-control",
-                                    attrs: {
-                                      type: "text",
-                                      name: "objetive1",
-                                      placeholder: "Nombre de la unidad",
-                                      required: ""
-                                    },
-                                    domProps: { value: input.name },
-                                    on: {
-                                      change: function($event) {
-                                        return _vm.annualContentUpdateEvent(
-                                          $event,
-                                          t,
-                                          "inputs",
-                                          "name"
-                                        )
-                                      },
-                                      input: function($event) {
-                                        if ($event.target.composing) {
-                                          return
-                                        }
-                                        _vm.$set(
-                                          input,
-                                          "name",
-                                          $event.target.value
-                                        )
-                                      }
-                                    }
-                                  })
-                                ])
-                              ]),
-                              _vm._v(" "),
-                              _c("div", { staticClass: "col-md-6" }, [
-                                _c("label", { attrs: { for: "name" } }, [
-                                  _vm._v("Contenido")
-                                ]),
-                                _vm._v(" "),
-                                _c("textarea", {
-                                  directives: [
-                                    {
-                                      name: "model",
-                                      rawName: "v-model",
-                                      value: input.contenido,
-                                      expression: "input.contenido"
-                                    }
-                                  ],
-                                  staticClass: "form-control",
-                                  attrs: {
-                                    name: "competences",
-                                    placeholder:
-                                      "Es la explicacion o sintesis de la unidad.",
-                                    required: ""
-                                  },
-                                  domProps: { value: input.contenido },
-                                  on: {
-                                    change: function($event) {
-                                      return _vm.annualContentUpdateEvent(
-                                        $event,
-                                        t,
-                                        "inputs",
-                                        "contenido"
-                                      )
-                                    },
-                                    input: function($event) {
-                                      if ($event.target.composing) {
-                                        return
-                                      }
-                                      _vm.$set(
-                                        input,
-                                        "contenido",
-                                        $event.target.value
-                                      )
-                                    }
-                                  }
-                                }),
-                                _vm._v(" "),
-                                _c("div", { staticClass: "invalid-feedback" }, [
-                                  _vm._v("Please fill out this field")
-                                ])
-                              ])
-                            ]
-                          )
-                        }),
-                        _vm._v(" "),
-                        _c(
-                          "a",
-                          {
-                            directives: [
-                              {
-                                name: "show",
-                                rawName: "v-show",
-                                value:
-                                  _vm.activityForPIARStudents == true &&
-                                  _vm.piarStudents.length > 0,
-                                expression:
-                                  "(activityForPIARStudents == true && piarStudents.length > 0)"
-                              }
-                            ],
-                            staticClass: "btn btn-primary",
-                            on: { click: _vm.showPIARPlanT }
-                          },
-                          [
-                            _vm._v(
-                              "Crear Planificación General Estudiantes PIAR"
-                            )
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "div",
-                          {
-                            directives: [
-                              {
-                                name: "show",
-                                rawName: "v-show",
-                                value:
-                                  _vm.activityForPIARStudents == true &&
-                                  _vm.piarStudents.length > 0,
-                                expression:
-                                  "(activityForPIARStudents == true && piarStudents.length > 0)"
-                              }
-                            ],
-                            staticClass: "mt-3"
-                          },
-                          _vm._l(_vm.inputsPIAR1, function(inputsP1, keyy) {
-                            return _c(
-                              "div",
-                              {
-                                key: keyy,
-                                staticClass: "form-group row mx-auto"
-                              },
-                              [
-                                _c("div", { staticClass: "col-md-6" }, [
-                                  _c("label", { attrs: { for: "name" } }, [
-                                    _vm._v("Indicador")
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("span", [
-                                    _c(
-                                      "a",
-                                      {
-                                        directives: [
-                                          {
-                                            name: "show",
-                                            rawName: "v-show",
-                                            value:
-                                              keyy > 0 &&
-                                              _vm.inputsP1_saved.length <= keyy,
-                                            expression:
-                                              "(keyy > 0 && inputsP1_saved.length<=keyy)"
-                                          }
-                                        ],
-                                        staticClass: "badge badge-danger",
-                                        attrs: { href: "#" },
-                                        on: {
-                                          click: function($event) {
-                                            $event.preventDefault()
-                                            return _vm.removeP1(keyy)
-                                          }
-                                        }
-                                      },
-                                      [_vm._v("-")]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "a",
-                                      {
-                                        directives: [
-                                          {
-                                            name: "show",
-                                            rawName: "v-show",
-                                            value:
-                                              keyy ==
-                                              _vm.inputsPIAR1.length - 1,
-                                            expression:
-                                              "keyy == inputsPIAR1.length -1"
-                                          }
-                                        ],
-                                        staticClass: "badge badge-primary",
-                                        attrs: { href: "#" },
-                                        on: {
-                                          click: function($event) {
-                                            $event.preventDefault()
-                                            return _vm.addP1(keyy)
-                                          }
-                                        }
-                                      },
-                                      [_vm._v("+")]
-                                    )
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("div", [
-                                    _c("input", {
-                                      directives: [
-                                        {
-                                          name: "model",
-                                          rawName: "v-model",
-                                          value: inputsP1.namePIAR,
-                                          expression: "inputsP1.namePIAR"
-                                        }
-                                      ],
-                                      staticClass: "form-control",
-                                      attrs: {
-                                        type: "text",
-                                        name: "objetive1",
-                                        placeholder: "Nombre de la unidad",
-                                        required: ""
-                                      },
-                                      domProps: { value: inputsP1.namePIAR },
-                                      on: {
-                                        change: function($event) {
-                                          return _vm.annualContentUpdateEvent(
-                                            $event,
-                                            keyy,
-                                            "inputsPIAR1",
-                                            "namePIAR"
-                                          )
-                                        },
-                                        input: function($event) {
-                                          if ($event.target.composing) {
-                                            return
-                                          }
-                                          _vm.$set(
-                                            inputsP1,
-                                            "namePIAR",
-                                            $event.target.value
-                                          )
-                                        }
-                                      }
-                                    })
-                                  ])
-                                ]),
-                                _vm._v(" "),
-                                _c("div", { staticClass: "col-md-6" }, [
-                                  _c("label", { attrs: { for: "name" } }, [
-                                    _vm._v("Contenido")
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("textarea", {
-                                    directives: [
-                                      {
-                                        name: "model",
-                                        rawName: "v-model",
-                                        value: inputsP1.contenidoPIAR,
-                                        expression: "inputsP1.contenidoPIAR"
-                                      }
-                                    ],
-                                    staticClass: "form-control",
-                                    attrs: {
-                                      name: "competences",
-                                      placeholder:
-                                        "Es la explicacion o sintesis de la unidad.",
-                                      required: ""
-                                    },
-                                    domProps: { value: inputsP1.contenidoPIAR },
-                                    on: {
-                                      change: function($event) {
-                                        return _vm.annualContentUpdateEvent(
-                                          $event,
-                                          keyy,
-                                          "inputsPIAR1",
-                                          "contenidoPIAR"
-                                        )
-                                      },
-                                      input: function($event) {
-                                        if ($event.target.composing) {
-                                          return
-                                        }
-                                        _vm.$set(
-                                          inputsP1,
-                                          "contenidoPIAR",
-                                          $event.target.value
-                                        )
-                                      }
-                                    }
-                                  }),
-                                  _vm._v(" "),
-                                  _c(
-                                    "div",
-                                    { staticClass: "invalid-feedback" },
-                                    [_vm._v("Please fill out this field")]
-                                  )
-                                ])
-                              ]
-                            )
                           }),
                           0
                         )
