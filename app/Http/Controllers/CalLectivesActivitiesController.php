@@ -41,7 +41,7 @@ class CalLectivesActivitiesController extends Controller
     }
 
     public function getLectivesActivitiesCal(String $lective_planification){
-        $data = DB::table('Lective_planification')
+        $data = DB::table('lective_planification')
                 ->join('lective_collection','lective_planification.id_lective','=','lective_collection.id')
                 ->join('lective_weekly_plan','lective_planification.id','=','lective_weekly_plan.id_lective_planification')
                 ->join('lective_class','lective_weekly_plan.id','=','lective_class.id_lective_weekly_plan')
