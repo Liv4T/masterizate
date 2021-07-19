@@ -6,38 +6,19 @@
           <h3 class="card-header fondo">Mis clases</h3>
           <div class="card-body">
             <div class="accordion" id="accordionExample">
-              <div class="card" v-for="(area,t) in areas" :key="t">
+              <div class="card" v-for="(area, t) in areas" :key="t">
                 <div class="card-header">
                   <h2 class="mb-0">
-                    <button
-                      class="btn btn-link"
-                      type="button"
-                      data-toggle="collapse"
-                      :data-target="'#collapse'+t"
-                      aria-expanded="false"
-                      @click.prevent="botones(area.id, area.id_classroom)"
-                      aria-controls="collapse"
-                    >
+                    <button class="btn btn-link" type="button" data-toggle="collapse" :data-target="'#collapse' + t" aria-expanded="false" @click.prevent="botones(area.id, area.id_classroom)" aria-controls="collapse">
                       <label>{{ area.text }}</label>
                     </button>
                   </h2>
                 </div>
-                <div
-                  :id="'collapse'+t"
-                  class="collapse hide"
-                  aria-labelledby="heading"
-                  data-parent="#accordionExample"
-                >
-                      <div v-for="(clas,k) in clases" v-bind:key="k"
-                            style="display: inline-grid;padding:10px;">
-                                <a
-                                    class="btn btn-warning"
-                                    v-on:click.prevent="editNames(clas.id, clas.id_area, clas.id_classroom)"
-                                    v-if="clas.id_classroom==area.id_classroom && clas.id_area==area.id"
-                                >{{ clas.text }}</a>
-                      </div>
-                       <span v-if="clases.length==0">No hay clases</span>
-
+                <div :id="'collapse' + t" class="collapse hide" aria-labelledby="heading" data-parent="#accordionExample">
+                  <div v-for="(clas, k) in clases" v-bind:key="k" style="display: inline-grid; padding: 10px">
+                    <a class="btn btn-warning" v-on:click.prevent="editNames(clas.id, clas.id_area, clas.id_classroom)" v-if="clas.id_classroom == area.id_classroom && clas.id_area == area.id">{{ clas.text }}</a>
+                  </div>
+                  <span v-if="clases.length == 0">No hay clases</span>
                 </div>
               </div>
             </div>
@@ -55,162 +36,105 @@
                 </button>
               </h3>
               <div class="float-right">
-                <a
-                  class="btn btn-warning float-right"
-                  :href="'/crear_clase/'+Iarea+'/'+Iclassroom"
-                >Crear Clase</a>
+                <a class="btn btn-warning float-right" :href="'/crear_clase/' + Iarea + '/' + Iclassroom">Crear Clase</a>
               </div>
 
               <div class="card-body">
                 <div class="accordion" id="accordionExample">
                   <div class="card" v-for="(clas, t) in fillS" :key="t">
-                    <div class="card-header" :id="'heading' +t">
+                    <div class="card-header" :id="'heading' + t">
                       <h2 class="mb-0">
-                        <button
-                          class="btn btn-link"
-                          type="button"
-                          data-toggle="collapse"
-                          :data-target="'#collapse' +t"
-                          aria-expanded="true"
-                          :aria-controls="'collapse' +t"
-                        >Clase {{ t+1 }}</button>
-                        <a
-                          class="btn btn-warning float-right"
-                          :href="'/editar_clase/'+clas.id+'/'+Iarea+'/'+Iclassroom"
-                        >Editar</a>
+                        <button class="btn btn-link" type="button" data-toggle="collapse" :data-target="'#collapse' + t" aria-expanded="true" :aria-controls="'collapse' + t">Clase {{ t + 1 }}</button>
+                        <a class="btn btn-warning float-right" :href="'/editar_clase/' + clas.id + '/' + Iarea + '/' + Iclassroom">Editar</a>
                       </h2>
                     </div>
-                    <div
-                      :id="'collapse' +t"
-                      class="collapse show"
-                      :aria-labelledby="'heading' +t"
-                      data-parent="#accordionExample"
-                    >
+                    <div :id="'collapse' + t" class="collapse show" :aria-labelledby="'heading' + t" data-parent="#accordionExample">
                       <div class="card-body">
                         <div class="form-group text-center">
                           <strong for="name">Nombre</strong>
-                          <div style="font-weight: bold;">{{ clas.name }}</div>
+                          <div style="font-weight: bold">{{ clas.name }}</div>
                         </div>
                         <div class="form-group text-center">
                           <strong for="name">Descripción</strong>
 
-                          <p>{{clas.description }}</p>
+                          <p>{{ clas.description }}</p>
                         </div>
-                        <div
-                          class="form-group text-center"
-                          v-show="clas.document!= ''||clas.document1!= ''||clas.document2!= ''"
-                        >
+                        <div class="form-group text-center" v-show="clas.document != '' || clas.document1 != '' || clas.document2 != ''">
                           <strong for="name">Documento</strong>
 
-                          <div v-show="clas.document!= ''">
+                          <div v-show="clas.document != ''">
                             {{ clas.name_document }}
                             <a :href="clas.document" download>
                               <a :href="clas.document" download>
-                                <i class="fas fa-file-download fa-2x" style="color: grey;"></i>
-                                <span style="color:grey">Descargar</span>
+                                <i class="fas fa-file-download fa-2x" style="color: grey"></i>
+                                <span style="color: grey">Descargar</span>
                                 <!-- {{ conversation.file_name }} -->
                               </a>
                             </a>
                           </div>
                           <br />
-                          <div v-show="clas.document1!= ''">
+                          <div v-show="clas.document1 != ''">
                             Documento adicional:
                             <a :href="clas.document1" download>
                               <a :href="clas.document1" download>
-                                <i class="fas fa-file-download fa-2x" style="color: grey;"></i>
-                                <span style="color:grey">Descargar</span>
+                                <i class="fas fa-file-download fa-2x" style="color: grey"></i>
+                                <span style="color: grey">Descargar</span>
                                 <!-- {{ conversation.file_name }} -->
                               </a>
                             </a>
                           </div>
                           <br />
-                          <div v-show="clas.document2!= ''">
+                          <div v-show="clas.document2 != ''">
                             Documento adicional:
                             <a :href="clas.document2" download>
                               <a :href="clas.document2" download>
-                                <i class="fas fa-file-download fa-2x" style="color: grey;"></i>
-                                <span style="color:grey">Descargar</span>
+                                <i class="fas fa-file-download fa-2x" style="color: grey"></i>
+                                <span style="color: grey">Descargar</span>
                                 <!-- {{ conversation.file_name }} -->
                               </a>
                             </a>
                           </div>
                         </div>
-                        <div class="form-group text-center" v-show="clas.url!='' ">
+                        <div class="form-group text-center" v-show="clas.url != ''">
                           <strong for="name">Enlace de apoyo</strong>
 
                           <div>
-                            <a
-                              :href="clas.url"
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              style="color:blue"
-                            >{{ clas.url }}</a>
+                            <a :href="clas.url" target="_blank" rel="noopener noreferrer" style="color: blue">{{ clas.url }}</a>
                           </div>
                           <div>
-                            <a
-                              :href="clas.url1"
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              style="color:blue"
-                            >{{ clas.url1 }}</a>
+                            <a :href="clas.url1" target="_blank" rel="noopener noreferrer" style="color: blue">{{ clas.url1 }}</a>
                           </div>
                           <div>
-                            <a
-                              :href="clas.url2"
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              style="color:blue"
-                            >{{ clas.url2 }}</a>
+                            <a :href="clas.url2" target="_blank" rel="noopener noreferrer" style="color: blue">{{ clas.url2 }}</a>
                           </div>
                         </div>
-                        <div
-                          class="form-group text-center"
-                          v-show="clas.video!= ''||clas.video1!= ''||clas.video2!= ''"
-                        >
+                        <div class="form-group text-center" v-show="clas.video != '' || clas.video1 != '' || clas.video2 != ''">
                           <strong for="name">Video</strong>
                         </div>
                         <div class="form-group text-center">
-                          <div v-show="clas.video!= ''">
+                          <div v-show="clas.video != ''">
                             <video controls v-show="clas.video_youtube == ''">
                               <source :src="clas.video" />
                             </video>
-                            <iframe
-                              v-show="clas.video_youtube!= ''"
-                              class="embed-responsive-item"
-                              :src="clas.video_youtube"
-                              allowfullscreen
-                            ></iframe>
+                            <iframe v-show="clas.video_youtube != ''" class="embed-responsive-item" :src="clas.video_youtube" allowfullscreen></iframe>
                           </div>
                           <br />
-                          <div v-show="clas.video1!= ''">
+                          <div v-show="clas.video1 != ''">
                             <video controls v-show="clas.video1_youtube == ''">
                               <source :src="clas.video1" />
                             </video>
-                            <iframe
-                              v-show="clas.video1_youtube!= ''"
-                              class="embed-responsive-item"
-                              :src="clas.video1_youtube"
-                              allowfullscreen
-                            ></iframe>
+                            <iframe v-show="clas.video1_youtube != ''" class="embed-responsive-item" :src="clas.video1_youtube" allowfullscreen></iframe>
                           </div>
                           <br />
-                          <div v-show="clas.video2!= ''">
+                          <div v-show="clas.video2 != ''">
                             <video controls v-show="clas.video2_youtube == ''">
                               <source :src="clas.video2" />
                             </video>
-                            <iframe
-                              v-show="clas.video2_youtube!= ''"
-                              class="embed-responsive-item"
-                              :src="clas.video2_youtube"
-                              allowfullscreen
-                            ></iframe>
+                            <iframe v-show="clas.video2_youtube != ''" class="embed-responsive-item" :src="clas.video2_youtube" allowfullscreen></iframe>
                           </div>
                         </div>
                         <div class="modal-footer">
-                          <a
-                            class="btn btn-warning"
-                            :href="'/actividad_d/' + clas.id_weekly_plan"
-                          >Crear Actividad</a>
+                          <a class="btn btn-warning" :href="'/actividad_d/' + clas.id_weekly_plan">Crear Actividad</a>
                         </div>
                       </div>
                     </div>

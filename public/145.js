@@ -1,9 +1,9 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[145],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/parentsPedagogic.vue?vue&type=script&lang=js&":
-/*!***************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/parentsPedagogic.vue?vue&type=script&lang=js& ***!
-  \***************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/newMenuAdm.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/newMenuAdm.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -103,106 +103,24 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  data: function data() {
-    return {
-      getPermission: [],
-      pedagogical_activity: '',
-      departure_time: '',
-      time_arrival: '',
-      description: '',
-      permission: null,
-      id_to_update: ''
-    };
-  },
-  mounted: function mounted() {
-    this.getPedagogics();
-  },
   methods: {
-    getPedagogics: function getPedagogics() {
-      var _this = this;
-
-      axios.get('/getPedagogicalToAprove').then(function (response) {
-        var getPermission = response.data;
-        getPermission.forEach(function (element) {
-          axios.get("permissionPedagogics/".concat(element.id_student)).then(function (response) {
-            if (response.data.permission !== undefined) {
-              _this.getPermission.push({
-                id_to_update: response.data.id,
-                pedagogical_activity: element.pedagogical_activity,
-                departure_time: element.departure_time,
-                time_arrival: element.time_arrival,
-                description: element.description,
-                pedagogical_id: element.pedagogical_id,
-                id_student: element.id_student,
-                name_student: element.name_student,
-                parent_id: element.parent_id,
-                permission: response.data.permission === "1" ? true : false
-              });
-            } else {
-              _this.getPermission.push({
-                pedagogical_activity: element.pedagogical_activity,
-                departure_time: element.departure_time,
-                time_arrival: element.time_arrival,
-                description: element.description,
-                pedagogical_id: element.pedagogical_id,
-                id_student: element.id_student,
-                name_student: element.name_student,
-                parent_id: element.parent_id
-              });
-            }
-          });
-        });
-      });
-    },
-    aprobalReject: function aprobalReject(data) {
-      this.id_to_update = data.id_to_update, //datos por defecto en el modal
-      this.pedagogical_activity = data.pedagogical_activity, this.departure_time = data.departure_time, this.time_arrival = data.time_arrival, this.description = data.description, //Datos ids para guardar en tabla
-      this.pedagogical_id = data.pedagogical_id;
-      this.id_student = data.id_student;
-      this.parent_id = data.parent_id;
-      this.permission = data.permission;
-      $('#exampleModal').modal('show');
-    },
-    savePermission: function savePermission() {
-      if (this.id_to_update) {
-        axios.put("/permissionPedagogics/".concat(this.id_to_update), {
-          pedagogical_activity: this.pedagogical_activity,
-          pedagogical_id: this.pedagogical_id,
-          id_student: this.id_student,
-          parent_id: this.parent_id,
-          permission: this.permission
-        }).then(function (response) {
-          toastr.success(response.data);
-          window.location = '/parentsPedagogic';
-        })["catch"](function (error) {
-          toastr.info('Ups, algo ha sucedido, intenta mas tarde');
-          console.log(error);
-        });
-      } else {
-        axios.post('/permissionPedagogics', {
-          pedagogical_activity: this.pedagogical_activity,
-          pedagogical_id: this.pedagogical_id,
-          id_student: this.id_student,
-          parent_id: this.parent_id,
-          permission: this.permission
-        }).then(function (response) {
-          toastr.success(response.data);
-          window.location = '/parentsPedagogic';
-        })["catch"](function (error) {
-          toastr.info('Ups, algo ha sucedido, intenta mas tarde');
-          console.log(error);
-        });
-      }
+    logout: function logout() {
+      axios.post("logout").then(function (response) {
+        if (response.status === 302 || 401) {
+          window.location.href = "/login";
+        } else {// throw error and go to catch block
+        }
+      })["catch"](function (error) {});
     }
   }
 });
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/parentsPedagogic.vue?vue&type=template&id=21ad37ae&":
-/*!*******************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/parentsPedagogic.vue?vue&type=template&id=21ad37ae& ***!
-  \*******************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/newMenuAdm.vue?vue&type=template&id=0b798fd4&":
+/*!*************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/newMenuAdm.vue?vue&type=template&id=0b798fd4& ***!
+  \*************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -214,264 +132,384 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "back" }, [
-    _c("div", { staticClass: "row justify-content-center" }, [
-      _c("div", { staticClass: "col-sm-10", attrs: { id: "crud" } }, [
-        _vm._m(0),
-        _vm._v(" "),
-        _c("div", { staticClass: "card" }, [
-          _c("div", { staticClass: "card-body" }, [
-            _c(
-              "table",
-              {
-                staticClass:
-                  "table table-responsive-xl table-hover table-striped center"
-              },
-              [
-                _vm._m(1),
-                _vm._v(" "),
-                _vm._l(_vm.getPermission, function(pedag, key) {
-                  return _c("tbody", { key: key }, [
-                    _c("tr", [
-                      _c("td", [_vm._v(_vm._s(pedag.pedagogical_activity))]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(pedag.departure_time))]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(pedag.time_arrival))]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(pedag.name_student))]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(pedag.description))]),
-                      _vm._v(" "),
-                      _c("th", [
-                        _vm._v(
-                          _vm._s(
-                            pedag.permission === true
-                              ? "Permitido"
-                              : "Sin Permiso"
-                          )
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("td", [
-                        _c(
-                          "button",
-                          {
-                            staticClass: "btn btn-primary",
-                            on: {
-                              click: function($event) {
-                                return _vm.aprobalReject(pedag)
-                              }
-                            }
-                          },
-                          [_vm._v("Aprobar / Rechazar")]
-                        )
-                      ])
-                    ])
-                  ])
-                })
-              ],
-              2
-            )
-          ])
-        ])
-      ])
-    ]),
-    _vm._v(" "),
-    _c(
-      "div",
-      {
-        staticClass: "modal fade",
-        attrs: {
-          id: "exampleModal",
-          tabindex: "-1",
-          role: "dialog",
-          "aria-labelledby": "exampleModalLabel",
-          "aria-hidden": "true"
-        }
-      },
-      [
-        _c(
-          "div",
-          { staticClass: "modal-dialog", attrs: { role: "document" } },
-          [
-            _c("div", { staticClass: "modal-content" }, [
-              _vm._m(2),
-              _vm._v(" "),
-              _c("div", { staticClass: "modal-body" }, [
-                _c("div", { staticClass: "form-group" }, [
-                  _c("label", { attrs: { for: "" } }, [_vm._v("Actividad: ")]),
-                  _vm._v(" "),
-                  _c("br"),
-                  _vm._v(" "),
-                  _c("strong", [_vm._v(_vm._s(_vm.pedagogical_activity))])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "form-group" }, [
-                  _c("label", { attrs: { for: "" } }, [
-                    _vm._v("Fecha / Hora Salida: ")
-                  ]),
-                  _vm._v(" "),
-                  _c("br"),
-                  _vm._v(" "),
-                  _c("strong", [_vm._v(_vm._s(_vm.departure_time))])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "form-group" }, [
-                  _c("label", { attrs: { for: "" } }, [
-                    _vm._v("Fecha / Hora Llegada: ")
-                  ]),
-                  _vm._v(" "),
-                  _c("br"),
-                  _vm._v(" "),
-                  _c("strong", [_vm._v(_vm._s(_vm.time_arrival))])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "form-group" }, [
-                  _c("label", { attrs: { for: "" } }, [
-                    _vm._v("Descripción: ")
-                  ]),
-                  _vm._v(" "),
-                  _c("br"),
-                  _vm._v(" "),
-                  _c("strong", [_vm._v(_vm._s(_vm.description))])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "form-group" }, [
-                  _c("label", { attrs: { for: "" } }, [_vm._v("Permiso")]),
-                  _vm._v(" "),
-                  _c("br"),
-                  _vm._v(" "),
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.permission,
-                        expression: "permission"
-                      }
-                    ],
-                    attrs: { type: "radio", name: "gender" },
-                    domProps: {
-                      value: true,
-                      checked: _vm._q(_vm.permission, true)
-                    },
-                    on: {
-                      change: function($event) {
-                        _vm.permission = true
-                      }
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c("label", [_vm._v("Permitir")]),
-                  _vm._v(" "),
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.permission,
-                        expression: "permission"
-                      }
-                    ],
-                    attrs: { type: "radio", name: "gender" },
-                    domProps: {
-                      value: false,
-                      checked: _vm._q(_vm.permission, false)
-                    },
-                    on: {
-                      change: function($event) {
-                        _vm.permission = false
-                      }
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c("label", [_vm._v("Denegar")]),
-                  _c("br")
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "modal-footer" }, [
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-secondary",
-                    attrs: { type: "button", "data-dismiss": "modal" }
-                  },
-                  [_vm._v("Cerrar")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-primary",
-                    attrs: { type: "button" },
-                    on: { click: _vm.savePermission }
-                  },
-                  [_vm._v("Guardar")]
-                )
-              ])
-            ])
-          ]
-        )
-      ]
-    )
-  ])
+  return _vm._m(0)
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-header fondo text-center mb-3" }, [
-      _c("h4", [_vm._v("Académico")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("thead", [
-      _c("tr", [
-        _c("th", [_vm._v("Actividad Pedagogica")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Fecha / hora de Salida")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Fecha / hora de LLegada")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Estudiante Invitado")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Descripción")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Permiso")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Acción")])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "modal-header" }, [
+    return _c("div", { staticClass: "mb-3 text-center" }, [
       _c(
-        "h5",
-        { staticClass: "modal-title", attrs: { id: "exampleModalLabel" } },
-        [_vm._v("Permiso de Salida")]
+        "a",
+        {
+          staticClass: "btn btn-sm btn-secondary",
+          attrs: { href: "/perfil_d" }
+        },
+        [_vm._v("\n        Mi Perfil\n    ")]
       ),
       _vm._v(" "),
-      _c(
-        "button",
-        {
-          staticClass: "close",
-          attrs: {
-            type: "button",
-            "data-dismiss": "modal",
-            "aria-label": "Close"
-          }
-        },
-        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
-      )
+      _c("div", { staticClass: "dropdown" }, [
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-sm btn-secondary dropdown-toggle",
+            attrs: {
+              type: "button",
+              id: "admin",
+              "data-toggle": "dropdown",
+              "aria-haspopup": "true",
+              "aria-expanded": "false"
+            }
+          },
+          [_vm._v("\n            Administrativo\n        ")]
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass: "dropdown-menu",
+            attrs: { "aria-labelledby": "admin" }
+          },
+          [
+            _c(
+              "a",
+              {
+                staticClass: "dropdown-item",
+                attrs: { href: "instituciones_adm" }
+              },
+              [_vm._v("Crear Instituciones")]
+            ),
+            _vm._v(" "),
+            _c(
+              "a",
+              { staticClass: "dropdown-item", attrs: { href: "general_adm" } },
+              [_vm._v("Crear Salones")]
+            ),
+            _vm._v(" "),
+            _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
+              _vm._v("Crear Perfiles")
+            ]),
+            _vm._v(" "),
+            _c(
+              "a",
+              { staticClass: "dropdown-item", attrs: { href: "/piar" } },
+              [_vm._v("Estudiantes PIAR")]
+            ),
+            _vm._v(" "),
+            _c(
+              "a",
+              { staticClass: "dropdown-item", attrs: { href: "/salon_adm" } },
+              [_vm._v("Crear Usuarios")]
+            ),
+            _vm._v(" "),
+            _c(
+              "a",
+              {
+                staticClass: "dropdown-item",
+                attrs: { href: "/admin/configuracion" }
+              },
+              [_vm._v("Parametros de Notas")]
+            ),
+            _vm._v(" "),
+            _c(
+              "a",
+              { staticClass: "dropdown-item", attrs: { href: "/nursing" } },
+              [_vm._v("Enfermería")]
+            ),
+            _vm._v(" "),
+            _c(
+              "a",
+              { staticClass: "dropdown-item", attrs: { href: "/foods" } },
+              [_vm._v("Alimentación")]
+            ),
+            _vm._v(" "),
+            _c(
+              "a",
+              { staticClass: "dropdown-item", attrs: { href: "/pedagogic" } },
+              [_vm._v("Transporte")]
+            ),
+            _vm._v(" "),
+            _c(
+              "a",
+              { staticClass: "dropdown-item", attrs: { href: "/reportAdmin" } },
+              [_vm._v("Reporte Actividades y Planificación Anual")]
+            )
+          ]
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "dropdown" }, [
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-sm btn-secondary dropdown-toggle",
+            attrs: {
+              type: "button",
+              id: "comunication",
+              "data-toggle": "dropdown",
+              "aria-haspopup": "true",
+              "aria-expanded": "false"
+            }
+          },
+          [_vm._v("\n            Comunicaciones\n        ")]
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass: "dropdown-menu",
+            attrs: { "aria-labelledby": "comunication" }
+          },
+          [
+            _c(
+              "a",
+              { staticClass: "dropdown-item", attrs: { href: "/mensajes" } },
+              [_vm._v("Mensajes")]
+            ),
+            _vm._v(" "),
+            _c(
+              "a",
+              { staticClass: "dropdown-item", attrs: { href: "/calendar" } },
+              [_vm._v("Calendario")]
+            ),
+            _vm._v(" "),
+            _c(
+              "a",
+              { staticClass: "dropdown-item", attrs: { href: "/questions" } },
+              [_vm._v("Foro")]
+            ),
+            _vm._v(" "),
+            _c(
+              "a",
+              { staticClass: "dropdown-item", attrs: { href: "/chat" } },
+              [_vm._v("Chat")]
+            ),
+            _vm._v(" "),
+            _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
+              _vm._v("Universidades")
+            ])
+          ]
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "dropdown" }, [
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-sm btn-secondary dropdown-toggle",
+            attrs: {
+              type: "button",
+              id: "academic",
+              "data-toggle": "dropdown",
+              "aria-haspopup": "true",
+              "aria-expanded": "false"
+            }
+          },
+          [_vm._v("\n            Académico\n        ")]
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass: "dropdown-menu",
+            attrs: { "aria-labelledby": "academic" }
+          },
+          [
+            _c(
+              "a",
+              {
+                staticClass: "dropdown-item",
+                attrs: { href: "/planificacion" }
+              },
+              [_vm._v("Planificación General")]
+            ),
+            _vm._v(" "),
+            _c(
+              "a",
+              {
+                staticClass: "dropdown-item",
+                attrs: { href: "/docente/clases" }
+              },
+              [_vm._v("Ciclos Y Clases")]
+            ),
+            _vm._v(" "),
+            _c(
+              "a",
+              {
+                staticClass: "dropdown-item",
+                attrs: { href: "/deleteClassAndCicles" }
+              },
+              [_vm._v("Permisos Eliminar Ciclos")]
+            ),
+            _vm._v(" "),
+            _c(
+              "a",
+              { staticClass: "dropdown-item", attrs: { href: "/notas_d" } },
+              [_vm._v("Notas")]
+            ),
+            _vm._v(" "),
+            _c(
+              "a",
+              { staticClass: "dropdown-item", attrs: { href: "/utils" } },
+              [_vm._v("Útiles")]
+            ),
+            _vm._v(" "),
+            _c(
+              "a",
+              { staticClass: "dropdown-item", attrs: { href: "/pedagogic" } },
+              [_vm._v("Salidas Pedagógicas")]
+            ),
+            _vm._v(" "),
+            _c(
+              "a",
+              {
+                staticClass: "dropdown-item",
+                attrs: { href: "/teacher/lectives/planning" }
+              },
+              [_vm._v("Administrar Electivas")]
+            ),
+            _vm._v(" "),
+            _c(
+              "a",
+              {
+                staticClass: "dropdown-item",
+                attrs: { href: "/teacher/lectives/courses" }
+              },
+              [_vm._v("Clases Electivas")]
+            ),
+            _vm._v(" "),
+            _c(
+              "a",
+              {
+                staticClass: "dropdown-item",
+                attrs: { href: "/motiveAssistants" }
+              },
+              [_vm._v("Creación de Motivos de Asistencia")]
+            ),
+            _vm._v(" "),
+            _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
+              _vm._v("Exalumnos")
+            ]),
+            _vm._v(" "),
+            _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
+              _vm._v("Informes")
+            ])
+          ]
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "dropdown" }, [
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-sm btn-secondary dropdown-toggle",
+            attrs: {
+              type: "button",
+              id: "formation",
+              "data-toggle": "dropdown",
+              "aria-haspopup": "true",
+              "aria-expanded": "false"
+            }
+          },
+          [_vm._v("\n            Formación\n        ")]
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass: "dropdown-menu",
+            attrs: { "aria-labelledby": "formation" }
+          },
+          [
+            _c(
+              "a",
+              { staticClass: "dropdown-item", attrs: { href: "/mensajes" } },
+              [_vm._v("Psicología")]
+            ),
+            _vm._v(" "),
+            _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
+              _vm._v("Casos")
+            ]),
+            _vm._v(" "),
+            _c(
+              "a",
+              {
+                staticClass: "dropdown-item",
+                attrs: { href: "permissionPedagogic" }
+              },
+              [_vm._v("Permisos")]
+            ),
+            _vm._v(" "),
+            _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
+              _vm._v("Proyectos Transversales")
+            ]),
+            _vm._v(" "),
+            _c(
+              "a",
+              { staticClass: "dropdown-item", attrs: { href: "/observer" } },
+              [_vm._v("Observador del Alumno")]
+            )
+          ]
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "dropdown" }, [
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-sm btn-secondary dropdown-toggle",
+            attrs: {
+              type: "button",
+              id: "electives",
+              "data-toggle": "dropdown",
+              "aria-haspopup": "true",
+              "aria-expanded": "false"
+            }
+          },
+          [_vm._v("\n            Gobierno Escolar\n        ")]
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass: "dropdown-menu",
+            attrs: { "aria-labelledby": "electives" }
+          },
+          [
+            _c(
+              "a",
+              { staticClass: "dropdown-item", attrs: { href: "/chat" } },
+              [_vm._v("Chat")]
+            ),
+            _vm._v(" "),
+            _c(
+              "a",
+              {
+                staticClass: "dropdown-item",
+                attrs: { href: "/governmentMembers" }
+              },
+              [_vm._v("Quiénes lo Conforman")]
+            ),
+            _vm._v(" "),
+            _c(
+              "a",
+              { staticClass: "dropdown-item", attrs: { href: "/legislation" } },
+              [_vm._v("Legislación")]
+            ),
+            _vm._v(" "),
+            _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
+              _vm._v("Actas y Circulares")
+            ])
+          ]
+        )
+      ]),
+      _vm._v(" "),
+      _c("a", { attrs: { href: "/reportes" } }, [
+        _c("button", { staticClass: "btn btn-sm btn-secondary" }, [
+          _vm._v("\n            Mis Reportes\n        ")
+        ])
+      ])
     ])
   }
 ]
@@ -481,17 +519,17 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./resources/js/components/parentsPedagogic.vue":
-/*!******************************************************!*\
-  !*** ./resources/js/components/parentsPedagogic.vue ***!
-  \******************************************************/
+/***/ "./resources/js/components/newMenuAdm.vue":
+/*!************************************************!*\
+  !*** ./resources/js/components/newMenuAdm.vue ***!
+  \************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _parentsPedagogic_vue_vue_type_template_id_21ad37ae___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./parentsPedagogic.vue?vue&type=template&id=21ad37ae& */ "./resources/js/components/parentsPedagogic.vue?vue&type=template&id=21ad37ae&");
-/* harmony import */ var _parentsPedagogic_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./parentsPedagogic.vue?vue&type=script&lang=js& */ "./resources/js/components/parentsPedagogic.vue?vue&type=script&lang=js&");
+/* harmony import */ var _newMenuAdm_vue_vue_type_template_id_0b798fd4___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./newMenuAdm.vue?vue&type=template&id=0b798fd4& */ "./resources/js/components/newMenuAdm.vue?vue&type=template&id=0b798fd4&");
+/* harmony import */ var _newMenuAdm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./newMenuAdm.vue?vue&type=script&lang=js& */ "./resources/js/components/newMenuAdm.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -501,9 +539,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _parentsPedagogic_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _parentsPedagogic_vue_vue_type_template_id_21ad37ae___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _parentsPedagogic_vue_vue_type_template_id_21ad37ae___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _newMenuAdm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _newMenuAdm_vue_vue_type_template_id_0b798fd4___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _newMenuAdm_vue_vue_type_template_id_0b798fd4___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -513,38 +551,38 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/components/parentsPedagogic.vue"
+component.options.__file = "resources/js/components/newMenuAdm.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/components/parentsPedagogic.vue?vue&type=script&lang=js&":
-/*!*******************************************************************************!*\
-  !*** ./resources/js/components/parentsPedagogic.vue?vue&type=script&lang=js& ***!
-  \*******************************************************************************/
+/***/ "./resources/js/components/newMenuAdm.vue?vue&type=script&lang=js&":
+/*!*************************************************************************!*\
+  !*** ./resources/js/components/newMenuAdm.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_parentsPedagogic_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./parentsPedagogic.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/parentsPedagogic.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_parentsPedagogic_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_newMenuAdm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./newMenuAdm.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/newMenuAdm.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_newMenuAdm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/components/parentsPedagogic.vue?vue&type=template&id=21ad37ae&":
-/*!*************************************************************************************!*\
-  !*** ./resources/js/components/parentsPedagogic.vue?vue&type=template&id=21ad37ae& ***!
-  \*************************************************************************************/
+/***/ "./resources/js/components/newMenuAdm.vue?vue&type=template&id=0b798fd4&":
+/*!*******************************************************************************!*\
+  !*** ./resources/js/components/newMenuAdm.vue?vue&type=template&id=0b798fd4& ***!
+  \*******************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_parentsPedagogic_vue_vue_type_template_id_21ad37ae___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./parentsPedagogic.vue?vue&type=template&id=21ad37ae& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/parentsPedagogic.vue?vue&type=template&id=21ad37ae&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_parentsPedagogic_vue_vue_type_template_id_21ad37ae___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_newMenuAdm_vue_vue_type_template_id_0b798fd4___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./newMenuAdm.vue?vue&type=template&id=0b798fd4& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/newMenuAdm.vue?vue&type=template&id=0b798fd4&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_newMenuAdm_vue_vue_type_template_id_0b798fd4___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_parentsPedagogic_vue_vue_type_template_id_21ad37ae___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_newMenuAdm_vue_vue_type_template_id_0b798fd4___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

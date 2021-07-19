@@ -128,6 +128,8 @@ Vue.component("editarc-component", require("./components/editarClase.vue").defau
 Vue.component("landing-component",()=>import("./components/landing.vue"));
 Vue.component("footer-landing",()=>import("./components/footerLanding.vue"));
 
+Vue.component("general-teacher", () => import("./components/generalTeacher.vue"));
+Vue.component("clases-teacher", ()=>import("./components/clasesTeacher.vue"));
 Vue.component("inicio-component", ()=>import("./components/inicio.vue"));
 Vue.component("userinfo", ()=>import("./components/UserInfo"));
 Vue.component("answer", ()=>import("./components/Answer"));
@@ -292,9 +294,9 @@ Vue.component("modal-chat", ()=> import("./components/modalChat.vue"));
 Vue.component("members-chat", ()=> import("./components/modalMembers.vue"));
 
 //Tutorships
-Vue.component("purchase-tutorial-resume", () => import ("./components/purchaseTutorshipsResumeComponent.vue"));  
+Vue.component("purchase-tutorial-resume", () => import ("./components/purchaseTutorshipsResumeComponent.vue"));
 
-//Modulo para eliminar clases y ciclos 
+//Modulo para eliminar clases y ciclos
 Vue.component("component-delete-class-and-cicles", ()=> import("./components/deleteClassAndCicles.vue"));
 
 //Modulo para registro de asistencia
@@ -311,7 +313,7 @@ Vue.component("menu-nurse", ()=>import("./components/menuNurse.vue"));
 Vue.component("nursing-component", ()=>import("./components/NurseComponent.vue"));
 Vue.component("menu-adm-component", ()=>import("./components/newMenuAdm.vue"));
 
-//Modulo PIAR 
+//Modulo PIAR
 Vue.component("piar-component", ()=>import("./components/PIARStudentSelect.vue"));
 Vue.component("piar-planification", ()=>import("./components/PIARPlanification.vue"));
 Vue.component("piar-anual-planification", ()=>import("./components/PIARAnualPlanificationComponent.vue"));

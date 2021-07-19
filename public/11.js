@@ -95,14 +95,14 @@ __webpack_require__.r(__webpack_exports__);
     getPedagogical: function getPedagogical() {
       var _this = this;
 
-      axios.get('getPedagogic').then(function (response) {
+      axios.get("getPedagogic").then(function (response) {
         _this.groupData(response.data);
       });
     },
     getGrades: function getGrades() {
       var _this2 = this;
 
-      axios.get('getGrades').then(function (response) {
+      axios.get("getGrades").then(function (response) {
         _this2.gradeOptions = response.data;
       });
     },
@@ -113,7 +113,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     updatePedagogical: function updatePedagogical(data) {
       this.pedagogicalToEdit = data;
-      $('#updatePedagogical').modal('show');
+      $("#updatePedagogical").modal("show");
     },
     deletePedagogical: function deletePedagogical(id) {
       var _this3 = this;
@@ -440,9 +440,9 @@ var render = function() {
                           },
                           [
                             _vm._v(
-                              "\n                                    " +
+                              "\n                  " +
                                 _vm._s(grade) +
-                                "\n                                "
+                                "\n                "
                             )
                           ]
                         )
