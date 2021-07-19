@@ -111,6 +111,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   methods: {
     logout: function logout() {
@@ -335,6 +337,10 @@ var staticRenderFns = [
               _vm._v(" "),
               _c("a", { attrs: { href: "/teacher/lectives/activities" } }, [
                 _vm._v(" Mis actividades")
+              ]),
+              _vm._v(" "),
+              _c("a", { attrs: { href: "/teacher/lectives/notes" } }, [
+                _vm._v(" Notas")
               ])
             ])
           ])
@@ -378,7 +384,7 @@ var staticRenderFns = [
             "background-color": "#e26100",
             "border-color": "#e26100"
           },
-          attrs: { href: "" }
+          attrs: { href: "/chat" }
         },
         [_c("h4", [_vm._v("CHAT")])]
       ),
@@ -393,7 +399,7 @@ var staticRenderFns = [
             "background-color": "#e26100",
             "border-color": "#e26100"
           },
-          attrs: { href: "" }
+          attrs: { href: "/questions" }
         },
         [_c("h4", [_vm._v("FOROS")])]
       ),
@@ -407,7 +413,7 @@ var staticRenderFns = [
             "background-color": "#e26100",
             "border-color": "#e26100"
           },
-          attrs: { href: "" }
+          attrs: { href: "/mensajes" }
         },
         [_c("h4", [_vm._v("MENSAJES")])]
       ),

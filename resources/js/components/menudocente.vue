@@ -70,6 +70,8 @@
                     <a href="/teacher/lectives/students"> Mis alumnos </a>
 
                     <a href="/teacher/lectives/activities"> Mis actividades</a>
+
+                    <a href="/teacher/lectives/notes"> Notas</a>
                   </div>
                 </li>
               </a>
@@ -87,9 +89,9 @@
             </a>
           </ul>
           <div class="text-center">
-            <a href="" class="btn btn-warning letra-poppins-bold mg-btn" style="background-color: #e26100; border-color: #e26100"><h4>CHAT</h4> </a> <br />
-            <a href="" class="btn btn-warning letra-poppins-bold mg-btn" style="background-color: #e26100; border-color: #e26100"><h4>FOROS</h4> </a><br />
-            <a href="" class="btn btn-warning letra-poppins-bold mg-btn" style="background-color: #e26100; border-color: #e26100"><h4>MENSAJES</h4> </a><br />
+            <a href="/chat" class="btn btn-warning letra-poppins-bold mg-btn" style="background-color: #e26100; border-color: #e26100"><h4>CHAT</h4> </a> <br />
+            <a href="/questions" class="btn btn-warning letra-poppins-bold mg-btn" style="background-color: #e26100; border-color: #e26100"><h4>FOROS</h4> </a><br />
+            <a href="/mensajes" class="btn btn-warning letra-poppins-bold mg-btn" style="background-color: #e26100; border-color: #e26100"><h4>MENSAJES</h4> </a><br />
           </div>
           <div class="text-center">
             <a href="#" @click.prevent="logout" class="btn btn-warning">X Salir</a>
