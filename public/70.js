@@ -138,6 +138,10 @@ __webpack_require__.r(__webpack_exports__);
     cleanClasId: function cleanClasId() {
       this.clasId = "";
       this.idModule = "";
+    },
+    nameMinus: function nameMinus(name) {
+      var nameMinus = name.toLowerCase();
+      return nameMinus.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
     }
   }
 });
@@ -212,7 +216,7 @@ var render = function() {
     _vm.showLectives === false
       ? _c("div", [
           _c("h3", { staticClass: "card-header fondo" }, [
-            _vm._v("Mis clases")
+            _vm._v(_vm._s(_vm.$t("lang.class.myClasses")))
           ]),
           _vm._v(" "),
           _vm.clasId === ""
@@ -225,7 +229,19 @@ var render = function() {
                         "table table-responsive-xl table-hover table-striped center"
                     },
                     [
-                      _vm._m(0),
+                      _c("thead", [
+                        _c("tr", [
+                          _c("th", [
+                            _vm._v(_vm._s(_vm.$t("lang.class.learningCycle")))
+                          ]),
+                          _vm._v(" "),
+                          _c("th", [
+                            _vm._v(_vm._s(_vm.$t("lang.class.action")))
+                          ]),
+                          _vm._v(" "),
+                          _c("th")
+                        ])
+                      ]),
                       _vm._v(" "),
                       _vm._l(_vm.clases, function(clas, k) {
                         return _c("tbody", { key: k }, [
@@ -243,7 +259,7 @@ var render = function() {
                                     }
                                   }
                                 },
-                                [_vm._v("Ir a Ciclo")]
+                                [_vm._v(_vm._s(_vm.$t("lang.class.goToCycle")))]
                               )
                             ]),
                             _vm._v(" "),
@@ -282,7 +298,9 @@ var render = function() {
                                     ),
                                     _vm._v(" "),
                                     _c("p", { staticClass: "text-success" }, [
-                                      _vm._v("Completado")
+                                      _vm._v(
+                                        _vm._s(_vm.$t("lang.general.completed"))
+                                      )
                                     ])
                                   ])
                                 : _vm._e()
@@ -320,22 +338,7 @@ var render = function() {
         )
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("thead", [
-      _c("tr", [
-        _c("th", [_vm._v("Ciclo de aprendizaje")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Acción")]),
-        _vm._v(" "),
-        _c("th")
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 

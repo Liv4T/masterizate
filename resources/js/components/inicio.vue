@@ -3,7 +3,7 @@
         <div class="form-group width-r mx-auto">
             <div class="row pd-20">
                 <div class="dropdown col-md-2">
-                    <button class="btn btn-danger dropdown-toggle mg-btn" type="button" id="admin" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="box-shadow: 3px 3px 3px 3px #b0acac">Electives</button>
+                    <button class="btn btn-danger dropdown-toggle mg-btn" type="button" id="admin" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="box-shadow: 3px 3px 3px 3px #b0acac">{{ $t('lang.area.electivas') }}</button>
                     <div class="dropdown-menu" aria-labelledby="admin" v-for="(area, k) in planifications" :key="k">
                         <a class="dropdown-item" href="" @click.prevent="nameArea = area.lective.name, id_lective_planification = area.id_planification, idArea = '', idClassroom = ''">{{ area.lective.name }}</a>
                     </div>
@@ -11,7 +11,7 @@
 
                 <div class="col-md-2" v-for="(area, t) in areas" :key="t">
                     <a href="http://" class="btn btn-warning mg-btn" :style="area.style" @click.prevent="nameArea = area.text, colorTitle = area.titleColor, idArea = area.id, idClassroom = area.id_classroom">
-                        <h6 class="letra-poppins-bold" style="color: black">{{ area.text }}</h6>
+                        <h6 class="letra-poppins-bold" style="color: black">{{ $t('lang.area.'+nameMinus(area.text)) }}</h6>
                     </a>                    
                 </div>
             </div>
@@ -19,21 +19,21 @@
         <div v-if="nameArea != ''">
             <div class="form-group text-center">
                 <a href="" class="btn btn-warning letra-poppins-bold" :style="`${colorTitle} border-color: #ffa4f2;`"
-                ><h1 style="color: black">{{ nameArea }}</h1>
+                ><h1 style="color: black">{{ $t('lang.area.'+nameMinus(nameArea)) }}</h1>
                 </a>
             </div>
             <div class="row">
                 <div class="col-md-2 pd-20 flotante">
-                    <a href="/chat" class="btn btn-warning letra-poppins-bold mg-btn" style="background-color: #e26100; border-color: #e26100"><h4>CHAT</h4> </a> <br />
-                    <a href="/questions" class="btn btn-warning letra-poppins-bold mg-btn" style="background-color: #e26100; border-color: #e26100"><h4>FORUMS</h4> </a><br />
-                    <a href="/mensajes" class="btn btn-warning letra-poppins-bold mg-btn" style="background-color: #e26100; border-color: #e26100"><h4>MENSSAGES</h4> </a><br />
+                    <a href="/chat" class="btn btn-warning letra-poppins-bold mg-btn" style="background-color: #e26100; border-color: #e26100"><h4>{{ $t('lang.menu.chat').toUpperCase() }}</h4> </a> <br />
+                    <a href="/questions" class="btn btn-warning letra-poppins-bold mg-btn" style="background-color: #e26100; border-color: #e26100"><h4>{{ $t('lang.menu.forums').toUpperCase() }}</h4> </a><br />
+                    <a href="/mensajes" class="btn btn-warning letra-poppins-bold mg-btn" style="background-color: #e26100; border-color: #e26100"><h4>{{ $t('lang.menu.menssages').toUpperCase() }}</h4> </a><br />
                 </div>
                 <div id="tabs" class="col-md-9 mx-auto">
                     <div class="tabs">
-                        <a v-on:click="activetab = 1" v-bind:class="[activetab === 1 ? 'active' : '']"><h2 class="letra-poppins-bold">CALENDAR</h2></a>
-                        <a v-on:click="activetab = 2" v-bind:class="[activetab === 2 ? 'active' : '']"><h2 class="letra-poppins-bold">CLASS</h2></a>
-                        <a v-on:click="activetab = 3" v-bind:class="[activetab === 3 ? 'active' : '']"><h2 class="letra-poppins-bold">HOMEWORK</h2></a>
-                        <a v-on:click="activetab = 4" v-bind:class="[activetab === 4 ? 'active' : '']"><h2 class="letra-poppins-bold">GRADES</h2></a>
+                        <a v-on:click="activetab = 1" v-bind:class="[activetab === 1 ? 'active' : '']"><h2 class="letra-poppins-bold">{{ $t('lang.menu.calendar').toUpperCase() }}</h2></a>
+                        <a v-on:click="activetab = 2" v-bind:class="[activetab === 2 ? 'active' : '']"><h2 class="letra-poppins-bold">{{ $t('lang.menu.class').toUpperCase() }}</h2></a>
+                        <a v-on:click="activetab = 3" v-bind:class="[activetab === 3 ? 'active' : '']"><h2 class="letra-poppins-bold">{{ $t('lang.menu.homework').toUpperCase() }}</h2></a>
+                        <a v-on:click="activetab = 4" v-bind:class="[activetab === 4 ? 'active' : '']"><h2 class="letra-poppins-bold">{{ $t('lang.menu.grades').toUpperCase() }}</h2></a>
                     </div>
 
                     <div class="content-azul">
@@ -53,7 +53,7 @@
         
             <div class="form-group text-center">
                 <a class="btn btn-warning mg-btn">
-                    <h1 class="letra-poppins-bold">PENDING WORK</h1>
+                    <h1 class="letra-poppins-bold">{{ $t('lang.calendar.pendingWork') }}</h1>
                     <div class="card activity-event-container">
                         <div class="activity-event" v-for="(activity,i_activity) in activities" v-bind:key="i_activity">
                             <div class="activity-event-info">
@@ -162,8 +162,8 @@ export default {
                     let text1 = i.area;
                     let text2 = e.text;
 
-                    text1 = this.getCleanedString(text1);
-                    text2 = this.getCleanedString(text2);
+                    text1 = this.nameMinus(text1);
+                    text2 = this.nameMinus(text2);
 
                     if(text1 === text2){                        
                         e.style = i.style;
@@ -181,31 +181,7 @@ export default {
             }
         }
     },
-    methods: {
-        getCleanedString(string){
-            // se definen caracteres a eliminar
-            var specialChars = "!@#$^&%*()+=-[]\/{}|:<>?,.";
-
-            // Los eliminamos todos
-            for (var i = 0; i < specialChars.length; i++) {
-                string= string.replace(new RegExp("\\" + specialChars[i], 'gi'), '');
-            }   
-
-            // se pasa a minusculas
-            string = string.toLowerCase();
-
-            // Se reemplazan los espacios por _
-            string = string.replace(/ /g,"_");
-
-            // Quitamos acentos y "ñ"
-            string = string.replace(/á/gi,"a");
-            string = string.replace(/é/gi,"e");
-            string = string.replace(/í/gi,"i");
-            string = string.replace(/ó/gi,"o");
-            string = string.replace(/ú/gi,"u");
-            string = string.replace(/ñ/gi,"n");
-            return string;
-        },
+    methods: {        
         getActivitiesStudents(nameArea){
             this.activities = [];
             axios.get("/api/student/activity").then((response) => {
@@ -261,7 +237,11 @@ export default {
             this.idClass = id_module;
             this.idModule = id_class;            
             this.activetab !== 2 ? this.activetab = 2 : this.activetab;
-        }
+        },
+        nameMinus(name){
+          var nameMinus=name.toLowerCase();
+          return nameMinus.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+        },
     },
     filters: {
         formatDate: (value) => {

@@ -1,14 +1,22 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[180],{
 
+<<<<<<< HEAD
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/repositoryStudentComments.vue?vue&type=script&lang=js&":
 /*!************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/repositoryStudentComments.vue?vue&type=script&lang=js& ***!
   \************************************************************************************************************************************************************************************/
+=======
+/***/ "./resources/js/components/lectivesTeacherBoardComponent.vue":
+/*!*******************************************************************!*\
+  !*** ./resources/js/components/lectivesTeacherBoardComponent.vue ***!
+  \*******************************************************************/
+>>>>>>> 93736526eb225f38ba89032bdd896ef36b572465
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+<<<<<<< HEAD
 /* harmony import */ var vue_form_wizard__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-form-wizard */ "./node_modules/vue-form-wizard/dist/vue-form-wizard.js");
 /* harmony import */ var vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vue_form_wizard_dist_vue_form_wizard_min_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-form-wizard/dist/vue-form-wizard.min.css */ "./node_modules/vue-form-wizard/dist/vue-form-wizard.min.css");
@@ -447,14 +455,26 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+=======
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+var render, staticRenderFns
+var script = {}
+>>>>>>> 93736526eb225f38ba89032bdd896ef36b572465
 
 
 /* normalize component */
 
+<<<<<<< HEAD
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
   _repositoryStudentComments_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
   _repositoryStudentComments_vue_vue_type_template_id_4f129e6a___WEBPACK_IMPORTED_MODULE_0__["render"],
   _repositoryStudentComments_vue_vue_type_template_id_4f129e6a___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+=======
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_0__["default"])(
+  script,
+  render,
+  staticRenderFns,
+>>>>>>> 93736526eb225f38ba89032bdd896ef36b572465
   false,
   null,
   null,
@@ -462,6 +482,7 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
   
 )
 
+<<<<<<< HEAD
 /* hot reload */
 if (false) { var api; }
 component.options.__file = "resources/js/components/repositoryStudentComments.vue"
@@ -499,6 +520,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+=======
+component.options.__file = "resources/js/components/lectivesTeacherBoardComponent.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+>>>>>>> 93736526eb225f38ba89032bdd896ef36b572465
 /***/ })
 
 }]);

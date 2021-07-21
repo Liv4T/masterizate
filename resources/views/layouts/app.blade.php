@@ -11,6 +11,7 @@
       <!-- Scripts -->
       <script src="{{ asset('js/app.js') }}" defer></script>
       <script src="https://kit.fontawesome.com/a72f7eba65.js" crossorigin="anonymous"></script>
+      <script src="https://unpkg.com/vue-i18n@8"></script>
     <!--<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" />-->
     <link href="https://unpkg.com/@coreui/coreui@2.1.16/dist/css/coreui.min.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet" />
@@ -117,6 +118,11 @@
                             <!--/li-->
                             @endif
                             @else
+                            
+                            @if (Auth::user()->type_user==3)
+                                <language-component></language-component> 
+                            @endif
+                            
                             <li class="nav-item dropdown">
                                <notification-component></notification-component>
                             </li>

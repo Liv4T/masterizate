@@ -229,7 +229,9 @@ var render = function() {
         _c("div", { staticClass: "row justify-content-center" }, [
           _c("div", { staticClass: "col-sm-12", attrs: { id: "crud" } }, [
             _c("div", { staticClass: "card text-center" }, [
-              _c("h5", { staticClass: "card-header fondo" }, [_vm._v("Ciclo")]),
+              _c("h5", { staticClass: "card-header fondo" }, [
+                _vm._v(_vm._s(_vm.$t("lang.class.cycle")))
+              ]),
               _vm._v(" "),
               _c("h3", { staticClass: "card-header fondo" }, [
                 _vm._v(_vm._s(_vm.nameWeekly))
@@ -247,7 +249,15 @@ var render = function() {
                       "table table-responsive-xl table-hover table-striped center"
                   },
                   [
-                    _vm._m(0),
+                    _c("thead", [
+                      _c("tr", [
+                        _c("th", [_vm._v(_vm._s(_vm.$t("lang.menu.classes")))]),
+                        _vm._v(" "),
+                        _c("th", [_vm._v(_vm._s(_vm.$t("lang.class.action")))]),
+                        _vm._v(" "),
+                        _c("th")
+                      ])
+                    ]),
                     _vm._v(" "),
                     _c(
                       "tbody",
@@ -269,7 +279,11 @@ var render = function() {
                                     }
                                   }
                                 },
-                                [_vm._v("Ir a clase")]
+                                [
+                                  _vm._v(
+                                    _vm._s(_vm.$t("lang.general.goToClass"))
+                                  )
+                                ]
                               )
                             ]
                           ),
@@ -309,7 +323,9 @@ var render = function() {
                                   ),
                                   _vm._v(" "),
                                   _c("p", { staticClass: "text-success" }, [
-                                    _vm._v("Completado")
+                                    _vm._v(
+                                      _vm._s(_vm.$t("lang.general.completed"))
+                                    )
                                   ])
                                 ])
                               : _vm._e()
@@ -328,7 +344,7 @@ var render = function() {
                       staticClass: "btn btn-warning",
                       on: { click: _vm.idclassClean }
                     },
-                    [_vm._v("Regresar")]
+                    [_vm._v(_vm._s(_vm.$t("lang.general.goBack")))]
                   )
                 ])
               ])
@@ -350,22 +366,7 @@ var render = function() {
         1
       )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("thead", [
-      _c("tr", [
-        _c("th", [_vm._v("Clases")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Acción")]),
-        _vm._v(" "),
-        _c("th")
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 

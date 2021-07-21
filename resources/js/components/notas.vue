@@ -2,7 +2,7 @@
     <div class="row justify-content-center">
         <div id="crud" class="col-sm-12">
             <div class="card text-center">
-                <h3 class="card-header fondo">Notas</h3>
+                <h3 class="card-header fondo">{{ $t('lang.grades.score') }}</h3>
 
                 <div class="card-body">
                     <div class="row">

@@ -2,11 +2,11 @@
     <div class="row justify-content-center">
         <div v-if="showLectives === false" id="crud" class="col-sm-12">
             <div v-if="repoUpload=== '' && repoComment === '' " class="card text-center">
-                <h3 class="card-header fondo">Entregas</h3>
+                <h3 class="card-header fondo">{{ $t('lang.homework.homework') }}</h3>
                 <div class="card-body">
 
                     <div class="float-right">
-                        <label for="">Buscar</label>
+                        <label for="">{{ $t('lang.general.search') }}</label>
                         <input type="text" placeholder="Buscar" v-model="filter" />
                     </div>
                     
@@ -14,9 +14,9 @@
                         <table class="table table-hover table-striped" style="border-collapse: separate !important">
                             <thead >
                                 <tr>
-                                    <th>Fecha</th>
-                                    <th>Tarea</th>
-                                    <th>Estado</th>
+                                    <th>{{ $t('lang.general.date') }}</th>
+                                    <th>{{ $t('lang.homework.task') }}</th>
+                                    <th>{{ $t('lang.general.status') }}</th>
                                     <th>-</th>
                                 </tr>
                             </thead>

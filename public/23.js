@@ -159,8 +159,8 @@ moment__WEBPACK_IMPORTED_MODULE_1___default.a.locale("es");
               axios.post(url, {
                 //Cursos generales
                 name: this.nameEvent,
-                startDateTime: this.arrayDaysEvent[j],
-                endDateTime: this.arrayDaysEvent[j],
+                startDateTime: this.arrayDaysEvent[j] + ' ' + this.desde,
+                endDateTime: this.arrayDaysEvent[j] + ' ' + this.hasta,
                 id_area: this.materia[_i].id,
                 id_classroom: this.materia[_i].id_classroom,
                 url: this.nameMeet,
@@ -615,7 +615,7 @@ var render = function() {
                       ]),
                       _vm._v(" "),
                       _c("datetime", {
-                        attrs: { format: "YYYY-MM-DD H:i:s" },
+                        attrs: { format: _vm.formatDate },
                         model: {
                           value: _vm.desde,
                           callback: function($$v) {
@@ -641,7 +641,7 @@ var render = function() {
                       ]),
                       _vm._v(" "),
                       _c("datetime", {
-                        attrs: { format: "YYYY-MM-DD H:i:s" },
+                        attrs: { format: _vm.formatDate },
                         model: {
                           value: _vm.hasta,
                           callback: function($$v) {
