@@ -122,7 +122,7 @@ firebase__WEBPACK_IMPORTED_MODULE_2__["default"].initializeApp(firebaseConfig);
 firebase__WEBPACK_IMPORTED_MODULE_2__["default"].analytics();
 Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["id_repo"],
+  props: ["id_repo", "cleanVariables"],
   data: function data() {
     return {
       myOptions: [],
@@ -444,7 +444,7 @@ var render = function() {
                       "a",
                       {
                         staticClass: "btn btn-warning ",
-                        attrs: { href: "/repository/student" }
+                        on: { click: _vm.cleanVariables }
                       },
                       [_vm._v("Volver")]
                     )

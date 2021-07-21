@@ -79,7 +79,7 @@
 
                                 </tab-content>
                                 <div class="float-left">
-                                        <a href="/repository/student" class="btn btn-warning ">Volver</a>
+                                        <a v-on:click="cleanVariables" class="btn btn-warning ">Volver</a>
                                 </div>
                             </form-wizard>
                     </div>
@@ -108,7 +108,7 @@ import firebase from 'firebase';
   firebase.analytics();
 Vue.use(VueFormWizard);
 export default {
-  props: ["id_repo"],
+  props: ["id_repo","cleanVariables"],
   data() {
     return {
       myOptions: [],

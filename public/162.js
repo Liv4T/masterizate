@@ -99,23 +99,23 @@ __webpack_require__.r(__webpack_exports__);
 //
 
 
+ // var firebaseConfig = {
+//             apiKey: "AIzaSyBUwPOBHWgSv10yWDO0VX_UCCOfHZ3jKYE",
+//             authDomain: "liv4t-skool.firebaseapp.com",
+//             databaseURL: "https://liv4t-skool.firebaseio.com",
+//             projectId: "liv4t-skool",
+//             storageBucket: "liv4t-skool.appspot.com",
+//             messagingSenderId: "346718353628",
+//             appId: "1:346718353628:web:abc0666c41b66fa472dc19",
+//             measurementId: "G-7L14TG5RRZ"
+// };
+//   // Initialize Firebase
+// firebase.initializeApp(firebaseConfig);
+// firebase.analytics();
 
-var firebaseConfig = {
-  apiKey: "AIzaSyBUwPOBHWgSv10yWDO0VX_UCCOfHZ3jKYE",
-  authDomain: "liv4t-skool.firebaseapp.com",
-  databaseURL: "https://liv4t-skool.firebaseio.com",
-  projectId: "liv4t-skool",
-  storageBucket: "liv4t-skool.appspot.com",
-  messagingSenderId: "346718353628",
-  appId: "1:346718353628:web:abc0666c41b66fa472dc19",
-  measurementId: "G-7L14TG5RRZ"
-}; // Initialize Firebase
-
-firebase__WEBPACK_IMPORTED_MODULE_2__["default"].initializeApp(firebaseConfig);
-firebase__WEBPACK_IMPORTED_MODULE_2__["default"].analytics();
 Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["id_repo"],
+  props: ["id_repo", "cleanVariables"],
   data: function data() {
     return {
       myOptions: [],
@@ -410,30 +410,23 @@ var render = function() {
               )
             ]),
             _vm._v(" "),
-            _vm._m(0)
+            _c("div", { staticClass: "modal-footer" }, [
+              _c(
+                "a",
+                {
+                  staticClass: "btn btn-warning float-right",
+                  on: { click: _vm.cleanVariables }
+                },
+                [_vm._v("Volver")]
+              )
+            ])
           ])
         ])
       ])
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "modal-footer" }, [
-      _c(
-        "a",
-        {
-          staticClass: "btn btn-warning float-right",
-          attrs: { href: "/repository/student" }
-        },
-        [_vm._v("Volver")]
-      )
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 

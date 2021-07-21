@@ -78,6 +78,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___default.a);
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -102,7 +108,9 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
       errors: [],
       fillS: [],
       area: null,
-      filter: ""
+      filter: "",
+      repoUpload: "",
+      repoComment: ""
     };
   },
   mounted: function mounted() {
@@ -149,6 +157,16 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
       return texto.replace(re, function (matchedText) {
         return "<strong>".concat(matchedText, "</strong>");
       });
+    },
+    getUpload: function getUpload(uploadId) {
+      this.repoUpload = uploadId;
+    },
+    getComment: function getComment(commentId) {
+      this.repoComment = commentId;
+    },
+    cleanVariables: function cleanVariables() {
+      this.repoUpload = "";
+      this.repoComment = "";
     }
   },
   computed: {
@@ -186,126 +204,159 @@ var render = function() {
   return _c("div", { staticClass: "row justify-content-center" }, [
     _vm.showLectives === false
       ? _c("div", { staticClass: "col-sm-12", attrs: { id: "crud" } }, [
-          _c("div", { staticClass: "card text-center" }, [
-            _c("h3", { staticClass: "card-header fondo" }, [
-              _vm._v("Entregas")
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "card-body" }, [
-              _c("div", { staticClass: "float-right" }, [
-                _c("label", { attrs: { for: "" } }, [_vm._v("Buscar")]),
+          _vm.repoUpload === "" && _vm.repoComment === ""
+            ? _c("div", { staticClass: "card text-center" }, [
+                _c("h3", { staticClass: "card-header fondo" }, [
+                  _vm._v("Entregas")
+                ]),
                 _vm._v(" "),
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.filter,
-                      expression: "filter"
-                    }
-                  ],
-                  attrs: { type: "text", placeholder: "Buscar" },
-                  domProps: { value: _vm.filter },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
+                _c("div", { staticClass: "card-body" }, [
+                  _c("div", { staticClass: "float-right" }, [
+                    _c("label", { attrs: { for: "" } }, [_vm._v("Buscar")]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.filter,
+                          expression: "filter"
+                        }
+                      ],
+                      attrs: { type: "text", placeholder: "Buscar" },
+                      domProps: { value: _vm.filter },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.filter = $event.target.value
+                        }
                       }
-                      _vm.filter = $event.target.value
-                    }
-                  }
-                })
-              ]),
-              _vm._v(" "),
-              _c(
-                "div",
-                {
-                  staticClass: "table-responsive",
-                  staticStyle: { "border-radius": "20px" }
-                },
-                [
+                    })
+                  ]),
+                  _vm._v(" "),
                   _c(
-                    "table",
+                    "div",
                     {
-                      staticClass: "table table-hover table-striped",
-                      staticStyle: { "border-collapse": "separate !important" }
+                      staticClass: "table-responsive",
+                      staticStyle: { "border-radius": "20px" }
                     },
                     [
-                      _vm._m(0),
-                      _vm._v(" "),
                       _c(
-                        "tbody",
-                        _vm._l(_vm.filteredRows, function(row, index) {
-                          return _c("tr", { key: index }, [
-                            _c("td", {
-                              staticStyle: { "font-size": "18px" },
-                              domProps: {
-                                innerHTML: _vm._s(
-                                  _vm.highlightMatches(row.date)
-                                )
-                              }
-                            }),
-                            _vm._v(" "),
-                            _c("td", {
-                              staticStyle: { "font-size": "18px" },
-                              domProps: {
-                                innerHTML: _vm._s(
-                                  _vm.highlightMatches(row.name)
-                                )
-                              }
-                            }),
-                            _vm._v(" "),
-                            _c("td", {
-                              staticStyle: { "font-size": "18px" },
-                              domProps: {
-                                innerHTML: _vm._s(
-                                  _vm.highlightMatches(row.status)
-                                )
-                              }
-                            }),
-                            _vm._v(" "),
-                            _c("td", [
-                              _c(
-                                "a",
-                                {
-                                  directives: [
+                        "table",
+                        {
+                          staticClass: "table table-hover table-striped",
+                          staticStyle: {
+                            "border-collapse": "separate !important"
+                          }
+                        },
+                        [
+                          _vm._m(0),
+                          _vm._v(" "),
+                          _c(
+                            "tbody",
+                            _vm._l(_vm.filteredRows, function(row, index) {
+                              return _c("tr", { key: index }, [
+                                _c("td", {
+                                  staticStyle: { "font-size": "18px" },
+                                  domProps: {
+                                    innerHTML: _vm._s(
+                                      _vm.highlightMatches(row.date)
+                                    )
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c("td", {
+                                  staticStyle: { "font-size": "18px" },
+                                  domProps: {
+                                    innerHTML: _vm._s(
+                                      _vm.highlightMatches(row.name)
+                                    )
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c("td", {
+                                  staticStyle: { "font-size": "18px" },
+                                  domProps: {
+                                    innerHTML: _vm._s(
+                                      _vm.highlightMatches(row.status)
+                                    )
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c("td", [
+                                  _c(
+                                    "a",
                                     {
-                                      name: "show",
-                                      rawName: "v-show",
-                                      value: row.status != "Calificado",
-                                      expression: "row.status!='Calificado'"
-                                    }
-                                  ],
-                                  staticClass: "btn btn-warning",
-                                  attrs: {
-                                    href: "/repository/student/upload/" + row.id
-                                  }
-                                },
-                                [_vm._v("Ver más")]
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "a",
-                                {
-                                  staticClass: "btn btn-info",
-                                  attrs: {
-                                    href:
-                                      "/repository/student/comment/" + row.id
-                                  }
-                                },
-                                [_vm._v("Retroalimentación")]
-                              )
-                            ])
-                          ])
-                        }),
-                        0
+                                      directives: [
+                                        {
+                                          name: "show",
+                                          rawName: "v-show",
+                                          value: row.status != "Calificado",
+                                          expression: "row.status!='Calificado'"
+                                        }
+                                      ],
+                                      staticClass: "btn btn-warning",
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.getUpload(row.id)
+                                        }
+                                      }
+                                    },
+                                    [_vm._v("Ver más")]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "a",
+                                    {
+                                      staticClass: "btn btn-info",
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.getComment(row.id)
+                                        }
+                                      }
+                                    },
+                                    [_vm._v("Retroalimentación")]
+                                  )
+                                ])
+                              ])
+                            }),
+                            0
+                          )
+                        ]
                       )
                     ]
                   )
-                ]
+                ])
+              ])
+            : _vm.repoUpload !== ""
+            ? _c(
+                "div",
+                [
+                  _c("repository-upload", {
+                    attrs: {
+                      id_repo: _vm.repoUpload,
+                      cleanVariables: _vm.cleanVariables
+                    }
+                  })
+                ],
+                1
               )
-            ])
-          ])
+            : _vm.repoComment !== ""
+            ? _c(
+                "div",
+                [
+                  _c("student-comments", {
+                    attrs: {
+                      id_repo: _vm.repoComment,
+                      cleanVariables: _vm.cleanVariables
+                    }
+                  })
+                ],
+                1
+              )
+            : _vm._e()
         ])
       : _c(
           "div",

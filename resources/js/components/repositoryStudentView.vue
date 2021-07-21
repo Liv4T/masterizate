@@ -1,7 +1,7 @@
 <template>
     <div class="row justify-content-center">
         <div v-if="showLectives === false" id="crud" class="col-sm-12">
-            <div class="card text-center">
+            <div v-if="repoUpload=== '' && repoComment === '' " class="card text-center">
                 <h3 class="card-header fondo">Entregas</h3>
                 <div class="card-body">
 
@@ -42,13 +42,13 @@
 
                                     <td>
                                         <a v-show="row.status!='Calificado'"
-                                            class="btn btn-warning"
-                                            :href="'/repository/student/upload/'+row.id"
+                                            class="btn btn-warning"                                        
+                                            v-on:click="getUpload(row.id)"
                                             >Ver más</a
                                         >
                                         <a
-                                            class="btn btn-info"
-                                            :href="'/repository/student/comment/'+row.id"
+                                            class="btn btn-info"                                            
+                                            v-on:click="getComment(row.id)"
                                             >Retroalimentación</a
                                         >
 
@@ -58,6 +58,12 @@
                         </table>
                     </div>
                 </div>
+            </div>
+            <div v-else-if="repoUpload !== ''">
+                <repository-upload :id_repo="repoUpload" :cleanVariables="cleanVariables"></repository-upload>
+            </div>
+            <div v-else-if="repoComment !== ''">
+                <student-comments :id_repo="repoComment" :cleanVariables="cleanVariables"></student-comments>
             </div>
         </div>
         <div v-else>
@@ -86,6 +92,8 @@ export default {
             fillS: [],
             area: null,
             filter: "",
+            repoUpload:"",
+            repoComment:""
         };
     },
     mounted() {
@@ -132,6 +140,16 @@ export default {
                 (matchedText) => `<strong>${matchedText}</strong>`
             );
         },
+        getUpload(uploadId){
+            this.repoUpload = uploadId;
+        },
+        getComment(commentId){
+            this.repoComment = commentId;
+        },
+        cleanVariables(){
+            this.repoUpload = "";
+            this.repoComment = "";
+        }
     },
     computed: {
         filteredRows() {
