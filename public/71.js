@@ -152,6 +152,7 @@ __webpack_require__.r(__webpack_exports__);
       this.idclass = clasId;
     },
     idclassClean: function idclassClean() {
+      this.cleanClasId();
       this.idclass = "";
     }
   }
@@ -325,7 +326,7 @@ var render = function() {
                     "a",
                     {
                       staticClass: "btn btn-warning",
-                      on: { click: _vm.cleanClasId }
+                      on: { click: _vm.idclassClean }
                     },
                     [_vm._v("Regresar")]
                   )

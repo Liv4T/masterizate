@@ -73,23 +73,31 @@ __webpack_require__.r(__webpack_exports__);
       id_act: "",
       errors: [],
       fillS: [],
-      clasId: ""
+      clasId: "",
+      idModule: ""
     };
   },
   mounted: function mounted() {
     this.clasId = this.idClass;
+    this.idModule = this.moduleId;
     this.getData();
   },
   watch: {
     nameArea: function nameArea(old_value, new_value) {
       if (old_value != new_value) {
         this.clasId = "";
+        this.idModule = "";
         this.getData();
       }
     },
     idClass: function idClass(newValue, oldValue) {
       if (newValue != oldValue) {
         this.clasId = newValue;
+      }
+    },
+    moduleId: function moduleId(newValue, oldValue) {
+      if (newValue !== oldValue) {
+        this.idModule = this.moduleId;
       }
     }
   },
@@ -129,6 +137,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     cleanClasId: function cleanClasId() {
       this.clasId = "";
+      this.idModule = "";
     }
   }
 });
@@ -293,7 +302,7 @@ var render = function() {
                     attrs: {
                       clasId: _vm.clasId,
                       cleanClasId: _vm.cleanClasId,
-                      moduleId: _vm.moduleId
+                      moduleId: _vm.idModule
                     }
                   })
                 ],

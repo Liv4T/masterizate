@@ -41,7 +41,7 @@
                 </div>
             </div>
             <div v-else>
-                <student-module :clasId="clasId" :cleanClasId="cleanClasId" :moduleId="moduleId"></student-module>
+                <student-module :clasId="clasId" :cleanClasId="cleanClasId" :moduleId="idModule"></student-module>
             </div>
         </div>
         <div v-else>
@@ -63,17 +63,20 @@ export default {
             id_act: "",
             errors: [],
             fillS: [],
-            clasId: ""
+            clasId: "",
+            idModule:""
         };
     },    
     mounted() {
-        this.clasId= this.idClass
+        this.clasId= this.idClass;
+        this.idModule = this.moduleId;
         this.getData();
     },
     watch:{
         nameArea(old_value, new_value){
             if(old_value != new_value){
-                this.clasId=""
+                this.clasId="";
+                this.idModule="";
                 this.getData();
             }
         },
@@ -82,6 +85,12 @@ export default {
             
             if(newValue != oldValue){
                 this.clasId = newValue
+            }
+        },
+
+        moduleId(newValue, oldValue){
+            if(newValue !== oldValue){
+                this.idModule = this.moduleId;
             }
         }
     },
@@ -115,7 +124,8 @@ export default {
             this.clasId = clasId;
         },
         cleanClasId(){
-            this.clasId = ""
+            this.clasId = "";
+            this.idModule = "";
         }
     },
 };

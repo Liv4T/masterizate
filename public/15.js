@@ -264,7 +264,7 @@ moment__WEBPACK_IMPORTED_MODULE_1___default.a.locale("es");
     getActivityId: function getActivityId(id_module, id_class) {
       this.idClass = id_module;
       this.idModule = id_class;
-      this.activetab = 2;
+      this.activetab !== 2 ? this.activetab = 2 : this.activetab;
     }
   },
   filters: {

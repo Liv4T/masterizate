@@ -71,8 +71,8 @@
                 </tr>-->
               </tbody>
             </table>
-            <div class="float-left">
-              <a class="btn btn-warning" v-on:click="cleanClasId">Regresar</a>
+            <div class="float-left">              
+              <a class="btn btn-warning" v-on:click="idclassClean">Regresar</a>
             </div>
           </div>
         </div>
@@ -141,7 +141,8 @@ export default {
       this.idclass = clasId
     },
     idclassClean(){
-      this.idclass= ""
+      this.cleanClasId();
+      this.idclass= "";
     }
   },
 };
