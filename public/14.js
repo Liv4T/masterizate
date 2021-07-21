@@ -212,10 +212,13 @@ var render = function() {
                 [_vm._v("MATERIAS")]
               ),
               _vm._v(" "),
-              _vm._l(_vm.areas, function(area) {
+              _vm._l(_vm.areas, function(area, key) {
                 return _c(
                   "option",
-                  { domProps: { value: area.id + "/" + area.id_classroom } },
+                  {
+                    key: key,
+                    domProps: { value: area.id + "/" + area.id_classroom }
+                  },
                   [_vm._v(_vm._s(area.text))]
                 )
               })

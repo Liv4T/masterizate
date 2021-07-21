@@ -5,7 +5,7 @@
         <div class="text-center">
           <select class="btn btn-warning letra-boldfont" name="type" v-model="idArea">
             <option disabled selected hidden value="">MATERIAS</option>
-            <option :value="area.id + '/' + area.id_classroom" v-for="area in areas">{{ area.text }}</option>
+            <option :value="area.id + '/' + area.id_classroom" v-for="(area, key) in areas" :key="key">{{ area.text }}</option>
           </select>
         </div>
       </div>
