@@ -249,7 +249,7 @@ $(function () {
 
 Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["id_area", "id_classroom"],
+  props: ["idArea"],
   data: function data() {
     var _ref;
 
@@ -267,20 +267,30 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
       porcentaje: ""
     }, _defineProperty(_ref, "newTrimestre", []), _defineProperty(_ref, "newLogro", []), _defineProperty(_ref, "trimestre", false), _defineProperty(_ref, "logro_1", ""), _defineProperty(_ref, "logro_2", ""), _defineProperty(_ref, "logro_3", ""), _defineProperty(_ref, "logro_4", ""), _defineProperty(_ref, "fillC", []), _defineProperty(_ref, "fillI", []), _defineProperty(_ref, "anual", []), _defineProperty(_ref, "newAnual", []), _defineProperty(_ref, "errors", []), _defineProperty(_ref, "id_logro", ""), _defineProperty(_ref, "id_indicator", 0), _defineProperty(_ref, "index", 0), _ref;
   },
+  watch: {
+    idArea: function idArea(newVal, oldVal) {
+      if (newVal !== oldVal) {
+        this.getData();
+      }
+    }
+  },
   mounted: function mounted() {
-    var _this = this;
-
-    var urlsel = window.location.origin + "/coursePlanification/" + this.id_area + "/" + this.id_classroom;
-    axios.get(urlsel).then(function (response) {
-      _this.fillC = response.data;
-    });
+    this.getData();
   },
   methods: {
+    getData: function getData() {
+      var _this = this;
+
+      var urlsel = window.location.origin + "/coursePlanification/" + this.idArea;
+      axios.get(urlsel).then(function (response) {
+        _this.fillC = response.data;
+      });
+    },
     getMenu: function getMenu() {
       window.location = "/actividad_g";
     },
     getInd: function getInd() {
-      window.location = "/porcentaje/" + this.id_area + "/" + this.id_classroom;
+      window.location = "/porcentaje/" + this.idArea;
     },
     indicador: function indicador(id) {
       var _this2 = this;
@@ -401,7 +411,7 @@ var render = function() {
   return _c("div", [
     _vm._m(0),
     _vm._v(" "),
-    _c("div", { staticClass: "back" }, [
+    _c("div", [
       _c("div", { staticClass: "row" }, [
         _c("div", { staticClass: "col-md-11 mx-auto" }, [
           _c("div", { staticClass: "custom-card text-center" }, [
@@ -566,7 +576,7 @@ var render = function() {
                                                   opt,
                                                   i
                                                 ) {
-                                                  return _c("tr", [
+                                                  return _c("tr", { key: i }, [
                                                     _c("td", [
                                                       _vm._v(
                                                         _vm._s(

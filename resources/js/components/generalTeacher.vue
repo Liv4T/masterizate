@@ -29,7 +29,9 @@
                 <trim-component :idArea="idArea"></trim-component>
               </div>
             </div>
-            <div v-if="activetab === 3" class="tabcontent">incluir vista</div>
+            <div v-if="activetab === 3" class="tabcontent">
+              <porcentaje-component :idArea="idArea"></porcentaje-component>
+            </div>
             <div v-if="activetab === 4" class="tabcontent">incluir vista</div>
           </div>
         </div>
