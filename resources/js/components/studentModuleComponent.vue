@@ -85,7 +85,7 @@
 </template>
 <script>
 export default {
-  props: ["clasId","cleanClasId"],
+  props: ["clasId","cleanClasId","moduleId"],
   data() {
     return {
       clases: [],
@@ -111,9 +111,15 @@ export default {
       if(newVal !== oldVal){
         this.getData();
       }
+    },
+    moduleId(newVal, oldVal){
+      if(newVal !== oldVal){
+        this.idclass = this.moduleId;
+      }
     }
   },
   mounted() {
+    this.idclass = this.moduleId;
     this.getData();
   },
   methods: {

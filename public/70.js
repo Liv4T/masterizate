@@ -61,7 +61,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['nameArea', 'id_lective_planification'],
+  props: ['nameArea', 'id_lective_planification', 'idClass', 'moduleId'],
   data: function data() {
     return {
       clases: [],
@@ -77,6 +77,7 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   mounted: function mounted() {
+    this.clasId = this.idClass;
     this.getData();
   },
   watch: {
@@ -84,6 +85,11 @@ __webpack_require__.r(__webpack_exports__);
       if (old_value != new_value) {
         this.clasId = "";
         this.getData();
+      }
+    },
+    idClass: function idClass(newValue, oldValue) {
+      if (newValue != oldValue) {
+        this.clasId = newValue;
       }
     }
   },
@@ -108,8 +114,7 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function (e) {
         toastr.info("No se encuentran clases Relacionadas");
         console.log(e);
-      });
-      console.log('Area Activa: ', this.nameArea); // console.log("Component mounted.");
+      }); // console.log("Component mounted.");
     },
     botones: function botones(area_id, classroom_id) {
       var _this2 = this;
@@ -285,7 +290,11 @@ var render = function() {
                 "div",
                 [
                   _c("student-module", {
-                    attrs: { clasId: _vm.clasId, cleanClasId: _vm.cleanClasId }
+                    attrs: {
+                      clasId: _vm.clasId,
+                      cleanClasId: _vm.cleanClasId,
+                      moduleId: _vm.moduleId
+                    }
                   })
                 ],
                 1

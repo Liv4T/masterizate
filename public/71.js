@@ -95,7 +95,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["clasId", "cleanClasId"],
+  props: ["clasId", "cleanClasId", "moduleId"],
   data: function data() {
     return {
       clases: [],
@@ -120,9 +120,15 @@ __webpack_require__.r(__webpack_exports__);
       if (newVal !== oldVal) {
         this.getData();
       }
+    },
+    moduleId: function moduleId(newVal, oldVal) {
+      if (newVal !== oldVal) {
+        this.idclass = this.moduleId;
+      }
     }
   },
   mounted: function mounted() {
+    this.idclass = this.moduleId;
     this.getData();
   },
   methods: {

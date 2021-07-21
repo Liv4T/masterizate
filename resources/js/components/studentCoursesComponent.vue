@@ -41,7 +41,7 @@
                 </div>
             </div>
             <div v-else>
-                <student-module :clasId="clasId" :cleanClasId="cleanClasId"></student-module>
+                <student-module :clasId="clasId" :cleanClasId="cleanClasId" :moduleId="moduleId"></student-module>
             </div>
         </div>
         <div v-else>
@@ -51,7 +51,7 @@
 </template>
 <script>
 export default {
-    props:['nameArea','id_lective_planification'],
+    props:['nameArea','id_lective_planification','idClass', 'moduleId'],
     data() {
         return {
             clases: [],
@@ -67,6 +67,7 @@ export default {
         };
     },    
     mounted() {
+        this.clasId= this.idClass
         this.getData();
     },
     watch:{
@@ -74,6 +75,13 @@ export default {
             if(old_value != new_value){
                 this.clasId=""
                 this.getData();
+            }
+        },
+
+        idClass(newValue, oldValue){
+            
+            if(newValue != oldValue){
+                this.clasId = newValue
             }
         }
     },
@@ -95,7 +103,6 @@ export default {
                 toastr.info("No se encuentran clases Relacionadas")
                 console.log(e);
             });
-            console.log('Area Activa: ',this.nameArea);
             // console.log("Component mounted.");
         },
         botones(area_id,classroom_id) {

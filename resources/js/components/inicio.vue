@@ -38,7 +38,13 @@
 
                     <div class="content-azul">
                         <div v-if="activetab === 1" class="tabcontent"><calendar-component :type_u="3" :user="user"></calendar-component></div>
-                        <div v-if="activetab === 2" class="tabcontent"><student-courses :nameArea="nameArea" :planifications="planifications" :id_lective_planification="id_lective_planification"></student-courses></div>
+                        <div v-if="activetab === 2" class="tabcontent"><student-courses 
+                                                                            :nameArea="nameArea" 
+                                                                            :planifications="planifications" 
+                                                                            :id_lective_planification="id_lective_planification"
+                                                                            :idClass="idClass"
+                                                                            :moduleId="idModule"
+                                                                        ></student-courses></div>
                         <div v-if="activetab === 3" class="tabcontent"><repo-student :nameArea="nameArea" :planifications="planifications" :id_lective_planification="id_lective_planification"></repo-student></div>
                         <div v-if="activetab === 4" class="tabcontent"><notas-component :idArea="idArea" :idClassroom="idClassroom" :user="user" :nameArea="nameArea" :planifications="planifications" :id_lective_planification="id_lective_planification"></notas-component></div>
                     </div>
@@ -75,8 +81,7 @@
                             </div>                                    
 
                             <div class="activity-event-action">
-                                <a v-if="activity.interaction_state==2" class="btn btn-link" :href="`/estudiante/modulo/${activity.weekly_plan_id}/clase/${activity.id_class}`">Retroalimentación</a>
-                                <a v-else class="btn btn-link" :href="`/estudiante/modulo/${activity.weekly_plan_id}/clase/${activity.id_class}`">Entregar</a>
+                                <a class="btn btn-link" v-on:click="getActivityId(activity.weekly_plan_id, activity.id_class)">Entregar</a>                                
                             </div>
                         </div>
                     </div>
@@ -134,6 +139,8 @@ export default {
             planifications: "",
             colorTitle:"",
             lectivs: false,
+            idModule:"",
+            idClass :"",
         };
     },
     mounted() {
@@ -247,6 +254,14 @@ export default {
                 this.errors = error.response.data;
             });
         },
+
+        // /estudiante/modulo/${activity.weekly_plan_id}/clase/${activity.id_class}
+
+        getActivityId(id_module, id_class){
+            this.idClass = id_module;
+            this.idModule = id_class;            
+            this.activetab = 2;
+        }
     },
     filters: {
         formatDate: (value) => {

@@ -99,6 +99,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 moment__WEBPACK_IMPORTED_MODULE_1___default.a.tz.setDefault("America/Bogota");
@@ -144,7 +149,9 @@ moment__WEBPACK_IMPORTED_MODULE_1___default.a.locale("es");
       idClassroom: "",
       planifications: "",
       colorTitle: "",
-      lectivs: false
+      lectivs: false,
+      idModule: "",
+      idClass: ""
     };
   },
   mounted: function mounted() {
@@ -252,6 +259,12 @@ moment__WEBPACK_IMPORTED_MODULE_1___default.a.locale("es");
       })["catch"](function (error) {
         _this3.errors = error.response.data;
       });
+    },
+    // /estudiante/modulo/${activity.weekly_plan_id}/clase/${activity.id_class}
+    getActivityId: function getActivityId(id_module, id_class) {
+      this.idClass = id_module;
+      this.idModule = id_class;
+      this.activetab = 2;
     }
   },
   filters: {
@@ -544,7 +557,9 @@ var render = function() {
                               nameArea: _vm.nameArea,
                               planifications: _vm.planifications,
                               id_lective_planification:
-                                _vm.id_lective_planification
+                                _vm.id_lective_planification,
+                              idClass: _vm.idClass,
+                              moduleId: _vm.idModule
                             }
                           })
                         ],
@@ -678,35 +693,21 @@ var render = function() {
                           ]),
                       _vm._v(" "),
                       _c("div", { staticClass: "activity-event-action" }, [
-                        activity.interaction_state == 2
-                          ? _c(
-                              "a",
-                              {
-                                staticClass: "btn btn-link",
-                                attrs: {
-                                  href:
-                                    "/estudiante/modulo/" +
-                                    activity.weekly_plan_id +
-                                    "/clase/" +
-                                    activity.id_class
-                                }
-                              },
-                              [_vm._v("Retroalimentación")]
-                            )
-                          : _c(
-                              "a",
-                              {
-                                staticClass: "btn btn-link",
-                                attrs: {
-                                  href:
-                                    "/estudiante/modulo/" +
-                                    activity.weekly_plan_id +
-                                    "/clase/" +
-                                    activity.id_class
-                                }
-                              },
-                              [_vm._v("Entregar")]
-                            )
+                        _c(
+                          "a",
+                          {
+                            staticClass: "btn btn-link",
+                            on: {
+                              click: function($event) {
+                                return _vm.getActivityId(
+                                  activity.weekly_plan_id,
+                                  activity.id_class
+                                )
+                              }
+                            }
+                          },
+                          [_vm._v("Entregar")]
+                        )
                       ])
                     ]
                   )
