@@ -312,8 +312,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 (function () {
   "use strict";
 
@@ -338,7 +336,7 @@ __webpack_require__.r(__webpack_exports__);
 
 Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["id_module", "id_class"],
+  props: ["id_module", "id_class", "idclassClean"],
   data: function data() {
     return {
       is_loading: false,
@@ -737,9 +735,9 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("div", { staticClass: "back" }, [
+    _c("div", [
       _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-md-11 mx-auto" }, [
+        _c("div", { staticClass: "col-md-12 mx-auto" }, [
           _c("div", { staticClass: "custom-card text-center" }, [
             _c("h5", { staticClass: "card-header fondo" }, [
               _vm._v(
@@ -1318,55 +1316,9 @@ var render = function() {
               "a",
               {
                 staticClass: "btn btn-warning",
-                attrs: { href: "/estudiante/modulo/" + _vm.id_module }
+                on: { click: _vm.idclassClean }
               },
               [_vm._v("Regresar")]
-            ),
-            _vm._v(" "),
-            _c(
-              "a",
-              {
-                directives: [
-                  {
-                    name: "show",
-                    rawName: "v-show",
-                    value:
-                      _vm.course.progress == 100 &&
-                      _vm.course.next_class != false,
-                    expression:
-                      "\n                            course.progress == 100 &&\n                                course.next_class != false\n                        "
-                  }
-                ],
-                staticClass: "btn btn-primary float-right",
-                attrs: {
-                  href:
-                    "/estudiante/modulo/" +
-                    _vm.id_module +
-                    "/clase/" +
-                    _vm.course.next_class
-                }
-              },
-              [_vm._v("Continuar")]
-            ),
-            _vm._v(" "),
-            _c(
-              "a",
-              {
-                directives: [
-                  {
-                    name: "show",
-                    rawName: "v-show",
-                    value:
-                      _vm.course.progress == 100 &&
-                      _vm.course.next_class == false,
-                    expression:
-                      "\n                            course.progress == 100 &&\n                                course.next_class == false\n                        "
-                  }
-                ],
-                staticClass: "btn btn-primary float-right",
-                attrs: { href: "/encuesta_estudiante/" + _vm.id_module }
-              },
-              [_vm._v("Continuar")]
             )
           ])
         ])

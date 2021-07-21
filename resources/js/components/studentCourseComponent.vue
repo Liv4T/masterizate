@@ -1,8 +1,8 @@
 <template>
     <div>
-        <div class="back">
+        <div>
             <div class="row">
-                <div class="col-md-11 mx-auto">
+                <div class="col-md-12 mx-auto">
                     <div class="custom-card text-center">
                         <h5 class="card-header fondo">
                             {{ weekly_plan.name }}
@@ -267,10 +267,10 @@
                     <div class="div-weekly-plan-btn-save">
                         <a
                             class="btn btn-warning"
-                            :href="'/estudiante/modulo/' + id_module"
+                            v-on:click="idclassClean"
                             >Regresar</a
                         >
-                        <a
+                        <!-- <a
                             class="btn btn-primary float-right"
                             v-show="
                                 course.progress == 100 &&
@@ -282,8 +282,7 @@
                                     '/clase/' +
                                     course.next_class
                             "
-                            >Continuar</a
-                        >
+                        >Continuar</a>
                         <a
                             class="btn btn-primary float-right"
                             v-show="
@@ -291,8 +290,7 @@
                                     course.next_class == false
                             "
                             :href="'/encuesta_estudiante/' + id_module"
-                            >Continuar</a
-                        >
+                        >Continuar</a> -->
                     </div>
                 </div>
             </div>
@@ -330,7 +328,7 @@ import VueFormWizard from "vue-form-wizard";
 import "vue-form-wizard/dist/vue-form-wizard.min.css";
 Vue.use(VueFormWizard);
 export default {
-    props: ["id_module", "id_class"],
+    props: ["id_module", "id_class","idclassClean"],
     data() {
         return {
             is_loading: false,
