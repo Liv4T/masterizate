@@ -13,7 +13,23 @@ import Vue from "vue";
 //import "bootstrap-vue/dist/bootstrap-vue.css";
 import Game from "./components/Game";
 import store from "./vuex/store";
+import en from '../../src/lang/en_US.json'
+import es from '../../src/lang/es_ES.json'
 
+const i18n = new VueI18n({
+  locale: 'en',
+  fallbackLocale: 'en',
+  formatFallbackMessages: true,
+  messages: {
+    en: {
+      lang: en
+    },
+    es: {
+      lang: es
+    }
+  }
+});
+  
 
 // the main entrance
 /* eslint-disable no-new */
@@ -237,6 +253,7 @@ Vue.component("teacher-student-module-select", () => import ("./components/teach
 Vue.component("teacher-student-class-select", () => import ("./components/teacherStudentClassSelectComponent.vue"));
 Vue.component("teacher-student-class-content", () => import ("./components/teacherStudentClassContentComponent.vue"));
 Vue.component("notification-component", () => import ("./components/notificationComponent.vue"));
+Vue.component("language-component", () => import ("./components/changeLanguageComponent.vue"));
 Vue.component("content-loader", () => import ("./components/contentLoaderComponent.vue"));
 
 //Padres
@@ -343,4 +360,4 @@ Vue.component("lective_notes", ()=>import("./components/lectivesTeacherNotesComp
 Vue.use(CKEditor);
 
 
-const app = new Vue({el: "#app", data: {}, store});
+const app = new Vue({el: "#app", i18n, data: {}, store});

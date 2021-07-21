@@ -313,7 +313,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 (function () {
   "use strict";
 
@@ -338,7 +337,7 @@ __webpack_require__.r(__webpack_exports__);
 
 Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["id_module", "id_class"],
+  props: ["id_module", "id_class", "idclassClean"],
   data: function data() {
     return {
       is_loading: false,
@@ -737,9 +736,9 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("div", { staticClass: "back" }, [
+    _c("div", [
       _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-md-11 mx-auto" }, [
+        _c("div", { staticClass: "col-md-12 mx-auto" }, [
           _c("div", { staticClass: "custom-card text-center" }, [
             _c("h5", { staticClass: "card-header fondo" }, [
               _vm._v(
@@ -760,7 +759,13 @@ var render = function() {
           ]),
           _vm._v(" "),
           _vm.link_event
-            ? _c("div", { staticClass: "row" }, [_vm._m(0)])
+            ? _c("div", { staticClass: "row" }, [
+                _c("div", { staticClass: "col-12" }, [
+                  _c("b", [
+                    _vm._v(_vm._s(_vm.$t("lang.class.classAttendance")) + ":")
+                  ])
+                ])
+              ])
             : _vm._e(),
           _vm._v(" "),
           _vm.link_event
@@ -769,7 +774,9 @@ var render = function() {
                   _vm._v(
                     "\n                        " +
                       _vm._s(
-                        _vm.name_event + " Fecha y hora: " + _vm.hour_event
+                        _vm.name_event +
+                          _vm.$t("lang.class.dateAndTime") +
+                          _vm.hour_event
                       ) +
                       "\n                    "
                   )
@@ -786,7 +793,7 @@ var render = function() {
                         rel: "noopener noreferrer"
                       }
                     },
-                    [_vm._v("Ir a la clase")]
+                    [_vm._v(_vm._s(_vm.$t("lang.general.goToClass")))]
                   )
                 ])
               ])
@@ -820,7 +827,7 @@ var render = function() {
               [
                 _c("div", { staticClass: "title row" }, [
                   _c("div", { staticClass: "col-8" }, [
-                    _c("b", [_vm._v("Clase:")]),
+                    _c("b", [_vm._v(_vm._s(_vm.$t("lang.menu.class")) + ":")]),
                     _vm._v(" "),
                     _c("input", {
                       directives: [
@@ -846,7 +853,9 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "col-4" }, [
-                    _c("b", [_vm._v("Intensidad:")]),
+                    _c("b", [
+                      _vm._v(_vm._s(_vm.$t("lang.class.intensity")) + ":")
+                    ]),
                     _vm._v(" "),
                     _c("input", {
                       directives: [
@@ -878,7 +887,9 @@ var render = function() {
                 _vm._v(" "),
                 _c("div", { staticClass: "row" }, [
                   _c("div", { staticClass: "col-12" }, [
-                    _c("b", [_vm._v("Descripción:")]),
+                    _c("b", [
+                      _vm._v(_vm._s(_vm.$t("lang.general.description")) + ":")
+                    ]),
                     _vm._v(" "),
                     _c("textarea", {
                       directives: [
@@ -908,7 +919,13 @@ var render = function() {
                   ])
                 ]),
                 _vm._v(" "),
-                _vm._m(1),
+                _c("div", { staticClass: "row" }, [
+                  _c("div", { staticClass: "col-12" }, [
+                    _c("b", [
+                      _vm._v(_vm._s(_vm.$t("lang.general.resources")) + ":")
+                    ])
+                  ])
+                ]),
                 _vm._v(" "),
                 _c(
                   "div",
@@ -932,7 +949,11 @@ var render = function() {
                                       { staticStyle: { color: "#f79d52" } },
                                       [
                                         _vm._v(
-                                          "\n                                    Documento\n                                "
+                                          "\n                                    " +
+                                            _vm._s(
+                                              _vm.$t("lang.general.document")
+                                            ) +
+                                            "\n                                "
                                         )
                                       ]
                                     )
@@ -942,7 +963,11 @@ var render = function() {
                                       { staticStyle: { color: "#f79d52" } },
                                       [
                                         _vm._v(
-                                          "\n                                    Enlace\n                                "
+                                          "\n                                    " +
+                                            _vm._s(
+                                              _vm.$t("lang.general.link")
+                                            ) +
+                                            "\n                                "
                                         )
                                       ]
                                     )
@@ -952,7 +977,11 @@ var render = function() {
                                       { staticStyle: { color: "#f79d52" } },
                                       [
                                         _vm._v(
-                                          "\n                                    Video\n                                "
+                                          "\n                                    " +
+                                            _vm._s(
+                                              _vm.$t("lang.general.video")
+                                            ) +
+                                            "\n                                "
                                         )
                                       ]
                                     )
@@ -962,7 +991,11 @@ var render = function() {
                                       { staticStyle: { color: "#f79d52" } },
                                       [
                                         _vm._v(
-                                          "\n                                    Video\n                                "
+                                          "\n                                    " +
+                                            _vm._s(
+                                              _vm.$t("lang.general.video")
+                                            ) +
+                                            "\n                                "
                                         )
                                       ]
                                     )
@@ -1013,7 +1046,15 @@ var render = function() {
                                               }
                                             }
                                           },
-                                          [_vm._v("Leer documento")]
+                                          [
+                                            _vm._v(
+                                              _vm._s(
+                                                _vm.$t(
+                                                  "lang.general.readDocument"
+                                                )
+                                              )
+                                            )
+                                          ]
                                         )
                                       : _vm._e(),
                                     _vm._v(" "),
@@ -1031,7 +1072,15 @@ var render = function() {
                                               }
                                             }
                                           },
-                                          [_vm._v("Vamos a trabajar")]
+                                          [
+                                            _vm._v(
+                                              _vm._s(
+                                                _vm.$t(
+                                                  "lang.general.letsGoToWork"
+                                                )
+                                              )
+                                            )
+                                          ]
                                         )
                                       : _vm._e(),
                                     _vm._v(" "),
@@ -1097,7 +1146,9 @@ var render = function() {
                           _c("div", { staticClass: "card-header card-title" }, [
                             _c("h5", { staticStyle: { color: "#f79d52" } }, [
                               _vm._v(
-                                "\n                                            Actividad N°" +
+                                "\n                                            " +
+                                  _vm._s(_vm.$t("lang.general.activity")) +
+                                  " N°" +
                                   _vm._s(key_a + 1) +
                                   " :\n                                            " +
                                   _vm._s(act.name) +
@@ -1146,7 +1197,9 @@ var render = function() {
                                   },
                                   [
                                     _vm._v(
-                                      "\n                                            Cancelar\n                                        "
+                                      "\n                                            " +
+                                        _vm._s(_vm.$t("lang.general.cancel")) +
+                                        "\n                                        "
                                     )
                                   ]
                                 )
@@ -1167,7 +1220,11 @@ var render = function() {
                                   },
                                   [
                                     _vm._v(
-                                      "\n                                            Ver retroalimentación\n                                        "
+                                      "\n                                            " +
+                                        _vm._s(
+                                          _vm.$t("lang.general.feedback")
+                                        ) +
+                                        "\n                                        "
                                     )
                                   ]
                                 )
@@ -1181,7 +1238,13 @@ var render = function() {
                                 [
                                   _c("div", { staticClass: "row" }, [
                                     _c("div", { staticClass: "col-12" }, [
-                                      _c("b", [_vm._v("Descripción:")]),
+                                      _c("b", [
+                                        _vm._v(
+                                          _vm._s(
+                                            _vm.$t("lang.general.description")
+                                          ) + ":"
+                                        )
+                                      ]),
                                       _vm._v(" "),
                                       _c("textarea", {
                                         directives: [
@@ -1284,7 +1347,10 @@ var render = function() {
                                   _vm._v(" "),
                                   _vm.activity.interaction.state == 3
                                     ? _c("div", [
-                                        _vm._v("Calificación: "),
+                                        _vm._v(
+                                          _vm._s(_vm.$t("lang.class.score")) +
+                                            ": "
+                                        ),
                                         _c(
                                           "span",
                                           { staticClass: "activity_score" },
@@ -1318,55 +1384,9 @@ var render = function() {
               "a",
               {
                 staticClass: "btn btn-warning",
-                attrs: { href: "/estudiante/modulo/" + _vm.id_module }
+                on: { click: _vm.idclassClean }
               },
-              [_vm._v("Regresar")]
-            ),
-            _vm._v(" "),
-            _c(
-              "a",
-              {
-                directives: [
-                  {
-                    name: "show",
-                    rawName: "v-show",
-                    value:
-                      _vm.course.progress == 100 &&
-                      _vm.course.next_class != false,
-                    expression:
-                      "\n                            course.progress == 100 &&\n                                course.next_class != false\n                        "
-                  }
-                ],
-                staticClass: "btn btn-primary float-right",
-                attrs: {
-                  href:
-                    "/estudiante/modulo/" +
-                    _vm.id_module +
-                    "/clase/" +
-                    _vm.course.next_class
-                }
-              },
-              [_vm._v("Continuar")]
-            ),
-            _vm._v(" "),
-            _c(
-              "a",
-              {
-                directives: [
-                  {
-                    name: "show",
-                    rawName: "v-show",
-                    value:
-                      _vm.course.progress == 100 &&
-                      _vm.course.next_class == false,
-                    expression:
-                      "\n                            course.progress == 100 &&\n                                course.next_class == false\n                        "
-                  }
-                ],
-                staticClass: "btn btn-primary float-right",
-                attrs: { href: "/encuesta_estudiante/" + _vm.id_module }
-              },
-              [_vm._v("Continuar")]
+              [_vm._v(_vm._s(_vm.$t("lang.general.goBack")))]
             )
           ])
         ])
@@ -1374,24 +1394,7 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-12" }, [
-      _c("b", [_vm._v("Clase presencial:")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-12" }, [_c("b", [_vm._v("Recursos:")])])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 

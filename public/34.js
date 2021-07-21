@@ -340,7 +340,11 @@ var render = function() {
               [
                 _vm.type_u != 7
                   ? _c("div", { staticClass: "row justify-content-center" }, [
-                      _c("h4", [_vm._v("Clases presenciales")])
+                      _c("h4", [
+                        _vm._v(
+                          _vm._s(_vm.$t("lang.calendar.face-to-face classes"))
+                        )
+                      ])
                     ])
                   : _vm._e(),
                 _vm._v(" "),
@@ -363,13 +367,21 @@ var render = function() {
                           _vm._v(" "),
                           _c("div", { staticClass: "class-event-date" }, [
                             _c("div", [
-                              _c("small", [_vm._v("Desde:")]),
+                              _c("small", [
+                                _vm._v(
+                                  _vm._s(_vm.$t("lang.calendar.dateFrom")) + ":"
+                                )
+                              ]),
                               _vm._v(" "),
                               _c("span", [_vm._v(_vm._s(clas.dateFrom))])
                             ]),
                             _vm._v(" "),
                             _c("div", [
-                              _c("small", [_vm._v("Hasta:")]),
+                              _c("small", [
+                                _vm._v(
+                                  _vm._s(_vm.$t("lang.calendar.dateTo")) + ":"
+                                )
+                              ]),
                               _vm._v(" "),
                               _c("span", [_vm._v(_vm._s(clas.dateTo))])
                             ])
@@ -385,7 +397,7 @@ var render = function() {
                                   href: clas.hangout
                                 }
                               },
-                              [_vm._v("Ir a clase")]
+                              [_vm._v(_vm._s(_vm.$t("lang.general.goToClass")))]
                             ),
                             _vm._v(" "),
                             _c(

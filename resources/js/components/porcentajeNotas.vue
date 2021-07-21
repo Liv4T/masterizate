@@ -296,9 +296,6 @@ export default {
     getMenu() {
       window.location = "/actividad_g";
     },
-    getInd() {
-      window.location = "/porcentaje/" + this.idArea;
-    },
     indicador(id) {
       var urli = window.location.origin + "/getIndicator/" + id;
       axios.get(urli).then((response) => {
@@ -336,7 +333,7 @@ export default {
 
           toastr.success("Nueva actividad creada exitosamente");
 
-          this.getInd();
+          $('#createZ').modal('hide');
         })
         .catch((error) => {
           this.errors = error.response.data;
@@ -387,7 +384,6 @@ export default {
 
           toastr.success("Actividad eliminada exitosamente");
           this.fillI.splice(this.index,1);
-          this.getInd();
         })
         .catch((error) => {
           this.errors = error.response.data;

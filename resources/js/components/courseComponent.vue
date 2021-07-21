@@ -511,7 +511,6 @@ export default {
                     //Cursos generales
                     id_area: this.idArea.substring(0, this.idArea.lastIndexOf("/") ),
                     id_classroom: this.idArea[2],
-                    logros: JSON.stringify(this.newLogro),
                     trimestres: JSON.stringify(this.newTrimestre),
                     students: JSON.stringify(this.saveStudent),
                 }).then((response) => {

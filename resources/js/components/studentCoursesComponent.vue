@@ -1,22 +1,22 @@
 <template>
     <div class="card text-center">
         <div v-if="showLectives === false">
-            <h3 class="card-header fondo">Mis clases</h3>
-            <div class="card-body">                        
+            <h3 class="card-header fondo">{{ $t('lang.class.myClasses') }}</h3>
+            <div class="card-body" v-if="clasId === ''">                        
                 <div class="card">                                
                     <table class="table table-responsive-xl table-hover table-striped center">
                         <thead>
                             <tr>
-                                <th>Ciclo de aprendizaje</th>
-                                <th>Acción</th>
+                                <th>{{ $t('lang.class.learningCycle') }}</th>
+                                <th>{{ $t('lang.class.action') }}</th>
                                 <th></th>
                             </tr>
                         </thead>
                         <tbody v-for="(clas, k) in clases" :key="k" >
                             <tr>
-                                <td>{{ clas.text }}</td>
+                                <td>{{clas.text}}</td>
                                 <td>
-                                    <a class="btn btn-primary" :href="'/estudiante/modulo/'+clas.id">Ir a Ciclo</a>
+                                    <a class="btn btn-primary" v-on:click="btnShow(clas.id)">{{ $t('lang.class.goToCycle') }}</a>
                                 </td>
                                 <td>
                                     <div class="check" v-if="clas.progress==100">
@@ -32,13 +32,16 @@
                                             <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
                                             <path fill-rule="evenodd" d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.236.236 0 0 1 .02-.022z"/>
                                         </svg>
-                                        <p class="text-success" >Completado</p>
+                                        <p class="text-success" >{{ $t('lang.general.completed') }}</p>
                                     </div>
                                 </td>
                             </tr>
                         </tbody>
                     </table>                                
                 </div>
+            </div>
+            <div v-else>
+                <student-module :clasId="clasId" :cleanClasId="cleanClasId" :moduleId="idModule"></student-module>
             </div>
         </div>
         <div v-else>
@@ -48,7 +51,7 @@
 </template>
 <script>
 export default {
-    props:['nameArea','id_lective_planification'],
+    props:['nameArea','id_lective_planification','idClass', 'moduleId'],
     data() {
         return {
             clases: [],
@@ -60,15 +63,34 @@ export default {
             id_act: "",
             errors: [],
             fillS: [],
+            clasId: "",
+            idModule:""
         };
     },    
     mounted() {
+        this.clasId= this.idClass;
+        this.idModule = this.moduleId;
         this.getData();
     },
     watch:{
         nameArea(old_value, new_value){
             if(old_value != new_value){
+                this.clasId="";
+                this.idModule="";
                 this.getData();
+            }
+        },
+
+        idClass(newValue, oldValue){
+            
+            if(newValue != oldValue){
+                this.clasId = newValue
+            }
+        },
+
+        moduleId(newValue, oldValue){
+            if(newValue !== oldValue){
+                this.idModule = this.moduleId;
             }
         }
     },
@@ -90,7 +112,6 @@ export default {
                 toastr.info("No se encuentran clases Relacionadas")
                 console.log(e);
             });
-            console.log('Area Activa: ',this.nameArea);
             // console.log("Component mounted.");
         },
         botones(area_id,classroom_id) {
@@ -98,6 +119,17 @@ export default {
             axios.get(urlsel).then((response) => {
                 this.clases = response.data;
             });
+        },
+        btnShow(clasId){
+            this.clasId = clasId;
+        },
+        cleanClasId(){
+            this.clasId = "";
+            this.idModule = "";
+        },
+        nameMinus(name){
+          var nameMinus=name.toLowerCase();
+          return nameMinus.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
         },
     },
 };

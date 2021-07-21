@@ -1246,7 +1246,7 @@ var render = function() {
                                       attrs: {
                                         type: "text",
                                         name: "objetive1",
-                                        placeholder: "Nombre de la unidad",
+                                        placeholder: "Nombre de Logro",
                                         required: ""
                                       },
                                       domProps: { value: inputsP1.logroPIAR },

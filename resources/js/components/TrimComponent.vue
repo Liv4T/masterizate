@@ -176,7 +176,7 @@
                                                         class="form-control"
                                                         v-model="inputsP1.logroPIAR"
                                                         v-on:change="annualContentUpdateEvent($event,keyy,'inputsPIAR1','logroPIAR')"
-                                                        placeholder="Nombre de la unidad"
+                                                        placeholder="Nombre de Logro"
                                                         required
                                                     />                                                    
                                                 </div>
@@ -568,7 +568,7 @@ export default {
                     for (let i = 0; i < this.inputsPIAR1.length; i++) {
                     this.newLogro.push(this.inputsPIAR1[i]);
                     }
-                }
+                }                
 
                 axios.post('/piarAnualPlanification', {
                     //Cursos generales
