@@ -67,13 +67,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___default.a);
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
     Multiselect: vue_multiselect__WEBPACK_IMPORTED_MODULE_0___default.a
   },
-  props: ["id_repo"],
+  props: ["id_repo", "backComponent"],
   data: function data() {
     return {
       clases: [],
@@ -91,7 +98,8 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
       fillS: [],
       area: null,
       filter: "",
-      myOptions: []
+      myOptions: [],
+      idStudent: ""
     };
   },
   created: function created() {},
@@ -113,6 +121,12 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
       return texto.replace(re, function (matchedText) {
         return "<strong>".concat(matchedText, "</strong>");
       });
+    },
+    getIdStudent: function getIdStudent(idStudent) {
+      this.idStudent = idStudent;
+    },
+    backPage: function backPage() {
+      this.idStudent = "";
     }
   },
   computed: {
@@ -147,126 +161,157 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "back" }, [
-    _c("div", { staticClass: "row justify-content-center" }, [
-      _c("div", { staticClass: "col-sm-10", attrs: { id: "crud" } }, [
-        _c("div", { staticClass: "card text-center" }, [
-          _c("h3", { staticClass: "card-header fondo" }, [
-            _vm._v(_vm._s(_vm.$t("lang.homework.studentHomework")))
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "card-body" }, [
-            _c("div", { staticClass: "float-right" }, [
-              _c("label", { attrs: { for: "" } }, [
-                _vm._v(_vm._s(_vm.$t("lang.general.search")))
+  return _c("div", [
+    _vm.idStudent === ""
+      ? _c("div", { staticClass: "row justify-content-center" }, [
+          _c("div", { staticClass: "col-sm-12", attrs: { id: "crud" } }, [
+            _c("div", { staticClass: "card text-center" }, [
+              _c("h3", { staticClass: "card-header fondo" }, [
+                _vm._v(_vm._s(_vm.$t("lang.homework.studentHomework")))
               ]),
               _vm._v(" "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.filter,
-                    expression: "filter"
-                  }
-                ],
-                attrs: { type: "text", placeholder: "Buscar" },
-                domProps: { value: _vm.filter },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
+              _c("div", { staticClass: "card-body" }, [
+                _c("div", { staticClass: "float-right" }, [
+                  _c("label", { attrs: { for: "" } }, [
+                    _vm._v(_vm._s(_vm.$t("lang.general.search")))
+                  ]),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.filter,
+                        expression: "filter"
+                      }
+                    ],
+                    attrs: { type: "text", placeholder: "Buscar" },
+                    domProps: { value: _vm.filter },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.filter = $event.target.value
+                      }
                     }
-                    _vm.filter = $event.target.value
-                  }
-                }
-              })
-            ]),
-            _vm._v(" "),
-            _c(
-              "div",
-              {
-                staticClass: "table-responsive",
-                staticStyle: { "border-radius": "20px" }
-              },
-              [
+                  })
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "float-left" }, [
+                  _c(
+                    "a",
+                    {
+                      staticClass: "btn btn-warning",
+                      on: { click: _vm.backComponent }
+                    },
+                    [_vm._v("Volver")]
+                  )
+                ]),
+                _vm._v(" "),
                 _c(
-                  "table",
+                  "div",
                   {
-                    staticClass: "table table-hover table-striped",
-                    staticStyle: { "border-collapse": "separate !important" }
+                    staticClass: "table-responsive",
+                    staticStyle: { "border-radius": "20px" }
                   },
                   [
-                    _c("thead", [
-                      _c("tr", [
-                        _c("th", [
-                          _vm._v(_vm._s(_vm.$t("lang.general.student")))
-                        ]),
-                        _vm._v(" "),
-                        _c("th", [
-                          _vm._v(_vm._s(_vm.$t("lang.general.status")))
-                        ]),
-                        _vm._v(" "),
-                        _c("th", [_vm._v("-")])
-                      ])
-                    ]),
-                    _vm._v(" "),
                     _c(
-                      "tbody",
-                      _vm._l(_vm.filteredRows, function(row, index) {
-                        return _c("tr", { key: index }, [
-                          _c("td", {
-                            staticStyle: { "font-size": "18px" },
-                            domProps: {
-                              innerHTML: _vm._s(_vm.highlightMatches(row.name))
-                            }
-                          }),
-                          _vm._v(" "),
-                          _c("td", {
-                            staticStyle: { "font-size": "18px" },
-                            domProps: {
-                              innerHTML: _vm._s(
-                                _vm.highlightMatches(row.status)
-                              )
-                            }
-                          }),
-                          _vm._v(" "),
-                          _c("td", [
-                            _c(
-                              "a",
-                              {
-                                directives: [
-                                  {
-                                    name: "show",
-                                    rawName: "v-show",
-                                    value: row.id_student != null,
-                                    expression: "row.id_student!=null"
-                                  }
-                                ],
-                                staticClass: "btn btn-warning",
-                                attrs: {
-                                  href:
-                                    "/repository/comments/" +
-                                    row.id_student +
-                                    "/" +
-                                    _vm.id_repo
-                                }
-                              },
-                              [_vm._v(_vm._s(_vm.$t("lang.general.readMore")))]
-                            )
+                      "table",
+                      {
+                        staticClass: "table table-hover table-striped",
+                        staticStyle: {
+                          "border-collapse": "separate !important"
+                        }
+                      },
+                      [
+                        _c("thead", [
+                          _c("tr", [
+                            _c("th", [
+                              _vm._v(_vm._s(_vm.$t("lang.general.student")))
+                            ]),
+                            _vm._v(" "),
+                            _c("th", [
+                              _vm._v(_vm._s(_vm.$t("lang.general.status")))
+                            ]),
+                            _vm._v(" "),
+                            _c("th", [_vm._v("-")])
                           ])
-                        ])
-                      }),
-                      0
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "tbody",
+                          _vm._l(_vm.filteredRows, function(row, index) {
+                            return _c("tr", { key: index }, [
+                              _c("td", {
+                                staticStyle: { "font-size": "18px" },
+                                domProps: {
+                                  innerHTML: _vm._s(
+                                    _vm.highlightMatches(row.name)
+                                  )
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c("td", {
+                                staticStyle: { "font-size": "18px" },
+                                domProps: {
+                                  innerHTML: _vm._s(
+                                    _vm.highlightMatches(row.status)
+                                  )
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c("td", [
+                                _c(
+                                  "a",
+                                  {
+                                    directives: [
+                                      {
+                                        name: "show",
+                                        rawName: "v-show",
+                                        value: row.id_student != null,
+                                        expression: "row.id_student!=null"
+                                      }
+                                    ],
+                                    staticClass: "btn btn-warning",
+                                    on: {
+                                      click: function() {
+                                        return _vm.getIdStudent(row.id_student)
+                                      }
+                                    }
+                                  },
+                                  [
+                                    _vm._v(
+                                      _vm._s(_vm.$t("lang.general.readMore"))
+                                    )
+                                  ]
+                                )
+                              ])
+                            ])
+                          }),
+                          0
+                        )
+                      ]
                     )
                   ]
                 )
-              ]
-            )
+              ])
+            ])
           ])
         ])
-      ])
-    ])
+      : _c(
+          "div",
+          [
+            _c("repository-comments", {
+              attrs: {
+                id_repo: _vm.id_repo,
+                id_student: _vm.idStudent,
+                backPage: _vm.backPage
+              }
+            })
+          ],
+          1
+        )
   ])
 }
 var staticRenderFns = []

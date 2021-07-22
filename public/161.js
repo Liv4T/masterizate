@@ -113,23 +113,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 var init = function init() {
   var tieneSoporteUserMedia = function tieneSoporteUserMedia() {
     return navigator.mediaDevices ? navigator.mediaDevices.getUserMedia : null;
@@ -213,7 +196,7 @@ firebase__WEBPACK_IMPORTED_MODULE_2__["default"].initializeApp(firebaseConfig);
 firebase__WEBPACK_IMPORTED_MODULE_2__["default"].analytics();
 Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["id_repo", "id_student"],
+  props: ["id_repo", "id_student", "backPage"],
   data: function data() {
     return {
       myOptions: [],
@@ -414,209 +397,84 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("div", { staticClass: "back" }, [
-      _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-md-11 mx-auto" }, [
-          _c(
-            "div",
-            { staticClass: "custom-card text-center" },
-            [
-              _c("h3", { staticClass: "card-header fondo" }, [
-                _vm._v(
-                  "\n                        Entrega " +
-                    _vm._s(_vm.nameRepo) +
-                    "  "
-                ),
-                _c("br"),
-                _vm._v(
-                  "\n                        Estudiante " +
-                    _vm._s(_vm.nameStudent) +
-                    "\n                    "
-                )
-              ]),
-              _vm._v(" "),
-              _c(
-                "form-wizard",
-                {
-                  attrs: {
-                    title: "",
-                    subtitle: "",
-                    color: "#ffc107",
-                    "next-button-text": "Siguiente",
-                    "back-button-text": "Atrás",
-                    "finish-button-text": "Enviar comentario"
-                  },
-                  on: { "on-complete": _vm.createComment }
+    _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-md-11 mx-auto" }, [
+        _c(
+          "div",
+          { staticClass: "custom-card text-center" },
+          [
+            _c("h3", { staticClass: "card-header fondo" }, [
+              _vm._v("\n          Entrega " + _vm._s(_vm.nameRepo) + "  "),
+              _c("br"),
+              _vm._v(
+                "\n          Estudiante " +
+                  _vm._s(_vm.nameStudent) +
+                  "\n        "
+              )
+            ]),
+            _vm._v(" "),
+            _c(
+              "form-wizard",
+              {
+                attrs: {
+                  title: "",
+                  subtitle: "",
+                  color: "#ffc107",
+                  "next-button-text": "Siguiente",
+                  "back-button-text": "Atrás",
+                  "finish-button-text": "Enviar comentario"
                 },
-                [
-                  _c("tab-content", { attrs: { title: "Comentario" } }, [
-                    _c("div", { staticClass: "form-group row mx-auto" }, [
-                      _c("div", { staticClass: "col-md-6" }, [
-                        _c("label", { attrs: { for: "name" } }, [
-                          _vm._v("Nombre")
-                        ]),
-                        _vm._v(" "),
-                        _c("div", [
-                          _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.name,
-                                expression: "name"
-                              }
-                            ],
-                            staticClass: "form-control",
-                            attrs: {
-                              type: "text",
-                              name: "objetive1",
-                              required: ""
-                            },
-                            domProps: { value: _vm.name },
-                            on: {
-                              input: function($event) {
-                                if ($event.target.composing) {
-                                  return
-                                }
-                                _vm.name = $event.target.value
-                              }
-                            }
-                          })
-                        ])
+                on: { "on-complete": _vm.createComment }
+              },
+              [
+                _c("tab-content", { attrs: { title: "Comentario" } }, [
+                  _c("div", { staticClass: "form-group row mx-auto" }, [
+                    _c("div", { staticClass: "col-md-6" }, [
+                      _c("label", { attrs: { for: "name" } }, [
+                        _vm._v("Nombre")
                       ]),
                       _vm._v(" "),
-                      _c("div", { staticClass: "col-md-6" }, [
-                        _c("label", { attrs: { for: "name" } }, [
-                          _vm._v("Archivo")
-                        ]),
-                        _vm._v(" "),
-                        _c("br"),
-                        _vm._v(" "),
-                        _c(
-                          "a",
-                          {
-                            attrs: {
-                              href: _vm.nameFile,
-                              target: "_blank",
-                              rel: "noopener noreferrer"
-                            }
-                          },
-                          [
-                            _c("i", {
-                              staticClass: "fas fa-file-download fa-2x",
-                              staticStyle: { color: "grey" }
-                            }),
-                            _vm._v(" "),
-                            _c("span", { staticStyle: { color: "grey" } }, [
-                              _vm._v("Descargar")
-                            ])
-                          ]
-                        )
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "form-group row mx-auto" }, [
-                      _c("div", { staticClass: "col" }, [
-                        _c("label", { attrs: { for: "name" } }, [
-                          _vm._v("Retroalimentación")
-                        ]),
-                        _vm._v(" "),
-                        _c("textarea", {
+                      _c("div", [
+                        _c("input", {
                           directives: [
                             {
                               name: "model",
                               rawName: "v-model",
-                              value: _vm.retro,
-                              expression: "retro"
+                              value: _vm.name,
+                              expression: "name"
                             }
                           ],
                           staticClass: "form-control",
                           attrs: {
-                            name: "competences",
-                            placeholder: "",
+                            type: "text",
+                            name: "objetive1",
                             required: ""
                           },
-                          domProps: { value: _vm.retro },
+                          domProps: { value: _vm.name },
                           on: {
                             input: function($event) {
                               if ($event.target.composing) {
                                 return
                               }
-                              _vm.retro = $event.target.value
+                              _vm.name = $event.target.value
                             }
                           }
                         })
                       ])
                     ]),
                     _vm._v(" "),
-                    _c("div", { staticClass: "form-group  mx-auto" }, [
+                    _c("div", { staticClass: "col-md-6" }, [
                       _c("label", { attrs: { for: "name" } }, [
-                        _vm._v("Grabar nota de voz")
+                        _vm._v("Archivo")
                       ]),
                       _vm._v(" "),
-                      _c("select", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.listaDeDispositivos,
-                            expression: "listaDeDispositivos"
-                          }
-                        ],
-                        staticClass: "hidden",
-                        attrs: {
-                          name: "listaDeDispositivos",
-                          id: "listaDeDispositivos",
-                          hidden: ""
-                        },
-                        on: {
-                          change: function($event) {
-                            var $$selectedVal = Array.prototype.filter
-                              .call($event.target.options, function(o) {
-                                return o.selected
-                              })
-                              .map(function(o) {
-                                var val = "_value" in o ? o._value : o.value
-                                return val
-                              })
-                            _vm.listaDeDispositivos = $event.target.multiple
-                              ? $$selectedVal
-                              : $$selectedVal[0]
-                          }
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c("p", { attrs: { id: "duracion" } }),
-                      _vm._v(" "),
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-link",
-                          attrs: { id: "btnComenzarGrabacion" },
-                          on: { click: _vm.comenzarAGrabar }
-                        },
-                        [_c("i", { staticClass: "fas fa-microphone-alt" })]
-                      ),
-                      _vm._v(" "),
-                      _c("button", {
-                        staticClass: "btn btn-link fas fa-stop-circle",
-                        attrs: { id: "btnDetenerGrabacion" },
-                        on: { click: _vm.detenerGrabacion }
-                      }),
+                      _c("br"),
                       _vm._v(" "),
                       _c(
                         "a",
                         {
-                          directives: [
-                            {
-                              name: "show",
-                              rawName: "v-show",
-                              value: _vm.uploadBlobFile != null,
-                              expression: "uploadBlobFile!=null"
-                            }
-                          ],
                           attrs: {
-                            href: _vm.uploadBlobFile,
+                            href: _vm.nameFile,
                             target: "_blank",
                             rel: "noopener noreferrer"
                           }
@@ -632,86 +490,205 @@ var render = function() {
                           ])
                         ]
                       )
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "form-group row mx-auto" }, [
-                      _c("div", { staticClass: "col" }, [
-                        _c("label", { attrs: { for: "name" } }, [
-                          _vm._v("Archivo")
-                        ]),
-                        _vm._v(" "),
-                        _c(
-                          "button",
-                          {
-                            staticClass: "form-control",
-                            on: { click: _vm.click1 }
-                          },
-                          [_vm._v("Seleccione un archivo")]
-                        ),
-                        _vm._v(" "),
-                        _c("input", {
-                          ref: "input1",
-                          staticStyle: { display: "none" },
-                          attrs: { type: "file" },
-                          on: { change: _vm.previewImage }
-                        }),
-                        _vm._v(" "),
-                        _vm.message != "" && _vm.message != null
-                          ? _c("div", [
-                              _c(
-                                "span",
-                                {
-                                  staticStyle: {
-                                    color: "green",
-                                    "font-size": "20px"
-                                  }
-                                },
-                                [
-                                  _vm._v(
-                                    "Archivo cargado con exito nombre:" +
-                                      _vm._s(_vm.message) +
-                                      " "
-                                  )
-                                ]
-                              )
-                            ])
-                          : _vm._e(),
-                        _vm._v(" "),
-                        _vm.message == null
-                          ? _c("div", [
-                              _c(
-                                "span",
-                                {
-                                  staticStyle: {
-                                    color: "red",
-                                    "font-size": "18px"
-                                  }
-                                },
-                                [_vm._v("Espere estamos cargando su archivo")]
-                              )
-                            ])
-                          : _vm._e()
-                      ])
                     ])
                   ]),
                   _vm._v(" "),
-                  _c("div", { staticClass: "float-left" }, [
+                  _c("div", { staticClass: "form-group row mx-auto" }, [
+                    _c("div", { staticClass: "col" }, [
+                      _c("label", { attrs: { for: "name" } }, [
+                        _vm._v("Retroalimentación")
+                      ]),
+                      _vm._v(" "),
+                      _c("textarea", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.retro,
+                            expression: "retro"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: {
+                          name: "competences",
+                          placeholder: "",
+                          required: ""
+                        },
+                        domProps: { value: _vm.retro },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.retro = $event.target.value
+                          }
+                        }
+                      })
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-group  mx-auto" }, [
+                    _c("label", { attrs: { for: "name" } }, [
+                      _vm._v("Grabar nota de voz")
+                    ]),
+                    _vm._v(" "),
+                    _c("select", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.listaDeDispositivos,
+                          expression: "listaDeDispositivos"
+                        }
+                      ],
+                      staticClass: "hidden",
+                      attrs: {
+                        name: "listaDeDispositivos",
+                        id: "listaDeDispositivos",
+                        hidden: ""
+                      },
+                      on: {
+                        change: function($event) {
+                          var $$selectedVal = Array.prototype.filter
+                            .call($event.target.options, function(o) {
+                              return o.selected
+                            })
+                            .map(function(o) {
+                              var val = "_value" in o ? o._value : o.value
+                              return val
+                            })
+                          _vm.listaDeDispositivos = $event.target.multiple
+                            ? $$selectedVal
+                            : $$selectedVal[0]
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("p", { attrs: { id: "duracion" } }),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-link",
+                        attrs: { id: "btnComenzarGrabacion" },
+                        on: { click: _vm.comenzarAGrabar }
+                      },
+                      [_c("i", { staticClass: "fas fa-microphone-alt" })]
+                    ),
+                    _vm._v(" "),
+                    _c("button", {
+                      staticClass: "btn btn-link fas fa-stop-circle",
+                      attrs: { id: "btnDetenerGrabacion" },
+                      on: { click: _vm.detenerGrabacion }
+                    }),
+                    _vm._v(" "),
                     _c(
                       "a",
                       {
-                        staticClass: "btn btn-warning ",
-                        attrs: { href: "/repository/students/" + _vm.id_repo }
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: _vm.uploadBlobFile != null,
+                            expression: "uploadBlobFile!=null"
+                          }
+                        ],
+                        attrs: {
+                          href: _vm.uploadBlobFile,
+                          target: "_blank",
+                          rel: "noopener noreferrer"
+                        }
                       },
-                      [_vm._v("Volver")]
+                      [
+                        _c("i", {
+                          staticClass: "fas fa-file-download fa-2x",
+                          staticStyle: { color: "grey" }
+                        }),
+                        _vm._v(" "),
+                        _c("span", { staticStyle: { color: "grey" } }, [
+                          _vm._v("Descargar")
+                        ])
+                      ]
                     )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-group row mx-auto" }, [
+                    _c("div", { staticClass: "col" }, [
+                      _c("label", { attrs: { for: "name" } }, [
+                        _vm._v("Archivo")
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "button",
+                        {
+                          staticClass: "form-control",
+                          on: { click: _vm.click1 }
+                        },
+                        [_vm._v("Seleccione un archivo")]
+                      ),
+                      _vm._v(" "),
+                      _c("input", {
+                        ref: "input1",
+                        staticStyle: { display: "none" },
+                        attrs: { type: "file" },
+                        on: { change: _vm.previewImage }
+                      }),
+                      _vm._v(" "),
+                      _vm.message != "" && _vm.message != null
+                        ? _c("div", [
+                            _c(
+                              "span",
+                              {
+                                staticStyle: {
+                                  color: "green",
+                                  "font-size": "20px"
+                                }
+                              },
+                              [
+                                _vm._v(
+                                  "Archivo cargado con exito nombre:" +
+                                    _vm._s(_vm.message) +
+                                    " "
+                                )
+                              ]
+                            )
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _vm.message == null
+                        ? _c("div", [
+                            _c(
+                              "span",
+                              {
+                                staticStyle: {
+                                  color: "red",
+                                  "font-size": "18px"
+                                }
+                              },
+                              [_vm._v("Espere estamos cargando su archivo")]
+                            )
+                          ])
+                        : _vm._e()
+                    ])
                   ])
-                ],
-                1
-              )
-            ],
-            1
-          )
-        ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "float-left" }, [
+                  _c(
+                    "a",
+                    {
+                      staticClass: "btn btn-warning ",
+                      on: { click: _vm.backPage }
+                    },
+                    [_vm._v("Volver")]
+                  )
+                ])
+              ],
+              1
+            )
+          ],
+          1
+        )
       ])
     ])
   ])

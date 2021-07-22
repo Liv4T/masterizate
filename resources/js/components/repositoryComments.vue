@@ -1,118 +1,101 @@
 <template>
-    <div>
-        <div class="back">
-            <div class="row">
-                <div class="col-md-11 mx-auto">
-                    <div class="custom-card text-center">
-                        <h3 class="card-header fondo">
-                            Entrega {{ nameRepo }}  <br />
-                            Estudiante {{ nameStudent }}
-                        </h3>
+  <div>
+    <div class="row">
+      <div class="col-md-11 mx-auto">
+        <div class="custom-card text-center">
+          <h3 class="card-header fondo">
+            Entrega {{ nameRepo }}  <br />
+            Estudiante {{ nameStudent }}
+          </h3>
 
-                            <form-wizard
-                                title
-                                subtitle
-                                color="#ffc107"
-                                next-button-text="Siguiente"
-                                back-button-text="Atrás"
-                                finish-button-text="Enviar comentario"
-                                @on-complete="createComment"
-                            >
-                                <tab-content title="Comentario">
-                                    <div class="form-group row mx-auto">
-                                            <div class="col-md-6">
-                                                 <label for="name">Nombre</label>
-                                            <div>
-                                                <input
-                                                type="text"
-                                                name="objetive1"
-                                                class="form-control"
-                                                v-model="name"
-                                                required
-                                                />
-                                            </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label for="name">Archivo</label>
-                                                    <br />
-                                                    <a  :href="nameFile"
-                                                        target="_blank"
-                                                        rel="noopener noreferrer">
-                                                            <i class="fas fa-file-download fa-2x" style="color: grey;"></i>
-                                                            <span style="color:grey">Descargar</span>
-                                                    </a>
-                                                </div>
-                                    </div>
-                                    <div class="form-group row mx-auto">
-                                        <div class="col">
-                                            <label for="name"
-                                                >Retroalimentación</label
-                                            >
-                                            <textarea
-                                                name="competences"
-                                                class="form-control"
-                                                v-model="retro"
-                                                placeholder=""
-                                                required
-                                            ></textarea>
-
-                                        </div>
-                                    </div>
-                                     <div class="form-group  mx-auto" >
-                                          <label for="name">Grabar nota de voz</label>
-              <select
-                class="hidden"
-                name="listaDeDispositivos"
-                id="listaDeDispositivos"
-                v-model="listaDeDispositivos"
-                hidden
-              ></select>
-              <p id="duracion"></p>
-
-              <button class="btn btn-link" id="btnComenzarGrabacion" @click="comenzarAGrabar">
-                <i class="fas fa-microphone-alt"></i>
-              </button>
-
-              <button
-                class="btn btn-link fas fa-stop-circle"
-                id="btnDetenerGrabacion"
-                @click="detenerGrabacion"
-              ></button>
-                 <a  v-show="uploadBlobFile!=null"  :href="uploadBlobFile"
-                                                        target="_blank"
-                                                        rel="noopener noreferrer">
-                                                            <i class="fas fa-file-download fa-2x" style="color: grey;"></i>
-                                                            <span style="color:grey">Descargar</span>
-                                                    </a>
-            </div>
-                                    <div class="form-group row mx-auto">
-                                        <div class="col">
-                                            <label for="name">Archivo</label>
-                                            <button class="form-control"  @click="click1">Seleccione un archivo</button>
-                                            <input type="file" ref="input1"
-                                                style="display: none"
-                                                @change="previewImage"  >
-                                            <div v-if="message!='' && message!=null">
-                                                <span style="color:green; font-size:20px">Archivo cargado con exito nombre:{{ message }} </span>
-
-                                            </div>
-                                            <div v-if="message==null">
-                                                <span style="color:red; font-size:18px">Espere estamos cargando su archivo</span>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                </tab-content>
-                                   <div class="float-left">
-                                        <a :href="'/repository/students/'+id_repo" class="btn btn-warning ">Volver</a>
-                                </div>
-
-                            </form-wizard>
-                    </div>
+          <form-wizard
+            title
+            subtitle
+            color="#ffc107"
+            next-button-text="Siguiente"
+            back-button-text="Atrás"
+            finish-button-text="Enviar comentario"
+            @on-complete="createComment"
+          >
+            <tab-content title="Comentario">
+              <div class="form-group row mx-auto">
+                <div class="col-md-6">
+                  <label for="name">Nombre</label>
+                  <div>
+                    <input type="text" name="objetive1" class="form-control" v-model="name" required/>
+                  </div>
                 </div>
+                <div class="col-md-6">
+                  <label for="name">Archivo</label>
+                  <br />
+                  <a :href="nameFile" target="_blank" rel="noopener noreferrer">
+                    <i class="fas fa-file-download fa-2x" style="color: grey;"></i>
+                    <span style="color:grey">Descargar</span>
+                  </a>
+                </div>
+              </div>
+              <div class="form-group row mx-auto">
+                <div class="col">
+                  <label for="name">Retroalimentación</label>
+                  <textarea
+                    name="competences"
+                    class="form-control"
+                    v-model="retro"
+                    placeholder=""
+                    required
+                  ></textarea>
+                </div>
+              </div>
+              <div class="form-group  mx-auto" >
+                <label for="name">Grabar nota de voz</label>
+                <select
+                  class="hidden"
+                  name="listaDeDispositivos"
+                  id="listaDeDispositivos"
+                  v-model="listaDeDispositivos"
+                  hidden
+                ></select>
+                <p id="duracion"></p>
+
+                <button class="btn btn-link" id="btnComenzarGrabacion" @click="comenzarAGrabar">
+                  <i class="fas fa-microphone-alt"></i>
+                </button>
+
+                <button
+                  class="btn btn-link fas fa-stop-circle"
+                  id="btnDetenerGrabacion"
+                  @click="detenerGrabacion"
+                ></button>
+                
+                <a v-show="uploadBlobFile!=null" :href="uploadBlobFile"
+                  target="_blank"
+                  rel="noopener noreferrer">
+                  <i class="fas fa-file-download fa-2x" style="color: grey;"></i>
+                  <span style="color:grey">Descargar</span>
+                </a>
+              </div>
+              <div class="form-group row mx-auto">
+                <div class="col">
+                  <label for="name">Archivo</label>
+                  <button class="form-control"  @click="click1">Seleccione un archivo</button>
+                  <input type="file" ref="input1" style="display: none" @change="previewImage"  >
+                  <div v-if="message!='' && message!=null">
+                    <span style="color:green; font-size:20px">Archivo cargado con exito nombre:{{ message }} </span>
+                  </div>
+                  <div v-if="message==null">
+                    <span style="color:red; font-size:18px">Espere estamos cargando su archivo</span>
+                  </div>
+                </div>
+              </div>
+            </tab-content>
+            <div class="float-left">
+              <a v-on:click="backPage" class="btn btn-warning ">Volver</a>
             </div>
+          </form-wizard>
         </div>
+      </div>
     </div>
+  </div>
 </template>
 <script>
 const init = () => {
@@ -196,7 +179,7 @@ import firebase from 'firebase';
   firebase.analytics();
 Vue.use(VueFormWizard);
 export default {
-  props: ["id_repo","id_student"],
+  props: ["id_repo","id_student","backPage"],
   data() {
     return {
       myOptions: [],

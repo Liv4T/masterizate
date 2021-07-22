@@ -26,7 +26,11 @@
                 <teacher-students :idArea="idArea" :idClassroom="idClassroom"></teacher-students>
               </div>              
             </div>
-            <div v-if="activetab === 4" class="tabcontent">incluir vista</div>
+            <div v-if="activetab === 4" class="tabcontent">
+              <div v-if="idArea !='' && idClassroom != ''">
+                <repository-component :idArea="idArea" :idClassroom="idClassroom"></repository-component>
+              </div>
+            </div>
           </div>
         </div>
       </div>

@@ -1,7 +1,7 @@
 <template>
-  <div class="back">
-    <div class="row justify-content-center">
-      <div id="crud" class="col-sm-10">
+  <div>
+    <div v-if="idRepo === ''" class="row justify-content-center">
+      <div id="crud" class="col-sm-12">
         <div class="card text-center">
           <h3 class="card-header fondo">Entregas</h3>
           <div class="card-body">
@@ -15,17 +15,7 @@
             <div class="float-right">
               <label for="">Buscar</label>
               <input type="text" placeholder="Buscar" v-model="filter" />
-            </div>
-            <div class="form-group mx-auto">
-                <div align="center">
-                    <div class="col-md-6">
-                        <label for>Materia:</label>
-                        <select class="form-control" v-model="area_classroom"  @change="areaClassroom()" required>
-                          <option :value="option.id+'/'+option.id_classroom" v-for="option in myOptions">{{ option.text }}</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
+            </div>            
             <div class="table-responsive" style="border-radius: 20px">
               <table
                 class="table table-hover table-striped"
@@ -33,9 +23,10 @@
               >
                 <thead >
                   <tr>
-                    <th>Fecha</th>
                     <th>Tarea</th>
-                    <th>-</th>
+                    <th>Fecha</th>
+                    
+                    <th>Acción</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -44,18 +35,18 @@
                     :key="index"
 
                   >
-                   <td
-                      style="font-size: 18px"
-                      v-html="highlightMatches(row.date)"
-                    ></td>
                     <td
                       style="font-size: 18px"
                       v-html="highlightMatches(row.name)"
                     ></td>
+                    <td
+                      style="font-size: 18px"
+                      v-html="highlightMatches(row.date)"
+                    ></td>                    
                     <td>
                       <a
-                        class="btn btn-warning"
-                        :href="'/repository/students/'+row.id"
+                        class="btn btn-warning"                        
+                        v-on:click="()=>getIdReport(row.id)"
                         >Ver más</a
                       >
                     </td>
@@ -67,6 +58,9 @@
         </div>
       </div>
     </div>
+    <div v-else>
+      <repository-students :id_repo="idRepo" :backComponent="backPage"></repository-students>
+    </div>
   </div>
 </template>
 <script>
@@ -74,7 +68,7 @@ import Multiselect from "vue-multiselect";
 Vue.component("multiselect", Multiselect);
 export default {
   components: { Multiselect },
-  props: ["id_grade", "id_area"],
+  props: ["idArea", "idClassroom"],
   data() {
     return {
       clases: [],
@@ -89,24 +83,26 @@ export default {
       fillS: [],
       area: null,
       filter: "",
-       myOptions: [],
+      idRepo:"",
     };
   },
   created() {},
   mounted() {
-      var url = "/GetArearByUser";
-    axios.get(url).then((response) => {
-      this.myOptions = response.data;
-    });
-
-    console.log("Component mounted.");
+    this.areaClassroom();
+  },
+  watch:{
+    idArea(newVal, oldVal){
+      if(newVal !== oldVal){
+        this.areaClassroom(); 
+      }
+    }
   },
   methods: {
     areaClassroom(){
-         var url = window.location.origin + "/getRepository/" + this.area_classroom;
-    axios.get(url).then((response) => {
-      this.clases = response.data;
-    });
+      var url = window.location.origin + "/getRepository/" + this.idArea +"/"+this.idClassroom;
+      axios.get(url).then((response) => {
+        this.clases = response.data;
+      });
     },
     highlightMatches(texto) {
       const matchExists = texto
@@ -120,6 +116,12 @@ export default {
         (matchedText) => `<strong>${matchedText}</strong>`
       );
     },
+    getIdReport(id){
+      this.idRepo = id
+    },
+    backPage(){
+      this.idRepo = "";
+    }
   },
   computed: {
     filteredRows() {
