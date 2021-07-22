@@ -117,21 +117,89 @@ moment__WEBPACK_IMPORTED_MODULE_1___default.a.locale("es");
     return {
       clases: [],
       colorClass: [{
-        area: 'Ingles',
-        style: "background-color: #ffb466; border-color: #ffb466; box-shadow: 3px 3px 3px 3px #b0acac",
-        title: "background-color: #ffb466;"
-      }, {
         area: 'Español',
-        style: "background-color: #ffea47; border-color: #ffea47; box-shadow: 3px 3px 3px 3px #b0acac",
-        title: "background-color: #ffea47;"
-      }, {
-        area: 'nueva materia',
-        style: "background-color: #a639b0; border-color: #a639b0; box-shadow: 3px 3px 3px 3px #b0acac",
-        title: "background-color: #a639b0;"
+        style: "background-color: #FFB466; border-color: #FFB466; box-shadow: 3px 3px 3px 3px #b0acac",
+        title: "background-color: #FFB466;"
       }, {
         area: 'Matematicas',
-        style: "background-color: #0d3cfa; border-color: #0d3cfa; box-shadow: 3px 3px 3px 3px #b0acac",
-        title: "background-color: #0d3cfa;"
+        style: "background-color: #FFEA47; border-color: #FFEA47; box-shadow: 3px 3px 3px 3px #b0acac",
+        title: "background-color: #FFEA47;"
+      }, {
+        area: 'Inglés',
+        style: "background-color: #A639B0; border-color: #A639B0; box-shadow: 3px 3px 3px 3px #b0acac",
+        title: "background-color: #A639B0;"
+      }, {
+        area: 'Química',
+        style: "background-color: #50E9FB; border-color: #50E9FB; box-shadow: 3px 3px 3px 3px #b0acac",
+        title: "background-color: #50E9FB;"
+      }, {
+        area: 'Educación física',
+        style: "background-color: #FFA4F2; border-color: #FFA4F2; box-shadow: 3px 3px 3px 3px #b0acac",
+        title: "background-color: #FFA4F2;"
+      }, {
+        area: 'Electivas',
+        style: "background-color: #49CEFB; border-color: #49CEFB; box-shadow: 3px 3px 3px 3px #b0acac",
+        title: "background-color: #49CEFB;"
+      }, {
+        area: 'Física',
+        style: "background-color: #4E92FD; border-color: #4E92FD; box-shadow: 3px 3px 3px 3px #b0acac",
+        title: "background-color: #4E92FD;"
+      }, {
+        area: 'Religión',
+        style: "background-color: #FF5552; border-color: #FF5552; box-shadow: 3px 3px 3px 3px #b0acac",
+        title: "background-color: #FF5552;"
+      }, {
+        area: 'Sociales',
+        style: "background-color: #FFC0F6; border-color: #FFC0F6; box-shadow: 3px 3px 3px 3px #b0acac",
+        title: "background-color: #FFC0F6;"
+      }, {
+        area: 'Biología',
+        style: "background-color: #B8FFC2; border-color: #B8FFC2; box-shadow: 3px 3px 3px 3px #b0acac",
+        title: "background-color: #B8FFC2;"
+      }, {
+        area: 'Ciencias naturales',
+        style: "background-color: #FFD05C; border-color: #FFD05C; box-shadow: 3px 3px 3px 3px #b0acac",
+        title: "background-color: #FFD05C;"
+      }, {
+        area: 'STEAM',
+        style: "background-color: #1CABBA; border-color: #1CABBA; box-shadow: 3px 3px 3px 3px #b0acac",
+        title: "background-color: #1CABBA;"
+      }, {
+        area: 'Programación',
+        style: "background-color: #DD68D2; border-color: #DD68D2; box-shadow: 3px 3px 3px 3px #b0acac",
+        title: "background-color: #DD68D2;"
+      }, {
+        area: 'Tecnología',
+        style: "background-color: #F98200; border-color: #F98200; box-shadow: 3px 3px 3px 3px #b0acac",
+        title: "background-color: #F98200;"
+      }, {
+        area: 'Música',
+        style: "background-color: #69D5FF; border-color: #69D5FF; box-shadow: 3px 3px 3px 3px #b0acac",
+        title: "background-color: #69D5FF;"
+      }, {
+        area: 'Arte',
+        style: "background-color: #51F461; border-color: #51F461; box-shadow: 3px 3px 3px 3px #b0acac",
+        title: "background-color: #51F461;"
+      }, {
+        area: 'Danza',
+        style: "background-color: #0055FF; border-color: #0055FF; box-shadow: 3px 3px 3px 3px #b0acac",
+        title: "background-color: #0055FF;"
+      }, {
+        area: 'Teatro',
+        style: "background-color: #71A8FF; border-color: #71A8FF; box-shadow: 3px 3px 3px 3px #b0acac",
+        title: "background-color: #71A8FF;"
+      }, {
+        area: 'Robótica',
+        style: "background-color: #FF92A4; border-color: #FF92A4; box-shadow: 3px 3px 3px 3px #b0acac",
+        title: "background-color: #FF92A4;"
+      }, {
+        area: 'Emprendimiento',
+        style: "background-color: #D88000; border-color: #D88000; box-shadow: 3px 3px 3px 3px #b0acac",
+        title: "background-color: #D88000;"
+      }, {
+        area: 'Psicología',
+        style: "background-color: #EDCB00; border-color: #EDCB00; box-shadow: 3px 3px 3px 3px #b0acac",
+        title: "background-color: #EDCB00;"
       }],
       areas: [],
       descripcion: "",
@@ -338,8 +406,12 @@ var render = function() {
               _c(
                 "button",
                 {
-                  staticClass: "btn btn-danger dropdown-toggle mg-btn",
-                  staticStyle: { "box-shadow": "3px 3px 3px 3px #b0acac" },
+                  staticClass: "btn btn-warning dropdown-toggle mg-btn",
+                  staticStyle: {
+                    "background-color": "#49CEFB",
+                    "border-color": "#49CEFB",
+                    "box-shadow": "3px 3px 3px 3px #b0acac"
+                  },
                   attrs: {
                     type: "button",
                     id: "admin",
