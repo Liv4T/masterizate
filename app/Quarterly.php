@@ -8,5 +8,5 @@ class Quarterly extends Model
 {
     //
     protected $table = "quarterly_plan";
-    protected $fillable = ["unit_name", "content", "id_teacher", "id_area", "id_classroom"];
+    protected $fillable = ["unit_name", "content", "logro" ,"id_teacher", "id_area", "id_classroom"];
 }

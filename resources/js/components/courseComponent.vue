@@ -20,9 +20,9 @@
                 crossorigin="anonymous"
             />
         </head>
-        <div class="back">
+        <div>
             <div class="row">
-                <div class="col-md-11 mx-auto">
+                <div class="col-md-12 mx-auto">
                     <div class="custom-card text-center">
                         <h3 class="card-header fondo">Planificación general</h3>                        
                         <span class="classroom-label">{{fillC.classroom_name}}</span>
@@ -63,9 +63,7 @@
                             <form-wizard
                                 title
                                 subtitle
-                                color="#ffc107"
-                                next-button-text="Siguiente"
-                                back-button-text="Atrás"
+                                color="#ffc107"                                
                                 finish-button-text="Guardar y enviar"
                                 @on-complete="createCourses"
                             >
@@ -76,10 +74,10 @@
                                     v-if="isLoading"
                                 ></span>
                                 
-                                <tab-content title="Anual">
+                                
                                     <div class="form-group mx-auto" v-for="(input1, t) in inputs1" :key="t">
                                         <div class="classroom-planning-section">
-                                            <strong>Logro:</strong>
+                                            <strong>Objetivo: </strong>
                                             <input
                                                 v-on:change="annualContentUpdateEvent($event,t,'inputs1')"
                                                 class="form-control form-control-sm"
@@ -118,7 +116,7 @@
                                     <div v-show="(activityForPIARStudents == true && piarStudents.length > 0)">
                                         <div v-for="(inputsP, key) in inputsPIAR" :key="'-'+key">
                                             <div class="classroom-planning-section">
-                                                <strong>Logro:</strong>
+                                                <strong>Objetivo:</strong>
                                                 <input
                                                     v-on:change="annualContentUpdateEvent($event,key,'inputsPIAR')"
                                                     class="form-control form-control-sm"
@@ -151,104 +149,7 @@
                                                 required
                                             ></textarea>
                                         </div>
-                                    </div>                                    
-                                </tab-content>
-
-                                <tab-content title="Trimestral">
-                                    <div class="form-group row mx-auto" v-for="(input, t) in inputs" :key="t">
-                                        <div class="col-md-6">
-                                            <label for="name">Indicador</label>
-                                            <span>
-                                            <a
-                                                href="#"
-                                                class="badge badge-danger"
-                                                @click.prevent="remove(t)"
-                                                v-show="(t>0 && inputs_saved.length<=t)"
-                                            >-</a>
-                                            <a
-                                                href="#"
-                                                class="badge badge-primary"
-                                                @click.prevent="add(t)"
-                                                v-show="t == inputs.length - 1"
-                                            >+</a>                                            
-                                            </span>
-                                            <div>
-                                                <input
-                                                    type="text"
-                                                    name="objetive1"
-                                                    class="form-control"
-                                                    v-model="input.name"
-                                                    v-on:change="annualContentUpdateEvent($event,t,'inputs','name')"
-                                                    placeholder="Nombre de la unidad"
-                                                    required
-                                                />
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label for="name">Contenido</label>
-                                            <textarea
-                                            name="competences"
-                                            class="form-control"
-                                            v-model="input.contenido"
-                                            v-on:change="annualContentUpdateEvent($event,t,'inputs','contenido')"
-                                            placeholder="Es la explicacion o sintesis de la unidad."
-                                            required
-                                            ></textarea>
-                                            <div class="invalid-feedback">Please fill out this field</div>
-                                        </div>
-                                    </div>
-                                    <!-- <div class="modal-footer">
-                                    <a submit="createCourses" class="btn btn-warning float-right">Guardar</a>
-                                    </div>-->
-
-                                    <a v-show="(activityForPIARStudents == true && piarStudents.length > 0)" v-on:click="showPIARPlanT" class="btn btn-primary">Crear Planificación General Estudiantes PIAR</a>
-                                
-                                    <div class="mt-3" v-show="(activityForPIARStudents == true && piarStudents.length > 0)">
-                                        <div class="form-group row mx-auto" v-for="(inputsP1, keyy) in inputsPIAR1" :key="keyy">
-                                            <div class="col-md-6">
-                                                <label for="name">Indicador</label>
-                                                <span>
-                                                <a
-                                                    href="#"
-                                                    class="badge badge-danger"
-                                                    @click.prevent="removeP1(keyy)"
-                                                    v-show="(keyy > 0 && inputsP1_saved.length<=keyy)"
-                                                >-</a>
-                                                <a
-                                                    href="#"
-                                                    class="badge badge-primary"
-                                                    @click.prevent="addP1(keyy)"                                                   
-                                                    v-show="keyy == inputsPIAR1.length -1"
-                                                >+</a>
-                                                </span>
-                                                
-                                                <div>
-                                                    <input
-                                                        type="text"
-                                                        name="objetive1"
-                                                        class="form-control"
-                                                        v-model="inputsP1.namePIAR"
-                                                        v-on:change="annualContentUpdateEvent($event,keyy,'inputsPIAR1','namePIAR')"
-                                                        placeholder="Nombre de la unidad"
-                                                        required
-                                                    />                                                    
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <label for="name">Contenido</label>
-                                                <textarea
-                                                name="competences"
-                                                class="form-control"
-                                                v-model="inputsP1.contenidoPIAR"
-                                                v-on:change="annualContentUpdateEvent($event,keyy,'inputsPIAR1','contenidoPIAR')"
-                                                placeholder="Es la explicacion o sintesis de la unidad."
-                                                required
-                                                ></textarea>
-                                                <div class="invalid-feedback">Please fill out this field</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </tab-content>              
+                                    </div>                              
                             </form-wizard>            
                         </form>
                     </div>
@@ -304,7 +205,7 @@ import VueFormWizard from "vue-form-wizard";
 import "vue-form-wizard/dist/vue-form-wizard.min.css";
 Vue.use(VueFormWizard);
 export default {
-    props: ["id_area", "id_classroom"],
+    props: ["idArea"],
     data() {
         return {
             serialLocalStorage:'9f284918-f0f6-4369-a368-eaf6321b6807',
@@ -388,102 +289,109 @@ export default {
                 this.activityForAllStudents = false;
                 this.selectedStudentsData = this.studentsOptions;
             }
-        }        
+        },
+        
+        idArea(newVal, oldVal){
+            if(newVal !== oldVal){
+                this.getData();
+            }
+        },
     },
     mounted() {
-        axios.get(`/PIARStudentsByArea/${this.id_area}/${this.id_classroom}`).then((response)=>{
-            this.piarStudents = Object.values(response.data);
-        }).catch((error)=>{
-            console.log(error)
-        })
-
-        axios.get(`/StudentsByArea/${this.id_area}/${this.id_classroom}`).then((response)=>{
-            let data = response.data;
-            data.forEach((e)=>{
-                this.studentsOptions.push({
-                    id: e.id_student,
-                    text: e.name
-                })
-            })
-        })
-
-        axios.get('/getPlanificationPiar').then((response)=>{
-            console.log('datos piar:',response.data);
-            let data = response.data;
-            if(data.length > 0){
-                this.inputsPIAR1.splice(0);
-                this.inputsPIAR.splice(0);
-                data.forEach((el)=>{
-                    let logros = JSON.parse(el.logros)
-                    let trimestres = JSON.parse(el.trimestres)
-                    this.saveStudent = JSON.parse(el.students)
-  
-                    logros.forEach((lg)=>{
-                        this.inputsPIAR1.push({
-                            contenidoPIAR: lg.contenidoPIAR,
-                            namePIAR: lg.namePIAR
-                        })
-                    })
- 
-                    trimestres.forEach((lg)=>{
-                        this.inputsPIAR.push({
-                            logroPIAR: lg.logroPIAR,
-                            porcentajePIAR: lg.porcentajePIAR
-                        })
-                    })
-                });
-                
-                console.log(this.inputsPIAR1)
-                this.showPiarPlan = true,
-                this.showPIARPlanTrimestral = true,
-                this.activityForPIARStudents = true;
-            }
-        })
-        
-        //load from localstorage
-        this.serialLocalStorage=this.serialLocalStorage+"-"+this.id_area+"-"+this.id_classroom;
-
-        var urlsel = window.location.origin + "/coursePlanification/" + this.id_area + "/" + this.id_classroom;
-        axios.get(urlsel).then((response) => {
-            this.fillC = response.data;
-            //set current data
-            if(response.data.achievements.length>0 && response.data.quaterly.length>0){
-                this.inputs1=[];
-                response.data.achievements.forEach((e)=>{
-                    this.inputs1.push({id_plannification:e.id_planification,id_achievement:e.id, logro: e.achievement, porcentaje: e.percentage });
-                });
-                this.inputs1_saved= JSON.parse(JSON.stringify(this.inputs1));
-                
-                this.inputs=[];
-                response.data.quaterly.forEach((e)=>{
-                    this.inputs.push({ id_quaterly:e.id,name: e.unit_name, contenido: e.content });
-                });
-                this.inputs_saved= JSON.parse(JSON.stringify(this.inputs));
-            }
-            else{
-    
-                if(localStorage.getItem(this.serialLocalStorage)){
-                    let savedInputModel=JSON.parse(decodeURIComponent(escape(window.atob(localStorage.getItem(this.serialLocalStorage)))));
-        
-                    if(JSON.stringify(savedInputModel.inputs)!=JSON.stringify(this.inputs)){
-                        this.inputs=savedInputModel.inputs;
-                        this.isSynchronized=false;
-                    }
-
-                    if(JSON.stringify(savedInputModel.inputs1)!=JSON.stringify(this.inputs1)){
-                        this.inputs1=savedInputModel.inputs1;
-                        this.isSynchronized=false;
-                    }
-                }
-            }
-            if (this.fillC.quaterly.length > 0) {
-                this.trimestre = true;
-            } else {
-                this.trimestre = false;
-            }
-        });
+        this.getData();
     },
     methods: {
+        getData(){
+            axios.get(`/PIARStudentsByArea/${this.idArea}`).then((response)=>{
+                this.piarStudents = Object.values(response.data);
+            }).catch((error)=>{
+                console.log(error)
+            })
+
+            axios.get(`/StudentsByArea/${this.idArea}`).then((response)=>{
+                let data = response.data;
+                data.forEach((e)=>{
+                    this.studentsOptions.push({
+                        id: e.id_student,
+                        text: e.name
+                    })
+                })
+            })
+
+            axios.get('/getPlanificationPiar').then((response)=>{
+                let data = response.data;
+                if(data.length > 0){
+                    this.inputsPIAR1.splice(0);
+                    this.inputsPIAR.splice(0);
+                    data.forEach((el)=>{
+                        let logros = JSON.parse(el.logros)
+                        let trimestres = JSON.parse(el.trimestres)
+                        this.saveStudent = JSON.parse(el.students)
+    
+                        logros.forEach((lg)=>{
+                            this.inputsPIAR1.push({
+                                contenidoPIAR: lg.contenidoPIAR,
+                                namePIAR: lg.namePIAR
+                            })
+                        })
+    
+                        trimestres.forEach((lg)=>{
+                            this.inputsPIAR.push({
+                                logroPIAR: lg.logroPIAR,
+                                porcentajePIAR: lg.porcentajePIAR
+                            })
+                        })
+                    });
+                    
+                    this.showPiarPlan = true,
+                    this.showPIARPlanTrimestral = true,
+                    this.activityForPIARStudents = true;
+                }
+            })
+            
+            //load from localstorage
+            this.serialLocalStorage=this.serialLocalStorage+"-"+this.idArea;
+
+            var urlsel = window.location.origin + "/coursePlanification/" + this.idArea;
+            axios.get(urlsel).then((response) => {
+                this.fillC = response.data;
+                //set current data
+                if(response.data.achievements.length>0 && response.data.quaterly.length>0){
+                    this.inputs1=[];
+                    response.data.achievements.forEach((e)=>{
+                        this.inputs1.push({id_plannification:e.id_planification,id_achievement:e.id, logro: e.achievement, porcentaje: e.percentage });
+                    });
+                    this.inputs1_saved= JSON.parse(JSON.stringify(this.inputs1));
+                    
+                    this.inputs=[];
+                    response.data.quaterly.forEach((e)=>{
+                        this.inputs.push({ id_quaterly:e.id,name: e.unit_name, contenido: e.content });
+                    });
+                    this.inputs_saved= JSON.parse(JSON.stringify(this.inputs));
+                }
+                else{
+        
+                    if(localStorage.getItem(this.serialLocalStorage)){
+                        let savedInputModel=JSON.parse(decodeURIComponent(escape(window.atob(localStorage.getItem(this.serialLocalStorage)))));
+            
+                        if(JSON.stringify(savedInputModel.inputs)!=JSON.stringify(this.inputs)){
+                            this.inputs=savedInputModel.inputs;
+                            this.isSynchronized=false;
+                        }
+
+                        if(JSON.stringify(savedInputModel.inputs1)!=JSON.stringify(this.inputs1)){
+                            this.inputs1=savedInputModel.inputs1;
+                            this.isSynchronized=false;
+                        }
+                    }
+                }
+                if (this.fillC.quaterly.length > 0) {
+                    this.trimestre = true;
+                } else {
+                    this.trimestre = false;
+                }
+            });
+        },
         annualContentUpdateEvent(e,i,type,property=null){
             if(type=='inputs'){
                 this.inputs[i][property]=this.inputs[i][property].replace(/[^a-zA-Z0-9-.ñáéíóú_*+-/=&%$#!()?¡¿ ]/g, "|");
@@ -502,10 +410,6 @@ export default {
             localStorage.setItem(this.serialLocalStorage, window.btoa(unescape(encodeURIComponent(JSON.stringify({inputs1:this.inputs1,inputs:this.inputs, inputsPIAR: this.inputsPIAR})))));
 
             this.isSynchronized=false;
-        },
-        getMenu() {
-            window.location = "/actividad_g";
-            this.isLoading=false;
         },
         showPIARPlan(){
             this.showPiarPlan = !this.showPiarPlan
@@ -568,14 +472,14 @@ export default {
                 }
 
                 axios.post(url, {
-                    id_area: this.id_area,
-                    id_classroom: this.id_classroom,
+                    id_area: this.idArea.substring(0, this.idArea.lastIndexOf("/") ),
+                    id_classroom: this.idArea[2],
                     logros: this.newLogro,
                     trimestres: this.newTrimestre,
                 }).then((response) => {
                     this.errors = [];
                     toastr.success("Nuevo plan general creado exitosamente");
-                    this.getMenu();
+                    this.isLoading=false;
                         
                 }).catch((error) => {
                     this.errors = error.response.data;
@@ -605,15 +509,14 @@ export default {
 
                 axios.post('/piarAnualPlanification', {
                     //Cursos generales
-                    id_area: this.id_area,
-                    id_classroom: this.id_classroom,
-                    logros: JSON.stringify(this.newLogro),
+                    id_area: this.idArea.substring(0, this.idArea.lastIndexOf("/") ),
+                    id_classroom: this.idArea[2],
                     trimestres: JSON.stringify(this.newTrimestre),
                     students: JSON.stringify(this.saveStudent),
                 }).then((response) => {
                     this.errors = [];
                     toastr.success(response.data);
-                    this.getMenu();
+                    this.isLoading=false;
                         
                 }).catch((error) => {
                     this.errors = error.response.data;

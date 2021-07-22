@@ -246,26 +246,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "row" }, [
     _c("div", { staticClass: "col-12 col-md-12" }, [
-      _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-12 col-md-12" }, [
-          _c("div", { staticClass: "class_container_header" }, [
-            _c("span", [_vm._v("Contenido de la clase:")]),
-            _vm._v(" "),
-            _c(
-              "button",
-              {
-                staticClass: "btn btn-link",
-                on: {
-                  click: function($event) {
-                    return _vm.GoReturnPage()
-                  }
-                }
-              },
-              [_vm._v("Regresar")]
-            )
-          ])
-        ])
-      ]),
+      _vm._m(0),
       _vm._v(" "),
       _c("div", { staticClass: "row" }, [
         _c("div", { staticClass: "col-12 col-md-12 class_content_title" }, [
@@ -521,7 +502,20 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-12 col-md-12" }, [
+        _c("div", { staticClass: "class_container_header" }, [
+          _c("span", [_vm._v("Contenido de la clase:")])
+        ])
+      ])
+    ])
+  }
+]
 render._withStripped = true
 
 

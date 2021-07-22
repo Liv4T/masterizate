@@ -1,6 +1,6 @@
 <template>
-  <div class="back row justify-content-center">
-    <div class="col-sm-10">
+  <div class="justify-content-center">
+    <div class="col-sm-12">
       <div class="card text-center">
         <div class="card-header fondo">
           <h4>Progreso de estudiante</h4>
@@ -33,18 +33,20 @@
             </div>
           </div>
         </div>
-        <teacher-student-module-select v-if="!id_module" :id_area="id_area" :id_classroom="id_classroom" :id_student="id_student"></teacher-student-module-select>
-        <teacher-student-class-select v-if="id_module && !id_class" :id_module="id_module" :id_area="id_area" :id_classroom="id_classroom" :id_student="id_student"></teacher-student-class-select>
-        <teacher-student-class-content v-if="id_module && id_class" :id_class="id_class" :id_module="id_module" :id_area="id_area" :id_classroom="id_classroom" :id_student="id_student"></teacher-student-class-content>
-
-
+        <button class="btn btn-link" v-on:click="cleanData" style="margin-left: 90%;">Regresar</button>
+        
+        <teacher-student-module-select v-if="!id_module" 
+          :id_area="id_area" 
+          :id_classroom="id_classroom" 
+          :id_student="id_student"
+        ></teacher-student-module-select>
       </div>
     </div>
   </div>
 </template>
 <script>
   export default {
-    props: ["id_area", "id_classroom", "id_student", "id_module", "id_class"],
+    props: ["id_area", "id_classroom", "id_student", "id_module", "id_class","cleanData"],
     data() {
       return {
         modules: [],
@@ -82,7 +84,9 @@
           );
         });
       },
-
+      executeCleanData(){
+        this.cleanData();
+      }
     },
   };
 </script>

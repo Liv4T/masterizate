@@ -48,12 +48,23 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['id_area', 'id_classroom', 'id_student'],
   data: function data() {
     return {
       modules: [],
-      current_module: {}
+      current_module: {},
+      hideSection: false
     };
   },
   mounted: function mounted() {
@@ -67,6 +78,7 @@ __webpack_require__.r(__webpack_exports__);
       return new Promise(function (resolve, reject) {
         axios.get("/api/teacher/area/".concat(_this.id_area, "/classroom/").concat(_this.id_classroom, "/student/").concat(_this.id_student, "/module")).then(function (response) {
           _this.modules = response.data;
+          console.log(_this.modules);
           resolve();
         }, function (e) {
           return reject(e);
@@ -74,11 +86,11 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     moduleSelectEvent: function moduleSelectEvent(module) {
+      this.hideSection = true;
       this.current_module = module;
-      location.href = "/docente/area/".concat(this.id_area, "/curso/").concat(this.id_classroom, "/estudiante/").concat(this.id_student, "/modulo/").concat(this.current_module.id);
     },
     GoReturnPage: function GoReturnPage() {
-      window.history.back();
+      this.current_module = {};
     }
   }
 });
@@ -150,111 +162,133 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "row" }, [
-    _c(
-      "div",
-      { staticClass: "col-12 col-md-12" },
-      [
-        _c("div", { staticClass: "class_container_header" }, [
-          _c("span", [_vm._v("Seleccione ciclo:")]),
+    _vm.current_module.id
+      ? _c(
+          "div",
+          [
+            _c("teacher-student-class-select", {
+              attrs: {
+                id_module: _vm.current_module.id,
+                id_area: _vm.id_area,
+                id_classroom: _vm.id_classroom,
+                id_student: _vm.id_student
+              }
+            })
+          ],
+          1
+        )
+      : _vm._e(),
+    _vm._v(" "),
+    _c("div", { staticClass: "col-12 col-md-12", attrs: { else: "" } }, [
+      _c(
+        "div",
+        {
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
+              value: _vm.hideSection === false,
+              expression: "hideSection === false"
+            }
+          ]
+        },
+        [
+          _vm._m(0),
           _vm._v(" "),
-          _c(
-            "button",
-            {
-              staticClass: "btn btn-link",
-              on: {
-                click: function($event) {
-                  return _vm.GoReturnPage()
+          _vm._l(_vm.modules, function(_module, k_module) {
+            return _c(
+              "div",
+              {
+                key: k_module,
+                staticClass: "module_container",
+                class: {
+                  "module_container-active": _vm.current_module.id == _module.id
+                },
+                on: {
+                  click: function($event) {
+                    return _vm.moduleSelectEvent(_module)
+                  }
                 }
-              }
-            },
-            [_vm._v("Regresar")]
-          )
-        ]),
-        _vm._v(" "),
-        _vm._l(_vm.modules, function(_module, k_module) {
-          return _c(
-            "div",
-            {
-              key: k_module,
-              staticClass: "module_container",
-              class: {
-                "module_container-active": _vm.current_module.id == _module.id
               },
-              on: {
-                click: function($event) {
-                  return _vm.moduleSelectEvent(_module)
-                }
-              }
-            },
-            [
-              _c("div", { staticClass: "class_container_info" }, [
-                _c("div", { staticClass: "class_container_info-container" }, [
-                  _c("span", [_vm._v(_vm._s(_module.driving_question))]),
-                  _vm._v(" "),
-                  _module.pending_calification > 0
-                    ? _c("small", { staticClass: "module_notify" }, [
-                        _c(
-                          "svg",
-                          {
-                            staticClass: "bi bi-exclamation-triangle",
-                            attrs: {
-                              xmlns: "http://www.w3.org/2000/svg",
-                              width: "16",
-                              height: "16",
-                              fill: "currentColor",
-                              viewBox: "0 0 16 16"
-                            }
-                          },
-                          [
-                            _c("path", {
-                              attrs: {
-                                d:
-                                  "M7.938 2.016A.13.13 0 0 1 8.002 2a.13.13 0 0 1 .063.016.146.146 0 0 1 .054.057l6.857 11.667c.036.06.035.124.002.183a.163.163 0 0 1-.054.06.116.116 0 0 1-.066.017H1.146a.115.115 0 0 1-.066-.017.163.163 0 0 1-.054-.06.176.176 0 0 1 .002-.183L7.884 2.073a.147.147 0 0 1 .054-.057zm1.044-.45a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566z"
-                              }
-                            }),
-                            _vm._v(" "),
-                            _c("path", {
-                              attrs: {
-                                d:
-                                  "M7.002 12a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 5.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995z"
-                              }
-                            })
-                          ]
-                        ),
-                        _vm._v(
-                          "\n                          Actividades pendientes de calificación\n                      "
-                        )
-                      ])
-                    : _vm._e()
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "class_container_score" }, [
-                  _c("div", [
-                    _module.score > -1
-                      ? _c("span", [_vm._v(_vm._s(_module.progress) + "%")])
-                      : _c("span", [_vm._v("-")]),
+              [
+                _c("div", { staticClass: "class_container_info" }, [
+                  _c("div", { staticClass: "class_container_info-container" }, [
+                    _c("span", [_vm._v(_vm._s(_module.driving_question))]),
                     _vm._v(" "),
-                    _c("small", [_vm._v("Progreso")])
+                    _module.pending_calification > 0
+                      ? _c("small", { staticClass: "module_notify" }, [
+                          _c(
+                            "svg",
+                            {
+                              staticClass: "bi bi-exclamation-triangle",
+                              attrs: {
+                                xmlns: "http://www.w3.org/2000/svg",
+                                width: "16",
+                                height: "16",
+                                fill: "currentColor",
+                                viewBox: "0 0 16 16"
+                              }
+                            },
+                            [
+                              _c("path", {
+                                attrs: {
+                                  d:
+                                    "M7.938 2.016A.13.13 0 0 1 8.002 2a.13.13 0 0 1 .063.016.146.146 0 0 1 .054.057l6.857 11.667c.036.06.035.124.002.183a.163.163 0 0 1-.054.06.116.116 0 0 1-.066.017H1.146a.115.115 0 0 1-.066-.017.163.163 0 0 1-.054-.06.176.176 0 0 1 .002-.183L7.884 2.073a.147.147 0 0 1 .054-.057zm1.044-.45a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566z"
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c("path", {
+                                attrs: {
+                                  d:
+                                    "M7.002 12a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 5.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995z"
+                                }
+                              })
+                            ]
+                          ),
+                          _vm._v(
+                            "\n                              Actividades pendientes de calificación\n                          "
+                          )
+                        ])
+                      : _vm._e()
                   ]),
                   _vm._v(" "),
-                  _c("div", [
-                    _module.score > -1
-                      ? _c("span", [_vm._v(_vm._s(_module.score) + "/5")])
-                      : _c("span", [_vm._v("-")]),
+                  _c("div", { staticClass: "class_container_score" }, [
+                    _c("div", [
+                      _module.score > -1
+                        ? _c("span", [_vm._v(_vm._s(_module.progress) + "%")])
+                        : _c("span", [_vm._v("-")]),
+                      _vm._v(" "),
+                      _c("small", [_vm._v("Progreso")])
+                    ]),
                     _vm._v(" "),
-                    _c("small", [_vm._v("Calificación")])
+                    _c("div", [
+                      _module.score > -1
+                        ? _c("span", [_vm._v(_vm._s(_module.score) + "/5")])
+                        : _c("span", [_vm._v("-")]),
+                      _vm._v(" "),
+                      _c("small", [_vm._v("Calificación")])
+                    ])
                   ])
                 ])
-              ])
-            ]
-          )
-        })
-      ],
-      2
-    )
+              ]
+            )
+          })
+        ],
+        2
+      )
+    ])
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "class_container_header" }, [
+      _c("span", [_vm._v("Seleccione ciclo:")])
+    ])
+  }
+]
 render._withStripped = true
 
 
