@@ -90,60 +90,73 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: [],
+  props: ["idArea", "idClassroom"],
   data: function data() {
     return {
       students: [],
       areas: [],
-      current_area: {}
+      current_area: {},
+      areaId: "",
+      classroomId: "",
+      id_student: ""
     };
   },
   mounted: function mounted() {
     var _this = this;
 
+    this.areaId = this.idArea;
+    this.classroomId = this.idClassroom;
     this.areas = [];
     axios.get('/GetArearByUser').then(function (response) {
       _this.areas = response.data;
 
       if (_this.areas.length > 0) {
         _this.current_area = _this.areas[0];
-
-        _this.getStudents();
       }
     });
+    this.getStudents();
+  },
+  watch: {
+    idArea: function idArea(newVal, oldVal) {
+      if (newVal != oldVal) {
+        this.areaId = newVal;
+        this.getStudents();
+      }
+    },
+    idClassroom: function idClassroom(newVal, oldVal) {
+      if (newVal != oldVal) {
+        this.classroomId = newVal;
+        this.getStudents();
+      }
+    }
   },
   methods: {
     getStudents: function getStudents() {
       var _this2 = this;
 
       this.students = [];
-      axios.get("/api/teacher/area/".concat(this.current_area.id, "/classroom/").concat(this.current_area.id_classroom, "/student")).then(function (response) {
+      axios.get("/api/teacher/area/".concat(this.areaId, "/classroom/").concat(this.classroomId, "/student")).then(function (response) {
         _this2.students = response.data;
       });
-    },
-    SelectArea: function SelectArea(area) {
-      this.current_area = area;
-      this.getStudents();
     },
     saveCalificationCourse: function saveCalificationCourse() {
       var _this3 = this;
 
       console.log(this.current_area.calification_base);
-      axios.put("/api/teacher/area/".concat(this.current_area.id, "/classroom/").concat(this.current_area.id_classroom, "/calification"), {
+      axios.put("/api/teacher/area/".concat(this.areaId, "/classroom/").concat(this.classroomId, "/calification"), {
         percent_calification: this.current_area.calification_base
       }).then(function (response) {
         toastr.success("Calificación actualizada correctamente");
 
         _this3.getStudents();
       });
+    },
+    getStudentId: function getStudentId(userId) {
+      this.id_student = userId;
+    },
+    cleanData: function cleanData() {
+      this.id_student = "";
     }
   }
 });
@@ -214,160 +227,144 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "back row justify-content-center" }, [
-    _c("div", { staticClass: "col-sm-10" }, [
-      _vm._m(0),
-      _vm._v(" "),
-      _c("div", { staticClass: "card-body" }, [
-        _c("div", { staticClass: "row" }, [
-          _c(
-            "div",
-            { staticClass: "col-12 col-md-4" },
-            [
-              _vm._m(1),
-              _vm._v(" "),
-              _vm._l(_vm.areas, function(area, k_area) {
-                return _c(
-                  "div",
-                  {
-                    key: k_area,
-                    staticClass: "area_container",
-                    class: {
-                      "area_container-active":
-                        _vm.current_area.id == area.id &&
-                        _vm.current_area.id_classroom == area.id_classroom
-                    },
-                    on: {
-                      click: function($event) {
-                        return _vm.SelectArea(area)
-                      }
-                    }
-                  },
-                  [_c("span", [_vm._v(_vm._s(area.text))])]
-                )
-              })
-            ],
-            2
-          ),
+  return _c("div", [
+    _vm.id_student === ""
+      ? _c("div", { staticClass: "col-sm-12" }, [
+          _vm._m(0),
           _vm._v(" "),
-          _c("div", { staticClass: "col-12 col-md-8" }, [
-            _c("div", { staticClass: "students_container" }, [
-              _c("table", { staticClass: "table table-hover center" }, [
-                _vm._m(2),
-                _vm._v(" "),
-                _vm.students.length > 0
-                  ? _c(
-                      "tbody",
-                      _vm._l(_vm.students, function(student, k_student) {
-                        return _c("tr", { key: k_student }, [
-                          _c("td", { staticClass: "student_info" }, [
-                            _c("div", { staticClass: "student_name" }, [
-                              student.user_picture
-                                ? _c("img", {
-                                    staticStyle: { width: "25px" },
-                                    attrs: {
-                                      src: student.user_picture,
-                                      alt: "icon photo"
-                                    }
-                                  })
-                                : _vm._e(),
+          _c("div", { staticClass: "card-body" }, [
+            _c("div", [
+              _c("div", { staticClass: "students_container" }, [
+                _c("table", { staticClass: "table table-hover center" }, [
+                  _vm._m(1),
+                  _vm._v(" "),
+                  _vm.students.length > 0
+                    ? _c(
+                        "tbody",
+                        _vm._l(_vm.students, function(student, k_student) {
+                          return _c("tr", { key: k_student }, [
+                            _c("td", { staticClass: "student_info" }, [
+                              _c("div", { staticClass: "student_name" }, [
+                                student.user_picture
+                                  ? _c("img", {
+                                      staticStyle: { width: "25px" },
+                                      attrs: {
+                                        src: student.user_picture,
+                                        alt: "icon photo"
+                                      }
+                                    })
+                                  : _vm._e(),
+                                _vm._v(
+                                  "\n                                        " +
+                                    _vm._s(student.user_lastname) +
+                                    " " +
+                                    _vm._s(student.user_name) +
+                                    "\n                                    "
+                                )
+                              ]),
+                              _vm._v(" "),
+                              student.pending_calification > 0
+                                ? _c(
+                                    "small",
+                                    { staticClass: "student_notify" },
+                                    [
+                                      _c(
+                                        "svg",
+                                        {
+                                          staticClass:
+                                            "bi bi-exclamation-triangle",
+                                          attrs: {
+                                            xmlns: "http://www.w3.org/2000/svg",
+                                            width: "16",
+                                            height: "16",
+                                            fill: "currentColor",
+                                            viewBox: "0 0 16 16"
+                                          }
+                                        },
+                                        [
+                                          _c("path", {
+                                            attrs: {
+                                              d:
+                                                "M7.938 2.016A.13.13 0 0 1 8.002 2a.13.13 0 0 1 .063.016.146.146 0 0 1 .054.057l6.857 11.667c.036.06.035.124.002.183a.163.163 0 0 1-.054.06.116.116 0 0 1-.066.017H1.146a.115.115 0 0 1-.066-.017.163.163 0 0 1-.054-.06.176.176 0 0 1 .002-.183L7.884 2.073a.147.147 0 0 1 .054-.057zm1.044-.45a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566z"
+                                            }
+                                          }),
+                                          _vm._v(" "),
+                                          _c("path", {
+                                            attrs: {
+                                              d:
+                                                "M7.002 12a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 5.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995z"
+                                            }
+                                          })
+                                        ]
+                                      ),
+                                      _vm._v(
+                                        "\n                                        Actividades pendientes de calificación\n                                    "
+                                      )
+                                    ]
+                                  )
+                                : _vm._e()
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [
                               _vm._v(
-                                "\n                                                " +
-                                  _vm._s(student.user_lastname) +
-                                  " " +
-                                  _vm._s(student.user_name) +
-                                  "\n                                            "
+                                "\n                                    " +
+                                  _vm._s(student.progress) +
+                                  " %\n                                "
                               )
                             ]),
                             _vm._v(" "),
-                            student.pending_calification > 0
-                              ? _c("small", { staticClass: "student_notify" }, [
-                                  _c(
-                                    "svg",
-                                    {
-                                      staticClass: "bi bi-exclamation-triangle",
-                                      attrs: {
-                                        xmlns: "http://www.w3.org/2000/svg",
-                                        width: "16",
-                                        height: "16",
-                                        fill: "currentColor",
-                                        viewBox: "0 0 16 16"
-                                      }
-                                    },
-                                    [
-                                      _c("path", {
-                                        attrs: {
-                                          d:
-                                            "M7.938 2.016A.13.13 0 0 1 8.002 2a.13.13 0 0 1 .063.016.146.146 0 0 1 .054.057l6.857 11.667c.036.06.035.124.002.183a.163.163 0 0 1-.054.06.116.116 0 0 1-.066.017H1.146a.115.115 0 0 1-.066-.017.163.163 0 0 1-.054-.06.176.176 0 0 1 .002-.183L7.884 2.073a.147.147 0 0 1 .054-.057zm1.044-.45a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566z"
-                                        }
-                                      }),
-                                      _vm._v(" "),
-                                      _c("path", {
-                                        attrs: {
-                                          d:
-                                            "M7.002 12a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 5.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995z"
-                                        }
-                                      })
-                                    ]
-                                  ),
-                                  _vm._v(
-                                    "\n                                                Actividades pendientes de calificación\n                                            "
-                                  )
-                                ])
-                              : _vm._e()
-                          ]),
-                          _vm._v(" "),
-                          _c("td", [
-                            _vm._v(
-                              "\n                                            " +
-                                _vm._s(student.progress) +
-                                " %\n                                        "
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _c("td", [
-                            _vm._v(
-                              "\n                                            " +
-                                _vm._s(
-                                  student.score > -1
-                                    ? student.score + "/" + student.score_base
-                                    : ""
-                                ) +
-                                "\n                                        "
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _c("td", [
-                            _c(
-                              "a",
-                              {
-                                staticClass: "btn btn-primary",
-                                attrs: {
-                                  href:
-                                    "/docente/area/" +
-                                    _vm.current_area.id +
-                                    "/curso/" +
-                                    _vm.current_area.id_classroom +
-                                    "/estudiante/" +
-                                    student.user_id
-                                }
-                              },
-                              [_vm._v("VER")]
-                            )
+                            _c("td", [
+                              _vm._v(
+                                "\n                                    " +
+                                  _vm._s(
+                                    student.score > -1
+                                      ? student.score + "/" + student.score_base
+                                      : ""
+                                  ) +
+                                  "\n                                "
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _c(
+                                "a",
+                                {
+                                  staticClass: "btn btn-primary",
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.getStudentId(student.user_id)
+                                    }
+                                  }
+                                },
+                                [_vm._v("VER")]
+                              )
+                            ])
                           ])
-                        ])
-                      }),
-                      0
-                    )
-                  : _vm._e(),
-                _vm._v(" "),
-                _vm.students.length == 0 ? _c("tbody", [_vm._m(3)]) : _vm._e()
+                        }),
+                        0
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.students.length == 0 ? _c("tbody", [_vm._m(2)]) : _vm._e()
+                ])
               ])
             ])
           ])
         ])
-      ])
-    ])
+      : _c(
+          "div",
+          [
+            _c("teacher-student", {
+              attrs: {
+                id_area: _vm.areaId,
+                id_classroom: _vm.classroomId,
+                id_student: _vm.id_student,
+                cleanData: _vm.cleanData
+              }
+            })
+          ],
+          1
+        )
   ])
 }
 var staticRenderFns = [
@@ -380,12 +377,6 @@ var staticRenderFns = [
         _c("h4", [_vm._v("Mis estudiantes")])
       ])
     ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", [_c("span", [_vm._v("Seleccione el área:")])])
   },
   function() {
     var _vm = this

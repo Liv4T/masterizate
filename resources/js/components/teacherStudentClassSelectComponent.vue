@@ -1,9 +1,18 @@
 <template>
-      <div class="row">
+        <div v-if="current_class.id">
+            <teacher-student-class-content
+                :id_class="current_class.id" 
+                :id_module="id_module" 
+                :id_area="id_area" 
+                :id_classroom="id_classroom" 
+                :id_student="id_student" 
+            ></teacher-student-class-content>
+        </div>
+        <div v-else>
             <div class="col-12 col-md-12">
                 <div class="class_container_header">
                     <span>Seleccione clase:</span>
-                    <button class="btn btn-link" @click="GoReturnPage()">Regresar</button>
+                    <!-- <button class="btn btn-link" @click="GoReturnPage()">Regresar</button> -->
                 </div>
                 <div v-for="(_class,k_class) in classs" v-bind:key="k_class" class="class_container" v-bind:class="{ 'class_container-active': (current_class.id==_class.id) }" @click="classSelectEvent(_class)" >
                     <div class="class_container_info">
@@ -29,11 +38,8 @@
                                 <span v-else>-</span>
                                 <small>Calificación</small>
                             </div>
-
                         </div>
                     </div>
-
-
                 </div>
             </div>
         </div>
@@ -63,8 +69,6 @@ export default {
         },
         classSelectEvent(_class){
             this.current_class=_class;
-
-            location.href=`/docente/area/${this.id_area}/curso/${this.id_classroom}/estudiante/${this.id_student}/modulo/${this.id_module}/clase/${this.current_class.id}`;
         },
         GoReturnPage(){
              window.history.back();
