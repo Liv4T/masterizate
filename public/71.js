@@ -57,8 +57,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['nameArea', 'id_lective_planification'],
+  props: ['nameArea', 'id_lective_planification', 'idClass', 'moduleId'],
   data: function data() {
     return {
       clases: [],
@@ -69,16 +72,32 @@ __webpack_require__.r(__webpack_exports__);
       fechaR: "",
       id_act: "",
       errors: [],
-      fillS: []
+      fillS: [],
+      clasId: "",
+      idModule: ""
     };
   },
   mounted: function mounted() {
+    this.clasId = this.idClass;
+    this.idModule = this.moduleId;
     this.getData();
   },
   watch: {
     nameArea: function nameArea(old_value, new_value) {
       if (old_value != new_value) {
+        this.clasId = "";
+        this.idModule = "";
         this.getData();
+      }
+    },
+    idClass: function idClass(newValue, oldValue) {
+      if (newValue != oldValue) {
+        this.clasId = newValue;
+      }
+    },
+    moduleId: function moduleId(newValue, oldValue) {
+      if (newValue !== oldValue) {
+        this.idModule = this.moduleId;
       }
     }
   },
@@ -103,8 +122,7 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function (e) {
         toastr.info("No se encuentran clases Relacionadas");
         console.log(e);
-      });
-      console.log('Area Activa: ', this.nameArea); // console.log("Component mounted.");
+      }); // console.log("Component mounted.");
     },
     botones: function botones(area_id, classroom_id) {
       var _this2 = this;
@@ -113,6 +131,13 @@ __webpack_require__.r(__webpack_exports__);
       axios.get(urlsel).then(function (response) {
         _this2.clases = response.data;
       });
+    },
+    btnShow: function btnShow(clasId) {
+      this.clasId = clasId;
+    },
+    cleanClasId: function cleanClasId() {
+      this.clasId = "";
+      this.idModule = "";
     },
     nameMinus: function nameMinus(name) {
       var nameMinus = name.toLowerCase();
@@ -194,99 +219,113 @@ var render = function() {
             _vm._v(_vm._s(_vm.$t("lang.class.myClasses")))
           ]),
           _vm._v(" "),
-          _c("div", { staticClass: "card-body" }, [
-            _c("div", { staticClass: "card" }, [
-              _c(
-                "table",
-                {
-                  staticClass:
-                    "table table-responsive-xl table-hover table-striped center"
-                },
-                [
-                  _c("thead", [
-                    _c("tr", [
-                      _c("th", [
-                        _vm._v(_vm._s(_vm.$t("lang.class.learningCycle")))
+          _vm.clasId === ""
+            ? _c("div", { staticClass: "card-body" }, [
+                _c("div", { staticClass: "card" }, [
+                  _c(
+                    "table",
+                    {
+                      staticClass:
+                        "table table-responsive-xl table-hover table-striped center"
+                    },
+                    [
+                      _c("thead", [
+                        _c("tr", [
+                          _c("th", [
+                            _vm._v(_vm._s(_vm.$t("lang.class.learningCycle")))
+                          ]),
+                          _vm._v(" "),
+                          _c("th", [
+                            _vm._v(_vm._s(_vm.$t("lang.class.action")))
+                          ]),
+                          _vm._v(" "),
+                          _c("th")
+                        ])
                       ]),
                       _vm._v(" "),
-                      _c("th", [_vm._v(_vm._s(_vm.$t("lang.class.action")))]),
-                      _vm._v(" "),
-                      _c("th")
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _vm._l(_vm.clases, function(clas, k) {
-                    return _c("tbody", { key: k }, [
-                      _c("tr", [
-                        _c("td", [
-                          _vm._v(
-                            _vm._s(
-                              _vm.$t("lang.area." + _vm.nameMinus(clas.text))
-                            )
-                          )
-                        ]),
-                        _vm._v(" "),
-                        _c("td", [
-                          _c(
-                            "a",
-                            {
-                              staticClass: "btn btn-primary",
-                              attrs: { href: "/estudiante/modulo/" + clas.id }
-                            },
-                            [_vm._v(_vm._s(_vm.$t("lang.class.goToCycle")))]
-                          )
-                        ]),
-                        _vm._v(" "),
-                        _c("td", [
-                          clas.progress == 100
-                            ? _c("div", { staticClass: "check" }, [
-                                _c(
-                                  "svg",
-                                  {
-                                    staticClass: "bi bi-check-circle-fill",
-                                    attrs: {
-                                      width: "2em",
-                                      height: "2em",
-                                      viewBox: "0 0 16 16",
-                                      fill: "#28a745",
-                                      xmlns: "http://www.w3.org/2000/svg"
+                      _vm._l(_vm.clases, function(clas, k) {
+                        return _c("tbody", { key: k }, [
+                          _c("tr", [
+                            _c("td", [_vm._v(_vm._s(clas.text))]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _c(
+                                "a",
+                                {
+                                  staticClass: "btn btn-primary",
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.btnShow(clas.id)
                                     }
-                                  },
-                                  [
-                                    _c("path", {
-                                      attrs: {
-                                        "fill-rule": "evenodd",
-                                        d:
-                                          "M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"
-                                      }
-                                    }),
+                                  }
+                                },
+                                [_vm._v(_vm._s(_vm.$t("lang.class.goToCycle")))]
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [
+                              clas.progress == 100
+                                ? _c("div", { staticClass: "check" }, [
+                                    _c(
+                                      "svg",
+                                      {
+                                        staticClass: "bi bi-check-circle-fill",
+                                        attrs: {
+                                          width: "2em",
+                                          height: "2em",
+                                          viewBox: "0 0 16 16",
+                                          fill: "#28a745",
+                                          xmlns: "http://www.w3.org/2000/svg"
+                                        }
+                                      },
+                                      [
+                                        _c("path", {
+                                          attrs: {
+                                            "fill-rule": "evenodd",
+                                            d:
+                                              "M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"
+                                          }
+                                        }),
+                                        _vm._v(" "),
+                                        _c("path", {
+                                          attrs: {
+                                            "fill-rule": "evenodd",
+                                            d:
+                                              "M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.236.236 0 0 1 .02-.022z"
+                                          }
+                                        })
+                                      ]
+                                    ),
                                     _vm._v(" "),
-                                    _c("path", {
-                                      attrs: {
-                                        "fill-rule": "evenodd",
-                                        d:
-                                          "M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.236.236 0 0 1 .02-.022z"
-                                      }
-                                    })
-                                  ]
-                                ),
-                                _vm._v(" "),
-                                _c("p", { staticClass: "text-success" }, [
-                                  _vm._v(
-                                    _vm._s(_vm.$t("lang.general.completed"))
-                                  )
-                                ])
-                              ])
-                            : _vm._e()
+                                    _c("p", { staticClass: "text-success" }, [
+                                      _vm._v(
+                                        _vm._s(_vm.$t("lang.general.completed"))
+                                      )
+                                    ])
+                                  ])
+                                : _vm._e()
+                            ])
+                          ])
                         ])
-                      ])
-                    ])
+                      })
+                    ],
+                    2
+                  )
+                ])
+              ])
+            : _c(
+                "div",
+                [
+                  _c("student-module", {
+                    attrs: {
+                      clasId: _vm.clasId,
+                      cleanClasId: _vm.cleanClasId,
+                      moduleId: _vm.idModule
+                    }
                   })
                 ],
-                2
+                1
               )
-            ])
-          ])
         ])
       : _c(
           "div",

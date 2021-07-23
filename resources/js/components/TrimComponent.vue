@@ -24,7 +24,7 @@
             <div class="row">
                 <div class="col-md-12 mx-auto">
                     <div class="custom-card text-center">
-                        <h3 class="card-header fondo">Planificación general</h3>                        
+                        <h3 class="card-header fondo">Planificación Trimestral</h3>                        
                         <span class="classroom-label">{{fillC.classroom_name}}</span>
                         <span v-show="!isSynchronized">(Hay cambios que no han sido guardados)</span>
                         <div class="row">
@@ -72,84 +72,143 @@
                                     role="status"
                                     aria-hidden="true"
                                     v-if="isLoading"
-                                ></span>
-                                
-                                
-                                    <div class="form-group mx-auto" v-for="(input1, t) in inputs1" :key="t">
-                                        <div class="classroom-planning-section">
-                                            <strong>Objetivo: </strong>
-                                            <input
-                                                v-on:change="annualContentUpdateEvent($event,t,'inputs1')"
-                                                class="form-control form-control-sm"
-                                                type="number"
-                                                style="width:50px;"
-                                                v-model="input1.porcentaje"
-                                            />%
+                                ></span>                                
+
+                                <tab-content title="Trimestral">
+                                    <div class="form-group row mx-auto" v-for="(input, t) in inputs" :key="t">
+                                        <div class="col-md-6">
+                                            <label for="name">Logro</label>
                                             <span>
+                                            <a
+                                                href="#"
+                                                class="badge badge-danger"
+                                                @click.prevent="remove(t)"
+                                                v-show="(t>0 && inputs_saved.length<=t)"
+                                            >-</a>
+                                            <a
+                                                href="#"
+                                                class="badge badge-primary"
+                                                @click.prevent="add(t)"
+                                                v-show="t == inputs.length - 1"
+                                            >+</a>                                            
+                                            </span>
+                                            <div>
+                                                <input
+                                                    type="text"
+                                                    name="objetive1"
+                                                    class="form-control"
+                                                    v-model="input.logro"
+                                                    v-on:change="annualContentUpdateEvent($event,t,'inputs','logro')"
+                                                    placeholder="Nombre de la unidad"
+                                                    required
+                                                />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="name">Indicador de logro</label>
+                                            <span>
+                                            <a
+                                                href="#"
+                                                class="badge badge-danger"
+                                                @click.prevent="remove(t)"
+                                                v-show="(t>0 && inputs_saved.length<=t)"
+                                            >-</a>
+                                            <a
+                                                href="#"
+                                                class="badge badge-primary"
+                                                @click.prevent="add(t)"
+                                                v-show="t == inputs.length - 1"
+                                            >+</a>                                            
+                                            </span>
+                                            <div>
+                                                <input
+                                                    type="text"
+                                                    name="objetive1"
+                                                    class="form-control"
+                                                    v-model="input.name"
+                                                    v-on:change="annualContentUpdateEvent($event,t,'inputs','name')"
+                                                    placeholder="Nombre de la unidad"
+                                                    required
+                                                />
+                                            </div>
+
+                                            <label for="name">Contenidos</label>
+                                            <textarea
+                                            name="competences"
+                                            class="form-control"
+                                            v-model="input.contenido"
+                                            v-on:change="annualContentUpdateEvent($event,t,'inputs','contenido')"
+                                            placeholder="Es la explicacion o sintesis de la unidad."
+                                            required
+                                            ></textarea>
+                                            <div class="invalid-feedback">Please fill out this field</div>
+                                        </div>
+                                    </div>
+                                    <!-- <div class="modal-footer">
+                                    <a submit="createCourses" class="btn btn-warning float-right">Guardar</a>
+                                    </div>-->
+
+                                    <a v-show="(activityForPIARStudents == true && piarStudents.length > 0)" v-on:click="showPIARPlanT" class="btn btn-primary">Crear Planificación General Estudiantes PIAR</a>
+                                
+                                    <div class="mt-3" v-show="(activityForPIARStudents == true && piarStudents.length > 0)">
+                                        <div class="form-group row mx-auto" v-for="(inputsP1, keyy) in inputsPIAR1" :key="keyy">
+                                            <div class="col-md-6">
+                                                <label for="name">Logro</label>
+                                                <span>
                                                 <a
                                                     href="#"
                                                     class="badge badge-danger"
-                                                    @click.prevent="remove1(t)"
-                                                    v-show="(t>0 && inputs1_saved.length<=t)"
+                                                    @click.prevent="removeP1(keyy)"
+                                                    v-show="(keyy > 0 && inputsP1_saved.length<=keyy)"
                                                 >-</a>
                                                 <a
                                                     href="#"
                                                     class="badge badge-primary"
-                                                    @click.prevent="add1(t)"
-                                                    v-show="t == inputs1.length -1"
+                                                    @click.prevent="addP1(keyy)"                                                   
+                                                    v-show="keyy == inputsPIAR1.length -1"
                                                 >+</a>
-                                            </span>
-                                        </div>
-
-                                        <textarea
-                                            name="welcome"
-                                            class="form-control"
-                                            v-model="input1.logro"
-                                            v-on:change="annualContentUpdateEvent($event,t,'inputs1','logro')"
-                                            required
-                                        ></textarea>
-                                        <div class="invalid-feedback">Please fill out this field</div>
-                                    </div>
-                                    
-                                    <a v-show="(activityForPIARStudents == true && piarStudents.length > 0)" v-on:click="showPIARPlan" class="btn btn-primary">Crear Planificación General Estudiantes PIAR</a>
-                                    
-                                    <div v-show="(activityForPIARStudents == true && piarStudents.length > 0)">
-                                        <div v-for="(inputsP, key) in inputsPIAR" :key="'-'+key">
-                                            <div class="classroom-planning-section">
-                                                <strong>Objetivo:</strong>
-                                                <input
-                                                    v-on:change="annualContentUpdateEvent($event,key,'inputsPIAR')"
-                                                    class="form-control form-control-sm"
-                                                    type="number"
-                                                    style="width:50px;"
-                                                    v-model="inputsP.porcentajePIAR"
-                                                />%
-
-                                                <span>
-                                                    <a
-                                                        href="#"
-                                                        class="badge badge-danger"
-                                                        @click.prevent="removePIAR(key)"
-                                                        v-show="(key >0 && inputsPIAR_saved.length<=key)"
-                                                    >-</a>
-                                                    <a
-                                                        href="#"
-                                                        class="badge badge-primary"
-                                                        @click.prevent="addPIAR(key)"
-                                                        v-show="key == inputsPIAR.length -1"
-                                                    >+</a>
                                                 </span>
+                                                
+                                                <div>
+                                                    <input
+                                                        type="text"
+                                                        name="objetive1"
+                                                        class="form-control"
+                                                        v-model="inputsP1.logroPIAR"
+                                                        v-on:change="annualContentUpdateEvent($event,keyy,'inputsPIAR1','logroPIAR')"
+                                                        placeholder="Nombre de Logro"
+                                                        required
+                                                    />                                                    
+                                                </div>
                                             </div>
-                                            
-                                            <textarea
-                                                name="welcome"
+                                            <div class="col-md-6">   
+                                                <label for="name">Indicador de logro</label>                                                                                            
+                                                <div>
+                                                    <input
+                                                        type="text"
+                                                        name="objetive1"
+                                                        class="form-control"
+                                                        v-model="inputsP1.namePIAR"
+                                                        v-on:change="annualContentUpdateEvent($event,keyy,'inputsPIAR1','namePIAR')"
+                                                        placeholder="Nombre de la unidad"
+                                                        required
+                                                    />                                                    
+                                                </div>
+
+                                                <label for="name">Contenidos</label>
+                                                <textarea
+                                                name="competences"
                                                 class="form-control"
-                                                v-model="inputsP.logroPIAR"
-                                                v-on:change="annualContentUpdateEvent($event,key,'inputsPIAR','logroPIAR')"
+                                                v-model="inputsP1.contenidoPIAR"
+                                                v-on:change="annualContentUpdateEvent($event,keyy,'inputsPIAR1','contenidoPIAR')"
+                                                placeholder="Es la explicacion o sintesis de la unidad."
                                                 required
-                                            ></textarea>
+                                                ></textarea>
+                                                <div class="invalid-feedback">Please fill out this field</div>
+                                            </div>
                                         </div>
-                                    </div>                              
+                                    </div>
+                                </tab-content>              
                             </form-wizard>            
                         </form>
                     </div>
@@ -212,6 +271,7 @@ export default {
             inputs: [
                 {
                     name: "",
+                    logro: "",
                     contenido: "",
                 },
             ],
@@ -232,6 +292,7 @@ export default {
             inputsPIAR1: [
                 {
                     namePIAR: "",
+                    logroPIAR:"",
                     contenidoPIAR: "",
                 },
             ],
@@ -292,7 +353,7 @@ export default {
         },
         
         idArea(newVal, oldVal){
-            if(newVal !== oldVal){
+            if(newVal !== oldVal){                
                 this.getData();
             }
         },
@@ -319,18 +380,20 @@ export default {
             })
 
             axios.get('/getPlanificationPiar').then((response)=>{
-                let data = response.data;
+                let data = response.data;                
                 if(data.length > 0){
                     this.inputsPIAR1.splice(0);
                     this.inputsPIAR.splice(0);
                     data.forEach((el)=>{
                         let logros = JSON.parse(el.logros)
+                        console.log("data piar: ", JSON.parse(el.logros));
                         let trimestres = JSON.parse(el.trimestres)
                         this.saveStudent = JSON.parse(el.students)
     
                         logros.forEach((lg)=>{
                             this.inputsPIAR1.push({
                                 contenidoPIAR: lg.contenidoPIAR,
+                                logroPIAR: lg.logroPIAR,
                                 namePIAR: lg.namePIAR
                             })
                         })
@@ -365,7 +428,7 @@ export default {
                     
                     this.inputs=[];
                     response.data.quaterly.forEach((e)=>{
-                        this.inputs.push({ id_quaterly:e.id,name: e.unit_name, contenido: e.content });
+                        this.inputs.push({ id_quaterly:e.id,name: e.unit_name, contenido: e.content, logro:e.logro});
                     });
                     this.inputs_saved= JSON.parse(JSON.stringify(this.inputs));
                 }
@@ -418,7 +481,7 @@ export default {
             this.showPIARPlanTrimestral = !this.showPIARPlanTrimestral
         },
         add(index) {
-            this.inputs.push({ name: "", contenido: "" });
+            this.inputs.push({ name: "", logro: "", contenido: "" });
         },
         remove(index) {
             this.inputs.splice(index, 1);
@@ -439,7 +502,7 @@ export default {
         },
 
         addP1(index) {
-            this.inputsPIAR1.push({ namePIAR: "", contenidoPIAR: "" });
+            this.inputsPIAR1.push({ namePIAR: "", logroPIAR: "", contenidoPIAR: "" });
         },
         removeP1(index) {
             this.inputsPIAR1.splice(index, 1);
@@ -505,19 +568,19 @@ export default {
                     for (let i = 0; i < this.inputsPIAR1.length; i++) {
                     this.newLogro.push(this.inputsPIAR1[i]);
                     }
-                }
+                }                
 
                 axios.post('/piarAnualPlanification', {
                     //Cursos generales
                     id_area: this.idArea.substring(0, this.idArea.lastIndexOf("/") ),
                     id_classroom: this.idArea[2],
+                    logros: JSON.stringify(this.newLogro),
                     trimestres: JSON.stringify(this.newTrimestre),
                     students: JSON.stringify(this.saveStudent),
                 }).then((response) => {
                     this.errors = [];
                     toastr.success(response.data);
                     this.isLoading=false;
-                        
                 }).catch((error) => {
                     this.errors = error.response.data;
                     this.isLoading=false;

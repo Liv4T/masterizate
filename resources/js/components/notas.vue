@@ -78,13 +78,6 @@ export default {
         getData(){
             this.current_student = {};
             this.modules = [];
-            console.log(
-                "idArea: ",this.idArea,
-                "idClassroom: ", this.idClassroom,
-                "user: ", this.user,
-                "nameArea :", this.nameArea,
-                "id_lective_planification: ", this.id_lective_planification
-            )
             if(this.idArea === "" && this.idClassroom === ""){
                 axios.get(`getNotesStudents`).then((response)=>{
                     let data = response.data;

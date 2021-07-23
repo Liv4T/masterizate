@@ -92,8 +92,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["id_module"],
+  props: ["clasId", "cleanClasId", "moduleId"],
   data: function data() {
     return {
       clases: [],
@@ -108,27 +110,52 @@ __webpack_require__.r(__webpack_exports__);
       nameWeekly: "",
       nameArea: "",
       id_area: "",
-      id_classroom: ""
+      id_classroom: "",
+      idclass: ""
     };
   },
   created: function created() {},
-  mounted: function mounted() {
-    var _this = this;
-
-    this.fillS = [];
-    var urlr = window.location.origin + "/showClass/" + this.id_module;
-    axios.get(urlr).then(function (response) {
-      _this.fillS = response.data.clase;
-      _this.nameArea = "".concat(response.data.area.name, " ").concat(response.data.classroom.name);
-      _this.id_area = response.data.area.id;
-      _this.id_classroom = response.data.classroom.id;
-    });
-    var urls = window.location.origin + "/GetNameWeekly/" + this.id_module;
-    axios.get(urls).then(function (response) {
-      _this.nameWeekly = response.data;
-    });
+  watch: {
+    clasId: function clasId(newVal, oldVal) {
+      if (newVal !== oldVal) {
+        this.getData();
+      }
+    },
+    moduleId: function moduleId(newVal, oldVal) {
+      if (newVal !== oldVal) {
+        this.idclass = this.moduleId;
+      }
+    }
   },
-  methods: {}
+  mounted: function mounted() {
+    this.idclass = this.moduleId;
+    this.getData();
+  },
+  methods: {
+    getData: function getData() {
+      var _this = this;
+
+      this.fillS = [];
+      var urlr = window.location.origin + "/showClass/" + this.clasId;
+      axios.get(urlr).then(function (response) {
+        _this.fillS = response.data.clase;
+        _this.nameArea = "".concat(response.data.area.name, " ").concat(response.data.classroom.name);
+        _this.id_area = response.data.area.id;
+        _this.id_classroom = response.data.classroom.id;
+      });
+      var urls = window.location.origin + "/GetNameWeekly/" + this.clasId;
+      axios.get(urls).then(function (response) {
+        _this.nameWeekly = response.data;
+      });
+    },
+    getClassId: function getClassId(clasId) {
+      this.idclass = clasId;
+    },
+    idclassClean: function idclassClean() {
+      this.cleanClasId();
+      this.idclass = "";
+    }
+  }
 });
 
 /***/ }),
@@ -197,125 +224,147 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "back" }, [
-    _c("div", { staticClass: "row justify-content-center" }, [
-      _c("div", { staticClass: "col-sm-10", attrs: { id: "crud" } }, [
-        _c("div", { staticClass: "card text-center" }, [
-          _c("h5", { staticClass: "card-header fondo" }, [
-            _vm._v(_vm._s(_vm.$t("lang.class.cycle")))
-          ]),
-          _vm._v(" "),
-          _c("h3", { staticClass: "card-header fondo" }, [
-            _vm._v(_vm._s(_vm.nameWeekly))
-          ]),
-          _vm._v(" "),
-          _c("span", { staticClass: "classroom-label" }, [
-            _vm._v(_vm._s(_vm.nameArea))
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "card-body" }, [
-            _c(
-              "table",
-              {
-                staticClass:
-                  "table table-responsive-xl table-hover table-striped center"
-              },
-              [
-                _c("thead", [
-                  _c("tr", [
-                    _c("th", [_vm._v(_vm._s(_vm.$t("lang.menu.classes")))]),
-                    _vm._v(" "),
-                    _c("th", [_vm._v(_vm._s(_vm.$t("lang.class.action")))]),
-                    _vm._v(" "),
-                    _c("th")
-                  ])
-                ]),
-                _vm._v(" "),
+  return _vm.idclass === ""
+    ? _c("div", [
+        _c("div", { staticClass: "row justify-content-center" }, [
+          _c("div", { staticClass: "col-sm-12", attrs: { id: "crud" } }, [
+            _c("div", { staticClass: "card text-center" }, [
+              _c("h5", { staticClass: "card-header fondo" }, [
+                _vm._v(_vm._s(_vm.$t("lang.class.cycle")))
+              ]),
+              _vm._v(" "),
+              _c("h3", { staticClass: "card-header fondo" }, [
+                _vm._v(_vm._s(_vm.nameWeekly))
+              ]),
+              _vm._v(" "),
+              _c("span", { staticClass: "classroom-label" }, [
+                _vm._v(_vm._s(_vm.nameArea))
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "card-body" }, [
                 _c(
-                  "tbody",
-                  _vm._l(_vm.fillS, function(clas, t) {
-                    return _c("tr", { key: t }, [
-                      _c("td", [_vm._v(_vm._s(clas.name))]),
-                      _vm._v(" "),
-                      _c("td", { staticClass: "row justify-content-center" }, [
-                        _c(
-                          "a",
-                          {
-                            staticClass: "btn btn-primary",
-                            attrs: {
-                              href:
-                                "/estudiante/modulo/" +
-                                _vm.id_module +
-                                "/clase/" +
-                                clas.id
-                            }
-                          },
-                          [_vm._v(_vm._s(_vm.$t("lang.general.goToClass")))]
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("td", [
-                        clas.progress == 100
-                          ? _c("div", { staticClass: "check" }, [
+                  "table",
+                  {
+                    staticClass:
+                      "table table-responsive-xl table-hover table-striped center"
+                  },
+                  [
+                    _c("thead", [
+                      _c("tr", [
+                        _c("th", [_vm._v(_vm._s(_vm.$t("lang.menu.classes")))]),
+                        _vm._v(" "),
+                        _c("th", [_vm._v(_vm._s(_vm.$t("lang.class.action")))]),
+                        _vm._v(" "),
+                        _c("th")
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "tbody",
+                      _vm._l(_vm.fillS, function(clas, t) {
+                        return _c("tr", { key: t }, [
+                          _c("td", [_vm._v(_vm._s(clas.name))]),
+                          _vm._v(" "),
+                          _c(
+                            "td",
+                            { staticClass: "row justify-content-center" },
+                            [
                               _c(
-                                "svg",
+                                "a",
                                 {
-                                  staticClass: "bi bi-check-circle-fill",
-                                  attrs: {
-                                    width: "2em",
-                                    height: "2em",
-                                    viewBox: "0 0 16 16",
-                                    fill: "#28a745",
-                                    xmlns: "http://www.w3.org/2000/svg"
+                                  staticClass: "btn btn-primary",
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.getClassId(clas.id)
+                                    }
                                   }
                                 },
                                 [
-                                  _c("path", {
-                                    attrs: {
-                                      "fill-rule": "evenodd",
-                                      d:
-                                        "M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"
-                                    }
-                                  }),
-                                  _vm._v(" "),
-                                  _c("path", {
-                                    attrs: {
-                                      "fill-rule": "evenodd",
-                                      d:
-                                        "M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.236.236 0 0 1 .02-.022z"
-                                    }
-                                  })
+                                  _vm._v(
+                                    _vm._s(_vm.$t("lang.general.goToClass"))
+                                  )
                                 ]
-                              ),
-                              _vm._v(" "),
-                              _c("p", { staticClass: "text-success" }, [
-                                _vm._v(_vm._s(_vm.$t("lang.general.completed")))
-                              ])
-                            ])
-                          : _vm._e()
-                      ])
-                    ])
-                  }),
-                  0
-                )
-              ]
-            ),
-            _vm._v(" "),
-            _c("div", { staticClass: "float-left" }, [
-              _c(
-                "a",
-                {
-                  staticClass: "btn btn-warning",
-                  attrs: { href: "/estudiante/clases" }
-                },
-                [_vm._v(_vm._s(_vm.$t("lang.general.goBack")))]
-              )
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c("td", [
+                            clas.progress == 100
+                              ? _c("div", { staticClass: "check" }, [
+                                  _c(
+                                    "svg",
+                                    {
+                                      staticClass: "bi bi-check-circle-fill",
+                                      attrs: {
+                                        width: "2em",
+                                        height: "2em",
+                                        viewBox: "0 0 16 16",
+                                        fill: "#28a745",
+                                        xmlns: "http://www.w3.org/2000/svg"
+                                      }
+                                    },
+                                    [
+                                      _c("path", {
+                                        attrs: {
+                                          "fill-rule": "evenodd",
+                                          d:
+                                            "M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"
+                                        }
+                                      }),
+                                      _vm._v(" "),
+                                      _c("path", {
+                                        attrs: {
+                                          "fill-rule": "evenodd",
+                                          d:
+                                            "M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.236.236 0 0 1 .02-.022z"
+                                        }
+                                      })
+                                    ]
+                                  ),
+                                  _vm._v(" "),
+                                  _c("p", { staticClass: "text-success" }, [
+                                    _vm._v(
+                                      _vm._s(_vm.$t("lang.general.completed"))
+                                    )
+                                  ])
+                                ])
+                              : _vm._e()
+                          ])
+                        ])
+                      }),
+                      0
+                    )
+                  ]
+                ),
+                _vm._v(" "),
+                _c("div", { staticClass: "float-left" }, [
+                  _c(
+                    "a",
+                    {
+                      staticClass: "btn btn-warning",
+                      on: { click: _vm.idclassClean }
+                    },
+                    [_vm._v(_vm._s(_vm.$t("lang.general.goBack")))]
+                  )
+                ])
+              ])
             ])
           ])
         ])
       ])
-    ])
-  ])
+    : _c(
+        "div",
+        [
+          _c("student-course", {
+            attrs: {
+              id_module: _vm.clasId,
+              id_class: _vm.idclass,
+              idclassClean: _vm.idclassClean
+            }
+          })
+        ],
+        1
+      )
 }
 var staticRenderFns = []
 render._withStripped = true

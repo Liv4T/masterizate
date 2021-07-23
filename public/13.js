@@ -41,6 +41,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -90,6 +94,11 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function (error) {
         _this2.errors = error.response.data;
       });
+    },
+    ShowSelected: function ShowSelected(data) {
+      var dataArea = JSON.parse(data.target.value);
+      this.idArea = dataArea.id;
+      this.idClassroom = dataArea.id_classroom;
     }
   }
 });
@@ -167,31 +176,9 @@ var render = function() {
           _c(
             "select",
             {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.idArea,
-                  expression: "idArea"
-                }
-              ],
               staticClass: "btn btn-warning letra-boldfont",
               attrs: { name: "type" },
-              on: {
-                change: function($event) {
-                  var $$selectedVal = Array.prototype.filter
-                    .call($event.target.options, function(o) {
-                      return o.selected
-                    })
-                    .map(function(o) {
-                      var val = "_value" in o ? o._value : o.value
-                      return val
-                    })
-                  _vm.idArea = $event.target.multiple
-                    ? $$selectedVal
-                    : $$selectedVal[0]
-                }
-              }
+              on: { change: _vm.ShowSelected }
             },
             [
               _c(
@@ -202,10 +189,10 @@ var render = function() {
                 [_vm._v("MATERIAS")]
               ),
               _vm._v(" "),
-              _vm._l(_vm.areas, function(area) {
+              _vm._l(_vm.areas, function(area, key) {
                 return _c(
                   "option",
-                  { domProps: { value: area.id + "/" + area.id_classroom } },
+                  { key: key, domProps: { value: JSON.stringify(area) } },
                   [_vm._v(_vm._s(area.text))]
                 )
               })
@@ -302,7 +289,20 @@ var render = function() {
             _vm._v(" "),
             _vm.activetab === 3
               ? _c("div", { staticClass: "tabcontent" }, [
-                  _vm._v("incluir vista")
+                  _vm.idArea != "" && _vm.idClassroom != ""
+                    ? _c(
+                        "div",
+                        [
+                          _c("teacher-students", {
+                            attrs: {
+                              idArea: _vm.idArea,
+                              idClassroom: _vm.idClassroom
+                            }
+                          })
+                        ],
+                        1
+                      )
+                    : _vm._e()
                 ])
               : _vm._e(),
             _vm._v(" "),

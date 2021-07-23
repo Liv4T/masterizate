@@ -3,9 +3,9 @@
     <div>
       <div class="form-group col-md-4 mx-auto">
         <div class="text-center">
-          <select class="btn btn-warning letra-boldfont" name="type" v-model="idArea">
+          <select class="btn btn-warning letra-boldfont" name="type" @change="ShowSelected">
             <option disabled selected hidden value="">MATERIAS</option>
-            <option :value="area.id + '/' + area.id_classroom" v-for="area in areas">{{ area.text }}</option>
+            <option :value="JSON.stringify(area)" v-for="(area, key) in areas" :key="key">{{ area.text }}</option>
           </select>
         </div>
       </div>
@@ -21,7 +21,11 @@
           <div class="content-azul">
             <div v-if="activetab === 1" class="tabcontent">incluir vista</div>
             <div v-if="activetab === 2" class="tabcontent">incluir vista</div>
-            <div v-if="activetab === 3" class="tabcontent">incluir vista</div>
+            <div v-if="activetab === 3" class="tabcontent">
+              <div v-if="idArea !='' && idClassroom != ''">
+                <teacher-students :idArea="idArea" :idClassroom="idClassroom"></teacher-students>
+              </div>              
+            </div>
             <div v-if="activetab === 4" class="tabcontent">incluir vista</div>
           </div>
         </div>
@@ -81,6 +85,11 @@ export default {
           this.errors = error.response.data;
         });
     },
+    ShowSelected(data){
+      let dataArea = JSON.parse(data.target.value);
+      this.idArea = dataArea.id;
+      this.idClassroom = dataArea.id_classroom;
+    }
   },
 };
 </script>

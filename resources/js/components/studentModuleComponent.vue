@@ -1,7 +1,7 @@
 <template>
-  <div class="back">
+  <div v-if="idclass === ''">
     <div class="row justify-content-center">
-      <div id="crud" class="col-sm-10">
+      <div id="crud" class="col-sm-12">
         <div class="card text-center">
           <h5 class="card-header fondo">{{ $t('lang.class.cycle') }}</h5>
           <h3 class="card-header fondo">{{ nameWeekly }}</h3>
@@ -23,14 +23,13 @@
                   <td class="row justify-content-center">
                     <a
                       class="btn btn-primary"
-                      :href="
-                        '/estudiante/modulo/' + id_module + '/clase/' + clas.id
-                      "
+                      v-on:click="getClassId(clas.id)"
                       >{{ $t('lang.general.goToClass') }}</a
                     >
 
 
                   </td>
+                  
                   <td>
                     <div class="check" v-if="clas.progress==100">
                         <svg
@@ -59,7 +58,7 @@
                       class="btn btn-primary"
                       :href="
                         '/student/clases_adicionales/' +
-                        id_module +
+                        clasId +
                         '/' +
                         id_area +
                         '/' +
@@ -72,18 +71,21 @@
                 </tr>-->
               </tbody>
             </table>
-            <div class="float-left">
-              <a class="btn btn-warning" href="/estudiante/clases">{{ $t('lang.general.goBack') }}</a>
+            <div class="float-left">              
+              <a class="btn btn-warning" v-on:click="idclassClean">{{ $t('lang.general.goBack') }}</a>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
+  <div v-else>
+    <student-course :id_module="clasId" :id_class="idclass" :idclassClean="idclassClean"></student-course>
+  </div>
 </template>
 <script>
 export default {
-  props: ["id_module"],
+  props: ["clasId","cleanClasId","moduleId"],
   data() {
     return {
       clases: [],
@@ -99,25 +101,50 @@ export default {
       nameArea: "",
       id_area: "",
       id_classroom: "",
+      idclass:""
 
     };
   },
   created() {},
-  mounted() {
-    this.fillS = [];
-    var urlr = window.location.origin + "/showClass/" + this.id_module;
-    axios.get(urlr).then((response) => {
-      this.fillS = response.data.clase;
-      this.nameArea = `${response.data.area.name} ${response.data.classroom.name}`;
-      this.id_area = response.data.area.id;
-      this.id_classroom = response.data.classroom.id;
-    });
-    var urls = window.location.origin + "/GetNameWeekly/" + this.id_module;
-    axios.get(urls).then((response) => {
-      this.nameWeekly = response.data;
-    });
+  watch:{
+    clasId(newVal, oldVal){
+      if(newVal !== oldVal){
+        this.getData();
+      }
+    },
+    moduleId(newVal, oldVal){
+      if(newVal !== oldVal){
+        this.idclass = this.moduleId;
+      }
+    }
   },
-  methods: {},
+  mounted() {
+    this.idclass = this.moduleId;
+    this.getData();
+  },
+  methods: {
+    getData(){
+      this.fillS = [];
+      var urlr = window.location.origin + "/showClass/" + this.clasId;
+      axios.get(urlr).then((response) => {
+        this.fillS = response.data.clase;
+        this.nameArea = `${response.data.area.name} ${response.data.classroom.name}`;
+        this.id_area = response.data.area.id;
+        this.id_classroom = response.data.classroom.id;
+      });
+      var urls = window.location.origin + "/GetNameWeekly/" + this.clasId;
+      axios.get(urls).then((response) => {
+        this.nameWeekly = response.data;
+      });
+    },
+    getClassId(clasId){
+      this.idclass = clasId
+    },
+    idclassClean(){
+      this.cleanClasId();
+      this.idclass= "";
+    }
+  },
 };
 </script>
 <style>

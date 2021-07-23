@@ -41,6 +41,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -202,10 +212,13 @@ var render = function() {
                 [_vm._v("MATERIAS")]
               ),
               _vm._v(" "),
-              _vm._l(_vm.areas, function(area) {
+              _vm._l(_vm.areas, function(area, key) {
                 return _c(
                   "option",
-                  { domProps: { value: area.id + "/" + area.id_classroom } },
+                  {
+                    key: key,
+                    domProps: { value: area.id + "/" + area.id_classroom }
+                  },
                   [_vm._v(_vm._s(area.text))]
                 )
               })
@@ -290,20 +303,47 @@ var render = function() {
           _c("div", { staticClass: "content-azul" }, [
             _vm.activetab === 1
               ? _c("div", { staticClass: "tabcontent" }, [
-                  _vm._v("incluir vista")
+                  _vm.idArea !== ""
+                    ? _c(
+                        "div",
+                        [
+                          _c("course-component", {
+                            attrs: { idArea: _vm.idArea }
+                          })
+                        ],
+                        1
+                      )
+                    : _vm._e()
                 ])
               : _vm._e(),
             _vm._v(" "),
             _vm.activetab === 2
               ? _c("div", { staticClass: "tabcontent" }, [
-                  _vm._v("incluir vista")
+                  _vm.idArea !== ""
+                    ? _c(
+                        "div",
+                        [
+                          _c("trim-component", {
+                            attrs: { idArea: _vm.idArea }
+                          })
+                        ],
+                        1
+                      )
+                    : _vm._e()
                 ])
               : _vm._e(),
             _vm._v(" "),
             _vm.activetab === 3
-              ? _c("div", { staticClass: "tabcontent" }, [
-                  _vm._v("incluir vista")
-                ])
+              ? _c(
+                  "div",
+                  { staticClass: "tabcontent" },
+                  [
+                    _c("porcentaje-component", {
+                      attrs: { idArea: _vm.idArea }
+                    })
+                  ],
+                  1
+                )
               : _vm._e(),
             _vm._v(" "),
             _vm.activetab === 4

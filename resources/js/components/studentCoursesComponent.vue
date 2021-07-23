@@ -2,7 +2,7 @@
     <div class="card text-center">
         <div v-if="showLectives === false">
             <h3 class="card-header fondo">{{ $t('lang.class.myClasses') }}</h3>
-            <div class="card-body">                        
+            <div class="card-body" v-if="clasId === ''">                        
                 <div class="card">                                
                     <table class="table table-responsive-xl table-hover table-striped center">
                         <thead>
@@ -14,9 +14,9 @@
                         </thead>
                         <tbody v-for="(clas, k) in clases" :key="k" >
                             <tr>
-                                <td>{{ $t('lang.area.'+nameMinus(clas.text)) }}</td>
+                                <td>{{clas.text}}</td>
                                 <td>
-                                    <a class="btn btn-primary" :href="'/estudiante/modulo/'+clas.id">{{ $t('lang.class.goToCycle') }}</a>
+                                    <a class="btn btn-primary" v-on:click="btnShow(clas.id)">{{ $t('lang.class.goToCycle') }}</a>
                                 </td>
                                 <td>
                                     <div class="check" v-if="clas.progress==100">
@@ -40,6 +40,9 @@
                     </table>                                
                 </div>
             </div>
+            <div v-else>
+                <student-module :clasId="clasId" :cleanClasId="cleanClasId" :moduleId="idModule"></student-module>
+            </div>
         </div>
         <div v-else>
             <lectives-student-courses :id_lective_planification="id_lective_planification"></lectives-student-courses>
@@ -48,7 +51,7 @@
 </template>
 <script>
 export default {
-    props:['nameArea','id_lective_planification'],
+    props:['nameArea','id_lective_planification','idClass', 'moduleId'],
     data() {
         return {
             clases: [],
@@ -60,15 +63,34 @@ export default {
             id_act: "",
             errors: [],
             fillS: [],
+            clasId: "",
+            idModule:""
         };
     },    
     mounted() {
+        this.clasId= this.idClass;
+        this.idModule = this.moduleId;
         this.getData();
     },
     watch:{
         nameArea(old_value, new_value){
             if(old_value != new_value){
+                this.clasId="";
+                this.idModule="";
                 this.getData();
+            }
+        },
+
+        idClass(newValue, oldValue){
+            
+            if(newValue != oldValue){
+                this.clasId = newValue
+            }
+        },
+
+        moduleId(newValue, oldValue){
+            if(newValue !== oldValue){
+                this.idModule = this.moduleId;
             }
         }
     },
@@ -90,7 +112,6 @@ export default {
                 toastr.info("No se encuentran clases Relacionadas")
                 console.log(e);
             });
-            console.log('Area Activa: ',this.nameArea);
             // console.log("Component mounted.");
         },
         botones(area_id,classroom_id) {
@@ -98,6 +119,13 @@ export default {
             axios.get(urlsel).then((response) => {
                 this.clases = response.data;
             });
+        },
+        btnShow(clasId){
+            this.clasId = clasId;
+        },
+        cleanClasId(){
+            this.clasId = "";
+            this.idModule = "";
         },
         nameMinus(name){
           var nameMinus=name.toLowerCase();

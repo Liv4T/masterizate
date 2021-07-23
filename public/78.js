@@ -53,8 +53,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["id_area", "id_classroom", "id_student", "id_module", "id_class"],
+  props: ["id_area", "id_classroom", "id_student", "id_module", "id_class", "cleanData"],
   data: function data() {
     return {
       modules: [],
@@ -95,6 +97,9 @@ __webpack_require__.r(__webpack_exports__);
           return reject(e);
         });
       });
+    },
+    executeCleanData: function executeCleanData() {
+      this.cleanData();
     }
   }
 });
@@ -165,8 +170,8 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "back row justify-content-center" }, [
-    _c("div", { staticClass: "col-sm-10" }, [
+  return _c("div", { staticClass: "justify-content-center" }, [
+    _c("div", { staticClass: "col-sm-12" }, [
       _vm._m(0),
       _vm._v(" "),
       _c(
@@ -251,32 +256,19 @@ var render = function() {
             ])
           ]),
           _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-link",
+              staticStyle: { "margin-left": "90%" },
+              on: { click: _vm.cleanData }
+            },
+            [_vm._v("Regresar")]
+          ),
+          _vm._v(" "),
           !_vm.id_module
             ? _c("teacher-student-module-select", {
                 attrs: {
-                  id_area: _vm.id_area,
-                  id_classroom: _vm.id_classroom,
-                  id_student: _vm.id_student
-                }
-              })
-            : _vm._e(),
-          _vm._v(" "),
-          _vm.id_module && !_vm.id_class
-            ? _c("teacher-student-class-select", {
-                attrs: {
-                  id_module: _vm.id_module,
-                  id_area: _vm.id_area,
-                  id_classroom: _vm.id_classroom,
-                  id_student: _vm.id_student
-                }
-              })
-            : _vm._e(),
-          _vm._v(" "),
-          _vm.id_module && _vm.id_class
-            ? _c("teacher-student-class-content", {
-                attrs: {
-                  id_class: _vm.id_class,
-                  id_module: _vm.id_module,
                   id_area: _vm.id_area,
                   id_classroom: _vm.id_classroom,
                   id_student: _vm.id_student

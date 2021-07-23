@@ -20,7 +20,7 @@
       crossorigin="anonymous"
     />
   </head>
-  <div class="back">
+  <div>
     <div class="row">
       <div class="col-md-11 mx-auto">
         <div class="custom-card text-center">
@@ -82,7 +82,7 @@
 
                                 <td>Eliminar</td>
                               </tr>
-                              <tr v-for="(opt,i) in fillI">
+                              <tr v-for="(opt,i) in fillI" :key="i">
                                 <td>{{ opt.type_activity }}</td>
 
                                 <td>{{ opt.activity_rate }}</td>
@@ -240,7 +240,7 @@ import VueFormWizard from "vue-form-wizard";
 import "vue-form-wizard/dist/vue-form-wizard.min.css";
 Vue.use(VueFormWizard);
 export default {
-  props: ["id_area", "id_classroom"],
+  props: ["idArea"],
   data() {
     return {
       inputs: [
@@ -276,23 +276,25 @@ export default {
       index: 0
     };
   },
+  watch:{
+    idArea(newVal, oldVal){
+      if(newVal !== oldVal){
+        this.getData();
+      }
+    }
+  },
   mounted() {
-    var urlsel =
-      window.location.origin +
-      "/coursePlanification/" +
-      this.id_area +
-      "/" +
-      this.id_classroom;
-    axios.get(urlsel).then((response) => {
-      this.fillC = response.data;
-    });
+    this.getData();
   },
   methods: {
+    getData(){
+      var urlsel = window.location.origin + "/coursePlanification/" + this.idArea;
+      axios.get(urlsel).then((response) => {
+        this.fillC = response.data;
+      });
+    },
     getMenu() {
       window.location = "/actividad_g";
-    },
-    getInd() {
-      window.location = "/porcentaje/" + this.id_area + "/" + this.id_classroom;
     },
     indicador(id) {
       var urli = window.location.origin + "/getIndicator/" + id;
@@ -331,7 +333,7 @@ export default {
 
           toastr.success("Nueva actividad creada exitosamente");
 
-          this.getInd();
+          $('#createZ').modal('hide');
         })
         .catch((error) => {
           this.errors = error.response.data;
@@ -382,7 +384,6 @@ export default {
 
           toastr.success("Actividad eliminada exitosamente");
           this.fillI.splice(this.index,1);
-          this.getInd();
         })
         .catch((error) => {
           this.errors = error.response.data;
