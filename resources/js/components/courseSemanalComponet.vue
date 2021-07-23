@@ -16,6 +16,12 @@
                 <tab-content title="Ciclo">
                   <div class="form-group row mx-auto" v-for="(input, t) in inputs" :key="t">
                     <div class="col-md-6">
+                      <label for="numeroCiclo">Número de ciclo</label>
+                      <input type="text" name="numeroCiclo" class="form-control" />
+                    </div>
+                    <div class="col-md-6">
+                    </div>
+                    <div class="col-md-6">
                       <label for="name">Pregunta conductora o nombre</label>
                       <span>
                         <a
@@ -70,6 +76,10 @@
                       <textarea name="competences" 
                         v-on:change="contentUpdateEvent(t,'observation')"
                       class="form-control" v-model="input.observation"></textarea>
+                    </div>
+                    <div class="col-md-6">
+                      <label for="ajustes">Ajustes PIAR</label>
+                      <textarea type="text" name="ajustes" class="form-control"> </textarea>
                     </div>
                   </div>
                   <!-- <div class="modal-footer">

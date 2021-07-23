@@ -9,6 +9,7 @@
             </button>
             <div class="dropdown-menu" aria-labelledby="admin">
                 <a class="dropdown-item" href="instituciones_adm">Crear Instituciones</a>
+                <a class="dropdown-item" href="trimestre_adm">Crear Trimestre</a>
                 <a class="dropdown-item" href="general_adm">Crear Salones</a>
                 <!-- Pendiente creación de Perfiles -->
                 <a class="dropdown-item" href="#">Crear Perfiles</a>

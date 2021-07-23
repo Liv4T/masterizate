@@ -76,6 +76,9 @@ Route::middleware('auth')->get('/duplicar-semana/', function () {
 Route::middleware('auth')->get('/crear_semana/{id_area}/{id_classroom}', function (String $id_area, String $id_classroom) {
     return view('semanal')->with('id_area', $id_area)->with('id_classroom', $id_classroom);
 });
+Route::middleware('auth')->get('/cycle/list/{id_area}/{id_classroom}', function (String $id_area, String $id_classroom) {
+    return view('cycleList')->with('id_area', $id_area)->with('id_classroom', $id_classroom);
+});
 Route::middleware('auth')->get('/act_semana/{id_area}/{id_classroom}', function (String $id_area, String $id_classroom) {
     return view('semanalAct')->with('id_area', $id_area)->with('id_classroom', $id_classroom);
 });
@@ -285,6 +288,9 @@ Route::middleware('auth')->get('/reportes', function () {
 });
 Route::middleware('auth')->get('/instituciones_adm', function () {
     return view('institucionesAdm');
+});
+Route::middleware('auth')->get('/trimestre_adm', function () {
+    return view('trimestre');
 });
 Route::middleware('auth')->get('/instituciones_crear', function () {
     return view('crearInstitucion');
@@ -1061,3 +1067,6 @@ Route::middleware('auth')->get('/api/proceedings/general/users', 'ProceedingsGen
 Route::resource('CalLectivesActivities','CalLectivesActivitiesController');
 Route::get('getLectivesActivitiesCal/{lective_planification}','CalLectivesActivitiesController@getLectivesActivitiesCal');
 Route::get('getNotesStudents','CalLectivesActivitiesController@getNotesStudents');
+Route::middleware('auth')->get('/cycle/teacher/{id_classroom}/{id_area}/{id_teacher}', 'TutorController@cyclesByTeacher');
+Route::post('/createTrimestre', 'TrimestreController@createTrimestre');
+Route::get('/getTrimestres', 'TrimestreController@getTrimestre');

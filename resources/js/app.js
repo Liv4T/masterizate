@@ -17,8 +17,8 @@ import en from '../../src/lang/en_US.json'
 import es from '../../src/lang/es_ES.json'
 
 const i18n = new VueI18n({
-  locale: 'en',
-  fallbackLocale: 'en',
+  locale: 'es',
+  fallbackLocale: 'es',
   formatFallbackMessages: true,
   messages: {
     en: {
@@ -355,6 +355,10 @@ Vue.component("report-monthly-component", ()=>import("./components/mothlyReportP
 
 Vue.component("report-admin", ()=>import("./components/reportAdmin.vue"));
 Vue.component("lective_notes", ()=>import("./components/lectivesTeacherNotesComponent.vue"));
+
+Vue.component("cycle-list", ()=>import("./components/cycleList.vue"));
+Vue.component("modal-create-trimestre", ()=>import("./components/modalCreateTrimestre.vue"));
+Vue.component("trimestres", ()=>import("./components/trimestreAdm.vue"));
 
 Vue.use(CKEditor);
 
