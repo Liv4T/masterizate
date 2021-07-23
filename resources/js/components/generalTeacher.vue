@@ -32,7 +32,9 @@
             <div v-if="activetab === 3" class="tabcontent">
               <porcentaje-component :idArea="idArea"></porcentaje-component>
             </div>
-            <div v-if="activetab === 4" class="tabcontent">incluir vista</div>
+            <div v-if="activetab === 4" class="tabcontent">
+              <cycle-list :idArea="idArea"></cycle-list>
+            </div>
           </div>
         </div>
       </div>

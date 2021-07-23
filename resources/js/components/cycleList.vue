@@ -1,24 +1,61 @@
 <template>
-<div class="back">
+<div class="" style="margin: 30px">
     <div class="row justify-content-center">
         <div id="crud" class="col-sm-12">
-            <ul style="margin: 70px 150px 0 150px;">
-                <a href="#" v-for="(cycle,t) in cycles" :key="t">
-                    <li class="item-cycle text-center">
-                        <span class="menu-cycle">Ciclo {{ cycle.nombre }}</span>
-                    </li>
-                </a>
-            </ul>
+            <div class="accordion" id="accordionExample" >
+              <div class="card" v-for="(trimestre,t) in trimestres" :key="t">
+                <div class="card-header">
+                  <h2 class="mb-0">
+                    <button
+                      class="btn btn-link"
+                      type="button"
+                      data-toggle="collapse"
+                      :data-target="'#collapse'+t"
+                      aria-expanded="false"
+                      @click="getCycles(trimestre.id)"
+                      aria-controls="collapse"
+                    >
+                      <label>Ciclo {{ trimestre.nombre }}</label>
+                    </button>
+                  </h2>
+                </div>
+                <div
+                  :id="'collapse'+t"
+                  class="collapse hide"
+                  aria-labelledby="heading"
+                  data-parent="#accordionExample"
+                >
+                <div class="card-body">
+                    <table class="table table-responsive-xl table-hover table-striped center">
+                        <tbody>
+                            <tr>
+                            <td>Nombre Cyclo</td>
+
+                            <td>Observaciones</td>
+                            </tr>
+                            <tr v-for="(cycle,k) in cycles" :key="k">
+                            <td>{{ cycle.driving_question }}</td>
+
+                            <td>{{ cycle.observation }}</td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                </div>
+              </div>
+            </div>
         </div>
     </div>
 </div>
 </template>
 <script>
 export default {
-    props:["id_area","id_classroom, id_teacher"],
+    props:["idArea"],
     data() {
         return {
             cycles:[],
+            trimestres: [],
         };
     },
     mounted(){
@@ -26,12 +63,19 @@ export default {
     },
     methods: {
         getData(){
-            //var url="/cycle/teacher/"+id_classroom+"/"+id_area+"/"+id_teacher;
             var url="/getTrimestres";
             axios.get(url).then((response) =>{
-                this.cycles=response.data;
+                this.trimestres=response.data;
             });
-        }
+        },
+        getCycles(id_trimestre) {
+    
+            var url="/cycle/teacher/"+this.idArea+"/"+id_trimestre;
+            axios.get(url).then((response) => {
+                this.cycles = response.data;
+            });
+            console.log(this.cycles);
+        },
     },
 };
 </script>

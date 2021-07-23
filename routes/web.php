@@ -1067,6 +1067,6 @@ Route::middleware('auth')->get('/api/proceedings/general/users', 'ProceedingsGen
 Route::resource('CalLectivesActivities','CalLectivesActivitiesController');
 Route::get('getLectivesActivitiesCal/{lective_planification}','CalLectivesActivitiesController@getLectivesActivitiesCal');
 Route::get('getNotesStudents','CalLectivesActivitiesController@getNotesStudents');
-Route::middleware('auth')->get('/cycle/teacher/{id_classroom}/{id_area}/{id_teacher}', 'TutorController@cyclesByTeacher');
+Route::middleware('auth')->get('/cycle/teacher/{id_area}/{id_classroom}/{id_trimestre}', 'TutorController@cyclesByTeacher');
 Route::post('/createTrimestre', 'TrimestreController@createTrimestre');
 Route::get('/getTrimestres', 'TrimestreController@getTrimestre');
