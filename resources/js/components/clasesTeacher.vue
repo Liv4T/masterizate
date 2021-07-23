@@ -19,7 +19,11 @@
           </div>
 
           <div class="content-azul">
-            <div v-if="activetab === 1" class="tabcontent">incluir vista</div>
+            <div v-if="activetab === 1" class="tabcontent">
+              <div v-if="idArea !=''">
+                <cycle-list :idArea="idAreaClass" :planif="planif"></cycle-list>
+              </div>
+            </div>
             <div v-if="activetab === 2" class="tabcontent">
               <div v-if="idArea !='' && idClassroom != ''">
                 <activities-teacher :idArea="idArea" :idClassroom="idClassroom"></activities-teacher>
@@ -64,6 +68,8 @@ export default {
       planifications: "",
       idArea: "",
       idClassroom: "",
+      idAreaClass:"",
+      planif:"clase"
     };
   },
   mounted() {
@@ -97,6 +103,7 @@ export default {
       let dataArea = JSON.parse(data.target.value);
       this.idArea = dataArea.id;
       this.idClassroom = dataArea.id_classroom;
+      this.idAreaClass = dataArea.id+'/'+dataArea.id_classroom;
     }
   },
 };

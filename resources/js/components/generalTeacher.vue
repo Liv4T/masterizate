@@ -33,7 +33,7 @@
               <porcentaje-component :idArea="idArea"></porcentaje-component>
             </div>
             <div v-if="activetab === 4" class="tabcontent">
-              <cycle-list :idArea="idArea"></cycle-list>
+              <cycle-list :idArea="idArea" :planif="planif"></cycle-list>
             </div>
           </div>
         </div>
@@ -64,6 +64,7 @@ export default {
       planifications: "",
       idArea: "",
       idClassroom: "",
+      planif:"general"
     };
   },
   mounted() {

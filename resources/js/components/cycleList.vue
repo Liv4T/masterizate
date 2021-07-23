@@ -1,5 +1,5 @@
 <template>
-<div class="" style="margin: 30px">
+<div v-if="idModule === ''" style="margin: 30px">
     <div class="row justify-content-center">
         <div id="crud" class="col-sm-12">
             <div class="accordion" id="accordionExample" >
@@ -29,14 +29,28 @@
                     <table class="table table-responsive-xl table-hover table-striped center">
                         <tbody>
                             <tr>
-                            <td>Nombre Cyclo</td>
+                                <td>Nombre Cyclo</td>
 
-                            <td>Observaciones</td>
+                                <td>Observaciones</td>
+                                <td>Acción</td>
+
                             </tr>
                             <tr v-for="(cycle,k) in cycles" :key="k">
-                            <td>{{ cycle.driving_question }}</td>
+                                <td>{{ cycle.driving_question }}</td>
 
-                            <td>{{ cycle.observation }}</td>
+                                <td>{{ cycle.observation }}</td>
+
+                                <td v-if="planification === 'clase'">
+                                    <p>
+                                        <button class="btn btn-warning" v-on:click="()=>getCycle(cycle)">Ir a Ciclo</button>
+                                    </p>
+                                </td>
+                                <td v-else-if="planification === 'general'">
+                                    <p>
+                                        <button class="btn btn-warning">Editar</button>
+                                        <button class="btn btn-warning">Solicitar Permiso para Eliminar</button>
+                                    </p>
+                                </td>
 
                             </tr>
                         </tbody>
@@ -48,17 +62,23 @@
         </div>
     </div>
 </div>
+<div v-else>
+    <teacher-module :id_module="idModule" :cleanIdModule="cleanIdModule"></teacher-module>
+</div>
 </template>
 <script>
 export default {
-    props:["idArea"],
+    props:["idArea","planif"],
     data() {
         return {
             cycles:[],
             trimestres: [],
+            planification:"",
+            idModule:""
         };
     },
     mounted(){
+        this.planification= this.planif;
         this.getData();
     },
     methods: {
@@ -76,6 +96,12 @@ export default {
             });
             console.log(this.cycles);
         },
+        getCycle(cycle){
+            this.idModule = cycle.id
+        },
+        cleanIdModule(){
+            this.idModule=""
+        }
     },
 };
 </script>

@@ -123,9 +123,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["id_module"],
+  props: ["id_module", "cleanIdModule"],
   data: function data() {
     return {
       clases: [],
@@ -144,7 +146,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       nameWeekly: "",
       nameArea: "",
       id_area: "",
-      id_classroom: ""
+      id_classroom: "",
+      createClas: 'hide',
+      idClass: ""
     };
   },
   created: function created() {},
@@ -276,6 +280,24 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       })["catch"](function (error) {
         console.log(error);
       });
+    },
+    createClass: function createClass(id_module) {
+      console.log('id_module', id_module);
+
+      if (id_module) {
+        this.createClas = 'show';
+      }
+    },
+    getClass: function getClass(id_class) {
+      console.log('id_class', id_class);
+
+      if (id_class) {
+        this.idClass = id_class;
+        this.createClas = 'showEdit';
+      }
+    },
+    cleanCreateClas: function cleanCreateClas() {
+      this.createClas = 'hide';
     }
   }
 });
@@ -346,240 +368,295 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "back" }, [
-    _c("div", { staticClass: "row justify-content-center" }, [
-      _c("div", { staticClass: "col-sm-10", attrs: { id: "crud" } }, [
-        _c("div", { staticClass: "card text-center" }, [
-          _c("h5", { staticClass: "card-header fondo" }, [_vm._v("Ciclo")]),
-          _vm._v(" "),
-          _c("h3", { staticClass: "card-header fondo" }, [
-            _vm._v(_vm._s(_vm.nameWeekly))
-          ]),
-          _vm._v(" "),
-          _c("span", { staticClass: "classroom-label" }, [
-            _vm._v(_vm._s(_vm.nameArea))
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "card-body" }, [
-            _c("div", { staticClass: "text-left" }, [
-              _c(
-                "a",
-                {
-                  staticClass: "btn btn-primary",
-                  attrs: {
-                    href: "/docente/modulo/" + _vm.id_module + "/clase/nueva"
-                  }
-                },
-                [_vm._v("Crear\n                            Clase")]
-              ),
+  return _vm.createClas === "hide"
+    ? _c("div", [
+        _c("div", { staticClass: "row justify-content-center" }, [
+          _c("div", { staticClass: "col-sm-12", attrs: { id: "crud" } }, [
+            _c("div", { staticClass: "card text-center" }, [
+              _c("h5", { staticClass: "card-header fondo" }, [_vm._v("Ciclo")]),
               _vm._v(" "),
+              _c("h3", { staticClass: "card-header fondo" }, [
+                _vm._v(_vm._s(_vm.nameWeekly))
+              ]),
+              _vm._v(" "),
+              _c("span", { staticClass: "classroom-label" }, [
+                _vm._v(_vm._s(_vm.nameArea))
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "card-body" }, [
+                _c("div", { staticClass: "text-left" }, [
+                  _c(
+                    "a",
+                    {
+                      staticClass: "btn btn-primary",
+                      on: { click: _vm.cleanIdModule }
+                    },
+                    [_vm._v("Regresar")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "a",
+                    {
+                      staticClass: "btn btn-primary",
+                      on: {
+                        click: function($event) {
+                          return _vm.createClass(_vm.id_module)
+                        }
+                      }
+                    },
+                    [_vm._v("Crear\n                            Clase")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "a",
+                    {
+                      staticClass: "btn btn-primary text-right",
+                      attrs: { href: "" },
+                      on: {
+                        click: function($event) {
+                          $event.preventDefault()
+                          return _vm.openModal()
+                        }
+                      }
+                    },
+                    [_vm._v("Eliminar")]
+                  )
+                ]),
+                _vm._v(" "),
+                _c("br"),
+                _vm._v(" "),
+                _c(
+                  "table",
+                  {
+                    staticClass:
+                      "table table-responsive-xl table-hover table-striped center"
+                  },
+                  [
+                    _vm._m(0),
+                    _vm._v(" "),
+                    _c(
+                      "tbody",
+                      _vm._l(_vm.fillS, function(clas, t) {
+                        return _c("tr", { key: t }, [
+                          clas.status != 0
+                            ? _c("td", [_vm._v(_vm._s(clas.name))])
+                            : _vm._e(),
+                          _vm._v(" "),
+                          clas.status != 0
+                            ? _c("td", [
+                                _c(
+                                  "a",
+                                  {
+                                    staticClass: "btn btn-primary",
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.getClass(clas.id)
+                                      }
+                                    }
+                                  },
+                                  [_vm._v("Ir a clase")]
+                                )
+                              ])
+                            : _vm._e()
+                        ])
+                      }),
+                      0
+                    )
+                  ]
+                )
+              ])
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "modal fade", attrs: { id: "openModal" } }, [
+          _c("div", { staticClass: "modal-lg modal-dialog" }, [
+            _c("div", { staticClass: "modal-content" }, [
               _c(
-                "a",
+                "form",
                 {
-                  staticClass: "btn btn-primary text-right",
-                  attrs: { href: "" },
+                  staticClass: "needs-validation",
+                  attrs: { novalidate: "" },
                   on: {
-                    click: function($event) {
+                    submit: function($event) {
                       $event.preventDefault()
-                      return _vm.openModal()
+                      return _vm.deactivateData()
                     }
                   }
                 },
-                [_vm._v("Eliminar")]
-              )
-            ]),
-            _vm._v(" "),
-            _c("br"),
-            _vm._v(" "),
-            _c(
-              "table",
-              {
-                staticClass:
-                  "table table-responsive-xl table-hover table-striped center"
-              },
-              [
-                _vm._m(0),
-                _vm._v(" "),
-                _c(
-                  "tbody",
-                  _vm._l(_vm.fillS, function(clas, t) {
-                    return _c("tr", { key: t }, [
-                      clas.status != 0
-                        ? _c("td", [_vm._v(_vm._s(clas.name))])
-                        : _vm._e(),
-                      _vm._v(" "),
-                      clas.status != 0
-                        ? _c("td", [
-                            _c(
-                              "a",
-                              {
-                                staticClass: "btn btn-primary",
-                                attrs: {
-                                  href:
-                                    "/docente/modulo/" +
-                                    _vm.id_module +
-                                    "/clase/" +
-                                    clas.id
-                                }
+                [
+                  _vm._m(1),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "modal-body" }, [
+                    _c(
+                      "div",
+                      { staticClass: "form-group row justify-content-center" },
+                      [
+                        _c(
+                          "div",
+                          { staticClass: "col-md-6" },
+                          [
+                            _c("label", { attrs: { for: "name" } }, [
+                              _vm._v("Ciclos")
+                            ]),
+                            _vm._v(" "),
+                            _c("multiselect", {
+                              attrs: {
+                                options: _vm.cicles,
+                                multiple: true,
+                                "close-on-select": false,
+                                "clear-on-select": false,
+                                "preserve-search": true,
+                                placeholder: "Seleccione una o varias",
+                                label: "text",
+                                "track-by": "id",
+                                "preselect-first": true
                               },
-                              [_vm._v("Ir a clase")]
-                            )
-                          ])
-                        : _vm._e()
-                    ])
-                  }),
-                  0
-                )
-              ]
-            )
+                              scopedSlots: _vm._u(
+                                [
+                                  {
+                                    key: "selection",
+                                    fn: function(ref) {
+                                      var values = ref.values
+                                      var isOpen = ref.isOpen
+                                      return [
+                                        values.length && !isOpen
+                                          ? _c(
+                                              "span",
+                                              {
+                                                staticClass:
+                                                  "multiselect__single"
+                                              },
+                                              [
+                                                _vm._v(
+                                                  _vm._s(values.length) +
+                                                    " opciones\n                                            selecionadas"
+                                                )
+                                              ]
+                                            )
+                                          : _vm._e()
+                                      ]
+                                    }
+                                  }
+                                ],
+                                null,
+                                false,
+                                2392852366
+                              ),
+                              model: {
+                                value: _vm.ciclesData,
+                                callback: function($$v) {
+                                  _vm.ciclesData = $$v
+                                },
+                                expression: "ciclesData"
+                              }
+                            })
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          { staticClass: "col-md-6" },
+                          [
+                            _c("label", { attrs: { for: "name" } }, [
+                              _vm._v("Clases")
+                            ]),
+                            _vm._v(" "),
+                            _c("multiselect", {
+                              attrs: {
+                                options: _vm.clasesByCicles,
+                                multiple: true,
+                                "close-on-select": false,
+                                "clear-on-select": false,
+                                "preserve-search": true,
+                                placeholder: "Seleccione una o varias",
+                                label: "text",
+                                "track-by": "id",
+                                "preselect-first": true
+                              },
+                              scopedSlots: _vm._u(
+                                [
+                                  {
+                                    key: "selection",
+                                    fn: function(ref) {
+                                      var values = ref.values
+                                      var isOpen = ref.isOpen
+                                      return [
+                                        values.length && !isOpen
+                                          ? _c(
+                                              "span",
+                                              {
+                                                staticClass:
+                                                  "multiselect__single"
+                                              },
+                                              [
+                                                _vm._v(
+                                                  _vm._s(values.length) +
+                                                    " opciones\n                                            selecionadas"
+                                                )
+                                              ]
+                                            )
+                                          : _vm._e()
+                                      ]
+                                    }
+                                  }
+                                ],
+                                null,
+                                false,
+                                2392852366
+                              ),
+                              model: {
+                                value: _vm.clasesByCiclesData,
+                                callback: function($$v) {
+                                  _vm.clasesByCiclesData = $$v
+                                },
+                                expression: "clasesByCiclesData"
+                              }
+                            })
+                          ],
+                          1
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _vm._m(2)
+                  ])
+                ]
+              )
+            ])
           ])
         ])
       ])
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "modal fade", attrs: { id: "openModal" } }, [
-      _c("div", { staticClass: "modal-lg modal-dialog" }, [
-        _c("div", { staticClass: "modal-content" }, [
-          _c(
-            "form",
-            {
-              staticClass: "needs-validation",
-              attrs: { novalidate: "" },
-              on: {
-                submit: function($event) {
-                  $event.preventDefault()
-                  return _vm.deactivateData()
-                }
-              }
-            },
-            [
-              _vm._m(1),
-              _vm._v(" "),
-              _c("div", { staticClass: "modal-body" }, [
-                _c(
-                  "div",
-                  { staticClass: "form-group row justify-content-center" },
-                  [
-                    _c(
-                      "div",
-                      { staticClass: "col-md-6" },
-                      [
-                        _c("label", { attrs: { for: "name" } }, [
-                          _vm._v("Ciclos")
-                        ]),
-                        _vm._v(" "),
-                        _c("multiselect", {
-                          attrs: {
-                            options: _vm.cicles,
-                            multiple: true,
-                            "close-on-select": false,
-                            "clear-on-select": false,
-                            "preserve-search": true,
-                            placeholder: "Seleccione una o varias",
-                            label: "text",
-                            "track-by": "id",
-                            "preselect-first": true
-                          },
-                          scopedSlots: _vm._u([
-                            {
-                              key: "selection",
-                              fn: function(ref) {
-                                var values = ref.values
-                                var isOpen = ref.isOpen
-                                return [
-                                  values.length && !isOpen
-                                    ? _c(
-                                        "span",
-                                        { staticClass: "multiselect__single" },
-                                        [
-                                          _vm._v(
-                                            _vm._s(values.length) +
-                                              " opciones\n                                            selecionadas"
-                                          )
-                                        ]
-                                      )
-                                    : _vm._e()
-                                ]
-                              }
-                            }
-                          ]),
-                          model: {
-                            value: _vm.ciclesData,
-                            callback: function($$v) {
-                              _vm.ciclesData = $$v
-                            },
-                            expression: "ciclesData"
-                          }
-                        })
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      { staticClass: "col-md-6" },
-                      [
-                        _c("label", { attrs: { for: "name" } }, [
-                          _vm._v("Clases")
-                        ]),
-                        _vm._v(" "),
-                        _c("multiselect", {
-                          attrs: {
-                            options: _vm.clasesByCicles,
-                            multiple: true,
-                            "close-on-select": false,
-                            "clear-on-select": false,
-                            "preserve-search": true,
-                            placeholder: "Seleccione una o varias",
-                            label: "text",
-                            "track-by": "id",
-                            "preselect-first": true
-                          },
-                          scopedSlots: _vm._u([
-                            {
-                              key: "selection",
-                              fn: function(ref) {
-                                var values = ref.values
-                                var isOpen = ref.isOpen
-                                return [
-                                  values.length && !isOpen
-                                    ? _c(
-                                        "span",
-                                        { staticClass: "multiselect__single" },
-                                        [
-                                          _vm._v(
-                                            _vm._s(values.length) +
-                                              " opciones\n                                            selecionadas"
-                                          )
-                                        ]
-                                      )
-                                    : _vm._e()
-                                ]
-                              }
-                            }
-                          ]),
-                          model: {
-                            value: _vm.clasesByCiclesData,
-                            callback: function($$v) {
-                              _vm.clasesByCiclesData = $$v
-                            },
-                            expression: "clasesByCiclesData"
-                          }
-                        })
-                      ],
-                      1
-                    )
-                  ]
-                ),
-                _vm._v(" "),
-                _vm._m(2)
-              ])
-            ]
-          )
-        ])
-      ])
-    ])
-  ])
+    : _vm.createClas === "show"
+    ? _c(
+        "div",
+        [
+          _c("teacher-course", {
+            attrs: {
+              id_module: _vm.id_module,
+              id_class: 0,
+              cleanCreateClas: _vm.cleanCreateClas
+            }
+          })
+        ],
+        1
+      )
+    : _vm.createClas === "showEdit"
+    ? _c(
+        "div",
+        [
+          _c("teacher-course", {
+            attrs: {
+              id_module: _vm.id_module,
+              id_class: _vm.idClass,
+              cleanCreateClas: _vm.cleanCreateClas
+            }
+          })
+        ],
+        1
+      )
+    : _vm._e()
 }
 var staticRenderFns = [
   function() {

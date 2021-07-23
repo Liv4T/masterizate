@@ -60,15 +60,35 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["idArea"],
+  props: ["idArea", "planif"],
   data: function data() {
     return {
       cycles: [],
-      trimestres: []
+      trimestres: [],
+      planification: "",
+      idModule: ""
     };
   },
   mounted: function mounted() {
+    this.planification = this.planif;
     this.getData();
   },
   methods: {
@@ -88,6 +108,12 @@ __webpack_require__.r(__webpack_exports__);
         _this2.cycles = response.data;
       });
       console.log(this.cycles);
+    },
+    getCycle: function getCycle(cycle) {
+      this.idModule = cycle.id;
+    },
+    cleanIdModule: function cleanIdModule() {
+      this.idModule = "";
     }
   }
 });
@@ -158,86 +184,123 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticStyle: { margin: "30px" } }, [
-    _c("div", { staticClass: "row justify-content-center" }, [
-      _c("div", { staticClass: "col-sm-12", attrs: { id: "crud" } }, [
-        _c(
-          "div",
-          { staticClass: "accordion", attrs: { id: "accordionExample" } },
-          _vm._l(_vm.trimestres, function(trimestre, t) {
-            return _c("div", { key: t, staticClass: "card" }, [
-              _c("div", { staticClass: "card-header" }, [
-                _c("h2", { staticClass: "mb-0" }, [
+  return _vm.idModule === ""
+    ? _c("div", { staticStyle: { margin: "30px" } }, [
+        _c("div", { staticClass: "row justify-content-center" }, [
+          _c("div", { staticClass: "col-sm-12", attrs: { id: "crud" } }, [
+            _c(
+              "div",
+              { staticClass: "accordion", attrs: { id: "accordionExample" } },
+              _vm._l(_vm.trimestres, function(trimestre, t) {
+                return _c("div", { key: t, staticClass: "card" }, [
+                  _c("div", { staticClass: "card-header" }, [
+                    _c("h2", { staticClass: "mb-0" }, [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-link",
+                          attrs: {
+                            type: "button",
+                            "data-toggle": "collapse",
+                            "data-target": "#collapse" + t,
+                            "aria-expanded": "false",
+                            "aria-controls": "collapse"
+                          },
+                          on: {
+                            click: function($event) {
+                              return _vm.getCycles(trimestre.id)
+                            }
+                          }
+                        },
+                        [
+                          _c("label", [
+                            _vm._v("Ciclo " + _vm._s(trimestre.nombre))
+                          ])
+                        ]
+                      )
+                    ])
+                  ]),
+                  _vm._v(" "),
                   _c(
-                    "button",
+                    "div",
                     {
-                      staticClass: "btn btn-link",
+                      staticClass: "collapse hide",
                       attrs: {
-                        type: "button",
-                        "data-toggle": "collapse",
-                        "data-target": "#collapse" + t,
-                        "aria-expanded": "false",
-                        "aria-controls": "collapse"
-                      },
-                      on: {
-                        click: function($event) {
-                          return _vm.getCycles(trimestre.id)
-                        }
+                        id: "collapse" + t,
+                        "aria-labelledby": "heading",
+                        "data-parent": "#accordionExample"
                       }
                     },
-                    [_c("label", [_vm._v("Ciclo " + _vm._s(trimestre.nombre))])]
+                    [
+                      _c("div", { staticClass: "card-body" }, [
+                        _c(
+                          "table",
+                          {
+                            staticClass:
+                              "table table-responsive-xl table-hover table-striped center"
+                          },
+                          [
+                            _c(
+                              "tbody",
+                              [
+                                _vm._m(0, true),
+                                _vm._v(" "),
+                                _vm._l(_vm.cycles, function(cycle, k) {
+                                  return _c("tr", { key: k }, [
+                                    _c("td", [
+                                      _vm._v(_vm._s(cycle.driving_question))
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("td", [
+                                      _vm._v(_vm._s(cycle.observation))
+                                    ]),
+                                    _vm._v(" "),
+                                    _vm.planification === "clase"
+                                      ? _c("td", [
+                                          _c("p", [
+                                            _c(
+                                              "button",
+                                              {
+                                                staticClass: "btn btn-warning",
+                                                on: {
+                                                  click: function() {
+                                                    return _vm.getCycle(cycle)
+                                                  }
+                                                }
+                                              },
+                                              [_vm._v("Ir a Ciclo")]
+                                            )
+                                          ])
+                                        ])
+                                      : _vm.planification === "general"
+                                      ? _c("td", [_vm._m(1, true)])
+                                      : _vm._e()
+                                  ])
+                                })
+                              ],
+                              2
+                            )
+                          ]
+                        )
+                      ])
+                    ]
                   )
                 ])
-              ]),
-              _vm._v(" "),
-              _c(
-                "div",
-                {
-                  staticClass: "collapse hide",
-                  attrs: {
-                    id: "collapse" + t,
-                    "aria-labelledby": "heading",
-                    "data-parent": "#accordionExample"
-                  }
-                },
-                [
-                  _c("div", { staticClass: "card-body" }, [
-                    _c(
-                      "table",
-                      {
-                        staticClass:
-                          "table table-responsive-xl table-hover table-striped center"
-                      },
-                      [
-                        _c(
-                          "tbody",
-                          [
-                            _vm._m(0, true),
-                            _vm._v(" "),
-                            _vm._l(_vm.cycles, function(cycle, k) {
-                              return _c("tr", { key: k }, [
-                                _c("td", [
-                                  _vm._v(_vm._s(cycle.driving_question))
-                                ]),
-                                _vm._v(" "),
-                                _c("td", [_vm._v(_vm._s(cycle.observation))])
-                              ])
-                            })
-                          ],
-                          2
-                        )
-                      ]
-                    )
-                  ])
-                ]
-              )
-            ])
-          }),
-          0
-        )
+              }),
+              0
+            )
+          ])
+        ])
       ])
-    ])
-  ])
+    : _c(
+        "div",
+        [
+          _c("teacher-module", {
+            attrs: { id_module: _vm.idModule, cleanIdModule: _vm.cleanIdModule }
+          })
+        ],
+        1
+      )
 }
 var staticRenderFns = [
   function() {
@@ -247,7 +310,21 @@ var staticRenderFns = [
     return _c("tr", [
       _c("td", [_vm._v("Nombre Cyclo")]),
       _vm._v(" "),
-      _c("td", [_vm._v("Observaciones")])
+      _c("td", [_vm._v("Observaciones")]),
+      _vm._v(" "),
+      _c("td", [_vm._v("Acción")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("p", [
+      _c("button", { staticClass: "btn btn-warning" }, [_vm._v("Editar")]),
+      _vm._v(" "),
+      _c("button", { staticClass: "btn btn-warning" }, [
+        _vm._v("Solicitar Permiso para Eliminar")
+      ])
     ])
   }
 ]
