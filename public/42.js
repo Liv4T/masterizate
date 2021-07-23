@@ -24,11 +24,48 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["id_area", "id_classroom, id_teacher"],
+  props: ["idArea"],
   data: function data() {
     return {
-      cycles: []
+      cycles: [],
+      trimestres: []
     };
   },
   mounted: function mounted() {
@@ -38,11 +75,19 @@ __webpack_require__.r(__webpack_exports__);
     getData: function getData() {
       var _this = this;
 
-      //var url="/cycle/teacher/"+id_classroom+"/"+id_area+"/"+id_teacher;
       var url = "/getTrimestres";
       axios.get(url).then(function (response) {
-        _this.cycles = response.data;
+        _this.trimestres = response.data;
       });
+    },
+    getCycles: function getCycles(id_trimestre) {
+      var _this2 = this;
+
+      var url = "/cycle/teacher/" + this.idArea + "/" + id_trimestre;
+      axios.get(url).then(function (response) {
+        _this2.cycles = response.data;
+      });
+      console.log(this.cycles);
     }
   }
 });
@@ -113,19 +158,79 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "back" }, [
+  return _c("div", { staticStyle: { margin: "30px" } }, [
     _c("div", { staticClass: "row justify-content-center" }, [
       _c("div", { staticClass: "col-sm-12", attrs: { id: "crud" } }, [
         _c(
-          "ul",
-          { staticStyle: { margin: "70px 150px 0 150px" } },
-          _vm._l(_vm.cycles, function(cycle, t) {
-            return _c("a", { key: t, attrs: { href: "#" } }, [
-              _c("li", { staticClass: "item-cycle text-center" }, [
-                _c("span", { staticClass: "menu-cycle" }, [
-                  _vm._v("Ciclo " + _vm._s(cycle.nombre))
+          "div",
+          { staticClass: "accordion", attrs: { id: "accordionExample" } },
+          _vm._l(_vm.trimestres, function(trimestre, t) {
+            return _c("div", { key: t, staticClass: "card" }, [
+              _c("div", { staticClass: "card-header" }, [
+                _c("h2", { staticClass: "mb-0" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-link",
+                      attrs: {
+                        type: "button",
+                        "data-toggle": "collapse",
+                        "data-target": "#collapse" + t,
+                        "aria-expanded": "false",
+                        "aria-controls": "collapse"
+                      },
+                      on: {
+                        click: function($event) {
+                          return _vm.getCycles(trimestre.id)
+                        }
+                      }
+                    },
+                    [_c("label", [_vm._v("Ciclo " + _vm._s(trimestre.nombre))])]
+                  )
                 ])
-              ])
+              ]),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  staticClass: "collapse hide",
+                  attrs: {
+                    id: "collapse" + t,
+                    "aria-labelledby": "heading",
+                    "data-parent": "#accordionExample"
+                  }
+                },
+                [
+                  _c("div", { staticClass: "card-body" }, [
+                    _c(
+                      "table",
+                      {
+                        staticClass:
+                          "table table-responsive-xl table-hover table-striped center"
+                      },
+                      [
+                        _c(
+                          "tbody",
+                          [
+                            _vm._m(0, true),
+                            _vm._v(" "),
+                            _vm._l(_vm.cycles, function(cycle, k) {
+                              return _c("tr", { key: k }, [
+                                _c("td", [
+                                  _vm._v(_vm._s(cycle.driving_question))
+                                ]),
+                                _vm._v(" "),
+                                _c("td", [_vm._v(_vm._s(cycle.observation))])
+                              ])
+                            })
+                          ],
+                          2
+                        )
+                      ]
+                    )
+                  ])
+                ]
+              )
             ])
           }),
           0
@@ -134,7 +239,18 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("tr", [
+      _c("td", [_vm._v("Nombre Cyclo")]),
+      _vm._v(" "),
+      _c("td", [_vm._v("Observaciones")])
+    ])
+  }
+]
 render._withStripped = true
 
 
