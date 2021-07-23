@@ -20,7 +20,11 @@
 
           <div class="content-azul">
             <div v-if="activetab === 1" class="tabcontent">incluir vista</div>
-            <div v-if="activetab === 2" class="tabcontent">incluir vista</div>
+            <div v-if="activetab === 2" class="tabcontent">
+              <div v-if="idArea !='' && idClassroom != ''">
+                <activities-teacher :idArea="idArea" :idClassroom="idClassroom"></activities-teacher>
+              </div>
+            </div>
             <div v-if="activetab === 3" class="tabcontent">
               <div v-if="idArea !='' && idClassroom != ''">
                 <teacher-students :idArea="idArea" :idClassroom="idClassroom"></teacher-students>

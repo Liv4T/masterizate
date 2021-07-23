@@ -8,6 +8,7 @@ use App\TutorSchedule;
 use App\TutorScheduleEvent;
 use App\TutorScheduleStudent;
 use App\User;
+use App\Weekly;
 use DateInterval;
 use DateTime;
 use Illuminate\Http\Request;
@@ -447,6 +448,12 @@ class TutorController extends Controller
 
         return response()->json($tutorSchedule);
 
+    }
+    public function cyclesByTeacher(int $id_classroom, int $id_area, int $id_teacher){
+
+        $weekly_plans=Weekly::where('id_classroom',$id_classroom)->where('id_area',$id_area)->where('id_teacher', $id_teacher)->get();
+
+        return response()->json($weekly_plans);
     }
 
 }
