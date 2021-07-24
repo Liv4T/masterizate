@@ -1,8 +1,8 @@
 <template>
   <div>
-    <div class="back">
-      <div class="row">
-        <div class="col-md-11 mx-auto">
+    <div>
+      <div>
+        <div class="col-md-12 mx-auto">
           <div class="custom-card text-center">
             <h3 class="card-header fondo">Actualizar ciclo</h3>
             <form class="needs-validation" novalidate v-show="semanal==true">
@@ -104,7 +104,7 @@ import VueFormWizard from "vue-form-wizard";
 import "vue-form-wizard/dist/vue-form-wizard.min.css";
 Vue.use(VueFormWizard);
 export default {
-  props: ["id_area", "id_classroom"],
+  props: ["id_area", "id_classroom","cleanIdModule"],
   data() {
     return {
       inputs: [
@@ -153,9 +153,6 @@ export default {
     remove(index) {
       this.inputs.splice(index, 1);
     },
-    getMenu() {
-      window.location = "/actividad_g";
-    },
     createSemanal() {
       var url = "courseWeekly";
       if (this.inputs.length >= 1) {
@@ -174,7 +171,7 @@ export default {
           this.errors = [];
 
           toastr.success("Nueva semana creada exitosamente");
-          this.getMenu();
+          this.cleanIdModule();
         })
         .catch((error) => {
           this.errors = error.response.data;
@@ -198,7 +195,7 @@ export default {
           this.errors = [];
 
           toastr.success("Actualizado plan semanal exitosamente");
-          this.getMenu();
+          this.cleanIdModule();
         })
         .catch((error) => {
           this.errors = error.response.data;
