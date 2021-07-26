@@ -76,6 +76,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___default.a);
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -100,7 +101,8 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
       fillS: [],
       area: null,
       filter: "",
-      idRepo: ""
+      idRepo: "",
+      create: "false"
     };
   },
   created: function created() {},
@@ -133,8 +135,14 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
     },
     getIdReport: function getIdReport(id) {
       this.idRepo = id;
+      this.create = "false";
     },
     backPage: function backPage() {
+      this.idRepo = "";
+      this.create = "false";
+    },
+    setCreate: function setCreate() {
+      this.create = "true";
       this.idRepo = "";
     }
   },
@@ -171,7 +179,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _vm.idRepo === ""
+    _vm.idRepo === "" && _vm.create === "false"
       ? _c("div", { staticClass: "row justify-content-center" }, [
           _c("div", { staticClass: "col-sm-12", attrs: { id: "crud" } }, [
             _c("div", { staticClass: "card text-center" }, [
@@ -180,7 +188,16 @@ var render = function() {
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "card-body" }, [
-                _vm._m(0),
+                _c("div", { staticClass: "float-left" }, [
+                  _c(
+                    "a",
+                    {
+                      staticClass: "btn btn-warning",
+                      on: { click: _vm.setCreate }
+                    },
+                    [_vm._v("\n                Crear\n              ")]
+                  )
+                ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "float-right" }, [
                   _c("label", { attrs: { for: "" } }, [_vm._v("Buscar")]),
@@ -223,7 +240,7 @@ var render = function() {
                         }
                       },
                       [
-                        _vm._m(1),
+                        _vm._m(0),
                         _vm._v(" "),
                         _c(
                           "tbody",
@@ -273,7 +290,22 @@ var render = function() {
             ])
           ])
         ])
-      : _c(
+      : _vm.create === "true" && _vm.idRepo === ""
+      ? _c(
+          "div",
+          [
+            _c("create-repository", {
+              attrs: {
+                id_area: _vm.idArea,
+                idClassroom: _vm.idClassroom,
+                backComponent: _vm.backPage
+              }
+            })
+          ],
+          1
+        )
+      : _vm.idRepo && _vm.create === "false"
+      ? _c(
           "div",
           [
             _c("repository-students", {
@@ -282,24 +314,10 @@ var render = function() {
           ],
           1
         )
+      : _vm._e()
   ])
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "float-left" }, [
-      _c(
-        "a",
-        {
-          staticClass: "btn btn-warning",
-          attrs: { href: "/createrepository" }
-        },
-        [_vm._v("Crear")]
-      )
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement

@@ -1,16 +1,14 @@
 <template>
   <div>
-    <div v-if="idRepo === ''" class="row justify-content-center">
+    <div v-if="idRepo === '' && create === 'false'" class="row justify-content-center">
       <div id="crud" class="col-sm-12">
         <div class="card text-center">
           <h3 class="card-header fondo">Entregas</h3>
           <div class="card-body">
              <div class="float-left">
-                    <a
-                        class="btn btn-warning"
-                        href="/createrepository"
-                        >Crear</a
-                      >
+                <a v-on:click="setCreate" class="btn btn-warning">
+                  Crear
+                </a>
             </div>
             <div class="float-right">
               <label for="">Buscar</label>
@@ -58,7 +56,10 @@
         </div>
       </div>
     </div>
-    <div v-else>
+    <div v-else-if="create ==='true' && idRepo===''">
+      <create-repository :id_area="idArea"  :idClassroom="idClassroom" :backComponent="backPage"></create-repository>
+    </div>
+    <div v-else-if="idRepo && create === 'false'">
       <repository-students :id_repo="idRepo" :backComponent="backPage"></repository-students>
     </div>
   </div>
@@ -84,6 +85,7 @@ export default {
       area: null,
       filter: "",
       idRepo:"",
+      create:"false"
     };
   },
   created() {},
@@ -117,9 +119,15 @@ export default {
       );
     },
     getIdReport(id){
-      this.idRepo = id
+      this.idRepo = id;
+      this.create = "false";
     },
     backPage(){
+      this.idRepo = "";
+      this.create = "false";
+    },
+    setCreate(){
+      this.create="true";
       this.idRepo = "";
     }
   },

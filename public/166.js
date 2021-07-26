@@ -1,5 +1,33 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[166],{
 
+/***/ "./connectionDbFirebase.js":
+/*!*********************************!*\
+  !*** ./connectionDbFirebase.js ***!
+  \*********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var firebase__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! firebase */ "./node_modules/firebase/dist/index.esm.js");
+
+var firebaseConfig = {
+  apiKey: "AIzaSyBUwPOBHWgSv10yWDO0VX_UCCOfHZ3jKYE",
+  authDomain: "liv4t-skool.firebaseapp.com",
+  databaseURL: "https://liv4t-skool.firebaseio.com",
+  projectId: "liv4t-skool",
+  storageBucket: "liv4t-skool.appspot.com",
+  messagingSenderId: "346718353628",
+  appId: "1:346718353628:web:abc0666c41b66fa472dc19",
+  measurementId: "G-7L14TG5RRZ"
+}; // Initialize Firebase
+
+firebase__WEBPACK_IMPORTED_MODULE_0__["default"].initializeApp(firebaseConfig);
+firebase__WEBPACK_IMPORTED_MODULE_0__["default"].analytics();
+/* harmony default export */ __webpack_exports__["default"] = (firebase__WEBPACK_IMPORTED_MODULE_0__["default"]);
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/repositoryCreate.vue?vue&type=script&lang=js&":
 /*!***************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/repositoryCreate.vue?vue&type=script&lang=js& ***!
@@ -13,8 +41,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vue_form_wizard_dist_vue_form_wizard_min_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-form-wizard/dist/vue-form-wizard.min.css */ "./node_modules/vue-form-wizard/dist/vue-form-wizard.min.css");
 /* harmony import */ var vue_form_wizard_dist_vue_form_wizard_min_css__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue_form_wizard_dist_vue_form_wizard_min_css__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var firebase__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! firebase */ "./node_modules/firebase/dist/index.esm.js");
-//
+/* harmony import */ var _connectionDbFirebase__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../connectionDbFirebase */ "./connectionDbFirebase.js");
 //
 //
 //
@@ -112,23 +139,23 @@ __webpack_require__.r(__webpack_exports__);
 //
 
 
+ // var firebaseConfig = {
+//             apiKey: "AIzaSyBUwPOBHWgSv10yWDO0VX_UCCOfHZ3jKYE",
+//             authDomain: "liv4t-skool.firebaseapp.com",
+//             databaseURL: "https://liv4t-skool.firebaseio.com",
+//             projectId: "liv4t-skool",
+//             storageBucket: "liv4t-skool.appspot.com",
+//             messagingSenderId: "346718353628",
+//             appId: "1:346718353628:web:abc0666c41b66fa472dc19",
+//             measurementId: "G-7L14TG5RRZ"
+//  };
+// Initialize Firebase
+// firebase.initializeApp(firebaseConfig);
+// firebase.analytics();
 
-var firebaseConfig = {
-  apiKey: "AIzaSyBUwPOBHWgSv10yWDO0VX_UCCOfHZ3jKYE",
-  authDomain: "liv4t-skool.firebaseapp.com",
-  databaseURL: "https://liv4t-skool.firebaseio.com",
-  projectId: "liv4t-skool",
-  storageBucket: "liv4t-skool.appspot.com",
-  messagingSenderId: "346718353628",
-  appId: "1:346718353628:web:abc0666c41b66fa472dc19",
-  measurementId: "G-7L14TG5RRZ"
-}; // Initialize Firebase
-
-firebase__WEBPACK_IMPORTED_MODULE_2__["default"].initializeApp(firebaseConfig);
-firebase__WEBPACK_IMPORTED_MODULE_2__["default"].analytics();
 Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["id_area", "id_classroom"],
+  props: ["id_area", "id_classroom", "backComponent"],
   data: function data() {
     return {
       myOptions: [],
@@ -190,7 +217,7 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
       var _this3 = this;
 
       this.nameFile = null;
-      var storageRef = firebase__WEBPACK_IMPORTED_MODULE_2__["default"].storage().ref("".concat(this.imageData.name)).put(this.imageData);
+      var storageRef = _connectionDbFirebase__WEBPACK_IMPORTED_MODULE_2__["default"].storage().ref("".concat(this.imageData.name)).put(this.imageData);
       storageRef.on("state_changed", function (snapshot) {
         _this3.uploadValue = snapshot.bytesTransferred / snapshot.totalBytes * 100;
       }, function (error) {
@@ -225,9 +252,9 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("div", { staticClass: "back" }, [
-      _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-md-11 mx-auto" }, [
+    _c("div", [
+      _c("div", [
+        _c("div", { staticClass: "col-md-12 mx-auto" }, [
           _c(
             "div",
             { staticClass: "custom-card text-center" },
@@ -244,7 +271,6 @@ var render = function() {
                     subtitle: "",
                     color: "#ffc107",
                     "next-button-text": "Siguiente",
-                    "back-button-text": "Atrás",
                     "finish-button-text": "Guardar"
                   },
                   on: { "on-complete": _vm.createSemanal }
@@ -451,10 +477,10 @@ var render = function() {
                     _vm._v(" "),
                     _c("div", { staticClass: "float-left" }, [
                       _c(
-                        "a",
+                        "button",
                         {
-                          staticClass: "btn btn-warning ",
-                          attrs: { href: "/repository" }
+                          staticClass: "btn btn-primary",
+                          on: { click: _vm.backComponent }
                         },
                         [_vm._v("Volver")]
                       )
