@@ -1073,3 +1073,6 @@ Route::get('/getTrimestres', 'TrimestreController@getTrimestre');
 Route::get('/getActivitiesTeacher/{id_area}/{id_classroom}','ActivityController@getActivitiesTeacher');
 
 Route::resource('/trimestres','TrimestresController');
+Route::middleware('auth')->get('/quarters', function () {
+    return view('trimestres');
+});

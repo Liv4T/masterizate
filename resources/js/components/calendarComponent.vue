@@ -58,7 +58,6 @@
     <!-- Modal para crear eventos -->
     <calendar-modal-event :concurrent.sync="concurrent" :dias.sync="dias" :myOptions.sync="myOptions" :getMenu.sync="getMenu"></calendar-modal-event>
   </div>
-</div>
 </template>
 
 <script>

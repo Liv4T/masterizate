@@ -37,7 +37,7 @@ class TrimestresController extends Controller
     public function store(Request $request)
     {
         $trimestres = new Trimestres();
-        $trimestres->name = $request->name;
+        $trimestres->nombre = $request->nombre;
         $trimestres->save();
 
         return response()->json('Trimestre Guardado');
@@ -75,7 +75,7 @@ class TrimestresController extends Controller
     public function update(Request $request, $id)
     {
         $trimestres = Trimestres::findOrFail($id);
-        $trimestres->name = $request->name;
+        $trimestres->nombre = $request->nombre;
         $trimestres->update();
 
         return response()->json('Trimestre Actualizado');
@@ -87,10 +87,9 @@ class TrimestresController extends Controller
      * @param  \App\Trimestres  $trimestres
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Trimestres $trimestres)
+    public function destroy($id)
     {
         $trimestres = Trimestres::findOrFail($id);
-        $trimestres->name = $request->name;
         $trimestres->delete();
 
         return response()->json('Trimestre Eliminado');
