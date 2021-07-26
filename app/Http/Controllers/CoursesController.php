@@ -390,6 +390,8 @@ class CoursesController extends Controller
             $week_update->driving_question = $week['text'];
             $week_update->class_development = $week['class'];
             $week_update->observation = $week['observation'];
+            $week_update->id_trimestre = $week['id_trimestre'];
+            $week_update->ajuste_piar = $week['ajuste_piar'];
             $week_update->save();
         }
         return "ok";
@@ -528,6 +530,34 @@ class CoursesController extends Controller
                 'observation' => $week->observation,
                 'id_area' =>  $week->id_area,
                 'id_classroom' =>  $week->id_classroom,
+                'id_teacher' => $week->id_teacher,
+                'id_trimestre' => $week->id_trimestre,
+                'order_items' => $week->order_items,
+                'ajuste_piar' => $week->ajuste_piar,
+            ];
+        }
+        return response()->json($data);
+    }
+    public function oneCycle(String $id)
+    {
+        $data = [];
+
+        
+        $Weeks = Weekly::where('id', $id)->get();
+
+        $data = [];
+        foreach ($Weeks as $key => $week) {
+            $data[$key] = [
+                'id'   => $week->id,
+                'text' => $week->driving_question,
+                'class' => $week->class_development,
+                'observation' => $week->observation,
+                'id_area' =>  $week->id_area,
+                'id_classroom' =>  $week->id_classroom,
+                'id_teacher' => $week->id_teacher,
+                'id_trimestre' => $week->id_trimestre,
+                'order_items' => $week->order_items,
+                'ajuste_piar' => $week->ajuste_piar,
             ];
         }
         return response()->json($data);

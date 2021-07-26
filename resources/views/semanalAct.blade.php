@@ -5,7 +5,7 @@
     @if (Auth::user()->isTeacher()||Auth::user()->isPsychology()||Auth::user()->isTutor())
 
     @endif
-<semanalact-component :id_area="{{ $id_area }}" :id_classroom="{{ $id_classroom }}"></semanalact-component>
+<semanalact-component :cycle_id="{{ $cycle_id }}"></semanalact-component>
 <div class="container">
     <div class="row justify-content-center">
       <div class="card-body"> @if (session('status'))

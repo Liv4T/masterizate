@@ -174,7 +174,7 @@ export default {
     },
     add(index) {
       this.inputsClass.push([{
-        class_development: "",
+        class_developmentC: "",
       }]);
       this.inputs.push({
         driving_question: "",

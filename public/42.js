@@ -132,7 +132,9 @@ __webpack_require__.r(__webpack_exports__);
       idModule: "",
       id_area: "",
       id_classroom: "",
-      showCycle: "true"
+      showCycle: "true",
+      clase_to_delete: [],
+      id_cycle: ""
     };
   },
   mounted: function mounted() {
@@ -184,7 +186,8 @@ __webpack_require__.r(__webpack_exports__);
       this.id_classroom = "";
       this.showCycle = "true";
     },
-    getEditCycle: function getEditCycle() {
+    getEditCycle: function getEditCycle(cycle) {
+      this.id_cycle = cycle.id;
       var data = this.idArea.split("/");
       this.id_area = data[0];
       this.id_classroom = data[1];
@@ -405,7 +408,7 @@ var render = function() {
                                                   }
                                                 }
                                               },
-                                              [_vm._v("Ir a Ciclo")]
+                                              [_vm._v("Ir a clase")]
                                             )
                                           ])
                                         ])
@@ -418,7 +421,9 @@ var render = function() {
                                                 staticClass: "btn btn-warning",
                                                 on: {
                                                   click: function() {
-                                                    return _vm.getEditCycle()
+                                                    return _vm.getEditCycle(
+                                                      cycle
+                                                    )
                                                   }
                                                 }
                                               },
@@ -503,7 +508,8 @@ var render = function() {
             attrs: {
               id_area: _vm.id_area,
               id_classroom: _vm.id_classroom,
-              cleanIdModule: _vm.cleanIdModule
+              cleanIdModule: _vm.cleanIdModule,
+              id_cycle: _vm.id_cycle
             }
           }),
           _vm._v(" "),
@@ -608,7 +614,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("tr", [
-      _c("td", [_vm._v("Nombre Cyclo")]),
+      _c("td", [_vm._v("Nombre Ciclo")]),
       _vm._v(" "),
       _c("td", [_vm._v("Observaciones")]),
       _vm._v(" "),

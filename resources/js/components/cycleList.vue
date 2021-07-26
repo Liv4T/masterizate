@@ -32,7 +32,7 @@
                     <table class="table table-responsive-xl table-hover table-striped center">
                         <tbody>
                             <tr>
-                                <td>Nombre Cyclo</td>
+                                <td>Nombre Ciclo</td>
 
                                 <td>Observaciones</td>
                                 <td>Acción</td>
@@ -45,12 +45,12 @@
 
                                 <td v-if="planification === 'clase'">
                                     <p>
-                                        <button class="btn btn-warning" v-on:click="()=>getCycle(cycle)">Ir a Ciclo</button>
+                                        <button class="btn btn-warning" v-on:click="()=>getCycle(cycle)">Ir a clase</button>
                                     </p>
                                 </td>
                                 <td v-else-if="planification === 'general'">
                                     <p>
-                                        <button class="btn btn-warning" v-on:click="()=>getEditCycle()">Editar</button>                  
+                                        <button class="btn btn-warning" v-on:click="()=>getEditCycle(cycle)">Editar</button>                  
                                         <button class="btn btn-primary" v-if="cycle.activateButton === 'true'" v-on:click="()=>ClassAndCicle(cycle.id)" >Eliminar</button>                      
                                         <button class="btn btn-primary" v-if="cycle.activateButton === 'false'" v-on:click="()=>RequestPermissions(cycle, cycle.driving_question)">Solicitar Permiso para Eliminar</button>
                                     </p>
@@ -70,7 +70,7 @@
     <teacher-module :id_module="idModule" :cleanIdModule="cleanIdModule"></teacher-module>
 </div>
 <div v-else-if="showCycle === 'semanalAct' ">
-    <semanalact-component :id_area="id_area" :id_classroom="id_classroom" :cleanIdModule="cleanIdModule"></semanalact-component>
+    <semanalact-component :id_area="id_area" :id_classroom="id_classroom" :cleanIdModule="cleanIdModule" :id_cycle="id_cycle"></semanalact-component>
     <div class="modal fade" id="infoClass" tabindex="-1" role="dialog" aria-labelledby="infoClassLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -123,6 +123,8 @@ export default {
             id_area: "",
             id_classroom:"",
             showCycle:"true",
+            clase_to_delete:[],
+            id_cycle: "",
         };
     },
     mounted(){
@@ -173,7 +175,8 @@ export default {
             this.showCycle ="true";
         },
         
-        getEditCycle(){
+        getEditCycle(cycle){
+            this.id_cycle = cycle.id
             let data = this.idArea.split("/");
             this.id_area=data[0];
             this.id_classroom = data[1];
