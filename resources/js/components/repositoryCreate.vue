@@ -1,8 +1,8 @@
 <template>
   <div>
-    <div class="back">
-      <div class="row">
-        <div class="col-md-11 mx-auto">
+    <div>
+      <div>
+        <div class="col-md-12 mx-auto">
           <div class="custom-card text-center">
             <h3 class="card-header fondo">Entregas</h3>
               <form-wizard
@@ -10,7 +10,6 @@
                 subtitle
                 color="#ffc107"
                 next-button-text="Siguiente"
-                back-button-text="Atrás"
                 finish-button-text="Guardar"
                 @on-complete="createSemanal"
               >
@@ -84,7 +83,7 @@
                   </div>
                   <strong>* Campos requeridos</strong>
                   <div class="float-left">
-                    <a href="/repository" class="btn btn-warning ">Volver</a>
+                    <button class="btn btn-primary" v-on:click="backComponent">Volver</button>
                 </div>
                 </tab-content>
               </form-wizard>
@@ -98,23 +97,23 @@
 
 import VueFormWizard from "vue-form-wizard";
 import "vue-form-wizard/dist/vue-form-wizard.min.css";
-import firebase from 'firebase';
- var firebaseConfig = {
-            apiKey: "AIzaSyBUwPOBHWgSv10yWDO0VX_UCCOfHZ3jKYE",
-            authDomain: "liv4t-skool.firebaseapp.com",
-            databaseURL: "https://liv4t-skool.firebaseio.com",
-            projectId: "liv4t-skool",
-            storageBucket: "liv4t-skool.appspot.com",
-            messagingSenderId: "346718353628",
-            appId: "1:346718353628:web:abc0666c41b66fa472dc19",
-            measurementId: "G-7L14TG5RRZ"
-  };
+import firebase from '../../../connectionDbFirebase';
+// var firebaseConfig = {
+//             apiKey: "AIzaSyBUwPOBHWgSv10yWDO0VX_UCCOfHZ3jKYE",
+//             authDomain: "liv4t-skool.firebaseapp.com",
+//             databaseURL: "https://liv4t-skool.firebaseio.com",
+//             projectId: "liv4t-skool",
+//             storageBucket: "liv4t-skool.appspot.com",
+//             messagingSenderId: "346718353628",
+//             appId: "1:346718353628:web:abc0666c41b66fa472dc19",
+//             measurementId: "G-7L14TG5RRZ"
+//  };
   // Initialize Firebase
-  firebase.initializeApp(firebaseConfig);
-  firebase.analytics();
+  // firebase.initializeApp(firebaseConfig);
+  // firebase.analytics();
 Vue.use(VueFormWizard);
 export default {
-  props: ["id_area", "id_classroom"],
+  props: ["id_area", "id_classroom","backComponent"],
   data() {
     return {
       myOptions: [],

@@ -45,6 +45,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -66,7 +78,9 @@ __webpack_require__.r(__webpack_exports__);
       nameArea: "",
       planifications: "",
       idArea: "",
-      idClassroom: ""
+      idClassroom: "",
+      idAreaClass: "",
+      planif: "clase"
     };
   },
   mounted: function mounted() {
@@ -99,6 +113,7 @@ __webpack_require__.r(__webpack_exports__);
       var dataArea = JSON.parse(data.target.value);
       this.idArea = dataArea.id;
       this.idClassroom = dataArea.id_classroom;
+      this.idAreaClass = dataArea.id + '/' + dataArea.id_classroom;
     }
   }
 });
@@ -277,13 +292,39 @@ var render = function() {
           _c("div", { staticClass: "content-azul" }, [
             _vm.activetab === 1
               ? _c("div", { staticClass: "tabcontent" }, [
-                  _vm._v("incluir vista")
+                  _vm.idArea != ""
+                    ? _c(
+                        "div",
+                        [
+                          _c("cycle-list", {
+                            attrs: {
+                              idArea: _vm.idAreaClass,
+                              planif: _vm.planif
+                            }
+                          })
+                        ],
+                        1
+                      )
+                    : _vm._e()
                 ])
               : _vm._e(),
             _vm._v(" "),
             _vm.activetab === 2
               ? _c("div", { staticClass: "tabcontent" }, [
-                  _vm._v("incluir vista")
+                  _vm.idArea != "" && _vm.idClassroom != ""
+                    ? _c(
+                        "div",
+                        [
+                          _c("activities-teacher", {
+                            attrs: {
+                              idArea: _vm.idArea,
+                              idClassroom: _vm.idClassroom
+                            }
+                          })
+                        ],
+                        1
+                      )
+                    : _vm._e()
                 ])
               : _vm._e(),
             _vm._v(" "),
@@ -308,7 +349,20 @@ var render = function() {
             _vm._v(" "),
             _vm.activetab === 4
               ? _c("div", { staticClass: "tabcontent" }, [
-                  _vm._v("incluir vista")
+                  _vm.idArea != "" && _vm.idClassroom != ""
+                    ? _c(
+                        "div",
+                        [
+                          _c("repository-component", {
+                            attrs: {
+                              idArea: _vm.idArea,
+                              idClassroom: _vm.idClassroom
+                            }
+                          })
+                        ],
+                        1
+                      )
+                    : _vm._e()
                 ])
               : _vm._e()
           ])

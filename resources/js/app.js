@@ -360,6 +360,7 @@ Vue.component("lective_notes", ()=>import("./components/lectivesTeacherNotesComp
 Vue.component("cycle-list", ()=>import("./components/cycleList.vue"));
 Vue.component("modal-create-trimestre", ()=>import("./components/modalCreateTrimestre.vue"));
 Vue.component("trimestres", ()=>import("./components/trimestreAdm.vue"));
+Vue.component("activities-teacher",()=>import("./components/ActivityTeacherComponent.vue"));
 
 Vue.use(CKEditor);
 

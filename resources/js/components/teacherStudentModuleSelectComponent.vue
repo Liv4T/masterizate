@@ -1,5 +1,5 @@
 <template>
-      <div class="row">
+      <div>
             <div v-if="current_module.id">
                 <teacher-student-class-select
                     :id_module="current_module.id" 

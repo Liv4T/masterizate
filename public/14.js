@@ -74,7 +74,8 @@ __webpack_require__.r(__webpack_exports__);
       nameArea: "",
       planifications: "",
       idArea: "",
-      idClassroom: ""
+      idClassroom: "",
+      planif: "general"
     };
   },
   mounted: function mounted() {
@@ -352,7 +353,11 @@ var render = function() {
               ? _c(
                   "div",
                   { staticClass: "tabcontent" },
-                  [_c("cycle-list", { attrs: { idArea: _vm.idArea } })],
+                  [
+                    _c("cycle-list", {
+                      attrs: { idArea: _vm.idArea, planif: _vm.planif }
+                    })
+                  ],
                   1
                 )
               : _vm._e()
