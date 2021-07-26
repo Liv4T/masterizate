@@ -53,6 +53,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -303,7 +304,7 @@ var render = function() {
             )
           ]),
           _vm._v(" "),
-          _c("div", { staticClass: "content-azul" }, [
+          _c("div", [
             _vm.activetab === 1
               ? _c("div", { staticClass: "tabcontent" }, [
                   _vm.idArea !== ""

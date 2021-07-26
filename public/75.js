@@ -639,7 +639,7 @@ var render = function() {
               { staticClass: "div-class" },
               [
                 _c("div", { staticClass: "title row" }, [
-                  _c("div", { staticClass: "col-8" }, [
+                  _c("div", { staticClass: "col-12" }, [
                     _vm._m(0),
                     _vm._v(" "),
                     _c("input", {
@@ -663,45 +663,12 @@ var render = function() {
                         }
                       }
                     })
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col-4" }, [
-                    _vm._m(1),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.course.hourly_intensity,
-                          expression: "course.hourly_intensity"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      attrs: {
-                        type: "number",
-                        readonly: _vm.course.state == 2
-                      },
-                      domProps: { value: _vm.course.hourly_intensity },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(
-                            _vm.course,
-                            "hourly_intensity",
-                            $event.target.value
-                          )
-                        }
-                      }
-                    })
                   ])
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "row" }, [
                   _c("div", { staticClass: "col-12" }, [
-                    _vm._m(2),
+                    _vm._m(1),
                     _vm._v(" "),
                     _c("textarea", {
                       directives: [
@@ -736,8 +703,73 @@ var render = function() {
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "row" }, [
+                  _vm._m(2),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.course.date_init_class,
+                        expression: "course.date_init_class"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: { type: "datetime-local" },
+                    domProps: { value: _vm.course.date_init_class },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(
+                          _vm.course,
+                          "date_init_class",
+                          $event.target.value
+                        )
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("input", {
+                    attrs: {
+                      type: "hidden",
+                      id: "timezone",
+                      name: "timezone",
+                      value: "-05:00"
+                    }
+                  })
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "row" }, [
+                  _vm._m(3),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.course.url_class,
+                        expression: "course.url_class"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: { type: "text-local" },
+                    domProps: { value: _vm.course.url_class },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.course, "url_class", $event.target.value)
+                      }
+                    }
+                  })
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "row" }, [
                   _c("div", { staticClass: "col-12" }, [
-                    _vm._m(3),
+                    _vm._m(4),
                     _vm._v(" "),
                     _c("div", [
                       _c("input", {
@@ -952,76 +984,7 @@ var render = function() {
                           ],
                           1
                         )
-                      : _vm._e(),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "row" }, [
-                      _vm._m(4),
-                      _vm._v(" "),
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.course.date_init_class,
-                            expression: "course.date_init_class"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        attrs: { type: "datetime-local" },
-                        domProps: { value: _vm.course.date_init_class },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.$set(
-                              _vm.course,
-                              "date_init_class",
-                              $event.target.value
-                            )
-                          }
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c("input", {
-                        attrs: {
-                          type: "hidden",
-                          id: "timezone",
-                          name: "timezone",
-                          value: "-05:00"
-                        }
-                      })
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "row" }, [
-                      _vm._m(5),
-                      _vm._v(" "),
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.course.url_class,
-                            expression: "course.url_class"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        attrs: { type: "text-local" },
-                        domProps: { value: _vm.course.url_class },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.$set(
-                              _vm.course,
-                              "url_class",
-                              $event.target.value
-                            )
-                          }
-                        }
-                      })
-                    ])
+                      : _vm._e()
                   ])
                 ]),
                 _vm._v(" "),
@@ -1446,7 +1409,7 @@ var render = function() {
                             [
                               _c("div", { staticClass: "row" }, [
                                 _c("div", { staticClass: "col-8" }, [
-                                  _vm._m(6, true),
+                                  _vm._m(5, true),
                                   _vm._v(" "),
                                   _c("input", {
                                     directives: [
@@ -1479,7 +1442,7 @@ var render = function() {
                                 ]),
                                 _vm._v(" "),
                                 _c("div", { staticClass: "col-4" }, [
-                                  _vm._m(7, true),
+                                  _vm._m(6, true),
                                   _vm._v(" "),
                                   _c(
                                     "select",
@@ -1568,7 +1531,7 @@ var render = function() {
                               _vm._v(" "),
                               _c("div", { staticClass: "row" }, [
                                 _c("div", { staticClass: "col-12" }, [
-                                  _vm._m(8, true),
+                                  _vm._m(7, true),
                                   _vm._v(" "),
                                   _c("textarea", {
                                     directives: [
@@ -1600,7 +1563,7 @@ var render = function() {
                               _vm._v(" "),
                               _c("div", { staticClass: "row" }, [
                                 _c("div", { staticClass: "col-8" }, [
-                                  _vm._m(9, true),
+                                  _vm._m(8, true),
                                   _vm._v(" "),
                                   _c(
                                     "select",
@@ -1681,7 +1644,7 @@ var render = function() {
                                 ]),
                                 _vm._v(" "),
                                 _c("div", { staticClass: "col-4" }, [
-                                  _vm._m(10, true),
+                                  _vm._m(9, true),
                                   _vm._v(" "),
                                   _c(
                                     "select",
@@ -1763,7 +1726,7 @@ var render = function() {
                               _vm._v(" "),
                               _c("div", { staticClass: "row" }, [
                                 _c("div", { staticClass: "col-6" }, [
-                                  _vm._m(11, true),
+                                  _vm._m(10, true),
                                   _vm._v(
                                     "\n                                                    " +
                                       _vm._s(activity.delivery_max_date) +
@@ -1808,7 +1771,7 @@ var render = function() {
                                 ]),
                                 _vm._v(" "),
                                 _c("div", { staticClass: "col-6" }, [
-                                  _vm._m(12, true),
+                                  _vm._m(11, true),
                                   _vm._v(" "),
                                   _c("input", {
                                     directives: [
@@ -1933,25 +1896,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("label", [
       _c("span", { staticClass: "required" }, [_vm._v("*")]),
-      _vm._v("Intensidad:")
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("label", [
-      _c("span", { staticClass: "required" }, [_vm._v("*")]),
       _vm._v("Descripción:")
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("label", [
-      _c("span", { staticClass: "required" }, [_vm._v("*")]),
-      _vm._v("Actividad Para :")
     ])
   },
   function() {
@@ -1970,6 +1915,15 @@ var staticRenderFns = [
     return _c("label", [
       _c("span", { staticClass: "required" }, [_vm._v("*")]),
       _vm._v("Link de Clase")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", [
+      _c("span", { staticClass: "required" }, [_vm._v("*")]),
+      _vm._v("Actividad Para :")
     ])
   },
   function() {

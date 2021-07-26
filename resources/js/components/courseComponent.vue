@@ -60,13 +60,13 @@
                             </div>
                         </div>
                         <form class="needs-validation" novalidate>
-                            <form-wizard
+                            <!-- <form-wizard
                                 title
                                 subtitle
                                 color="#ffc107"                                
                                 finish-button-text="Guardar y enviar"
                                 @on-complete="createCourses"
-                            >
+                            > -->
                                 <span
                                     class="spinner-border spinner-border"
                                     role="status"
@@ -150,7 +150,8 @@
                                             ></textarea>
                                         </div>
                                     </div>                              
-                            </form-wizard>            
+                                    <button class="btn btn-primary" style="float: right;margin-top: 13px;" v-on:click="createCourses">Guardar</button>
+                            <!-- </form-wizard>             -->
                         </form>
                     </div>
                 </div>

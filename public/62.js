@@ -107,12 +107,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   methods: {
     logout: function logout() {
@@ -248,7 +242,7 @@ var staticRenderFns = [
               ]),
               _vm._v(" "),
               _c("a", { attrs: { href: "/list/proceedings/parents" } }, [
-                _vm._v(" >Actas Padres ")
+                _vm._v(" Actas Padres ")
               ]),
               _vm._v(" "),
               _c("a", { attrs: { href: "/list/proceedings/general" } }, [
@@ -285,24 +279,8 @@ var staticRenderFns = [
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "dropdown2-content" }, [
-              _c("a", { attrs: { href: "/actividad_g" } }, [
-                _vm._v(" Planificación ")
-              ]),
-              _vm._v(" "),
-              _c("a", { attrs: { href: "/docente/clases" } }, [
-                _vm._v(" Mis clases ")
-              ]),
-              _vm._v(" "),
               _c("a", { attrs: { href: "/resportSendParents" } }, [
                 _vm._v(" Reporte Mensual Padres           ")
-              ]),
-              _vm._v(" "),
-              _c("a", { attrs: { href: "/docente/estudiantes" } }, [
-                _vm._v(" Mis Estudiantes ")
-              ]),
-              _vm._v(" "),
-              _c("a", { attrs: { href: "/repository" } }, [
-                _vm._v(" Entregas")
               ]),
               _vm._v(" "),
               _c("a", { attrs: { href: "/board" } }, [_vm._v(" Pizarra ")])

@@ -18,7 +18,8 @@
             <a v-on:click="activetab = 4" v-bind:class="[activetab === 4 ? 'active' : '']"><h4 class="letra-poppins-bold">ENTREGAS</h4></a>
           </div>
 
-          <div class="content-azul">
+          <!-- <div class="content-azul"> -->
+          <div>
             <div v-if="activetab === 1" class="tabcontent">
               <div v-if="idArea !=''">
                 <cycle-list :idArea="idAreaClass" :planif="planif"></cycle-list>

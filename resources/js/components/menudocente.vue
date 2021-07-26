@@ -14,7 +14,7 @@
                     <a href="/questions"> Foro </a>
                     <a href="/chat"> Chat </a>
                     <a href="/chat"> Chat Estamentos&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
-                    <a href="/list/proceedings/parents"> >Actas Padres </a>
+                    <a href="/list/proceedings/parents"> Actas Padres </a>
                     <a href="/list/proceedings/general"> Actas Generales </a>
                   </div>
                 </li>
@@ -41,13 +41,7 @@
                 <li class="item-menu">
                   <span class="menu">ACADÉMICO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                   <div class="dropdown2-content">
-                    <a href="/actividad_g"> Planificación </a>
-                    <a href="/docente/clases"> Mis clases </a>
                     <a href="/resportSendParents"> Reporte Mensual Padres&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </a>
-
-                    <a href="/docente/estudiantes"> Mis Estudiantes </a>
-                    <a href="/repository"> Entregas</a>
-
                     <a href="/board"> Pizarra </a>
                   </div>
                 </li>
