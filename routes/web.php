@@ -1071,3 +1071,5 @@ Route::middleware('auth')->get('/cycle/teacher/{id_area}/{id_classroom}/{id_trim
 Route::post('/createTrimestre', 'TrimestreController@createTrimestre');
 Route::get('/getTrimestres', 'TrimestreController@getTrimestre');
 Route::get('/getActivitiesTeacher/{id_area}/{id_classroom}','ActivityController@getActivitiesTeacher');
+
+Route::resource('/trimestres','TrimestresController');
