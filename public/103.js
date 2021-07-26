@@ -196,6 +196,15 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component("multiselect", vue_multisel
       })["catch"](function () {
         toastr.error("Intenta de nuevo mas tarde");
       });
+    },
+    filterPendingEvents: function filterPendingEvents(events) {
+      /* Se da formato a fechas para poder comparar las 
+      *  reuniones que sucedieron en el dia y las que estan agendadas a futuro
+      */
+      var momento = moment__WEBPACK_IMPORTED_MODULE_1___default()();
+      return events.filter(function (e) {
+        return moment__WEBPACK_IMPORTED_MODULE_1___default()(e.date_end) >= moment__WEBPACK_IMPORTED_MODULE_1___default()();
+      });
     }
   }
 });
@@ -225,7 +234,7 @@ var render = function() {
         [
           _vm._m(0),
           _vm._v(" "),
-          _vm._l(_vm.parents, function(parents, k) {
+          _vm._l(_vm.filterPendingEvents(_vm.parents), function(parents, k) {
             return _c("div", { key: k, staticClass: "row" }, [
               _c("div", { staticClass: "col-12" }, [
                 _c("div", { staticClass: "card" }, [

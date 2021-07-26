@@ -31,7 +31,7 @@
                     <div class="class-event-footer ">
                       <div class="class-event-action">
                         <button class="btn btn-primary" v-show="type_u == 2" v-on:click.prevent="editE(clas.id)">Editar</button>
-                        <a class="btn btn-primary mr-1" v-show="type_u == 2" href="/effectiveness">Efectividad</a>
+                        <!-- <a class="btn btn-primary mr-1" v-show="type_u == 2" href="/effectiveness">Efectividad</a> -->
                         <button class="btn btn-danger" v-show="type_u == 2" v-on:click.prevent="viewDelete(clas.id, clas.name)">Eliminar</button>
                       </div>
                     </div>

@@ -11,20 +11,30 @@
                     <div class="div-classes">
                         <div class="div-class">
                             <div class="title row">
-                                <div class="col-8">
+                                <div class="col-12">
                                     <label><span class="required">*</span>Nombre de la clase:</label>
                                     <input type="text" class="form-control" v-model="course.name" v-bind:readonly="course.state==2"/>
                                 </div>
-                                <div class="col-4">
+                                <!-- <div class="col-4">
                                     <label><span class="required">*</span>Intensidad:</label>
                                     <input type="number" class="form-control" v-model="course.hourly_intensity" v-bind:readonly="course.state==2"/>
-                                </div>
+                                </div> -->
                             </div>
                             <div class="row">
                                 <div class="col-12">
                                     <label><span class="required">*</span>Descripción:</label>
                                     <textarea class="form-control" cols="40" rows="4" v-model="course.description" v-bind:readonly="course.state==2"></textarea>
                                 </div>
+                            </div>
+
+                            <div class="row">                                        
+                                <label><span class="required">*</span>Fecha Inicio de Clase:</label>                
+                                <input type="datetime-local" class="form-control" v-model="course.date_init_class" />
+                                <input type="hidden" id="timezone" name="timezone" value="-05:00">
+                            </div>
+                            <div class="row">                                        
+                                <label><span class="required">*</span>Link de Clase</label>
+                                <input type="text-local" class="form-control" v-model="course.url_class" />                                          
                             </div>
 
                             <div class="row">
@@ -58,17 +68,7 @@
                                                     </span>
                                                 </template>
                                         </multiselect>
-                                    </div>
-
-                                    <div class="row">                                        
-                                        <label><span class="required">*</span>Fecha Inicio de Clase:</label>                
-                                        <input type="datetime-local" class="form-control" v-model="course.date_init_class" />
-                                        <input type="hidden" id="timezone" name="timezone" value="-05:00">
-                                    </div>
-                                    <div class="row">                                        
-                                        <label><span class="required">*</span>Link de Clase</label>
-                                        <input type="text-local" class="form-control" v-model="course.url_class" />                                          
-                                    </div>
+                                    </div>                                    
                                 </div>
                             </div>
                             
