@@ -104,6 +104,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 
 moment__WEBPACK_IMPORTED_MODULE_1___default.a.tz.setDefault("America/Bogota");
@@ -219,7 +223,8 @@ moment__WEBPACK_IMPORTED_MODULE_1___default.a.locale("es");
       colorTitle: "",
       lectivs: false,
       idModule: "",
-      idClass: ""
+      idClass: "",
+      planif: "clase"
     };
   },
   mounted: function mounted() {
