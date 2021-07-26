@@ -45,14 +45,19 @@
 
                                 <td v-if="planification === 'clase'">
                                     <p>
-                                        <button class="btn btn-warning" v-on:click="()=>getCycle(cycle)">Ir a clase</button>
+                                        <button class="btn btn-warning" v-on:click="()=>getCycle(cycle)">Ir a Ciclo</button>
                                     </p>
                                 </td>
                                 <td v-else-if="planification === 'general'">
                                     <p>
-                                        <button class="btn btn-warning" v-on:click="()=>getEditCycle(cycle)">Editar</button>                  
+                                        <button class="btn btn-warning" v-on:click="()=>getEditCycle()">Editar</button>                  
                                         <button class="btn btn-primary" v-if="cycle.activateButton === 'true'" v-on:click="()=>ClassAndCicle(cycle.id)" >Eliminar</button>                      
                                         <button class="btn btn-primary" v-if="cycle.activateButton === 'false'" v-on:click="()=>RequestPermissions(cycle, cycle.driving_question)">Solicitar Permiso para Eliminar</button>
+                                    </p>
+                                </td>
+                                <td v-else-if="planification === 'claseEst'">
+                                    <p>
+                                        <button class="btn btn-warning" v-on:click="showModuleStudent(cycle)">Ir a Ciclo</button>
                                     </p>
                                 </td>
 
@@ -70,7 +75,7 @@
     <teacher-module :id_module="idModule" :cleanIdModule="cleanIdModule"></teacher-module>
 </div>
 <div v-else-if="showCycle === 'semanalAct' ">
-    <semanalact-component :id_area="id_area" :id_classroom="id_classroom" :cleanIdModule="cleanIdModule" :id_cycle="id_cycle"></semanalact-component>
+    <semanalact-component :id_area="id_area" :id_classroom="id_classroom" :cleanIdModule="cleanIdModule"></semanalact-component>
     <div class="modal fade" id="infoClass" tabindex="-1" role="dialog" aria-labelledby="infoClassLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -110,10 +115,13 @@
         </div>
     </div>
 </div>
+<div v-else-if="showCycle==='student'">
+    <student-module :clasId="clasId" :cleanClasId="cleanIdModule" :moduleId="moduleId"></student-module>
+</div>
 </template>
 <script>
 export default {
-    props:["idArea","planif"],
+    props:["idArea","planif","moduleId"],
     data() {
         return {
             cycles:[],
@@ -123,8 +131,7 @@ export default {
             id_area: "",
             id_classroom:"",
             showCycle:"true",
-            clase_to_delete:[],
-            id_cycle: "",
+            clasId:""
         };
     },
     mounted(){
@@ -157,7 +164,21 @@ export default {
                             }
                         }                                            
                     })
-                } 
+                } else if(this.planif === 'claseEst'){
+                    var urlsel = "/viewGetWeek/" + this.idArea +'/'+id_trimestre;
+                    axios.get(urlsel).then((response) => {
+                       let data = response.data;
+                       console.log('data estudiante: ',response.data)
+                       data.forEach((element)=>{
+                           this.cycles.push({
+                                driving_question: element.text,
+                                class: element.class,
+                                id: element.id,
+                                observation: element.observation
+                           })
+                       })
+                    });
+                }
                 
                 console.log(this.cycles);
             });
@@ -173,10 +194,10 @@ export default {
             this.id_area="";
             this.id_classroom="";
             this.showCycle ="true";
+            this.clasId="";
         },
         
-        getEditCycle(cycle){
-            this.id_cycle = cycle.id
+        getEditCycle(){
             let data = this.idArea.split("/");
             this.id_area=data[0];
             this.id_classroom = data[1];
@@ -225,6 +246,11 @@ export default {
                 window.location = "/docente/clases";
             });
         },
+        showModuleStudent(cycle){
+            this.showCycle = "student";
+            this.clasId = cycle.id;
+            console.log(cycle)
+        }
     },
 };
 </script>

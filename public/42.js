@@ -122,8 +122,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["idArea", "planif"],
+  props: ["idArea", "planif", "moduleId"],
   data: function data() {
     return {
       cycles: [],
@@ -133,8 +141,7 @@ __webpack_require__.r(__webpack_exports__);
       id_area: "",
       id_classroom: "",
       showCycle: "true",
-      clase_to_delete: [],
-      id_cycle: ""
+      clasId: ""
     };
   },
   mounted: function mounted() {
@@ -171,6 +178,20 @@ __webpack_require__.r(__webpack_exports__);
               }
             }
           });
+        } else if (_this2.planif === 'claseEst') {
+          var urlsel = "/viewGetWeek/" + _this2.idArea + '/' + id_trimestre;
+          axios.get(urlsel).then(function (response) {
+            var data = response.data;
+            console.log('data estudiante: ', response.data);
+            data.forEach(function (element) {
+              _this2.cycles.push({
+                driving_question: element.text,
+                "class": element["class"],
+                id: element.id,
+                observation: element.observation
+              });
+            });
+          });
         }
 
         console.log(_this2.cycles);
@@ -185,9 +206,9 @@ __webpack_require__.r(__webpack_exports__);
       this.id_area = "";
       this.id_classroom = "";
       this.showCycle = "true";
+      this.clasId = "";
     },
-    getEditCycle: function getEditCycle(cycle) {
-      this.id_cycle = cycle.id;
+    getEditCycle: function getEditCycle() {
       var data = this.idArea.split("/");
       this.id_area = data[0];
       this.id_classroom = data[1];
@@ -235,6 +256,11 @@ __webpack_require__.r(__webpack_exports__);
 
         window.location = "/docente/clases";
       });
+    },
+    showModuleStudent: function showModuleStudent(cycle) {
+      this.showCycle = "student";
+      this.clasId = cycle.id;
+      console.log(cycle);
     }
   }
 });
@@ -408,7 +434,7 @@ var render = function() {
                                                   }
                                                 }
                                               },
-                                              [_vm._v("Ir a clase")]
+                                              [_vm._v("Ir a Ciclo")]
                                             )
                                           ])
                                         ])
@@ -421,9 +447,7 @@ var render = function() {
                                                 staticClass: "btn btn-warning",
                                                 on: {
                                                   click: function() {
-                                                    return _vm.getEditCycle(
-                                                      cycle
-                                                    )
+                                                    return _vm.getEditCycle()
                                                   }
                                                 }
                                               },
@@ -472,6 +496,25 @@ var render = function() {
                                               : _vm._e()
                                           ])
                                         ])
+                                      : _vm.planification === "claseEst"
+                                      ? _c("td", [
+                                          _c("p", [
+                                            _c(
+                                              "button",
+                                              {
+                                                staticClass: "btn btn-warning",
+                                                on: {
+                                                  click: function($event) {
+                                                    return _vm.showModuleStudent(
+                                                      cycle
+                                                    )
+                                                  }
+                                                }
+                                              },
+                                              [_vm._v("Ir a Ciclo")]
+                                            )
+                                          ])
+                                        ])
                                       : _vm._e()
                                   ])
                                 })
@@ -508,8 +551,7 @@ var render = function() {
             attrs: {
               id_area: _vm.id_area,
               id_classroom: _vm.id_classroom,
-              cleanIdModule: _vm.cleanIdModule,
-              id_cycle: _vm.id_cycle
+              cleanIdModule: _vm.cleanIdModule
             }
           }),
           _vm._v(" "),
@@ -603,6 +645,20 @@ var render = function() {
               )
             ]
           )
+        ],
+        1
+      )
+    : _vm.showCycle === "student"
+    ? _c(
+        "div",
+        [
+          _c("student-module", {
+            attrs: {
+              clasId: _vm.clasId,
+              cleanClasId: _vm.cleanIdModule,
+              moduleId: _vm.moduleId
+            }
+          })
         ],
         1
       )

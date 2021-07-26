@@ -224,7 +224,7 @@ moment__WEBPACK_IMPORTED_MODULE_1___default.a.locale("es");
       lectivs: false,
       idModule: "",
       idClass: "",
-      planif: "clase"
+      planif: "claseEst"
     };
   },
   mounted: function mounted() {
@@ -677,13 +677,10 @@ var render = function() {
                         "div",
                         { staticClass: "tabcontent" },
                         [
-                          _c("student-courses", {
+                          _c("cycle-list", {
                             attrs: {
-                              nameArea: _vm.nameArea,
-                              planifications: _vm.planifications,
-                              id_lective_planification:
-                                _vm.id_lective_planification,
-                              idClass: _vm.idClass,
+                              idArea: _vm.idArea + "/" + _vm.idClassroom,
+                              planif: _vm.planif,
                               moduleId: _vm.idModule
                             }
                           })
