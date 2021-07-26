@@ -17,6 +17,15 @@
               >
                 <tab-content title="Ciclo">
                   <div class="form-group row mx-auto" v-for="(act, t) in fillS" :key="t">
+                    <div class="col-md-12">
+                      <select class="form-control" v-model="act.id_trimestre">
+                        <option :value="options.id" v-for="options in trimestres">
+                          {{
+                          options.nombre
+                          }}
+                        </option>
+                      </select>
+                    </div>
                     <div class="col-md-6">
                       <label for="name">Pregunta conductora o nombre {{t+1}}</label>
                       <div>
@@ -29,12 +38,12 @@
                         />
                       </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-6" v-for="(input, k) in inputClass">
                       <label for="name">Desarrollo de la clase</label>
                       <textarea
                         name="competences"
                         class="form-control"
-                        v-model="act.class"
+                        v-model="input.class_developmentC"
                         placeholder="Es la explicacion o sintesis de la clase."
                         required
                       ></textarea>
@@ -44,6 +53,10 @@
                       <label for="name">Observación</label>
                       <textarea name="competences" 
                       class="form-control" v-model="act.observation"></textarea>
+                    </div>
+                    <div class="col-md-6">
+                      <label for="ajustes">Ajustes PIAR</label>
+                      <textarea type="text" name="ajustes" class="form-control" v-model="act.ajuste_piar"> </textarea>
                     </div>
                   </div>
                   <!-- <div class="modal-footer">
@@ -104,7 +117,7 @@ import VueFormWizard from "vue-form-wizard";
 import "vue-form-wizard/dist/vue-form-wizard.min.css";
 Vue.use(VueFormWizard);
 export default {
-  props: ["id_area", "id_classroom","cleanIdModule"],
+  props: ["id_area", "id_classroom","cleanIdModule", "id_cycle"],
   data() {
     return {
       inputs: [
@@ -123,26 +136,44 @@ export default {
           observation: "",
         },
       ],
+      inputClass:[],
+      trimestres:[],
       semanal: false,
       errors: [],
     };
   },
   mounted() {
-    var urlsel =
-      window.location.origin +
-      "/editOneWeek/" +
-      this.id_area +
-      "/" +
-      this.id_classroom;
-    axios.get(urlsel).then((response) => {
-      this.fillS = response.data;
-      console.log(this.fillS);
-      if (this.fillS.length > 0) {
-        this.semanal = true;
-      }
-    });
+    this.getData();
+    this.getTrimestre();
   },
   methods: {
+    getData(){
+      if(this.id_cycle!=''){
+        var urlsel=window.location.origin + "/editOneCycle/"+this.id_cycle;
+        axios.get(urlsel).then((response) => {
+          this.fillS = response.data;
+          this.inputClass=JSON.parse(response.data[0].class);
+          //console.log(this.inputClass);
+          if (this.fillS.length > 0) {
+            this.semanal = true;
+          }
+      });
+      }else{
+        var urlsel = window.location.origin + "/editOneWeek/" + this.id_area + "/" + this.id_classroom;
+        axios.get(urlsel).then((response) => {
+          this.fillS = response.data;
+          if (this.fillS.length > 0) {
+            this.semanal = true;
+          }
+      });
+      }
+    },
+    getTrimestre(){
+      var url="/getTrimestres";
+      axios.get(url).then((response) => {
+          this.trimestres = response.data;
+      });
+    },
     add(index) {
       this.inputs.push({
         driving_question: "",
@@ -164,7 +195,7 @@ export default {
       axios
         .post(url, {
           //Cursos generales
-          id_materia: "1",
+          id_materia: this.id_area,
           semana: this.newSemanal,
         })
         .then((response) => {
@@ -178,28 +209,52 @@ export default {
         });
     },
     updateSemanal() {
-      var url = window.location.origin + "/updateCourseWeekly";
-
-      if (this.fillS.length >= 1) {
-        for (let i = 0; i < this.fillS.length; i++) {
-          this.newSemanal.push(this.fillS[i]);
+      if(this.id_cycle!=''){
+        var url = window.location.origin + "/updateCourseWeekly";
+        if (this.fillS.length >= 1) {
+          for (let i = 0; i < this.fillS.length; i++) {
+            this.fillS[i].class=JSON.stringify(this.inputClass);
+            this.newSemanal.push(this.fillS[i]);
+          }
         }
-      }
-      axios
-        .put(url, {
-          //Cursos generales
-          id_materia: "1",
-          semana: this.newSemanal,
-        })
-        .then((response) => {
-          this.errors = [];
+        axios
+          .put(url, {
+            //Cursos generales
+            id_materia: this.id_area,
+            semana: this.newSemanal,
+          })
+          .then((response) => {
+            this.errors = [];
 
-          toastr.success("Actualizado plan semanal exitosamente");
-          this.cleanIdModule();
-        })
-        .catch((error) => {
-          this.errors = error.response.data;
-        });
+            toastr.success("Actualizado plan semanal exitosamente");
+            this.cleanIdModule();
+          })
+          .catch((error) => {
+            this.errors = error.response.data;
+          });
+      }else{
+        var url = window.location.origin + "/updateCourseWeekly";
+        if (this.fillS.length >= 1) {
+          for (let i = 0; i < this.fillS.length; i++) {
+            this.newSemanal.push(this.fillS[i]);
+          }
+        }
+        axios
+          .put(url, {
+            //Cursos generales
+            id_materia: this.id_area,
+            semana: this.newSemanal,
+          })
+          .then((response) => {
+            this.errors = [];
+
+            toastr.success("Actualizado plan semanal exitosamente");
+            this.cleanIdModule();
+          })
+          .catch((error) => {
+            this.errors = error.response.data;
+          });
+      }
     },
   },
 };
