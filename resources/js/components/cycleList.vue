@@ -26,7 +26,7 @@
                   data-parent="#accordionExample"
                 >
                 <div style="padding:20px;">
-                    <a :href="'crear_semana/'+idArea+'/'+trimestre.id+'/'+(t+1)" class="btn btn-warning float-left">Crear</a>
+                    <a v-on:click="getOrderCycle(trimestre.id,t+1)" class="btn btn-warning float-left">Crear</a>
                 </div>
                 <div class="card-body">
                     <table class="table table-responsive-xl table-hover table-striped center">
@@ -118,6 +118,9 @@
 <div v-else-if="showCycle==='student'">
     <student-module :clasId="clasId" :cleanClasId="cleanIdModule" :moduleId="moduleId"></student-module>
 </div>
+<div v-else-if="showCycle==='courseSemanal'">
+    <semanal-component :id_area="id_area" :id_classroom="id_classroom" :id_trimestre="idTrimestre" :orden="orden" :cleanClasId="cleanIdModule"></semanal-component>
+</div>
 </template>
 <script>
 export default {
@@ -131,7 +134,9 @@ export default {
             id_area: "",
             id_classroom:"",
             showCycle:"true",
-            clasId:""
+            clasId:"",
+            idTrimestre:"",
+            orden:""
         };
     },
     mounted(){
@@ -195,6 +200,8 @@ export default {
             this.id_classroom="";
             this.showCycle ="true";
             this.clasId="";
+            this.idTrimestre="";
+            this.orden="";
         },
         
         getEditCycle(){
@@ -250,6 +257,14 @@ export default {
             this.showCycle = "student";
             this.clasId = cycle.id;
             console.log(cycle)
+        },
+        getOrderCycle(id_trimestre, orden){
+            let data = this.idArea.split("/");
+            this.id_area=data[0];
+            this.id_classroom = data[1];
+            this.idTrimestre= id_trimestre;
+            this.orden=orden;
+            this.showCycle = "courseSemanal"
         }
     },
 };

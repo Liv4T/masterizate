@@ -130,6 +130,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["idArea", "planif", "moduleId"],
   data: function data() {
@@ -141,7 +144,9 @@ __webpack_require__.r(__webpack_exports__);
       id_area: "",
       id_classroom: "",
       showCycle: "true",
-      clasId: ""
+      clasId: "",
+      idTrimestre: "",
+      orden: ""
     };
   },
   mounted: function mounted() {
@@ -207,6 +212,8 @@ __webpack_require__.r(__webpack_exports__);
       this.id_classroom = "";
       this.showCycle = "true";
       this.clasId = "";
+      this.idTrimestre = "";
+      this.orden = "";
     },
     getEditCycle: function getEditCycle() {
       var data = this.idArea.split("/");
@@ -261,6 +268,14 @@ __webpack_require__.r(__webpack_exports__);
       this.showCycle = "student";
       this.clasId = cycle.id;
       console.log(cycle);
+    },
+    getOrderCycle: function getOrderCycle(id_trimestre, orden) {
+      var data = this.idArea.split("/");
+      this.id_area = data[0];
+      this.id_classroom = data[1];
+      this.idTrimestre = id_trimestre;
+      this.orden = orden;
+      this.showCycle = "courseSemanal";
     }
   }
 });
@@ -384,14 +399,10 @@ var render = function() {
                           "a",
                           {
                             staticClass: "btn btn-warning float-left",
-                            attrs: {
-                              href:
-                                "crear_semana/" +
-                                _vm.idArea +
-                                "/" +
-                                trimestre.id +
-                                "/" +
-                                (t + 1)
+                            on: {
+                              click: function($event) {
+                                return _vm.getOrderCycle(trimestre.id, t + 1)
+                              }
                             }
                           },
                           [_vm._v("Crear")]
@@ -657,6 +668,22 @@ var render = function() {
               clasId: _vm.clasId,
               cleanClasId: _vm.cleanIdModule,
               moduleId: _vm.moduleId
+            }
+          })
+        ],
+        1
+      )
+    : _vm.showCycle === "courseSemanal"
+    ? _c(
+        "div",
+        [
+          _c("semanal-component", {
+            attrs: {
+              id_area: _vm.id_area,
+              id_classroom: _vm.id_classroom,
+              id_trimestre: _vm.idTrimestre,
+              orden: _vm.orden,
+              cleanClasId: _vm.cleanIdModule
             }
           })
         ],
