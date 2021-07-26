@@ -25,6 +25,9 @@
                   aria-labelledby="heading"
                   data-parent="#accordionExample"
                 >
+                <div style="padding:20px;">
+                    <a :href="'crear_semana/'+idArea+'/'+trimestre.id+'/'+(t+1)" class="btn btn-warning float-left">Crear</a>
+                </div>
                 <div class="card-body">
                     <table class="table table-responsive-xl table-hover table-striped center">
                         <tbody>

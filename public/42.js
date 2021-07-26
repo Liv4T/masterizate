@@ -119,6 +119,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["idArea", "planif"],
   data: function data() {
@@ -247,7 +250,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.item-cycle {\r\n    height: 50px;\r\n    overflow: hidden;\r\n    color: white;\r\n    background: #00cbcec1;\r\n    margin: 8px;\r\n    line-height: 50px;\r\n    margin-bottom: 2rem;\r\n    border-radius: 10px;\n}\n.menu-cycle{\r\n    color: white;\r\n    text-decoration: none;\r\n    font-weight: bold;\r\n    font-size: 28px;\n}\r\n", ""]);
+exports.push([module.i, "\n.item-cycle {\n    height: 50px;\n    overflow: hidden;\n    color: white;\n    background: #00cbcec1;\n    margin: 8px;\n    line-height: 50px;\n    margin-bottom: 2rem;\n    border-radius: 10px;\n}\n.menu-cycle{\n    color: white;\n    text-decoration: none;\n    font-weight: bold;\n    font-size: 28px;\n}\n", ""]);
 
 // exports
 
@@ -347,6 +350,25 @@ var render = function() {
                       }
                     },
                     [
+                      _c("div", { staticStyle: { padding: "20px" } }, [
+                        _c(
+                          "a",
+                          {
+                            staticClass: "btn btn-warning float-left",
+                            attrs: {
+                              href:
+                                "crear_semana/" +
+                                _vm.idArea +
+                                "/" +
+                                trimestre.id +
+                                "/" +
+                                (t + 1)
+                            }
+                          },
+                          [_vm._v("Crear")]
+                        )
+                      ]),
+                      _vm._v(" "),
                       _c("div", { staticClass: "card-body" }, [
                         _c(
                           "table",
@@ -545,7 +567,7 @@ var render = function() {
                           ])
                         : _c("div", [
                             _vm._v(
-                              "\r\n                        No hay Clases asignadas al Ciclo\r\n                    "
+                              "\n                        No hay Clases asignadas al Ciclo\n                    "
                             )
                           ])
                     ]),
