@@ -73,8 +73,8 @@ Route::middleware('auth')->get('/duplicar/{id_area}/{id_classroom}', function (S
 Route::middleware('auth')->get('/duplicar-semana/', function () {
     return view('duplicarSemana');
 });
-Route::middleware('auth')->get('/crear_semana/{id_area}/{id_classroom}', function (String $id_area, String $id_classroom) {
-    return view('semanal')->with('id_area', $id_area)->with('id_classroom', $id_classroom);
+Route::middleware('auth')->get('/crear_semana/{id_area}/{id_classroom}/{id_trimestre}/{orden}', function (String $id_area, String $id_classroom, String $id_trimestre, String $orden) {
+    return view('semanal')->with('id_area', $id_area)->with('id_classroom', $id_classroom)->with('id_trimestre', $id_trimestre)->with('orden', $orden);
 });
 Route::middleware('auth')->get('/cycle/list/{id_area}/{id_classroom}', function (String $id_area, String $id_classroom) {
     return view('cycleList')->with('id_area', $id_area)->with('id_classroom', $id_classroom);

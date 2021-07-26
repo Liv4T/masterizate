@@ -60,6 +60,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["idArea"],
   data: function data() {
@@ -201,6 +204,25 @@ var render = function() {
                   }
                 },
                 [
+                  _c("div", { staticStyle: { padding: "20px" } }, [
+                    _c(
+                      "a",
+                      {
+                        staticClass: "btn btn-warning float-left",
+                        attrs: {
+                          href:
+                            "crear_semana/" +
+                            _vm.idArea +
+                            "/" +
+                            trimestre.id +
+                            "/" +
+                            (t + 1)
+                        }
+                      },
+                      [_vm._v("Crear")]
+                    )
+                  ]),
+                  _vm._v(" "),
                   _c("div", { staticClass: "card-body" }, [
                     _c(
                       "table",

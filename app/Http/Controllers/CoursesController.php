@@ -359,8 +359,11 @@ class CoursesController extends Controller
                     'driving_question' => $week['driving_question'],
                     'class_development' => $week['class_development'],
                     'observation' => $week['observation'],
+                    'ajuste_piar' => $week['ajustes'],
+                    'order_items' => $week['numeroCiclo'],
                     'id_area'    => $data['id_area'],
                     'id_classroom'    => $data['id_classroom'],
+                    'id_trimestre' => $data['id_trimestre'],
                     'week'    => $count,
                     'id_teacher'     =>  Auth::user()->id,
                 ]);
