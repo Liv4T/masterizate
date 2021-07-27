@@ -152,8 +152,24 @@ export default {
         var urlsel=window.location.origin + "/editOneCycle/"+this.id_cycle;
         axios.get(urlsel).then((response) => {
           this.fillS = response.data;
-          this.inputClass=JSON.parse(response.data[0].class);
-          //console.log(this.inputClass);
+          function IsJsonString() {
+            try {
+              var json = JSON.parse(response.data[0].class);
+              return true;
+            } catch (e) {
+              return false;
+            }
+          }
+          if(IsJsonString()){
+            this.inputClass=JSON.parse(response.data[0].class);
+          } else{
+            let json=[{
+              class_developmentC:response.data[0].class
+            }];
+            this.inputClass=json;
+          }
+          //this.inputClass=JSON.parse(response.data[0].class);
+          console.log(this.inputClass);
           if (this.fillS.length > 0) {
             this.semanal = true;
           }
