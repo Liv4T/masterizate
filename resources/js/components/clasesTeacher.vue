@@ -4,7 +4,7 @@
       <div class="form-group col-md-4 mx-auto">
         <div class="text-center">
           <select class="btn btn-warning letra-boldfont" name="type" @change="ShowSelected">
-            <option disabled selected hidden value="">MATERIAS</option>
+            <option disabled selected hidden value="">CURSOS</option>
             <option :value="JSON.stringify(area)" v-for="(area, key) in areas" :key="key">{{ area.text }}</option>
           </select>
         </div>
