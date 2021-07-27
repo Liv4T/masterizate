@@ -127,8 +127,12 @@ class RepositoryController extends Controller
      */
     public function show(String $id_area, String $id_classroom)
     {
-
-        $repositori = Repository::where('id_area', $id_area)->where('id_classroom', $id_classroom)->get();
+        $current_date=date('Y-m-d');
+        $repositori = Repository::where('id_area', $id_area)
+        ->where('id_classroom', $id_classroom)
+        ->whereDate('date','>=',$current_date)
+        ->limit(10)
+        ->get();
         if (isset($repositori)) {
             return $repositori;
         } else {
