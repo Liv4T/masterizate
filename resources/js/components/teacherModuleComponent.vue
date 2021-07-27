@@ -8,7 +8,12 @@
                     <span class="classroom-label">{{ nameArea }}</span>
                     <div class="card-body">
                         <div class="text-left">
-                            <a class="btn btn-primary" v-on:click="cleanIdModule">Regresar</a>
+                            
+                            <a v-if="cleanIdModule" class="btn btn-primary" v-on:click="cleanIdModule">Regresar</a>
+                                        
+                            <a v-else class="btn btn-primary" href="/docente/clases">Regresar</a>
+                            
+                            
                             <a class="btn btn-primary" v-on:click="createClass(id_module)">Crear
                                 Clase</a>
                             <a class="btn btn-primary text-right" :href="''"

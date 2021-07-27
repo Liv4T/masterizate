@@ -62,7 +62,7 @@
                                 <tbody>
                                     <template  v-for="(clas, k) in clases">
                                         <tr :key="k" v-if="clas.id_classroom==area.id_classroom && clas.id_area==area.id && search_filter_cicle =='' || filterCicle(clas.text)">
-                                            <td> <a class="btn btn-primary"  :href="'/act_semana/'+clas.id_area+'/'+clas.id_classroom">Editar</a> </td>
+                                            <td> <a class="btn btn-primary"  :href="'/act_semana/'+clas.id_area+'/'+clas.id_classroom+'/'+clas.id">Editar</a> </td>
                                             <td>{{ clas.text }}</td>
                                             <td>
                                             <a

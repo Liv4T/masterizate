@@ -511,7 +511,9 @@ var render = function() {
                                                           "/act_semana/" +
                                                           clas.id_area +
                                                           "/" +
-                                                          clas.id_classroom
+                                                          clas.id_classroom +
+                                                          "/" +
+                                                          clas.id
                                                       }
                                                     },
                                                     [_vm._v("Editar")]
