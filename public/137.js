@@ -154,6 +154,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
 (function () {
   "use strict";
 
@@ -413,6 +417,8 @@ var render = function() {
               },
               [_vm._v("(Hay cambios que no han sido guardados)")]
             ),
+            _vm._v(" "),
+            _vm._m(1),
             _vm._v(" "),
             _c(
               "form",
@@ -794,6 +800,21 @@ var staticRenderFns = [
           crossorigin: "anonymous"
         }
       })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: " float-right" }, [
+      _c(
+        "a",
+        {
+          staticClass: "btn btn-primary",
+          attrs: { href: "/teacher/lectives/planning" }
+        },
+        [_vm._v("Volver")]
+      )
     ])
   }
 ]

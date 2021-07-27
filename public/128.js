@@ -245,19 +245,21 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
       newLogro2: "",
       newLogro3: "",
       newLogro4: ""
-    }, _defineProperty(_ref, "newTrimestre", []), _defineProperty(_ref, "newLogro", []), _defineProperty(_ref, "trimestre", false), _defineProperty(_ref, "logro_1", ""), _defineProperty(_ref, "logro_2", ""), _defineProperty(_ref, "logro_3", ""), _defineProperty(_ref, "logro_4", ""), _defineProperty(_ref, "fillC", []), _defineProperty(_ref, "anual", []), _defineProperty(_ref, "newAnual", []), _defineProperty(_ref, "errors", []), _defineProperty(_ref, "isSynchronized", true), _defineProperty(_ref, "isLoading", false), _defineProperty(_ref, "showPiarPlan", false), _defineProperty(_ref, "showPIARPlanTrimestral", false), _defineProperty(_ref, "activityForAllStudents", false), _defineProperty(_ref, "activityForPIARStudents", false), _defineProperty(_ref, "activityForSelectStudents", false), _defineProperty(_ref, "studentsOptions", []), _defineProperty(_ref, "saveStudent", []), _defineProperty(_ref, "piarStudents", []), _defineProperty(_ref, "AreaId", ""), _ref;
+    }, _defineProperty(_ref, "newTrimestre", []), _defineProperty(_ref, "newLogro", []), _defineProperty(_ref, "trimestre", false), _defineProperty(_ref, "logro_1", ""), _defineProperty(_ref, "logro_2", ""), _defineProperty(_ref, "logro_3", ""), _defineProperty(_ref, "logro_4", ""), _defineProperty(_ref, "fillC", []), _defineProperty(_ref, "anual", []), _defineProperty(_ref, "newAnual", []), _defineProperty(_ref, "errors", []), _defineProperty(_ref, "isSynchronized", true), _defineProperty(_ref, "isLoading", false), _defineProperty(_ref, "showPiarPlan", false), _defineProperty(_ref, "showPIARPlanTrimestral", false), _defineProperty(_ref, "activityForAllStudents", true), _defineProperty(_ref, "activityForPIARStudents", false), _defineProperty(_ref, "activityForSelectStudents", false), _defineProperty(_ref, "studentsOptions", []), _defineProperty(_ref, "saveStudent", []), _defineProperty(_ref, "piarStudents", []), _defineProperty(_ref, "AreaId", ""), _ref;
   },
   watch: {
     activityForAllStudents: function activityForAllStudents(newVal) {
       if (newVal == true) {
         this.activityForPIARStudents = false;
         this.activityForSelectStudents = false;
+        this.activityForAllStudents = true;
       }
     },
     activityForPIARStudents: function activityForPIARStudents(newVal) {
       if (newVal == true) {
         this.activityForAllStudents = false;
         this.activityForSelectStudents = false;
+        this.activityForPIARStudents = true;
         this.selectedStudentsData = this.piarStudents;
       }
     },
@@ -265,6 +267,7 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
       if (newVal == true) {
         this.activityForPIARStudents = false;
         this.activityForAllStudents = false;
+        this.activityForSelectStudents = true;
         this.selectedStudentsData = this.studentsOptions;
       }
     },
@@ -329,7 +332,10 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
               });
             });
           });
-          _this.showPiarPlan = true, _this.showPIARPlanTrimestral = true, _this.activityForPIARStudents = true;
+
+          if (_this.piarStudents.length > 0) {
+            _this.showPiarPlan = true, _this.showPIARPlanTrimestral = true, _this.activityForPIARStudents = true;
+          }
         }
       }); //load from localstorage
 

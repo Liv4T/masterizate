@@ -107,6 +107,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   methods: {
     logout: function logout() {
@@ -261,13 +272,44 @@ var staticRenderFns = [
       _vm._v(" "),
       _c("a", { attrs: { href: "/general" } }, [
         _c("li", { staticClass: "item-menu" }, [
-          _c("span", { staticClass: "menu" }, [_vm._v("PLANIFICACION GENERAL")])
+          _c(
+            "p",
+            {
+              staticStyle: {
+                "margin-top": "-9px",
+                "margin-bottom": "-29px",
+                "margin-left": "1rem"
+              }
+            },
+            [
+              _vm._v("\n                PLANIFICACION\n                "),
+              _c("br")
+            ]
+          ),
+          _vm._v(" "),
+          _c("p", { staticStyle: { "margin-left": "1rem" } }, [
+            _vm._v("\n                GENERAL                \n              ")
+          ])
         ])
       ]),
       _vm._v(" "),
       _c("a", { attrs: { href: "/plan_clases" } }, [
         _c("li", { staticClass: "item-menu" }, [
-          _c("span", { staticClass: "menu" }, [_vm._v("PLANIFICACION CLASES")])
+          _c(
+            "p",
+            {
+              staticStyle: {
+                "margin-top": "-9px",
+                "margin-bottom": "-29px",
+                "margin-left": "1rem"
+              }
+            },
+            [_vm._v("\n                PLANIFICACION\n              ")]
+          ),
+          _vm._v(" "),
+          _c("p", { staticStyle: { "margin-left": "1rem" } }, [
+            _vm._v(" \n                CLASES\n              ")
+          ])
         ])
       ]),
       _vm._v(" "),

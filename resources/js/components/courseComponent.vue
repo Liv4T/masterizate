@@ -260,7 +260,7 @@ export default {
             isLoading:false,
             showPiarPlan: false,
             showPIARPlanTrimestral: false,
-            activityForAllStudents:false,
+            activityForAllStudents:true,
             activityForPIARStudents: false,
             activityForSelectStudents: false,
             studentsOptions:[],
@@ -274,6 +274,7 @@ export default {
             if(newVal == true){
                 this.activityForPIARStudents = false;
                 this.activityForSelectStudents = false;
+                this.activityForAllStudents = true;
             }
         },
 
@@ -281,6 +282,7 @@ export default {
             if(newVal == true){
                 this.activityForAllStudents = false;
                 this.activityForSelectStudents = false;
+                this.activityForPIARStudents = true;
                 this.selectedStudentsData = this.piarStudents;
             }
         },
@@ -289,6 +291,7 @@ export default {
             if(newVal == true){
                 this.activityForPIARStudents = false;
                 this.activityForAllStudents = false;
+                this.activityForSelectStudents = true;
                 this.selectedStudentsData = this.studentsOptions;
             }
         },
@@ -299,7 +302,7 @@ export default {
             }
         },
     },
-    mounted() {
+    mounted() {            
         if(this.idArea){
             this.AreaId = this.idArea            
         }else{
@@ -354,10 +357,11 @@ export default {
                             })
                         })
                     });
-                    
-                    this.showPiarPlan = true,
-                    this.showPIARPlanTrimestral = true,
-                    this.activityForPIARStudents = true;
+                    if(this.piarStudents.length > 0){
+                        this.showPiarPlan = true,
+                        this.showPIARPlanTrimestral = true,
+                        this.activityForPIARStudents = true;
+                    }                    
                 }
             })
             

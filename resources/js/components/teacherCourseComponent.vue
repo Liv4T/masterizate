@@ -329,7 +329,7 @@ export default {
         }
     },
     mounted() {
-
+        this.activityForAllStudents = true;
         axios.get(`/showClass/${this.id_module}`).then((response) => {
             this.achievements=response.data.achievements;            
             this.nameArea = `${response.data.area.name} ${response.data.classroom.name}`;
