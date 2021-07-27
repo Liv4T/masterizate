@@ -50,7 +50,7 @@
                     <div class="div-classes">
                         <div class="div-class">
                             <div class="title row">
-                                <div class="col-8">
+                                <div class="col-12">
                                     <b>{{ $t('lang.menu.class') }}:</b>
                                     <input
                                         type="text"
@@ -59,7 +59,7 @@
                                         readonly
                                     />
                                 </div>
-                                <div class="col-4">
+                                <!-- <div class="col-4">
                                     <b>{{ $t('lang.class.intensity') }}:</b>
                                     <input
                                         type="number"
@@ -67,7 +67,7 @@
                                         v-model="course.hourly_intensity"
                                         readonly
                                     />
-                                </div>
+                                </div> -->
                             </div>
                             <div class="row">
                                 <div class="col-12">

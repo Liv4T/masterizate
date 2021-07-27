@@ -153,10 +153,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(__webpack_require__(/*! vue-moment */ "./node_modules/vue-moment/dist/vue-moment.js"));
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: ["user"],
   data: function data() {
     return {
       messages: [],
@@ -164,7 +171,8 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(__webpack_require__(/*! vue-momen
       editor: _ckeditor_ckeditor5_build_decoupled_document__WEBPACK_IMPORTED_MODULE_1___default.a,
       emessages: [],
       emisor: "",
-      asunto: ""
+      asunto: "",
+      showSection: "inicio"
     };
   },
   created: function created() {},
@@ -194,6 +202,12 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(__webpack_require__(/*! vue-momen
     onReady: function onReady(editor) {
       // Insert the toolbar before the editable area.
       editor.ui.getEditableElement().parentElement.insertBefore(editor.ui.view.toolbar.element, editor.ui.getEditableElement());
+    },
+    cleanShowSection: function cleanShowSection() {
+      this.showSection = 'inicio';
+    },
+    setShowSection: function setShowSection(data) {
+      this.showSection = data;
     }
   }
 });
@@ -215,195 +229,227 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "back" }, [
-    _c("div", { staticClass: "row justify-content-center" }, [
-      _c("div", { staticClass: "col-sm-10", attrs: { id: "crud" } }, [
-        _c("div", { staticClass: "card text-center" }, [
-          _c("h3", { staticClass: "card-header fondo" }, [_vm._v("Mensajes")]),
-          _vm._v(" "),
-          _c("div", { staticClass: "card-body" }, [
-            _c(
-              "a",
-              {
-                staticClass: "btn btn-warning float-right",
-                attrs: { href: "/redactar" }
-              },
-              [_vm._v("Redactar")]
-            ),
-            _vm._v(" "),
-            _c(
-              "a",
-              {
-                staticClass: "btn btn-warning float-left",
-                attrs: { href: "/enviados" }
-              },
-              [_vm._v("Mensajes enviados")]
-            ),
-            _vm._v(" "),
-            _c("br"),
-            _vm._v(" "),
-            _c("br"),
-            _vm._v(" "),
-            _c("br"),
-            _vm._v(" "),
-            _c(
-              "table",
-              {
-                staticClass:
-                  "table table-responsive-xl table-hover table-striped center"
-              },
-              [
-                _vm._m(0),
+  return _vm.showSection === "inicio"
+    ? _c("div", { staticClass: "back" }, [
+        _c("div", { staticClass: "row justify-content-center" }, [
+          _c("div", { staticClass: "col-sm-10", attrs: { id: "crud" } }, [
+            _c("div", { staticClass: "card text-center" }, [
+              _c("h3", { staticClass: "card-header fondo" }, [
+                _vm._v("Mensajes")
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "card-body" }, [
+                _c(
+                  "a",
+                  {
+                    staticClass: "btn btn-warning float-right",
+                    on: {
+                      click: function($event) {
+                        return _vm.setShowSection("redactar")
+                      }
+                    }
+                  },
+                  [_vm._v("Redactar")]
+                ),
                 _vm._v(" "),
-                _vm._l(_vm.messages, function(option, k) {
-                  return _c("tbody", { key: k }, [
-                    _c("tr", [
-                      _c("td", [_vm._v(_vm._s(option.emisor))]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(option.asunto))]),
-                      _vm._v(" "),
-                      _c("td", [
-                        _vm._v(
-                          "\n                                    " +
-                            _vm._s(
-                              _vm._f("moment")(
-                                option.fecha.date,
-                                "dddd, MMMM Do YYYY"
-                              )
-                            ) +
-                            "\n                                "
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("td", { staticClass: "float-right" }, [
-                        _c(
-                          "a",
-                          {
-                            staticClass: "btn btn-sm",
-                            staticStyle: { color: "grey" },
-                            attrs: { href: "#" },
-                            on: {
-                              click: function($event) {
-                                $event.preventDefault()
-                                return _vm.editMessage(option.id)
-                              }
-                            }
-                          },
-                          [_c("i", { staticClass: "fa fa-eye" })]
-                        )
+                _c(
+                  "a",
+                  {
+                    staticClass: "btn btn-warning float-left",
+                    on: {
+                      click: function($event) {
+                        return _vm.setShowSection("sendMessage")
+                      }
+                    }
+                  },
+                  [_vm._v("Mensajes enviados")]
+                ),
+                _vm._v(" "),
+                _c("br"),
+                _vm._v(" "),
+                _c("br"),
+                _vm._v(" "),
+                _c("br"),
+                _vm._v(" "),
+                _c(
+                  "table",
+                  {
+                    staticClass:
+                      "table table-responsive-xl table-hover table-striped center"
+                  },
+                  [
+                    _vm._m(0),
+                    _vm._v(" "),
+                    _vm._l(_vm.messages, function(option, k) {
+                      return _c("tbody", { key: k }, [
+                        _c("tr", [
+                          _c("td", [_vm._v(_vm._s(option.emisor))]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(option.asunto))]),
+                          _vm._v(" "),
+                          _c("td", [
+                            _vm._v(
+                              "\n                                    " +
+                                _vm._s(
+                                  _vm._f("moment")(
+                                    option.fecha.date,
+                                    "dddd, MMMM Do YYYY"
+                                  )
+                                ) +
+                                "\n                                "
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("td", { staticClass: "float-right" }, [
+                            _c(
+                              "a",
+                              {
+                                staticClass: "btn btn-sm",
+                                staticStyle: { color: "grey" },
+                                attrs: { href: "#" },
+                                on: {
+                                  click: function($event) {
+                                    $event.preventDefault()
+                                    return _vm.editMessage(option.id)
+                                  }
+                                }
+                              },
+                              [_c("i", { staticClass: "fa fa-eye" })]
+                            )
+                          ])
+                        ])
                       ])
+                    })
+                  ],
+                  2
+                )
+              ])
+            ]),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "modal fade", attrs: { id: "createMessage" } },
+              [
+                _c("div", { staticClass: "modal-dialog modal-lg" }, [
+                  _c("div", { staticClass: "modal-content" }, [
+                    _c("div", { staticClass: "card" }, [
+                      _vm._m(1),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticClass: "card-body" },
+                        [
+                          _c("div", { staticClass: "form-group row" }, [
+                            _vm._m(2),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "col-md-10" }, [
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.emisor,
+                                    expression: "emisor"
+                                  }
+                                ],
+                                staticClass: "input-mensaje",
+                                attrs: {
+                                  id: "nombre",
+                                  name: "nombre",
+                                  placeholder: "Asunto",
+                                  disabled: ""
+                                },
+                                domProps: { value: _vm.emisor },
+                                on: {
+                                  input: function($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.emisor = $event.target.value
+                                  }
+                                }
+                              })
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "form-group row" }, [
+                            _vm._m(3),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "col-md-10" }, [
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.asunto,
+                                    expression: "asunto"
+                                  }
+                                ],
+                                staticClass: "input-mensaje",
+                                attrs: {
+                                  id: "nombre",
+                                  name: "nombre",
+                                  placeholder: "Asunto",
+                                  disabled: ""
+                                },
+                                domProps: { value: _vm.asunto },
+                                on: {
+                                  input: function($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.asunto = $event.target.value
+                                  }
+                                }
+                              })
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _vm._m(4),
+                          _vm._v(" "),
+                          _c("ckeditor", {
+                            attrs: { editor: _vm.editor },
+                            on: { ready: _vm.onReady },
+                            model: {
+                              value: _vm.editorData,
+                              callback: function($$v) {
+                                _vm.editorData = $$v
+                              },
+                              expression: "editorData"
+                            }
+                          })
+                        ],
+                        1
+                      )
                     ])
                   ])
-                })
-              ],
-              2
+                ])
+              ]
             )
           ])
-        ]),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "modal fade", attrs: { id: "createMessage" } },
-          [
-            _c("div", { staticClass: "modal-dialog modal-lg" }, [
-              _c("div", { staticClass: "modal-content" }, [
-                _c("div", { staticClass: "card" }, [
-                  _vm._m(1),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    { staticClass: "card-body" },
-                    [
-                      _c("div", { staticClass: "form-group row" }, [
-                        _vm._m(2),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "col-md-10" }, [
-                          _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.emisor,
-                                expression: "emisor"
-                              }
-                            ],
-                            staticClass: "input-mensaje",
-                            attrs: {
-                              id: "nombre",
-                              name: "nombre",
-                              placeholder: "Asunto",
-                              disabled: ""
-                            },
-                            domProps: { value: _vm.emisor },
-                            on: {
-                              input: function($event) {
-                                if ($event.target.composing) {
-                                  return
-                                }
-                                _vm.emisor = $event.target.value
-                              }
-                            }
-                          })
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "form-group row" }, [
-                        _vm._m(3),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "col-md-10" }, [
-                          _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.asunto,
-                                expression: "asunto"
-                              }
-                            ],
-                            staticClass: "input-mensaje",
-                            attrs: {
-                              id: "nombre",
-                              name: "nombre",
-                              placeholder: "Asunto",
-                              disabled: ""
-                            },
-                            domProps: { value: _vm.asunto },
-                            on: {
-                              input: function($event) {
-                                if ($event.target.composing) {
-                                  return
-                                }
-                                _vm.asunto = $event.target.value
-                              }
-                            }
-                          })
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _vm._m(4),
-                      _vm._v(" "),
-                      _c("ckeditor", {
-                        attrs: { editor: _vm.editor },
-                        on: { ready: _vm.onReady },
-                        model: {
-                          value: _vm.editorData,
-                          callback: function($$v) {
-                            _vm.editorData = $$v
-                          },
-                          expression: "editorData"
-                        }
-                      })
-                    ],
-                    1
-                  )
-                ])
-              ])
-            ])
-          ]
-        )
+        ])
       ])
-    ])
-  ])
+    : _vm.showSection === "redactar"
+    ? _c(
+        "div",
+        [
+          _c("redactar-component", {
+            attrs: { user: _vm.user, cleanShowSection: _vm.cleanShowSection }
+          })
+        ],
+        1
+      )
+    : _vm.showSection === "sendMessage"
+    ? _c(
+        "div",
+        [
+          _c("mensajesenv-component", {
+            attrs: { user: _vm.user, cleanShowSection: _vm.cleanShowSection }
+          })
+        ],
+        1
+      )
+    : _vm._e()
 }
 var staticRenderFns = [
   function() {

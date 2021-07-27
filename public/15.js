@@ -104,6 +104,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 moment__WEBPACK_IMPORTED_MODULE_1___default.a.tz.setDefault("America/Bogota");
@@ -219,7 +231,10 @@ moment__WEBPACK_IMPORTED_MODULE_1___default.a.locale("es");
       colorTitle: "",
       lectivs: false,
       idModule: "",
-      idClass: ""
+      idClass: "",
+      planif: "claseEst",
+      showSection: "inicio",
+      groups: {}
     };
   },
   mounted: function mounted() {
@@ -316,6 +331,21 @@ moment__WEBPACK_IMPORTED_MODULE_1___default.a.locale("es");
     nameMinus: function nameMinus(name) {
       var nameMinus = name.toLowerCase();
       return nameMinus.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    },
+    showOtherSection: function showOtherSection(data) {
+      var _this4 = this;
+
+      if (data === 'chat') {
+        axios.get('/chat2').then(function (response) {
+          _this4.groups = response.data;
+        });
+      }
+
+      this.showSection = data;
+    },
+    cleanOtherSection: function cleanOtherSection() {
+      this.showSection = 'inicio';
+      this.groups = {};
     }
   },
   filters: {
@@ -466,13 +496,16 @@ var render = function() {
                   style: area.style,
                   attrs: { href: "http://" },
                   on: {
-                    click: function($event) {
-                      $event.preventDefault()
-                      ;(_vm.nameArea = area.text),
-                        (_vm.colorTitle = area.titleColor),
-                        (_vm.idArea = area.id),
-                        (_vm.idClassroom = area.id_classroom)
-                    }
+                    click: [
+                      _vm.cleanOtherSection,
+                      function($event) {
+                        $event.preventDefault()
+                        ;(_vm.nameArea = area.text),
+                          (_vm.colorTitle = area.titleColor),
+                          (_vm.idArea = area.id),
+                          (_vm.idClassroom = area.id_classroom)
+                      }
+                    ]
                   }
                 },
                 [
@@ -499,35 +532,44 @@ var render = function() {
     _vm._v(" "),
     _vm.nameArea != ""
       ? _c("div", [
-          _c("div", { staticClass: "form-group text-center" }, [
-            _c(
-              "a",
-              {
-                staticClass: "btn btn-warning letra-poppins-bold",
-                style: _vm.colorTitle + " border-color: #ffa4f2;",
-                attrs: { href: "" }
-              },
-              [
-                _c("h1", { staticStyle: { color: "black" } }, [
-                  _vm._v(
-                    _vm._s(_vm.$t("lang.area." + _vm.nameMinus(_vm.nameArea)))
-                  )
-                ])
-              ]
-            )
-          ]),
+          _vm.showSection === "inicio"
+            ? _c("div", { staticClass: "form-group text-center" }, [
+                _c(
+                  "a",
+                  {
+                    staticClass: "btn btn-warning letra-poppins-bold",
+                    style: _vm.colorTitle + " border-color: #ffa4f2;",
+                    attrs: { href: "" }
+                  },
+                  [
+                    _c("h1", { staticStyle: { color: "black" } }, [
+                      _vm._v(
+                        _vm._s(
+                          _vm.$t("lang.area." + _vm.nameMinus(_vm.nameArea))
+                        )
+                      )
+                    ])
+                  ]
+                )
+              ])
+            : _vm._e(),
           _vm._v(" "),
           _c("div", { staticClass: "row" }, [
             _c("div", { staticClass: "col-md-2 pd-20 flotante" }, [
               _c(
-                "a",
+                "button",
                 {
                   staticClass: "btn btn-warning letra-poppins-bold mg-btn",
                   staticStyle: {
                     "background-color": "#e26100",
                     "border-color": "#e26100"
                   },
-                  attrs: { href: "/chat" }
+                  attrs: { type: "button" },
+                  on: {
+                    click: function($event) {
+                      return _vm.showOtherSection("chat")
+                    }
+                  }
                 },
                 [
                   _c("h4", [
@@ -557,14 +599,19 @@ var render = function() {
               _c("br"),
               _vm._v(" "),
               _c(
-                "a",
+                "button",
                 {
                   staticClass: "btn btn-warning letra-poppins-bold mg-btn",
                   staticStyle: {
                     "background-color": "#e26100",
                     "border-color": "#e26100"
                   },
-                  attrs: { href: "/mensajes" }
+                  attrs: { type: "button" },
+                  on: {
+                    click: function($event) {
+                      return _vm.showOtherSection("message")
+                    }
+                  }
                 },
                 [
                   _c("h4", [
@@ -579,153 +626,176 @@ var render = function() {
               "div",
               { staticClass: "col-md-9 mx-auto", attrs: { id: "tabs" } },
               [
-                _c("div", { staticClass: "tabs" }, [
-                  _c(
-                    "a",
-                    {
-                      class: [_vm.activetab === 1 ? "active" : ""],
-                      on: {
-                        click: function($event) {
-                          _vm.activetab = 1
-                        }
-                      }
-                    },
-                    [
-                      _c("h2", { staticClass: "letra-poppins-bold" }, [
-                        _vm._v(
-                          _vm._s(_vm.$t("lang.menu.calendar").toUpperCase())
-                        )
-                      ])
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "a",
-                    {
-                      class: [_vm.activetab === 2 ? "active" : ""],
-                      on: {
-                        click: function($event) {
-                          _vm.activetab = 2
-                        }
-                      }
-                    },
-                    [
-                      _c("h2", { staticClass: "letra-poppins-bold" }, [
-                        _vm._v(_vm._s(_vm.$t("lang.menu.class").toUpperCase()))
-                      ])
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "a",
-                    {
-                      class: [_vm.activetab === 3 ? "active" : ""],
-                      on: {
-                        click: function($event) {
-                          _vm.activetab = 3
-                        }
-                      }
-                    },
-                    [
-                      _c("h2", { staticClass: "letra-poppins-bold" }, [
-                        _vm._v(
-                          _vm._s(_vm.$t("lang.menu.homework").toUpperCase())
-                        )
-                      ])
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "a",
-                    {
-                      class: [_vm.activetab === 4 ? "active" : ""],
-                      on: {
-                        click: function($event) {
-                          _vm.activetab = 4
-                        }
-                      }
-                    },
-                    [
-                      _c("h2", { staticClass: "letra-poppins-bold" }, [
-                        _vm._v(_vm._s(_vm.$t("lang.menu.grades").toUpperCase()))
-                      ])
-                    ]
-                  )
-                ]),
+                _vm.showSection === "inicio"
+                  ? _c("div", { staticClass: "tabs" }, [
+                      _c(
+                        "a",
+                        {
+                          class: [_vm.activetab === 1 ? "active" : ""],
+                          on: {
+                            click: function($event) {
+                              _vm.activetab = 1
+                            }
+                          }
+                        },
+                        [
+                          _c("h2", { staticClass: "letra-poppins-bold" }, [
+                            _vm._v(
+                              _vm._s(_vm.$t("lang.menu.calendar").toUpperCase())
+                            )
+                          ])
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "a",
+                        {
+                          class: [_vm.activetab === 2 ? "active" : ""],
+                          on: {
+                            click: function($event) {
+                              _vm.activetab = 2
+                            }
+                          }
+                        },
+                        [
+                          _c("h2", { staticClass: "letra-poppins-bold" }, [
+                            _vm._v(
+                              _vm._s(_vm.$t("lang.menu.class").toUpperCase())
+                            )
+                          ])
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "a",
+                        {
+                          class: [_vm.activetab === 3 ? "active" : ""],
+                          on: {
+                            click: function($event) {
+                              _vm.activetab = 3
+                            }
+                          }
+                        },
+                        [
+                          _c("h2", { staticClass: "letra-poppins-bold" }, [
+                            _vm._v(
+                              _vm._s(_vm.$t("lang.menu.homework").toUpperCase())
+                            )
+                          ])
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "a",
+                        {
+                          class: [_vm.activetab === 4 ? "active" : ""],
+                          on: {
+                            click: function($event) {
+                              _vm.activetab = 4
+                            }
+                          }
+                        },
+                        [
+                          _c("h2", { staticClass: "letra-poppins-bold" }, [
+                            _vm._v(
+                              _vm._s(_vm.$t("lang.menu.grades").toUpperCase())
+                            )
+                          ])
+                        ]
+                      )
+                    ])
+                  : _vm._e(),
                 _vm._v(" "),
-                _c("div", { staticClass: "content-azul" }, [
-                  _vm.activetab === 1
-                    ? _c(
-                        "div",
-                        { staticClass: "tabcontent" },
-                        [
-                          _c("calendar-component", {
-                            attrs: { type_u: 3, user: _vm.user }
-                          })
-                        ],
-                        1
-                      )
-                    : _vm._e(),
-                  _vm._v(" "),
-                  _vm.activetab === 2
-                    ? _c(
-                        "div",
-                        { staticClass: "tabcontent" },
-                        [
-                          _c("student-courses", {
-                            attrs: {
-                              nameArea: _vm.nameArea,
-                              planifications: _vm.planifications,
-                              id_lective_planification:
-                                _vm.id_lective_planification,
-                              idClass: _vm.idClass,
-                              moduleId: _vm.idModule
-                            }
-                          })
-                        ],
-                        1
-                      )
-                    : _vm._e(),
-                  _vm._v(" "),
-                  _vm.activetab === 3
-                    ? _c(
-                        "div",
-                        { staticClass: "tabcontent" },
-                        [
-                          _c("repo-student", {
-                            attrs: {
-                              nameArea: _vm.nameArea,
-                              planifications: _vm.planifications,
-                              id_lective_planification:
-                                _vm.id_lective_planification
-                            }
-                          })
-                        ],
-                        1
-                      )
-                    : _vm._e(),
-                  _vm._v(" "),
-                  _vm.activetab === 4
-                    ? _c(
-                        "div",
-                        { staticClass: "tabcontent" },
-                        [
-                          _c("notas-component", {
-                            attrs: {
-                              idArea: _vm.idArea,
-                              idClassroom: _vm.idClassroom,
-                              user: _vm.user,
-                              nameArea: _vm.nameArea,
-                              planifications: _vm.planifications,
-                              id_lective_planification:
-                                _vm.id_lective_planification
-                            }
-                          })
-                        ],
-                        1
-                      )
-                    : _vm._e()
-                ])
+                _vm.showSection === "inicio"
+                  ? _c("div", { staticClass: "content-azul" }, [
+                      _vm.activetab === 1
+                        ? _c(
+                            "div",
+                            { staticClass: "tabcontent" },
+                            [
+                              _c("calendar-component", {
+                                attrs: { type_u: 3, user: _vm.user }
+                              })
+                            ],
+                            1
+                          )
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _vm.activetab === 2
+                        ? _c(
+                            "div",
+                            { staticClass: "tabcontent" },
+                            [
+                              _c("cycle-list", {
+                                attrs: {
+                                  idArea: _vm.idArea + "/" + _vm.idClassroom,
+                                  planif: _vm.planif,
+                                  moduleId: _vm.idModule,
+                                  user: _vm.user
+                                }
+                              })
+                            ],
+                            1
+                          )
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _vm.activetab === 3
+                        ? _c(
+                            "div",
+                            { staticClass: "tabcontent" },
+                            [
+                              _c("repo-student", {
+                                attrs: {
+                                  nameArea: _vm.nameArea,
+                                  planifications: _vm.planifications,
+                                  id_lective_planification:
+                                    _vm.id_lective_planification
+                                }
+                              })
+                            ],
+                            1
+                          )
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _vm.activetab === 4
+                        ? _c(
+                            "div",
+                            { staticClass: "tabcontent" },
+                            [
+                              _c("notas-component", {
+                                attrs: {
+                                  idArea: _vm.idArea,
+                                  idClassroom: _vm.idClassroom,
+                                  user: _vm.user,
+                                  nameArea: _vm.nameArea,
+                                  planifications: _vm.planifications,
+                                  id_lective_planification:
+                                    _vm.id_lective_planification
+                                }
+                              })
+                            ],
+                            1
+                          )
+                        : _vm._e()
+                    ])
+                  : _vm.showSection === "chat"
+                  ? _c(
+                      "div",
+                      _vm._l(_vm.groups, function(group) {
+                        return _c("group-chat", {
+                          key: group.id,
+                          attrs: { group: group, user_auth: _vm.user }
+                        })
+                      }),
+                      1
+                    )
+                  : _vm.showSection === "message"
+                  ? _c(
+                      "div",
+                      [_c("mensajes-component", { attrs: { user: _vm.user } })],
+                      1
+                    )
+                  : _vm._e()
               ]
             )
           ]),

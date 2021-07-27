@@ -122,8 +122,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["idArea", "planif"],
+  props: ["idArea", "planif", "moduleId", "user"],
   data: function data() {
     return {
       cycles: [],
@@ -133,11 +144,15 @@ __webpack_require__.r(__webpack_exports__);
       id_area: "",
       id_classroom: "",
       showCycle: "true",
+      clasId: "",
+      idTrimestre: "",
+      orden: "",
       clase_to_delete: [],
-      id_cycle: ""
+      id_cicle: ""
     };
   },
   mounted: function mounted() {
+    console.log(this.user);
     this.planification = this.planif;
     this.getData();
   },
@@ -171,9 +186,21 @@ __webpack_require__.r(__webpack_exports__);
               }
             }
           });
+        } else if (_this2.planif === 'claseEst') {
+          var urlsel = "/viewGetWeek/" + _this2.idArea + '/' + id_trimestre;
+          axios.get(urlsel).then(function (response) {
+            var data = response.data;
+            console.log('data estudiante: ', response.data);
+            data.forEach(function (element) {
+              _this2.cycles.push({
+                driving_question: element.text,
+                "class": element["class"],
+                id: element.id,
+                observation: element.observation
+              });
+            });
+          });
         }
-
-        console.log(_this2.cycles);
       });
     },
     getCycle: function getCycle(cycle) {
@@ -185,13 +212,16 @@ __webpack_require__.r(__webpack_exports__);
       this.id_area = "";
       this.id_classroom = "";
       this.showCycle = "true";
+      this.clasId = "";
+      this.idTrimestre = "";
+      this.orden = "";
     },
     getEditCycle: function getEditCycle(cycle) {
-      this.id_cycle = cycle.id;
       var data = this.idArea.split("/");
       this.id_area = data[0];
       this.id_classroom = data[1];
       this.showCycle = "semanalAct";
+      this.id_cicle = cycle.id;
     },
     RequestPermissions: function RequestPermissions(data, curso) {
       console.log(data);
@@ -235,6 +265,19 @@ __webpack_require__.r(__webpack_exports__);
 
         window.location = "/docente/clases";
       });
+    },
+    showModuleStudent: function showModuleStudent(cycle) {
+      this.showCycle = "student";
+      this.clasId = cycle.id;
+      console.log(cycle);
+    },
+    getOrderCycle: function getOrderCycle(id_trimestre, orden) {
+      var data = this.idArea.split("/");
+      this.id_area = data[0];
+      this.id_classroom = data[1];
+      this.idTrimestre = id_trimestre;
+      this.orden = orden;
+      this.showCycle = "courseSemanal";
     }
   }
 });
@@ -353,24 +396,25 @@ var render = function() {
                       }
                     },
                     [
-                      _c("div", { staticStyle: { padding: "20px" } }, [
-                        _c(
-                          "a",
-                          {
-                            staticClass: "btn btn-warning float-left",
-                            attrs: {
-                              href:
-                                "crear_semana/" +
-                                _vm.idArea +
-                                "/" +
-                                trimestre.id +
-                                "/" +
-                                (t + 1)
-                            }
-                          },
-                          [_vm._v("Crear")]
-                        )
-                      ]),
+                      _vm.user.type_user !== 3
+                        ? _c("div", { staticStyle: { padding: "20px" } }, [
+                            _c(
+                              "a",
+                              {
+                                staticClass: "btn btn-warning float-left",
+                                on: {
+                                  click: function($event) {
+                                    return _vm.getOrderCycle(
+                                      trimestre.id,
+                                      t + 1
+                                    )
+                                  }
+                                }
+                              },
+                              [_vm._v("Crear")]
+                            )
+                          ])
+                        : _vm._e(),
                       _vm._v(" "),
                       _c("div", { staticClass: "card-body" }, [
                         _c(
@@ -408,7 +452,7 @@ var render = function() {
                                                   }
                                                 }
                                               },
-                                              [_vm._v("Ir a clase")]
+                                              [_vm._v("Ir a Ciclo")]
                                             )
                                           ])
                                         ])
@@ -472,6 +516,25 @@ var render = function() {
                                               : _vm._e()
                                           ])
                                         ])
+                                      : _vm.planification === "claseEst"
+                                      ? _c("td", [
+                                          _c("p", [
+                                            _c(
+                                              "button",
+                                              {
+                                                staticClass: "btn btn-warning",
+                                                on: {
+                                                  click: function($event) {
+                                                    return _vm.showModuleStudent(
+                                                      cycle
+                                                    )
+                                                  }
+                                                }
+                                              },
+                                              [_vm._v("Ir a Ciclo")]
+                                            )
+                                          ])
+                                        ])
                                       : _vm._e()
                                   ])
                                 })
@@ -509,7 +572,7 @@ var render = function() {
               id_area: _vm.id_area,
               id_classroom: _vm.id_classroom,
               cleanIdModule: _vm.cleanIdModule,
-              id_cycle: _vm.id_cycle
+              id_cycle: _vm.id_cicle
             }
           }),
           _vm._v(" "),
@@ -603,6 +666,36 @@ var render = function() {
               )
             ]
           )
+        ],
+        1
+      )
+    : _vm.showCycle === "student"
+    ? _c(
+        "div",
+        [
+          _c("student-module", {
+            attrs: {
+              clasId: _vm.clasId,
+              cleanClasId: _vm.cleanIdModule,
+              moduleId: _vm.moduleId
+            }
+          })
+        ],
+        1
+      )
+    : _vm.showCycle === "courseSemanal"
+    ? _c(
+        "div",
+        [
+          _c("semanal-component", {
+            attrs: {
+              id_area: _vm.id_area,
+              id_classroom: _vm.id_classroom,
+              id_trimestre: _vm.idTrimestre,
+              orden: _vm.orden,
+              cleanClasId: _vm.cleanIdModule
+            }
+          })
         ],
         1
       )

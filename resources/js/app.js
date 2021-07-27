@@ -361,6 +361,7 @@ Vue.component("cycle-list", ()=>import("./components/cycleList.vue"));
 Vue.component("modal-create-trimestre", ()=>import("./components/modalCreateTrimestre.vue"));
 Vue.component("trimestres", ()=>import("./components/trimestreAdm.vue"));
 Vue.component("activities-teacher",()=>import("./components/ActivityTeacherComponent.vue"));
+Vue.component("trimestre-component",()=>import("./components/trimestreComponent.vue"))
 
 Vue.use(CKEditor);
 

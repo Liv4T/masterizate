@@ -21,7 +21,7 @@
             />
         </head>
         <div>
-            <div class="row">
+            <div class="container-fluid">
                 <div class="col-md-12 mx-auto">
                     <div class="custom-card text-center">
                         <h3 class="card-header fondo">Planificación general</h3>                        
@@ -150,7 +150,7 @@
                                             ></textarea>
                                         </div>
                                     </div>                              
-                                    <button class="btn btn-primary" style="float: right;margin-top: 13px;" v-on:click="createCourses">Guardar</button>
+                                    <button type="button" class="btn btn-primary" style="float: right;margin-top: 13px;" v-on:click="createCourses">Guardar</button>
                             <!-- </form-wizard>             -->
                         </form>
                     </div>
@@ -265,7 +265,8 @@ export default {
             activityForSelectStudents: false,
             studentsOptions:[],
             saveStudent:[],
-            piarStudents:[]
+            piarStudents:[],
+            AreaId:""
         };
     },
     watch: {
@@ -293,23 +294,33 @@ export default {
         },
         
         idArea(newVal, oldVal){
-            if(newVal !== oldVal){
+            if(newVal !== oldVal){                
                 this.getData();
             }
         },
     },
     mounted() {
+        if(this.idArea){
+            this.AreaId = this.idArea            
+        }else{
+            
+            let params = window.location.pathname;
+            let ids = params.split('/');
+                
+            let idArea = ids[2]+"/"+ids[3];
+            this.AreaId = idArea;
+        }
         this.getData();
     },
     methods: {
         getData(){
-            axios.get(`/PIARStudentsByArea/${this.idArea}`).then((response)=>{
+            axios.get(`/PIARStudentsByArea/${this.AreaId}`).then((response)=>{
                 this.piarStudents = Object.values(response.data);
             }).catch((error)=>{
                 console.log(error)
             })
 
-            axios.get(`/StudentsByArea/${this.idArea}`).then((response)=>{
+            axios.get(`/StudentsByArea/${this.AreaId}`).then((response)=>{
                 let data = response.data;
                 data.forEach((e)=>{
                     this.studentsOptions.push({
@@ -351,9 +362,9 @@ export default {
             })
             
             //load from localstorage
-            this.serialLocalStorage=this.serialLocalStorage+"-"+this.idArea;
+            this.serialLocalStorage=this.serialLocalStorage+"-"+this.AreaId;
 
-            var urlsel = window.location.origin + "/coursePlanification/" + this.idArea;
+            var urlsel = window.location.origin + "/coursePlanification/" + this.AreaId;
             axios.get(urlsel).then((response) => {
                 this.fillC = response.data;
                 //set current data
@@ -473,8 +484,8 @@ export default {
                 }
 
                 axios.post(url, {
-                    id_area: this.idArea.substring(0, this.idArea.lastIndexOf("/") ),
-                    id_classroom: this.idArea[2],
+                    id_area: this.AreaId.substring(0, this.AreaId.lastIndexOf("/") ),
+                    id_classroom: this.AreaId[2],
                     logros: this.newLogro,
                     trimestres: this.newTrimestre,
                 }).then((response) => {
@@ -510,10 +521,11 @@ export default {
 
                 axios.post('/piarAnualPlanification', {
                     //Cursos generales
-                    id_area: this.idArea.substring(0, this.idArea.lastIndexOf("/") ),
-                    id_classroom: this.idArea[2],
+                    id_area: this.AreaId.substring(0, this.AreaId.lastIndexOf("/") ),
+                    id_classroom: this.AreaId[2],
                     trimestres: JSON.stringify(this.newTrimestre),
                     students: JSON.stringify(this.saveStudent),
+                    logros: JSON.stringify(this.inputsPIAR)
                 }).then((response) => {
                     this.errors = [];
                     toastr.success(response.data);

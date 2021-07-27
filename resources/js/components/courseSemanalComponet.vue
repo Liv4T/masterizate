@@ -1,5 +1,5 @@
 <template>
-  <div class="back">
+  <div>
         <div class="col-md-12 mx-auto">
           <div class="custom-card text-center">
             <h3 class="card-header fondo">Mis Cursos</h3>
@@ -85,9 +85,9 @@
                       <textarea type="text" name="ajustes" class="form-control" v-model="input.ajustes"> </textarea>
                     </div>
                   </div>
-                  <!-- <div class="modal-footer">
-                    <a href="#" class="btn btn-warning float-right">Guardar</a>
-                  </div>-->
+                  <div class="modal-footer">
+                    <a v-on:click="cleanClasId" style="margin-right: auto;" class="btn btn-warning">Volver</a>
+                  </div>
                 </tab-content>
               </form-wizard>
             </form>
@@ -141,7 +141,7 @@ import VueFormWizard from "vue-form-wizard";
 import "vue-form-wizard/dist/vue-form-wizard.min.css";
 Vue.use(VueFormWizard);
 export default {
-  props: ["id_area", "id_classroom", "id_trimestre", "orden"],
+  props: ["id_area", "id_classroom", "id_trimestre", "orden","cleanClasId"],
   data() {
     return {
       inputs: [
@@ -197,7 +197,7 @@ export default {
       this.inputsClass[index].splice(index, 1);
     },
     getMenu() {
-      window.location = "/actividad_g";
+      this.cleanClasId();
     },
     createSemana() {
       var url = window.location.origin + "/courseWeekly";

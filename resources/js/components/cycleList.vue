@@ -25,8 +25,8 @@
                   aria-labelledby="heading"
                   data-parent="#accordionExample"
                 >
-                <div style="padding:20px;">
-                    <a :href="'crear_semana/'+idArea+'/'+trimestre.id+'/'+(t+1)" class="btn btn-warning float-left">Crear</a>
+                <div v-if="user.type_user !== 3" style="padding:20px;">
+                    <a v-on:click="getOrderCycle(trimestre.id,t+1)" class="btn btn-warning float-left">Crear</a>
                 </div>
                 <div class="card-body">
                     <table class="table table-responsive-xl table-hover table-striped center">
@@ -45,7 +45,7 @@
 
                                 <td v-if="planification === 'clase'">
                                     <p>
-                                        <button class="btn btn-warning" v-on:click="()=>getCycle(cycle)">Ir a clase</button>
+                                        <button class="btn btn-warning" v-on:click="()=>getCycle(cycle)">Ir a Ciclo</button>
                                     </p>
                                 </td>
                                 <td v-else-if="planification === 'general'">
@@ -53,6 +53,11 @@
                                         <button class="btn btn-warning" v-on:click="()=>getEditCycle(cycle)">Editar</button>                  
                                         <button class="btn btn-primary" v-if="cycle.activateButton === 'true'" v-on:click="()=>ClassAndCicle(cycle.id)" >Eliminar</button>                      
                                         <button class="btn btn-primary" v-if="cycle.activateButton === 'false'" v-on:click="()=>RequestPermissions(cycle, cycle.driving_question)">Solicitar Permiso para Eliminar</button>
+                                    </p>
+                                </td>
+                                <td v-else-if="planification === 'claseEst'">
+                                    <p>
+                                        <button class="btn btn-warning" v-on:click="showModuleStudent(cycle)">Ir a Ciclo</button>
                                     </p>
                                 </td>
 
@@ -70,7 +75,7 @@
     <teacher-module :id_module="idModule" :cleanIdModule="cleanIdModule"></teacher-module>
 </div>
 <div v-else-if="showCycle === 'semanalAct' ">
-    <semanalact-component :id_area="id_area" :id_classroom="id_classroom" :cleanIdModule="cleanIdModule" :id_cycle="id_cycle"></semanalact-component>
+    <semanalact-component :id_area="id_area" :id_classroom="id_classroom" :cleanIdModule="cleanIdModule" :id_cycle="id_cicle"></semanalact-component>
     <div class="modal fade" id="infoClass" tabindex="-1" role="dialog" aria-labelledby="infoClassLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -110,10 +115,16 @@
         </div>
     </div>
 </div>
+<div v-else-if="showCycle==='student'">
+    <student-module :clasId="clasId" :cleanClasId="cleanIdModule" :moduleId="moduleId"></student-module>
+</div>
+<div v-else-if="showCycle==='courseSemanal'">
+    <semanal-component :id_area="id_area" :id_classroom="id_classroom" :id_trimestre="idTrimestre" :orden="orden" :cleanClasId="cleanIdModule"></semanal-component>
+</div>
 </template>
 <script>
 export default {
-    props:["idArea","planif"],
+    props:["idArea","planif","moduleId","user"],
     data() {
         return {
             cycles:[],
@@ -123,11 +134,15 @@ export default {
             id_area: "",
             id_classroom:"",
             showCycle:"true",
+            clasId:"",
+            idTrimestre:"",
+            orden:"",
             clase_to_delete:[],
-            id_cycle: "",
+            id_cicle:""
         };
     },
     mounted(){
+        console.log(this.user)
         this.planification= this.planif;
         this.getData();
     },
@@ -157,9 +172,21 @@ export default {
                             }
                         }                                            
                     })
-                } 
-                
-                console.log(this.cycles);
+                } else if(this.planif === 'claseEst'){
+                    var urlsel = "/viewGetWeek/" + this.idArea +'/'+id_trimestre;
+                    axios.get(urlsel).then((response) => {
+                       let data = response.data;
+                       console.log('data estudiante: ',response.data)
+                       data.forEach((element)=>{
+                           this.cycles.push({
+                                driving_question: element.text,
+                                class: element.class,
+                                id: element.id,
+                                observation: element.observation
+                           })
+                       })
+                    });
+                }
             });
         },
 
@@ -173,14 +200,17 @@ export default {
             this.id_area="";
             this.id_classroom="";
             this.showCycle ="true";
+            this.clasId="";
+            this.idTrimestre="";
+            this.orden="";
         },
         
         getEditCycle(cycle){
-            this.id_cycle = cycle.id
             let data = this.idArea.split("/");
             this.id_area=data[0];
             this.id_classroom = data[1];
-            this.showCycle ="semanalAct"
+            this.showCycle ="semanalAct";
+            this.id_cicle = cycle.id;
         },
 
         RequestPermissions(data, curso){
@@ -225,6 +255,19 @@ export default {
                 window.location = "/docente/clases";
             });
         },
+        showModuleStudent(cycle){
+            this.showCycle = "student";
+            this.clasId = cycle.id;
+            console.log(cycle)
+        },
+        getOrderCycle(id_trimestre, orden){
+            let data = this.idArea.split("/");
+            this.id_area=data[0];
+            this.id_classroom = data[1];
+            this.idTrimestre= id_trimestre;
+            this.orden=orden;
+            this.showCycle = "courseSemanal"
+        }
     },
 };
 </script>

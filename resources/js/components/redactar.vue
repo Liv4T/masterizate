@@ -118,7 +118,7 @@
     // register globally
     Vue.component("multiselect", Multiselect);
     export default {
-        props: ['user'],
+        props: ['user','cleanShowSection'],
         // OR register locally
         components: {
             Multiselect,
@@ -356,7 +356,11 @@
         },
         methods: {
             getMenu() {
-                window.location = "/enviados";
+                if(this.cleanShowSection){
+                    this.cleanShowSection();
+                }else{
+                    window.location = "/enviados";
+                }
             },
             addTaga(newTag) {
                 const tag = {

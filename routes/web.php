@@ -327,6 +327,7 @@ Route::get('/compra/plan/tutoria/{tutor_schedule_student_id}/{tutorschedule_id}/
     return view('purchaseTutoriaResume')->with('tutor_schedule_student_id', $tutor_schedule_student_id)->with('tutorschedule_id', $tutorschedule_id);
 });
 Route::middleware('auth')->get('/chat', 'HomeController@CreateGroup')->name('chat');
+Route::middleware('auth')->get('/chat2', 'HomeController@CreateGroup2');
 // Lessons
 Route::middleware('auth')->delete('lessons/destroy', 'LessonsController@massDestroy')->name('lessons.massDestroy');
 Route::resource('lessons', 'LessonsController');
@@ -444,7 +445,7 @@ Route::delete('DeleteCicle/{id_cicle}', 'CoursesController@destroy');
 Route::get('editGetWeek/{id_area}/{id_classroom}', 'CoursesController@editGetWeek')->name('editGetWeek');
 Route::get('editOneWeek/{id_area}/{id_classroom}', 'CoursesController@editOneWeek')->name('editOneWeek');
 Route::get('editOneCycle/{id}', 'CoursesController@oneCycle')->name('editOneCycle');
-Route::get('viewGetWeek/{id_area}/{id_classrom}', 'CoursesController@viewGetWeek')->name('viewGetWeek');
+Route::get('viewGetWeek/{id_area}/{id_classrom}/{id_trimestre}', 'CoursesController@viewGetWeek')->name('viewGetWeek');
 Route::get('showWeek/{id}', 'CoursesController@showWeek');
 Route::put('updateCourseWeekly', 'CoursesController@updateCourseWeekly');
 Route::resource('course_unit', 'Course_unitController', ['except' => 'show', 'create', 'edit']);;
@@ -1072,3 +1073,8 @@ Route::middleware('auth')->get('/cycle/teacher/{id_area}/{id_classroom}/{id_trim
 Route::post('/createTrimestre', 'TrimestreController@createTrimestre');
 Route::get('/getTrimestres', 'TrimestreController@getTrimestre');
 Route::get('/getActivitiesTeacher/{id_area}/{id_classroom}','ActivityController@getActivitiesTeacher');
+
+Route::resource('/trimestres','TrimestresController');
+Route::middleware('auth')->get('/quarters', function () {
+    return view('trimestres');
+});

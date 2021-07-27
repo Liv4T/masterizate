@@ -1,16 +1,16 @@
 <template>
-    <div class="back">
+    <div v-if="showSection === 'inicio'" class="back">
         <div class="row justify-content-center">
             <div id="crud" class="col-sm-10">
                 <div class="card text-center">
                     <h3 class="card-header fondo">Mensajes</h3>
 
                     <div class="card-body">
-                        <a href="/redactar" class="btn btn-warning float-right"
+                        <a v-on:click="setShowSection('redactar')" class="btn btn-warning float-right"
                             >Redactar</a
                         >
 
-                        <a href="/enviados" class="btn btn-warning float-left"
+                        <a v-on:click="setShowSection('sendMessage')" class="btn btn-warning float-left"
                             >Mensajes enviados</a
                         >
                         <br />
@@ -137,12 +137,19 @@
             </div>
         </div>
     </div>
+    <div v-else-if="showSection === 'redactar'">
+        <redactar-component :user="user" :cleanShowSection="cleanShowSection"></redactar-component>
+    </div>
+    <div v-else-if="showSection === 'sendMessage'">
+        <mensajesenv-component :user="user" :cleanShowSection="cleanShowSection"></mensajesenv-component>
+    </div>
 </template>
 <script>
 import Vue from "vue";
 import DecoupledEditor from "@ckeditor/ckeditor5-build-decoupled-document";
 Vue.use(require("vue-moment"));
 export default {
+    props:["user"],
     data() {
         return {
             messages: [],
@@ -150,7 +157,8 @@ export default {
             editor: DecoupledEditor,
             emessages: [],
             emisor: "",
-            asunto: ""
+            asunto: "",
+            showSection: "inicio",
         };
     },
     created() {},
@@ -181,6 +189,12 @@ export default {
                     editor.ui.view.toolbar.element,
                     editor.ui.getEditableElement()
                 );
+        },
+        cleanShowSection(){
+            this.showSection = 'inicio';
+        },
+        setShowSection(data){
+            this.showSection = data;
         }
     }
 };

@@ -103,6 +103,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   methods: {
     logout: function logout() {
@@ -238,12 +239,6 @@ var staticRenderFns = [
               "a",
               { staticClass: "dropdown-item", attrs: { href: "/pedagogic" } },
               [_vm._v("Transporte")]
-            ),
-            _vm._v(" "),
-            _c(
-              "a",
-              { staticClass: "dropdown-item", attrs: { href: "/reportAdmin" } },
-              [_vm._v("Reporte Actividades y Planificación Anual")]
             )
           ]
         )
@@ -398,6 +393,12 @@ var staticRenderFns = [
               [_vm._v("Creación de Motivos de Asistencia")]
             ),
             _vm._v(" "),
+            _c(
+              "a",
+              { staticClass: "dropdown-item", attrs: { href: "/quarters" } },
+              [_vm._v("Creación de Trimestres")]
+            ),
+            _vm._v(" "),
             _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
               _vm._v("Exalumnos")
             ]),
@@ -515,7 +516,7 @@ var staticRenderFns = [
         )
       ]),
       _vm._v(" "),
-      _c("a", { attrs: { href: "/reportes" } }, [
+      _c("a", { attrs: { href: "/reportAdmin" } }, [
         _c("button", { staticClass: "btn btn-sm btn-secondary" }, [
           _vm._v("\n            Mis Reportes\n        ")
         ])

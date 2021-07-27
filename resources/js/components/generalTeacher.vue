@@ -4,7 +4,7 @@
       <div class="form-group col-md-4 mx-auto">
         <div class="text-center">
           <select class="btn btn-warning letra-boldfont" name="type" v-model="idArea">
-            <option disabled selected hidden value="">MATERIAS</option>
+            <option disabled selected hidden value="">CURSOS</option>
             <option :value="area.id + '/' + area.id_classroom" v-for="(area, key) in areas" :key="key">{{ area.text }}</option>
           </select>
         </div>
@@ -34,7 +34,7 @@
               <porcentaje-component :idArea="idArea"></porcentaje-component>
             </div>
             <div v-if="activetab === 4" class="tabcontent">
-              <cycle-list :idArea="idArea" :planif="planif"></cycle-list>
+              <cycle-list :idArea="idArea" :planif="planif" :user="user"></cycle-list>
             </div>
           </div>
         </div>

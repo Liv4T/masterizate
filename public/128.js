@@ -245,7 +245,7 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
       newLogro2: "",
       newLogro3: "",
       newLogro4: ""
-    }, _defineProperty(_ref, "newTrimestre", []), _defineProperty(_ref, "newLogro", []), _defineProperty(_ref, "trimestre", false), _defineProperty(_ref, "logro_1", ""), _defineProperty(_ref, "logro_2", ""), _defineProperty(_ref, "logro_3", ""), _defineProperty(_ref, "logro_4", ""), _defineProperty(_ref, "fillC", []), _defineProperty(_ref, "anual", []), _defineProperty(_ref, "newAnual", []), _defineProperty(_ref, "errors", []), _defineProperty(_ref, "isSynchronized", true), _defineProperty(_ref, "isLoading", false), _defineProperty(_ref, "showPiarPlan", false), _defineProperty(_ref, "showPIARPlanTrimestral", false), _defineProperty(_ref, "activityForAllStudents", false), _defineProperty(_ref, "activityForPIARStudents", false), _defineProperty(_ref, "activityForSelectStudents", false), _defineProperty(_ref, "studentsOptions", []), _defineProperty(_ref, "saveStudent", []), _defineProperty(_ref, "piarStudents", []), _ref;
+    }, _defineProperty(_ref, "newTrimestre", []), _defineProperty(_ref, "newLogro", []), _defineProperty(_ref, "trimestre", false), _defineProperty(_ref, "logro_1", ""), _defineProperty(_ref, "logro_2", ""), _defineProperty(_ref, "logro_3", ""), _defineProperty(_ref, "logro_4", ""), _defineProperty(_ref, "fillC", []), _defineProperty(_ref, "anual", []), _defineProperty(_ref, "newAnual", []), _defineProperty(_ref, "errors", []), _defineProperty(_ref, "isSynchronized", true), _defineProperty(_ref, "isLoading", false), _defineProperty(_ref, "showPiarPlan", false), _defineProperty(_ref, "showPIARPlanTrimestral", false), _defineProperty(_ref, "activityForAllStudents", false), _defineProperty(_ref, "activityForPIARStudents", false), _defineProperty(_ref, "activityForSelectStudents", false), _defineProperty(_ref, "studentsOptions", []), _defineProperty(_ref, "saveStudent", []), _defineProperty(_ref, "piarStudents", []), _defineProperty(_ref, "AreaId", ""), _ref;
   },
   watch: {
     activityForAllStudents: function activityForAllStudents(newVal) {
@@ -275,18 +275,27 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
     }
   },
   mounted: function mounted() {
+    if (this.idArea) {
+      this.AreaId = this.idArea;
+    } else {
+      var params = window.location.pathname;
+      var ids = params.split('/');
+      var idArea = ids[2] + "/" + ids[3];
+      this.AreaId = idArea;
+    }
+
     this.getData();
   },
   methods: {
     getData: function getData() {
       var _this = this;
 
-      axios.get("/PIARStudentsByArea/".concat(this.idArea)).then(function (response) {
+      axios.get("/PIARStudentsByArea/".concat(this.AreaId)).then(function (response) {
         _this.piarStudents = Object.values(response.data);
       })["catch"](function (error) {
         console.log(error);
       });
-      axios.get("/StudentsByArea/".concat(this.idArea)).then(function (response) {
+      axios.get("/StudentsByArea/".concat(this.AreaId)).then(function (response) {
         var data = response.data;
         data.forEach(function (e) {
           _this.studentsOptions.push({
@@ -324,8 +333,8 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
         }
       }); //load from localstorage
 
-      this.serialLocalStorage = this.serialLocalStorage + "-" + this.idArea;
-      var urlsel = window.location.origin + "/coursePlanification/" + this.idArea;
+      this.serialLocalStorage = this.serialLocalStorage + "-" + this.AreaId;
+      var urlsel = window.location.origin + "/coursePlanification/" + this.AreaId;
       axios.get(urlsel).then(function (response) {
         _this.fillC = response.data; //set current data
 
@@ -461,8 +470,8 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
       }
 
       axios.post(url, {
-        id_area: this.idArea.substring(0, this.idArea.lastIndexOf("/")),
-        id_classroom: this.idArea[2],
+        id_area: this.AreaId.substring(0, this.AreaId.lastIndexOf("/")),
+        id_classroom: this.AreaId[2],
         logros: this.newLogro,
         trimestres: this.newTrimestre
       }).then(function (response) {
@@ -494,10 +503,11 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
 
         axios.post('/piarAnualPlanification', {
           //Cursos generales
-          id_area: this.idArea.substring(0, this.idArea.lastIndexOf("/")),
-          id_classroom: this.idArea[2],
+          id_area: this.AreaId.substring(0, this.AreaId.lastIndexOf("/")),
+          id_classroom: this.AreaId[2],
           trimestres: JSON.stringify(this.newTrimestre),
-          students: JSON.stringify(this.saveStudent)
+          students: JSON.stringify(this.saveStudent),
+          logros: JSON.stringify(this.inputsPIAR)
         }).then(function (response) {
           _this2.errors = [];
           toastr.success(response.data);
@@ -542,7 +552,7 @@ var render = function() {
     _vm._m(0),
     _vm._v(" "),
     _c("div", [
-      _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "container-fluid" }, [
         _c("div", { staticClass: "col-md-12 mx-auto" }, [
           _c("div", { staticClass: "custom-card text-center" }, [
             _c("h3", { staticClass: "card-header fondo" }, [
@@ -1087,6 +1097,7 @@ var render = function() {
                   {
                     staticClass: "btn btn-primary",
                     staticStyle: { float: "right", "margin-top": "13px" },
+                    attrs: { type: "button" },
                     on: { click: _vm.createCourses }
                   },
                   [_vm._v("Guardar")]
