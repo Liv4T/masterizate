@@ -19,7 +19,7 @@
                   <div class="form-group row mx-auto" v-for="(act, t) in fillS" :key="t">
                     <div class="col-md-12">
                       <select class="form-control" v-model="act.id_trimestre">
-                        <option :value="options.id" v-for="options in trimestres">
+                        <option :value="options.id" v-for="(options ,key) in trimestres" :key="key">
                           {{
                           options.nombre
                           }}
@@ -38,7 +38,7 @@
                         />
                       </div>
                     </div>
-                    <div class="col-md-6" v-for="(input, k) in inputClass">
+                    <div class="col-md-6" v-for="(input, k) in inputClass" :key="k">
                       <label for="name">Desarrollo de la clase</label>
                       <textarea
                         name="competences"
