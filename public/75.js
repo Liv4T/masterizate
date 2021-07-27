@@ -399,7 +399,7 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
   },
   methods: {
     returnPage: function returnPage() {
-      window.location = "/docente/modulo/".concat(this.id_module);
+      this.cleanCreateClas(); //   window.location =`/docente/modulo/${this.id_module}`;
     },
     addResource: function addResource(resource_type) {
       this.course.content.push({

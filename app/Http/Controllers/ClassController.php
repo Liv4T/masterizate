@@ -616,8 +616,7 @@ class ClassController extends Controller
 
         $this->validate($request, [
             'name' => 'required',
-            'description' => 'required',
-            'hourly_intensity' => 'required',
+            'description' => 'required'
            /* 'content' => 'required',
             'activities' => 'required'*/
         ]);
@@ -632,7 +631,7 @@ class ClassController extends Controller
                 array(
                     'name'=>$data['name'],
                     'description'=>$data['description'],
-                    'hourly_intensity'=>$data['hourly_intensity'],
+                    'hourly_intensity'=>isset($data['hourly_intensity']) ? $data['hourly_intensity'] : 0,
                     'activity_quantity'=>count($data['activities']),
                     'content_quantity'=>count($data['content']), 
                     'activityForPIARStudents' => $data['activityForPIARStudents'],
@@ -649,7 +648,7 @@ class ClassController extends Controller
             $course=Classs::create([
                 'name'=>$data['name'],
                 'description'=>$data['description'],
-                'hourly_intensity'=>$data['hourly_intensity'],
+                'hourly_intensity'=>isset($data['hourly_intensity']) ? $data['hourly_intensity'] : 0,
                 'id_weekly_plan'=>$id_module,
                 'activity_quantity'=>count($data['activities']),
                 'content_quantity'=>count($data['content']),

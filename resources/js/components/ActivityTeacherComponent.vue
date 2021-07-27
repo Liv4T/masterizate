@@ -32,6 +32,7 @@
     </div>
 </template>
 <script>
+    import moment from 'moment';
     export default {
         props: ["idArea", "idClassroom"],
         data() {
@@ -54,7 +55,15 @@
             getData(){
                 axios.get(`/getActivitiesTeacher/${this.idArea}/${this.idClassroom}`).then((response) => {
                     let hash = {};
-                    this.activities = response.data.filter(o => hash[o.id] ? false : hash[o.id] = true);
+                    let activities = response.data.filter(
+                        o => hash[o.id] ? false : hash[o.id] = true
+                    );
+                    activities.forEach(element=>{
+                        console.log()
+                        if(moment(element.delivery_max_date).format("YYYY-MM-DD") > moment().format("YYYY-MM-DD")){
+                            this.activities.push(element)
+                        }
+                    })
                 });
             },
 

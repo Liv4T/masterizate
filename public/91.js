@@ -9,6 +9,8 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_0__);
 //
 //
 //
@@ -42,6 +44,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["idArea", "idClassroom"],
   data: function data() {
@@ -66,8 +69,15 @@ __webpack_require__.r(__webpack_exports__);
 
       axios.get("/getActivitiesTeacher/".concat(this.idArea, "/").concat(this.idClassroom)).then(function (response) {
         var hash = {};
-        _this.activities = response.data.filter(function (o) {
+        var activities = response.data.filter(function (o) {
           return hash[o.id] ? false : hash[o.id] = true;
+        });
+        activities.forEach(function (element) {
+          console.log();
+
+          if (moment__WEBPACK_IMPORTED_MODULE_0___default()(element.delivery_max_date).format("YYYY-MM-DD") > moment__WEBPACK_IMPORTED_MODULE_0___default()().format("YYYY-MM-DD")) {
+            _this.activities.push(element);
+          }
         });
       });
     },

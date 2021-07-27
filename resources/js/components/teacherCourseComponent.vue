@@ -406,7 +406,8 @@ export default {
     },
     methods: {
         returnPage() {
-          window.location =`/docente/modulo/${this.id_module}`;
+            this.cleanCreateClas();
+        //   window.location =`/docente/modulo/${this.id_module}`;
         },
         addResource(resource_type){
             this.course.content.push({
