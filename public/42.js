@@ -134,7 +134,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["idArea", "planif", "moduleId"],
+  props: ["idArea", "planif", "moduleId", "user"],
   data: function data() {
     return {
       cycles: [],
@@ -150,6 +150,7 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   mounted: function mounted() {
+    console.log(this.user);
     this.planification = this.planif;
     this.getData();
   },
@@ -392,20 +393,25 @@ var render = function() {
                       }
                     },
                     [
-                      _c("div", { staticStyle: { padding: "20px" } }, [
-                        _c(
-                          "a",
-                          {
-                            staticClass: "btn btn-warning float-left",
-                            on: {
-                              click: function($event) {
-                                return _vm.getOrderCycle(trimestre.id, t + 1)
-                              }
-                            }
-                          },
-                          [_vm._v("Crear")]
-                        )
-                      ]),
+                      _vm.user.type_user !== 3
+                        ? _c("div", { staticStyle: { padding: "20px" } }, [
+                            _c(
+                              "a",
+                              {
+                                staticClass: "btn btn-warning float-left",
+                                on: {
+                                  click: function($event) {
+                                    return _vm.getOrderCycle(
+                                      trimestre.id,
+                                      t + 1
+                                    )
+                                  }
+                                }
+                              },
+                              [_vm._v("Crear")]
+                            )
+                          ])
+                        : _vm._e(),
                       _vm._v(" "),
                       _c("div", { staticClass: "card-body" }, [
                         _c(

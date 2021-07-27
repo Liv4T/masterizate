@@ -3,7 +3,7 @@
 @section('content')
     @if (Auth::user()->isTeacher()||Auth::user()->isPsychology()||Auth::user()->isTutor()||Auth::user()->isAdmin())
     @include('menu')
-    <clases-teacher></clases-teacher>
+    <clases-teacher :user="{{Auth::user()}}"></clases-teacher>
     @endif
        @if (Auth::user()->isStudent())
         <inicio-component :user="{{Auth::user()}}"></inicio-component>

@@ -46,7 +46,7 @@
                                 :idClass="idClass"
                                 :moduleId="idModule"
                             ></student-courses> -->
-                            <cycle-list :idArea="idArea+'/'+idClassroom" :planif="planif" :moduleId="idModule"></cycle-list>
+                            <cycle-list :idArea="idArea+'/'+idClassroom" :planif="planif" :moduleId="idModule" :user="user"></cycle-list>
                         </div>
                             
                         <div v-if="activetab === 3" class="tabcontent"><repo-student :nameArea="nameArea" :planifications="planifications" :id_lective_planification="id_lective_planification"></repo-student></div>

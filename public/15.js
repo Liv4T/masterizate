@@ -681,7 +681,8 @@ var render = function() {
                             attrs: {
                               idArea: _vm.idArea + "/" + _vm.idClassroom,
                               planif: _vm.planif,
-                              moduleId: _vm.idModule
+                              moduleId: _vm.idModule,
+                              user: _vm.user
                             }
                           })
                         ],

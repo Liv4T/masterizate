@@ -826,7 +826,7 @@ var render = function() {
               { staticClass: "div-class" },
               [
                 _c("div", { staticClass: "title row" }, [
-                  _c("div", { staticClass: "col-8" }, [
+                  _c("div", { staticClass: "col-12" }, [
                     _c("b", [_vm._v(_vm._s(_vm.$t("lang.menu.class")) + ":")]),
                     _vm._v(" "),
                     _c("input", {
@@ -847,38 +847,6 @@ var render = function() {
                             return
                           }
                           _vm.$set(_vm.course, "name", $event.target.value)
-                        }
-                      }
-                    })
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col-4" }, [
-                    _c("b", [
-                      _vm._v(_vm._s(_vm.$t("lang.class.intensity")) + ":")
-                    ]),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.course.hourly_intensity,
-                          expression: "course.hourly_intensity"
-                        }
-                      ],
-                      staticClass: "form-control-plaintext",
-                      attrs: { type: "number", readonly: "" },
-                      domProps: { value: _vm.course.hourly_intensity },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(
-                            _vm.course,
-                            "hourly_intensity",
-                            $event.target.value
-                          )
                         }
                       }
                     })

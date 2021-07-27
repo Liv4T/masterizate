@@ -22,7 +22,7 @@
           <div>
             <div v-if="activetab === 1" class="tabcontent">
               <div v-if="idArea !=''">
-                <cycle-list :idArea="idAreaClass" :planif="planif"></cycle-list>
+                <cycle-list :idArea="idAreaClass" :planif="planif" :user="user"></cycle-list>
               </div>
             </div>
             <div v-if="activetab === 2" class="tabcontent">

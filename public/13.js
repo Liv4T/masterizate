@@ -300,7 +300,8 @@ var render = function() {
                           _c("cycle-list", {
                             attrs: {
                               idArea: _vm.idAreaClass,
-                              planif: _vm.planif
+                              planif: _vm.planif,
+                              user: _vm.user
                             }
                           })
                         ],

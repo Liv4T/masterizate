@@ -25,7 +25,7 @@
                   aria-labelledby="heading"
                   data-parent="#accordionExample"
                 >
-                <div style="padding:20px;">
+                <div v-if="user.type_user !== 3" style="padding:20px;">
                     <a v-on:click="getOrderCycle(trimestre.id,t+1)" class="btn btn-warning float-left">Crear</a>
                 </div>
                 <div class="card-body">
@@ -124,7 +124,7 @@
 </template>
 <script>
 export default {
-    props:["idArea","planif","moduleId"],
+    props:["idArea","planif","moduleId","user"],
     data() {
         return {
             cycles:[],
@@ -140,6 +140,7 @@ export default {
         };
     },
     mounted(){
+        console.log(this.user)
         this.planification= this.planif;
         this.getData();
     },

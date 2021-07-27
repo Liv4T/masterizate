@@ -34,7 +34,7 @@
               <porcentaje-component :idArea="idArea"></porcentaje-component>
             </div>
             <div v-if="activetab === 4" class="tabcontent">
-              <cycle-list :idArea="idArea" :planif="planif"></cycle-list>
+              <cycle-list :idArea="idArea" :planif="planif" :user="user"></cycle-list>
             </div>
           </div>
         </div>

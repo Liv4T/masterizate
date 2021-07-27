@@ -356,7 +356,11 @@ var render = function() {
                   { staticClass: "tabcontent" },
                   [
                     _c("cycle-list", {
-                      attrs: { idArea: _vm.idArea, planif: _vm.planif }
+                      attrs: {
+                        idArea: _vm.idArea,
+                        planif: _vm.planif,
+                        user: _vm.user
+                      }
                     })
                   ],
                   1
