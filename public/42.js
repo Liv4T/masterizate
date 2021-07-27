@@ -198,8 +198,6 @@ __webpack_require__.r(__webpack_exports__);
             });
           });
         }
-
-        console.log(_this2.cycles);
       });
     },
     getCycle: function getCycle(cycle) {

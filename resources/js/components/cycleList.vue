@@ -184,8 +184,6 @@ export default {
                        })
                     });
                 }
-                
-                console.log(this.cycles);
             });
         },
 
