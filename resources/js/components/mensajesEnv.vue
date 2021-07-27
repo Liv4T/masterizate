@@ -132,7 +132,7 @@ Vue.use(require("vue-moment"));
 
 Vue.use(require("vue-moment"));
 export default {
-  props:["cleanShowSection"],
+  props:["user","cleanShowSection"],
   data() {
     return {
       messages: [],

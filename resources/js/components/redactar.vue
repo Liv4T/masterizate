@@ -79,8 +79,8 @@
 
                         <ckeditor :editor="editor" v-model="editorData" @ready="onReady"></ckeditor>
                         <div class="modal-footer">
-                            <button type="button" href="#" class="btn btn-warning float-right" @click="getMenu()">Volver</button>
-                            <button type="button" href="#" class="btn btn-warning float-right" @click="saveM()">Enviar</button>
+                            <a href="#" class="btn btn-warning float-right" @click="getMenu()">Cancelar</a>
+                            <a href="#" class="btn btn-warning float-right" @click="saveM()">Enviar</a>
                         </div>
                     </div>
                 </div>
@@ -356,7 +356,11 @@
         },
         methods: {
             getMenu() {
-                this.cleanShowSection();
+                if(this.cleanShowSection){
+                    this.cleanShowSection();
+                }else{
+                    window.location = "/enviados";
+                }
             },
             addTaga(newTag) {
                 const tag = {

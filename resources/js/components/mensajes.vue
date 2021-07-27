@@ -1,5 +1,5 @@
 <template>
-    <div v-if="showSection === 'inicio'" class="container-fluid">
+    <div v-if="showSection === 'inicio'" class="back">
         <div class="row justify-content-center">
             <div id="crud" class="col-sm-10">
                 <div class="card text-center">
@@ -141,7 +141,7 @@
         <redactar-component :user="user" :cleanShowSection="cleanShowSection"></redactar-component>
     </div>
     <div v-else-if="showSection === 'sendMessage'">
-        <mensajesenv-component :cleanShowSection="cleanShowSection"></mensajesenv-component>
+        <mensajesenv-component :user="user" :cleanShowSection="cleanShowSection"></mensajesenv-component>
     </div>
 </template>
 <script>

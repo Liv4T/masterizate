@@ -336,7 +336,7 @@ moment__WEBPACK_IMPORTED_MODULE_1___default.a.locale("es");
       var _this4 = this;
 
       if (data === 'chat') {
-        axios.get('/chat').then(function (response) {
+        axios.get('/chat2').then(function (response) {
           _this4.groups = response.data;
         });
       }

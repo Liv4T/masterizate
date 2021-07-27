@@ -342,7 +342,7 @@ export default {
         },
         showOtherSection(data){
             if(data === 'chat'){
-                axios.get('/chat').then((response)=>{
+                axios.get('/chat2').then((response)=>{
                     this.groups = response.data
                 })
             }

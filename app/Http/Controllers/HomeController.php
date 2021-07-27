@@ -92,16 +92,20 @@ class HomeController extends Controller
         // return response()->download($pathtoFile, 'Benjamin_Gakami_CV.docx', $headers);
         // return Redirect::to($pathtoFile);
     }
+    public function CreateGroup2()
+    {
+        $groups = auth()->user()->groups;
+        return response()->json($groups);
+    }
     public function CreateGroup()
     {
         $groups = auth()->user()->groups;
 
-        // $users = User::where('id', '<>', auth()->user()->id)->get();
-        // $user = User::find(auth()->user()->id);
+        $users = User::where('id', '<>', auth()->user()->id)->get();
+        $user = User::find(auth()->user()->id);
         // $user = auth()->user()->id;
         // $user = $user->id;
-        //return view('grupos', ['groups' => $groups, 'users' => $users, 'user' => $user->id]);
-        return response()->json($groups);
+        return view('grupos', ['groups' => $groups, 'users' => $users, 'user' => $user->id]);
     }
     public function UserTerms(Request $request)
     {

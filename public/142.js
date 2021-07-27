@@ -230,7 +230,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _vm.showSection === "inicio"
-    ? _c("div", { staticClass: "container-fluid" }, [
+    ? _c("div", { staticClass: "back" }, [
         _c("div", { staticClass: "row justify-content-center" }, [
           _c("div", { staticClass: "col-sm-10", attrs: { id: "crud" } }, [
             _c("div", { staticClass: "card text-center" }, [
@@ -444,7 +444,7 @@ var render = function() {
         "div",
         [
           _c("mensajesenv-component", {
-            attrs: { cleanShowSection: _vm.cleanShowSection }
+            attrs: { user: _vm.user, cleanShowSection: _vm.cleanShowSection }
           })
         ],
         1
