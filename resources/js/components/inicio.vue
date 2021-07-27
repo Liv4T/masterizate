@@ -25,7 +25,7 @@
             <div class="row">
                 <div class="col-md-2 pd-20 flotante">
                     <button type="button" v-on:click="showOtherSection('chat')" class="btn btn-warning letra-poppins-bold mg-btn" style="background-color: #e26100; border-color: #e26100"><h4>{{ $t('lang.menu.chat').toUpperCase() }}</h4> </button> <br />
-                    <button type="button" href="/questions" class="btn btn-warning letra-poppins-bold mg-btn" style="background-color: #e26100; border-color: #e26100"><h4>{{ $t('lang.menu.forums').toUpperCase() }}</h4> </button><br />
+                    <a href="/questions" class="btn btn-warning letra-poppins-bold mg-btn" style="background-color: #e26100; border-color: #e26100"><h4>{{ $t('lang.menu.forums').toUpperCase() }}</h4> </a><br />
                     <button type="button" v-on:click="showOtherSection('message')" class="btn btn-warning letra-poppins-bold mg-btn" style="background-color: #e26100; border-color: #e26100"><h4>{{ $t('lang.menu.menssages').toUpperCase() }}</h4> </button><br />
                 </div>
                 <div id="tabs" class="col-md-9 mx-auto">

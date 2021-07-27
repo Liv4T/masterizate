@@ -581,14 +581,14 @@ var render = function() {
               _c("br"),
               _vm._v(" "),
               _c(
-                "button",
+                "a",
                 {
                   staticClass: "btn btn-warning letra-poppins-bold mg-btn",
                   staticStyle: {
                     "background-color": "#e26100",
                     "border-color": "#e26100"
                   },
-                  attrs: { type: "button", href: "/questions" }
+                  attrs: { href: "/questions" }
                 },
                 [
                   _c("h4", [

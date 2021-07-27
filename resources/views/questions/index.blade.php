@@ -1,16 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-      @include('../menu')
-    @if (Auth::user()->isTeacher()||Auth::user()->isPsychology()||Auth::user()->isTutor())
-
-    @endif
- @if (Auth::user()->type_user == '5')
-    <menu-psychology></menu-psychology>
- @endif
- @if (Auth::user()->type_user == '4')
-    <menu-padres></menu-padres>
- @endif
+    <a href="/inicio" class="btn btn-primary">Volver</a>
     <div class="back">
         <div class="row justify-content-center">
             <div class="col-md-10">
