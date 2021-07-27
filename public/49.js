@@ -71,83 +71,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -167,7 +90,8 @@ __webpack_require__.r(__webpack_exports__);
       fillS: [],
       Iclassroom: "",
       Iarea: "",
-      current_course: {}
+      current_course: {},
+      backPage: "inicio"
     };
   },
   created: function created() {},
@@ -201,7 +125,7 @@ __webpack_require__.r(__webpack_exports__);
           });
         });
 
-        $("#editu").modal("show");
+        _this2.backPage = "return";
       });
     },
     getPlanificationEvent: function getPlanificationEvent(id_lective_planification) {
@@ -210,6 +134,9 @@ __webpack_require__.r(__webpack_exports__);
       axios.get("/api/lectives/planification/".concat(id_lective_planification)).then(function (response) {
         _this3.planification = response.data;
       });
+    },
+    backBage: function backBage() {
+      this.backPage = "inicio";
     }
   }
 });
@@ -281,144 +208,14 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "back" }, [
-    _c("div", { staticClass: "row justify-content-center" }, [
-      _c("div", { staticClass: "col-sm-10", attrs: { id: "crud" } }, [
-        _c("div", { staticClass: "card text-center" }, [
-          _c("h3", { staticClass: "card-header fondo" }, [
-            _vm._v("Mis clases")
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "card-body" }, [
-            _c(
-              "div",
-              { staticClass: "accordion", attrs: { id: "accordionExample" } },
-              _vm._l(_vm.planifications, function(area, t) {
-                return _c("div", { key: t, staticClass: "card" }, [
-                  _c("div", { staticClass: "card-header" }, [
-                    _c("h2", { staticClass: "mb-0" }, [
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-link",
-                          attrs: {
-                            type: "button",
-                            "data-toggle": "collapse",
-                            "data-target": "#collapse" + t,
-                            "aria-expanded": "false",
-                            "aria-controls": "collapse"
-                          },
-                          on: {
-                            click: function($event) {
-                              $event.preventDefault()
-                              return _vm.getPlanificationEvent(
-                                area.id_planification
-                              )
-                            }
-                          }
-                        },
-                        [
-                          _c("label", [
-                            _vm._v(
-                              _vm._s(area.lective.name) +
-                                " Trimestre " +
-                                _vm._s(area.period_consecutive)
-                            )
-                          ])
-                        ]
-                      )
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    {
-                      staticClass: "collapse hide",
-                      attrs: {
-                        id: "collapse" + t,
-                        "aria-labelledby": "heading",
-                        "data-parent": "#accordionExample"
-                      }
-                    },
-                    [
-                      _c(
-                        "tr",
-                        _vm._l(_vm.planification.weeklies, function(
-                          weekly_plan,
-                          k
-                        ) {
-                          return _c(
-                            "td",
-                            { key: k, staticStyle: { display: "inline-grid" } },
-                            [
-                              _c(
-                                "a",
-                                {
-                                  staticClass: "btn btn-warning",
-                                  staticStyle: {
-                                    "text-overflow": "ellipsis",
-                                    "max-width": "250px",
-                                    "min-width": "150px",
-                                    "white-space": "nowrap",
-                                    overflow: "hidden"
-                                  },
-                                  on: {
-                                    click: function($event) {
-                                      $event.preventDefault()
-                                      return _vm.showModalAddCourses(
-                                        weekly_plan.id_lective_planification,
-                                        weekly_plan.id
-                                      )
-                                    }
-                                  }
-                                },
-                                [_vm._v(_vm._s(weekly_plan.name) + " ")]
-                              )
-                            ]
-                          )
-                        }),
-                        0
-                      )
-                    ]
-                  )
-                ])
-              }),
-              0
-            )
-          ])
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "modal fade", attrs: { id: "editu" } }, [
-        _c("div", { staticClass: "modal-dialog" }, [
-          _c("div", { staticClass: "modal-content" }, [
-            _c("div", { staticClass: "card" }, [
-              _vm._m(0),
-              _vm._v(" "),
-              _c(
-                "div",
-                {
-                  staticClass: "float-right",
-                  staticStyle: { padding: "10px" }
-                },
-                [
-                  _c(
-                    "a",
-                    {
-                      staticClass: "btn btn-warning float-right",
-                      attrs: {
-                        href:
-                          "/teacher/lectives/planning/" +
-                          _vm.current_course.id_lective_planification +
-                          "/weekly/" +
-                          _vm.current_course.id_weekly_plan +
-                          "/course"
-                      }
-                    },
-                    [_vm._v("Crear Clase")]
-                  )
-                ]
-              ),
+  return _vm.backPage === "inicio"
+    ? _c("div", { staticClass: "back" }, [
+        _c("div", { staticClass: "row justify-content-center" }, [
+          _c("div", { staticClass: "col-sm-10", attrs: { id: "crud" } }, [
+            _c("div", { staticClass: "card text-center" }, [
+              _c("h3", { staticClass: "card-header fondo" }, [
+                _vm._v("Mis clases")
+              ]),
               _vm._v(" "),
               _c("div", { staticClass: "card-body" }, [
                 _c(
@@ -427,201 +224,94 @@ var render = function() {
                     staticClass: "accordion",
                     attrs: { id: "accordionExample" }
                   },
-                  _vm._l(_vm.courses, function(course, t) {
+                  _vm._l(_vm.planifications, function(area, t) {
                     return _c("div", { key: t, staticClass: "card" }, [
-                      _c(
-                        "div",
-                        {
-                          staticClass: "card-header",
-                          attrs: { id: "heading" + t }
-                        },
-                        [
-                          _c("h2", { staticClass: "mb-0" }, [
-                            _c(
-                              "button",
-                              {
-                                staticClass: "btn btn-link",
-                                attrs: {
-                                  type: "button",
-                                  "data-toggle": "collapse",
-                                  "data-target": "#collapse" + t,
-                                  "aria-expanded": "true",
-                                  "aria-controls": "collapse" + t
-                                }
+                      _c("div", { staticClass: "card-header" }, [
+                        _c("h2", { staticClass: "mb-0" }, [
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-link",
+                              attrs: {
+                                type: "button",
+                                "data-toggle": "collapse",
+                                "data-target": "#collapse" + t,
+                                "aria-expanded": "false",
+                                "aria-controls": "collapse"
                               },
-                              [_vm._v("Clase " + _vm._s(t + 1))]
-                            )
-                          ])
-                        ]
-                      ),
+                              on: {
+                                click: function($event) {
+                                  $event.preventDefault()
+                                  return _vm.getPlanificationEvent(
+                                    area.id_planification
+                                  )
+                                }
+                              }
+                            },
+                            [
+                              _c("label", [
+                                _vm._v(
+                                  _vm._s(area.lective.name) +
+                                    " Trimestre " +
+                                    _vm._s(area.period_consecutive)
+                                )
+                              ])
+                            ]
+                          )
+                        ])
+                      ]),
                       _vm._v(" "),
                       _c(
                         "div",
                         {
-                          staticClass: "collapse show",
+                          staticClass: "collapse hide",
                           attrs: {
                             id: "collapse" + t,
-                            "aria-labelledby": "heading" + t,
+                            "aria-labelledby": "heading",
                             "data-parent": "#accordionExample"
                           }
                         },
                         [
                           _c(
-                            "div",
-                            { staticClass: "card-body" },
-                            [
-                              _c(
-                                "div",
-                                { staticClass: "form-group text-center" },
+                            "tr",
+                            _vm._l(_vm.planification.weeklies, function(
+                              weekly_plan,
+                              k
+                            ) {
+                              return _c(
+                                "td",
+                                {
+                                  key: k,
+                                  staticStyle: { display: "inline-grid" }
+                                },
                                 [
-                                  _c("strong", { attrs: { for: "name" } }, [
-                                    _vm._v("Nombre")
-                                  ]),
-                                  _vm._v(" "),
                                   _c(
-                                    "div",
-                                    { staticStyle: { "font-weight": "bold" } },
-                                    [_vm._v(_vm._s(course.name))]
+                                    "a",
+                                    {
+                                      staticClass: "btn btn-warning",
+                                      staticStyle: {
+                                        "text-overflow": "ellipsis",
+                                        "max-width": "250px",
+                                        "min-width": "150px",
+                                        "white-space": "nowrap",
+                                        overflow: "hidden"
+                                      },
+                                      on: {
+                                        click: function($event) {
+                                          $event.preventDefault()
+                                          return _vm.showModalAddCourses(
+                                            weekly_plan.id_lective_planification,
+                                            weekly_plan.id
+                                          )
+                                        }
+                                      }
+                                    },
+                                    [_vm._v(_vm._s(weekly_plan.name) + " ")]
                                   )
                                 ]
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "div",
-                                { staticClass: "form-group text-center" },
-                                [
-                                  _c("strong", { attrs: { for: "name" } }, [
-                                    _vm._v("Descripción")
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("p", [_vm._v(_vm._s(course.description))])
-                                ]
-                              ),
-                              _vm._v(" "),
-                              _vm._l(course.content, function(
-                                item_content,
-                                t_c
-                              ) {
-                                return _c(
-                                  "div",
-                                  { staticClass: "form-group text-center" },
-                                  [
-                                    item_content.content_type === "DOCUMENT"
-                                      ? _c("strong", [_vm._v("Documento")])
-                                      : item_content.content_type === "LINK"
-                                      ? _c("strong", [_vm._v("Enlace")])
-                                      : item_content.content_type === "VIDEO"
-                                      ? _c("strong", [_vm._v("Video")])
-                                      : _vm._e(),
-                                    _vm._v(" "),
-                                    _c("p", [
-                                      _vm._v(_vm._s(item_content.description))
-                                    ]),
-                                    _vm._v(" "),
-                                    item_content.content_type === "DOCUMENT" &&
-                                    item_content.content
-                                      ? _c(
-                                          "a",
-                                          {
-                                            staticClass: "form-control",
-                                            attrs: {
-                                              href: item_content.content,
-                                              target: "_blank",
-                                              type: "text"
-                                            }
-                                          },
-                                          [
-                                            _c("i", {
-                                              staticClass: "fa fa-file-download"
-                                            }),
-                                            _vm._v(" Descargar")
-                                          ]
-                                        )
-                                      : _vm._e(),
-                                    _vm._v(" "),
-                                    item_content.content_type === "LINK" &&
-                                    item_content.content
-                                      ? _c(
-                                          "a",
-                                          {
-                                            staticClass: "form-control",
-                                            attrs: {
-                                              href: item_content.content,
-                                              target: "_blank",
-                                              type: "text"
-                                            }
-                                          },
-                                          [
-                                            _c("i", {
-                                              staticClass: "fa fa-link"
-                                            }),
-                                            _vm._v(" Abrir")
-                                          ]
-                                        )
-                                      : _vm._e(),
-                                    _vm._v(" "),
-                                    item_content.content_type === "VIDEO" &&
-                                    item_content.content
-                                      ? _c(
-                                          "a",
-                                          {
-                                            staticClass: "form-control",
-                                            attrs: {
-                                              href: item_content.content,
-                                              target: "_blank",
-                                              type: "text"
-                                            }
-                                          },
-                                          [
-                                            _c("i", {
-                                              staticClass: "fa fa-link"
-                                            }),
-                                            _vm._v(" Abrir youtube")
-                                          ]
-                                        )
-                                      : _vm._e(),
-                                    _vm._v(" "),
-                                    item_content.content_type === "VIDEO" &&
-                                    item_content.content
-                                      ? _c("iframe", {
-                                          attrs: {
-                                            width: "100%",
-                                            frameborder: "0",
-                                            allow:
-                                              "accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture",
-                                            allowfullscreen: "",
-                                            src:
-                                              "https://www.youtube.com/embed/" +
-                                              item_content.content
-                                          }
-                                        })
-                                      : _vm._e()
-                                  ]
-                                )
-                              }),
-                              _vm._v(" "),
-                              _c("div", { staticClass: "modal-footer" }, [
-                                _c(
-                                  "a",
-                                  {
-                                    staticClass: "btn btn-warning",
-                                    attrs: {
-                                      href:
-                                        "/teacher/lectives/planning/" +
-                                        _vm.current_course
-                                          .id_lective_planification +
-                                        "/weekly/" +
-                                        _vm.current_course.id_weekly_plan +
-                                        "/course/" +
-                                        course.id_class +
-                                        "/activities"
-                                    }
-                                  },
-                                  [_vm._v("Crear Actividad")]
-                                )
-                              ])
-                            ],
-                            2
+                              )
+                            }),
+                            0
                           )
                         ]
                       )
@@ -634,27 +324,21 @@ var render = function() {
           ])
         ])
       ])
-    ])
-  ])
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("h3", { staticClass: "card-header fondo text-center" }, [
-      _vm._v("\n              Ciclo\n              "),
-      _c(
-        "button",
-        {
-          staticClass: "close",
-          attrs: { type: "button", "data-dismiss": "modal" }
-        },
-        [_c("span", [_vm._v("×")])]
+    : _c(
+        "div",
+        [
+          _c("create-lectives-courses", {
+            attrs: {
+              current_course: _vm.current_course,
+              courses: _vm.courses,
+              backPage: _vm.backBage
+            }
+          })
+        ],
+        1
       )
-    ])
-  }
-]
+}
+var staticRenderFns = []
 render._withStripped = true
 
 
