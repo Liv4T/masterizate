@@ -96,11 +96,12 @@ class HomeController extends Controller
     {
         $groups = auth()->user()->groups;
 
-        $users = User::where('id', '<>', auth()->user()->id)->get();
-        $user = User::find(auth()->user()->id);
+        // $users = User::where('id', '<>', auth()->user()->id)->get();
+        // $user = User::find(auth()->user()->id);
         // $user = auth()->user()->id;
         // $user = $user->id;
-        return view('grupos', ['groups' => $groups, 'users' => $users, 'user' => $user->id]);
+        //return view('grupos', ['groups' => $groups, 'users' => $users, 'user' => $user->id]);
+        return response()->json($groups);
     }
     public function UserTerms(Request $request)
     {

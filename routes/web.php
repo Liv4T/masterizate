@@ -326,7 +326,7 @@ Route::middleware('auth')->get('/porcentaje/{id_area}/{id_classroom}', function 
 Route::get('/compra/plan/tutoria/{tutor_schedule_student_id}/{tutorschedule_id}/resumen', function (int $tutor_schedule_student_id, int $tutorschedule_id) {
     return view('purchaseTutoriaResume')->with('tutor_schedule_student_id', $tutor_schedule_student_id)->with('tutorschedule_id', $tutorschedule_id);
 });
-Route::middleware('auth')->get('/chat', 'HomeController@CreateGroup')->name('chat');
+Route::middleware('auth')->get('/chat', 'HomeController@CreateGroup');
 // Lessons
 Route::middleware('auth')->delete('lessons/destroy', 'LessonsController@massDestroy')->name('lessons.massDestroy');
 Route::resource('lessons', 'LessonsController');

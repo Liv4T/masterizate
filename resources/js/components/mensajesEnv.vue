@@ -6,8 +6,7 @@
           <h3 class="card-header fondo">Mensajes</h3>
 
           <div class="card-body">
-            <a href="/redactar" class="btn btn-warning float-right">Redactar</a>
-            <a href="/mensajes" class="btn btn-warning float-left">Mensajes recibidos</a>
+            <a v-on:click="cleanShowSection" class="btn btn-warning float-left">volver</a>
             <br />
             <br />
             <br />
@@ -133,6 +132,7 @@ Vue.use(require("vue-moment"));
 
 Vue.use(require("vue-moment"));
 export default {
+  props:["cleanShowSection"],
   data() {
     return {
       messages: [],
@@ -153,6 +153,7 @@ export default {
   methods: {
     getMenu() {
       window.location = "/enviados";
+      this.cleanShowSection();
     },
     editMessage(mess) {
       var urlr = "getMessage/" + mess;
@@ -166,6 +167,7 @@ export default {
     },
     CancelM() {
       $("#createMessage").modal("hide");
+      this.cleanShowSection();
     },
     onReady(editor) {
       // Insert the toolbar before the editable area.

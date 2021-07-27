@@ -10,33 +10,32 @@
                 </div>
 
                 <div class="col-md-2" v-for="(area, t) in areas" :key="t">
-                    <a href="http://" class="btn btn-warning mg-btn" :style="area.style" @click.prevent="nameArea = area.text, colorTitle = area.titleColor, idArea = area.id, idClassroom = area.id_classroom">
+                    <a v-on:click="cleanOtherSection" href="http://" class="btn btn-warning mg-btn" :style="area.style" @click.prevent="nameArea = area.text, colorTitle = area.titleColor, idArea = area.id, idClassroom = area.id_classroom">
                         <h6 class="letra-poppins-bold" style="color: black">{{ $t('lang.area.'+nameMinus(area.text)) }}</h6>
                     </a>                    
                 </div>
             </div>
         </div>
         <div v-if="nameArea != ''">
-            <div class="form-group text-center">
+            <div v-if="showSection ==='inicio'" class="form-group text-center">
                 <a href="" class="btn btn-warning letra-poppins-bold" :style="`${colorTitle} border-color: #ffa4f2;`"
                 ><h1 style="color: black">{{ $t('lang.area.'+nameMinus(nameArea)) }}</h1>
                 </a>
             </div>
             <div class="row">
                 <div class="col-md-2 pd-20 flotante">
-                    <a href="/chat" class="btn btn-warning letra-poppins-bold mg-btn" style="background-color: #e26100; border-color: #e26100"><h4>{{ $t('lang.menu.chat').toUpperCase() }}</h4> </a> <br />
-                    <a href="/questions" class="btn btn-warning letra-poppins-bold mg-btn" style="background-color: #e26100; border-color: #e26100"><h4>{{ $t('lang.menu.forums').toUpperCase() }}</h4> </a><br />
-                    <a href="/mensajes" class="btn btn-warning letra-poppins-bold mg-btn" style="background-color: #e26100; border-color: #e26100"><h4>{{ $t('lang.menu.menssages').toUpperCase() }}</h4> </a><br />
+                    <button type="button" v-on:click="showOtherSection('chat')" class="btn btn-warning letra-poppins-bold mg-btn" style="background-color: #e26100; border-color: #e26100"><h4>{{ $t('lang.menu.chat').toUpperCase() }}</h4> </button> <br />
+                    <button type="button" href="/questions" class="btn btn-warning letra-poppins-bold mg-btn" style="background-color: #e26100; border-color: #e26100"><h4>{{ $t('lang.menu.forums').toUpperCase() }}</h4> </button><br />
+                    <button type="button" v-on:click="showOtherSection('message')" class="btn btn-warning letra-poppins-bold mg-btn" style="background-color: #e26100; border-color: #e26100"><h4>{{ $t('lang.menu.menssages').toUpperCase() }}</h4> </button><br />
                 </div>
                 <div id="tabs" class="col-md-9 mx-auto">
-                    <div class="tabs">
+                    <div v-if="showSection === 'inicio'" class="tabs">
                         <a v-on:click="activetab = 1" v-bind:class="[activetab === 1 ? 'active' : '']"><h2 class="letra-poppins-bold">{{ $t('lang.menu.calendar').toUpperCase() }}</h2></a>
                         <a v-on:click="activetab = 2" v-bind:class="[activetab === 2 ? 'active' : '']"><h2 class="letra-poppins-bold">{{ $t('lang.menu.class').toUpperCase() }}</h2></a>
                         <a v-on:click="activetab = 3" v-bind:class="[activetab === 3 ? 'active' : '']"><h2 class="letra-poppins-bold">{{ $t('lang.menu.homework').toUpperCase() }}</h2></a>
                         <a v-on:click="activetab = 4" v-bind:class="[activetab === 4 ? 'active' : '']"><h2 class="letra-poppins-bold">{{ $t('lang.menu.grades').toUpperCase() }}</h2></a>
                     </div>
-
-                    <div class="content-azul">
+                    <div v-if="showSection === 'inicio'" class="content-azul">
                         <div v-if="activetab === 1" class="tabcontent"><calendar-component :type_u="3" :user="user"></calendar-component></div>
                         <div v-if="activetab === 2" class="tabcontent">
                             <!-- <student-courses 
@@ -51,6 +50,15 @@
                             
                         <div v-if="activetab === 3" class="tabcontent"><repo-student :nameArea="nameArea" :planifications="planifications" :id_lective_planification="id_lective_planification"></repo-student></div>
                         <div v-if="activetab === 4" class="tabcontent"><notas-component :idArea="idArea" :idClassroom="idClassroom" :user="user" :nameArea="nameArea" :planifications="planifications" :id_lective_planification="id_lective_planification"></notas-component></div>
+                    </div>
+                    <div v-else-if="showSection === 'chat'">
+                        <group-chat v-for="group in groups" :group="group" :key="group.id" :user_auth="user"></group-chat>
+                    </div>
+                    <!-- <div v-else-if="showSection === 'question'">
+
+                    </div> -->
+                    <div v-else-if="showSection === 'message'">
+                        <mensajes-component :user="user"></mensajes-component>
                     </div>
                 </div>
             </div>
@@ -92,7 +100,7 @@
                 </a>
             </div>
         </div>
-    </div>
+    </div>    
 </template>
 <script>
 import pdf from "vue-pdf";
@@ -228,7 +236,9 @@ export default {
             lectivs: false,
             idModule:"",
             idClass :"",
-            planif:"claseEst"
+            planif:"claseEst",
+            showSection: "inicio",
+            groups:{}
         };
     },
     mounted() {
@@ -330,6 +340,18 @@ export default {
           var nameMinus=name.toLowerCase();
           return nameMinus.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
         },
+        showOtherSection(data){
+            if(data === 'chat'){
+                axios.get('/chat').then((response)=>{
+                    this.groups = response.data
+                })
+            }
+            this.showSection = data
+        },
+        cleanOtherSection(){
+            this.showSection = 'inicio';
+            this.groups= {}
+        }
     },
     filters: {
         formatDate: (value) => {

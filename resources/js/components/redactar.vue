@@ -79,8 +79,8 @@
 
                         <ckeditor :editor="editor" v-model="editorData" @ready="onReady"></ckeditor>
                         <div class="modal-footer">
-                            <a href="#" class="btn btn-warning float-right" @click="getMenu()">Cancelar</a>
-                            <a href="#" class="btn btn-warning float-right" @click="saveM()">Enviar</a>
+                            <button type="button" href="#" class="btn btn-warning float-right" @click="getMenu()">Volver</button>
+                            <button type="button" href="#" class="btn btn-warning float-right" @click="saveM()">Enviar</button>
                         </div>
                     </div>
                 </div>
@@ -118,7 +118,7 @@
     // register globally
     Vue.component("multiselect", Multiselect);
     export default {
-        props: ['user'],
+        props: ['user','cleanShowSection'],
         // OR register locally
         components: {
             Multiselect,
@@ -356,7 +356,7 @@
         },
         methods: {
             getMenu() {
-                window.location = "/enviados";
+                this.cleanShowSection();
             },
             addTaga(newTag) {
                 const tag = {
