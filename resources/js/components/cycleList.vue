@@ -50,7 +50,7 @@
                                 </td>
                                 <td v-else-if="planification === 'general'">
                                     <p>
-                                        <button class="btn btn-warning" v-on:click="()=>getEditCycle()">Editar</button>                  
+                                        <button class="btn btn-warning" v-on:click="()=>getEditCycle(cycle)">Editar</button>                  
                                         <button class="btn btn-primary" v-if="cycle.activateButton === 'true'" v-on:click="()=>ClassAndCicle(cycle.id)" >Eliminar</button>                      
                                         <button class="btn btn-primary" v-if="cycle.activateButton === 'false'" v-on:click="()=>RequestPermissions(cycle, cycle.driving_question)">Solicitar Permiso para Eliminar</button>
                                     </p>
@@ -75,7 +75,7 @@
     <teacher-module :id_module="idModule" :cleanIdModule="cleanIdModule"></teacher-module>
 </div>
 <div v-else-if="showCycle === 'semanalAct' ">
-    <semanalact-component :id_area="id_area" :id_classroom="id_classroom" :cleanIdModule="cleanIdModule"></semanalact-component>
+    <semanalact-component :id_area="id_area" :id_classroom="id_classroom" :cleanIdModule="cleanIdModule" :id_cycle="id_cicle"></semanalact-component>
     <div class="modal fade" id="infoClass" tabindex="-1" role="dialog" aria-labelledby="infoClassLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -136,7 +136,9 @@ export default {
             showCycle:"true",
             clasId:"",
             idTrimestre:"",
-            orden:""
+            orden:"",
+            clase_to_delete:[],
+            id_cicle:""
         };
     },
     mounted(){
@@ -203,11 +205,12 @@ export default {
             this.orden="";
         },
         
-        getEditCycle(){
+        getEditCycle(cycle){
             let data = this.idArea.split("/");
             this.id_area=data[0];
             this.id_classroom = data[1];
-            this.showCycle ="semanalAct"
+            this.showCycle ="semanalAct";
+            this.id_cicle = cycle.id;
         },
 
         RequestPermissions(data, curso){

@@ -146,7 +146,9 @@ __webpack_require__.r(__webpack_exports__);
       showCycle: "true",
       clasId: "",
       idTrimestre: "",
-      orden: ""
+      orden: "",
+      clase_to_delete: [],
+      id_cicle: ""
     };
   },
   mounted: function mounted() {
@@ -214,11 +216,12 @@ __webpack_require__.r(__webpack_exports__);
       this.idTrimestre = "";
       this.orden = "";
     },
-    getEditCycle: function getEditCycle() {
+    getEditCycle: function getEditCycle(cycle) {
       var data = this.idArea.split("/");
       this.id_area = data[0];
       this.id_classroom = data[1];
       this.showCycle = "semanalAct";
+      this.id_cicle = cycle.id;
     },
     RequestPermissions: function RequestPermissions(data, curso) {
       console.log(data);
@@ -462,7 +465,9 @@ var render = function() {
                                                 staticClass: "btn btn-warning",
                                                 on: {
                                                   click: function() {
-                                                    return _vm.getEditCycle()
+                                                    return _vm.getEditCycle(
+                                                      cycle
+                                                    )
                                                   }
                                                 }
                                               },
@@ -566,7 +571,8 @@ var render = function() {
             attrs: {
               id_area: _vm.id_area,
               id_classroom: _vm.id_classroom,
-              cleanIdModule: _vm.cleanIdModule
+              cleanIdModule: _vm.cleanIdModule,
+              id_cycle: _vm.id_cicle
             }
           }),
           _vm._v(" "),
