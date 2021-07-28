@@ -159,6 +159,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(__webpack_require__(/*! vue-moment */ "./node_modules/vue-moment/dist/vue-moment.js"));
@@ -235,7 +244,11 @@ var render = function() {
           _c("div", { staticClass: "col-sm-10", attrs: { id: "crud" } }, [
             _c("div", { staticClass: "card text-center" }, [
               _c("h3", { staticClass: "card-header fondo" }, [
-                _vm._v("Mensajes")
+                _vm._v(
+                  "                        \n                    " +
+                    _vm._s(_vm.$t("lang.messages.messages")) +
+                    "\n                "
+                )
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "card-body" }, [
@@ -249,7 +262,13 @@ var render = function() {
                       }
                     }
                   },
-                  [_vm._v("Redactar")]
+                  [
+                    _vm._v(
+                      "\n                        " +
+                        _vm._s(_vm.$t("lang.messages.write")) +
+                        "\n                    "
+                    )
+                  ]
                 ),
                 _vm._v(" "),
                 _c(
@@ -262,7 +281,13 @@ var render = function() {
                       }
                     }
                   },
-                  [_vm._v("Mensajes enviados")]
+                  [
+                    _vm._v(
+                      "                            \n                        " +
+                        _vm._s(_vm.$t("lang.messages.messages_sent")) +
+                        "\n                    "
+                    )
+                  ]
                 ),
                 _vm._v(" "),
                 _c("br"),
@@ -278,7 +303,41 @@ var render = function() {
                       "table table-responsive-xl table-hover table-striped center"
                   },
                   [
-                    _vm._m(0),
+                    _c("thead", [
+                      _c("tr", [
+                        _c("th", [
+                          _vm._v(
+                            "                                        \n                                    " +
+                              _vm._s(_vm.$t("lang.table.name")) +
+                              "\n                                "
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("th", [
+                          _vm._v(
+                            "\n                                    " +
+                              _vm._s(_vm.$t("lang.table.subject")) +
+                              "\n                                "
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("th", [
+                          _vm._v(
+                            "\n                                    " +
+                              _vm._s(_vm.$t("lang.table.date")) +
+                              "\n                                "
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("th", [
+                          _vm._v(
+                            "\n                                    " +
+                              _vm._s(_vm.$t("lang.table.action")) +
+                              "\n                                "
+                          )
+                        ])
+                      ])
+                    ]),
                     _vm._v(" "),
                     _vm._l(_vm.messages, function(option, k) {
                       return _c("tbody", { key: k }, [
@@ -333,14 +392,29 @@ var render = function() {
                 _c("div", { staticClass: "modal-dialog modal-lg" }, [
                   _c("div", { staticClass: "modal-content" }, [
                     _c("div", { staticClass: "card" }, [
-                      _vm._m(1),
+                      _vm._m(0),
                       _vm._v(" "),
                       _c(
                         "div",
                         { staticClass: "card-body" },
                         [
                           _c("div", { staticClass: "form-group row" }, [
-                            _vm._m(2),
+                            _c("div", { staticClass: "col-sm-2" }, [
+                              _c(
+                                "label",
+                                {
+                                  staticClass: "label-mensaje",
+                                  attrs: { for: "nombre" }
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                                            " +
+                                      _vm._s(_vm.$t("lang.messages.from")) +
+                                      ":\n                                        "
+                                  )
+                                ]
+                              )
+                            ]),
                             _vm._v(" "),
                             _c("div", { staticClass: "col-md-10" }, [
                               _c("input", {
@@ -373,7 +447,22 @@ var render = function() {
                           ]),
                           _vm._v(" "),
                           _c("div", { staticClass: "form-group row" }, [
-                            _vm._m(3),
+                            _c("div", { staticClass: "col-sm-2" }, [
+                              _c(
+                                "label",
+                                {
+                                  staticClass: "label-mensaje",
+                                  attrs: { for: "nombre" }
+                                },
+                                [
+                                  _vm._v(
+                                    "                                                \n                                            " +
+                                      _vm._s(_vm.$t("lang.table.subject")) +
+                                      ":\n                                        "
+                                  )
+                                ]
+                              )
+                            ]),
                             _vm._v(" "),
                             _c("div", { staticClass: "col-md-10" }, [
                               _c("input", {
@@ -405,7 +494,17 @@ var render = function() {
                             ])
                           ]),
                           _vm._v(" "),
-                          _vm._m(4),
+                          _c("div", { staticClass: "form-group row" }, [
+                            _c("div", { staticClass: "col-md-6" }, [
+                              _c("label", { attrs: { for: "mensaje" } }, [
+                                _vm._v(
+                                  "                                                \n                                            " +
+                                    _vm._s(_vm.$t("lang.messages.message")) +
+                                    ":\n                                        "
+                                )
+                              ])
+                            ])
+                          ]),
                           _vm._v(" "),
                           _c("ckeditor", {
                             attrs: { editor: _vm.editor },
@@ -456,22 +555,6 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("thead", [
-      _c("tr", [
-        _c("th", [_vm._v("Nombre")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Asunto")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Fecha")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Acción")])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c("h3", { staticClass: "card-header fondo text-center" }, [
       _vm._v(
         "\n                                Mensaje\n                                "
@@ -484,36 +567,6 @@ var staticRenderFns = [
         },
         [_c("span", [_vm._v("×")])]
       )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-sm-2" }, [
-      _c("label", { staticClass: "label-mensaje", attrs: { for: "nombre" } }, [
-        _vm._v("De:")
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-sm-2" }, [
-      _c("label", { staticClass: "label-mensaje", attrs: { for: "nombre" } }, [
-        _vm._v("Asunto:")
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group row" }, [
-      _c("div", { staticClass: "col-md-6" }, [
-        _c("label", { attrs: { for: "mensaje" } }, [_vm._v("Mensaje:")])
-      ])
     ])
   }
 ]

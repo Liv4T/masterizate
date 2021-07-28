@@ -265,7 +265,7 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
       newTrimestre: [],
       tipo_act: "",
       porcentaje: ""
-    }, _defineProperty(_ref, "newTrimestre", []), _defineProperty(_ref, "newLogro", []), _defineProperty(_ref, "trimestre", false), _defineProperty(_ref, "logro_1", ""), _defineProperty(_ref, "logro_2", ""), _defineProperty(_ref, "logro_3", ""), _defineProperty(_ref, "logro_4", ""), _defineProperty(_ref, "fillC", []), _defineProperty(_ref, "fillI", []), _defineProperty(_ref, "anual", []), _defineProperty(_ref, "newAnual", []), _defineProperty(_ref, "errors", []), _defineProperty(_ref, "id_logro", ""), _defineProperty(_ref, "id_indicator", 0), _defineProperty(_ref, "index", 0), _ref;
+    }, _defineProperty(_ref, "newTrimestre", []), _defineProperty(_ref, "newLogro", []), _defineProperty(_ref, "trimestre", false), _defineProperty(_ref, "logro_1", ""), _defineProperty(_ref, "logro_2", ""), _defineProperty(_ref, "logro_3", ""), _defineProperty(_ref, "logro_4", ""), _defineProperty(_ref, "fillC", []), _defineProperty(_ref, "fillI", []), _defineProperty(_ref, "anual", []), _defineProperty(_ref, "newAnual", []), _defineProperty(_ref, "errors", []), _defineProperty(_ref, "id_logro", ""), _defineProperty(_ref, "id_indicator", 0), _defineProperty(_ref, "index", 0), _defineProperty(_ref, "areaId", ""), _ref;
   },
   watch: {
     idArea: function idArea(newVal, oldVal) {
@@ -275,13 +275,23 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
     }
   },
   mounted: function mounted() {
+    if (this.idArea === undefined) {
+      var params = window.location.pathname;
+      var ids = params.split('/');
+      var idArea = ids[2] + "/" + ids[3];
+      this.areaId = idArea;
+      console.log('Url actual', idArea);
+    } else {
+      this.areaId = this.idArea;
+    }
+
     this.getData();
   },
   methods: {
     getData: function getData() {
       var _this = this;
 
-      var urlsel = window.location.origin + "/coursePlanification/" + this.idArea;
+      var urlsel = window.location.origin + "/coursePlanification/" + this.areaId;
       axios.get(urlsel).then(function (response) {
         _this.fillC = response.data;
       });

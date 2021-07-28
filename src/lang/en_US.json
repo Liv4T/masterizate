@@ -13,12 +13,12 @@
         "monthly": "Monthly",
         "weekly": "Weekly",
         "activities": "Activities",
-        "face-to-face classes": "Face-to-face Classes",
+        "face-to-face classes": "Classes",
         "tutorship": "Tutoring",
         "pendingWork": "Pending Work",
         "dateFrom": "Date From",
         "dateTo": "Date To"
-    },
+    },    
     "class": {
         "myClasses": "My classes",
         "learningCycle": "Learning cycle",
@@ -93,5 +93,39 @@
         "emprendimiento": "Entrepreneurship",
         "psicologia": "Psychology",
         "steam": "STEAM"
+    },
+    "messages":{
+        "messages":"Messages",
+        "message":"Message",
+        "write":"Write To",
+        "messages_sent":"Messages sent",
+        "from": "From"
+    },
+    "table":{
+        "name":"Name",
+        "last_name":"Last Name",
+        "subject":"Subject",
+        "date":"Date",
+        "action":"Action",
+        "findByClassroom":"Find By Classroom",
+        "findByName":"Find By Name"
+    },
+    "Write_To":{
+        "writeTo":"Compose Message",
+        "addressees":"Addressees",
+        "your_contacts":"Your Contacts",
+        "cancel":"Cancel",
+        "send":"Send"
+    },
+    "charges":{
+        "administrative":"Administrative",
+        "teachers":"Teachers",
+        "students":"Students",
+        "parents":"Parents",
+        "psicology":"Psicology",
+        "schoolGovernment":"School Government",
+        "coordinators":"Coordinators",
+        "tutors":"Tutors",
+        "nursing":"Nursing"
     }
 }

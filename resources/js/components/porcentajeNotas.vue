@@ -273,7 +273,8 @@ export default {
       errors: [],
       id_logro: "",
       id_indicator: 0,
-      index: 0
+      index: 0,
+      areaId: ""
     };
   },
   watch:{
@@ -284,11 +285,22 @@ export default {
     }
   },
   mounted() {
+    if(this.idArea === undefined){
+      let params = window.location.pathname;
+      let ids = params.split('/');            
+      let idArea = ids[2]+"/"+ids[3];
+      this.areaId = idArea;
+
+      console.log('Url actual',idArea);
+    }else{
+      this.areaId = this.idArea
+    }
+    
     this.getData();
   },
   methods: {
     getData(){
-      var urlsel = window.location.origin + "/coursePlanification/" + this.idArea;
+      var urlsel = window.location.origin + "/coursePlanification/" + this.areaId;
       axios.get(urlsel).then((response) => {
         this.fillC = response.data;
       });

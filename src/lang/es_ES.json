@@ -93,5 +93,39 @@
         "emprendimiento": "Emprendimiento",
         "psicologia": "Psicología",
         "steam": "STEAM"
-    }
+    },
+    "messages":{
+        "messages":"Mensajes",
+        "message":"Mensaje",
+        "write":"Redactar",
+        "messages_sent":"Mensajes enviados",
+        "from": "De"
+    },
+    "table":{
+        "name":"Nombre",
+        "last_name":"Apellido",
+        "subject":"Asunto",
+        "date":"Fecha",
+        "action":"Acción",
+        "findByClassroom":"Buscar Por Salon",
+        "findByName":"Buscar Por Nombre"
+    },
+    "Write_To":{
+        "writeTo":"Redactar Mensaje",
+        "addressees":"Destinatarios",
+        "your_contacts":"Tus contactos",
+        "cancel":"Cancelar",
+        "send":"Enviar"
+    },
+    "charges":{
+        "administrative":"Administrativa",
+        "teachers":"Docentes",
+        "students":"Estudiantes",
+        "parents":"Padres",
+        "psicology":"Psicología",
+        "schoolGovernment":"Gobierno Escolar",
+        "coordinators":"Coordinadores",
+        "tutors":"Tutores",
+        "nursing":"Enfermería"
+    }   
 }

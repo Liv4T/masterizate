@@ -87,7 +87,7 @@
                 <a class="navbar-brand" href="{{ url('/') }}">
                     <div>
                         {{ config('Life4teach') }}                        
-                        <img thumbnail fluid src="{{URL::asset('images/home6.png')}}"  alt="4"></img>
+                        <img thumbnail fluid src="{{URL::asset('images/home6New.png')}}"  alt="4"></img>
                     </div>
 
                 </a>

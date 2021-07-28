@@ -35,7 +35,7 @@
                         <a v-on:click="activetab = 3" v-bind:class="[activetab === 3 ? 'active' : '']"><h2 class="letra-poppins-bold">{{ $t('lang.menu.homework').toUpperCase() }}</h2></a>
                         <a v-on:click="activetab = 4" v-bind:class="[activetab === 4 ? 'active' : '']"><h2 class="letra-poppins-bold">{{ $t('lang.menu.grades').toUpperCase() }}</h2></a>
                     </div>
-                    <div v-if="showSection === 'inicio'" class="content-azul">
+                    <div v-if="showSection === 'inicio'">
                         <div v-if="activetab === 1" class="tabcontent"><calendar-component :type_u="3" :user="user"></calendar-component></div>
                         <div v-if="activetab === 2" class="tabcontent">
                             <!-- <student-courses 
@@ -340,7 +340,7 @@ export default {
           var nameMinus=name.toLowerCase();
           return nameMinus.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
         },
-        showOtherSection(data){
+        showOtherSection(data){            
             if(data === 'chat'){
                 axios.get('/chat2').then((response)=>{
                     this.groups = response.data

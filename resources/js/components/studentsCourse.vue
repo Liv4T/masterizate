@@ -1,6 +1,6 @@
 <template>
     <div id="accordion">
-        <input type="text" class="form-control mb-2" placeholder="Buscar Salon" v-model="search_class">
+        <input type="text" class="form-control mb-2" :placeholder="$t('lang.table.findByClassroom')" v-model="search_class">
         <div v-for="(students, key) in optionsMap" :key="key" >
             <div class="card" v-if="search_class =='' || filterClass(key)">
                 <div class="card-header" :id="`headingOne${key.replace(/ /g, '')}`">
@@ -12,14 +12,20 @@
                 </div>
 
                 <div :id="`collapse${key.replace(/ /g, '')}`"  class="collapse show" :aria-labelledby="`headingOne${key.replace(/ /g, '')}`" data-parent="#accordion">
-                    <input type="text" class="form-control mb-2" placeholder="Buscar Por Nombre" v-model="search_student">
+                    <input type="text" class="form-control mb-2" :placeholder="$t('lang.table.findByName')" v-model="search_student">
                     <div class="card-body">
                         <table class="table table-striped">
                             <thead>
                                 <tr>
-                                    <th>Nombre</th>
-                                    <th>Apellido</th>
-                                    <th>Acción</th>
+                                    <th>
+                                        {{ $t('lang.table.name') }}
+                                    </th>
+                                    <th>
+                                        {{ $t('lang.table.last_name') }}
+                                    </th>
+                                    <th>
+                                        {{ $t('lang.table.action') }}
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody v-for="(student, key) in students" :key="key">
@@ -88,7 +94,7 @@
             },
             filterStudent(student){
                 return student.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(this.search_student.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, ""));
-            }
+            },
         },
     };
 </script>
