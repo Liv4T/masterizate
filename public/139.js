@@ -100,6 +100,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 (function () {
   "use strict";
 
@@ -428,6 +429,15 @@ var render = function() {
                     )
                   ],
                   1
+                ),
+                _vm._v(" "),
+                _c(
+                  "a",
+                  {
+                    staticClass: "btn btn-primary",
+                    attrs: { href: "/teacher/lectives/planning" }
+                  },
+                  [_vm._v("Volver")]
                 )
               ],
               1
