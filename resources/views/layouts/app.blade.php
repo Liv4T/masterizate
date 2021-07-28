@@ -86,8 +86,8 @@
         <nav class="navbar fixed-top navbar-expand-md navbar-light navbar-laravel">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     <div>
-                        {{ config('Life4teach') }}
-                        <img thumbnail fluid src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/LOGO_LIV4T_SKOOL.png?alt=media&token=e0a74c90-0f0d-4932-863a-827b5f87ed0c"  alt="4"></img>
+                        {{ config('Life4teach') }}                        
+                        <img thumbnail fluid src="{{URL::asset('images/home6.png')}}"  alt="4"></img>
                     </div>
 
                 </a>
@@ -109,9 +109,9 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('loginNew') }}">{{ __('Login') }}</a>
                             </li>
-                            <li class="nav-item">
+                            <!-- <li class="nav-item">
                                 <a class="nav-link" href="/tutorRegister">Registro de Tutor</a>
-                            </li>
+                            </li> -->
                             @if (Route::has('registerNew'))
                             <!-- li class="nav-item"-->
                                 <!--a class="nav-link" href="{{ route('registerNew') }}">{{ __('Register') }}</a-->

@@ -85,6 +85,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 $(".collapse").on("show.bs.collapse", function () {
   $(".collapse.in").collapse("hide");
 });
@@ -377,10 +389,85 @@ var render = function() {
                             _c(
                               "a",
                               {
+                                directives: [
+                                  {
+                                    name: "show",
+                                    rawName: "v-show",
+                                    value: _vm.general == true,
+                                    expression: "general==true"
+                                  }
+                                ],
+                                staticClass: "btn btn-warning",
+                                attrs: {
+                                  href:
+                                    "/crear_semana/" +
+                                    area.id +
+                                    "/" +
+                                    area.id_classroom
+                                }
+                              },
+                              [
+                                _vm._v(
+                                  "\n                      Crear Ciclo\n                    "
+                                )
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "a",
+                              {
                                 staticClass: "btn btn-warning",
                                 attrs: { href: "/docente/clases" }
                               },
                               [_vm._v("Ciclos y clases")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "a",
+                              {
+                                directives: [
+                                  {
+                                    name: "show",
+                                    rawName: "v-show",
+                                    value: _vm.general == true,
+                                    expression: "general==true"
+                                  }
+                                ],
+                                staticClass: "btn btn-warning",
+                                attrs: { href: "/duplicar-semana/" }
+                              },
+                              [
+                                _vm._v(
+                                  "\n                      Duplicar Ciclo\n                    "
+                                )
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "a",
+                              {
+                                directives: [
+                                  {
+                                    name: "show",
+                                    rawName: "v-show",
+                                    value: _vm.general == true,
+                                    expression: "general==true"
+                                  }
+                                ],
+                                staticClass: "btn btn-warning",
+                                attrs: {
+                                  href:
+                                    "/act_semana/" +
+                                    area.id +
+                                    "/" +
+                                    area.id_classroom
+                                }
+                              },
+                              [
+                                _vm._v(
+                                  "\n                      Actualizar Ciclo\n                    "
+                                )
+                              ]
                             )
                           ]
                         )
