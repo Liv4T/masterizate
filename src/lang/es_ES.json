@@ -108,7 +108,8 @@
         "date":"Fecha",
         "action":"Acción",
         "findByClassroom":"Buscar Por Salon",
-        "findByName":"Buscar Por Nombre"
+        "findByName":"Buscar Por Nombre",
+        "back_to":"Volver"
     },
     "Write_To":{
         "writeTo":"Redactar Mensaje",
