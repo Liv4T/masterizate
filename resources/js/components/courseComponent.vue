@@ -360,7 +360,7 @@ export default {
                     if(this.piarStudents.length > 0){
                         this.showPiarPlan = true,
                         this.showPIARPlanTrimestral = true,
-                        this.activityForPIARStudents = true;
+                        this.activityForAllStudents = true;
                     }                    
                 }
             })

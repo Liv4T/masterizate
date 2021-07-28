@@ -382,7 +382,7 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
               });
             });
           });
-          _this.showPiarPlan = true, _this.showPIARPlanTrimestral = true, _this.activityForPIARStudents = true;
+          _this.showPiarPlan = true, _this.showPIARPlanTrimestral = true, _this.activityForAllStudents = true;
         }
       }); //load from localstorage
 
