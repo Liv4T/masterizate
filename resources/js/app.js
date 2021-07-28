@@ -244,6 +244,7 @@ Vue.component("admin-module", () => import ("./components/adminModuleComponent.v
 Vue.component("teacher-courses", () => import ("./components/teacherCoursesComponent.vue"));
 Vue.component("teacher-module", () => import ("./components/teacherModuleComponent.vue"));
 Vue.component("teacher-course", () => import ("./components/teacherCourseComponent.vue"));
+Vue.component("modal-preview",()=>import("./components/ModalPreviewClass.vue"));
 Vue.component("student-courses", () => import ("./components/studentCoursesComponent.vue"));
 Vue.component("student-module", () => import ("./components/studentModuleComponent.vue"));
 Vue.component("student-course", () => import ("./components/studentCourseComponent.vue"));
