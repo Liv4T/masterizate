@@ -101,7 +101,9 @@
         "robotica": "Robótica",
         "emprendimiento": "Emprendimiento",
         "psicologia": "Psicología",
-        "steam": "STEAM"
+        "steam": "STEAM",
+        "induccin hs":"Induction HS",
+        "inducción ms":"Induction MS"
     },
     "messages":{
         "messages":"Mensajes",

@@ -134,8 +134,8 @@
             getData() {
                 axios.get("/getInvitations").then((response) => {
                     this.parents = response.data;
-                }).catch(() => {
-                    toastr.error("Intenta de nuevo mas tarde")
+                }).catch((error) => {
+                    console.log(error);
                 })
             },
             editE(id) {
