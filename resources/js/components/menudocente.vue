@@ -52,6 +52,7 @@
                 <li class="item-menu">
                   <span class="menu">ACADÉMICO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                   <div class="dropdown2-content">
+                    <a href="/actividad_g"> Planificación </a>
                     <a href="/resportSendParents"> Reporte Mensual Padres&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </a>
                     <a href="/board"> Pizarra </a>
                   </div>
