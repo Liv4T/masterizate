@@ -408,7 +408,7 @@ export default {
                     
                     this.showPiarPlan = true,
                     this.showPIARPlanTrimestral = true,
-                    this.activityForPIARStudents = true;
+                    this.activityForAllStudents = true;
                 }
             })
             

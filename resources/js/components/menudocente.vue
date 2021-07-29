@@ -27,12 +27,23 @@
             </a>
             <a href="/general" class="">
               <li class="item-menu">
-                <span class="menu">PLANIFICACION GENERAL</span>
+                <p style="margin-top:-9px; margin-bottom:-29px; margin-left:1rem;">
+                  PLANIFICACION
+                  <br>
+                </p>
+                <p style="margin-left:1rem;">
+                  GENERAL                
+                </p>
               </li>
             </a>
             <a href="/plan_clases" class="">
               <li class="item-menu">
-                <span class="menu">PLANIFICACION CLASES</span>
+                <p style="margin-top:-9px; margin-bottom:-29px; margin-left:1rem;">
+                  PLANIFICACION
+                </p>
+                <p style="margin-left:1rem;"> 
+                  CLASES
+                </p>
               </li>
             </a>
 

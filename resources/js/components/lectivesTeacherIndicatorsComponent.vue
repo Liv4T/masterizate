@@ -103,6 +103,7 @@
                 </div>
               </tab-content>
             </form-wizard>
+            <a href="/teacher/lectives/planning" class="btn btn-primary">Volver</a>
           </form>
         </div>
       </div>

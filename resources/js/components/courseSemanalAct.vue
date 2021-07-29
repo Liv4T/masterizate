@@ -19,7 +19,7 @@
                   <div class="form-group row mx-auto" v-for="(act, t) in fillS" :key="t">
                     <div class="col-md-12">
                       <select class="form-control" v-model="act.id_trimestre">
-                        <option :value="options.id" v-for="options in trimestres">
+                        <option :value="options.id" v-for="(options ,key) in trimestres" :key="key">
                           {{
                           options.nombre
                           }}
@@ -38,8 +38,10 @@
                         />
                       </div>
                     </div>
-                    <div class="col-md-6" v-for="(input, k) in inputClass">
+                    <div class="col-md-6" v-for="(input, k) in inputClass" :key="k">
                       <label for="name">Desarrollo de la clase</label>
+                      <a href="#" class="badge badge-danger"  @click.prevent="remove(t)" v-show="t || (!t && inputClass.length > 1)">-</a>
+                      <a href="#" class="badge badge-primary" @click.prevent="add(t)"    v-show="t == inputs.length - 1">+</a>                   
                       <textarea
                         name="competences"
                         class="form-control"
@@ -191,14 +193,12 @@ export default {
       });
     },
     add(index) {
-      this.inputs.push({
-        driving_question: "",
-        class_development: "",
-        observation: "",
+      this.inputClass.push({
+        class_developmentC: ""
       });
     },
     remove(index) {
-      this.inputs.splice(index, 1);
+      this.inputClass.splice(index, 1);
     },
     createSemanal() {
       var url = "courseWeekly";

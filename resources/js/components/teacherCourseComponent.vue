@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div v-if="showPreview === false">
         <div>
             <div class="row">
                 <div class="col-md-12 mx-auto">
@@ -186,26 +186,23 @@
                                                 <activity-complete-sentence v-if="activity.activity_type=='COMPLETAR_ORACION'" v-bind:module="activity.module" v-bind:disabled="course.state==2"></activity-complete-sentence>
                                                 <activity-relationship v-if="activity.activity_type=='RELACION'" v-bind:module="activity.module" v-bind:disabled="course.state==2"></activity-relationship>
                                                 <activity-crossword v-if="activity.activity_type=='CRUCIGRAMA'" v-bind:module="activity.module" v-bind:disabled="course.state==2"></activity-crossword>
-
-
                                             </div>
                                         </div>
                                     </div><!--card -->
                                 </div>
                             </div>
-
-
-
                     </div>
                     <div class="div-weekly-plan-btn-save">
                        <a class="btn btn-warning" v-on:click="cleanCreateClas">Cancelar</a>
+                       <a class="btn btn-primary" v-on:click="getPreview" >Previsualización de clase</a>
                        <button class="btn btn-primary" v-on:click="SaveDataEvent()" :disabled="is_loading" v-if="course.state==1">Guardar y enviar</button>
                     </div>
-
-
                 </div>
             </div>
         </div>
+    </div>
+    <div v-else-if="showPreview === true">
+        <modal-preview :course="course" :backPreview="backPreview"></modal-preview>
     </div>
 </template>
 <script>
@@ -243,6 +240,7 @@ export default {
     props: ["id_module", "id_class","cleanCreateClas"],
     data() {
         return {
+            showPreview:false,
             tmp:{},
             is_loading:false,
             weekly_plan:{},
@@ -329,7 +327,7 @@ export default {
         }
     },
     mounted() {
-
+        this.activityForAllStudents = true;
         axios.get(`/showClass/${this.id_module}`).then((response) => {
             this.achievements=response.data.achievements;            
             this.nameArea = `${response.data.area.name} ${response.data.classroom.name}`;
@@ -406,7 +404,8 @@ export default {
     },
     methods: {
         returnPage() {
-          window.location =`/docente/modulo/${this.id_module}`;
+            this.cleanCreateClas();
+        //   window.location =`/docente/modulo/${this.id_module}`;
         },
         addResource(resource_type){
             this.course.content.push({
@@ -552,6 +551,14 @@ export default {
             return this.indicators.filter(item => {
                 return item.id_achievement==id_achievement;
             })
+        },
+        getPreview(){
+            this.showPreview = true;
+            $("#previewClassModal").modal("show");
+        },
+        backPreview(){
+            this.showPreview = false;
+            $("#previewClassModal").modal("hide");
         }
 
     },

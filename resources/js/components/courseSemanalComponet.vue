@@ -48,7 +48,7 @@
                         />
                       </div>
                     </div>
-                      <div class="col-md-6" v-for="(inputC, k) in inputsClass[t]">
+                      <div class="col-md-6" v-for="(inputC, k) in inputsClass[t]" :key="k">
                         <label for="name">Desarrollo de la clase</label>
                         <span>
                           <a

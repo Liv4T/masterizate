@@ -707,7 +707,7 @@ var render = function() {
                   : _vm._e(),
                 _vm._v(" "),
                 _vm.showSection === "inicio"
-                  ? _c("div", { staticClass: "content-azul" }, [
+                  ? _c("div", [
                       _vm.activetab === 1
                         ? _c(
                             "div",

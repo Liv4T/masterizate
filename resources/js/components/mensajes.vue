@@ -3,15 +3,18 @@
         <div class="row justify-content-center">
             <div id="crud" class="col-sm-10">
                 <div class="card text-center">
-                    <h3 class="card-header fondo">Mensajes</h3>
+                    <h3 class="card-header fondo">                        
+                        {{ $t('lang.messages.messages') }}
+                    </h3>
 
                     <div class="card-body">
-                        <a v-on:click="setShowSection('redactar')" class="btn btn-warning float-right"
-                            >Redactar</a
-                        >
+                        <a v-on:click="setShowSection('redactar')" class="btn btn-warning float-right">
+                            {{ $t('lang.messages.write') }}
+                        </a>
 
-                        <a v-on:click="setShowSection('sendMessage')" class="btn btn-warning float-left"
-                            >Mensajes enviados</a
+                        <a v-on:click="setShowSection('sendMessage')" class="btn btn-warning float-left">                            
+                            {{ $t('lang.messages.messages_sent') }}
+                        </a
                         >
                         <br />
                         <br />
@@ -21,10 +24,18 @@
                         >
                             <thead>
                                 <tr>
-                                    <th>Nombre</th>
-                                    <th>Asunto</th>
-                                    <th>Fecha</th>
-                                    <th>Acción</th>
+                                    <th>                                        
+                                        {{ $t('lang.table.name') }}
+                                    </th>
+                                    <th>
+                                        {{ $t('lang.table.subject') }}
+                                    </th>
+                                    <th>
+                                        {{ $t('lang.table.date') }}
+                                    </th>
+                                    <th>
+                                        {{ $t('lang.table.action') }}
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody v-for="(option, k) in messages" :key="k">
@@ -71,11 +82,9 @@
                                 <div class="card-body">
                                     <div class="form-group row">
                                         <div class="col-sm-2">
-                                            <label
-                                                for="nombre"
-                                                class="label-mensaje"
-                                                >De:</label
-                                            >
+                                            <label for="nombre" class="label-mensaje">
+                                                {{ $t('lang.messages.from') }}:
+                                            </label>
                                         </div>
                                         <div class="col-md-10">
                                             <input
@@ -90,10 +99,9 @@
                                     </div>
                                     <div class="form-group row">
                                         <div class="col-sm-2">
-                                            <label
-                                                for="nombre"
-                                                class="label-mensaje"
-                                                >Asunto:</label
+                                            <label for="nombre" class="label-mensaje">                                                
+                                                {{ $t('lang.table.subject') }}:
+                                            </label
                                             >
                                         </div>
                                         <div class="col-md-10">
@@ -110,8 +118,9 @@
 
                                     <div class="form-group row">
                                         <div class="col-md-6">
-                                            <label for="mensaje"
-                                                >Mensaje:</label
+                                            <label for="mensaje">                                                
+                                                {{ $t('lang.messages.message') }}:
+                                            </label
                                             >
                                         </div>
                                     </div>

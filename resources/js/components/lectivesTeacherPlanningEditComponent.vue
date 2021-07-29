@@ -27,6 +27,10 @@
           <h3 class="card-header fondo">Planificación general</h3>
           <span class="classroom-label">{{planification.lective.name}} Trimestre {{planification.period_consecutive}}</span>
           <span v-show="!isSynchronized">(Hay cambios que no han sido guardados)</span>
+          <div class=" float-right">
+            <a href="/teacher/lectives/planning" class="btn btn-primary">Volver</a>
+          </div>
+          
           <form class="needs-validation" novalidate>
             <form-wizard
               title

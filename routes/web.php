@@ -79,8 +79,8 @@ Route::middleware('auth')->get('/crear_semana/{id_area}/{id_classroom}/{id_trime
 Route::middleware('auth')->get('/cycle/list/{id_area}/{id_classroom}', function (String $id_area, String $id_classroom) {
     return view('cycleList')->with('id_area', $id_area)->with('id_classroom', $id_classroom);
 });
-Route::middleware('auth')->get('/act_semana/{id_area}/{id_classroom}', function (String $id_area, String $id_classroom) {
-    return view('semanalAct')->with('id_area', $id_area)->with('id_classroom', $id_classroom);
+Route::middleware('auth')->get('/act_semana/{id_area}/{id_classroom}/{cycle_id}', function (String $id_area, String $id_classroom, String $cycle_id) {
+    return view('semanalAct')->with('id_area', $id_area)->with('id_classroom', $id_classroom)->with('cycle_id', $cycle_id);
 });
 
 Route::middleware('auth')->get('/unit', function () {
@@ -442,7 +442,7 @@ Route::get('getEvenNearStudent/{id_area}/{id_classroom}', 'EventsController@even
 
 Route::get('GetWeek', 'CoursesController@getWeek');
 Route::delete('DeleteCicle/{id_cicle}', 'CoursesController@destroy');
-Route::get('editGetWeek/{id_area}/{id_classroom}', 'CoursesController@editGetWeek')->name('editGetWeek');
+Route::get('editGetWeek/{id_area}/{id_classroom}/{id_trimestre}', 'CoursesController@editGetWeek')->name('editGetWeek');
 Route::get('editOneWeek/{id_area}/{id_classroom}', 'CoursesController@editOneWeek')->name('editOneWeek');
 Route::get('editOneCycle/{id}', 'CoursesController@oneCycle')->name('editOneCycle');
 Route::get('viewGetWeek/{id_area}/{id_classrom}/{id_trimestre}', 'CoursesController@viewGetWeek')->name('viewGetWeek');

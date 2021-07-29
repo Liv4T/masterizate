@@ -46,12 +46,28 @@
                         class="btn btn-warning"
                       >General</a>
 
+                      <a :href="'/duplicar/'+ area.id +'/'+ area.id_classroom" class="btn btn-warning">
+                        Duplicar
+                      </a>
+
                       <a
                         :href="'/porcentaje/'+ area.id +'/'+ area.id_classroom"
                         class="btn btn-warning"
                       >Porcentaje de notas</a>
 
-                      <a href="/docente/clases" class="btn btn-warning">Ciclos y clases</a>
+                      <a v-show="general==true" :href="'/crear_semana/'+ area.id +'/'+ area.id_classroom" class="btn btn-warning">
+                        Crear Ciclo
+                      </a>
+
+                      <a href="/docente/clases" class="btn btn-warning">Ciclos y clases</a>  
+
+                      <a v-show="general==true" :href="'/duplicar-semana/'" class="btn btn-warning">
+                        Duplicar Ciclo
+                      </a>  
+
+                      <a v-show="general==true" :href="'/act_semana/'+ area.id +'/'+ area.id_classroom" class="btn btn-warning">
+                        Actualizar Ciclo
+                      </a>                 
     <!--
                       <a
                         :href="'/act_semana/'+ area.id +'/'+ area.id_classroom"

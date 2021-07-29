@@ -125,6 +125,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["id_module", "cleanIdModule"],
@@ -385,14 +390,23 @@ var render = function() {
               _vm._v(" "),
               _c("div", { staticClass: "card-body" }, [
                 _c("div", { staticClass: "text-left" }, [
-                  _c(
-                    "a",
-                    {
-                      staticClass: "btn btn-primary",
-                      on: { click: _vm.cleanIdModule }
-                    },
-                    [_vm._v("Regresar")]
-                  ),
+                  _vm.cleanIdModule
+                    ? _c(
+                        "a",
+                        {
+                          staticClass: "btn btn-primary",
+                          on: { click: _vm.cleanIdModule }
+                        },
+                        [_vm._v("Regresar")]
+                      )
+                    : _c(
+                        "a",
+                        {
+                          staticClass: "btn btn-primary",
+                          attrs: { href: "/docente/clases" }
+                        },
+                        [_vm._v("Regresar")]
+                      ),
                   _vm._v(" "),
                   _c(
                     "a",

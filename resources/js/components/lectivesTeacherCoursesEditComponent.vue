@@ -18,7 +18,7 @@
                        
                     </div>
                     <div class="div-classes">
-                        <div class="div-class"  v-for="(item,key_d) in weekly_plan_detail" >
+                        <div class="div-class"  v-for="(item,key_d) in weekly_plan_detail" :key="key_d">
                             <h3>Clase {{key_d+1}}</h3>
                             <div class="title">
                               <div>
@@ -35,7 +35,7 @@
                                 </div>
                             </div>
                             <div class="content">
-                                <div class="div-resource" v-for="(item_content,key_c) in item.content" >
+                                <div class="div-resource" v-for="(item_content,key_c) in item.content" :key="key_c">
                                     <span class="closed-icon" v-on:click="removeResource(key_d,key_c)"><i v-if="key_c>2" class="fa fa-minus" ></i></span>
                                     <h4 v-if="item_content.content_type === 'DOCUMENT'">Documento</h4>
                                     <h4 v-else-if="item_content.content_type === 'LINK'">Enlace</h4>
@@ -70,6 +70,7 @@
                         
                     </div>
                     <div class="div-weekly-plan-btn-save">
+                        <a href="/teacher/lectives/courses" class="btn btn-primary float-left mr-2">Volver</a>
                         <button class="btn btn-warning" v-on:click="saveData()">Guardar y enviar</button>
                     </div>
 

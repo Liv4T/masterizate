@@ -244,6 +244,7 @@ Vue.component("admin-module", () => import ("./components/adminModuleComponent.v
 Vue.component("teacher-courses", () => import ("./components/teacherCoursesComponent.vue"));
 Vue.component("teacher-module", () => import ("./components/teacherModuleComponent.vue"));
 Vue.component("teacher-course", () => import ("./components/teacherCourseComponent.vue"));
+Vue.component("modal-preview",()=>import("./components/ModalPreviewClass.vue"));
 Vue.component("student-courses", () => import ("./components/studentCoursesComponent.vue"));
 Vue.component("student-module", () => import ("./components/studentModuleComponent.vue"));
 Vue.component("student-course", () => import ("./components/studentCourseComponent.vue"));
@@ -361,7 +362,8 @@ Vue.component("cycle-list", ()=>import("./components/cycleList.vue"));
 Vue.component("modal-create-trimestre", ()=>import("./components/modalCreateTrimestre.vue"));
 Vue.component("trimestres", ()=>import("./components/trimestreAdm.vue"));
 Vue.component("activities-teacher",()=>import("./components/ActivityTeacherComponent.vue"));
-Vue.component("trimestre-component",()=>import("./components/trimestreComponent.vue"))
+Vue.component("trimestre-component",()=>import("./components/trimestreComponent.vue"));
+Vue.component("create-lectives-courses",()=>import("./components/CreatelectivesTeacherCoursesComponent.vue"));
 
 Vue.use(CKEditor);
 
