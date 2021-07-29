@@ -462,12 +462,12 @@ class CoursesController extends Controller
         return response()->json($data);
     }
 
-    public function editGetWeek(String $id_area, String $id_classroom, String $id_trimestre)
+    public function editGetWeek(String $id_area, String $id_classroom)
     {
         $user = Auth::user();
         $data = [];
         if ($user->isAdmin()) {
-            $Weeks = Weekly::where('id_area', $id_area)->where('id_classroom', $id_classroom)->where('id_trimestre', $id_trimestre)->get();
+            $Weeks = Weekly::where('id_area', $id_area)->where('id_classroom', $id_classroom)->get();
             // $data[0] = [
             //     'id'   => 0,
             //     'text' => 'Seleccione',

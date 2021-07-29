@@ -22,12 +22,13 @@
                         <div class="card-header">
                             <h2 class="mb-0">
                                 <button
-                                    class="btn btn-link"
-                                    type="button"
-                                    data-toggle="collapse"
-                                    :data-target="'#collapse'+t"
-                                    aria-expanded="false"                                
-                                    aria-controls="collapse"
+                                class="btn btn-link"
+                                type="button"
+                                data-toggle="collapse"
+                                :data-target="'#collapse'+t"
+                                aria-expanded="false"
+                                @click.prevent="botones(area.id, area.id_classroom)"
+                                aria-controls="collapse"
                                 >
                                 <label class="btn-link_bold">{{ area.text }}</label>
                                 </button>
@@ -50,76 +51,31 @@
                                     </span>
                                 </div>
                             </div>
-                                                        
-                            <div class="accordion" id="accordionExampleTrimestre" >
-                                <div class="card" v-for="(trimestre,t) in trimestres" :key="t">
-                                    <div class="card-header">
-                                        <h2 class="mb-0">
-                                            <button
-                                                class="btn btn-link"
-                                                type="button"
-                                                data-toggle="collapse"
-                                                :data-target="'#collapse'+t"
-                                                aria-expanded="false"
-                                                @click="botones(area.id, area.id_classroom, trimestre.id)"
-                                                aria-controls="collapse"
-                                            >
-                                                <label>Ciclo {{ trimestre.nombre }}</label>
-                                            </button>
-                                        </h2>
-                                    </div>
-                                    <div
-                                        :id="'collapse'+t"
-                                        class="collapse hide"
-                                        aria-labelledby="heading"
-                                        data-parent="#accordionExampleTrimestre"
-                                    >
-                                        <div class="card-body">
-                                            <table class="table table-responsive-xl table-hover table-striped center">
-                                                <thead>
-                                                    <tr>
-                                                            <th></th>
-                                                            <th class="text-center">Ciclo de aprendizaje</th>
-                                                            <th class="text-center">Acción</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <template  v-for="(clas, k) in clases">
-                                                        <tr :key="k" v-if="clas.id_classroom==area.id_classroom && clas.id_area==area.id && search_filter_cicle =='' || filterCicle(clas.text)">
-                                                            <td> <a class="btn btn-primary"  :href="'/act_semana/'+clas.id_area+'/'+clas.id_classroom+'/'+clas.id">Editar</a> </td>
-                                                            <td>{{ clas.text }}</td>
-                                                            <td>
-                                                            <a
-                                                                class="btn btn-primary"
-                                                                :href="'/docente/modulo/'+clas.id"
-                                                            >Ir a Ciclo</a>
-                                                            <button v-if="clas.activateButton" v-on:click="ClassAndCicle(clas.id)" class="btn btn-primary">Eliminar</button>
-                                                            <button v-if="!clas.activateButton" v-on:click="RequestPermissions(clas, area.text)" class="btn btn-primary">Solicitar Permiso para Eliminar</button>
-                                                            </td>
-                                                        </tr>
-                                                    </template>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                            <table class="table table-responsive-xl table-hover table-striped center">
+                                <thead>
+                                    <tr>
+                                            <th></th>
+                                            <th class="text-center">Ciclo de aprendizaje</th>
+                                            <th class="text-center">Acción</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <template  v-for="(clas, k) in clases">
+                                        <tr :key="k" v-if="clas.id_classroom==area.id_classroom && clas.id_area==area.id && search_filter_cicle =='' || filterCicle(clas.text)">
+                                            <td> <a class="btn btn-primary"  :href="'/act_semana/'+clas.id_area+'/'+clas.id_classroom+'/'+clas.id">Editar</a> </td>
+                                            <td>{{ clas.text }}</td>
+                                            <td>
+                                            <a
+                                                class="btn btn-primary"
+                                                :href="'/docente/modulo/'+clas.id"
+                                            >Ir a Ciclo</a>
+                                            <button v-if="clas.activateButton" v-on:click="ClassAndCicle(clas.id)" class="btn btn-primary">Eliminar</button>
+                                            <button v-if="!clas.activateButton" v-on:click="RequestPermissions(clas, area.text)" class="btn btn-primary">Solicitar Permiso para Eliminar</button>
+                                            </td>
+                                        </tr>
+                                    </template>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -188,8 +144,7 @@ export default {
         errors: [],
         fillS: [],
         clase_to_delete:[],
-        id_module:'',
-        trimestres:[]
+        id_module:''
     };
   },
   created() {},
@@ -202,16 +157,12 @@ export default {
             axios.get(url).then((response) => {
                 this.areas = response.data;
             });
-
-            var url="/getTrimestres";
-            axios.get(url).then((response) =>{
-                this.trimestres=response.data;
-            });
         },
-        botones(area, classroom, id_trimestre) {
-            var urlsel = "/editGetWeek/" + area + "/" + classroom + "/" +id_trimestre;
+        botones(area, classroom) {
+            var urlsel = "/editGetWeek/" + area + "/" + classroom;
             axios.get(urlsel).then((response) => {
-                let clases = response.data
+                let clases = response.data;
+                console.log(response.data)
 
                 axios.get('/getPermissions').then((response)=>{
                     let permissions = response.data;
