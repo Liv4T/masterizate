@@ -32,7 +32,7 @@
                     <table class="table table-responsive-xl table-hover table-striped center">
                         <tbody>
                             <tr>
-                                <td>{{ $t('lang.grade.cycleName') }}</td>
+                                <td>{{ $t('lang.grades.cycleName') }}</td>
 
                                 <td>{{ $t('lang.general.observation') }}</td>
                                 <td>{{ $t('lang.class.action') }}</td>
