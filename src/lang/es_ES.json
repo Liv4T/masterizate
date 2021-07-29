@@ -16,6 +16,11 @@
         "face-to-face classes": "Clases Presenciales",
         "tutorship": "Tutoria",
         "pendingWork": "Trabajo Pendiente",
+        "startOfClasses":"Inicio de clases",
+        "urlOfClasses": "Url de clase",
+        "feedbackDate": "Fecha de Retroalimentación",
+        "maximumHomewoorkDate": "Fecha máxima entrega",
+        "submit":"Entregar",
         "dateFrom": "Desde",
         "dateTo": "Hasta"
     },
@@ -39,7 +44,8 @@
     },
     "grades": {
         "score": "Notas",
-        "nameClass": "Nombre de la materia"
+        "nameClass": "Nombre de la materia",
+        "cycleName":"Nombre Ciclo"
     },
     "general": {
         "completed": "Completado",
@@ -68,7 +74,10 @@
         "selectAFile":"Seleccione un archivo",
         "waitWeAreUploadingYourFile": "Espere mientras cargamos su archivo",
         "student": "Estudiante",
-        "observation": "Observación"
+        "observation": "Observación",
+        "email":"Correo electrónico",
+        "progress": "Progreso",
+        "average": "Promedio"
     },
     "area": {
         "ingles": "Ingles",

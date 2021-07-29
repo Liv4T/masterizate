@@ -32,10 +32,10 @@
                     <table class="table table-responsive-xl table-hover table-striped center">
                         <tbody>
                             <tr>
-                                <td>Nombre Ciclo</td>
+                                <td>{{ $t('lang.grade.cycleName') }}</td>
 
-                                <td>Observaciones</td>
-                                <td>Acción</td>
+                                <td>{{ $t('lang.general.observation') }}</td>
+                                <td>{{ $t('lang.class.action') }}</td>
 
                             </tr>
                             <tr v-for="(cycle,k) in cycles" :key="k">

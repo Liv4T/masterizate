@@ -73,27 +73,27 @@
                             </div>
 
                             <div class="activity-event-date">
-                                <small>Inicio de Clase:</small>
+                                <small>{{ $t('lang.calendar.startOfClasses') }}:</small>
                                 <span>{{activity.date_init_class|formatDate}}</span>
                             </div>
 
                             <div class="activity-event-date">   
-                                <small>URL de Clase:</small>                                     
+                                <small>{{ $t('lang.calendar.urlOfClasses') }}:</small>                                     
                                 <a :href="activity.url_class" class="badge badge-primary" target="_blank">{{activity.url_class}}</a>
                             </div>
 
                             <div class="activity-event-date" v-if="activity.interaction_state==2">
-                                <small>Fecha Retroalimentación:</small>
+                                <small>{{ $t('lang.calendar.feedbackDate') }}:</small>
                                 <span>{{activity.feedback_date|formatDate}}</span>
                             </div>
                         
                             <div class="activity-event-date" v-else>
-                                <small>Fecha máxima entrega:</small>
+                                <small>{{ $t('lang.calendar.maximumHomewoorkDate') }}:</small>
                                 <span>{{activity.delivery_max_date|formatDate}}</span>
                             </div>                                    
 
                             <div class="activity-event-action">
-                                <a class="btn btn-link" v-on:click="getActivityId(activity.weekly_plan_id, activity.id_class)">Entregar</a>                                
+                                <a class="btn btn-link" v-on:click="getActivityId(activity.weekly_plan_id, activity.id_class)">{{ $t('lang.calendar.submit') }}</a>                                
                             </div>
                         </div>
                     </div>

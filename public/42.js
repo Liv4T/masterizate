@@ -427,7 +427,23 @@ var render = function() {
                             _c(
                               "tbody",
                               [
-                                _vm._m(0, true),
+                                _c("tr", [
+                                  _c("td", [
+                                    _vm._v(
+                                      _vm._s(_vm.$t("lang.grade.cycleName"))
+                                    )
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("td", [
+                                    _vm._v(
+                                      _vm._s(_vm.$t("lang.general.observation"))
+                                    )
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("td", [
+                                    _vm._v(_vm._s(_vm.$t("lang.class.action")))
+                                  ])
+                                ]),
                                 _vm._v(" "),
                                 _vm._l(_vm.cycles, function(cycle, k) {
                                   return _c("tr", { key: k }, [
@@ -594,7 +610,7 @@ var render = function() {
                 { staticClass: "modal-dialog", attrs: { role: "document" } },
                 [
                   _c("div", { staticClass: "modal-content" }, [
-                    _vm._m(1),
+                    _vm._m(0),
                     _vm._v(" "),
                     _c("div", { staticClass: "modal-body" }, [
                       _vm.clase_to_delete.length > 0
@@ -611,7 +627,7 @@ var render = function() {
                                 staticClass: "table table-stripped table-hover"
                               },
                               [
-                                _vm._m(2),
+                                _vm._m(1),
                                 _vm._v(" "),
                                 _c(
                                   "tbody",
@@ -702,18 +718,6 @@ var render = function() {
     : _vm._e()
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("tr", [
-      _c("td", [_vm._v("Nombre Ciclo")]),
-      _vm._v(" "),
-      _c("td", [_vm._v("Observaciones")]),
-      _vm._v(" "),
-      _c("td", [_vm._v("Acción")])
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement

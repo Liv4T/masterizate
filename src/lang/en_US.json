@@ -16,6 +16,11 @@
         "face-to-face classes": "Face-to-face Classes",
         "tutorship": "Tutoring",
         "pendingWork": "Pending Work",
+        "startOfClasses":"Start of classes",
+        "urlOfClasses": "URL of class",
+        "feedbackDate": "Feedback Date",
+        "maximumHomewoorkDate":"Maximum Homewoork Date",
+        "submit":"Submit",
         "dateFrom": "Date From",
         "dateTo": "Date To"
     },
@@ -39,7 +44,8 @@
     },
     "grades": {
         "score": "Score",
-        "nameClass": "Name class"
+        "nameClass": "Name class",
+        "cycleName":"Cycle name"
     },
     "general": {
         "completed": "Completed",
@@ -68,7 +74,10 @@
         "selectAFile":"Select a file",
         "waitWeAreUploadingYourFile": "Wait we are uploading your file",
         "student": "Student",
-        "observation": "Observation"
+        "observation": "Observation",
+        "email": "Email",
+        "progress": "Progress",
+        "average": "Average"
     },
     "area": {
         "ingles": "English",

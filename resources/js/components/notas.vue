@@ -10,7 +10,7 @@
                             <img v-if="current_student.picture" :src="current_student.picture" alt="photo" style="width:70px" />
                             <h4>{{ current_student.last_name }} {{ current_student.name }}</h4>
                             <div>
-                                <small>Correo:</small>
+                                <small>{{ $t('lang.general.email') }}:</small>
                                 <span>{{ current_student.email }}</span>
                             </div>                            
                         </div>
@@ -20,11 +20,11 @@
                                 <div class="course_resume">
                                     <div class="course_resume_item">
                                         <span>{{ current_student.progress }}%</span>
-                                        <small>Progreso</small>
+                                        <small>{{ $t('lang.general.progress') }}</small>
                                     </div>
                                     <div class="course_resume_item">
                                         <span>{{ current_student.score > 0 ? current_student.score : "-" }} / {{ current_student.score_base }}</span>
-                                        <small>Promedio</small>
+                                        <small>{{ $t('lang.general.average') }}</small>
                                     </div>
                                 </div>
                             </div>
@@ -33,9 +33,9 @@
                     <table class="table table-responsive-xl table-hover table-striped center">
                         <thead>
                             <tr>
-                                <th>Actividad</th>
-                                <th>Progreso</th>
-                                <th>Calificación</th>
+                                <th>{{ $t('lang.general.activity') }}</th>
+                                <th>{{ $t('lang.general.progress') }}</th>
+                                <th>{{ $t('lang.general.score') }}</th>
                             </tr>
                         </thead>
                         <tbody v-for="(_module,key) in modules" :key="key">

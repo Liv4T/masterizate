@@ -829,7 +829,11 @@ var render = function() {
                       ]),
                       _vm._v(" "),
                       _c("div", { staticClass: "activity-event-date" }, [
-                        _c("small", [_vm._v("Inicio de Clase:")]),
+                        _c("small", [
+                          _vm._v(
+                            _vm._s(_vm.$t("lang.calendar.startOfClasses")) + ":"
+                          )
+                        ]),
                         _vm._v(" "),
                         _c("span", [
                           _vm._v(
@@ -841,7 +845,11 @@ var render = function() {
                       ]),
                       _vm._v(" "),
                       _c("div", { staticClass: "activity-event-date" }, [
-                        _c("small", [_vm._v("URL de Clase:")]),
+                        _c("small", [
+                          _vm._v(
+                            _vm._s(_vm.$t("lang.calendar.urlOfClasses")) + ":"
+                          )
+                        ]),
                         _vm._v(" "),
                         _c(
                           "a",
@@ -858,7 +866,12 @@ var render = function() {
                       _vm._v(" "),
                       activity.interaction_state == 2
                         ? _c("div", { staticClass: "activity-event-date" }, [
-                            _c("small", [_vm._v("Fecha Retroalimentación:")]),
+                            _c("small", [
+                              _vm._v(
+                                _vm._s(_vm.$t("lang.calendar.feedbackDate")) +
+                                  ":"
+                              )
+                            ]),
                             _vm._v(" "),
                             _c("span", [
                               _vm._v(
@@ -869,7 +882,13 @@ var render = function() {
                             ])
                           ])
                         : _c("div", { staticClass: "activity-event-date" }, [
-                            _c("small", [_vm._v("Fecha máxima entrega:")]),
+                            _c("small", [
+                              _vm._v(
+                                _vm._s(
+                                  _vm.$t("lang.calendar.maximumHomewoorkDate")
+                                ) + ":"
+                              )
+                            ]),
                             _vm._v(" "),
                             _c("span", [
                               _vm._v(
@@ -896,7 +915,7 @@ var render = function() {
                               }
                             }
                           },
-                          [_vm._v("Entregar")]
+                          [_vm._v(_vm._s(_vm.$t("lang.calendar.submit")))]
                         )
                       ])
                     ]
