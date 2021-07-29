@@ -128,15 +128,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 moment__WEBPACK_IMPORTED_MODULE_0___default.a.tz.setDefault("America/Bogota");
 moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale('es');
@@ -155,7 +146,10 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale('es');
       errors: [],
       fillS: [],
       clase_to_delete: [],
-      id_module: ''
+      id_module: '',
+      cycle_number: "",
+      trimestres: [],
+      loading: false
     };
   },
   created: function created() {},
@@ -170,31 +164,45 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale('es');
       axios.get(url).then(function (response) {
         _this.areas = response.data;
       });
+      var url = "/getTrimestres";
+      axios.get(url).then(function (response) {
+        _this.trimestres = response.data;
+      });
     },
-    botones: function botones(area, classroom) {
+    botones: function botones(area, classroom, trimestre, collapse_ID) {
       var _this2 = this;
 
-      var urlsel = "/editGetWeek/" + area + "/" + classroom;
-      axios.get(urlsel).then(function (response) {
-        var clases = response.data;
-        console.log(response.data);
-        axios.get('/getPermissions').then(function (response) {
-          var permissions = response.data;
+      this.loading = true;
+      axios.get("/viewGetWeek/".concat(area, "/").concat(classroom, "/").concat(trimestre)).then(function (response) {
+        _this2.clases = response.data;
+        _this2.loading = false;
+      })["catch"](function (error) {
+        console.log(error);
+        _this2.clases = [];
+      });
+      this.getPermissions();
+      $("#".concat(collapse_ID)).collapse('show');
+    },
+    datas: function datas() {
+      this.loading = true;
+    },
+    getPermissions: function getPermissions() {
+      var _this3 = this;
 
-          for (var i = 0; i < permissions.length; i++) {
-            for (var a = 0; a < clases.length; a++) {
-              if (permissions[i] && permissions[i].id_cicle === clases[a].id) {
-                if (permissions[i].date_to_activate_btn <= moment__WEBPACK_IMPORTED_MODULE_0___default()(new Date()).format('YYYY-MM-DD')) {
-                  clases[a].activateButton = true;
-                } else if (moment__WEBPACK_IMPORTED_MODULE_0___default()(new Date()).format('YYYY-MM-DD') >= permissions[i].date_to_activate_btn) {
-                  clases[a].activateButton = false;
-                }
+      axios.get('/getPermissions').then(function (response) {
+        var permissions = response.data;
+
+        for (var i = 0; i < permissions.length; i++) {
+          for (var a = 0; a < _this3.clases.length; a++) {
+            if (permissions[i] && permissions[i].id_cicle === _this3.clases[a].id) {
+              if (permissions[i].date_to_activate_btn <= moment__WEBPACK_IMPORTED_MODULE_0___default()(new Date()).format('YYYY-MM-DD')) {
+                _this3.clases[a].activateButton = true;
+              } else if (moment__WEBPACK_IMPORTED_MODULE_0___default()(new Date()).format('YYYY-MM-DD') >= permissions[i].date_to_activate_btn) {
+                _this3.clases[a].activateButton = false;
               }
             }
           }
-
-          _this2.clases = clases;
-        });
+        }
       });
     },
     filterClass: function filterClass(class_name) {
@@ -204,25 +212,25 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale('es');
       return cicle_name.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(this.search_filter_cicle.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, ""));
     },
     ClassAndCicle: function ClassAndCicle(id_module) {
-      var _this3 = this;
+      var _this4 = this;
 
       axios.get("/showClass/".concat(id_module)).then(function (response) {
-        _this3.clase_to_delete = response.data.clase;
-        _this3.id_module = id_module;
+        _this4.clase_to_delete = response.data.clase;
+        _this4.id_module = id_module;
         $('#infoClass').modal('show');
       });
     },
     deleteClassAndCicles: function deleteClassAndCicles() {
-      var _this4 = this;
+      var _this5 = this;
 
       this.clase_to_delete.forEach(function (clas) {
         axios["delete"]("/deleteClasses/".concat(clas.id));
       });
       axios["delete"]("/DeleteCicle/".concat(this.id_module)).then(function (response) {
-        _this4.clase_to_delete = [];
-        _this4.id_module = '';
+        _this5.clase_to_delete = [];
+        _this5.id_module = '';
 
-        if (_this4.clase_to_delete.length > 0) {
+        if (_this5.clase_to_delete.length > 0) {
           toastr.success("Clases y ".concat(response.data));
         } else {
           toastr.success('Ciclo Eliminado');
@@ -283,325 +291,272 @@ var render = function() {
           _c("div", { staticClass: "card-body" }, [
             _c(
               "div",
-              { staticClass: "accordion", attrs: { id: "accordionExample" } },
-              [
-                _c("div", { staticClass: "input-group mb-3" }, [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.search_filter,
-                        expression: "search_filter"
-                      }
-                    ],
-                    staticClass: "form-control",
-                    attrs: { type: "text", placeholder: "Buscar Clase" },
-                    domProps: { value: _vm.search_filter },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.search_filter = $event.target.value
-                      }
-                    }
-                  }),
+              {
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value: _vm.loading === true,
+                    expression: "loading === true"
+                  }
+                ]
+              },
+              [_vm._m(0)]
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "accordion", attrs: { id: "firstAccordion" } },
+              _vm._l(_vm.areas, function(area, t) {
+                return _c("div", { key: t, staticClass: "card" }, [
+                  _vm.search_filter == "" || _vm.filterClass(area.text)
+                    ? _c(
+                        "div",
+                        {
+                          staticClass: "card-header",
+                          attrs: { id: "headingFIRST" }
+                        },
+                        [
+                          _c("h2", { staticClass: "mb-0" }, [
+                            _c(
+                              "button",
+                              {
+                                staticClass: "btn btn-link btn-block text-left",
+                                attrs: {
+                                  type: "button",
+                                  "data-toggle": "collapse",
+                                  "data-target": "#collapseFirst" + t,
+                                  "aria-expanded": "true",
+                                  "aria-controls": "collapseFirst" + t
+                                }
+                              },
+                              [
+                                _vm._v(
+                                  "\n                              " +
+                                    _vm._s(area.text) +
+                                    "\n                          "
+                                )
+                              ]
+                            )
+                          ])
+                        ]
+                      )
+                    : _vm._e(),
                   _vm._v(" "),
-                  _c("div", { staticClass: "input-group-prepend" }, [
-                    _c(
-                      "span",
-                      {
-                        staticClass: "input-group-text",
-                        attrs: { id: "basic-addon1" }
-                      },
-                      [
+                  _c(
+                    "div",
+                    {
+                      staticClass: "collapse",
+                      attrs: {
+                        id: "collapseFirst" + t,
+                        "aria-labelledby": "headingFIRST",
+                        "data-parent": "#firstAccordion"
+                      }
+                    },
+                    [
+                      _c("div", { staticClass: "card-body" }, [
                         _c(
-                          "svg",
+                          "div",
                           {
-                            staticClass: "bi bi-search",
-                            attrs: {
-                              width: "1em",
-                              height: "1em",
-                              viewBox: "0 0 16 16",
-                              fill: "currentColor",
-                              xmlns: "http://www.w3.org/2000/svg"
-                            }
+                            staticClass: "accordion",
+                            attrs: { id: "secondAccordion" }
                           },
-                          [
-                            _c("path", {
-                              attrs: {
-                                "fill-rule": "evenodd",
-                                d:
-                                  "M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z"
-                              }
-                            }),
-                            _vm._v(" "),
-                            _c("path", {
-                              attrs: {
-                                "fill-rule": "evenodd",
-                                d:
-                                  "M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z"
-                              }
-                            })
-                          ]
-                        )
-                      ]
-                    )
-                  ])
-                ]),
-                _vm._v(" "),
-                _vm._l(_vm.areas, function(area, t) {
-                  return _c("div", { key: t }, [
-                    _vm.search_filter == "" || _vm.filterClass(area.text)
-                      ? _c("div", { staticClass: "card" }, [
-                          _c("div", { staticClass: "card-header" }, [
-                            _c("h2", { staticClass: "mb-0" }, [
-                              _c(
-                                "button",
-                                {
-                                  staticClass: "btn btn-link",
-                                  attrs: {
-                                    type: "button",
-                                    "data-toggle": "collapse",
-                                    "data-target": "#collapse" + t,
-                                    "aria-expanded": "false",
-                                    "aria-controls": "collapse"
-                                  },
-                                  on: {
-                                    click: function($event) {
-                                      $event.preventDefault()
-                                      return _vm.botones(
-                                        area.id,
-                                        area.id_classroom
-                                      )
-                                    }
-                                  }
-                                },
-                                [
-                                  _c(
-                                    "label",
-                                    { staticClass: "btn-link_bold" },
-                                    [_vm._v(_vm._s(area.text))]
-                                  )
-                                ]
-                              )
-                            ])
-                          ]),
-                          _vm._v(" "),
-                          _c(
-                            "div",
-                            {
-                              staticClass: "collapse hide",
-                              attrs: {
-                                id: "collapse" + t,
-                                "aria-labelledby": "heading",
-                                "data-parent": "#accordionExample"
-                              }
-                            },
-                            [
+                          _vm._l(_vm.trimestres, function(trimestre, k) {
+                            return _c("div", { key: k, staticClass: "card" }, [
                               _c(
                                 "div",
-                                { staticClass: "input-group mb-3 mt-3" },
+                                {
+                                  staticClass: "card-header",
+                                  attrs: { id: "headingSecond" }
+                                },
                                 [
-                                  _c("input", {
-                                    directives: [
+                                  _c("h2", { staticClass: "mb-2" }, [
+                                    _c(
+                                      "button",
                                       {
-                                        name: "model",
-                                        rawName: "v-model",
-                                        value: _vm.search_filter_cicle,
-                                        expression: "search_filter_cicle"
-                                      }
-                                    ],
-                                    staticClass: "form-control",
-                                    attrs: {
-                                      type: "text",
-                                      placeholder: "Buscar Ciclo"
-                                    },
-                                    domProps: {
-                                      value: _vm.search_filter_cicle
-                                    },
-                                    on: {
-                                      input: function($event) {
-                                        if ($event.target.composing) {
-                                          return
+                                        staticClass:
+                                          "btn btn-link btn-block text-left",
+                                        on: {
+                                          click: function() {
+                                            return _vm.botones(
+                                              area.id,
+                                              area.id_classroom,
+                                              trimestre.id,
+                                              "collapseTwo" + k
+                                            )
+                                          }
                                         }
-                                        _vm.search_filter_cicle =
-                                          $event.target.value
-                                      }
-                                    }
-                                  }),
-                                  _vm._v(" "),
-                                  _c(
-                                    "div",
-                                    { staticClass: "input-group-prepend" },
-                                    [
-                                      _c(
-                                        "span",
-                                        {
-                                          staticClass: "input-group-text",
-                                          attrs: { id: "basic-addon2" }
-                                        },
-                                        [
-                                          _c(
-                                            "svg",
-                                            {
-                                              staticClass: "bi bi-search",
-                                              attrs: {
-                                                width: "1em",
-                                                height: "1em",
-                                                viewBox: "0 0 16 16",
-                                                fill: "currentColor",
-                                                xmlns:
-                                                  "http://www.w3.org/2000/svg"
-                                              }
-                                            },
-                                            [
-                                              _c("path", {
-                                                attrs: {
-                                                  "fill-rule": "evenodd",
-                                                  d:
-                                                    "M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z"
-                                                }
-                                              }),
-                                              _vm._v(" "),
-                                              _c("path", {
-                                                attrs: {
-                                                  "fill-rule": "evenodd",
-                                                  d:
-                                                    "M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z"
-                                                }
-                                              })
-                                            ]
-                                          )
-                                        ]
-                                      )
-                                    ]
-                                  )
+                                      },
+                                      [
+                                        _vm._v(
+                                          "\n                                              Ciclo " +
+                                            _vm._s(trimestre.nombre) +
+                                            "\n                                          "
+                                        )
+                                      ]
+                                    )
+                                  ])
                                 ]
                               ),
                               _vm._v(" "),
                               _c(
-                                "table",
+                                "div",
                                 {
-                                  staticClass:
-                                    "table table-responsive-xl table-hover table-striped center"
+                                  staticClass: "collapse",
+                                  attrs: {
+                                    id: "collapseTwo" + k,
+                                    "aria-labelledby": "headingSecond",
+                                    "data-parent": "#secondAccordion"
+                                  }
                                 },
                                 [
-                                  _vm._m(0, true),
-                                  _vm._v(" "),
-                                  _c(
-                                    "tbody",
-                                    [
-                                      _vm._l(_vm.clases, function(clas, k) {
-                                        return [
-                                          (clas.id_classroom ==
-                                            area.id_classroom &&
-                                            clas.id_area == area.id &&
-                                            _vm.search_filter_cicle == "") ||
-                                          _vm.filterCicle(clas.text)
-                                            ? _c("tr", { key: k }, [
-                                                _c("td", [
-                                                  _c(
-                                                    "a",
-                                                    {
-                                                      staticClass:
-                                                        "btn btn-primary",
-                                                      attrs: {
-                                                        href:
-                                                          "/act_semana/" +
-                                                          clas.id_area +
-                                                          "/" +
-                                                          clas.id_classroom +
-                                                          "/" +
-                                                          clas.id
-                                                      }
-                                                    },
-                                                    [_vm._v("Editar")]
-                                                  )
-                                                ]),
-                                                _vm._v(" "),
-                                                _c("td", [
-                                                  _vm._v(_vm._s(clas.text))
-                                                ]),
-                                                _vm._v(" "),
-                                                _c("td", [
-                                                  _c(
-                                                    "a",
-                                                    {
-                                                      staticClass:
-                                                        "btn btn-primary",
-                                                      attrs: {
-                                                        href:
-                                                          "/docente/modulo/" +
-                                                          clas.id
-                                                      }
-                                                    },
-                                                    [_vm._v("Ir a Ciclo")]
-                                                  ),
-                                                  _vm._v(" "),
-                                                  clas.activateButton
-                                                    ? _c(
-                                                        "button",
-                                                        {
-                                                          staticClass:
-                                                            "btn btn-primary",
-                                                          on: {
-                                                            click: function(
-                                                              $event
-                                                            ) {
-                                                              return _vm.ClassAndCicle(
+                                  _c("div", { staticClass: "card-body" }, [
+                                    _c(
+                                      "table",
+                                      {
+                                        staticClass:
+                                          "table table-responsive-xl table-hover table-striped center"
+                                      },
+                                      [
+                                        _vm._m(1, true),
+                                        _vm._v(" "),
+                                        _c(
+                                          "tbody",
+                                          [
+                                            _vm._l(_vm.clases, function(
+                                              clas,
+                                              k
+                                            ) {
+                                              return [
+                                                (clas.id_classroom ==
+                                                  area.id_classroom &&
+                                                  clas.id_area == area.id &&
+                                                  _vm.search_filter_cicle ==
+                                                    "") ||
+                                                _vm.filterCicle(clas.text)
+                                                  ? _c("tr", { key: k }, [
+                                                      _c("td", [
+                                                        _c(
+                                                          "a",
+                                                          {
+                                                            staticClass:
+                                                              "btn btn-primary",
+                                                            attrs: {
+                                                              href:
+                                                                "/act_semana/" +
+                                                                clas.id_area +
+                                                                "/" +
+                                                                clas.id_classroom +
+                                                                "/" +
                                                                 clas.id
-                                                              )
                                                             }
-                                                          }
-                                                        },
-                                                        [_vm._v("Eliminar")]
-                                                      )
-                                                    : _vm._e(),
-                                                  _vm._v(" "),
-                                                  !clas.activateButton
-                                                    ? _c(
-                                                        "button",
-                                                        {
-                                                          staticClass:
-                                                            "btn btn-primary",
-                                                          on: {
-                                                            click: function(
-                                                              $event
-                                                            ) {
-                                                              return _vm.RequestPermissions(
-                                                                clas,
-                                                                area.text
-                                                              )
+                                                          },
+                                                          [_vm._v("Editar")]
+                                                        )
+                                                      ]),
+                                                      _vm._v(" "),
+                                                      _c("td", [
+                                                        _vm._v(
+                                                          _vm._s(
+                                                            clas.id_trimestre
+                                                          ) +
+                                                            "." +
+                                                            _vm._s(k + 1)
+                                                        )
+                                                      ]),
+                                                      _vm._v(" "),
+                                                      _c("td", [
+                                                        _vm._v(
+                                                          _vm._s(clas.text)
+                                                        )
+                                                      ]),
+                                                      _vm._v(" "),
+                                                      _c("td", [
+                                                        _c(
+                                                          "a",
+                                                          {
+                                                            staticClass:
+                                                              "btn btn-primary",
+                                                            attrs: {
+                                                              href:
+                                                                "/docente/modulo/" +
+                                                                clas.id
                                                             }
-                                                          }
-                                                        },
-                                                        [
-                                                          _vm._v(
-                                                            "Solicitar Permiso para Eliminar"
-                                                          )
-                                                        ]
-                                                      )
-                                                    : _vm._e()
-                                                ])
-                                              ])
-                                            : _vm._e()
-                                        ]
-                                      })
-                                    ],
-                                    2
-                                  )
+                                                          },
+                                                          [_vm._v("Ir a Ciclo")]
+                                                        ),
+                                                        _vm._v(" "),
+                                                        clas.activateButton
+                                                          ? _c(
+                                                              "button",
+                                                              {
+                                                                staticClass:
+                                                                  "btn btn-primary",
+                                                                on: {
+                                                                  click: function(
+                                                                    $event
+                                                                  ) {
+                                                                    return _vm.ClassAndCicle(
+                                                                      clas.id
+                                                                    )
+                                                                  }
+                                                                }
+                                                              },
+                                                              [
+                                                                _vm._v(
+                                                                  "Eliminar"
+                                                                )
+                                                              ]
+                                                            )
+                                                          : _vm._e(),
+                                                        _vm._v(" "),
+                                                        !clas.activateButton
+                                                          ? _c(
+                                                              "button",
+                                                              {
+                                                                staticClass:
+                                                                  "btn btn-primary",
+                                                                on: {
+                                                                  click: function(
+                                                                    $event
+                                                                  ) {
+                                                                    return _vm.RequestPermissions(
+                                                                      clas,
+                                                                      area.text
+                                                                    )
+                                                                  }
+                                                                }
+                                                              },
+                                                              [
+                                                                _vm._v(
+                                                                  "Solicitar Permiso para Eliminar"
+                                                                )
+                                                              ]
+                                                            )
+                                                          : _vm._e()
+                                                      ])
+                                                    ])
+                                                  : _vm._e()
+                                              ]
+                                            })
+                                          ],
+                                          2
+                                        )
+                                      ]
+                                    )
+                                  ])
                                 ]
                               )
-                            ]
-                          )
-                        ])
-                      : _vm._e()
-                  ])
-                })
-              ],
-              2
+                            ])
+                          }),
+                          0
+                        )
+                      ])
+                    ]
+                  )
+                ])
+              }),
+              0
             )
           ])
         ])
@@ -626,7 +581,7 @@ var render = function() {
           { staticClass: "modal-dialog", attrs: { role: "document" } },
           [
             _c("div", { staticClass: "modal-content" }, [
-              _vm._m(1),
+              _vm._m(2),
               _vm._v(" "),
               _c("div", { staticClass: "modal-body" }, [
                 _vm.clase_to_delete.length > 0
@@ -641,7 +596,7 @@ var render = function() {
                         "table",
                         { staticClass: "table table-stripped table-hover" },
                         [
-                          _vm._m(2),
+                          _vm._m(3),
                           _vm._v(" "),
                           _c(
                             "tbody",
@@ -701,9 +656,21 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      { staticClass: "spinner-border m-5", attrs: { role: "status" } },
+      [_c("span", { staticClass: "sr-only" }, [_vm._v("Loading...")])]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
         _c("th"),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [_vm._v("# Ciclo")]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [
           _vm._v("Ciclo de aprendizaje")

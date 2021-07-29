@@ -462,12 +462,12 @@ class CoursesController extends Controller
         return response()->json($data);
     }
 
-    public function editGetWeek(String $id_area, String $id_classroom)
+    public function editGetWeek(String $id_area, String $id_classroom, String $id_trimestre)
     {
         $user = Auth::user();
         $data = [];
         if ($user->isAdmin()) {
-            $Weeks = Weekly::where('id_area', $id_area)->where('id_classroom', $id_classroom)->get();
+            $Weeks = Weekly::where('id_area', $id_area)->where('id_classroom', $id_classroom)->where('id_trimestre', $id_trimestre)->get();
             // $data[0] = [
             //     'id'   => 0,
             //     'text' => 'Seleccione',
@@ -480,6 +480,7 @@ class CoursesController extends Controller
                     'observation' => $week->observation,
                     'id_area' =>  $week->id_area,
                     'id_classroom' =>  $week->id_classroom,
+                    'id_trimestre' => $week->id_trimestre,
                 ];
             }
         } elseif ($user->isTeacher()||$user->isTutor()) {
@@ -497,6 +498,7 @@ class CoursesController extends Controller
                     'observation' => $week->observation,
                     'id_area' =>  $week->id_area,
                     'id_classroom' =>  $week->id_classroom,
+                    'id_trimestre' => $week->id_trimestre,
                 ];
             }
         }
@@ -575,6 +577,7 @@ class CoursesController extends Controller
                 'observation' => $week->observation,
                 'id_area' =>  $week->id_area,
                 'id_classroom' =>  $week->id_classroom,
+                'id_trimestre' => $week->id_trimestre,
             ];
         }
         return response()->json($data);
