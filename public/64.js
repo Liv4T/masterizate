@@ -322,8 +322,8 @@ var staticRenderFns = [
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "dropdown2-content" }, [
-              _c("a", { attrs: { href: "/actividad_g" } }, [
-                _vm._v(" Planificación ")
+              _c("a", { attrs: { href: "/duplicar-semana" } }, [
+                _vm._v(" Duplicar ")
               ]),
               _vm._v(" "),
               _c("a", { attrs: { href: "/resportSendParents" } }, [
