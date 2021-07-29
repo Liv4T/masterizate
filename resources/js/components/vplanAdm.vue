@@ -65,9 +65,9 @@
                         Duplicar Ciclo
                       </a>  
 
-                      <a v-show="general==true" :href="'/act_semana/'+ area.id +'/'+ area.id_classroom" class="btn btn-warning">
+                      <!-- <a v-show="general==true" :href="'/act_semana/'+ area.id +'/'+ area.id_classroom" class="btn btn-warning">
                         Actualizar Ciclo
-                      </a>                 
+                      </a>                  -->
     <!--
                       <a
                         :href="'/act_semana/'+ area.id +'/'+ area.id_classroom"

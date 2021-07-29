@@ -441,33 +441,6 @@ var render = function() {
                                   "\n                      Duplicar Ciclo\n                    "
                                 )
                               ]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "a",
-                              {
-                                directives: [
-                                  {
-                                    name: "show",
-                                    rawName: "v-show",
-                                    value: _vm.general == true,
-                                    expression: "general==true"
-                                  }
-                                ],
-                                staticClass: "btn btn-warning",
-                                attrs: {
-                                  href:
-                                    "/act_semana/" +
-                                    area.id +
-                                    "/" +
-                                    area.id_classroom
-                                }
-                              },
-                              [
-                                _vm._v(
-                                  "\n                      Actualizar Ciclo\n                    "
-                                )
-                              ]
                             )
                           ]
                         )
