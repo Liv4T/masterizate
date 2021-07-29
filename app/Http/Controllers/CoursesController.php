@@ -503,18 +503,25 @@ class CoursesController extends Controller
         return response()->json($data);
     }
 
-    public function editOneWeek(String $id_area, String $id_classroom)
+    public function editOneWeek(String $id_area, String $id_classroom, String $id_trimestre)
     {
         $user = Auth::user();
         $data = [];
 
         if($user->type_user==1)
         {
-            $Weeks = Weekly::where('id_area', $id_area)->where('id_classroom', $id_classroom)->get();
+            $Weeks = Weekly::where('id_area', $id_area)
+            ->where('id_classroom', $id_classroom)
+            ->where('id_trimestre', $id_trimestre)
+            ->get();
         }
         else
         {
-            $Weeks = Weekly::where('id_teacher', $user->id)->where('id_area', $id_area)->where('id_classroom', $id_classroom)->get();
+            $Weeks = Weekly::where('id_teacher', $user->id)
+            ->where('id_area', $id_area)
+            ->where('id_classroom', $id_classroom)
+            ->where('id_trimestre', $id_trimestre)
+            ->get();
         }
 
         $data = [];
@@ -590,7 +597,7 @@ class CoursesController extends Controller
         $data = $request->all();
         $class_plan = $data['class_planning'];
 
-        if(isset($data['fromData']) && isset($data['toData']) && isset($data['fromData']['weekly_planning']['id']))
+        if(isset($data['fromData']) && isset($data['toData']) && isset($data['fromData']['weekly_planning']['id']) && isset($data['fromData']['trimestres']))
         {
             //copy weekly_planning
             $weekly_planning_id=0;
@@ -604,6 +611,9 @@ class CoursesController extends Controller
                     'id_teacher'=>$weekly_plan->id_teacher,
                     'id_area'=>$data['toData']['area']['id'],
                     'id_classroom'=>$data['toData']['area']['id_classroom'],
+                    'id_trimestre'=>$data['fromData']['trimestres'],
+                    'ajuste_piar'=>$weekly_plan->ajuste_piar,
+                    'order_items'=>$weekly_plan->order_items,
                     'week'=>$weekly_plan->week,
                     'status'=>$weekly_plan->status,
                     'observation_coord'=>$weekly_plan->observation_coord
@@ -618,6 +628,9 @@ class CoursesController extends Controller
                     'class_development'=>$weekly_plan->class_development,
                     'observation'=>$weekly_plan->observation,
                     'week'=>$weekly_plan->week,
+                    'id_trimestre'=>$weekly_plan->id_trimestre,
+                    'ajuste_piar'=>$weekly_plan->ajuste_piar,
+                    'order_items'=>$weekly_plan->order_items,
                     'status'=>$weekly_plan->status,
                     'observation_coord'=>$weekly_plan->observation_coord
                 ]);

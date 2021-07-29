@@ -355,6 +355,7 @@ Route::get('downloadFile', 'HomeController@downloadFile')->name('downloadFile');
 
 
 Route::middleware('auth')->get('info_user', 'UserController@show')->name('info_user');
+Route::middleware('auth')->get('userType', 'UserController@typeUserLog');
 Route::middleware('auth')->get('coursePlanification/{id_area}/{id_classroom}', 'CoursesController@index');
 Route::middleware('auth')->get('GetCourses', 'CourseController@GetCourses');
 Route::middleware('auth')->get('GetCategories', 'CategoryController@GetCategories');
@@ -443,7 +444,7 @@ Route::get('getEvenNearStudent/{id_area}/{id_classroom}', 'EventsController@even
 Route::get('GetWeek', 'CoursesController@getWeek');
 Route::delete('DeleteCicle/{id_cicle}', 'CoursesController@destroy');
 Route::get('editGetWeek/{id_area}/{id_classroom}/{id_trimestre}', 'CoursesController@editGetWeek')->name('editGetWeek');
-Route::get('editOneWeek/{id_area}/{id_classroom}', 'CoursesController@editOneWeek')->name('editOneWeek');
+Route::get('editOneWeek/{id_area}/{id_classroom}/{id_trimestre}', 'CoursesController@editOneWeek')->name('editOneWeek');
 Route::get('editOneCycle/{id}', 'CoursesController@oneCycle')->name('editOneCycle');
 Route::get('viewGetWeek/{id_area}/{id_classrom}/{id_trimestre}', 'CoursesController@viewGetWeek')->name('viewGetWeek');
 Route::get('showWeek/{id}', 'CoursesController@showWeek');

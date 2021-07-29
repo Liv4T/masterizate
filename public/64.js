@@ -118,6 +118,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   methods: {
     logout: function logout() {
@@ -325,7 +326,11 @@ var staticRenderFns = [
                 _vm._v(" Reporte Mensual Padres           ")
               ]),
               _vm._v(" "),
-              _c("a", { attrs: { href: "/board" } }, [_vm._v(" Pizarra ")])
+              _c("a", { attrs: { href: "/board" } }, [_vm._v(" Pizarra ")]),
+              _vm._v(" "),
+              _c("a", { attrs: { href: "/duplicar-semana/" } }, [
+                _vm._v(" Duplicar ciclo ")
+              ])
             ])
           ])
         ])

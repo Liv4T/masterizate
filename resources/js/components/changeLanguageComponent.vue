@@ -27,9 +27,18 @@ export default {
   },
   created() {},
   mounted() {
-    
+    this.typeUser(); 
   },
   methods: {
+    typeUser(){
+      var url = "userType";
+      axios.get(url).then(response => {
+        if(response.data==3){
+          this.$i18n.locale="en";
+          this.$i18n.fallbackLocale="en";
+        }
+      });
+    },
     changeLanguage(lang){
       this.$i18n.locale=lang;
       this.$i18n.fallbackLocale=lang;

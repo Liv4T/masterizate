@@ -430,7 +430,7 @@ var render = function() {
                                 _c("tr", [
                                   _c("td", [
                                     _vm._v(
-                                      _vm._s(_vm.$t("lang.grade.cycleName"))
+                                      _vm._s(_vm.$t("lang.grades.cycleName"))
                                     )
                                   ]),
                                   _vm._v(" "),

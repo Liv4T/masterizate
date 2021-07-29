@@ -301,4 +301,9 @@ class UserController extends Controller
         // Volvemos al login y mostramos un mensaje indicando que se cerró la sesión
         return Redirect::to('login');
     }
+    public function TypeUserLog(){
+        $user=Auth::user()->type_user;
+        
+        return response()->json($user);
+    }
 }

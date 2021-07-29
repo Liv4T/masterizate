@@ -34,8 +34,21 @@ __webpack_require__.r(__webpack_exports__);
     return {};
   },
   created: function created() {},
-  mounted: function mounted() {},
+  mounted: function mounted() {
+    this.typeUser();
+  },
   methods: {
+    typeUser: function typeUser() {
+      var _this = this;
+
+      var url = "userType";
+      axios.get(url).then(function (response) {
+        if (response.data == 3) {
+          _this.$i18n.locale = "en";
+          _this.$i18n.fallbackLocale = "en";
+        }
+      });
+    },
     changeLanguage: function changeLanguage(lang) {
       this.$i18n.locale = lang;
       this.$i18n.fallbackLocale = lang;

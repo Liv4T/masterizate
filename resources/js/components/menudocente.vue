@@ -54,6 +54,7 @@
                   <div class="dropdown2-content">
                     <a href="/resportSendParents"> Reporte Mensual Padres&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </a>
                     <a href="/board"> Pizarra </a>
+                    <a href="/duplicar-semana/"> Duplicar ciclo </a>
                   </div>
                 </li>
               </a>
