@@ -233,7 +233,7 @@ export default {
   methods: {
     getMenu() {
       if(this.rol){
-        toastr.success('Planificación Duplicada')
+        window.location = "duplicarGeneral"
       }else{
         window.location = "/actividad_g";
       }

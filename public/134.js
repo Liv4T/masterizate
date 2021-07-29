@@ -225,7 +225,7 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
   methods: {
     getMenu: function getMenu() {
       if (this.rol) {
-        toastr.success('Planificación Duplicada');
+        window.location = "duplicarGeneral";
       } else {
         window.location = "/actividad_g";
       }
