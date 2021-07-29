@@ -70,6 +70,9 @@ Route::middleware('auth')->get('/course/{id_area}/{id_classroom}', function (Str
 Route::middleware('auth')->get('/duplicar/{id_area}/{id_classroom}', function (String $id_area, String $id_classroom) {
     return view('duplicarGeneral')->with('id_area', $id_area)->with('id_classroom', $id_classroom);
 });
+Route::middleware('auth')->get('/duplicarGeneral', function () {
+    return view('areasToDuplicateGeneral');
+});
 Route::middleware('auth')->get('/duplicar-semana/', function () {
     return view('duplicarSemana');
 });

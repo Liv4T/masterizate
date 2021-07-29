@@ -5,88 +5,51 @@
         <div class="card text-center">
           <h3 class="card-header fondo">Mis clases</h3>
           <div class="card-body">
-            <div class="accordion" id="accordionExample">
-                <div class="input-group mb-3">
-                  <input type="text" class="form-control" placeholder="Buscar Clase" v-model="search_filter">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="basic-addon1">
-                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-search" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z"/>
-                            <path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z"/>
-                            </svg>
-                        </span>
-                    </div>
+            <div v-show="loading === true">
+                <div class="spinner-border m-5" role="status">
+                    <span class="sr-only">Loading...</span>
                 </div>
-                <div v-for="(area,t) in areas" :key="t">
-                    <div class="card" v-if="search_filter =='' || filterClass(area.text)">
-                        <div class="card-header">
-                            <h2 class="mb-0">
-                                <button
-                                    class="btn btn-link"
-                                    type="button"
-                                    data-toggle="collapse"
-                                    :data-target="'#collapse'+t"
-                                    aria-expanded="false"                                
-                                    aria-controls="collapse"
-                                >
-                                <label class="btn-link_bold">{{ area.text }}</label>
-                                </button>
-                            </h2>
-                        </div>
-                        <div
-                            :id="'collapse'+t"
-                            class="collapse hide"
-                            aria-labelledby="heading"
-                            data-parent="#accordionExample"
-                        >
-                            <div class="input-group mb-3 mt-3">
-                                <input type="text" class="form-control" placeholder="Buscar Ciclo" v-model="search_filter_cicle">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="basic-addon2">
-                                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-search" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd" d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z"/>
-                                            <path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z"/>
-                                        </svg>
-                                    </span>
-                                </div>
-                            </div>
-                                                        
-                            <div class="accordion" id="accordionExampleTrimestre" >
-                                <div class="card" v-for="(trimestre,t) in trimestres" :key="t">
-                                    <div class="card-header">
-                                        <h2 class="mb-0">
-                                            <button
-                                                class="btn btn-link"
-                                                type="button"
-                                                data-toggle="collapse"
-                                                :data-target="'#collapse'+t"
-                                                aria-expanded="false"
-                                                @click="botones(area.id, area.id_classroom, trimestre.id)"
-                                                aria-controls="collapse"
-                                            >
-                                                <label>Ciclo {{ trimestre.nombre }}</label>
+            </div>            
+            <div class="accordion" id="firstAccordion">                
+                <div class="card" v-for="(area,t) in areas" :key="t">
+                    <div v-if="search_filter =='' || filterClass(area.text)" class="card-header" id="headingFIRST">
+                        <h2 class="mb-0">
+                            <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" :data-target="`#collapseFirst${t}`" aria-expanded="true" :aria-controls="`collapseFirst${t}`">
+                                {{ area.text }}
+                            </button>
+                        </h2>
+                    </div>
+
+                    <div :id="`collapseFirst${t}`" class="collapse" aria-labelledby="headingFIRST" data-parent="#firstAccordion">
+                        <div class="card-body"> 
+                            
+                            <div class="accordion" id="secondAccordion">
+                                <div class="card" v-for="(trimestre,k) in trimestres" :key="k">
+                                    <div class="card-header" id="headingSecond">
+                                        <h2 class="mb-2">
+                                            <button class="btn btn-link btn-block text-left" v-on:click="()=>botones(area.id, area.id_classroom, trimestre.id, `collapseTwo${k}`)">
+                                                Ciclo {{trimestre.nombre}}
                                             </button>
                                         </h2>
+                                        
                                     </div>
-                                    <div
-                                        :id="'collapse'+t"
-                                        class="collapse hide"
-                                        aria-labelledby="heading"
-                                        data-parent="#accordionExampleTrimestre"
-                                    >
-                                        <div class="card-body">
+                                   
+                                    <div :id="`collapseTwo${k}`" class="collapse" aria-labelledby="headingSecond" data-parent="#secondAccordion">
+                                        <div class="card-body">                                            
                                             <table class="table table-responsive-xl table-hover table-striped center">
                                                 <thead>
                                                     <tr>
-                                                            <th></th>
-                                                            <th class="text-center">Ciclo de aprendizaje</th>
-                                                            <th class="text-center">Acción</th>
+                                                        <th></th>
+                                                        <th class="text-center"># Ciclo</th>
+                                                        <th class="text-center">Ciclo de aprendizaje</th>
+                                                        <th class="text-center">Acción</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <template  v-for="(clas, k) in clases">
                                                         <tr :key="k" v-if="clas.id_classroom==area.id_classroom && clas.id_area==area.id && search_filter_cicle =='' || filterCicle(clas.text)">
                                                             <td> <a class="btn btn-primary"  :href="'/act_semana/'+clas.id_area+'/'+clas.id_classroom+'/'+clas.id">Editar</a> </td>
+                                                            <td>{{ clas.id_trimestre }}.{{ (k + 1) }}</td>
                                                             <td>{{ clas.text }}</td>
                                                             <td>
                                                             <a
@@ -102,31 +65,15 @@
                                             </table>
                                         </div>
                                     </div>
-                                </div>
+                                </div>                                
                             </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                         </div>
                     </div>
                 </div>
+              </div>
             </div>
-          </div>
         </div>
-      </div>
+    </div>
     </div>
     <div class="modal fade" id="infoClass" tabindex="-1" role="dialog" aria-labelledby="infoClassLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -189,7 +136,9 @@ export default {
         fillS: [],
         clase_to_delete:[],
         id_module:'',
-        trimestres:[]
+        cycle_number:"",
+        trimestres:[],
+        loading: false,
     };
   },
   created() {},
@@ -208,28 +157,39 @@ export default {
                 this.trimestres=response.data;
             });
         },
-        botones(area, classroom, id_trimestre) {
-            var urlsel = "/editGetWeek/" + area + "/" + classroom + "/" +id_trimestre;
-            axios.get(urlsel).then((response) => {
-                let clases = response.data
+        botones(area, classroom, trimestre, collapse_ID) {
+            this.loading = true;
+            axios.get(`/viewGetWeek/${area}/${classroom}/${trimestre}`).then((response) => {                
+                this.clases = response.data;
+                this.loading = false;
+            }).catch((error)=>{
+                console.log(error);
+                this.clases = [];
+            });
+            this.getPermissions();    
+            $(`#${collapse_ID}`).collapse('show');
+        },
 
-                axios.get('/getPermissions').then((response)=>{
+        datas(){
+            this.loading= true;            
+        },
+
+        getPermissions(){
+            axios.get('/getPermissions').then((response)=>{
                     let permissions = response.data;
 
                     for(let i =0; i < permissions.length; i++){
-                        for(let a = 0; a < clases.length; a++){
-                            if(permissions[i] && permissions[i].id_cicle === clases[a].id){
+                        for(let a = 0; a < this.clases.length; a++){
+                            if(permissions[i] && permissions[i].id_cicle === this.clases[a].id){
                                 if(permissions[i].date_to_activate_btn <= moment(new Date()).format('YYYY-MM-DD')){                                    
-                                    clases[a].activateButton = true
+                                    this.clases[a].activateButton = true
                                 }else if(moment(new Date()).format('YYYY-MM-DD') >= permissions[i].date_to_activate_btn){
-                                    clases[a].activateButton = false
+                                    this.clases[a].activateButton = false
                                 }
                             }
                         }
                     }
-                    this.clases = clases;
                 });
-            });
         },
         filterClass(class_name){
             return class_name.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(this.search_filter.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, ""));

@@ -142,31 +142,41 @@ export default {
       trimestres:[],
       semanal: false,
       errors: [],
+      cycle_id: ""
     };
   },
   mounted() {
+    if(this.id_cycle){
+      this.cycle_id = this.id_cycle
+    }else{
+      let params = window.location.pathname;
+      let ids = params.split('/');            
+      let cycle_id = ids[4];
+      this.cycle_id = cycle_id;
+    }    
+
     this.getData();
     this.getTrimestre();
   },
   methods: {
     getData(){
-      if(this.id_cycle!=''){
-        var urlsel=window.location.origin + "/editOneCycle/"+this.id_cycle;
+      if(this.cycle_id !== ''){          
+        var urlsel=window.location.origin + "/editOneCycle/"+this.cycle_id;
         axios.get(urlsel).then((response) => {
           this.fillS = response.data;
           function IsJsonString() {
             try {
-              var json = JSON.parse(response.data[0].class);
+              var json = response.data[0] ? JSON.parse(response.data[0].class) : {};
               return true;
             } catch (e) {
               return false;
             }
           }
           if(IsJsonString()){
-            this.inputClass=JSON.parse(response.data[0].class);
+            this.inputClass=response.data[0] ? JSON.parse(response.data[0].class) : {}
           } else{
             let json=[{
-              class_developmentC:response.data[0].class
+              class_developmentC: response.data[0] ? JSON.parse(response.data[0].class) : ""
             }];
             this.inputClass=json;
           }
@@ -225,7 +235,7 @@ export default {
         });
     },
     updateSemanal() {
-      if(this.id_cycle!=''){
+      if(this.cycle_id!=''){
         var url = window.location.origin + "/updateCourseWeekly";
         if (this.fillS.length >= 1) {
           for (let i = 0; i < this.fillS.length; i++) {

@@ -480,6 +480,7 @@ class CoursesController extends Controller
                     'observation' => $week->observation,
                     'id_area' =>  $week->id_area,
                     'id_classroom' =>  $week->id_classroom,
+                    'id_trimestre' => $week->id_trimestre,
                 ];
             }
         } elseif ($user->isTeacher()||$user->isTutor()) {
@@ -497,6 +498,7 @@ class CoursesController extends Controller
                     'observation' => $week->observation,
                     'id_area' =>  $week->id_area,
                     'id_classroom' =>  $week->id_classroom,
+                    'id_trimestre' => $week->id_trimestre,
                 ];
             }
         }
@@ -582,6 +584,7 @@ class CoursesController extends Controller
                 'observation' => $week->observation,
                 'id_area' =>  $week->id_area,
                 'id_classroom' =>  $week->id_classroom,
+                'id_trimestre' => $week->id_trimestre,
             ];
         }
         return response()->json($data);

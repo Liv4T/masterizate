@@ -20,9 +20,9 @@
       crossorigin="anonymous"
     />
   </head>
-  <div class="back">
-    <div class="row">
-      <div class="col-md-11 mx-auto">
+  <div>
+    <div>
+      <div class="col-md-12 mx-auto">
         <div class="custom-card text-center">
           <h3 class="card-header fondo">Duplicar planificación general</h3>
           <form v-show="trimestre == false">
@@ -83,7 +83,18 @@
               <tab-content title="Trimestral">
                 <div class="form-group row mx-auto" v-for="(input, t) in fillC.quaterly" :key="t">
                   <div class="col-md-6">
-                    <label for="name">Indicador</label>
+                    <label for="logro1">Logro</label> 
+                    <input
+                        type="text"
+                        name="logro1"
+                        class="form-control"
+                        v-model="input.logro"
+                        placeholder="Logro"
+                        required
+                      />                                           
+                  </div>
+                  <div class="col-md-6">
+                    <label for="name">Indicador de Logro</label>
                     <div>
                       <input
                         type="text"
@@ -93,10 +104,8 @@
                         placeholder="Nombre de la unidad"
                         required
                       />
-                    </div>
-                  </div>
-                  <div class="col-md-6">
-                    <label for="name">Contenido</label>
+                    </div>              
+                    <label for="name">Contenidos</label>
                     <textarea
                       name="competences"
                       class="form-control"
@@ -166,7 +175,7 @@ import VueFormWizard from "vue-form-wizard";
 import "vue-form-wizard/dist/vue-form-wizard.min.css";
 Vue.use(VueFormWizard);
 export default {
-  props: ["id_area", "id_classroom"],
+  props: ["id_area", "id_classroom","rol"],
   data() {
     return {
       inputs: [
@@ -210,7 +219,6 @@ export default {
       this.id_classroom;
     axios.get(urlsel).then((response) => {
       this.fillC = response.data;
-
       if (this.fillC.quaterly.length > 0) {
         this.trimestre = true;
       } else {
@@ -224,7 +232,12 @@ export default {
   },
   methods: {
     getMenu() {
-      window.location = "/actividad_g";
+      if(this.rol){
+        window.location = "duplicarGeneral"
+      }else{
+        window.location = "/actividad_g";
+      }
+      
     },
     add(index) {
       this.inputs.push({ name: "", contenido: "" });

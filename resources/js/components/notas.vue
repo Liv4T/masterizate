@@ -35,7 +35,7 @@
                             <tr>
                                 <th>{{ $t('lang.general.activity') }}</th>
                                 <th>{{ $t('lang.general.progress') }}</th>
-                                <th>{{ $t('lang.general.score') }}</th>
+                                <th>{{ $t('lang.grades.score') }}</th>
                             </tr>
                         </thead>
                         <tbody v-for="(_module,key) in modules" :key="key">

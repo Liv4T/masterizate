@@ -119,6 +119,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   methods: {
     logout: function logout() {
@@ -322,6 +324,14 @@ var staticRenderFns = [
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "dropdown2-content" }, [
+              _c("a", { attrs: { href: "/duplicar-semana" } }, [
+                _vm._v(" Duplicar ")
+              ]),
+              _vm._v(" "),
+              _c("a", { attrs: { href: "/duplicarGeneral" } }, [
+                _vm._v("Duplicar Planificación General")
+              ]),
+              _vm._v(" "),
               _c("a", { attrs: { href: "/resportSendParents" } }, [
                 _vm._v(" Reporte Mensual Padres           ")
               ]),

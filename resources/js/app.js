@@ -193,6 +193,7 @@ Vue.component("motive-assistants", ()=>import("./components/motiveAssistants.vue
 
 
 Vue.component("duplicar-component",  () => import ("./components/duplicarGeneral.vue"));
+Vue.component("areas-dupli-general", () => import ("./components/areasToDuplicateGeneral.vue"));
 
 //activities
 Vue.component("activity-questionary", ()=>import("./components/activityQuestionaryComponent.vue"));

@@ -55,9 +55,9 @@
                         class="btn btn-warning"
                       >Porcentaje de notas</a>
 
-                      <a v-show="general==true" :href="'/crear_semana/'+ area.id +'/'+ area.id_classroom" class="btn btn-warning">
+                      <!-- <a v-show="general==true" :href="'/crear_semana/'+ area.id +'/'+ area.id_classroom" class="btn btn-warning">
                         Crear Ciclo
-                      </a>
+                      </a> -->
 
                       <a href="/docente/clases" class="btn btn-warning">Ciclos y clases</a>  
 
@@ -65,9 +65,9 @@
                         Duplicar Ciclo
                       </a>  
 
-                      <a v-show="general==true" :href="'/act_semana/'+ area.id +'/'+ area.id_classroom" class="btn btn-warning">
+                      <!-- <a v-show="general==true" :href="'/act_semana/'+ area.id +'/'+ area.id_classroom" class="btn btn-warning">
                         Actualizar Ciclo
-                      </a>                 
+                      </a>                  -->
     <!--
                       <a
                         :href="'/act_semana/'+ area.id +'/'+ area.id_classroom"

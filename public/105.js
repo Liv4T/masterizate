@@ -145,8 +145,8 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component("multiselect", vue_multisel
 
       axios.get("/getInvitations").then(function (response) {
         _this.parents = response.data;
-      })["catch"](function () {
-        toastr.error("Intenta de nuevo mas tarde");
+      })["catch"](function (error) {
+        console.log(error);
       });
     },
     editE: function editE(id) {

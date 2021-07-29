@@ -52,6 +52,8 @@
                 <li class="item-menu">
                   <span class="menu">ACADÉMICO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                   <div class="dropdown2-content">
+                    <a href="/duplicar-semana"> Duplicar </a>
+                    <a href="/duplicarGeneral">Duplicar Planificación General</a>
                     <a href="/resportSendParents"> Reporte Mensual Padres&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </a>
                     <a href="/board"> Pizarra </a>
                     <a href="/duplicar-semana/"> Duplicar ciclo </a>
