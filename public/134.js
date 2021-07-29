@@ -137,6 +137,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 (function () {
   "use strict";
 
@@ -175,7 +184,7 @@ $(function () {
 
 Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["id_area", "id_classroom"],
+  props: ["id_area", "id_classroom", "rol"],
   data: function data() {
     var _ref;
 
@@ -215,7 +224,11 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
   },
   methods: {
     getMenu: function getMenu() {
-      window.location = "/actividad_g";
+      if (this.rol) {
+        toastr.success('Planificación Duplicada');
+      } else {
+        window.location = "/actividad_g";
+      }
     },
     add: function add(index) {
       this.inputs.push({
@@ -312,9 +325,9 @@ var render = function() {
   return _c("div", [
     _vm._m(0),
     _vm._v(" "),
-    _c("div", { staticClass: "back" }, [
-      _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-md-11 mx-auto" }, [
+    _c("div", [
+      _c("div", [
+        _c("div", { staticClass: "col-md-12 mx-auto" }, [
           _c("div", { staticClass: "custom-card text-center" }, [
             _c("h3", { staticClass: "card-header fondo" }, [
               _vm._v("Duplicar planificación general")
@@ -512,8 +525,45 @@ var render = function() {
                           { key: t, staticClass: "form-group row mx-auto" },
                           [
                             _c("div", { staticClass: "col-md-6" }, [
+                              _c("label", { attrs: { for: "logro1" } }, [
+                                _vm._v("Logro")
+                              ]),
+                              _vm._v(" "),
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: input.logro,
+                                    expression: "input.logro"
+                                  }
+                                ],
+                                staticClass: "form-control",
+                                attrs: {
+                                  type: "text",
+                                  name: "logro1",
+                                  placeholder: "Logro",
+                                  required: ""
+                                },
+                                domProps: { value: input.logro },
+                                on: {
+                                  input: function($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.$set(
+                                      input,
+                                      "logro",
+                                      $event.target.value
+                                    )
+                                  }
+                                }
+                              })
+                            ]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "col-md-6" }, [
                               _c("label", { attrs: { for: "name" } }, [
-                                _vm._v("Indicador")
+                                _vm._v("Indicador de Logro")
                               ]),
                               _vm._v(" "),
                               _c("div", [
@@ -547,12 +597,10 @@ var render = function() {
                                     }
                                   }
                                 })
-                              ])
-                            ]),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "col-md-6" }, [
+                              ]),
+                              _vm._v(" "),
                               _c("label", { attrs: { for: "name" } }, [
-                                _vm._v("Contenido")
+                                _vm._v("Contenidos")
                               ]),
                               _vm._v(" "),
                               _c("textarea", {
