@@ -102,8 +102,8 @@
         "emprendimiento": "Entrepreneurship",
         "psicologia": "Psychology",
         "steam": "STEAM",
-        "induccion hs":"Induction HS",
-        "inducción ms":"Induction MS"
+        "induccion_hs":"Induction HS",
+        "induccion_ms":"Induction MS"
     },
     "messages":{
         "messages":"Messages",
