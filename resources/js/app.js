@@ -43,6 +43,7 @@ Vue.component("blog-component", require("./components/BlogComponent.vue").defaul
 Vue.component("draw-c", require("./components/draw.vue").default);
 
 Vue.component("home", require("./components/home.vue").default);
+Vue.component("home-skills", require("./components/homeSkills.vue").default);
 Vue.component("new-home", require("./components/newHome.vue").default);
 Vue.component("board", require("./components/board.vue").default);
 Vue.component("footers", require("./components/footer.vue").default);

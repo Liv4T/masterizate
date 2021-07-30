@@ -313,6 +313,9 @@ Route::middleware('auth')->get('/asistencia', function () {
 Route::middleware('auth')->get('/matricula', function () {
     return view('matricula');
 });
+Route::get('/skills', function () {
+    return view('homeSkills');
+});
 
 Route::middleware('auth')->get('/porcentaje/{id_area}/{id_classroom}', function (String $id_area, String $id_classroom) {
     return view('porcentajeNotas')->with('id_area', $id_area)->with('id_classroom', $id_classroom);

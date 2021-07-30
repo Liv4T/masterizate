@@ -86,7 +86,7 @@
                 <a class="navbar-brand" href="{{ url('/') }}">
                     <div>
                         {{ config('Life4teach') }}
-                        <img thumbnail fluid src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/LOGO_LIV4T_SKOOL.png?alt=media&token=e0a74c90-0f0d-4932-863a-827b5f87ed0c"  alt="4"></img>
+                        <img thumbnail fluid src="/uploads/logol4t.png"  alt="4"></img>
                     </div>
 
                 </a>
