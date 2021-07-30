@@ -9,6 +9,7 @@
             </button>
             <div class="dropdown-menu" aria-labelledby="admin">
                 <a class="dropdown-item" href="instituciones_adm">Crear Instituciones</a>
+                <a class="dropdown-item" href="trimestre_adm">Crear Trimestre</a>
                 <a class="dropdown-item" href="general_adm">Crear Salones</a>
                 <!-- Pendiente creación de Perfiles -->
                 <a class="dropdown-item" href="#">Crear Perfiles</a>
@@ -18,7 +19,7 @@
                 <a class="dropdown-item" href="/nursing">Enfermería</a>
                 <a class="dropdown-item" href="/foods">Alimentación</a>
                 <a class="dropdown-item" href="/pedagogic">Transporte</a>
-                <a class="dropdown-item" href="/reportAdmin">Reporte Actividades y Planificación Anual</a>
+                <!-- <a class="dropdown-item" href="/reportAdmin">Reporte Actividades y Planificación Anual</a> -->
             </div>
         </div>
 
@@ -50,6 +51,7 @@
                 <a class="dropdown-item" href="/teacher/lectives/planning">Administrar Electivas</a>
                 <a class="dropdown-item" href="/teacher/lectives/courses">Clases Electivas</a>
                 <a class="dropdown-item" href="/motiveAssistants">Creación de Motivos de Asistencia</a>            
+                <a class="dropdown-item" href="/quarters">Creación de Trimestres</a>
                 <a class="dropdown-item" href="#">Exalumnos</a>
                 <!-- Modulo de Informes Pendiente por aclaración -->
                 <a class="dropdown-item" href="#">Informes</a>
@@ -84,7 +86,7 @@
             </div>
         </div>
         
-        <a href="/reportes">
+        <a href="/reportAdmin">
             <button class="btn btn-sm btn-secondary">
                 Mis Reportes
             </button>

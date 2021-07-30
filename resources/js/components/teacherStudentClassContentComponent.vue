@@ -5,7 +5,7 @@
                     <div class="col-12 col-md-12">
                         <div class="class_container_header">
                             <span>Contenido de la clase:</span>
-                            <button class="btn btn-link" @click="GoReturnPage()">Regresar</button>
+                            <!-- <button class="btn btn-link" @click="GoReturnPage()">Regresar</button> -->
                         </div>
                     </div>
                 </div>

@@ -3,43 +3,69 @@
         <div class="row">
             <div class="col-md-11 mx-auto">
                 <div class="custom-card text-center">
-                    <h3 class="card-header fondo">Redactar Mensaje</h3>
+                    <h3 class="card-header fondo">                        
+                        {{ $t('lang.Write_To.writeTo') }}
+                    </h3>
                     <div class="container-mensaje">
                         <div class="row">
-                            <h5>Destinatarios</h5><br>
+                            <h5>                                
+                                {{ $t('lang.Write_To.addressees') }}
+                            </h5><br>
                         </div>                        
                         <div class="row">
-                            <h6>Tus contactos</h6>
-                            <a class="btn btn-info" v-if="teacher" href="#" v-on:click.prevent="btA()"
-                                style="margin: 10px;">Administrativa</a>
+                            <h6>                                
+                                {{ $t('lang.Write_To.your_contacts') }}
+                            </h6>
+                            <a class="btn btn-info" v-if="teacher" href="#" v-on:click.prevent="btA()"style="margin: 10px;">
+                                
+                                {{ $t('lang.charges.administrative') }}
+                            </a>
 
-                            <a class="btn btn-info float-left" href="#" v-on:click.prevent="btD()"
-                                style="margin: 10px;">Docentes</a>
+                            <a class="btn btn-info float-left" href="#" v-on:click.prevent="btD()" style="margin: 10px;">
+                                
+                                {{ $t('lang.charges.teachers') }}
+                            </a>
 
-                            <a class="btn btn-info float-left" href="#" v-on:click.prevent="btE()"
-                                style="margin: 10px;">Estudiantes</a>                                        
+                            <a class="btn btn-info float-left" href="#" v-on:click.prevent="btE()" style="margin: 10px;">
+                                
+                                {{ $t('lang.charges.students') }}
+                            </a>                                        
 
-                            <a class="btn btn-info" href="#" v-on:click.prevent="btP()"
-                                style="margin: 10px;">Padres</a>
+                            <a class="btn btn-info" href="#" v-on:click.prevent="btP()" style="margin: 10px;">
+                                
+                                {{ $t('lang.charges.parents') }}
+                            </a>
 
-                            <a class="btn btn-info" href="#" v-on:click.prevent="btPsi()"
-                                style="margin: 10px;">Psicologia</a>
+                            <a class="btn btn-info" href="#" v-on:click.prevent="btPsi()"style="margin: 10px;">
+                                
+                                {{ $t('lang.charges.psicology') }}
+                            </a>
 
-                            <a class="btn btn-info" href="#" v-on:click.prevent="btSchoolGov()"
-                                style="margin: 10px;">Gobierno Escolar</a>
+                            <a class="btn btn-info" href="#" v-on:click.prevent="btSchoolGov()" style="margin: 10px;">
+                                
+                                {{ $t('lang.charges.schoolGovernment') }}
+                            </a>
 
-                            <a class="btn btn-info" href="#" v-on:click.prevent="btC()"
-                                style="margin: 10px;">Coordinadores</a>
+                            <a class="btn btn-info" href="#" v-on:click.prevent="btC()" style="margin: 10px;">
+                                
+                                {{ $t('lang.charges.coordinators') }}
+                            </a>
 
-                            <a class="btn btn-info" href="#" v-on:click.prevent="btT()"
-                                style="margin: 10px;">Tutores</a>  
+                            <a class="btn btn-info" href="#" v-on:click.prevent="btT()" style="margin: 10px;">
+                                
+                                {{ $t('lang.charges.tutors') }}
+                            </a>  
 
-                            <a class="btn btn-info" href="#" v-on:click.prevent="btEn()"
-                                style="margin: 10px;">Enfermería</a>                          
+                            <a class="btn btn-info" href="#" v-on:click.prevent="btEn()" style="margin: 10px;">
+                                
+                                {{ $t('lang.charges.nursing') }}
+                            </a>                          
                             
                         </div>
                         <div v-show="docente == true">
-                            <label for>Docentes</label>
+                            <label for>                                
+                                {{ $t('lang.charges.teachers') }}
+                            </label>
                             <students-course :getIdUser="getIdUser" :findStudentOrTeacher="findStudentOrTeacher"></students-course>
                             <!-- <multiselect v-model="cdocente" :options="optionsd" tag-placeholder="Add this as new tag"
                                 placeholder="Search or add a tag" label="name" track-by="id" :multiple="true"
@@ -47,19 +73,21 @@
                         </div>
                         <br />
                         <div v-show="estudiante == true">
-                            <label for>Estudiantes</label>
+                            <label for>                                
+                                {{ $t('lang.charges.students') }}    
+                            </label>
                             <students-course :getIdUser="getIdUser" :findStudentOrTeacher="findStudentOrTeacher"></students-course>
                         </div>
                         <br />
                         <div v-show="results.length >0">
                             <label for>{{  administrative == true ? 
-                                            'Administrativos' : padres == true ? 
-                                            'Padres' : psicologia == true ? 
-                                            'Psicología' : schoolGov == true ? 
-                                            'Gobierno Escolar' : coordinadores == true ?
-                                            'Coordinadores' : enfermeria == true ?
-                                            'Enfermeria' : tutores == true ? 
-                                            'Tutores' : ''
+                                            $t('lang.charges.administrative') : padres == true ? 
+                                            $t('lang.charges.parents') : psicologia == true ? 
+                                            $t('lang.charges.psicology') : schoolGov == true ? 
+                                            $t('lang.charges.schoolGovernment') : coordinadores == true ?
+                                            $t('lang.charges.coordinators') : enfermeria == true ?
+                                            $t('lang.charges.nursing') : tutores == true ? 
+                                            $t('lang.charges.tutors') : ''
                                         }}
                             </label>
                             <multiselect v-model="cresult" :options="results"
@@ -68,19 +96,27 @@
                         </div>
                         <br />
                         <div class="row">
-                            <label for="nombre" class="label-mensaje">Asunto:</label>
+                            <label for="nombre" class="label-mensaje">
+                                {{ $t('lang.table.subject') }}
+                            </label>
                             <input class="input-mensaje" id="nombre" name="nombre" placeholder="Asunto"
                                 v-model="asunto" />
                         </div>
 
                         <div class="row">
-                            <label for="mensaje">Mensaje:</label>
+                            <label for="mensaje">                                
+                                {{ $t('lang.messages.message') }}:
+                            </label>
                         </div>
 
                         <ckeditor :editor="editor" v-model="editorData" @ready="onReady"></ckeditor>
                         <div class="modal-footer">
-                            <a href="#" class="btn btn-warning float-right" @click="getMenu()">Cancelar</a>
-                            <a href="#" class="btn btn-warning float-right" @click="saveM()">Enviar</a>
+                            <a href="#" class="btn btn-warning float-right" @click="getMenu()">                                
+                                {{ $t('lang.Write_To.cancel') }}
+                            </a>
+                            <a href="#" class="btn btn-warning float-right" @click="saveM()">                                
+                                {{ $t('lang.Write_To.send') }}
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -118,7 +154,7 @@
     // register globally
     Vue.component("multiselect", Multiselect);
     export default {
-        props: ['user'],
+        props: ['user','cleanShowSection'],
         // OR register locally
         components: {
             Multiselect,
@@ -356,7 +392,11 @@
         },
         methods: {
             getMenu() {
-                window.location = "/enviados";
+                if(this.cleanShowSection){
+                    this.cleanShowSection();
+                }else{
+                    window.location = "/enviados";
+                }
             },
             addTaga(newTag) {
                 const tag = {

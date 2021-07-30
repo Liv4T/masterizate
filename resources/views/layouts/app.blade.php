@@ -11,6 +11,7 @@
       <!-- Scripts -->
       <script src="{{ asset('js/app.js') }}" defer></script>
       <script src="https://kit.fontawesome.com/a72f7eba65.js" crossorigin="anonymous"></script>
+      <script src="https://unpkg.com/vue-i18n@8"></script>
     <!--<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" />-->
     <link href="https://unpkg.com/@coreui/coreui@2.1.16/dist/css/coreui.min.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet" />
@@ -86,7 +87,7 @@
                 <a class="navbar-brand" href="{{ url('/') }}">
                     <div>
                         {{ config('Life4teach') }}
-                        <img thumbnail fluid src="/uploads/logol4t.png"  alt="4"></img>
+                        <img thumbnail fluid src="{{URL::asset('images/home6New.png')}}"  alt="4"></img>
                     </div>
 
                 </a>
@@ -108,15 +109,20 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('loginNew') }}">{{ __('Login') }}</a>
                             </li>
-                            <li class="nav-item">
+                            <!-- <li class="nav-item">
                                 <a class="nav-link" href="/tutorRegister">Registro de Tutor</a>
-                            </li>
+                            </li> -->
                             @if (Route::has('registerNew'))
                             <!-- li class="nav-item"-->
                                 <!--a class="nav-link" href="{{ route('registerNew') }}">{{ __('Register') }}</a-->
                             <!--/li-->
                             @endif
                             @else
+
+                            @if (Auth::user()->type_user==3)
+                                <language-component></language-component>
+                            @endif
+
                             <li class="nav-item dropdown">
                                <notification-component></notification-component>
                             </li>

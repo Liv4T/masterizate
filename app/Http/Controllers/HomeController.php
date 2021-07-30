@@ -92,6 +92,11 @@ class HomeController extends Controller
         // return response()->download($pathtoFile, 'Benjamin_Gakami_CV.docx', $headers);
         // return Redirect::to($pathtoFile);
     }
+    public function CreateGroup2()
+    {
+        $groups = auth()->user()->groups;
+        return response()->json($groups);
+    }
     public function CreateGroup()
     {
         $groups = auth()->user()->groups;

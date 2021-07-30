@@ -51,7 +51,8 @@ class CoursesController extends Controller
                 $quaterly[$key] = [
                     'id' => $Quarterly->id,
                     'content' => $Quarterly->content,
-                    'unit_name' => $Quarterly->unit_name
+                    'unit_name' => $Quarterly->unit_name,
+                    'logro' => $Quarterly->logro,
                 ];
             }
         }
@@ -201,6 +202,7 @@ class CoursesController extends Controller
                 $subCate = Quarterly::create([
                     'content' => $Quarterly['content'],
                     'unit_name' => $Quarterly['unit_name'],
+                    'logro' => $Quarterly['logro'],
                     'id_area'    => $data['id_area'],
                     'id_classroom'    => $data['id_classroom'],
                     'id_teacher'     =>  Auth::user()->id,
@@ -251,12 +253,17 @@ class CoursesController extends Controller
             foreach ($Quarterlies as $index => $Quarterly) {
 
                 if (isset($Quarterly['id_quaterly'])) {
-                    $quarterlyUpdatedRowsCount = Quarterly::where('id', $Quarterly['id_quaterly'])->update(array('content' => $Quarterly['contenido'], 'unit_name' => $Quarterly['name']));
+                    if(isset($Quarterly['logro'])){
+                        $quarterlyUpdatedRowsCount = Quarterly::where('id', $Quarterly['id_quaterly'])->update(array('content' => $Quarterly['contenido'], 'unit_name' => $Quarterly['name'], 'logro' => $Quarterly['logro']  ));
+                    }else{
+                        $quarterlyUpdatedRowsCount = Quarterly::where('id', $Quarterly['id_quaterly'])->update(array('content' => $Quarterly['contenido'], 'unit_name' => $Quarterly['name']));
+                    }                    
 
                     if ($quarterlyUpdatedRowsCount <= 0) {
                         $subCate = Quarterly::create([
                             'content' => $Quarterly['contenido'],
                             'unit_name' => $Quarterly['name'],
+                            'logro' => $Quarterly['logro'],
                             'id_area'    => $data['id_area'],
                             'id_classroom'    => $data['id_classroom'],
                             'id_teacher'     =>  Auth::user()->id,
@@ -266,6 +273,7 @@ class CoursesController extends Controller
                     $subCate = Quarterly::create([
                         'content' => $Quarterly['contenido'],
                         'unit_name' => $Quarterly['name'],
+                        'logro' => $Quarterly['logro'],
                         'id_area'    => $data['id_area'],
                         'id_classroom'    => $data['id_classroom'],
                         'id_teacher'     =>  Auth::user()->id,
@@ -351,8 +359,11 @@ class CoursesController extends Controller
                     'driving_question' => $week['driving_question'],
                     'class_development' => $week['class_development'],
                     'observation' => $week['observation'],
+                    'ajuste_piar' => $week['ajustes'],
+                    'order_items' => $week['numeroCiclo'],
                     'id_area'    => $data['id_area'],
                     'id_classroom'    => $data['id_classroom'],
+                    'id_trimestre' => $data['id_trimestre'],
                     'week'    => $count,
                     'id_teacher'     =>  Auth::user()->id,
                 ]);
@@ -379,6 +390,8 @@ class CoursesController extends Controller
             $week_update->driving_question = $week['text'];
             $week_update->class_development = $week['class'];
             $week_update->observation = $week['observation'];
+            $week_update->id_trimestre = $week['id_trimestre'];
+            $week_update->ajuste_piar = $week['ajuste_piar'];
             $week_update->save();
         }
         return "ok";
@@ -449,12 +462,12 @@ class CoursesController extends Controller
         return response()->json($data);
     }
 
-    public function editGetWeek(String $id_area, String $id_classroom)
+    public function editGetWeek(String $id_area, String $id_classroom, String $id_trimestre)
     {
         $user = Auth::user();
         $data = [];
         if ($user->isAdmin()) {
-            $Weeks = Weekly::where('id_area', $id_area)->where('id_classroom', $id_classroom)->get();
+            $Weeks = Weekly::where('id_area', $id_area)->where('id_classroom', $id_classroom)->where('id_trimestre', $id_trimestre)->get();
             // $data[0] = [
             //     'id'   => 0,
             //     'text' => 'Seleccione',
@@ -467,6 +480,7 @@ class CoursesController extends Controller
                     'observation' => $week->observation,
                     'id_area' =>  $week->id_area,
                     'id_classroom' =>  $week->id_classroom,
+                    'id_trimestre' => $week->id_trimestre,
                 ];
             }
         } elseif ($user->isTeacher()||$user->isTutor()) {
@@ -484,24 +498,32 @@ class CoursesController extends Controller
                     'observation' => $week->observation,
                     'id_area' =>  $week->id_area,
                     'id_classroom' =>  $week->id_classroom,
+                    'id_trimestre' => $week->id_trimestre,
                 ];
             }
         }
         return response()->json($data);
     }
 
-    public function editOneWeek(String $id_area, String $id_classroom)
+    public function editOneWeek(String $id_area, String $id_classroom, String $id_trimestre)
     {
         $user = Auth::user();
         $data = [];
 
         if($user->type_user==1)
         {
-            $Weeks = Weekly::where('id_area', $id_area)->where('id_classroom', $id_classroom)->get();
+            $Weeks = Weekly::where('id_area', $id_area)
+            ->where('id_classroom', $id_classroom)
+            ->where('id_trimestre', $id_trimestre)
+            ->get();
         }
         else
         {
-            $Weeks = Weekly::where('id_teacher', $user->id)->where('id_area', $id_area)->where('id_classroom', $id_classroom)->get();
+            $Weeks = Weekly::where('id_teacher', $user->id)
+            ->where('id_area', $id_area)
+            ->where('id_classroom', $id_classroom)
+            ->where('id_trimestre', $id_trimestre)
+            ->get();
         }
 
         $data = [];
@@ -517,14 +539,21 @@ class CoursesController extends Controller
                 'observation' => $week->observation,
                 'id_area' =>  $week->id_area,
                 'id_classroom' =>  $week->id_classroom,
+                'id_teacher' => $week->id_teacher,
+                'id_trimestre' => $week->id_trimestre,
+                'order_items' => $week->order_items,
+                'ajuste_piar' => $week->ajuste_piar,
             ];
         }
         return response()->json($data);
     }
-
-    public function viewGetWeek(String $id_area, String $id_classroom)
+    public function oneCycle(String $id)
     {
-        $Weeks = Weekly::where('id_area', $id_area)->where('id_classroom', $id_classroom)->get();
+        $data = [];
+
+        
+        $Weeks = Weekly::where('id', $id)->get();
+
         $data = [];
         foreach ($Weeks as $key => $week) {
             $data[$key] = [
@@ -534,6 +563,28 @@ class CoursesController extends Controller
                 'observation' => $week->observation,
                 'id_area' =>  $week->id_area,
                 'id_classroom' =>  $week->id_classroom,
+                'id_teacher' => $week->id_teacher,
+                'id_trimestre' => $week->id_trimestre,
+                'order_items' => $week->order_items,
+                'ajuste_piar' => $week->ajuste_piar,
+            ];
+        }
+        return response()->json($data);
+    }
+
+    public function viewGetWeek(String $id_area, String $id_classroom, String $id_trimestre)
+    {
+        $Weeks = Weekly::where('id_area', $id_area)->where('id_classroom', $id_classroom)->where('id_trimestre', $id_trimestre)->get();
+        $data = [];
+        foreach ($Weeks as $key => $week) {
+            $data[$key] = [
+                'id'   => $week->id,
+                'text' => $week->driving_question,
+                'class' => $week->class_development,
+                'observation' => $week->observation,
+                'id_area' =>  $week->id_area,
+                'id_classroom' =>  $week->id_classroom,
+                'id_trimestre' => $week->id_trimestre,
             ];
         }
         return response()->json($data);
@@ -549,7 +600,7 @@ class CoursesController extends Controller
         $data = $request->all();
         $class_plan = $data['class_planning'];
 
-        if(isset($data['fromData']) && isset($data['toData']) && isset($data['fromData']['weekly_planning']['id']))
+        if(isset($data['fromData']) && isset($data['toData']) && isset($data['fromData']['weekly_planning']['id']) && isset($data['fromData']['trimestres']))
         {
             //copy weekly_planning
             $weekly_planning_id=0;
@@ -563,6 +614,9 @@ class CoursesController extends Controller
                     'id_teacher'=>$weekly_plan->id_teacher,
                     'id_area'=>$data['toData']['area']['id'],
                     'id_classroom'=>$data['toData']['area']['id_classroom'],
+                    'id_trimestre'=>$data['fromData']['trimestres'],
+                    'ajuste_piar'=>$weekly_plan->ajuste_piar,
+                    'order_items'=>$weekly_plan->order_items,
                     'week'=>$weekly_plan->week,
                     'status'=>$weekly_plan->status,
                     'observation_coord'=>$weekly_plan->observation_coord
@@ -577,6 +631,9 @@ class CoursesController extends Controller
                     'class_development'=>$weekly_plan->class_development,
                     'observation'=>$weekly_plan->observation,
                     'week'=>$weekly_plan->week,
+                    'id_trimestre'=>$weekly_plan->id_trimestre,
+                    'ajuste_piar'=>$weekly_plan->ajuste_piar,
+                    'order_items'=>$weekly_plan->order_items,
                     'status'=>$weekly_plan->status,
                     'observation_coord'=>$weekly_plan->observation_coord
                 ]);

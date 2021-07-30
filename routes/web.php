@@ -70,14 +70,20 @@ Route::middleware('auth')->get('/course/{id_area}/{id_classroom}', function (Str
 Route::middleware('auth')->get('/duplicar/{id_area}/{id_classroom}', function (String $id_area, String $id_classroom) {
     return view('duplicarGeneral')->with('id_area', $id_area)->with('id_classroom', $id_classroom);
 });
+Route::middleware('auth')->get('/duplicarGeneral', function () {
+    return view('areasToDuplicateGeneral');
+});
 Route::middleware('auth')->get('/duplicar-semana/', function () {
     return view('duplicarSemana');
 });
-Route::middleware('auth')->get('/crear_semana/{id_area}/{id_classroom}', function (String $id_area, String $id_classroom) {
-    return view('semanal')->with('id_area', $id_area)->with('id_classroom', $id_classroom);
+Route::middleware('auth')->get('/crear_semana/{id_area}/{id_classroom}/{id_trimestre}/{orden}', function (String $id_area, String $id_classroom, String $id_trimestre, String $orden) {
+    return view('semanal')->with('id_area', $id_area)->with('id_classroom', $id_classroom)->with('id_trimestre', $id_trimestre)->with('orden', $orden);
 });
-Route::middleware('auth')->get('/act_semana/{id_area}/{id_classroom}', function (String $id_area, String $id_classroom) {
-    return view('semanalAct')->with('id_area', $id_area)->with('id_classroom', $id_classroom);
+Route::middleware('auth')->get('/cycle/list/{id_area}/{id_classroom}', function (String $id_area, String $id_classroom) {
+    return view('cycleList')->with('id_area', $id_area)->with('id_classroom', $id_classroom);
+});
+Route::middleware('auth')->get('/act_semana/{id_area}/{id_classroom}/{cycle_id}', function (String $id_area, String $id_classroom, String $cycle_id) {
+    return view('semanalAct')->with('id_area', $id_area)->with('id_classroom', $id_classroom)->with('cycle_id', $cycle_id);
 });
 
 Route::middleware('auth')->get('/unit', function () {
@@ -286,6 +292,9 @@ Route::middleware('auth')->get('/reportes', function () {
 Route::middleware('auth')->get('/instituciones_adm', function () {
     return view('institucionesAdm');
 });
+Route::middleware('auth')->get('/trimestre_adm', function () {
+    return view('trimestre');
+});
 Route::middleware('auth')->get('/instituciones_crear', function () {
     return view('crearInstitucion');
 });
@@ -324,6 +333,7 @@ Route::get('/compra/plan/tutoria/{tutor_schedule_student_id}/{tutorschedule_id}/
     return view('purchaseTutoriaResume')->with('tutor_schedule_student_id', $tutor_schedule_student_id)->with('tutorschedule_id', $tutorschedule_id);
 });
 Route::middleware('auth')->get('/chat', 'HomeController@CreateGroup')->name('chat');
+Route::middleware('auth')->get('/chat2', 'HomeController@CreateGroup2');
 // Lessons
 Route::middleware('auth')->delete('lessons/destroy', 'LessonsController@massDestroy')->name('lessons.massDestroy');
 Route::resource('lessons', 'LessonsController');
@@ -351,6 +361,7 @@ Route::get('downloadFile', 'HomeController@downloadFile')->name('downloadFile');
 
 
 Route::middleware('auth')->get('info_user', 'UserController@show')->name('info_user');
+Route::middleware('auth')->get('userType', 'UserController@typeUserLog');
 Route::middleware('auth')->get('coursePlanification/{id_area}/{id_classroom}', 'CoursesController@index');
 Route::middleware('auth')->get('GetCourses', 'CourseController@GetCourses');
 Route::middleware('auth')->get('GetCategories', 'CategoryController@GetCategories');
@@ -438,9 +449,10 @@ Route::get('getEvenNearStudent/{id_area}/{id_classroom}', 'EventsController@even
 
 Route::get('GetWeek', 'CoursesController@getWeek');
 Route::delete('DeleteCicle/{id_cicle}', 'CoursesController@destroy');
-Route::get('editGetWeek/{id_area}/{id_classroom}', 'CoursesController@editGetWeek')->name('editGetWeek');
-Route::get('editOneWeek/{id_area}/{id_classroom}', 'CoursesController@editOneWeek')->name('editOneWeek');
-Route::get('viewGetWeek/{id_area}/{id_classrom}', 'CoursesController@viewGetWeek')->name('viewGetWeek');
+Route::get('editGetWeek/{id_area}/{id_classroom}/{id_trimestre}', 'CoursesController@editGetWeek')->name('editGetWeek');
+Route::get('editOneWeek/{id_area}/{id_classroom}/{id_trimestre}', 'CoursesController@editOneWeek')->name('editOneWeek');
+Route::get('editOneCycle/{id}', 'CoursesController@oneCycle')->name('editOneCycle');
+Route::get('viewGetWeek/{id_area}/{id_classrom}/{id_trimestre}', 'CoursesController@viewGetWeek')->name('viewGetWeek');
 Route::get('showWeek/{id}', 'CoursesController@showWeek');
 Route::put('updateCourseWeekly', 'CoursesController@updateCourseWeekly');
 Route::resource('course_unit', 'Course_unitController', ['except' => 'show', 'create', 'edit']);;
@@ -1060,3 +1072,16 @@ Route::get('/api/proceedings/general/pdf/{id}', 'ProceedingsGeneralController@ge
 Route::middleware('auth')->post('/updateViewedProceedings/general/{id}', 'ProceedingsGeneralController@updateViewed');
 Route::middleware('auth')->get('/api/proceedings/general/download/{id}', 'ProceedingsGeneralController@downloadProceedings');
 Route::middleware('auth')->get('/api/proceedings/general/users', 'ProceedingsGeneralController@getUsersToProceedings');
+
+Route::resource('CalLectivesActivities','CalLectivesActivitiesController');
+Route::get('getLectivesActivitiesCal/{lective_planification}','CalLectivesActivitiesController@getLectivesActivitiesCal');
+Route::get('getNotesStudents','CalLectivesActivitiesController@getNotesStudents');
+Route::middleware('auth')->get('/cycle/teacher/{id_area}/{id_classroom}/{id_trimestre}', 'TutorController@cyclesByTeacher');
+Route::post('/createTrimestre', 'TrimestreController@createTrimestre');
+Route::get('/getTrimestres', 'TrimestreController@getTrimestre');
+Route::get('/getActivitiesTeacher/{id_area}/{id_classroom}','ActivityController@getActivitiesTeacher');
+
+Route::resource('/trimestres','TrimestresController');
+Route::middleware('auth')->get('/quarters', function () {
+    return view('trimestres');
+});

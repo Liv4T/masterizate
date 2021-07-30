@@ -1,19 +1,14 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[142],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/mothlyReportParent.vue?vue&type=script&lang=js&":
-/*!*****************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/mothlyReportParent.vue?vue&type=script&lang=js& ***!
-  \*****************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/legislation.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/legislation.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var jspdf__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! jspdf */ "./node_modules/jspdf/dist/jspdf.es.min.js");
-/* harmony import */ var jspdf_autotable__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! jspdf-autotable */ "./node_modules/jspdf-autotable/dist/jspdf.plugin.autotable.js");
-/* harmony import */ var jspdf_autotable__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(jspdf_autotable__WEBPACK_IMPORTED_MODULE_2__);
 //
 //
 //
@@ -95,135 +90,88 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-
-
 /* harmony default export */ __webpack_exports__["default"] = ({
-  components: {
-    moment: moment__WEBPACK_IMPORTED_MODULE_0___default.a
-  },
+  props: ['user'],
   data: function data() {
     return {
-      dataReport: [],
-      dataStudent: {},
-      downloading: false,
-      displayCol: 'inline'
+      legislation: "",
+      legislationData: [],
+      legislationToEdit: "",
+      idLegislation: ""
     };
   },
   mounted: function mounted() {
-    var _this = this;
-
-    axios.get('getReportsByParent').then(function (response) {
-      var data = response.data;
-      data.forEach(function (e) {
-        _this.dataReport.push({
-          created_at: moment__WEBPACK_IMPORTED_MODULE_0___default()(e.created_at).format('YYYY MMMM DD hh:mm:ss'),
-          dataStudent: JSON.parse(e.dataStudent)
-        });
-
-        _this.dataStudent = JSON.parse(e.dataStudent);
-      });
-    });
-  },
-  watch: {
-    dataStudent: function dataStudent(newVal) {
-      console.log(newVal);
-
-      if (newVal.nota_class.length === 0) {
-        this.displayCol = 'none';
-      } else {
-        this.displayCol = 'inline';
-      }
-    }
+    this.getLegislation();
   },
   methods: {
-    downloadReport: function downloadReport(data) {
+    getLegislation: function getLegislation() {
+      var _this = this;
+
+      axios.get('/getLegislation').then(function (response) {
+        _this.legislationData = response.data;
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
+    createLegislation: function createLegislation() {
       var _this2 = this;
 
-      this.dataStudent = data;
-      this.downloading = true;
-      setTimeout(function () {
-        var pdf = new jspdf__WEBPACK_IMPORTED_MODULE_1__["default"]('p', 'pt', 'letter');
-        pdf.autoTable({
-          html: '#tableReport',
-          columnStyles: {
-            halign: 'center',
-            fillColor: [0, 255, 0]
-          }
+      axios.post('/schoolGobernment', {
+        legislation: this.legislation,
+        user_id: this.user.id
+      }).then(function () {
+        toastr.success("Legislación creada");
+        $("#modalCreate").modal("hide");
+
+        _this2.getLegislation();
+      })["catch"](function () {
+        toast.danger("Intentalo de nuevo mas tarde");
+      });
+    },
+    edit: function edit(data) {
+      this.idLegislation = data.id;
+      this.legislationToEdit = data.legislation;
+    },
+    editLegislation: function editLegislation() {
+      var _this3 = this;
+
+      axios.put("/schoolGobernment/".concat(this.idLegislation), {
+        legislation: this.legislationToEdit
+      }).then(function () {
+        toastr.success("Legislación Actualizada");
+        $("#modalEdit").modal("hide");
+
+        _this3.getLegislation();
+      })["catch"](function (error) {
+        console.log(error);
+        toast.danger("Intentalo de nuevo mas tarde");
+      });
+    },
+    deleteLegislation: function deleteLegislation(id) {
+      var _this4 = this;
+
+      var confirmToDelete = confirm("Desea eliminar el dato?");
+
+      if (confirmToDelete == true) {
+        axios["delete"]("schoolGobernment/".concat(id)).then(function (response) {
+          toastr.success(response.data);
+
+          _this4.getLegislation();
+        })["catch"](function (error) {
+          console.log(error);
+          toastr.error("Intentalo de nuevo mas tarde");
         });
-        pdf.save("Informe ".concat(_this2.dataStudent.student, ".pdf"));
-        _this2.downloading = false;
-      }, 1000);
+      }
     }
   }
 });
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/mothlyReportParent.vue?vue&type=template&id=2ad90968&":
-/*!*********************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/mothlyReportParent.vue?vue&type=template&id=2ad90968& ***!
-  \*********************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/legislation.vue?vue&type=template&id=1d2a5b74&":
+/*!**************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/legislation.vue?vue&type=template&id=1d2a5b74& ***!
+  \**************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -239,226 +187,224 @@ var render = function() {
     _c("div", { staticClass: "row justify-content-center" }, [
       _c("div", { staticClass: "col-sm-10", attrs: { id: "crud" } }, [
         _c("div", { staticClass: "card" }, [
-          _vm._m(0),
+          _c("div", { staticClass: "text-center card-header fondo" }, [
+            _vm._v("\n                    Legislación\n                ")
+          ]),
           _vm._v(" "),
           _c("div", { staticClass: "card-body" }, [
-            _c("table", { staticClass: "table table-striped table-hover" }, [
-              _vm._m(1),
-              _vm._v(" "),
-              _c(
-                "tbody",
-                _vm._l(_vm.dataReport, function(data, key) {
-                  return _c("tr", { key: key }, [
-                    _c("td", [
-                      _vm._v(_vm._s(data.dataStudent.student.toUpperCase()))
-                    ]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(data.created_at))]),
-                    _vm._v(" "),
-                    _c("td", [
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-primary",
-                          on: {
-                            click: function($event) {
-                              return _vm.downloadReport(data.dataStudent)
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-primary btn-xs",
+                attrs: { "data-toggle": "modal", "data-target": "#modalCreate" }
+              },
+              [_vm._v("Crear")]
+            ),
+            _vm._v(" "),
+            _c(
+              "table",
+              [
+                _vm._m(0),
+                _vm._v(" "),
+                _vm._l(_vm.legislationData, function(data, id) {
+                  return _c("tbody", { key: id }, [
+                    _c("tr", [
+                      _c("td", [_vm._v(_vm._s(data.legislation))]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-success btn-xs",
+                            attrs: {
+                              "data-toggle": "modal",
+                              "data-target": "#modalEdit"
+                            },
+                            on: {
+                              click: function($event) {
+                                return _vm.edit(data)
+                              }
                             }
-                          }
-                        },
-                        [
-                          _vm._v(
-                            "\n                                        " +
-                              _vm._s(
-                                _vm.downloading
-                                  ? "Descargando Reporte"
-                                  : "Descargar Reporte"
-                              ) +
-                              "\n                                    "
-                          )
-                        ]
-                      )
+                          },
+                          [_vm._v("Editar")]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-danger btn-xs",
+                            on: {
+                              click: function($event) {
+                                return _vm.deleteLegislation(data.id)
+                              }
+                            }
+                          },
+                          [_vm._v("Eliminar")]
+                        )
+                      ])
                     ])
                   ])
-                }),
-                0
-              )
-            ])
+                })
+              ],
+              2
+            )
           ])
         ])
       ])
     ]),
     _vm._v(" "),
     _c(
-      "table",
+      "div",
       {
-        staticStyle: { width: "100%" },
-        attrs: { id: "tableReport", hidden: "" }
+        staticClass: "modal fade",
+        attrs: {
+          id: "modalCreate",
+          tabindex: "-1",
+          role: "dialog",
+          "aria-labelledby": "modalCreateLabel",
+          "aria-hidden": "true"
+        }
       },
       [
-        _c("tr", { staticClass: "header" }, [
-          _c("th", { attrs: { colspan: "8" } }, [
-            _vm._v(
-              "REPORTE DE " +
-                _vm._s(
-                  _vm.dataStudent.student
-                    ? _vm.dataStudent.student.toUpperCase()
-                    : ""
+        _c(
+          "div",
+          { staticClass: "modal-dialog", attrs: { role: "document" } },
+          [
+            _c("div", { staticClass: "modal-content" }, [
+              _vm._m(1),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-body" }, [
+                _c("div", { staticClass: "form-group" }, [
+                  _c("label", [_vm._v("Legislación")]),
+                  _vm._v(" "),
+                  _c("textarea", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.legislation,
+                        expression: "legislation"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    domProps: { value: _vm.legislation },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.legislation = $event.target.value
+                      }
+                    }
+                  })
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-footer" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-secondary",
+                    attrs: { type: "button", "data-dismiss": "modal" }
+                  },
+                  [_vm._v("Cerrar")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-primary",
+                    attrs: { type: "button" },
+                    on: {
+                      click: function($event) {
+                        return _vm.createLegislation()
+                      }
+                    }
+                  },
+                  [_vm._v("Guardar")]
                 )
-            )
-          ])
-        ]),
-        _vm._v(" "),
-        _vm._m(2),
-        _vm._v(" "),
-        _c("tr", [
-          _c("th", { staticClass: "label" }, [_vm._v("CLASE: ")]),
-          _vm._v(" "),
-          _c("td", { staticClass: "label-content" }, [
-            _vm._v(_vm._s(_vm.dataStudent.class))
-          ]),
-          _vm._v(" "),
-          _c("td"),
-          _vm._v(" "),
-          _c("th", { staticClass: "label" }, [_vm._v("LOGRO: ")]),
-          _vm._v(" "),
-          _c("td", { staticClass: "label-content" }, [
-            _vm._v(_vm._s(_vm.dataStudent.logro))
-          ])
-        ]),
-        _vm._v(" "),
-        _c("tr", [
-          _c("th", { staticClass: "label" }, [_vm._v(" ESTUDIANTE: ")]),
-          _vm._v(" "),
-          _c("td", { staticClass: "label-content" }, [
-            _vm._v(_vm._s(_vm.dataStudent.student))
-          ]),
-          _vm._v(" "),
-          _c("td"),
-          _vm._v(" "),
-          _c("th", { staticClass: "label" }, [_vm._v("CORREO: ")]),
-          _vm._v(" "),
-          _c("td", { staticClass: "label-content" }, [
-            _vm._v(_vm._s(_vm.dataStudent.email))
-          ]),
-          _vm._v(" "),
-          _c("td")
-        ]),
-        _vm._v(" "),
-        _vm._m(3),
-        _vm._v(" "),
-        _c("tr", [
-          _c("th", { staticClass: "label" }, [_vm._v("ACTIVIDAD: ")]),
-          _vm._v(" "),
-          _c("td", { staticClass: "label-content" }, [
-            _vm._v(_vm._s(_vm.dataStudent.activity))
-          ]),
-          _vm._v(" "),
-          _c("td"),
-          _vm._v(" "),
-          _c("th", { staticClass: "label" }, [_vm._v("DESCRIPCIÓN: ")]),
-          _vm._v(" "),
-          _c("td", { staticClass: "label-content" }, [
-            _vm._v(_vm._s(_vm.dataStudent.activity_description))
-          ]),
-          _vm._v(" "),
-          _c("td"),
-          _vm._v(" "),
-          _c("th", { staticClass: "label" }, [_vm._v("FECHA ACTIVIDAD")]),
-          _vm._v(" "),
-          _c("td", { staticClass: "label-content" }, [
-            _vm._v(_vm._s(_vm.dataStudent.activity_date))
-          ])
-        ]),
-        _vm._v(" "),
-        _vm._m(4),
-        _vm._v(" "),
-        _c("tr", [
-          _c("th", { staticClass: "label" }, [
-            _vm._v("PORCENTAJE DE ACTIVIDAD: ")
-          ]),
-          _vm._v(" "),
-          _c("td", { staticClass: "label-content" }, [
-            _vm._v(_vm._s(_vm.dataStudent.percentage_activity))
-          ]),
-          _vm._v(" "),
-          _c("td"),
-          _vm._v(" "),
-          _c(
-            "th",
-            { staticClass: "label", style: { display: _vm.displayCol } },
-            [_vm._v("NOTA GENERAL: ")]
-          ),
-          _vm._v(" "),
-          _c(
-            "td",
-            {
-              staticClass: "label-content",
-              style: { display: _vm.displayCol }
-            },
-            [_vm._v(_vm._s(_vm.dataStudent.nota_class))]
-          )
-        ]),
-        _vm._v(" "),
-        _vm._m(5),
-        _vm._v(" "),
-        _c("tr", [
-          _c("th", { staticClass: "label" }, [_vm._v("TOTAL ASISTENCIAS: ")]),
-          _vm._v(" "),
-          _c("td", { staticClass: "label-content" }, [
-            _vm._v(_vm._s(_vm.dataStudent.Assistances))
-          ]),
-          _vm._v(" "),
-          _c("td"),
-          _vm._v(" "),
-          _c("th", { staticClass: "label" }, [_vm._v("TOTAL CLASES: ")]),
-          _vm._v(" "),
-          _c("td", { staticClass: "label-content" }, [
-            _vm._v(_vm._s(_vm.dataStudent.total_classes))
-          ])
-        ]),
-        _vm._v(" "),
-        _vm._m(6),
-        _vm._v(" "),
-        _c("tr", [
-          _c("th", { staticClass: "label" }, [_vm._v("NOMBRE DE ACUDIENTE: ")]),
-          _vm._v(" "),
-          _c("td", { staticClass: "label-content" }, [
-            _vm._v(
-              _vm._s(
-                _vm.dataStudent.parent_name
-                  ? _vm.dataStudent.parent_name
-                  : "Sin Información"
-              )
-            )
-          ]),
-          _vm._v(" "),
-          _c("td"),
-          _vm._v(" "),
-          _c("th", { staticClass: "label" }, [_vm._v("CORREO DE ACUDIENTE: ")]),
-          _vm._v(" "),
-          _c("td", { staticClass: "label-content" }, [
-            _vm._v(
-              _vm._s(
-                _vm.dataStudent.parent_email
-                  ? _vm.dataStudent.parent_email
-                  : "Sin Información"
-              )
-            )
-          ])
-        ]),
-        _vm._v(" "),
-        _vm._m(7),
-        _vm._v(" "),
-        _c("tr", [
-          _c("th", { staticClass: "label" }, [
-            _vm._v("OBSERVACIÓN DEL DOCENTE: ")
-          ]),
-          _vm._v(" "),
-          _c("td", [_vm._v(_vm._s(_vm.dataStudent.observation))])
-        ]),
-        _vm._v(" "),
-        _vm._m(8)
+              ])
+            ])
+          ]
+        )
+      ]
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "modal fade",
+        attrs: {
+          id: "modalEdit",
+          tabindex: "-1",
+          role: "dialog",
+          "aria-labelledby": "modalEditLabel",
+          "aria-hidden": "true"
+        }
+      },
+      [
+        _c(
+          "div",
+          { staticClass: "modal-dialog", attrs: { role: "document" } },
+          [
+            _c("div", { staticClass: "modal-content" }, [
+              _vm._m(2),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-body" }, [
+                _c("div", { staticClass: "form-group" }, [
+                  _c("label", [_vm._v("Legislación")]),
+                  _vm._v(" "),
+                  _c("textarea", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.legislationToEdit,
+                        expression: "legislationToEdit"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: { "aria-label": "With textarea" },
+                    domProps: { value: _vm.legislationToEdit },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.legislationToEdit = $event.target.value
+                      }
+                    }
+                  })
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-footer" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-secondary",
+                    attrs: { type: "button", "data-dismiss": "modal" }
+                  },
+                  [_vm._v("Cerrar")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-primary",
+                    attrs: { type: "button" },
+                    on: {
+                      click: function($event) {
+                        return _vm.editLegislation()
+                      }
+                    }
+                  },
+                  [_vm._v("Guardar Cambios")]
+                )
+              ])
+            ])
+          ]
+        )
       ]
     )
   ])
@@ -468,21 +414,11 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-header fondo" }, [
-      _c("strong", [_vm._v("Reporte Mensual")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
-        _c("th", [_vm._v("Estudiante")]),
+        _c("th", [_vm._v("Legislación")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Fecha Creación de Reporte")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Descargar")])
+        _c("th", [_vm._v("Acción")])
       ])
     ])
   },
@@ -490,56 +426,50 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("tr", [
-      _c("td", { staticStyle: { height: "10px" }, attrs: { colspan: "8" } })
+    return _c("div", { staticClass: "modal-header" }, [
+      _c(
+        "h5",
+        { staticClass: "modal-title", attrs: { id: "modalCreateLabel" } },
+        [_vm._v("Creación de Legislación")]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+      )
     ])
   },
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("tr", [
-      _c("td", { staticStyle: { height: "5px" }, attrs: { colspan: "8" } })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("tr", [
-      _c("td", { staticStyle: { height: "10px" }, attrs: { colspan: "8" } })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("tr", [
-      _c("td", { staticStyle: { height: "10px" }, attrs: { colspan: "8" } })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("tr", [
-      _c("td", { staticStyle: { height: "10px" }, attrs: { colspan: "8" } })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("tr", [
-      _c("td", { staticStyle: { height: "10px" }, attrs: { colspan: "8" } })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("tr", [
-      _c("td", { staticStyle: { height: "10px" }, attrs: { colspan: "8" } })
+    return _c("div", { staticClass: "modal-header" }, [
+      _c(
+        "h5",
+        { staticClass: "modal-title", attrs: { id: "modalEditLabel" } },
+        [_vm._v("Editar Legislación")]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+      )
     ])
   }
 ]
@@ -549,17 +479,17 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./resources/js/components/mothlyReportParent.vue":
-/*!********************************************************!*\
-  !*** ./resources/js/components/mothlyReportParent.vue ***!
-  \********************************************************/
+/***/ "./resources/js/components/legislation.vue":
+/*!*************************************************!*\
+  !*** ./resources/js/components/legislation.vue ***!
+  \*************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _mothlyReportParent_vue_vue_type_template_id_2ad90968___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./mothlyReportParent.vue?vue&type=template&id=2ad90968& */ "./resources/js/components/mothlyReportParent.vue?vue&type=template&id=2ad90968&");
-/* harmony import */ var _mothlyReportParent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./mothlyReportParent.vue?vue&type=script&lang=js& */ "./resources/js/components/mothlyReportParent.vue?vue&type=script&lang=js&");
+/* harmony import */ var _legislation_vue_vue_type_template_id_1d2a5b74___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./legislation.vue?vue&type=template&id=1d2a5b74& */ "./resources/js/components/legislation.vue?vue&type=template&id=1d2a5b74&");
+/* harmony import */ var _legislation_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./legislation.vue?vue&type=script&lang=js& */ "./resources/js/components/legislation.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -569,9 +499,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _mothlyReportParent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _mothlyReportParent_vue_vue_type_template_id_2ad90968___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _mothlyReportParent_vue_vue_type_template_id_2ad90968___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _legislation_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _legislation_vue_vue_type_template_id_1d2a5b74___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _legislation_vue_vue_type_template_id_1d2a5b74___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -581,38 +511,38 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/components/mothlyReportParent.vue"
+component.options.__file = "resources/js/components/legislation.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/components/mothlyReportParent.vue?vue&type=script&lang=js&":
-/*!*********************************************************************************!*\
-  !*** ./resources/js/components/mothlyReportParent.vue?vue&type=script&lang=js& ***!
-  \*********************************************************************************/
+/***/ "./resources/js/components/legislation.vue?vue&type=script&lang=js&":
+/*!**************************************************************************!*\
+  !*** ./resources/js/components/legislation.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_mothlyReportParent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./mothlyReportParent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/mothlyReportParent.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_mothlyReportParent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_legislation_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./legislation.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/legislation.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_legislation_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/components/mothlyReportParent.vue?vue&type=template&id=2ad90968&":
-/*!***************************************************************************************!*\
-  !*** ./resources/js/components/mothlyReportParent.vue?vue&type=template&id=2ad90968& ***!
-  \***************************************************************************************/
+/***/ "./resources/js/components/legislation.vue?vue&type=template&id=1d2a5b74&":
+/*!********************************************************************************!*\
+  !*** ./resources/js/components/legislation.vue?vue&type=template&id=1d2a5b74& ***!
+  \********************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_mothlyReportParent_vue_vue_type_template_id_2ad90968___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./mothlyReportParent.vue?vue&type=template&id=2ad90968& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/mothlyReportParent.vue?vue&type=template&id=2ad90968&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_mothlyReportParent_vue_vue_type_template_id_2ad90968___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_legislation_vue_vue_type_template_id_1d2a5b74___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./legislation.vue?vue&type=template&id=1d2a5b74& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/legislation.vue?vue&type=template&id=1d2a5b74&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_legislation_vue_vue_type_template_id_1d2a5b74___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_mothlyReportParent_vue_vue_type_template_id_2ad90968___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_legislation_vue_vue_type_template_id_1d2a5b74___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

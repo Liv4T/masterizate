@@ -5,7 +5,7 @@
                 <div class="row justify-content-center">
                     <h4>Reuniones</h4>
                 </div>
-                <div class="row" v-for="(parents, k) in parents" :key="k">
+                <div class="row" v-for="(parents, k) in filterPendingEvents(parents)" :key="k">
                     <div class="col-12">
                         <div class="card">
                             <div class="class-event">
@@ -134,8 +134,8 @@
             getData() {
                 axios.get("/getInvitations").then((response) => {
                     this.parents = response.data;
-                }).catch(() => {
-                    toastr.error("Intenta de nuevo mas tarde")
+                }).catch((error) => {
+                    console.log(error);
                 })
             },
             editE(id) {
@@ -175,7 +175,14 @@
                 }).catch(()=>{
                     toastr.error("Intenta de nuevo mas tarde")
                 })
-            }
+            },
+            filterPendingEvents(events){
+                /* Se da formato a fechas para poder comparar las 
+                *  reuniones que sucedieron en el dia y las que estan agendadas a futuro
+                */
+                var momento = moment();
+                    return events.filter(e=>moment(e.date_end) >= moment());
+                },
         }
     }
 

@@ -9,24 +9,24 @@
           <div class="row">
             <div class="col-6 justify-content">
               <div class="btn-group" role="group" aria-label="Basic example">
-                <button type="button" class="btn" v-bind:class="{ 'btn-primary': initialView == 'dayGridMonth' }" @click="changeCalendarView('dayGridMonth')">Mensual</button>
-                <button type="button" class="btn" v-bind:class="{ 'btn-primary': initialView == 'timeGridWeek' }" @click="changeCalendarView('timeGridWeek')">Semanal</button>
+                <button type="button" class="btn" v-bind:class="{ 'btn-primary': initialView == 'dayGridMonth' }" @click="changeCalendarView('dayGridMonth')">{{ $t('lang.calendar.monthly') }}</button>
+                <button type="button" class="btn" v-bind:class="{ 'btn-primary': initialView == 'timeGridWeek' }" @click="changeCalendarView('timeGridWeek')">{{ $t('lang.calendar.weekly') }}</button>
               </div>
             </div>
             <div class="col-6">
               <div class="justify-content">
                 <div class="form-check">
                   <input class="form-check-input" type="checkbox" v-model="display_activities" @change="displayActivitiesChange()" id="defaultCheck1" />
-                  <label class="form-check-label" for="defaultCheck1"> <span class="dot dot_blue"></span> Actividades </label>
+                  <label class="form-check-label" for="defaultCheck1"> <span class="dot dot_blue"></span> {{ $t('lang.calendar.activities') }} </label>
                 </div>
                 <div class="form-check">
                   <input class="form-check-input" type="checkbox" v-model="display_events" @change="displayEventsChange()" id="defaultCheck2" />
-                  <label class="form-check-label" for="defaultCheck2"> <span class="dot dot_red"></span> Clases presenciales </label>
+                  <label class="form-check-label" for="defaultCheck2"> <span class="dot dot_red"></span> {{ $t('lang.calendar.face-to-face classes') }} </label>
                 </div>
-                <div class="form-check">
+                <!-- <div class="form-check">
                   <input class="form-check-input" type="checkbox" v-model="display_tutorials" @change="displayTutorialsChange()" id="defaultCheck3" />
-                  <label class="form-check-label" for="defaultCheck3"> <span class="dot dot_green"></span> Tutorías </label>
-                </div>
+                  <label class="form-check-label" for="defaultCheck3"> <span class="dot dot_green"></span> {{ $t('lang.calendar.tutorship') }} </label>
+                </div> -->
               </div>
             </div>
           </div>
@@ -35,7 +35,7 @@
               <FullCalendar ref="fullCalendar" :options="calendarOptions" />
             </div>
           </div>
-          <div class="row" v-show="type_u === 2 || type_u === 4 || type_u === 8">
+          <div class="row" v-show="type_u == 2 || type_u == 4 || type_u == 8">
             <a class="btn btn-warning float-right mt-2 ml-3" v-on:click.prevent="createE()">Crear evento</a>
           </div>
           <div v-show="type_u == 4 || type_u == 8">
@@ -123,6 +123,8 @@ export default {
     FullCalendar,
   },
   mounted() {
+    console.log("tipo de usuario: ", this.type_u);
+    console.log("Usuario: ", this.user);
     this.getTutorEvents();
     this.getData();
   },

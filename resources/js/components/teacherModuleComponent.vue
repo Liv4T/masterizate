@@ -1,14 +1,20 @@
 <template>
-    <div class="back">
+    <div v-if="createClas === 'hide'">
         <div class="row justify-content-center">
-            <div id="crud" class="col-sm-10">
+            <div id="crud" class="col-sm-12">
                 <div class="card text-center">
                     <h5 class="card-header fondo">Ciclo</h5>
                     <h3 class="card-header fondo">{{ nameWeekly }}</h3>
                     <span class="classroom-label">{{ nameArea }}</span>
                     <div class="card-body">
                         <div class="text-left">
-                            <a class="btn btn-primary" :href="'/docente/modulo/' + id_module +'/clase/nueva'">Crear
+                            
+                            <a v-if="cleanIdModule" class="btn btn-primary" v-on:click="cleanIdModule">Regresar</a>
+                                        
+                            <a v-else class="btn btn-primary" href="/docente/clases">Regresar</a>
+                            
+                            
+                            <a class="btn btn-primary" v-on:click="createClass(id_module)">Crear
                                 Clase</a>
                             <a class="btn btn-primary text-right" :href="''"
                                 v-on:click.prevent="openModal()">Eliminar</a>
@@ -26,12 +32,7 @@
                                 <tr v-for="(clas, t) in fillS" :key="t">
                                     <td v-if="clas.status!=0">{{ clas.name }}</td>
                                     <td v-if="clas.status!=0">
-                                        <a class="btn btn-primary" :href="
-                                            '/docente/modulo/' +
-                                                id_module +
-                                            '/clase/' +
-                                                clas.id
-                                        ">Ir a clase</a>
+                                        <a class="btn btn-primary" v-on:click="getClass(clas.id)">Ir a clase</a>
                                     </td>
                                     <!-- <td>
                                           <span class="class-inactive" v-if="clas.status==1">Clase cerrada</span>
@@ -90,13 +91,19 @@
             </div>
         </div>
     </div>
+    <div v-else-if="createClas === 'show'">
+        <teacher-course :id_module="id_module" :id_class="0" :cleanCreateClas="cleanCreateClas"></teacher-course>
+    </div>
+    <div v-else-if="createClas === 'showEdit'">
+        <teacher-course :id_module="id_module" :id_class="idClass" :cleanCreateClas="cleanCreateClas"></teacher-course>
+    </div>
 </template>
 <script>
     import {
         RsiIndicator
     } from "@syncfusion/ej2-vue-charts";
     export default {
-        props: ["id_module"],
+        props: ["id_module","cleanIdModule"],
         data() {
             return {
                 clases: [],
@@ -115,7 +122,9 @@
                 nameWeekly: "",
                 nameArea: "",
                 id_area: "",
-                id_classroom: ""
+                id_classroom: "",
+                createClas: 'hide',
+                idClass:""
             };
         },
         created() {},
@@ -222,6 +231,25 @@
                 }).catch(error => {
                     console.log(error);
                 })
+            },
+
+            createClass(id_module){
+                console.log('id_module',id_module)
+                if(id_module){
+                    this.createClas = 'show';
+                }
+            },
+
+            getClass(id_class){
+                console.log('id_class',id_class)
+                if(id_class){
+                    this.idClass = id_class;
+                    this.createClas = 'showEdit'                    
+                }
+            },
+
+            cleanCreateClas(){
+                this.createClas = 'hide'
             }
         }
     };

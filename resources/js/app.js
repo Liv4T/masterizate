@@ -13,7 +13,23 @@ import Vue from "vue";
 //import "bootstrap-vue/dist/bootstrap-vue.css";
 import Game from "./components/Game";
 import store from "./vuex/store";
+import en from '../../src/lang/en_US.json'
+import es from '../../src/lang/es_ES.json'
 
+const i18n = new VueI18n({
+  locale: 'es',
+  fallbackLocale: 'es',
+  formatFallbackMessages: true,
+  messages: {
+    en: {
+      lang: en
+    },
+    es: {
+      lang: es
+    }
+  }
+});
+  
 
 // the main entrance
 /* eslint-disable no-new */
@@ -51,7 +67,8 @@ Vue.component("footer-home", require("./components/footerHome.vue").default);
 Vue.component("unit-class", require("./components/unitComponent.vue").default);
 Vue.component("free-component", require("./components/freeComponent.vue").default);
 Vue.component("freeu-component", require("./components/freeUnitComponent.vue").default);
-Vue.component("course-component", () => import ("./components/courseComponent.vue"));
+Vue.component("course-component", () => import ("./components/courseComponent.vue")); 
+Vue.component("trim-component", () =>import("./components/TrimComponent.vue"));
 Vue.component("course-view", require("./components/CourseView.vue").default);
 Vue.component("semanal-component", require("./components/courseSemanalComponet.vue").default);
 Vue.component("semanalact-component", require("./components/courseSemanalAct.vue").default);
@@ -177,6 +194,7 @@ Vue.component("motive-assistants", ()=>import("./components/motiveAssistants.vue
 
 
 Vue.component("duplicar-component",  () => import ("./components/duplicarGeneral.vue"));
+Vue.component("areas-dupli-general", () => import ("./components/areasToDuplicateGeneral.vue"));
 
 //activities
 Vue.component("activity-questionary", ()=>import("./components/activityQuestionaryComponent.vue"));
@@ -228,6 +246,7 @@ Vue.component("admin-module", () => import ("./components/adminModuleComponent.v
 Vue.component("teacher-courses", () => import ("./components/teacherCoursesComponent.vue"));
 Vue.component("teacher-module", () => import ("./components/teacherModuleComponent.vue"));
 Vue.component("teacher-course", () => import ("./components/teacherCourseComponent.vue"));
+Vue.component("modal-preview",()=>import("./components/ModalPreviewClass.vue"));
 Vue.component("student-courses", () => import ("./components/studentCoursesComponent.vue"));
 Vue.component("student-module", () => import ("./components/studentModuleComponent.vue"));
 Vue.component("student-course", () => import ("./components/studentCourseComponent.vue"));
@@ -237,6 +256,7 @@ Vue.component("teacher-student-module-select", () => import ("./components/teach
 Vue.component("teacher-student-class-select", () => import ("./components/teacherStudentClassSelectComponent.vue"));
 Vue.component("teacher-student-class-content", () => import ("./components/teacherStudentClassContentComponent.vue"));
 Vue.component("notification-component", () => import ("./components/notificationComponent.vue"));
+Vue.component("language-component", () => import ("./components/changeLanguageComponent.vue"));
 Vue.component("content-loader", () => import ("./components/contentLoaderComponent.vue"));
 
 //Padres
@@ -338,8 +358,16 @@ Vue.component("report-send-parents",()=>import("./components/reportSendParents.v
 Vue.component("report-monthly-component", ()=>import("./components/mothlyReportParent.vue"));
 
 Vue.component("report-admin", ()=>import("./components/reportAdmin.vue"));
+Vue.component("lective_notes", ()=>import("./components/lectivesTeacherNotesComponent.vue"));
+
+Vue.component("cycle-list", ()=>import("./components/cycleList.vue"));
+Vue.component("modal-create-trimestre", ()=>import("./components/modalCreateTrimestre.vue"));
+Vue.component("trimestres", ()=>import("./components/trimestreAdm.vue"));
+Vue.component("activities-teacher",()=>import("./components/ActivityTeacherComponent.vue"));
+Vue.component("trimestre-component",()=>import("./components/trimestreComponent.vue"));
+Vue.component("create-lectives-courses",()=>import("./components/CreatelectivesTeacherCoursesComponent.vue"));
 
 Vue.use(CKEditor);
 
 
-const app = new Vue({el: "#app", data: {}, store});
+const app = new Vue({el: "#app", i18n, data: {}, store});

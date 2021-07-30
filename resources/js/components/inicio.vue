@@ -1,144 +1,365 @@
 <template>
-  <div>
-    <div class="form-group width-r mx-auto">
-      <div class="row pd-20">
-        <div class="dropdown col-md-2">
-          <button class="btn btn-danger dropdown-toggle mg-btn" type="button" id="admin" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="box-shadow: 3px 3px 3px 3px #b0acac">Electives</button>
-          <div class="dropdown-menu" aria-labelledby="admin" v-for="(area, k) in planifications" :key="k">
-            <a class="dropdown-item" @click.prevent="nameArea = area.lective.name">{{ area.lective.name }}</a>
-          </div>
-        </div>
-        <div class="col-md-2" v-for="(area, t) in areas" :key="t">
-          <a href="http://" class="btn btn-warning mg-btn" v-if="t == 0" style="background-color: #ffb466; border-color: #ffb466; box-shadow: 3px 3px 3px 3px #b0acac" @click.prevent="nameArea = area.text">
-            <h6 class="letra-poppins-bold" style="color: black">{{ area.text }}</h6>
-          </a>
-          <a href="http://" class="btn btn-warning mg-btn" v-if="t == 1" style="background-color: #ffea47; border-color: #ffea47; box-shadow: 3px 3px 3px 3px #b0acac" @click.prevent="nameArea = area.text">
-            <h6 class="letra-poppins-bold" style="color: black">{{ area.text }}</h6>
-          </a>
-          <a href="http://" class="btn btn-warning mg-btn" v-if="t == 2" style="background-color: #a639b0; border-color: #a639b0; box-shadow: 3px 3px 3px 3px #b0acac" @click.prevent="nameArea = area.text">
-            <h6 class="letra-poppins-bold" style="color: black">{{ area.text }}</h6>
-          </a>
-          <a href="http://" class="btn btn-warning mg-btn" v-if="t == 3" style="background-color: #50e9fb; border-color: #50e9fb; box-shadow: 3px 3px 3px 3px #b0acac" @click.prevent="nameArea = area.text">
-            <h6 class="letra-poppins-bold" style="color: black">{{ area.text }}</h6>
-          </a>
-          <a href="http://" class="btn btn-warning mg-btn" v-if="t == 4" style="background-color: #ffa4f2; border-color: #ffa4f2; box-shadow: 3px 3px 3px 3px #b0acac" @click.prevent="nameArea = area.text">
-            <h6 class="letra-poppins-bold" style="color: black">{{ area.text }}</h6>
-          </a>
-          <a href="http://" class="btn btn-warning mg-btn" v-if="t == 5" style="background-color: #4e92fd; border-color: #4e92fd; box-shadow: 3px 3px 3px 3px #b0acac" @click.prevent="nameArea = area.text">
-            <h6 class="letra-poppins-bold" style="color: black">{{ area.text }}</h6>
-          </a>
-          <a href="http://" class="btn btn-warning mg-btn" v-if="t == 6" style="background-color: #ff5552; border-color: #ff5552; box-shadow: 3px 3px 3px 3px #b0acac" @click.prevent="nameArea = area.text">
-            <h6 class="letra-poppins-bold" style="color: black">{{ area.text }}</h6>
-          </a>
-          <a href="http://" class="btn btn-warning mg-btn" v-if="t == 7" style="background-color: #ffc0f6; border-color: #ffc0f6; box-shadow: 3px 3px 3px 3px #b0acac" @click.prevent="nameArea = area.text">
-            <h6 class="letra-poppins-bold" style="color: black">{{ area.text }}</h6>
-          </a>
-          <a href="http://" class="btn btn-warning mg-btn" v-if="t == 8" style="background-color: #b8ffc2; border-color: #b8ffc2; box-shadow: 3px 3px 3px 3px #b0acac" @click.prevent="nameArea = area.text">
-            <h6 class="letra-poppins-bold" style="color: black">{{ area.text }}</h6>
-          </a>
-          <a href="http://" class="btn btn-warning mg-btn" v-if="t == 9" style="background-color: #b8ffc2; border-color: #b8ffc2; box-shadow: 3px 3px 3px 3px #b0acac" @click.prevent="nameArea = area.text">
-            <h6 class="letra-poppins-bold" style="color: black">{{ area.text }}</h6>
-          </a>
-          <a href="http://" class="btn btn-warning mg-btn" v-if="t == 10" style="background-color: #ffea47; border-color: #ffea47; box-shadow: 3px 3px 3px 3px #b0acac" @click.prevent="nameArea = area.text">
-            <h6 class="letra-poppins-bold" style="color: black">{{ area.text }}</h6>
-          </a>
-          <a href="http://" class="btn btn-warning mg-btn" v-if="t == 11" style="background-color: #00c9ce; border-color: #00c9ce; box-shadow: 3px 3px 3px 3px #b0acac" @click.prevent="nameArea = area.text">
-            <h6 class="letra-poppins-bold" style="color: black">{{ area.text }}</h6>
-          </a>
-          <a href="http://" class="btn btn-warning mg-btn" v-if="t > 11">
-            <h6 class="letra-poppins-bold" style="color: black">{{ area.text }}</h6>
-          </a>
-        </div>
-      </div>
-    </div>
+    <div>
+        <div class="form-group width-r mx-auto">
+            <div class="row pd-20">
+                <div class="dropdown col-md-2">
+                    <button class="btn btn-warning dropdown-toggle mg-btn" type="button" id="admin" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: #49CEFB; border-color: #49CEFB; box-shadow: 3px 3px 3px 3px #b0acac">{{ $t('lang.area.electivas') }}</button>
+                    <div class="dropdown-menu" aria-labelledby="admin" v-for="(area, k) in planifications" :key="k">
+                        <a class="dropdown-item" href="" @click.prevent="nameArea = area.lective.name, id_lective_planification = area.id_planification, idArea = '', idClassroom = ''">{{ area.lective.name }}</a>
+                    </div>
+                </div>
 
-    <div v-if="nameArea != ''">
-      <div class="form-group text-center">
-        <a href="" class="btn btn-warning letra-poppins-bold" style="background-color: #ffa4f2; border-color: #ffa4f2"
-          ><h1 style="color: black">{{ nameArea }}</h1>
-        </a>
-      </div>
-      <div class="row">
-        <div class="col-md-2 pd-20 flotante">
-          <a href="" class="btn btn-warning letra-poppins-bold mg-btn" style="background-color: #e26100; border-color: #e26100"><h4>CHAT</h4> </a> <br />
-          <a href="" class="btn btn-warning letra-poppins-bold mg-btn" style="background-color: #e26100; border-color: #e26100"><h4>FORUMS</h4> </a><br />
-          <a href="" class="btn btn-warning letra-poppins-bold mg-btn" style="background-color: #e26100; border-color: #e26100"><h4>MENSSAGES</h4> </a><br />
+                <div class="col-md-2" v-for="(area, t) in areas" :key="t">
+                    <a v-on:click="cleanOtherSection" href="http://" class="btn btn-warning mg-btn" :style="area.style" @click.prevent="nameArea = area.text, colorTitle = area.titleColor, idArea = area.id, idClassroom = area.id_classroom">
+                        <h6 class="letra-poppins-bold" style="color: black">{{ $t('lang.area.'+nameMinus(area.text)) }}</h6>
+                    </a>                    
+                </div>
+            </div>
         </div>
-        <div id="tabs" class="col-md-9 mx-auto">
-          <div class="tabs">
-            <a v-on:click="activetab = 1" v-bind:class="[activetab === 1 ? 'active' : '']"><h2 class="letra-poppins-bold">CALENDAR</h2></a>
-            <a v-on:click="activetab = 2" v-bind:class="[activetab === 2 ? 'active' : '']"><h2 class="letra-poppins-bold">CLASS</h2></a>
-            <a v-on:click="activetab = 3" v-bind:class="[activetab === 3 ? 'active' : '']"><h2 class="letra-poppins-bold">HOMEWORK</h2></a>
-            <a v-on:click="activetab = 4" v-bind:class="[activetab === 4 ? 'active' : '']"><h2 class="letra-poppins-bold">GRADES</h2></a>
-          </div>
+        <div v-if="nameArea != ''">
+            <div v-if="showSection ==='inicio'" class="form-group text-center">
+                <a href="" class="btn btn-warning letra-poppins-bold" :style="`${colorTitle} border-color: #ffa4f2;`"
+                ><h1 style="color: black">{{ $t('lang.area.'+nameMinus(nameArea)) }}</h1>
+                </a>
+            </div>
+            <div class="row">
+                <div class="col-md-2 pd-18 flotante">
+                    <button type="button" v-on:click="showOtherSection('chat')" class="btn btn-warning letra-poppins-bold mg-btn" style="background-color: #e26100; border-color: #e26100"><h4>{{ $t('lang.menu.chat').toUpperCase() }}</h4> </button> <br />
+                    <a href="/questions" class="btn btn-warning letra-poppins-bold mg-btn" style="background-color: #e26100; border-color: #e26100"><h4>{{ $t('lang.menu.forums').toUpperCase() }}</h4> </a><br />
+                    <button type="button" v-on:click="showOtherSection('message')" class="btn btn-warning letra-poppins-bold mg-btn" style="background-color: #e26100; border-color: #e26100"><h4>{{ $t('lang.menu.menssages').toUpperCase() }}</h4> </button><br />
+                </div>
+                <div id="tabs" class="col-md-9 mx-auto">
+                    <div v-if="showSection === 'inicio'" class="tabs">
+                        <a v-on:click="activetab = 1" v-bind:class="[activetab === 1 ? 'active' : '']"><h2 class="letra-poppins-bold">{{ $t('lang.menu.calendar').toUpperCase() }}</h2></a>
+                        <a v-on:click="activetab = 2" v-bind:class="[activetab === 2 ? 'active' : '']"><h2 class="letra-poppins-bold">{{ $t('lang.menu.class').toUpperCase() }}</h2></a>
+                        <a v-on:click="activetab = 3" v-bind:class="[activetab === 3 ? 'active' : '']"><h2 class="letra-poppins-bold">{{ $t('lang.menu.homework').toUpperCase() }}</h2></a>
+                        <a v-on:click="activetab = 4" v-bind:class="[activetab === 4 ? 'active' : '']"><h2 class="letra-poppins-bold">{{ $t('lang.menu.grades').toUpperCase() }}</h2></a>
+                    </div>
+                    <div v-if="showSection === 'inicio'">
+                        <div v-if="activetab === 1" class="tabcontent"><calendar-component :type_u="3" :user="user"></calendar-component></div>
+                        <div v-if="activetab === 2" class="tabcontent">
+                            <!-- <student-courses 
+                                :nameArea="nameArea" 
+                                :planifications="planifications" 
+                                :id_lective_planification="id_lective_planification"
+                                :idClass="idClass"
+                                :moduleId="idModule"
+                            ></student-courses> -->
+                            <cycle-list :idArea="idArea+'/'+idClassroom" :planif="planif" :moduleId="idModule" :user="user"></cycle-list>
+                        </div>
+                            
+                        <div v-if="activetab === 3" class="tabcontent"><repo-student :nameArea="nameArea" :planifications="planifications" :id_lective_planification="id_lective_planification"></repo-student></div>
+                        <div v-if="activetab === 4" class="tabcontent"><notas-component :idArea="idArea" :idClassroom="idClassroom" :user="user" :nameArea="nameArea" :planifications="planifications" :id_lective_planification="id_lective_planification"></notas-component></div>
+                    </div>
+                    <div v-else-if="showSection === 'chat'">
+                        <group-chat v-for="group in groups" :group="group" :key="group.id" :user_auth="user"></group-chat>
+                    </div>
+                    <!-- <div v-else-if="showSection === 'question'">
 
-          <div class="content-azul">
-            <div v-if="activetab === 1" class="tabcontent"><calendar-component :type_u="3" :user="user"></calendar-component></div>
-            <div v-if="activetab === 2" class="tabcontent"><student-courses></student-courses></div>
-            <div v-if="activetab === 3" class="tabcontent"><repo-student></repo-student></div>
-            <div v-if="activetab === 4" class="tabcontent"><notas-component></notas-component></div>
-          </div>
+                    </div> -->
+                    <div v-else-if="showSection === 'message'">
+                        <mensajes-component :user="user"></mensajes-component>
+                    </div>
+                </div>
+            </div>
+        
+            <div class="form-group text-center">
+                <a class="btn btn-warning mg-btn">
+                    <h1 class="letra-poppins-bold">{{ $t('lang.calendar.pendingWork') }}</h1>
+                    <div class="card activity-event-container">
+                        <div class="activity-event" v-for="(activity,i_activity) in activities" v-bind:key="i_activity">
+                            <div class="activity-event-info">
+                                <span>[{{activity.area_name}} {{activity.classroom_name}}]<br>{{activity.name}}</span>
+                            </div>
+
+                            <div class="activity-event-date">
+                                <small>{{ $t('lang.calendar.startOfClasses') }}:</small>
+                                <span>{{activity.date_init_class|formatDate}}</span>
+                            </div>
+
+                            <div class="activity-event-date">   
+                                <small>{{ $t('lang.calendar.urlOfClasses') }}:</small>                                     
+                                <a :href="activity.url_class" class="badge badge-primary" target="_blank">{{activity.url_class}}</a>
+                            </div>
+
+                            <div class="activity-event-date" v-if="activity.interaction_state==2">
+                                <small>{{ $t('lang.calendar.feedbackDate') }}:</small>
+                                <span>{{activity.feedback_date|formatDate}}</span>
+                            </div>
+                        
+                            <div class="activity-event-date" v-else>
+                                <small>{{ $t('lang.calendar.maximumHomewoorkDate') }}:</small>
+                                <span>{{activity.delivery_max_date|formatDate}}</span>
+                            </div>                                    
+
+                            <div class="activity-event-action">
+                                <a class="btn btn-link" v-on:click="getActivityId(activity.weekly_plan_id, activity.id_class)">{{ $t('lang.calendar.submit') }}</a>                                
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
         </div>
-      </div>
-      <div class="form-group text-center">
-        <a class="btn btn-warning mg-btn">
-          <h1 class="letra-poppins-bold">PENDING WORK</h1>
-        </a>
-      </div>
-    </div>
-  </div>
+    </div>    
 </template>
 <script>
 import pdf from "vue-pdf";
+import moment from "moment";
+  moment.tz.setDefault("America/Bogota");
+  moment.locale("es");
 export default {
-  components: {
-    pdf,
-  },
-  props: ["user"],
-  data() {
-    return {
-      clases: [],
-      areas: [],
-      descripcion: "",
-      logro: "",
-      fechaE: "",
-      fechaR: "",
-      id_act: "",
-      errors: [],
-      fillS: [],
-      activetab: 1,
-      nameArea: "",
-      planifications: "",
-    };
-  },
-  mounted() {
-    axios.get("/api/lectives").then((response) => {
-      this.planifications = response.data;
-    });
-    var url = "/GetArearByUser";
-    axios.get(url).then((response) => {
-      this.areas = response.data;
-    });
-
-    console.log("Component mounted.");
-  },
-  methods: {
-    modaliniciar() {
-      var url = window.location.origin + "/SaveTerms";
-
-      axios
-        .post(url, {
-          status: 1,
-        })
-        .then((response) => {
-          this.errors = [];
-          $("#modalini").modal("hide");
-        })
-        .catch((error) => {
-          this.errors = error.response.data;
-        });
+    components: {
+        pdf,
     },
-  },
+    props: ["user"],
+    data() {
+        return {
+            clases: [],
+            colorClass:[
+                {
+                    area: 'Español',
+                    style: "background-color: #FFB466; border-color: #FFB466; box-shadow: 3px 3px 3px 3px #b0acac",
+                    title: "background-color: #FFB466;"
+                },{
+                    area: 'Matematicas',
+                    style: "background-color: #FFEA47; border-color: #FFEA47; box-shadow: 3px 3px 3px 3px #b0acac",
+                    title: "background-color: #FFEA47;"
+                },{
+                    area: 'Inglés',
+                    style:"background-color: #A639B0; border-color: #A639B0; box-shadow: 3px 3px 3px 3px #b0acac",
+                    title:"background-color: #A639B0;"
+                },{
+                    area: 'Química',
+                    style: "background-color: #50E9FB; border-color: #50E9FB; box-shadow: 3px 3px 3px 3px #b0acac",
+                    title: "background-color: #50E9FB;"
+                },{
+                    area: 'Educación física',
+                    style: "background-color: #FFA4F2; border-color: #FFA4F2; box-shadow: 3px 3px 3px 3px #b0acac",
+                    title: "background-color: #FFA4F2;"
+                },{
+                    area: 'Electivas',
+                    style: "background-color: #49CEFB; border-color: #49CEFB; box-shadow: 3px 3px 3px 3px #b0acac",
+                    title: "background-color: #49CEFB;"
+                },{
+                    area: 'Física',
+                    style: "background-color: #4E92FD; border-color: #4E92FD; box-shadow: 3px 3px 3px 3px #b0acac",
+                    title: "background-color: #4E92FD;"
+                },
+                {
+                    area: 'Religión',
+                    style: "background-color: #FF5552; border-color: #FF5552; box-shadow: 3px 3px 3px 3px #b0acac",
+                    title: "background-color: #FF5552;"
+                },
+                {
+                    area: 'Sociales',
+                    style: "background-color: #FFC0F6; border-color: #FFC0F6; box-shadow: 3px 3px 3px 3px #b0acac",
+                    title: "background-color: #FFC0F6;"
+                },
+                {
+                    area: 'Biología',
+                    style: "background-color: #B8FFC2; border-color: #B8FFC2; box-shadow: 3px 3px 3px 3px #b0acac",
+                    title: "background-color: #B8FFC2;"
+                },
+                {
+                    area: 'Ciencias naturales',
+                    style: "background-color: #FFD05C; border-color: #FFD05C; box-shadow: 3px 3px 3px 3px #b0acac",
+                    title: "background-color: #FFD05C;"
+                },
+                {
+                    area: 'STEAM',
+                    style: "background-color: #1CABBA; border-color: #1CABBA; box-shadow: 3px 3px 3px 3px #b0acac",
+                    title: "background-color: #1CABBA;"
+                },
+                {
+                    area: 'Programación',
+                    style: "background-color: #DD68D2; border-color: #DD68D2; box-shadow: 3px 3px 3px 3px #b0acac",
+                    title: "background-color: #DD68D2;"
+                },
+                {
+                    area: 'Tecnología',
+                    style: "background-color: #F98200; border-color: #F98200; box-shadow: 3px 3px 3px 3px #b0acac",
+                    title: "background-color: #F98200;"
+                },
+                {
+                    area: 'Música',
+                    style: "background-color: #69D5FF; border-color: #69D5FF; box-shadow: 3px 3px 3px 3px #b0acac",
+                    title: "background-color: #69D5FF;"
+                },
+                {
+                    area: 'Arte',
+                    style: "background-color: #51F461; border-color: #51F461; box-shadow: 3px 3px 3px 3px #b0acac",
+                    title: "background-color: #51F461;"
+                },
+                {
+                    area: 'Danza',
+                    style: "background-color: #0055FF; border-color: #0055FF; box-shadow: 3px 3px 3px 3px #b0acac",
+                    title: "background-color: #0055FF;"
+                },
+                {
+                    area: 'Teatro',
+                    style: "background-color: #71A8FF; border-color: #71A8FF; box-shadow: 3px 3px 3px 3px #b0acac",
+                    title: "background-color: #71A8FF;"
+                },
+                {
+                    area: 'Robótica',
+                    style: "background-color: #FF92A4; border-color: #FF92A4; box-shadow: 3px 3px 3px 3px #b0acac",
+                    title: "background-color: #FF92A4;"
+                },
+                {
+                    area: 'Emprendimiento',
+                    style: "background-color: #D88000; border-color: #D88000; box-shadow: 3px 3px 3px 3px #b0acac",
+                    title: "background-color: #D88000;"
+                },
+                {
+                    area: 'Psicología',
+                    style: "background-color: #EDCB00; border-color: #EDCB00; box-shadow: 3px 3px 3px 3px #b0acac",
+                    title: "background-color: #EDCB00;"
+                },
+                
+            ],
+            areas: [],
+            descripcion: "",
+            logro: "",
+            fechaE: "",
+            fechaR: "",
+            id_act: "",
+            errors: [],
+            fillS: [],
+            activities:[],
+            activetab: 1,
+            nameArea: "",
+            id_lective_planification: "",
+            idArea:"",
+            idClassroom:"",
+            planifications: "",
+            colorTitle:"",
+            lectivs: false,
+            idModule:"",
+            idClass :"",
+            planif:"claseEst",
+            showSection: "inicio",
+            groups:{}
+        };
+    },
+    mounted() {
+        axios.get("/api/lectives").then((response) => {
+            if(response.data.length > 0){
+                this.planifications = response.data;
+                this.lectivs = true;
+            }else{
+                this.lectivs = false;
+            }          
+        });
+    
+        var url = "/GetArearByUser";
+        axios.get(url).then((response) => {
+            this.areas = response.data;
+            this.areas.forEach((e)=>{
+                this.colorClass.filter(i=>{
+                    // console.log(i.area === e.text);  
+                    let text1 = i.area;
+                    let text2 = e.text;
+
+                    text1 = this.nameMinus(text1);
+                    text2 = this.nameMinus(text2);
+
+                    if(text1 === text2){                        
+                        e.style = i.style;
+                        e.titleColor = i.title;
+                    }                    
+                })
+            })
+        });
+        // console.log("Component mounted.");        
+    },
+    watch:{
+        nameArea(new_value, old_value){
+            if(old_value != new_value){
+                this.getActivitiesStudents(new_value);
+            }
+        }
+    },
+    methods: {        
+        getActivitiesStudents(nameArea){
+            this.activities = [];
+            axios.get("/api/student/activity").then((response) => {
+                let activs = []
+                activs = Object.values(response.data);
+                activs = activs.filter((e)=>e.area_name === nameArea);
+
+                activs.forEach((el)=>{
+                    if(el.activityForAllStudents == 1){
+                        
+                        if(el.selectedStudents == "[]" || el.selectedStudents == null){
+                            this.activities.push(el)
+                        }
+                        
+                        }else if(el.activityForPIARStudents == 1){
+
+                        let PIARStudents= JSON.parse(el.selectedStudents);
+                        PIARStudents.forEach((e)=>{
+                            if(e.id == this.user.id){
+                                this.activities.push(el)   
+                            }
+                        });
+
+                        }else if(el.activityForSelectStudents == 1){
+                            
+                        let selectedStudents= JSON.parse(el.selectedStudents);
+                        selectedStudents.forEach((e)=>{
+                            if(e.id == this.user.id){
+                                this.activities.push(el)   
+                            }
+                        });
+                    }
+                })
+            });
+        },
+        
+        modaliniciar() {
+            var url = window.location.origin + "/SaveTerms";
+
+            axios.post(url, {
+                status: 1,
+            }).then((response) => {
+                this.errors = [];
+                $("#modalini").modal("hide");
+            }).catch((error) => {
+                this.errors = error.response.data;
+            });
+        },
+
+        // /estudiante/modulo/${activity.weekly_plan_id}/clase/${activity.id_class}
+
+        getActivityId(id_module, id_class){
+            this.idClass = id_module;
+            this.idModule = id_class;            
+            this.activetab !== 2 ? this.activetab = 2 : this.activetab;
+        },
+        nameMinus(name){
+          var nameMinus=name.toLowerCase();
+          return nameMinus.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+        },
+        showOtherSection(data){            
+            if(data === 'chat'){
+                axios.get('/chat2').then((response)=>{
+                    this.groups = response.data
+                })
+            }
+            this.showSection = data
+        },
+        cleanOtherSection(){
+            this.showSection = 'inicio';
+            this.groups= {}
+        }
+    },
+    filters: {
+        formatDate: (value) => {
+            if (value) {
+                return moment(String(value)).format("DD MMMM YYYY hh:mm a");
+            }
+        },
+    },
 };
 </script>
 <style>

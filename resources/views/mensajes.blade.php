@@ -14,7 +14,7 @@
  @if (Auth::user()->type_user == '6')
     <menu-school></menu-school>
  @endif
-  <mensajes-component></mensajes-component>
+  <mensajes-component :user="{{Auth::user()}}"></mensajes-component>
   <footers></footers>
 <div class="container">
   <!--<app-vue></app-vue>-->

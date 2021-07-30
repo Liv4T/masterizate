@@ -1,8 +1,8 @@
 <template>
-    <div>
-        <div class="back">
+    <div v-if="showPreview === false">
+        <div>
             <div class="row">
-                <div class="col-md-11 mx-auto">
+                <div class="col-md-12 mx-auto">
                     <div class="custom-card text-center">
                         <h5 class="card-header fondo">{{ weekly_plan.name }}</h5>
                           <span class="classroom-label">{{ nameArea }}</span>
@@ -11,20 +11,30 @@
                     <div class="div-classes">
                         <div class="div-class">
                             <div class="title row">
-                                <div class="col-8">
+                                <div class="col-12">
                                     <label><span class="required">*</span>Nombre de la clase:</label>
                                     <input type="text" class="form-control" v-model="course.name" v-bind:readonly="course.state==2"/>
                                 </div>
-                                <div class="col-4">
+                                <!-- <div class="col-4">
                                     <label><span class="required">*</span>Intensidad:</label>
                                     <input type="number" class="form-control" v-model="course.hourly_intensity" v-bind:readonly="course.state==2"/>
-                                </div>
+                                </div> -->
                             </div>
                             <div class="row">
                                 <div class="col-12">
                                     <label><span class="required">*</span>Descripción:</label>
                                     <textarea class="form-control" cols="40" rows="4" v-model="course.description" v-bind:readonly="course.state==2"></textarea>
                                 </div>
+                            </div>
+
+                            <div class="row">                                        
+                                <label><span class="required">*</span>Fecha Inicio de Clase:</label>                
+                                <input type="datetime-local" class="form-control" v-model="course.date_init_class" />
+                                <input type="hidden" id="timezone" name="timezone" value="-05:00">
+                            </div>
+                            <div class="row">                                        
+                                <label><span class="required">*</span>Link de Clase</label>
+                                <input type="text-local" class="form-control" v-model="course.url_class" />                                          
                             </div>
 
                             <div class="row">
@@ -58,17 +68,7 @@
                                                     </span>
                                                 </template>
                                         </multiselect>
-                                    </div>
-
-                                    <div class="row">                                        
-                                        <label><span class="required">*</span>Fecha Inicio de Clase:</label>                
-                                        <input type="datetime-local" class="form-control" v-model="course.date_init_class" />
-                                        <input type="hidden" id="timezone" name="timezone" value="-05:00">
-                                    </div>
-                                    <div class="row">                                        
-                                        <label><span class="required">*</span>Link de Clase</label>
-                                        <input type="text-local" class="form-control" v-model="course.url_class" />                                          
-                                    </div>
+                                    </div>                                    
                                 </div>
                             </div>
                             
@@ -186,26 +186,23 @@
                                                 <activity-complete-sentence v-if="activity.activity_type=='COMPLETAR_ORACION'" v-bind:module="activity.module" v-bind:disabled="course.state==2"></activity-complete-sentence>
                                                 <activity-relationship v-if="activity.activity_type=='RELACION'" v-bind:module="activity.module" v-bind:disabled="course.state==2"></activity-relationship>
                                                 <activity-crossword v-if="activity.activity_type=='CRUCIGRAMA'" v-bind:module="activity.module" v-bind:disabled="course.state==2"></activity-crossword>
-
-
                                             </div>
                                         </div>
                                     </div><!--card -->
                                 </div>
                             </div>
-
-
-
                     </div>
                     <div class="div-weekly-plan-btn-save">
-                       <a class="btn btn-warning" :href="'/docente/modulo/'+id_module">Cancelar</a>
+                       <a class="btn btn-warning" v-on:click="cleanCreateClas">Cancelar</a>
+                       <a class="btn btn-primary" v-on:click="getPreview" >Previsualización de clase</a>
                        <button class="btn btn-primary" v-on:click="SaveDataEvent()" :disabled="is_loading" v-if="course.state==1">Guardar y enviar</button>
                     </div>
-
-
                 </div>
             </div>
         </div>
+    </div>
+    <div v-else-if="showPreview === true">
+        <modal-preview :course="course" :backPreview="backPreview"></modal-preview>
     </div>
 </template>
 <script>
@@ -240,9 +237,10 @@ import VueFormWizard from "vue-form-wizard";
 import "vue-form-wizard/dist/vue-form-wizard.min.css";
 Vue.use(VueFormWizard);
 export default {
-    props: ["id_module", "id_class"],
+    props: ["id_module", "id_class","cleanCreateClas"],
     data() {
         return {
+            showPreview:false,
             tmp:{},
             is_loading:false,
             weekly_plan:{},
@@ -329,7 +327,7 @@ export default {
         }
     },
     mounted() {
-
+        this.activityForAllStudents = true;
         axios.get(`/showClass/${this.id_module}`).then((response) => {
             this.achievements=response.data.achievements;            
             this.nameArea = `${response.data.area.name} ${response.data.classroom.name}`;
@@ -406,7 +404,8 @@ export default {
     },
     methods: {
         returnPage() {
-          window.location =`/docente/modulo/${this.id_module}`;
+            this.cleanCreateClas();
+        //   window.location =`/docente/modulo/${this.id_module}`;
         },
         addResource(resource_type){
             this.course.content.push({
@@ -552,6 +551,14 @@ export default {
             return this.indicators.filter(item => {
                 return item.id_achievement==id_achievement;
             })
+        },
+        getPreview(){
+            this.showPreview = true;
+            $("#previewClassModal").modal("show");
+        },
+        backPreview(){
+            this.showPreview = false;
+            $("#previewClassModal").modal("hide");
         }
 
     },

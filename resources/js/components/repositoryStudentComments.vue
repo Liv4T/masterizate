@@ -73,7 +73,7 @@
                                         </div>
                                     </div>
                                     <div class="modal-footer">
-                                        <a href="/repository/student" class="btn btn-warning float-right">Volver</a>
+                                        <a v-on:click="cleanVariables" class="btn btn-warning float-right">Volver</a>
                                     </div>
                     </div>
                 </div>
@@ -86,22 +86,22 @@
 import VueFormWizard from "vue-form-wizard";
 import "vue-form-wizard/dist/vue-form-wizard.min.css";
 import firebase from 'firebase';
- var firebaseConfig = {
-            apiKey: "AIzaSyBUwPOBHWgSv10yWDO0VX_UCCOfHZ3jKYE",
-            authDomain: "liv4t-skool.firebaseapp.com",
-            databaseURL: "https://liv4t-skool.firebaseio.com",
-            projectId: "liv4t-skool",
-            storageBucket: "liv4t-skool.appspot.com",
-            messagingSenderId: "346718353628",
-            appId: "1:346718353628:web:abc0666c41b66fa472dc19",
-            measurementId: "G-7L14TG5RRZ"
-  };
-  // Initialize Firebase
-  firebase.initializeApp(firebaseConfig);
-  firebase.analytics();
+// var firebaseConfig = {
+//             apiKey: "AIzaSyBUwPOBHWgSv10yWDO0VX_UCCOfHZ3jKYE",
+//             authDomain: "liv4t-skool.firebaseapp.com",
+//             databaseURL: "https://liv4t-skool.firebaseio.com",
+//             projectId: "liv4t-skool",
+//             storageBucket: "liv4t-skool.appspot.com",
+//             messagingSenderId: "346718353628",
+//             appId: "1:346718353628:web:abc0666c41b66fa472dc19",
+//             measurementId: "G-7L14TG5RRZ"
+// };
+//   // Initialize Firebase
+// firebase.initializeApp(firebaseConfig);
+// firebase.analytics();
 Vue.use(VueFormWizard);
 export default {
-  props: ["id_repo"],
+  props: ["id_repo","cleanVariables"],
   data() {
     return {
       myOptions: [],

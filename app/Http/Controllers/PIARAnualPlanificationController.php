@@ -19,9 +19,15 @@ class PIARAnualPlanificationController extends Controller
     }
 
     public function getData(){
-        $user_id = Auth::user()->id;
-        $getPlanif = PIARAnualPlanification::where('id_teacher','=',$user_id)->orderBy('created_at','DESC')->take(1)->get();
-        return response()->json($getPlanif);
+        $user = Auth::user();
+        if($user->type_user === 2){
+            $getPlanif = PIARAnualPlanification::where('id_teacher','=',$user->id)->orderBy('created_at','DESC')->take(1)->get();
+            return response()->json($getPlanif);
+        }else if($user->type_user === 1){
+            $getPlanif = PIARAnualPlanification::orderBy('created_at','DESC')->take(1)->get();
+            return response()->json($getPlanif);
+        }
+        
     }
 
     /**

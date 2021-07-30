@@ -4,7 +4,7 @@
         <div class="row">
             <div class="col-md-11" v-if="type_u != 4 || type_u != 8">
               <div v-if="type_u != 7" class="row justify-content-center">
-                <h4>Clases presenciales</h4>
+                <h4>{{ $t('lang.calendar.face-to-face classes') }}</h4>
               </div>
         
               <div class="row" v-for="(clas, k) in filterPendingEvents(clases)" v-bind:key="k">
@@ -15,23 +15,23 @@
                       <div class="class-event-info">{{ !clas.classroom ? "Lectiva " : "" }} {{ clas.area }} {{ clas.classroom ? clas.classroom : "" }}: {{ clas.name }}</div>
                       <div class="class-event-date">
                         <div>
-                          <small>Desde:</small>
+                          <small>{{ $t('lang.calendar.dateFrom')}}:</small>
                           <span>{{ clas.dateFrom }}</span>
                         </div>
                         <div>
-                          <small>Hasta:</small>
+                          <small>{{$t('lang.calendar.dateTo')}}:</small>
                           <span>{{ clas.dateTo }}</span>
                         </div>
                       </div>
                       <div class="class-event-action">
-                        <a class="btn btn-primary" html:type="_blank" :href="clas.hangout">Ir a clase</a>
+                        <a class="btn btn-primary" html:type="_blank" :href="clas.hangout">{{$t('lang.general.goToClass')}}</a>
                         <a :href="`/assistance/${clas.id_area}/${clas.id_classroom}`" class="btn btn-primary ml-1" v-show="type_u == 2">Asistencia</a>
                       </div>
                     </div>
                     <div class="class-event-footer ">
                       <div class="class-event-action">
                         <button class="btn btn-primary" v-show="type_u == 2" v-on:click.prevent="editE(clas.id)">Editar</button>
-                        <a class="btn btn-primary mr-1" v-show="type_u == 2" href="/effectiveness">Efectividad</a>
+                        <!-- <a class="btn btn-primary mr-1" v-show="type_u == 2" href="/effectiveness">Efectividad</a> -->
                         <button class="btn btn-danger" v-show="type_u == 2" v-on:click.prevent="viewDelete(clas.id, clas.name)">Eliminar</button>
                       </div>
                     </div>
@@ -143,6 +143,8 @@
             idUp: "",
             delName:"",
             delId: "",
+            endWeek: moment().endOf('week').format('YYYY-MM-DD'),
+            actualDate: moment().format('YYYY-MM-DD'),
         };
     },
     components: {
@@ -155,10 +157,9 @@
         },
     },
     mounted() {
-      
     },
     methods: {
-        filterPendingEvents: (events) => {
+        filterPendingEvents(events){
           /* Se da formato a fechas para poder comparar las 
           *  reuniones que sucedieron en el dia y las que estan agendadas a futuro
           */
@@ -168,8 +169,14 @@
           //   console.log(e);
           //   console.log(moment(e.dateTo)>= moment());
           // })
-          
-          return events.filter(e=>moment(e.dateTo)>= moment());
+          if(this.type_u != 3){
+            return events.filter(e=>moment(e.dateTo) >= moment());
+          }else if(this.type_u === 3){
+            console.log("rol de estudiante")
+            return events.filter(
+              e=>moment(e.dateTo).format('YYYY-MM-DD') >= this.actualDate && moment(e.dateTo).format('YYYY-MM-DD')<= this.endWeek
+            );
+          }
           // return events.filter((e) => moment(e.dateTo).format('MMMM Do YYYY, h:mm:ss a') >= moment().format('MMMM Do YYYY, h:mm:ss a'));
         },
 

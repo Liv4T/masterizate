@@ -3,21 +3,32 @@
     <div class="row justify-content-center">
       <div id="crud" class="col-sm-10">
         <div class="card text-center">
-          <h3 class="card-header fondo">Mensajes</h3>
+          <h3 class="card-header fondo">
+            {{ $t('lang.messages.messages') }}
+          </h3>
 
           <div class="card-body">
-            <a href="/redactar" class="btn btn-warning float-right">Redactar</a>
-            <a href="/mensajes" class="btn btn-warning float-left">Mensajes recibidos</a>
+            <a v-on:click="cleanShowSection" class="btn btn-warning float-left">              
+              {{ $t('lang.table.back_to') }}
+            </a>
             <br />
             <br />
             <br />
             <table class="table table-responsive-xl table-hover table-striped center">
               <thead>
                 <tr>
-                  <th>Nombre</th>
-                  <th>Asunto</th>
-                  <th>Fecha</th>
-                  <th>Acción</th>
+                  <th>                    
+                    {{ $t('lang.table.name') }}
+                  </th>
+                  <th>                    
+                    {{ $t('lang.table.subject') }}
+                  </th>
+                  <th>                    
+                    {{ $t('lang.table.date') }}
+                  </th>
+                  <th>                    
+                    {{ $t('lang.table.action') }}
+                  </th>
                 </tr>
               </thead>
               <tbody v-for="(option, k) in messages" :key="k">
@@ -133,6 +144,7 @@ Vue.use(require("vue-moment"));
 
 Vue.use(require("vue-moment"));
 export default {
+  props:["user","cleanShowSection"],
   data() {
     return {
       messages: [],
@@ -153,6 +165,7 @@ export default {
   methods: {
     getMenu() {
       window.location = "/enviados";
+      this.cleanShowSection();
     },
     editMessage(mess) {
       var urlr = "getMessage/" + mess;
@@ -166,6 +179,7 @@ export default {
     },
     CancelM() {
       $("#createMessage").modal("hide");
+      this.cleanShowSection();
     },
     onReady(editor) {
       // Insert the toolbar before the editable area.

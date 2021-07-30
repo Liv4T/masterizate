@@ -14,7 +14,7 @@
                     <a href="/questions"> Foro </a>
                     <a href="/chat"> Chat </a>
                     <a href="/chat"> Chat Estamentos&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
-                    <a href="/list/proceedings/parents"> >Actas Padres </a>
+                    <a href="/list/proceedings/parents"> Actas Padres </a>
                     <a href="/list/proceedings/general"> Actas Generales </a>
                   </div>
                 </li>
@@ -27,12 +27,23 @@
             </a>
             <a href="/general" class="">
               <li class="item-menu">
-                <span class="menu">PLANIFICACION GENERAL</span>
+                <p style="margin-top:-9px; margin-bottom:-29px; margin-left:1rem;">
+                  PLANIFICACION
+                  <br>
+                </p>
+                <p style="margin-left:1rem;">
+                  GENERAL                
+                </p>
               </li>
             </a>
             <a href="/plan_clases" class="">
               <li class="item-menu">
-                <span class="menu">PLANIFICACION CLASES</span>
+                <p style="margin-top:-9px; margin-bottom:-29px; margin-left:1rem;">
+                  PLANIFICACION
+                </p>
+                <p style="margin-left:1rem;"> 
+                  CLASES
+                </p>
               </li>
             </a>
 
@@ -41,14 +52,11 @@
                 <li class="item-menu">
                   <span class="menu">ACADÉMICO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                   <div class="dropdown2-content">
-                    <a href="/actividad_g"> Planificación </a>
-                    <a href="/docente/clases"> Mis clases </a>
+                    <a href="/duplicar-semana"> Duplicar </a>
+                    <a href="/duplicarGeneral">Duplicar Planificación General</a>
                     <a href="/resportSendParents"> Reporte Mensual Padres&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </a>
-
-                    <a href="/docente/estudiantes"> Mis Estudiantes </a>
-                    <a href="/repository"> Entregas</a>
-
                     <a href="/board"> Pizarra </a>
+                    <a href="/duplicar-semana/"> Duplicar ciclo </a>
                   </div>
                 </li>
               </a>
@@ -70,6 +78,8 @@
                     <a href="/teacher/lectives/students"> Mis alumnos </a>
 
                     <a href="/teacher/lectives/activities"> Mis actividades</a>
+
+                    <a href="/teacher/lectives/notes"> Notas</a>
                   </div>
                 </li>
               </a>
@@ -87,9 +97,9 @@
             </a>
           </ul>
           <div class="text-center">
-            <a href="" class="btn btn-warning letra-poppins-bold mg-btn" style="background-color: #e26100; border-color: #e26100"><h4>CHAT</h4> </a> <br />
-            <a href="" class="btn btn-warning letra-poppins-bold mg-btn" style="background-color: #e26100; border-color: #e26100"><h4>FOROS</h4> </a><br />
-            <a href="" class="btn btn-warning letra-poppins-bold mg-btn" style="background-color: #e26100; border-color: #e26100"><h4>MENSAJES</h4> </a><br />
+            <a href="/chat" class="btn btn-warning letra-poppins-bold mg-btn" style="background-color: #e26100; border-color: #e26100"><h4>CHAT</h4> </a> <br />
+            <a href="/questions" class="btn btn-warning letra-poppins-bold mg-btn" style="background-color: #e26100; border-color: #e26100"><h4>FOROS</h4> </a><br />
+            <a href="/mensajes" class="btn btn-warning letra-poppins-bold mg-btn" style="background-color: #e26100; border-color: #e26100"><h4>MENSAJES</h4> </a><br />
           </div>
           <div class="text-center">
             <a href="#" @click.prevent="logout" class="btn btn-warning">X Salir</a>

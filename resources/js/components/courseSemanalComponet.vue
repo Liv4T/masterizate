@@ -16,26 +16,25 @@
                 <tab-content title="Ciclo">
                   <div class="form-group row mx-auto" v-for="(input, t) in inputs" :key="t">
                     <div class="col-md-6">
+                      <label for="numeroCiclo">Número de ciclo</label>
+                      <input type="text" name="numeroCiclo" class="form-control" v-model="input.numeroCiclo" readonly/>
+                    </div>
+                    <div class="col-md-6">
+                    </div>
+                    <div class="col-md-6">
                       <label for="name">Pregunta conductora o nombre</label>
                       <span>
                         <a
                           href="#"
                           class="badge badge-danger"
                           @click.prevent="remove(t)"
-                          v-show="
-                                                        t ||
-                                                            (!t &&
-                                                                inputs.length >
-                                                                    1)
-                                                    "
+                          v-show="t != 0 && t == inputs.length - 1"
                         >-</a>
                         <a
                           href="#"
                           class="badge badge-primary"
                           @click.prevent="add(t)"
-                          v-show="
-                                                        t == inputs.length - 1
-                                                    "
+                          v-show="t == inputs.length - 1"
                         >+</a>
                       </span>
                       <div>
@@ -44,37 +43,51 @@
                           name="objetive1"
                           class="form-control"
                           v-on:change="contentUpdateEvent(t,'driving_question')"
-                          v-model="
-                                                        input.driving_question
-                                                    "
+                          v-model="input.driving_question"
                           required
                         />
                       </div>
                     </div>
-                    <div class="col-md-6">
-                      <label for="name">Desarrollo de la clase</label>
-                      <textarea
-                        name="competences"
-                        class="form-control"
-                        v-model="
-                                                    input.class_development
-                                                "
-                        placeholder="Es la explicacion o sintesis de la clase."
-                        v-on:change="contentUpdateEvent(t,'class_development')"
-                        required
-                      ></textarea>
-                      <div class="invalid-feedback">Please fill out this field</div>
-                    </div>
+                      <div class="col-md-6" v-for="(inputC, k) in inputsClass[t]" :key="k">
+                        <label for="name">Desarrollo de la clase</label>
+                        <span>
+                          <a
+                            href="#"
+                            class="badge badge-danger"
+                            @click.prevent="removeC(t)"
+                            v-show="k != 0 && k == inputsClass[t].length - 1"
+                          >-</a>
+                          <a
+                            href="#"
+                            class="badge badge-primary"
+                            @click.prevent="addC(t)"
+                            v-show="k == inputsClass[t].length - 1"
+                          >+</a>
+                        </span>
+                        <textarea
+                          name="competences"
+                          class="form-control"
+                          v-model="inputC.class_developmentC"
+                          placeholder="Es la explicacion o sintesis de la clase."
+                          v-on:change="contentUpdateEventC(t,k,'class_developmentC')"
+                          required
+                        ></textarea>
+                        <div class="invalid-feedback">Please fill out this field</div>
+                      </div>
                     <div class="col-md-6">
                       <label for="name">Observación</label>
                       <textarea name="competences" 
                         v-on:change="contentUpdateEvent(t,'observation')"
                       class="form-control" v-model="input.observation"></textarea>
                     </div>
+                    <div class="col-md-6">
+                      <label for="ajustes">Ajustes PIAR</label>
+                      <textarea type="text" name="ajustes" class="form-control" v-model="input.ajustes"> </textarea>
+                    </div>
                   </div>
-                  <!-- <div class="modal-footer">
-                    <a href="#" class="btn btn-warning float-right">Guardar</a>
-                  </div>-->
+                  <div class="modal-footer">
+                    <a v-on:click="cleanClasId" style="margin-right: auto;" class="btn btn-warning">Volver</a>
+                  </div>
                 </tab-content>
               </form-wizard>
             </form>
@@ -128,16 +141,23 @@ import VueFormWizard from "vue-form-wizard";
 import "vue-form-wizard/dist/vue-form-wizard.min.css";
 Vue.use(VueFormWizard);
 export default {
-  props: ["id_area", "id_classroom"],
+  props: ["id_area", "id_classroom", "id_trimestre", "orden","cleanClasId"],
   data() {
     return {
       inputs: [
         {
           driving_question: "",
-          class_development: "",
           observation: "",
+          numeroCiclo: this.orden+'.'+1,
+          class_development: "",
+          ajustes: "",
         },
       ],
+      inputsClass:[[
+        {
+          class_developmentC: "",
+        },
+      ]],
       newSemanal: [],
 
       semanal: false,
@@ -149,23 +169,41 @@ export default {
     contentUpdateEvent(index,property){
       this.inputs[index][property]=this.inputs[index][property].replace(/[^a-zA-Z0-9-.ñáéíóú_*+-/=&%$#!()?¡¿ ]/g, "|");
     },
+    contentUpdateEventC(index1,index2,property){
+      this.inputsClass[index1][index2][property]=this.inputsClass[index1][index2][property].replace(/[^a-zA-Z0-9-.ñáéíóú_*+-/=&%$#!()?¡¿ ]/g, "|");
+    },
     add(index) {
+      this.inputsClass.push([{
+        class_developmentC: "",
+      }]);
       this.inputs.push({
         driving_question: "",
-        class_development: "",
         observation: "",
+        class_development: "",
+        numeroCiclo: this.orden+'.'+(index+2),
+        ajustes: "",
       });
     },
     remove(index) {
       this.inputs.splice(index, 1);
+      this.inputs.numeroCiclo= this.orden+'.'+1;
+    },
+    addC(index) {
+      this.inputsClass[index].push({
+        class_developmentC: "",
+      });
+    },
+    removeC(index) {
+      this.inputsClass[index].splice(index, 1);
     },
     getMenu() {
-      window.location = "/actividad_g";
+      this.cleanClasId();
     },
     createSemana() {
       var url = window.location.origin + "/courseWeekly";
       if (this.inputs.length >= 1) {
         for (let i = 0; i < this.inputs.length; i++) {
+          this.inputs[i].class_development=JSON.stringify(this.inputsClass[i]);
           this.newSemanal.push(this.inputs[i]);
         }
       }
@@ -175,6 +213,7 @@ export default {
           //Cursos generales
           id_area: this.id_area,
           id_classroom: this.id_classroom,
+          id_trimestre: this.id_trimestre,
           semana: this.newSemanal,
         })
         .then((response) => {

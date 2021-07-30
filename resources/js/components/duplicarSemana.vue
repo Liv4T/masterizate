@@ -35,7 +35,13 @@
             <h5 class="card-header">Copiar desde:</h5>
             <div class="card-body">
                 <div class="row margin-top-20">
-
+                  <div class="col-6">
+                    <label>Trimestres:</label>
+                    <select class="form-control" @change="onChangeAreaFrom($event)" v-model="fromData.trimestres">
+                      <option value="null">-- Seleccione --</option>
+                      <option  v-for="(trimestre, k_b) in trimestres" :key="k_b" v-bind:value="trimestre.id" >{{ trimestre.nombre }}</option>
+                    </select>
+                  </div>
                   <div class="col-6">
                     <label>Curso:</label>
                     <select class="form-control" @change="onChangeAreaFrom($event)" v-model="fromData.area">
@@ -43,44 +49,7 @@
                       <option  v-for="(area, k_a) in my_areas" :key="k_a" v-bind:value="area" >{{ area.text }}</option>
                     </select>
                   </div>
-
-              
                 </div>
-                <!--
-                <div class="row margin-top-20">
-
-                  <div class="col-4">
-                    <label>Planeación anual:</label>
-                    <select class="form-control" v-model="fromData.annual_planning" @change="onChangePlanFrom($event)" :disabled="fromData.area=='null'">
-                      <option value="null">- Nada -</option>
-                      <option value="all">- Todo el contenido -</option>
-                      <option value="one">- Selección -</option>
-                      <option  v-for="(annual_plan, k_p) in annual_planning" :key="k_p" v-bind:value="annual_plan" >{{ annual_plan.achievement }} ({{ annual_plan.percentage }} %)</option>
-                    </select>
-                  </div>
-
-                  <div class="col-4">
-                    <label>Planeación trimestral:</label>
-                    <select class="form-control" v-model="fromData.quarterly_planning" :disabled="fromData.annual_planning=='null'||fromData.annual_planning=='all'">
-                      <option value="null">- Nada -</option>
-                      <option value="all">- Todo el contenido -</option>
-                      <option  v-for="(quarterly_plan, k_y) in quarterly_planning" :key="k_y" >{{ quarterly_plan.content }}</option>
-                    </select>
-                  </div>
-
-                  <div class="col-4">
-                    <label>Porcentaje de notas:</label>
-                    <select class="form-control" v-model="fromData.percent_planning" :disabled="fromData.annual_planning=='null'||fromData.annual_planning=='all'">
-                      <option value="null">- Nada -</option>
-                      <option value="all" >- Todos los porcentajes -</option>
-                      <option  v-for="(annual_plan, k_p) in annual_planning" :key="k_p" v-bind:value="annual_plan" >{{ annual_plan.achievement }} ({{ annual_plan.percentage }} %)</option>
-                    </select>
-                  </div>
-
-                
-
-                </div>
-                -->
                 <div class="row margin-top-20">
 
                    <div class="col-4">
@@ -98,10 +67,7 @@
                       <option value="all">- Todas las clases -</option>
                       <option  v-for="(class_plan, k_c) in class_planning" :key="k_c" v-bind:value="class_plan"  >{{ class_plan.name }}</option>
                     </select>
-                  </div>
-
-
-              
+                  </div>              
                 </div>
             </div>
           </div>
@@ -113,53 +79,21 @@
             <h5 class="card-header">Copiar a:</h5>
              <div class="card-body">
                 <div class="row margin-top-20">
-
+                  <div class="col-6">
+                    <label>Trimestres:</label>
+                    <select class="form-control" v-model="fromData.trimestres" disabled>
+                      <option value="null">-- Seleccione --</option>
+                      <option  v-for="(trimestre, k_b) in trimestres" :key="k_b" v-bind:value="trimestre.id" >{{ trimestre.nombre }}</option>
+                    </select>
+                  </div>
                   <div class="col-6">
                     <label>Curso:</label>
                     <select class="form-control"  @change="onChangeAreaTo($event)"  :disabled="fromData.weekly_planning=='null'" v-model="toData.area" >
                       <option value="null">-- Seleccione --</option>
                       <option v-if="area!=fromData.area"  v-for="(area, k_a) in my_areas" :key="k_a"  v-bind:value="area" >{{ area.text }}</option>
                     </select>
-                  </div>
-
-              
+                  </div>     
                 </div>
-
-                <!--
-                <div class="row margin-top-20">
-
-                  <div class="col-4">
-                    <label>Planeación anual:</label>
-                    <select class="form-control"  @change="onChangePlanTo($event)"  :disabled="fromData.annual_planning=='null'|| fromData.annual_planning=='all'" v-model="toData.annual_planning">
-                      <option value="null">- {{(fromData.annual_planning=='null'||fromData.annual_planning=='all')?'No aplica':'Seleccione'}} -</option>
-                      <option value="new" v-if="fromData.annual_planning!='one'">- Nuevo -</option>
-                      <option  v-for="(annual_plan, k_p) in to_annual_planning" :key="k_p" v-bind:value="annual_plan" >{{ annual_plan.achievement }} ({{ annual_plan.percentage }} %)</option>
-                    </select>
-                  </div>
-
-                  <div class="col-4">
-                    <label>Planeación trimestral:</label>
-                    <select class="form-control" :disabled="fromData.quarterly_planning=='null'||fromData.quarterly_planning=='all'">
-                      <option value="null">- {{(fromData.quarterly_planning=='all'||fromData.quarterly_planning=='null')?'No aplica':'Seleccione'}} -</option>
-                      <option value="new">- Nueva planeación -</option>
-                      <option>logro 1</option>
-                    </select>
-                  </div>
-
-                  <div class="col-4">
-                    <label>Porcentaje de notas:</label>
-                    <select class="form-control"  :disabled="fromData.percent_planning=='null'||fromData.percent_planning=='all'" v-model="toData.percent_planning">
-                      <option value="null">- No aplica -</option>
-                      <option value="new">- Nuevo porcentaje de notas -</option>
-                      <option  v-for="(annual_plan, k_p) in to_annual_planning" :key="k_p" v-bind:value="annual_plan" >{{ annual_plan.achievement }} ({{ annual_plan.percentage }} %)</option>
-                    </select>
-                  </div>
-
-                
-
-                </div>
-                -->
-
                 <div class="row margin-top-20">
 
                    <div class="col-4">
@@ -179,9 +113,6 @@
                       <option  v-for="(class_plan, k_c) in to_class_planning" :key="k_c" v-bind:value="class_plan"  >{{ class_plan.name }}</option>
                     </select>
                   </div>
-
-
-              
                 </div>
             </div>
           </div>
@@ -303,6 +234,7 @@ export default {
       logro_2: "",
       logro_3: "",
       logro_4: "",
+      trimestres:[],
       fillC: [],
       anual: [],
       newAnual: [],
@@ -321,6 +253,7 @@ export default {
       errors: [],
       fromData:{
         area:'null',
+        trimestres:'null',
         annual_planning:'null',
         quarterly_planning:'null',
         weekly_planning:'null',
@@ -338,48 +271,37 @@ export default {
     };
   },
   mounted() {
-    /*var urlsel =
-      window.location.origin +
-      "/coursePlanification/" +
-      this.id_area +
-      "/" +
-      this.id_classroom;
-    axios.get(urlsel).then((response) => {
-      this.fillC = response.data;
-
-      if (this.fillC.quaterly.length > 0) {
-        this.trimestre = true;
-      } else {
-        this.trimestre = false;
-      }
-    });
-    var url = window.location.origin + "/GetArearByUser";
-    */ 
-      axios.get("/GetArearByUser").then((response) => {
-        this.my_areas = response.data;
-        console.log(response.data);
-      });
+   this.getTrimestres();
+   this.getAreas();    
   },
   methods: {
     copyInformationEvent()
     {
-      // console.log(this.fromData);
-      // console.log(this.toData);
-      // console.log(this.class_planning)
       axios.put("/api/planification/copy",{fromData:this.fromData,toData:this.toData, class_planning:this.class_planning}).then((response) => {
         toastr.success("Información duplicada correctamente");
-        //location.href="/actividad_g";
       });      
     },
     onChangePlanTo($event){
 
+    },
+    getAreas(){
+      axios.get("/GetArearByUser").then((response) => {
+        this.my_areas = response.data;
+        console.log(response.data);
+      });
+    },
+    getTrimestres(){
+      var url="/getTrimestres";
+      axios.get(url).then((response) =>{
+          this.trimestres=response.data;
+      });
     },
     onChangeAreaTo($event){
       axios.get(`/coursePlanification/${this.toData.area.id}/${this.toData.area.id_classroom}`).then((response) => {
         this.to_annual_planning=response.data.achievements;
         this.to_quarterly_planning=response.data.quaterly;
       });
-       axios.get(`/editOneWeek/${this.toData.area.id}/${this.toData.area.id_classroom}`).then((response) => {
+       axios.get(`/editOneWeek/${this.toData.area.id}/${this.toData.area.id_classroom}/${this.fromData.trimestres}`).then((response) => {
         this.to_weekly_planning=response.data;
       });
     },
@@ -411,20 +333,18 @@ export default {
      
     },
     onChangeAreaFrom($event){
-      axios.get(`/coursePlanification/${this.fromData.area.id}/${this.fromData.area.id_classroom}`).then((response) => {
-        this.annual_planning=response.data.achievements;
-        this.quarterly_planning=response.data.quaterly;
-      });
-      axios.get(`/editOneWeek/${this.fromData.area.id}/${this.fromData.area.id_classroom}`).then((response) => {
-        this.weekly_planning=response.data;
-      });
+      if(this.fromData.area!='' && this.fromData.trimestres!=''){
+        axios.get(`/coursePlanification/${this.fromData.area.id}/${this.fromData.area.id_classroom}`).then((response) => {
+          this.annual_planning=response.data.achievements;
+          this.quarterly_planning=response.data.quaterly;
+        });
+        axios.get(`/editOneWeek/${this.fromData.area.id}/${this.fromData.area.id_classroom}/${this.fromData.trimestres}`).then((response) => {
+          this.weekly_planning=response.data;
+        });
+      }
     },
     onChangePlanFrom($event){
     
-       
-        
-        
-
         if(this.fromData.annual_planning=='one')
         {
           this.fromData.percent_planning='null';

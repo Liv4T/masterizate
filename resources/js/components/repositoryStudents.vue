@@ -1,13 +1,17 @@
 <template>
-  <div class="back">
-    <div class="row justify-content-center">
-      <div id="crud" class="col-sm-10">
+  <div>
+    <div v-if="idStudent === ''" class="row justify-content-center">
+      <div id="crud" class="col-sm-12">
         <div class="card text-center">
-          <h3 class="card-header fondo">Entrega de estudiantes</h3>
+          <h3 class="card-header fondo">{{ $t('lang.homework.studentHomework') }}</h3>
           <div class="card-body">
             <div class="float-right">
-              <label for="">Buscar</label>
+              <label for="">{{ $t('lang.general.search') }}</label>
               <input type="text" placeholder="Buscar" v-model="filter" />
+            </div>
+
+            <div class="float-left">
+              <a class="btn btn-warning" v-on:click="backComponent">Volver</a>
             </div>
 
             <div class="table-responsive" style="border-radius: 20px">
@@ -17,8 +21,8 @@
               >
                 <thead >
                   <tr>
-                    <th>Estudiante</th>
-                    <th>Estado</th>
+                    <th>{{ $t('lang.general.student') }}</th>
+                    <th>{{ $t('lang.general.status') }}</th>
                     <th>-</th>
                   </tr>
                 </thead>
@@ -39,9 +43,9 @@
                     <td>
                       <a
                         v-show="row.id_student!=null"
-                        class="btn btn-warning"
-                        :href="'/repository/comments/'+row.id_student+'/'+id_repo"
-                        >Ver más</a
+                        class="btn btn-warning"                  
+                        v-on:click="()=>getIdStudent(row.id_student)"
+                        >{{ $t('lang.general.readMore') }}</a
                       >
                     </td>
                   </tr>
@@ -52,6 +56,9 @@
         </div>
       </div>
     </div>
+    <div v-else>
+      <repository-comments :id_repo="id_repo" :id_student="idStudent" :backPage="backPage"></repository-comments>
+    </div>
   </div>
 </template>
 <script>
@@ -59,7 +66,7 @@ import Multiselect from "vue-multiselect";
 Vue.component("multiselect", Multiselect);
 export default {
   components: { Multiselect },
-  props: ["id_repo"],
+  props: ["id_repo","backComponent"],
   data() {
     return {
       clases: [],
@@ -74,12 +81,13 @@ export default {
       fillS: [],
       area: null,
       filter: "",
-       myOptions: [],
+      myOptions: [],
+      idStudent: ""
     };
   },
   created() {},
   mounted() {
-      var url = window.location.origin + "/getRepositoryStudents/" + this.id_repo;
+    var url = window.location.origin + "/getRepositoryStudents/" + this.id_repo;
     axios.get(url).then((response) => {
       this.clases = response.data;
       console.log(this.clases);
@@ -100,6 +108,12 @@ export default {
         (matchedText) => `<strong>${matchedText}</strong>`
       );
     },
+    getIdStudent(idStudent){
+      this.idStudent = idStudent
+    },
+    backPage(){
+      this.idStudent = ""
+    }
   },
   computed: {
     filteredRows() {
