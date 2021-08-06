@@ -4,7 +4,7 @@
             <nav class="navbar navbar-expand-md navbar-light">
                 <ul class="navbar-nav mr-sm-6 justify-content-start flex-nav">
                     <li class="margin-logo">
-                        <img class="logo-liv4t" thumbnail fluid src="../assets/img/home6.png"  alt="4"/>
+                        <img class="img-logo" thumbnail fluid src="../assets/img/home6.png"  alt="4" style="max-width: 200px;"/>
                     </li>
                     <li class="nav-pad">
                         <a class="color-nav" href="#roles">Programas</a>
