@@ -4,7 +4,7 @@
             <nav class="navbar navbar-expand-md navbar-light">
                 <ul class="navbar-nav mr-sm-6 justify-content-start flex-nav">
                     <li class="margin-logo">
-                        <img class="logo-liv4t" thumbnail fluid src="../assets/img/home6.png"  alt="4"/>
+                        <img class="img-logo" thumbnail fluid src="../assets/img/home6.png"  alt="4"/>
                     </li>
                     <li class="nav-pad">
                         <a class="color-nav" href="#roles">Programas</a>
@@ -300,6 +300,9 @@ export default {
     text-decoration: none !important;
     font-family: Nunito;
 }
+.img-logo{
+    max-width: 280px;
+}
 .nav-pad{
     padding-top: 20px;
 }
@@ -539,6 +542,9 @@ export default {
         height: 100px;
         width: 120px;
         position: relative;
+    }
+    .img-logo{
+        max-width: 150px;
     }
     .navbar a{
         padding: 14px 4px !important;
