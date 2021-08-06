@@ -544,7 +544,7 @@ export default {
         position: relative;
     }
     .img-logo{
-        max-width: 150px;
+        max-width: 120px;
     }
     .navbar a{
         padding: 14px 4px !important;
