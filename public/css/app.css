@@ -1,4 +1,4 @@
-@import url(https://fonts.googleapis.com/css?family=Nunito);@charset "UTF-8";
+@import url(https://fonts.googleapis.com/css?family=Nunito);/* (ignored) *//* (ignored) *//* (ignored) *//* (ignored) *//* (ignored) */@charset "UTF-8";
 
 /*!
  * Bootstrap v4.4.1 (https://getbootstrap.com/)
@@ -11011,6 +11011,25 @@ a.text-dark:focus {
   color: #ffffff;
 }
 
+.content-button {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+.btn.btn-Azul {
+  background: #233d68;
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+}
+
+.btn.btn-Azul:hover {
+  color: white;
+  text-decoration: none;
+  background-color: #2f5a9e;
+}
+
 @font-face {
   font-family: "Poppins";
   src: url(/fonts/PoppinsRegular.ttf?8b6af8e5e8324edfd77af8b3b35d7f9c) format("truetype");
@@ -11029,4 +11048,3 @@ a.text-dark:focus {
   font-family: "PoppinsBold";
 }
 
-/* (ignored) *//* (ignored) *//* (ignored) *//* (ignored) *//* (ignored) */

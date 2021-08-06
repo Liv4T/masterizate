@@ -325,12 +325,18 @@ Route::middleware('auth')->get('/matricula', function () {
 Route::get('/skills', function () {
     return view('homeSkills');
 });
+Route::get('/compra/plan/{plan_type}/skills/ingresar/p/{payment_code}', function (string $plan_type,  String $payment_code) {
+    return view('purchaseLogin')->with('plan_type', $plan_type)->with('payment_code', $payment_code);
+});
 
 Route::middleware('auth')->get('/porcentaje/{id_area}/{id_classroom}', function (String $id_area, String $id_classroom) {
     return view('porcentajeNotas')->with('id_area', $id_area)->with('id_classroom', $id_classroom);
 });
 Route::get('/compra/plan/tutoria/{tutor_schedule_student_id}/{tutorschedule_id}/resumen', function (int $tutor_schedule_student_id, int $tutorschedule_id) {
     return view('purchaseTutoriaResume')->with('tutor_schedule_student_id', $tutor_schedule_student_id)->with('tutorschedule_id', $tutorschedule_id);
+});
+Route::get('/compra/plan/{plan_type}/resumen', function (String $plan_type) {
+    return view('purchasePlanResume')->with('plan_type', $plan_type);
 });
 Route::middleware('auth')->get('/chat', 'HomeController@CreateGroup')->name('chat');
 Route::middleware('auth')->get('/chat2', 'HomeController@CreateGroup2');
@@ -636,6 +642,7 @@ Route::get('/registerNew', function () {
     return view('auth.register');
 })->name('registerNew');
 Route::post('/login2', 'UserController@loginWeb')->name('login2');
+Route::post('/login/client/web', 'UserController@loginClientWeb')->name('login_client_web');
 Route::post('/resetPassword', 'UserController@resetPassword')->name('resetPassword');
 Route::post('users_save', 'UserController@store')->name('users_save');
 Route::get('Courses_save', 'CoursesController@storeNew')->name('Courses_save');
@@ -842,6 +849,7 @@ Route::get('/api/tutor-schedule/event/{schedulestudent_id}', 'TutorController@Ge
 Route::get('/api/tutor/{user_id}/profile', 'UserProfileController@GetByUserId');
 Route::put('/api/tutor-schedule/event/{schedulestudent_id}/link', 'TutorController@UpdateLinkMeet');
 Route::get('/api/tutor-schedule/event/data/{schedule_id}/{schedulestudent_id}', 'TutorController@tutorScheduleData');
+Route::get('/api/plan/event/data/{plan_type}', 'PlansController@getData');
 Route::get('/getScheduleCode/{id_code}', 'TutorController@getScheduleCodes');
 Route::resource('codes', 'TutorCodeController');
 Route::resource('vinculationsTutor', 'VinculationTutorStudentController');

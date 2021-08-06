@@ -317,6 +317,10 @@ Vue.component("members-chat", ()=> import("./components/modalMembers.vue"));
 //Tutorships
 Vue.component("purchase-tutorial-resume", () => import ("./components/purchaseTutorshipsResumeComponent.vue"));
 
+//Plans Purchase
+Vue.component("purchase-plan-resume", () => import ("./components/purchasePlanResumeComponent.vue"));
+Vue.component("purchase-login", require("./components/purchaseLogin.vue").default);
+
 //Modulo para eliminar clases y ciclos
 Vue.component("component-delete-class-and-cicles", ()=> import("./components/deleteClassAndCicles.vue"));
 

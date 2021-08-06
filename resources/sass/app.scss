@@ -77,9 +77,6 @@
     color: $color-2;
 }
 
-
-
-
 .btn-link_bold{
     font-weight: bold;
 }
@@ -119,6 +116,24 @@
 .btn-danger:not(:disabled):not(.disabled):active, .btn-danger:not(:disabled):not(.disabled).active, .show > .btn-danger.dropdown-toggle{
     text-decoration: none;
     color: $color-2;
+}
+.content-button {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    }
+
+.btn.btn-Azul {
+    background: #233d68;
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+}
+
+.btn.btn-Azul:hover {
+    color: white;
+    text-decoration: none;
+    background-color: #2f5a9e;
 }
 @font-face {
     font-family: "Poppins";

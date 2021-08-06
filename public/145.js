@@ -1,18 +1,14 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[145],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/mensajes.vue?vue&type=script&lang=js&":
-/*!*******************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/mensajes.vue?vue&type=script&lang=js& ***!
-  \*******************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/listProceedingsParents.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/listProceedingsParents.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _ckeditor_ckeditor5_build_decoupled_document__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @ckeditor/ckeditor5-build-decoupled-document */ "./node_modules/@ckeditor/ckeditor5-build-decoupled-document/build/ckeditor.js");
-/* harmony import */ var _ckeditor_ckeditor5_build_decoupled_document__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_ckeditor_ckeditor5_build_decoupled_document__WEBPACK_IMPORTED_MODULE_1__);
 //
 //
 //
@@ -62,171 +58,70 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(__webpack_require__(/*! vue-moment */ "./node_modules/vue-moment/dist/vue-moment.js"));
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["user"],
+  props: ['type_user'],
   data: function data() {
     return {
-      messages: [],
-      editorData: "<p>Escribir...</p>",
-      editor: _ckeditor_ckeditor5_build_decoupled_document__WEBPACK_IMPORTED_MODULE_1___default.a,
-      emessages: [],
-      emisor: "",
-      asunto: "",
-      showSection: "inicio"
+      proceedings: [],
+      id_proceedings: "",
+      typeView: "",
+      typeAction: ""
     };
   },
-  created: function created() {},
   mounted: function mounted() {
-    var _this = this;
-
-    var urlUsers = " getReceivedMessage";
-    axios.get(urlUsers).then(function (response) {
-      _this.messages = response.data;
-      console.log(_this.messages.men);
-    });
+    this.getProceedings();
   },
   methods: {
-    editMessage: function editMessage(mess) {
-      var _this2 = this;
+    getProceedings: function getProceedings() {
+      var _this = this;
 
-      var urlr = "getMessage/" + mess;
-      axios.get(urlr).then(function (response) {
-        _this2.emessages = response.data;
-        _this2.emisor = _this2.emessages.emisor;
-        _this2.asunto = _this2.emessages.subject;
-        _this2.editorData = _this2.emessages.message;
-        console.log(_this2.emessages);
+      var url = "/getProceedings";
+      axios.get(url).then(function (response) {
+        _this.proceedings = response.data; //console.log(this.proceedings);
+      })["catch"](function (error) {
+        toastr.error("No hay actas cargadas");
       });
-      $("#createMessage").modal("show");
     },
-    onReady: function onReady(editor) {
-      // Insert the toolbar before the editable area.
-      editor.ui.getEditableElement().parentElement.insertBefore(editor.ui.view.toolbar.element, editor.ui.getEditableElement());
+    nameArchive: function nameArchive(url_name) {
+      var arrayName = url_name.split("/");
+      var name = arrayName[arrayName.length - 1];
+      return name;
     },
-    cleanShowSection: function cleanShowSection() {
-      this.showSection = 'inicio';
+    update: function update(id) {
+      this.typeView = 1;
+      this.typeAction = 0;
+      this.id_proceedings = id;
+      $("#updateModal").modal("show");
     },
-    setShowSection: function setShowSection(data) {
-      this.showSection = data;
+    sign: function sign(id) {
+      this.typeView = 2;
+      this.typeAction = 0;
+      this.id_proceedings = id;
+      $("#updateModal").modal("show");
+    },
+    getActas: function getActas() {
+      window.location = "/proceedings/parents";
+    },
+    viewPdf: function viewPdf(id) {
+      window.location = "/view/proceedings/" + id + "/0";
+    },
+    viewed: function viewed(id) {
+      var url = "/updateViewedProceedings/" + id;
+      axios.post(url).then(function (response) {
+        if (response.data == 1) {
+          toastr.success("Visto");
+        }
+      })["catch"](function (err) {});
     }
   }
 });
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/mensajes.vue?vue&type=template&id=c3ea8e82&":
-/*!***********************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/mensajes.vue?vue&type=template&id=c3ea8e82& ***!
-  \***********************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/listProceedingsParents.vue?vue&type=template&id=56d6d6d3&":
+/*!*************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/listProceedingsParents.vue?vue&type=template&id=56d6d6d3& ***!
+  \*************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -238,335 +133,218 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm.showSection === "inicio"
-    ? _c("div", { staticClass: "back" }, [
-        _c("div", { staticClass: "row justify-content-center" }, [
-          _c("div", { staticClass: "col-sm-10", attrs: { id: "crud" } }, [
-            _c("div", { staticClass: "card text-center" }, [
-              _c("h3", { staticClass: "card-header fondo" }, [
-                _vm._v(
-                  "                        \n                    " +
-                    _vm._s(_vm.$t("lang.messages.messages")) +
-                    "\n                "
-                )
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "card-body" }, [
-                _c(
-                  "a",
-                  {
-                    staticClass: "btn btn-warning float-right",
-                    on: {
-                      click: function($event) {
-                        return _vm.setShowSection("redactar")
-                      }
+  return _c(
+    "div",
+    { staticClass: "back" },
+    [
+      _c("div", { staticClass: "col-md-11 mx-auto" }, [
+        _vm.type_user == 1 || _vm.type_user == 2
+          ? _c("div", [
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-primary mb-3",
+                  on: {
+                    click: function($event) {
+                      return _vm.getActas()
                     }
-                  },
-                  [
-                    _vm._v(
-                      "\n                        " +
-                        _vm._s(_vm.$t("lang.messages.write")) +
-                        "\n                    "
-                    )
-                  ]
-                ),
-                _vm._v(" "),
-                _c(
-                  "a",
-                  {
-                    staticClass: "btn btn-warning float-left",
-                    on: {
-                      click: function($event) {
-                        return _vm.setShowSection("sendMessage")
-                      }
-                    }
-                  },
-                  [
-                    _vm._v(
-                      "                            \n                        " +
-                        _vm._s(_vm.$t("lang.messages.messages_sent")) +
-                        "\n                    "
-                    )
-                  ]
-                ),
-                _vm._v(" "),
-                _c("br"),
-                _vm._v(" "),
-                _c("br"),
-                _vm._v(" "),
-                _c("br"),
-                _vm._v(" "),
-                _c(
-                  "table",
-                  {
-                    staticClass:
-                      "table table-responsive-xl table-hover table-striped center"
-                  },
-                  [
-                    _c("thead", [
+                  }
+                },
+                [_vm._v("\n                Crear Acta\n            ")]
+              )
+            ])
+          : _vm._e(),
+        _vm._v(" "),
+        _c("div", { staticClass: "custom-card text-center" }, [
+          _c("h3", { staticClass: "card-header fondo" }, [
+            _vm._v("Actas para padres")
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "card" }, [
+            _c("div", { staticClass: "card-body" }, [
+              _c(
+                "table",
+                [
+                  _vm._m(0),
+                  _vm._v(" "),
+                  _vm._l(_vm.proceedings, function(proceeding, id) {
+                    return _c("tbody", { key: id }, [
                       _c("tr", [
-                        _c("th", [
-                          _vm._v(
-                            "                                        \n                                    " +
-                              _vm._s(_vm.$t("lang.table.name")) +
-                              "\n                                "
-                          )
-                        ]),
-                        _vm._v(" "),
-                        _c("th", [
-                          _vm._v(
-                            "\n                                    " +
-                              _vm._s(_vm.$t("lang.table.subject")) +
-                              "\n                                "
-                          )
-                        ]),
-                        _vm._v(" "),
-                        _c("th", [
-                          _vm._v(
-                            "\n                                    " +
-                              _vm._s(_vm.$t("lang.table.date")) +
-                              "\n                                "
-                          )
-                        ]),
-                        _vm._v(" "),
-                        _c("th", [
-                          _vm._v(
-                            "\n                                    " +
-                              _vm._s(_vm.$t("lang.table.action")) +
-                              "\n                                "
-                          )
-                        ])
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _vm._l(_vm.messages, function(option, k) {
-                      return _c("tbody", { key: k }, [
-                        _c("tr", [
-                          _c("td", [_vm._v(_vm._s(option.emisor))]),
-                          _vm._v(" "),
-                          _c("td", [_vm._v(_vm._s(option.asunto))]),
-                          _vm._v(" "),
-                          _c("td", [
-                            _vm._v(
-                              "\n                                    " +
-                                _vm._s(
-                                  _vm._f("moment")(
-                                    option.fecha.date,
-                                    "dddd, MMMM Do YYYY"
-                                  )
-                                ) +
-                                "\n                                "
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _c("td", { staticClass: "float-right" }, [
-                            _c(
-                              "a",
-                              {
-                                staticClass: "btn btn-sm",
-                                staticStyle: { color: "grey" },
-                                attrs: { href: "#" },
-                                on: {
-                                  click: function($event) {
-                                    $event.preventDefault()
-                                    return _vm.editMessage(option.id)
-                                  }
-                                }
-                              },
-                              [_c("i", { staticClass: "fa fa-eye" })]
-                            )
-                          ])
-                        ])
-                      ])
-                    })
-                  ],
-                  2
-                )
-              ])
-            ]),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "modal fade", attrs: { id: "createMessage" } },
-              [
-                _c("div", { staticClass: "modal-dialog modal-lg" }, [
-                  _c("div", { staticClass: "modal-content" }, [
-                    _c("div", { staticClass: "card" }, [
-                      _vm._m(0),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        { staticClass: "card-body" },
-                        [
-                          _c("div", { staticClass: "form-group row" }, [
-                            _c("div", { staticClass: "col-sm-2" }, [
+                        proceeding.url
+                          ? _c("td", [
                               _c(
-                                "label",
+                                "a",
                                 {
-                                  staticClass: "label-mensaje",
-                                  attrs: { for: "nombre" }
+                                  staticStyle: { color: "black" },
+                                  attrs: {
+                                    href:
+                                      "/api/proceedings/parents/download/" +
+                                      proceeding.id
+                                  },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.viewed(proceeding.id)
+                                    }
+                                  }
                                 },
                                 [
                                   _vm._v(
-                                    "\n                                            " +
-                                      _vm._s(_vm.$t("lang.messages.from")) +
-                                      ":\n                                        "
+                                    _vm._s(_vm.nameArchive(proceeding.url))
                                   )
                                 ]
                               )
-                            ]),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "col-md-10" }, [
-                              _c("input", {
-                                directives: [
-                                  {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value: _vm.emisor,
-                                    expression: "emisor"
-                                  }
-                                ],
-                                staticClass: "input-mensaje",
-                                attrs: {
-                                  id: "nombre",
-                                  name: "nombre",
-                                  placeholder: "Asunto",
-                                  disabled: ""
-                                },
-                                domProps: { value: _vm.emisor },
-                                on: {
-                                  input: function($event) {
-                                    if ($event.target.composing) {
-                                      return
-                                    }
-                                    _vm.emisor = $event.target.value
-                                  }
-                                }
-                              })
                             ])
-                          ]),
-                          _vm._v(" "),
-                          _c("div", { staticClass: "form-group row" }, [
-                            _c("div", { staticClass: "col-sm-2" }, [
-                              _c(
-                                "label",
+                          : _vm._e(),
+                        _vm._v(" "),
+                        !proceeding.url
+                          ? _c("td", [_vm._v("Sin archivo generado")])
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(proceeding.parent))]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(proceeding.created_at))]),
+                        _vm._v(" "),
+                        proceeding.state == 1
+                          ? _c("td", [
+                              _c("i", { staticClass: "far fa-check-circle" })
+                            ])
+                          : _vm._e(),
+                        _vm._v(" "),
+                        proceeding.state == 0
+                          ? _c("td", [
+                              _c("i", { staticClass: "far fa-times-circle" })
+                            ])
+                          : _vm._e(),
+                        _vm._v(" "),
+                        proceeding.viewed == 1
+                          ? _c("td", [
+                              _c("i", { staticClass: "far fa-check-circle" })
+                            ])
+                          : _vm._e(),
+                        _vm._v(" "),
+                        proceeding.viewed == 0
+                          ? _c("td", [
+                              _c("i", { staticClass: "far fa-times-circle" })
+                            ])
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _c("td", [
+                          proceeding.state == 0
+                            ? _c(
+                                "button",
                                 {
-                                  staticClass: "label-mensaje",
-                                  attrs: { for: "nombre" }
-                                },
-                                [
-                                  _vm._v(
-                                    "                                                \n                                            " +
-                                      _vm._s(_vm.$t("lang.table.subject")) +
-                                      ":\n                                        "
-                                  )
-                                ]
-                              )
-                            ]),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "col-md-10" }, [
-                              _c("input", {
-                                directives: [
-                                  {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value: _vm.asunto,
-                                    expression: "asunto"
-                                  }
-                                ],
-                                staticClass: "input-mensaje",
-                                attrs: {
-                                  id: "nombre",
-                                  name: "nombre",
-                                  placeholder: "Asunto",
-                                  disabled: ""
-                                },
-                                domProps: { value: _vm.asunto },
-                                on: {
-                                  input: function($event) {
-                                    if ($event.target.composing) {
-                                      return
+                                  staticClass: "btn btn-primary",
+                                  attrs: {
+                                    "data-toggle": "modal",
+                                    "data-target": "#Modal"
+                                  },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.sign(proceeding.id)
                                     }
-                                    _vm.asunto = $event.target.value
                                   }
-                                }
-                              })
-                            ])
-                          ]),
+                                },
+                                [_vm._v("Firmar")]
+                              )
+                            : _vm._e(),
                           _vm._v(" "),
-                          _c("div", { staticClass: "form-group row" }, [
-                            _c("div", { staticClass: "col-md-6" }, [
-                              _c("label", { attrs: { for: "mensaje" } }, [
-                                _vm._v(
-                                  "                                                \n                                            " +
-                                    _vm._s(_vm.$t("lang.messages.message")) +
-                                    ":\n                                        "
-                                )
-                              ])
-                            ])
-                          ]),
+                          proceeding.state == 0 && proceeding.url
+                            ? _c(
+                                "button",
+                                {
+                                  staticClass: "btn btn-primary",
+                                  attrs: {
+                                    "data-toggle": "modal",
+                                    "data-target": "#UpdateModal"
+                                  },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.update(proceeding.id)
+                                    }
+                                  }
+                                },
+                                [_vm._v("Actualizar")]
+                              )
+                            : _vm._e(),
                           _vm._v(" "),
-                          _c("ckeditor", {
-                            attrs: { editor: _vm.editor },
-                            on: { ready: _vm.onReady },
-                            model: {
-                              value: _vm.editorData,
-                              callback: function($$v) {
-                                _vm.editorData = $$v
-                              },
-                              expression: "editorData"
-                            }
-                          })
-                        ],
-                        1
-                      )
+                          proceeding.url
+                            ? _c(
+                                "button",
+                                {
+                                  staticClass: "btn btn-primary",
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.viewPdf(proceeding.id)
+                                    }
+                                  }
+                                },
+                                [_vm._v("Ver")]
+                              )
+                            : _vm._e(),
+                          _vm._v(" "),
+                          !proceeding.url
+                            ? _c(
+                                "a",
+                                {
+                                  staticClass: "btn btn-primary",
+                                  attrs: {
+                                    href:
+                                      "/api/proceedings/parents/pdf/" +
+                                      proceeding.id,
+                                    target: "_blank"
+                                  },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.viewed(proceeding.id)
+                                    }
+                                  }
+                                },
+                                [_vm._v("Generar PDF")]
+                              )
+                            : _vm._e()
+                        ])
+                      ])
                     ])
-                  ])
-                ])
-              ]
-            )
+                  })
+                ],
+                2
+              )
+            ])
           ])
         ])
-      ])
-    : _vm.showSection === "redactar"
-    ? _c(
-        "div",
-        [
-          _c("redactar-component", {
-            attrs: { user: _vm.user, cleanShowSection: _vm.cleanShowSection }
-          })
-        ],
-        1
-      )
-    : _vm.showSection === "sendMessage"
-    ? _c(
-        "div",
-        [
-          _c("mensajesenv-component", {
-            attrs: { user: _vm.user, cleanShowSection: _vm.cleanShowSection }
-          })
-        ],
-        1
-      )
-    : _vm._e()
+      ]),
+      _vm._v(" "),
+      _c("modal-update-proceedings", {
+        attrs: {
+          id_proceedings: _vm.id_proceedings,
+          getProceedings: _vm.getProceedings,
+          typeView: _vm.typeView,
+          typeAction: _vm.typeAction
+        }
+      })
+    ],
+    1
+  )
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("h3", { staticClass: "card-header fondo text-center" }, [
-      _vm._v(
-        "\n                                Mensaje\n                                "
-      ),
-      _c(
-        "button",
-        {
-          staticClass: "close",
-          attrs: { type: "button", "data-dismiss": "modal" }
-        },
-        [_c("span", [_vm._v("×")])]
-      )
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("Nombre del Acta")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Padre")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Fecha")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Firmada")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Visto")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Acciones")])
+      ])
     ])
   }
 ]
@@ -576,17 +354,17 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./resources/js/components/mensajes.vue":
-/*!**********************************************!*\
-  !*** ./resources/js/components/mensajes.vue ***!
-  \**********************************************/
+/***/ "./resources/js/components/listProceedingsParents.vue":
+/*!************************************************************!*\
+  !*** ./resources/js/components/listProceedingsParents.vue ***!
+  \************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _mensajes_vue_vue_type_template_id_c3ea8e82___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./mensajes.vue?vue&type=template&id=c3ea8e82& */ "./resources/js/components/mensajes.vue?vue&type=template&id=c3ea8e82&");
-/* harmony import */ var _mensajes_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./mensajes.vue?vue&type=script&lang=js& */ "./resources/js/components/mensajes.vue?vue&type=script&lang=js&");
+/* harmony import */ var _listProceedingsParents_vue_vue_type_template_id_56d6d6d3___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./listProceedingsParents.vue?vue&type=template&id=56d6d6d3& */ "./resources/js/components/listProceedingsParents.vue?vue&type=template&id=56d6d6d3&");
+/* harmony import */ var _listProceedingsParents_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./listProceedingsParents.vue?vue&type=script&lang=js& */ "./resources/js/components/listProceedingsParents.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -596,9 +374,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _mensajes_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _mensajes_vue_vue_type_template_id_c3ea8e82___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _mensajes_vue_vue_type_template_id_c3ea8e82___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _listProceedingsParents_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _listProceedingsParents_vue_vue_type_template_id_56d6d6d3___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _listProceedingsParents_vue_vue_type_template_id_56d6d6d3___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -608,38 +386,38 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/components/mensajes.vue"
+component.options.__file = "resources/js/components/listProceedingsParents.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/components/mensajes.vue?vue&type=script&lang=js&":
-/*!***********************************************************************!*\
-  !*** ./resources/js/components/mensajes.vue?vue&type=script&lang=js& ***!
-  \***********************************************************************/
+/***/ "./resources/js/components/listProceedingsParents.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************!*\
+  !*** ./resources/js/components/listProceedingsParents.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_mensajes_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./mensajes.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/mensajes.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_mensajes_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_listProceedingsParents_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./listProceedingsParents.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/listProceedingsParents.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_listProceedingsParents_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/components/mensajes.vue?vue&type=template&id=c3ea8e82&":
-/*!*****************************************************************************!*\
-  !*** ./resources/js/components/mensajes.vue?vue&type=template&id=c3ea8e82& ***!
-  \*****************************************************************************/
+/***/ "./resources/js/components/listProceedingsParents.vue?vue&type=template&id=56d6d6d3&":
+/*!*******************************************************************************************!*\
+  !*** ./resources/js/components/listProceedingsParents.vue?vue&type=template&id=56d6d6d3& ***!
+  \*******************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_mensajes_vue_vue_type_template_id_c3ea8e82___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./mensajes.vue?vue&type=template&id=c3ea8e82& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/mensajes.vue?vue&type=template&id=c3ea8e82&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_mensajes_vue_vue_type_template_id_c3ea8e82___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_listProceedingsParents_vue_vue_type_template_id_56d6d6d3___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./listProceedingsParents.vue?vue&type=template&id=56d6d6d3& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/listProceedingsParents.vue?vue&type=template&id=56d6d6d3&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_listProceedingsParents_vue_vue_type_template_id_56d6d6d3___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_mensajes_vue_vue_type_template_id_c3ea8e82___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_listProceedingsParents_vue_vue_type_template_id_56d6d6d3___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

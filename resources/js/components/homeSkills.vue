@@ -23,22 +23,25 @@
     </div>
     <div class="desktop">
       <div class="col" style="padding: 0; margin: 0">
-        <a href="#contactanos"><img class="fondo1" src="../assets/img/s1.png" alt="unete" /></a>
+        <a href="#contactanos"><img class="fondo1" src="../assets/img/s1.png" alt="unete"></a>
       </div>
       <div class="col" style="padding: 0; margin: 0">
-        <a href="#contactanos"><img class="fondo1" src="../assets/img/s2.png" alt="unete" /></a>
+        <a href="#contactanos"><img class="fondo1" src="../assets/img/s2.png" alt="unete"></a>
       </div>
       <div class="col" style="padding-bottom: 20px; margin: 0">
-        <a href="#contactanos"><img class="fondo1" src="../assets/img/s3.png" alt="unete" /></a>
+        <a href="#contactanos"><img class="fondo1" src="../assets/img/s3.png" alt="unete"></a>
       </div>
       <div class="col" style="padding: 0; margin: 0">
-        <a href="#contactanos"><img class="fondo1" src="../assets/img/s4.png" alt="unete" /></a>
+        <a href="#contactanos"><img class="fondo1" src="../assets/img/s4.png" alt="unete"></a>
       </div>
       <div class="col" style="padding: 0; margin: 0">
-        <a href="#contactanos"><img class="fondo1" src="../assets/img/s5.png" alt="unete" /></a>
+        <a href="#contactanos"><img class="fondo1" src="../assets/img/s5.png" alt="unete"></a>
       </div>
       <div class="col" style="padding: 0; margin: 0">
-        <a href="#contactanos"><img class="fondo1" src="../assets/img/plans.png" alt="unete" /></a>
+        <a href="#contactanos"><img class="fondo1" src="../assets/img/plans.png" alt="unete"></a>
+        <a href="" target="_blank"><img class="boton-plan-docente" src="../assets/img/plans.1.png"></a>
+        <a href="/compra/plan/PLAN_MENSUAL/resumen"><img class="boton-plan-mensual" src="../assets/img/plans.2.png"></a>
+        <a href="/compra/plan/PLAN_ANUAL/resumen"><img class="boton-plan-anual" src="../assets/img/plans.3.png"></a>
       </div>
       <div class="col" style="padding: 0; margin: 0">
         <a href="#contactanos"><img class="fondo1" src="../assets/img/s6.png" alt="unete" /></a>
@@ -221,11 +224,36 @@ export default {
 .fondo1 {
   background-repeat: no-repeat;
   height: 600px;
+  z-index: 1;
 }
 .fondo2 {
   background-image: url("../assets/img/home2.1.png");
   background-repeat: no-repeat;
   height: 600px;
+}
+.boton-plan-docente{
+    background-repeat: no-repeat;
+    position: absolute;
+    height: 400px !important;
+    z-index: 2;
+    left: 545px;
+    top: 200px;
+}
+.boton-plan-mensual{
+    background-repeat: no-repeat;
+    position: absolute;
+    height: 400px !important;
+    z-index: 2;
+    left: 400px;
+    top: 800px;
+}
+.boton-plan-anual{
+    background-repeat: no-repeat;
+    position: absolute;
+    height: 400px !important;
+    z-index: 2;
+    left: 750px;
+    top: 800px;
 }
 .logo-fondo2 {
   background-image: url("../assets/img/home4.png");
