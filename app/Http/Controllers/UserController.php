@@ -80,17 +80,6 @@ class UserController extends Controller
         $password = $request->input('password');
         if (Auth::attempt(['user_name' => $user_name, 'password' => $password], false)) {
             $user = Auth::user();
-            $client = Customer::where('user_id', $user->id)->where('deleted', 0)->first();
-
-            if (!isset($client)) {
-                Customer::create([
-                    'user_id' => $user->id,
-                    'type' => 1,
-                    'state' => 1,
-                    'deleted' => 0,
-                    'updated_user' => $user->id
-                ]);
-            }
 
             return redirect('/cliente/cuenta');
         } else {
