@@ -152,7 +152,8 @@ __webpack_require__.r(__webpack_exports__);
       orden: "",
       clase_to_delete: [],
       id_cicle: "",
-      filter: ''
+      filter: '',
+      cycle_number: 0
     };
   },
   mounted: function mounted() {
@@ -218,9 +219,11 @@ __webpack_require__.r(__webpack_exports__);
       this.idTrimestre = "";
       this.orden = "";
     },
-    getEditCycle: function getEditCycle(cycle) {
+    getEditCycle: function getEditCycle(cycle, cycle_number, orden) {
       var data = this.idArea.split("/");
       this.id_area = data[0];
+      this.cycle_number = cycle_number;
+      this.orden = orden;
       this.id_classroom = data[1];
       this.showCycle = "semanalAct";
       this.id_cicle = cycle.id;
@@ -538,7 +541,10 @@ var render = function() {
                                                 on: {
                                                   click: function() {
                                                     return _vm.getEditCycle(
-                                                      cycle
+                                                      cycle,
+                                                      k + 1,
+                                                      trimestre.id,
+                                                      t + 1
                                                     )
                                                   }
                                                 }
@@ -644,7 +650,9 @@ var render = function() {
               id_area: _vm.id_area,
               id_classroom: _vm.id_classroom,
               cleanIdModule: _vm.cleanIdModule,
-              id_cycle: _vm.id_cicle
+              id_cycle: _vm.id_cicle,
+              orden: _vm.orden,
+              cycle_number: _vm.cycle_number
             }
           }),
           _vm._v(" "),

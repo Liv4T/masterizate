@@ -220,6 +220,26 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 (function () {
   "use strict";
 
@@ -259,6 +279,9 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
       activityForAllStudents: false,
       activityForPIARStudents: false,
       activityForSelectStudents: false,
+      work: "",
+      transversals: "",
+      objetivesClass: "",
       course: {
         content: [{
           content_type: 'YOUTUBE',
@@ -325,6 +348,21 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
       if (this.activityForAllStudents == false && this.activityForPIARStudents == true || this.activityForSelectStudents == true && newVal) {
         this.course.selectedStudents = JSON.stringify(this.saveStudent);
       }
+    },
+    work: function work(newVal) {
+      if (newVal) {
+        this.course.work = this.work;
+      }
+    },
+    transversals: function transversals(newVal) {
+      if (newVal) {
+        this.course.transversals = this.transversals;
+      }
+    },
+    objetivesClass: function objetivesClass(newVal) {
+      if (newVal) {
+        this.course.objetivesClass = this.objetivesClass;
+      }
     }
   },
   mounted: function mounted() {
@@ -358,7 +396,9 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
     if (this.id_class != 0) {
       axios.get("/api/teacher/module/".concat(this.id_module, "/class/").concat(this.id_class)).then(function (response) {
         _this.course = response.data;
-        console.log(response.data);
+        _this.work = response.data.work;
+        _this.transversals = response.data.transversals;
+        _this.objetivesClass = response.data.objetivesClass;
         _this.activityForPIARStudents = _this.course.activityForPIARStudents;
         _this.activityForSelectStudents = _this.course.activityForSelectStudents;
         _this.activityForAllStudents = _this.course.activityForAllStudents;
@@ -713,6 +753,36 @@ var render = function() {
                       ])
                     ]),
                     _vm._v(" "),
+                    _c("div", { staticClass: "col-12" }, [
+                      _c("label", { attrs: { for: "work" } }, [
+                        _vm._v(
+                          "\n                                Objetivos de la Clase\n                            "
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.objetivesClass,
+                            expression: "objetivesClass"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { type: "text" },
+                        domProps: { value: _vm.objetivesClass },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.objetivesClass = $event.target.value
+                          }
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
                     _c("div", { staticClass: "row" }, [
                       _vm._m(2),
                       _vm._v(" "),
@@ -1006,7 +1076,67 @@ var render = function() {
                               ],
                               1
                             )
-                          : _vm._e()
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-12" }, [
+                          _c("label", { attrs: { for: "work" } }, [
+                            _vm._v(
+                              "\n                                        Tarea\n                                    "
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("textarea", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.work,
+                                expression: "work"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            attrs: { name: "work", id: "work" },
+                            domProps: { value: _vm.work },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.work = $event.target.value
+                              }
+                            }
+                          })
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-12" }, [
+                          _c("label", { attrs: { for: "transversals" } }, [
+                            _vm._v(
+                              "\n                                        Habilidades Transversales\n                                    "
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("textarea", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.transversals,
+                                expression: "transversals"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            attrs: { name: "transversals", id: "transversals" },
+                            domProps: { value: _vm.transversals },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.transversals = $event.target.value
+                              }
+                            }
+                          })
+                        ])
                       ])
                     ]),
                     _vm._v(" "),

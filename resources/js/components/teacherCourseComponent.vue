@@ -27,6 +27,13 @@
                                 </div>
                             </div>
 
+                            <div class="col-12">                                                                    
+                                <label for="work">
+                                    Objetivos de la Clase
+                                </label>
+                                <input type="text" class="form-control" v-model="objetivesClass"/>
+                                </div>
+
                             <div class="row">                                        
                                 <label><span class="required">*</span>Fecha Inicio de Clase:</label>                
                                 <input type="datetime-local" class="form-control" v-model="course.date_init_class" />
@@ -68,7 +75,20 @@
                                                     </span>
                                                 </template>
                                         </multiselect>
-                                    </div>                                    
+                                    </div>  
+
+                                    <div class="col-12">                                                                    
+                                        <label for="work">
+                                            Tarea
+                                        </label>
+                                        <textarea class="form-control" v-model="work" name="work" id="work"></textarea>
+                                    </div>
+                                    <div class="col-12">
+                                        <label for="transversals">
+                                            Habilidades Transversales
+                                        </label>
+                                        <textarea class="form-control" v-model="transversals" name="transversals" id="transversals"></textarea>
+                                    </div>                                  
                                 </div>
                             </div>
                             
@@ -252,6 +272,9 @@ export default {
             activityForAllStudents:false,
             activityForPIARStudents: false,
             activityForSelectStudents: false,
+            work: "",
+            transversals:"",
+            objetivesClass:"",
             course:{
                 content:[
                     {
@@ -324,6 +347,24 @@ export default {
             if(this.activityForAllStudents == false && this.activityForPIARStudents == true || this.activityForSelectStudents == true && newVal){
                 this.course.selectedStudents = JSON.stringify(this.saveStudent);
             }
+        },
+
+        work: function(newVal){
+            if(newVal){
+                this.course.work = this.work;
+            }
+        },
+
+        transversals: function(newVal){
+            if(newVal){
+                this.course.transversals = this.transversals;
+            }
+        },
+
+        objetivesClass:function(newVal){
+            if(newVal){
+                this.course.objetivesClass = this.objetivesClass;
+            }
         }
     },
     mounted() {
@@ -356,7 +397,9 @@ export default {
         {
             axios.get(`/api/teacher/module/${this.id_module}/class/${this.id_class}`).then((response) => {
                     this.course=response.data;
-                    console.log(response.data)
+                    this.work = response.data.work;
+                    this.transversals = response.data.transversals;
+                    this.objetivesClass = response.data.objetivesClass;
 
                     this.activityForPIARStudents = this.course.activityForPIARStudents
                     this.activityForSelectStudents = this.course.activityForSelectStudents

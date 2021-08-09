@@ -41,7 +41,7 @@
                                 <td>{{ $t('lang.class.action') }}</td>
 
                             </tr>
-                            <tr v-for="(cycle,k) in filteredRows" :key="k">
+                            <tr v-for="(cycle,k) in filteredRows" :key="k">                                
                                 <td>{{ cycle.driving_question }}</td>
 
                                 <td>{{ cycle.observation }}</td>
@@ -53,7 +53,7 @@
                                 </td>
                                 <td v-else-if="planification === 'general'">
                                     <p>
-                                        <button class="btn btn-warning" v-on:click="()=>getEditCycle(cycle)">Editar</button>                  
+                                        <button class="btn btn-warning" v-on:click="()=>getEditCycle(cycle, k+1, trimestre.id,t+1)">Editar</button>                  
                                         <button class="btn btn-primary" v-if="cycle.activateButton === 'true'" v-on:click="()=>ClassAndCicle(cycle.id)" >Eliminar</button>                      
                                         <button class="btn btn-primary" v-if="cycle.activateButton === 'false'" v-on:click="()=>RequestPermissions(cycle, cycle.driving_question)">Solicitar Permiso para Eliminar</button>
                                     </p>
@@ -78,7 +78,7 @@
     <teacher-module :id_module="idModule" :cleanIdModule="cleanIdModule"></teacher-module>
 </div>
 <div v-else-if="showCycle === 'semanalAct' ">
-    <semanalact-component :id_area="id_area" :id_classroom="id_classroom" :cleanIdModule="cleanIdModule" :id_cycle="id_cicle"></semanalact-component>
+    <semanalact-component :id_area="id_area" :id_classroom="id_classroom" :cleanIdModule="cleanIdModule" :id_cycle="id_cicle" :orden="orden" :cycle_number="cycle_number"></semanalact-component>
     <div class="modal fade" id="infoClass" tabindex="-1" role="dialog" aria-labelledby="infoClassLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -143,6 +143,7 @@ export default {
             clase_to_delete:[],
             id_cicle:"",
             filter: '',
+            cycle_number:0
         };
     },
     mounted(){        
@@ -207,9 +208,11 @@ export default {
             this.orden="";
         },
         
-        getEditCycle(cycle){
+        getEditCycle(cycle, cycle_number, orden){
             let data = this.idArea.split("/");
             this.id_area=data[0];
+            this.cycle_number = cycle_number;
+            this.orden=orden;
             this.id_classroom = data[1];
             this.showCycle ="semanalAct";
             this.id_cicle = cycle.id;
