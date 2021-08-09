@@ -172,11 +172,11 @@ export default {
               return false;
             }
           }
-          if(IsJsonString()){
+          if(IsJsonString()){            
             this.inputClass=response.data[0] ? JSON.parse(response.data[0].class) : {}
-          } else{
+          } else{            
             let json=[{
-              class_developmentC: response.data[0] ? JSON.parse(response.data[0].class) : ""
+              class_developmentC: response.data[0] ? response.data[0].class : ""
             }];
             this.inputClass=json;
           }
