@@ -777,7 +777,8 @@ var render = function() {
                   _vm._v(
                     "\n                        " +
                       _vm._s(
-                        _vm.name_event +
+                        _vm.course.name +
+                          " " +
                           _vm.$t("lang.class.dateAndTime") +
                           " " +
                           _vm.hour_event

@@ -20,7 +20,7 @@
                     </div>
                     <div class="row" v-if="link_event">
                         <div class="col-md-6">
-                            {{ name_event + $t('lang.class.dateAndTime') +' '+ hour_event}}
+                            {{ course.name + ' ' + $t('lang.class.dateAndTime') +' '+ hour_event}}
                         </div>
                         <div class="col-md-6">
                               <a
