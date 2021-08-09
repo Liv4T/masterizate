@@ -133,6 +133,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["idArea", "planif", "moduleId", "user"],
   data: function data() {
@@ -148,11 +151,11 @@ __webpack_require__.r(__webpack_exports__);
       idTrimestre: "",
       orden: "",
       clase_to_delete: [],
-      id_cicle: ""
+      id_cicle: "",
+      filter: ''
     };
   },
   mounted: function mounted() {
-    console.log(this.user);
     this.planification = this.planif;
     this.getData();
   },
@@ -190,7 +193,6 @@ __webpack_require__.r(__webpack_exports__);
           var urlsel = "/viewGetWeek/" + _this2.idArea + '/' + id_trimestre;
           axios.get(urlsel).then(function (response) {
             var data = response.data;
-            console.log('data estudiante: ', response.data);
             data.forEach(function (element) {
               _this2.cycles.push({
                 driving_question: element.text,
@@ -224,7 +226,6 @@ __webpack_require__.r(__webpack_exports__);
       this.id_cicle = cycle.id;
     },
     RequestPermissions: function RequestPermissions(data, curso) {
-      console.log(data);
       axios.post('/requestPermission', {
         cicle: data.text,
         id_area: data.id_area,
@@ -278,6 +279,20 @@ __webpack_require__.r(__webpack_exports__);
       this.idTrimestre = id_trimestre;
       this.orden = orden;
       this.showCycle = "courseSemanal";
+    }
+  },
+  computed: {
+    filteredRows: function filteredRows() {
+      var _this5 = this;
+
+      if (!this.cycles.filter) return false;
+      return this.cycles.filter(function (row) {
+        var name = row.driving_question.toString().toLowerCase();
+
+        var searchTerm = _this5.filter.toLowerCase();
+
+        return name.includes(searchTerm);
+      });
     }
   }
 });
@@ -397,24 +412,65 @@ var render = function() {
                     },
                     [
                       _vm.user.type_user !== 3
-                        ? _c("div", { staticStyle: { padding: "20px" } }, [
-                            _c(
-                              "a",
-                              {
-                                staticClass: "btn btn-warning float-left",
-                                on: {
-                                  click: function($event) {
-                                    return _vm.getOrderCycle(
-                                      trimestre.id,
-                                      t + 1
-                                    )
+                        ? _c(
+                            "div",
+                            {
+                              staticClass: "float-left",
+                              staticStyle: { padding: "20px" }
+                            },
+                            [
+                              _c(
+                                "a",
+                                {
+                                  staticClass: "btn btn-warning float-left",
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.getOrderCycle(
+                                        trimestre.id,
+                                        t + 1
+                                      )
+                                    }
                                   }
-                                }
-                              },
-                              [_vm._v("Crear")]
-                            )
-                          ])
+                                },
+                                [_vm._v("Crear")]
+                              )
+                            ]
+                          )
                         : _vm._e(),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          staticClass: "float-right",
+                          staticStyle: { padding: "20px" }
+                        },
+                        [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.filter,
+                                expression: "filter"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            attrs: {
+                              type: "text",
+                              placeholder: "Buscar Ciclo"
+                            },
+                            domProps: { value: _vm.filter },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.filter = $event.target.value
+                              }
+                            }
+                          })
+                        ]
+                      ),
                       _vm._v(" "),
                       _c("div", { staticClass: "card-body" }, [
                         _c(
@@ -445,7 +501,7 @@ var render = function() {
                                   ])
                                 ]),
                                 _vm._v(" "),
-                                _vm._l(_vm.cycles, function(cycle, k) {
+                                _vm._l(_vm.filteredRows, function(cycle, k) {
                                   return _c("tr", { key: k }, [
                                     _c("td", [
                                       _vm._v(_vm._s(cycle.driving_question))

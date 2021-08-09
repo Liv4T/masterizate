@@ -13,6 +13,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vue_form_wizard_dist_vue_form_wizard_min_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-form-wizard/dist/vue-form-wizard.min.css */ "./node_modules/vue-form-wizard/dist/vue-form-wizard.min.css");
 /* harmony import */ var vue_form_wizard_dist_vue_form_wizard_min_css__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue_form_wizard_dist_vue_form_wizard_min_css__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_2__);
 //
 //
 //
@@ -335,6 +337,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["id_module", "id_class", "idclassClean"],
@@ -388,7 +391,7 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
       _this.id_area = "".concat(response.data.area.id, "/").concat(response.data.classroom.id, " ");
       axios.get("/getEvenNearStudent/".concat(_this.id_area)).then(function (response) {
         _this.name_event = response.data.name;
-        _this.hour_event = _this.course.date_init_class;
+        _this.hour_event = moment__WEBPACK_IMPORTED_MODULE_2___default()(_this.course.date_init_class).format('DD MMMM YYYY h:mm a');
         _this.link_event = _this.course.url_class;
       });
     });
@@ -776,6 +779,7 @@ var render = function() {
                       _vm._s(
                         _vm.name_event +
                           _vm.$t("lang.class.dateAndTime") +
+                          " " +
                           _vm.hour_event
                       ) +
                       "\n                    "

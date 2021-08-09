@@ -20,7 +20,7 @@
                     </div>
                     <div class="row" v-if="link_event">
                         <div class="col-md-6">
-                            {{ name_event + $t('lang.class.dateAndTime') +hour_event}}
+                            {{ name_event + $t('lang.class.dateAndTime') +' '+ hour_event}}
                         </div>
                         <div class="col-md-6">
                               <a
@@ -327,6 +327,7 @@
 
 import VueFormWizard from "vue-form-wizard";
 import "vue-form-wizard/dist/vue-form-wizard.min.css";
+import moment from 'moment';
 Vue.use(VueFormWizard);
 export default {
     props: ["id_module", "id_class","idclassClean"],
@@ -387,7 +388,7 @@ export default {
 
            axios.get(`/getEvenNearStudent/${this.id_area}`).then(response => {
                 this.name_event= response.data.name;
-                this.hour_event= this.course.date_init_class;
+                this.hour_event= moment(this.course.date_init_class).format('DD MMMM YYYY h:mm a');
                 this.link_event= this.course.url_class;
         });
 

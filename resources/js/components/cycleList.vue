@@ -25,8 +25,11 @@
                   aria-labelledby="heading"
                   data-parent="#accordionExample"
                 >
-                <div v-if="user.type_user !== 3" style="padding:20px;">
+                <div v-if="user.type_user !== 3" class="float-left" style="padding:20px;">
                     <a v-on:click="getOrderCycle(trimestre.id,t+1)" class="btn btn-warning float-left">Crear</a>
+                </div>
+                <div class="float-right" style="padding:20px;">                    
+                    <input class="form-control" type="text" placeholder="Buscar Ciclo" v-model="filter" />
                 </div>
                 <div class="card-body">
                     <table class="table table-responsive-xl table-hover table-striped center">
@@ -38,7 +41,7 @@
                                 <td>{{ $t('lang.class.action') }}</td>
 
                             </tr>
-                            <tr v-for="(cycle,k) in cycles" :key="k">
+                            <tr v-for="(cycle,k) in filteredRows" :key="k">
                                 <td>{{ cycle.driving_question }}</td>
 
                                 <td>{{ cycle.observation }}</td>
@@ -138,11 +141,11 @@ export default {
             idTrimestre:"",
             orden:"",
             clase_to_delete:[],
-            id_cicle:""
+            id_cicle:"",
+            filter: '',
         };
     },
-    mounted(){
-        console.log(this.user)
+    mounted(){        
         this.planification= this.planif;
         this.getData();
     },
@@ -175,8 +178,7 @@ export default {
                 } else if(this.planif === 'claseEst'){
                     var urlsel = "/viewGetWeek/" + this.idArea +'/'+id_trimestre;
                     axios.get(urlsel).then((response) => {
-                       let data = response.data;
-                       console.log('data estudiante: ',response.data)
+                       let data = response.data;                       
                        data.forEach((element)=>{
                            this.cycles.push({
                                 driving_question: element.text,
@@ -213,8 +215,7 @@ export default {
             this.id_cicle = cycle.id;
         },
 
-        RequestPermissions(data, curso){
-            console.log(data);
+        RequestPermissions(data, curso){            
             axios.post('/requestPermission',{
                 cicle: data.text,
                 id_area: data.id_area,
@@ -268,6 +269,17 @@ export default {
             this.orden=orden;
             this.showCycle = "courseSemanal"
         }
+    },
+    computed: {
+        filteredRows() {
+            if(!this.cycles.filter) return false;
+            return this.cycles.filter((row) => {
+                const name = row.driving_question.toString().toLowerCase();
+                const searchTerm = this.filter.toLowerCase();
+
+                return name.includes(searchTerm);
+            });
+        },
     },
 };
 </script>
