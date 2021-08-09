@@ -44,6 +44,19 @@
                                 <input type="text-local" class="form-control" v-model="course.url_class" />                                          
                             </div>
 
+                            <div class="col-12">                                                                    
+                                <label for="work">
+                                    Tarea
+                                </label>
+                                <textarea class="form-control" v-model="work" name="work" id="work"></textarea>
+                            </div>
+                            <div class="col-12">
+                                <label for="transversals">
+                                    Habilidades Transversales
+                                </label>
+                                <textarea class="form-control" v-model="transversals" name="transversals" id="transversals"></textarea>
+                            </div>
+
                             <div class="row">
                                 <div class="col-12">
                                     <label><span class="required">*</span>Actividad Para :</label>
@@ -75,20 +88,7 @@
                                                     </span>
                                                 </template>
                                         </multiselect>
-                                    </div>  
-
-                                    <div class="col-12">                                                                    
-                                        <label for="work">
-                                            Tarea
-                                        </label>
-                                        <textarea class="form-control" v-model="work" name="work" id="work"></textarea>
-                                    </div>
-                                    <div class="col-12">
-                                        <label for="transversals">
-                                            Habilidades Transversales
-                                        </label>
-                                        <textarea class="form-control" v-model="transversals" name="transversals" id="transversals"></textarea>
-                                    </div>                                  
+                                    </div>                                      
                                 </div>
                             </div>
                             

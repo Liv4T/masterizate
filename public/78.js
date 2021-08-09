@@ -852,6 +852,66 @@ var render = function() {
                       })
                     ]),
                     _vm._v(" "),
+                    _c("div", { staticClass: "col-12" }, [
+                      _c("label", { attrs: { for: "work" } }, [
+                        _vm._v(
+                          "\n                                Tarea\n                            "
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("textarea", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.work,
+                            expression: "work"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { name: "work", id: "work" },
+                        domProps: { value: _vm.work },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.work = $event.target.value
+                          }
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-12" }, [
+                      _c("label", { attrs: { for: "transversals" } }, [
+                        _vm._v(
+                          "\n                                Habilidades Transversales\n                            "
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("textarea", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.transversals,
+                            expression: "transversals"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { name: "transversals", id: "transversals" },
+                        domProps: { value: _vm.transversals },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.transversals = $event.target.value
+                          }
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
                     _c("div", { staticClass: "row" }, [
                       _c("div", { staticClass: "col-12" }, [
                         _vm._m(4),
@@ -1076,67 +1136,7 @@ var render = function() {
                               ],
                               1
                             )
-                          : _vm._e(),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "col-12" }, [
-                          _c("label", { attrs: { for: "work" } }, [
-                            _vm._v(
-                              "\n                                        Tarea\n                                    "
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _c("textarea", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.work,
-                                expression: "work"
-                              }
-                            ],
-                            staticClass: "form-control",
-                            attrs: { name: "work", id: "work" },
-                            domProps: { value: _vm.work },
-                            on: {
-                              input: function($event) {
-                                if ($event.target.composing) {
-                                  return
-                                }
-                                _vm.work = $event.target.value
-                              }
-                            }
-                          })
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "col-12" }, [
-                          _c("label", { attrs: { for: "transversals" } }, [
-                            _vm._v(
-                              "\n                                        Habilidades Transversales\n                                    "
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _c("textarea", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.transversals,
-                                expression: "transversals"
-                              }
-                            ],
-                            staticClass: "form-control",
-                            attrs: { name: "transversals", id: "transversals" },
-                            domProps: { value: _vm.transversals },
-                            on: {
-                              input: function($event) {
-                                if ($event.target.composing) {
-                                  return
-                                }
-                                _vm.transversals = $event.target.value
-                              }
-                            }
-                          })
-                        ])
+                          : _vm._e()
                       ])
                     ]),
                     _vm._v(" "),
