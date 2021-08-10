@@ -407,7 +407,7 @@ export default {
 
             onApprove: async (data, actions) => {
             const order = await actions.order.capture();
-            console.log(order);
+            //console.log(order);
             this.PayEvent(order);
             }
           }, '#paypal-button');
@@ -416,8 +416,7 @@ export default {
       this.events.pay_loading = true;
       let model = {
         quantity: this.current_plan.quantity,
-        schedule_id: this.tutorschedule_id,
-        event_student_id: this.current_plan.id_event_student,
+        plan_name: this.current_plan.plan_name,
         amount: order.purchase_units[0].amount.value,
         ref: order.purchase_units[0].payments.captures[0].id,  
         result: order.purchase_units[0].payments.captures[0].status,
@@ -428,7 +427,7 @@ export default {
         total: this.TotalValue(),
       };
       //console.log(model);
-      location.href=`/compra/pagar/paypal/${encodeURI(window.btoa(JSON.stringify(model)))}`;
+      location.href=`/compra/pagar/plan/paypal/${encodeURI(window.btoa(JSON.stringify(model)))}`;
       setTimeout(() => {
         this.events.pay_loading = false;
       }, 4000);

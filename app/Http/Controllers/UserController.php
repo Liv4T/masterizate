@@ -81,9 +81,7 @@ class UserController extends Controller
         if (Auth::attempt(['user_name' => $user_name, 'password' => $password], false)) {
             $user = Auth::user();
 
-            return redirect('/cliente/cuenta');
-        } else {
-            return redirect('/compra/plan');
+            return 'ok';
         }
     }
 

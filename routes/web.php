@@ -353,7 +353,7 @@ Route::put('/changePassword', 'UserController@changePassword')->name('changePass
 
 
 Route::middleware('auth')->get('showUser', 'UserController@show')->name('users_save');
-Route::middleware('auth')->post('img_user', 'UserController@uploadFile')->name('img_user');
+Route::post('img_user', 'UserController@uploadFile')->name('img_user');
 Route::get('getAdministrators', 'UserController@getAdministrators');
 Route::get('getParents', 'UserController@getParents');
 Route::get('getPsicologist', 'UserController@getPsicologist');
@@ -1056,6 +1056,7 @@ Route::middleware('auth')->get('/reportAdmin', function () {
 });
 //Paypal pay
 Route::middleware('auth')->get('/compra/pagar/paypal/{data_string}', 'PurchasedController@payPaypal');
+Route::middleware('auth')->get('/compra/pagar/plan/paypal/{data_string}', 'PurchasedController@payPaypalPlan');
 Route::middleware('auth')->get('/compra/currencyExchange', 'PurchasedController@currencyExchange');
 
 //Actas Padres

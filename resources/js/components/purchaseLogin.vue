@@ -154,6 +154,7 @@ export default {
                 address:'',
                 politics_accepted:false
             },
+            allowedExtensions: ["pdf", "jpg", "jpeg", "png", "doc", "mp4"],
             document_types:[],
             events:{
                 register_loading:false
@@ -166,9 +167,9 @@ export default {
             this.navigateToResumen();
         }
 
-        axios.get(`/api/document-type`).then((response) => {
-            this.document_types=response.data;
-        });
+        // axios.get(`/api/document-type`).then((response) => {
+        //     this.document_types=response.data;
+        // });
     },
     methods:{
         LoginValidForm()
@@ -202,7 +203,6 @@ export default {
                 }
             }
         },
-
         /**
          * find extension of uploaded file
          * @param  {string} filename
@@ -221,7 +221,8 @@ export default {
             if (filesize > 2097152) {
                 this.title = "File size limit exceed!";
                 this.message = "Please upload file less than 2MB.";
-                this.showError(this.title, this.message);
+                toastr.error(this.message, this.title);
+                //this.showError(this.title, this.message);
                 return false;
             }
             return true;
@@ -237,7 +238,8 @@ export default {
             } else {
                 this.title = "Invalid file!";
                 this.message = "Please upload jpg,png,pdf or doc file only.";
-                this.showError(this.title, this.message);
+                toastr.error(this.message, this.title);
+                //this.showError(this.title, this.message);
                 return false;
             }
         },
@@ -275,6 +277,7 @@ export default {
         },
         RegisterValidForm()
         {
+            console.log('entramos a validar form');
             let password_confirm=this.registerForm.password == this.registerForm.password_confirm;
             let mailValid=this.validEmail(this.registerForm.email);
             let cellphoneValid=this.validCellphone(this.registerForm.cellphone);
@@ -292,6 +295,8 @@ export default {
         RegisterEvent()
         {
             this.events.register_loading=true;
+            var url = "/users_save";
+            console.log('entramos a registrar');
             axios
         .post(url, {
           name: this.registerForm.names,
@@ -305,7 +310,7 @@ export default {
           phone: this.registerForm.cellphone,
           id_number: this.registerForm.identification,
         })
-        then((response) => {
+        .then((response) => {
                 setTimeout(()=>{
                     this.loginForm.username=this.registerForm.username;
                     this.loginForm.password=this.registerForm.password;
@@ -336,13 +341,19 @@ export default {
             return re.test(email);
         },
         validCellphone: function (cellphone) {
-            var re = /^[3][1-2][0-9]*/;
+            var re = /^[3][0-9][0-9]*/;
             return re.test(cellphone) && cellphone.length==10;
         },
         navigateToResumen()
-        {
-            location.href=`/compra/pagar/mercadopago/${encodeURI(this.payment_code)}`;
+        {   
+            var urlLocation= decodeURI(window.location);
+            let splitUrl=urlLocation.split("/");
+            let last=atob(splitUrl[splitUrl.length-1]);
+            let model=JSON.parse(last);
+            console.log(model.plan_name);
+            location.href=`/compra/plan/${model.plan_name}/resumen`;
         }
+
 
     }
 };
