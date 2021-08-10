@@ -635,6 +635,8 @@ class ClassController extends Controller
                     'name'=>$data['name'],
                     'description'=>$data['description'],
                     'objetivesClass'=>$data['objetivesClass'],
+                    'work' => $data['work'],
+                    'transversals' => $data['transversals'],
                     'hourly_intensity'=>isset($data['hourly_intensity']) ? $data['hourly_intensity'] : 0,
                     'activity_quantity'=>count($data['activities']),
                     'content_quantity'=>count($data['content']), 
