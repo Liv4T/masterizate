@@ -81,10 +81,7 @@
             <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5LM3568"
             height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <!-- End Google Tag Manager (noscript) -->
-        <nav class="navbar fixed-top navbar-expand-md navbar-light navbar-laravel">
-                <!-- <li class="margin-logo"> -->
-                <img class="img-logo" thumbnail fluid src="{{URL('images/home6.png')}}" width="225px" alt="4"/>
-                <!-- </li> -->                
+        <nav class="navbar fixed-top navbar-expand-md navbar-light navbar-laravel">               
                 <a href=""><i class="fab fa-facebook icon-large"></i></a>
                 <a href=""><i class="fab fa-instagram icon-large"></i></a>
                 <a href=""><i class="far fa-envelope icon-large" ></i></a>
@@ -92,22 +89,6 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto">
-                        <nav class="navbar navbar-expand-md navbar-light">
-                            <ul class="navbar-nav mr-sm-6 justify-content-start flex-nav">                                
-                                <li class="nav-pad">
-                                    <a class="color-nav" href="#roles">Programas</a>
-                                </li>
-                                <li class="nav-pad">
-                                    <a class="color-nav" href="#queEs">Qué es</a>
-                                </li>
-                                <li class="nav-pad">
-                                    <a class="color-nav" href="#contactanos">Contáctanos</a>
-                                </li>
-                            </ul>
-                        </nav>
-                    </ul>
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
@@ -209,9 +190,6 @@
 }
 .icon-large{
     font-size: 17px;
-}
-.img-logo{
-    max-width: 280px;
 }
 
 @media only screen and (max-width: 400px) {

@@ -1,23 +1,30 @@
 <template>
     <div>
-        <!-- <div>
-            <nav class="navbar navbar-expand-md navbar-light">
+        <div class="">
+            <nav class="navbar navbar-expand-md navbar-light" >
                 <ul class="navbar-nav mr-sm-6 justify-content-start flex-nav">
                     <li class="margin-logo">
                         <img class="img-logo" thumbnail fluid src="../assets/img/home6.png"  alt="4"/>
                     </li>
-                    <li class="nav-pad">
-                        <a class="color-nav" href="#roles">Programas</a>
-                    </li>
-                    <li class="nav-pad">
-                        <a class="color-nav" href="#queEs">Qué es</a>
-                    </li>
-                    <li class="nav-pad">
-                        <a class="color-nav" href="#contactanos">Contáctanos</a>
-                    </li>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContentMenu" aria-controls="navbarContentMenu" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarContentMenu">
+                        <ul class="navbar-nav ml-auto" >
+                            <li class="nav-pad">
+                                <a class="color-nav" href="#roles">Programas</a>
+                            </li>
+                            <li class="nav-pad">
+                                <a class="color-nav" href="#queEs">Qué es</a>
+                            </li>
+                            <li class="nav-pad">
+                                <a class="color-nav" href="#contactanos">Contáctanos</a>
+                            </li>
+                        </ul>
+                    </div>
                 </ul>
             </nav>
-        </div> -->
+        </div>
         <div class="col" style="padding: 0; margin: 0;">
             <a href="#contactanos"><img class="fondo1" src="../assets/img/home1.png" alt="unete"></a>
         </div>
@@ -331,6 +338,9 @@ export default {
     margin-top: 20px;
     margin-bottom: 1rem;
     z-index: -1;
+}
+.img-logo{
+    max-width: 280px;
 }
 .text-img-dim{
     font-size: 78px;
