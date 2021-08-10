@@ -59,7 +59,7 @@
                             <div class="form-group row justify-content-center">
                                 <div class="col-md-6">
                                     <label for="name">Ciclos</label>
-                                    <multiselect v-model="ciclesData" :options="cicles" :multiple="true"
+                                    <multiselect v-model="ciclesData" :options="cicles" :multiple="false"
                                         :close-on-select="false" :clear-on-select="false" :preserve-search="true"
                                         placeholder="Seleccione una o varias" label="text" track-by="id"
                                         :preselect-first="true">
@@ -103,7 +103,7 @@
         RsiIndicator
     } from "@syncfusion/ej2-vue-charts";
     export default {
-        props: ["id_module","cleanIdModule"],
+        props: ["id_module","id_trimestre","cleanIdModule"],
         data() {
             return {
                 clases: [],
@@ -111,7 +111,7 @@
                 cicles: [],
                 clasesByCicles: [],
                 clasesByCiclesData: [],
-                ciclesData: [],
+                ciclesData: {},
                 descripcion: "",
                 logro: "",
                 fechaE: "",
@@ -129,17 +129,27 @@
         },
         created() {},
         mounted() {
-            this.fillS = [];
-            this.areas = [];
-            this.getClasses();
-            var urls = window.location.origin + "/GetNameWeekly/" + this.id_module;
-
-            axios.get(urls).then(response => {
-                this.nameWeekly = response.data;
-                this.getCiclesAndClasses();
-            });
+            this.getData();
+        },
+        watch:{
+            ciclesData(newData){
+                if(newData){
+                    this.getClassToDelete(newData.id);
+                }
+            }
         },
         methods: {
+            getData(){
+                this.fillS = [];
+                this.areas = [];
+                this.getClasses();
+                var urls = window.location.origin + "/GetNameWeekly/" + this.id_module;
+
+                axios.get(urls).then(response => {
+                    this.nameWeekly = response.data;
+                    this.getCiclesAndClasses();
+                });
+            },
             enabledClass: function (clas) {
                 axios.put(`/api/admin/module/${this.id_module}/class/${clas.id}/close`).then(response => {
                     this.getClasses();
@@ -160,19 +170,17 @@
             },
             //Funcion para obtener las clases y los ciclos para mostrar en los multiselect 
             async getCiclesAndClasses() {
-                this.ciclesData.push({
+                this.ciclesData= {
                     'id': this.id_module,
                     'id_area': this.id_area,
                     'id_classroom': this.id_classroom,
                     'text': this.nameWeekly
-                })
-
-                var urlsel = "/editGetWeek/" + this.id_area + "/" + this.id_classroom;
-                axios.get(urlsel).then((response) => {
+                }           
+                axios.get(`/editGetWeek/${this.id_area}/${this.id_classroom}/${this.id_trimestre}`).then((response) => {
                     /* 
                         Se asigna la data a la variable ciclesClean 
                         para su mejor uso paso seguido se itera y asigna al array cicles
-                    */
+                    */                   
                     var ciclesClean = response.data;
                     for (const key in ciclesClean) {
                         this.cicles.push({
@@ -181,34 +189,30 @@
                             'id_classroom': ciclesClean[key].id_classroom,
                             'text': ciclesClean[key].text,
                         })
-                    }
-
-                    /*
-                        Se itera nuevamente los ciclos 
-                        ya organizados para poder obtener 
-                        todas las clases de los ciclos ya consultados
-                    */
-                    for (const key in ciclesClean) {
-                        var urls = window.location.origin + "/showClass/" + ciclesClean[key].id;
-                        axios.get(urls).then(response => {
-                            var clasesClean = response.data.clase;
-                            for (const key in clasesClean) {
-                                if (clasesClean[key].status === 1) {
-                                    this.clasesByCicles.push({
-                                        'id': clasesClean[key].id,
-                                        'id_weekly_plan': clasesClean[key].id_weekly_plan,
-                                        'text': clasesClean[key].name,
-                                    })
-                                }
-                            }
-                        }).catch(error => {
-                            console.log(error);
-                        })
-                    }
+                    }                
                 }).catch(error => {
                     console.log(error);
                 });
 
+            },
+
+            getClassToDelete(id_cicle){
+                var urls = window.location.origin + "/showClass/" + id_cicle;
+                axios.get(urls).then(response => {
+                    console.log("clases del ciclo",response.data);
+                    var clasesClean = response.data.clase;
+                    for (const key in clasesClean) {
+                        if (clasesClean[key].state === 1) {
+                            this.clasesByCicles.push({
+                                'id': clasesClean[key].id,
+                                'id_weekly_plan': clasesClean[key].id_weekly_plan,
+                                'text': clasesClean[key].name,
+                            })
+                        }
+                    }
+                }).catch(error => {
+                    console.log(error);
+                })
             },
             //Funcion creada para Mostrar el modal
             openModal() {
@@ -249,7 +253,8 @@
             },
 
             cleanCreateClas(){
-                this.createClas = 'hide'
+                this.createClas = 'hide';
+                this.getData();
             }
         }
     };

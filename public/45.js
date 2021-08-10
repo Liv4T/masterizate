@@ -172,6 +172,7 @@ __webpack_require__.r(__webpack_exports__);
     getCycles: function getCycles(id_trimestre) {
       var _this2 = this;
 
+      this.idTrimestre = id_trimestre;
       var url = "/cycle/teacher/" + this.idArea + "/" + id_trimestre;
       axios.get(url).then(function (response) {
         _this2.cycles = response.data;
@@ -218,6 +219,7 @@ __webpack_require__.r(__webpack_exports__);
       this.clasId = "";
       this.idTrimestre = "";
       this.orden = "";
+      this.getData();
     },
     getEditCycle: function getEditCycle(cycle, cycle_number, orden) {
       var data = this.idArea.split("/");
@@ -636,7 +638,11 @@ var render = function() {
         "div",
         [
           _c("teacher-module", {
-            attrs: { id_module: _vm.idModule, cleanIdModule: _vm.cleanIdModule }
+            attrs: {
+              id_module: _vm.idModule,
+              id_trimestre: _vm.idTrimestre,
+              cleanIdModule: _vm.cleanIdModule
+            }
           })
         ],
         1

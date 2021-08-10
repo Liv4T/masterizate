@@ -396,6 +396,7 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
     if (this.id_class != 0) {
       axios.get("/api/teacher/module/".concat(this.id_module, "/class/").concat(this.id_class)).then(function (response) {
         _this.course = response.data;
+        console.log('Clase', response.data);
         _this.work = response.data.work;
         _this.transversals = response.data.transversals;
         _this.objetivesClass = response.data.objetivesClass;
@@ -468,7 +469,6 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
     SaveDataEvent: function SaveDataEvent() {
       var _this2 = this;
 
-      console.log(this.course);
       axios.put("/api/teacher/module/".concat(this.id_module, "/class"), this.course).then(function (response) {
         // this.getPlanificationEvent(this.id_lective_planification);
         toastr.success("Clases actualizadas correctamente");

@@ -75,7 +75,7 @@
     </div>
 </div>
 <div v-else-if="showCycle === 'teacherModule'">
-    <teacher-module :id_module="idModule" :cleanIdModule="cleanIdModule"></teacher-module>
+    <teacher-module :id_module="idModule" :id_trimestre="idTrimestre" :cleanIdModule="cleanIdModule"></teacher-module>
 </div>
 <div v-else-if="showCycle === 'semanalAct' ">
     <semanalact-component :id_area="id_area" :id_classroom="id_classroom" :cleanIdModule="cleanIdModule" :id_cycle="id_cicle" :orden="orden" :cycle_number="cycle_number"></semanalact-component>
@@ -158,7 +158,7 @@ export default {
             });
         },
         getCycles(id_trimestre) {
-    
+            this.idTrimestre = id_trimestre;
             var url="/cycle/teacher/"+this.idArea+"/"+id_trimestre;
             axios.get(url).then((response) => {
                 this.cycles = response.data;
@@ -206,6 +206,7 @@ export default {
             this.clasId="";
             this.idTrimestre="";
             this.orden="";
+            this.getData();
         },
         
         getEditCycle(cycle, cycle_number, orden){

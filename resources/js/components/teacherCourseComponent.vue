@@ -397,6 +397,7 @@ export default {
         {
             axios.get(`/api/teacher/module/${this.id_module}/class/${this.id_class}`).then((response) => {
                     this.course=response.data;
+                    console.log('Clase',response.data)
                     this.work = response.data.work;
                     this.transversals = response.data.transversals;
                     this.objetivesClass = response.data.objetivesClass;
@@ -477,11 +478,10 @@ export default {
             });
         },
 
-        SaveDataEvent(){
-            console.log(this.course);
+        SaveDataEvent(){            
             axios.put(`/api/teacher/module/${this.id_module}/class`,this.course).then((response) => {
                // this.getPlanificationEvent(this.id_lective_planification);
-                toastr.success("Clases actualizadas correctamente");
+                toastr.success("Clases actualizadas correctamente");                
                 this.returnPage();
             },(error)=>{console.log(error);toastr.error("ERROR:Por favor valide que la información esta completa");});
         },
