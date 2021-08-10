@@ -445,7 +445,7 @@ Route::middleware('auth')->get('/actividad_d/{id}', 'ClassController@activityWee
 Route::middleware('auth')->get('/actividad_d/getClass/{id}', 'ClassController@getClassId')->name('getClass');
 Route::post('courseWeekly', 'CoursesController@courseWeekly')->name('courseWeekly');
 Route::get('GetArearByUser', 'CoursesController@getAreaByUser')->name('GetArearByUser');
-
+//prueba push
 // Rutas capturar actividades y entregas
 
 Route::get('getAllActivitiesUser', 'ActivityController@getAllActivitiesRepositories')->name('getAllActivitiesUser');
@@ -1082,15 +1082,15 @@ Route::middleware('auth')->post('/updateViewedProceedings/general/{id}', 'Procee
 Route::middleware('auth')->get('/api/proceedings/general/download/{id}', 'ProceedingsGeneralController@downloadProceedings');
 Route::middleware('auth')->get('/api/proceedings/general/users', 'ProceedingsGeneralController@getUsersToProceedings');
 
-Route::resource('CalLectivesActivities','CalLectivesActivitiesController');
-Route::get('getLectivesActivitiesCal/{lective_planification}','CalLectivesActivitiesController@getLectivesActivitiesCal');
-Route::get('getNotesStudents','CalLectivesActivitiesController@getNotesStudents');
+Route::resource('CalLectivesActivities', 'CalLectivesActivitiesController');
+Route::get('getLectivesActivitiesCal/{lective_planification}', 'CalLectivesActivitiesController@getLectivesActivitiesCal');
+Route::get('getNotesStudents', 'CalLectivesActivitiesController@getNotesStudents');
 Route::middleware('auth')->get('/cycle/teacher/{id_area}/{id_classroom}/{id_trimestre}', 'TutorController@cyclesByTeacher');
 Route::post('/createTrimestre', 'TrimestreController@createTrimestre');
 Route::get('/getTrimestres', 'TrimestreController@getTrimestre');
-Route::get('/getActivitiesTeacher/{id_area}/{id_classroom}','ActivityController@getActivitiesTeacher');
+Route::get('/getActivitiesTeacher/{id_area}/{id_classroom}', 'ActivityController@getActivitiesTeacher');
 
-Route::resource('/trimestres','TrimestresController');
+Route::resource('/trimestres', 'TrimestresController');
 Route::middleware('auth')->get('/quarters', function () {
     return view('trimestres');
 });
