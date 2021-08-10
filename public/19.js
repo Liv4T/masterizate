@@ -478,11 +478,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
                   case 2:
                     order = _context2.sent;
-                    console.log(order);
 
+                    //console.log(order);
                     _this3.PayEvent(order);
 
-                  case 5:
+                  case 4:
                   case "end":
                     return _context2.stop();
                 }
@@ -504,8 +504,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.events.pay_loading = true;
       var model = {
         quantity: this.current_plan.quantity,
-        schedule_id: this.tutorschedule_id,
-        event_student_id: this.current_plan.id_event_student,
+        plan_name: this.current_plan.plan_name,
         amount: order.purchase_units[0].amount.value,
         ref: order.purchase_units[0].payments.captures[0].id,
         result: order.purchase_units[0].payments.captures[0].status,
@@ -516,7 +515,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         total: this.TotalValue()
       }; //console.log(model);
 
-      location.href = "/compra/pagar/paypal/".concat(encodeURI(window.btoa(JSON.stringify(model))));
+      location.href = "/compra/pagar/plan/paypal/".concat(encodeURI(window.btoa(JSON.stringify(model))));
       setTimeout(function () {
         _this4.events.pay_loading = false;
       }, 4000);
