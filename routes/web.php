@@ -58,6 +58,10 @@ Route::middleware('auth')->get('/actividad_docente', function () {
 //      return view('dboard');
 // });
 
+Route::get('/equations', function () {
+    return view('equations');
+});
+
 Route::middleware('auth')->get('/free', function () {
     return view('free');
 });

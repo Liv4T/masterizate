@@ -3,7 +3,7 @@
     <div>
         <mathlive-mathfield
             id="mf" ref="mathfield"
-            :options="{smartFence:false, virtualKeyboardMode:'manual', virtualKeyboardTheme:'apple'}"
+            :options="{smartFence:false, virtualKeyboardMode:'manual', virtualKeyboardTheme:'material', virtualKeyboardLayout: 'dvorak',}"
             :on-keystroke="displayKeystroke"
             @input="method_executed"
             v-model="content_editor">

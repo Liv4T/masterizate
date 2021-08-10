@@ -88,7 +88,8 @@ var render = function() {
             options: {
               smartFence: false,
               virtualKeyboardMode: "manual",
-              virtualKeyboardTheme: "apple"
+              virtualKeyboardTheme: "material",
+              virtualKeyboardLayout: "dvorak"
             },
             "on-keystroke": _vm.displayKeystroke
           },
