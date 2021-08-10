@@ -536,7 +536,7 @@ var render = function() {
                                             }
                                           }),
                                           _vm._v(
-                                            "\n                            %\n                          "
+                                            "\r\n                            %\r\n                          "
                                           )
                                         ]
                                       )
@@ -894,7 +894,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("h3", { staticClass: "card-header fondo text-center" }, [
-      _vm._v("\n                Porcentaje\n                "),
+      _vm._v("\r\n                Porcentaje\r\n                "),
       _c(
         "button",
         {
@@ -910,7 +910,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("h3", { staticClass: "card-header fondo text-center" }, [
-      _vm._v("\n                Eliminar Indicador\n                "),
+      _vm._v("\r\n                Eliminar Indicador\r\n                "),
       _c(
         "button",
         {
