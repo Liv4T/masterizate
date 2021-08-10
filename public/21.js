@@ -132,7 +132,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["id_module", "cleanIdModule"],
+  props: ["id_module", "id_trimestre", "cleanIdModule"],
   data: function data() {
     return {
       clases: [],
@@ -140,7 +140,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       cicles: [],
       clasesByCicles: [],
       clasesByCiclesData: [],
-      ciclesData: [],
+      ciclesData: {},
       descripcion: "",
       logro: "",
       fechaE: "",
@@ -158,19 +158,29 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   created: function created() {},
   mounted: function mounted() {
-    var _this = this;
-
-    this.fillS = [];
-    this.areas = [];
-    this.getClasses();
-    var urls = window.location.origin + "/GetNameWeekly/" + this.id_module;
-    axios.get(urls).then(function (response) {
-      _this.nameWeekly = response.data;
-
-      _this.getCiclesAndClasses();
-    });
+    this.getData();
+  },
+  watch: {
+    ciclesData: function ciclesData(newData) {
+      if (newData) {
+        this.getClassToDelete(newData.id);
+      }
+    }
   },
   methods: {
+    getData: function getData() {
+      var _this = this;
+
+      this.fillS = [];
+      this.areas = [];
+      this.getClasses();
+      var urls = window.location.origin + "/GetNameWeekly/" + this.id_module;
+      axios.get(urls).then(function (response) {
+        _this.nameWeekly = response.data;
+
+        _this.getCiclesAndClasses();
+      });
+    },
     enabledClass: function enabledClass(clas) {
       var _this2 = this;
 
@@ -195,20 +205,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _this4 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        var urlsel;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _this4.ciclesData.push({
+                _this4.ciclesData = {
                   'id': _this4.id_module,
                   'id_area': _this4.id_area,
                   'id_classroom': _this4.id_classroom,
                   'text': _this4.nameWeekly
-                });
-
-                urlsel = "/editGetWeek/" + _this4.id_area + "/" + _this4.id_classroom;
-                axios.get(urlsel).then(function (response) {
+                };
+                axios.get("/editGetWeek/".concat(_this4.id_area, "/").concat(_this4.id_classroom, "/").concat(_this4.id_trimestre)).then(function (response) {
                   /* 
                       Se asigna la data a la variable ciclesClean 
                       para su mejor uso paso seguido se itera y asigna al array cicles
@@ -223,42 +230,38 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                       'text': ciclesClean[key].text
                     });
                   }
-                  /*
-                      Se itera nuevamente los ciclos 
-                      ya organizados para poder obtener 
-                      todas las clases de los ciclos ya consultados
-                  */
-
-
-                  for (var _key in ciclesClean) {
-                    var urls = window.location.origin + "/showClass/" + ciclesClean[_key].id;
-                    axios.get(urls).then(function (response) {
-                      var clasesClean = response.data.clase;
-
-                      for (var _key2 in clasesClean) {
-                        if (clasesClean[_key2].status === 1) {
-                          _this4.clasesByCicles.push({
-                            'id': clasesClean[_key2].id,
-                            'id_weekly_plan': clasesClean[_key2].id_weekly_plan,
-                            'text': clasesClean[_key2].name
-                          });
-                        }
-                      }
-                    })["catch"](function (error) {
-                      console.log(error);
-                    });
-                  }
                 })["catch"](function (error) {
                   console.log(error);
                 });
 
-              case 3:
+              case 2:
               case "end":
                 return _context.stop();
             }
           }
         }, _callee);
       }))();
+    },
+    getClassToDelete: function getClassToDelete(id_cicle) {
+      var _this5 = this;
+
+      var urls = window.location.origin + "/showClass/" + id_cicle;
+      axios.get(urls).then(function (response) {
+        console.log("clases del ciclo", response.data);
+        var clasesClean = response.data.clase;
+
+        for (var key in clasesClean) {
+          if (clasesClean[key].state === 1) {
+            _this5.clasesByCicles.push({
+              'id': clasesClean[key].id,
+              'id_weekly_plan': clasesClean[key].id_weekly_plan,
+              'text': clasesClean[key].name
+            });
+          }
+        }
+      })["catch"](function (error) {
+        console.log(error);
+      });
     },
     //Funcion creada para Mostrar el modal
     openModal: function openModal() {
@@ -271,7 +274,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         se puede descomentar la linea para settear el array de ciclos al backend
     */
     deactivateData: function deactivateData() {
-      var _this5 = this;
+      var _this6 = this;
 
       var dataToDeactivate = [{
         // 'cicles': this.ciclesData,
@@ -281,7 +284,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         toastr.success("Dato desactivado correctamente");
         $("#openModal").modal("hide");
 
-        _this5.getClasses();
+        _this6.getClasses();
       })["catch"](function (error) {
         console.log(error);
       });
@@ -303,6 +306,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     cleanCreateClas: function cleanCreateClas() {
       this.createClas = 'hide';
+      this.getData();
     }
   }
 });
@@ -517,7 +521,7 @@ var render = function() {
                             _c("multiselect", {
                               attrs: {
                                 options: _vm.cicles,
-                                multiple: true,
+                                multiple: false,
                                 "close-on-select": false,
                                 "clear-on-select": false,
                                 "preserve-search": true,

@@ -136,6 +136,9 @@ class ClassController extends Controller
             'content'=>$class_resources,
             'activities'=>[],
             'activity_quantity'=>$course->activity_quantity,
+            'work' => $course->work,
+            'transversals' => $course->transversals,
+            'objetivesClass' => $course->objetivesClass,
             'content_quantity'=>$course->content_quantity,
             'class_interaction'=>$class_interaction,
             'progress'=> $progress,
@@ -631,6 +634,7 @@ class ClassController extends Controller
                 array(
                     'name'=>$data['name'],
                     'description'=>$data['description'],
+                    'objetivesClass'=>$data['objetivesClass'],
                     'hourly_intensity'=>isset($data['hourly_intensity']) ? $data['hourly_intensity'] : 0,
                     'activity_quantity'=>count($data['activities']),
                     'content_quantity'=>count($data['content']), 

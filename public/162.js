@@ -204,13 +204,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
 (function () {
   "use strict";
 
@@ -502,41 +495,17 @@ var render = function() {
                                                 overflow: "hidden"
                                               }
                                             },
-                                            [_vm._v(_vm._s(option.achievement))]
-                                          ),
-                                          _vm._v(" "),
-                                          _c("input", {
-                                            directives: [
-                                              {
-                                                name: "model",
-                                                rawName: "v-model",
-                                                value: option.percentage,
-                                                expression: "option.percentage"
-                                              }
-                                            ],
-                                            staticStyle: { width: "50px" },
-                                            attrs: {
-                                              type: "number",
-                                              disabled: ""
-                                            },
-                                            domProps: {
-                                              value: option.percentage
-                                            },
-                                            on: {
-                                              input: function($event) {
-                                                if ($event.target.composing) {
-                                                  return
-                                                }
-                                                _vm.$set(
-                                                  option,
-                                                  "percentage",
-                                                  $event.target.value
+                                            [
+                                              _vm._v(
+                                                _vm._s(
+                                                  option.achievement +
+                                                    "  " +
+                                                    option.percentage +
+                                                    "  " +
+                                                    "%"
                                                 )
-                                              }
-                                            }
-                                          }),
-                                          _vm._v(
-                                            "\r\n                            %\r\n                          "
+                                              )
+                                            ]
                                           )
                                         ]
                                       )

@@ -55,14 +55,7 @@
                                 width: 450px;
                                 white-space: nowrap;
                                 overflow: hidden;"
-                            >{{ option.achievement }}</label>
-                            <input
-                              type="number"
-                              style="width:50px;"
-                              v-model="option.percentage"
-                              disabled
-                            />
-                            %
+                            >{{ option.achievement+'  ' + option.percentage+ '  ' + '%' }}</label>                            
                           </button>
                         </h2>
                       </div>
