@@ -280,25 +280,28 @@ export default {
   watch:{
     idArea(newVal, oldVal){
       if(newVal !== oldVal){
+        this.getIdUrl();
         this.getData();
       }
     }
   },
   mounted() {
-    if(this.idArea === undefined){
-      let params = window.location.pathname;
-      let ids = params.split('/');            
-      let idArea = ids[2]+"/"+ids[3];
-      this.areaId = idArea;
-
-      console.log('Url actual',idArea);
-    }else{
-      this.areaId = this.idArea
-    }
-    
+    this.getIdUrl();
     this.getData();
   },
   methods: {
+    getIdUrl(){
+      if(this.idArea === undefined){
+        let params = window.location.pathname;
+        let ids = params.split('/');            
+        let idArea = ids[2]+"/"+ids[3];
+        this.areaId = idArea;
+
+        console.log('Url actual',idArea);
+      }else{
+        this.areaId = this.idArea
+      }
+    },
     getData(){
       var urlsel = window.location.origin + "/coursePlanification/" + this.areaId;
       axios.get(urlsel).then((response) => {

@@ -325,7 +325,7 @@ export default {
           this.errors = [];
 
           toastr.success("Nuevo comentario creada exitosamente");
-          this.getMenu();
+          // this.getMenu();
         })
         .catch((error) => {
           this.errors = error.response.data;
