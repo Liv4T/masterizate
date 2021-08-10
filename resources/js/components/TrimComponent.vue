@@ -500,7 +500,6 @@ export default {
         removePIAR(index) {
             this.inputsPIAR.splice(index, 1);
         },
-
         addP1(index) {
             this.inputsPIAR1.push({ namePIAR: "", logroPIAR: "", contenidoPIAR: "" });
         },
