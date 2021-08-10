@@ -86,7 +86,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.parameters-container[data-v-27786708]{padding: 10px;}\n.parameter[data-v-27786708]{display: flex;justify-content: space-between;flex-direction: row;align-items: center;}\n.parameter-label[data-v-27786708]{width: 150px;font-weight: 700;font-size: 1.0em;}\r\n", ""]);
+exports.push([module.i, "\n.parameters-container[data-v-27786708]{padding: 10px;}\n.parameter[data-v-27786708]{display: flex;justify-content: space-between;flex-direction: row;align-items: center;}\n.parameter-label[data-v-27786708]{width: 150px;font-weight: 700;font-size: 1.0em;}\n", ""]);
 
 // exports
 

@@ -62,6 +62,7 @@ Vue.component("home", require("./components/home.vue").default);
 Vue.component("home-skills", require("./components/homeSkills.vue").default);
 Vue.component("new-home", require("./components/newHome.vue").default);
 Vue.component("board", require("./components/board.vue").default);
+Vue.component("equations", require("./components/equations.vue").default);
 Vue.component("footers", require("./components/footer.vue").default);
 Vue.component("footer-home", require("./components/footerHome.vue").default);
 Vue.component("unit-class", require("./components/unitComponent.vue").default);
@@ -204,6 +205,7 @@ Vue.component("activity-relationship", ()=>import("./components/activityRelation
 
 Vue.component("activity-student-play-component", ()=>import("./components/activityStudentPlayComponent.vue"));
 Vue.component("editor-component", () => import("./components/editorComponent.vue"));
+Vue.component("equation-component", () => import("./components/equationComponent.vue"));
 Vue.component("process-ribbon-component", () =>   import("./components/processRibbonComponent.vue"));
 
 Vue.component("lectives-adm", () => import ("./components/lectivesAdmComponent.vue"));
