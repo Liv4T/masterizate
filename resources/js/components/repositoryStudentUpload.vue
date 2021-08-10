@@ -154,7 +154,7 @@ export default {
           this.errors = [];
 
           toastr.success("Nueva tarea creada exitosamente");
-          this.getMenu();
+          // this.getMenu();
         })
         .catch((error) => {
           this.errors = error.response.data;

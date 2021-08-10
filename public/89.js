@@ -368,9 +368,7 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
         audio: this.uploadBlobFile
       }).then(function (response) {
         _this3.errors = [];
-        toastr.success("Nuevo comentario creada exitosamente");
-
-        _this3.getMenu();
+        toastr.success("Nuevo comentario creada exitosamente"); // this.getMenu();
       })["catch"](function (error) {
         _this3.errors = error.response.data;
         toastr.danger("Complete todos los campos requeridos");

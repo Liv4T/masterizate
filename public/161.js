@@ -270,24 +270,27 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
   watch: {
     idArea: function idArea(newVal, oldVal) {
       if (newVal !== oldVal) {
+        this.getIdUrl();
         this.getData();
       }
     }
   },
   mounted: function mounted() {
-    if (this.idArea === undefined) {
-      var params = window.location.pathname;
-      var ids = params.split('/');
-      var idArea = ids[2] + "/" + ids[3];
-      this.areaId = idArea;
-      console.log('Url actual', idArea);
-    } else {
-      this.areaId = this.idArea;
-    }
-
+    this.getIdUrl();
     this.getData();
   },
   methods: {
+    getIdUrl: function getIdUrl() {
+      if (this.idArea === undefined) {
+        var params = window.location.pathname;
+        var ids = params.split('/');
+        var idArea = ids[2] + "/" + ids[3];
+        this.areaId = idArea;
+        console.log('Url actual', idArea);
+      } else {
+        this.areaId = this.idArea;
+      }
+    },
     getData: function getData() {
       var _this = this;
 

@@ -162,9 +162,7 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
         file: this.uploadFile
       }).then(function (response) {
         _this2.errors = [];
-        toastr.success("Nuevo comentario creada exitosamente");
-
-        _this2.getMenu();
+        toastr.success("Nuevo comentario creada exitosamente"); //this.getMenu();
       })["catch"](function (error) {
         _this2.errors = error.response.data;
         toastr.danger("Complete todos los campos requeridos");
