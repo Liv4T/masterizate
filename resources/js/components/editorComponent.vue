@@ -8,7 +8,7 @@
 <script>
 import { VueEditor } from "vue2-editor";
 export default {
-    props: ["content","customtoolbar","readonly"],
+    props: ["content","customtoolbar","readonly","type"],
     components: {
         VueEditor
     },
@@ -21,7 +21,6 @@ export default {
     mounted() {
         
         this.content_editor=this.content;
-
         if(this.customtoolbar)
         {  
             this.custom_toolbar=this.customtoolbar;
@@ -30,7 +29,6 @@ export default {
     methods: {
        method_executed()
        {
-
            this.$emit('updateText', this.content_editor)
       
        }
