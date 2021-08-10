@@ -539,39 +539,41 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
         _this2.isLoading = false;
       });
 
-      if (this.inputsPIAR.length > 0 || this.inputsPIAR1.length > 0) {
-        this.isLoading = true;
-        if (this.inputsPIAR.length < 1 || this.inputsPIAR1.length < 1) return;
-        this.newTrimestre = [];
-        this.newLogro = [];
+      if (this.activityForPIARStudents === true) {
+        if (this.inputsPIAR.length > 0 || this.inputsPIAR1.length > 0) {
+          this.isLoading = true;
+          if (this.inputsPIAR.length < 1 || this.inputsPIAR1.length < 1) return;
+          this.newTrimestre = [];
+          this.newLogro = [];
 
-        if (this.inputsPIAR.length > 0) {
-          for (var _i2 = 0; _i2 < this.inputsPIAR.length; _i2++) {
-            this.newTrimestre.push(this.inputsPIAR[_i2]);
+          if (this.inputsPIAR.length > 0) {
+            for (var _i2 = 0; _i2 < this.inputsPIAR.length; _i2++) {
+              this.newTrimestre.push(this.inputsPIAR[_i2]);
+            }
           }
-        }
 
-        if (this.inputsPIAR1.length > 0) {
-          for (var _i3 = 0; _i3 < this.inputsPIAR1.length; _i3++) {
-            this.newLogro.push(this.inputsPIAR1[_i3]);
+          if (this.inputsPIAR1.length > 0) {
+            for (var _i3 = 0; _i3 < this.inputsPIAR1.length; _i3++) {
+              this.newLogro.push(this.inputsPIAR1[_i3]);
+            }
           }
-        }
 
-        axios.post('/piarAnualPlanification', {
-          //Cursos generales
-          id_area: this.idArea.substring(0, this.idArea.lastIndexOf("/")),
-          id_classroom: this.idArea[2],
-          logros: JSON.stringify(this.newLogro),
-          trimestres: JSON.stringify(this.newTrimestre),
-          students: JSON.stringify(this.saveStudent)
-        }).then(function (response) {
-          _this2.errors = [];
-          toastr.success(response.data);
-          _this2.isLoading = false;
-        })["catch"](function (error) {
-          _this2.errors = error.response.data;
-          _this2.isLoading = false;
-        });
+          axios.post('/piarAnualPlanification', {
+            //Cursos generales
+            id_area: this.idArea.substring(0, this.idArea.lastIndexOf("/")),
+            id_classroom: this.idArea[2],
+            logros: JSON.stringify(this.newLogro),
+            trimestres: JSON.stringify(this.newTrimestre),
+            students: JSON.stringify(this.saveStudent)
+          }).then(function (response) {
+            _this2.errors = [];
+            toastr.success(response.data);
+            _this2.isLoading = false;
+          })["catch"](function (error) {
+            _this2.errors = error.response.data;
+            _this2.isLoading = false;
+          });
+        }
       }
     },
     updateCourses: function updateCourses() {
