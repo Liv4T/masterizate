@@ -133,6 +133,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["idArea", "planif", "moduleId", "user"],
   data: function data() {
@@ -148,11 +151,12 @@ __webpack_require__.r(__webpack_exports__);
       idTrimestre: "",
       orden: "",
       clase_to_delete: [],
-      id_cicle: ""
+      id_cicle: "",
+      filter: '',
+      cycle_number: 0
     };
   },
   mounted: function mounted() {
-    console.log(this.user);
     this.planification = this.planif;
     this.getData();
   },
@@ -190,7 +194,6 @@ __webpack_require__.r(__webpack_exports__);
           var urlsel = "/viewGetWeek/" + _this2.idArea + '/' + id_trimestre;
           axios.get(urlsel).then(function (response) {
             var data = response.data;
-            console.log('data estudiante: ', response.data);
             data.forEach(function (element) {
               _this2.cycles.push({
                 driving_question: element.text,
@@ -216,15 +219,16 @@ __webpack_require__.r(__webpack_exports__);
       this.idTrimestre = "";
       this.orden = "";
     },
-    getEditCycle: function getEditCycle(cycle) {
+    getEditCycle: function getEditCycle(cycle, cycle_number, orden) {
       var data = this.idArea.split("/");
       this.id_area = data[0];
+      this.cycle_number = cycle_number;
+      this.orden = orden;
       this.id_classroom = data[1];
       this.showCycle = "semanalAct";
       this.id_cicle = cycle.id;
     },
     RequestPermissions: function RequestPermissions(data, curso) {
-      console.log(data);
       axios.post('/requestPermission', {
         cicle: data.text,
         id_area: data.id_area,
@@ -279,6 +283,20 @@ __webpack_require__.r(__webpack_exports__);
       this.orden = orden;
       this.showCycle = "courseSemanal";
     }
+  },
+  computed: {
+    filteredRows: function filteredRows() {
+      var _this5 = this;
+
+      if (!this.cycles.filter) return false;
+      return this.cycles.filter(function (row) {
+        var name = row.driving_question.toString().toLowerCase();
+
+        var searchTerm = _this5.filter.toLowerCase();
+
+        return name.includes(searchTerm);
+      });
+    }
   }
 });
 
@@ -296,7 +314,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.item-cycle {\n    height: 50px;\n    overflow: hidden;\n    color: white;\n    background: #00cbcec1;\n    margin: 8px;\n    line-height: 50px;\n    margin-bottom: 2rem;\n    border-radius: 10px;\n}\n.menu-cycle{\n    color: white;\n    text-decoration: none;\n    font-weight: bold;\n    font-size: 28px;\n}\n", ""]);
+exports.push([module.i, "\n.item-cycle {\r\n    height: 50px;\r\n    overflow: hidden;\r\n    color: white;\r\n    background: #00cbcec1;\r\n    margin: 8px;\r\n    line-height: 50px;\r\n    margin-bottom: 2rem;\r\n    border-radius: 10px;\n}\n.menu-cycle{\r\n    color: white;\r\n    text-decoration: none;\r\n    font-weight: bold;\r\n    font-size: 28px;\n}\r\n", ""]);
 
 // exports
 
@@ -397,24 +415,65 @@ var render = function() {
                     },
                     [
                       _vm.user.type_user !== 3
-                        ? _c("div", { staticStyle: { padding: "20px" } }, [
-                            _c(
-                              "a",
-                              {
-                                staticClass: "btn btn-warning float-left",
-                                on: {
-                                  click: function($event) {
-                                    return _vm.getOrderCycle(
-                                      trimestre.id,
-                                      t + 1
-                                    )
+                        ? _c(
+                            "div",
+                            {
+                              staticClass: "float-left",
+                              staticStyle: { padding: "20px" }
+                            },
+                            [
+                              _c(
+                                "a",
+                                {
+                                  staticClass: "btn btn-warning float-left",
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.getOrderCycle(
+                                        trimestre.id,
+                                        t + 1
+                                      )
+                                    }
                                   }
-                                }
-                              },
-                              [_vm._v("Crear")]
-                            )
-                          ])
+                                },
+                                [_vm._v("Crear")]
+                              )
+                            ]
+                          )
                         : _vm._e(),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          staticClass: "float-right",
+                          staticStyle: { padding: "20px" }
+                        },
+                        [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.filter,
+                                expression: "filter"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            attrs: {
+                              type: "text",
+                              placeholder: "Buscar Ciclo"
+                            },
+                            domProps: { value: _vm.filter },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.filter = $event.target.value
+                              }
+                            }
+                          })
+                        ]
+                      ),
                       _vm._v(" "),
                       _c("div", { staticClass: "card-body" }, [
                         _c(
@@ -445,7 +504,7 @@ var render = function() {
                                   ])
                                 ]),
                                 _vm._v(" "),
-                                _vm._l(_vm.cycles, function(cycle, k) {
+                                _vm._l(_vm.filteredRows, function(cycle, k) {
                                   return _c("tr", { key: k }, [
                                     _c("td", [
                                       _vm._v(_vm._s(cycle.driving_question))
@@ -482,7 +541,10 @@ var render = function() {
                                                 on: {
                                                   click: function() {
                                                     return _vm.getEditCycle(
-                                                      cycle
+                                                      cycle,
+                                                      k + 1,
+                                                      trimestre.id,
+                                                      t + 1
                                                     )
                                                   }
                                                 }
@@ -588,7 +650,9 @@ var render = function() {
               id_area: _vm.id_area,
               id_classroom: _vm.id_classroom,
               cleanIdModule: _vm.cleanIdModule,
-              id_cycle: _vm.id_cicle
+              id_cycle: _vm.id_cicle,
+              orden: _vm.orden,
+              cycle_number: _vm.cycle_number
             }
           }),
           _vm._v(" "),
@@ -652,7 +716,7 @@ var render = function() {
                           ])
                         : _c("div", [
                             _vm._v(
-                              "\n                        No hay Clases asignadas al Ciclo\n                    "
+                              "\r\n                        No hay Clases asignadas al Ciclo\r\n                    "
                             )
                           ])
                     ]),

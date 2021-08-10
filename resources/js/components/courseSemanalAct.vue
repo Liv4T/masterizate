@@ -17,7 +17,12 @@
               >
                 <tab-content title="Ciclo">
                   <div class="form-group row mx-auto" v-for="(act, t) in fillS" :key="t">
-                    <div class="col-md-12">
+                    <div class="col-md-6">
+                      <label>Numero de Ciclo</label>
+                      <input class="form-control" disabled :value="`${orden}.${cycle_number}`">
+                    </div>
+                    <div class="col-md-6">
+                      <label>Trimestre</label>
                       <select class="form-control" v-model="act.id_trimestre">
                         <option :value="options.id" v-for="(options ,key) in trimestres" :key="key">
                           {{
@@ -119,7 +124,7 @@ import VueFormWizard from "vue-form-wizard";
 import "vue-form-wizard/dist/vue-form-wizard.min.css";
 Vue.use(VueFormWizard);
 export default {
-  props: ["id_area", "id_classroom","cleanIdModule", "id_cycle"],
+  props: ["id_area", "id_classroom","cleanIdModule", "id_cycle","cycle_number","orden"],
   data() {
     return {
       inputs: [
@@ -172,11 +177,11 @@ export default {
               return false;
             }
           }
-          if(IsJsonString()){
+          if(IsJsonString()){            
             this.inputClass=response.data[0] ? JSON.parse(response.data[0].class) : {}
-          } else{
+          } else{            
             let json=[{
-              class_developmentC: response.data[0] ? JSON.parse(response.data[0].class) : ""
+              class_developmentC: response.data[0] ? response.data[0].class : ""
             }];
             this.inputClass=json;
           }

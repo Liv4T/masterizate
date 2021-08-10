@@ -25,8 +25,11 @@
                   aria-labelledby="heading"
                   data-parent="#accordionExample"
                 >
-                <div v-if="user.type_user !== 3" style="padding:20px;">
+                <div v-if="user.type_user !== 3" class="float-left" style="padding:20px;">
                     <a v-on:click="getOrderCycle(trimestre.id,t+1)" class="btn btn-warning float-left">Crear</a>
+                </div>
+                <div class="float-right" style="padding:20px;">                    
+                    <input class="form-control" type="text" placeholder="Buscar Ciclo" v-model="filter" />
                 </div>
                 <div class="card-body">
                     <table class="table table-responsive-xl table-hover table-striped center">
@@ -38,7 +41,7 @@
                                 <td>{{ $t('lang.class.action') }}</td>
 
                             </tr>
-                            <tr v-for="(cycle,k) in cycles" :key="k">
+                            <tr v-for="(cycle,k) in filteredRows" :key="k">                                
                                 <td>{{ cycle.driving_question }}</td>
 
                                 <td>{{ cycle.observation }}</td>
@@ -50,7 +53,7 @@
                                 </td>
                                 <td v-else-if="planification === 'general'">
                                     <p>
-                                        <button class="btn btn-warning" v-on:click="()=>getEditCycle(cycle)">Editar</button>                  
+                                        <button class="btn btn-warning" v-on:click="()=>getEditCycle(cycle, k+1, trimestre.id,t+1)">Editar</button>                  
                                         <button class="btn btn-primary" v-if="cycle.activateButton === 'true'" v-on:click="()=>ClassAndCicle(cycle.id)" >Eliminar</button>                      
                                         <button class="btn btn-primary" v-if="cycle.activateButton === 'false'" v-on:click="()=>RequestPermissions(cycle, cycle.driving_question)">Solicitar Permiso para Eliminar</button>
                                     </p>
@@ -75,7 +78,7 @@
     <teacher-module :id_module="idModule" :cleanIdModule="cleanIdModule"></teacher-module>
 </div>
 <div v-else-if="showCycle === 'semanalAct' ">
-    <semanalact-component :id_area="id_area" :id_classroom="id_classroom" :cleanIdModule="cleanIdModule" :id_cycle="id_cicle"></semanalact-component>
+    <semanalact-component :id_area="id_area" :id_classroom="id_classroom" :cleanIdModule="cleanIdModule" :id_cycle="id_cicle" :orden="orden" :cycle_number="cycle_number"></semanalact-component>
     <div class="modal fade" id="infoClass" tabindex="-1" role="dialog" aria-labelledby="infoClassLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -138,11 +141,12 @@ export default {
             idTrimestre:"",
             orden:"",
             clase_to_delete:[],
-            id_cicle:""
+            id_cicle:"",
+            filter: '',
+            cycle_number:0
         };
     },
-    mounted(){
-        console.log(this.user)
+    mounted(){        
         this.planification= this.planif;
         this.getData();
     },
@@ -175,8 +179,7 @@ export default {
                 } else if(this.planif === 'claseEst'){
                     var urlsel = "/viewGetWeek/" + this.idArea +'/'+id_trimestre;
                     axios.get(urlsel).then((response) => {
-                       let data = response.data;
-                       console.log('data estudiante: ',response.data)
+                       let data = response.data;                       
                        data.forEach((element)=>{
                            this.cycles.push({
                                 driving_question: element.text,
@@ -205,16 +208,17 @@ export default {
             this.orden="";
         },
         
-        getEditCycle(cycle){
+        getEditCycle(cycle, cycle_number, orden){
             let data = this.idArea.split("/");
             this.id_area=data[0];
+            this.cycle_number = cycle_number;
+            this.orden=orden;
             this.id_classroom = data[1];
             this.showCycle ="semanalAct";
             this.id_cicle = cycle.id;
         },
 
-        RequestPermissions(data, curso){
-            console.log(data);
+        RequestPermissions(data, curso){            
             axios.post('/requestPermission',{
                 cicle: data.text,
                 id_area: data.id_area,
@@ -268,6 +272,17 @@ export default {
             this.orden=orden;
             this.showCycle = "courseSemanal"
         }
+    },
+    computed: {
+        filteredRows() {
+            if(!this.cycles.filter) return false;
+            return this.cycles.filter((row) => {
+                const name = row.driving_question.toString().toLowerCase();
+                const searchTerm = this.filter.toLowerCase();
+
+                return name.includes(searchTerm);
+            });
+        },
     },
 };
 </script>

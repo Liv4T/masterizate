@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div>
+        <!-- <div>
             <nav class="navbar navbar-expand-md navbar-light">
                 <ul class="navbar-nav mr-sm-6 justify-content-start flex-nav">
                     <li class="margin-logo">
@@ -17,7 +17,7 @@
                     </li>
                 </ul>
             </nav>
-        </div>
+        </div> -->
         <div class="col" style="padding: 0; margin: 0;">
             <a href="#contactanos"><img class="fondo1" src="../assets/img/home1.png" alt="unete"></a>
         </div>
