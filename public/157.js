@@ -103,7 +103,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   methods: {
     logout: function logout() {
@@ -337,15 +336,6 @@ var staticRenderFns = [
                 attrs: { href: "/docente/clases" }
               },
               [_vm._v("Ciclos Y Clases")]
-            ),
-            _vm._v(" "),
-            _c(
-              "a",
-              {
-                staticClass: "dropdown-item",
-                attrs: { href: "/deleteClassAndCicles" }
-              },
-              [_vm._v("Permisos Eliminar Ciclos")]
             ),
             _vm._v(" "),
             _c(

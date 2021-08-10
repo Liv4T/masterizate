@@ -134,8 +134,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["idArea", "planif", "moduleId", "user"],
   data: function data() {
@@ -153,7 +151,8 @@ __webpack_require__.r(__webpack_exports__);
       clase_to_delete: [],
       id_cicle: "",
       filter: '',
-      cycle_number: 0
+      cycle_number: 0,
+      cicle_name: ""
     };
   },
   mounted: function mounted() {
@@ -177,21 +176,7 @@ __webpack_require__.r(__webpack_exports__);
       axios.get(url).then(function (response) {
         _this2.cycles = response.data;
 
-        if (_this2.planif === 'general') {
-          axios.get('/getPermissions').then(function (response) {
-            var permissions = response.data;
-
-            for (var i = 0; i < permissions.length; i++) {
-              for (var a = 0; a < _this2.cycles.length; a++) {
-                if (_this2.cycles[a].id === permissions[i].id_cicle) {
-                  _this2.cycles[a]['activateButton'] = 'true';
-                } else {
-                  _this2.cycles[a]['activateButton'] = 'false';
-                }
-              }
-            }
-          });
-        } else if (_this2.planif === 'claseEst') {
+        if (_this2.planif === 'claseEst') {
           var urlsel = "/viewGetWeek/" + _this2.idArea + '/' + id_trimestre;
           axios.get(urlsel).then(function (response) {
             var data = response.data;
@@ -244,11 +229,12 @@ __webpack_require__.r(__webpack_exports__);
         console.log(error);
       });
     },
-    ClassAndCicle: function ClassAndCicle(id_module) {
+    ClassAndCicle: function ClassAndCicle(id_module, cicle_name) {
       var _this3 = this;
 
       axios.get("/showClass/".concat(id_module)).then(function (response) {
         _this3.clase_to_delete = response.data.clase;
+        _this3.cicle_name = cicle_name;
         _this3.id_module = id_module;
         $('#infoClass').modal('show');
       });
@@ -256,21 +242,29 @@ __webpack_require__.r(__webpack_exports__);
     deleteClassAndCicles: function deleteClassAndCicles() {
       var _this4 = this;
 
-      this.clase_to_delete.forEach(function (clas) {
-        axios["delete"]("/deleteClasses/".concat(clas.id));
-      });
-      axios["delete"]("/DeleteCicle/".concat(this.id_module)).then(function (response) {
-        _this4.clase_to_delete = [];
-        _this4.id_module = '';
+      if (window.confirm("Seguro que desea Eliminar el ciclo ".concat(this.cicle_name, " Junto con sus clases ?"))) {
+        this.clase_to_delete.forEach(function (clas) {
+          axios["delete"]("/deleteClasses/".concat(clas.id));
+        });
+        axios["delete"]("/DeleteCicle/".concat(this.id_module)).then(function (response) {
+          _this4.clase_to_delete = [];
+          _this4.id_module = '';
 
-        if (_this4.clase_to_delete.length > 0) {
-          toastr.success("Clases y ".concat(response.data));
-        } else {
-          toastr.success('Ciclo Eliminado');
-        }
+          if (_this4.clase_to_delete.length > 0) {
+            toastr.success("Clases y ".concat(response.data));
 
-        window.location = "/docente/clases";
-      });
+            _this4.getCycles(_this4.idTrimestre);
+
+            $('#infoClass').modal('hide');
+          } else {
+            toastr.success('Ciclo Eliminado');
+
+            _this4.getCycles(_this4.idTrimestre);
+
+            $('#infoClass').modal('hide');
+          }
+        });
+      }
     },
     showModuleStudent: function showModuleStudent(cycle) {
       this.showCycle = "student";
@@ -554,46 +548,21 @@ var render = function() {
                                               [_vm._v("Editar")]
                                             ),
                                             _vm._v(" "),
-                                            cycle.activateButton === "true"
-                                              ? _c(
-                                                  "button",
-                                                  {
-                                                    staticClass:
-                                                      "btn btn-primary",
-                                                    on: {
-                                                      click: function() {
-                                                        return _vm.ClassAndCicle(
-                                                          cycle.id
-                                                        )
-                                                      }
-                                                    }
-                                                  },
-                                                  [_vm._v("Eliminar")]
-                                                )
-                                              : _vm._e(),
-                                            _vm._v(" "),
-                                            cycle.activateButton === "false"
-                                              ? _c(
-                                                  "button",
-                                                  {
-                                                    staticClass:
-                                                      "btn btn-primary",
-                                                    on: {
-                                                      click: function() {
-                                                        return _vm.RequestPermissions(
-                                                          cycle,
-                                                          cycle.driving_question
-                                                        )
-                                                      }
-                                                    }
-                                                  },
-                                                  [
-                                                    _vm._v(
-                                                      "Solicitar Permiso para Eliminar"
+                                            _c(
+                                              "button",
+                                              {
+                                                staticClass: "btn btn-primary",
+                                                on: {
+                                                  click: function() {
+                                                    return _vm.ClassAndCicle(
+                                                      cycle.id,
+                                                      cycle.driving_question
                                                     )
-                                                  ]
-                                                )
-                                              : _vm._e()
+                                                  }
+                                                }
+                                              },
+                                              [_vm._v("Eliminar")]
+                                            )
                                           ])
                                         ])
                                       : _vm.planification === "claseEst"
@@ -631,7 +600,96 @@ var render = function() {
               0
             )
           ])
-        ])
+        ]),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass: "modal fade",
+            attrs: {
+              id: "infoClass",
+              tabindex: "-1",
+              role: "dialog",
+              "aria-labelledby": "infoClassLabel",
+              "aria-hidden": "true"
+            }
+          },
+          [
+            _c(
+              "div",
+              { staticClass: "modal-dialog", attrs: { role: "document" } },
+              [
+                _c("div", { staticClass: "modal-content" }, [
+                  _vm._m(0),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "modal-body" }, [
+                    _vm.clase_to_delete.length > 0
+                      ? _c("div", [
+                          _c("p", { staticClass: "mb-4" }, [
+                            _vm._v(
+                              "Se eliminarán las siguientes Clases del Ciclo "
+                            ),
+                            _c("strong", [_vm._v(_vm._s(_vm.cicle_name))])
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "table",
+                            { staticClass: "table table-stripped table-hover" },
+                            [
+                              _vm._m(1),
+                              _vm._v(" "),
+                              _c(
+                                "tbody",
+                                _vm._l(_vm.clase_to_delete, function(
+                                  clasDelete,
+                                  key
+                                ) {
+                                  return _c("tr", { key: key }, [
+                                    _c("td", [_vm._v(_vm._s(clasDelete.name))]),
+                                    _vm._v(" "),
+                                    _c("td", [
+                                      _vm._v(_vm._s(clasDelete.description))
+                                    ])
+                                  ])
+                                }),
+                                0
+                              )
+                            ]
+                          )
+                        ])
+                      : _c("div", [
+                          _vm._v(
+                            "\r\n                        No hay Clases asignadas al Ciclo "
+                          ),
+                          _c("strong", [_vm._v(_vm._s(_vm.cicle_name))])
+                        ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "modal-footer" }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-secondary",
+                        attrs: { type: "button", "data-dismiss": "modal" }
+                      },
+                      [_vm._v("Cerrar")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-primary",
+                        attrs: { type: "button" },
+                        on: { click: _vm.deleteClassAndCicles }
+                      },
+                      [_vm._v("Eliminar de todas Formas")]
+                    )
+                  ])
+                ])
+              ]
+            )
+          ]
+        )
       ])
     : _vm.showCycle === "teacherModule"
     ? _c(
@@ -660,98 +718,7 @@ var render = function() {
               orden: _vm.orden,
               cycle_number: _vm.cycle_number
             }
-          }),
-          _vm._v(" "),
-          _c(
-            "div",
-            {
-              staticClass: "modal fade",
-              attrs: {
-                id: "infoClass",
-                tabindex: "-1",
-                role: "dialog",
-                "aria-labelledby": "infoClassLabel",
-                "aria-hidden": "true"
-              }
-            },
-            [
-              _c(
-                "div",
-                { staticClass: "modal-dialog", attrs: { role: "document" } },
-                [
-                  _c("div", { staticClass: "modal-content" }, [
-                    _vm._m(0),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "modal-body" }, [
-                      _vm.clase_to_delete.length > 0
-                        ? _c("div", [
-                            _c("p", { staticClass: "mb-4" }, [
-                              _vm._v(
-                                "Se eliminarán las siguientes Clases del Ciclo: "
-                              )
-                            ]),
-                            _vm._v(" "),
-                            _c(
-                              "table",
-                              {
-                                staticClass: "table table-stripped table-hover"
-                              },
-                              [
-                                _vm._m(1),
-                                _vm._v(" "),
-                                _c(
-                                  "tbody",
-                                  _vm._l(_vm.clase_to_delete, function(
-                                    clasDelete,
-                                    key
-                                  ) {
-                                    return _c("tr", { key: key }, [
-                                      _c("td", [
-                                        _vm._v(_vm._s(clasDelete.name))
-                                      ]),
-                                      _vm._v(" "),
-                                      _c("td", [
-                                        _vm._v(_vm._s(clasDelete.description))
-                                      ])
-                                    ])
-                                  }),
-                                  0
-                                )
-                              ]
-                            )
-                          ])
-                        : _c("div", [
-                            _vm._v(
-                              "\r\n                        No hay Clases asignadas al Ciclo\r\n                    "
-                            )
-                          ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "modal-footer" }, [
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-secondary",
-                          attrs: { type: "button", "data-dismiss": "modal" }
-                        },
-                        [_vm._v("Cerrar")]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-primary",
-                          attrs: { type: "button" },
-                          on: { click: _vm.deleteClassAndCicles }
-                        },
-                        [_vm._v("Eliminar de todas Formas")]
-                      )
-                    ])
-                  ])
-                ]
-              )
-            ]
-          )
+          })
         ],
         1
       )
