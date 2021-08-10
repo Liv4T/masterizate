@@ -548,44 +548,45 @@ export default {
                     this.errors = error.response.data;
                     this.isLoading=false;
                 });
+            if(this.activityForPIARStudents === true){
+                if(this.inputsPIAR.length > 0 ||  this.inputsPIAR1.length > 0){
+                    this.isLoading=true;
 
-            if(this.inputsPIAR.length > 0 ||  this.inputsPIAR1.length > 0){
-                this.isLoading=true;
+                    if(this.inputsPIAR.length<1 ||  this.inputsPIAR1.length<1)
+                        return;
 
-                if(this.inputsPIAR.length<1 ||  this.inputsPIAR1.length<1)
-                    return;
+                    this.newTrimestre = [];
+                    this.newLogro = [];
 
-                this.newTrimestre = [];
-                this.newLogro = [];
-
-                if (this.inputsPIAR.length > 0) {
-                    for (let i = 0; i < this.inputsPIAR.length; i++) {
-                        this.newTrimestre.push(this.inputsPIAR[i]);
+                    if (this.inputsPIAR.length > 0) {
+                        for (let i = 0; i < this.inputsPIAR.length; i++) {
+                            this.newTrimestre.push(this.inputsPIAR[i]);
+                        }
                     }
+                
+                    if (this.inputsPIAR1.length > 0) {
+                        for (let i = 0; i < this.inputsPIAR1.length; i++) {
+                        this.newLogro.push(this.inputsPIAR1[i]);
+                        }
+                    }                
+
+                    axios.post('/piarAnualPlanification', {
+                        //Cursos generales
+                        id_area: this.idArea.substring(0, this.idArea.lastIndexOf("/") ),
+                        id_classroom: this.idArea[2],
+                        logros: JSON.stringify(this.newLogro),
+                        trimestres: JSON.stringify(this.newTrimestre),
+                        students: JSON.stringify(this.saveStudent),
+                    }).then((response) => {
+                        this.errors = [];
+                        toastr.success(response.data);
+                        this.isLoading=false;
+                    }).catch((error) => {
+                        this.errors = error.response.data;
+                        this.isLoading=false;
+                    });
                 }
-            
-                if (this.inputsPIAR1.length > 0) {
-                    for (let i = 0; i < this.inputsPIAR1.length; i++) {
-                    this.newLogro.push(this.inputsPIAR1[i]);
-                    }
-                }                
-
-                axios.post('/piarAnualPlanification', {
-                    //Cursos generales
-                    id_area: this.idArea.substring(0, this.idArea.lastIndexOf("/") ),
-                    id_classroom: this.idArea[2],
-                    logros: JSON.stringify(this.newLogro),
-                    trimestres: JSON.stringify(this.newTrimestre),
-                    students: JSON.stringify(this.saveStudent),
-                }).then((response) => {
-                    this.errors = [];
-                    toastr.success(response.data);
-                    this.isLoading=false;
-                }).catch((error) => {
-                    this.errors = error.response.data;
-                    this.isLoading=false;
-                });
-            }      
+            }                  
         },
         updateCourses() {
             window.location = "/actividad_g";

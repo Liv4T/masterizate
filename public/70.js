@@ -123,7 +123,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.div-notification[data-v-ed0a5a4c]{display:flex;flex-direction: row; justify-content: center;padding: 10px;align-items: center;border-radius:5px;font-weight: 700;font-size: 1.2em;}\n.div-notification.noti-warning[data-v-ed0a5a4c]{background-color: #ffe251;}\n.div-notification.noti-success[data-v-ed0a5a4c]{background-color: #51ff87;}\n.div-notification.noti-danger[data-v-ed0a5a4c]{background-color: #ff5159;color:white;}\nsvg[data-v-ed0a5a4c]{margin-right: 10px;}\n.item-description[data-v-ed0a5a4c]{display: flex;flex-direction: column;}\n.item-description label[data-v-ed0a5a4c]{font-weight: bold;}\n", ""]);
+exports.push([module.i, "\n.div-notification[data-v-ed0a5a4c]{display:flex;flex-direction: row; justify-content: center;padding: 10px;align-items: center;border-radius:5px;font-weight: 700;font-size: 1.2em;}\n.div-notification.noti-warning[data-v-ed0a5a4c]{background-color: #ffe251;}\n.div-notification.noti-success[data-v-ed0a5a4c]{background-color: #51ff87;}\n.div-notification.noti-danger[data-v-ed0a5a4c]{background-color: #ff5159;color:white;}\nsvg[data-v-ed0a5a4c]{margin-right: 10px;}\n.item-description[data-v-ed0a5a4c]{display: flex;flex-direction: column;}\n.item-description label[data-v-ed0a5a4c]{font-weight: bold;}\r\n", ""]);
 
 // exports
 
@@ -252,9 +252,9 @@ var render = function() {
                 _c("div", { staticClass: "col item-description" }, [
                   _c("label", [_vm._v("REFERENCIA:")]),
                   _vm._v(
-                    "\n                            " +
+                    "\r\n                            " +
                       _vm._s(_vm.model.ref) +
-                      "\n                        "
+                      "\r\n                        "
                   )
                 ])
               ])
