@@ -186,7 +186,7 @@ export default {
             this.inputClass=json;
           }
           //this.inputClass=JSON.parse(response.data[0].class);
-          console.log(this.inputClass);
+          //console.log(this.inputClass);
           if (this.fillS.length > 0) {
             this.semanal = true;
           }
