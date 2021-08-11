@@ -43,8 +43,7 @@
             </button>
             <div class="dropdown-menu" aria-labelledby="academic">
                 <a class="dropdown-item" href="/planificacion">Planificación General</a>
-                <a class="dropdown-item" href="/docente/clases">Ciclos Y Clases</a>
-                <a class="dropdown-item" href="/deleteClassAndCicles">Permisos Eliminar Ciclos</a>
+                <a class="dropdown-item" href="/docente/clases">Ciclos Y Clases</a>                
                 <a class="dropdown-item" href="/notas_d">Notas</a>
                 <a class="dropdown-item" href="/utils">Útiles</a>
                 <a class="dropdown-item" href="/pedagogic">Salidas Pedagógicas</a>
