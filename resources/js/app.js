@@ -324,7 +324,7 @@ Vue.component("purchase-plan-resume", () => import ("./components/purchasePlanRe
 Vue.component("purchase-login", require("./components/purchaseLogin.vue").default);
 
 //Modulo para eliminar clases y ciclos
-Vue.component("component-delete-class-and-cicles", ()=> import("./components/deleteClassAndCicles.vue"));
+// Vue.component("component-delete-class-and-cicles", ()=> import("./components/deleteClassAndCicles.vue"));
 
 //Modulo para registro de asistencia
 Vue.component("assistance-component",()=>import("./components/assistance.vue"));

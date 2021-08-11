@@ -958,8 +958,8 @@ Route::get('getAllStudents', 'SchoolGovernmentController@students');
 
 
 //Modulo para habilitar eliminacion de clases o ciclos
-Route::resource('deleteClassAndCicles', 'DeleteClassAndCiclesController');
-Route::get('getPermissions', 'DeleteClassAndCiclesController@getPermissions');
+// Route::resource('deleteClassAndCicles', 'DeleteClassAndCiclesController');
+// Route::get('getPermissions', 'DeleteClassAndCiclesController@getPermissions');
 
 //Modulo para registrar las asistencias
 Route::resource('assistance/{id_area}/{id_classroom}', 'AssistanceController', ['parameters' => ['{id_class}' => 'idclass', '{id_classroom}' => 'idClassroom']]);

@@ -20,65 +20,57 @@
                   </h2>
                 </div>
                 <div
-                  :id="'collapse'+t"
-                  class="collapse hide"
-                  aria-labelledby="heading"
-                  data-parent="#accordionExample"
+                    :id="'collapse'+t"
+                    class="collapse hide"
+                    aria-labelledby="heading"
+                    data-parent="#accordionExample"
                 >
-                <div v-if="user.type_user !== 3" class="float-left" style="padding:20px;">
-                    <a v-on:click="getOrderCycle(trimestre.id,t+1)" class="btn btn-warning float-left">Crear</a>
-                </div>
-                <div class="float-right" style="padding:20px;">                    
-                    <input class="form-control" type="text" placeholder="Buscar Ciclo" v-model="filter" />
-                </div>
-                <div class="card-body">
-                    <table class="table table-responsive-xl table-hover table-striped center">
-                        <tbody>
-                            <tr>
-                                <td>{{ $t('lang.grades.cycleName') }}</td>
+                    <div v-if="user.type_user !== 3" class="float-left" style="padding:20px;">
+                        <a v-on:click="getOrderCycle(trimestre.id,t+1)" class="btn btn-warning float-left">Crear</a>
+                    </div>
+                    <div class="float-right" style="padding:20px;">                    
+                        <input class="form-control" type="text" placeholder="Buscar Ciclo" v-model="filter" />
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-responsive-xl table-hover table-striped center">
+                            <tbody>
+                                <tr>
+                                    <td>{{ $t('lang.grades.cycleName') }}</td>
 
-                                <td>{{ $t('lang.general.observation') }}</td>
-                                <td>{{ $t('lang.class.action') }}</td>
+                                    <td>{{ $t('lang.general.observation') }}</td>
+                                    <td>{{ $t('lang.class.action') }}</td>
 
-                            </tr>
-                            <tr v-for="(cycle,k) in filteredRows" :key="k">                                
-                                <td>{{ cycle.driving_question }}</td>
+                                </tr>
+                                <tr v-for="(cycle,k) in filteredRows" :key="k">                                
+                                    <td>{{ cycle.driving_question }}</td>
 
-                                <td>{{ cycle.observation }}</td>
+                                    <td>{{ cycle.observation }}</td>
 
-                                <td v-if="planification === 'clase'">
-                                    <p>
-                                        <button class="btn btn-warning" v-on:click="()=>getCycle(cycle)">Ir a Ciclo</button>
-                                    </p>
-                                </td>
-                                <td v-else-if="planification === 'general'">
-                                    <p>
-                                        <button class="btn btn-warning" v-on:click="()=>getEditCycle(cycle, k+1, trimestre.id,t+1)">Editar</button>                  
-                                        <button class="btn btn-primary" v-if="cycle.activateButton === 'true'" v-on:click="()=>ClassAndCicle(cycle.id)" >Eliminar</button>                      
-                                        <button class="btn btn-primary" v-if="cycle.activateButton === 'false'" v-on:click="()=>RequestPermissions(cycle, cycle.driving_question)">Solicitar Permiso para Eliminar</button>
-                                    </p>
-                                </td>
-                                <td v-else-if="planification === 'claseEst'">
-                                    <p>
-                                        <button class="btn btn-warning" v-on:click="showModuleStudent(cycle)">Ir a Ciclo</button>
-                                    </p>
-                                </td>
-
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+                                    <td v-if="planification === 'clase'">
+                                        <p>
+                                            <button class="btn btn-warning" v-on:click="()=>getCycle(cycle)">Ir a Ciclo</button>
+                                        </p>
+                                    </td>
+                                    <td v-else-if="planification === 'general'">
+                                        <p>
+                                            <button class="btn btn-warning" v-on:click="()=>getEditCycle(cycle, k+1, trimestre.id,t+1)">Editar</button>                  
+                                            <button class="btn btn-primary" v-on:click="()=>ClassAndCicle(cycle.id, cycle.driving_question)" >Eliminar</button>                                        
+                                        </p>
+                                    </td>
+                                    <td v-else-if="planification === 'claseEst'">
+                                        <p>
+                                            <button class="btn btn-warning" v-on:click="showModuleStudent(cycle)">Ir a Ciclo</button>
+                                        </p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
               </div>
             </div>
         </div>
     </div>
-</div>
-<div v-else-if="showCycle === 'teacherModule'">
-    <teacher-module :id_module="idModule" :id_trimestre="idTrimestre" :cleanIdModule="cleanIdModule"></teacher-module>
-</div>
-<div v-else-if="showCycle === 'semanalAct' ">
-    <semanalact-component :id_area="id_area" :id_classroom="id_classroom" :cleanIdModule="cleanIdModule" :id_cycle="id_cicle" :orden="orden" :cycle_number="cycle_number"></semanalact-component>
     <div class="modal fade" id="infoClass" tabindex="-1" role="dialog" aria-labelledby="infoClassLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -90,7 +82,7 @@
                 </div>
                 <div class="modal-body">
                     <div v-if="clase_to_delete.length > 0">
-                        <p class="mb-4">Se eliminarán las siguientes Clases del Ciclo: </p>
+                        <p class="mb-4">Se eliminarán las siguientes Clases del Ciclo <strong>{{cicle_name}}</strong> </p>
                         <table class="table table-stripped table-hover">
                             <thead>
                                 <tr>
@@ -107,7 +99,7 @@
                         </table>
                     </div>
                     <div v-else>
-                        No hay Clases asignadas al Ciclo
+                        No hay Clases asignadas al Ciclo <strong>{{cicle_name}}</strong>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -117,6 +109,12 @@
             </div>
         </div>
     </div>
+</div>
+<div v-else-if="showCycle === 'teacherModule'">
+    <teacher-module :id_module="idModule" :id_trimestre="idTrimestre" :cleanIdModule="cleanIdModule"></teacher-module>
+</div>
+<div v-else-if="showCycle === 'semanalAct' ">
+    <semanalact-component :id_area="id_area" :id_classroom="id_classroom" :cleanIdModule="cleanIdModule" :id_cycle="id_cicle" :orden="orden" :cycle_number="cycle_number"></semanalact-component>
 </div>
 <div v-else-if="showCycle==='student'">
     <student-module :clasId="clasId" :cleanClasId="cleanIdModule" :moduleId="moduleId"></student-module>
@@ -143,7 +141,8 @@ export default {
             clase_to_delete:[],
             id_cicle:"",
             filter: '',
-            cycle_number:0
+            cycle_number:0,
+            cicle_name:"",
         };
     },
     mounted(){        
@@ -163,20 +162,7 @@ export default {
             axios.get(url).then((response) => {
                 this.cycles = response.data;
 
-                if(this.planif === 'general'){    
-                    axios.get('/getPermissions').then((response)=>{
-                        let permissions = response.data;
-                        for(let i =0; i < permissions.length; i++){
-                            for(let a = 0; a < this.cycles.length; a++){
-                                if(this.cycles[a].id === permissions[i].id_cicle){
-                                    this.cycles[a]['activateButton'] = 'true';
-                                }else{
-                                    this.cycles[a]['activateButton'] = 'false';
-                                }
-                            }
-                        }                                            
-                    })
-                } else if(this.planif === 'claseEst'){
+                if(this.planif === 'claseEst'){
                     var urlsel = "/viewGetWeek/" + this.idArea +'/'+id_trimestre;
                     axios.get(urlsel).then((response) => {
                        let data = response.data;                       
@@ -234,31 +220,36 @@ export default {
             })
         },
 
-        ClassAndCicle(id_module){
+        ClassAndCicle(id_module, cicle_name){
             axios.get(`/showClass/${id_module}`).then(response => {
                 this.clase_to_delete = response.data.clase;
+                this.cicle_name = cicle_name;
                 this.id_module = id_module;
                 $('#infoClass').modal('show');
             })
         },
 
         deleteClassAndCicles(){
-            this.clase_to_delete.forEach((clas)=>{ 
-                axios.delete(`/deleteClasses/${clas.id}`)
-            })
+            if(window.confirm(`Seguro que desea Eliminar el ciclo ${this.cicle_name} Junto con sus clases ?`)){
+                this.clase_to_delete.forEach((clas)=>{ 
+                    axios.delete(`/deleteClasses/${clas.id}`)
+                })
 
-            axios.delete(`/DeleteCicle/${this.id_module}`).then((response)=> {
-                this.clase_to_delete =[];
-                this.id_module= '';
-                
-                if(this.clase_to_delete.length > 0){
-                    toastr.success(`Clases y ${response.data}`)
-                }else{
-                    toastr.success('Ciclo Eliminado')
-                }
-
-                window.location = "/docente/clases";
-            });
+                axios.delete(`/DeleteCicle/${this.id_module}`).then((response)=> {
+                    this.clase_to_delete =[];
+                    this.id_module= '';
+                    
+                    if(this.clase_to_delete.length > 0){
+                        toastr.success(`Clases y ${response.data}`);                        
+                        this.getCycles(this.idTrimestre);
+                        $('#infoClass').modal('hide');
+                    }else{
+                        toastr.success('Ciclo Eliminado');                        
+                        this.getCycles(this.idTrimestre);
+                        $('#infoClass').modal('hide');
+                    }
+                });
+            }            
         },
         showModuleStudent(cycle){
             this.showCycle = "student";
