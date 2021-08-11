@@ -47,7 +47,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.div-circle{\n    margin:auto;\n    height:60px;\n    width:60px;\n    background-color:#f2f2f2;\n    border-radius:50%;\n    display:flex;\n    justify-content:center;\n    align-items:center;\n    color:#b2b2b2;\n    font-weight:bold;\n    border:3px solid #f2f2f2;\n    box-shadow:1px 1px 1px 1px rgba(0, 0, 0, 0.2);\n}\n.div-circle.active{\n    background-color:rgb(21, 185, 185);\n    color:white;\n}\n.title{\n    font-size:0.5em;\n    color:grey;\n}\n@media (min-width: 1200px) {\n.title{font-size:0.9em;}\n}\n@media (min-width: 992px) {\n.title{font-size:0.9em;}\n}\n@media (min-width: 768px) {\n.title{font-size:0.8em;}\n}\n@media (min-width: 576px) {\n.title{font-size:0.7em;}\n}\n", ""]);
+exports.push([module.i, "\n.div-circle{\r\n    margin:auto;\r\n    height:60px;\r\n    width:60px;\r\n    background-color:#f2f2f2;\r\n    border-radius:50%;\r\n    display:flex;\r\n    justify-content:center;\r\n    align-items:center;\r\n    color:#b2b2b2;\r\n    font-weight:bold;\r\n    border:3px solid #f2f2f2;\r\n    box-shadow:1px 1px 1px 1px rgba(0, 0, 0, 0.2);\n}\n.div-circle.active{\r\n    background-color:rgb(21, 185, 185);\r\n    color:white;\n}\n.title{\r\n    font-size:0.5em;\r\n    color:grey;\n}\n@media (min-width: 1200px) {\n.title{font-size:0.9em;}\n}\n@media (min-width: 992px) {\n.title{font-size:0.9em;}\n}\n@media (min-width: 768px) {\n.title{font-size:0.8em;}\n}\n@media (min-width: 576px) {\n.title{font-size:0.7em;}\n}\r\n", ""]);
 
 // exports
 
