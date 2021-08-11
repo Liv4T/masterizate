@@ -409,9 +409,9 @@ var render = function() {
                                     },
                                     [
                                       _vm._v(
-                                        "\r\n                          " +
+                                        "\n                          " +
                                           _vm._s(option.text) +
-                                          "\r\n                        "
+                                          "\n                        "
                                       )
                                     ]
                                   )
@@ -446,9 +446,9 @@ var render = function() {
                                 _c("div", { attrs: { align: "center" } }, [
                                   _c("strong", [
                                     _vm._v(
-                                      "\r\n                        Logro " +
+                                      "\n                        Logro " +
                                         _vm._s(k + 1) +
-                                        "\r\n                        "
+                                        "\n                        "
                                     ),
                                     _c("input", {
                                       directives: [
@@ -475,7 +475,7 @@ var render = function() {
                                         }
                                       }
                                     }),
-                                    _vm._v("%\r\n                      ")
+                                    _vm._v("%\n                      ")
                                   ])
                                 ]),
                                 _vm._v(" "),
