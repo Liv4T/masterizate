@@ -266,7 +266,9 @@ export default {
             studentsOptions:[],
             saveStudent:[],
             piarStudents:[],
-            AreaId:""
+            AreaId:"",
+            areaId:"",
+            classroomId:"",
         };
     },
     watch: {
@@ -312,6 +314,8 @@ export default {
                 
             let idArea = ids[2]+"/"+ids[3];
             this.AreaId = idArea;
+            this.areaId = ids[2];
+            this.classroomId = ids[3];
         }
         this.getData();
     },
@@ -486,10 +490,11 @@ export default {
                     this.newLogro.push(this.inputs1[i]);
                     }
                 }
-
-                axios.post(url, {
-                    id_area: this.AreaId.substring(0, this.AreaId.lastIndexOf("/") ),
-                    id_classroom: this.AreaId[2],
+                let ids = this.AreaId.split('/');
+                
+                axios.post(url, {                    
+                    id_area: ids[0],
+                    id_classroom: ids[1],
                     logros: this.newLogro,
                     trimestres: this.newTrimestre,
                 }).then((response) => {
@@ -501,45 +506,46 @@ export default {
                     this.errors = error.response.data;
                     this.isLoading=false;
                 });
+            if(this.activityForPIARStudents === true){
+                if(this.inputsPIAR.length > 0 ||  this.inputsPIAR1.length > 0){
+                    this.isLoading=true;
 
-            if(this.inputsPIAR.length > 0 ||  this.inputsPIAR1.length > 0){
-                this.isLoading=true;
+                    if(this.inputsPIAR.length<1 ||  this.inputsPIAR1.length<1)
+                        return;
 
-                if(this.inputsPIAR.length<1 ||  this.inputsPIAR1.length<1)
-                    return;
+                    this.newTrimestre = [];
+                    this.newLogro = [];
 
-                this.newTrimestre = [];
-                this.newLogro = [];
-
-                if (this.inputsPIAR.length > 0) {
-                    for (let i = 0; i < this.inputsPIAR.length; i++) {
-                        this.newTrimestre.push(this.inputsPIAR[i]);
+                    if (this.inputsPIAR.length > 0) {
+                        for (let i = 0; i < this.inputsPIAR.length; i++) {
+                            this.newTrimestre.push(this.inputsPIAR[i]);
+                        }
                     }
-                }
-            
-                if (this.inputsPIAR1.length > 0) {
-                    for (let i = 0; i < this.inputsPIAR1.length; i++) {
-                    this.newLogro.push(this.inputsPIAR1[i]);
+                
+                    if (this.inputsPIAR1.length > 0) {
+                        for (let i = 0; i < this.inputsPIAR1.length; i++) {
+                        this.newLogro.push(this.inputsPIAR1[i]);
+                        }
                     }
-                }
 
-                axios.post('/piarAnualPlanification', {
-                    //Cursos generales
-                    id_area: this.AreaId.substring(0, this.AreaId.lastIndexOf("/") ),
-                    id_classroom: this.AreaId[2],
-                    trimestres: JSON.stringify(this.newTrimestre),
-                    students: JSON.stringify(this.saveStudent),
-                    logros: JSON.stringify(this.inputsPIAR)
-                }).then((response) => {
-                    this.errors = [];
-                    toastr.success(response.data);
-                    this.isLoading=false;
-                        
-                }).catch((error) => {
-                    this.errors = error.response.data;
-                    this.isLoading=false;
-                });
-            }      
+                    axios.post('/piarAnualPlanification', {
+                        //Cursos generales
+                        id_area: this.AreaId.substring(0, this.AreaId.lastIndexOf("/") ),
+                        id_classroom: this.AreaId[2],
+                        trimestres: JSON.stringify(this.newTrimestre),
+                        students: JSON.stringify(this.saveStudent),
+                        logros: JSON.stringify(this.inputsPIAR)
+                    }).then((response) => {
+                        this.errors = [];
+                        toastr.success(response.data);
+                        this.isLoading=false;
+                            
+                    }).catch((error) => {
+                        this.errors = error.response.data;
+                        this.isLoading=false;
+                    });
+                }
+            }                  
         },
         updateCourses() {
             window.location = "/actividad_g";
