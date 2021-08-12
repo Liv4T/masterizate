@@ -255,11 +255,9 @@ class CoursesController extends Controller
                 if (isset($Quarterly['id_quaterly'])) {
                     if(isset($Quarterly['logro'])){
                         $quarterlyUpdatedRowsCount = Quarterly::where('id', $Quarterly['id_quaterly'])->update(array('content' => $Quarterly['contenido'], 'unit_name' => $Quarterly['name'], 'logro' => $Quarterly['logro']  ));
-                    }else if(isset($Quarterly['name'])){
-                        $quarterlyUpdatedRowsCount = Quarterly::where('id', $Quarterly['id_quaterly'])->update(array('content' => $Quarterly['contenido'], 'unit_name' => $Quarterly['name']));
                     }else{
-                        $quarterlyUpdatedRowsCount = Quarterly::where('id', $Quarterly['id_quaterly'])->update(array('content' => $Quarterly['contenido']));
-                    }           
+                        $quarterlyUpdatedRowsCount = Quarterly::where('id', $Quarterly['id_quaterly'])->update(array('content' => $Quarterly['contenido'], 'unit_name' => $Quarterly['name']));
+                    }                    
 
                     if ($quarterlyUpdatedRowsCount <= 0) {
                         $subCate = Quarterly::create([
