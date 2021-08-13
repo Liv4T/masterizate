@@ -11,6 +11,13 @@
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_multiselect__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-multiselect */ "./node_modules/vue-multiselect/dist/vue-multiselect.min.js");
 /* harmony import */ var vue_multiselect__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue_multiselect__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_1__);
+//
+//
+//
+//
+//
 //
 //
 //
@@ -85,6 +92,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
 Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___default.a);
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -103,6 +111,7 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
       descripcion: "",
       logro: "",
       fechaE: "",
+      actualDate: "",
       fechaR: "",
       id_act: "",
       errors: [],
@@ -157,6 +166,15 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
       return texto.replace(re, function (matchedText) {
         return "<strong>".concat(matchedText, "</strong>");
       });
+    },
+    filterDate: function filterDate(date) {
+      this.actualDate = moment__WEBPACK_IMPORTED_MODULE_1___default()().format('YYYY-MM-DDTHH:MM');
+
+      if (date) {
+        return moment__WEBPACK_IMPORTED_MODULE_1___default()(date).format('YYYY-MM-DD hh:mm a');
+      } else {
+        return 'Fecha no Registrada';
+      }
     },
     getUpload: function getUpload(uploadId) {
       this.repoUpload = uploadId;
@@ -261,6 +279,12 @@ var render = function() {
                               ]),
                               _vm._v(" "),
                               _c("th", [
+                                _vm._v(
+                                  _vm._s(_vm.$t("lang.general.date_limit"))
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("th", [
                                 _vm._v(_vm._s(_vm.$t("lang.homework.task")))
                               ]),
                               _vm._v(" "),
@@ -284,6 +308,14 @@ var render = function() {
                                     )
                                   }
                                 }),
+                                _c("td", {
+                                  staticStyle: { "font-size": "18px" },
+                                  domProps: {
+                                    innerHTML: _vm._s(
+                                      _vm.filterDate(row.date_limit)
+                                    )
+                                  }
+                                }),
                                 _vm._v(" "),
                                 _c("td", {
                                   staticStyle: { "font-size": "18px" },
@@ -304,26 +336,21 @@ var render = function() {
                                 }),
                                 _vm._v(" "),
                                 _c("td", [
-                                  _c(
-                                    "a",
-                                    {
-                                      directives: [
+                                  row.status != "Calificado" &&
+                                  row.date_limit >= _vm.actualDate
+                                    ? _c(
+                                        "a",
                                         {
-                                          name: "show",
-                                          rawName: "v-show",
-                                          value: row.status != "Calificado",
-                                          expression: "row.status!='Calificado'"
-                                        }
-                                      ],
-                                      staticClass: "btn btn-warning",
-                                      on: {
-                                        click: function($event) {
-                                          return _vm.getUpload(row.id)
-                                        }
-                                      }
-                                    },
-                                    [_vm._v("Ver más")]
-                                  ),
+                                          staticClass: "btn btn-warning",
+                                          on: {
+                                            click: function($event) {
+                                              return _vm.getUpload(row.id)
+                                            }
+                                          }
+                                        },
+                                        [_vm._v("Ver más")]
+                                      )
+                                    : _vm._e(),
                                   _vm._v(" "),
                                   _c(
                                     "a",

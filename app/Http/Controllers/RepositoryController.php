@@ -55,6 +55,7 @@ class RepositoryController extends Controller
         $repositori->name = $data['name'];
         $repositori->description = $data['description'];
         $repositori->date = $data['date'];
+        $repositori->date_limit = $data['date_limit'];
         $repositori->file = isset($data['file']) ? $data['file'] : null;
         $repositori->save();
 
