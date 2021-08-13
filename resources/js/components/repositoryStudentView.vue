@@ -15,6 +15,7 @@
                             <thead >
                                 <tr>
                                     <th>{{ $t('lang.general.date') }}</th>
+                                    <th>{{ $t('lang.general.date_limit') }}</th>
                                     <th>{{ $t('lang.homework.task') }}</th>
                                     <th>{{ $t('lang.general.status') }}</th>
                                     <th>-</th>
@@ -25,6 +26,10 @@
                                     <td
                                         style="font-size: 18px"
                                         v-html="highlightMatches(row.date)"
+                                    >
+                                    <td
+                                        style="font-size: 18px"   
+                                        v-html="filterDate(row.date_limit)"
                                     >
                                     </td>
 
@@ -40,8 +45,8 @@
                                     >
                                     </td>
 
-                                    <td>
-                                        <a v-show="row.status!='Calificado'"
+                                    <td>                                        
+                                        <a v-if="row.status!='Calificado' && row.date_limit >= actualDate"
                                             class="btn btn-warning"                                        
                                             v-on:click="getUpload(row.id)"
                                             >Ver más</a
@@ -73,6 +78,7 @@
 </template>
 <script>
 import Multiselect from "vue-multiselect";
+import moment from 'moment';
 Vue.component("multiselect", Multiselect);
 export default {
     components: { Multiselect },
@@ -86,6 +92,7 @@ export default {
             descripcion: "",
             logro: "",
             fechaE: "",
+            actualDate: "",
             fechaR: "",
             id_act: "",
             errors: [],
@@ -140,6 +147,15 @@ export default {
                 (matchedText) => `<strong>${matchedText}</strong>`
             );
         },
+        filterDate(date){
+            this.actualDate = moment().format('YYYY-MM-DDTHH:MM');
+            if(date){
+                return moment(date).format('YYYY-MM-DD hh:mm a');
+            }else{
+                return 'Fecha no Registrada';
+            }
+            
+        },
         getUpload(uploadId){
             this.repoUpload = uploadId;
         },
@@ -160,6 +176,8 @@ export default {
                 return text.includes(searchTerm);
             });
         },
+
+        
     },
 };
 </script>

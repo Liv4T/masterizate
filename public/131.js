@@ -245,7 +245,7 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
       newLogro2: "",
       newLogro3: "",
       newLogro4: ""
-    }, _defineProperty(_ref, "newTrimestre", []), _defineProperty(_ref, "newLogro", []), _defineProperty(_ref, "trimestre", false), _defineProperty(_ref, "logro_1", ""), _defineProperty(_ref, "logro_2", ""), _defineProperty(_ref, "logro_3", ""), _defineProperty(_ref, "logro_4", ""), _defineProperty(_ref, "fillC", []), _defineProperty(_ref, "anual", []), _defineProperty(_ref, "newAnual", []), _defineProperty(_ref, "errors", []), _defineProperty(_ref, "isSynchronized", true), _defineProperty(_ref, "isLoading", false), _defineProperty(_ref, "showPiarPlan", false), _defineProperty(_ref, "showPIARPlanTrimestral", false), _defineProperty(_ref, "activityForAllStudents", true), _defineProperty(_ref, "activityForPIARStudents", false), _defineProperty(_ref, "activityForSelectStudents", false), _defineProperty(_ref, "studentsOptions", []), _defineProperty(_ref, "saveStudent", []), _defineProperty(_ref, "piarStudents", []), _defineProperty(_ref, "AreaId", ""), _ref;
+    }, _defineProperty(_ref, "newTrimestre", []), _defineProperty(_ref, "newLogro", []), _defineProperty(_ref, "trimestre", false), _defineProperty(_ref, "logro_1", ""), _defineProperty(_ref, "logro_2", ""), _defineProperty(_ref, "logro_3", ""), _defineProperty(_ref, "logro_4", ""), _defineProperty(_ref, "fillC", []), _defineProperty(_ref, "anual", []), _defineProperty(_ref, "newAnual", []), _defineProperty(_ref, "errors", []), _defineProperty(_ref, "isSynchronized", true), _defineProperty(_ref, "isLoading", false), _defineProperty(_ref, "showPiarPlan", false), _defineProperty(_ref, "showPIARPlanTrimestral", false), _defineProperty(_ref, "activityForAllStudents", true), _defineProperty(_ref, "activityForPIARStudents", false), _defineProperty(_ref, "activityForSelectStudents", false), _defineProperty(_ref, "studentsOptions", []), _defineProperty(_ref, "saveStudent", []), _defineProperty(_ref, "piarStudents", []), _defineProperty(_ref, "AreaId", ""), _defineProperty(_ref, "areaId", ""), _defineProperty(_ref, "classroomId", ""), _ref;
   },
   watch: {
     activityForAllStudents: function activityForAllStudents(newVal) {
@@ -285,6 +285,8 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
       var ids = params.split('/');
       var idArea = ids[2] + "/" + ids[3];
       this.AreaId = idArea;
+      this.areaId = ids[2];
+      this.classroomId = ids[3];
     }
 
     this.getData();
@@ -475,9 +477,10 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
         }
       }
 
+      var ids = this.AreaId.split('/');
       axios.post(url, {
-        id_area: this.AreaId.substring(0, this.AreaId.lastIndexOf("/")),
-        id_classroom: this.AreaId[2],
+        id_area: ids[0],
+        id_classroom: ids[1],
         logros: this.newLogro,
         trimestres: this.newTrimestre
       }).then(function (response) {
@@ -489,39 +492,41 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
         _this2.isLoading = false;
       });
 
-      if (this.inputsPIAR.length > 0 || this.inputsPIAR1.length > 0) {
-        this.isLoading = true;
-        if (this.inputsPIAR.length < 1 || this.inputsPIAR1.length < 1) return;
-        this.newTrimestre = [];
-        this.newLogro = [];
+      if (this.activityForPIARStudents === true) {
+        if (this.inputsPIAR.length > 0 || this.inputsPIAR1.length > 0) {
+          this.isLoading = true;
+          if (this.inputsPIAR.length < 1 || this.inputsPIAR1.length < 1) return;
+          this.newTrimestre = [];
+          this.newLogro = [];
 
-        if (this.inputsPIAR.length > 0) {
-          for (var _i2 = 0; _i2 < this.inputsPIAR.length; _i2++) {
-            this.newTrimestre.push(this.inputsPIAR[_i2]);
+          if (this.inputsPIAR.length > 0) {
+            for (var _i2 = 0; _i2 < this.inputsPIAR.length; _i2++) {
+              this.newTrimestre.push(this.inputsPIAR[_i2]);
+            }
           }
-        }
 
-        if (this.inputsPIAR1.length > 0) {
-          for (var _i3 = 0; _i3 < this.inputsPIAR1.length; _i3++) {
-            this.newLogro.push(this.inputsPIAR1[_i3]);
+          if (this.inputsPIAR1.length > 0) {
+            for (var _i3 = 0; _i3 < this.inputsPIAR1.length; _i3++) {
+              this.newLogro.push(this.inputsPIAR1[_i3]);
+            }
           }
-        }
 
-        axios.post('/piarAnualPlanification', {
-          //Cursos generales
-          id_area: this.AreaId.substring(0, this.AreaId.lastIndexOf("/")),
-          id_classroom: this.AreaId[2],
-          trimestres: JSON.stringify(this.newTrimestre),
-          students: JSON.stringify(this.saveStudent),
-          logros: JSON.stringify(this.inputsPIAR)
-        }).then(function (response) {
-          _this2.errors = [];
-          toastr.success(response.data);
-          _this2.isLoading = false;
-        })["catch"](function (error) {
-          _this2.errors = error.response.data;
-          _this2.isLoading = false;
-        });
+          axios.post('/piarAnualPlanification', {
+            //Cursos generales
+            id_area: this.AreaId.substring(0, this.AreaId.lastIndexOf("/")),
+            id_classroom: this.AreaId[2],
+            trimestres: JSON.stringify(this.newTrimestre),
+            students: JSON.stringify(this.saveStudent),
+            logros: JSON.stringify(this.inputsPIAR)
+          }).then(function (response) {
+            _this2.errors = [];
+            toastr.success(response.data);
+            _this2.isLoading = false;
+          })["catch"](function (error) {
+            _this2.errors = error.response.data;
+            _this2.isLoading = false;
+          });
+        }
       }
     },
     updateCourses: function updateCourses() {

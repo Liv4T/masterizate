@@ -156,6 +156,29 @@
         </div>
       </div>
     </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="progressModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Progreso de Duplicación</h5>            
+          </div>
+          <div class="modal-body">
+            <div v-show="loading === true">
+              <div class="alert alert-info" role="alert">
+                Cargando
+              </div>
+            </div>
+            <div v-show="loading === false">              
+              <div class="alert alert-success" role="alert">
+                Duplicación Completa
+              </div>
+            </div>
+          </div>          
+        </div>
+      </div>
+    </div>
  
     <!-- END CONTENT -->
   </div>
@@ -230,6 +253,7 @@ export default {
       newTrimestre: [],
       newLogro: [],
       trimestre: false,
+      loading:true,
       logro_1: "",
       logro_2: "",
       logro_3: "",
@@ -277,9 +301,14 @@ export default {
   methods: {
     copyInformationEvent()
     {
+      $('#progressModal').modal('show');
       axios.put("/api/planification/copy",{fromData:this.fromData,toData:this.toData, class_planning:this.class_planning}).then((response) => {
-        toastr.success("Información duplicada correctamente");
-      });      
+        this.loading = false;      
+      });   
+      setTimeout(function(){ 
+        $('#progressModal').modal('hide');
+        $('#exampleModal').modal('hide');
+      }, 2000);           
     },
     onChangePlanTo($event){
 

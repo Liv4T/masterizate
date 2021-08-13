@@ -489,7 +489,7 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
       var property = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : null;
 
       if (type == 'inputs') {
-        inputsClass[index1][index2] = this.inputsClass[index1][index2][property].replace(/[^a-zA-Z0-9-.ñáéíóú_*+-/=&%$#!()?¡¿ ]/g, "|");
+        this.inputsClass[index1][index2] = this.inputsClass[index1][index2][property].replace(/[^a-zA-Z0-9-.ñáéíóú_*+-/=&%$#!()?¡¿ ]/g, "|");
       } //serialize data on localstorage
 
 
@@ -578,9 +578,10 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
         }
       }
 
+      var ids = this.idArea.split('/');
       axios.post(url, {
-        id_area: this.idArea.substring(0, this.idArea.lastIndexOf("/")),
-        id_classroom: this.idArea[2],
+        id_area: ids[0],
+        id_classroom: ids[1],
         logros: this.newLogro,
         trimestres: this.newTrimestre
       }).then(function (response) {
