@@ -121,7 +121,7 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_1___defaul
   mounted: function mounted() {
     var _this = this;
 
-    var urlUs = "getTeachers";
+    var urlUs = "getAnyTeachers";
     axios.get(urlUs).then(function (response) {
       _this.myOptions = response.data;
     });

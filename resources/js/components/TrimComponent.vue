@@ -90,7 +90,13 @@
                                                 class="badge badge-primary"
                                                 @click.prevent="add(t)"
                                                 v-show="t == inputs.length - 1"
-                                            >+</a>                                            
+                                            >+</a>
+                                            <a
+                                                    href="#"
+                                                    class="btn btn-primary"
+                                                    @click.prevent="modalDelete(input.id_quaterly, input.logro)"
+                                                    v-show="(t > 0)"
+                                                >Eliminar</a>                                            
                                             </span>
                                             <div>
                                                 <input
@@ -217,6 +223,27 @@
                 </div>
             </div>
         </div>
+         <!-- Modal para eliminar evento -->
+        <div class="modal fade" id="deleteLog">
+            <div class="modal-sm modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">
+                        <span>&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group row text-center">
+                            <label for="name">Esta seguro que desea eliminar {{ delName }} ?</label>
+                        </div>
+                        <div class="modal-footer">
+                            <a class="btn btn-danger float-right" href v-on:click.prevent="deleteObjetive()">Si</a>
+                            <a class="btn btn-warning" href v-on:click.prevent="deleteHide()">Cancelar</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 <script>
@@ -279,7 +306,7 @@ export default {
             ],
             inputs1: [
                 {
-                    logro: "",
+                    logro: "Logros de la planificacion general",
                     porcentaje: "0",
                 },
             ],
@@ -298,6 +325,8 @@ export default {
                     contenidoPIAR: "",
                 },
             ],
+            delName: "",
+            delId: "",
             inputs1_saved:[],
             inputsPIAR_saved:[],
             inputsP1_saved:[],
@@ -460,20 +489,15 @@ export default {
                         i++;
                         this.inputs.push({ id_quaterly:e.id,name: e.unit_name, contenido: e.content, logro:e.logro});
                     });
+                    console.log(this.inputs);
                     this.inputs_saved= JSON.parse(JSON.stringify(this.inputs));
-                }
-                else{
+                }else{
         
                     if(localStorage.getItem(this.serialLocalStorage)){
                         let savedInputModel=JSON.parse(decodeURIComponent(escape(window.atob(localStorage.getItem(this.serialLocalStorage)))));
-            
-                        if(JSON.stringify(savedInputModel.inputs)!=JSON.stringify(this.inputs)){
+                        console.log(JSON.stringify(this.inputs));
+                        if(savedInputModel.inputs.length>0 && JSON.stringify(savedInputModel.inputs)!=JSON.stringify(this.inputs)){
                             this.inputs=savedInputModel.inputs;
-                            this.isSynchronized=false;
-                        }
-
-                        if(JSON.stringify(savedInputModel.inputs1)!=JSON.stringify(this.inputs1)){
-                            this.inputs1=savedInputModel.inputs1;
                             this.isSynchronized=false;
                         }
                     }
@@ -503,6 +527,28 @@ export default {
             localStorage.setItem(this.serialLocalStorage, window.btoa(unescape(encodeURIComponent(JSON.stringify({inputs1:this.inputs1,inputs:this.inputs, inputsPIAR: this.inputsPIAR})))));
 
             this.isSynchronized=false;
+        },
+        modalDelete(id, name){
+            this.delName = name;
+            this.delId = id;
+            $("#deleteLog").modal("show");
+        },
+        deleteHide() {
+            $("#deleteLog").modal("hide");
+        },
+        deleteObjetive(){
+            var url="deleteLogroPlanification/"+this.delId;
+            axios.put(url).then((response) => {
+                this.errors = [];
+                toastr.success("Logro eliminado con exito");
+                this.isLoading=false;
+                this.getData();
+                $("#deleteLog").modal("hide");
+                    
+            }).catch((error) => {
+                this.errors = error.response.data;
+                this.isLoading=false;
+            });
         },
         annualContentUpdateEventI(e,index1,index2,type,property=null){
             if(type=='inputs'){

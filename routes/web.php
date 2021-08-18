@@ -397,6 +397,8 @@ Route::get('getTeachersByClassroom', 'UserController@getTeachersByClassroom');
 Route::resource('resumes', 'ResumeController', ['except' => 'show', 'create', 'edit']);;
 Route::resource('courses', 'courseController', ['except' => 'show', 'create', 'edit']);
 Route::resource('Courses', 'CoursesController', ['except' => 'show', 'create', 'edit']);
+Route::put('deleteObjetivePlanification/{id}', 'CoursesController@deleteObjetive');
+Route::put('deleteLogroPlanification/{id}', 'CoursesController@deleteLogro');
 Route::resource('Class', 'ClassController', ['except' => 'show', 'create', 'edit']);
 Route::get('GetClass', 'ClassController@getClass');
 Route::get('showClass/{id}', 'ClassController@show')->name('showClass');
@@ -540,6 +542,7 @@ Route::middleware('auth')->get('/enviados', function () {
 Route::get('getUsers', 'AdministratorController@indexUsers')->name('getUsers');
 Route::get('getStudents', 'AdministratorController@indexStudents')->name('getStudents');
 Route::get('getTeachers', 'AdministratorController@indexTeachers')->name('getTeachers');
+Route::get('getAnyTeachers', 'AdministratorController@indexAnyTeachers')->name('getAnyTeachers');
 Route::get('getUsersAssigned', 'AdministratorController@indexStudentsTeachersAssigned')->name('getUsersAssigned');
 Route::post('assignStudents', 'AdministratorController@assignStudents')->name('assignStudents');
 Route::put('assignParentToStudent/{id_student}', 'AdministratorController@assignParentsToStudent');
