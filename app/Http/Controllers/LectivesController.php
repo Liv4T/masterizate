@@ -81,7 +81,6 @@ class LectivesController extends Controller
                             'id_updated_user'=>$planification->updated_user
                         ]
                     );
-
                 }
 
             }

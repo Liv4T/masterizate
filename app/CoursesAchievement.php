@@ -8,5 +8,5 @@ class CoursesAchievement extends Model
 {
     //
     protected $table = "achievement_planification";
-    protected $fillable = ["id_planification", "achievement", "percentage"];
+    protected $fillable = ["id_planification", "achievement", "percentage", "deleted"];
 }

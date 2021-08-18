@@ -13,8 +13,33 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vue_form_wizard_dist_vue_form_wizard_min_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-form-wizard/dist/vue-form-wizard.min.css */ "./node_modules/vue-form-wizard/dist/vue-form-wizard.min.css");
 /* harmony import */ var vue_form_wizard_dist_vue_form_wizard_min_css__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue_form_wizard_dist_vue_form_wizard_min_css__WEBPACK_IMPORTED_MODULE_1__);
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -216,14 +241,8 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["idArea"],
   data: function data() {
-    var _ref;
-
-    return _ref = {
+    return {
       serialLocalStorage: '9f284918-f0f6-4369-a368-eaf6321b6807',
-      inputs: [{
-        name: "",
-        contenido: ""
-      }],
       inputs1: [{
         logro: "",
         porcentaje: "0"
@@ -236,16 +255,40 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
         namePIAR: "",
         contenidoPIAR: ""
       }],
+      delName: "",
+      delId: "",
       inputs1_saved: [],
       inputsPIAR_saved: [],
       inputsP1_saved: [],
       inputs_saved: [],
-      newTrimestre: [],
       newLogro1: "",
       newLogro2: "",
       newLogro3: "",
-      newLogro4: ""
-    }, _defineProperty(_ref, "newTrimestre", []), _defineProperty(_ref, "newLogro", []), _defineProperty(_ref, "trimestre", false), _defineProperty(_ref, "logro_1", ""), _defineProperty(_ref, "logro_2", ""), _defineProperty(_ref, "logro_3", ""), _defineProperty(_ref, "logro_4", ""), _defineProperty(_ref, "fillC", []), _defineProperty(_ref, "anual", []), _defineProperty(_ref, "newAnual", []), _defineProperty(_ref, "errors", []), _defineProperty(_ref, "isSynchronized", true), _defineProperty(_ref, "isLoading", false), _defineProperty(_ref, "showPiarPlan", false), _defineProperty(_ref, "showPIARPlanTrimestral", false), _defineProperty(_ref, "activityForAllStudents", true), _defineProperty(_ref, "activityForPIARStudents", false), _defineProperty(_ref, "activityForSelectStudents", false), _defineProperty(_ref, "studentsOptions", []), _defineProperty(_ref, "saveStudent", []), _defineProperty(_ref, "piarStudents", []), _defineProperty(_ref, "AreaId", ""), _defineProperty(_ref, "areaId", ""), _defineProperty(_ref, "classroomId", ""), _ref;
+      newLogro4: "",
+      newLogro: [],
+      trimestre: false,
+      logro_1: "",
+      logro_2: "",
+      logro_3: "",
+      logro_4: "",
+      fillC: [],
+      anual: [],
+      newAnual: [],
+      errors: [],
+      isSynchronized: true,
+      isLoading: false,
+      showPiarPlan: false,
+      showPIARPlanTrimestral: false,
+      activityForAllStudents: true,
+      activityForPIARStudents: false,
+      activityForSelectStudents: false,
+      studentsOptions: [],
+      saveStudent: [],
+      piarStudents: [],
+      AreaId: "",
+      areaId: "",
+      classroomId: ""
+    };
   },
   watch: {
     activityForAllStudents: function activityForAllStudents(newVal) {
@@ -346,7 +389,7 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
       axios.get(urlsel).then(function (response) {
         _this.fillC = response.data; //set current data
 
-        if (response.data.achievements.length > 0 && response.data.quaterly.length > 0) {
+        if (response.data.achievements.length > 0) {
           _this.inputs1 = [];
           response.data.achievements.forEach(function (e) {
             _this.inputs1.push({
@@ -357,23 +400,9 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
             });
           });
           _this.inputs1_saved = JSON.parse(JSON.stringify(_this.inputs1));
-          _this.inputs = [];
-          response.data.quaterly.forEach(function (e) {
-            _this.inputs.push({
-              id_quaterly: e.id,
-              name: e.unit_name,
-              contenido: e.content
-            });
-          });
-          _this.inputs_saved = JSON.parse(JSON.stringify(_this.inputs));
         } else {
           if (localStorage.getItem(_this.serialLocalStorage)) {
             var savedInputModel = JSON.parse(decodeURIComponent(escape(window.atob(localStorage.getItem(_this.serialLocalStorage)))));
-
-            if (JSON.stringify(savedInputModel.inputs) != JSON.stringify(_this.inputs)) {
-              _this.inputs = savedInputModel.inputs;
-              _this.isSynchronized = false;
-            }
 
             if (JSON.stringify(savedInputModel.inputs1) != JSON.stringify(_this.inputs1)) {
               _this.inputs1 = savedInputModel.inputs1;
@@ -389,12 +418,35 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
         }
       });
     },
+    modalDelete: function modalDelete(id, name) {
+      this.delName = name;
+      this.delId = id;
+      $("#deleteOb").modal("show");
+    },
+    deleteHide: function deleteHide() {
+      $("#deleteOb").modal("hide");
+    },
+    deleteObjetive: function deleteObjetive() {
+      var _this2 = this;
+
+      var url = "deleteObjetivePlanification/" + this.delId;
+      axios.put(url).then(function (response) {
+        _this2.errors = [];
+        toastr.success("Objetivo eliminado con exito");
+        _this2.isLoading = false;
+
+        _this2.getData();
+
+        $("#deleteOb").modal("hide");
+      })["catch"](function (error) {
+        _this2.errors = error.response.data;
+        _this2.isLoading = false;
+      });
+    },
     annualContentUpdateEvent: function annualContentUpdateEvent(e, i, type) {
       var property = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : null;
 
-      if (type == 'inputs') {
-        this.inputs[i][property] = this.inputs[i][property].replace(/[^a-zA-Z0-9-.ñáéíóú_*+-/=&%$#!()?¡¿ ]/g, "|");
-      } else if (type == 'inputs1') {
+      if (type == 'inputs1') {
         this.inputs1[i][property] = this.inputs1[i][property].replace(/[^a-zA-Z0-9-.ñáéíóú_*+-/=&%$#!()?¡¿ ]/g, "|");
       } else if (type == 'inputsPIAR') {
         this.inputsPIAR[i][property] = this.inputsPIAR[i][property].replace(/[^a-zA-Z0-9-.ñáéíóú_*+-/=&%$#!()?¡¿ ]/g, "|");
@@ -416,15 +468,6 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
     },
     showPIARPlanT: function showPIARPlanT() {
       this.showPIARPlanTrimestral = !this.showPIARPlanTrimestral;
-    },
-    add: function add(index) {
-      this.inputs.push({
-        name: "",
-        contenido: ""
-      });
-    },
-    remove: function remove(index) {
-      this.inputs.splice(index, 1);
     },
     add1: function add1(index) {
       this.inputs1.push({
@@ -457,57 +500,44 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
       return this.isLoading;
     },
     createCourses: function createCourses() {
-      var _this2 = this;
+      var _this3 = this;
 
       this.isLoading = true;
       var url = window.location.origin + "/Courses";
-      if (this.inputs.length < 1 || this.inputs1.length < 1) return;
-      this.newTrimestre = [];
+      if (this.inputs1.length < 1) return;
       this.newLogro = [];
 
-      if (this.inputs.length >= 1) {
-        for (var i = 0; i < this.inputs.length; i++) {
-          this.newTrimestre.push(this.inputs[i]);
-        }
-      }
-
       if (this.inputs1.length >= 1) {
-        for (var _i = 0; _i < this.inputs1.length; _i++) {
-          this.newLogro.push(this.inputs1[_i]);
+        for (var i = 0; i < this.inputs1.length; i++) {
+          this.newLogro.push(this.inputs1[i]);
         }
+
+        console.log(this.newLogro);
       }
 
       var ids = this.AreaId.split('/');
       axios.post(url, {
         id_area: ids[0],
         id_classroom: ids[1],
-        logros: this.newLogro,
-        trimestres: this.newTrimestre
+        logros: this.newLogro
       }).then(function (response) {
-        _this2.errors = [];
+        _this3.errors = [];
         toastr.success("Nuevo plan general creado exitosamente");
-        _this2.isLoading = false;
+        _this3.isLoading = false;
       })["catch"](function (error) {
-        _this2.errors = error.response.data;
-        _this2.isLoading = false;
+        _this3.errors = error.response.data;
+        _this3.isLoading = false;
       });
 
       if (this.activityForPIARStudents === true) {
         if (this.inputsPIAR.length > 0 || this.inputsPIAR1.length > 0) {
           this.isLoading = true;
           if (this.inputsPIAR.length < 1 || this.inputsPIAR1.length < 1) return;
-          this.newTrimestre = [];
           this.newLogro = [];
 
-          if (this.inputsPIAR.length > 0) {
-            for (var _i2 = 0; _i2 < this.inputsPIAR.length; _i2++) {
-              this.newTrimestre.push(this.inputsPIAR[_i2]);
-            }
-          }
-
           if (this.inputsPIAR1.length > 0) {
-            for (var _i3 = 0; _i3 < this.inputsPIAR1.length; _i3++) {
-              this.newLogro.push(this.inputsPIAR1[_i3]);
+            for (var _i = 0; _i < this.inputsPIAR1.length; _i++) {
+              this.newLogro.push(this.inputsPIAR1[_i]);
             }
           }
 
@@ -515,16 +545,15 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
             //Cursos generales
             id_area: this.AreaId.substring(0, this.AreaId.lastIndexOf("/")),
             id_classroom: this.AreaId[2],
-            trimestres: JSON.stringify(this.newTrimestre),
             students: JSON.stringify(this.saveStudent),
             logros: JSON.stringify(this.inputsPIAR)
           }).then(function (response) {
-            _this2.errors = [];
+            _this3.errors = [];
             toastr.success(response.data);
-            _this2.isLoading = false;
+            _this3.isLoading = false;
           })["catch"](function (error) {
-            _this2.errors = error.response.data;
-            _this2.isLoading = false;
+            _this3.errors = error.response.data;
+            _this3.isLoading = false;
           });
         }
       }
@@ -835,13 +864,6 @@ var render = function() {
                           attrs: { type: "number" },
                           domProps: { value: input1.porcentaje },
                           on: {
-                            change: function($event) {
-                              return _vm.annualContentUpdateEvent(
-                                $event,
-                                t,
-                                "inputs1"
-                              )
-                            },
                             input: function($event) {
                               if ($event.target.composing) {
                                 return
@@ -900,6 +922,32 @@ var render = function() {
                               }
                             },
                             [_vm._v("+")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "a",
+                            {
+                              directives: [
+                                {
+                                  name: "show",
+                                  rawName: "v-show",
+                                  value: t > 0,
+                                  expression: "(t > 0)"
+                                }
+                              ],
+                              staticClass: "btn btn-primary",
+                              attrs: { href: "#" },
+                              on: {
+                                click: function($event) {
+                                  $event.preventDefault()
+                                  return _vm.modalDelete(
+                                    input1.id_achievement,
+                                    input1.logro
+                                  )
+                                }
+                              }
+                            },
+                            [_vm._v("Eliminar")]
                           )
                         ])
                       ]),
@@ -1119,6 +1167,56 @@ var render = function() {
           ])
         ])
       ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "modal fade", attrs: { id: "deleteOb" } }, [
+      _c("div", { staticClass: "modal-sm modal-dialog" }, [
+        _c("div", { staticClass: "modal-content" }, [
+          _vm._m(2),
+          _vm._v(" "),
+          _c("div", { staticClass: "modal-body" }, [
+            _c("div", { staticClass: "form-group row text-center" }, [
+              _c("label", { attrs: { for: "name" } }, [
+                _vm._v(
+                  "Esta seguro que desea eliminar " + _vm._s(_vm.delName) + " ?"
+                )
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "modal-footer" }, [
+              _c(
+                "a",
+                {
+                  staticClass: "btn btn-danger float-right",
+                  attrs: { href: "" },
+                  on: {
+                    click: function($event) {
+                      $event.preventDefault()
+                      return _vm.deleteObjetive()
+                    }
+                  }
+                },
+                [_vm._v("Si")]
+              ),
+              _vm._v(" "),
+              _c(
+                "a",
+                {
+                  staticClass: "btn btn-warning",
+                  attrs: { href: "" },
+                  on: {
+                    click: function($event) {
+                      $event.preventDefault()
+                      return _vm.deleteHide()
+                    }
+                  }
+                },
+                [_vm._v("Cancelar")]
+              )
+            ])
+          ])
+        ])
+      ])
     ])
   ])
 }
@@ -1167,6 +1265,21 @@ var staticRenderFns = [
     return _c("label", [
       _c("span", { staticClass: "required" }, [_vm._v("*")]),
       _vm._v("Planificación Para :")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header" }, [
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: { type: "button", "data-dismiss": "modal" }
+        },
+        [_c("span", [_vm._v("×")])]
+      )
     ])
   }
 ]

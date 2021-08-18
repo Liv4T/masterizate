@@ -112,7 +112,7 @@
       };
     },
     mounted() {
-      var urlUs = "getTeachers";
+      var urlUs = "getAnyTeachers";
       axios.get(urlUs).then((response) => {
         this.myOptions = response.data;
       });

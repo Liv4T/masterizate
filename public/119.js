@@ -236,6 +236,33 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 (function () {
   "use strict";
 
@@ -285,10 +312,6 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
         logro: "",
         contenido: ""
       }],
-      inputs1: [{
-        logro: "",
-        porcentaje: "0"
-      }],
       inputsPIAR: [{
         logroPIAR: "",
         porcentajePIAR: "0"
@@ -298,6 +321,8 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
         logroPIAR: "",
         contenidoPIAR: ""
       }],
+      delName: "",
+      delId: "",
       inputs1_saved: [],
       inputsPIAR_saved: [],
       inputsP1_saved: [],
@@ -398,16 +423,6 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
         _this.fillC = response.data; //set current data
 
         if (response.data.achievements.length > 0 && response.data.quaterly.length > 0) {
-          _this.inputs1 = [];
-          response.data.achievements.forEach(function (e) {
-            _this.inputs1.push({
-              id_plannification: e.id_planification,
-              id_achievement: e.id,
-              logro: e.achievement,
-              porcentaje: e.percentage
-            });
-          });
-          _this.inputs1_saved = JSON.parse(JSON.stringify(_this.inputs1));
           _this.inputsClass = [];
           _this.inputs = [];
           var i = 0;
@@ -439,18 +454,15 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
               logro: e.logro
             });
           });
+          console.log(_this.inputs);
           _this.inputs_saved = JSON.parse(JSON.stringify(_this.inputs));
         } else {
           if (localStorage.getItem(_this.serialLocalStorage)) {
             var savedInputModel = JSON.parse(decodeURIComponent(escape(window.atob(localStorage.getItem(_this.serialLocalStorage)))));
+            console.log(JSON.stringify(_this.inputs));
 
-            if (JSON.stringify(savedInputModel.inputs) != JSON.stringify(_this.inputs)) {
+            if (savedInputModel.inputs.length > 0 && JSON.stringify(savedInputModel.inputs) != JSON.stringify(_this.inputs)) {
               _this.inputs = savedInputModel.inputs;
-              _this.isSynchronized = false;
-            }
-
-            if (JSON.stringify(savedInputModel.inputs1) != JSON.stringify(_this.inputs1)) {
-              _this.inputs1 = savedInputModel.inputs1;
               _this.isSynchronized = false;
             }
           }
@@ -468,8 +480,6 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
 
       if (type == 'inputs') {
         this.inputs[i][property] = this.inputs[i][property].replace(/[^a-zA-Z0-9-.ñáéíóú_*+-/=&%$#!()?¡¿ ]/g, "|");
-      } else if (type == 'inputs1') {
-        this.inputs1[i][property] = this.inputs1[i][property].replace(/[^a-zA-Z0-9-.ñáéíóú_*+-/=&%$#!()?¡¿ ]/g, "|");
       } else if (type == 'inputsPIAR') {
         this.inputsPIAR[i][property] = this.inputsPIAR[i][property].replace(/[^a-zA-Z0-9-.ñáéíóú_*+-/=&%$#!()?¡¿ ]/g, "|");
       } else if (type == 'inputsPIAR1') {
@@ -478,12 +488,32 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
       //serialize data on localstorage
 
 
-      localStorage.setItem(this.serialLocalStorage, window.btoa(unescape(encodeURIComponent(JSON.stringify({
-        inputs1: this.inputs1,
-        inputs: this.inputs,
-        inputsPIAR: this.inputsPIAR
-      })))));
       this.isSynchronized = false;
+    },
+    modalDelete: function modalDelete(id, name) {
+      this.delName = name;
+      this.delId = id;
+      $("#deleteLog").modal("show");
+    },
+    deleteHide: function deleteHide() {
+      $("#deleteLog").modal("hide");
+    },
+    deleteObjetive: function deleteObjetive() {
+      var _this2 = this;
+
+      var url = "deleteLogroPlanification/" + this.delId;
+      axios.put(url).then(function (response) {
+        _this2.errors = [];
+        toastr.success("Logro eliminado con exito");
+        _this2.isLoading = false;
+
+        _this2.getData();
+
+        $("#deleteLog").modal("hide");
+      })["catch"](function (error) {
+        _this2.errors = error.response.data;
+        _this2.isLoading = false;
+      });
     },
     annualContentUpdateEventI: function annualContentUpdateEventI(e, index1, index2, type) {
       var property = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : null;
@@ -525,15 +555,6 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
     removeI: function removeI(index) {
       this.inputsClass[index].splice(index, 1);
     },
-    add1: function add1(index) {
-      this.inputs1.push({
-        logro: "",
-        porcentaje: "0"
-      });
-    },
-    remove1: function remove1(index) {
-      this.inputs1.splice(index, 1);
-    },
     addPIAR: function addPIAR(index) {
       this.inputsPIAR.push({
         logroPIAR: "",
@@ -557,11 +578,12 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
       return this.isLoading;
     },
     createCourses: function createCourses() {
-      var _this2 = this;
+      var _this3 = this;
 
       this.isLoading = true;
       var url = window.location.origin + "/Courses";
-      if (this.inputs.length < 1 || this.inputs1.length < 1) return;
+      console.log(url);
+      if (this.inputs.length < 1) return;
       this.newTrimestre = [];
       this.newLogro = [];
 
@@ -572,25 +594,18 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
         }
       }
 
-      if (this.inputs1.length >= 1) {
-        for (var _i = 0; _i < this.inputs1.length; _i++) {
-          this.newLogro.push(this.inputs1[_i]);
-        }
-      }
-
       var ids = this.idArea.split('/');
       axios.post(url, {
         id_area: ids[0],
         id_classroom: ids[1],
-        logros: this.newLogro,
         trimestres: this.newTrimestre
       }).then(function (response) {
-        _this2.errors = [];
-        toastr.success("Nuevo plan general creado exitosamente");
-        _this2.isLoading = false;
+        _this3.errors = [];
+        toastr.success("Nueva planificación trimestral creada exitosamente");
+        _this3.isLoading = false;
       })["catch"](function (error) {
-        _this2.errors = error.response.data;
-        _this2.isLoading = false;
+        _this3.errors = error.response.data;
+        _this3.isLoading = false;
       });
 
       if (this.activityForPIARStudents === true) {
@@ -601,14 +616,14 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
           this.newLogro = [];
 
           if (this.inputsPIAR.length > 0) {
-            for (var _i2 = 0; _i2 < this.inputsPIAR.length; _i2++) {
-              this.newTrimestre.push(this.inputsPIAR[_i2]);
+            for (var _i = 0; _i < this.inputsPIAR.length; _i++) {
+              this.newTrimestre.push(this.inputsPIAR[_i]);
             }
           }
 
           if (this.inputsPIAR1.length > 0) {
-            for (var _i3 = 0; _i3 < this.inputsPIAR1.length; _i3++) {
-              this.newLogro.push(this.inputsPIAR1[_i3]);
+            for (var _i2 = 0; _i2 < this.inputsPIAR1.length; _i2++) {
+              this.newLogro.push(this.inputsPIAR1[_i2]);
             }
           }
 
@@ -620,12 +635,12 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
             trimestres: JSON.stringify(this.newTrimestre),
             students: JSON.stringify(this.saveStudent)
           }).then(function (response) {
-            _this2.errors = [];
+            _this3.errors = [];
             toastr.success(response.data);
-            _this2.isLoading = false;
+            _this3.isLoading = false;
           })["catch"](function (error) {
-            _this2.errors = error.response.data;
-            _this2.isLoading = false;
+            _this3.errors = error.response.data;
+            _this3.isLoading = false;
           });
         }
       }
@@ -988,6 +1003,32 @@ var render = function() {
                                       }
                                     },
                                     [_vm._v("+")]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "a",
+                                    {
+                                      directives: [
+                                        {
+                                          name: "show",
+                                          rawName: "v-show",
+                                          value: t > 0,
+                                          expression: "(t > 0)"
+                                        }
+                                      ],
+                                      staticClass: "btn btn-primary",
+                                      attrs: { href: "#" },
+                                      on: {
+                                        click: function($event) {
+                                          $event.preventDefault()
+                                          return _vm.modalDelete(
+                                            input.id_quaterly,
+                                            input.logro
+                                          )
+                                        }
+                                      }
+                                    },
+                                    [_vm._v("Eliminar")]
                                   )
                                 ]),
                                 _vm._v(" "),
@@ -1456,6 +1497,56 @@ var render = function() {
           ])
         ])
       ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "modal fade", attrs: { id: "deleteLog" } }, [
+      _c("div", { staticClass: "modal-sm modal-dialog" }, [
+        _c("div", { staticClass: "modal-content" }, [
+          _vm._m(2),
+          _vm._v(" "),
+          _c("div", { staticClass: "modal-body" }, [
+            _c("div", { staticClass: "form-group row text-center" }, [
+              _c("label", { attrs: { for: "name" } }, [
+                _vm._v(
+                  "Esta seguro que desea eliminar " + _vm._s(_vm.delName) + " ?"
+                )
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "modal-footer" }, [
+              _c(
+                "a",
+                {
+                  staticClass: "btn btn-danger float-right",
+                  attrs: { href: "" },
+                  on: {
+                    click: function($event) {
+                      $event.preventDefault()
+                      return _vm.deleteObjetive()
+                    }
+                  }
+                },
+                [_vm._v("Si")]
+              ),
+              _vm._v(" "),
+              _c(
+                "a",
+                {
+                  staticClass: "btn btn-warning",
+                  attrs: { href: "" },
+                  on: {
+                    click: function($event) {
+                      $event.preventDefault()
+                      return _vm.deleteHide()
+                    }
+                  }
+                },
+                [_vm._v("Cancelar")]
+              )
+            ])
+          ])
+        ])
+      ])
     ])
   ])
 }
@@ -1504,6 +1595,21 @@ var staticRenderFns = [
     return _c("label", [
       _c("span", { staticClass: "required" }, [_vm._v("*")]),
       _vm._v("Planificación Para :")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header" }, [
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: { type: "button", "data-dismiss": "modal" }
+        },
+        [_c("span", [_vm._v("×")])]
+      )
     ])
   }
 ]

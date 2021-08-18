@@ -136,6 +136,22 @@ class AdministratorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function indexAnyTeachers()
+    {
+        $users = User::where('type_user',2)->get();//solo docentes
+
+        foreach ($users as $key => $user) {
+            $users[$key]->type=TypeUser::find($user->type_user);
+        }
+
+        return $users;
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function assignStudents(Request $request)
     {
 

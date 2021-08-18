@@ -436,9 +436,9 @@ var render = function() {
                                     },
                                     [
                                       _vm._v(
-                                        "\r\n                          " +
+                                        "\n                          " +
                                           _vm._s(option.text) +
-                                          "\r\n                        "
+                                          "\n                        "
                                       )
                                     ]
                                   )
@@ -473,9 +473,9 @@ var render = function() {
                                 _c("div", { attrs: { align: "center" } }, [
                                   _c("strong", [
                                     _vm._v(
-                                      "\r\n                        Logro " +
+                                      "\n                        Logro " +
                                         _vm._s(k + 1) +
-                                        "\r\n                        "
+                                        "\n                        "
                                     ),
                                     _c("input", {
                                       directives: [
@@ -502,7 +502,7 @@ var render = function() {
                                         }
                                       }
                                     }),
-                                    _vm._v("%\r\n                      ")
+                                    _vm._v("%\n                      ")
                                   ])
                                 ]),
                                 _vm._v(" "),
@@ -736,7 +736,7 @@ var render = function() {
                         staticClass: "alert alert-info",
                         attrs: { role: "alert" }
                       },
-                      [_vm._v("\r\n              Cargando\r\n            ")]
+                      [_vm._v("\n              Cargando\n            ")]
                     )
                   ]
                 ),
@@ -762,7 +762,7 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\r\n              Duplicación Completa\r\n            "
+                          "\n              Duplicación Completa\n            "
                         )
                       ]
                     )

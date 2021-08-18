@@ -36,11 +36,11 @@ class CoursesController extends Controller
             $Courses = Courses::where('id_teacher', $user->id)->where('id_area', $id_area)->where('id_classroom', $id_classroom)->first();
         }
         if (isset($Courses)) {
-            $achievements = CoursesAchievement::where('id_planification', $Courses->id)->get();
+            $achievements = CoursesAchievement::where('id_planification', $Courses->id)->where('deleted', 0)->get();
             if ($user->type_user == 1) {
-                $Quarterlies = Quarterly::where('id_area', $id_area)->where('id_classroom', $id_classroom)->get();
+                $Quarterlies = Quarterly::where('id_area', $id_area)->where('id_classroom', $id_classroom)->where('deleted', 0)->get();
             } elseif ($user->isTeacher()||$user->isTutor()) {
-                $Quarterlies = Quarterly::where('id_teacher', $user->id)->where('id_area', $id_area)->where('id_classroom', $id_classroom)->get();
+                $Quarterlies = Quarterly::where('id_teacher', $user->id)->where('id_area', $id_area)->where('id_classroom', $id_classroom)->where('deleted', 0)->get();
             }
             // $data[0] = [
             //     'id'   => 0,
@@ -193,6 +193,7 @@ class CoursesController extends Controller
                 $logro->achievement =     $achievement['achievement'];
                 $logro->percentage =      $achievement['percentage'];
                 $logro->id_planification =  $course->id;
+                $logro->deleted = 0;
                 $logro->save();
             }
 
@@ -206,10 +207,11 @@ class CoursesController extends Controller
                     'id_area'    => $data['id_area'],
                     'id_classroom'    => $data['id_classroom'],
                     'id_teacher'     =>  Auth::user()->id,
+                    'deleted' => 0,
                 ]);
             }
             return "ok";
-        } else {
+        } else { // duplicate =false
             $data = $request->all();
 
             $courses = Courses::where('id_teacher', Auth::user()->id)->where('id_area', $data['id_area'])->where('id_classroom', $data['id_classroom'])->get();
@@ -220,46 +222,96 @@ class CoursesController extends Controller
                     'id_classroom'  => $data['id_classroom'],
                     'id_teacher'     =>  Auth::user()->id,
                 ]);
-            } else // duplicate =false
-            {
-                $course = $courses[0];
+                if(!isset($data['logros'])){
+                    $logro = CoursesAchievement::create([
+                        'achievement'       => "Logros de la planificacion general",
+                        'percentage'        => 0,
+                        'id_planification'  => $course->id,
+                        'deleted' => 0,
+                    ]);
+                }
+                if(isset($data['logros'])){
+                    $achievements = $data['logros'];
+
+                    foreach ($achievements as $index => $achievement) {
+
+                        if (isset($achievement['id_achievement'])) {
+                            $achievementUpdatedRowsCount = CoursesAchievement::where('id', $achievement['id_achievement'])->update(array('percentage' => $achievement['porcentaje'], 'achievement' => $achievement['logro']));
+
+                            if ($achievementUpdatedRowsCount <= 0) {
+                                $logro = CoursesAchievement::create([
+                                    'achievement'       => "Logros de la planificacion general",
+                                    'percentage'        => 0,
+                                    'id_planification'  => $course->id,
+                                    'deleted' => 0,
+                                ]);
+                            }
+                        } else {
+                            $logro = CoursesAchievement::create([
+                                'achievement'       => $achievement['logro'],
+                                'percentage'        => $achievement['porcentaje'],
+                                'id_planification'  => $course->id,
+                                'deleted' => 0,
+                            ]);
+                        }
+                    }
+                }
+
             }
+            if(isset($data['logros']) && count($courses) > 0){
+                $courses = Courses::where('id_teacher', Auth::user()->id)->where('id_area', $data['id_area'])->where('id_classroom', $data['id_classroom'])->get();
+                $achievements = $data['logros'];
 
-            $achievements = $data['logros'];
+                foreach ($achievements as $index => $achievement) {
 
-            foreach ($achievements as $index => $achievement) {
+                    if (isset($achievement['id_achievement'])) {
+                        $achievementUpdatedRowsCount = CoursesAchievement::where('id', $achievement['id_achievement'])->update(array('percentage' => $achievement['porcentaje'], 'achievement' => $achievement['logro']));
 
-                if (isset($achievement['id_achievement'])) {
-                    $achievementUpdatedRowsCount = CoursesAchievement::where('id', $achievement['id_achievement'])->update(array('percentage' => $achievement['porcentaje'], 'achievement' => $achievement['logro']));
-
-                    if ($achievementUpdatedRowsCount <= 0) {
+                        if ($achievementUpdatedRowsCount <= 0) {
+                            $logro = CoursesAchievement::create([
+                                'achievement'       => $achievement['logro'],
+                                'percentage'        => $achievement['porcentaje'],
+                                'id_planification'  => $courses[0]->id,
+                                'deleted' => 0,
+                            ]);
+                        }
+                    } else {
                         $logro = CoursesAchievement::create([
                             'achievement'       => $achievement['logro'],
                             'percentage'        => $achievement['porcentaje'],
-                            'id_planification'  => $course->id,
+                            'id_planification'  => $courses[0]->id,
+                            'deleted' => 0,
                         ]);
                     }
-                } else {
-                    $logro = CoursesAchievement::create([
-                        'achievement'       => $achievement['logro'],
-                        'percentage'        => $achievement['porcentaje'],
-                        'id_planification'  => $course->id,
-                    ]);
                 }
             }
 
-            $Quarterlies = $data['trimestres'];
+            if(isset($data['trimestres'])){
 
-            foreach ($Quarterlies as $index => $Quarterly) {
+                $Quarterlies = $data['trimestres'];
+                $courses = Courses::where('id_teacher', Auth::user()->id)->where('id_area', $data['id_area'])->where('id_classroom', $data['id_classroom'])->get();
+                foreach ($Quarterlies as $index => $Quarterly) {
 
-                if (isset($Quarterly['id_quaterly'])) {
-                    if(isset($Quarterly['logro'])){
-                        $quarterlyUpdatedRowsCount = Quarterly::where('id', $Quarterly['id_quaterly'])->update(array('content' => $Quarterly['contenido'], 'unit_name' => $Quarterly['name'], 'logro' => $Quarterly['logro']  ));
-                    }else{
-                        $quarterlyUpdatedRowsCount = Quarterly::where('id', $Quarterly['id_quaterly'])->update(array('content' => $Quarterly['contenido'], 'unit_name' => $Quarterly['name']));
-                    }                    
+                    if (isset($Quarterly['id_quaterly'])) {
+                        if(isset($Quarterly['logro'])){
+                            $quarterlyUpdatedRowsCount = Quarterly::where('id', $Quarterly['id_quaterly'])->update(array('content' => $Quarterly['contenido'], 'unit_name' => $Quarterly['name'], 'logro' => $Quarterly['logro']  ));
+                        }else{
+                            $quarterlyUpdatedRowsCount = Quarterly::where('id', $Quarterly['id_quaterly'])->update(array('content' => $Quarterly['contenido'], 'unit_name' => $Quarterly['name']));
+                        }
 
-                    if ($quarterlyUpdatedRowsCount <= 0) {
+                        if ($quarterlyUpdatedRowsCount <= 0) {
+                            $subCate = Quarterly::create([
+                                'content' => $Quarterly['contenido'],
+                                'unit_name' => $Quarterly['name'],
+                                'logro' => $Quarterly['logro'],
+                                'id_area'    => $data['id_area'],
+                                'id_classroom'    => $data['id_classroom'],
+                                'id_teacher'     =>  Auth::user()->id,
+                                'id_planification' => $courses[0]->id,
+                                'deleted' => 0, 
+                            ]);
+                        }
+                    } else {
                         $subCate = Quarterly::create([
                             'content' => $Quarterly['contenido'],
                             'unit_name' => $Quarterly['name'],
@@ -267,17 +319,10 @@ class CoursesController extends Controller
                             'id_area'    => $data['id_area'],
                             'id_classroom'    => $data['id_classroom'],
                             'id_teacher'     =>  Auth::user()->id,
+                            'id_planification' => $courses[0]->id, 
+                            'deleted' => 0,
                         ]);
                     }
-                } else {
-                    $subCate = Quarterly::create([
-                        'content' => $Quarterly['contenido'],
-                        'unit_name' => $Quarterly['name'],
-                        'logro' => $Quarterly['logro'],
-                        'id_area'    => $data['id_area'],
-                        'id_classroom'    => $data['id_classroom'],
-                        'id_teacher'     =>  Auth::user()->id,
-                    ]);
                 }
             }
             return "ok";
@@ -775,4 +820,16 @@ class CoursesController extends Controller
 
         }
     }
+    public function deleteObjetive(int $id){
+       $update= CoursesAchievement::where('id', $id)->update(['deleted' => 1]);
+
+       return 'ok';
+
+    }
+    public function deleteLogro(int $id){
+        $update= Quarterly::where('id', $id)->update(['deleted' => 1]);
+ 
+        return 'ok';
+ 
+     }
 }

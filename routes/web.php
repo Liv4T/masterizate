@@ -80,6 +80,9 @@ Route::middleware('auth')->get('/duplicarGeneral', function () {
 Route::middleware('auth')->get('/duplicar-semana/', function () {
     return view('duplicarSemana');
 });
+Route::middleware('auth')->get('/duplicar-semana-electiva/', function () {
+    return view('duplicarSemanaElectiva');
+});
 Route::middleware('auth')->get('/crear_semana/{id_area}/{id_classroom}/{id_trimestre}/{orden}', function (String $id_area, String $id_classroom, String $id_trimestre, String $orden) {
     return view('semanal')->with('id_area', $id_area)->with('id_classroom', $id_classroom)->with('id_trimestre', $id_trimestre)->with('orden', $orden);
 });
@@ -394,6 +397,8 @@ Route::get('getTeachersByClassroom', 'UserController@getTeachersByClassroom');
 Route::resource('resumes', 'ResumeController', ['except' => 'show', 'create', 'edit']);;
 Route::resource('courses', 'courseController', ['except' => 'show', 'create', 'edit']);
 Route::resource('Courses', 'CoursesController', ['except' => 'show', 'create', 'edit']);
+Route::put('deleteObjetivePlanification/{id}', 'CoursesController@deleteObjetive');
+Route::put('deleteLogroPlanification/{id}', 'CoursesController@deleteLogro');
 Route::resource('Class', 'ClassController', ['except' => 'show', 'create', 'edit']);
 Route::get('GetClass', 'ClassController@getClass');
 Route::get('showClass/{id}', 'ClassController@show')->name('showClass');
@@ -537,6 +542,7 @@ Route::middleware('auth')->get('/enviados', function () {
 Route::get('getUsers', 'AdministratorController@indexUsers')->name('getUsers');
 Route::get('getStudents', 'AdministratorController@indexStudents')->name('getStudents');
 Route::get('getTeachers', 'AdministratorController@indexTeachers')->name('getTeachers');
+Route::get('getAnyTeachers', 'AdministratorController@indexAnyTeachers')->name('getAnyTeachers');
 Route::get('getUsersAssigned', 'AdministratorController@indexStudentsTeachersAssigned')->name('getUsersAssigned');
 Route::post('assignStudents', 'AdministratorController@assignStudents')->name('assignStudents');
 Route::put('assignParentToStudent/{id_student}', 'AdministratorController@assignParentsToStudent');

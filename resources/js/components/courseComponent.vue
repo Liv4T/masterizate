@@ -79,7 +79,6 @@
                                         <div class="classroom-planning-section">
                                             <strong>Objetivo: </strong>
                                             <input
-                                                v-on:change="annualContentUpdateEvent($event,t,'inputs1')"
                                                 class="form-control form-control-sm"
                                                 type="number"
                                                 style="width:50px;"
@@ -98,6 +97,13 @@
                                                     @click.prevent="add1(t)"
                                                     v-show="t == inputs1.length -1"
                                                 >+</a>
+                                                <a
+                                                    href="#"
+                                                    class="btn btn-primary"
+                                                    
+                                                    @click.prevent="modalDelete(input1.id_achievement, input1.logro)"
+                                                    v-show="(t > 0)"
+                                                >Eliminar</a>
                                             </span>
                                         </div>
 
@@ -157,6 +163,27 @@
                 </div>
             </div>
         </div>
+        <!-- Modal para eliminar objetivo -->
+        <div class="modal fade" id="deleteOb">
+            <div class="modal-sm modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">
+                        <span>&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group row text-center">
+                            <label for="name">Esta seguro que desea eliminar {{ delName }} ?</label>
+                        </div>
+                        <div class="modal-footer">
+                            <a class="btn btn-danger float-right" href v-on:click.prevent="deleteObjetive()">Si</a>
+                            <a class="btn btn-warning" href v-on:click.prevent="deleteHide()">Cancelar</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 <script>
@@ -210,12 +237,6 @@ export default {
     data() {
         return {
             serialLocalStorage:'9f284918-f0f6-4369-a368-eaf6321b6807',
-            inputs: [
-                {
-                    name: "",
-                    contenido: "",
-                },
-            ],
             inputs1: [
                 {
                     logro: "",
@@ -236,16 +257,16 @@ export default {
                     contenidoPIAR: "",
                 },
             ],
+            delName: "",
+            delId: "",
             inputs1_saved:[],
             inputsPIAR_saved:[],
             inputsP1_saved:[],
             inputs_saved:[],
-            newTrimestre: [],
             newLogro1: "",
             newLogro2: "",
             newLogro3: "",
             newLogro4: "",
-            newTrimestre: [],
             newLogro: [],
             trimestre: false,
             logro_1: "",
@@ -376,28 +397,17 @@ export default {
             axios.get(urlsel).then((response) => {
                 this.fillC = response.data;
                 //set current data
-                if(response.data.achievements.length>0 && response.data.quaterly.length>0){
+                if(response.data.achievements.length>0){
                     this.inputs1=[];
                     response.data.achievements.forEach((e)=>{
                         this.inputs1.push({id_plannification:e.id_planification,id_achievement:e.id, logro: e.achievement, porcentaje: e.percentage });
                     });
                     this.inputs1_saved= JSON.parse(JSON.stringify(this.inputs1));
-                    
-                    this.inputs=[];
-                    response.data.quaterly.forEach((e)=>{
-                        this.inputs.push({ id_quaterly:e.id,name: e.unit_name, contenido: e.content });
-                    });
-                    this.inputs_saved= JSON.parse(JSON.stringify(this.inputs));
                 }
                 else{
         
                     if(localStorage.getItem(this.serialLocalStorage)){
                         let savedInputModel=JSON.parse(decodeURIComponent(escape(window.atob(localStorage.getItem(this.serialLocalStorage)))));
-            
-                        if(JSON.stringify(savedInputModel.inputs)!=JSON.stringify(this.inputs)){
-                            this.inputs=savedInputModel.inputs;
-                            this.isSynchronized=false;
-                        }
 
                         if(JSON.stringify(savedInputModel.inputs1)!=JSON.stringify(this.inputs1)){
                             this.inputs1=savedInputModel.inputs1;
@@ -412,11 +422,30 @@ export default {
                 }
             });
         },
+        modalDelete(id, name){
+            this.delName = name;
+            this.delId = id;
+            $("#deleteOb").modal("show");
+        },
+        deleteHide() {
+            $("#deleteOb").modal("hide");
+        },
+        deleteObjetive(){
+            var url="deleteObjetivePlanification/"+this.delId;
+            axios.put(url).then((response) => {
+                this.errors = [];
+                toastr.success("Objetivo eliminado con exito");
+                this.isLoading=false;
+                this.getData();
+                $("#deleteOb").modal("hide");
+                    
+            }).catch((error) => {
+                this.errors = error.response.data;
+                this.isLoading=false;
+            });
+        },
         annualContentUpdateEvent(e,i,type,property=null){
-            if(type=='inputs'){
-                this.inputs[i][property]=this.inputs[i][property].replace(/[^a-zA-Z0-9-.ñáéíóú_*+-/=&%$#!()?¡¿ ]/g, "|");
-            }
-            else if (type=='inputs1'){
+            if (type=='inputs1'){
                 this.inputs1[i][property]=this.inputs1[i][property].replace(/[^a-zA-Z0-9-.ñáéíóú_*+-/=&%$#!()?¡¿ ]/g, "|");
             }
             else if (type=='inputsPIAR'){
@@ -436,12 +465,6 @@ export default {
         },
         showPIARPlanT(){
             this.showPIARPlanTrimestral = !this.showPIARPlanTrimestral
-        },
-        add(index) {
-            this.inputs.push({ name: "", contenido: "" });
-        },
-        remove(index) {
-            this.inputs.splice(index, 1);
         },
         add1(index) {
             this.inputs1.push({ logro: "", porcentaje: "0" });
@@ -471,24 +494,18 @@ export default {
         createCourses() {
             
                 this.isLoading=true;
-                var url = window.location.origin + "/Courses";
+                var url = window.location.origin + "/Courses";                
 
-                if(this.inputs.length<1 ||  this.inputs1.length<1)
+                if(this.inputs1.length<1)
                     return;
 
-                this.newTrimestre = [];
                 this.newLogro = [];
-
-                if (this.inputs.length >= 1) {
-                    for (let i = 0; i < this.inputs.length; i++) {
-                        this.newTrimestre.push(this.inputs[i]);
-                    }
-                }
             
                 if (this.inputs1.length >= 1) {
                     for (let i = 0; i < this.inputs1.length; i++) {
                     this.newLogro.push(this.inputs1[i]);
                     }
+                    console.log(this.newLogro);
                 }
                 let ids = this.AreaId.split('/');
                 
@@ -496,7 +513,6 @@ export default {
                     id_area: ids[0],
                     id_classroom: ids[1],
                     logros: this.newLogro,
-                    trimestres: this.newTrimestre,
                 }).then((response) => {
                     this.errors = [];
                     toastr.success("Nuevo plan general creado exitosamente");
@@ -513,14 +529,8 @@ export default {
                     if(this.inputsPIAR.length<1 ||  this.inputsPIAR1.length<1)
                         return;
 
-                    this.newTrimestre = [];
                     this.newLogro = [];
 
-                    if (this.inputsPIAR.length > 0) {
-                        for (let i = 0; i < this.inputsPIAR.length; i++) {
-                            this.newTrimestre.push(this.inputsPIAR[i]);
-                        }
-                    }
                 
                     if (this.inputsPIAR1.length > 0) {
                         for (let i = 0; i < this.inputsPIAR1.length; i++) {
@@ -532,7 +542,6 @@ export default {
                         //Cursos generales
                         id_area: this.AreaId.substring(0, this.AreaId.lastIndexOf("/") ),
                         id_classroom: this.AreaId[2],
-                        trimestres: JSON.stringify(this.newTrimestre),
                         students: JSON.stringify(this.saveStudent),
                         logros: JSON.stringify(this.inputsPIAR)
                     }).then((response) => {
