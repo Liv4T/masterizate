@@ -561,6 +561,7 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
 
       this.isLoading = true;
       var url = window.location.origin + "/Courses";
+      console.log(url);
       if (this.inputs.length < 1 || this.inputs1.length < 1) return;
       this.newTrimestre = [];
       this.newLogro = [];
@@ -585,7 +586,7 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
         trimestres: this.newTrimestre
       }).then(function (response) {
         _this2.errors = [];
-        toastr.success("Nuevo plan general creado exitosamente");
+        toastr.success("Nueva planificación trimestral creada exitosamente");
         _this2.isLoading = false;
       })["catch"](function (error) {
         _this2.errors = error.response.data;

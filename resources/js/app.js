@@ -130,6 +130,7 @@ Vue.component("student-report-component", require("./components/studentReport.vu
 Vue.component("psychologymenu",  () => import ("./components/psychologyMenu.vue"));
 
 Vue.component("duplicarsemana-component", require("./components/duplicarSemana.vue").default);
+Vue.component("duplicarsemanaelectiva-component", require("./components/duplicarSemanaElectiva.vue").default);
 Vue.component("game-component", require("./components/Game.vue").default);
 Vue.component("juegos-component", require("./components/juegos.vue").default);
 Vue.component("groups", require("./components/Groups.vue").default);

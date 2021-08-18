@@ -561,10 +561,11 @@ export default {
         isLoadingEvent(){
             return this.isLoading;
         },
-        createCourses() {
+        createCourses() { 
             
                 this.isLoading=true;
                 var url = window.location.origin + "/Courses";
+                console.log(url);
 
                 if(this.inputs.length<1 ||  this.inputs1.length<1)
                     return;
@@ -591,7 +592,7 @@ export default {
                     trimestres: this.newTrimestre,
                 }).then((response) => {
                     this.errors = [];
-                    toastr.success("Nuevo plan general creado exitosamente");
+                    toastr.success("Nueva planificación trimestral creada exitosamente");
                     this.isLoading=false;
                         
                 }).catch((error) => {

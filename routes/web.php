@@ -80,6 +80,9 @@ Route::middleware('auth')->get('/duplicarGeneral', function () {
 Route::middleware('auth')->get('/duplicar-semana/', function () {
     return view('duplicarSemana');
 });
+Route::middleware('auth')->get('/duplicar-semana-electiva/', function () {
+    return view('duplicarSemanaElectiva');
+});
 Route::middleware('auth')->get('/crear_semana/{id_area}/{id_classroom}/{id_trimestre}/{orden}', function (String $id_area, String $id_classroom, String $id_trimestre, String $orden) {
     return view('semanal')->with('id_area', $id_area)->with('id_classroom', $id_classroom)->with('id_trimestre', $id_trimestre)->with('orden', $orden);
 });

@@ -467,7 +467,7 @@ export default {
         createCourses() {
             
                 this.isLoading=true;
-                var url = window.location.origin + "/Courses";
+                var url = window.location.origin + "/Courses";                
 
                 if(this.inputs.length<1 ||  this.inputs1.length<1)
                     return;
