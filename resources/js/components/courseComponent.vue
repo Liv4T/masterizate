@@ -397,7 +397,7 @@ export default {
             axios.get(urlsel).then((response) => {
                 this.fillC = response.data;
                 //set current data
-                if(response.data.achievements.length>0 && response.data.quaterly.length>0){
+                if(response.data.achievements.length>0){
                     this.inputs1=[];
                     response.data.achievements.forEach((e)=>{
                         this.inputs1.push({id_plannification:e.id_planification,id_achievement:e.id, logro: e.achievement, porcentaje: e.percentage });
@@ -505,6 +505,7 @@ export default {
                     for (let i = 0; i < this.inputs1.length; i++) {
                     this.newLogro.push(this.inputs1[i]);
                     }
+                    console.log(this.newLogro);
                 }
                 let ids = this.AreaId.split('/');
                 

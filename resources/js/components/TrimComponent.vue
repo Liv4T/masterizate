@@ -304,12 +304,6 @@ export default {
                     contenido: "",
                 },
             ],
-            inputs1: [
-                {
-                    logro: "Logros de la planificacion general",
-                    porcentaje: "0",
-                },
-            ],
 
             inputsPIAR: [
                 {
@@ -460,11 +454,6 @@ export default {
                 this.fillC = response.data;
                 //set current data
                 if(response.data.achievements.length>0 && response.data.quaterly.length>0){
-                    this.inputs1=[];
-                    response.data.achievements.forEach((e)=>{
-                        this.inputs1.push({id_plannification:e.id_planification,id_achievement:e.id, logro: e.achievement, porcentaje: e.percentage });
-                    });
-                    this.inputs1_saved= JSON.parse(JSON.stringify(this.inputs1));
                     this.inputsClass=[];
                     this.inputs=[];
                     var i=0;
@@ -513,9 +502,6 @@ export default {
             if(type=='inputs'){
                 this.inputs[i][property]=this.inputs[i][property].replace(/[^a-zA-Z0-9-.ñáéíóú_*+-/=&%$#!()?¡¿ ]/g, "|");
             }
-            else if (type=='inputs1'){
-                this.inputs1[i][property]=this.inputs1[i][property].replace(/[^a-zA-Z0-9-.ñáéíóú_*+-/=&%$#!()?¡¿ ]/g, "|");
-            }
             else if (type=='inputsPIAR'){
                 this.inputsPIAR[i][property] = this.inputsPIAR[i][property].replace(/[^a-zA-Z0-9-.ñáéíóú_*+-/=&%$#!()?¡¿ ]/g, "|");
             }
@@ -524,8 +510,7 @@ export default {
             }
             //console.log(l.normalize('NFD').replace(/([^n\u0300-\u036f]|n(?!\u0303(?![\u0300-\u036f])))[\u0300-\u036f]+/gi,"$1"));
             //serialize data on localstorage
-            localStorage.setItem(this.serialLocalStorage, window.btoa(unescape(encodeURIComponent(JSON.stringify({inputs1:this.inputs1,inputs:this.inputs, inputsPIAR: this.inputsPIAR})))));
-
+            
             this.isSynchronized=false;
         },
         modalDelete(id, name){
@@ -582,12 +567,6 @@ export default {
         removeI(index) {
             this.inputsClass[index].splice(index, 1);
         },
-        add1(index) {
-            this.inputs1.push({ logro: "", porcentaje: "0" });
-        },
-        remove1(index) {
-            this.inputs1.splice(index, 1);
-        },
 
         addPIAR(index) {
             this.inputsPIAR.push({ logroPIAR: "", porcentajePIAR: "0" });
@@ -613,7 +592,7 @@ export default {
                 var url = window.location.origin + "/Courses";
                 console.log(url);
 
-                if(this.inputs.length<1 ||  this.inputs1.length<1)
+                if(this.inputs.length<1)
                     return;
 
                 this.newTrimestre = [];
@@ -624,18 +603,11 @@ export default {
                         this.newTrimestre.push(this.inputs[i]);
                     }
                 }
-            
-                if (this.inputs1.length >= 1) {
-                    for (let i = 0; i < this.inputs1.length; i++) {
-                    this.newLogro.push(this.inputs1[i]);
-                    }
-                }
                 let ids = this.idArea.split('/');
 
                 axios.post(url, {
                     id_area: ids[0],
                     id_classroom: ids[1],
-                    logros: this.newLogro,
                     trimestres: this.newTrimestre,
                 }).then((response) => {
                     this.errors = [];

@@ -312,10 +312,6 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
         logro: "",
         contenido: ""
       }],
-      inputs1: [{
-        logro: "Logros de la planificacion general",
-        porcentaje: "0"
-      }],
       inputsPIAR: [{
         logroPIAR: "",
         porcentajePIAR: "0"
@@ -427,16 +423,6 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
         _this.fillC = response.data; //set current data
 
         if (response.data.achievements.length > 0 && response.data.quaterly.length > 0) {
-          _this.inputs1 = [];
-          response.data.achievements.forEach(function (e) {
-            _this.inputs1.push({
-              id_plannification: e.id_planification,
-              id_achievement: e.id,
-              logro: e.achievement,
-              porcentaje: e.percentage
-            });
-          });
-          _this.inputs1_saved = JSON.parse(JSON.stringify(_this.inputs1));
           _this.inputsClass = [];
           _this.inputs = [];
           var i = 0;
@@ -494,8 +480,6 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
 
       if (type == 'inputs') {
         this.inputs[i][property] = this.inputs[i][property].replace(/[^a-zA-Z0-9-.ñáéíóú_*+-/=&%$#!()?¡¿ ]/g, "|");
-      } else if (type == 'inputs1') {
-        this.inputs1[i][property] = this.inputs1[i][property].replace(/[^a-zA-Z0-9-.ñáéíóú_*+-/=&%$#!()?¡¿ ]/g, "|");
       } else if (type == 'inputsPIAR') {
         this.inputsPIAR[i][property] = this.inputsPIAR[i][property].replace(/[^a-zA-Z0-9-.ñáéíóú_*+-/=&%$#!()?¡¿ ]/g, "|");
       } else if (type == 'inputsPIAR1') {
@@ -504,11 +488,6 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
       //serialize data on localstorage
 
 
-      localStorage.setItem(this.serialLocalStorage, window.btoa(unescape(encodeURIComponent(JSON.stringify({
-        inputs1: this.inputs1,
-        inputs: this.inputs,
-        inputsPIAR: this.inputsPIAR
-      })))));
       this.isSynchronized = false;
     },
     modalDelete: function modalDelete(id, name) {
@@ -576,15 +555,6 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
     removeI: function removeI(index) {
       this.inputsClass[index].splice(index, 1);
     },
-    add1: function add1(index) {
-      this.inputs1.push({
-        logro: "",
-        porcentaje: "0"
-      });
-    },
-    remove1: function remove1(index) {
-      this.inputs1.splice(index, 1);
-    },
     addPIAR: function addPIAR(index) {
       this.inputsPIAR.push({
         logroPIAR: "",
@@ -613,7 +583,7 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
       this.isLoading = true;
       var url = window.location.origin + "/Courses";
       console.log(url);
-      if (this.inputs.length < 1 || this.inputs1.length < 1) return;
+      if (this.inputs.length < 1) return;
       this.newTrimestre = [];
       this.newLogro = [];
 
@@ -624,17 +594,10 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
         }
       }
 
-      if (this.inputs1.length >= 1) {
-        for (var _i = 0; _i < this.inputs1.length; _i++) {
-          this.newLogro.push(this.inputs1[_i]);
-        }
-      }
-
       var ids = this.idArea.split('/');
       axios.post(url, {
         id_area: ids[0],
         id_classroom: ids[1],
-        logros: this.newLogro,
         trimestres: this.newTrimestre
       }).then(function (response) {
         _this3.errors = [];
@@ -653,14 +616,14 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
           this.newLogro = [];
 
           if (this.inputsPIAR.length > 0) {
-            for (var _i2 = 0; _i2 < this.inputsPIAR.length; _i2++) {
-              this.newTrimestre.push(this.inputsPIAR[_i2]);
+            for (var _i = 0; _i < this.inputsPIAR.length; _i++) {
+              this.newTrimestre.push(this.inputsPIAR[_i]);
             }
           }
 
           if (this.inputsPIAR1.length > 0) {
-            for (var _i3 = 0; _i3 < this.inputsPIAR1.length; _i3++) {
-              this.newLogro.push(this.inputsPIAR1[_i3]);
+            for (var _i2 = 0; _i2 < this.inputsPIAR1.length; _i2++) {
+              this.newLogro.push(this.inputsPIAR1[_i2]);
             }
           }
 

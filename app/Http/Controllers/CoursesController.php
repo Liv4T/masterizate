@@ -193,6 +193,7 @@ class CoursesController extends Controller
                 $logro->achievement =     $achievement['achievement'];
                 $logro->percentage =      $achievement['percentage'];
                 $logro->id_planification =  $course->id;
+                $logro->deleted = 0;
                 $logro->save();
             }
 
@@ -206,6 +207,7 @@ class CoursesController extends Controller
                     'id_area'    => $data['id_area'],
                     'id_classroom'    => $data['id_classroom'],
                     'id_teacher'     =>  Auth::user()->id,
+                    'deleted' => 0,
                 ]);
             }
             return "ok";
@@ -220,7 +222,44 @@ class CoursesController extends Controller
                     'id_classroom'  => $data['id_classroom'],
                     'id_teacher'     =>  Auth::user()->id,
                 ]);
-                
+                if(!isset($data['logros'])){
+                    $logro = CoursesAchievement::create([
+                        'achievement'       => "Logros de la planificacion general",
+                        'percentage'        => 0,
+                        'id_planification'  => $course->id,
+                        'deleted' => 0,
+                    ]);
+                }
+                if(isset($data['logros'])){
+                    $achievements = $data['logros'];
+
+                    foreach ($achievements as $index => $achievement) {
+
+                        if (isset($achievement['id_achievement'])) {
+                            $achievementUpdatedRowsCount = CoursesAchievement::where('id', $achievement['id_achievement'])->update(array('percentage' => $achievement['porcentaje'], 'achievement' => $achievement['logro']));
+
+                            if ($achievementUpdatedRowsCount <= 0) {
+                                $logro = CoursesAchievement::create([
+                                    'achievement'       => "Logros de la planificacion general",
+                                    'percentage'        => 0,
+                                    'id_planification'  => $course->id,
+                                    'deleted' => 0,
+                                ]);
+                            }
+                        } else {
+                            $logro = CoursesAchievement::create([
+                                'achievement'       => $achievement['logro'],
+                                'percentage'        => $achievement['porcentaje'],
+                                'id_planification'  => $course->id,
+                                'deleted' => 0,
+                            ]);
+                        }
+                    }
+                }
+
+            }
+            if(isset($data['logros']) && count($courses) > 0){
+                $courses = Courses::where('id_teacher', Auth::user()->id)->where('id_area', $data['id_area'])->where('id_classroom', $data['id_classroom'])->get();
                 $achievements = $data['logros'];
 
                 foreach ($achievements as $index => $achievement) {
@@ -232,47 +271,25 @@ class CoursesController extends Controller
                             $logro = CoursesAchievement::create([
                                 'achievement'       => $achievement['logro'],
                                 'percentage'        => $achievement['porcentaje'],
-                                'id_planification'  => $course->id,
+                                'id_planification'  => $courses[0]->id,
+                                'deleted' => 0,
                             ]);
                         }
                     } else {
                         $logro = CoursesAchievement::create([
                             'achievement'       => $achievement['logro'],
                             'percentage'        => $achievement['porcentaje'],
-                            'id_planification'  => $course->id,
-                        ]);
-                    }
-                }
-
-            }
-
-            $achievements = $data['logros'];
-
-            foreach ($achievements as $index => $achievement) {
-
-                if (isset($achievement['id_achievement'])) {
-                    $achievementUpdatedRowsCount = CoursesAchievement::where('id', $achievement['id_achievement'])->update(array('percentage' => $achievement['porcentaje'], 'achievement' => $achievement['logro']));
-
-                    if ($achievementUpdatedRowsCount <= 0) {
-                        $logro = CoursesAchievement::create([
-                            'achievement'       => $achievement['logro'],
-                            'percentage'        => $achievement['porcentaje'],
                             'id_planification'  => $courses[0]->id,
+                            'deleted' => 0,
                         ]);
                     }
-                } else {
-                    $logro = CoursesAchievement::create([
-                        'achievement'       => $achievement['logro'],
-                        'percentage'        => $achievement['porcentaje'],
-                        'id_planification'  => $courses[0]->id,
-                    ]);
                 }
             }
 
             if(isset($data['trimestres'])){
 
                 $Quarterlies = $data['trimestres'];
-
+                $courses = Courses::where('id_teacher', Auth::user()->id)->where('id_area', $data['id_area'])->where('id_classroom', $data['id_classroom'])->get();
                 foreach ($Quarterlies as $index => $Quarterly) {
 
                     if (isset($Quarterly['id_quaterly'])) {
@@ -290,7 +307,8 @@ class CoursesController extends Controller
                                 'id_area'    => $data['id_area'],
                                 'id_classroom'    => $data['id_classroom'],
                                 'id_teacher'     =>  Auth::user()->id,
-                                'id_planification' => $courses[0]->id, 
+                                'id_planification' => $courses[0]->id,
+                                'deleted' => 0, 
                             ]);
                         }
                     } else {
@@ -302,6 +320,7 @@ class CoursesController extends Controller
                             'id_classroom'    => $data['id_classroom'],
                             'id_teacher'     =>  Auth::user()->id,
                             'id_planification' => $courses[0]->id, 
+                            'deleted' => 0,
                         ]);
                     }
                 }
