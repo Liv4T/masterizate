@@ -127,6 +127,27 @@
       </div>
     </div>
   </div>
+  <div class="modal fade" id="progressModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Progreso de Duplicación</h5>            
+        </div>
+        <div class="modal-body">
+          <div v-show="loading === true">
+            <div class="alert alert-info" role="alert">
+              Cargando
+            </div>
+          </div>
+          <div v-show="loading === false">              
+            <div class="alert alert-success" role="alert">
+              Duplicación Completa
+            </div>
+          </div>
+        </div>          
+      </div>
+    </div>
+  </div>
 </div>
 </template>
 <script>
@@ -198,6 +219,7 @@ export default {
       newTrimestre: [],
       newLogro: [],
       trimestre: false,
+      loading:true,
       logro_1: "",
       logro_2: "",
       logro_3: "",
@@ -274,7 +296,7 @@ export default {
           this.newLogro.push(this.fillC.achievements[i]);
         }
       }
-
+      $('#progressModal').modal('show');
       axios
         .post(url, {
           //Cursos generales
@@ -286,13 +308,18 @@ export default {
         })
         .then((response) => {
           this.errors = [];
-
+          this.loading = false;
           toastr.success("Nuevo plan general creado exitosamente");
           this.getMenu();
         })
         .catch((error) => {
           this.errors = error.response.data;
         });
+
+        setTimeout(function(){ 
+          $('#progressModal').modal('hide');
+          $('#exampleModal').modal('hide');
+        }, 2000);
     },
     updateCourses() {
       window.location = "/actividad_g";

@@ -146,6 +146,27 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 (function () {
   "use strict";
 
@@ -202,7 +223,7 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
       newLogro2: "",
       newLogro3: "",
       newLogro4: ""
-    }, _defineProperty(_ref, "newTrimestre", []), _defineProperty(_ref, "newLogro", []), _defineProperty(_ref, "trimestre", false), _defineProperty(_ref, "logro_1", ""), _defineProperty(_ref, "logro_2", ""), _defineProperty(_ref, "logro_3", ""), _defineProperty(_ref, "logro_4", ""), _defineProperty(_ref, "fillC", []), _defineProperty(_ref, "anual", []), _defineProperty(_ref, "newAnual", []), _defineProperty(_ref, "materia", ""), _defineProperty(_ref, "myOptions", []), _defineProperty(_ref, "errors", []), _ref;
+    }, _defineProperty(_ref, "newTrimestre", []), _defineProperty(_ref, "newLogro", []), _defineProperty(_ref, "trimestre", false), _defineProperty(_ref, "loading", true), _defineProperty(_ref, "logro_1", ""), _defineProperty(_ref, "logro_2", ""), _defineProperty(_ref, "logro_3", ""), _defineProperty(_ref, "logro_4", ""), _defineProperty(_ref, "fillC", []), _defineProperty(_ref, "anual", []), _defineProperty(_ref, "newAnual", []), _defineProperty(_ref, "materia", ""), _defineProperty(_ref, "myOptions", []), _defineProperty(_ref, "errors", []), _ref;
   },
   mounted: function mounted() {
     var _this = this;
@@ -276,6 +297,7 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
         }
       }
 
+      $('#progressModal').modal('show');
       axios.post(url, {
         //Cursos generales
         id_area: this.id_area,
@@ -285,12 +307,17 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
         duplicate: 1
       }).then(function (response) {
         _this3.errors = [];
+        _this3.loading = false;
         toastr.success("Nuevo plan general creado exitosamente");
 
         _this3.getMenu();
       })["catch"](function (error) {
         _this3.errors = error.response.data;
       });
+      setTimeout(function () {
+        $('#progressModal').modal('hide');
+        $('#exampleModal').modal('hide');
+      }, 2000);
     },
     updateCourses: function updateCourses() {
       window.location = "/actividad_g";
@@ -409,9 +436,9 @@ var render = function() {
                                     },
                                     [
                                       _vm._v(
-                                        "\n                          " +
+                                        "\r\n                          " +
                                           _vm._s(option.text) +
-                                          "\n                        "
+                                          "\r\n                        "
                                       )
                                     ]
                                   )
@@ -446,9 +473,9 @@ var render = function() {
                                 _c("div", { attrs: { align: "center" } }, [
                                   _c("strong", [
                                     _vm._v(
-                                      "\n                        Logro " +
+                                      "\r\n                        Logro " +
                                         _vm._s(k + 1) +
-                                        "\n                        "
+                                        "\r\n                        "
                                     ),
                                     _c("input", {
                                       directives: [
@@ -475,7 +502,7 @@ var render = function() {
                                         }
                                       }
                                     }),
-                                    _vm._v("%\n                      ")
+                                    _vm._v("%\r\n                      ")
                                   ])
                                 ]),
                                 _vm._v(" "),
@@ -667,7 +694,86 @@ var render = function() {
           ])
         ])
       ])
-    ])
+    ]),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "modal fade",
+        attrs: {
+          id: "progressModal",
+          tabindex: "-1",
+          role: "dialog",
+          "aria-labelledby": "exampleModalLabel",
+          "aria-hidden": "true"
+        }
+      },
+      [
+        _c(
+          "div",
+          { staticClass: "modal-dialog", attrs: { role: "document" } },
+          [
+            _c("div", { staticClass: "modal-content" }, [
+              _vm._m(1),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-body" }, [
+                _c(
+                  "div",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: _vm.loading === true,
+                        expression: "loading === true"
+                      }
+                    ]
+                  },
+                  [
+                    _c(
+                      "div",
+                      {
+                        staticClass: "alert alert-info",
+                        attrs: { role: "alert" }
+                      },
+                      [_vm._v("\r\n              Cargando\r\n            ")]
+                    )
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: _vm.loading === false,
+                        expression: "loading === false"
+                      }
+                    ]
+                  },
+                  [
+                    _c(
+                      "div",
+                      {
+                        staticClass: "alert alert-success",
+                        attrs: { role: "alert" }
+                      },
+                      [
+                        _vm._v(
+                          "\r\n              Duplicación Completa\r\n            "
+                        )
+                      ]
+                    )
+                  ]
+                )
+              ])
+            ])
+          ]
+        )
+      ]
+    )
   ])
 }
 var staticRenderFns = [
@@ -706,6 +812,18 @@ var staticRenderFns = [
           crossorigin: "anonymous"
         }
       })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header" }, [
+      _c(
+        "h5",
+        { staticClass: "modal-title", attrs: { id: "exampleModalLabel" } },
+        [_vm._v("Progreso de Duplicación")]
+      )
     ])
   }
 ]

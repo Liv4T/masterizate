@@ -506,7 +506,7 @@ export default {
         },
         annualContentUpdateEventI(e,index1,index2,type,property=null){
             if(type=='inputs'){
-                inputsClass[index1][index2]=this.inputsClass[index1][index2][property].replace(/[^a-zA-Z0-9-.ñáéíóú_*+-/=&%$#!()?¡¿ ]/g, "|");
+                this.inputsClass[index1][index2]=this.inputsClass[index1][index2][property].replace(/[^a-zA-Z0-9-.ñáéíóú_*+-/=&%$#!()?¡¿ ]/g, "|");
             }
             //serialize data on localstorage
             localStorage.setItem(this.serialLocalStorage, window.btoa(unescape(encodeURIComponent(JSON.stringify({inputs:this.inputs})))));
@@ -584,10 +584,11 @@ export default {
                     this.newLogro.push(this.inputs1[i]);
                     }
                 }
+                let ids = this.idArea.split('/');
 
                 axios.post(url, {
-                    id_area: this.idArea.substring(0, this.idArea.lastIndexOf("/") ),
-                    id_classroom: this.idArea[2],
+                    id_area: ids[0],
+                    id_classroom: ids[1],
                     logros: this.newLogro,
                     trimestres: this.newTrimestre,
                 }).then((response) => {

@@ -137,6 +137,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 
  // var firebaseConfig = {
@@ -162,6 +167,7 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
       nameUnit: "",
       description: "",
       newdate: "",
+      date_limit: "",
       nameArea: "",
       errors: [],
       nameFile: '',
@@ -184,15 +190,15 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
     createSemanal: function createSemanal() {
       var _this2 = this;
 
-      var url = window.location.origin + "/saveRepository";
       this.nameArea = this.$refs.seleccionado.value;
-      axios.post(url, {
+      axios.post("/saveRepository", {
         //Cursos generales
         id_area_class: this.nameArea,
         name: this.nameUnit,
         description: this.description,
         file: this.nameFile,
-        date: this.newdate
+        date: this.newdate,
+        date_limit: this.date_limit
       }).then(function (response) {
         _this2.errors = [];
         toastr.success("Nueva tarea creada exitosamente"); // this.getMenu();
@@ -289,10 +295,11 @@ var render = function() {
                               staticClass: "form-control",
                               attrs: { required: "" }
                             },
-                            _vm._l(_vm.myOptions, function(option) {
+                            _vm._l(_vm.myOptions, function(option, key) {
                               return _c(
                                 "option",
                                 {
+                                  key: key,
                                   domProps: {
                                     value: option.id + "/" + option.id_classroom
                                   }
@@ -377,7 +384,7 @@ var render = function() {
                     _vm._v(" "),
                     _c("div", [
                       _c("div", { staticClass: "form-group row" }, [
-                        _c("div", { staticClass: "col-md-6" }, [
+                        _c("div", { staticClass: "col-md-3" }, [
                           _c("label", { attrs: { for: "name" } }, [
                             _vm._v("*Fecha")
                           ]),
@@ -405,6 +412,34 @@ var render = function() {
                                     return
                                   }
                                   _vm.newdate = $event.target.value
+                                }
+                              }
+                            })
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-md-3" }, [
+                          _c("label", [_vm._v("*Fecha Limite")]),
+                          _vm._v(" "),
+                          _c("div", [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.date_limit,
+                                  expression: "date_limit"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              attrs: { type: "datetime-local", required: "" },
+                              domProps: { value: _vm.date_limit },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.date_limit = $event.target.value
                                 }
                               }
                             })
