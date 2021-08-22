@@ -3,7 +3,7 @@
         <div style="text-align: center">
             <img style="width:50%" :src="imageStudent" alt="">
         </div>
-        <div class="responsiveContent">                
+        <div v-show="user.type_user === 3 && nameArea === ''" class="responsiveContent">                
             <iframe id="frameStudent" class="text-center" src="https://www.youtube.com/embed/9x3O3gxpEXs"  frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </div>
         <div class="form-group width-r mx-auto">                
@@ -30,11 +30,11 @@
                 </a>
             </div>
             <div class="row">
-                <div class="col-md-2 pd-18 flotante">
+                <!-- <div class="col-md-2 pd-18 flotante">
                     <button type="button" v-on:click="showOtherSection('chat')" class="btn btn-warning letra-poppins-bold mg-btn" style="background-color: #e26100; border-color: #e26100"><h4>{{ $t('lang.menu.chat').toUpperCase() }}</h4> </button> <br />
                     <a href="/questions" class="btn btn-warning letra-poppins-bold mg-btn" style="background-color: #e26100; border-color: #e26100"><h4>{{ $t('lang.menu.forums').toUpperCase() }}</h4> </a><br />
                     <button type="button" v-on:click="showOtherSection('message')" class="btn btn-warning letra-poppins-bold mg-btn" style="background-color: #e26100; border-color: #e26100"><h4>{{ $t('lang.menu.menssages').toUpperCase() }}</h4> </button><br />
-                </div>
+                </div> -->
                 <div id="tabs" class="col-md-9 mx-auto">
                     <div v-if="showSection === 'inicio'" class="tabs">
                         <a v-on:click="activetab = 1" v-bind:class="[activetab === 1 ? 'active' : '']"><h2 class="letra-poppins-bold">{{ $t('lang.menu.calendar').toUpperCase() }}</h2></a>
@@ -376,15 +376,15 @@ export default {
   /* position: relative; */
   height: 0;
   overflow: hidden;
-  padding-bottom: 49.2%;
+  padding-bottom: 30.2%;
   /* margin-bottom: 5px; */
 }
 .responsiveContent iframe {
   position: absolute;
-  top: 30%;
-  left: 20%;
-  width: 60%;
-  height: 46%;
+  top: 39%;
+  left: 30%;
+  width: 40%;
+  height: 36%;
 }
 .mg-btn {
   margin: 10px;

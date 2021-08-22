@@ -382,7 +382,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.responsiveContent {\r\n  /* position: relative; */\r\n  height: 0;\r\n  overflow: hidden;\r\n  padding-bottom: 49.2%;\r\n  /* margin-bottom: 5px; */\n}\n.responsiveContent iframe {\r\n  position: absolute;\r\n  top: 30%;\r\n  left: 20%;\r\n  width: 60%;\r\n  height: 46%;\n}\n.mg-btn {\r\n  margin: 10px;\r\n  min-width: 165px;\n}\n.width-r {\r\n  max-width: 97%;\r\n  border: 1px solid #cccccc82;\r\n  border-radius: 10px;\r\n  box-shadow: 3px 3px 3px 3px #b0acac;\n}\n.tabs {\r\n  margin-top: 20px;\r\n  overflow: hidden;\r\n  margin-left: 90px;\r\n  margin-bottom: -2px;\n}\n.tabs ul {\r\n  list-style-type: none;\r\n  margin-left: 20px;\n}\n.tabs a {\r\n  float: left;\r\n  cursor: pointer;\r\n  padding: 12px 24px;\r\n  transition: background-color 0.2s;\r\n  border: 1px solid #ccc;\r\n  border-right: none;\r\n  background-color: #bfbfbf;\r\n  border-radius: 10px 10px 0 0;\r\n  font-weight: bold;\r\n  color: #fff !important;\n}\n.tabs a:last-child {\r\n  border-right: 1px solid #ccc;\n}\n.pd-20 {\r\n  padding: 20px;\n}\r\n\r\n/* Change background color of tabs on hover */\n.tabs a:hover {\r\n  background-color: #aaa;\r\n  color: #fff;\n}\r\n\r\n/* Styling for active tab */\n.tabs a.active {\r\n  background-color: #00cbcec1;\r\n  color: #fff;\r\n  border-bottom: 2px solid #fff;\r\n  cursor: default;\n}\n.tabcontent {\r\n  border: 1px solid #ccc;\r\n  border-radius: 10px;\r\n  box-shadow: 3px 3px 6px #e1e1e1;\n}\n.content-azul {\r\n  background-color: #00cbcec6;\n}\n.flotante {\r\n  position: fixed;\r\n  top: 380px;\r\n  z-index: 1020;\n}\r\n", ""]);
+exports.push([module.i, "\n.responsiveContent {\r\n  /* position: relative; */\r\n  height: 0;\r\n  overflow: hidden;\r\n  padding-bottom: 30.2%;\r\n  /* margin-bottom: 5px; */\n}\n.responsiveContent iframe {\r\n  position: absolute;\r\n  top: 39%;\r\n  left: 30%;\r\n  width: 40%;\r\n  height: 36%;\n}\n.mg-btn {\r\n  margin: 10px;\r\n  min-width: 165px;\n}\n.width-r {\r\n  max-width: 97%;\r\n  border: 1px solid #cccccc82;\r\n  border-radius: 10px;\r\n  box-shadow: 3px 3px 3px 3px #b0acac;\n}\n.tabs {\r\n  margin-top: 20px;\r\n  overflow: hidden;\r\n  margin-left: 90px;\r\n  margin-bottom: -2px;\n}\n.tabs ul {\r\n  list-style-type: none;\r\n  margin-left: 20px;\n}\n.tabs a {\r\n  float: left;\r\n  cursor: pointer;\r\n  padding: 12px 24px;\r\n  transition: background-color 0.2s;\r\n  border: 1px solid #ccc;\r\n  border-right: none;\r\n  background-color: #bfbfbf;\r\n  border-radius: 10px 10px 0 0;\r\n  font-weight: bold;\r\n  color: #fff !important;\n}\n.tabs a:last-child {\r\n  border-right: 1px solid #ccc;\n}\n.pd-20 {\r\n  padding: 20px;\n}\r\n\r\n/* Change background color of tabs on hover */\n.tabs a:hover {\r\n  background-color: #aaa;\r\n  color: #fff;\n}\r\n\r\n/* Styling for active tab */\n.tabs a.active {\r\n  background-color: #00cbcec1;\r\n  color: #fff;\r\n  border-bottom: 2px solid #fff;\r\n  cursor: default;\n}\n.tabcontent {\r\n  border: 1px solid #ccc;\r\n  border-radius: 10px;\r\n  box-shadow: 3px 3px 6px #e1e1e1;\n}\n.content-azul {\r\n  background-color: #00cbcec6;\n}\n.flotante {\r\n  position: fixed;\r\n  top: 380px;\r\n  z-index: 1020;\n}\r\n", ""]);
 
 // exports
 
@@ -442,7 +442,33 @@ var render = function() {
       })
     ]),
     _vm._v(" "),
-    _vm._m(0),
+    _c(
+      "div",
+      {
+        directives: [
+          {
+            name: "show",
+            rawName: "v-show",
+            value: _vm.user.type_user === 3 && _vm.nameArea === "",
+            expression: "user.type_user === 3 && nameArea === ''"
+          }
+        ],
+        staticClass: "responsiveContent"
+      },
+      [
+        _c("iframe", {
+          staticClass: "text-center",
+          attrs: {
+            id: "frameStudent",
+            src: "https://www.youtube.com/embed/9x3O3gxpEXs",
+            frameborder: "0",
+            allow:
+              "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture",
+            allowfullscreen: ""
+          }
+        })
+      ]
+    ),
     _vm._v(" "),
     _c("div", { staticClass: "form-group width-r mx-auto" }, [
       _c(
@@ -575,73 +601,6 @@ var render = function() {
             : _vm._e(),
           _vm._v(" "),
           _c("div", { staticClass: "row" }, [
-            _c("div", { staticClass: "col-md-2 pd-18 flotante" }, [
-              _c(
-                "button",
-                {
-                  staticClass: "btn btn-warning letra-poppins-bold mg-btn",
-                  staticStyle: {
-                    "background-color": "#e26100",
-                    "border-color": "#e26100"
-                  },
-                  attrs: { type: "button" },
-                  on: {
-                    click: function($event) {
-                      return _vm.showOtherSection("chat")
-                    }
-                  }
-                },
-                [
-                  _c("h4", [
-                    _vm._v(_vm._s(_vm.$t("lang.menu.chat").toUpperCase()))
-                  ])
-                ]
-              ),
-              _vm._v(" "),
-              _c("br"),
-              _vm._v(" "),
-              _c(
-                "a",
-                {
-                  staticClass: "btn btn-warning letra-poppins-bold mg-btn",
-                  staticStyle: {
-                    "background-color": "#e26100",
-                    "border-color": "#e26100"
-                  },
-                  attrs: { href: "/questions" }
-                },
-                [
-                  _c("h4", [
-                    _vm._v(_vm._s(_vm.$t("lang.menu.forums").toUpperCase()))
-                  ])
-                ]
-              ),
-              _c("br"),
-              _vm._v(" "),
-              _c(
-                "button",
-                {
-                  staticClass: "btn btn-warning letra-poppins-bold mg-btn",
-                  staticStyle: {
-                    "background-color": "#e26100",
-                    "border-color": "#e26100"
-                  },
-                  attrs: { type: "button" },
-                  on: {
-                    click: function($event) {
-                      return _vm.showOtherSection("message")
-                    }
-                  }
-                },
-                [
-                  _c("h4", [
-                    _vm._v(_vm._s(_vm.$t("lang.menu.menssages").toUpperCase()))
-                  ])
-                ]
-              ),
-              _c("br")
-            ]),
-            _vm._v(" "),
             _c(
               "div",
               { staticClass: "col-md-9 mx-auto", attrs: { id: "tabs" } },
@@ -949,26 +908,7 @@ var render = function() {
       : _vm._e()
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "responsiveContent" }, [
-      _c("iframe", {
-        staticClass: "text-center",
-        attrs: {
-          id: "frameStudent",
-          src: "https://www.youtube.com/embed/9x3O3gxpEXs",
-          frameborder: "0",
-          allow:
-            "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture",
-          allowfullscreen: ""
-        }
-      })
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
