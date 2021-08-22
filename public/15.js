@@ -12,6 +12,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_pdf__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-pdf */ "./node_modules/vue-pdf/src/vuePdfNoSss.vue");
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _assets_img_welcome_21Student_png__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../assets/img/welcome-21Student.png */ "./resources/js/assets/img/welcome-21Student.png");
+/* harmony import */ var _assets_img_welcome_21Student_png__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_assets_img_welcome_21Student_png__WEBPACK_IMPORTED_MODULE_2__);
 //
 //
 //
@@ -116,6 +118,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+
 
 
 moment__WEBPACK_IMPORTED_MODULE_1___default.a.tz.setDefault("America/Bogota");
@@ -127,6 +137,7 @@ moment__WEBPACK_IMPORTED_MODULE_1___default.a.locale("es");
   props: ["user"],
   data: function data() {
     return {
+      imageStudent: _assets_img_welcome_21Student_png__WEBPACK_IMPORTED_MODULE_2___default.a,
       clases: [],
       colorClass: [{
         area: 'Español',
@@ -371,7 +382,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.mg-btn {\r\n  margin: 10px;\r\n  min-width: 165px;\n}\n.width-r {\r\n  max-width: 97%;\r\n  border: 1px solid #cccccc82;\r\n  border-radius: 10px;\r\n  box-shadow: 3px 3px 3px 3px #b0acac;\n}\n.tabs {\r\n  margin-top: 20px;\r\n  overflow: hidden;\r\n  margin-left: 90px;\r\n  margin-bottom: -2px;\n}\n.tabs ul {\r\n  list-style-type: none;\r\n  margin-left: 20px;\n}\n.tabs a {\r\n  float: left;\r\n  cursor: pointer;\r\n  padding: 12px 24px;\r\n  transition: background-color 0.2s;\r\n  border: 1px solid #ccc;\r\n  border-right: none;\r\n  background-color: #bfbfbf;\r\n  border-radius: 10px 10px 0 0;\r\n  font-weight: bold;\r\n  color: #fff !important;\n}\n.tabs a:last-child {\r\n  border-right: 1px solid #ccc;\n}\n.pd-20 {\r\n  padding: 20px;\n}\r\n\r\n/* Change background color of tabs on hover */\n.tabs a:hover {\r\n  background-color: #aaa;\r\n  color: #fff;\n}\r\n\r\n/* Styling for active tab */\n.tabs a.active {\r\n  background-color: #00cbcec1;\r\n  color: #fff;\r\n  border-bottom: 2px solid #fff;\r\n  cursor: default;\n}\n.tabcontent {\r\n  border: 1px solid #ccc;\r\n  border-radius: 10px;\r\n  box-shadow: 3px 3px 6px #e1e1e1;\n}\n.content-azul {\r\n  background-color: #00cbcec6;\n}\n.flotante {\r\n  position: fixed;\r\n  top: 380px;\r\n  z-index: 1020;\n}\r\n", ""]);
+exports.push([module.i, "\n.responsiveContent {\r\n  /* position: relative; */\r\n  height: 0;\r\n  overflow: hidden;\r\n  padding-bottom: 49.2%;\r\n  /* margin-bottom: 5px; */\n}\n.responsiveContent iframe {\r\n  position: absolute;\r\n  top: 30%;\r\n  left: 20%;\r\n  width: 60%;\r\n  height: 46%;\n}\n.mg-btn {\r\n  margin: 10px;\r\n  min-width: 165px;\n}\n.width-r {\r\n  max-width: 97%;\r\n  border: 1px solid #cccccc82;\r\n  border-radius: 10px;\r\n  box-shadow: 3px 3px 3px 3px #b0acac;\n}\n.tabs {\r\n  margin-top: 20px;\r\n  overflow: hidden;\r\n  margin-left: 90px;\r\n  margin-bottom: -2px;\n}\n.tabs ul {\r\n  list-style-type: none;\r\n  margin-left: 20px;\n}\n.tabs a {\r\n  float: left;\r\n  cursor: pointer;\r\n  padding: 12px 24px;\r\n  transition: background-color 0.2s;\r\n  border: 1px solid #ccc;\r\n  border-right: none;\r\n  background-color: #bfbfbf;\r\n  border-radius: 10px 10px 0 0;\r\n  font-weight: bold;\r\n  color: #fff !important;\n}\n.tabs a:last-child {\r\n  border-right: 1px solid #ccc;\n}\n.pd-20 {\r\n  padding: 20px;\n}\r\n\r\n/* Change background color of tabs on hover */\n.tabs a:hover {\r\n  background-color: #aaa;\r\n  color: #fff;\n}\r\n\r\n/* Styling for active tab */\n.tabs a.active {\r\n  background-color: #00cbcec1;\r\n  color: #fff;\r\n  border-bottom: 2px solid #fff;\r\n  cursor: default;\n}\n.tabcontent {\r\n  border: 1px solid #ccc;\r\n  border-radius: 10px;\r\n  box-shadow: 3px 3px 6px #e1e1e1;\n}\n.content-azul {\r\n  background-color: #00cbcec6;\n}\n.flotante {\r\n  position: fixed;\r\n  top: 380px;\r\n  z-index: 1020;\n}\r\n", ""]);
 
 // exports
 
@@ -424,6 +435,15 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
+    _c("div", { staticStyle: { "text-align": "center" } }, [
+      _c("img", {
+        staticStyle: { width: "50%" },
+        attrs: { src: _vm.imageStudent, alt: "" }
+      })
+    ]),
+    _vm._v(" "),
+    _vm._m(0),
+    _vm._v(" "),
     _c("div", { staticClass: "form-group width-r mx-auto" }, [
       _c(
         "div",
@@ -929,10 +949,40 @@ var render = function() {
       : _vm._e()
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "responsiveContent" }, [
+      _c("iframe", {
+        staticClass: "text-center",
+        attrs: {
+          id: "frameStudent",
+          src: "https://www.youtube.com/embed/9x3O3gxpEXs",
+          frameborder: "0",
+          allow:
+            "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture",
+          allowfullscreen: ""
+        }
+      })
+    ])
+  }
+]
 render._withStripped = true
 
 
+
+/***/ }),
+
+/***/ "./resources/js/assets/img/welcome-21Student.png":
+/*!*******************************************************!*\
+  !*** ./resources/js/assets/img/welcome-21Student.png ***!
+  \*******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "/images/welcome-21Student.png?801667fb805577265743ff6dd56c2867";
 
 /***/ }),
 
