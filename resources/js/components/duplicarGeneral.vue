@@ -42,7 +42,7 @@
                       <select class="form-control" v-model="materia" required>
                         <option
                           :value="option.id+'/'+option.id_classroom "
-                          v-for="option in myOptions"
+                          v-for="(option, key) in myOptions" :key="key"
                         >
                           {{
                           option.text
@@ -81,7 +81,7 @@
                 </div>
               </tab-content>
               <tab-content title="Trimestral">
-                <div class="form-group row mx-auto" v-for="(input, t) in fillC.quaterly" :key="t">
+                <div class="form-group row mx-auto" v-for="(input, t) in inputToIterate" :key="t">
                   <div class="col-md-6">
                     <label for="logro1">Logro</label> 
                     <input
@@ -93,26 +93,27 @@
                         required
                       />                                           
                   </div>
-                  <div class="col-md-6">
+                  <div class="col-md-6" v-for="(ind, key) in input.unit_name" :key="key">
+                    
                     <label for="name">Indicador de Logro</label>
-                    <div>
                       <input
                         type="text"
                         name="objetive1"
                         class="form-control"
-                        v-model="input.unit_name"
+                        v-model="ind.indicador"
                         placeholder="Nombre de la unidad"
                         required
                       />
-                    </div>              
-                    <label for="name">Contenidos</label>
-                    <textarea
-                      name="competences"
-                      class="form-control"
-                      v-model="input.content"
-                      placeholder="Es la explicacion o sintesis de la unidad."
-                      required
-                    ></textarea>
+                    </div>           
+                    <div class="col-md-6">
+                      <label for="name">Contenidos</label>
+                      <textarea
+                        name="competences"
+                        class="form-control"
+                        v-model="input.content"
+                        placeholder="Es la explicacion o sintesis de la unidad."
+                        required
+                      ></textarea>
                     <div class="invalid-feedback">Please fill out this field</div>
                   </div>
                 </div>
@@ -230,6 +231,12 @@ export default {
       materia: "",
       myOptions: [],
       errors: [],
+      inputToIterate:[{
+        content: "",
+        id: "",
+        logro: "",
+        unit_name: ""
+      }]
     };
   },
   mounted() {
@@ -241,8 +248,8 @@ export default {
       this.id_classroom;
     axios.get(urlsel).then((response) => {
       this.fillC = response.data;
-      if (this.fillC.quaterly.length > 0) {
-        this.trimestre = true;
+      if (this.fillC.quaterly.length > 0) {        
+        this.trimestre = true;                
       } else {
         this.trimestre = false;
       }
@@ -275,9 +282,18 @@ export default {
     },
     duplicar(id) {
       this.fillC = [];
+      this.inputToIterate = [];
       var urlsel = window.location.origin + "/coursePlanification/" + id;
       axios.get(urlsel).then((response) => {
         this.fillC = response.data;
+        this.fillC.quaterly.forEach((el)=>{
+          this.inputToIterate.push({
+            content: el.content,
+            id: el.id,
+            logro: el.logro,
+            unit_name: JSON.parse(el.unit_name)
+          })
+        })
       });
     },
 
