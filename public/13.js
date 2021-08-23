@@ -693,7 +693,11 @@ var render = function() {
                             { staticClass: "tabcontent" },
                             [
                               _c("calendar-component", {
-                                attrs: { type_u: 3, user: _vm.user }
+                                attrs: {
+                                  type_u: 3,
+                                  nameArea: _vm.nameArea,
+                                  user: _vm.user
+                                }
                               })
                             ],
                             1
