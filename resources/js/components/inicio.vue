@@ -381,7 +381,7 @@ export default {
 }
 .responsiveContent iframe {
   position: absolute;
-  top: 39%;
+  top: 35%;
   left: 30%;
   width: 40%;
   height: 36%;

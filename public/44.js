@@ -489,11 +489,26 @@ var render = function() {
                                     )
                                   ]),
                                   _vm._v(" "),
-                                  _c("td", [
-                                    _vm._v(
-                                      _vm._s(_vm.$t("lang.general.observation"))
-                                    )
-                                  ]),
+                                  _c(
+                                    "td",
+                                    {
+                                      directives: [
+                                        {
+                                          name: "show",
+                                          rawName: "v-show",
+                                          value: !_vm.user.type_user === 3,
+                                          expression: "!user.type_user === 3"
+                                        }
+                                      ]
+                                    },
+                                    [
+                                      _vm._v(
+                                        _vm._s(
+                                          _vm.$t("lang.general.observation")
+                                        )
+                                      )
+                                    ]
+                                  ),
                                   _vm._v(" "),
                                   _c("td", [
                                     _vm._v(_vm._s(_vm.$t("lang.class.action")))
@@ -506,9 +521,20 @@ var render = function() {
                                       _vm._v(_vm._s(cycle.driving_question))
                                     ]),
                                     _vm._v(" "),
-                                    _c("td", [
-                                      _vm._v(_vm._s(cycle.observation))
-                                    ]),
+                                    _c(
+                                      "td",
+                                      {
+                                        directives: [
+                                          {
+                                            name: "show",
+                                            rawName: "v-show",
+                                            value: !_vm.user.type_user === 3,
+                                            expression: "!user.type_user === 3"
+                                          }
+                                        ]
+                                      },
+                                      [_vm._v(_vm._s(cycle.observation))]
+                                    ),
                                     _vm._v(" "),
                                     _vm.planification === "clase"
                                       ? _c("td", [
