@@ -31,7 +31,7 @@
                                 <label for="work">
                                     Objetivos de la Clase
                                 </label>
-                                <input type="text" class="form-control" v-model="objetivesClass"/>
+                                <input type="text" class="form-control" v-model="course.objetivesClass"/>
                                 </div>
 
                             <div class="row">                                        
@@ -48,13 +48,13 @@
                                 <label for="work">
                                     Tarea
                                 </label>
-                                <textarea class="form-control" v-model="work" name="work" id="work"></textarea>
+                                <textarea class="form-control" v-model="course.work" name="work" id="work"></textarea>
                             </div>
                             <div class="col-12">
                                 <label for="transversals">
                                     Habilidades Transversales
                                 </label>
-                                <textarea class="form-control" v-model="transversals" name="transversals" id="transversals"></textarea>
+                                <textarea class="form-control" v-model="course.transversals" name="transversals" id="transversals"></textarea>
                             </div>
 
                             <div class="row">
@@ -255,6 +255,7 @@
 
 import VueFormWizard from "vue-form-wizard";
 import "vue-form-wizard/dist/vue-form-wizard.min.css";
+import moment from "moment";
 Vue.use(VueFormWizard);
 export default {
     props: ["id_module", "id_class","cleanCreateClas"],
@@ -293,12 +294,17 @@ export default {
                         description:''
                     }
                 ],
+                objetivesClass: "",
+                work: "",
+                transversals:"",
                 activities:[],
                 state:1
             },
             achievements:[],
             indicators:[],
             nameArea:'',
+            classroom_id: '',
+            area_id: '',
             custom_editor_toolbar_justify:[["bold", "italic", "underline"], [{ list: "ordered" }, { list: "bullet" }],["image"]],
             piarStudents:[]
         };
@@ -372,6 +378,10 @@ export default {
         axios.get(`/showClass/${this.id_module}`).then((response) => {
             this.achievements=response.data.achievements;            
             this.nameArea = `${response.data.area.name} ${response.data.classroom.name}`;
+            this.area_id = response.data.area.id;
+            this.classroom_id = response.data.classroom.id;
+            console.log("id area",this.area_id);
+            console.log("id_classroom",this.classroom_id);
             
             axios.get(`/PIARStudentsByArea/${response.data.area.id}/${response.data.classroom.id}`).then((response)=>{
                 this.piarStudents = Object.values(response.data);
@@ -482,8 +492,30 @@ export default {
             axios.put(`/api/teacher/module/${this.id_module}/class`,this.course).then((response) => {
                // this.getPlanificationEvent(this.id_lective_planification);
                 toastr.success("Clases actualizadas correctamente");                
-                this.returnPage();
             },(error)=>{console.log(error);toastr.error("ERROR:Por favor valide que la información esta completa");});
+            
+            
+            if(this.id_class==0){
+                var endDate = new Date(this.course.date_init_class);
+                var end=moment(endDate).add(2, 'hours').format("YYYY-MM-DD H:mm:ss");
+                var url = "/createEvent";
+                    axios
+                        .post(url, {
+                        //Cursos generales
+                        name: this.course.name,
+                        startDateTime: this.course.date_init_class,
+                        endDateTime: end,
+                        id_area: this.area_id,
+                        id_classroom: this.classroom_id,
+                        url: this.course.url_class,
+                        id_padre: null,
+                        })
+                        .then((response) => {
+                        toastr.success("Nuevo evento creado exitosamente");
+                        this.returnPage();
+                        })
+                        .catch((error) => {});
+            }
         },
         selectActivityType(index_activity,activity){
 

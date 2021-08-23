@@ -3,21 +3,34 @@
     <div class="row justify-content-center">
       <div id="crud" class="col-sm-10">
         <div class="card text-center">
-          <h3 class="card-header fondo">Mis clases</h3>
+          <h3 class="card-header fondo">Mis clases</h3> 
           <div class="card-body">
+            <div class="input-group mb-3 mt-3">
+                <input type="text" class="form-control" placeholder="Buscar Materia" v-model="search_filter_mat">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">
+                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-search" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z"/>
+                        <path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z"/>
+                    </svg>
+                    </span>
+                </div>
+            </div>
             <div v-show="loading === true">
                 <div class="spinner-border m-5" role="status">
                     <span class="sr-only">Loading...</span>
                 </div>
             </div>            
             <div class="accordion" id="firstAccordion">                
-                <div class="card" v-for="(area,t) in areas" :key="t">
-                    <div v-if="search_filter =='' || filterClass(area.text)" class="card-header" id="headingFIRST">
-                        <h2 class="mb-0">
-                            <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" :data-target="`#collapseFirst${t}`" aria-expanded="true" :aria-controls="`collapseFirst${t}`">
-                                {{ area.text }}
-                            </button>
-                        </h2>
+                <div class="card" v-if="search_filter_mat =='' || filterClass(area.text)" v-for="(area,t) in areas" :key="t">
+                    <div class="card mb-2" >
+                        <div class="card-header" id="headingFIRST">
+                            <h2 class="mb-0">
+                                <button class="btn btn-link btn-block text-left" @click.prevent="getTrimestres()" type="button" data-toggle="collapse" :data-target="`#collapseFirst${t}`" aria-expanded="true" :aria-controls="`collapseFirst${t}`">
+                                    {{ area.text }}
+                                </button>
+                            </h2>
+                        </div>
                     </div>
 
                     <div :id="`collapseFirst${t}`" class="collapse" aria-labelledby="headingFIRST" data-parent="#firstAccordion">
@@ -116,6 +129,9 @@
   </div>
 </template>
 <script>
+$(".collapse").on("show.bs.collapse", function () {
+  $(".collapse.in").collapse("hide");
+});
 import moment from 'moment';
 moment.tz.setDefault("America/Bogota");
 moment.locale('es');
@@ -124,6 +140,7 @@ export default {
   data() {
     return {
         search_filter:'',
+        search_filter_mat:'',
         search_filter_cicle:'',
         clases: [],
         areas: [],
@@ -151,7 +168,8 @@ export default {
             axios.get(url).then((response) => {
                 this.areas = response.data;
             });
-
+        },
+        getTrimestres(){
             var url="/getTrimestres";
             axios.get(url).then((response) =>{
                 this.trimestres=response.data;
@@ -192,7 +210,7 @@ export default {
                 });
         },
         filterClass(class_name){
-            return class_name.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(this.search_filter.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, ""));
+            return class_name.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(this.search_filter_mat.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, ""));
         },
 
         filterCicle(cicle_name){

@@ -13,6 +13,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vue_form_wizard_dist_vue_form_wizard_min_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-form-wizard/dist/vue-form-wizard.min.css */ "./node_modules/vue-form-wizard/dist/vue-form-wizard.min.css");
 /* harmony import */ var vue_form_wizard_dist_vue_form_wizard_min_css__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue_form_wizard_dist_vue_form_wizard_min_css__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_2__);
 //
 //
 //
@@ -262,6 +264,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["id_module", "id_class", "cleanCreateClas"],
@@ -296,12 +299,17 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
           content: '',
           description: ''
         }],
+        objetivesClass: "",
+        work: "",
+        transversals: "",
         activities: [],
         state: 1
       },
       achievements: [],
       indicators: [],
       nameArea: '',
+      classroom_id: '',
+      area_id: '',
       custom_editor_toolbar_justify: [["bold", "italic", "underline"], [{
         list: "ordered"
       }, {
@@ -372,6 +380,10 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
     axios.get("/showClass/".concat(this.id_module)).then(function (response) {
       _this.achievements = response.data.achievements;
       _this.nameArea = "".concat(response.data.area.name, " ").concat(response.data.classroom.name);
+      _this.area_id = response.data.area.id;
+      _this.classroom_id = response.data.classroom.id;
+      console.log("id area", _this.area_id);
+      console.log("id_classroom", _this.classroom_id);
       axios.get("/PIARStudentsByArea/".concat(response.data.area.id, "/").concat(response.data.classroom.id)).then(function (response) {
         _this.piarStudents = Object.values(response.data);
       })["catch"](function (error) {
@@ -472,12 +484,30 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
       axios.put("/api/teacher/module/".concat(this.id_module, "/class"), this.course).then(function (response) {
         // this.getPlanificationEvent(this.id_lective_planification);
         toastr.success("Clases actualizadas correctamente");
-
-        _this2.returnPage();
       }, function (error) {
         console.log(error);
         toastr.error("ERROR:Por favor valide que la información esta completa");
       });
+
+      if (this.id_class == 0) {
+        var endDate = new Date(this.course.date_init_class);
+        var end = moment__WEBPACK_IMPORTED_MODULE_2___default()(endDate).add(2, 'hours').format("YYYY-MM-DD H:mm:ss");
+        var url = "/createEvent";
+        axios.post(url, {
+          //Cursos generales
+          name: this.course.name,
+          startDateTime: this.course.date_init_class,
+          endDateTime: end,
+          id_area: this.area_id,
+          id_classroom: this.classroom_id,
+          url: this.course.url_class,
+          id_padre: null
+        }).then(function (response) {
+          toastr.success("Nuevo evento creado exitosamente");
+
+          _this2.returnPage();
+        })["catch"](function (error) {});
+      }
     },
     selectActivityType: function selectActivityType(index_activity, activity) {
       switch (activity.activity_type) {
@@ -765,19 +795,23 @@ var render = function() {
                           {
                             name: "model",
                             rawName: "v-model",
-                            value: _vm.objetivesClass,
-                            expression: "objetivesClass"
+                            value: _vm.course.objetivesClass,
+                            expression: "course.objetivesClass"
                           }
                         ],
                         staticClass: "form-control",
                         attrs: { type: "text" },
-                        domProps: { value: _vm.objetivesClass },
+                        domProps: { value: _vm.course.objetivesClass },
                         on: {
                           input: function($event) {
                             if ($event.target.composing) {
                               return
                             }
-                            _vm.objetivesClass = $event.target.value
+                            _vm.$set(
+                              _vm.course,
+                              "objetivesClass",
+                              $event.target.value
+                            )
                           }
                         }
                       })
@@ -864,19 +898,19 @@ var render = function() {
                           {
                             name: "model",
                             rawName: "v-model",
-                            value: _vm.work,
-                            expression: "work"
+                            value: _vm.course.work,
+                            expression: "course.work"
                           }
                         ],
                         staticClass: "form-control",
                         attrs: { name: "work", id: "work" },
-                        domProps: { value: _vm.work },
+                        domProps: { value: _vm.course.work },
                         on: {
                           input: function($event) {
                             if ($event.target.composing) {
                               return
                             }
-                            _vm.work = $event.target.value
+                            _vm.$set(_vm.course, "work", $event.target.value)
                           }
                         }
                       })
@@ -894,19 +928,23 @@ var render = function() {
                           {
                             name: "model",
                             rawName: "v-model",
-                            value: _vm.transversals,
-                            expression: "transversals"
+                            value: _vm.course.transversals,
+                            expression: "course.transversals"
                           }
                         ],
                         staticClass: "form-control",
                         attrs: { name: "transversals", id: "transversals" },
-                        domProps: { value: _vm.transversals },
+                        domProps: { value: _vm.course.transversals },
                         on: {
                           input: function($event) {
                             if ($event.target.composing) {
                               return
                             }
-                            _vm.transversals = $event.target.value
+                            _vm.$set(
+                              _vm.course,
+                              "transversals",
+                              $event.target.value
+                            )
                           }
                         }
                       })

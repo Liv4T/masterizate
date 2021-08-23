@@ -310,7 +310,12 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
       inputs: [{
         name: "",
         logro: "",
-        contenido: ""
+        contenido: "",
+        inputCl: [{
+          indicador: ""
+        }, {
+          indicador: ""
+        }]
       }],
       inputsPIAR: [{
         logroPIAR: "",
@@ -332,11 +337,7 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
       newLogro2: "",
       newLogro3: "",
       newLogro4: ""
-    }, _defineProperty(_ref, "newTrimestre", []), _defineProperty(_ref, "newLogro", []), _defineProperty(_ref, "trimestre", false), _defineProperty(_ref, "logro_1", ""), _defineProperty(_ref, "logro_2", ""), _defineProperty(_ref, "logro_3", ""), _defineProperty(_ref, "logro_4", ""), _defineProperty(_ref, "fillC", []), _defineProperty(_ref, "anual", []), _defineProperty(_ref, "newAnual", []), _defineProperty(_ref, "errors", []), _defineProperty(_ref, "isSynchronized", true), _defineProperty(_ref, "isLoading", false), _defineProperty(_ref, "showPiarPlan", false), _defineProperty(_ref, "showPIARPlanTrimestral", false), _defineProperty(_ref, "activityForAllStudents", false), _defineProperty(_ref, "activityForPIARStudents", false), _defineProperty(_ref, "activityForSelectStudents", false), _defineProperty(_ref, "studentsOptions", []), _defineProperty(_ref, "saveStudent", []), _defineProperty(_ref, "piarStudents", []), _defineProperty(_ref, "inputsClass", [[{
-      indicador: ""
-    }], [{
-      indicador: ""
-    }]]), _ref;
+    }, _defineProperty(_ref, "newTrimestre", []), _defineProperty(_ref, "newLogro", []), _defineProperty(_ref, "trimestre", false), _defineProperty(_ref, "logro_1", ""), _defineProperty(_ref, "logro_2", ""), _defineProperty(_ref, "logro_3", ""), _defineProperty(_ref, "logro_4", ""), _defineProperty(_ref, "fillC", []), _defineProperty(_ref, "anual", []), _defineProperty(_ref, "newAnual", []), _defineProperty(_ref, "errors", []), _defineProperty(_ref, "isSynchronized", true), _defineProperty(_ref, "isLoading", false), _defineProperty(_ref, "showPiarPlan", false), _defineProperty(_ref, "showPIARPlanTrimestral", false), _defineProperty(_ref, "activityForAllStudents", false), _defineProperty(_ref, "activityForPIARStudents", false), _defineProperty(_ref, "activityForSelectStudents", false), _defineProperty(_ref, "studentsOptions", []), _defineProperty(_ref, "saveStudent", []), _defineProperty(_ref, "piarStudents", []), _ref;
   },
   watch: {
     activityForAllStudents: function activityForAllStudents(newVal) {
@@ -372,6 +373,7 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
     getData: function getData() {
       var _this = this;
 
+      console.log(this.idArea);
       axios.get("/PIARStudentsByArea/".concat(this.idArea)).then(function (response) {
         _this.piarStudents = Object.values(response.data);
       })["catch"](function (error) {
@@ -423,10 +425,11 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
         _this.fillC = response.data; //set current data
 
         if (response.data.achievements.length > 0 && response.data.quaterly.length > 0) {
-          _this.inputsClass = [];
           _this.inputs = [];
           var i = 0;
           response.data.quaterly.forEach(function (e) {
+            var valueJson = "";
+
             function IsJsonString() {
               try {
                 var json = e.unit_name ? JSON.parse(e.unit_name) : {};
@@ -437,24 +440,24 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
             }
 
             if (IsJsonString()) {
-              _this.inputsClass[i] = e.unit_name ? JSON.parse(e.unit_name) : {};
+              valueJson = e.unit_name ? JSON.parse(e.unit_name) : {};
             } else {
               var json = [{
                 indicador: e.unit_name ? e.unit_name : ""
               }];
-              _this.inputClass = json;
+              valueJson = json;
             }
 
             i++;
 
             _this.inputs.push({
               id_quaterly: e.id,
-              name: e.unit_name,
+              inputCl: valueJson,
               contenido: e.content,
               logro: e.logro
             });
-          });
-          console.log(_this.inputs);
+          }); //console.log(this.inputs);
+
           _this.inputs_saved = JSON.parse(JSON.stringify(_this.inputs));
         } else {
           if (localStorage.getItem(_this.serialLocalStorage)) {
@@ -515,14 +518,10 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
         _this2.isLoading = false;
       });
     },
-    annualContentUpdateEventI: function annualContentUpdateEventI(e, index1, index2, type) {
-      var property = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : null;
-
-      if (type == 'inputs') {
-        this.inputsClass[index1][index2] = this.inputsClass[index1][index2][property].replace(/[^a-zA-Z0-9-.ñáéíóú_*+-/=&%$#!()?¡¿ ]/g, "|");
-      } //serialize data on localstorage
-
-
+    annualContentUpdateEventI: function annualContentUpdateEventI(e, index1, index2) {
+      var property = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : null;
+      //this.inputs[index1].inputCl[index2]=this.inputs[index1].inputCl[index2][property].replace(/[^a-zA-Z0-9-.ñáéíóú_*+-/=&%$#!()?¡¿ ]/g, "|");
+      //serialize data on localstorage
       localStorage.setItem(this.serialLocalStorage, window.btoa(unescape(encodeURIComponent(JSON.stringify({
         inputs: this.inputs
       })))));
@@ -535,12 +534,14 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
       this.showPIARPlanTrimestral = !this.showPIARPlanTrimestral;
     },
     add: function add(index) {
-      this.inputsClass.push([{
-        indicador: ""
-      }]);
       this.inputs.push({
         name: "",
         logro: "",
+        inputCl: [{
+          indicador: ""
+        }, {
+          indicador: ""
+        }],
         contenido: ""
       });
     },
@@ -548,12 +549,14 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
       this.inputs.splice(index, 1);
     },
     addI: function addI(index) {
-      this.inputsClass[index].push({
+      this.inputs[index].inputCl.push({
         indicador: ""
       });
+      console.log(this.inputs);
     },
     removeI: function removeI(index) {
-      this.inputsClass[index].splice(index, 1);
+      this.inputs[index].inputCl.splice(-1);
+      console.log(this.inputs);
     },
     addPIAR: function addPIAR(index) {
       this.inputsPIAR.push({
@@ -589,7 +592,7 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
 
       if (this.inputs.length >= 1) {
         for (var i = 0; i < this.inputs.length; i++) {
-          this.inputs[i].name = JSON.stringify(this.inputsClass[i]);
+          this.inputs[i].name = JSON.stringify(this.inputs[i].inputCl);
           this.newTrimestre.push(this.inputs[i]);
         }
       }
@@ -1074,7 +1077,7 @@ var render = function() {
                                 ])
                               ]),
                               _vm._v(" "),
-                              _vm._l(_vm.inputsClass[t], function(inputC, k) {
+                              _vm._l(input.inputCl, function(inputC, k) {
                                 return _c(
                                   "div",
                                   { key: k, staticClass: "col-md-6" },
@@ -1093,10 +1096,9 @@ var render = function() {
                                               rawName: "v-show",
                                               value:
                                                 k != 0 &&
-                                                k ==
-                                                  _vm.inputsClass[t].length - 1,
+                                                k == input.inputCl.length - 1,
                                               expression:
-                                                "k != 0 && k == inputsClass[t].length - 1"
+                                                "k != 0 && k == input.inputCl.length - 1 "
                                             }
                                           ],
                                           staticClass: "badge badge-danger",
@@ -1119,10 +1121,9 @@ var render = function() {
                                               name: "show",
                                               rawName: "v-show",
                                               value:
-                                                k ==
-                                                _vm.inputsClass[t].length - 1,
+                                                k == input.inputCl.length - 1,
                                               expression:
-                                                "k == inputsClass[t].length - 1"
+                                                "k == input.inputCl.length - 1"
                                             }
                                           ],
                                           staticClass: "badge badge-primary",
@@ -1162,8 +1163,7 @@ var render = function() {
                                               $event,
                                               t,
                                               k,
-                                              "inputs",
-                                              "name"
+                                              "indicador"
                                             )
                                           },
                                           input: function($event) {

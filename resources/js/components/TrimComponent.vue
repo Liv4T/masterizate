@@ -110,20 +110,20 @@
                                                 />
                                             </div>
                                         </div>
-                                        <div class="col-md-6" v-for="(inputC, k) in inputsClass[t]" :key="k">
+                                        <div class="col-md-6" v-for="(inputC, k) in input.inputCl" :key="k">
                                             <label for="name">Indicador de logro</label>
                                             <span>
                                             <a
                                                 href="#"
                                                 class="badge badge-danger"
                                                 @click.prevent="removeI(t)"
-                                                v-show="k != 0 && k == inputsClass[t].length - 1"
+                                                v-show="k != 0 && k == input.inputCl.length - 1 "
                                             >-</a>
                                             <a 
                                                 href="#"
                                                 class="badge badge-primary"
                                                 @click.prevent="addI(t)"
-                                                v-show="k == inputsClass[t].length - 1"
+                                                v-show="k == input.inputCl.length - 1"
                                             >+</a>                                            
                                             </span>
                                             <div>
@@ -132,7 +132,7 @@
                                                     name="objetive1"
                                                     class="form-control"
                                                     v-model="inputC.indicador"
-                                                    v-on:change="annualContentUpdateEventI($event,t,k,'inputs','name')"
+                                                    v-on:change="annualContentUpdateEventI($event,t,k,'indicador')"
                                                     placeholder="Nombre de la unidad"
                                                     required
                                                 />
@@ -302,7 +302,15 @@ export default {
                     name: "",
                     logro: "",
                     contenido: "",
-                },
+                    inputCl:[
+                        {
+                        indicador: "",
+                        },
+                        {
+                        indicador: "",
+                        },
+                    ],
+                }
             ],
 
             inputsPIAR: [
@@ -351,15 +359,6 @@ export default {
             studentsOptions:[],
             saveStudent:[],
             piarStudents:[],
-            inputsClass:[[
-                {
-                indicador: "",
-                },
-            ],[
-                {
-                indicador: "",
-                },
-            ]],
         };
     },
     watch: {
@@ -397,6 +396,7 @@ export default {
     },
     methods: {
         getData(){
+            console.log(this.idArea);
             axios.get(`/PIARStudentsByArea/${this.idArea}`).then((response)=>{
                 this.piarStudents = Object.values(response.data);
             }).catch((error)=>{
@@ -454,10 +454,10 @@ export default {
                 this.fillC = response.data;
                 //set current data
                 if(response.data.achievements.length>0 && response.data.quaterly.length>0){
-                    this.inputsClass=[];
                     this.inputs=[];
                     var i=0;
                     response.data.quaterly.forEach((e)=>{
+                        var valueJson="";
                         function IsJsonString() {
                             try {
                             var json = e.unit_name ? JSON.parse(e.unit_name): {};
@@ -467,18 +467,18 @@ export default {
                             }
                         }
                         if(IsJsonString()){            
-                            this.inputsClass[i]=e.unit_name ? JSON.parse(e.unit_name): {};
+                            valueJson=e.unit_name ? JSON.parse(e.unit_name): {};
                         } else{            
                             let json=[{
                             indicador: e.unit_name ? e.unit_name : ""
                             }];
-                            this.inputClass=json;
+                            valueJson=json;
                         }
                         
                         i++;
-                        this.inputs.push({ id_quaterly:e.id,name: e.unit_name, contenido: e.content, logro:e.logro});
+                        this.inputs.push({ id_quaterly:e.id,inputCl: valueJson, contenido: e.content, logro:e.logro});
                     });
-                    console.log(this.inputs);
+                    //console.log(this.inputs);
                     this.inputs_saved= JSON.parse(JSON.stringify(this.inputs));
                 }else{
         
@@ -535,10 +535,10 @@ export default {
                 this.isLoading=false;
             });
         },
-        annualContentUpdateEventI(e,index1,index2,type,property=null){
-            if(type=='inputs'){
-                this.inputsClass[index1][index2]=this.inputsClass[index1][index2][property].replace(/[^a-zA-Z0-9-.ñáéíóú_*+-/=&%$#!()?¡¿ ]/g, "|");
-            }
+        annualContentUpdateEventI(e,index1,index2,property=null){
+            
+            //this.inputs[index1].inputCl[index2]=this.inputs[index1].inputCl[index2][property].replace(/[^a-zA-Z0-9-.ñáéíóú_*+-/=&%$#!()?¡¿ ]/g, "|");
+            
             //serialize data on localstorage
             localStorage.setItem(this.serialLocalStorage, window.btoa(unescape(encodeURIComponent(JSON.stringify({inputs:this.inputs})))));
 
@@ -551,21 +551,20 @@ export default {
             this.showPIARPlanTrimestral = !this.showPIARPlanTrimestral
         },
         add(index) {
-            this.inputsClass.push([{
-                indicador: "",
-            }]);
-            this.inputs.push({ name: "", logro: "", contenido: "" });
+            this.inputs.push({ name: "", logro: "", inputCl: [{indicador: ""},{indicador:""}], contenido: "" });
         },
         remove(index) {
             this.inputs.splice(index, 1);
         },
         addI(index) {
-            this.inputsClass[index].push({
+            this.inputs[index].inputCl.push({
                 indicador: "",
             });
+            console.log(this.inputs);
         },
         removeI(index) {
-            this.inputsClass[index].splice(index, 1);
+            this.inputs[index].inputCl.splice(-1);
+            console.log(this.inputs);
         },
 
         addPIAR(index) {
@@ -599,7 +598,7 @@ export default {
                 this.newLogro = [];
                 if (this.inputs.length >= 1) {
                     for (let i = 0; i < this.inputs.length; i++) {
-                        this.inputs[i].name=JSON.stringify(this.inputsClass[i]);
+                        this.inputs[i].name=JSON.stringify(this.inputs[i].inputCl);
                         this.newTrimestre.push(this.inputs[i]);
                     }
                 }

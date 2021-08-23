@@ -103,7 +103,7 @@ class User extends Authenticatable
     {
         if(!isset($this->type_user)) return false;
 
-        return intval($this->type_user) === 6;
+        return intval($this->type_user) === 6; 
     }
 
     /**

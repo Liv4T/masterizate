@@ -177,7 +177,7 @@ var staticRenderFns = [
               "a",
               {
                 staticClass: "dropdown-item",
-                attrs: { href: "instituciones_adm" }
+                attrs: { href: "/instituciones_adm" }
               },
               [_vm._v("Crear Instituciones")]
             ),
@@ -186,14 +186,14 @@ var staticRenderFns = [
               "a",
               {
                 staticClass: "dropdown-item",
-                attrs: { href: "trimestre_adm" }
+                attrs: { href: "/trimestre_adm" }
               },
               [_vm._v("Crear Trimestre")]
             ),
             _vm._v(" "),
             _c(
               "a",
-              { staticClass: "dropdown-item", attrs: { href: "general_adm" } },
+              { staticClass: "dropdown-item", attrs: { href: "/general_adm" } },
               [_vm._v("Crear Salones")]
             ),
             _vm._v(" "),
@@ -437,7 +437,7 @@ var staticRenderFns = [
               "a",
               {
                 staticClass: "dropdown-item",
-                attrs: { href: "permissionPedagogic" }
+                attrs: { href: "/permissionPedagogic" }
               },
               [_vm._v("Permisos")]
             ),

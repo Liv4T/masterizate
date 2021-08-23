@@ -97,6 +97,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 $(".collapse").on("show.bs.collapse", function () {
   $(".collapse.in").collapse("hide");
 });
@@ -350,6 +354,21 @@ var render = function() {
                                 }
                               },
                               [_vm._v("General")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "a",
+                              {
+                                staticClass: "btn btn-warning",
+                                attrs: {
+                                  href:
+                                    "/planificacion/trimestral/" +
+                                    area.id +
+                                    "/" +
+                                    area.id_classroom
+                                }
+                              },
+                              [_vm._v("Trimestral")]
                             ),
                             _vm._v(" "),
                             _c(

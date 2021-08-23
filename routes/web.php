@@ -339,6 +339,9 @@ Route::get('/compra/plan/{plan_type}/skills/ingresar/p/{payment_code}', function
 Route::middleware('auth')->get('/porcentaje/{id_area}/{id_classroom}', function (String $id_area, String $id_classroom) {
     return view('porcentajeNotas')->with('id_area', $id_area)->with('id_classroom', $id_classroom);
 });
+Route::middleware('auth')->get('/planificacion/trimestral/{id}/{id_classroom}', function (String $id, String $id_classroom) {
+    return view('planificacionTrim')->with('id', $id.'/'.$id_classroom)->with('id_classroom', $id_classroom);
+});
 Route::get('/compra/plan/tutoria/{tutor_schedule_student_id}/{tutorschedule_id}/resumen', function (int $tutor_schedule_student_id, int $tutorschedule_id) {
     return view('purchaseTutoriaResume')->with('tutor_schedule_student_id', $tutor_schedule_student_id)->with('tutorschedule_id', $tutorschedule_id);
 });
