@@ -96,6 +96,13 @@
         "programacion": "Programación",
         "tecnologia": "Tecnología",
         "musica": "Estéticas (música)",
+        "esteticas (musica)":"Estéticas (Musica)",
+        "esteticas (arte)":"Estéticas (Arte)",
+        "esteticas(danza)":"Estéticas (Danza)",
+        "esteticas (danza)":"Estéticas (Danza)",
+        "expresion corporal": "Expresión Corporal",
+        "(pendiente)": "pendiente",
+        "advisory":"Asesoramiento",
         "arte": "Estéticas (arte)",
         "danza": "Estéticas (danza)",
         "teatro": "Teatro",
@@ -104,7 +111,7 @@
         "psicologia": "Psicología",
         "steam": "STEAM",
         "induccion_hs":"Inducción HS",
-        "induccion_ms":"Inducción MS"
+        "induccion_ms":"Inducción MS"        
     },
     "messages":{
         "messages":"Mensajes",

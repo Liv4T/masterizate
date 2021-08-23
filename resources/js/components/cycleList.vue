@@ -37,14 +37,14 @@
                                 <tr>
                                     <td>{{ $t('lang.grades.cycleName') }}</td>
 
-                                    <td>{{ $t('lang.general.observation') }}</td>
+                                    <td v-show="!user.type_user === 3">{{ $t('lang.general.observation') }}</td>
                                     <td>{{ $t('lang.class.action') }}</td>
 
                                 </tr>
                                 <tr v-for="(cycle,k) in filteredRows" :key="k">                                
                                     <td>{{ cycle.driving_question }}</td>
 
-                                    <td>{{ cycle.observation }}</td>
+                                    <td v-show="!user.type_user === 3">{{ cycle.observation }}</td>
 
                                     <td v-if="planification === 'clase'">
                                         <p>

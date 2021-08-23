@@ -1,6 +1,13 @@
 <template>
     <div>
-        <div class="form-group width-r mx-auto">
+        <div style="text-align: center">
+            <img style="width:50%" :src="imageStudent" alt="">
+        </div>
+        <div v-show="user.type_user === 3 && nameArea === ''" class="responsiveContent mb-3 mb-3">
+            <iframe id="frameStudent" class="text-center" src="https://www.youtube.com/embed/9x3O3gxpEXs"  frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+        <div class="form-group width-r mx-auto">                
+            
             <div class="row pd-20">
                 <div class="dropdown col-md-2">
                     <button class="btn btn-warning dropdown-toggle mg-btn" type="button" id="admin" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: #49CEFB; border-color: #49CEFB; box-shadow: 3px 3px 3px 3px #b0acac">{{ $t('lang.area.electivas') }}</button>
@@ -15,7 +22,7 @@
                     </a>                    
                 </div>
             </div>
-        </div>
+        </div>                
         <div v-if="nameArea != ''">
             <div v-if="showSection ==='inicio'" class="form-group text-center">
                 <a href="" class="btn btn-warning letra-poppins-bold" :style="`${colorTitle} border-color: #ffa4f2;`"
@@ -23,11 +30,11 @@
                 </a>
             </div>
             <div class="row">
-                <div class="col-md-2 pd-18 flotante">
+                <!-- <div class="col-md-2 pd-18 flotante">
                     <button type="button" v-on:click="showOtherSection('chat')" class="btn btn-warning letra-poppins-bold mg-btn" style="background-color: #e26100; border-color: #e26100"><h4>{{ $t('lang.menu.chat').toUpperCase() }}</h4> </button> <br />
                     <a href="/questions" class="btn btn-warning letra-poppins-bold mg-btn" style="background-color: #e26100; border-color: #e26100"><h4>{{ $t('lang.menu.forums').toUpperCase() }}</h4> </a><br />
                     <button type="button" v-on:click="showOtherSection('message')" class="btn btn-warning letra-poppins-bold mg-btn" style="background-color: #e26100; border-color: #e26100"><h4>{{ $t('lang.menu.menssages').toUpperCase() }}</h4> </button><br />
-                </div>
+                </div> -->
                 <div id="tabs" class="col-md-9 mx-auto">
                     <div v-if="showSection === 'inicio'" class="tabs">
                         <a v-on:click="activetab = 1" v-bind:class="[activetab === 1 ? 'active' : '']"><h2 class="letra-poppins-bold">{{ $t('lang.menu.calendar').toUpperCase() }}</h2></a>
@@ -105,6 +112,7 @@
 <script>
 import pdf from "vue-pdf";
 import moment from "moment";
+import imageStudent from '../assets/img/welcome-21Student.png';
   moment.tz.setDefault("America/Bogota");
   moment.locale("es");
 export default {
@@ -114,6 +122,7 @@ export default {
     props: ["user"],
     data() {
         return {
+            imageStudent:imageStudent,
             clases: [],
             colorClass:[
                 {
@@ -241,7 +250,7 @@ export default {
             groups:{}
         };
     },
-    mounted() {
+    mounted() {        
         axios.get("/api/lectives").then((response) => {
             if(response.data.length > 0){
                 this.planifications = response.data;
@@ -363,6 +372,20 @@ export default {
 };
 </script>
 <style>
+.responsiveContent {
+  /* position: relative; */
+  height: 0;
+  overflow: hidden;
+  padding-bottom: 30.2%;
+  /* margin-bottom: 5px; */
+}
+.responsiveContent iframe {
+  position: absolute;
+  top: 35%;
+  left: 30%;
+  width: 40%;
+  height: 36%;
+}
 .mg-btn {
   margin: 10px;
   min-width: 165px;

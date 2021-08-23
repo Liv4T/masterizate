@@ -310,7 +310,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.item-cycle {\n    height: 50px;\n    overflow: hidden;\n    color: white;\n    background: #00cbcec1;\n    margin: 8px;\n    line-height: 50px;\n    margin-bottom: 2rem;\n    border-radius: 10px;\n}\n.menu-cycle{\n    color: white;\n    text-decoration: none;\n    font-weight: bold;\n    font-size: 28px;\n}\n", ""]);
+exports.push([module.i, "\n.item-cycle {\r\n    height: 50px;\r\n    overflow: hidden;\r\n    color: white;\r\n    background: #00cbcec1;\r\n    margin: 8px;\r\n    line-height: 50px;\r\n    margin-bottom: 2rem;\r\n    border-radius: 10px;\n}\n.menu-cycle{\r\n    color: white;\r\n    text-decoration: none;\r\n    font-weight: bold;\r\n    font-size: 28px;\n}\r\n", ""]);
 
 // exports
 
@@ -489,11 +489,26 @@ var render = function() {
                                     )
                                   ]),
                                   _vm._v(" "),
-                                  _c("td", [
-                                    _vm._v(
-                                      _vm._s(_vm.$t("lang.general.observation"))
-                                    )
-                                  ]),
+                                  _c(
+                                    "td",
+                                    {
+                                      directives: [
+                                        {
+                                          name: "show",
+                                          rawName: "v-show",
+                                          value: !_vm.user.type_user === 3,
+                                          expression: "!user.type_user === 3"
+                                        }
+                                      ]
+                                    },
+                                    [
+                                      _vm._v(
+                                        _vm._s(
+                                          _vm.$t("lang.general.observation")
+                                        )
+                                      )
+                                    ]
+                                  ),
                                   _vm._v(" "),
                                   _c("td", [
                                     _vm._v(_vm._s(_vm.$t("lang.class.action")))
@@ -506,9 +521,20 @@ var render = function() {
                                       _vm._v(_vm._s(cycle.driving_question))
                                     ]),
                                     _vm._v(" "),
-                                    _c("td", [
-                                      _vm._v(_vm._s(cycle.observation))
-                                    ]),
+                                    _c(
+                                      "td",
+                                      {
+                                        directives: [
+                                          {
+                                            name: "show",
+                                            rawName: "v-show",
+                                            value: !_vm.user.type_user === 3,
+                                            expression: "!user.type_user === 3"
+                                          }
+                                        ]
+                                      },
+                                      [_vm._v(_vm._s(cycle.observation))]
+                                    ),
                                     _vm._v(" "),
                                     _vm.planification === "clase"
                                       ? _c("td", [
@@ -659,7 +685,7 @@ var render = function() {
                         ])
                       : _c("div", [
                           _vm._v(
-                            "\n                        No hay Clases asignadas al Ciclo "
+                            "\r\n                        No hay Clases asignadas al Ciclo "
                           ),
                           _c("strong", [_vm._v(_vm._s(_vm.cicle_name))])
                         ])
