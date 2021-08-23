@@ -496,14 +496,15 @@ export default {
             
             
             if(this.id_class==0){
-                var endDate = new Date(this.course.date_init_class);
-                var end=moment(endDate).add(2, 'hours').format("YYYY-MM-DD H:mm:ss");
+                var initD= new Date(this.course.date_init_class);
+                var initDateSave = moment(initD).format("YYYY-MM-DD H:mm:ss");
+                var end=moment(initDateSave).add(2, 'hours').format("YYYY-MM-DD H:mm:ss");
                 var url = "/createEvent";
                     axios
                         .post(url, {
                         //Cursos generales
                         name: this.course.name,
-                        startDateTime: this.course.date_init_class,
+                        startDateTime: initDateSave,
                         endDateTime: end,
                         id_area: this.area_id,
                         id_classroom: this.classroom_id,
