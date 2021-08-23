@@ -5,11 +5,20 @@
     @include('menu')
      <calendar-component type_u="2" :user="{{Auth::user()}}"></calendar-component>
     @endif
-      @if (Auth::user()->isPsychology()||Auth::user()->isTutor()||Auth::user()->isAdmin())
+      @if (Auth::user()->isPsychology()
+          ||Auth::user()->isTutor()
+          ||Auth::user()->isAdmin() 
+          ||Auth::user()->isSchoolGovernment()
+          ||Auth::user()->isParent()
+          ||Auth::user()->isCoordinator()
+          ||Auth::user()->isNurse()
+          ||Auth::user()->isClient()
+          )
     @include('menu')
 
     @endif
        @if (Auth::user()->isStudent())
+       
         <inicio-component :user="{{Auth::user()}}"></inicio-component>
     @endif
 
