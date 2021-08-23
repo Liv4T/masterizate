@@ -76,7 +76,7 @@ moment.locale("es");
 
 Vue.use(require("vue-moment"));
 export default {
-  props: ["type_u", "nameArea", "user"],
+  props: ["type_u", "user"],
   data() {
     return {
       display_events: true,
@@ -122,13 +122,6 @@ export default {
   components: {
     FullCalendar,
   },
-  watch:{
-    nameArea(newVal){
-      if(newVal){
-        this.getData();
-      }
-    }
-  },
   mounted() {
     console.log("tipo de usuario: ", this.type_u);
     console.log("Usuario: ", this.user);
@@ -137,8 +130,7 @@ export default {
   },
   methods: {
     getData() {
-      this.clases = [];
-      let fullCalendarApi = this.$refs.fullCalendar.getApi();      
+      const fullCalendarApi = this.$refs.fullCalendar.getApi();
       this.getInvitations();
 
       if (this.type_u === 4) {
@@ -160,38 +152,20 @@ export default {
         });
       }
       var urlM = window.location.origin + "/getAllEvents";
-      axios.get(urlM).then((response) => {        
-        if(this.type_u !== 3){
-          this.clases = response.data;
-          if (this.clases && this.clases.length > 0) {
-            this.clases.forEach((meeting) => {      
-              fullCalendarApi.addEvent({
-                title: `${meeting.area} ${meeting.classroom} | Clase ${meeting.name}`,
-                start: meeting.dateFrom,
-                end: meeting.dateTo,
-                description: meeting.name,
-                url: meeting.hangout,
-                backgroundColor: "red",
-              });
-            })
-          }
-        }else{
-          // if (this.clases && this.clases.length > 0) {
-            response.data.forEach((meeting) => {      
-              if(this.nameMinus(this.nameArea) === this.nameMinus(meeting.area)){
-                this.clases.push(meeting)
-                fullCalendarApi.addEvent({
-                  title: `${meeting.area} ${meeting.classroom} | Clase ${meeting.name}`,
-                  start: meeting.dateFrom,
-                  end: meeting.dateTo,
-                  description: meeting.name,
-                  url: meeting.hangout,
-                  backgroundColor: "red",
-                });
-              }
+      axios.get(urlM).then((response) => {
+        this.clases = response.data;
+        if (this.clases && this.clases.length > 0) {
+          this.clases.forEach((meeting) => {
+            fullCalendarApi.addEvent({
+              title: `${meeting.area} ${meeting.classroom} | Clase ${meeting.name}`,
+              start: meeting.dateFrom,
+              end: meeting.dateTo,
+              description: meeting.name,
+              url: meeting.hangout,
+              backgroundColor: "red",
             });
-          // }
-        }                
+          });
+        }
       });
       var url = window.location.origin + "/GetArearByUser";
       axios.get(url).then((response) => {
@@ -220,7 +194,8 @@ export default {
           console.log("datos aqui", response.data);
           if (this.clases && this.clases.length > 0) {
             this.clases.forEach((dataParent) => {
-              if (dataParent.id_sender === this.user.id || dataParent.id_invited === this.user.id) {                
+              if (dataParent.id_sender === this.user.id || dataParent.id_invited === this.user.id) {
+                console.log("pasé");
                 fullCalendarApi.addEvent({
                   title: dataParent.name_event,
                   start: dataParent.date_start,
@@ -335,10 +310,6 @@ export default {
       } else {
         $("#createE").modal("show");
       }
-    },
-    nameMinus(name){
-      var nameMinus=name.toLowerCase();
-      return nameMinus.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
     },
   },
 };

@@ -43,7 +43,7 @@
                         <a v-on:click="activetab = 4" v-bind:class="[activetab === 4 ? 'active' : '']"><h2 class="letra-poppins-bold">{{ $t('lang.menu.grades').toUpperCase() }}</h2></a>
                     </div>
                     <div v-if="showSection === 'inicio'">
-                        <div v-if="activetab === 1" class="tabcontent"><calendar-component :type_u="3" :nameArea="nameArea" :user="user"></calendar-component></div>
+                        <div v-if="activetab === 1" class="tabcontent"><calendar-component :type_u="3" :user="user"></calendar-component></div>
                         <div v-if="activetab === 2" class="tabcontent">
                             <!-- <student-courses 
                                 :nameArea="nameArea" 
