@@ -453,7 +453,7 @@ var render = function() {
             expression: "user.type_user === 3 && nameArea === ''"
           }
         ],
-        staticClass: "responsiveContent"
+        staticClass: "responsiveContent mb-3 mb-3"
       },
       [
         _c("iframe", {

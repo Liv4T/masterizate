@@ -3,7 +3,7 @@
         <div style="text-align: center">
             <img style="width:50%" :src="imageStudent" alt="">
         </div>
-        <div v-show="user.type_user === 3 && nameArea === ''" class="responsiveContent">                
+        <div v-show="user.type_user === 3 && nameArea === ''" class="responsiveContent mb-3 mb-3">
             <iframe id="frameStudent" class="text-center" src="https://www.youtube.com/embed/9x3O3gxpEXs"  frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </div>
         <div class="form-group width-r mx-auto">                
