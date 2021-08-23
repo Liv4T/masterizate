@@ -45,6 +45,10 @@
                         :href="'/course/'+ area.id +'/'+ area.id_classroom"
                         class="btn btn-warning"
                       >General</a>
+                      <a
+                        :href="'/planificacion/trimestral/'+ area.id +'/'+ area.id_classroom"
+                        class="btn btn-warning"
+                      >Trimestral</a>
 
                       <a :href="'/duplicar/'+ area.id +'/'+ area.id_classroom" class="btn btn-warning">
                         Duplicar
@@ -75,7 +79,7 @@
                       >Ciclos</a>
     -->
 
-                    </div>
+                    </div> 
                   
                 </div>
               </div>

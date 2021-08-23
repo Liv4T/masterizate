@@ -192,9 +192,10 @@ export default {
       this.inputsClass[index].push({
         class_developmentC: "",
       });
+      console.log(this.inputsClass);
     },
     removeC(index) {
-      this.inputsClass[index].splice(index, 1);
+      this.inputsClass[index].splice(-1);
     },
     getMenu() {
       this.cleanClasId();

@@ -8,9 +8,9 @@
                 Administrativo
             </button>
             <div class="dropdown-menu" aria-labelledby="admin">
-                <a class="dropdown-item" href="instituciones_adm">Crear Instituciones</a>
-                <a class="dropdown-item" href="trimestre_adm">Crear Trimestre</a>
-                <a class="dropdown-item" href="general_adm">Crear Salones</a>
+                <a class="dropdown-item" href="/instituciones_adm">Crear Instituciones</a>
+                <a class="dropdown-item" href="/trimestre_adm">Crear Trimestre</a>
+                <a class="dropdown-item" href="/general_adm">Crear Salones</a>
                 <!-- Pendiente creación de Perfiles -->
                 <a class="dropdown-item" href="#">Crear Perfiles</a>
                 <a class="dropdown-item" href="/piar">Estudiantes PIAR</a>
@@ -65,7 +65,7 @@
                 <a class="dropdown-item" href="/mensajes">Psicología</a>
                 <!-- Modulo de Casos pendiente por aclaración -->
                 <a class="dropdown-item" href="#">Casos</a>
-                <a class="dropdown-item" href="permissionPedagogic">Permisos</a>
+                <a class="dropdown-item" href="/permissionPedagogic">Permisos</a>
                 <!-- Modulo de proyectos Transversales pendientes por aclaración -->
                 <a class="dropdown-item" href="#">Proyectos Transversales</a>
                 <a class="dropdown-item" href="/observer">Observador del Alumno</a>
