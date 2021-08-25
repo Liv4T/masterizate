@@ -38,7 +38,7 @@
               <tab-content title="Porcentaje de notas">
                 <div class="card-body">
                   <div class="accordion" id="accordionExample">
-                    <div class="card" v-for="(option,t) in fillC.achievements" :key="t">
+                    <div class="card" v-for="(option,t) in fillC.quaterly" :key="t">
                       <div class="card-header">
                         <h2 class="mb-0">
                           <button
@@ -55,7 +55,7 @@
                                 width: 450px;
                                 white-space: nowrap;
                                 overflow: hidden;"
-                            >{{ option.achievement+'  ' + option.percentage+ '  ' + '%' }}</label>                            
+                            >{{ option.logro }}</label>                            
                           </button>
                         </h2>
                       </div>
@@ -87,7 +87,7 @@
                             </tbody>
                           </table>
                           <div align="right">
-                            <a class="btn btn-warning" v-on:click.prevent="editNames(option.id,option.id_planification)">Agregar</a>
+                            <a class="btn btn-warning" v-on:click.prevent="editNames(option.id,option.id_achievement, option.id_annual)">Agregar</a>
                           </div>
                         </div>
                       </div>
@@ -267,7 +267,9 @@ export default {
       id_logro: "",
       id_indicator: 0,
       index: 0,
-      areaId: ""
+      areaId: "",
+      id_quarterly_plan: "",
+      id_achievement: "",
     };
   },
   watch:{
@@ -299,6 +301,7 @@ export default {
       var urlsel = window.location.origin + "/coursePlanification/" + this.areaId;
       axios.get(urlsel).then((response) => {
         this.fillC = response.data;
+        console.log(this.fillC);
       });
     },
     getMenu() {
@@ -311,6 +314,7 @@ export default {
         console.log(this.fillI);
       });
     },
+
     add(index) {
       this.inputs.push({ name: "", contenido: "" });
     },
@@ -333,13 +337,15 @@ export default {
           id_indicator:this.id_indicator,
           type_activity: this.tipo_act,
           id_annual: this.id_annual,
-          id_achievement: this.id_logro,
+          id_quarterly_plan: this.id_quarterly_plan,
+          id_achievement: this.id_achievement,
           activity_rate: this.porcentaje,
         })
         .then((response) => {
           this.errors = [];
 
           toastr.success("Nueva actividad creada exitosamente");
+          this.indicador(this.id_quarterly_plan);
 
           $('#createZ').modal('hide');
         })
@@ -350,24 +356,19 @@ export default {
     updateCourses() {
       window.location = "/actividad_g";
     },
-    editNames(id, clas) {
-      //   var urlr = "showClass/" + clas;
-      //   axios.get(urlr).then(response => {
-      //     this.fillS = response.data;
-      //   });
+    editNames(id, id_achievement, annual) {
+      
       this.id_indicator = 0;
-      this.id_annual = clas;
-      this.id_logro = id;
+      this.id_quarterly_plan = id;
+      this.id_achievement = id_achievement;
+      this.id_annual = annual;
       this.tipo_act = "";
       this.porcentaje = "";
 
       $("#createZ").modal("show");
     },
     showEdit(id_porcentaje, tipo_act, porcentaje) {
-      //   var urlr = "showClass/" + clas;
-      //   axios.get(urlr).then(response => {
-      //     this.fillS = response.data;
-      //   });
+
       this.id_indicator = id_porcentaje;
       this.tipo_act = tipo_act;
       this.porcentaje = porcentaje;

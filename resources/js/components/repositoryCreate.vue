@@ -14,16 +14,6 @@
                             @on-complete="createSemanal"
                         >
                             <tab-content title="Crear entrega">
-                                <div class="form-group mx-auto">
-                                    <div align="center">
-                                        <div class="col-md-6">
-                                            <label for>Materia:</label>
-                                            <select class="form-control" ref="seleccionado" required>
-                                                <option :value="option.id+'/'+option.id_classroom" v-for="(option, key) in myOptions" :key="key">{{ option.text }}</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
                                 <div class="form-group row mx-auto">
                                     <div class="col-md-6">
                                         <label for="name">*Título</label>
@@ -85,6 +75,22 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="form-group row">
+                                        <div class="col-8">
+                                            <label><span class="required">*</span>Logro:</label>
+                                                <select class="form-control" v-model="quarterly_plan" @change="indicador(quarterly_plan)">
+                                                <option value="">-- Seleccione --</option>
+                                                <option v-for="(quarterly,k_quarterly) in fillC.quaterly" v-bind:key="k_quarterly"  :value="quarterly.id + '/' + quarterly.id_achievement">{{quarterly.logro}}</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-4">
+                                            <label><span class="required">*</span>Evaluación:</label>
+                                                <select class="form-control" v-model="activity">
+                                                <option value="">-- Seleccione --</option>
+                                                <option v-for="(act,k_activity) in fillI" v-bind:key="k_activity"  v-bind:value="act.id">{{act.type_activity}} ({{act.activity_rate}} %)</option>
+                                            </select>
+                                        </div>
+                                    </div>
                                 </div>
                                 <strong>* Campos requeridos</strong>
                                 <div class="float-left">
@@ -118,7 +124,7 @@ import firebase from '../../../connectionDbFirebase';
   // firebase.analytics();
 Vue.use(VueFormWizard);
 export default {
-    props: ["id_area", "id_classroom","backComponent"],
+    props: ["id_area", "idClassroom","backComponent"],
     data() {
         return {
             myOptions: [],
@@ -130,25 +136,50 @@ export default {
             errors: [],
             nameFile: '',
             imageData: null,
-            message:""
+            message:"",
+            activity:"",
+            quarterly_plan:"",
+            fillC:[],
+            fillI:[],
         };
     },
     mounted() {
-        var url = "GetArearByUser";
-        axios.get(url).then((response) => {
-            this.myOptions = response.data;
-        });
+        this.getArea();
+        this.getDataPlanification();
     },
     methods: {
+        getArea(){
+            var url = "GetArearByUser";
+            axios.get(url).then((response) => {
+                this.myOptions = response.data;
+            });
+        },
         getMenu() {
             window.location = "/repository";
         },
+        indicador(id) {
+            if (id!=''){
+                var ids=id.split("/");
+                var idInd= ids[0];
+            }
+            var urli = window.location.origin + "/getIndicator/" + idInd;
+            axios.get(urli).then((response) => {
+                this.fillI = response.data;
+            });
+        },
+        getDataPlanification(){
+            var urlsel = window.location.origin + "/coursePlanification/" + this.id_area + "/" + this.idClassroom;
+            axios.get(urlsel).then((response) => {
+                this.fillC = response.data;
+            });
+        },
         createSemanal() {            
-            this.nameArea = this.$refs.seleccionado.value;
 
             axios.post("/saveRepository", {
-                //Cursos generales
-                id_area_class: this.nameArea,
+                id_classroom: this.idClassroom,
+                id_area: this.id_area,
+                id_quarterly_plan: this.quarterly_plan,
+                id_indicator: this.activity,
                 name: this.nameUnit,
                 description: this.description,
                 file: this.nameFile,

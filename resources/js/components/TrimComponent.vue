@@ -77,6 +77,13 @@
                                 <tab-content title="Trimestral">
                                     <div class="form-group row mx-auto" v-for="(input, t) in inputs" :key="t">
                                         <div class="col-md-6">
+                                            <label for="name">Objetivo</label>
+                                             <select id="activity_type" class="form-control"  v-model="input.objetive">
+                                                    <option value="">-- Seleccione --</option>
+                                                    <option v-for="(obj, ob) in objetives" :key="ob" v-bind:value="obj.id" >{{ obj.achievement }} {{ obj.percentage}}%</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-6">
                                             <label for="name">Logro</label>
                                             <span>
                                             <a
@@ -302,6 +309,7 @@ export default {
                     name: "",
                     logro: "",
                     contenido: "",
+                    objetive: "",
                     inputCl:[
                         {
                         indicador: "",
@@ -359,6 +367,7 @@ export default {
             studentsOptions:[],
             saveStudent:[],
             piarStudents:[],
+            objetives:[],
         };
     },
     watch: {
@@ -452,6 +461,8 @@ export default {
             var urlsel = window.location.origin + "/coursePlanification/" + this.idArea;
             axios.get(urlsel).then((response) => {
                 this.fillC = response.data;
+                this.objetives=response.data.courses.achievements;
+                //console.log(response.data);
                 //set current data
                 if(response.data.achievements.length>0 && response.data.quaterly.length>0){
                     this.inputs=[];
@@ -476,7 +487,7 @@ export default {
                         }
                         
                         i++;
-                        this.inputs.push({ id_quaterly:e.id,inputCl: valueJson, contenido: e.content, logro:e.logro});
+                        this.inputs.push({ id_quaterly:e.id,inputCl: valueJson, contenido: e.content, logro:e.logro, objetive: e.id_achievement});
                     });
                     //console.log(this.inputs);
                     this.inputs_saved= JSON.parse(JSON.stringify(this.inputs));
@@ -601,6 +612,7 @@ export default {
                         this.inputs[i].name=JSON.stringify(this.inputs[i].inputCl);
                         this.newTrimestre.push(this.inputs[i]);
                     }
+                    console.log(this.newTrimestre);
                 }
                 let ids = this.idArea.split('/');
 
@@ -615,6 +627,8 @@ export default {
                         
                 }).catch((error) => {
                     this.errors = error.response.data;
+                    toastr.error("Debe completar todos los campos");
+                    this.getData();
                     this.isLoading=false;
                 });
             if(this.activityForPIARStudents === true){

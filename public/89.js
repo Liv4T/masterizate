@@ -142,6 +142,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
  // var firebaseConfig = {
@@ -160,7 +166,7 @@ __webpack_require__.r(__webpack_exports__);
 
 Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["id_area", "id_classroom", "backComponent"],
+  props: ["id_area", "idClassroom", "backComponent"],
   data: function data() {
     return {
       myOptions: [],
@@ -172,38 +178,68 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
       errors: [],
       nameFile: '',
       imageData: null,
-      message: ""
+      message: "",
+      activity: "",
+      quarterly_plan: "",
+      fillC: [],
+      fillI: []
     };
   },
   mounted: function mounted() {
-    var _this = this;
-
-    var url = "GetArearByUser";
-    axios.get(url).then(function (response) {
-      _this.myOptions = response.data;
-    });
+    this.getArea();
+    this.getDataPlanification();
   },
   methods: {
+    getArea: function getArea() {
+      var _this = this;
+
+      var url = "GetArearByUser";
+      axios.get(url).then(function (response) {
+        _this.myOptions = response.data;
+      });
+    },
     getMenu: function getMenu() {
       window.location = "/repository";
     },
-    createSemanal: function createSemanal() {
+    indicador: function indicador(id) {
       var _this2 = this;
 
-      this.nameArea = this.$refs.seleccionado.value;
+      if (id != '') {
+        var ids = id.split("/");
+        var idInd = ids[0];
+      }
+
+      var urli = window.location.origin + "/getIndicator/" + idInd;
+      axios.get(urli).then(function (response) {
+        _this2.fillI = response.data;
+      });
+    },
+    getDataPlanification: function getDataPlanification() {
+      var _this3 = this;
+
+      var urlsel = window.location.origin + "/coursePlanification/" + this.id_area + "/" + this.idClassroom;
+      axios.get(urlsel).then(function (response) {
+        _this3.fillC = response.data;
+      });
+    },
+    createSemanal: function createSemanal() {
+      var _this4 = this;
+
       axios.post("/saveRepository", {
-        //Cursos generales
-        id_area_class: this.nameArea,
+        id_classroom: this.idClassroom,
+        id_area: this.id_area,
+        id_quarterly_plan: this.quarterly_plan,
+        id_indicator: this.activity,
         name: this.nameUnit,
         description: this.description,
         file: this.nameFile,
         date: this.newdate,
         date_limit: this.date_limit
       }).then(function (response) {
-        _this2.errors = [];
+        _this4.errors = [];
         toastr.success("Nueva tarea creada exitosamente"); // this.getMenu();
       })["catch"](function (error) {
-        _this2.errors = error.response.data;
+        _this4.errors = error.response.data;
         toastr.danger("Complete todos los campos requeridos");
       });
     },
@@ -218,20 +254,20 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
       this.onUpload();
     },
     onUpload: function onUpload() {
-      var _this3 = this;
+      var _this5 = this;
 
       this.nameFile = null;
       var storageRef = _connectionDbFirebase__WEBPACK_IMPORTED_MODULE_2__["default"].storage().ref("".concat(this.imageData.name)).put(this.imageData);
       storageRef.on("state_changed", function (snapshot) {
-        _this3.uploadValue = snapshot.bytesTransferred / snapshot.totalBytes * 100;
+        _this5.uploadValue = snapshot.bytesTransferred / snapshot.totalBytes * 100;
       }, function (error) {
         console.log(error.message);
       }, function () {
-        _this3.uploadValue = 100;
+        _this5.uploadValue = 100;
         storageRef.snapshot.ref.getDownloadURL().then(function (url) {
-          _this3.nameFile = url;
-          _this3.message = _this3.imageData.name;
-          console.log(_this3.nameFile);
+          _this5.nameFile = url;
+          _this5.message = _this5.imageData.name;
+          console.log(_this5.nameFile);
         });
       });
     }
@@ -281,38 +317,6 @@ var render = function() {
                 },
                 [
                   _c("tab-content", { attrs: { title: "Crear entrega" } }, [
-                    _c("div", { staticClass: "form-group mx-auto" }, [
-                      _c("div", { attrs: { align: "center" } }, [
-                        _c("div", { staticClass: "col-md-6" }, [
-                          _c("label", { attrs: { for: "" } }, [
-                            _vm._v("Materia:")
-                          ]),
-                          _vm._v(" "),
-                          _c(
-                            "select",
-                            {
-                              ref: "seleccionado",
-                              staticClass: "form-control",
-                              attrs: { required: "" }
-                            },
-                            _vm._l(_vm.myOptions, function(option, key) {
-                              return _c(
-                                "option",
-                                {
-                                  key: key,
-                                  domProps: {
-                                    value: option.id + "/" + option.id_classroom
-                                  }
-                                },
-                                [_vm._v(_vm._s(option.text))]
-                              )
-                            }),
-                            0
-                          )
-                        ])
-                      ])
-                    ]),
-                    _vm._v(" "),
                     _c("div", { staticClass: "form-group row mx-auto" }, [
                       _c("div", { staticClass: "col-md-6" }, [
                         _c("label", { attrs: { for: "name" } }, [
@@ -502,6 +506,142 @@ var render = function() {
                                 )
                               ])
                             : _vm._e()
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "form-group row" }, [
+                        _c("div", { staticClass: "col-8" }, [
+                          _c("label", [
+                            _c("span", { staticClass: "required" }, [
+                              _vm._v("*")
+                            ]),
+                            _vm._v("Logro:")
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "select",
+                            {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.quarterly_plan,
+                                  expression: "quarterly_plan"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              on: {
+                                change: [
+                                  function($event) {
+                                    var $$selectedVal = Array.prototype.filter
+                                      .call($event.target.options, function(o) {
+                                        return o.selected
+                                      })
+                                      .map(function(o) {
+                                        var val =
+                                          "_value" in o ? o._value : o.value
+                                        return val
+                                      })
+                                    _vm.quarterly_plan = $event.target.multiple
+                                      ? $$selectedVal
+                                      : $$selectedVal[0]
+                                  },
+                                  function($event) {
+                                    return _vm.indicador(_vm.quarterly_plan)
+                                  }
+                                ]
+                              }
+                            },
+                            [
+                              _c("option", { attrs: { value: "" } }, [
+                                _vm._v("-- Seleccione --")
+                              ]),
+                              _vm._v(" "),
+                              _vm._l(_vm.fillC.quaterly, function(
+                                quarterly,
+                                k_quarterly
+                              ) {
+                                return _c(
+                                  "option",
+                                  {
+                                    key: k_quarterly,
+                                    domProps: {
+                                      value:
+                                        quarterly.id +
+                                        "/" +
+                                        quarterly.id_achievement
+                                    }
+                                  },
+                                  [_vm._v(_vm._s(quarterly.logro))]
+                                )
+                              })
+                            ],
+                            2
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-4" }, [
+                          _c("label", [
+                            _c("span", { staticClass: "required" }, [
+                              _vm._v("*")
+                            ]),
+                            _vm._v("Evaluación:")
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "select",
+                            {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.activity,
+                                  expression: "activity"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              on: {
+                                change: function($event) {
+                                  var $$selectedVal = Array.prototype.filter
+                                    .call($event.target.options, function(o) {
+                                      return o.selected
+                                    })
+                                    .map(function(o) {
+                                      var val =
+                                        "_value" in o ? o._value : o.value
+                                      return val
+                                    })
+                                  _vm.activity = $event.target.multiple
+                                    ? $$selectedVal
+                                    : $$selectedVal[0]
+                                }
+                              }
+                            },
+                            [
+                              _c("option", { attrs: { value: "" } }, [
+                                _vm._v("-- Seleccione --")
+                              ]),
+                              _vm._v(" "),
+                              _vm._l(_vm.fillI, function(act, k_activity) {
+                                return _c(
+                                  "option",
+                                  {
+                                    key: k_activity,
+                                    domProps: { value: act.id }
+                                  },
+                                  [
+                                    _vm._v(
+                                      _vm._s(act.type_activity) +
+                                        " (" +
+                                        _vm._s(act.activity_rate) +
+                                        " %)"
+                                    )
+                                  ]
+                                )
+                              })
+                            ],
+                            2
+                          )
                         ])
                       ])
                     ]),

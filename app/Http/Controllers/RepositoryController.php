@@ -45,12 +45,15 @@ class RepositoryController extends Controller
 
         // User::create($request->all());
         $data = $request->all();
-        $area_classroom = $data['id_area_class'];
-        $area_classroom = explode("/", $area_classroom);
-
+        $ids=explode("/",$data['id_quarterly_plan']);
+        $id_quarterly_plan=$ids[0];
+        $id_achievement=$ids[1];
         $repositori = new Repository;
-        $repositori->id_area = $area_classroom[0];
-        $repositori->id_classroom = $area_classroom[1];
+        $repositori->id_area = $data['id_area'];
+        $repositori->id_classroom = $data['id_classroom'];
+        $repositori->id_quarterly_plan = $id_quarterly_plan;
+        $repositori->id_achievement = $id_achievement;
+        $repositori->id_indicator = $data['id_indicator'];
         $repositori->id_teacher = Auth::user()->id;
         $repositori->name = $data['name'];
         $repositori->description = $data['description'];
