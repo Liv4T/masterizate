@@ -315,7 +315,9 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
       }, {
         list: "bullet"
       }], ["image"]],
-      piarStudents: []
+      piarStudents: [],
+      fillC: [],
+      fillI: []
     };
   },
   watch: {
@@ -384,6 +386,10 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
       _this.classroom_id = response.data.classroom.id;
       console.log("id area", _this.area_id);
       console.log("id_classroom", _this.classroom_id);
+      console.log("data", response.data);
+
+      _this.getDataPlanification();
+
       axios.get("/PIARStudentsByArea/".concat(response.data.area.id, "/").concat(response.data.classroom.id)).then(function (response) {
         _this.piarStudents = Object.values(response.data);
       })["catch"](function (error) {
@@ -459,6 +465,15 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
         description: ''
       });
     },
+    getDataPlanification: function getDataPlanification() {
+      var _this2 = this;
+
+      var urlsel = window.location.origin + "/coursePlanification/" + this.area_id + "/" + this.classroom_id;
+      axios.get(urlsel).then(function (response) {
+        _this2.fillC = response.data;
+        console.log("fills", _this2.fillC);
+      });
+    },
     removeResource: function removeResource(index) {
       this.course.content.splice(index, 1);
     },
@@ -479,7 +494,7 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
       });
     },
     SaveDataEvent: function SaveDataEvent() {
-      var _this2 = this;
+      var _this3 = this;
 
       axios.put("/api/teacher/module/".concat(this.id_module, "/class"), this.course).then(function (response) {
         // this.getPlanificationEvent(this.id_lective_planification);
@@ -506,7 +521,7 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
         }).then(function (response) {
           toastr.success("Nuevo evento creado exitosamente");
 
-          _this2.returnPage();
+          _this3.returnPage();
         })["catch"](function (error) {});
       }
     },
@@ -544,7 +559,7 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
       }
     },
     onFileChange: function onFileChange(file, item_index) {
-      var _this3 = this;
+      var _this4 = this;
 
       console.log(item_index);
       this.is_loading = true;
@@ -568,55 +583,64 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
         data.append("name", file_name);
         data.append("count", "-class-".concat(item_index));
         axios.post("/fileDocument", data).then(function (response) {
-          _this3.course.content[item_index].content = "".concat(window.location.origin, "/uploads/clases/").concat(file_name.split(' ').join('_'), "-class-").concat(item_index, ".").concat(file_extension);
+          _this4.course.content[item_index].content = "".concat(window.location.origin, "/uploads/clases/").concat(file_name.split(' ').join('_'), "-class-").concat(item_index, ".").concat(file_extension);
 
-          _this3.stopLooading(item_index);
+          _this4.stopLooading(item_index);
         })["catch"](function (err) {
-          _this3.stopLooading(item_index);
+          _this4.stopLooading(item_index);
         });
       } else {
         this.stopLooading(item_index);
       }
     },
     initLoading: function initLoading(item_index, percent) {
-      var _this4 = this;
+      var _this5 = this;
 
       if (this.course.content[item_index].progress_bar_percent != 0 && this.course.content[item_index].progress_bar_percent < percent && percent < 100) {
         this.course.content[item_index].progress_bar_percent = this.course.content[item_index].progress_bar_percent + 20;
         setTimeout(function () {
-          _this4.initLoading(item_index, percent + 20);
+          _this5.initLoading(item_index, percent + 20);
         }, 2000);
       }
     },
     stopLooading: function stopLooading(item_index) {
-      var _this5 = this;
+      var _this6 = this;
 
       this.course.content[item_index].progress_bar_percent = 100;
       setTimeout(function () {
-        _this5.course.content[item_index].progress_bar_percent = 0;
-        _this5.is_loading = false;
+        _this6.course.content[item_index].progress_bar_percent = 0;
+        _this6.is_loading = false;
       }, 500);
     },
     GetIndicatorsEvent: function GetIndicatorsEvent(activity) {
-      var _this6 = this;
+      var _this7 = this;
 
       if (!activity || !activity.id_achievement) return;
       if (this.indicators == null) this.indicators = [];
       axios.get("/api/achievement/".concat(activity.id_achievement, "/indicator")).then(function (response) {
         response.data.forEach(function (i) {
-          if (_this6.indicators.filter(function (p) {
+          if (_this7.indicators.filter(function (p) {
             return p.id == i.id;
           }).length == 0) {
-            _this6.indicators.push(i);
+            _this7.indicators.push(i);
           }
         });
       })["catch"](function (err) {
         console.log(err);
       });
     },
-    filteredIndicators: function filteredIndicators(id_achievement) {
-      return this.indicators.filter(function (item) {
-        return item.id_achievement == id_achievement;
+    indicador: function indicador(id) {
+      var _this8 = this;
+
+      if (id != '') {
+        var ids = id.split("/");
+        var idInd = ids[0];
+      }
+
+      var urli = window.location.origin + "/getIndicator/" + idInd;
+      axios.get(urli).then(function (response) {
+        _this8.fillI = response.data;
+        console.log(_this8.fillI);
       });
     },
     getPreview: function getPreview() {
@@ -1793,9 +1817,9 @@ var render = function() {
                                             {
                                               name: "model",
                                               rawName: "v-model",
-                                              value: activity.id_achievement,
+                                              value: activity.quarterly_plan,
                                               expression:
-                                                "activity.id_achievement"
+                                                "activity.quarterly_plan"
                                             }
                                           ],
                                           staticClass: "form-control",
@@ -1821,15 +1845,15 @@ var render = function() {
                                                   })
                                                 _vm.$set(
                                                   activity,
-                                                  "id_achievement",
+                                                  "quarterly_plan",
                                                   $event.target.multiple
                                                     ? $$selectedVal
                                                     : $$selectedVal[0]
                                                 )
                                               },
                                               function($event) {
-                                                return _vm.GetIndicatorsEvent(
-                                                  activity
+                                                return _vm.indicador(
+                                                  activity.quarterly_plan
                                                 )
                                               }
                                             ]
@@ -1842,30 +1866,22 @@ var render = function() {
                                             [_vm._v("-- Seleccione --")]
                                           ),
                                           _vm._v(" "),
-                                          _vm._l(_vm.achievements, function(
-                                            achievement,
-                                            k_achievement
+                                          _vm._l(_vm.fillC.quaterly, function(
+                                            quarterly,
+                                            k_quarterly
                                           ) {
                                             return _c(
                                               "option",
                                               {
-                                                key: k_achievement,
+                                                key: k_quarterly,
                                                 domProps: {
-                                                  value: achievement.id
+                                                  value:
+                                                    quarterly.id +
+                                                    "/" +
+                                                    quarterly.id_achievement
                                                 }
                                               },
-                                              [
-                                                _vm._v(
-                                                  _vm._s(
-                                                    achievement.achievement
-                                                  ) +
-                                                    " (" +
-                                                    _vm._s(
-                                                      achievement.percentage
-                                                    ) +
-                                                    " %)"
-                                                )
-                                              ]
+                                              [_vm._v(_vm._s(quarterly.logro))]
                                             )
                                           })
                                         ],
@@ -1883,9 +1899,8 @@ var render = function() {
                                             {
                                               name: "model",
                                               rawName: "v-model",
-                                              value: activity.id_indicator,
-                                              expression:
-                                                "activity.id_indicator"
+                                              value: activity.activitys,
+                                              expression: "activity.activitys"
                                             }
                                           ],
                                           staticClass: "form-control",
@@ -1910,7 +1925,7 @@ var render = function() {
                                                 })
                                               _vm.$set(
                                                 activity,
-                                                "id_indicator",
+                                                "activitys",
                                                 $event.target.multiple
                                                   ? $$selectedVal
                                                   : $$selectedVal[0]
@@ -1925,34 +1940,26 @@ var render = function() {
                                             [_vm._v("-- Seleccione --")]
                                           ),
                                           _vm._v(" "),
-                                          _vm._l(
-                                            _vm.filteredIndicators(
-                                              activity.id_achievement
-                                            ),
-                                            function(indicator, k_indicator) {
-                                              return _c(
-                                                "option",
-                                                {
-                                                  key: k_indicator,
-                                                  domProps: {
-                                                    value: indicator.id
-                                                  }
-                                                },
-                                                [
-                                                  _vm._v(
-                                                    _vm._s(
-                                                      indicator.type_activity
-                                                    ) +
-                                                      " (" +
-                                                      _vm._s(
-                                                        indicator.activity_rate
-                                                      ) +
-                                                      " %)"
-                                                  )
-                                                ]
-                                              )
-                                            }
-                                          )
+                                          _vm._l(_vm.fillI, function(
+                                            act,
+                                            k_activity
+                                          ) {
+                                            return _c(
+                                              "option",
+                                              {
+                                                key: k_activity,
+                                                domProps: { value: act.id }
+                                              },
+                                              [
+                                                _vm._v(
+                                                  _vm._s(act.type_activity) +
+                                                    " (" +
+                                                    _vm._s(act.activity_rate) +
+                                                    " %)"
+                                                )
+                                              ]
+                                            )
+                                          })
                                         ],
                                         2
                                       )
@@ -2226,7 +2233,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("label", [
       _c("span", { staticClass: "required" }, [_vm._v("*")]),
-      _vm._v("Indicador:")
+      _vm._v("Evaluación:")
     ])
   },
   function() {

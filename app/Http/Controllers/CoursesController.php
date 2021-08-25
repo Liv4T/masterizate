@@ -42,10 +42,6 @@ class CoursesController extends Controller
             } elseif ($user->isTeacher()||$user->isTutor()) {
                 $Quarterlies = Quarterly::where('id_teacher', $user->id)->where('id_area', $id_area)->where('id_classroom', $id_classroom)->where('deleted', 0)->get();
             }
-            // $data[0] = [
-            //     'id'   => 0,
-            //     'text' => 'Seleccione',
-            // ];
             $Courses->achievements = $achievements;
             foreach ($Quarterlies as $key => $Quarterly) {
                 $quaterly[$key] = [
@@ -53,6 +49,8 @@ class CoursesController extends Controller
                     'content' => $Quarterly->content,
                     'unit_name' => $Quarterly->unit_name,
                     'logro' => $Quarterly->logro,
+                    'id_achievement' => $Quarterly->id_achievement,
+                    'id_annual' => $Courses['id'],
                 ];
             }
         }
@@ -294,9 +292,9 @@ class CoursesController extends Controller
 
                     if (isset($Quarterly['id_quaterly'])) {
                         if(isset($Quarterly['logro'])){
-                            $quarterlyUpdatedRowsCount = Quarterly::where('id', $Quarterly['id_quaterly'])->update(array('content' => $Quarterly['contenido'], 'unit_name' => $Quarterly['name'], 'logro' => $Quarterly['logro']  ));
+                            $quarterlyUpdatedRowsCount = Quarterly::where('id', $Quarterly['id_quaterly'])->update(array('content' => $Quarterly['contenido'], 'unit_name' => $Quarterly['name'], 'logro' => $Quarterly['logro'], 'id_achievement' => $Quarterly['objetive'] ));
                         }else{
-                            $quarterlyUpdatedRowsCount = Quarterly::where('id', $Quarterly['id_quaterly'])->update(array('content' => $Quarterly['contenido'], 'unit_name' => $Quarterly['name']));
+                            $quarterlyUpdatedRowsCount = Quarterly::where('id', $Quarterly['id_quaterly'])->update(array('content' => $Quarterly['contenido'], 'unit_name' => $Quarterly['name'], 'id_achievement' => $Quarterly['objetive']));
                         }
 
                         if ($quarterlyUpdatedRowsCount <= 0) {
@@ -309,6 +307,7 @@ class CoursesController extends Controller
                                 'id_teacher'     =>  Auth::user()->id,
                                 'id_planification' => $courses[0]->id,
                                 'deleted' => 0, 
+                                'id_achievement' => $Quarterly['objetive'],
                             ]);
                         }
                     } else {
@@ -321,6 +320,7 @@ class CoursesController extends Controller
                             'id_teacher'     =>  Auth::user()->id,
                             'id_planification' => $courses[0]->id, 
                             'deleted' => 0,
+                            'id_achievement' => $Quarterly['objetive'],
                         ]);
                     }
                 }

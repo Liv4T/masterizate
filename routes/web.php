@@ -379,6 +379,7 @@ Route::get('downloadFile', 'HomeController@downloadFile')->name('downloadFile');
 Route::middleware('auth')->get('info_user', 'UserController@show')->name('info_user');
 Route::middleware('auth')->get('userType', 'UserController@typeUserLog');
 Route::middleware('auth')->get('coursePlanification/{id_area}/{id_classroom}', 'CoursesController@index');
+Route::middleware('auth')->get('planification/objetives/{id_area}/{id_classroom}', 'CoursesController@objetivesByPlanification');
 Route::middleware('auth')->get('GetCourses', 'CourseController@GetCourses');
 Route::middleware('auth')->get('GetCategories', 'CategoryController@GetCategories');
 Route::middleware('auth')->get('GetTypeU', 'CategoryController@GetTypeU');

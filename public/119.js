@@ -263,6 +263,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 (function () {
   "use strict";
 
@@ -311,6 +318,7 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
         name: "",
         logro: "",
         contenido: "",
+        objetive: "",
         inputCl: [{
           indicador: ""
         }, {
@@ -337,7 +345,7 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
       newLogro2: "",
       newLogro3: "",
       newLogro4: ""
-    }, _defineProperty(_ref, "newTrimestre", []), _defineProperty(_ref, "newLogro", []), _defineProperty(_ref, "trimestre", false), _defineProperty(_ref, "logro_1", ""), _defineProperty(_ref, "logro_2", ""), _defineProperty(_ref, "logro_3", ""), _defineProperty(_ref, "logro_4", ""), _defineProperty(_ref, "fillC", []), _defineProperty(_ref, "anual", []), _defineProperty(_ref, "newAnual", []), _defineProperty(_ref, "errors", []), _defineProperty(_ref, "isSynchronized", true), _defineProperty(_ref, "isLoading", false), _defineProperty(_ref, "showPiarPlan", false), _defineProperty(_ref, "showPIARPlanTrimestral", false), _defineProperty(_ref, "activityForAllStudents", false), _defineProperty(_ref, "activityForPIARStudents", false), _defineProperty(_ref, "activityForSelectStudents", false), _defineProperty(_ref, "studentsOptions", []), _defineProperty(_ref, "saveStudent", []), _defineProperty(_ref, "piarStudents", []), _ref;
+    }, _defineProperty(_ref, "newTrimestre", []), _defineProperty(_ref, "newLogro", []), _defineProperty(_ref, "trimestre", false), _defineProperty(_ref, "logro_1", ""), _defineProperty(_ref, "logro_2", ""), _defineProperty(_ref, "logro_3", ""), _defineProperty(_ref, "logro_4", ""), _defineProperty(_ref, "fillC", []), _defineProperty(_ref, "anual", []), _defineProperty(_ref, "newAnual", []), _defineProperty(_ref, "errors", []), _defineProperty(_ref, "isSynchronized", true), _defineProperty(_ref, "isLoading", false), _defineProperty(_ref, "showPiarPlan", false), _defineProperty(_ref, "showPIARPlanTrimestral", false), _defineProperty(_ref, "activityForAllStudents", false), _defineProperty(_ref, "activityForPIARStudents", false), _defineProperty(_ref, "activityForSelectStudents", false), _defineProperty(_ref, "studentsOptions", []), _defineProperty(_ref, "saveStudent", []), _defineProperty(_ref, "piarStudents", []), _defineProperty(_ref, "objetives", []), _ref;
   },
   watch: {
     activityForAllStudents: function activityForAllStudents(newVal) {
@@ -422,7 +430,9 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
       this.serialLocalStorage = this.serialLocalStorage + "-" + this.idArea;
       var urlsel = window.location.origin + "/coursePlanification/" + this.idArea;
       axios.get(urlsel).then(function (response) {
-        _this.fillC = response.data; //set current data
+        _this.fillC = response.data;
+        _this.objetives = response.data.courses.achievements; //console.log(response.data);
+        //set current data
 
         if (response.data.achievements.length > 0 && response.data.quaterly.length > 0) {
           _this.inputs = [];
@@ -454,7 +464,8 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
               id_quaterly: e.id,
               inputCl: valueJson,
               contenido: e.content,
-              logro: e.logro
+              logro: e.logro,
+              objetive: e.id_achievement
             });
           }); //console.log(this.inputs);
 
@@ -595,6 +606,8 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
           this.inputs[i].name = JSON.stringify(this.inputs[i].inputCl);
           this.newTrimestre.push(this.inputs[i]);
         }
+
+        console.log(this.newTrimestre);
       }
 
       var ids = this.idArea.split('/');
@@ -608,6 +621,10 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
         _this3.isLoading = false;
       })["catch"](function (error) {
         _this3.errors = error.response.data;
+        toastr.error("Debe completar todos los campos");
+
+        _this3.getData();
+
         _this3.isLoading = false;
       });
 
@@ -953,6 +970,74 @@ var render = function() {
                             "div",
                             { key: t, staticClass: "form-group row mx-auto" },
                             [
+                              _c("div", { staticClass: "col-md-6" }, [
+                                _c("label", { attrs: { for: "name" } }, [
+                                  _vm._v("Objetivo")
+                                ]),
+                                _vm._v(" "),
+                                _c(
+                                  "select",
+                                  {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: input.objetive,
+                                        expression: "input.objetive"
+                                      }
+                                    ],
+                                    staticClass: "form-control",
+                                    attrs: { id: "activity_type" },
+                                    on: {
+                                      change: function($event) {
+                                        var $$selectedVal = Array.prototype.filter
+                                          .call($event.target.options, function(
+                                            o
+                                          ) {
+                                            return o.selected
+                                          })
+                                          .map(function(o) {
+                                            var val =
+                                              "_value" in o ? o._value : o.value
+                                            return val
+                                          })
+                                        _vm.$set(
+                                          input,
+                                          "objetive",
+                                          $event.target.multiple
+                                            ? $$selectedVal
+                                            : $$selectedVal[0]
+                                        )
+                                      }
+                                    }
+                                  },
+                                  [
+                                    _c("option", { attrs: { value: "" } }, [
+                                      _vm._v("-- Seleccione --")
+                                    ]),
+                                    _vm._v(" "),
+                                    _vm._l(_vm.objetives, function(obj, ob) {
+                                      return _c(
+                                        "option",
+                                        {
+                                          key: ob,
+                                          domProps: { value: obj.id }
+                                        },
+                                        [
+                                          _vm._v(
+                                            _vm._s(obj.achievement) +
+                                              " " +
+                                              _vm._s(obj.percentage) +
+                                              "%"
+                                          )
+                                        ]
+                                      )
+                                    })
+                                  ],
+                                  2
+                                )
+                              ]),
+                              _vm._v(" "),
                               _c("div", { staticClass: "col-md-6" }, [
                                 _c("label", { attrs: { for: "name" } }, [
                                   _vm._v("Logro")

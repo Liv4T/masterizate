@@ -79,8 +79,9 @@ class ScoreController extends Controller
             $indicator = new Indicator;
 
             $indicator->id_annual = $data['id_annual'];
-            $indicator->id_achievement = $data['id_achievement'];
+            $indicator->id_quarterly_plan = $data['id_quarterly_plan'];
             $indicator->type_activity = $data['type_activity'];
+            $indicator->id_achievement = $data['id_achievement'];
             $indicator->activity_rate = $data['activity_rate'];
             $indicator->save();
         }     
@@ -95,7 +96,7 @@ class ScoreController extends Controller
     public function getIndicator(String $id)
     {
 
-        $indicators = Indicator::where('id_achievement', $id)->get();
+        $indicators = Indicator::where('id_quarterly_plan', $id)->get();
         return $indicators;
     }
 

@@ -258,7 +258,7 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
       newTrimestre: [],
       tipo_act: "",
       porcentaje: ""
-    }, _defineProperty(_ref, "newTrimestre", []), _defineProperty(_ref, "newLogro", []), _defineProperty(_ref, "trimestre", false), _defineProperty(_ref, "logro_1", ""), _defineProperty(_ref, "logro_2", ""), _defineProperty(_ref, "logro_3", ""), _defineProperty(_ref, "logro_4", ""), _defineProperty(_ref, "fillC", []), _defineProperty(_ref, "fillI", []), _defineProperty(_ref, "anual", []), _defineProperty(_ref, "newAnual", []), _defineProperty(_ref, "errors", []), _defineProperty(_ref, "id_logro", ""), _defineProperty(_ref, "id_indicator", 0), _defineProperty(_ref, "index", 0), _defineProperty(_ref, "areaId", ""), _ref;
+    }, _defineProperty(_ref, "newTrimestre", []), _defineProperty(_ref, "newLogro", []), _defineProperty(_ref, "trimestre", false), _defineProperty(_ref, "logro_1", ""), _defineProperty(_ref, "logro_2", ""), _defineProperty(_ref, "logro_3", ""), _defineProperty(_ref, "logro_4", ""), _defineProperty(_ref, "fillC", []), _defineProperty(_ref, "fillI", []), _defineProperty(_ref, "anual", []), _defineProperty(_ref, "newAnual", []), _defineProperty(_ref, "errors", []), _defineProperty(_ref, "id_logro", ""), _defineProperty(_ref, "id_indicator", 0), _defineProperty(_ref, "index", 0), _defineProperty(_ref, "areaId", ""), _defineProperty(_ref, "id_quarterly_plan", ""), _defineProperty(_ref, "id_achievement", ""), _ref;
   },
   watch: {
     idArea: function idArea(newVal, oldVal) {
@@ -290,6 +290,7 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
       var urlsel = window.location.origin + "/coursePlanification/" + this.areaId;
       axios.get(urlsel).then(function (response) {
         _this.fillC = response.data;
+        console.log(_this.fillC);
       });
     },
     getMenu: function getMenu() {
@@ -331,11 +332,15 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
         id_indicator: this.id_indicator,
         type_activity: this.tipo_act,
         id_annual: this.id_annual,
-        id_achievement: this.id_logro,
+        id_quarterly_plan: this.id_quarterly_plan,
+        id_achievement: this.id_achievement,
         activity_rate: this.porcentaje
       }).then(function (response) {
         _this3.errors = [];
         toastr.success("Nueva actividad creada exitosamente");
+
+        _this3.indicador(_this3.id_quarterly_plan);
+
         $('#createZ').modal('hide');
       })["catch"](function (error) {
         _this3.errors = error.response.data;
@@ -344,23 +349,16 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
     updateCourses: function updateCourses() {
       window.location = "/actividad_g";
     },
-    editNames: function editNames(id, clas) {
-      //   var urlr = "showClass/" + clas;
-      //   axios.get(urlr).then(response => {
-      //     this.fillS = response.data;
-      //   });
+    editNames: function editNames(id, id_achievement, annual) {
       this.id_indicator = 0;
-      this.id_annual = clas;
-      this.id_logro = id;
+      this.id_quarterly_plan = id;
+      this.id_achievement = id_achievement;
+      this.id_annual = annual;
       this.tipo_act = "";
       this.porcentaje = "";
       $("#createZ").modal("show");
     },
     showEdit: function showEdit(id_porcentaje, tipo_act, porcentaje) {
-      //   var urlr = "showClass/" + clas;
-      //   axios.get(urlr).then(response => {
-      //     this.fillS = response.data;
-      //   });
       this.id_indicator = id_porcentaje;
       this.tipo_act = tipo_act;
       this.porcentaje = porcentaje;
@@ -459,7 +457,7 @@ var render = function() {
                               staticClass: "accordion",
                               attrs: { id: "accordionExample" }
                             },
-                            _vm._l(_vm.fillC.achievements, function(option, t) {
+                            _vm._l(_vm.fillC.quaterly, function(option, t) {
                               return _c(
                                 "div",
                                 { key: t, staticClass: "card" },
@@ -495,17 +493,7 @@ var render = function() {
                                                 overflow: "hidden"
                                               }
                                             },
-                                            [
-                                              _vm._v(
-                                                _vm._s(
-                                                  option.achievement +
-                                                    "  " +
-                                                    option.percentage +
-                                                    "  " +
-                                                    "%"
-                                                )
-                                              )
-                                            ]
+                                            [_vm._v(_vm._s(option.logro))]
                                           )
                                         ]
                                       )
@@ -626,7 +614,8 @@ var render = function() {
                                                     $event.preventDefault()
                                                     return _vm.editNames(
                                                       option.id,
-                                                      option.id_planification
+                                                      option.id_achievement,
+                                                      option.id_annual
                                                     )
                                                   }
                                                 }

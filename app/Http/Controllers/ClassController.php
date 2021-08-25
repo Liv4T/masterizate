@@ -324,6 +324,7 @@ class ClassController extends Controller
                 'id'=>$activity->id,
                 'id_achievement'=>$activity->id_achievement,
                 'id_indicator'=>$activity->id_indicator,
+                'id_quarterly_plan'=>$activity->id_quarterly_plan,
                 'activity_type'=>$activity->activity_type,
                 'name'=>$activity->name,
                 'description'=>$activity->description,
@@ -749,19 +750,23 @@ class ClassController extends Controller
         if(count($data['activities'])>0)
         {
             foreach($data['activities'] as $i_activity => $activity) {
-
+                
+                $ids=explode("/",$activity['quarterly_plan']);
+                $id_quarterly_plan=$ids[0];
+                $id_achievement=$ids[1];
                 $id_activity=0;
                 if(isset($activity['id']))
                 {
                     $id_activity=$activity['id'];
-                    Activity::where('id',$activity['id'])->update(array('deleted'=>0,'state'=>1,'id_achievement'=>$activity['id_achievement'],'name'=>$activity['name'],'description'=>$activity['description'],'activity_type'=>$activity['activity_type'],'is_required'=>1,'updated_user'=>$auth->id,'delivery_max_date'=>$activity['delivery_max_date'],'feedback_date'=>$activity['feedback_date']));
+                    Activity::where('id',$activity['id'])->update(array('deleted'=>0,'state'=>1,'id_quarterly_plan'=>$id_quarterly_plan,'id_indicator'=>$activity['activitys'],'id_achievement'=>$id_achievement,'name'=>$activity['name'],'description'=>$activity['description'],'activity_type'=>$activity['activity_type'],'is_required'=>1,'updated_user'=>$auth->id,'delivery_max_date'=>$activity['delivery_max_date'],'feedback_date'=>$activity['feedback_date']));
                 }
                 else
                 {
                     $activity_new=Activity::create([
                         'id_class'=>$id_course,
-                        'id_achievement'=>$activity['id_achievement'],
-                        'id_indicator'=>$activity['id_indicator'],
+                        'id_quarterly_plan'=>$id_quarterly_plan,
+                        'id_achievement'=>$id_achievement,
+                        'id_indicator'=>$activity['activitys'],
                         'activity_type'=>$activity['activity_type'],
                         'name'=>$activity['name'],
                         'description'=>$activity['description'],

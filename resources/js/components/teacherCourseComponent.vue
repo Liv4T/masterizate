@@ -177,16 +177,16 @@
                                                 <div class="row">
                                                     <div class="col-8">
                                                         <label><span class="required">*</span>Logro:</label>
-                                                         <select class="form-control" v-model="activity.id_achievement" v-bind:readonly="course.state==2" @change="GetIndicatorsEvent(activity)">
+                                                         <select class="form-control" v-model="activity.quarterly_plan" v-bind:readonly="course.state==2" @change="indicador(activity.quarterly_plan)">
                                                             <option value="">-- Seleccione --</option>
-                                                            <option v-for="(achievement,k_achievement) in achievements" v-bind:key="k_achievement"  v-bind:value="achievement.id">{{achievement.achievement}} ({{achievement.percentage}} %)</option>
+                                                            <option v-for="(quarterly,k_quarterly) in fillC.quaterly" v-bind:key="k_quarterly"  :value="quarterly.id + '/' + quarterly.id_achievement">{{quarterly.logro}}</option>
                                                         </select>
                                                     </div>
                                                     <div class="col-4">
-                                                        <label><span class="required">*</span>Indicador:</label>
-                                                         <select class="form-control" v-model="activity.id_indicator" v-bind:readonly="course.state==2">
+                                                        <label><span class="required">*</span>Evaluación:</label>
+                                                         <select class="form-control" v-model="activity.activitys" v-bind:readonly="course.state==2">
                                                             <option value="">-- Seleccione --</option>
-                                                            <option v-for="(indicator,k_indicator) in filteredIndicators(activity.id_achievement)" v-bind:key="k_indicator"  v-bind:value="indicator.id">{{indicator.type_activity}} ({{indicator.activity_rate}} %)</option>
+                                                            <option v-for="(act,k_activity) in fillI" v-bind:key="k_activity"  v-bind:value="act.id">{{act.type_activity}} ({{act.activity_rate}} %)</option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -306,7 +306,9 @@ export default {
             classroom_id: '',
             area_id: '',
             custom_editor_toolbar_justify:[["bold", "italic", "underline"], [{ list: "ordered" }, { list: "bullet" }],["image"]],
-            piarStudents:[]
+            piarStudents:[], 
+            fillC:[],
+            fillI: [],
         };
     },
     watch: {
@@ -382,7 +384,8 @@ export default {
             this.classroom_id = response.data.classroom.id;
             console.log("id area",this.area_id);
             console.log("id_classroom",this.classroom_id);
-            
+            console.log("data", response.data);
+            this.getDataPlanification();
             axios.get(`/PIARStudentsByArea/${response.data.area.id}/${response.data.classroom.id}`).then((response)=>{
                 this.piarStudents = Object.values(response.data);
             }).catch((error)=>{
@@ -455,6 +458,7 @@ export default {
                     }
             });
         }
+       
     },
     methods: {
         returnPage() {
@@ -466,6 +470,13 @@ export default {
                 content_type:resource_type,
                 content:'',
                 description:''
+            });
+        },
+        getDataPlanification(){
+            var urlsel = window.location.origin + "/coursePlanification/" + this.area_id + "/" + this.classroom_id;
+            axios.get(urlsel).then((response) => {
+                this.fillC = response.data;
+                console.log("fills", this.fillC);
             });
         },
         removeResource(index){
@@ -623,10 +634,16 @@ export default {
 
             }).catch(err=>{console.log(err);});
         },
-        filteredIndicators(id_achievement) {
-            return this.indicators.filter(item => {
-                return item.id_achievement==id_achievement;
-            })
+        indicador(id) {
+            if (id!=''){
+                var ids=id.split("/");
+                var idInd= ids[0];
+            }
+            var urli = window.location.origin + "/getIndicator/" + idInd;
+            axios.get(urli).then((response) => {
+                this.fillI = response.data;
+                console.log(this.fillI);
+            });
         },
         getPreview(){
             this.showPreview = true;
