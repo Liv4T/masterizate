@@ -167,6 +167,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 (function () {
   "use strict";
 
@@ -223,7 +224,12 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
       newLogro2: "",
       newLogro3: "",
       newLogro4: ""
-    }, _defineProperty(_ref, "newTrimestre", []), _defineProperty(_ref, "newLogro", []), _defineProperty(_ref, "trimestre", false), _defineProperty(_ref, "loading", true), _defineProperty(_ref, "logro_1", ""), _defineProperty(_ref, "logro_2", ""), _defineProperty(_ref, "logro_3", ""), _defineProperty(_ref, "logro_4", ""), _defineProperty(_ref, "fillC", []), _defineProperty(_ref, "anual", []), _defineProperty(_ref, "newAnual", []), _defineProperty(_ref, "materia", ""), _defineProperty(_ref, "myOptions", []), _defineProperty(_ref, "errors", []), _ref;
+    }, _defineProperty(_ref, "newTrimestre", []), _defineProperty(_ref, "newLogro", []), _defineProperty(_ref, "trimestre", false), _defineProperty(_ref, "loading", true), _defineProperty(_ref, "logro_1", ""), _defineProperty(_ref, "logro_2", ""), _defineProperty(_ref, "logro_3", ""), _defineProperty(_ref, "logro_4", ""), _defineProperty(_ref, "fillC", []), _defineProperty(_ref, "anual", []), _defineProperty(_ref, "newAnual", []), _defineProperty(_ref, "materia", ""), _defineProperty(_ref, "myOptions", []), _defineProperty(_ref, "errors", []), _defineProperty(_ref, "inputToIterate", [{
+      content: "",
+      id: "",
+      logro: "",
+      unit_name: ""
+    }]), _ref;
   },
   mounted: function mounted() {
     var _this = this;
@@ -273,9 +279,19 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
       var _this2 = this;
 
       this.fillC = [];
+      this.inputToIterate = [];
       var urlsel = window.location.origin + "/coursePlanification/" + id;
       axios.get(urlsel).then(function (response) {
         _this2.fillC = response.data;
+
+        _this2.fillC.quaterly.forEach(function (el) {
+          _this2.inputToIterate.push({
+            content: el.content,
+            id: el.id,
+            logro: el.logro,
+            unit_name: JSON.parse(el.unit_name)
+          });
+        });
       });
     },
     createCourses: function createCourses() {
@@ -425,10 +441,11 @@ var render = function() {
                                     }
                                   }
                                 },
-                                _vm._l(_vm.myOptions, function(option) {
+                                _vm._l(_vm.myOptions, function(option, key) {
                                   return _c(
                                     "option",
                                     {
+                                      key: key,
                                       domProps: {
                                         value:
                                           option.id + "/" + option.id_classroom
@@ -546,7 +563,7 @@ var render = function() {
                     _c(
                       "tab-content",
                       { attrs: { title: "Trimestral" } },
-                      _vm._l(_vm.fillC.quaterly, function(input, t) {
+                      _vm._l(_vm.inputToIterate, function(input, t) {
                         return _c(
                           "div",
                           { key: t, staticClass: "form-group row mx-auto" },
@@ -588,44 +605,50 @@ var render = function() {
                               })
                             ]),
                             _vm._v(" "),
-                            _c("div", { staticClass: "col-md-6" }, [
-                              _c("label", { attrs: { for: "name" } }, [
-                                _vm._v("Indicador de Logro")
-                              ]),
-                              _vm._v(" "),
-                              _c("div", [
-                                _c("input", {
-                                  directives: [
-                                    {
-                                      name: "model",
-                                      rawName: "v-model",
-                                      value: input.unit_name,
-                                      expression: "input.unit_name"
-                                    }
-                                  ],
-                                  staticClass: "form-control",
-                                  attrs: {
-                                    type: "text",
-                                    name: "objetive1",
-                                    placeholder: "Nombre de la unidad",
-                                    required: ""
-                                  },
-                                  domProps: { value: input.unit_name },
-                                  on: {
-                                    input: function($event) {
-                                      if ($event.target.composing) {
-                                        return
+                            _vm._l(input.unit_name, function(ind, key) {
+                              return _c(
+                                "div",
+                                { key: key, staticClass: "col-md-6" },
+                                [
+                                  _c("label", { attrs: { for: "name" } }, [
+                                    _vm._v("Indicador de Logro")
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: ind.indicador,
+                                        expression: "ind.indicador"
                                       }
-                                      _vm.$set(
-                                        input,
-                                        "unit_name",
-                                        $event.target.value
-                                      )
+                                    ],
+                                    staticClass: "form-control",
+                                    attrs: {
+                                      type: "text",
+                                      name: "objetive1",
+                                      placeholder: "Nombre de la unidad",
+                                      required: ""
+                                    },
+                                    domProps: { value: ind.indicador },
+                                    on: {
+                                      input: function($event) {
+                                        if ($event.target.composing) {
+                                          return
+                                        }
+                                        _vm.$set(
+                                          ind,
+                                          "indicador",
+                                          $event.target.value
+                                        )
+                                      }
                                     }
-                                  }
-                                })
-                              ]),
-                              _vm._v(" "),
+                                  })
+                                ]
+                              )
+                            }),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "col-md-6" }, [
                               _c("label", { attrs: { for: "name" } }, [
                                 _vm._v("Contenidos")
                               ]),
@@ -665,7 +688,8 @@ var render = function() {
                                 _vm._v("Please fill out this field")
                               ])
                             ])
-                          ]
+                          ],
+                          2
                         )
                       }),
                       0
