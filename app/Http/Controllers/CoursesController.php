@@ -49,7 +49,7 @@ class CoursesController extends Controller
                     'content' => $Quarterly->content,
                     'unit_name' => $Quarterly->unit_name,
                     'logro' => $Quarterly->logro,
-                    'id_achievement' => $Quarterly->id_achievement,
+                    'id_achievement' => $Quarterly['id_achievement'],
                     'id_annual' => $Courses['id'],
                 ];
             }
