@@ -204,6 +204,7 @@ class CoursesController extends Controller
                     'logro' => $Quarterly['logro'],
                     'id_area'    => $data['id_area'],
                     'id_classroom'    => $data['id_classroom'],
+                    'id_achievement' => $data['id_achievement'],
                     'id_teacher'     =>  Auth::user()->id,
                     'deleted' => 0,
                 ]);

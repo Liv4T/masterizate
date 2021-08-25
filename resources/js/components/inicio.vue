@@ -384,7 +384,7 @@ export default {
   top: 35%;
   left: 30%;
   width: 40%;
-  height: 36%;
+  height: 30%;
 }
 .mg-btn {
   margin: 10px;
