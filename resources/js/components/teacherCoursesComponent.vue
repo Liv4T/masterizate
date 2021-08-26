@@ -22,7 +22,7 @@
                 </div>
             </div>            
             <div class="accordion" id="firstAccordion">                
-                <div class="card" v-for="(area,t) in areas" :key="t">
+                <div class="card" v-for="(area,t) in areas" :key="t" v-if="search_filter_mat =='' || filterClass(area.text)">
                     <div class="card mb-2" >
                         <div class="card-header" id="headingFIRST">
                             <h2 class="mb-0">

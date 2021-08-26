@@ -393,266 +393,296 @@ var render = function() {
               "div",
               { staticClass: "accordion", attrs: { id: "firstAccordion" } },
               _vm._l(_vm.areas, function(area, t) {
-                return _c("div", { key: t, staticClass: "card" }, [
-                  _c("div", { staticClass: "card mb-2" }, [
-                    _c(
-                      "div",
-                      {
-                        staticClass: "card-header",
-                        attrs: { id: "headingFIRST" }
-                      },
-                      [
-                        _c("h2", { staticClass: "mb-0" }, [
-                          _c(
-                            "button",
-                            {
-                              staticClass: "btn btn-link btn-block text-left",
-                              attrs: {
-                                type: "button",
-                                "data-toggle": "collapse",
-                                "data-target": "#collapseFirst" + t,
-                                "aria-expanded": "true",
-                                "aria-controls": "collapseFirst" + t
-                              },
-                              on: {
-                                click: function($event) {
-                                  $event.preventDefault()
-                                  return _vm.getTrimestres()
-                                }
-                              }
-                            },
-                            [
-                              _vm._v(
-                                "\n                                  " +
-                                  _vm._s(area.text) +
-                                  "\n                              "
-                              )
-                            ]
-                          )
-                        ])
-                      ]
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    {
-                      staticClass: "collapse",
-                      attrs: {
-                        id: "collapseFirst" + t,
-                        "aria-labelledby": "headingFIRST",
-                        "data-parent": "#firstAccordion"
-                      }
-                    },
-                    [
-                      _c("div", { staticClass: "card-body" }, [
+                return _vm.search_filter_mat == "" || _vm.filterClass(area.text)
+                  ? _c("div", { key: t, staticClass: "card" }, [
+                      _c("div", { staticClass: "card mb-2" }, [
                         _c(
                           "div",
                           {
-                            staticClass: "accordion",
-                            attrs: { id: "secondAccordion" }
+                            staticClass: "card-header",
+                            attrs: { id: "headingFIRST" }
                           },
-                          _vm._l(_vm.trimestres, function(trimestre, k) {
-                            return _c("div", { key: k, staticClass: "card" }, [
+                          [
+                            _c("h2", { staticClass: "mb-0" }, [
                               _c(
-                                "div",
+                                "button",
                                 {
-                                  staticClass: "card-header",
-                                  attrs: { id: "headingSecond" }
-                                },
-                                [
-                                  _c("h2", { staticClass: "mb-2" }, [
-                                    _c(
-                                      "button",
-                                      {
-                                        staticClass:
-                                          "btn btn-link btn-block text-left",
-                                        on: {
-                                          click: function() {
-                                            return _vm.botones(
-                                              area.id,
-                                              area.id_classroom,
-                                              trimestre.id,
-                                              "collapseTwo" +
-                                                area.id +
-                                                area.id_classroom +
-                                                k
-                                            )
-                                          }
-                                        }
-                                      },
-                                      [
-                                        _vm._v(
-                                          "\n                                              Ciclo " +
-                                            _vm._s(trimestre.nombre) +
-                                            "\n                                          "
-                                        )
-                                      ]
-                                    )
-                                  ])
-                                ]
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "div",
-                                {
-                                  staticClass: "collapse",
+                                  staticClass:
+                                    "btn btn-link btn-block text-left",
                                   attrs: {
-                                    id:
-                                      "collapseTwo" +
-                                      area.id +
-                                      area.id_classroom +
-                                      k,
-                                    "aria-labelledby": "headingSecond",
-                                    "data-parent": "#secondAccordion"
+                                    type: "button",
+                                    "data-toggle": "collapse",
+                                    "data-target": "#collapseFirst" + t,
+                                    "aria-expanded": "true",
+                                    "aria-controls": "collapseFirst" + t
+                                  },
+                                  on: {
+                                    click: function($event) {
+                                      $event.preventDefault()
+                                      return _vm.getTrimestres()
+                                    }
                                   }
                                 },
                                 [
-                                  _c("div", { staticClass: "card-body" }, [
-                                    _c(
-                                      "table",
-                                      {
-                                        staticClass:
-                                          "table table-responsive-xl table-hover table-striped center"
-                                      },
-                                      [
-                                        _vm._m(1, true),
-                                        _vm._v(" "),
-                                        _c(
-                                          "tbody",
-                                          [
-                                            _vm._l(_vm.clases, function(
-                                              clas,
-                                              k
-                                            ) {
-                                              return [
-                                                (clas.id_classroom ==
-                                                  area.id_classroom &&
-                                                  clas.id_area == area.id &&
-                                                  _vm.search_filter_cicle ==
-                                                    "") ||
-                                                _vm.filterCicle(clas.text)
-                                                  ? _c("tr", { key: k }, [
-                                                      _c("td", [
-                                                        _c(
-                                                          "a",
-                                                          {
-                                                            staticClass:
-                                                              "btn btn-primary",
-                                                            attrs: {
-                                                              href:
-                                                                "/act_semana/" +
-                                                                clas.id_area +
-                                                                "/" +
-                                                                clas.id_classroom +
-                                                                "/" +
-                                                                clas.id
-                                                            }
-                                                          },
-                                                          [_vm._v("Editar")]
-                                                        )
-                                                      ]),
-                                                      _vm._v(" "),
-                                                      _c("td", [
-                                                        _vm._v(
-                                                          _vm._s(
-                                                            clas.id_trimestre
-                                                          ) +
-                                                            "." +
-                                                            _vm._s(k + 1)
-                                                        )
-                                                      ]),
-                                                      _vm._v(" "),
-                                                      _c("td", [
-                                                        _vm._v(
-                                                          _vm._s(clas.text)
-                                                        )
-                                                      ]),
-                                                      _vm._v(" "),
-                                                      _c("td", [
-                                                        _c(
-                                                          "a",
-                                                          {
-                                                            staticClass:
-                                                              "btn btn-primary",
-                                                            attrs: {
-                                                              href:
-                                                                "/docente/modulo/" +
-                                                                clas.id
-                                                            }
-                                                          },
-                                                          [_vm._v("Ir a Ciclo")]
-                                                        ),
-                                                        _vm._v(" "),
-                                                        clas.activateButton
-                                                          ? _c(
-                                                              "button",
-                                                              {
-                                                                staticClass:
-                                                                  "btn btn-primary",
-                                                                on: {
-                                                                  click: function(
-                                                                    $event
-                                                                  ) {
-                                                                    return _vm.ClassAndCicle(
-                                                                      clas.id
-                                                                    )
-                                                                  }
-                                                                }
-                                                              },
-                                                              [
-                                                                _vm._v(
-                                                                  "Eliminar"
-                                                                )
-                                                              ]
-                                                            )
-                                                          : _vm._e(),
-                                                        _vm._v(" "),
-                                                        !clas.activateButton
-                                                          ? _c(
-                                                              "button",
-                                                              {
-                                                                staticClass:
-                                                                  "btn btn-primary",
-                                                                on: {
-                                                                  click: function(
-                                                                    $event
-                                                                  ) {
-                                                                    return _vm.RequestPermissions(
-                                                                      clas,
-                                                                      area.text
-                                                                    )
-                                                                  }
-                                                                }
-                                                              },
-                                                              [
-                                                                _vm._v(
-                                                                  "Solicitar Permiso para Eliminar"
-                                                                )
-                                                              ]
-                                                            )
-                                                          : _vm._e()
-                                                      ])
-                                                    ])
-                                                  : _vm._e()
-                                              ]
-                                            })
-                                          ],
-                                          2
-                                        )
-                                      ]
-                                    )
-                                  ])
+                                  _vm._v(
+                                    "\n                                  " +
+                                      _vm._s(area.text) +
+                                      "\n                              "
+                                  )
                                 ]
                               )
                             ])
-                          }),
-                          0
+                          ]
                         )
-                      ])
-                    ]
-                  )
-                ])
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          staticClass: "collapse",
+                          attrs: {
+                            id: "collapseFirst" + t,
+                            "aria-labelledby": "headingFIRST",
+                            "data-parent": "#firstAccordion"
+                          }
+                        },
+                        [
+                          _c("div", { staticClass: "card-body" }, [
+                            _c(
+                              "div",
+                              {
+                                staticClass: "accordion",
+                                attrs: { id: "secondAccordion" }
+                              },
+                              _vm._l(_vm.trimestres, function(trimestre, k) {
+                                return _c(
+                                  "div",
+                                  { key: k, staticClass: "card" },
+                                  [
+                                    _c(
+                                      "div",
+                                      {
+                                        staticClass: "card-header",
+                                        attrs: { id: "headingSecond" }
+                                      },
+                                      [
+                                        _c("h2", { staticClass: "mb-2" }, [
+                                          _c(
+                                            "button",
+                                            {
+                                              staticClass:
+                                                "btn btn-link btn-block text-left",
+                                              on: {
+                                                click: function() {
+                                                  return _vm.botones(
+                                                    area.id,
+                                                    area.id_classroom,
+                                                    trimestre.id,
+                                                    "collapseTwo" +
+                                                      area.id +
+                                                      area.id_classroom +
+                                                      k
+                                                  )
+                                                }
+                                              }
+                                            },
+                                            [
+                                              _vm._v(
+                                                "\n                                              Ciclo " +
+                                                  _vm._s(trimestre.nombre) +
+                                                  "\n                                          "
+                                              )
+                                            ]
+                                          )
+                                        ])
+                                      ]
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "div",
+                                      {
+                                        staticClass: "collapse",
+                                        attrs: {
+                                          id:
+                                            "collapseTwo" +
+                                            area.id +
+                                            area.id_classroom +
+                                            k,
+                                          "aria-labelledby": "headingSecond",
+                                          "data-parent": "#secondAccordion"
+                                        }
+                                      },
+                                      [
+                                        _c(
+                                          "div",
+                                          { staticClass: "card-body" },
+                                          [
+                                            _c(
+                                              "table",
+                                              {
+                                                staticClass:
+                                                  "table table-responsive-xl table-hover table-striped center"
+                                              },
+                                              [
+                                                _vm._m(1, true),
+                                                _vm._v(" "),
+                                                _c(
+                                                  "tbody",
+                                                  [
+                                                    _vm._l(_vm.clases, function(
+                                                      clas,
+                                                      k
+                                                    ) {
+                                                      return [
+                                                        (clas.id_classroom ==
+                                                          area.id_classroom &&
+                                                          clas.id_area ==
+                                                            area.id &&
+                                                          _vm.search_filter_cicle ==
+                                                            "") ||
+                                                        _vm.filterCicle(
+                                                          clas.text
+                                                        )
+                                                          ? _c(
+                                                              "tr",
+                                                              { key: k },
+                                                              [
+                                                                _c("td", [
+                                                                  _c(
+                                                                    "a",
+                                                                    {
+                                                                      staticClass:
+                                                                        "btn btn-primary",
+                                                                      attrs: {
+                                                                        href:
+                                                                          "/act_semana/" +
+                                                                          clas.id_area +
+                                                                          "/" +
+                                                                          clas.id_classroom +
+                                                                          "/" +
+                                                                          clas.id
+                                                                      }
+                                                                    },
+                                                                    [
+                                                                      _vm._v(
+                                                                        "Editar"
+                                                                      )
+                                                                    ]
+                                                                  )
+                                                                ]),
+                                                                _vm._v(" "),
+                                                                _c("td", [
+                                                                  _vm._v(
+                                                                    _vm._s(
+                                                                      clas.id_trimestre
+                                                                    ) +
+                                                                      "." +
+                                                                      _vm._s(
+                                                                        k + 1
+                                                                      )
+                                                                  )
+                                                                ]),
+                                                                _vm._v(" "),
+                                                                _c("td", [
+                                                                  _vm._v(
+                                                                    _vm._s(
+                                                                      clas.text
+                                                                    )
+                                                                  )
+                                                                ]),
+                                                                _vm._v(" "),
+                                                                _c("td", [
+                                                                  _c(
+                                                                    "a",
+                                                                    {
+                                                                      staticClass:
+                                                                        "btn btn-primary",
+                                                                      attrs: {
+                                                                        href:
+                                                                          "/docente/modulo/" +
+                                                                          clas.id
+                                                                      }
+                                                                    },
+                                                                    [
+                                                                      _vm._v(
+                                                                        "Ir a Ciclo"
+                                                                      )
+                                                                    ]
+                                                                  ),
+                                                                  _vm._v(" "),
+                                                                  clas.activateButton
+                                                                    ? _c(
+                                                                        "button",
+                                                                        {
+                                                                          staticClass:
+                                                                            "btn btn-primary",
+                                                                          on: {
+                                                                            click: function(
+                                                                              $event
+                                                                            ) {
+                                                                              return _vm.ClassAndCicle(
+                                                                                clas.id
+                                                                              )
+                                                                            }
+                                                                          }
+                                                                        },
+                                                                        [
+                                                                          _vm._v(
+                                                                            "Eliminar"
+                                                                          )
+                                                                        ]
+                                                                      )
+                                                                    : _vm._e(),
+                                                                  _vm._v(" "),
+                                                                  !clas.activateButton
+                                                                    ? _c(
+                                                                        "button",
+                                                                        {
+                                                                          staticClass:
+                                                                            "btn btn-primary",
+                                                                          on: {
+                                                                            click: function(
+                                                                              $event
+                                                                            ) {
+                                                                              return _vm.RequestPermissions(
+                                                                                clas,
+                                                                                area.text
+                                                                              )
+                                                                            }
+                                                                          }
+                                                                        },
+                                                                        [
+                                                                          _vm._v(
+                                                                            "Solicitar Permiso para Eliminar"
+                                                                          )
+                                                                        ]
+                                                                      )
+                                                                    : _vm._e()
+                                                                ])
+                                                              ]
+                                                            )
+                                                          : _vm._e()
+                                                      ]
+                                                    })
+                                                  ],
+                                                  2
+                                                )
+                                              ]
+                                            )
+                                          ]
+                                        )
+                                      ]
+                                    )
+                                  ]
+                                )
+                              }),
+                              0
+                            )
+                          ])
+                        ]
+                      )
+                    ])
+                  : _vm._e()
               }),
               0
             )
