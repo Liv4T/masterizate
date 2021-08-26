@@ -22,7 +22,7 @@
                 </div>
             </div>            
             <div class="accordion" id="firstAccordion">                
-                <div class="card" v-if="search_filter_mat =='' || filterClass(area.text)" v-for="(area,t) in areas" :key="t">
+                <div class="card" v-for="(area,t) in areas" :key="t">
                     <div class="card mb-2" >
                         <div class="card-header" id="headingFIRST">
                             <h2 class="mb-0">
@@ -40,14 +40,14 @@
                                 <div class="card" v-for="(trimestre,k) in trimestres" :key="k">
                                     <div class="card-header" id="headingSecond">
                                         <h2 class="mb-2">
-                                            <button class="btn btn-link btn-block text-left" v-on:click="()=>botones(area.id, area.id_classroom, trimestre.id, `collapseTwo${k}`)">
+                                            <button class="btn btn-link btn-block text-left" v-on:click="()=>botones(area.id, area.id_classroom, trimestre.id, `collapseTwo${area.id}${area.id_classroom}${k}`)">
                                                 Ciclo {{trimestre.nombre}}
                                             </button>
                                         </h2>
                                         
                                     </div>
                                    
-                                    <div :id="`collapseTwo${k}`" class="collapse" aria-labelledby="headingSecond" data-parent="#secondAccordion">
+                                    <div :id="`collapseTwo${area.id}${area.id_classroom}${k}`" class="collapse" aria-labelledby="headingSecond" data-parent="#secondAccordion">
                                         <div class="card-body">                                            
                                             <table class="table table-responsive-xl table-hover table-striped center">
                                                 <thead>
@@ -176,6 +176,7 @@ export default {
             });
         },
         botones(area, classroom, trimestre, collapse_ID) {
+            console.log('IdCollapse',collapse_ID);
             this.loading = true;
             axios.get(`/viewGetWeek/${area}/${classroom}/${trimestre}`).then((response) => {                
                 this.clases = response.data;
@@ -184,7 +185,7 @@ export default {
                 console.log(error);
                 this.clases = [];
             });
-            this.getPermissions();    
+            // this.getPermissions();    
             $(`#${collapse_ID}`).collapse('show');
         },
 
@@ -192,23 +193,23 @@ export default {
             this.loading= true;            
         },
 
-        getPermissions(){
-            axios.get('/getPermissions').then((response)=>{
-                    let permissions = response.data;
+        // getPermissions(){
+        //     axios.get('/getPermissions').then((response)=>{
+        //             let permissions = response.data;
 
-                    for(let i =0; i < permissions.length; i++){
-                        for(let a = 0; a < this.clases.length; a++){
-                            if(permissions[i] && permissions[i].id_cicle === this.clases[a].id){
-                                if(permissions[i].date_to_activate_btn <= moment(new Date()).format('YYYY-MM-DD')){                                    
-                                    this.clases[a].activateButton = true
-                                }else if(moment(new Date()).format('YYYY-MM-DD') >= permissions[i].date_to_activate_btn){
-                                    this.clases[a].activateButton = false
-                                }
-                            }
-                        }
-                    }
-                });
-        },
+        //             for(let i =0; i < permissions.length; i++){
+        //                 for(let a = 0; a < this.clases.length; a++){
+        //                     if(permissions[i] && permissions[i].id_cicle === this.clases[a].id){
+        //                         if(permissions[i].date_to_activate_btn <= moment(new Date()).format('YYYY-MM-DD')){                                    
+        //                             this.clases[a].activateButton = true
+        //                         }else if(moment(new Date()).format('YYYY-MM-DD') >= permissions[i].date_to_activate_btn){
+        //                             this.clases[a].activateButton = false
+        //                         }
+        //                     }
+        //                 }
+        //             }
+        //         });
+        // },
         filterClass(class_name){
             return class_name.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(this.search_filter_mat.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, ""));
         },
