@@ -54,6 +54,7 @@
                 <a class="dropdown-item" href="#">Exalumnos</a>
                 <!-- Modulo de Informes Pendiente por aclaración -->
                 <a class="dropdown-item" href="#">Informes</a>
+                <a class="dropdown-item" href="/reportPlanification">Informe Planificación</a>
             </div>
         </div>
 

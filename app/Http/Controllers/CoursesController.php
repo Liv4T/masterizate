@@ -6,6 +6,7 @@ use App\Courses;
 use App\Quarterly;
 use App\Weekly;
 use App\Area;
+use App\Eventos;
 use App\ClassContent;
 use App\User;
 use App\Grade;
@@ -14,6 +15,8 @@ use App\Classroom;
 use App\ClassroomStudent;
 use App\ClassroomTeacher;
 use App\Classs;
+use App\Indicator;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -69,9 +72,44 @@ class CoursesController extends Controller
             'quaterly' =>  $quaterly,
             'courses' => $Courses,
             'achievements' => $achievements
-        ];
+        ]; 
 
         return response()->json($data);
+    }
+    public function getReportPlanification(String $id_achievement, String $id_planification){
+        //primero crear la ruta en el web.php para traer el $id_planification
+        //con el id del achievement_planification traer la planificacion trimestral y con los ids de la planificacion general
+        //traer las evaluaciones de cada planifiacion trimestral
+        //$achievement = [];
+        $quaterly = [];
+        $indicator_query = [];
+        //$achievements = CoursesAchievement::where('id_planification', $id_planification)->where('deleted', 0)->get();
+
+        $quarterlies = Quarterly::where('id_achievement', $id_achievement)->where('deleted', 0)->get();
+        foreach ($quarterlies as $key_q => $quarterly) {
+            $quaterly[$key_q] = [
+                'id' => $quarterly->id,
+                'content' => $quarterly->content,
+                'unit_name' => $quarterly->unit_name,
+                'logro' => $quarterly->logro,
+                'id_achievement' => $quarterly->id_achievement,
+                'id_annual' => $id_planification,
+            ];
+            $indicators = Indicator::where('id_quarterly_plan', $quarterly->id)->get();
+            foreach($indicators as $key_i => $indicator){
+                $indicator_query[$key_q][$key_i]= [
+                    'id' => $indicator->id,
+                    'id_annual' => $indicator->id_annual,
+                    'type_activity' => $indicator->type_activity,
+                    'activity_rate' => $indicator->activity_rate,
+                    'id_achievement' => $indicator->id_achievement,
+                    'quarterly' => $quaterly,
+                    'id_quarterly_plan' => $indicator->id_quarterly_plan,
+                ];
+            }
+        }
+
+        return response()->json($indicator_query);
     }
 
     /**
@@ -705,6 +743,7 @@ class CoursesController extends Controller
                             'name_document'=> $clase->name_document,
                             'document'=> $clase->document,
                             'url'=> $clase->url,
+                            'url_class'=>$clase->url_class,
                             'video'=> $clase->video,
                             'id_weekly_plan'=> $weekly_planning_id,
                             'status'=> $clase->status,
@@ -715,8 +754,30 @@ class CoursesController extends Controller
                             'document1'=> $clase->document1,
                             'document2'=> $clase->document2,
                             'observation'=> $clase->observation,
-                            'hourly'=> $clase->hourly
+                            'hourly'=> $clase->hourly,
+                            'activityForPIARStudents'=>  $clase->activityForPIARStudents,
+                            'activityForSelectStudents'=> $clase->activityForSelectStudents,
+                            'activityForAllStudents'=> $clase->activityForAllStudents,
+                            'selectedStudents'=> $clase->selectedStudents,
+                            'work'=> $clase->work,
+                            'transversals'=> $clase->transversals,
+                            'objetivesClass'=> $clase->objetivesClass
                         ]);
+
+                        $date_i= $class_plan[$key_c]['date_init_class'];
+                        $explode=explode("T", $date_i);
+                        $date_init= $explode[0] . ' ' . $explode[1];
+                        $date_fin=date( 'Y-m-d H:i' ,  strtotime ( '+2 hour' , strtotime ($date_init))) ;
+                        $evento = new Eventos;
+                        $evento->name = $clase->name;
+                        $evento->date_from = $date_init;
+                        $evento->date_to = $date_fin;
+                        $evento->id_area = $data['toData']['area']['id'];
+                        $evento->id_classroom = $data['toData']['area']['id_classroom'];
+                        $evento->id_user = Auth::user()->id;
+                        $evento->url = $clase->url_class;
+                        $evento->id_padre = NULL; 
+                        $evento->save();
                     }                                                             
                     if(isset($class))
                     {
@@ -757,6 +818,7 @@ class CoursesController extends Controller
                         'name_document'=> $clase->name_document,
                         'document'=> $clase->document,
                         'url'=> $clase->url,
+                        'url_class'=>$clase->url_class,
                         'video'=> $clase->video,
                         'id_weekly_plan'=> $weekly_planning_id,
                         'status'=> $clase->status,
@@ -767,8 +829,33 @@ class CoursesController extends Controller
                         'document1'=> $clase->document1,
                         'document2'=> $clase->document2,
                         'observation'=> $clase->observation,
-                        'hourly'=> $clase->hourly
+                        'hourly'=> $clase->hourly,
+                        'activityForPIARStudents'=>  $clase->activityForPIARStudents,
+                        'activityForSelectStudents'=> $clase->activityForSelectStudents,
+                        'activityForAllStudents'=> $clase->activityForAllStudents,
+                        'selectedStudents'=> $clase->selectedStudents,
+                        'work'=> $clase->work,
+                        'transversals'=> $clase->transversals,
+                        'objetivesClass'=> $clase->objetivesClass
                     ]);
+
+                    //$date_i= $data['fromData']['class_planning']['date_init_class'];
+                    //$explode=explode("T", $date_i);
+                    //$date_init= $explode[0] . ' ' . $explode[1];
+                    $date_init= $data['fromData']['class_planning']['date_init_class'];
+                    $date_fin=date( 'Y-m-d H:i' ,  strtotime ( '+2 hour' , strtotime ($date_init))) ;
+                    $date_init= $data['fromData']['class_planning']['date_init_class'];
+                    $date_fin=date_add($date_init, date_interval_create_from_date_string("2 hours"));
+                    $evento = new Eventos;
+                    $evento->name = $clase->name;
+                    $evento->date_from = $date_init;
+                    $evento->date_to = $date_fin;
+                    $evento->id_area = $data['toData']['area']['id'];
+                    $evento->id_classroom = $data['toData']['area']['id_classroom'];
+                    $evento->id_user = Auth::user()->id;
+                    $evento->url = $clase->url_class;
+                    $evento->id_padre = NULL; 
+                    $evento->save();
 
                     if(isset($class))
                     {
@@ -802,6 +889,7 @@ class CoursesController extends Controller
                         'name_document'=> $clase->name_document,
                         'document'=> $clase->document,
                         'url'=> $clase->url,
+                        'url_class'=>$clase->url_class,
                         'video'=> $clase->video,
                         'status'=> $clase->status,
                         'video1'=> $clase->video1,
@@ -811,8 +899,33 @@ class CoursesController extends Controller
                         'document1'=> $clase->document1,
                         'document2'=> $clase->document2,
                         'observation'=> $clase->observation,
-                        'hourly'=> $clase->hourly
+                        'hourly'=> $clase->hourly,
+                        'activityForPIARStudents'=>  $clase->activityForPIARStudents,
+                        'activityForSelectStudents'=> $clase->activityForSelectStudents,
+                        'activityForAllStudents'=> $clase->activityForAllStudents,
+                        'selectedStudents'=> $clase->selectedStudents,
+                        'work'=> $clase->work,
+                        'transversals'=> $clase->transversals,
+                        'objetivesClass'=> $clase->objetivesClass
                     ]);
+
+                    //$date_i= $data['fromData']['class_planning']['date_init_class'];
+                    //$explode=explode("T", $date_i);
+                    //$date_init= $explode[0] . ' ' . $explode[1];
+                    $date_init= $data['fromData']['class_planning']['date_init_class'];
+                    $date_fin=date( 'Y-m-d H:i' ,  strtotime ( '+2 hour' , strtotime ($date_init))) ;
+                    $date_init= $data['fromData']['class_planning']['date_init_class'];
+                    $date_fin=date_add($date_init, date_interval_create_from_date_string("2 hours"));
+                    $evento = new Eventos;
+                    $evento->name = $clase->name;
+                    $evento->date_from = $date_init;
+                    $evento->date_to = $date_fin;
+                    $evento->id_area = $data['toData']['area']['id'];
+                    $evento->id_classroom = $data['toData']['area']['id_classroom'];
+                    $evento->id_user = Auth::user()->id;
+                    $evento->url = $clase->url_class;
+                    $evento->id_padre = NULL; 
+                    $evento->save();
 
                 }
             }

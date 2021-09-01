@@ -323,8 +323,8 @@ class ClassController extends Controller
             array_push($ret['activities'],[
                 'id'=>$activity->id,
                 'id_achievement'=>$activity->id_achievement,
-                'id_indicator'=>$activity->id_indicator,
-                'id_quarterly_plan'=>$activity->id_quarterly_plan,
+                'activitys'=>$activity->id_indicator,
+                'quarterly_plan'=>$activity->id_quarterly_plan,
                 'activity_type'=>$activity->activity_type,
                 'name'=>$activity->name,
                 'description'=>$activity->description,

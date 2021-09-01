@@ -177,16 +177,16 @@
                                                 <div class="row">
                                                     <div class="col-8">
                                                         <label><span class="required">*</span>Logro:</label>
-                                                         <select class="form-control" v-model="activity.quarterly_plan" v-bind:readonly="course.state==2" @change="indicador(activity.quarterly_plan)">
+                                                         <select class="form-control" v-model="activity.quarterly_plan" v-bind:readonly="course.state==2" @change="indicador(activity.quarterly_plan, key_a)">
                                                             <option value="">-- Seleccione --</option>
-                                                            <option v-for="(quarterly,k_quarterly) in fillC.quaterly" v-bind:key="k_quarterly"  :value="quarterly.id + '/' + quarterly.id_achievement">{{quarterly.logro}}</option>
+                                                            <option v-for="(quarterly,k_quarterly) in activity.fillC" v-bind:key="k_quarterly" :value="quarterly.id + '/' + quarterly.id_achievement">{{quarterly.logro}}</option>
                                                         </select>
                                                     </div>
                                                     <div class="col-4">
                                                         <label><span class="required">*</span>Evaluación:</label>
                                                          <select class="form-control" v-model="activity.activitys" v-bind:readonly="course.state==2">
                                                             <option value="">-- Seleccione --</option>
-                                                            <option v-for="(act,k_activity) in fillI" v-bind:key="k_activity"  v-bind:value="act.id">{{act.type_activity}} ({{act.activity_rate}} %)</option>
+                                                            <option v-for="(act,k_activity) in activity.fillI" v-bind:key="k_activity"  v-bind:value="act.id">{{act.type_activity}} ({{act.activity_rate}} %)</option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -308,7 +308,6 @@ export default {
             custom_editor_toolbar_justify:[["bold", "italic", "underline"], [{ list: "ordered" }, { list: "bullet" }],["image"]],
             piarStudents:[], 
             fillC:[],
-            fillI: [],
         };
     },
     watch: {
@@ -382,9 +381,6 @@ export default {
             this.nameArea = `${response.data.area.name} ${response.data.classroom.name}`;
             this.area_id = response.data.area.id;
             this.classroom_id = response.data.classroom.id;
-            console.log("id area",this.area_id);
-            console.log("id_classroom",this.classroom_id);
-            console.log("data", response.data);
             this.getDataPlanification();
             axios.get(`/PIARStudentsByArea/${response.data.area.id}/${response.data.classroom.id}`).then((response)=>{
                 this.piarStudents = Object.values(response.data);
@@ -410,7 +406,30 @@ export default {
         {
             axios.get(`/api/teacher/module/${this.id_module}/class/${this.id_class}`).then((response) => {
                     this.course=response.data;
-                    console.log('Clase',response.data)
+                    let activities = response.data.activities;
+                    this.course.activities=[];
+                    activities.forEach((e, i)=>{
+                        this.course.activities.push({
+                            activity_type: e.activity_type,
+                            activitys: e.activitys,
+                            delivery_max_date: e.delivery_max_date,
+                            description: e.description,
+                            feedback_date: e.feedback_date,
+                            id: e.id,
+                            id_achievement: e.id_achievement,
+                            interaction: e.interaction,
+                            is_required: e.is_required,
+                            module: e.module,
+                            name: e.name,
+                            quarterly_plan: e.quarterly_plan + "/" + e.id_achievement,
+                            id_quarterly_plan: e.quarterly_plan,
+                            fillI: this.indicador(e.quarterly_plan + "/" + e.id_achievement, i),
+                            fillC: this.getDataPlanification(i),
+                            rules: e.rules,
+                            state: e.state,
+                            updated_user: e.updated_user,
+                        })
+                    })
                     this.work = response.data.work;
                     this.transversals = response.data.transversals;
                     this.objetivesClass = response.data.objetivesClass;
@@ -472,11 +491,14 @@ export default {
                 description:''
             });
         },
-        getDataPlanification(){
+        getDataPlanification(position){
             var urlsel = window.location.origin + "/coursePlanification/" + this.area_id + "/" + this.classroom_id;
             axios.get(urlsel).then((response) => {
-                this.fillC = response.data;
-                console.log("fills", this.fillC);
+                if(this.id_class!=0){
+                    this.course.activities[position].fillC=response.data.quaterly;
+                }else{
+                    this.course.activities[this.course.activities.length - 1].fillC=response.data.quaterly;
+                }
             });
         },
         removeResource(index){
@@ -495,17 +517,17 @@ export default {
                 module:{},
                 is_required:1,
                 delivery_max_date:'',
-                feedback_date:''
+                feedback_date:'',
+                fillC:this.getDataPlanification(),
+                fillI:[],
             });
         },
 
         SaveDataEvent(){            
             axios.put(`/api/teacher/module/${this.id_module}/class`,this.course).then((response) => {
-               // this.getPlanificationEvent(this.id_lective_planification);
-                toastr.success("Clases actualizadas correctamente");                
+               toastr.success("Clases actualizadas correctamente");                
             },(error)=>{console.log(error);toastr.error("ERROR:Por favor valide que la información esta completa");});
-            
-            
+                  
             if(this.id_class==0){
                 var initD= new Date(this.course.date_init_class);
                 var initDateSave = moment(initD).format("YYYY-MM-DD H:mm:ss");
@@ -618,7 +640,7 @@ export default {
         },
         GetIndicatorsEvent(activity)
         {
-            if(!activity || !activity.id_achievement) return;
+            if(!activity || !activity.activities) return;
 
              if(this.indicators==null)
                 this.indicators=[];
@@ -634,16 +656,16 @@ export default {
 
             }).catch(err=>{console.log(err);});
         },
-        indicador(id) {
+        indicador(id, position) {
             if (id!=''){
                 var ids=id.split("/");
                 var idInd= ids[0];
+                var urli = window.location.origin + "/getIndicator/" + idInd;
+
+                axios.get(urli).then((response) => {
+                    this.course.activities[position].fillI=response.data;
+                });
             }
-            var urli = window.location.origin + "/getIndicator/" + idInd;
-            axios.get(urli).then((response) => {
-                this.fillI = response.data;
-                console.log(this.fillI);
-            });
         },
         getPreview(){
             this.showPreview = true;

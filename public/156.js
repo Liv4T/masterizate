@@ -103,6 +103,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   methods: {
     logout: function logout() {
@@ -395,7 +396,16 @@ var staticRenderFns = [
             _vm._v(" "),
             _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
               _vm._v("Informes")
-            ])
+            ]),
+            _vm._v(" "),
+            _c(
+              "a",
+              {
+                staticClass: "dropdown-item",
+                attrs: { href: "/reportPlanification" }
+              },
+              [_vm._v("Informe Planificación")]
+            )
           ]
         )
       ]),

@@ -316,8 +316,7 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
         list: "bullet"
       }], ["image"]],
       piarStudents: [],
-      fillC: [],
-      fillI: []
+      fillC: []
     };
   },
   watch: {
@@ -384,9 +383,6 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
       _this.nameArea = "".concat(response.data.area.name, " ").concat(response.data.classroom.name);
       _this.area_id = response.data.area.id;
       _this.classroom_id = response.data.classroom.id;
-      console.log("id area", _this.area_id);
-      console.log("id_classroom", _this.classroom_id);
-      console.log("data", response.data);
 
       _this.getDataPlanification();
 
@@ -414,7 +410,30 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
     if (this.id_class != 0) {
       axios.get("/api/teacher/module/".concat(this.id_module, "/class/").concat(this.id_class)).then(function (response) {
         _this.course = response.data;
-        console.log('Clase', response.data);
+        var activities = response.data.activities;
+        _this.course.activities = [];
+        activities.forEach(function (e, i) {
+          _this.course.activities.push({
+            activity_type: e.activity_type,
+            activitys: e.activitys,
+            delivery_max_date: e.delivery_max_date,
+            description: e.description,
+            feedback_date: e.feedback_date,
+            id: e.id,
+            id_achievement: e.id_achievement,
+            interaction: e.interaction,
+            is_required: e.is_required,
+            module: e.module,
+            name: e.name,
+            quarterly_plan: e.quarterly_plan + "/" + e.id_achievement,
+            id_quarterly_plan: e.quarterly_plan,
+            fillI: _this.indicador(e.quarterly_plan + "/" + e.id_achievement, i),
+            fillC: _this.getDataPlanification(i),
+            rules: e.rules,
+            state: e.state,
+            updated_user: e.updated_user
+          });
+        });
         _this.work = response.data.work;
         _this.transversals = response.data.transversals;
         _this.objetivesClass = response.data.objetivesClass;
@@ -465,13 +484,16 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
         description: ''
       });
     },
-    getDataPlanification: function getDataPlanification() {
+    getDataPlanification: function getDataPlanification(position) {
       var _this2 = this;
 
       var urlsel = window.location.origin + "/coursePlanification/" + this.area_id + "/" + this.classroom_id;
       axios.get(urlsel).then(function (response) {
-        _this2.fillC = response.data;
-        console.log("fills", _this2.fillC);
+        if (_this2.id_class != 0) {
+          _this2.course.activities[position].fillC = response.data.quaterly;
+        } else {
+          _this2.course.activities[_this2.course.activities.length - 1].fillC = response.data.quaterly;
+        }
       });
     },
     removeResource: function removeResource(index) {
@@ -490,14 +512,15 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
         module: {},
         is_required: 1,
         delivery_max_date: '',
-        feedback_date: ''
+        feedback_date: '',
+        fillC: this.getDataPlanification(),
+        fillI: []
       });
     },
     SaveDataEvent: function SaveDataEvent() {
       var _this3 = this;
 
       axios.put("/api/teacher/module/".concat(this.id_module, "/class"), this.course).then(function (response) {
-        // this.getPlanificationEvent(this.id_lective_planification);
         toastr.success("Clases actualizadas correctamente");
       }, function (error) {
         console.log(error);
@@ -615,7 +638,7 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
     GetIndicatorsEvent: function GetIndicatorsEvent(activity) {
       var _this7 = this;
 
-      if (!activity || !activity.id_achievement) return;
+      if (!activity || !activity.activities) return;
       if (this.indicators == null) this.indicators = [];
       axios.get("/api/achievement/".concat(activity.id_achievement, "/indicator")).then(function (response) {
         response.data.forEach(function (i) {
@@ -629,19 +652,17 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
         console.log(err);
       });
     },
-    indicador: function indicador(id) {
+    indicador: function indicador(id, position) {
       var _this8 = this;
 
       if (id != '') {
         var ids = id.split("/");
         var idInd = ids[0];
+        var urli = window.location.origin + "/getIndicator/" + idInd;
+        axios.get(urli).then(function (response) {
+          _this8.course.activities[position].fillI = response.data;
+        });
       }
-
-      var urli = window.location.origin + "/getIndicator/" + idInd;
-      axios.get(urli).then(function (response) {
-        _this8.fillI = response.data;
-        console.log(_this8.fillI);
-      });
     },
     getPreview: function getPreview() {
       this.showPreview = true;
@@ -1853,7 +1874,8 @@ var render = function() {
                                               },
                                               function($event) {
                                                 return _vm.indicador(
-                                                  activity.quarterly_plan
+                                                  activity.quarterly_plan,
+                                                  key_a
                                                 )
                                               }
                                             ]
@@ -1866,7 +1888,7 @@ var render = function() {
                                             [_vm._v("-- Seleccione --")]
                                           ),
                                           _vm._v(" "),
-                                          _vm._l(_vm.fillC.quaterly, function(
+                                          _vm._l(activity.fillC, function(
                                             quarterly,
                                             k_quarterly
                                           ) {
@@ -1940,7 +1962,7 @@ var render = function() {
                                             [_vm._v("-- Seleccione --")]
                                           ),
                                           _vm._v(" "),
-                                          _vm._l(_vm.fillI, function(
+                                          _vm._l(activity.fillI, function(
                                             act,
                                             k_activity
                                           ) {

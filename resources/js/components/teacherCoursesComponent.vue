@@ -1,4 +1,4 @@
-  <template>
+<template>
   <div class="back">
     <div class="row justify-content-center">
       <div id="crud" class="col-sm-10">
@@ -169,7 +169,7 @@ export default {
                 this.areas = response.data;
             });
         },
-        getTrimestres(){
+        getTrimestres(){ 
             var url="/getTrimestres";
             axios.get(url).then((response) =>{
                 this.trimestres=response.data;

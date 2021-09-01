@@ -61,7 +61,9 @@ Route::middleware('auth')->get('/actividad_docente', function () {
 Route::get('/equations', function () {
     return view('equations');
 });
-
+Route::middleware('auth')->get('/reportPlanification', function () {
+    return view('reportObjetivesPlanificationComponent');
+});
 Route::middleware('auth')->get('/free', function () {
     return view('free');
 });
@@ -379,6 +381,7 @@ Route::get('downloadFile', 'HomeController@downloadFile')->name('downloadFile');
 Route::middleware('auth')->get('info_user', 'UserController@show')->name('info_user');
 Route::middleware('auth')->get('userType', 'UserController@typeUserLog');
 Route::middleware('auth')->get('coursePlanification/{id_area}/{id_classroom}', 'CoursesController@index');
+Route::middleware('auth')->get('coursePlanificationObjetives/{id_achievement}/{id_planification}', 'CoursesController@getReportPlanification');
 Route::middleware('auth')->get('planification/objetives/{id_area}/{id_classroom}', 'CoursesController@objetivesByPlanification');
 Route::middleware('auth')->get('GetCourses', 'CourseController@GetCourses');
 Route::middleware('auth')->get('GetCategories', 'CategoryController@GetCategories');
@@ -827,6 +830,7 @@ Route::put('/test', 'ClassController@deactivateClass')->name('test');
 //api rest
 
 Route::get('/api/achievement/{id_achievement}/indicator', 'IndicatorController@getByAchievement');
+Route::get('/api/planification/{id_planification}/indicator/allForPlanification', 'IndicatorController@getByPlanification');
 Route::put('/api/teacher/activity/{id_activity}/student/{id_student}/score', 'ActivityController@saveTeacherScore');
 Route::get('/api/teacher/module/{id_module}/class/{id_course}', 'ClassController@getCourse');
 Route::put('/api/teacher/module/{id_module}/class', 'ClassController@saveCourse');
