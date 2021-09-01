@@ -52,7 +52,7 @@ class CoursesController extends Controller
                     'content' => $Quarterly->content,
                     'unit_name' => $Quarterly->unit_name,
                     'logro' => $Quarterly->logro,
-                    'id_achievement' => $Quarterly->id_achievement,
+                    'id_achievement' => $Quarterly['id_achievement'],
                     'id_annual' => $Courses['id'],
                 ];
             }
@@ -103,7 +103,7 @@ class CoursesController extends Controller
                     'type_activity' => $indicator->type_activity,
                     'activity_rate' => $indicator->activity_rate,
                     'id_achievement' => $indicator->id_achievement,
-                    'quarterly' => $quaterly,
+                    'quarterly' => $quaterly[$key_q],
                     'id_quarterly_plan' => $indicator->id_quarterly_plan,
                 ];
             }
@@ -242,6 +242,7 @@ class CoursesController extends Controller
                     'logro' => $Quarterly['logro'],
                     'id_area'    => $data['id_area'],
                     'id_classroom'    => $data['id_classroom'],
+                    'id_achievement' => $Quarterly['id_achievement'],
                     'id_teacher'     =>  Auth::user()->id,
                     'deleted' => 0,
                 ]);

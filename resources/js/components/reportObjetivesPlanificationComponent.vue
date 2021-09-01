@@ -40,27 +40,25 @@
                                 <div class="card" v-for="(logro,k) in logros" :key="k">
                                     <div class="card-header" id="headingSecond">
                                         <h2 class="mb-2">
-                                            <button class="btn btn-link btn-block text-left" v-on:click="()=>botones(logro.id, logro.id_planification,`collapseTwo${k}`)">
+                                            <button class="btn btn-link btn-block text-left" v-on:click="()=>botones(logro.id, logro.id_planification,`collapseTwo${area.id}${area.id_classroom}${k}`)">
                                                 Objetivo - {{logro.achievement}}
                                             </button>
                                         </h2>            
                                     </div>
-                                    <div :id="`collapseTwo${k}`" class="collapse" aria-labelledby="headingSecond" data-parent="#secondAccordion">
+                                    <div :id="`collapseTwo${area.id}${area.id_classroom}${k}`" class="collapse" aria-labelledby="headingSecond" data-parent="#secondAccordion">
                                         <div class="card-body">                                            
                                             <table class="table table-responsive-xl table-hover table-striped center">
                                                 <thead>
                                                     <tr>
-                                                        <th></th>
                                                         <th class="text-center">Logro</th>
                                                         <th class="text-center">Actividades</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <template  v-for="(ach, k) in achievements">
-                                                        <tr v-for="(log, j) in ach[k]">
-                                                            <td>{{ log.type_activity }}</td>
-                                                            <td>{{ log.activity_rate }}</td>
-                                                            
+                                                    <template v-for="(ach, j) in achievements">
+                                                        <tr v-for="(ach1, l) in ach">
+                                                            <td>{{ ach1.quarterly.logro}}</td>
+                                                            <td>{{ ach1.type_activity }} ({{ ach1.activity_rate }})</td>
                                                         </tr>
                                                     </template>
                                                 </tbody>
@@ -177,7 +175,9 @@ export default {
             });  
             $(`#${collapse_ID}`).collapse('show');
         },
-
+        valor(val){
+            console.log(val);
+        },
         datas(){
             this.loading= true;            
         },

@@ -193,6 +193,7 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale('es');
     botones: function botones(area, classroom, trimestre, collapse_ID) {
       var _this3 = this;
 
+      console.log('IdCollapse', collapse_ID);
       this.loading = true;
       axios.get("/viewGetWeek/".concat(area, "/").concat(classroom, "/").concat(trimestre)).then(function (response) {
         _this3.clases = response.data;
@@ -200,32 +201,29 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale('es');
       })["catch"](function (error) {
         console.log(error);
         _this3.clases = [];
-      });
-      this.getPermissions();
+      }); // this.getPermissions();    
+
       $("#".concat(collapse_ID)).collapse('show');
     },
     datas: function datas() {
       this.loading = true;
     },
-    getPermissions: function getPermissions() {
-      var _this4 = this;
-
-      axios.get('/getPermissions').then(function (response) {
-        var permissions = response.data;
-
-        for (var i = 0; i < permissions.length; i++) {
-          for (var a = 0; a < _this4.clases.length; a++) {
-            if (permissions[i] && permissions[i].id_cicle === _this4.clases[a].id) {
-              if (permissions[i].date_to_activate_btn <= moment__WEBPACK_IMPORTED_MODULE_0___default()(new Date()).format('YYYY-MM-DD')) {
-                _this4.clases[a].activateButton = true;
-              } else if (moment__WEBPACK_IMPORTED_MODULE_0___default()(new Date()).format('YYYY-MM-DD') >= permissions[i].date_to_activate_btn) {
-                _this4.clases[a].activateButton = false;
-              }
-            }
-          }
-        }
-      });
-    },
+    // getPermissions(){
+    //     axios.get('/getPermissions').then((response)=>{
+    //             let permissions = response.data;
+    //             for(let i =0; i < permissions.length; i++){
+    //                 for(let a = 0; a < this.clases.length; a++){
+    //                     if(permissions[i] && permissions[i].id_cicle === this.clases[a].id){
+    //                         if(permissions[i].date_to_activate_btn <= moment(new Date()).format('YYYY-MM-DD')){                                    
+    //                             this.clases[a].activateButton = true
+    //                         }else if(moment(new Date()).format('YYYY-MM-DD') >= permissions[i].date_to_activate_btn){
+    //                             this.clases[a].activateButton = false
+    //                         }
+    //                     }
+    //                 }
+    //             }
+    //         });
+    // },
     filterClass: function filterClass(class_name) {
       return class_name.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(this.search_filter_mat.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, ""));
     },
@@ -233,25 +231,25 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale('es');
       return cicle_name.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(this.search_filter_cicle.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, ""));
     },
     ClassAndCicle: function ClassAndCicle(id_module) {
-      var _this5 = this;
+      var _this4 = this;
 
       axios.get("/showClass/".concat(id_module)).then(function (response) {
-        _this5.clase_to_delete = response.data.clase;
-        _this5.id_module = id_module;
+        _this4.clase_to_delete = response.data.clase;
+        _this4.id_module = id_module;
         $('#infoClass').modal('show');
       });
     },
     deleteClassAndCicles: function deleteClassAndCicles() {
-      var _this6 = this;
+      var _this5 = this;
 
       this.clase_to_delete.forEach(function (clas) {
         axios["delete"]("/deleteClasses/".concat(clas.id));
       });
       axios["delete"]("/DeleteCicle/".concat(this.id_module)).then(function (response) {
-        _this6.clase_to_delete = [];
-        _this6.id_module = '';
+        _this5.clase_to_delete = [];
+        _this5.id_module = '';
 
-        if (_this6.clase_to_delete.length > 0) {
+        if (_this5.clase_to_delete.length > 0) {
           toastr.success("Clases y ".concat(response.data));
         } else {
           toastr.success('Ciclo Eliminado');
@@ -480,7 +478,10 @@ var render = function() {
                                                     area.id,
                                                     area.id_classroom,
                                                     trimestre.id,
-                                                    "collapseTwo" + k
+                                                    "collapseTwo" +
+                                                      area.id +
+                                                      area.id_classroom +
+                                                      k
                                                   )
                                                 }
                                               }
@@ -502,7 +503,11 @@ var render = function() {
                                       {
                                         staticClass: "collapse",
                                         attrs: {
-                                          id: "collapseTwo" + k,
+                                          id:
+                                            "collapseTwo" +
+                                            area.id +
+                                            area.id_classroom +
+                                            k,
                                           "aria-labelledby": "headingSecond",
                                           "data-parent": "#secondAccordion"
                                         }

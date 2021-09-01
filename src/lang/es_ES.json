@@ -111,7 +111,9 @@
         "psicologia": "Psicología",
         "steam": "STEAM",
         "induccion_hs":"Inducción HS",
-        "induccion_ms":"Inducción MS"        
+        "induccion_ms":"Inducción MS",
+        "filosofia": "Filosofia",
+        "lectura critica y filosofia":"Lectura Critica y Filosofia"        
     },
     "messages":{
         "messages":"Mensajes",

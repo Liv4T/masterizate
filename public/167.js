@@ -128,8 +128,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 $(".collapse").on("show.bs.collapse", function () {
   $(".collapse.in").collapse("hide");
 });
@@ -193,6 +191,9 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale('es');
         _this3.clases = [];
       });
       $("#".concat(collapse_ID)).collapse('show');
+    },
+    valor: function valor(val) {
+      console.log(val);
     },
     datas: function datas() {
       this.loading = true;
@@ -453,7 +454,10 @@ var render = function() {
                                                   return _vm.botones(
                                                     logro.id,
                                                     logro.id_planification,
-                                                    "collapseTwo" + k
+                                                    "collapseTwo" +
+                                                      area.id +
+                                                      area.id_classroom +
+                                                      k
                                                   )
                                                 }
                                               }
@@ -475,7 +479,11 @@ var render = function() {
                                       {
                                         staticClass: "collapse",
                                         attrs: {
-                                          id: "collapseTwo" + k,
+                                          id:
+                                            "collapseTwo" +
+                                            area.id +
+                                            area.id_classroom +
+                                            k,
                                           "aria-labelledby": "headingSecond",
                                           "data-parent": "#secondAccordion"
                                         }
@@ -499,15 +507,17 @@ var render = function() {
                                                   [
                                                     _vm._l(
                                                       _vm.achievements,
-                                                      function(ach, k) {
+                                                      function(ach, j) {
                                                         return _vm._l(
-                                                          ach[k],
-                                                          function(log, j) {
+                                                          ach,
+                                                          function(ach1, l) {
                                                             return _c("tr", [
                                                               _c("td", [
                                                                 _vm._v(
                                                                   _vm._s(
-                                                                    log.type_activity
+                                                                    ach1
+                                                                      .quarterly
+                                                                      .logro
                                                                   )
                                                                 )
                                                               ]),
@@ -515,8 +525,13 @@ var render = function() {
                                                               _c("td", [
                                                                 _vm._v(
                                                                   _vm._s(
-                                                                    log.activity_rate
-                                                                  )
+                                                                    ach1.type_activity
+                                                                  ) +
+                                                                    " (" +
+                                                                    _vm._s(
+                                                                      ach1.activity_rate
+                                                                    ) +
+                                                                    ")"
                                                                 )
                                                               ])
                                                             ])
@@ -656,8 +671,6 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
-        _c("th"),
-        _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [_vm._v("Logro")]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [_vm._v("Actividades")])
