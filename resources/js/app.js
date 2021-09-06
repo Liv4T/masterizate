@@ -248,6 +248,7 @@ Vue.component("admin-courses", () => import ("./components/adminCoursesComponent
 Vue.component("admin-module", () => import ("./components/adminModuleComponent.vue"));
 Vue.component("teacher-courses", () => import ("./components/teacherCoursesComponent.vue"));
 Vue.component("admin-report-planification", () => import ("./components/reportObjetivesPlanificationComponent.vue"));
+Vue.component("admin-report-cycle", () => import ("./components/reportCycleComponent.vue"));
 Vue.component("teacher-module", () => import ("./components/teacherModuleComponent.vue"));
 Vue.component("teacher-course", () => import ("./components/teacherCourseComponent.vue"));
 Vue.component("modal-preview",()=>import("./components/ModalPreviewClass.vue"));

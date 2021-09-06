@@ -1,9 +1,9 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[167],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/reportObjetivesPlanificationComponent.vue?vue&type=script&lang=js&":
-/*!************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/reportObjetivesPlanificationComponent.vue?vue&type=script&lang=js& ***!
-  \************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/reportCycleComponent.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/reportCycleComponent.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -11,6 +11,42 @@
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_0__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -140,7 +176,7 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale('es');
       search_filter: '',
       search_filter_mat: '',
       search_filter_cicle: '',
-      achievements: [],
+      clases: [],
       areas: [],
       descripcion: "",
       logro: "",
@@ -152,11 +188,11 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale('es');
       clase_to_delete: [],
       id_module: '',
       cycle_number: "",
-      logros: [],
-      loading: false
+      trimestres: [],
+      loading: false,
+      classes: []
     };
   },
-  created: function created() {},
   mounted: function mounted() {
     this.getData();
   },
@@ -169,22 +205,22 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale('es');
         _this.areas = response.data;
       });
     },
-    getDataPlanification: function getDataPlanification(id_area, id_classroom) {
+    getTrimestres: function getTrimestres() {
       var _this2 = this;
 
-      var urlsel = window.location.origin + "/coursePlanification/" + id_area + "/" + id_classroom;
-      axios.get(urlsel).then(function (response) {
-        _this2.logros = response.data.achievements;
-        console.log(response.data);
+      var url = "/getTrimestres";
+      axios.get(url).then(function (response) {
+        _this2.trimestres = response.data;
       });
     },
-    botones: function botones(id_achievement, id_planification, collapse_ID) {
+    botones: function botones(area, classroom, trimestre, collapse_ID) {
       var _this3 = this;
 
+      console.log('IdCollapse', collapse_ID);
       this.loading = true;
-      axios.get("/coursePlanificationObjetives/".concat(id_achievement, "/").concat(id_planification)).then(function (response) {
-        _this3.achievements = response.data;
-        console.log("respuesta", _this3.achievements);
+      axios.get("/courseCycleAndClass/".concat(area, "/").concat(classroom, "/").concat(trimestre)).then(function (response) {
+        _this3.clases = response.data;
+        console.log(_this3.clases);
         _this3.loading = false;
       })["catch"](function (error) {
         console.log(error);
@@ -192,8 +228,9 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale('es');
       });
       $("#".concat(collapse_ID)).collapse('show');
     },
-    valor: function valor(val) {
-      console.log(val);
+    listClassDevelopment: function listClassDevelopment(json) {
+      var classD = JSON.parse(json);
+      return classD;
     },
     datas: function datas() {
       this.loading = true;
@@ -204,64 +241,83 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale('es');
     filterCicle: function filterCicle(cicle_name) {
       return cicle_name.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(this.search_filter_cicle.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, ""));
     },
-    ClassAndCicle: function ClassAndCicle(id_module) {
+    modalClass: function modalClass(class_array) {
       var _this4 = this;
 
-      axios.get("/showClass/".concat(id_module)).then(function (response) {
-        _this4.clase_to_delete = response.data.clase;
-        _this4.id_module = id_module;
-        $('#infoClass').modal('show');
+      this.classes = [];
+      class_array.forEach(function (e, i) {
+        _this4.classes.push({
+          work: e.work,
+          transversals: e.transversals,
+          nameClass: e.name,
+          objetivesClass: e.objetivesClass,
+          description: e.description,
+          date_init_class: e.date_init_class,
+          url_class: e.url_class,
+          content: e.content
+        });
       });
-    },
-    deleteClassAndCicles: function deleteClassAndCicles() {
-      var _this5 = this;
-
-      this.clase_to_delete.forEach(function (clas) {
-        axios["delete"]("/deleteClasses/".concat(clas.id));
-      });
-      axios["delete"]("/DeleteCicle/".concat(this.id_module)).then(function (response) {
-        _this5.clase_to_delete = [];
-        _this5.id_module = '';
-
-        if (_this5.clase_to_delete.length > 0) {
-          toastr.success("Clases y ".concat(response.data));
-        } else {
-          toastr.success('Ciclo Eliminado');
-        }
-
-        window.location = "/docente/clases";
-      });
-    },
-    RequestPermissions: function RequestPermissions(data, curso) {
-      console.log({
-        cicle: data.text,
-        id_area: data.id_area,
-        id_classroom: data.id_classroom,
-        id_cicle: data.id,
-        course: curso
-      });
-      axios.post('/requestPermission', {
-        cicle: data.text,
-        id_area: data.id_area,
-        id_classroom: data.id_classroom,
-        id_cicle: data.id,
-        course: curso
-      }).then(function (response) {
-        toastr.success(response.data);
-      })["catch"](function (error) {
-        toastr.info('El dato ya fue creado, Consulte con el Administrador');
-        console.log(error);
-      });
+      $("#infoClass").modal("show");
+      console.log(this.classes);
     }
   }
 });
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/reportObjetivesPlanificationComponent.vue?vue&type=template&id=11fcc30c&":
-/*!****************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/reportObjetivesPlanificationComponent.vue?vue&type=template&id=11fcc30c& ***!
-  \****************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/reportCycleComponent.vue?vue&type=style&index=0&lang=css&":
+/*!**************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/reportCycleComponent.vue?vue&type=style&index=0&lang=css& ***!
+  \**************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n@media (min-width: 576px){\n.modal-dialog {\n        max-width: 1100px;\n        margin: 1.75rem auto;\n}\nul.text-left{\n        list-style-type:decimal;\n        padding-left: 0rem;\n}\nul li {\n        padding-left: 0rem;\n}\nul.second-file{\n        list-style-type: none;\n        padding-left: 0rem;\n}\n.color-text{\n        color:black;\n}\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/reportCycleComponent.vue?vue&type=style&index=0&lang=css&":
+/*!******************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/reportCycleComponent.vue?vue&type=style&index=0&lang=css& ***!
+  \******************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../node_modules/css-loader??ref--6-1!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--6-2!../../../node_modules/vue-loader/lib??vue-loader-options!./reportCycleComponent.vue?vue&type=style&index=0&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/reportCycleComponent.vue?vue&type=style&index=0&lang=css&");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/reportCycleComponent.vue?vue&type=template&id=f0fde754&":
+/*!***********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/reportCycleComponent.vue?vue&type=template&id=f0fde754& ***!
+  \***********************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -273,12 +329,12 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", {}, [
+  return _c("div", { staticClass: "back" }, [
     _c("div", { staticClass: "row justify-content-center" }, [
       _c("div", { staticClass: "col-sm-10", attrs: { id: "crud" } }, [
         _c("div", { staticClass: "card text-center" }, [
           _c("h3", { staticClass: "card-header fondo" }, [
-            _vm._v("Reporte de planificación")
+            _vm._v("Reporte de ciclos y clases")
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "card-body" }, [
@@ -393,18 +449,15 @@ var render = function() {
                                   on: {
                                     click: function($event) {
                                       $event.preventDefault()
-                                      return _vm.getDataPlanification(
-                                        area.id,
-                                        area.id_classroom
-                                      )
+                                      return _vm.getTrimestres()
                                     }
                                   }
                                 },
                                 [
                                   _vm._v(
-                                    "\n                                  " +
+                                    "\n                                            " +
                                       _vm._s(area.text) +
-                                      "\n                              "
+                                      "\n                                        "
                                   )
                                 ]
                               )
@@ -431,7 +484,7 @@ var render = function() {
                                 staticClass: "accordion",
                                 attrs: { id: "secondAccordion" }
                               },
-                              _vm._l(_vm.logros, function(logro, k) {
+                              _vm._l(_vm.trimestres, function(trimestre, k) {
                                 return _c(
                                   "div",
                                   { key: k, staticClass: "card" },
@@ -452,8 +505,9 @@ var render = function() {
                                               on: {
                                                 click: function() {
                                                   return _vm.botones(
-                                                    logro.id,
-                                                    logro.id_planification,
+                                                    area.id,
+                                                    area.id_classroom,
+                                                    trimestre.id,
                                                     "collapseTwo" +
                                                       area.id +
                                                       area.id_classroom +
@@ -464,9 +518,9 @@ var render = function() {
                                             },
                                             [
                                               _vm._v(
-                                                "\n                                              Objetivo - " +
-                                                  _vm._s(logro.achievement) +
-                                                  "\n                                          "
+                                                "\n                                                        Ciclo " +
+                                                  _vm._s(trimestre.nombre) +
+                                                  "\n                                                    "
                                               )
                                             ]
                                           )
@@ -505,40 +559,118 @@ var render = function() {
                                                 _c(
                                                   "tbody",
                                                   [
-                                                    _vm._l(
-                                                      _vm.achievements,
-                                                      function(ach, j) {
-                                                        return _vm._l(
-                                                          ach,
-                                                          function(ach1, l) {
-                                                            return _c("tr", [
-                                                              _c("td", [
-                                                                _vm._v(
-                                                                  _vm._s(
-                                                                    ach1
-                                                                      .quarterly
-                                                                      .logro
-                                                                  )
-                                                                )
-                                                              ]),
-                                                              _vm._v(" "),
-                                                              _c("td", [
-                                                                _vm._v(
-                                                                  _vm._s(
-                                                                    ach1.type_activity
-                                                                  ) +
-                                                                    " (" +
-                                                                    _vm._s(
-                                                                      ach1.activity_rate
-                                                                    ) +
-                                                                    ")"
-                                                                )
-                                                              ])
-                                                            ])
-                                                          }
+                                                    _vm._l(_vm.clases, function(
+                                                      clas,
+                                                      k
+                                                    ) {
+                                                      return [
+                                                        (clas.id_classroom ==
+                                                          area.id_classroom &&
+                                                          clas.id_area ==
+                                                            area.id &&
+                                                          _vm.search_filter_cicle ==
+                                                            "") ||
+                                                        _vm.filterCicle(
+                                                          clas.text
                                                         )
-                                                      }
-                                                    )
+                                                          ? _c(
+                                                              "tr",
+                                                              { key: k },
+                                                              [
+                                                                _c("td", [
+                                                                  _vm._v(
+                                                                    _vm._s(
+                                                                      clas.order_items
+                                                                    )
+                                                                  )
+                                                                ]),
+                                                                _vm._v(" "),
+                                                                _c("td", [
+                                                                  _vm._v(
+                                                                    _vm._s(
+                                                                      clas.text
+                                                                    )
+                                                                  )
+                                                                ]),
+                                                                _vm._v(" "),
+                                                                _c("td", [
+                                                                  _c(
+                                                                    "ul",
+                                                                    {
+                                                                      staticClass:
+                                                                        "text-left"
+                                                                    },
+                                                                    _vm._l(
+                                                                      _vm.listClassDevelopment(
+                                                                        clas.class
+                                                                      ),
+                                                                      function(
+                                                                        classD,
+                                                                        key_d
+                                                                      ) {
+                                                                        return _c(
+                                                                          "li",
+                                                                          {
+                                                                            key: key_d
+                                                                          },
+                                                                          [
+                                                                            _vm._v(
+                                                                              _vm._s(
+                                                                                classD.class_developmentC
+                                                                              )
+                                                                            )
+                                                                          ]
+                                                                        )
+                                                                      }
+                                                                    ),
+                                                                    0
+                                                                  )
+                                                                ]),
+                                                                _vm._v(" "),
+                                                                _c("td", [
+                                                                  _vm._v(
+                                                                    _vm._s(
+                                                                      clas.observation
+                                                                    )
+                                                                  )
+                                                                ]),
+                                                                _vm._v(" "),
+                                                                _c("td", [
+                                                                  _vm._v(
+                                                                    _vm._s(
+                                                                      clas.ajuste_piar
+                                                                    )
+                                                                  )
+                                                                ]),
+                                                                _vm._v(" "),
+                                                                _c("td", [
+                                                                  _c(
+                                                                    "button",
+                                                                    {
+                                                                      staticClass:
+                                                                        "btn btn-primary",
+                                                                      on: {
+                                                                        click: function(
+                                                                          $event
+                                                                        ) {
+                                                                          return _vm.modalClass(
+                                                                            clas.class_array
+                                                                          )
+                                                                        }
+                                                                      }
+                                                                    },
+                                                                    [
+                                                                      _vm._v(
+                                                                        "Ver Clases"
+                                                                      )
+                                                                    ]
+                                                                  )
+                                                                ])
+                                                              ]
+                                                            )
+                                                          : _vm._e()
+                                                      ]
+                                                    })
                                                   ],
                                                   2
                                                 )
@@ -587,14 +719,8 @@ var render = function() {
               _vm._m(2),
               _vm._v(" "),
               _c("div", { staticClass: "modal-body" }, [
-                _vm.clase_to_delete.length > 0
+                _vm.classes.length > 0
                   ? _c("div", [
-                      _c("p", { staticClass: "mb-4" }, [
-                        _vm._v(
-                          "Se eliminarán las siguientes Clases del Ciclo: "
-                        )
-                      ]),
-                      _vm._v(" "),
                       _c(
                         "table",
                         { staticClass: "table table-stripped table-hover" },
@@ -603,16 +729,88 @@ var render = function() {
                           _vm._v(" "),
                           _c(
                             "tbody",
-                            _vm._l(_vm.clase_to_delete, function(
-                              clasDelete,
-                              key
-                            ) {
+                            _vm._l(_vm.classes, function(classLis, key) {
                               return _c("tr", { key: key }, [
-                                _c("td", [_vm._v(_vm._s(clasDelete.name))]),
+                                _c("td", [_vm._v(_vm._s(classLis.nameClass))]),
                                 _vm._v(" "),
                                 _c("td", [
-                                  _vm._v(_vm._s(clasDelete.description))
-                                ])
+                                  _vm._v(_vm._s(classLis.description))
+                                ]),
+                                _vm._v(" "),
+                                _c("td", [
+                                  _vm._v(_vm._s(classLis.objetivesClass))
+                                ]),
+                                _vm._v(" "),
+                                _c("td", [
+                                  _vm._v(_vm._s(classLis.transversals))
+                                ]),
+                                _vm._v(" "),
+                                _c("td", [_vm._v(_vm._s(classLis.work))]),
+                                _vm._v(" "),
+                                _c("td", [
+                                  _c(
+                                    "a",
+                                    {
+                                      staticStyle: { color: "black" },
+                                      attrs: {
+                                        href: classLis.url_class,
+                                        target: "_blank"
+                                      }
+                                    },
+                                    [_vm._v(_vm._s(classLis.url_class))]
+                                  )
+                                ]),
+                                _vm._v(" "),
+                                _c("td", [
+                                  _vm._v(_vm._s(classLis.date_init_class))
+                                ]),
+                                _vm._v(" "),
+                                classLis.content.length > 0
+                                  ? _c("td", [
+                                      _c(
+                                        "ul",
+                                        { staticClass: "text-left" },
+                                        _vm._l(classLis.content, function(
+                                          cont,
+                                          key_c
+                                        ) {
+                                          return _c("li", { key: key_c }, [
+                                            _c(
+                                              "ul",
+                                              { staticClass: "second-file" },
+                                              [
+                                                _c("li", [
+                                                  _vm._v(
+                                                    _vm._s(cont.content_type)
+                                                  )
+                                                ]),
+                                                _vm._v(" "),
+                                                _c("li", [
+                                                  _c(
+                                                    "a",
+                                                    {
+                                                      staticClass: "color-text",
+                                                      attrs: {
+                                                        href: cont.content
+                                                      }
+                                                    },
+                                                    [
+                                                      _vm._v(
+                                                        _vm._s(cont.description)
+                                                      )
+                                                    ]
+                                                  )
+                                                ])
+                                              ]
+                                            )
+                                          ])
+                                        }),
+                                        0
+                                      )
+                                    ])
+                                  : _c("td", [
+                                      _vm._v("No hay recursos cargados")
+                                    ])
                               ])
                             }),
                             0
@@ -622,31 +820,12 @@ var render = function() {
                     ])
                   : _c("div", [
                       _vm._v(
-                        "\n                      No hay Clases asignadas al Ciclo\n                  "
+                        "\n                        No hay Clases asignadas al Ciclo\n                    "
                       )
                     ])
               ]),
               _vm._v(" "),
-              _c("div", { staticClass: "modal-footer" }, [
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-secondary",
-                    attrs: { type: "button", "data-dismiss": "modal" }
-                  },
-                  [_vm._v("Cerrar")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-primary",
-                    attrs: { type: "button" },
-                    on: { click: _vm.deleteClassAndCicles }
-                  },
-                  [_vm._v("Eliminar de todas Formas")]
-                )
-              ])
+              _vm._m(4)
             ])
           ]
         )
@@ -671,9 +850,21 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
-        _c("th", { staticClass: "text-center" }, [_vm._v("Logro")]),
+        _c("th", { staticClass: "text-center" }, [_vm._v("# Ciclo")]),
         _vm._v(" "),
-        _c("th", { staticClass: "text-center" }, [_vm._v("Actividades")])
+        _c("th", { staticClass: "text-center" }, [
+          _vm._v("Ciclo de aprendizaje")
+        ]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [
+          _vm._v("Desarrollo de la clase")
+        ]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [_vm._v("Observación")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [_vm._v("Ajustes PIAR")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [_vm._v("Acción")])
       ])
     ])
   },
@@ -710,8 +901,35 @@ var staticRenderFns = [
       _c("tr", [
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Nombre")]),
         _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Descripción")])
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Descripción")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Objetivos")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Habilidades")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Tarea")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Link")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Fecha inicio")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Contenidos")])
       ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-footer" }, [
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-secondary",
+          attrs: { type: "button", "data-dismiss": "modal" }
+        },
+        [_vm._v("Cerrar")]
+      )
     ])
   }
 ]
@@ -721,18 +939,20 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./resources/js/components/reportObjetivesPlanificationComponent.vue":
-/*!***************************************************************************!*\
-  !*** ./resources/js/components/reportObjetivesPlanificationComponent.vue ***!
-  \***************************************************************************/
+/***/ "./resources/js/components/reportCycleComponent.vue":
+/*!**********************************************************!*\
+  !*** ./resources/js/components/reportCycleComponent.vue ***!
+  \**********************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _reportObjetivesPlanificationComponent_vue_vue_type_template_id_11fcc30c___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./reportObjetivesPlanificationComponent.vue?vue&type=template&id=11fcc30c& */ "./resources/js/components/reportObjetivesPlanificationComponent.vue?vue&type=template&id=11fcc30c&");
-/* harmony import */ var _reportObjetivesPlanificationComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./reportObjetivesPlanificationComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/reportObjetivesPlanificationComponent.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony import */ var _reportCycleComponent_vue_vue_type_template_id_f0fde754___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./reportCycleComponent.vue?vue&type=template&id=f0fde754& */ "./resources/js/components/reportCycleComponent.vue?vue&type=template&id=f0fde754&");
+/* harmony import */ var _reportCycleComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./reportCycleComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/reportCycleComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _reportCycleComponent_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./reportCycleComponent.vue?vue&type=style&index=0&lang=css& */ "./resources/js/components/reportCycleComponent.vue?vue&type=style&index=0&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
 
 
 
@@ -740,10 +960,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /* normalize component */
 
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _reportObjetivesPlanificationComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _reportObjetivesPlanificationComponent_vue_vue_type_template_id_11fcc30c___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _reportObjetivesPlanificationComponent_vue_vue_type_template_id_11fcc30c___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _reportCycleComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _reportCycleComponent_vue_vue_type_template_id_f0fde754___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _reportCycleComponent_vue_vue_type_template_id_f0fde754___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -753,38 +973,54 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/components/reportObjetivesPlanificationComponent.vue"
+component.options.__file = "resources/js/components/reportCycleComponent.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/components/reportObjetivesPlanificationComponent.vue?vue&type=script&lang=js&":
-/*!****************************************************************************************************!*\
-  !*** ./resources/js/components/reportObjetivesPlanificationComponent.vue?vue&type=script&lang=js& ***!
-  \****************************************************************************************************/
+/***/ "./resources/js/components/reportCycleComponent.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************!*\
+  !*** ./resources/js/components/reportCycleComponent.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_reportObjetivesPlanificationComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./reportObjetivesPlanificationComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/reportObjetivesPlanificationComponent.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_reportObjetivesPlanificationComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_reportCycleComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./reportCycleComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/reportCycleComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_reportCycleComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/components/reportObjetivesPlanificationComponent.vue?vue&type=template&id=11fcc30c&":
-/*!**********************************************************************************************************!*\
-  !*** ./resources/js/components/reportObjetivesPlanificationComponent.vue?vue&type=template&id=11fcc30c& ***!
-  \**********************************************************************************************************/
+/***/ "./resources/js/components/reportCycleComponent.vue?vue&type=style&index=0&lang=css&":
+/*!*******************************************************************************************!*\
+  !*** ./resources/js/components/reportCycleComponent.vue?vue&type=style&index=0&lang=css& ***!
+  \*******************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_reportCycleComponent_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/style-loader!../../../node_modules/css-loader??ref--6-1!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--6-2!../../../node_modules/vue-loader/lib??vue-loader-options!./reportCycleComponent.vue?vue&type=style&index=0&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/reportCycleComponent.vue?vue&type=style&index=0&lang=css&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_reportCycleComponent_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_reportCycleComponent_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_reportCycleComponent_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_reportCycleComponent_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_reportCycleComponent_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
+
+/***/ }),
+
+/***/ "./resources/js/components/reportCycleComponent.vue?vue&type=template&id=f0fde754&":
+/*!*****************************************************************************************!*\
+  !*** ./resources/js/components/reportCycleComponent.vue?vue&type=template&id=f0fde754& ***!
+  \*****************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_reportObjetivesPlanificationComponent_vue_vue_type_template_id_11fcc30c___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./reportObjetivesPlanificationComponent.vue?vue&type=template&id=11fcc30c& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/reportObjetivesPlanificationComponent.vue?vue&type=template&id=11fcc30c&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_reportObjetivesPlanificationComponent_vue_vue_type_template_id_11fcc30c___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_reportCycleComponent_vue_vue_type_template_id_f0fde754___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./reportCycleComponent.vue?vue&type=template&id=f0fde754& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/reportCycleComponent.vue?vue&type=template&id=f0fde754&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_reportCycleComponent_vue_vue_type_template_id_f0fde754___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_reportObjetivesPlanificationComponent_vue_vue_type_template_id_11fcc30c___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_reportCycleComponent_vue_vue_type_template_id_f0fde754___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

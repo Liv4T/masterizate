@@ -77,16 +77,11 @@ class CoursesController extends Controller
         return response()->json($data);
     }
     public function getReportPlanification(String $id_achievement, String $id_planification){
-        //primero crear la ruta en el web.php para traer el $id_planification
-        //con el id del achievement_planification traer la planificacion trimestral y con los ids de la planificacion general
-        //traer las evaluaciones de cada planifiacion trimestral
-        //$achievement = [];
+        
         $quaterly = [];
-        $indicator_query = [];
-        //$achievements = CoursesAchievement::where('id_planification', $id_planification)->where('deleted', 0)->get();
-
         $quarterlies = Quarterly::where('id_achievement', $id_achievement)->where('deleted', 0)->get();
         foreach ($quarterlies as $key_q => $quarterly) {
+            $indicators = Indicator::where('id_quarterly_plan', $quarterly->id)->get();
             $quaterly[$key_q] = [
                 'id' => $quarterly->id,
                 'content' => $quarterly->content,
@@ -94,22 +89,40 @@ class CoursesController extends Controller
                 'logro' => $quarterly->logro,
                 'id_achievement' => $quarterly->id_achievement,
                 'id_annual' => $id_planification,
+                'indicators' => $indicators,
             ];
-            $indicators = Indicator::where('id_quarterly_plan', $quarterly->id)->get();
-            foreach($indicators as $key_i => $indicator){
-                $indicator_query[$key_q][$key_i]= [
-                    'id' => $indicator->id,
-                    'id_annual' => $indicator->id_annual,
-                    'type_activity' => $indicator->type_activity,
-                    'activity_rate' => $indicator->activity_rate,
-                    'id_achievement' => $indicator->id_achievement,
-                    'quarterly' => $quaterly[$key_q],
-                    'id_quarterly_plan' => $indicator->id_quarterly_plan,
-                ];
-            }
         }
 
-        return response()->json($indicator_query);
+        return response()->json($quaterly);
+    }
+
+    public function getReportCycleAndClass(String $id_area, String $id_classroom, String $id_trimestre){
+
+        $dataWeek = [];
+        $dataContent = [];
+        $Weeks = Weekly::where('id_area', $id_area)->where('id_classroom', $id_classroom)->where('id_trimestre', $id_trimestre)->get();
+            foreach ($Weeks as $key => $week) {
+                $class = Classs::Where('id_weekly_plan', $week->id)->get();
+                $dataContent = [];
+                foreach ($class as $keyC => $classC){
+                    $content = ClassContent::where('id_class', $classC->id)->where('content', '<>', '')->get();
+                    $classC->content = $content;
+                }
+                $dataWeek[$key] = [
+                    'id'   => $week->id,
+                    'text' => $week->driving_question,
+                    'class' => $week->class_development,
+                    'observation' => $week->observation,
+                    'id_area' =>  $week->id_area,
+                    'id_classroom' =>  $week->id_classroom,
+                    'id_trimestre' => $week->id_trimestre,
+                    'ajuste_piar' => $week->ajuste_piar,
+                    'order_items' => $week->order_items,
+                    'class_array' => $class,
+                ];
+            }
+
+            return response()->json($dataWeek);
     }
 
     /**

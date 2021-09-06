@@ -64,6 +64,9 @@ Route::get('/equations', function () {
 Route::middleware('auth')->get('/reportPlanification', function () {
     return view('reportObjetivesPlanificationComponent');
 });
+Route::middleware('auth')->get('/reportCycle', function () {
+    return view('reportCycleComponent');
+});
 Route::middleware('auth')->get('/free', function () {
     return view('free');
 });
@@ -382,6 +385,7 @@ Route::middleware('auth')->get('info_user', 'UserController@show')->name('info_u
 Route::middleware('auth')->get('userType', 'UserController@typeUserLog');
 Route::middleware('auth')->get('coursePlanification/{id_area}/{id_classroom}', 'CoursesController@index');
 Route::middleware('auth')->get('coursePlanificationObjetives/{id_achievement}/{id_planification}', 'CoursesController@getReportPlanification');
+Route::middleware('auth')->get('courseCycleAndClass/{id_area}/{id_classroom}/{id_trimestre}', 'CoursesController@getReportCycleAndClass');
 Route::middleware('auth')->get('planification/objetives/{id_area}/{id_classroom}', 'CoursesController@objetivesByPlanification');
 Route::middleware('auth')->get('GetCourses', 'CourseController@GetCourses');
 Route::middleware('auth')->get('GetCategories', 'CategoryController@GetCategories');
