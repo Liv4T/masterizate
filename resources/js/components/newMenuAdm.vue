@@ -55,6 +55,7 @@
                 <!-- Modulo de Informes Pendiente por aclaración -->
                 <a class="dropdown-item" href="#">Informes</a>
                 <a class="dropdown-item" href="/reportPlanification">Informe Planificación</a>
+                <a class="dropdown-item" href="/reportCycle">Informe Ciclos y Clases</a>
             </div>
         </div>
 
