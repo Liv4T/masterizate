@@ -126,7 +126,8 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale('es');
       id_module: '',
       cycle_number: "",
       logros: [],
-      loading: false
+      loading: false,
+      lastCollapse: 1
     };
   },
   created: function created() {},
@@ -155,15 +156,18 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale('es');
       var _this3 = this;
 
       this.loading = true;
+      this.achievements = [];
       axios.get("/coursePlanificationObjetives/".concat(id_achievement, "/").concat(id_planification)).then(function (response) {
-        _this3.achievements = response.data;
-        console.log("respuesta", _this3.achievements);
+        _this3.achievements = response.data; //console.log("respuesta",this.achievements);
+
         _this3.loading = false;
       })["catch"](function (error) {
         console.log(error);
         _this3.clases = [];
       });
+      $("#".concat(this.lastCollapse)).collapse('hide');
       $("#".concat(collapse_ID)).collapse('show');
+      this.lastCollapse = collapse_ID;
     },
     listIndicators: function listIndicators(json) {
       var ind = JSON.parse(json);
@@ -198,7 +202,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\nul{\r\n    list-style-type:decimal;\n}\nul li {\r\n  padding-left: 0.5rem;\n}\r\n", ""]);
+exports.push([module.i, "\nul{\r\n    list-style-type:decimal;\n}\nul li {\r\n  padding-left: 0.5rem;\n}\n.height-auto{\r\n    height: auto;\n}\r\n", ""]);
 
 // exports
 
@@ -359,7 +363,7 @@ var render = function() {
                                 "button",
                                 {
                                   staticClass:
-                                    "btn btn-link btn-block text-left",
+                                    "btn btn-link btn-block text-left height-auto",
                                   attrs: {
                                     type: "button",
                                     "data-toggle": "collapse",
@@ -425,7 +429,7 @@ var render = function() {
                                             "button",
                                             {
                                               staticClass:
-                                                "btn btn-link btn-block text-left",
+                                                "btn btn-link btn-block text-left height-auto",
                                               on: {
                                                 click: function() {
                                                   return _vm.botones(

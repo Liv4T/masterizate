@@ -26,7 +26,7 @@
                                 <div class="card mb-2" >
                                     <div class="card-header" id="headingFIRST">
                                         <h2 class="mb-0">
-                                            <button class="btn btn-link btn-block text-left" @click.prevent="getDataPlanification(area.id, area.id_classroom)" type="button" data-toggle="collapse" :data-target="`#collapseFirst${t}`" aria-expanded="true" :aria-controls="`collapseFirst${t}`">
+                                            <button class="btn btn-link btn-block text-left height-auto" @click.prevent="getDataPlanification(area.id, area.id_classroom)" type="button" data-toggle="collapse" :data-target="`#collapseFirst${t}`" aria-expanded="true" :aria-controls="`collapseFirst${t}`">
                                                 {{ area.text }}
                                             </button>
                                         </h2>
@@ -39,7 +39,7 @@
                                             <div class="card" v-for="(logro,k) in logros" :key="k">
                                                 <div class="card-header" id="headingSecond">
                                                     <h2 class="mb-2">
-                                                        <button class="btn btn-link btn-block text-left" v-on:click="()=>botones(logro.id, logro.id_planification,`collapseTwo${area.id}${area.id_classroom}${k}`)">
+                                                        <button class="btn btn-link btn-block text-left height-auto" v-on:click="()=>botones(logro.id, logro.id_planification,`collapseTwo${area.id}${area.id_classroom}${k}`)">
                                                             Objetivo - {{logro.achievement}}
                                                         </button>
                                                     </h2>            
@@ -116,6 +116,7 @@ export default {
         cycle_number:"",
         logros:[],
         loading: false,
+        lastCollapse: 1,
     };
   },
   created() {},
@@ -138,15 +139,19 @@ export default {
         },
         botones(id_achievement, id_planification, collapse_ID) {
             this.loading = true;
+            this.achievements = [];
             axios.get(`/coursePlanificationObjetives/${id_achievement}/${id_planification}`).then((response) => {                
                 this.achievements = response.data;
-                console.log("respuesta",this.achievements);
+                //console.log("respuesta",this.achievements);
                 this.loading = false;
             }).catch((error)=>{
                 console.log(error);
                 this.clases = [];
             });  
+            $(`#${this.lastCollapse}`).collapse('hide');
             $(`#${collapse_ID}`).collapse('show');
+            this.lastCollapse = collapse_ID;
+            
         },
         listIndicators(json){
             var ind = JSON.parse(json);
@@ -175,5 +180,8 @@ ul{
 }
 ul li {
   padding-left: 0.5rem;
+}
+.height-auto{
+    height: auto;
 }
 </style>

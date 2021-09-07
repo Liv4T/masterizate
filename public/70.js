@@ -164,9 +164,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-$(".collapse").on("show.bs.collapse", function () {
+
+/* $(".collapse").on("show.bs.collapse", function () {
   $(".collapse.in").collapse("hide");
-});
+}); */
 
 moment__WEBPACK_IMPORTED_MODULE_0___default.a.tz.setDefault("America/Bogota");
 moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale('es');
@@ -218,6 +219,7 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale('es');
 
       console.log('IdCollapse', collapse_ID);
       this.loading = true;
+      this.clases = [];
       axios.get("/courseCycleAndClass/".concat(area, "/").concat(classroom, "/").concat(trimestre)).then(function (response) {
         _this3.clases = response.data;
         console.log(_this3.clases);
@@ -226,7 +228,7 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale('es');
         console.log(error);
         _this3.clases = [];
       });
-      $("#".concat(collapse_ID)).collapse('show');
+      $("#".concat(collapse_ID)).collapse('show'); //this.lastCollapse = collapse_ID;
     },
     listClassDevelopment: function listClassDevelopment(json) {
       var classD = JSON.parse(json);
@@ -277,7 +279,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n@media (min-width: 576px){\n.modal-dialog {\r\n        max-width: 1100px;\r\n        margin: 1.75rem auto;\n}\nul.text-left{\r\n        list-style-type:decimal;\r\n        padding-left: 0rem;\n}\nul li {\r\n        padding-left: 0rem;\n}\nul.second-file{\r\n        list-style-type: none;\r\n        padding-left: 0rem;\n}\n.color-text{\r\n        color:black;\n}\n}\r\n", ""]);
+exports.push([module.i, "\n@media (min-width: 576px){\n.modal-dialog {\r\n        max-width: 1100px;\r\n        margin: 1.75rem auto;\n}\nul.text-left{\r\n        list-style-type:decimal;\r\n        padding-left: 0rem;\n}\nul li {\r\n        padding-left: 0rem;\n}\nul.second-file{\r\n        list-style-type: none;\r\n        padding-left: 0rem;\n}\n.color-text{\r\n        color:black;\n}\n}\n.height-auto{\r\n    height: auto;\n}\r\n", ""]);
 
 // exports
 
@@ -438,7 +440,7 @@ var render = function() {
                                 "button",
                                 {
                                   staticClass:
-                                    "btn btn-link btn-block text-left",
+                                    "btn btn-link btn-block text-left height-auto",
                                   attrs: {
                                     type: "button",
                                     "data-toggle": "collapse",
@@ -501,7 +503,7 @@ var render = function() {
                                             "button",
                                             {
                                               staticClass:
-                                                "btn btn-link btn-block text-left",
+                                                "btn btn-link btn-block text-left height-auto",
                                               on: {
                                                 click: function() {
                                                   return _vm.botones(
