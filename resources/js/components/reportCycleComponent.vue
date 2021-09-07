@@ -26,7 +26,7 @@
                                 <div class="card mb-2" >
                                     <div class="card-header" id="headingFIRST">
                                         <h2 class="mb-0">
-                                            <button class="btn btn-link btn-block text-left" @click.prevent="getTrimestres()" type="button" data-toggle="collapse" :data-target="`#collapseFirst${t}`" aria-expanded="true" :aria-controls="`collapseFirst${t}`">
+                                            <button class="btn btn-link btn-block text-left height-auto" @click.prevent="getTrimestres()" type="button" data-toggle="collapse" :data-target="`#collapseFirst${t}`" aria-expanded="true" :aria-controls="`collapseFirst${t}`">
                                                 {{ area.text }}
                                             </button>
                                         </h2>
@@ -40,7 +40,7 @@
                                             <div class="card" v-for="(trimestre,k) in trimestres" :key="k">
                                                 <div class="card-header" id="headingSecond">
                                                     <h2 class="mb-2">
-                                                        <button class="btn btn-link btn-block text-left" v-on:click="()=>botones(area.id, area.id_classroom, trimestre.id, `collapseTwo${area.id}${area.id_classroom}${k}`)">
+                                                        <button class="btn btn-link btn-block text-left height-auto" v-on:click="()=>botones(area.id, area.id_classroom, trimestre.id, `collapseTwo${area.id}${area.id_classroom}${k}`)">
                                                             Ciclo {{trimestre.nombre}}
                                                         </button>
                                                     </h2>
@@ -152,9 +152,9 @@
     </div>
 </template>
 <script>
-$(".collapse").on("show.bs.collapse", function () {
+/* $(".collapse").on("show.bs.collapse", function () {
   $(".collapse.in").collapse("hide");
-});
+}); */
 import moment from 'moment';
 moment.tz.setDefault("America/Bogota");
 moment.locale('es');
@@ -202,6 +202,7 @@ export default {
         botones(area, classroom, trimestre, collapse_ID) {
             console.log('IdCollapse',collapse_ID);
             this.loading = true;
+            this.clases = [];
             axios.get(`/courseCycleAndClass/${area}/${classroom}/${trimestre}`).then((response) => {                
                 this.clases = response.data;
                 console.log(this.clases);
@@ -210,7 +211,9 @@ export default {
                 console.log(error);
                 this.clases = [];
             }); 
+            
             $(`#${collapse_ID}`).collapse('show');
+            //this.lastCollapse = collapse_ID;
         },
         listClassDevelopment(json){
             var classD = JSON.parse(json);
@@ -266,5 +269,8 @@ export default {
     .color-text{
         color:black;
     }
+}
+.height-auto{
+    height: auto;
 }
 </style>
