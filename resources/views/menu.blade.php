@@ -1,6 +1,6 @@
 <!-- Define el menu del aplicativo -->
 @if (Auth::user()->isAdmin())
-<menu-adm-component></menu-adm-component>
+<menu-adm-component :user="{{Auth::user()}}"></menu-adm-component>
 <!-- <menu-adm></menu-adm> -->
 @endif
 

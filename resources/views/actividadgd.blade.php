@@ -5,8 +5,7 @@
   @if (Auth::user()->isTeacher())
 
   @endif
-
-  <actividadg-docente></actividadg-docente>
+  <general-teacher :user="{{Auth::user()}}"></general-teacher>
   <footers></footers>
 <div class="container">
   <!--<app-vue></app-vue>-->

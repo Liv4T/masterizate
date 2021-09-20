@@ -15,9 +15,9 @@
                         <h6 class="letra-poppins-bold" style="color: black">Salones</h6>
                     </a>
 
-                    <a v-on:click="showSection('profiles')" class="btn btn-warning mg-btn" style="background-color: #50E9FB; border-color: #50E9FB; box-shadow: 3px 3px 3px 3px #b0acac">
+                    <!-- <a v-on:click="showSection('profiles')" class="btn btn-warning mg-btn" style="background-color: #50E9FB; border-color: #50E9FB; box-shadow: 3px 3px 3px 3px #b0acac">
                         <h6 class="letra-poppins-bold" style="color: black">Perfiles</h6>
-                    </a>
+                    </a> -->
 
                     <a v-on:click="showSection('piarStudents')" class="btn btn-warning mg-btn" style="background-color: #49CEFB; border-color: #49CEFB; box-shadow: 3px 3px 3px 3px #b0acac">
                         <h6 class="letra-poppins-bold" style="color: black">Estudiantes PIAR</h6>
@@ -49,23 +49,42 @@
         <div class="row">
             <div id="tabs" class="col-md-11 mx-auto">
                 <div>                    
-                    <div v-if="activetab === 'institutions'" class="tabcontent">'Instituciones'</div>
-                    <div v-if="activetab === 'quarter'" class="tabcontent">'Trimestres'</div>
-                    <div v-if="activetab === 'classroom'" class="tabcontent">'Salones'</div>
-                    <div v-if="activetab === 'profiles'" class="tabcontent">'Perfiles'</div>
-                    <div v-if="activetab === 'piarStudents'" class="tabcontent">'Estudiantes PIAR'</div>
-                    <div v-if="activetab === 'users'" class="tabcontent">Usuarios</div>
-                    <div v-if="activetab === 'noteParameters'" class="tabcontent">Parametros de Notas</div>
-                    <div v-if="activetab === 'nursing'" class="tabcontent">'Enfermeria'</div>
-                    <div v-if="activetab === 'feeding'" class="tabcontent">'Alimentación'</div>
-                    <div v-if="activetab === 'transport'" class="tabcontent">'Transporte'</div>
+                    <div v-if="activetab === 'institutions'" class="tabcontent">
+                        <institu-adm></institu-adm>
+                    </div>
+                    <div v-if="activetab === 'quarter'" class="tabcontent">
+                        <trimestres></trimestres>
+                    </div>
+                    <div v-if="activetab === 'classroom'" class="tabcontent">
+                        <cursos-adm></cursos-adm>
+                    </div>
+                    <!-- <div v-if="activetab === 'profiles'" class="tabcontent">'Perfiles'</div> -->
+                    <div v-if="activetab === 'piarStudents'" class="tabcontent">
+                        <piar-component ></piar-component>
+                    </div>
+                    <div v-if="activetab === 'users'" class="tabcontent">
+                        <salon-adm></salon-adm>
+                    </div>
+                    <div v-if="activetab === 'noteParameters'" class="tabcontent">
+                        <admin-configuration></admin-configuration>
+                    </div>
+                    <div v-if="activetab === 'nursing'" class="tabcontent">
+                        <nursing-component></nursing-component>
+                    </div>
+                    <div v-if="activetab === 'feeding'" class="tabcontent">
+                        <food-component></food-component>
+                    </div>
+                    <div v-if="activetab === 'transport'" class="tabcontent">
+                        <pedagogical-course :user="user"></pedagogical-course>
+                    </div>
                 </div>
             </div>
         </div>        
     </div>
 </template>
 <script>
-export default {    
+export default { 
+    props:['user'],   
     data() {
         return {
             activetab: null,

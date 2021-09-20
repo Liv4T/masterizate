@@ -5,7 +5,8 @@
     @if (Auth::user()->isTeacher()||Auth::user()->isPsychology()||Auth::user()->isTutor())
 
     @endif
-<teacher-courses></teacher-courses>
+<!-- <teacher-courses></teacher-courses> -->
+<clases-teacher :user="{{Auth::user()}}"></clases-teacher>
 <footers></footers>
 <div class="container">
     <div class="row justify-content-center">

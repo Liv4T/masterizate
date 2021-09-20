@@ -369,8 +369,8 @@ var render = function() {
     _vm._m(0),
     _vm._v(" "),
     _c("div", [
-      _c("div", [
-        _c("div", { staticClass: "col-md-12 mx-auto" }, [
+      _c("div", { staticClass: "back" }, [
+        _c("div", { staticClass: "col-md-10 mx-auto" }, [
           _c("div", { staticClass: "custom-card text-center" }, [
             _c("h3", { staticClass: "card-header fondo" }, [
               _vm._v("Duplicar planificación general")

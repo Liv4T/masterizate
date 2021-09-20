@@ -419,7 +419,9 @@ var render = function() {
                                     "/crear_semana/" +
                                     area.id +
                                     "/" +
-                                    area.id_classroom
+                                    area.id_classroom +
+                                    "/" +
+                                    1
                                 }
                               },
                               [_vm._v("Crear Ciclo")]

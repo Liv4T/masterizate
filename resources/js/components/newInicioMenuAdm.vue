@@ -41,9 +41,11 @@
                         <perfil-docente></perfil-docente>
                     </div>
                     <div v-if="activetab === 'administrative'" class="tabcontent">
-                        <administ-tab></administ-tab>
+                        <administ-tab :user="user"></administ-tab>
                     </div>
-                    <div v-if="activetab === 'comunications'" class="tabcontent">'Comunicaciones'</div>
+                    <div v-if="activetab === 'comunications'" class="tabcontent">
+                        <comunication-tab :user="user"></comunication-tab>
+                    </div>
                     <div v-if="activetab === 'academic'" class="tabcontent">'Academico'</div>
                     <div v-if="activetab === 'formation'" class="tabcontent">'Formación'</div>
                     <div v-if="activetab === 'government'" class="tabcontent">'Gobierno Escolar'</div>
@@ -56,7 +58,8 @@
     </div>
 </template>
 <script>
-export default {    
+export default {  
+    props:['user'],  
     data() {
         return {
             activetab: null,
@@ -71,7 +74,7 @@ export default {
 </script>
 <style>
 .mg-btn {
-  margin: 10px;
+  margin: 8px;
   min-width: 165px;
 }
 .width-r {

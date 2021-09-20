@@ -75,7 +75,26 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['user'],
   data: function data() {
     return {
       activetab: null
@@ -235,33 +254,6 @@ var render = function() {
                   staticStyle: { color: "black" }
                 },
                 [_vm._v("Salones")]
-              )
-            ]
-          ),
-          _vm._v(" "),
-          _c(
-            "a",
-            {
-              staticClass: "btn btn-warning mg-btn",
-              staticStyle: {
-                "background-color": "#50E9FB",
-                "border-color": "#50E9FB",
-                "box-shadow": "3px 3px 3px 3px #b0acac"
-              },
-              on: {
-                click: function($event) {
-                  return _vm.showSection("profiles")
-                }
-              }
-            },
-            [
-              _c(
-                "h6",
-                {
-                  staticClass: "letra-poppins-bold",
-                  staticStyle: { color: "black" }
-                },
-                [_vm._v("Perfiles")]
               )
             ]
           ),
@@ -435,51 +427,64 @@ var render = function() {
       _c("div", { staticClass: "col-md-11 mx-auto", attrs: { id: "tabs" } }, [
         _c("div", [
           _vm.activetab === "institutions"
-            ? _c("div", { staticClass: "tabcontent" }, [
-                _vm._v("'Instituciones'")
-              ])
+            ? _c("div", { staticClass: "tabcontent" }, [_c("institu-adm")], 1)
             : _vm._e(),
           _vm._v(" "),
           _vm.activetab === "quarter"
-            ? _c("div", { staticClass: "tabcontent" }, [_vm._v("'Trimestres'")])
+            ? _c("div", { staticClass: "tabcontent" }, [_c("trimestres")], 1)
             : _vm._e(),
           _vm._v(" "),
           _vm.activetab === "classroom"
-            ? _c("div", { staticClass: "tabcontent" }, [_vm._v("'Salones'")])
-            : _vm._e(),
-          _vm._v(" "),
-          _vm.activetab === "profiles"
-            ? _c("div", { staticClass: "tabcontent" }, [_vm._v("'Perfiles'")])
+            ? _c("div", { staticClass: "tabcontent" }, [_c("cursos-adm")], 1)
             : _vm._e(),
           _vm._v(" "),
           _vm.activetab === "piarStudents"
-            ? _c("div", { staticClass: "tabcontent" }, [
-                _vm._v("'Estudiantes PIAR'")
-              ])
+            ? _c(
+                "div",
+                { staticClass: "tabcontent" },
+                [_c("piar-component")],
+                1
+              )
             : _vm._e(),
           _vm._v(" "),
           _vm.activetab === "users"
-            ? _c("div", { staticClass: "tabcontent" }, [_vm._v("Usuarios")])
+            ? _c("div", { staticClass: "tabcontent" }, [_c("salon-adm")], 1)
             : _vm._e(),
           _vm._v(" "),
           _vm.activetab === "noteParameters"
-            ? _c("div", { staticClass: "tabcontent" }, [
-                _vm._v("Parametros de Notas")
-              ])
+            ? _c(
+                "div",
+                { staticClass: "tabcontent" },
+                [_c("admin-configuration")],
+                1
+              )
             : _vm._e(),
           _vm._v(" "),
           _vm.activetab === "nursing"
-            ? _c("div", { staticClass: "tabcontent" }, [_vm._v("'Enfermeria'")])
+            ? _c(
+                "div",
+                { staticClass: "tabcontent" },
+                [_c("nursing-component")],
+                1
+              )
             : _vm._e(),
           _vm._v(" "),
           _vm.activetab === "feeding"
-            ? _c("div", { staticClass: "tabcontent" }, [
-                _vm._v("'Alimentación'")
-              ])
+            ? _c(
+                "div",
+                { staticClass: "tabcontent" },
+                [_c("food-component")],
+                1
+              )
             : _vm._e(),
           _vm._v(" "),
           _vm.activetab === "transport"
-            ? _c("div", { staticClass: "tabcontent" }, [_vm._v("'Transporte'")])
+            ? _c(
+                "div",
+                { staticClass: "tabcontent" },
+                [_c("pedagogical-course", { attrs: { user: _vm.user } })],
+                1
+              )
             : _vm._e()
         ])
       ])

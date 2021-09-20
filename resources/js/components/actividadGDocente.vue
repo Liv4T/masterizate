@@ -60,7 +60,7 @@
                     >Duplicar Ciclo</a>
                     <a
                       v-show="general==true"
-                      :href="'/crear_semana/'+ area.id +'/'+ area.id_classroom"
+                      :href="'/crear_semana/'+ area.id +'/'+ area.id_classroom + '/' + 1"
                       class="btn btn-warning"
                     >Crear Ciclo</a>
                     <a

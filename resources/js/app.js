@@ -341,7 +341,7 @@ Vue.component("food-component", ()=>import("./components/FoodComponent.vue"));
 //Modulo de Enfermería Con menú
 Vue.component("menu-nurse", ()=>import("./components/menuNurse.vue"));
 Vue.component("nursing-component", ()=>import("./components/NurseComponent.vue"));
-Vue.component("menu-adm-component", ()=>import("./components/newInicioMenuAdm.vue"));
+Vue.component("menu-adm-component", ()=>import("./components/newMenuAdm.vue"));
 
 //Modulo PIAR
 Vue.component("piar-component", ()=>import("./components/PIARStudentSelect.vue"));
@@ -376,6 +376,7 @@ Vue.component("activities-teacher",()=>import("./components/ActivityTeacherCompo
 Vue.component("trimestre-component",()=>import("./components/trimestreComponent.vue"));
 Vue.component("create-lectives-courses",()=>import("./components/CreatelectivesTeacherCoursesComponent.vue"));
 Vue.component("administ-tab", ()=>import("./components/tabsAdministrative.vue"));
+Vue.component("comunication-tab", ()=>import("./components/tabComunication.vue"));
 Vue.use(CKEditor);
 
 
