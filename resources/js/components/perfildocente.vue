@@ -20,7 +20,7 @@
                   <div class="col-md-3">
                     <label for="name">Apellidos</label>
                   </div>
-                  <div class="col-md-6">
+                  <div class="col-md-6 ml-2">
                     <label for="name">
                       {{
                       dataU.last_name
@@ -32,7 +32,7 @@
                   <div class="col-md-3">
                     <label for="name">Nombres</label>
                   </div>
-                  <div class="col-md-6">
+                  <div class="col-md-6 ml-2">
                     <label for="name">
                       {{
                       dataU.name
