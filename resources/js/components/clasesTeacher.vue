@@ -11,17 +11,18 @@
       </div>
       <div class="row">
         <div id="tabs" class="col-md-9 mx-auto">
-          <div class="tabs">
-            <a v-on:click="activetab = 1" v-bind:class="[activetab === 1 ? 'active' : '']"><h4 class="letra-poppins-bold">CLASES</h4></a>
-            <a v-on:click="activetab = 2" v-bind:class="[activetab === 2 ? 'active' : '']"><h4 class="letra-poppins-bold">ACTIVIDADES</h4></a>
-            <a v-on:click="activetab = 3" v-bind:class="[activetab === 3 ? 'active' : '']"><h4 class="letra-poppins-bold">NOTAS</h4></a>
-            <a v-on:click="activetab = 4" v-bind:class="[activetab === 4 ? 'active' : '']"><h4 class="letra-poppins-bold">ENTREGAS</h4></a>
+          <div class="tabs text-center">
+            <a v-on:click="activetab = 1" v-if="user.type_user === 1 || user.type_user === 2" v-bind:class="[activetab === 1 ? 'active' : '']"><h4 class="letra-poppins-bold">CLASES</h4></a>
+            <a v-on:click="activetab = 2" v-if="user.type_user === 1 || user.type_user === 2" v-bind:class="[activetab === 2 ? 'active' : '']"><h4 class="letra-poppins-bold">ACTIVIDADES</h4></a>
+            <a v-on:click="activetab = 3" v-if="user.type_user === 1 || user.type_user === 2" v-bind:class="[activetab === 3 ? 'active' : '']"><h4 class="letra-poppins-bold">NOTAS</h4></a>
+            <a v-on:click="activetab = 4" v-if="user.type_user === 1 || user.type_user === 2" v-bind:class="[activetab === 4 ? 'active' : '']"><h4 class="letra-poppins-bold">ENTREGAS</h4></a>
           </div>
 
           <!-- <div class="content-azul"> -->
           <div>
             <div v-if="activetab === 1" class="tabcontent">
-              <div v-if="idArea !=''">
+              <div v-if="idArea !='' || user.type_user === 7">
+                <h3 v-show="user.type_user === 7" class="card-header fondo">Mis Cursos</h3>
                 <cycle-list :idArea="idAreaClass" :planif="planif" :user="user"></cycle-list>
               </div>
             </div>

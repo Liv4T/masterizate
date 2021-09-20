@@ -58,6 +58,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -220,83 +221,107 @@ var render = function() {
       _vm._v(" "),
       _c("div", { staticClass: "row" }, [
         _c("div", { staticClass: "col-md-9 mx-auto", attrs: { id: "tabs" } }, [
-          _c("div", { staticClass: "tabs" }, [
-            _c(
-              "a",
-              {
-                class: [_vm.activetab === 1 ? "active" : ""],
-                on: {
-                  click: function($event) {
-                    _vm.activetab = 1
-                  }
-                }
-              },
-              [
-                _c("h4", { staticClass: "letra-poppins-bold" }, [
-                  _vm._v("CLASES")
-                ])
-              ]
-            ),
+          _c("div", { staticClass: "tabs text-center" }, [
+            _vm.user.type_user === 1 || _vm.user.type_user === 2
+              ? _c(
+                  "a",
+                  {
+                    class: [_vm.activetab === 1 ? "active" : ""],
+                    on: {
+                      click: function($event) {
+                        _vm.activetab = 1
+                      }
+                    }
+                  },
+                  [
+                    _c("h4", { staticClass: "letra-poppins-bold" }, [
+                      _vm._v("CLASES")
+                    ])
+                  ]
+                )
+              : _vm._e(),
             _vm._v(" "),
-            _c(
-              "a",
-              {
-                class: [_vm.activetab === 2 ? "active" : ""],
-                on: {
-                  click: function($event) {
-                    _vm.activetab = 2
-                  }
-                }
-              },
-              [
-                _c("h4", { staticClass: "letra-poppins-bold" }, [
-                  _vm._v("ACTIVIDADES")
-                ])
-              ]
-            ),
+            _vm.user.type_user === 1 || _vm.user.type_user === 2
+              ? _c(
+                  "a",
+                  {
+                    class: [_vm.activetab === 2 ? "active" : ""],
+                    on: {
+                      click: function($event) {
+                        _vm.activetab = 2
+                      }
+                    }
+                  },
+                  [
+                    _c("h4", { staticClass: "letra-poppins-bold" }, [
+                      _vm._v("ACTIVIDADES")
+                    ])
+                  ]
+                )
+              : _vm._e(),
             _vm._v(" "),
-            _c(
-              "a",
-              {
-                class: [_vm.activetab === 3 ? "active" : ""],
-                on: {
-                  click: function($event) {
-                    _vm.activetab = 3
-                  }
-                }
-              },
-              [
-                _c("h4", { staticClass: "letra-poppins-bold" }, [
-                  _vm._v("NOTAS")
-                ])
-              ]
-            ),
+            _vm.user.type_user === 1 || _vm.user.type_user === 2
+              ? _c(
+                  "a",
+                  {
+                    class: [_vm.activetab === 3 ? "active" : ""],
+                    on: {
+                      click: function($event) {
+                        _vm.activetab = 3
+                      }
+                    }
+                  },
+                  [
+                    _c("h4", { staticClass: "letra-poppins-bold" }, [
+                      _vm._v("NOTAS")
+                    ])
+                  ]
+                )
+              : _vm._e(),
             _vm._v(" "),
-            _c(
-              "a",
-              {
-                class: [_vm.activetab === 4 ? "active" : ""],
-                on: {
-                  click: function($event) {
-                    _vm.activetab = 4
-                  }
-                }
-              },
-              [
-                _c("h4", { staticClass: "letra-poppins-bold" }, [
-                  _vm._v("ENTREGAS")
-                ])
-              ]
-            )
+            _vm.user.type_user === 1 || _vm.user.type_user === 2
+              ? _c(
+                  "a",
+                  {
+                    class: [_vm.activetab === 4 ? "active" : ""],
+                    on: {
+                      click: function($event) {
+                        _vm.activetab = 4
+                      }
+                    }
+                  },
+                  [
+                    _c("h4", { staticClass: "letra-poppins-bold" }, [
+                      _vm._v("ENTREGAS")
+                    ])
+                  ]
+                )
+              : _vm._e()
           ]),
           _vm._v(" "),
           _c("div", [
             _vm.activetab === 1
               ? _c("div", { staticClass: "tabcontent" }, [
-                  _vm.idArea != ""
+                  _vm.idArea != "" || _vm.user.type_user === 7
                     ? _c(
                         "div",
                         [
+                          _c(
+                            "h3",
+                            {
+                              directives: [
+                                {
+                                  name: "show",
+                                  rawName: "v-show",
+                                  value: _vm.user.type_user === 7,
+                                  expression: "user.type_user === 7"
+                                }
+                              ],
+                              staticClass: "card-header fondo"
+                            },
+                            [_vm._v("Mis Cursos")]
+                          ),
+                          _vm._v(" "),
                           _c("cycle-list", {
                             attrs: {
                               idArea: _vm.idAreaClass,

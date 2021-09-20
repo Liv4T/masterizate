@@ -56,15 +56,15 @@
                       Mis clases
                     </a>
 
-                    <a href="/docente/estudiantes">
+                    <!-- <a href="/docente/estudiantes">
                       <img width="35px" src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/ACTIVIDADES_naranja.png?alt=media&token=93ec6b97-e5a6-4eca-891e-b63bf2a352ad" alt />
                       Mis Estudiantes
-                    </a>
-                    <a href="/repository"> <img width="35px" src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/NOTAS_naranja.png?alt=media&token=93ec6b97-e5a6-4eca-891e-b63bf2a352ad" alt />Entregas</a>
-                    <a href="/notas_d">
+                    </a> -->
+                    <!-- <a href="/repository"> <img width="35px" src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/NOTAS_naranja.png?alt=media&token=93ec6b97-e5a6-4eca-891e-b63bf2a352ad" alt />Entregas</a> -->
+                    <!-- <a href="/notas_d">
                       <img width="35px" src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/NOTAS_naranja.png?alt=media&token=93ec6b97-e5a6-4eca-891e-b63bf2a352ad" alt />
                       Notas
-                    </a>
+                    </a> -->
                     <a href="/board">
                       <img width="35px" src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/NOTAS_naranja.png?alt=media&token=93ec6b97-e5a6-4eca-891e-b63bf2a352ad" alt />
                       Pizarra
