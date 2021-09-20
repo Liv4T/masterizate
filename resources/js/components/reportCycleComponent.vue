@@ -48,7 +48,10 @@
                                                 </div>
                                             
                                                 <div :id="`collapseTwo${area.id}${area.id_classroom}${k}`" class="collapse" aria-labelledby="headingSecond" data-parent="#secondAccordion">
-                                                    <div class="card-body">                                            
+                                                    <div class="card-body">
+                                                        <div class="text-left" style="padding-bottom: 1rem;">
+                                                            <a class="btn btn-warning" href="">Descargar Excel</a>
+                                                        </div>                                            
                                                         <table class="table table-responsive-xl table-hover table-striped center">
                                                             <thead>
                                                                 <tr>

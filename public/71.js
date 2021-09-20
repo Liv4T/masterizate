@@ -101,6 +101,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 $(".collapse").on("show.bs.collapse", function () {
   $(".collapse.in").collapse("hide");
 });
@@ -158,8 +161,8 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale('es');
       this.loading = true;
       this.achievements = [];
       axios.get("/coursePlanificationObjetives/".concat(id_achievement, "/").concat(id_planification)).then(function (response) {
-        _this3.achievements = response.data; //console.log("respuesta",this.achievements);
-
+        _this3.achievements = response.data;
+        console.log("respuesta", _this3.achievements);
         _this3.loading = false;
       })["catch"](function (error) {
         console.log(error);
@@ -474,6 +477,37 @@ var render = function() {
                                           "div",
                                           { staticClass: "card-body" },
                                           [
+                                            _c(
+                                              "div",
+                                              {
+                                                staticClass: "text-left",
+                                                staticStyle: {
+                                                  "padding-bottom": "1rem"
+                                                }
+                                              },
+                                              [
+                                                _c(
+                                                  "a",
+                                                  {
+                                                    staticClass:
+                                                      "btn btn-warning",
+                                                    attrs: {
+                                                      href:
+                                                        "downloadReportObjetives/" +
+                                                        logro.id +
+                                                        "/" +
+                                                        logro.id_planification +
+                                                        "/" +
+                                                        logro.achievement +
+                                                        "/" +
+                                                        area.text
+                                                    }
+                                                  },
+                                                  [_vm._v("Descargar Excel")]
+                                                )
+                                              ]
+                                            ),
+                                            _vm._v(" "),
                                             _c(
                                               "table",
                                               {

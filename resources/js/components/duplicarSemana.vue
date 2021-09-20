@@ -54,7 +54,7 @@
 
                    <div class="col-4">
                     <label>Ciclo:</label>
-                    <select class="form-control"  v-model="fromData.weekly_planning" @change="onChangeWeerklyPlanFrom($event)" :disabled="fromData.area=='null'">
+                    <select class="form-control"  v-model="fromData.weekly_planning" @change="onChangeWeerklyPlanFrom()" :disabled="fromData.area=='null'">
                       <option value="null">- Nada -</option>
                       <option  v-for="(weekly_plan, k_w) in weekly_planning" :key="k_w" v-bind:value="weekly_plan"  >{{ weekly_plan.text }}</option>
                     </select>
@@ -65,7 +65,7 @@
                     <select class="form-control" v-model="fromData.class_planning" :disabled="fromData.weekly_planning=='null'|| fromData.weekly_planning=='all'">
                       <option value="null">- Nada -</option>
                       <option value="all">- Todas las clases -</option>
-                      <option  v-for="(class_plan, k_c) in class_planning" :key="k_c" v-bind:value="class_plan"  >{{ class_plan.name }}</option>
+                      <option  v-for="(class_plaan, k_cc) in class_planning_select" :key="k_cc" v-bind:value="class_plaan">{{ class_plaan.name }}</option>
                     </select>
                   </div>              
                 </div>
@@ -144,7 +144,7 @@
               <label for="date">Fecha Inicio de Clase</label>
               <input type="datetime-local" class="form-control" v-model="fromData.class_planning.date_init_class"/>
             </div>     
-            <div v-show="fromData.class_planning='all'" v-for="(class_plan, key) in class_planning" :key="key">
+            <div v-show="fromData.class_planning=='all'" v-for="(class_plan, key) in class_planning_select" :key="key">
               <label>{{class_plan.name}}</label>
               <input type="datetime-local" class="form-control" v-model="class_plan.date_init_class"/>
             </div>     
@@ -268,7 +268,7 @@ export default {
       quarterly_planning:[],
       weekly_planning:[],
       percent_planning:[],
-      class_planning:[],
+      class_planning_select:[],
       to_annual_planning:[],
       to_quarterly_planning:[],
       to_weekly_planning:[],
@@ -297,21 +297,20 @@ export default {
   mounted() {
    this.getTrimestres();
    this.getAreas();    
+   console.log("fromData",this.fromData);
   },
   methods: {
     copyInformationEvent()
     {
       $('#progressModal').modal('show');
-      axios.put("/api/planification/copy",{fromData:this.fromData,toData:this.toData, class_planning:this.class_planning}).then((response) => {
+      console.log(this.fromData);
+      axios.put("/api/planification/copy",{fromData:this.fromData,toData:this.toData, class_planning:this.class_planning_select}).then((response) => {
         this.loading = false;      
       });   
       setTimeout(function(){ 
         $('#progressModal').modal('hide');
         $('#exampleModal').modal('hide');
       }, 2000);           
-    },
-    onChangePlanTo($event){
-
     },
     getAreas(){
       axios.get("/GetArearByUser").then((response) => {
@@ -333,6 +332,7 @@ export default {
        axios.get(`/editOneWeek/${this.toData.area.id}/${this.toData.area.id_classroom}/${this.fromData.trimestres}`).then((response) => {
         this.to_weekly_planning=response.data;
       });
+      
     },
     onChangeWeerklyPlanTo($event){
 
@@ -353,16 +353,19 @@ export default {
       if(this.fromData.weekly_planning!='null' && this.fromData.weekly_planning!='all')
       {
           axios.get(`/showClass/${this.fromData.weekly_planning.id}`).then((response) => {
-                this.class_planning=response.data.clase;
+                this.class_planning_select=response.data.clase;
+                console.log("Clases",this.class_planning_select);
+                console.log("Second FromData",this.fromData);
           });
       }
       else{
-        this.class_planning=[];
+        this.class_planning_select=[];
       }
      
     },
     onChangeAreaFrom($event){
       if(this.fromData.area!='' && this.fromData.trimestres!=''){
+        console.log("Thrid FromData",this.fromData);
         axios.get(`/coursePlanification/${this.fromData.area.id}/${this.fromData.area.id_classroom}`).then((response) => {
           this.annual_planning=response.data.achievements;
           this.quarterly_planning=response.data.quaterly;
@@ -371,53 +374,6 @@ export default {
           this.weekly_planning=response.data;
         });
       }
-    },
-    onChangePlanFrom($event){
-    
-        if(this.fromData.annual_planning=='one')
-        {
-          this.fromData.percent_planning='null';
-          this.fromData.quarterly_planning='null';
-          this.fromData.weekly_planning='null';
-          this.fromData.class_planning='null';
-        }
-        else if(this.fromData.annual_planning!='all' && this.fromData.annual_planning!='null')
-        {
-          this.fromData.percent_planning=this.fromData.annual_planning;
-          this.fromData.quarterly_planning='all';
-          this.fromData.weekly_planning='all';
-          this.fromData.class_planning='all';
-        }
-        else if(this.fromData.annual_planning=='all')
-        {
-           this.fromData.percent_planning='all';
-           this.fromData.quarterly_planning='all';
-           this.fromData.weekly_planning='all';
-          this.fromData.class_planning='all';
-        }
-        else if(this.fromData.annual_planning=='null')
-        {
-          this.fromData.percent_planning='null';
-          this.fromData.quarterly_planning='null';
-          this.fromData.weekly_planning='null';
-          this.fromData.class_planning='null';
-
-         
-
-
-        }
-
-         this.toData={
-            area:'null',
-            annual_planning:'null',
-            quarterly_planning:'null',
-            weekly_planning:'null',
-            percent_planning:'null',
-            class_planning:'null'
-          };
-
-
-
     },
     getMenu() {
       window.location = "/actividad_g";

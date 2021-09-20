@@ -164,6 +164,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 /* $(".collapse").on("show.bs.collapse", function () {
   $(".collapse.in").collapse("hide");
@@ -549,6 +552,8 @@ var render = function() {
                                           "div",
                                           { staticClass: "card-body" },
                                           [
+                                            _vm._m(1, true),
+                                            _vm._v(" "),
                                             _c(
                                               "table",
                                               {
@@ -556,7 +561,7 @@ var render = function() {
                                                   "table table-responsive-xl table-hover table-striped center"
                                               },
                                               [
-                                                _vm._m(1, true),
+                                                _vm._m(2, true),
                                                 _vm._v(" "),
                                                 _c(
                                                   "tbody",
@@ -718,7 +723,7 @@ var render = function() {
           { staticClass: "modal-dialog", attrs: { role: "document" } },
           [
             _c("div", { staticClass: "modal-content" }, [
-              _vm._m(2),
+              _vm._m(3),
               _vm._v(" "),
               _c("div", { staticClass: "modal-body" }, [
                 _vm.classes.length > 0
@@ -727,7 +732,7 @@ var render = function() {
                         "table",
                         { staticClass: "table table-stripped table-hover" },
                         [
-                          _vm._m(3),
+                          _vm._m(4),
                           _vm._v(" "),
                           _c(
                             "tbody",
@@ -827,7 +832,7 @@ var render = function() {
                     ])
               ]),
               _vm._v(" "),
-              _vm._m(4)
+              _vm._m(5)
             ])
           ]
         )
@@ -844,6 +849,20 @@ var staticRenderFns = [
       "div",
       { staticClass: "spinner-border m-5", attrs: { role: "status" } },
       [_c("span", { staticClass: "sr-only" }, [_vm._v("Loading...")])]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      { staticClass: "text-left", staticStyle: { "padding-bottom": "1rem" } },
+      [
+        _c("a", { staticClass: "btn btn-warning", attrs: { href: "" } }, [
+          _vm._v("Descargar Excel")
+        ])
+      ]
     )
   },
   function() {

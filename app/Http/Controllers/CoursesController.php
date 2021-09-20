@@ -16,7 +16,16 @@ use App\ClassroomStudent;
 use App\ClassroomTeacher;
 use App\Classs;
 use App\Indicator;
+use App\LectiveWeeklyPlan;
+use App\LectivePlanification;
+use App\LectiveQuarterlyPlan;
+use App\LectiveClass;
+use App\LectiveAchievement;
+use App\LectiveClassContent;
 use Carbon\Carbon;
+use App\Exports\PlanificationPerObjetivesExport;
+use App\Exports\CyclesAndClassExport;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -96,6 +105,13 @@ class CoursesController extends Controller
         return response()->json($quaterly);
     }
 
+    public function downloadReportObjetives(String $id_achievement, String $id_planification, String $objetivesName, String $areaName){
+        $nameObj=str_replace(' ', '', $objetivesName);
+        $nameArea=str_replace(' ', '', $areaName);
+        return Excel::download(new PlanificationPerObjetivesExport($id_achievement, $id_planification),'Reporte_Planificación_'.$nameArea.'_'.$nameObj.'.xls');
+
+    }
+
     public function getReportCycleAndClass(String $id_area, String $id_classroom, String $id_trimestre){
 
         $dataWeek = [];
@@ -123,6 +139,13 @@ class CoursesController extends Controller
             }
 
             return response()->json($dataWeek);
+    }
+
+    public function downloadReportCycles(String $id_achievement, String $id_planification, String $objetivesName, String $areaName){
+        $nameObj=str_replace(' ', '', $objetivesName);
+        $nameArea=str_replace(' ', '', $areaName);
+        return Excel::download(new CyclesAndClassExport($id_achievement, $id_planification),'Reporte_Ciclos_y_Clases_'.$nameArea.'_'.$nameObj.'.xls');
+
     }
 
     /**
@@ -810,7 +833,6 @@ class CoursesController extends Controller
                                 'updated_user'=> $auth->id
                             ]);
                         }
-
                     }
                 }
 
@@ -938,6 +960,203 @@ class CoursesController extends Controller
                     $evento->id_classroom = $data['toData']['area']['id_classroom'];
                     $evento->id_user = Auth::user()->id;
                     $evento->url = $clase->url_class;
+                    $evento->id_padre = NULL; 
+                    $evento->save();
+
+                }
+            }
+
+
+        }
+    }
+    public function copyInformationLectives(Request $request)
+    {
+        $auth=Auth::user();
+        $data = $request->all();
+        $class_plan = $data['class_planning'];
+        //return $class_plan;
+
+        if(isset($data['fromData']) && isset($data['toData']) && isset($data['fromData']['weekly_planning']['id']) && isset($data['fromData']['trimestres']))
+        {
+            //copy weekly_planning
+            $weekly_planning_id=0;
+            if( $data['toData']['weekly_planning']=='new')
+            {
+                //return $data['toData']['area'];
+                $weekly_plan=LectiveWeeklyPlan::find($data['fromData']['weekly_planning']['id']);
+                $new_weekly_plan=LectiveWeeklyPlan::create([
+                    'id_lective_planification'=>$data['toData']['area']['id_planification'],
+                    'order'=>$weekly_plan->order,
+                    'name'=>$weekly_plan->name,
+                    'content'=>$weekly_plan->content,
+                    'id_trimestre'=>$data['fromData']['trimestres'],
+                    'observation'=>$weekly_plan->observation,
+                    'state'=>$weekly_plan->state,
+                    'deleted'=>$weekly_plan->deleted,
+                    'updated_user'=>$weekly_plan->updated_user,
+                ]);
+                $weekly_planning_id=$new_weekly_plan->id;
+            }
+            else
+            {
+                $weekly_plan=LectiveWeeklyPlan::find($data['fromData']['weekly_planning']['id']);
+                LectiveWeeklyPlan::where('id',$data['toData']['weekly_planning']['id'])->update([
+                    'id_lective_planification'=>$data['toData']['area']['id_planification'],
+                    'order'=>$weekly_plan->order,
+                    'name'=>$weekly_plan->name,
+                    'content'=>$weekly_plan->content,
+                    'id_trimestre'=>$data['fromData']['trimestres'],
+                    'observation'=>$weekly_plan->observation,
+                    'state'=>$weekly_plan->state,
+                    'deleted'=>$weekly_plan->deleted,
+                    'updated_user'=>$weekly_plan->updated_user,
+                ]);
+                $weekly_planning_id=$data['toData']['weekly_planning']['id'];
+            }
+
+
+            //copy class information
+            if($data['fromData']['class_planning']=='null')
+            {
+
+            }
+            else if($data['fromData']['class_planning']=='all')
+            {
+
+                $class_planning=LectiveClass::where('id_lective_weekly_plan',$data['fromData']['weekly_planning']['id'])->get();
+
+                foreach ($class_planning as $key_c => $clase) {  
+                    if($class_plan[$key_c]['id_class'] === $clase->id){
+                        $class =LectiveClass::create([
+                            'name'=>$clase->name,
+                            'id_lective_weekly_plan'=>$weekly_planning_id,
+                            'description'=> $clase->description,
+                            'hourly_intensity'=> $clase->hourly_intensity,
+                            'state'=> $clase->state,
+                            'deleted'=> $clase->deleted,
+                            'updated_user'=>$clase->updated_user,
+                        ]);
+                        $date_i= $class_plan[$key_c]['date_init_class'];
+                        $explode=explode("T", $date_i);
+                        $date_init= $explode[0] . ' ' . $explode[1];
+                        $date_fin=date( 'Y-m-d H:i' ,  strtotime ( '+2 hour' , strtotime ($date_init))) ;
+                        $evento = new Eventos;
+                        $evento->name = $clase->name;
+                        $evento->date_from = $date_init;
+                        $evento->date_to = $date_fin;
+                        $evento->id_area = $data['toData']['area']['lective']['id'];
+                        $evento->id_classroom = 0;
+                        $evento->id_user = Auth::user()->id;
+                        $evento->url = 'no hay url asiganada';
+                        $evento->id_padre = NULL; 
+                        $evento->save();
+                    }                                                             
+                    if(isset($class))
+                    {
+                        $classes_content=LectiveClassContent::where('id_lective_class',$clase->id)->where('deleted',0)->get();
+                        foreach ($classes_content as $key_cc => $class_content) {
+                            LectiveClassContent::create([
+                                'id_lective_class'=>$class->id,
+                                'content_type'=>$class_content->content_type,
+                                'content'=>$class_content->content,
+                                'description'=>$class_content->description,
+                                'student_visited_date'=>$class_content->student_visited_date,
+                                'state'=>$class_content->state,
+                                'deleted'=>0,
+                                'updated_user'=> $auth->id
+                            ]);
+                        }
+
+                    }
+                }
+
+            }
+            else{
+
+                if($data['fromData']['class_planning']=='null')
+                {
+
+                }
+                else if($data['toData']['class_planning']=='new')
+                {
+                    $clase=LectiveClass::find($data['fromData']['class_planning']['id']);
+
+                    $class=LectiveClass::create([
+                        'name'=>$clase->name,
+                        'id_lective_weekly_plan'=>$weekly_planning_id,
+                        'description'=> $clase->description,
+                        'hourly_intensity'=> $clase->hourly_intensity,
+                        'state'=> $clase->state,
+                        'deleted'=> $clase->deleted,
+                        'updated_user'=>$clase->updated_user,
+                    ]);
+
+                    //$date_i= $data['fromData']['class_planning']['date_init_class'];
+                    //$explode=explode("T", $date_i);
+                    //$date_init= $explode[0] . ' ' . $explode[1];
+                    $date_init= $data['fromData']['class_planning']['date_init_class'];
+                    $date_fin=date( 'Y-m-d H:i' ,  strtotime ( '+2 hour' , strtotime ($date_init))) ;
+                    $date_init= $data['fromData']['class_planning']['date_init_class'];
+                    $date_fin=date_add($date_init, date_interval_create_from_date_string("2 hours"));
+                    $evento = new Eventos;
+                    $evento->name = $clase->name;
+                    $evento->date_from = $date_init;
+                    $evento->date_to = $date_fin;
+                    $evento->id_area = $data['toData']['area']['id'];
+                    $evento->id_classroom = 0;
+                    $evento->id_user = Auth::user()->id;
+                    $evento->url = 'no hay url asiganada';
+                    $evento->id_padre = NULL; 
+                    $evento->save();
+
+                    if(isset($class))
+                    {
+                        $classes_content=LectiveClassContent::where('id_class',$clase->id)->where('deleted',0)->get();
+                        foreach ($classes_content as $key_cc => $class_content) {
+                            LectiveClassContent::create([
+                                'id_lective_class'=>$class->id,
+                                'content_type'=>$class_content->content_type,
+                                'content'=>$class_content->content,
+                                'description'=>$class_content->description,
+                                'student_visited_date'=>$class_content->student_visited_date,
+                                'state'=>$class_content->state,
+                                'deleted'=>0,
+                                'updated_user'=> $auth->id
+                            ]);
+                        }
+
+
+                    }
+                }
+                else
+                {
+                    $clase=LectiveClass::find($data['fromData']['class_planning']['id']);
+
+                    LectiveClass::where('id',$data['toData']['class_planning']['id'])->update([
+                        'name'=>$clase->name,
+                        'id_lective_weekly_plan'=>$weekly_planning_id,
+                        'description'=> $clase->description,
+                        'hourly_intensity'=> $clase->hourly_intensity,
+                        'state'=> $clase->state,
+                        'deleted'=> $clase->deleted,
+                        'updated_user'=>$clase->updated_user,
+                    ]);
+
+                    //$date_i= $data['fromData']['class_planning']['date_init_class'];
+                    //$explode=explode("T", $date_i);
+                    //$date_init= $explode[0] . ' ' . $explode[1];
+                    $date_init= $data['fromData']['class_planning']['date_init_class'];
+                    $date_fin=date( 'Y-m-d H:i' ,  strtotime ( '+2 hour' , strtotime ($date_init))) ;
+                    $date_init= $data['fromData']['class_planning']['date_init_class'];
+                    $date_fin=date_add($date_init, date_interval_create_from_date_string("2 hours"));
+                    $evento = new Eventos;
+                    $evento->name = $clase->name;
+                    $evento->date_from = $date_init;
+                    $evento->date_to = $date_fin;
+                    $evento->id_area = $data['toData']['area']['id'];
+                    $evento->id_classroom = 0;
+                    $evento->id_user = Auth::user()->id;
+                    $evento->url = 'no hay url asiganada';
                     $evento->id_padre = NULL; 
                     $evento->save();
 

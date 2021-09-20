@@ -144,7 +144,7 @@
               <label for="date">Fecha Inicio de Clase</label>
               <input type="datetime-local" class="form-control" v-model="fromData.class_planning.date_init_class"/>
             </div>     
-            <div v-show="fromData.class_planning='all'" v-for="(class_plan, key) in class_planning" :key="key">
+            <div v-show="fromData.class_planning=='all'" v-for="(class_plan, key) in class_planning" :key="key">
               <label>{{class_plan.name}}</label>
               <input type="datetime-local" class="form-control" v-model="class_plan.date_init_class"/>
             </div>     
@@ -277,7 +277,7 @@ export default {
   methods: {
     copyInformationEvent()
     {
-      axios.put("/api/planification/copy",{fromData:this.fromData,toData:this.toData, class_planning:this.class_planning}).then((response) => {
+      axios.put("/api/lectives/planification/copy",{fromData:this.fromData,toData:this.toData, class_planning:this.class_planning}).then((response) => {
         toastr.success("Información duplicada correctamente");
       });      
     },

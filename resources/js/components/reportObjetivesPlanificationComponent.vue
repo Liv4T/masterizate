@@ -45,7 +45,10 @@
                                                     </h2>            
                                                 </div>
                                                 <div :id="`collapseTwo${area.id}${area.id_classroom}${k}`" class="collapse" aria-labelledby="headingSecond" data-parent="#secondAccordion">
-                                                    <div class="card-body">                                            
+                                                    <div class="card-body">     
+                                                        <div class="text-left" style="padding-bottom: 1rem;">
+                                                            <a class="btn btn-warning" :href='"downloadReportObjetives/"+logro.id+"/"+logro.id_planification+"/"+logro.achievement+"/"+area.text'>Descargar Excel</a>
+                                                        </div>
                                                         <table class="table table-responsive-xl table-hover table-striped center">
                                                             <thead>
                                                                 <tr>
@@ -142,7 +145,7 @@ export default {
             this.achievements = [];
             axios.get(`/coursePlanificationObjetives/${id_achievement}/${id_planification}`).then((response) => {                
                 this.achievements = response.data;
-                //console.log("respuesta",this.achievements);
+                console.log("respuesta",this.achievements);
                 this.loading = false;
             }).catch((error)=>{
                 console.log(error);

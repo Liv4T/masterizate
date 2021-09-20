@@ -898,6 +898,7 @@ Route::get('/api/lectives/planification/{id_lective_planification}/weekly/{id_we
 Route::get('/api/lectives/planification/{id_lective_planification}/activities', 'LectivesController@getActivitiesByPlan');
 Route::put('/api/lectives/planification/{id_lective_planification}/weekly/{id_weekly_plan}/course/{id_class}/activity/{id_activity}/module/ENCUESTA_UNICA_RTA/question/{id_question}', 'QuestionController@responseQuestiononLective');
 Route::put('/api/planification/copy', 'CoursesController@copyInformation');
+Route::put('/api/lectives/planification/copy', 'CoursesController@copyInformationLectives');
 
 //parents
 
@@ -1076,6 +1077,7 @@ Route::get('ReportAnnualPlanification', 'AdminReportController@ReportAnnualPlani
 Route::middleware('auth')->get('/reportAdmin', function () {
     return view('reportAdmin');
 });
+Route::middleware('auth')->get('/downloadReportObjetives/{id_achievement}/{id_planification}/{objetivesName}/{areaName}', 'CoursesController@downloadReportObjetives');
 //Paypal pay
 Route::middleware('auth')->get('/compra/pagar/paypal/{data_string}', 'PurchasedController@payPaypal');
 Route::middleware('auth')->get('/compra/pagar/plan/paypal/{data_string}', 'PurchasedController@payPaypalPlan');
