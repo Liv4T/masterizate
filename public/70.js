@@ -279,7 +279,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n@media (min-width: 576px){\n.modal-dialog {\n        max-width: 1100px;\n        margin: 1.75rem auto;\n}\nul.text-left{\n        list-style-type:decimal;\n        padding-left: 0rem;\n}\nul li {\n        padding-left: 0rem;\n}\nul.second-file{\n        list-style-type: none;\n        padding-left: 0rem;\n}\n.color-text{\n        color:black;\n}\n}\n.height-auto{\n    height: auto;\n}\n", ""]);
+exports.push([module.i, "\n@media (min-width: 576px){\n.modal-dialog {\r\n        max-width: 1100px;\r\n        margin: 1.75rem auto;\n}\nul.text-left{\r\n        list-style-type:decimal;\r\n        padding-left: 0rem;\n}\nul li {\r\n        padding-left: 0rem;\n}\nul.second-file{\r\n        list-style-type: none;\r\n        padding-left: 0rem;\n}\n.color-text{\r\n        color:black;\n}\n}\n.height-auto{\r\n    height: auto;\n}\r\n", ""]);
 
 // exports
 

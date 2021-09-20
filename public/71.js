@@ -202,7 +202,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\nul{\n    list-style-type:decimal;\n}\nul li {\n  padding-left: 0.5rem;\n}\n.height-auto{\n    height: auto;\n}\n", ""]);
+exports.push([module.i, "\nul{\r\n    list-style-type:decimal;\n}\nul li {\r\n  padding-left: 0.5rem;\n}\n.height-auto{\r\n    height: auto;\n}\r\n", ""]);
 
 // exports
 
