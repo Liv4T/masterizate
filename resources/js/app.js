@@ -377,6 +377,7 @@ Vue.component("trimestre-component",()=>import("./components/trimestreComponent.
 Vue.component("create-lectives-courses",()=>import("./components/CreatelectivesTeacherCoursesComponent.vue"));
 Vue.component("administ-tab", ()=>import("./components/tabsAdministrative.vue"));
 Vue.component("comunication-tab", ()=>import("./components/tabComunication.vue"));
+Vue.component("clases-client", ()=>import("./components/clasesCliente.vue"));
 Vue.use(CKEditor);
 
 

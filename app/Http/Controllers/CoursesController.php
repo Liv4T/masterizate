@@ -16,6 +16,8 @@ use App\ClassroomStudent;
 use App\ClassroomTeacher;
 use App\Classs;
 use App\Indicator;
+use App\VinculationTutorStudent;
+use App\TutorCode;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -73,6 +75,24 @@ class CoursesController extends Controller
             'courses' => $Courses,
             'achievements' => $achievements
         ]; 
+
+        return response()->json($data);
+    }
+    public function getAreaByClient(){
+        $user = Auth::user();
+        $data = [];
+        $codeVinculated = VinculationTutorStudent::where('id_student',$user->id)->get();
+
+        foreach($codeVinculated as $key => $vinculated){
+            $code = TutorCode::where('code','=',$vinculated->code_vinculated)->first();
+            $area = Area::where('id','=', $code->id_area)->first();
+            $data[$key]= [
+                'id_tutor' => $vinculated->id_tutor,
+                'id_area'=>$code->id_area,
+                'area_name' => $area->name,
+                'code' => $code->code
+            ];
+        }
 
         return response()->json($data);
     }
