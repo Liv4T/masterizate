@@ -98,12 +98,6 @@ Route::middleware('auth')->get('/crear_semana/{id_area}/{id_classroom}/{id_trime
 Route::middleware('auth')->get('/cycle/list/{id_area}/{id_classroom}', function (String $id_area, String $id_classroom) {
     return view('cycleList')->with('id_area', $id_area)->with('id_classroom', $id_classroom);
 });
-
-Route::middleware('auth')->get('/clasesClient', function () {
-    return view('clasesCliente');
-});
-
-
 Route::middleware('auth')->get('/act_semana/{id_area}/{id_classroom}/{cycle_id}', function (String $id_area, String $id_classroom, String $cycle_id) {
     return view('semanalAct')->with('id_area', $id_area)->with('id_classroom', $id_classroom)->with('cycle_id', $cycle_id);
 });
@@ -1136,3 +1130,6 @@ Route::middleware('auth')->get('/quarters', function () {
 Route::get('getAreaByClient','CoursesController@getAreaByClient');
 Route::get('getTutorCycle/{id_tutor}/{id_trimestre}/{id_area}','ClientController@getTutorCycle');
 Route::get('getClass/{id_weekly_plan}','ClientController@getClass');
+Route::middleware('auth')->get('/clasesClient', function () {
+    return view('clasesCliente');
+});
