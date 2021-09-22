@@ -374,7 +374,7 @@ export default {
             }
         }
     },
-    mounted() {
+    mounted() {        
         this.activityForAllStudents = true;
         axios.get(`/showClass/${this.id_module}`).then((response) => {
             this.achievements=response.data.achievements;            
@@ -401,12 +401,13 @@ export default {
         axios.get(`/GetNameWeekly/${this.id_module}`).then((response) => {
             this.weekly_plan={name:response.data};
         });
-
-        if(this.id_class!=0)
+        
+        if(this.id_class !== 0)
         {
             axios.get(`/api/teacher/module/${this.id_module}/class/${this.id_class}`).then((response) => {
                     this.course=response.data;
                     let activities = response.data.activities;
+                    console.log(response.data)
                     this.course.activities=[];
                     activities.forEach((e, i)=>{
                         this.course.activities.push({
@@ -492,9 +493,11 @@ export default {
             });
         },
         getDataPlanification(position){
-            var urlsel = window.location.origin + "/coursePlanification/" + this.area_id + "/" + this.classroom_id;
+            console.log('Posición',position);
+            var urlsel = window.location.origin + "/coursePlanification/" + this.area_id + "/" + this.classroom_id;            
             axios.get(urlsel).then((response) => {
                 if(this.id_class!=0){
+                    this.course.activities[this.course.activities.length - 1].fillC=response.data.quaterly;
                     this.course.activities[position].fillC=response.data.quaterly;
                 }else{
                     this.course.activities[this.course.activities.length - 1].fillC=response.data.quaterly;

@@ -407,10 +407,11 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
       };
     });
 
-    if (this.id_class != 0) {
+    if (this.id_class !== 0) {
       axios.get("/api/teacher/module/".concat(this.id_module, "/class/").concat(this.id_class)).then(function (response) {
         _this.course = response.data;
         var activities = response.data.activities;
+        console.log(response.data);
         _this.course.activities = [];
         activities.forEach(function (e, i) {
           _this.course.activities.push({
@@ -487,9 +488,11 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
     getDataPlanification: function getDataPlanification(position) {
       var _this2 = this;
 
+      console.log('Posición', position);
       var urlsel = window.location.origin + "/coursePlanification/" + this.area_id + "/" + this.classroom_id;
       axios.get(urlsel).then(function (response) {
         if (_this2.id_class != 0) {
+          _this2.course.activities[_this2.course.activities.length - 1].fillC = response.data.quaterly;
           _this2.course.activities[position].fillC = response.data.quaterly;
         } else {
           _this2.course.activities[_this2.course.activities.length - 1].fillC = response.data.quaterly;
