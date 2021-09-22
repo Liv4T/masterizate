@@ -193,9 +193,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
       var urlr = window.location.origin + "/showClass/" + this.id_module;
       axios.get(urlr).then(function (response) {
-        console.log(response.data.clase);
         _this3.fillS = response.data.clase;
-        if (response.data.area && response.data.classroom) _this3.nameArea = "".concat(response.data.area.name, " ").concat(response.data.classroom.name);
+        if (response.data.area && response.data.classroom) _this3.nameArea = response.data.user_type === 7 ? response.data.area.name : "".concat(response.data.area.name, " ").concat(response.data.classroom.name);
         _this3.id_area = response.data.area.id;
         _this3.id_classroom = response.data.classroom.id;
       });
@@ -247,7 +246,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
       var urls = window.location.origin + "/showClass/" + id_cicle;
       axios.get(urls).then(function (response) {
-        console.log("clases del ciclo", response.data);
         var clasesClean = response.data.clase;
 
         for (var key in clasesClean) {
@@ -297,8 +295,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }
     },
     getClass: function getClass(id_class) {
-      console.log('id_class', id_class);
-
       if (id_class) {
         this.idClass = id_class;
         this.createClas = 'showEdit';

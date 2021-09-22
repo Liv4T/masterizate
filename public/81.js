@@ -379,8 +379,9 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
 
     this.activityForAllStudents = true;
     axios.get("/showClass/".concat(this.id_module)).then(function (response) {
+      console.log('showClass: ', response.data);
       _this.achievements = response.data.achievements;
-      _this.nameArea = "".concat(response.data.area.name, " ").concat(response.data.classroom.name);
+      _this.nameArea = response.data.user_type === 7 ? response.data.area.name : "".concat(response.data.area.name, " ").concat(response.data.classroom.name);
       _this.area_id = response.data.area.id;
       _this.classroom_id = response.data.classroom.id;
 
@@ -411,7 +412,6 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
       axios.get("/api/teacher/module/".concat(this.id_module, "/class/").concat(this.id_class)).then(function (response) {
         _this.course = response.data;
         var activities = response.data.activities;
-        console.log(response.data);
         _this.course.activities = [];
         activities.forEach(function (e, i) {
           _this.course.activities.push({
@@ -488,15 +488,13 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
     getDataPlanification: function getDataPlanification(position) {
       var _this2 = this;
 
-      console.log('Posición', position);
       var urlsel = window.location.origin + "/coursePlanification/" + this.area_id + "/" + this.classroom_id;
       axios.get(urlsel).then(function (response) {
-        if (_this2.id_class != 0) {
-          _this2.course.activities[_this2.course.activities.length - 1].fillC = response.data.quaterly;
-          _this2.course.activities[position].fillC = response.data.quaterly;
-        } else {
-          _this2.course.activities[_this2.course.activities.length - 1].fillC = response.data.quaterly;
-        }
+        // if(this.id_class!=0){
+        _this2.course.activities[_this2.course.activities.length - 1].fillC = response.data.quaterly; //     this.course.activities[position].fillC=response.data.quaterly;
+        // }else{
+        //     this.course.activities[this.course.activities.length - 1].fillC=response.data.quaterly;
+        // }
       });
     },
     removeResource: function removeResource(index) {

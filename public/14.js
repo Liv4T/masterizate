@@ -210,7 +210,11 @@ var render = function() {
                 return _c(
                   "option",
                   { key: key, domProps: { value: JSON.stringify(area) } },
-                  [_vm._v(_vm._s(area.text))]
+                  [
+                    _vm._v(
+                      _vm._s(area.user_type === 7 ? area.area_name : area.text)
+                    )
+                  ]
                 )
               })
             ],

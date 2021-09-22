@@ -180,6 +180,7 @@ class CoursesController extends Controller
                     $class = Area::find($area->id_area);
                     $areas[$key] = [
                         'id'           => $class->id,
+                        'user_type'    => $user->type_user,
                         'text'         => $class->name.' '.$classroom->name,
                         'classroom_name'    => $classroom->name,
                         'id_area'         => $class->id,

@@ -5,7 +5,7 @@
         <div class="text-center">
           <select class="btn btn-warning letra-boldfont" name="type" @change="ShowSelected">
             <option disabled selected hidden value="">CURSOS</option>
-            <option :value="JSON.stringify(area)" v-for="(area, key) in areas" :key="key">{{ area.text }}</option>
+            <option :value="JSON.stringify(area)" v-for="(area, key) in areas" :key="key">{{ area.user_type === 7 ? area.area_name : area.text  }}</option>
           </select>
         </div>
       </div>
