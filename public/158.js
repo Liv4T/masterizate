@@ -1,14 +1,16 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[158],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/modalUpdateProceedings.vue?vue&type=script&lang=js&":
-/*!*********************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/modalUpdateProceedings.vue?vue&type=script&lang=js& ***!
-  \*********************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/modalDocentePlanifReport.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/modalDocentePlanifReport.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vue_multiselect__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-multiselect */ "./node_modules/vue-multiselect/dist/vue-multiselect.min.js");
+/* harmony import */ var vue_multiselect__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue_multiselect__WEBPACK_IMPORTED_MODULE_0__);
 //
 //
 //
@@ -56,86 +58,95 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___default.a);
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['id_proceedings', 'getProceedings', 'typeView', 'typeAction'],
   data: function data() {
     return {
-      data: ""
+      teachersOptions: [],
+      areaOptions: [],
+      saveTeachers: {},
+      planification: "",
+      saveArea: [],
+      anualPlanification: [],
+      quaterlyPlanification: [],
+      DataToExport: []
     };
   },
-  mounted: function mounted() {},
+  mounted: function mounted() {
+    this.getTeachers();
+  },
+  components: {
+    Multiselect: vue_multiselect__WEBPACK_IMPORTED_MODULE_0___default.a
+  },
   methods: {
-    onFileChange: function onFileChange(file) {
-      var files = file.target.files || file.dataTransfer.files;
-      this.data = new FormData();
-
-      if (files.length > 0) {
-        //console.log('evento');
-        var _file = files[0];
-
-        var _fileNameSplit = _file.name.split("."); // if uploaded file is valid with validation rules
-
-
-        var file_extension = _fileNameSplit[_fileNameSplit.length - 1];
-
-        var file_name = _file.name.replace(".".concat(file_extension), '');
-
-        this.data.append("file", files[0]);
-        this.data.append("name", file_name);
-      }
-    },
-    update: function update() {
+    getTeachers: function getTeachers() {
       var _this = this;
 
-      if (this.typeAction == 0) {
-        var url = "/update/acta/parents/" + this.id_proceedings;
-        axios.post(url, this.data).then(function (response) {
-          toastr.success("Archivo actualizado correctamente");
-
-          _this.getProceedings();
-
-          $("#updateModal").modal("hide");
-        })["catch"](function (error) {
-          toastr.success(error);
+      axios.get('getTeachers').then(function (response) {
+        response.data.forEach(function (element) {
+          _this.teachersOptions.push({
+            id: element.id,
+            text: "".concat(element.name) + " ".concat(element.last_name)
+          });
         });
-      } else {
-        var url = "/update/acta/general/" + this.id_proceedings;
-        axios.post(url, this.data).then(function (response) {
-          toastr.success("Archivo actualizado correctamente");
-
-          _this.getProceedings();
-
-          $("#updateModal").modal("hide");
-        })["catch"](function (error) {
-          toastr.success(error);
-        });
-      }
+      });
     },
-    updateSign: function updateSign() {
+    getArea: function getArea() {
       var _this2 = this;
 
-      if (this.typeAction == 0) {
-        var url = "/update/acta/parents/firmar/" + this.id_proceedings;
-        axios.post(url, this.data).then(function (response) {
-          toastr.success("Archivo actualizado correctamente");
-
-          _this2.getProceedings();
-
-          $("#updateModal").modal("hide");
-        })["catch"](function (error) {
-          toastr.success(error);
+      axios.get("GetAreaTeacher/".concat(this.saveTeachers.id)).then(function (response) {
+        var area = response.data;
+        area.forEach(function (element) {
+          _this2.areaOptions.push({
+            id: element.id,
+            id_area: element.id_area,
+            id_classroom: element.id_classroom,
+            text: element.text
+          });
         });
-      } else {
-        var url = "/update/acta/general/firmar/" + this.id_proceedings;
-        axios.post(url, this.data).then(function (response) {
-          toastr.success("Archivo actualizado correctamente");
-
-          _this2.getProceedings();
-
-          $("#updateModal").modal("hide");
-        })["catch"](function (error) {
-          toastr.success(error);
-        });
+      });
+    },
+    dataExport: function dataExport() {
+      //Organizacion de datos para exportacion mediante Planificación Anual
+      if (this.planification === "anual") {
+        window.open("GetPlanificationTeacher/".concat(this.saveTeachers.id, "/").concat(this.saveArea.id_area, "/").concat(this.saveArea.id_classroom, "/").concat(this.saveTeachers.text), "_self"); //Organizacion de datos para exportacion mediante Planificación Trimestral
+      } else if (this.planification === "quarters") {
+        window.open("GetPlanificationQuaterlyTeacher/".concat(this.saveTeachers.id, "/").concat(this.saveArea.id_area, "/").concat(this.saveArea.id_classroom, "/").concat(this.saveTeachers.text), "_self");
+      } else if (this.planification === "clases") {
+        window.open("GetPlanificationCoursesTeacher/".concat(this.saveArea.id_area, "/").concat(this.saveArea.id_classroom, "/").concat(this.saveTeachers.text), "_self");
       }
     }
   }
@@ -143,10 +154,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/modalUpdateProceedings.vue?vue&type=template&id=3929d358&":
-/*!*************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/modalUpdateProceedings.vue?vue&type=template&id=3929d358& ***!
-  \*************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/modalDocentePlanifReport.vue?vue&type=template&id=26355dea&":
+/*!***************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/modalDocentePlanifReport.vue?vue&type=template&id=26355dea& ***!
+  \***************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -161,131 +172,321 @@ var render = function() {
   return _c(
     "div",
     {
-      staticClass: "modal fade",
+      staticClass: "modal fade bd-example-modal-lg",
       attrs: {
-        id: "updateModal",
+        id: "reportTeacherPlanifModal",
         tabindex: "-1",
         role: "dialog",
-        "aria-labelledby": "exampleModalLabel",
+        "aria-labelledby": "myLargeModalLabel",
         "aria-hidden": "true"
       }
     },
     [
-      _c(
-        "div",
-        { staticClass: "modal-dialog modal-lg", attrs: { role: "document" } },
-        [
-          _c("div", { staticClass: "modal-content" }, [
-            _vm._m(0),
+      _c("div", { staticClass: "modal-dialog modal-lg" }, [
+        _c("div", { staticClass: "modal-content" }, [
+          _vm._m(0),
+          _vm._v(" "),
+          _c("div", { staticClass: "modal-body" }, [
+            _c(
+              "div",
+              { staticClass: "form-goup" },
+              [
+                _c("label", [_vm._v("Docente")]),
+                _vm._v(" "),
+                _c("multiselect", {
+                  attrs: {
+                    options: _vm.teachersOptions,
+                    multiple: false,
+                    "close-on-select": false,
+                    "clear-on-select": false,
+                    "preserve-search": true,
+                    placeholder: "Seleccione una",
+                    label: "text",
+                    "track-by": "id",
+                    "preselect-first": true
+                  },
+                  scopedSlots: _vm._u([
+                    {
+                      key: "selection",
+                      fn: function(ref) {
+                        var values = ref.values
+                        var isOpen = ref.isOpen
+                        return [
+                          values.length && !isOpen
+                            ? _c(
+                                "span",
+                                { staticClass: "multiselect__single" },
+                                [
+                                  _vm._v(
+                                    "\n                                    " +
+                                      _vm._s(values.length) +
+                                      "\n                                    opciones\n                                    selecionadas\n                                "
+                                  )
+                                ]
+                              )
+                            : _vm._e()
+                        ]
+                      }
+                    }
+                  ]),
+                  model: {
+                    value: _vm.saveTeachers,
+                    callback: function($$v) {
+                      _vm.saveTeachers = $$v
+                    },
+                    expression: "saveTeachers"
+                  }
+                })
+              ],
+              1
+            ),
             _vm._v(" "),
-            _c("div", { staticClass: "modal-body" }, [
-              _c("h3", [_vm._v("Cargar nuevo archivo")]),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-md-11 mx-auto" }, [
-                _c("div", { staticClass: "custom-card text-center" }, [
-                  _vm.typeView == 1
-                    ? _c(
-                        "h3",
-                        {
-                          staticClass: "card-header fondo",
-                          staticStyle: { "margin-bottom": "1rem" }
-                        },
-                        [_vm._v("Actualizar acta")]
-                      )
-                    : _vm._e(),
-                  _vm._v(" "),
-                  _vm.typeView == 2
-                    ? _c(
-                        "h3",
-                        {
-                          staticClass: "card-header fondo",
-                          staticStyle: { "margin-bottom": "1rem" }
-                        },
-                        [_vm._v("Firmar acta")]
-                      )
-                    : _vm._e(),
-                  _vm._v(" "),
-                  _vm.typeView == 1
-                    ? _c(
-                        "form",
-                        {
-                          staticClass: "needs-validation",
-                          attrs: { novalidate: "" },
-                          on: {
-                            submit: function($event) {
-                              $event.preventDefault()
-                              return _vm.update()
+            _c("div", { staticClass: "form-group" }, [
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-primary mt-2 mb-2",
+                  on: {
+                    click: function($event) {
+                      return _vm.getArea()
+                    }
+                  }
+                },
+                [
+                  _vm._v(
+                    "\n                        Consultar Area\n                    "
+                  )
+                ]
+              )
+            ]),
+            _vm._v(" "),
+            _vm.areaOptions.length > 0
+              ? _c(
+                  "div",
+                  { staticClass: "form-goup" },
+                  [
+                    _c("label", [_vm._v("Areas Disponibles")]),
+                    _vm._v(" "),
+                    _c("multiselect", {
+                      attrs: {
+                        options: _vm.areaOptions,
+                        multiple: false,
+                        "close-on-select": false,
+                        "clear-on-select": false,
+                        "preserve-search": true,
+                        placeholder: "Seleccione una",
+                        label: "text",
+                        "track-by": "id",
+                        "preselect-first": true
+                      },
+                      scopedSlots: _vm._u(
+                        [
+                          {
+                            key: "selection",
+                            fn: function(ref) {
+                              var values = ref.values
+                              var isOpen = ref.isOpen
+                              return [
+                                values.length && !isOpen
+                                  ? _c(
+                                      "span",
+                                      { staticClass: "multiselect__single" },
+                                      [
+                                        _vm._v(
+                                          "\n                                    " +
+                                            _vm._s(values.length) +
+                                            "\n                                    opciones\n                                    selecionadas\n                                "
+                                        )
+                                      ]
+                                    )
+                                  : _vm._e()
+                              ]
                             }
                           }
+                        ],
+                        null,
+                        false,
+                        1821651511
+                      ),
+                      model: {
+                        value: _vm.saveArea,
+                        callback: function($$v) {
+                          _vm.saveArea = $$v
                         },
-                        [
-                          _c("div", { staticClass: "row" }, [
-                            _c("div", { staticClass: "col-lg-6" }, [
-                              _c("input", {
-                                staticClass: "form-control",
-                                attrs: {
-                                  type: "file",
-                                  accept: ".pdf",
-                                  placeholder: "Seleccione un archivo"
-                                },
-                                on: {
-                                  change: function($event) {
-                                    return _vm.onFileChange($event)
-                                  }
-                                }
-                              })
-                            ])
-                          ]),
-                          _vm._v(" "),
-                          _vm._m(1)
-                        ]
-                      )
-                    : _vm._e(),
+                        expression: "saveArea"
+                      }
+                    })
+                  ],
+                  1
+                )
+              : _c("div", [
+                  _c("strong", [_vm._v("No se encuentran areas disponibles")])
+                ]),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value: _vm.areaOptions.length > 0,
+                    expression: "areaOptions.length > 0"
+                  }
+                ],
+                staticClass: "form-goup"
+              },
+              [
+                _c("label", [_vm._v("Filtro")]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-check" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.planification,
+                        expression: "planification"
+                      }
+                    ],
+                    staticClass: "form-check-input",
+                    attrs: {
+                      type: "radio",
+                      name: "filter",
+                      id: "filter1",
+                      value: "anual"
+                    },
+                    domProps: { checked: _vm._q(_vm.planification, "anual") },
+                    on: {
+                      change: function($event) {
+                        _vm.planification = "anual"
+                      }
+                    }
+                  }),
                   _vm._v(" "),
-                  _vm.typeView == 2
-                    ? _c(
-                        "form",
-                        {
-                          staticClass: "needs-validation",
-                          attrs: { novalidate: "" },
-                          on: {
-                            submit: function($event) {
-                              $event.preventDefault()
-                              return _vm.updateSign()
-                            }
-                          }
-                        },
-                        [
-                          _c("div", { staticClass: "row" }, [
-                            _c("div", { staticClass: "col-lg-6" }, [
-                              _c("input", {
-                                staticClass: "form-control",
-                                attrs: {
-                                  type: "file",
-                                  accept: ".pdf",
-                                  placeholder: "Seleccione un archivo"
-                                },
-                                on: {
-                                  change: function($event) {
-                                    return _vm.onFileChange($event)
-                                  }
-                                }
-                              })
-                            ])
-                          ]),
-                          _vm._v(" "),
-                          _vm._m(2)
-                        ]
+                  _c(
+                    "label",
+                    {
+                      staticClass: "form-check-label",
+                      attrs: { for: "filter1" }
+                    },
+                    [
+                      _vm._v(
+                        "\n                            Anual\n                        "
                       )
-                    : _vm._e()
+                    ]
+                  )
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-check" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.planification,
+                        expression: "planification"
+                      }
+                    ],
+                    staticClass: "form-check-input",
+                    attrs: {
+                      type: "radio",
+                      name: "filter",
+                      id: "filter2",
+                      value: "quarters"
+                    },
+                    domProps: {
+                      checked: _vm._q(_vm.planification, "quarters")
+                    },
+                    on: {
+                      change: function($event) {
+                        _vm.planification = "quarters"
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "label",
+                    {
+                      staticClass: "form-check-label",
+                      attrs: { for: "filter2" }
+                    },
+                    [
+                      _vm._v(
+                        "\n                            Trimestral\n                        "
+                      )
+                    ]
+                  )
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-check" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.planification,
+                        expression: "planification"
+                      }
+                    ],
+                    staticClass: "form-check-input",
+                    attrs: {
+                      type: "radio",
+                      name: "filter",
+                      id: "filter3",
+                      value: "clases"
+                    },
+                    domProps: { checked: _vm._q(_vm.planification, "clases") },
+                    on: {
+                      change: function($event) {
+                        _vm.planification = "clases"
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "label",
+                    {
+                      staticClass: "form-check-label",
+                      attrs: { for: "filter3" }
+                    },
+                    [
+                      _vm._v(
+                        "\n                            Clases\n                        "
+                      )
+                    ]
+                  )
                 ])
-              ]),
-              _vm._v(" "),
-              _vm._m(3)
-            ])
+              ]
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "modal-footer" }, [
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-primary",
+                attrs: { type: "button" },
+                on: {
+                  click: function($event) {
+                    return _vm.dataExport()
+                  }
+                }
+              },
+              [_vm._v("Exportar")]
+            ),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-secondary",
+                attrs: { type: "button", "data-dismiss": "modal" }
+              },
+              [_vm._v("Cerrar")]
+            )
           ])
-        ]
-      )
+        ])
+      ])
     ]
   )
 }
@@ -295,6 +496,10 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "modal-header" }, [
+      _c("h5", { staticClass: "modal-title" }, [
+        _vm._v("Reporte de Planeación")
+      ]),
+      _vm._v(" "),
       _c(
         "button",
         {
@@ -308,53 +513,6 @@ var staticRenderFns = [
         [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
       )
     ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      { staticClass: "text-right", staticStyle: { "margin-top": "10px" } },
-      [
-        _c(
-          "button",
-          { staticClass: "btn btn-primary", attrs: { type: "submit" } },
-          [_vm._v("Guardar")]
-        )
-      ]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      { staticClass: "text-right", staticStyle: { "margin-top": "10px" } },
-      [
-        _c(
-          "button",
-          { staticClass: "btn btn-primary", attrs: { type: "submit" } },
-          [_vm._v("Guardar")]
-        )
-      ]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "modal-footer" }, [
-      _c(
-        "button",
-        {
-          staticClass: "btn btn-Primary",
-          attrs: { type: "button", "data-dismiss": "modal" }
-        },
-        [_vm._v("Cerrar")]
-      )
-    ])
   }
 ]
 render._withStripped = true
@@ -363,18 +521,20 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./resources/js/components/modalUpdateProceedings.vue":
-/*!************************************************************!*\
-  !*** ./resources/js/components/modalUpdateProceedings.vue ***!
-  \************************************************************/
+/***/ "./resources/js/components/modalDocentePlanifReport.vue":
+/*!**************************************************************!*\
+  !*** ./resources/js/components/modalDocentePlanifReport.vue ***!
+  \**************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _modalUpdateProceedings_vue_vue_type_template_id_3929d358___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modalUpdateProceedings.vue?vue&type=template&id=3929d358& */ "./resources/js/components/modalUpdateProceedings.vue?vue&type=template&id=3929d358&");
-/* harmony import */ var _modalUpdateProceedings_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modalUpdateProceedings.vue?vue&type=script&lang=js& */ "./resources/js/components/modalUpdateProceedings.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony import */ var _modalDocentePlanifReport_vue_vue_type_template_id_26355dea___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modalDocentePlanifReport.vue?vue&type=template&id=26355dea& */ "./resources/js/components/modalDocentePlanifReport.vue?vue&type=template&id=26355dea&");
+/* harmony import */ var _modalDocentePlanifReport_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modalDocentePlanifReport.vue?vue&type=script&lang=js& */ "./resources/js/components/modalDocentePlanifReport.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var vue_multiselect_dist_vue_multiselect_min_css_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue-multiselect/dist/vue-multiselect.min.css?vue&type=style&index=0&lang=css& */ "./node_modules/vue-multiselect/dist/vue-multiselect.min.css?vue&type=style&index=0&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
 
 
 
@@ -382,10 +542,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /* normalize component */
 
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _modalUpdateProceedings_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _modalUpdateProceedings_vue_vue_type_template_id_3929d358___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _modalUpdateProceedings_vue_vue_type_template_id_3929d358___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _modalDocentePlanifReport_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _modalDocentePlanifReport_vue_vue_type_template_id_26355dea___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _modalDocentePlanifReport_vue_vue_type_template_id_26355dea___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -395,38 +555,38 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/components/modalUpdateProceedings.vue"
+component.options.__file = "resources/js/components/modalDocentePlanifReport.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/components/modalUpdateProceedings.vue?vue&type=script&lang=js&":
-/*!*************************************************************************************!*\
-  !*** ./resources/js/components/modalUpdateProceedings.vue?vue&type=script&lang=js& ***!
-  \*************************************************************************************/
+/***/ "./resources/js/components/modalDocentePlanifReport.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************!*\
+  !*** ./resources/js/components/modalDocentePlanifReport.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_modalUpdateProceedings_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./modalUpdateProceedings.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/modalUpdateProceedings.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_modalUpdateProceedings_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_modalDocentePlanifReport_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./modalDocentePlanifReport.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/modalDocentePlanifReport.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_modalDocentePlanifReport_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/components/modalUpdateProceedings.vue?vue&type=template&id=3929d358&":
-/*!*******************************************************************************************!*\
-  !*** ./resources/js/components/modalUpdateProceedings.vue?vue&type=template&id=3929d358& ***!
-  \*******************************************************************************************/
+/***/ "./resources/js/components/modalDocentePlanifReport.vue?vue&type=template&id=26355dea&":
+/*!*********************************************************************************************!*\
+  !*** ./resources/js/components/modalDocentePlanifReport.vue?vue&type=template&id=26355dea& ***!
+  \*********************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_modalUpdateProceedings_vue_vue_type_template_id_3929d358___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./modalUpdateProceedings.vue?vue&type=template&id=3929d358& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/modalUpdateProceedings.vue?vue&type=template&id=3929d358&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_modalUpdateProceedings_vue_vue_type_template_id_3929d358___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_modalDocentePlanifReport_vue_vue_type_template_id_26355dea___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./modalDocentePlanifReport.vue?vue&type=template&id=26355dea& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/modalDocentePlanifReport.vue?vue&type=template&id=26355dea&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_modalDocentePlanifReport_vue_vue_type_template_id_26355dea___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_modalUpdateProceedings_vue_vue_type_template_id_3929d358___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_modalDocentePlanifReport_vue_vue_type_template_id_26355dea___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

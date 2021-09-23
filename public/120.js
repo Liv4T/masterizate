@@ -1,14 +1,18 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[120],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/SchoolGov.vue?vue&type=script&lang=js&":
-/*!********************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/SchoolGov.vue?vue&type=script&lang=js& ***!
-  \********************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/PIARPlanification.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/PIARPlanification.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vue_form_wizard__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-form-wizard */ "./node_modules/vue-form-wizard/dist/vue-form-wizard.js");
+/* harmony import */ var vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vue_form_wizard_dist_vue_form_wizard_min_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-form-wizard/dist/vue-form-wizard.min.css */ "./node_modules/vue-form-wizard/dist/vue-form-wizard.min.css");
+/* harmony import */ var vue_form_wizard_dist_vue_form_wizard_min_css__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue_form_wizard_dist_vue_form_wizard_min_css__WEBPACK_IMPORTED_MODULE_1__);
 //
 //
 //
@@ -83,59 +87,75 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+(function () {
+  "use strict";
+
+  window.addEventListener("load", function () {
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    var forms = document.getElementsByClassName("needs-validation"); // Loop over them and prevent submission
+
+    var validation = Array.prototype.filter.call(forms, function (form) {
+      form.addEventListener("submit", function (event) {
+        if (form.checkValidity() === false) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+
+        form.classList.add("was-validated");
+      }, false);
+    });
+  }, false);
+})();
+
+$(function () {
+  // Get the form fields and hidden div
+  var checkbox = $("#gridCheck1");
+  var hidden = $("#hidden_fields1");
+  hidden.hide();
+  checkbox.change(function () {
+    if (checkbox.is(":checked")) {
+      // Show the hidden fields.
+      hidden.show();
+    } else {
+      hidden.hide();
+    }
+  });
+});
+
+
+Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: ["id_area", "id_classroom"],
   data: function data() {
     return {
-      legislationData: [],
-      members: []
+      inputs: [{
+        driving_question: "",
+        class_development: "",
+        observation: ""
+      }],
+      newSemanal: [],
+      semanal: false,
+      errors: []
     };
   },
-  mounted: function mounted() {
-    this.getLegislation();
-    this.getMembers();
-  },
+  mounted: function mounted() {},
   methods: {
-    getLegislation: function getLegislation() {
-      var _this = this;
-
-      axios.get('/getLegislation').then(function (response) {
-        _this.legislationData = response.data;
-      })["catch"](function (error) {
-        console.log(error);
+    contentUpdateEvent: function contentUpdateEvent(index, property) {
+      this.inputs[index][property] = this.inputs[index][property].replace(/[^a-zA-Z0-9-.ñáéíóú_*+-/=&%$#!()?¡¿ ]/g, "|");
+    },
+    add: function add(index) {
+      this.inputs.push({
+        driving_question: "",
+        class_development: "",
+        observation: ""
       });
     },
-    getMembers: function getMembers() {
-      var _this2 = this;
-
-      axios.get('/members').then(function (members) {
-        _this2.members = members.data;
+    remove: function remove(index) {
+      this.inputs.splice(index, 1);
+    },
+    createSemana: function createSemana() {
+      console.log({
+        data: this.inputs
       });
     }
   }
@@ -143,10 +163,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/SchoolGov.vue?vue&type=template&id=41a0759f&":
-/*!************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/SchoolGov.vue?vue&type=template&id=41a0759f& ***!
-  \************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/PIARPlanification.vue?vue&type=template&id=3f60cd50&":
+/*!********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/PIARPlanification.vue?vue&type=template&id=3f60cd50& ***!
+  \********************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -158,320 +178,254 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "back" }, [
-    _c("div", { staticClass: "row justify-content-center" }, [
-      _c("div", { staticClass: "col-sm-10", attrs: { id: "crud" } }, [
-        _c("div", { staticClass: "card" }, [
-          _c("div", { staticClass: "text-center card-header fondo" }, [
-            _vm._v("\n                    Gobierno Escolar\n                ")
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "card-body" }, [
-            _c("div", { attrs: { id: "accordion" } }, [
-              _c("div", { staticClass: "card" }, [
-                _vm._m(0),
-                _vm._v(" "),
+  return _c("div", [
+    _c("div", { staticClass: "back" }, [
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col-md-11 mx-auto" }, [
+          _c("div", { staticClass: "custom-card text-center" }, [
+            _c("h3", { staticClass: "card-header fondo" }, [
+              _vm._v("Mis Cursos PIAR")
+            ]),
+            _vm._v(" "),
+            _c(
+              "form",
+              { staticClass: "needs-validation", attrs: { novalidate: "" } },
+              [
                 _c(
-                  "div",
+                  "form-wizard",
                   {
-                    staticClass: "collapse show",
                     attrs: {
-                      id: "collapseOne",
-                      "aria-labelledby": "headingOne",
-                      "data-parent": "#accordion"
-                    }
+                      title: "",
+                      subtitle: "",
+                      color: "#ffc107",
+                      "next-button-text": "Siguiente",
+                      "back-button-text": "Atrás",
+                      "finish-button-text": "Guardar y enviar"
+                    },
+                    on: { "on-complete": _vm.createSemana }
                   },
                   [
-                    _c("div", { staticClass: "card-body" }, [
-                      _c("div", { staticClass: "row" }, [
-                        _vm.members.length > 0
-                          ? _c(
-                              "div",
-                              { staticClass: "col-12" },
-                              _vm._l(_vm.members, function(data, id) {
-                                return _c(
-                                  "div",
+                    _c(
+                      "tab-content",
+                      { attrs: { title: "Ciclo" } },
+                      _vm._l(_vm.inputs, function(input, t) {
+                        return _c(
+                          "div",
+                          { key: t, staticClass: "form-group row mx-auto" },
+                          [
+                            _c("div", { staticClass: "col-md-6" }, [
+                              _c("label", { attrs: { for: "name" } }, [
+                                _vm._v("Pregunta conductora o nombre")
+                              ]),
+                              _vm._v(" "),
+                              _c("span", [
+                                _c(
+                                  "a",
                                   {
-                                    key: id,
-                                    staticClass: "list-group",
-                                    attrs: { id: "list-tab", role: "tablist" }
+                                    directives: [
+                                      {
+                                        name: "show",
+                                        rawName: "v-show",
+                                        value:
+                                          t || (!t && _vm.inputs.length > 1),
+                                        expression:
+                                          "t ||(!t && inputs.length >1)"
+                                      }
+                                    ],
+                                    staticClass: "badge badge-danger",
+                                    attrs: { href: "#" },
+                                    on: {
+                                      click: function($event) {
+                                        $event.preventDefault()
+                                        return _vm.remove(t)
+                                      }
+                                    }
                                   },
-                                  [
-                                    _c(
-                                      "div",
-                                      {
-                                        directives: [
-                                          {
-                                            name: "show",
-                                            rawName: "v-show",
-                                            value: data.modeInsert == "1",
-                                            expression: "data.modeInsert == '1'"
-                                          }
-                                        ],
-                                        staticClass: "mb-5"
-                                      },
-                                      [
-                                        _c(
-                                          "a",
-                                          {
-                                            staticClass: "list-group-item",
-                                            attrs: {
-                                              id: "list-home-list",
-                                              "data-toggle": "list",
-                                              role: "tab",
-                                              "aria-controls": "home"
-                                            }
-                                          },
-                                          [
-                                            _c("div", [
-                                              _c(
-                                                "div",
-                                                {
-                                                  staticClass:
-                                                    "d-flex mb-2 justify-content-center"
-                                                },
-                                                [
-                                                  _c("img", {
-                                                    staticStyle: {
-                                                      height: "160px"
-                                                    },
-                                                    attrs: {
-                                                      src:
-                                                        data.imageSchoolGovernment,
-                                                      alt: ""
-                                                    }
-                                                  })
-                                                ]
-                                              )
-                                            ])
-                                          ]
-                                        )
-                                      ]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "div",
-                                      {
-                                        directives: [
-                                          {
-                                            name: "show",
-                                            rawName: "v-show",
-                                            value: data.modeInsert == "2",
-                                            expression: "data.modeInsert == '2'"
-                                          }
-                                        ]
-                                      },
-                                      [
-                                        _c(
-                                          "a",
-                                          {
-                                            staticClass: "list-group-item",
-                                            attrs: {
-                                              id: "list-home-list",
-                                              "data-toggle": "list",
-                                              role: "tab",
-                                              "aria-controls": "home"
-                                            }
-                                          },
-                                          [
-                                            _c(
-                                              "div",
-                                              {
-                                                staticClass:
-                                                  "d-flex justify-content-center mb-3"
-                                              },
-                                              [
-                                                _c("img", {
-                                                  staticStyle: {
-                                                    height: "160px"
-                                                  },
-                                                  attrs: {
-                                                    src: data.image,
-                                                    alt: ""
-                                                  }
-                                                })
-                                              ]
-                                            ),
-                                            _vm._v(" "),
-                                            _c(
-                                              "div",
-                                              {
-                                                staticClass: "text-center mt-2"
-                                              },
-                                              [
-                                                _c(
-                                                  "strong",
-                                                  {
-                                                    staticClass:
-                                                      "h3 mb-2 text-uppercase"
-                                                  },
-                                                  [_vm._v(_vm._s(data.member))]
-                                                ),
-                                                _vm._v(" "),
-                                                _c("div", [
-                                                  _c(
-                                                    "p",
-                                                    { staticClass: "h3" },
-                                                    [
-                                                      _vm._v(
-                                                        _vm._s(data.position)
-                                                      )
-                                                    ]
-                                                  )
-                                                ]),
-                                                _vm._v(" "),
-                                                _c("p", { staticClass: "h4" }, [
-                                                  _vm._v(
-                                                    _vm._s(data.description)
-                                                  )
-                                                ])
-                                              ]
-                                            )
-                                          ]
-                                        )
-                                      ]
-                                    )
-                                  ]
-                                )
-                              }),
-                              0
-                            )
-                          : _c("div", [_vm._m(1)])
-                      ])
-                    ])
-                  ]
-                ),
-                _vm._v(" "),
-                _vm._m(2),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  {
-                    staticClass: "collapse show",
-                    attrs: {
-                      id: "collapseTwo",
-                      "aria-labelledby": "headingOne",
-                      "data-parent": "#accordion"
-                    }
-                  },
-                  [
-                    _c("div", { staticClass: "card-body" }, [
-                      _vm.legislationData.length > 0
-                        ? _c(
-                            "div",
-                            { staticClass: "card-body" },
-                            _vm._l(_vm.legislationData, function(data, id) {
-                              return _c("div", { key: id }, [
-                                _c("p", [_vm._v(_vm._s(data.legislation))]),
+                                  [_vm._v("-")]
+                                ),
                                 _vm._v(" "),
-                                _c("br")
+                                _c(
+                                  "a",
+                                  {
+                                    directives: [
+                                      {
+                                        name: "show",
+                                        rawName: "v-show",
+                                        value: t == _vm.inputs.length - 1,
+                                        expression: "t == inputs.length - 1"
+                                      }
+                                    ],
+                                    staticClass: "badge badge-primary",
+                                    attrs: { href: "#" },
+                                    on: {
+                                      click: function($event) {
+                                        $event.preventDefault()
+                                        return _vm.add(t)
+                                      }
+                                    }
+                                  },
+                                  [_vm._v("+")]
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("div", [
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: input.driving_question,
+                                      expression: "input.driving_question"
+                                    }
+                                  ],
+                                  staticClass: "form-control",
+                                  attrs: {
+                                    type: "text",
+                                    name: "objetive1",
+                                    required: ""
+                                  },
+                                  domProps: { value: input.driving_question },
+                                  on: {
+                                    change: function($event) {
+                                      return _vm.contentUpdateEvent(
+                                        t,
+                                        "driving_question"
+                                      )
+                                    },
+                                    input: function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.$set(
+                                        input,
+                                        "driving_question",
+                                        $event.target.value
+                                      )
+                                    }
+                                  }
+                                })
                               ])
-                            }),
-                            0
-                          )
-                        : _c("div", { staticClass: "card-body" }, [
-                            _c("p", [
-                              _vm._v("Crea La Legislación del Gobierno Escolar")
+                            ]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "col-md-6" }, [
+                              _c("label", { attrs: { for: "name" } }, [
+                                _vm._v("Desarrollo de la clase")
+                              ]),
+                              _vm._v(" "),
+                              _c("textarea", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: input.class_development,
+                                    expression: "input.class_development"
+                                  }
+                                ],
+                                staticClass: "form-control",
+                                attrs: {
+                                  name: "competences",
+                                  placeholder:
+                                    "Es la explicacion o sintesis de la clase.",
+                                  required: ""
+                                },
+                                domProps: { value: input.class_development },
+                                on: {
+                                  change: function($event) {
+                                    return _vm.contentUpdateEvent(
+                                      t,
+                                      "class_development"
+                                    )
+                                  },
+                                  input: function($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.$set(
+                                      input,
+                                      "class_development",
+                                      $event.target.value
+                                    )
+                                  }
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "invalid-feedback" }, [
+                                _vm._v("Please fill out this field")
+                              ])
+                            ]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "col-md-6" }, [
+                              _c("label", { attrs: { for: "name" } }, [
+                                _vm._v("Observación")
+                              ]),
+                              _vm._v(" "),
+                              _c("textarea", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: input.observation,
+                                    expression: "input.observation"
+                                  }
+                                ],
+                                staticClass: "form-control",
+                                attrs: { name: "competences" },
+                                domProps: { value: input.observation },
+                                on: {
+                                  change: function($event) {
+                                    return _vm.contentUpdateEvent(
+                                      t,
+                                      "observation"
+                                    )
+                                  },
+                                  input: function($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.$set(
+                                      input,
+                                      "observation",
+                                      $event.target.value
+                                    )
+                                  }
+                                }
+                              })
                             ])
-                          ])
-                    ])
-                  ]
+                          ]
+                        )
+                      }),
+                      0
+                    )
+                  ],
+                  1
                 )
-              ])
-            ])
+              ],
+              1
+            )
           ])
         ])
       ])
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      { staticClass: "card-header", attrs: { id: "headingOne" } },
-      [
-        _c("h5", { staticClass: "mb-0" }, [
-          _c(
-            "button",
-            {
-              staticClass: "btn btn-link",
-              attrs: {
-                "data-toggle": "collapse",
-                "data-target": "#collapseOne",
-                "aria-expanded": "true",
-                "aria-controls": "collapseOne"
-              }
-            },
-            [
-              _vm._v(
-                "\n                                        Quiénes lo Conforman\n                                    "
-              )
-            ]
-          )
-        ])
-      ]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "text-center" }, [
-      _c("p", [_vm._v("Crea los integrantes del Gobierno Escolar")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      { staticClass: "card-header", attrs: { id: "headingOne" } },
-      [
-        _c("h5", { staticClass: "mb-0" }, [
-          _c(
-            "button",
-            {
-              staticClass: "btn btn-link",
-              attrs: {
-                "data-toggle": "collapse",
-                "data-target": "#collapseTwo",
-                "aria-expanded": "true",
-                "aria-controls": "collapseTwo"
-              }
-            },
-            [
-              _vm._v(
-                "\n                                        Legislación\n                                    "
-              )
-            ]
-          )
-        ])
-      ]
-    )
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
 
 /***/ }),
 
-/***/ "./resources/js/components/SchoolGov.vue":
-/*!***********************************************!*\
-  !*** ./resources/js/components/SchoolGov.vue ***!
-  \***********************************************/
+/***/ "./resources/js/components/PIARPlanification.vue":
+/*!*******************************************************!*\
+  !*** ./resources/js/components/PIARPlanification.vue ***!
+  \*******************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _SchoolGov_vue_vue_type_template_id_41a0759f___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./SchoolGov.vue?vue&type=template&id=41a0759f& */ "./resources/js/components/SchoolGov.vue?vue&type=template&id=41a0759f&");
-/* harmony import */ var _SchoolGov_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./SchoolGov.vue?vue&type=script&lang=js& */ "./resources/js/components/SchoolGov.vue?vue&type=script&lang=js&");
+/* harmony import */ var _PIARPlanification_vue_vue_type_template_id_3f60cd50___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./PIARPlanification.vue?vue&type=template&id=3f60cd50& */ "./resources/js/components/PIARPlanification.vue?vue&type=template&id=3f60cd50&");
+/* harmony import */ var _PIARPlanification_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./PIARPlanification.vue?vue&type=script&lang=js& */ "./resources/js/components/PIARPlanification.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -481,9 +435,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _SchoolGov_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _SchoolGov_vue_vue_type_template_id_41a0759f___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _SchoolGov_vue_vue_type_template_id_41a0759f___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _PIARPlanification_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _PIARPlanification_vue_vue_type_template_id_3f60cd50___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _PIARPlanification_vue_vue_type_template_id_3f60cd50___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -493,38 +447,38 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/components/SchoolGov.vue"
+component.options.__file = "resources/js/components/PIARPlanification.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/components/SchoolGov.vue?vue&type=script&lang=js&":
-/*!************************************************************************!*\
-  !*** ./resources/js/components/SchoolGov.vue?vue&type=script&lang=js& ***!
-  \************************************************************************/
+/***/ "./resources/js/components/PIARPlanification.vue?vue&type=script&lang=js&":
+/*!********************************************************************************!*\
+  !*** ./resources/js/components/PIARPlanification.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_SchoolGov_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./SchoolGov.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/SchoolGov.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_SchoolGov_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_PIARPlanification_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./PIARPlanification.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/PIARPlanification.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_PIARPlanification_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/components/SchoolGov.vue?vue&type=template&id=41a0759f&":
-/*!******************************************************************************!*\
-  !*** ./resources/js/components/SchoolGov.vue?vue&type=template&id=41a0759f& ***!
-  \******************************************************************************/
+/***/ "./resources/js/components/PIARPlanification.vue?vue&type=template&id=3f60cd50&":
+/*!**************************************************************************************!*\
+  !*** ./resources/js/components/PIARPlanification.vue?vue&type=template&id=3f60cd50& ***!
+  \**************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SchoolGov_vue_vue_type_template_id_41a0759f___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./SchoolGov.vue?vue&type=template&id=41a0759f& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/SchoolGov.vue?vue&type=template&id=41a0759f&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SchoolGov_vue_vue_type_template_id_41a0759f___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PIARPlanification_vue_vue_type_template_id_3f60cd50___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./PIARPlanification.vue?vue&type=template&id=3f60cd50& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/PIARPlanification.vue?vue&type=template&id=3f60cd50&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PIARPlanification_vue_vue_type_template_id_3f60cd50___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SchoolGov_vue_vue_type_template_id_41a0759f___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PIARPlanification_vue_vue_type_template_id_3f60cd50___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

@@ -35,7 +35,7 @@
                     </div>
 
                     <div v-if="activetab === 'foro'" class="tabcontent">
-                        'Foro'
+                        <div v-html="htmlForum"></div>
                     </div>
 
                     <div v-if="activetab === 'chat'" class="tabcontent">                        
@@ -53,14 +53,19 @@ export default {
         return {
             activetab: null,
             type_u: null,
-            groups:[]
+            groups:[],
+            htmlForum:null
         };
     },  
     mounted(){
         this.type_u = this.user.type_user;
         axios.get('/chat2').then(response=>{
             this.groups= response.data
-        })
+        });
+
+        axios.get('questions').then((response)=>{
+            this.htmlForum = response.data;
+        });
     },
     methods: {        
         showSection(section){

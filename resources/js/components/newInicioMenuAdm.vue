@@ -46,9 +46,15 @@
                     <div v-if="activetab === 'comunications'" class="tabcontent">
                         <comunication-tab :user="user"></comunication-tab>
                     </div>
-                    <div v-if="activetab === 'academic'" class="tabcontent">'Academico'</div>
-                    <div v-if="activetab === 'formation'" class="tabcontent">'Formación'</div>
-                    <div v-if="activetab === 'government'" class="tabcontent">'Gobierno Escolar'</div>
+                    <div v-if="activetab === 'academic'" class="tabcontent">
+                        <academic-tab :user="user"></academic-tab>
+                    </div>
+                    <div v-if="activetab === 'formation'" class="tabcontent">
+                        <formation-tab :user="user"></formation-tab>
+                    </div>
+                    <div v-if="activetab === 'government'" class="tabcontent">
+                         <school-gov-tab :user="user"></school-gov-tab>
+                    </div>
                     <div v-if="activetab === 'reports'" class="tabcontent">
                         <report-admin></report-admin>
                     </div>
@@ -65,6 +71,9 @@ export default {
             activetab: null,
         };
     },  
+    mounted(){
+        
+    },
     methods: {        
         showSection(section){
             this.activetab = section

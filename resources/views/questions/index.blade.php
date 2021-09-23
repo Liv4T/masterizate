@@ -4,15 +4,15 @@
     @if (Auth::user()->isTeacher()||Auth::user()->isPsychology()||Auth::user()->isTutor())
     <menu-docente></menu-docente>
     @endif
- @if (Auth::user()->type_user == '5')
-    <menu-psychology></menu-psychology>
- @endif
- @if (Auth::user()->type_user == '4')
-    <menu-padres></menu-padres>
- @endif
- @if(Auth::user()->type_user == '3')
-    <a href="/inicio" class="btn btn-primary">Volver</a>
-@endif
+    @if (Auth::user()->type_user == '5')
+        <menu-psychology></menu-psychology>
+    @endif
+    @if (Auth::user()->type_user == '4')
+        <menu-padres></menu-padres>
+    @endif
+    @if(Auth::user()->type_user == '3')
+        <a href="/inicio" class="btn btn-primary">Volver</a>
+    @endif
     <div class="back">
         <div class="row justify-content-center">
             <div class="col-md-10">

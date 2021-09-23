@@ -1,20 +1,14 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[166],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/porcentajeNotas.vue?vue&type=script&lang=js&":
-/*!**************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/porcentajeNotas.vue?vue&type=script&lang=js& ***!
-  \**************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/parentsPedagogic.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/parentsPedagogic.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vue_form_wizard__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-form-wizard */ "./node_modules/vue-form-wizard/dist/vue-form-wizard.js");
-/* harmony import */ var vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var vue_form_wizard_dist_vue_form_wizard_min_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-form-wizard/dist/vue-form-wizard.min.css */ "./node_modules/vue-form-wizard/dist/vue-form-wizard.min.css");
-/* harmony import */ var vue_form_wizard_dist_vue_form_wizard_min_css__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue_form_wizard_dist_vue_form_wizard_min_css__WEBPACK_IMPORTED_MODULE_1__);
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 //
 //
 //
@@ -108,293 +102,107 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-(function () {
-  "use strict";
-
-  window.addEventListener("load", function () {
-    // Fetch all the forms we want to apply custom Bootstrap validation styles to
-    var forms = document.getElementsByClassName("needs-validation"); // Loop over them and prevent submission
-
-    var validation = Array.prototype.filter.call(forms, function (form) {
-      form.addEventListener("submit", function (event) {
-        if (form.checkValidity() === false) {
-          event.preventDefault();
-          event.stopPropagation();
-        }
-
-        form.classList.add("was-validated");
-      }, false);
-    });
-  }, false);
-})();
-
-$(function () {
-  // Get the form fields and hidden div
-  var checkbox = $("#gridCheck1");
-  var hidden = $("#hidden_fields1");
-  hidden.hide();
-  checkbox.change(function () {
-    if (checkbox.is(":checked")) {
-      // Show the hidden fields.
-      hidden.show();
-    } else {
-      hidden.hide();
-    }
-  });
-});
-
-
-Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["idArea"],
   data: function data() {
-    var _ref;
-
-    return _ref = {
-      inputs: [{
-        name: "",
-        contenido: ""
-      }],
-      inputs1: [{
-        name: "",
-        porcentaje: ""
-      }],
-      newTrimestre: [],
-      tipo_act: "",
-      porcentaje: ""
-    }, _defineProperty(_ref, "newTrimestre", []), _defineProperty(_ref, "newLogro", []), _defineProperty(_ref, "trimestre", false), _defineProperty(_ref, "logro_1", ""), _defineProperty(_ref, "logro_2", ""), _defineProperty(_ref, "logro_3", ""), _defineProperty(_ref, "logro_4", ""), _defineProperty(_ref, "fillC", []), _defineProperty(_ref, "fillI", []), _defineProperty(_ref, "anual", []), _defineProperty(_ref, "newAnual", []), _defineProperty(_ref, "errors", []), _defineProperty(_ref, "id_logro", ""), _defineProperty(_ref, "id_indicator", 0), _defineProperty(_ref, "index", 0), _defineProperty(_ref, "areaId", ""), _defineProperty(_ref, "id_quarterly_plan", ""), _defineProperty(_ref, "id_achievement", ""), _ref;
-  },
-  watch: {
-    idArea: function idArea(newVal, oldVal) {
-      if (newVal !== oldVal) {
-        this.getIdUrl();
-        this.getData();
-      }
-    }
+    return {
+      getPermission: [],
+      pedagogical_activity: '',
+      departure_time: '',
+      time_arrival: '',
+      description: '',
+      permission: null,
+      id_to_update: ''
+    };
   },
   mounted: function mounted() {
-    this.getIdUrl();
-    this.getData();
+    this.getPedagogics();
   },
   methods: {
-    getIdUrl: function getIdUrl() {
-      if (this.idArea === undefined) {
-        var params = window.location.pathname;
-        var ids = params.split('/');
-        var idArea = ids[2] + "/" + ids[3];
-        this.areaId = idArea;
-        console.log('Url actual', idArea);
-      } else {
-        this.areaId = this.idArea;
-      }
-    },
-    getData: function getData() {
+    getPedagogics: function getPedagogics() {
       var _this = this;
 
-      var urlsel = window.location.origin + "/coursePlanification/" + this.areaId;
-      axios.get(urlsel).then(function (response) {
-        _this.fillC = response.data;
-        console.log(_this.fillC);
+      axios.get('/getPedagogicalToAprove').then(function (response) {
+        var getPermission = response.data;
+        getPermission.forEach(function (element) {
+          axios.get("permissionPedagogics/".concat(element.id_student)).then(function (response) {
+            if (response.data.permission !== undefined) {
+              _this.getPermission.push({
+                id_to_update: response.data.id,
+                pedagogical_activity: element.pedagogical_activity,
+                departure_time: element.departure_time,
+                time_arrival: element.time_arrival,
+                description: element.description,
+                pedagogical_id: element.pedagogical_id,
+                id_student: element.id_student,
+                name_student: element.name_student,
+                parent_id: element.parent_id,
+                permission: response.data.permission === "1" ? true : false
+              });
+            } else {
+              _this.getPermission.push({
+                pedagogical_activity: element.pedagogical_activity,
+                departure_time: element.departure_time,
+                time_arrival: element.time_arrival,
+                description: element.description,
+                pedagogical_id: element.pedagogical_id,
+                id_student: element.id_student,
+                name_student: element.name_student,
+                parent_id: element.parent_id
+              });
+            }
+          });
+        });
       });
     },
-    getMenu: function getMenu() {
-      window.location = "/actividad_g";
+    aprobalReject: function aprobalReject(data) {
+      this.id_to_update = data.id_to_update, //datos por defecto en el modal
+      this.pedagogical_activity = data.pedagogical_activity, this.departure_time = data.departure_time, this.time_arrival = data.time_arrival, this.description = data.description, //Datos ids para guardar en tabla
+      this.pedagogical_id = data.pedagogical_id;
+      this.id_student = data.id_student;
+      this.parent_id = data.parent_id;
+      this.permission = data.permission;
+      $('#exampleModal').modal('show');
     },
-    indicador: function indicador(id) {
-      var _this2 = this;
-
-      var urli = window.location.origin + "/getIndicator/" + id;
-      axios.get(urli).then(function (response) {
-        _this2.fillI = response.data;
-        console.log(_this2.fillI);
-      });
-    },
-    add: function add(index) {
-      this.inputs.push({
-        name: "",
-        contenido: ""
-      });
-    },
-    remove: function remove(index) {
-      this.inputs.splice(index, 1);
-    },
-    add1: function add1(index) {
-      this.inputs1.push({
-        name: "",
-        porcentaje: ""
-      });
-    },
-    remove1: function remove1(index) {
-      this.inputs1.splice(index, 1);
-    },
-    createIndicator: function createIndicator() {
-      var _this3 = this;
-
-      var url = window.location.origin + "/saveIndicator";
-      axios.post(url, {
-        //Cursos generales
-        id_indicator: this.id_indicator,
-        type_activity: this.tipo_act,
-        id_annual: this.id_annual,
-        id_quarterly_plan: this.id_quarterly_plan,
-        id_achievement: this.id_achievement,
-        activity_rate: this.porcentaje
-      }).then(function (response) {
-        _this3.errors = [];
-        toastr.success("Nueva actividad creada exitosamente");
-
-        _this3.indicador(_this3.id_quarterly_plan);
-
-        $('#createZ').modal('hide');
-      })["catch"](function (error) {
-        _this3.errors = error.response.data;
-      });
-    },
-    updateCourses: function updateCourses() {
-      window.location = "/actividad_g";
-    },
-    editNames: function editNames(id, id_achievement, annual) {
-      this.id_indicator = 0;
-      this.id_quarterly_plan = id;
-      this.id_achievement = id_achievement;
-      this.id_annual = annual;
-      this.tipo_act = "";
-      this.porcentaje = "";
-      $("#createZ").modal("show");
-    },
-    showEdit: function showEdit(id_porcentaje, tipo_act, porcentaje) {
-      this.id_indicator = id_porcentaje;
-      this.tipo_act = tipo_act;
-      this.porcentaje = porcentaje;
-      $("#createZ").modal("show");
-    },
-    removePercentage: function removePercentage(index, id_indicator) {
-      this.id_indicator = id_indicator;
-      this.index = index;
-      $("#deleteZ").modal("show");
-    },
-    deleteIndicator: function deleteIndicator() {
-      var _this4 = this;
-
-      var url = window.location.origin + "/deleteIndicator";
-      $("#deleteZ").modal("hide");
-      axios.post(url, {
-        //Eliminar indicador
-        id_indicator: this.id_indicator
-      }).then(function (response) {
-        _this4.errors = [];
-        toastr.success("Actividad eliminada exitosamente");
-
-        _this4.fillI.splice(_this4.index, 1);
-      })["catch"](function (error) {
-        _this4.errors = error.response.data;
-      });
+    savePermission: function savePermission() {
+      if (this.id_to_update) {
+        axios.put("/permissionPedagogics/".concat(this.id_to_update), {
+          pedagogical_activity: this.pedagogical_activity,
+          pedagogical_id: this.pedagogical_id,
+          id_student: this.id_student,
+          parent_id: this.parent_id,
+          permission: this.permission
+        }).then(function (response) {
+          toastr.success(response.data);
+          window.location = '/parentsPedagogic';
+        })["catch"](function (error) {
+          toastr.info('Ups, algo ha sucedido, intenta mas tarde');
+          console.log(error);
+        });
+      } else {
+        axios.post('/permissionPedagogics', {
+          pedagogical_activity: this.pedagogical_activity,
+          pedagogical_id: this.pedagogical_id,
+          id_student: this.id_student,
+          parent_id: this.parent_id,
+          permission: this.permission
+        }).then(function (response) {
+          toastr.success(response.data);
+          window.location = '/parentsPedagogic';
+        })["catch"](function (error) {
+          toastr.info('Ups, algo ha sucedido, intenta mas tarde');
+          console.log(error);
+        });
+      }
     }
   }
 });
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/porcentajeNotas.vue?vue&type=template&id=23a35049&":
-/*!******************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/porcentajeNotas.vue?vue&type=template&id=23a35049& ***!
-  \******************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/parentsPedagogic.vue?vue&type=template&id=21ad37ae&":
+/*!*******************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/parentsPedagogic.vue?vue&type=template&id=21ad37ae& ***!
+  \*******************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -406,407 +214,208 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _vm._m(0),
-    _vm._v(" "),
-    _c("div", [
-      _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-md-11 mx-auto" }, [
-          _c("div", { staticClass: "custom-card text-center" }, [
-            _c("h3", { staticClass: "card-header fondo" }, [
-              _vm._v("Planificación general")
-            ]),
-            _vm._v(" "),
+  return _c("div", { staticClass: "back" }, [
+    _c("div", { staticClass: "row justify-content-center" }, [
+      _c("div", { staticClass: "col-sm-10", attrs: { id: "crud" } }, [
+        _vm._m(0),
+        _vm._v(" "),
+        _c("div", { staticClass: "card" }, [
+          _c("div", { staticClass: "card-body" }, [
             _c(
-              "form",
+              "table",
               {
-                directives: [
-                  {
-                    name: "show",
-                    rawName: "v-show",
-                    value: _vm.trimestre == false,
-                    expression: "trimestre == false"
-                  }
-                ],
-                staticClass: "needs-validation",
-                attrs: { novalidate: "" }
+                staticClass:
+                  "table table-responsive-xl table-hover table-striped center"
               },
               [
-                _c(
-                  "form-wizard",
-                  {
-                    attrs: {
-                      title: "",
-                      subtitle: "",
-                      color: "#ffc107",
-                      "next-button-text": "Siguiente",
-                      "back-button-text": "Atrás",
-                      "finish-button-text": "Guardar"
-                    },
-                    on: { "on-complete": _vm.updateCourses }
-                  },
-                  [
-                    _c(
-                      "tab-content",
-                      { attrs: { title: "Porcentaje de notas" } },
-                      [
-                        _c("div", { staticClass: "card-body" }, [
-                          _c(
-                            "div",
-                            {
-                              staticClass: "accordion",
-                              attrs: { id: "accordionExample" }
-                            },
-                            _vm._l(_vm.fillC.quaterly, function(option, t) {
-                              return _c(
-                                "div",
-                                { key: t, staticClass: "card" },
-                                [
-                                  _c("div", { staticClass: "card-header" }, [
-                                    _c("h2", { staticClass: "mb-0" }, [
-                                      _c(
-                                        "button",
-                                        {
-                                          staticClass: "btn btn-link",
-                                          attrs: {
-                                            type: "button",
-                                            "data-toggle": "collapse",
-                                            "data-target": "#collapse" + t,
-                                            "aria-expanded": "false",
-                                            "aria-controls": "collapse"
-                                          },
-                                          on: {
-                                            click: function($event) {
-                                              $event.preventDefault()
-                                              return _vm.indicador(option.id)
-                                            }
-                                          }
-                                        },
-                                        [
-                                          _c(
-                                            "label",
-                                            {
-                                              staticStyle: {
-                                                "text-overflow": "ellipsis",
-                                                width: "450px",
-                                                "white-space": "nowrap",
-                                                overflow: "hidden"
-                                              }
-                                            },
-                                            [_vm._v(_vm._s(option.logro))]
-                                          )
-                                        ]
-                                      )
-                                    ])
-                                  ]),
-                                  _vm._v(" "),
-                                  _c(
-                                    "div",
-                                    {
-                                      staticClass: "collapse hide",
-                                      attrs: {
-                                        id: "collapse" + t,
-                                        "aria-labelledby": "heading",
-                                        "data-parent": "#accordionExample"
-                                      }
-                                    },
-                                    [
-                                      _c("div", { staticClass: "card-body" }, [
-                                        _c(
-                                          "table",
-                                          {
-                                            staticClass:
-                                              "table table-responsive-xl table-hover table-striped center"
-                                          },
-                                          [
-                                            _c(
-                                              "tbody",
-                                              [
-                                                _c("tr", [
-                                                  _c("td", [
-                                                    _vm._v("Actividad")
-                                                  ]),
-                                                  _vm._v(" "),
-                                                  _c("td", [
-                                                    _vm._v("Porcentaje")
-                                                  ]),
-                                                  _vm._v(" "),
-                                                  _c("td", [_vm._v("Editar")]),
-                                                  _vm._v(" "),
-                                                  _c("td", [_vm._v("Eliminar")])
-                                                ]),
-                                                _vm._v(" "),
-                                                _vm._l(_vm.fillI, function(
-                                                  opt,
-                                                  i
-                                                ) {
-                                                  return _c("tr", { key: i }, [
-                                                    _c("td", [
-                                                      _vm._v(
-                                                        _vm._s(
-                                                          opt.type_activity
-                                                        )
-                                                      )
-                                                    ]),
-                                                    _vm._v(" "),
-                                                    _c("td", [
-                                                      _vm._v(
-                                                        _vm._s(
-                                                          opt.activity_rate
-                                                        )
-                                                      )
-                                                    ]),
-                                                    _vm._v(" "),
-                                                    _c("td", [
-                                                      _c("a", {
-                                                        staticClass:
-                                                          "fas fa-edit",
-                                                        on: {
-                                                          click: function(
-                                                            $event
-                                                          ) {
-                                                            $event.preventDefault()
-                                                            return _vm.showEdit(
-                                                              opt.id,
-                                                              opt.type_activity,
-                                                              opt.activity_rate
-                                                            )
-                                                          }
-                                                        }
-                                                      })
-                                                    ]),
-                                                    _vm._v(" "),
-                                                    _c("td", [
-                                                      _c("a", {
-                                                        staticClass:
-                                                          "fas fa-trash-alt",
-                                                        on: {
-                                                          click: function(
-                                                            $event
-                                                          ) {
-                                                            $event.preventDefault()
-                                                            return _vm.removePercentage(
-                                                              i,
-                                                              opt.id
-                                                            )
-                                                          }
-                                                        }
-                                                      })
-                                                    ])
-                                                  ])
-                                                })
-                                              ],
-                                              2
-                                            )
-                                          ]
-                                        ),
-                                        _vm._v(" "),
-                                        _c(
-                                          "div",
-                                          { attrs: { align: "right" } },
-                                          [
-                                            _c(
-                                              "a",
-                                              {
-                                                staticClass: "btn btn-warning",
-                                                on: {
-                                                  click: function($event) {
-                                                    $event.preventDefault()
-                                                    return _vm.editNames(
-                                                      option.id,
-                                                      option.id_achievement,
-                                                      option.id_annual
-                                                    )
-                                                  }
-                                                }
-                                              },
-                                              [_vm._v("Agregar")]
-                                            )
-                                          ]
-                                        )
-                                      ])
-                                    ]
-                                  )
-                                ]
-                              )
-                            }),
-                            0
-                          )
-                        ])
-                      ]
-                    )
-                  ],
-                  1
-                )
-              ],
-              1
-            )
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "modal fade", attrs: { id: "createZ" } }, [
-          _c("div", { staticClass: "modal-dialog" }, [
-            _c("div", { staticClass: "modal-content" }, [
-              _c("div", { staticClass: "card" }, [
                 _vm._m(1),
                 _vm._v(" "),
-                _c("div", { staticClass: "card-body" }, [
-                  _c(
-                    "form",
-                    {
-                      staticClass: "needs-validation",
-                      attrs: { novalidate: "" },
-                      on: {
-                        submit: function($event) {
-                          $event.preventDefault()
-                        }
-                      }
-                    },
-                    [
-                      _c("div", { staticClass: "form-group row mx-auto" }, [
-                        _c(
-                          "div",
-                          { staticClass: "col-md-8 text-center mx-auto" },
-                          [
-                            _c("label", { attrs: { for: "name" } }, [
-                              _vm._v("Tipo de actividad")
-                            ]),
-                            _vm._v(" "),
-                            _c("div", [
-                              _c("input", {
-                                directives: [
-                                  {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value: _vm.tipo_act,
-                                    expression: "tipo_act"
-                                  }
-                                ],
-                                staticClass: "form-control",
-                                staticStyle: { background: "gainsboro" },
-                                attrs: {
-                                  type: "text",
-                                  name: "objetive1",
-                                  required: ""
-                                },
-                                domProps: { value: _vm.tipo_act },
-                                on: {
-                                  input: function($event) {
-                                    if ($event.target.composing) {
-                                      return
-                                    }
-                                    _vm.tipo_act = $event.target.value
-                                  }
-                                }
-                              })
-                            ])
-                          ]
+                _vm._l(_vm.getPermission, function(pedag, key) {
+                  return _c("tbody", { key: key }, [
+                    _c("tr", [
+                      _c("td", [_vm._v(_vm._s(pedag.pedagogical_activity))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(pedag.departure_time))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(pedag.time_arrival))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(pedag.name_student))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(pedag.description))]),
+                      _vm._v(" "),
+                      _c("th", [
+                        _vm._v(
+                          _vm._s(
+                            pedag.permission === true
+                              ? "Permitido"
+                              : "Sin Permiso"
+                          )
                         )
                       ]),
                       _vm._v(" "),
-                      _c("div", { staticClass: "form-group row mx-auto" }, [
+                      _c("td", [
                         _c(
-                          "div",
-                          { staticClass: "col-md-8 text-center mx-auto" },
-                          [
-                            _c("label", { attrs: { for: "name" } }, [
-                              _vm._v("Porcentaje total")
-                            ]),
-                            _vm._v(" "),
-                            _c("div", [
-                              _c("input", {
-                                directives: [
-                                  {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value: _vm.porcentaje,
-                                    expression: "porcentaje"
-                                  }
-                                ],
-                                staticClass: "form-control",
-                                staticStyle: { background: "gainsboro" },
-                                attrs: {
-                                  type: "number",
-                                  name: "objetive1",
-                                  required: ""
-                                },
-                                domProps: { value: _vm.porcentaje },
-                                on: {
-                                  input: function($event) {
-                                    if ($event.target.composing) {
-                                      return
-                                    }
-                                    _vm.porcentaje = $event.target.value
-                                  }
-                                }
-                              })
-                            ])
-                          ]
+                          "button",
+                          {
+                            staticClass: "btn btn-primary",
+                            on: {
+                              click: function($event) {
+                                return _vm.aprobalReject(pedag)
+                              }
+                            }
+                          },
+                          [_vm._v("Aprobar / Rechazar")]
                         )
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "modal-footer" }, [
-                        _c("input", {
-                          staticClass: "btn btn-warning",
-                          attrs: { type: "submit", value: "Guardar" },
-                          on: {
-                            click: function($event) {
-                              $event.preventDefault()
-                              return _vm.createIndicator()
-                            }
-                          }
-                        })
                       ])
-                    ]
-                  )
-                ])
-              ])
-            ])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "modal fade", attrs: { id: "deleteZ" } }, [
-          _c("div", { staticClass: "modal-dialog" }, [
-            _c("div", { staticClass: "modal-content" }, [
-              _c("div", { staticClass: "card" }, [
-                _vm._m(2),
-                _vm._v(" "),
-                _c("div", { staticClass: "card-body" }, [
-                  _c(
-                    "form",
-                    {
-                      staticClass: "needs-validation",
-                      attrs: { novalidate: "" },
-                      on: {
-                        submit: function($event) {
-                          $event.preventDefault()
-                        }
-                      }
-                    },
-                    [
-                      _c("label", [_vm._v("¿Desea eliminar el indicador?")]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "modal-footer" }, [
-                        _c("input", {
-                          staticClass: "btn btn-warning",
-                          attrs: { type: "submit", value: "Confirmar" },
-                          on: {
-                            click: function($event) {
-                              $event.preventDefault()
-                              return _vm.deleteIndicator()
-                            }
-                          }
-                        })
-                      ])
-                    ]
-                  )
-                ])
-              ])
-            ])
+                    ])
+                  ])
+                })
+              ],
+              2
+            )
           ])
         ])
       ])
-    ])
+    ]),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "modal fade",
+        attrs: {
+          id: "exampleModal",
+          tabindex: "-1",
+          role: "dialog",
+          "aria-labelledby": "exampleModalLabel",
+          "aria-hidden": "true"
+        }
+      },
+      [
+        _c(
+          "div",
+          { staticClass: "modal-dialog", attrs: { role: "document" } },
+          [
+            _c("div", { staticClass: "modal-content" }, [
+              _vm._m(2),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-body" }, [
+                _c("div", { staticClass: "form-group" }, [
+                  _c("label", { attrs: { for: "" } }, [_vm._v("Actividad: ")]),
+                  _vm._v(" "),
+                  _c("br"),
+                  _vm._v(" "),
+                  _c("strong", [_vm._v(_vm._s(_vm.pedagogical_activity))])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group" }, [
+                  _c("label", { attrs: { for: "" } }, [
+                    _vm._v("Fecha / Hora Salida: ")
+                  ]),
+                  _vm._v(" "),
+                  _c("br"),
+                  _vm._v(" "),
+                  _c("strong", [_vm._v(_vm._s(_vm.departure_time))])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group" }, [
+                  _c("label", { attrs: { for: "" } }, [
+                    _vm._v("Fecha / Hora Llegada: ")
+                  ]),
+                  _vm._v(" "),
+                  _c("br"),
+                  _vm._v(" "),
+                  _c("strong", [_vm._v(_vm._s(_vm.time_arrival))])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group" }, [
+                  _c("label", { attrs: { for: "" } }, [
+                    _vm._v("Descripción: ")
+                  ]),
+                  _vm._v(" "),
+                  _c("br"),
+                  _vm._v(" "),
+                  _c("strong", [_vm._v(_vm._s(_vm.description))])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group" }, [
+                  _c("label", { attrs: { for: "" } }, [_vm._v("Permiso")]),
+                  _vm._v(" "),
+                  _c("br"),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.permission,
+                        expression: "permission"
+                      }
+                    ],
+                    attrs: { type: "radio", name: "gender" },
+                    domProps: {
+                      value: true,
+                      checked: _vm._q(_vm.permission, true)
+                    },
+                    on: {
+                      change: function($event) {
+                        _vm.permission = true
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("label", [_vm._v("Permitir")]),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.permission,
+                        expression: "permission"
+                      }
+                    ],
+                    attrs: { type: "radio", name: "gender" },
+                    domProps: {
+                      value: false,
+                      checked: _vm._q(_vm.permission, false)
+                    },
+                    on: {
+                      change: function($event) {
+                        _vm.permission = false
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("label", [_vm._v("Denegar")]),
+                  _c("br")
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-footer" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-secondary",
+                    attrs: { type: "button", "data-dismiss": "modal" }
+                  },
+                  [_vm._v("Cerrar")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-primary",
+                    attrs: { type: "button" },
+                    on: { click: _vm.savePermission }
+                  },
+                  [_vm._v("Guardar")]
+                )
+              ])
+            ])
+          ]
+        )
+      ]
+    )
   ])
 }
 var staticRenderFns = [
@@ -814,68 +423,54 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("head", [
-      _c("link", {
-        attrs: {
-          rel: "stylesheet",
-          href: "https://use.fontawesome.com/releases/v5.8.2/css/solid.css",
-          integrity:
-            "sha384-ioUrHig76ITq4aEJ67dHzTvqjsAP/7IzgwE7lgJcg2r7BRNGYSK0LwSmROzYtgzs",
-          crossorigin: "anonymous"
-        }
-      }),
-      _vm._v(" "),
-      _c("link", {
-        attrs: {
-          rel: "stylesheet",
-          href: "https://use.fontawesome.com/releases/v5.8.2/css/brands.css",
-          integrity:
-            "sha384-i2PyM6FMpVnxjRPi0KW/xIS7hkeSznkllv+Hx/MtYDaHA5VcF0yL3KVlvzp8bWjQ",
-          crossorigin: "anonymous"
-        }
-      }),
-      _vm._v(" "),
-      _c("link", {
-        attrs: {
-          rel: "stylesheet",
-          href:
-            "https://use.fontawesome.com/releases/v5.8.2/css/fontawesome.css",
-          integrity:
-            "sha384-sri+NftO+0hcisDKgr287Y/1LVnInHJ1l+XC7+FOabmTTIK0HnE2ID+xxvJ21c5J",
-          crossorigin: "anonymous"
-        }
-      })
+    return _c("div", { staticClass: "card-header fondo text-center mb-3" }, [
+      _c("h4", [_vm._v("Académico")])
     ])
   },
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("h3", { staticClass: "card-header fondo text-center" }, [
-      _vm._v("\r\n                Porcentaje\r\n                "),
-      _c(
-        "button",
-        {
-          staticClass: "close",
-          attrs: { type: "button", "data-dismiss": "modal" }
-        },
-        [_c("span", [_vm._v("×")])]
-      )
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("Actividad Pedagogica")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Fecha / hora de Salida")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Fecha / hora de LLegada")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Estudiante Invitado")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Descripción")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Permiso")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Acción")])
+      ])
     ])
   },
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("h3", { staticClass: "card-header fondo text-center" }, [
-      _vm._v("\r\n                Eliminar Indicador\r\n                "),
+    return _c("div", { staticClass: "modal-header" }, [
+      _c(
+        "h5",
+        { staticClass: "modal-title", attrs: { id: "exampleModalLabel" } },
+        [_vm._v("Permiso de Salida")]
+      ),
+      _vm._v(" "),
       _c(
         "button",
         {
           staticClass: "close",
-          attrs: { type: "button", "data-dismiss": "modal" }
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
         },
-        [_c("span", [_vm._v("×")])]
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
       )
     ])
   }
@@ -886,17 +481,17 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./resources/js/components/porcentajeNotas.vue":
-/*!*****************************************************!*\
-  !*** ./resources/js/components/porcentajeNotas.vue ***!
-  \*****************************************************/
+/***/ "./resources/js/components/parentsPedagogic.vue":
+/*!******************************************************!*\
+  !*** ./resources/js/components/parentsPedagogic.vue ***!
+  \******************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _porcentajeNotas_vue_vue_type_template_id_23a35049___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./porcentajeNotas.vue?vue&type=template&id=23a35049& */ "./resources/js/components/porcentajeNotas.vue?vue&type=template&id=23a35049&");
-/* harmony import */ var _porcentajeNotas_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./porcentajeNotas.vue?vue&type=script&lang=js& */ "./resources/js/components/porcentajeNotas.vue?vue&type=script&lang=js&");
+/* harmony import */ var _parentsPedagogic_vue_vue_type_template_id_21ad37ae___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./parentsPedagogic.vue?vue&type=template&id=21ad37ae& */ "./resources/js/components/parentsPedagogic.vue?vue&type=template&id=21ad37ae&");
+/* harmony import */ var _parentsPedagogic_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./parentsPedagogic.vue?vue&type=script&lang=js& */ "./resources/js/components/parentsPedagogic.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -906,9 +501,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _porcentajeNotas_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _porcentajeNotas_vue_vue_type_template_id_23a35049___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _porcentajeNotas_vue_vue_type_template_id_23a35049___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _parentsPedagogic_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _parentsPedagogic_vue_vue_type_template_id_21ad37ae___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _parentsPedagogic_vue_vue_type_template_id_21ad37ae___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -918,38 +513,38 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/components/porcentajeNotas.vue"
+component.options.__file = "resources/js/components/parentsPedagogic.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/components/porcentajeNotas.vue?vue&type=script&lang=js&":
-/*!******************************************************************************!*\
-  !*** ./resources/js/components/porcentajeNotas.vue?vue&type=script&lang=js& ***!
-  \******************************************************************************/
+/***/ "./resources/js/components/parentsPedagogic.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************!*\
+  !*** ./resources/js/components/parentsPedagogic.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_porcentajeNotas_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./porcentajeNotas.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/porcentajeNotas.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_porcentajeNotas_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_parentsPedagogic_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./parentsPedagogic.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/parentsPedagogic.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_parentsPedagogic_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/components/porcentajeNotas.vue?vue&type=template&id=23a35049&":
-/*!************************************************************************************!*\
-  !*** ./resources/js/components/porcentajeNotas.vue?vue&type=template&id=23a35049& ***!
-  \************************************************************************************/
+/***/ "./resources/js/components/parentsPedagogic.vue?vue&type=template&id=21ad37ae&":
+/*!*************************************************************************************!*\
+  !*** ./resources/js/components/parentsPedagogic.vue?vue&type=template&id=21ad37ae& ***!
+  \*************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_porcentajeNotas_vue_vue_type_template_id_23a35049___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./porcentajeNotas.vue?vue&type=template&id=23a35049& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/porcentajeNotas.vue?vue&type=template&id=23a35049&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_porcentajeNotas_vue_vue_type_template_id_23a35049___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_parentsPedagogic_vue_vue_type_template_id_21ad37ae___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./parentsPedagogic.vue?vue&type=template&id=21ad37ae& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/parentsPedagogic.vue?vue&type=template&id=21ad37ae&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_parentsPedagogic_vue_vue_type_template_id_21ad37ae___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_porcentajeNotas_vue_vue_type_template_id_23a35049___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_parentsPedagogic_vue_vue_type_template_id_21ad37ae___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

@@ -1,6 +1,6 @@
 <template>
-    <div class="back row justify-content-center">
-        <div class="col-sm-10">
+    <div class="row justify-content-center">
+        <div class="col-sm-12">
             <div class="card text-center">
                 <div class="card-header fondo">
                     <h4>Enfermería</h4>
