@@ -3,44 +3,48 @@
         <div class="form-group width-r mx-auto">
             <div class="row">
                 <div class="col-md-12">
-                    <a v-on:click="showSection('institutions')" class="btn btn-warning mg-btn" style="background-color: #FFB466; border-color: #FFB466; box-shadow: 3px 3px 3px 3px #b0acac">
-                        <h6 class="letra-poppins-bold" style="color: black">Instituciones</h6>
+                    <a v-on:click="showSection('planifGen')" class="btn btn-warning mg-btn" style="background-color: #FFB466; border-color: #FFB466; box-shadow: 3px 3px 3px 3px #b0acac">
+                        <h6 class="letra-poppins-bold" style="color: black">Planificación General</h6>
                     </a>
 
-                    <a v-on:click="showSection('quarter')" class="btn btn-warning mg-btn" style="background-color: #FFEA47; border-color: #FFEA47; box-shadow: 3px 3px 3px 3px #b0acac">
-                        <h6 class="letra-poppins-bold" style="color: black">Trimestre</h6>
+                    <a v-on:click="showSection('cyclesClass')" class="btn btn-warning mg-btn" style="background-color: #FFEA47; border-color: #FFEA47; box-shadow: 3px 3px 3px 3px #b0acac">
+                        <h6 class="letra-poppins-bold" style="color: black">Ciclos Y Clases</h6>
                     </a>
 
-                    <a v-on:click="showSection('classroom')" class="btn btn-warning mg-btn" style="background-color: #A639B0; border-color: #A639B0; box-shadow: 3px 3px 3px 3px #b0acac">
-                        <h6 class="letra-poppins-bold" style="color: black">Salones</h6>
+                    <a v-on:click="showSection('notes')" class="btn btn-warning mg-btn" style="background-color: #FFEA47; border-color: #FFEA47; box-shadow: 3px 3px 3px 3px #b0acac">
+                        <h6 class="letra-poppins-bold" style="color: black">Notas</h6>
                     </a>
 
-                    <!-- <a v-on:click="showSection('profiles')" class="btn btn-warning mg-btn" style="background-color: #50E9FB; border-color: #50E9FB; box-shadow: 3px 3px 3px 3px #b0acac">
-                        <h6 class="letra-poppins-bold" style="color: black">Perfiles</h6>
-                    </a> -->
-
-                    <a v-on:click="showSection('piarStudents')" class="btn btn-warning mg-btn" style="background-color: #49CEFB; border-color: #49CEFB; box-shadow: 3px 3px 3px 3px #b0acac">
-                        <h6 class="letra-poppins-bold" style="color: black">Estudiantes PIAR</h6>
+                    <a v-on:click="showSection('utils')" class="btn btn-warning mg-btn" style="background-color: #A639B0; border-color: #A639B0; box-shadow: 3px 3px 3px 3px #b0acac">
+                        <h6 class="letra-poppins-bold" style="color: black">Útiles</h6>
                     </a>
 
-                    <a v-on:click="showSection('users')" class="btn btn-warning mg-btn" style="background-color: #FF5552; border-color: #FF5552; box-shadow: 3px 3px 3px 3px #b0acac">
-                        <h6 class="letra-poppins-bold" style="color: black">Usuarios</h6>
+                    <a v-on:click="showSection('pedagogic')" class="btn btn-warning mg-btn" style="background-color: #50E9FB; border-color: #50E9FB; box-shadow: 3px 3px 3px 3px #b0acac">
+                        <h6 class="letra-poppins-bold" style="color: black">Salidas Pedagógicas</h6>
                     </a>
 
-                    <a v-on:click="showSection('noteParameters')" class="btn btn-warning mg-btn" style="background-color: #F98200; border-color: #F98200; box-shadow: 3px 3px 3px 3px #b0acac">
-                        <h6 class="letra-poppins-bold" style="color: black">Parametros de Notas</h6>
+                    <a v-on:click="showSection('adminElectivs')" class="btn btn-warning mg-btn" style="background-color: #49CEFB; border-color: #49CEFB; box-shadow: 3px 3px 3px 3px #b0acac">
+                        <h6 class="letra-poppins-bold" style="color: black">Administrar Electivas</h6>
                     </a>
 
-                    <a v-on:click="showSection('nursing')" class="btn btn-warning mg-btn" style="background-color: #F98201; border-color: #F98201; box-shadow: 3px 3px 3px 3px #b0acac">
-                        <h6 class="letra-poppins-bold" style="color: black">Enfermería</h6>
+                    <a v-on:click="showSection('electivsClass')" class="btn btn-warning mg-btn" style="background-color: #FF5552; border-color: #FF5552; box-shadow: 3px 3px 3px 3px #b0acac">
+                        <h6 class="letra-poppins-bold" style="color: black">Clases Electivas</h6>
                     </a>
 
-                    <a v-on:click="showSection('feeding')" class="btn btn-warning mg-btn" style="background-color: #F98202; border-color: #F98202; box-shadow: 3px 3px 3px 3px #b0acac">
-                        <h6 class="letra-poppins-bold" style="color: black">Alimentación</h6>
+                    <a v-on:click="showSection('assistantsMotives')" class="btn btn-warning mg-btn" style="background-color: #F98200; border-color: #F98200; box-shadow: 3px 3px 3px 3px #b0acac">
+                        <h6 class="letra-poppins-bold" style="color: black">Creación de Motivos de Asistencia</h6>
                     </a>
 
-                    <a v-on:click="showSection('transport')" class="btn btn-warning mg-btn" style="background-color: #F98203; border-color: #F98203; box-shadow: 3px 3px 3px 3px #b0acac">
-                        <h6 class="letra-poppins-bold" style="color: black">Transporte</h6>
+                    <a v-on:click="showSection('trimestresCreate')" class="btn btn-warning mg-btn" style="background-color: #F98201; border-color: #F98201; box-shadow: 3px 3px 3px 3px #b0acac">
+                        <h6 class="letra-poppins-bold" style="color: black">Creación de Trimestres</h6>
+                    </a>
+
+                    <a v-on:click="showSection('reportPlanif')" class="btn btn-warning mg-btn" style="background-color: #F98202; border-color: #F98202; box-shadow: 3px 3px 3px 3px #b0acac">
+                        <h6 class="letra-poppins-bold" style="color: black">Informe Planificación</h6>
+                    </a>
+
+                    <a v-on:click="showSection('cycleReport')" class="btn btn-warning mg-btn" style="background-color: #F98203; border-color: #F98203; box-shadow: 3px 3px 3px 3px #b0acac">
+                        <h6 class="letra-poppins-bold" style="color: black">Informe Ciclos y Clases</h6>
                     </a>
                 </div>
             </div>
@@ -49,33 +53,38 @@
         <div class="row">
             <div id="tabs" class="col-md-11 mx-auto">
                 <div>                    
-                    <div v-if="activetab === 'institutions'" class="tabcontent">
-                        <institu-adm></institu-adm>
+                    <div v-if="activetab === 'planifGen'" class="tabcontent">
+                        <vplan-adm></vplan-adm>
                     </div>
-                    <div v-if="activetab === 'quarter'" class="tabcontent">
-                        <trimestres></trimestres>
+                    <div v-if="activetab === 'cyclesClass'" class="tabcontent">
+                        <clases-teacher :user="user"></clases-teacher>
                     </div>
-                    <div v-if="activetab === 'classroom'" class="tabcontent">
-                        <cursos-adm></cursos-adm>
+                    <div v-if="activetab === 'notes'" class="tabcontent">
+                        <notasd-component></notasd-component>
                     </div>
-                    <!-- <div v-if="activetab === 'profiles'" class="tabcontent">'Perfiles'</div> -->
-                    <div v-if="activetab === 'piarStudents'" class="tabcontent">
-                        <piar-component ></piar-component>
+                    <div v-if="activetab === 'utils'" class="tabcontent">                        
+                        <utils-coord :user="user"></utils-coord>
                     </div>
-                    <div v-if="activetab === 'users'" class="tabcontent">
-                        <salon-adm></salon-adm>
-                    </div>
-                    <div v-if="activetab === 'noteParameters'" class="tabcontent">
-                        <admin-configuration></admin-configuration>
-                    </div>
-                    <div v-if="activetab === 'nursing'" class="tabcontent">
-                        <nursing-component></nursing-component>
-                    </div>
-                    <div v-if="activetab === 'feeding'" class="tabcontent">
-                        <food-component></food-component>
-                    </div>
-                    <div v-if="activetab === 'transport'" class="tabcontent">
+                     <div v-if="activetab === 'pedagogic'" class="tabcontent">
                         <pedagogical-course :user="user"></pedagogical-course>
+                     </div>
+                    <div v-if="activetab === 'adminElectivs'" class="tabcontent">
+                        <lectives-teacher-planning></lectives-teacher-planning>
+                    </div>
+                    <div v-if="activetab === 'electivsClass'" class="tabcontent">
+                        <lectives-teacher-courses></lectives-teacher-courses>
+                    </div>
+                    <div v-if="activetab === 'assistantsMotives'" class="tabcontent">
+                        <motive-assistants></motive-assistants>
+                    </div>
+                    <div v-if="activetab === 'trimestresCreate'" class="tabcontent">
+                        <trimestre-component></trimestre-component>
+                    </div>
+                    <div v-if="activetab === 'reportPlanif'" class="tabcontent">
+                        <admin-report-planification></admin-report-planification>
+                    </div>
+                    <div v-if="activetab === 'cycleReport'" class="tabcontent">
+                        <admin-report-cycle></admin-report-cycle>
                     </div>
                 </div>
             </div>

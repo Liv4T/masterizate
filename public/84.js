@@ -1,30 +1,14 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[84],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/teacherStudentClassSelectComponent.vue?vue&type=script&lang=js&":
-/*!*********************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/teacherStudentClassSelectComponent.vue?vue&type=script&lang=js& ***!
-  \*********************************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/tabsSchoolGov.vue?vue&type=script&lang=js&":
+/*!************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/tabsSchoolGov.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -56,45 +40,25 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['id_area', 'id_classroom', 'id_student', 'id_module'],
+  props: ['user'],
   data: function data() {
     return {
-      classs: [],
-      current_class: {}
+      activetab: null
     };
   },
-  mounted: function mounted() {
-    this.classs = [];
-    this.getStudentCalifications();
-  },
   methods: {
-    getStudentCalifications: function getStudentCalifications() {
-      var _this = this;
-
-      return new Promise(function (resolve, reject) {
-        axios.get("/api/teacher/area/".concat(_this.id_area, "/classroom/").concat(_this.id_classroom, "/student/").concat(_this.id_student, "/module/").concat(_this.id_module, "/class")).then(function (response) {
-          _this.classs = response.data;
-          resolve();
-        }, function (e) {
-          return reject(e);
-        });
-      });
-    },
-    classSelectEvent: function classSelectEvent(_class) {
-      this.current_class = _class;
-    },
-    GoReturnPage: function GoReturnPage() {
-      window.history.back();
+    showSection: function showSection(section) {
+      this.activetab = section;
     }
   }
 });
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/teacherStudentClassSelectComponent.vue?vue&type=style&index=0&id=3ee6d2ed&scoped=true&lang=css&":
-/*!****************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/teacherStudentClassSelectComponent.vue?vue&type=style&index=0&id=3ee6d2ed&scoped=true&lang=css& ***!
-  \****************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/tabsSchoolGov.vue?vue&type=style&index=0&lang=css&":
+/*!*******************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/tabsSchoolGov.vue?vue&type=style&index=0&lang=css& ***!
+  \*******************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -103,22 +67,22 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.class_container[data-v-3ee6d2ed]{\r\n    display: flex;\r\n    flex-direction: column;\r\n    justify-content: space-between;\r\n    padding: 10px;\r\n    border:2px solid #ffc039;\r\n    border-radius:4px;\r\n    margin-top:10px;\r\n    transition: background 0.8s;\r\n    font-weight: 600;\r\n    font-family: \"Century Gothic\";\r\n    color:#000;\n}\n.class_container[data-v-3ee6d2ed]:hover{\r\n      box-shadow: 0 0 11px rgba(33,33,33,.2);\r\n      cursor: default;\r\n      background: #ffc039 radial-gradient(circle, transparent 1%, white 1%) center/15000%;\r\n      color:#000;\n}\n.class_container[data-v-3ee6d2ed]:active {\r\n  background-color: #ffc039;\r\n  background-size: 100%;\r\n  text-decoration: none;\r\n  transition: background 0s;\r\n   color:white;\n}\n.class_container-active[data-v-3ee6d2ed]{\r\n     background-color: #ffc039;\r\n     color:#000;\n}\n.class_notify[data-v-3ee6d2ed]{\r\n    font-weight: 700;\r\n    color:#278080;\r\n    background: #edffff;\n}\n.class_container_info[data-v-3ee6d2ed]{\r\n    display: flex;\r\n    flex-direction: row;\r\n    justify-content: space-between;\r\n    align-items: center;\n}\n.class_container_score[data-v-3ee6d2ed]{\r\n     display: flex;\r\n     flex-direction: row;\r\n     justify-content: space-between;\r\n     align-items: center;\n}\n.class_container_score>div[data-v-3ee6d2ed]{\r\n    display: flex;\r\n    flex-direction: column;\r\n    align-items: center;\r\n    justify-content: center;\r\n    margin-left:20px;\n}\n.class_container_header[data-v-3ee6d2ed]{\r\n    display: flex;\r\n    flex-direction: row;\r\n    justify-content: space-between;\n}\n.class_container_info-container[data-v-3ee6d2ed]{\r\n    display: flex;\r\n    flex-direction: column;\n}\r\n", ""]);
+exports.push([module.i, "\n.mg-btn {\r\n  margin: 10px;\r\n  min-width: 165px;\n}\n.width-r {\r\n  max-width: 97%;\r\n  border: 1px solid #cccccc82;\r\n  border-radius: 10px;\r\n  box-shadow: 3px 3px 3px 3px #b0acac;\n}\n.tabs {\r\n  margin-top: 20px;\r\n  overflow: hidden;\r\n  margin-left: 90px;\r\n  margin-bottom: -2px;\n}\n.tabs ul {\r\n  list-style-type: none;\r\n  margin-left: 20px;\n}\n.tabs a {\r\n  float: left;\r\n  cursor: pointer;\r\n  padding: 12px 24px;\r\n  transition: background-color 0.2s;\r\n  border: 1px solid #ccc;\r\n  border-right: none;\r\n  background-color: #bfbfbf;\r\n  border-radius: 10px 10px 0 0;\r\n  font-weight: bold;\r\n  color: #fff !important;\n}\n.tabs a:last-child {\r\n  border-right: 1px solid #ccc;\n}\r\n/* Change background color of tabs on hover */\n.tabs a:hover {\r\n  background-color: #aaa;\r\n  color: #fff;\n}\r\n\r\n/* Styling for active tab */\n.tabs a.active {\r\n  background-color: #00cbcec1;\r\n  color: #fff;\r\n  border-bottom: 2px solid #fff;\r\n  cursor: default;\n}\n.tabcontent {\r\n  border: 1px solid #ccc;\r\n  border-radius: 10px;\r\n  box-shadow: 3px 3px 6px #e1e1e1;\n}\r\n", ""]);
 
 // exports
 
 
 /***/ }),
 
-/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/teacherStudentClassSelectComponent.vue?vue&type=style&index=0&id=3ee6d2ed&scoped=true&lang=css&":
-/*!********************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/teacherStudentClassSelectComponent.vue?vue&type=style&index=0&id=3ee6d2ed&scoped=true&lang=css& ***!
-  \********************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/tabsSchoolGov.vue?vue&type=style&index=0&lang=css&":
+/*!***********************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/tabsSchoolGov.vue?vue&type=style&index=0&lang=css& ***!
+  \***********************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var content = __webpack_require__(/*! !../../../node_modules/css-loader??ref--6-1!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--6-2!../../../node_modules/vue-loader/lib??vue-loader-options!./teacherStudentClassSelectComponent.vue?vue&type=style&index=0&id=3ee6d2ed&scoped=true&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/teacherStudentClassSelectComponent.vue?vue&type=style&index=0&id=3ee6d2ed&scoped=true&lang=css&");
+var content = __webpack_require__(/*! !../../../node_modules/css-loader??ref--6-1!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--6-2!../../../node_modules/vue-loader/lib??vue-loader-options!./tabsSchoolGov.vue?vue&type=style&index=0&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/tabsSchoolGov.vue?vue&type=style&index=0&lang=css&");
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -140,10 +104,10 @@ if(false) {}
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/teacherStudentClassSelectComponent.vue?vue&type=template&id=3ee6d2ed&scoped=true&":
-/*!*************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/teacherStudentClassSelectComponent.vue?vue&type=template&id=3ee6d2ed&scoped=true& ***!
-  \*************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/tabsSchoolGov.vue?vue&type=template&id=2b48c061&":
+/*!****************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/tabsSchoolGov.vue?vue&type=template&id=2b48c061& ***!
+  \****************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -155,144 +119,115 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm.current_class.id
-    ? _c(
-        "div",
-        [
-          _c("teacher-student-class-content", {
-            attrs: {
-              id_class: _vm.current_class.id,
-              id_module: _vm.id_module,
-              id_area: _vm.id_area,
-              id_classroom: _vm.id_classroom,
-              id_student: _vm.id_student
-            }
-          })
-        ],
-        1
-      )
-    : _c("div", [
-        _c(
-          "div",
-          { staticClass: "col-12 col-md-12" },
-          [
-            _vm._m(0),
-            _vm._v(" "),
-            _vm._l(_vm.classs, function(_class, k_class) {
-              return _c(
-                "div",
+  return _c("div", [
+    _c("div", { staticClass: "form-group width-r mx-auto" }, [
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col-md-12" }, [
+          _c(
+            "a",
+            {
+              staticClass: "btn btn-warning mg-btn",
+              staticStyle: {
+                "background-color": "#FFEA47",
+                "border-color": "#FFEA47",
+                "box-shadow": "3px 3px 3px 3px #b0acac"
+              },
+              on: {
+                click: function($event) {
+                  return _vm.showSection("governmentMembers")
+                }
+              }
+            },
+            [
+              _c(
+                "h6",
                 {
-                  key: k_class,
-                  staticClass: "class_container",
-                  class: {
-                    "class_container-active": _vm.current_class.id == _class.id
-                  },
-                  on: {
-                    click: function($event) {
-                      return _vm.classSelectEvent(_class)
-                    }
-                  }
+                  staticClass: "letra-poppins-bold",
+                  staticStyle: { color: "black" }
                 },
-                [
-                  _c("div", { staticClass: "class_container_info" }, [
-                    _c(
-                      "div",
-                      { staticClass: "class_container_info-container" },
-                      [
-                        _c("span", [_vm._v(_vm._s(_class.name))]),
-                        _vm._v(" "),
-                        _class.pending_calification > 0
-                          ? _c("small", { staticClass: "class_notify" }, [
-                              _c(
-                                "svg",
-                                {
-                                  staticClass: "bi bi-exclamation-triangle",
-                                  attrs: {
-                                    xmlns: "http://www.w3.org/2000/svg",
-                                    width: "16",
-                                    height: "16",
-                                    fill: "currentColor",
-                                    viewBox: "0 0 16 16"
-                                  }
-                                },
-                                [
-                                  _c("path", {
-                                    attrs: {
-                                      d:
-                                        "M7.938 2.016A.13.13 0 0 1 8.002 2a.13.13 0 0 1 .063.016.146.146 0 0 1 .054.057l6.857 11.667c.036.06.035.124.002.183a.163.163 0 0 1-.054.06.116.116 0 0 1-.066.017H1.146a.115.115 0 0 1-.066-.017.163.163 0 0 1-.054-.06.176.176 0 0 1 .002-.183L7.884 2.073a.147.147 0 0 1 .054-.057zm1.044-.45a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566z"
-                                    }
-                                  }),
-                                  _vm._v(" "),
-                                  _c("path", {
-                                    attrs: {
-                                      d:
-                                        "M7.002 12a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 5.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995z"
-                                    }
-                                  })
-                                ]
-                              ),
-                              _vm._v(
-                                "\n                            Actividades pendientes de calificación\n                        "
-                              )
-                            ])
-                          : _vm._e()
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "class_container_score" }, [
-                      _c("div", [
-                        _class.progress > -1
-                          ? _c("span", [_vm._v(_vm._s(_class.progress) + "%")])
-                          : _c("span", [_vm._v("-")]),
-                        _vm._v(" "),
-                        _c("small", [_vm._v("Progreso")])
-                      ]),
-                      _vm._v(" "),
-                      _c("div", [
-                        _class.score > -1
-                          ? _c("span", [_vm._v(_vm._s(_class.score) + "/5")])
-                          : _c("span", [_vm._v("-")]),
-                        _vm._v(" "),
-                        _c("small", [_vm._v("Calificación")])
-                      ])
-                    ])
-                  ])
-                ]
+                [_vm._v("Quiénes lo Conforman")]
               )
-            })
-          ],
-          2
-        )
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "a",
+            {
+              staticClass: "btn btn-warning mg-btn",
+              staticStyle: {
+                "background-color": "#A639B0",
+                "border-color": "#A639B0",
+                "box-shadow": "3px 3px 3px 3px #b0acac"
+              },
+              on: {
+                click: function($event) {
+                  return _vm.showSection("legislation")
+                }
+              }
+            },
+            [
+              _c(
+                "h6",
+                {
+                  staticClass: "letra-poppins-bold",
+                  staticStyle: { color: "black" }
+                },
+                [_vm._v("Legislación")]
+              )
+            ]
+          )
+        ])
       ])
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "class_container_header" }, [
-      _c("span", [_vm._v("Seleccione clase:")])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-md-11 mx-auto", attrs: { id: "tabs" } }, [
+        _c("div", [
+          _vm.activetab === "governmentMembers"
+            ? _c(
+                "div",
+                { staticClass: "tabcontent" },
+                [
+                  _c("government-members-component", {
+                    attrs: { user: _vm.user }
+                  })
+                ],
+                1
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.activetab === "legislation"
+            ? _c(
+                "div",
+                { staticClass: "tabcontent" },
+                [_c("legislation-component", { attrs: { user: _vm.user } })],
+                1
+              )
+            : _vm._e()
+        ])
+      ])
     ])
-  }
-]
+  ])
+}
+var staticRenderFns = []
 render._withStripped = true
 
 
 
 /***/ }),
 
-/***/ "./resources/js/components/teacherStudentClassSelectComponent.vue":
-/*!************************************************************************!*\
-  !*** ./resources/js/components/teacherStudentClassSelectComponent.vue ***!
-  \************************************************************************/
+/***/ "./resources/js/components/tabsSchoolGov.vue":
+/*!***************************************************!*\
+  !*** ./resources/js/components/tabsSchoolGov.vue ***!
+  \***************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _teacherStudentClassSelectComponent_vue_vue_type_template_id_3ee6d2ed_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./teacherStudentClassSelectComponent.vue?vue&type=template&id=3ee6d2ed&scoped=true& */ "./resources/js/components/teacherStudentClassSelectComponent.vue?vue&type=template&id=3ee6d2ed&scoped=true&");
-/* harmony import */ var _teacherStudentClassSelectComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./teacherStudentClassSelectComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/teacherStudentClassSelectComponent.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _teacherStudentClassSelectComponent_vue_vue_type_style_index_0_id_3ee6d2ed_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./teacherStudentClassSelectComponent.vue?vue&type=style&index=0&id=3ee6d2ed&scoped=true&lang=css& */ "./resources/js/components/teacherStudentClassSelectComponent.vue?vue&type=style&index=0&id=3ee6d2ed&scoped=true&lang=css&");
+/* harmony import */ var _tabsSchoolGov_vue_vue_type_template_id_2b48c061___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./tabsSchoolGov.vue?vue&type=template&id=2b48c061& */ "./resources/js/components/tabsSchoolGov.vue?vue&type=template&id=2b48c061&");
+/* harmony import */ var _tabsSchoolGov_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./tabsSchoolGov.vue?vue&type=script&lang=js& */ "./resources/js/components/tabsSchoolGov.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _tabsSchoolGov_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./tabsSchoolGov.vue?vue&type=style&index=0&lang=css& */ "./resources/js/components/tabsSchoolGov.vue?vue&type=style&index=0&lang=css&");
 /* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -303,66 +238,66 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
-  _teacherStudentClassSelectComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _teacherStudentClassSelectComponent_vue_vue_type_template_id_3ee6d2ed_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _teacherStudentClassSelectComponent_vue_vue_type_template_id_3ee6d2ed_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _tabsSchoolGov_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _tabsSchoolGov_vue_vue_type_template_id_2b48c061___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _tabsSchoolGov_vue_vue_type_template_id_2b48c061___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
-  "3ee6d2ed",
+  null,
   null
   
 )
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/components/teacherStudentClassSelectComponent.vue"
+component.options.__file = "resources/js/components/tabsSchoolGov.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/components/teacherStudentClassSelectComponent.vue?vue&type=script&lang=js&":
-/*!*************************************************************************************************!*\
-  !*** ./resources/js/components/teacherStudentClassSelectComponent.vue?vue&type=script&lang=js& ***!
-  \*************************************************************************************************/
+/***/ "./resources/js/components/tabsSchoolGov.vue?vue&type=script&lang=js&":
+/*!****************************************************************************!*\
+  !*** ./resources/js/components/tabsSchoolGov.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_teacherStudentClassSelectComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./teacherStudentClassSelectComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/teacherStudentClassSelectComponent.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_teacherStudentClassSelectComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_tabsSchoolGov_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./tabsSchoolGov.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/tabsSchoolGov.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_tabsSchoolGov_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/components/teacherStudentClassSelectComponent.vue?vue&type=style&index=0&id=3ee6d2ed&scoped=true&lang=css&":
-/*!*********************************************************************************************************************************!*\
-  !*** ./resources/js/components/teacherStudentClassSelectComponent.vue?vue&type=style&index=0&id=3ee6d2ed&scoped=true&lang=css& ***!
-  \*********************************************************************************************************************************/
+/***/ "./resources/js/components/tabsSchoolGov.vue?vue&type=style&index=0&lang=css&":
+/*!************************************************************************************!*\
+  !*** ./resources/js/components/tabsSchoolGov.vue?vue&type=style&index=0&lang=css& ***!
+  \************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_teacherStudentClassSelectComponent_vue_vue_type_style_index_0_id_3ee6d2ed_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/style-loader!../../../node_modules/css-loader??ref--6-1!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--6-2!../../../node_modules/vue-loader/lib??vue-loader-options!./teacherStudentClassSelectComponent.vue?vue&type=style&index=0&id=3ee6d2ed&scoped=true&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/teacherStudentClassSelectComponent.vue?vue&type=style&index=0&id=3ee6d2ed&scoped=true&lang=css&");
-/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_teacherStudentClassSelectComponent_vue_vue_type_style_index_0_id_3ee6d2ed_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_teacherStudentClassSelectComponent_vue_vue_type_style_index_0_id_3ee6d2ed_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_teacherStudentClassSelectComponent_vue_vue_type_style_index_0_id_3ee6d2ed_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_teacherStudentClassSelectComponent_vue_vue_type_style_index_0_id_3ee6d2ed_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
- /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_teacherStudentClassSelectComponent_vue_vue_type_style_index_0_id_3ee6d2ed_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_tabsSchoolGov_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/style-loader!../../../node_modules/css-loader??ref--6-1!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--6-2!../../../node_modules/vue-loader/lib??vue-loader-options!./tabsSchoolGov.vue?vue&type=style&index=0&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/tabsSchoolGov.vue?vue&type=style&index=0&lang=css&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_tabsSchoolGov_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_tabsSchoolGov_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_tabsSchoolGov_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_tabsSchoolGov_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_tabsSchoolGov_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
 
 /***/ }),
 
-/***/ "./resources/js/components/teacherStudentClassSelectComponent.vue?vue&type=template&id=3ee6d2ed&scoped=true&":
-/*!*******************************************************************************************************************!*\
-  !*** ./resources/js/components/teacherStudentClassSelectComponent.vue?vue&type=template&id=3ee6d2ed&scoped=true& ***!
-  \*******************************************************************************************************************/
+/***/ "./resources/js/components/tabsSchoolGov.vue?vue&type=template&id=2b48c061&":
+/*!**********************************************************************************!*\
+  !*** ./resources/js/components/tabsSchoolGov.vue?vue&type=template&id=2b48c061& ***!
+  \**********************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_teacherStudentClassSelectComponent_vue_vue_type_template_id_3ee6d2ed_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./teacherStudentClassSelectComponent.vue?vue&type=template&id=3ee6d2ed&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/teacherStudentClassSelectComponent.vue?vue&type=template&id=3ee6d2ed&scoped=true&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_teacherStudentClassSelectComponent_vue_vue_type_template_id_3ee6d2ed_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_tabsSchoolGov_vue_vue_type_template_id_2b48c061___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./tabsSchoolGov.vue?vue&type=template&id=2b48c061& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/tabsSchoolGov.vue?vue&type=template&id=2b48c061&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_tabsSchoolGov_vue_vue_type_template_id_2b48c061___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_teacherStudentClassSelectComponent_vue_vue_type_template_id_3ee6d2ed_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_tabsSchoolGov_vue_vue_type_template_id_2b48c061___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
