@@ -127,6 +127,7 @@ var render = function() {
             _c(
               "a",
               {
+                class: [_vm.activetab === "permission" ? "active" : ""],
                 on: {
                   click: function($event) {
                     return _vm.showSection("permission")
@@ -143,6 +144,7 @@ var render = function() {
             _c(
               "a",
               {
+                class: [_vm.activetab === "observer" ? "active" : ""],
                 on: {
                   click: function($event) {
                     return _vm.showSection("observer")

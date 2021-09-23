@@ -158,6 +158,7 @@ var render = function() {
             _c(
               "a",
               {
+                class: [_vm.activetab === "planifGen" ? "active" : ""],
                 on: {
                   click: function($event) {
                     return _vm.showSection("planifGen")
@@ -174,6 +175,7 @@ var render = function() {
             _c(
               "a",
               {
+                class: [_vm.activetab === "cyclesClass" ? "active" : ""],
                 on: {
                   click: function($event) {
                     return _vm.showSection("cyclesClass")
@@ -190,6 +192,7 @@ var render = function() {
             _c(
               "a",
               {
+                class: [_vm.activetab === "notes" ? "active" : ""],
                 on: {
                   click: function($event) {
                     return _vm.showSection("notes")
@@ -206,6 +209,7 @@ var render = function() {
             _c(
               "a",
               {
+                class: [_vm.activetab === "utils" ? "active" : ""],
                 on: {
                   click: function($event) {
                     return _vm.showSection("utils")
@@ -222,6 +226,7 @@ var render = function() {
             _c(
               "a",
               {
+                class: [_vm.activetab === "pedagogic" ? "active" : ""],
                 on: {
                   click: function($event) {
                     return _vm.showSection("pedagogic")
@@ -238,6 +243,7 @@ var render = function() {
             _c(
               "a",
               {
+                class: [_vm.activetab === "adminElectivs" ? "active" : ""],
                 on: {
                   click: function($event) {
                     return _vm.showSection("adminElectivs")
@@ -254,6 +260,7 @@ var render = function() {
             _c(
               "a",
               {
+                class: [_vm.activetab === "electivsClass" ? "active" : ""],
                 on: {
                   click: function($event) {
                     return _vm.showSection("electivsClass")
@@ -270,6 +277,7 @@ var render = function() {
             _c(
               "a",
               {
+                class: [_vm.activetab === "assistantsMotives" ? "active" : ""],
                 on: {
                   click: function($event) {
                     return _vm.showSection("assistantsMotives")
@@ -286,6 +294,7 @@ var render = function() {
             _c(
               "a",
               {
+                class: [_vm.activetab === "trimestresCreate" ? "active" : ""],
                 on: {
                   click: function($event) {
                     return _vm.showSection("trimestresCreate")
@@ -302,6 +311,7 @@ var render = function() {
             _c(
               "a",
               {
+                class: [_vm.activetab === "reportPlanif" ? "active" : ""],
                 on: {
                   click: function($event) {
                     return _vm.showSection("reportPlanif")
@@ -318,6 +328,7 @@ var render = function() {
             _c(
               "a",
               {
+                class: [_vm.activetab === "cycleReport" ? "active" : ""],
                 on: {
                   click: function($event) {
                     return _vm.showSection("cycleReport")

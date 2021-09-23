@@ -129,6 +129,7 @@ var render = function() {
             _c(
               "a",
               {
+                class: [_vm.activetab === "governmentMembers" ? "active" : ""],
                 on: {
                   click: function($event) {
                     return _vm.showSection("governmentMembers")
@@ -145,6 +146,7 @@ var render = function() {
             _c(
               "a",
               {
+                class: [_vm.activetab === "legislation" ? "active" : ""],
                 on: {
                   click: function($event) {
                     return _vm.showSection("legislation")

@@ -116,7 +116,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.tabs {\r\n  margin-top: 10px;\r\n  overflow: hidden;\r\n  margin-left: 30px;\r\n  margin-bottom: -2px;\n}\n.tabs ul {\r\n  list-style-type: none;\r\n  margin-left: 5px;\n}\n.tabs a {\r\n  float: left;\r\n  cursor: pointer;\r\n  padding: 1px 20px;\r\n  transition: background-color 0.2s;\r\n  border: 1px solid #ccc;\r\n  border-right: none;\r\n  background-color: #bfbfbf;\r\n  border-radius: 10px 10px 0 0;\r\n  font-weight: bold;\r\n  color: #fff !important;\n}\n.tabs a:last-child {\r\n  border-right: 1px solid #ccc;\n}\r\n/* Change background color of tabs on hover */\n.tabs a:hover {\r\n  background-color: #aaa;\r\n  color: #fff;\n}\r\n\r\n/* Styling for active tab */\n.tabs a.active {\r\n  background-color: #00cbcec1;\r\n  color: #fff;\r\n  border-bottom: 2px solid #fff;\r\n  cursor: default;\n}\n.tabcontent {\r\n  border: 1px solid #ccc;\r\n  border-radius: 10px;\r\n  box-shadow: 3px 3px 6px #e1e1e1;\n}\r\n", ""]);
+exports.push([module.i, "\n.tabs {\r\n  margin-top: 10px;\r\n  overflow: hidden;\r\n  margin-left: 30px;\r\n  margin-bottom: -2px;\n}\n.tabs a {\r\n  float: left;\r\n  cursor: pointer;\r\n  padding: 1px 20px;\r\n  transition: background-color 0.2s;\r\n  border: 1px solid #ccc;\r\n  border-right: none;\r\n  background-color: #bfbfbf;\r\n  border-radius: 10px 10px 0 0;\r\n  font-weight: bold;\r\n  color: #fff !important;\n}\n.tabs a:last-child {\r\n  border-right: 1px solid #ccc;\n}\r\n/* Change background color of tabs on hover */\n.tabs a:hover {\r\n  background-color: #aaa;\r\n  color: #fff;\n}\r\n\r\n/* Styling for active tab */\n.tabs a.active {\r\n  background-color: #00cbcec1;\r\n  color: #fff;\r\n  border-bottom: 2px solid #fff;\r\n  cursor: default;\n}\r\n", ""]);
 
 // exports
 
@@ -176,6 +176,7 @@ var render = function() {
             _c(
               "a",
               {
+                class: [_vm.activetab === "institutions" ? "active" : ""],
                 on: {
                   click: function($event) {
                     return _vm.showSection("institutions")
@@ -192,6 +193,7 @@ var render = function() {
             _c(
               "a",
               {
+                class: [_vm.activetab === "quarter" ? "active" : ""],
                 on: {
                   click: function($event) {
                     return _vm.showSection("quarter")
@@ -208,6 +210,7 @@ var render = function() {
             _c(
               "a",
               {
+                class: [_vm.activetab === "classroom" ? "active" : ""],
                 on: {
                   click: function($event) {
                     return _vm.showSection("classroom")
@@ -224,6 +227,7 @@ var render = function() {
             _c(
               "a",
               {
+                class: [_vm.activetab === "piarStudents" ? "active" : ""],
                 on: {
                   click: function($event) {
                     return _vm.showSection("piarStudents")
@@ -240,6 +244,7 @@ var render = function() {
             _c(
               "a",
               {
+                class: [_vm.activetab === "users" ? "active" : ""],
                 on: {
                   click: function($event) {
                     return _vm.showSection("users")
@@ -256,6 +261,7 @@ var render = function() {
             _c(
               "a",
               {
+                class: [_vm.activetab === "noteParameters" ? "active" : ""],
                 on: {
                   click: function($event) {
                     return _vm.showSection("noteParameters")
@@ -272,6 +278,7 @@ var render = function() {
             _c(
               "a",
               {
+                class: [_vm.activetab === "nursing" ? "active" : ""],
                 on: {
                   click: function($event) {
                     return _vm.showSection("nursing")
@@ -288,6 +295,7 @@ var render = function() {
             _c(
               "a",
               {
+                class: [_vm.activetab === "feeding" ? "active" : ""],
                 on: {
                   click: function($event) {
                     return _vm.showSection("feeding")
@@ -304,6 +312,7 @@ var render = function() {
             _c(
               "a",
               {
+                class: [_vm.activetab === "transport" ? "active" : ""],
                 on: {
                   click: function($event) {
                     return _vm.showSection("transport")
@@ -322,7 +331,7 @@ var render = function() {
     ]),
     _vm._v(" "),
     _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-md-11 mx-auto", attrs: { id: "tabs" } }, [
+      _c("div", { staticClass: "col-md-12" }, [
         _vm.activetab === "institutions"
           ? _c("div", [_c("institu-adm")], 1)
           : _vm._e(),

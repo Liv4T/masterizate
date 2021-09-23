@@ -4,19 +4,19 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="tabs">
-                        <a v-on:click="showSection('messages')">
+                        <a v-on:click="showSection('messages')" v-bind:class="[activetab === 'messages' ? 'active' : '']">
                             <h4 class="letra-poppins-bold">Mensajes</h4>
                         </a>
 
-                        <a v-on:click="showSection('calendar')">
+                        <a v-on:click="showSection('calendar')" v-bind:class="[activetab === 'calendar' ? 'active' : '']">
                             <h4 class="letra-poppins-bold">Calendario</h4>
                         </a>
 
-                        <a v-on:click="showSection('foro')">
+                        <a v-on:click="showSection('foro')" v-bind:class="[activetab === 'foro' ? 'active' : '']">
                             <h4 class="letra-poppins-bold">Foro</h4>
                         </a>
 
-                        <a v-on:click="showSection('chat')">
+                        <a v-on:click="showSection('chat')" v-bind:class="[activetab === 'chat' ? 'active' : '']">
                             <h4 class="letra-poppins-bold">Chat</h4>
                         </a>
                     </div>

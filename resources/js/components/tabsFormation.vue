@@ -4,11 +4,11 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="tabs">
-                        <a v-on:click="showSection('permission')">
+                        <a v-on:click="showSection('permission')" v-bind:class="[activetab === 'permission' ? 'active' : '']">
                             <h4 class="letra-poppins-bold">Permisos</h4>
                         </a>
 
-                        <a v-on:click="showSection('observer')">
+                        <a v-on:click="showSection('observer')" v-bind:class="[activetab === 'observer' ? 'active' : '']">
                             <h4 class="letra-poppins-bold">Observador</h4>
                         </a> 
                     </div>                   

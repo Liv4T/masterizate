@@ -155,6 +155,7 @@ var render = function() {
             _c(
               "a",
               {
+                class: [_vm.activetab === "messages" ? "active" : ""],
                 on: {
                   click: function($event) {
                     return _vm.showSection("messages")
@@ -171,6 +172,7 @@ var render = function() {
             _c(
               "a",
               {
+                class: [_vm.activetab === "calendar" ? "active" : ""],
                 on: {
                   click: function($event) {
                     return _vm.showSection("calendar")
@@ -187,6 +189,7 @@ var render = function() {
             _c(
               "a",
               {
+                class: [_vm.activetab === "foro" ? "active" : ""],
                 on: {
                   click: function($event) {
                     return _vm.showSection("foro")
@@ -203,6 +206,7 @@ var render = function() {
             _c(
               "a",
               {
+                class: [_vm.activetab === "chat" ? "active" : ""],
                 on: {
                   click: function($event) {
                     return _vm.showSection("chat")
