@@ -3,26 +3,26 @@
         <div class="form-group width-r mx-auto">
             <div class="row">
                 <div class="col-md-12">
-                    <a v-on:click="showSection('permission')" class="btn btn-warning mg-btn" style="background-color: #FFEA47; border-color: #FFEA47; box-shadow: 3px 3px 3px 3px #b0acac">
-                        <h6 class="letra-poppins-bold" style="color: black">Permisos</h6>
-                    </a>
+                    <div class="tabs">
+                        <a v-on:click="showSection('permission')">
+                            <h4 class="letra-poppins-bold">Permisos</h4>
+                        </a>
 
-                    <a v-on:click="showSection('observer')" class="btn btn-warning mg-btn" style="background-color: #A639B0; border-color: #A639B0; box-shadow: 3px 3px 3px 3px #b0acac">
-                        <h6 class="letra-poppins-bold" style="color: black">Observador</h6>
-                    </a>                    
+                        <a v-on:click="showSection('observer')">
+                            <h4 class="letra-poppins-bold">Observador</h4>
+                        </a> 
+                    </div>                   
                 </div>
             </div>
         </div>
         
         <div class="row">
             <div id="tabs" class="col-md-11 mx-auto">
-                <div>
-                    <div v-if="activetab === 'permission'" class="tabcontent">
-                        <permission-pedagogic></permission-pedagogic>
-                    </div>
-                    <div v-if="activetab === 'observer'" class="tabcontent">
-                        <observer-component :user="user"></observer-component>
-                    </div>                    
+                <div v-if="activetab === 'permission'">
+                    <permission-pedagogic></permission-pedagogic>
+                </div>
+                <div v-if="activetab === 'observer'">
+                    <observer-component :user="user"></observer-component>
                 </div>
             </div>
         </div>        
@@ -44,32 +44,22 @@ export default {
 };
 </script>
 <style>
-.mg-btn {
-  margin: 10px;
-  min-width: 165px;
-}
-.width-r {
-  max-width: 97%;
-  border: 1px solid #cccccc82;
-  border-radius: 10px;
-  box-shadow: 3px 3px 3px 3px #b0acac;
-}
 .tabs {
-  margin-top: 20px;
+  margin-top: 10px;
   overflow: hidden;
-  margin-left: 90px;
+  margin-left: 30px;
   margin-bottom: -2px;
 }
 
 .tabs ul {
   list-style-type: none;
-  margin-left: 20px;
+  margin-left: 5px;
 }
 
 .tabs a {
   float: left;
   cursor: pointer;
-  padding: 12px 24px;
+  padding: 1px 20px;
   transition: background-color 0.2s;
   border: 1px solid #ccc;
   border-right: none;

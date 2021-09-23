@@ -3,13 +3,15 @@
         <div class="form-group width-r mx-auto">
             <div class="row">
                 <div class="col-md-12">
-                    <a v-on:click="showSection('governmentMembers')" class="btn btn-warning mg-btn" style="background-color: #FFEA47; border-color: #FFEA47; box-shadow: 3px 3px 3px 3px #b0acac">
-                        <h6 class="letra-poppins-bold" style="color: black">Quiénes lo Conforman</h6>
-                    </a>
+                    <div class="tabs">
+                        <a v-on:click="showSection('governmentMembers')">
+                            <h4 class="letra-poppins-bold">Quiénes lo Conforman</h4>
+                        </a>
 
-                    <a v-on:click="showSection('legislation')" class="btn btn-warning mg-btn" style="background-color: #A639B0; border-color: #A639B0; box-shadow: 3px 3px 3px 3px #b0acac">
-                        <h6 class="letra-poppins-bold" style="color: black">Legislación</h6>
-                    </a>                    
+                        <a v-on:click="showSection('legislation')">
+                            <h4 class="letra-poppins-bold">Legislación</h4>
+                        </a>    
+                    </div>                
                 </div>
             </div>
         </div>
@@ -17,10 +19,10 @@
         <div class="row">
             <div id="tabs" class="col-md-11 mx-auto">
                 <div>
-                    <div v-if="activetab === 'governmentMembers'" class="tabcontent">
+                    <div v-if="activetab === 'governmentMembers'">
                         <government-members-component :user="user"></government-members-component>
                     </div>
-                    <div v-if="activetab === 'legislation'" class="tabcontent">
+                    <div v-if="activetab === 'legislation'">
                         <legislation-component :user="user"></legislation-component>
                     </div>                    
                 </div>
@@ -44,32 +46,22 @@ export default {
 };
 </script>
 <style>
-.mg-btn {
-  margin: 10px;
-  min-width: 165px;
-}
-.width-r {
-  max-width: 97%;
-  border: 1px solid #cccccc82;
-  border-radius: 10px;
-  box-shadow: 3px 3px 3px 3px #b0acac;
-}
 .tabs {
-  margin-top: 20px;
+  margin-top: 10px;
   overflow: hidden;
-  margin-left: 90px;
+  margin-left: 30px;
   margin-bottom: -2px;
 }
 
 .tabs ul {
   list-style-type: none;
-  margin-left: 20px;
+  margin-left: 5px;
 }
 
 .tabs a {
   float: left;
   cursor: pointer;
-  padding: 12px 24px;
+  padding: 1px 20px;
   transition: background-color 0.2s;
   border: 1px solid #ccc;
   border-right: none;
@@ -100,3 +92,4 @@ export default {
   box-shadow: 3px 3px 6px #e1e1e1;
 }
 </style>
+

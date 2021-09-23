@@ -88,11 +88,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['user'],
   data: function data() {
@@ -121,7 +116,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.mg-btn {\r\n  margin: 10px;\r\n  min-width: 165px;\n}\n.width-r {\r\n  max-width: 97%;\r\n  border: 1px solid #cccccc82;\r\n  border-radius: 10px;\r\n  box-shadow: 3px 3px 3px 3px #b0acac;\n}\n.tabs {\r\n  margin-top: 20px;\r\n  overflow: hidden;\r\n  margin-left: 90px;\r\n  margin-bottom: -2px;\n}\n.tabs ul {\r\n  list-style-type: none;\r\n  margin-left: 20px;\n}\n.tabs a {\r\n  float: left;\r\n  cursor: pointer;\r\n  padding: 12px 24px;\r\n  transition: background-color 0.2s;\r\n  border: 1px solid #ccc;\r\n  border-right: none;\r\n  background-color: #bfbfbf;\r\n  border-radius: 10px 10px 0 0;\r\n  font-weight: bold;\r\n  color: #fff !important;\n}\n.tabs a:last-child {\r\n  border-right: 1px solid #ccc;\n}\r\n/* Change background color of tabs on hover */\n.tabs a:hover {\r\n  background-color: #aaa;\r\n  color: #fff;\n}\r\n\r\n/* Styling for active tab */\n.tabs a.active {\r\n  background-color: #00cbcec1;\r\n  color: #fff;\r\n  border-bottom: 2px solid #fff;\r\n  cursor: default;\n}\n.tabcontent {\r\n  border: 1px solid #ccc;\r\n  border-radius: 10px;\r\n  box-shadow: 3px 3px 6px #e1e1e1;\n}\r\n", ""]);
+exports.push([module.i, "\n.tabs {\r\n  margin-top: 10px;\r\n  overflow: hidden;\r\n  margin-left: 30px;\r\n  margin-bottom: -2px;\n}\n.tabs ul {\r\n  list-style-type: none;\r\n  margin-left: 5px;\n}\n.tabs a {\r\n  float: left;\r\n  cursor: pointer;\r\n  padding: 1px 20px;\r\n  transition: background-color 0.2s;\r\n  border: 1px solid #ccc;\r\n  border-right: none;\r\n  background-color: #bfbfbf;\r\n  border-radius: 10px 10px 0 0;\r\n  font-weight: bold;\r\n  color: #fff !important;\n}\n.tabs a:last-child {\r\n  border-right: 1px solid #ccc;\n}\r\n/* Change background color of tabs on hover */\n.tabs a:hover {\r\n  background-color: #aaa;\r\n  color: #fff;\n}\r\n\r\n/* Styling for active tab */\n.tabs a.active {\r\n  background-color: #00cbcec1;\r\n  color: #fff;\r\n  border-bottom: 2px solid #fff;\r\n  cursor: default;\n}\n.tabcontent {\r\n  border: 1px solid #ccc;\r\n  border-radius: 10px;\r\n  box-shadow: 3px 3px 6px #e1e1e1;\n}\r\n", ""]);
 
 // exports
 
@@ -174,319 +169,197 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("div", { staticClass: "form-group width-r mx-auto" }, [
+    _c("div", { staticClass: "form-group" }, [
       _c("div", { staticClass: "row" }, [
         _c("div", { staticClass: "col-md-12" }, [
-          _c(
-            "a",
-            {
-              staticClass: "btn btn-warning mg-btn",
-              staticStyle: {
-                "background-color": "#FFB466",
-                "border-color": "#FFB466",
-                "box-shadow": "3px 3px 3px 3px #b0acac"
-              },
-              on: {
-                click: function($event) {
-                  return _vm.showSection("institutions")
+          _c("div", { staticClass: "tabs" }, [
+            _c(
+              "a",
+              {
+                on: {
+                  click: function($event) {
+                    return _vm.showSection("institutions")
+                  }
                 }
-              }
-            },
-            [
-              _c(
-                "h6",
-                {
-                  staticClass: "letra-poppins-bold",
-                  staticStyle: { color: "black" }
-                },
-                [_vm._v("Instituciones")]
-              )
-            ]
-          ),
-          _vm._v(" "),
-          _c(
-            "a",
-            {
-              staticClass: "btn btn-warning mg-btn",
-              staticStyle: {
-                "background-color": "#FFEA47",
-                "border-color": "#FFEA47",
-                "box-shadow": "3px 3px 3px 3px #b0acac"
               },
-              on: {
-                click: function($event) {
-                  return _vm.showSection("quarter")
+              [
+                _c("h4", { staticClass: "letra-poppins-bold" }, [
+                  _vm._v("Instituciones")
+                ])
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "a",
+              {
+                on: {
+                  click: function($event) {
+                    return _vm.showSection("quarter")
+                  }
                 }
-              }
-            },
-            [
-              _c(
-                "h6",
-                {
-                  staticClass: "letra-poppins-bold",
-                  staticStyle: { color: "black" }
-                },
-                [_vm._v("Trimestre")]
-              )
-            ]
-          ),
-          _vm._v(" "),
-          _c(
-            "a",
-            {
-              staticClass: "btn btn-warning mg-btn",
-              staticStyle: {
-                "background-color": "#A639B0",
-                "border-color": "#A639B0",
-                "box-shadow": "3px 3px 3px 3px #b0acac"
               },
-              on: {
-                click: function($event) {
-                  return _vm.showSection("classroom")
+              [
+                _c("h4", { staticClass: "letra-poppins-bold" }, [
+                  _vm._v("Trimestre")
+                ])
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "a",
+              {
+                on: {
+                  click: function($event) {
+                    return _vm.showSection("classroom")
+                  }
                 }
-              }
-            },
-            [
-              _c(
-                "h6",
-                {
-                  staticClass: "letra-poppins-bold",
-                  staticStyle: { color: "black" }
-                },
-                [_vm._v("Salones")]
-              )
-            ]
-          ),
-          _vm._v(" "),
-          _c(
-            "a",
-            {
-              staticClass: "btn btn-warning mg-btn",
-              staticStyle: {
-                "background-color": "#49CEFB",
-                "border-color": "#49CEFB",
-                "box-shadow": "3px 3px 3px 3px #b0acac"
               },
-              on: {
-                click: function($event) {
-                  return _vm.showSection("piarStudents")
+              [
+                _c("h4", { staticClass: "letra-poppins-bold" }, [
+                  _vm._v("Salones")
+                ])
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "a",
+              {
+                on: {
+                  click: function($event) {
+                    return _vm.showSection("piarStudents")
+                  }
                 }
-              }
-            },
-            [
-              _c(
-                "h6",
-                {
-                  staticClass: "letra-poppins-bold",
-                  staticStyle: { color: "black" }
-                },
-                [_vm._v("Estudiantes PIAR")]
-              )
-            ]
-          ),
-          _vm._v(" "),
-          _c(
-            "a",
-            {
-              staticClass: "btn btn-warning mg-btn",
-              staticStyle: {
-                "background-color": "#FF5552",
-                "border-color": "#FF5552",
-                "box-shadow": "3px 3px 3px 3px #b0acac"
               },
-              on: {
-                click: function($event) {
-                  return _vm.showSection("users")
+              [
+                _c("h4", { staticClass: "letra-poppins-bold" }, [
+                  _vm._v("Estudiantes PIAR")
+                ])
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "a",
+              {
+                on: {
+                  click: function($event) {
+                    return _vm.showSection("users")
+                  }
                 }
-              }
-            },
-            [
-              _c(
-                "h6",
-                {
-                  staticClass: "letra-poppins-bold",
-                  staticStyle: { color: "black" }
-                },
-                [_vm._v("Usuarios")]
-              )
-            ]
-          ),
-          _vm._v(" "),
-          _c(
-            "a",
-            {
-              staticClass: "btn btn-warning mg-btn",
-              staticStyle: {
-                "background-color": "#F98200",
-                "border-color": "#F98200",
-                "box-shadow": "3px 3px 3px 3px #b0acac"
               },
-              on: {
-                click: function($event) {
-                  return _vm.showSection("noteParameters")
+              [
+                _c("h4", { staticClass: "letra-poppins-bold" }, [
+                  _vm._v("Usuarios")
+                ])
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "a",
+              {
+                on: {
+                  click: function($event) {
+                    return _vm.showSection("noteParameters")
+                  }
                 }
-              }
-            },
-            [
-              _c(
-                "h6",
-                {
-                  staticClass: "letra-poppins-bold",
-                  staticStyle: { color: "black" }
-                },
-                [_vm._v("Parametros de Notas")]
-              )
-            ]
-          ),
-          _vm._v(" "),
-          _c(
-            "a",
-            {
-              staticClass: "btn btn-warning mg-btn",
-              staticStyle: {
-                "background-color": "#F98201",
-                "border-color": "#F98201",
-                "box-shadow": "3px 3px 3px 3px #b0acac"
               },
-              on: {
-                click: function($event) {
-                  return _vm.showSection("nursing")
+              [
+                _c("h4", { staticClass: "letra-poppins-bold" }, [
+                  _vm._v("Parametros de Notas")
+                ])
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "a",
+              {
+                on: {
+                  click: function($event) {
+                    return _vm.showSection("nursing")
+                  }
                 }
-              }
-            },
-            [
-              _c(
-                "h6",
-                {
-                  staticClass: "letra-poppins-bold",
-                  staticStyle: { color: "black" }
-                },
-                [_vm._v("Enfermería")]
-              )
-            ]
-          ),
-          _vm._v(" "),
-          _c(
-            "a",
-            {
-              staticClass: "btn btn-warning mg-btn",
-              staticStyle: {
-                "background-color": "#F98202",
-                "border-color": "#F98202",
-                "box-shadow": "3px 3px 3px 3px #b0acac"
               },
-              on: {
-                click: function($event) {
-                  return _vm.showSection("feeding")
+              [
+                _c("h4", { staticClass: "letra-poppins-bold" }, [
+                  _vm._v("Enfermería")
+                ])
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "a",
+              {
+                on: {
+                  click: function($event) {
+                    return _vm.showSection("feeding")
+                  }
                 }
-              }
-            },
-            [
-              _c(
-                "h6",
-                {
-                  staticClass: "letra-poppins-bold",
-                  staticStyle: { color: "black" }
-                },
-                [_vm._v("Alimentación")]
-              )
-            ]
-          ),
-          _vm._v(" "),
-          _c(
-            "a",
-            {
-              staticClass: "btn btn-warning mg-btn",
-              staticStyle: {
-                "background-color": "#F98203",
-                "border-color": "#F98203",
-                "box-shadow": "3px 3px 3px 3px #b0acac"
               },
-              on: {
-                click: function($event) {
-                  return _vm.showSection("transport")
+              [
+                _c("h4", { staticClass: "letra-poppins-bold" }, [
+                  _vm._v("Alimentación")
+                ])
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "a",
+              {
+                on: {
+                  click: function($event) {
+                    return _vm.showSection("transport")
+                  }
                 }
-              }
-            },
-            [
-              _c(
-                "h6",
-                {
-                  staticClass: "letra-poppins-bold",
-                  staticStyle: { color: "black" }
-                },
-                [_vm._v("Transporte")]
-              )
-            ]
-          )
+              },
+              [
+                _c("h4", { staticClass: "letra-poppins-bold" }, [
+                  _vm._v("Transporte")
+                ])
+              ]
+            )
+          ])
         ])
       ])
     ]),
     _vm._v(" "),
     _c("div", { staticClass: "row" }, [
       _c("div", { staticClass: "col-md-11 mx-auto", attrs: { id: "tabs" } }, [
-        _c("div", [
-          _vm.activetab === "institutions"
-            ? _c("div", { staticClass: "tabcontent" }, [_c("institu-adm")], 1)
-            : _vm._e(),
-          _vm._v(" "),
-          _vm.activetab === "quarter"
-            ? _c("div", { staticClass: "tabcontent" }, [_c("trimestres")], 1)
-            : _vm._e(),
-          _vm._v(" "),
-          _vm.activetab === "classroom"
-            ? _c("div", { staticClass: "tabcontent" }, [_c("cursos-adm")], 1)
-            : _vm._e(),
-          _vm._v(" "),
-          _vm.activetab === "piarStudents"
-            ? _c(
-                "div",
-                { staticClass: "tabcontent" },
-                [_c("piar-component")],
-                1
-              )
-            : _vm._e(),
-          _vm._v(" "),
-          _vm.activetab === "users"
-            ? _c("div", { staticClass: "tabcontent" }, [_c("salon-adm")], 1)
-            : _vm._e(),
-          _vm._v(" "),
-          _vm.activetab === "noteParameters"
-            ? _c(
-                "div",
-                { staticClass: "tabcontent" },
-                [_c("admin-configuration")],
-                1
-              )
-            : _vm._e(),
-          _vm._v(" "),
-          _vm.activetab === "nursing"
-            ? _c(
-                "div",
-                { staticClass: "tabcontent" },
-                [_c("nursing-component")],
-                1
-              )
-            : _vm._e(),
-          _vm._v(" "),
-          _vm.activetab === "feeding"
-            ? _c(
-                "div",
-                { staticClass: "tabcontent" },
-                [_c("food-component")],
-                1
-              )
-            : _vm._e(),
-          _vm._v(" "),
-          _vm.activetab === "transport"
-            ? _c(
-                "div",
-                { staticClass: "tabcontent" },
-                [_c("pedagogical-course", { attrs: { user: _vm.user } })],
-                1
-              )
-            : _vm._e()
-        ])
+        _vm.activetab === "institutions"
+          ? _c("div", [_c("institu-adm")], 1)
+          : _vm._e(),
+        _vm._v(" "),
+        _vm.activetab === "quarter"
+          ? _c("div", [_c("trimestres")], 1)
+          : _vm._e(),
+        _vm._v(" "),
+        _vm.activetab === "classroom"
+          ? _c("div", [_c("cursos-adm")], 1)
+          : _vm._e(),
+        _vm._v(" "),
+        _vm.activetab === "piarStudents"
+          ? _c("div", [_c("piar-component")], 1)
+          : _vm._e(),
+        _vm._v(" "),
+        _vm.activetab === "users" ? _c("div", [_c("salon-adm")], 1) : _vm._e(),
+        _vm._v(" "),
+        _vm.activetab === "noteParameters"
+          ? _c("div", [_c("admin-configuration")], 1)
+          : _vm._e(),
+        _vm._v(" "),
+        _vm.activetab === "nursing"
+          ? _c("div", [_c("nursing-component")], 1)
+          : _vm._e(),
+        _vm._v(" "),
+        _vm.activetab === "feeding"
+          ? _c("div", [_c("food-component")], 1)
+          : _vm._e(),
+        _vm._v(" "),
+        _vm.activetab === "transport"
+          ? _c(
+              "div",
+              [_c("pedagogical-course", { attrs: { user: _vm.user } })],
+              1
+            )
+          : _vm._e()
       ])
     ])
   ])

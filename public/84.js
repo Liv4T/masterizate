@@ -39,6 +39,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['user'],
   data: function data() {
@@ -67,7 +69,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.mg-btn {\r\n  margin: 10px;\r\n  min-width: 165px;\n}\n.width-r {\r\n  max-width: 97%;\r\n  border: 1px solid #cccccc82;\r\n  border-radius: 10px;\r\n  box-shadow: 3px 3px 3px 3px #b0acac;\n}\n.tabs {\r\n  margin-top: 20px;\r\n  overflow: hidden;\r\n  margin-left: 90px;\r\n  margin-bottom: -2px;\n}\n.tabs ul {\r\n  list-style-type: none;\r\n  margin-left: 20px;\n}\n.tabs a {\r\n  float: left;\r\n  cursor: pointer;\r\n  padding: 12px 24px;\r\n  transition: background-color 0.2s;\r\n  border: 1px solid #ccc;\r\n  border-right: none;\r\n  background-color: #bfbfbf;\r\n  border-radius: 10px 10px 0 0;\r\n  font-weight: bold;\r\n  color: #fff !important;\n}\n.tabs a:last-child {\r\n  border-right: 1px solid #ccc;\n}\r\n/* Change background color of tabs on hover */\n.tabs a:hover {\r\n  background-color: #aaa;\r\n  color: #fff;\n}\r\n\r\n/* Styling for active tab */\n.tabs a.active {\r\n  background-color: #00cbcec1;\r\n  color: #fff;\r\n  border-bottom: 2px solid #fff;\r\n  cursor: default;\n}\n.tabcontent {\r\n  border: 1px solid #ccc;\r\n  border-radius: 10px;\r\n  box-shadow: 3px 3px 6px #e1e1e1;\n}\r\n", ""]);
+exports.push([module.i, "\n.tabs {\r\n  margin-top: 10px;\r\n  overflow: hidden;\r\n  margin-left: 30px;\r\n  margin-bottom: -2px;\n}\n.tabs ul {\r\n  list-style-type: none;\r\n  margin-left: 5px;\n}\n.tabs a {\r\n  float: left;\r\n  cursor: pointer;\r\n  padding: 1px 20px;\r\n  transition: background-color 0.2s;\r\n  border: 1px solid #ccc;\r\n  border-right: none;\r\n  background-color: #bfbfbf;\r\n  border-radius: 10px 10px 0 0;\r\n  font-weight: bold;\r\n  color: #fff !important;\n}\n.tabs a:last-child {\r\n  border-right: 1px solid #ccc;\n}\r\n/* Change background color of tabs on hover */\n.tabs a:hover {\r\n  background-color: #aaa;\r\n  color: #fff;\n}\r\n\r\n/* Styling for active tab */\n.tabs a.active {\r\n  background-color: #00cbcec1;\r\n  color: #fff;\r\n  border-bottom: 2px solid #fff;\r\n  cursor: default;\n}\n.tabcontent {\r\n  border: 1px solid #ccc;\r\n  border-radius: 10px;\r\n  box-shadow: 3px 3px 6px #e1e1e1;\n}\r\n", ""]);
 
 // exports
 
@@ -123,59 +125,39 @@ var render = function() {
     _c("div", { staticClass: "form-group width-r mx-auto" }, [
       _c("div", { staticClass: "row" }, [
         _c("div", { staticClass: "col-md-12" }, [
-          _c(
-            "a",
-            {
-              staticClass: "btn btn-warning mg-btn",
-              staticStyle: {
-                "background-color": "#FFEA47",
-                "border-color": "#FFEA47",
-                "box-shadow": "3px 3px 3px 3px #b0acac"
-              },
-              on: {
-                click: function($event) {
-                  return _vm.showSection("governmentMembers")
+          _c("div", { staticClass: "tabs" }, [
+            _c(
+              "a",
+              {
+                on: {
+                  click: function($event) {
+                    return _vm.showSection("governmentMembers")
+                  }
                 }
-              }
-            },
-            [
-              _c(
-                "h6",
-                {
-                  staticClass: "letra-poppins-bold",
-                  staticStyle: { color: "black" }
-                },
-                [_vm._v("Quiénes lo Conforman")]
-              )
-            ]
-          ),
-          _vm._v(" "),
-          _c(
-            "a",
-            {
-              staticClass: "btn btn-warning mg-btn",
-              staticStyle: {
-                "background-color": "#A639B0",
-                "border-color": "#A639B0",
-                "box-shadow": "3px 3px 3px 3px #b0acac"
               },
-              on: {
-                click: function($event) {
-                  return _vm.showSection("legislation")
+              [
+                _c("h4", { staticClass: "letra-poppins-bold" }, [
+                  _vm._v("Quiénes lo Conforman")
+                ])
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "a",
+              {
+                on: {
+                  click: function($event) {
+                    return _vm.showSection("legislation")
+                  }
                 }
-              }
-            },
-            [
-              _c(
-                "h6",
-                {
-                  staticClass: "letra-poppins-bold",
-                  staticStyle: { color: "black" }
-                },
-                [_vm._v("Legislación")]
-              )
-            ]
-          )
+              },
+              [
+                _c("h4", { staticClass: "letra-poppins-bold" }, [
+                  _vm._v("Legislación")
+                ])
+              ]
+            )
+          ])
         ])
       ])
     ]),
@@ -186,7 +168,6 @@ var render = function() {
           _vm.activetab === "governmentMembers"
             ? _c(
                 "div",
-                { staticClass: "tabcontent" },
                 [
                   _c("government-members-component", {
                     attrs: { user: _vm.user }
@@ -199,7 +180,6 @@ var render = function() {
           _vm.activetab === "legislation"
             ? _c(
                 "div",
-                { staticClass: "tabcontent" },
                 [_c("legislation-component", { attrs: { user: _vm.user } })],
                 1
               )
