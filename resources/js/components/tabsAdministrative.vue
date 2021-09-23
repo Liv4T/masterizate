@@ -1,82 +1,77 @@
 <template>
     <div>        
-        <div class="form-group width-r mx-auto">
+        <div class="form-group">
             <div class="row">
                 <div class="col-md-12">
-                    <a v-on:click="showSection('institutions')" class="btn btn-warning mg-btn" style="background-color: #FFB466; border-color: #FFB466; box-shadow: 3px 3px 3px 3px #b0acac">
-                        <h6 class="letra-poppins-bold" style="color: black">Instituciones</h6>
-                    </a>
+                    <div class="tabs">
+                        <a v-on:click="showSection('institutions')">
+                            <h4 class="letra-poppins-bold">Instituciones</h4>
+                        </a>
 
-                    <a v-on:click="showSection('quarter')" class="btn btn-warning mg-btn" style="background-color: #FFEA47; border-color: #FFEA47; box-shadow: 3px 3px 3px 3px #b0acac">
-                        <h6 class="letra-poppins-bold" style="color: black">Trimestre</h6>
-                    </a>
+                        <a v-on:click="showSection('quarter')">
+                            <h4 class="letra-poppins-bold">Trimestre</h4>
+                        </a>
 
-                    <a v-on:click="showSection('classroom')" class="btn btn-warning mg-btn" style="background-color: #A639B0; border-color: #A639B0; box-shadow: 3px 3px 3px 3px #b0acac">
-                        <h6 class="letra-poppins-bold" style="color: black">Salones</h6>
-                    </a>
+                        <a v-on:click="showSection('classroom')">
+                            <h4 class="letra-poppins-bold">Salones</h4>
+                        </a>                    
 
-                    <!-- <a v-on:click="showSection('profiles')" class="btn btn-warning mg-btn" style="background-color: #50E9FB; border-color: #50E9FB; box-shadow: 3px 3px 3px 3px #b0acac">
-                        <h6 class="letra-poppins-bold" style="color: black">Perfiles</h6>
-                    </a> -->
+                        <a v-on:click="showSection('piarStudents')">
+                            <h4 class="letra-poppins-bold">Estudiantes PIAR</h4>
+                        </a>
 
-                    <a v-on:click="showSection('piarStudents')" class="btn btn-warning mg-btn" style="background-color: #49CEFB; border-color: #49CEFB; box-shadow: 3px 3px 3px 3px #b0acac">
-                        <h6 class="letra-poppins-bold" style="color: black">Estudiantes PIAR</h6>
-                    </a>
+                        <a v-on:click="showSection('users')">
+                            <h4 class="letra-poppins-bold">Usuarios</h4>
+                        </a>
 
-                    <a v-on:click="showSection('users')" class="btn btn-warning mg-btn" style="background-color: #FF5552; border-color: #FF5552; box-shadow: 3px 3px 3px 3px #b0acac">
-                        <h6 class="letra-poppins-bold" style="color: black">Usuarios</h6>
-                    </a>
+                        <a v-on:click="showSection('noteParameters')">
+                            <h4 class="letra-poppins-bold">Parametros de Notas</h4>
+                        </a>
 
-                    <a v-on:click="showSection('noteParameters')" class="btn btn-warning mg-btn" style="background-color: #F98200; border-color: #F98200; box-shadow: 3px 3px 3px 3px #b0acac">
-                        <h6 class="letra-poppins-bold" style="color: black">Parametros de Notas</h6>
-                    </a>
+                        <a v-on:click="showSection('nursing')">
+                            <h4 class="letra-poppins-bold">Enfermería</h4>
+                        </a>
 
-                    <a v-on:click="showSection('nursing')" class="btn btn-warning mg-btn" style="background-color: #F98201; border-color: #F98201; box-shadow: 3px 3px 3px 3px #b0acac">
-                        <h6 class="letra-poppins-bold" style="color: black">Enfermería</h6>
-                    </a>
+                        <a v-on:click="showSection('feeding')">
+                            <h4 class="letra-poppins-bold">Alimentación</h4>
+                        </a>
 
-                    <a v-on:click="showSection('feeding')" class="btn btn-warning mg-btn" style="background-color: #F98202; border-color: #F98202; box-shadow: 3px 3px 3px 3px #b0acac">
-                        <h6 class="letra-poppins-bold" style="color: black">Alimentación</h6>
-                    </a>
-
-                    <a v-on:click="showSection('transport')" class="btn btn-warning mg-btn" style="background-color: #F98203; border-color: #F98203; box-shadow: 3px 3px 3px 3px #b0acac">
-                        <h6 class="letra-poppins-bold" style="color: black">Transporte</h6>
-                    </a>
+                        <a v-on:click="showSection('transport')">
+                            <h4 class="letra-poppins-bold">Transporte</h4>
+                        </a>
+                    </div>                    
                 </div>
             </div>
         </div>
         
         <div class="row">
-            <div id="tabs" class="col-md-11 mx-auto">
-                <div>                    
-                    <div v-if="activetab === 'institutions'" class="tabcontent">
-                        <institu-adm></institu-adm>
-                    </div>
-                    <div v-if="activetab === 'quarter'" class="tabcontent">
-                        <trimestres></trimestres>
-                    </div>
-                    <div v-if="activetab === 'classroom'" class="tabcontent">
-                        <cursos-adm></cursos-adm>
-                    </div>
-                    <!-- <div v-if="activetab === 'profiles'" class="tabcontent">'Perfiles'</div> -->
-                    <div v-if="activetab === 'piarStudents'" class="tabcontent">
-                        <piar-component ></piar-component>
-                    </div>
-                    <div v-if="activetab === 'users'" class="tabcontent">
-                        <salon-adm></salon-adm>
-                    </div>
-                    <div v-if="activetab === 'noteParameters'" class="tabcontent">
-                        <admin-configuration></admin-configuration>
-                    </div>
-                    <div v-if="activetab === 'nursing'" class="tabcontent">
-                        <nursing-component></nursing-component>
-                    </div>
-                    <div v-if="activetab === 'feeding'" class="tabcontent">
-                        <food-component></food-component>
-                    </div>
-                    <div v-if="activetab === 'transport'" class="tabcontent">
-                        <pedagogical-course :user="user"></pedagogical-course>
-                    </div>
+            <div id="tabs" class="col-md-11 mx-auto">                
+                <div v-if="activetab === 'institutions'">
+                    <institu-adm></institu-adm>
+                </div>
+                <div v-if="activetab === 'quarter'">
+                    <trimestres></trimestres>
+                </div>
+                <div v-if="activetab === 'classroom'">
+                    <cursos-adm></cursos-adm>
+                </div>                    
+                <div v-if="activetab === 'piarStudents'">
+                    <piar-component ></piar-component>
+                </div>
+                <div v-if="activetab === 'users'">
+                    <salon-adm></salon-adm>
+                </div>
+                <div v-if="activetab === 'noteParameters'">
+                    <admin-configuration></admin-configuration>
+                </div>
+                <div v-if="activetab === 'nursing'">
+                    <nursing-component></nursing-component>
+                </div>
+                <div v-if="activetab === 'feeding'">
+                    <food-component></food-component>
+                </div>
+                <div v-if="activetab === 'transport'">
+                    <pedagogical-course :user="user"></pedagogical-course>
                 </div>
             </div>
         </div>        
@@ -98,32 +93,22 @@ export default {
 };
 </script>
 <style>
-.mg-btn {
-  margin: 10px;
-  min-width: 165px;
-}
-.width-r {
-  max-width: 97%;
-  border: 1px solid #cccccc82;
-  border-radius: 10px;
-  box-shadow: 3px 3px 3px 3px #b0acac;
-}
 .tabs {
-  margin-top: 20px;
+  margin-top: 10px;
   overflow: hidden;
-  margin-left: 90px;
+  margin-left: 30px;
   margin-bottom: -2px;
 }
 
 .tabs ul {
   list-style-type: none;
-  margin-left: 20px;
+  margin-left: 5px;
 }
 
 .tabs a {
   float: left;
   cursor: pointer;
-  padding: 12px 24px;
+  padding: 1px 20px;
   transition: background-color 0.2s;
   border: 1px solid #ccc;
   border-right: none;

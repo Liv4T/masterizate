@@ -3,45 +3,41 @@
         <div class="form-group width-r mx-auto">
             <div class="row">
                 <div class="col-md-12">
-                    <a v-on:click="showSection('messages')" class="btn btn-warning mg-btn" style="background-color: #FFB466; border-color: #FFB466; box-shadow: 3px 3px 3px 3px #b0acac">
-                        <h6 class="letra-poppins-bold" style="color: black">Mensajes</h6>
-                    </a>
+                    <div class="tabs">
+                        <a v-on:click="showSection('messages')">
+                            <h4 class="letra-poppins-bold">Mensajes</h4>
+                        </a>
 
-                    <a v-on:click="showSection('calendar')" class="btn btn-warning mg-btn" style="background-color: #FFB466; border-color: #FFB466; box-shadow: 3px 3px 3px 3px #b0acac">
-                        <h6 class="letra-poppins-bold" style="color: black">Calendario</h6>
-                    </a>
+                        <a v-on:click="showSection('calendar')">
+                            <h4 class="letra-poppins-bold">Calendario</h4>
+                        </a>
 
-                    <a v-on:click="showSection('foro')" class="btn btn-warning mg-btn" style="background-color: #FFB466; border-color: #FFB466; box-shadow: 3px 3px 3px 3px #b0acac">
-                        <h6 class="letra-poppins-bold" style="color: black">Foro</h6>
-                    </a>
+                        <a v-on:click="showSection('foro')">
+                            <h4 class="letra-poppins-bold">Foro</h4>
+                        </a>
 
-                    <a v-on:click="showSection('chat')" class="btn btn-warning mg-btn" style="background-color: #FFB466; border-color: #FFB466; box-shadow: 3px 3px 3px 3px #b0acac">
-                        <h6 class="letra-poppins-bold" style="color: black">Chat</h6>
-                    </a>
-                    
+                        <a v-on:click="showSection('chat')">
+                            <h4 class="letra-poppins-bold">Chat</h4>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
         
         <div class="row">
-            <div id="tabs" class="col-md-11 mx-auto">
-                <div>
-                    <div v-if="activetab === 'messages'" class="tabcontent">
-                        <mensajes-component :user="user"></mensajes-component>
-                    </div>
-
-                    <div v-if="activetab === 'calendar'" class="tabcontent">                        
-                        <calendar-component :type_u="type_u" :user="user"></calendar-component>
-                    </div>
-
-                    <div v-if="activetab === 'foro'" class="tabcontent">
-                        <div v-html="htmlForum"></div>
-                    </div>
-
-                    <div v-if="activetab === 'chat'" class="tabcontent">                        
-                        <groups :initial-groups="groups" :user="user"></groups>
-                    </div>                    
+            <div id="tabs" class="col-md-11 mx-auto text-center">
+                <div v-if="activetab === 'messages'">
+                    <mensajes-component :user="user"></mensajes-component>
                 </div>
+                <div v-if="activetab === 'calendar'">                        
+                    <calendar-component :type_u="type_u" :user="user"></calendar-component>
+                </div>
+                <div v-if="activetab === 'foro'">
+                    <div v-html="htmlForum"></div>
+                </div>
+                <div v-if="activetab === 'chat'">                        
+                    <groups :initial-groups="groups" :user="user"></groups>
+                </div>                                
             </div>
         </div>        
     </div>
@@ -75,32 +71,22 @@ export default {
 };
 </script>
 <style>
-.mg-btn {
-  margin: 10px;
-  min-width: 165px;
-}
-.width-r {
-  max-width: 97%;
-  border: 1px solid #cccccc82;
-  border-radius: 10px;
-  box-shadow: 3px 3px 3px 3px #b0acac;
-}
 .tabs {
-  margin-top: 20px;
+  margin-top: 10px;
   overflow: hidden;
-  margin-left: 90px;
+  margin-left: 30px;
   margin-bottom: -2px;
 }
 
 .tabs ul {
   list-style-type: none;
-  margin-left: 20px;
+  margin-left: 5px;
 }
 
 .tabs a {
   float: left;
   cursor: pointer;
-  padding: 12px 24px;
+  padding: 1px 20px;
   transition: background-color 0.2s;
   border: 1px solid #ccc;
   border-right: none;

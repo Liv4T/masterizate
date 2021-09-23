@@ -1,35 +1,17 @@
 <template>
     <div>        
-        <div class="form-group width-r mx-auto">
+        <div class="form-group">
             <div class="row">
                 <div class="col-md-12">
-                    <a v-on:click="showSection('profile')" class="btn btn-warning mg-btn" style="background-color: #FFB466; border-color: #FFB466; box-shadow: 3px 3px 3px 3px #b0acac">
-                        <h6 class="letra-poppins-bold" style="color: black">Mi Perfil</h6>
-                    </a>
-
-                    <a v-on:click="showSection('administrative')" class="btn btn-warning mg-btn" style="background-color: #FFEA47; border-color: #FFEA47; box-shadow: 3px 3px 3px 3px #b0acac">
-                        <h6 class="letra-poppins-bold" style="color: black">Administrativo</h6>
-                    </a>
-
-                    <a v-on:click="showSection('comunications')" class="btn btn-warning mg-btn" style="background-color: #A639B0; border-color: #A639B0; box-shadow: 3px 3px 3px 3px #b0acac">
-                        <h6 class="letra-poppins-bold" style="color: black">Comunicaciones</h6>
-                    </a>
-
-                    <a v-on:click="showSection('academic')" class="btn btn-warning mg-btn" style="background-color: #50E9FB; border-color: #50E9FB; box-shadow: 3px 3px 3px 3px #b0acac">
-                        <h6 class="letra-poppins-bold" style="color: black">Académico</h6>
-                    </a>
-
-                    <a v-on:click="showSection('formation')" class="btn btn-warning mg-btn" style="background-color: #49CEFB; border-color: #49CEFB; box-shadow: 3px 3px 3px 3px #b0acac">
-                        <h6 class="letra-poppins-bold" style="color: black">Formación</h6>
-                    </a>
-
-                    <a v-on:click="showSection('government')" class="btn btn-warning mg-btn" style="background-color: #FF5552; border-color: #FF5552; box-shadow: 3px 3px 3px 3px #b0acac">
-                        <h6 class="letra-poppins-bold" style="color: black">Gobierno Escolar</h6>
-                    </a>
-
-                    <a v-on:click="showSection('reports')" class="btn btn-warning mg-btn" style="background-color: #F98200; border-color: #F98200; box-shadow: 3px 3px 3px 3px #b0acac">
-                        <h6 class="letra-poppins-bold" style="color: black">Mis Reportes</h6>
-                    </a>
+                    <div class="tabs">
+                        <a v-on:click="showSection('profile')"><h4 class="letra-poppins-bold">Mi Perfil</h4></a>
+                        <a v-on:click="showSection('administrative')"><h4 class="letra-poppins-bold">Administrativo</h4></a>
+                        <a v-on:click="showSection('comunications')"><h4 class="letra-poppins-bold">Comunicaciones</h4></a>
+                        <a v-on:click="showSection('academic')"><h4 class="letra-poppins-bold">Académico</h4></a>
+                        <a v-on:click="showSection('formation')"><h4 class="letra-poppins-bold">Formación</h4></a>
+                        <a v-on:click="showSection('government')"><h4 class="letra-poppins-bold">Gobierno Escolar</h4></a>
+                        <a v-on:click="showSection('reports')"><h4 class="letra-poppins-bold">Mis Reportes</h4></a>
+                    </div>                    
                 </div>
             </div>
         </div>
@@ -37,25 +19,25 @@
         <div class="row">
             <div id="tabs" class="col-md-11 mx-auto">
                 <div>
-                    <div v-if="activetab === 'profile'" class="tabcontent">
+                    <div v-if="activetab === 'profile'">
                         <perfil-docente></perfil-docente>
                     </div>
-                    <div v-if="activetab === 'administrative'" class="tabcontent">
+                    <div v-if="activetab === 'administrative'">
                         <administ-tab :user="user"></administ-tab>
                     </div>
-                    <div v-if="activetab === 'comunications'" class="tabcontent">
+                    <div v-if="activetab === 'comunications'">
                         <comunication-tab :user="user"></comunication-tab>
                     </div>
-                    <div v-if="activetab === 'academic'" class="tabcontent">
+                    <div v-if="activetab === 'academic'">
                         <academic-tab :user="user"></academic-tab>
                     </div>
-                    <div v-if="activetab === 'formation'" class="tabcontent">
+                    <div v-if="activetab === 'formation'">
                         <formation-tab :user="user"></formation-tab>
                     </div>
-                    <div v-if="activetab === 'government'" class="tabcontent">
+                    <div v-if="activetab === 'government'">
                          <school-gov-tab :user="user"></school-gov-tab>
                     </div>
-                    <div v-if="activetab === 'reports'" class="tabcontent">
+                    <div v-if="activetab === 'reports'">
                         <report-admin></report-admin>
                     </div>
                 </div>
@@ -82,32 +64,22 @@ export default {
 };
 </script>
 <style>
-.mg-btn {
-  margin: 8px;
-  min-width: 165px;
-}
-.width-r {
-  max-width: 97%;
-  border: 1px solid #cccccc82;
-  border-radius: 10px;
-  box-shadow: 3px 3px 3px 3px #b0acac;
-}
 .tabs {
-  margin-top: 20px;
+  margin-top: 10px;
   overflow: hidden;
-  margin-left: 90px;
+  margin-left: 30px;
   margin-bottom: -2px;
 }
 
 .tabs ul {
   list-style-type: none;
-  margin-left: 20px;
+  margin-left: 5px;
 }
 
 .tabs a {
   float: left;
   cursor: pointer;
-  padding: 12px 24px;
+  padding: 1px 20px;
   transition: background-color 0.2s;
   border: 1px solid #ccc;
   border-right: none;
