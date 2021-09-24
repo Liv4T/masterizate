@@ -4,39 +4,39 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="tabs">
-                        <a v-on:click="showSection('institutions')" :class="[activetab === 'institutions' ? 'active' : '']">
+                        <a v-on:click="showSection('institutions')">
                             <h4 class="letra-poppins-bold">Instituciones</h4>
                         </a>
 
-                        <a v-on:click="showSection('quarter')" :class="[activetab === 'quarter' ? 'active' : '']">
+                        <a v-on:click="showSection('quarter')">
                             <h4 class="letra-poppins-bold">Trimestre</h4>
                         </a>
 
-                        <a v-on:click="showSection('classroom')" :class="[activetab === 'classroom' ? 'active' : '']">
+                        <a v-on:click="showSection('classroom')">
                             <h4 class="letra-poppins-bold">Salones</h4>
                         </a>                    
 
-                        <a v-on:click="showSection('piarStudents')" :class="[activetab === 'piarStudents' ? 'active' : '']">
+                        <a v-on:click="showSection('piarStudents')">
                             <h4 class="letra-poppins-bold">Estudiantes PIAR</h4>
                         </a>
 
-                        <a v-on:click="showSection('users')" :class="[activetab === 'users' ? 'active' : '']">
+                        <a v-on:click="showSection('users')">
                             <h4 class="letra-poppins-bold">Usuarios</h4>
                         </a>
 
-                        <a v-on:click="showSection('noteParameters')" :class="[activetab === 'noteParameters' ? 'active' : '']">
+                        <a v-on:click="showSection('noteParameters')">
                             <h4 class="letra-poppins-bold">Parametros de Notas</h4>
                         </a>
 
-                        <a v-on:click="showSection('nursing')" :class="[activetab === 'nursing' ? 'active' : '']">
+                        <a v-on:click="showSection('nursing')">
                             <h4 class="letra-poppins-bold">Enfermería</h4>
                         </a>
 
-                        <a v-on:click="showSection('feeding')" :class="[activetab === 'feeding' ? 'active' : '']">
+                        <a v-on:click="showSection('feeding')">
                             <h4 class="letra-poppins-bold">Alimentación</h4>
                         </a>
 
-                        <a v-on:click="showSection('transport')" :class="[activetab === 'transport' ? 'active' : '']">
+                        <a v-on:click="showSection('transport')">
                             <h4 class="letra-poppins-bold">Transporte</h4>
                         </a>
                     </div>                    
@@ -92,40 +92,3 @@ export default {
     },
 };
 </script>
-<style>
-.tabs {
-  margin-top: 10px;
-  overflow: hidden;
-  margin-left: 30px;
-  margin-bottom: -2px;
-}
-
-.tabs a {
-  float: left;
-  cursor: pointer;
-  padding: 1px 20px;
-  transition: background-color 0.2s;
-  border: 1px solid #ccc;
-  border-right: none;
-  background-color: #bfbfbf;
-  border-radius: 10px 10px 0 0;
-  font-weight: bold;
-  color: #fff !important;
-}
-.tabs a:last-child {
-  border-right: 1px solid #ccc;
-}
-/* Change background color of tabs on hover */
-.tabs a:hover {
-  background-color: #aaa;
-  color: #fff;
-}
-
-/* Styling for active tab */
-.tabs a.active {
-  background-color: #00cbcec1;
-  color: #fff;
-  border-bottom: 2px solid #fff;
-  cursor: default;
-}
-</style>
