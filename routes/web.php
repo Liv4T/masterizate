@@ -1133,3 +1133,4 @@ Route::get('getClass/{id_weekly_plan}','ClientController@getClass');
 Route::middleware('auth')->get('/clasesClient', function () {
     return view('clasesCliente');
 });
+Route::resource('subject','EnableSubjectController');
