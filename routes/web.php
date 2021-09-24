@@ -1116,3 +1116,4 @@ Route::resource('/trimestres', 'TrimestresController');
 Route::middleware('auth')->get('/quarters', function () {
     return view('trimestres');
 });
+Route::resource('subject','EnableSubjectController');
