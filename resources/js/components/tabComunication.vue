@@ -42,7 +42,7 @@
                     <calendar-component :type_u="type_u" :user="user"></calendar-component>
                 </div>
                 <div v-if="activetab === 'foro'">
-                    <div v-html="htmlForum"></div>
+                    <div class="back" v-html="htmlForum"></div>
                 </div>
                 <div v-if="activetab === 'chat'">                        
                     <groups :initial-groups="groups" :user="user"></groups>
