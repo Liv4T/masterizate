@@ -1,5 +1,5 @@
 <template>
-    <div class="">
+    <div class="back">
         <div class="row justify-content-center">
             <div id="crud" class="col-sm-10">
                 <div class="card text-center">
