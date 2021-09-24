@@ -145,6 +145,7 @@ var render = function() {
             _c(
               "a",
               {
+                class: [_vm.activetab === "profile" ? "active" : ""],
                 on: {
                   click: function($event) {
                     return _vm.showSection("profile")
@@ -161,6 +162,7 @@ var render = function() {
             _c(
               "a",
               {
+                class: [_vm.activetab === "administrative" ? "active" : ""],
                 on: {
                   click: function($event) {
                     return _vm.showSection("administrative")
@@ -177,6 +179,7 @@ var render = function() {
             _c(
               "a",
               {
+                class: [_vm.activetab === "comunications" ? "active" : ""],
                 on: {
                   click: function($event) {
                     return _vm.showSection("comunications")
@@ -193,6 +196,7 @@ var render = function() {
             _c(
               "a",
               {
+                class: [_vm.activetab === "academic" ? "active" : ""],
                 on: {
                   click: function($event) {
                     return _vm.showSection("academic")
@@ -209,6 +213,7 @@ var render = function() {
             _c(
               "a",
               {
+                class: [_vm.activetab === "formation" ? "active" : ""],
                 on: {
                   click: function($event) {
                     return _vm.showSection("formation")
@@ -225,6 +230,7 @@ var render = function() {
             _c(
               "a",
               {
+                class: [_vm.activetab === "government" ? "active" : ""],
                 on: {
                   click: function($event) {
                     return _vm.showSection("government")
@@ -241,6 +247,7 @@ var render = function() {
             _c(
               "a",
               {
+                class: [_vm.activetab === "reports" ? "active" : ""],
                 on: {
                   click: function($event) {
                     return _vm.showSection("reports")
@@ -258,8 +265,8 @@ var render = function() {
       ])
     ]),
     _vm._v(" "),
-    _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-md-11 mx-auto", attrs: { id: "tabs" } }, [
+    _c("div", [
+      _c("div", { staticClass: "col-md-12", attrs: { id: "tabs" } }, [
         _c("div", [
           _vm.activetab === "profile"
             ? _c("div", [_c("perfil-docente")], 1)
