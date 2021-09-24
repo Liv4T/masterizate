@@ -304,7 +304,7 @@ export default {
           password: this.registerForm.password,
           user_name: this.registerForm.username,
           email: this.registerForm.email,
-          type_user: "3",
+          type_user: "10",
           address: this.registerForm.address,
           picture: this.newPicture,
           phone: this.registerForm.cellphone,

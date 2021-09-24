@@ -141,10 +141,8 @@ class CoursesController extends Controller
             return response()->json($dataWeek);
     }
 
-    public function downloadReportCycles(String $id_achievement, String $id_planification, String $objetivesName, String $areaName){
-        $nameObj=str_replace(' ', '', $objetivesName);
-        $nameArea=str_replace(' ', '', $areaName);
-        return Excel::download(new CyclesAndClassExport($id_achievement, $id_planification),'Reporte_Ciclos_y_Clases_'.$nameArea.'_'.$nameObj.'.xls');
+    public function downloadReportCycles(String $id_area, String $id_classrom, String $id_trimestre){
+        return Excel::download(new CyclesAndClassExport($id_area, $id_classrom,$id_trimestre),'Reporte_Ciclos_y_Clases_'.$id_area.'_'.$id_classrom.'.xls');
 
     }
 

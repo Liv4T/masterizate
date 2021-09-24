@@ -1078,6 +1078,7 @@ Route::middleware('auth')->get('/reportAdmin', function () {
     return view('reportAdmin');
 });
 Route::middleware('auth')->get('/downloadReportObjetives/{id_achievement}/{id_planification}/{objetivesName}/{areaName}', 'CoursesController@downloadReportObjetives');
+Route::middleware('auth')->get('/downloadReportCycles/{id_area}/{id_classroom}/{id_trimestre}', 'CoursesController@downloadReportCycles');
 //Paypal pay
 Route::middleware('auth')->get('/compra/pagar/paypal/{data_string}', 'PurchasedController@payPaypal');
 Route::middleware('auth')->get('/compra/pagar/plan/paypal/{data_string}', 'PurchasedController@payPaypalPlan');
