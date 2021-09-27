@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="back">
     <div class="row justify-content-center">
       <div id="crud" class="col-sm-12">
         <div class="card text-center">
@@ -12,7 +12,7 @@
             <br />
             <br />
             <table class="table table-responsive-xl table-hover table-striped center">
-              <tbody v-for="trimestre in trimestres">
+              <tbody v-for="(trimestre,key) in trimestres" :key="key">
                 <tr data-toggle="collapse" data-target="#accordion" class="clickable">
                   <td>{{ trimestre.nombre }}</td>
                 </tr>

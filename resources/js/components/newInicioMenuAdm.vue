@@ -6,7 +6,7 @@
                     <div class="tabs">
                         <a v-on:click="showSection('profile')" v-bind:class="[activetab === 'profile' ? 'active' : '']"><h4 class="letra-poppins-bold">Mi Perfil</h4></a>
                         <a v-on:click="showSection('administrative')" v-bind:class="[activetab === 'administrative' ? 'active' : '']"><h4 class="letra-poppins-bold">Administrativo</h4></a>
-                        <a v-on:click="showSection('comunications')" v-bind:class="[activetab === 'comunications' ? 'active' : '']"><h4 class="letra-poppins-bold">Comunicaciones</h4></a>
+                        <a v-on:click="showSection('comunications')" v-bind:class="[activetab === 'comunications' ? 'active' : '']"><h4 class="letra-poppins-bold">Comunicaciones</h4></a>                        
                         <a v-on:click="showSection('academic')" v-bind:class="[activetab === 'academic' ? 'active' : '']"><h4 class="letra-poppins-bold">Académico</h4></a>
                         <a v-on:click="showSection('formation')" v-bind:class="[activetab === 'formation' ? 'active' : '']"><h4 class="letra-poppins-bold">Formación</h4></a>
                         <a v-on:click="showSection('government')" v-bind:class="[activetab === 'government' ? 'active' : '']"><h4 class="letra-poppins-bold">Gobierno Escolar</h4></a>

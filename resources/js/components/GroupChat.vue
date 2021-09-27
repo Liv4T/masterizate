@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="back">
     <div class="panel panel-primary">
       <div class="panel-heading" id="accordion">
         <h4>{{ group.name }}</h4>
