@@ -1,85 +1,14 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[198],{
 
-<<<<<<< HEAD
-/***/ "./resources/js/components/lectivesTeacherBoardComponent.vue":
-/*!*******************************************************************!*\
-  !*** ./resources/js/components/lectivesTeacherBoardComponent.vue ***!
-  \*******************************************************************/
-=======
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/newMenuAdm.vue?vue&type=script&lang=js&":
-/*!*********************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/newMenuAdm.vue?vue&type=script&lang=js& ***!
-  \*********************************************************************************************************************************************************************/
->>>>>>> 04838a95d45ee7abe1eeb05ece11bc64af04cc61
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/tabsSchoolGov.vue?vue&type=script&lang=js&":
+/*!************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/tabsSchoolGov.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-<<<<<<< HEAD
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-var render, staticRenderFns
-var script = {}
-=======
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -118,24 +47,74 @@ var script = {}
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['user'],
+  data: function data() {
+    return {
+      activetab: null
+    };
+  },
   methods: {
-    logout: function logout() {
-      axios.post("logout").then(function (response) {
-        if (response.status === 302 || 401) {
-          window.location.href = "/login";
-        } else {// throw error and go to catch block
-        }
-      })["catch"](function (error) {});
+    showSection: function showSection(section) {
+      this.activetab = section;
     }
   }
 });
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/newMenuAdm.vue?vue&type=template&id=0b798fd4&":
-/*!*************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/newMenuAdm.vue?vue&type=template&id=0b798fd4& ***!
-  \*************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/tabsSchoolGov.vue?vue&type=style&index=0&lang=css&":
+/*!*******************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/tabsSchoolGov.vue?vue&type=style&index=0&lang=css& ***!
+  \*******************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.left {\r\n  width: 225px;\r\n  height: auto;\r\n  background: #f5f5f5;\r\n  white-space: nowrap;\r\n  transition: width 0.5s;\r\n  position: absolute;\r\n  z-index: 1;\n}\n.left ul {\r\n  padding: 0;\r\n  list-style-type: none;\r\n  text-align: left;\n}\n.mg-btn {\r\n  margin: 10px;\r\n  min-width: 165px;\n}\n.left li {\r\n  width: auto;\r\n  height: 60px;\r\n  line-height: 50px;\r\n  padding-left: 18px;\n}\n.left li:hover {\r\n  background: #01aeb1c1;\r\n  color: white;\n}\n.left .item-menu {\r\n  height: 50px;\r\n  overflow: hidden;\r\n  color: white;\n}\n.left a {\r\n  color: white;\r\n  text-decoration: none;\r\n  font-weight: bold;\n}\nspan.menu {\r\n  padding-left: 17px;\n}\n.t_search {\r\n  color: rgb(200, 200, 200);\r\n  height: 35px;\r\n  margin-left: 15px;\r\n  width: 190px;\n}\n.dropdown {\r\n  position: relative;\r\n  display: inline-block;\n}\n.dropdown-content {\r\n  display: none;\r\n  position: absolute;\r\n  background-color: #f5f5f5;\r\n  min-width: 160px;\r\n  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);\r\n  z-index: 1;\n}\n.dropdown-content a {\r\n  color: black;\r\n  padding: 12px 16px;\r\n  text-decoration: none;\r\n  display: block;\n}\n.left li {\r\n  background: #00cbcec1;\r\n  margin: 8px;\n}\n.left #electivas {\r\n  background: #ffc039;\r\n  margin: 8px;\n}\n.dropdown-content a:hover {\r\n  background: #01aeb1c1;\r\n  color: white;\n}\n.dropdown:hover .dropdown-content {\r\n  display: block;\n}\n.dropdown2 {\r\n  position: relative;\n}\n.dropdown2-content {\r\n  display: none;\r\n  position: absolute;\r\n  background-color: #f5f5f5;\r\n  min-width: 160px;\r\n  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);\r\n  z-index: 1;\n}\n.dropdown2-content a {\r\n  color: black;\r\n  padding: 12px 16px;\r\n  text-decoration: none;\r\n  display: block;\n}\n.dropdown2-content a:hover {\r\n  background: #01aeb1c1;\r\n  color: white;\n}\n.dropdown2:hover .dropdown2-content {\r\n  display: block;\n}\r\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/tabsSchoolGov.vue?vue&type=style&index=0&lang=css&":
+/*!***********************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/tabsSchoolGov.vue?vue&type=style&index=0&lang=css& ***!
+  \***********************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../node_modules/css-loader??ref--6-1!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--6-2!../../../node_modules/vue-loader/lib??vue-loader-options!./tabsSchoolGov.vue?vue&type=style&index=0&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/tabsSchoolGov.vue?vue&type=style&index=0&lang=css&");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/tabsSchoolGov.vue?vue&type=template&id=2b48c061&":
+/*!****************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/tabsSchoolGov.vue?vue&type=template&id=2b48c061& ***!
+  \****************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -147,399 +126,83 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", [
+    _c("div", { staticClass: "form-group width-r mx-auto" }, [
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "left" }, [
+          _c("ul", [
+            _c(
+              "a",
+              {
+                on: {
+                  click: function($event) {
+                    return _vm.showSection("governmentMembers")
+                  }
+                }
+              },
+              [_vm._m(0)]
+            ),
+            _vm._v(" "),
+            _c(
+              "a",
+              {
+                on: {
+                  click: function($event) {
+                    return _vm.showSection("legislation")
+                  }
+                }
+              },
+              [_vm._m(1)]
+            )
+          ]),
+          _vm._v(" "),
+          _c("br")
+        ])
+      ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-md-11 mx-auto", attrs: { id: "tabs" } }, [
+        _c("div", [
+          _vm.activetab === "governmentMembers"
+            ? _c(
+                "div",
+                [
+                  _c("government-members-component", {
+                    attrs: { user: _vm.user }
+                  })
+                ],
+                1
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.activetab === "legislation"
+            ? _c(
+                "div",
+                [_c("legislation-component", { attrs: { user: _vm.user } })],
+                1
+              )
+            : _vm._e()
+        ])
+      ])
+    ])
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "mb-3 text-center" }, [
-      _c(
-        "a",
-        {
-          staticClass: "btn btn-sm btn-secondary",
-          attrs: { href: "/perfil_d" }
-        },
-        [_vm._v("\n        Mi Perfil\n    ")]
-      ),
-      _vm._v(" "),
-      _c("div", { staticClass: "dropdown" }, [
-        _c(
-          "button",
-          {
-            staticClass: "btn btn-sm btn-secondary dropdown-toggle",
-            attrs: {
-              type: "button",
-              id: "admin",
-              "data-toggle": "dropdown",
-              "aria-haspopup": "true",
-              "aria-expanded": "false"
-            }
-          },
-          [_vm._v("\n            Administrativo\n        ")]
-        ),
-        _vm._v(" "),
-        _c(
-          "div",
-          {
-            staticClass: "dropdown-menu",
-            attrs: { "aria-labelledby": "admin" }
-          },
-          [
-            _c(
-              "a",
-              {
-                staticClass: "dropdown-item",
-                attrs: { href: "/instituciones_adm" }
-              },
-              [_vm._v("Crear Instituciones")]
-            ),
-            _vm._v(" "),
-            _c(
-              "a",
-              {
-                staticClass: "dropdown-item",
-                attrs: { href: "/trimestre_adm" }
-              },
-              [_vm._v("Crear Trimestre")]
-            ),
-            _vm._v(" "),
-            _c(
-              "a",
-              { staticClass: "dropdown-item", attrs: { href: "/general_adm" } },
-              [_vm._v("Crear Salones")]
-            ),
-            _vm._v(" "),
-            _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
-              _vm._v("Crear Perfiles")
-            ]),
-            _vm._v(" "),
-            _c(
-              "a",
-              { staticClass: "dropdown-item", attrs: { href: "/piar" } },
-              [_vm._v("Estudiantes PIAR")]
-            ),
-            _vm._v(" "),
-            _c(
-              "a",
-              { staticClass: "dropdown-item", attrs: { href: "/salon_adm" } },
-              [_vm._v("Crear Usuarios")]
-            ),
-            _vm._v(" "),
-            _c(
-              "a",
-              {
-                staticClass: "dropdown-item",
-                attrs: { href: "/admin/configuracion" }
-              },
-              [_vm._v("Parametros de Notas")]
-            ),
-            _vm._v(" "),
-            _c(
-              "a",
-              { staticClass: "dropdown-item", attrs: { href: "/nursing" } },
-              [_vm._v("Enfermería")]
-            ),
-            _vm._v(" "),
-            _c(
-              "a",
-              { staticClass: "dropdown-item", attrs: { href: "/foods" } },
-              [_vm._v("Alimentación")]
-            ),
-            _vm._v(" "),
-            _c(
-              "a",
-              { staticClass: "dropdown-item", attrs: { href: "/pedagogic" } },
-              [_vm._v("Transporte")]
-            )
-          ]
-        )
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "dropdown" }, [
-        _c(
-          "button",
-          {
-            staticClass: "btn btn-sm btn-secondary dropdown-toggle",
-            attrs: {
-              type: "button",
-              id: "comunication",
-              "data-toggle": "dropdown",
-              "aria-haspopup": "true",
-              "aria-expanded": "false"
-            }
-          },
-          [_vm._v("\n            Comunicaciones\n        ")]
-        ),
-        _vm._v(" "),
-        _c(
-          "div",
-          {
-            staticClass: "dropdown-menu",
-            attrs: { "aria-labelledby": "comunication" }
-          },
-          [
-            _c(
-              "a",
-              { staticClass: "dropdown-item", attrs: { href: "/mensajes" } },
-              [_vm._v("Mensajes")]
-            ),
-            _vm._v(" "),
-            _c(
-              "a",
-              { staticClass: "dropdown-item", attrs: { href: "/calendar" } },
-              [_vm._v("Calendario")]
-            ),
-            _vm._v(" "),
-            _c(
-              "a",
-              { staticClass: "dropdown-item", attrs: { href: "/questions" } },
-              [_vm._v("Foro")]
-            ),
-            _vm._v(" "),
-            _c(
-              "a",
-              { staticClass: "dropdown-item", attrs: { href: "/chat" } },
-              [_vm._v("Chat")]
-            ),
-            _vm._v(" "),
-            _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
-              _vm._v("Universidades")
-            ])
-          ]
-        )
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "dropdown" }, [
-        _c(
-          "button",
-          {
-            staticClass: "btn btn-sm btn-secondary dropdown-toggle",
-            attrs: {
-              type: "button",
-              id: "academic",
-              "data-toggle": "dropdown",
-              "aria-haspopup": "true",
-              "aria-expanded": "false"
-            }
-          },
-          [_vm._v("\n            Académico\n        ")]
-        ),
-        _vm._v(" "),
-        _c(
-          "div",
-          {
-            staticClass: "dropdown-menu",
-            attrs: { "aria-labelledby": "academic" }
-          },
-          [
-            _c(
-              "a",
-              {
-                staticClass: "dropdown-item",
-                attrs: { href: "/planificacion" }
-              },
-              [_vm._v("Planificación General")]
-            ),
-            _vm._v(" "),
-            _c(
-              "a",
-              {
-                staticClass: "dropdown-item",
-                attrs: { href: "/docente/clases" }
-              },
-              [_vm._v("Ciclos Y Clases")]
-            ),
-            _vm._v(" "),
-            _c(
-              "a",
-              { staticClass: "dropdown-item", attrs: { href: "/notas_d" } },
-              [_vm._v("Notas")]
-            ),
-            _vm._v(" "),
-            _c(
-              "a",
-              { staticClass: "dropdown-item", attrs: { href: "/utils" } },
-              [_vm._v("Útiles")]
-            ),
-            _vm._v(" "),
-            _c(
-              "a",
-              { staticClass: "dropdown-item", attrs: { href: "/pedagogic" } },
-              [_vm._v("Salidas Pedagógicas")]
-            ),
-            _vm._v(" "),
-            _c(
-              "a",
-              {
-                staticClass: "dropdown-item",
-                attrs: { href: "/teacher/lectives/planning" }
-              },
-              [_vm._v("Administrar Electivas")]
-            ),
-            _vm._v(" "),
-            _c(
-              "a",
-              {
-                staticClass: "dropdown-item",
-                attrs: { href: "/teacher/lectives/courses" }
-              },
-              [_vm._v("Clases Electivas")]
-            ),
-            _vm._v(" "),
-            _c(
-              "a",
-              {
-                staticClass: "dropdown-item",
-                attrs: { href: "/motiveAssistants" }
-              },
-              [_vm._v("Creación de Motivos de Asistencia")]
-            ),
-            _vm._v(" "),
-            _c(
-              "a",
-              { staticClass: "dropdown-item", attrs: { href: "/quarters" } },
-              [_vm._v("Creación de Trimestres")]
-            ),
-            _vm._v(" "),
-            _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
-              _vm._v("Exalumnos")
-            ]),
-            _vm._v(" "),
-            _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
-              _vm._v("Informes")
-            ]),
-            _vm._v(" "),
-            _c(
-              "a",
-              {
-                staticClass: "dropdown-item",
-                attrs: { href: "/reportPlanification" }
-              },
-              [_vm._v("Informe Planificación")]
-            ),
-            _vm._v(" "),
-            _c(
-              "a",
-              { staticClass: "dropdown-item", attrs: { href: "/reportCycle" } },
-              [_vm._v("Informe Ciclos y Clases")]
-            )
-          ]
-        )
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "dropdown" }, [
-        _c(
-          "button",
-          {
-            staticClass: "btn btn-sm btn-secondary dropdown-toggle",
-            attrs: {
-              type: "button",
-              id: "formation",
-              "data-toggle": "dropdown",
-              "aria-haspopup": "true",
-              "aria-expanded": "false"
-            }
-          },
-          [_vm._v("\n            Formación\n        ")]
-        ),
-        _vm._v(" "),
-        _c(
-          "div",
-          {
-            staticClass: "dropdown-menu",
-            attrs: { "aria-labelledby": "formation" }
-          },
-          [
-            _c(
-              "a",
-              { staticClass: "dropdown-item", attrs: { href: "/mensajes" } },
-              [_vm._v("Psicología")]
-            ),
-            _vm._v(" "),
-            _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
-              _vm._v("Casos")
-            ]),
-            _vm._v(" "),
-            _c(
-              "a",
-              {
-                staticClass: "dropdown-item",
-                attrs: { href: "/permissionPedagogic" }
-              },
-              [_vm._v("Permisos")]
-            ),
-            _vm._v(" "),
-            _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
-              _vm._v("Proyectos Transversales")
-            ]),
-            _vm._v(" "),
-            _c(
-              "a",
-              { staticClass: "dropdown-item", attrs: { href: "/observer" } },
-              [_vm._v("Observador del Alumno")]
-            )
-          ]
-        )
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "dropdown" }, [
-        _c(
-          "button",
-          {
-            staticClass: "btn btn-sm btn-secondary dropdown-toggle",
-            attrs: {
-              type: "button",
-              id: "electives",
-              "data-toggle": "dropdown",
-              "aria-haspopup": "true",
-              "aria-expanded": "false"
-            }
-          },
-          [_vm._v("\n            Gobierno Escolar\n        ")]
-        ),
-        _vm._v(" "),
-        _c(
-          "div",
-          {
-            staticClass: "dropdown-menu",
-            attrs: { "aria-labelledby": "electives" }
-          },
-          [
-            _c(
-              "a",
-              { staticClass: "dropdown-item", attrs: { href: "/chat" } },
-              [_vm._v("Chat")]
-            ),
-            _vm._v(" "),
-            _c(
-              "a",
-              {
-                staticClass: "dropdown-item",
-                attrs: { href: "/governmentMembers" }
-              },
-              [_vm._v("Quiénes lo Conforman")]
-            ),
-            _vm._v(" "),
-            _c(
-              "a",
-              { staticClass: "dropdown-item", attrs: { href: "/legislation" } },
-              [_vm._v("Legislación")]
-            ),
-            _vm._v(" "),
-            _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
-              _vm._v("Actas y Circulares")
-            ])
-          ]
-        )
-      ]),
-      _vm._v(" "),
-      _c("a", { attrs: { href: "/reportAdmin" } }, [
-        _c("button", { staticClass: "btn btn-sm btn-secondary" }, [
-          _vm._v("\n            Mis Reportes\n        ")
-        ])
-      ])
+    return _c("li", { staticClass: "item-menu" }, [
+      _c("span", { staticClass: "menu" }, [_vm._v("Quiénes lo Conforman")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("li", { staticClass: "item-menu" }, [
+      _c("span", { staticClass: "menu" }, [_vm._v("Legislación")])
     ])
   }
 ]
@@ -549,37 +212,31 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./resources/js/components/newMenuAdm.vue":
-/*!************************************************!*\
-  !*** ./resources/js/components/newMenuAdm.vue ***!
-  \************************************************/
+/***/ "./resources/js/components/tabsSchoolGov.vue":
+/*!***************************************************!*\
+  !*** ./resources/js/components/tabsSchoolGov.vue ***!
+  \***************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _newMenuAdm_vue_vue_type_template_id_0b798fd4___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./newMenuAdm.vue?vue&type=template&id=0b798fd4& */ "./resources/js/components/newMenuAdm.vue?vue&type=template&id=0b798fd4&");
-/* harmony import */ var _newMenuAdm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./newMenuAdm.vue?vue&type=script&lang=js& */ "./resources/js/components/newMenuAdm.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony import */ var _tabsSchoolGov_vue_vue_type_template_id_2b48c061___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./tabsSchoolGov.vue?vue&type=template&id=2b48c061& */ "./resources/js/components/tabsSchoolGov.vue?vue&type=template&id=2b48c061&");
+/* harmony import */ var _tabsSchoolGov_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./tabsSchoolGov.vue?vue&type=script&lang=js& */ "./resources/js/components/tabsSchoolGov.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _tabsSchoolGov_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./tabsSchoolGov.vue?vue&type=style&index=0&lang=css& */ "./resources/js/components/tabsSchoolGov.vue?vue&type=style&index=0&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
->>>>>>> 04838a95d45ee7abe1eeb05ece11bc64af04cc61
+
 
 
 /* normalize component */
 
-<<<<<<< HEAD
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_0__["default"])(
-  script,
-  render,
-  staticRenderFns,
-=======
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _newMenuAdm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _newMenuAdm_vue_vue_type_template_id_0b798fd4___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _newMenuAdm_vue_vue_type_template_id_0b798fd4___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
->>>>>>> 04838a95d45ee7abe1eeb05ece11bc64af04cc61
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _tabsSchoolGov_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _tabsSchoolGov_vue_vue_type_template_id_2b48c061___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _tabsSchoolGov_vue_vue_type_template_id_2b48c061___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -587,49 +244,59 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
   
 )
 
-<<<<<<< HEAD
-component.options.__file = "resources/js/components/lectivesTeacherBoardComponent.vue"
-/* harmony default export */ __webpack_exports__["default"] = (component.exports);
-
-=======
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/components/newMenuAdm.vue"
+component.options.__file = "resources/js/components/tabsSchoolGov.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/components/newMenuAdm.vue?vue&type=script&lang=js&":
-/*!*************************************************************************!*\
-  !*** ./resources/js/components/newMenuAdm.vue?vue&type=script&lang=js& ***!
-  \*************************************************************************/
+/***/ "./resources/js/components/tabsSchoolGov.vue?vue&type=script&lang=js&":
+/*!****************************************************************************!*\
+  !*** ./resources/js/components/tabsSchoolGov.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_newMenuAdm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./newMenuAdm.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/newMenuAdm.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_newMenuAdm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_tabsSchoolGov_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./tabsSchoolGov.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/tabsSchoolGov.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_tabsSchoolGov_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/components/newMenuAdm.vue?vue&type=template&id=0b798fd4&":
-/*!*******************************************************************************!*\
-  !*** ./resources/js/components/newMenuAdm.vue?vue&type=template&id=0b798fd4& ***!
-  \*******************************************************************************/
+/***/ "./resources/js/components/tabsSchoolGov.vue?vue&type=style&index=0&lang=css&":
+/*!************************************************************************************!*\
+  !*** ./resources/js/components/tabsSchoolGov.vue?vue&type=style&index=0&lang=css& ***!
+  \************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_tabsSchoolGov_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/style-loader!../../../node_modules/css-loader??ref--6-1!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--6-2!../../../node_modules/vue-loader/lib??vue-loader-options!./tabsSchoolGov.vue?vue&type=style&index=0&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/tabsSchoolGov.vue?vue&type=style&index=0&lang=css&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_tabsSchoolGov_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_tabsSchoolGov_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_tabsSchoolGov_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_tabsSchoolGov_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_tabsSchoolGov_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
+
+/***/ }),
+
+/***/ "./resources/js/components/tabsSchoolGov.vue?vue&type=template&id=2b48c061&":
+/*!**********************************************************************************!*\
+  !*** ./resources/js/components/tabsSchoolGov.vue?vue&type=template&id=2b48c061& ***!
+  \**********************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_newMenuAdm_vue_vue_type_template_id_0b798fd4___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./newMenuAdm.vue?vue&type=template&id=0b798fd4& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/newMenuAdm.vue?vue&type=template&id=0b798fd4&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_newMenuAdm_vue_vue_type_template_id_0b798fd4___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_tabsSchoolGov_vue_vue_type_template_id_2b48c061___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./tabsSchoolGov.vue?vue&type=template&id=2b48c061& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/tabsSchoolGov.vue?vue&type=template&id=2b48c061&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_tabsSchoolGov_vue_vue_type_template_id_2b48c061___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_newMenuAdm_vue_vue_type_template_id_0b798fd4___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_tabsSchoolGov_vue_vue_type_template_id_2b48c061___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
->>>>>>> 04838a95d45ee7abe1eeb05ece11bc64af04cc61
 /***/ })
 
 }]);
