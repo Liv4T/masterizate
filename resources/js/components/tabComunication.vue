@@ -16,7 +16,7 @@
                             </li>                            
                         </a>
 
-                        <a v-on:click="showSection('foro')">
+                        <a v-on:click="showSection('foro')" href="/questions">                          
                             <li class="item-menu">
                                 <span class="menu">Foro</span>
                             </li>                            
@@ -40,10 +40,7 @@
                 </div>
                 <div v-if="activetab === 'calendar'">                        
                     <calendar-component :type_u="type_u" :user="user"></calendar-component>
-                </div>
-                <div v-if="activetab === 'foro'">
-                    <div class="back" v-html="htmlForum"></div>
-                </div>
+                </div>                
                 <div v-if="activetab === 'chat'">                        
                     <groups :initial-groups="groups" :user="user"></groups>
                 </div>                                
@@ -58,18 +55,13 @@ export default {
         return {
             activetab: null,
             type_u: null,
-            groups:[],
-            htmlForum:null
+            groups:[]
         };
     },  
     mounted(){
         this.type_u = this.user.type_user;
         axios.get('/chat2').then(response=>{
             this.groups= response.data
-        });
-
-        axios.get('questions').then((response)=>{
-            this.htmlForum = response.data;
         });
     },
     methods: {        

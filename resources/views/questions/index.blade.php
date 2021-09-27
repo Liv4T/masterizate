@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('content')
+@section('content')    
     @if (Auth::user()->isTeacher()||Auth::user()->isPsychology()||Auth::user()->isTutor())
     <menu-docente></menu-docente>
     @endif
@@ -10,7 +10,7 @@
     @if (Auth::user()->type_user == '4')
         <menu-padres></menu-padres>
     @endif
-    @if(Auth::user()->type_user == '3')
+    @if(Auth::user()->type_user == '3' || Auth::user()->type_user == '1')
         <a href="/inicio" class="btn btn-primary">Volver</a>
     @endif
     <div class="back">

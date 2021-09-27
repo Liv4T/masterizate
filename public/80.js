@@ -59,17 +59,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['user'],
   data: function data() {
     return {
       activetab: null,
       type_u: null,
-      groups: [],
-      htmlForum: null
+      groups: []
     };
   },
   mounted: function mounted() {
@@ -78,9 +74,6 @@ __webpack_require__.r(__webpack_exports__);
     this.type_u = this.user.type_user;
     axios.get('/chat2').then(function (response) {
       _this.groups = response.data;
-    });
-    axios.get('questions').then(function (response) {
-      _this.htmlForum = response.data;
     });
   },
   methods: {
@@ -188,6 +181,7 @@ var render = function() {
             _c(
               "a",
               {
+                attrs: { href: "/questions" },
                 on: {
                   click: function($event) {
                     return _vm.showSection("foro")
@@ -238,12 +232,6 @@ var render = function() {
                 ],
                 1
               )
-            : _vm._e(),
-          _vm._v(" "),
-          _vm.activetab === "foro"
-            ? _c("div", [
-                _c("div", { domProps: { innerHTML: _vm._s(_vm.htmlForum) } })
-              ])
             : _vm._e(),
           _vm._v(" "),
           _vm.activetab === "chat"
