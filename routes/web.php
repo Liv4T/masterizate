@@ -91,6 +91,10 @@ Route::middleware('auth')->get('/duplicar-semana-electiva/', function () {
 Route::middleware('auth')->get('/crear_semana/{id_area}/{id_classroom}/{id_trimestre}/{orden}', function (String $id_area, String $id_classroom, String $id_trimestre, String $orden) {
     return view('semanal')->with('id_area', $id_area)->with('id_classroom', $id_classroom)->with('id_trimestre', $id_trimestre)->with('orden', $orden);
 });
+
+Route::middleware('auth')->get('/crear_semana/{id_area}/{id_classroom}/{id_trimestre}/{orden}', function (String $id_area, String $id_classroom, String $id_trimestre, String $orden) {
+    return view('semanal')->with('id_area', $id_area)->with('id_classroom', $id_classroom)->with('id_trimestre', $id_trimestre)->with('orden', $orden);
+});
 Route::middleware('auth')->get('/cycle/list/{id_area}/{id_classroom}', function (String $id_area, String $id_classroom) {
     return view('cycleList')->with('id_area', $id_area)->with('id_classroom', $id_classroom);
 });
@@ -806,18 +810,26 @@ Route::middleware('auth')->get('/tutor/evento/{scheduleStudent_id}', function (i
 Route::middleware('auth')->get('/tutor/evento', function () {
     return view('tutorEvent')->with('scheduleStudent_id', 0);
 });
+
+//Ruta para crear codigos de vinculación
 Route::middleware('auth')->get('/tutorCode', function () {
     return view('tutorCode');
 });
+
+//Ruta para observar que estudiantes estan vinculados por codigo
 Route::middleware('auth')->get('/tutorCodeStudent', function () {
     return view('tutorCodeStudent');
 });
+
+//Ruta de vinculación de codigo
 Route::middleware('auth')->get('/tutorCodeVinculation', function () {
     return view('tutorCodeVinculation');
 });
+//Horario de tutorias vinculados con cotigo
 Route::middleware('auth')->get('/tutorCodeSchedule', function () {
     return view('tutorCodeSchedule');
 });
+Route::resource('tutorRegister', 'TutorProfileController');
 
 Route::middleware('auth')->get('/estudiante/tutorias/{scheduleStudent_id}', function (int $scheduleStudent_id) {
     return view('studentSchedule')->with('scheduleStudent_id', $scheduleStudent_id);
@@ -825,7 +837,6 @@ Route::middleware('auth')->get('/estudiante/tutorias/{scheduleStudent_id}', func
 Route::middleware('auth')->get('/estudiante/tutorias', function () {
     return view('studentSchedule')->with('scheduleStudent_id', 0);
 });
-Route::resource('tutorRegister', 'TutorProfileController');
 
 Route::post('/paypal/purchase/complete', 'PaypalController@getOrder');
 
@@ -1118,4 +1129,10 @@ Route::get('/getActivitiesTeacher/{id_area}/{id_classroom}', 'ActivityController
 Route::resource('/trimestres', 'TrimestresController');
 Route::middleware('auth')->get('/quarters', function () {
     return view('trimestres');
+});
+Route::get('getAreaByClient','CoursesController@getAreaByClient');
+Route::get('getTutorCycle/{id_tutor}/{id_trimestre}/{id_area}','ClientController@getTutorCycle');
+Route::get('getClass/{id_weekly_plan}','ClientController@getClass');
+Route::middleware('auth')->get('/clasesClient', function () {
+    return view('clasesCliente');
 });

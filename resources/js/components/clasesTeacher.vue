@@ -5,23 +5,24 @@
         <div class="text-center">
           <select class="btn btn-warning letra-boldfont" name="type" @change="ShowSelected">
             <option disabled selected hidden value="">CURSOS</option>
-            <option :value="JSON.stringify(area)" v-for="(area, key) in areas" :key="key">{{ area.text }}</option>
+            <option :value="JSON.stringify(area)" v-for="(area, key) in areas" :key="key">{{ area.user_type === 7 ? area.area_name : area.text  }}</option>
           </select>
         </div>
       </div>
       <div class="row">
         <div id="tabs" class="col-md-9 mx-auto">
-          <div class="tabs">
-            <a v-on:click="activetab = 1" v-bind:class="[activetab === 1 ? 'active' : '']"><h4 class="letra-poppins-bold">CLASES</h4></a>
-            <a v-on:click="activetab = 2" v-bind:class="[activetab === 2 ? 'active' : '']"><h4 class="letra-poppins-bold">ACTIVIDADES</h4></a>
-            <a v-on:click="activetab = 3" v-bind:class="[activetab === 3 ? 'active' : '']"><h4 class="letra-poppins-bold">NOTAS</h4></a>
-            <a v-on:click="activetab = 4" v-bind:class="[activetab === 4 ? 'active' : '']"><h4 class="letra-poppins-bold">ENTREGAS</h4></a>
+          <div class="tabs text-center">
+            <a v-on:click="activetab = 1" v-if="user.type_user === 1 || user.type_user === 2" v-bind:class="[activetab === 1 ? 'active' : '']"><h4 class="letra-poppins-bold">CLASES</h4></a>
+            <a v-on:click="activetab = 2" v-if="user.type_user === 1 || user.type_user === 2" v-bind:class="[activetab === 2 ? 'active' : '']"><h4 class="letra-poppins-bold">ACTIVIDADES</h4></a>
+            <a v-on:click="activetab = 3" v-if="user.type_user === 1 || user.type_user === 2" v-bind:class="[activetab === 3 ? 'active' : '']"><h4 class="letra-poppins-bold">NOTAS</h4></a>
+            <a v-on:click="activetab = 4" v-if="user.type_user === 1 || user.type_user === 2" v-bind:class="[activetab === 4 ? 'active' : '']"><h4 class="letra-poppins-bold">ENTREGAS</h4></a>
           </div>
 
           <!-- <div class="content-azul"> -->
           <div>
             <div v-if="activetab === 1" class="tabcontent">
-              <div v-if="idArea !=''">
+              <div v-if="idArea !='' || user.type_user === 7">
+                <h3 v-show="user.type_user === 7" class="card-header fondo">Mis Cursos</h3>
                 <cycle-list :idArea="idAreaClass" :planif="planif" :user="user"></cycle-list>
               </div>
             </div>
@@ -121,21 +122,21 @@ export default {
   box-shadow: 3px 3px 3px 3px #b0acac;
 }
 .tabs {
-  margin-top: 20px;
+  margin-top: 10px;
   overflow: hidden;
-  margin-left: 90px;
+  margin-left: 30px;
   margin-bottom: -2px;
 }
 
 .tabs ul {
   list-style-type: none;
-  margin-left: 20px;
+  margin-left: 5px;
 }
 
 .tabs a {
   float: left;
   cursor: pointer;
-  padding: 12px 24px;
+  padding: 1px 20px;
   transition: background-color 0.2s;
   border: 1px solid #ccc;
   border-right: none;

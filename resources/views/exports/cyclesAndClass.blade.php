@@ -1,15 +1,13 @@
 <table class="table table-striped">
-    <thead>
-    <tr>
-        <th>#</th>
-        <th>Ciclo de aprendizaje</th>
-        <th>Deserrollo de la clase</th>
-        <th>Observación</th>
-        <th>Ajustes PIAR</th>
-    </tr>
-    </thead>
     <tbody>
     @foreach($dataWeek as $dataWeeks)
+        <tr>
+            <th>#</th>
+            <th>Ciclo de aprendizaje</th>
+            <th>Deserrollo de la clase</th>
+            <th>Observación</th>
+            <th>Ajustes PIAR</th>
+        </tr>
         <tr>
             <td>{{ $dataWeeks['order_items'] }}</td>
             <td>{{ $dataWeeks['text'] }}</td>

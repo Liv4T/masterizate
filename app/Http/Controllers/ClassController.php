@@ -1009,7 +1009,8 @@ class ClassController extends Controller
             'clase' => $clase,
             'achievements' => $achievements,
             'area'=>$area,
-            'classroom'=>$classroom
+            'classroom'=>$classroom,
+            'user_type'=>$user->type_user,
         ];
         return $data;
     }

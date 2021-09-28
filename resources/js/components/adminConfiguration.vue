@@ -1,7 +1,7 @@
 <template>
-  <div class="back">
+  <div>
     <div class="row justify-content-center">
-      <div class="col-sm-11">
+      <div class="col-sm-12">
         <div class="row">
           <div class="col-sm-12">
             <ul class="nav nav-tabs">

@@ -21,8 +21,8 @@
     />
   </head>
   <div>
-    <div>
-      <div class="col-md-12 mx-auto">
+    <div class="back">
+      <div class="col-md-10 mx-auto">
         <div class="custom-card text-center">
           <h3 class="card-header fondo">Duplicar planificación general</h3>
           <form v-show="trimestre == false">

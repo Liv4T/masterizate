@@ -158,11 +158,10 @@
             getClasses() {                
                 var urlr = window.location.origin + "/showClass/" + this.id_module;
                 axios.get(urlr).then(response => {
-                    console.log(response.data.clase)
                     this.fillS = response.data.clase;
 
                     if (response.data.area && response.data.classroom)
-                        this.nameArea = `${response.data.area.name} ${response.data.classroom.name}`;
+                        this.nameArea = response.data.user_type === 7 ? response.data.area.name :`${response.data.area.name} ${response.data.classroom.name}`;
 
                     this.id_area = response.data.area.id;
                     this.id_classroom = response.data.classroom.id;
@@ -199,7 +198,6 @@
             getClassToDelete(id_cicle){
                 var urls = window.location.origin + "/showClass/" + id_cicle;
                 axios.get(urls).then(response => {
-                    console.log("clases del ciclo",response.data);
                     var clasesClean = response.data.clase;
                     for (const key in clasesClean) {
                         if (clasesClean[key].state === 1) {
@@ -245,7 +243,6 @@
             },
 
             getClass(id_class){
-                console.log('id_class',id_class)
                 if(id_class){
                     this.idClass = id_class;
                     this.createClas = 'showEdit'                    

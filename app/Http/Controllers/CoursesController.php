@@ -22,6 +22,8 @@ use App\LectiveQuarterlyPlan;
 use App\LectiveClass;
 use App\LectiveAchievement;
 use App\LectiveClassContent;
+use App\VinculationTutorStudent;
+use App\TutorCode;
 use Carbon\Carbon;
 use App\Exports\PlanificationPerObjetivesExport;
 use App\Exports\CyclesAndClassExport;
@@ -82,6 +84,24 @@ class CoursesController extends Controller
             'courses' => $Courses,
             'achievements' => $achievements
         ]; 
+
+        return response()->json($data);
+    }
+    public function getAreaByClient(){
+        $user = Auth::user();
+        $data = [];
+        $codeVinculated = VinculationTutorStudent::where('id_student',$user->id)->get();
+
+        foreach($codeVinculated as $key => $vinculated){
+            $code = TutorCode::where('code','=',$vinculated->code_vinculated)->first();
+            $area = Area::where('id','=', $code->id_area)->first();
+            $data[$key]= [
+                'id_tutor' => $vinculated->id_tutor,
+                'id_area'=>$code->id_area,
+                'area_name' => $area->name,
+                'code' => $code->code
+            ];
+        }
 
         return response()->json($data);
     }
@@ -181,6 +201,7 @@ class CoursesController extends Controller
                     $class = Area::find($area->id_area);
                     $areas[$key] = [
                         'id'           => $class->id,
+                        'user_type'    => $user->type_user,
                         'text'         => $class->name.' '.$classroom->name,
                         'classroom_name'    => $classroom->name,
                         'id_area'         => $class->id,
