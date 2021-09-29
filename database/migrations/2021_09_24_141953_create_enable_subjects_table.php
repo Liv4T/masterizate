@@ -13,7 +13,7 @@ class CreateEnableSubjectsTable extends Migration
      */
     public function up()
     {
-        Schema::create('enable_subjects', function (Blueprint $table) {
+        Schema::create('', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('id_area');
             $table->integer('id_code');
