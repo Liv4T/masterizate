@@ -157,11 +157,11 @@ export default {
             });
         },
         getCycles(id_trimestre) {
-            this.idTrimestre = id_trimestre;
+            this.idTrimestre = id_trimestre;            
             var url="/cycle/teacher/"+this.idArea+"/"+id_trimestre;
             axios.get(url).then((response) => {
                 this.cycles = response.data;
-
+                console.log('ciclos: ',response.data);
                 if(this.planif === 'claseEst'){
                     var urlsel = "/viewGetWeek/" + this.idArea +'/'+id_trimestre;
                     axios.get(urlsel).then((response) => {

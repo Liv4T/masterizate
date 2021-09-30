@@ -175,6 +175,7 @@ __webpack_require__.r(__webpack_exports__);
       var url = "/cycle/teacher/" + this.idArea + "/" + id_trimestre;
       axios.get(url).then(function (response) {
         _this2.cycles = response.data;
+        console.log('ciclos: ', response.data);
 
         if (_this2.planif === 'claseEst') {
           var urlsel = "/viewGetWeek/" + _this2.idArea + '/' + id_trimestre;
