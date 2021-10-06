@@ -9,6 +9,10 @@ use App\TutorSchedule;
 use App\TutorScheduleEvent;
 use App\TutorScheduleStudent;
 use App\PaypalExchange;
+use App\TutorCode;
+use App\enableSubject;
+use App\VinculationTutorStudent;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
@@ -161,7 +165,6 @@ class PurchasedController extends Controller
     }
 
     public function payPaypalPlan(string $data_string){
-        
         try{
             $auth = Auth::user();
             
@@ -171,6 +174,11 @@ class PurchasedController extends Controller
 
             $data = json_decode(base64_decode($data_string), true);
             $current_date = date('Y-m-d H:i:s');
+            if($data['plan_name']==='PLAN_MENSUAL'){
+                $end_range_date =date ( 'Y-m-d H:i:s' ,  strtotime ('+30 day' , strtotime ($current_date ))); 
+            }else{
+                $end_range_date =date ( 'Y-m-d H:i:s' ,  strtotime ('+365 day' , strtotime ($current_date ))); 
+            }
 
             if (!isset($data) || !isset($data['quantity'])) {
                 return view('purchasePlanError')->with('error', 'No se puede procesar pago, información inválida.');
@@ -197,6 +205,14 @@ class PurchasedController extends Controller
                     ]);
                 }
             }
+
+            $code = TutorCode::where('code', $data['code'])->first();
+
+            $vinculation_code = VinculationTutorStudent::where('id_tutor', $code->id_tutor)
+                                                        ->where('id_student', $auth->id)
+                                                        ->where('code_vinculated', $data['code'])
+                                                        ->first();
+            
             
             $total = $data['total'];
 
@@ -243,6 +259,23 @@ class PurchasedController extends Controller
                     'deleted' => 0,
                     'updated_user' => $auth->id
                 ]);
+                
+                $enable_subjects = enableSubject::create([
+                    'id_code' => $code->id,
+                    'id_area' => $code->id_area,
+                    'id_user' => $auth->id,
+                    'date_payment' => $current_date,
+                    'date_enable_area' => $end_range_date,
+                ]);
+
+                if(!isset($vinculation_code)){
+                    $vinculation_tutor_students = VinculationTutorStudent::create([
+                        'id_tutor' => $code->id_tutor,
+                        'id_student' => $auth->id,
+                        'code_vinculated' => $data['code'],
+                    ]);
+                }
+                
 
                 if ($total == 0) {
                     $invoice_items = CustomerInvoiceItem::where('customer_invoice_id', $invoice->id)->where('deleted', 0)->get();

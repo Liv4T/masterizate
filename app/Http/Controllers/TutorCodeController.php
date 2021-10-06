@@ -117,4 +117,15 @@ class TutorCodeController extends Controller
         $deleteTutorCode->delete();
         return response()->json('Codigo Eliminado');
     }
+
+    public function validateCode(String $code){
+
+        $data = TutorCode::where('code', $code)->first();
+
+        if($data!=NULL){
+            return 0;
+        }else{
+            return 1;
+        }
+    }
 }

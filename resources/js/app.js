@@ -378,9 +378,9 @@ Vue.component("create-lectives-courses",()=>import("./components/CreatelectivesT
 Vue.component("administ-tab", ()=>import("./components/tabsAdministrative.vue"));
 Vue.component("academic-tab",()=>import("./components/tabsAcademic.vue"));
 Vue.component("comunication-tab", ()=>import("./components/tabComunication.vue"));
-Vue.component("clases-client", ()=>import("./components/clasesCliente.vue"));
 Vue.component("formation-tab",()=>import("./components/tabsFormation.vue"));
 Vue.component("school-gov-tab",()=>import("./components/tabsSchoolGov.vue"));
+Vue.component("clases-client",()=>import("./components/clasesCliente.vue"));
 Vue.use(CKEditor);
 
 

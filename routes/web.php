@@ -354,8 +354,8 @@ Route::middleware('auth')->get('/planificacion/trimestral/{id}/{id_classroom}', 
 Route::get('/compra/plan/tutoria/{tutor_schedule_student_id}/{tutorschedule_id}/resumen', function (int $tutor_schedule_student_id, int $tutorschedule_id) {
     return view('purchaseTutoriaResume')->with('tutor_schedule_student_id', $tutor_schedule_student_id)->with('tutorschedule_id', $tutorschedule_id);
 });
-Route::get('/compra/plan/{plan_type}/resumen', function (String $plan_type) {
-    return view('purchasePlanResume')->with('plan_type', $plan_type);
+Route::get('/compra/plan/{plan_type}/{code}/resumen', function (String $plan_type, String $code) {
+    return view('purchasePlanResume')->with('plan_type', $plan_type)->with('code', $code);
 });
 Route::middleware('auth')->get('/chat', 'HomeController@CreateGroup')->name('chat');
 Route::middleware('auth')->get('/chat2', 'HomeController@CreateGroup2');
@@ -885,6 +885,7 @@ Route::get('/api/tutor-schedule/event/data/{schedule_id}/{schedulestudent_id}', 
 Route::get('/api/plan/event/data/{plan_type}', 'PlansController@getData');
 Route::get('/getScheduleCode/{id_code}', 'TutorController@getScheduleCodes');
 Route::resource('codes', 'TutorCodeController');
+Route::get('/validateCode/{code}', 'TutorCodeController@validateCode');
 Route::resource('vinculationsTutor', 'VinculationTutorStudentController');
 Route::get('getVinculationsTutor', 'VinculationTutorStudentController@getVinculationsTutor');
 
@@ -1136,3 +1137,5 @@ Route::get('getClass/{id_weekly_plan}','ClientController@getClass');
 Route::middleware('auth')->get('/clasesClient', function () {
     return view('clasesCliente');
 });
+Route::middleware('auth')->get('/checkPay/{id_area}/{code}', 'EnableSubjectController@checkPay');
+Route::resource('subject','EnableSubjectController');

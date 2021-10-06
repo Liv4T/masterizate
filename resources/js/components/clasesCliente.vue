@@ -69,6 +69,21 @@
                     <student-module :clasId="weekly_id" :cleanClasId="backPage" :moduleId="activityId"></student-module>
                 </div>              
             </div>            
+        </div>
+        <div class="modal fade" id="modalpay" data-backdrop="static" data-keyboard="false">
+            <div class="modal-lg modal-dialog" style="max-width: 965px;">
+                <div class="modal-content fondo-modal">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <img thumbnail fluid src="images/popup-skills.png" ></img>
+                            <p class="box-suscription">Tu subscripción está vencida</p>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <a :href='"/compra/plan/PLAN_MENSUAL/"+code+"/resumen"' class="btn btn-suscription">Renovar Suscripción</a>
+                    </div>
+                </div>
+            </div>
         </div>        
     </div>
 </template>
@@ -87,6 +102,8 @@ export default {
             showStudent: false,
             activityId: null,
             weekly_id: null,
+            validate: null,
+            code: null,
         };
     },
     mounted(){        
@@ -111,13 +128,15 @@ export default {
                 this.trimestres=response.data;                
             });
             axios.get('getAreaByClient').then((response)=>{
-                this.areas = response.data;                
+                this.areas = response.data;  
+                console.log(this.areas);             
             })
         },
 
         setArea(value){
             let data = JSON.parse(value);
             this.id_area_selected = data.id_area;
+            this.code = data.code;
             this.id_tutor = data.id_tutor;
         },
 
@@ -128,7 +147,16 @@ export default {
         getCycles(){
             axios.get(`getTutorCycle/${this.id_tutor}/${this.id_trimestre}/${this.id_area_selected}`).then((response)=>{
                 this.clases = response.data;
-            });            
+            });
+            axios.get(`/checkPay/${this.id_area_selected}/${this.code}`).then((response)=>{
+                this.validate = response.data;
+            
+                if (this.validate === 0) {
+                    $("#modalpay").modal("hide");
+                } else {
+                    $("#modalpay").modal("show");
+                }
+            });
         },
 
         getClass(data){
@@ -153,3 +181,27 @@ export default {
     }
 };
 </script>
+<style>
+.btn-suscription{
+    background-color: rgb(2, 4, 79);
+    color: white;
+    font-weight: 800;
+}
+.btn-suscription:hover{
+    background-color: rgb(2, 4, 79);
+    color: #c9c9c9;
+    font-weight: 800;
+}
+.box-suscription{
+    background: #f7f5f5; 
+    font-weight: bold; 
+    padding: 15px; 
+    border-left:8px solid #ff0080; 
+    border-top-left-radius:8px; 
+    border-bottom-left-radius:8px;
+    border-right:8px solid #ff0080; 
+    border-top-right-radius:8px; 
+    border-bottom-right-radius:8px;
+}
+
+</style>

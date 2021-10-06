@@ -74,7 +74,7 @@ class EventsController extends Controller
         $date =  Carbon::now();
         $current_date=date('Y-m-d');
         $initial_range_date = date ( 'Y-m-d' , strtotime ( '-90 day' , strtotime ($current_date ) )) ;
-        $end_range_date =date ( 'Y-m-d' ,  strtotime ( '+90 day' , strtotime ($current_date ) )) ;
+        $end_range_date =date ( 'Y-m-d' ,  strtotime ( '+90 day' , strtotime ($current_date ) ));
         if (isset($user) && ($user->isTeacher()||$user->isTutor())) {
             $eventos_teacher = Eventos::where('id_user', $user->id)->whereDate('date_from','>=',$initial_range_date)->whereDate('date_to','<=',$end_range_date)->where('deleted_at','=', null)->orderBy('date_from', 'ASC')->get();
             foreach ($eventos_teacher as $index => $evento) {

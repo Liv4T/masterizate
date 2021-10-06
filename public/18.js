@@ -314,8 +314,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["plan_type", "aut"],
+  props: ["plan_type", "aut", "code"],
   mounted: function mounted() {
     var _this = this;
 
@@ -512,9 +519,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         payer_id: order.payer.payer_id,
         merchant_id: order.purchase_units[0].payee.merchant_id,
         princeExchange: this.currencyExchangePrice,
-        total: this.TotalValue()
-      }; //console.log(model);
-
+        total: this.TotalValue(),
+        code: this.code
+      };
       location.href = "/compra/pagar/plan/paypal/".concat(encodeURI(window.btoa(JSON.stringify(model))));
       setTimeout(function () {
         _this4.events.pay_loading = false;
@@ -528,7 +535,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         quantity: this.current_plan.quantity,
         id_event: this.current_plan.id,
         plan_name: this.current_plan.plan_name,
-        total: this.TotalValue()
+        total: this.TotalValue(),
+        code: this.code
       }; //console.log(model);
 
       location.href = "/compra/plan/".concat(this.plan_type, "/skills/ingresar/p/").concat(encodeURI(window.btoa(JSON.stringify(model))));

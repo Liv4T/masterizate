@@ -1,5 +1,5 @@
 <template>
-    <div class="container-fluid">
+    <div class="back container-fluid">
         <div class="card">
             <div class="card-header fondo">
                 Reportes de actividades y planificación anual

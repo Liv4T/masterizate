@@ -64,7 +64,7 @@
                     </div>
                   </div>
                 </div>
-                <!--<section class="section-cupon">
+                <!-- <section class="section-cupon">
                   <div class="row align-items-center">
                     <div class="col-md-6">
                       <input type="text" class="form-control" v-model="voucher_code" :disabled="events.voucher_loading" @change="events.voucher_error = ''" placeholder="Código de cupón" />
@@ -75,7 +75,14 @@
                       <button v-if="events.voucher_loading" type="button" class="btn btn-primary letra-boldfont" disabled>Validando...</button>
                     </div>
                   </div>
-                </section>-->
+                </section> -->
+                <!--<section v-show="code==''">
+                  <div class="row align-items-center">
+                    <div class="col-md-6">
+                      <input class="form-control" v-model="code" type="text" placeholder="Agregue el codigo de la materia">
+                    </div>
+                  </div>
+                </section> -->
               </section>
             </div>
           </div>
@@ -115,7 +122,7 @@
                                   <span>- ${{ VoucherDiscountValue() }}</span>
                                 </div>
                               </div>
-                            </td>
+                            </td> 
                           </tr>
                           <tr>
                             <td>
@@ -285,7 +292,7 @@
 </template>
 <script>
 export default {
-  props: ["plan_type", "aut"],
+  props: ["plan_type", "aut", "code"],
   mounted() {
     this.fillWidthCalculate();
     window.onresize = () => {
@@ -425,8 +432,8 @@ export default {
         merchant_id: order.purchase_units[0].payee.merchant_id,
         princeExchange: this.currencyExchangePrice,
         total: this.TotalValue(),
+        code: this.code,
       };
-      //console.log(model);
       location.href=`/compra/pagar/plan/paypal/${encodeURI(window.btoa(JSON.stringify(model)))}`;
       setTimeout(() => {
         this.events.pay_loading = false;
@@ -439,6 +446,7 @@ export default {
         id_event: this.current_plan.id,
         plan_name: this.current_plan.plan_name,
         total: this.TotalValue(),
+        code: this.code,
       };
       //console.log(model);
       location.href=`/compra/plan/${this.plan_type}/skills/ingresar/p/${encodeURI(window.btoa(JSON.stringify(model)))}`;

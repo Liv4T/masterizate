@@ -39,9 +39,9 @@
       </div>
       <div class="col" style="padding: 0; margin: 0">
         <a href="#contactanos"><img class="fondo1" src="../assets/img/plans.png" alt="unete"></a>
-        <a href="" target="_blank"><img class="boton-plan-docente" src="../assets/img/plans.1.png"></a>
-        <a href="/compra/plan/PLAN_MENSUAL/resumen"><img class="boton-plan-mensual" src="../assets/img/plans.2.png"></a>
-        <a href="/compra/plan/PLAN_ANUAL/resumen"><img class="boton-plan-anual" src="../assets/img/plans.3.png"></a>
+        <a href="/tutorRegister"><img class="boton-plan-docente" src="../assets/img/plans.1.png"></a>
+        <a href="javascript:void(0)" @click="showModal('PLAN_MENSUAL')"><img class="boton-plan-mensual" src="../assets/img/plans.2.png"></a>
+        <a href="javascript:void(0)" @click="showModal('PLAN_ANUAL')"><img class="boton-plan-anual" src="../assets/img/plans.3.png"></a>
       </div>
       <div class="col" style="padding: 0; margin: 0">
         <a href="#contactanos"><img class="fondo1" src="../assets/img/s6.png" alt="unete" /></a>
@@ -139,6 +139,28 @@
         <div class="col footer-col2">Contactanos</div>
       </div>
     </footer>
+    <div class="modal fade" id="modalCode" data-backdrop="static" data-keyboard="false">
+      <div class="modal-lg modal-dialog" style="max-width: 965px;">
+          <div class="modal-content fondo-modal">
+            <div class="row">
+              <div class="col-lg-12"> 
+                  <img class="img-logo" thumbnail fluid src="images/logo-skills.png" width="225px"></img>
+              </div>
+            </div>
+            <div class="row fondo-gris-form centrado">
+              <div class="col-lg-12">
+                <label for="">Ingrese el código de la materia a pagar</label>
+              </div>
+              <div class="col-lg-6">
+                  <input class="form-control" type="text" v-model="code" placeholder="Código de la materia">
+              </div>
+            </div>
+            <div class="modal-footer">
+              <a href="javascript:void(0)" class="btn btn-primary" @click="validateCode()">Ir a pagar</a>
+            </div>
+          </div>
+      </div>
+    </div>
   </div>
 </template>
 <script>
@@ -152,6 +174,8 @@ export default {
       phone: "",
       email_novedades: "",
       message: "",
+      validate: null,
+      plan_type: "",
     };
   },
   computed: {},
@@ -168,6 +192,23 @@ export default {
           toastr.success("Contacto Guardado con Exito");
         })
         .catch((error) => {});
+    },
+    validateCode(){
+      var url = "/validateCode/"+this.code;
+      axios.get(url).then(
+         (response) => {
+            this.validate = response.data;
+
+            if(this.validate === 0){
+              location.href=`/compra/plan/${this.plan_type}/${this.code}/resumen`;
+            }else{
+              toastr.error("Código invalido, por favor ingrese un código valido");
+            }
+        });
+    },
+    showModal(plan_type){
+      this.plan_type=plan_type;
+      $("#modalCode").modal("show");
     },
     createSignUp() {
       var url = "createSignUp";
@@ -203,7 +244,12 @@ export default {
 
   color: white !important;
 }
-.logo-liv4t {
+.back-modal{
+  background-color: white;
+  border-radius: 10px;
+  padding: 20px;
+  margin-right: 20px;
+  border: 2px solid rgb(201, 188, 188);
 }
 .logo-liv4t-old {
   height: 200px !important;
@@ -237,7 +283,7 @@ export default {
     height: 400px !important;
     z-index: 2;
     left: 545px;
-    top: 200px;
+    top: -100px;
 }
 .boton-plan-mensual{
     background-repeat: no-repeat;
@@ -245,7 +291,7 @@ export default {
     height: 400px !important;
     z-index: 2;
     left: 400px;
-    top: 800px;
+    top: 450px;
 }
 .boton-plan-anual{
     background-repeat: no-repeat;
@@ -253,7 +299,7 @@ export default {
     height: 400px !important;
     z-index: 2;
     left: 750px;
-    top: 800px;
+    top: 450px;
 }
 .logo-fondo2 {
   background-image: url("../assets/img/home4.png");

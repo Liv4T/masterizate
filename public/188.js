@@ -77,7 +77,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
+  return _c("div", { staticClass: "back" }, [
     _c(
       "div",
       { staticClass: "row justify-content-center" },
@@ -115,8 +115,8 @@ var render = function() {
                   staticClass:
                     "table table-responsive-xl table-hover table-striped center"
                 },
-                _vm._l(_vm.trimestres, function(trimestre) {
-                  return _c("tbody", [
+                _vm._l(_vm.trimestres, function(trimestre, key) {
+                  return _c("tbody", { key: key }, [
                     _c(
                       "tr",
                       {
