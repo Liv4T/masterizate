@@ -10,11 +10,11 @@
                             </li>
                         </a>
 
-                        <a v-on:click="showSection('cyclesClass')" >
+                        <!-- <a v-on:click="showSection('cyclesClass')" >
                             <li class="item-menu">
                                 <span class="menu">Ciclos Y Clases</span>
                             </li>
-                        </a>
+                        </a> -->
 
                         <a v-on:click="showSection('notes')">
                             <li class="item-menu">
@@ -52,11 +52,11 @@
                             </li>                            
                         </a>
 
-                        <a v-on:click="showSection('trimestresCreate')">
+                        <!-- <a v-on:click="showSection('trimestresCreate')">
                             <li class="item-menu">
                                 <span class="menu">Trimestres</span>
                             </li>                            
-                        </a>
+                        </a> -->
 
                         <a v-on:click="showSection('reportPlanif')">
                             <li class="item-menu">
@@ -78,7 +78,8 @@
         <div class="row">
             <div id="tabs" class="col-md-11 mx-auto">
                 <div v-if="activetab === 'planifGen'">
-                    <vplan-adm></vplan-adm>
+                    <!-- <vplan-adm></vplan-adm> -->
+                    <general-teacher :user="user"></general-teacher>
                 </div>
                 <div v-if="activetab === 'cyclesClass'">
                     <clases-teacher :user="user"></clases-teacher>

@@ -125,6 +125,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['user'],
   data: function data() {
@@ -227,7 +228,7 @@ var render = function() {
               {
                 on: {
                   click: function($event) {
-                    return _vm.showSection("cyclesClass")
+                    return _vm.showSection("notes")
                   }
                 }
               },
@@ -239,7 +240,7 @@ var render = function() {
               {
                 on: {
                   click: function($event) {
-                    return _vm.showSection("notes")
+                    return _vm.showSection("utils")
                   }
                 }
               },
@@ -251,7 +252,7 @@ var render = function() {
               {
                 on: {
                   click: function($event) {
-                    return _vm.showSection("utils")
+                    return _vm.showSection("pedagogic")
                   }
                 }
               },
@@ -263,7 +264,7 @@ var render = function() {
               {
                 on: {
                   click: function($event) {
-                    return _vm.showSection("pedagogic")
+                    return _vm.showSection("adminElectivs")
                   }
                 }
               },
@@ -275,7 +276,7 @@ var render = function() {
               {
                 on: {
                   click: function($event) {
-                    return _vm.showSection("adminElectivs")
+                    return _vm.showSection("electivsClass")
                   }
                 }
               },
@@ -287,7 +288,7 @@ var render = function() {
               {
                 on: {
                   click: function($event) {
-                    return _vm.showSection("electivsClass")
+                    return _vm.showSection("assistantsMotives")
                   }
                 }
               },
@@ -299,7 +300,7 @@ var render = function() {
               {
                 on: {
                   click: function($event) {
-                    return _vm.showSection("assistantsMotives")
+                    return _vm.showSection("reportPlanif")
                   }
                 }
               },
@@ -311,35 +312,11 @@ var render = function() {
               {
                 on: {
                   click: function($event) {
-                    return _vm.showSection("trimestresCreate")
-                  }
-                }
-              },
-              [_vm._m(8)]
-            ),
-            _vm._v(" "),
-            _c(
-              "a",
-              {
-                on: {
-                  click: function($event) {
-                    return _vm.showSection("reportPlanif")
-                  }
-                }
-              },
-              [_vm._m(9)]
-            ),
-            _vm._v(" "),
-            _c(
-              "a",
-              {
-                on: {
-                  click: function($event) {
                     return _vm.showSection("cycleReport")
                   }
                 }
               },
-              [_vm._m(10)]
+              [_vm._m(8)]
             )
           ]),
           _vm._v(" "),
@@ -351,7 +328,7 @@ var render = function() {
     _c("div", { staticClass: "row" }, [
       _c("div", { staticClass: "col-md-11 mx-auto", attrs: { id: "tabs" } }, [
         _vm.activetab === "planifGen"
-          ? _c("div", [_c("vplan-adm")], 1)
+          ? _c("div", [_c("general-teacher", { attrs: { user: _vm.user } })], 1)
           : _vm._e(),
         _vm._v(" "),
         _vm.activetab === "cyclesClass"
@@ -415,14 +392,6 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("li", { staticClass: "item-menu" }, [
-      _c("span", { staticClass: "menu" }, [_vm._v("Ciclos Y Clases")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", { staticClass: "item-menu" }, [
       _c("span", { staticClass: "menu" }, [_vm._v("Notas")])
     ])
   },
@@ -464,14 +433,6 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("li", { staticClass: "item-menu" }, [
       _c("span", { staticClass: "menu" }, [_vm._v("Motivos de Asistencia")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", { staticClass: "item-menu" }, [
-      _c("span", { staticClass: "menu" }, [_vm._v("Trimestres")])
     ])
   },
   function() {

@@ -10,7 +10,7 @@
         </div>
       </div>
       <div class="row">
-        <div id="tabs" class="col-md-9 mx-auto">
+        <div id="tabs" class="col-md-10 mx-auto">
           <div class="tabs">
             <a v-on:click="activetab = 1" v-bind:class="[activetab === 1 ? 'active' : '']"><h4 class="letra-poppins-bold">PLAN DE ESTUDIO</h4></a>
             <a v-on:click="activetab = 2" v-bind:class="[activetab === 2 ? 'active' : '']"><h4 class="letra-poppins-bold">TRIMESTRE</h4></a>

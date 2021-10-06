@@ -52,10 +52,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['user'],
   data: function data() {
@@ -85,7 +81,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.tabs {\n  margin-top: 10px;\n  overflow: hidden;\n  margin-left: 30px;\n  margin-bottom: -2px;\n}\n.tabs ul {\n  list-style-type: none;\n  margin-left: 5px;\n}\n.tabs a {\n  float: left;\n  cursor: pointer;\n  padding: 1px 20px;\n  transition: background-color 0.2s;\n  border: 1px solid #ccc;\n  border-right: none;\n  background-color: #bfbfbf;\n  border-radius: 10px 10px 0 0;\n  font-weight: bold;\n  color: #fff !important;\n}\n.tabs a:last-child {\n  border-right: 1px solid #ccc;\n}\n/* Change background color of tabs on hover */\n.tabs a:hover {\n  background-color: #aaa;\n  color: #fff;\n}\n\n/* Styling for active tab */\n.tabs a.active {\n  background-color: #00cbcec1;\n  color: #fff;\n  border-bottom: 2px solid #fff;\n  cursor: default;\n}\n.tabcontent {\n  border: 1px solid #ccc;\n  border-radius: 10px;\n  box-shadow: 3px 3px 6px #e1e1e1;\n}\n", ""]);
+exports.push([module.i, "\n.tabAdmin {\n  margin-top: 10px;\n  overflow: hidden;\n  margin-left: 30px;\n  margin-bottom: -2px;\n}\n.tabAdmin ul {\n  list-style-type: none;\n  margin-left: 5px;\n}\n.tabAdmin a {\n  float: left;\n  cursor: pointer;\n  padding: 1px 20px;\n  transition: background-color 0.2s;\n  border: 1px solid #ccc;\n  border-right: none;\n  background-color: #bfbfbf;\n  border-radius: 10px 10px 0 0;\n  font-weight: bold;\n  color: #fff !important;\n}\n.tabAdmin a:last-child {\n  border-right: 1px solid #ccc;\n}\n/* Change background color of tabAdmin on hover */\n.tabAdmin a:hover {\n  background-color: #aaa;\n  color: #fff;\n}\n\n/* Styling for active tab */\n.tabAdmin a.active {\n  background-color: #00cbcec1;\n  color: #fff;\n  border-bottom: 2px solid #fff;\n  cursor: default;\n}\n.tabcontent {\n  border: 1px solid #ccc;\n  border-radius: 10px;\n  box-shadow: 3px 3px 6px #e1e1e1;\n}\n", ""]);
 
 // exports
 
@@ -139,134 +135,130 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", [
     _c("div", { staticClass: "form-group" }, [
-      _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-md-12" }, [
-          _c("div", { staticClass: "tabs" }, [
-            _c(
-              "a",
-              {
-                class: [_vm.activetab === "profile" ? "active" : ""],
-                on: {
-                  click: function($event) {
-                    return _vm.showSection("profile")
-                  }
-                }
-              },
-              [
-                _c("h4", { staticClass: "letra-poppins-bold" }, [
-                  _vm._v("Mi Perfil")
-                ])
-              ]
-            ),
-            _vm._v(" "),
-            _c(
-              "a",
-              {
-                class: [_vm.activetab === "administrative" ? "active" : ""],
-                on: {
-                  click: function($event) {
-                    return _vm.showSection("administrative")
-                  }
-                }
-              },
-              [
-                _c("h4", { staticClass: "letra-poppins-bold" }, [
-                  _vm._v("Administrativo")
-                ])
-              ]
-            ),
-            _vm._v(" "),
-            _c(
-              "a",
-              {
-                class: [_vm.activetab === "comunications" ? "active" : ""],
-                on: {
-                  click: function($event) {
-                    return _vm.showSection("comunications")
-                  }
-                }
-              },
-              [
-                _c("h4", { staticClass: "letra-poppins-bold" }, [
-                  _vm._v("Comunicaciones")
-                ])
-              ]
-            ),
-            _vm._v(" "),
-            _c(
-              "a",
-              {
-                class: [_vm.activetab === "academic" ? "active" : ""],
-                on: {
-                  click: function($event) {
-                    return _vm.showSection("academic")
-                  }
-                }
-              },
-              [
-                _c("h4", { staticClass: "letra-poppins-bold" }, [
-                  _vm._v("Académico")
-                ])
-              ]
-            ),
-            _vm._v(" "),
-            _c(
-              "a",
-              {
-                class: [_vm.activetab === "formation" ? "active" : ""],
-                on: {
-                  click: function($event) {
-                    return _vm.showSection("formation")
-                  }
-                }
-              },
-              [
-                _c("h4", { staticClass: "letra-poppins-bold" }, [
-                  _vm._v("Formación")
-                ])
-              ]
-            ),
-            _vm._v(" "),
-            _c(
-              "a",
-              {
-                class: [_vm.activetab === "government" ? "active" : ""],
-                on: {
-                  click: function($event) {
-                    return _vm.showSection("government")
-                  }
-                }
-              },
-              [
-                _c("h4", { staticClass: "letra-poppins-bold" }, [
-                  _vm._v("Gobierno Escolar")
-                ])
-              ]
-            ),
-            _vm._v(" "),
-            _c(
-              "a",
-              {
-                class: [_vm.activetab === "reports" ? "active" : ""],
-                on: {
-                  click: function($event) {
-                    return _vm.showSection("reports")
-                  }
-                }
-              },
-              [
-                _c("h4", { staticClass: "letra-poppins-bold" }, [
-                  _vm._v("Mis Reportes")
-                ])
-              ]
-            )
-          ])
-        ])
+      _c("div", { staticClass: "tabAdmin" }, [
+        _c(
+          "a",
+          {
+            class: [_vm.activetab === "profile" ? "active" : ""],
+            on: {
+              click: function($event) {
+                return _vm.showSection("profile")
+              }
+            }
+          },
+          [
+            _c("h4", { staticClass: "letra-poppins-bold" }, [
+              _vm._v("Mi Perfil")
+            ])
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "a",
+          {
+            class: [_vm.activetab === "administrative" ? "active" : ""],
+            on: {
+              click: function($event) {
+                return _vm.showSection("administrative")
+              }
+            }
+          },
+          [
+            _c("h4", { staticClass: "letra-poppins-bold" }, [
+              _vm._v("Administrativo")
+            ])
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "a",
+          {
+            class: [_vm.activetab === "comunications" ? "active" : ""],
+            on: {
+              click: function($event) {
+                return _vm.showSection("comunications")
+              }
+            }
+          },
+          [
+            _c("h4", { staticClass: "letra-poppins-bold" }, [
+              _vm._v("Comunicaciones")
+            ])
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "a",
+          {
+            class: [_vm.activetab === "academic" ? "active" : ""],
+            on: {
+              click: function($event) {
+                return _vm.showSection("academic")
+              }
+            }
+          },
+          [
+            _c("h4", { staticClass: "letra-poppins-bold" }, [
+              _vm._v("Académico")
+            ])
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "a",
+          {
+            class: [_vm.activetab === "formation" ? "active" : ""],
+            on: {
+              click: function($event) {
+                return _vm.showSection("formation")
+              }
+            }
+          },
+          [
+            _c("h4", { staticClass: "letra-poppins-bold" }, [
+              _vm._v("Formación")
+            ])
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "a",
+          {
+            class: [_vm.activetab === "government" ? "active" : ""],
+            on: {
+              click: function($event) {
+                return _vm.showSection("government")
+              }
+            }
+          },
+          [
+            _c("h4", { staticClass: "letra-poppins-bold" }, [
+              _vm._v("Gobierno Escolar")
+            ])
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "a",
+          {
+            class: [_vm.activetab === "reports" ? "active" : ""],
+            on: {
+              click: function($event) {
+                return _vm.showSection("reports")
+              }
+            }
+          },
+          [
+            _c("h4", { staticClass: "letra-poppins-bold" }, [
+              _vm._v("Mis Reportes")
+            ])
+          ]
+        )
       ])
     ]),
     _vm._v(" "),
     _c("div", [
-      _c("div", { staticClass: "col-md-12", attrs: { id: "tabs" } }, [
+      _c("div", { staticClass: "col-md-12", attrs: { id: "tabAdmin" } }, [
         _c("div", [
           _vm.activetab === "profile"
             ? _c("div", [_c("perfil-docente")], 1)

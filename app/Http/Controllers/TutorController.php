@@ -451,13 +451,20 @@ class TutorController extends Controller
     }
     public function cyclesByTeacher(int $id_area, int $id_classroom, int $id_trimestre){
         
-        $id_teacher=Auth::user()->id;
+        $user=Auth::user();
 
-        $weekly_plans=Weekly::where('id_classroom',$id_classroom)
-        ->where('id_area',$id_area)
-        ->where('id_teacher', $id_teacher)
-        ->where('id_trimestre', $id_trimestre)
-        ->get();
+        if($user->type_user === 2){
+            $weekly_plans=Weekly::where('id_classroom',$id_classroom)
+            ->where('id_area',$id_area)
+            ->where('id_teacher', $user->id)
+            ->where('id_trimestre', $id_trimestre)
+            ->get();
+        }else if($user->type_user === 1){
+            $weekly_plans=Weekly::where('id_classroom',$id_classroom)
+            ->where('id_area',$id_area)
+            ->where('id_trimestre', $id_trimestre)
+            ->get();
+        }
 
         return response()->json($weekly_plans);
     }

@@ -233,7 +233,7 @@ var render = function() {
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-md-9 mx-auto", attrs: { id: "tabs" } }, [
+        _c("div", { staticClass: "col-md-10 mx-auto", attrs: { id: "tabs" } }, [
           _c("div", { staticClass: "tabs" }, [
             _c(
               "a",
