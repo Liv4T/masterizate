@@ -6,36 +6,43 @@
           <li class="margin-logo">
             <img class="" thumbnail fluid src="../assets/img/logo-skills.png" alt="4" />
           </li>
-          <li class="nav-pad">
-            <a class="color-nav" href="#roles">Programas</a>
-          </li>
-          <li class="nav-pad">
-            <a class="color-nav" href="#queEs">Qué es</a>
-          </li>
-          <li class="nav-pad">
-            <a class="color-nav" href="#contactanos">Contáctanos</a>
-          </li>
-          <li class="nav-pad">
-            <a class="color-nav btn btn-skills" href="#contactanos">Accede a tu clase</a>
-          </li>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContentMenu" aria-controls="navbarContentMenu" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarContentMenu">
+            <ul class="navbar-nav ml-auto" >
+              <li class="nav-pad">
+                <a class="color-nav" href="#programas">Programas</a>
+              </li>
+              <li class="nav-pad">
+                <a class="color-nav" href="#queEs">Qué es</a>
+              </li>
+              <li class="nav-pad">
+                <a class="color-nav" href="#contactanos">Contáctanos</a>
+              </li>
+              <li class="nav-pad">
+                <a class="color-nav btn btn-skills" href="#contactanos">Accede a tu clase</a>
+              </li>
+            </ul>
+          </div>
         </ul>
       </nav>
     </div>
     <div class="desktop">
       <div class="col" style="padding: 0; margin: 0">
-        <a href="#contactanos"><img class="fondo1" src="../assets/img/s1.png" alt="unete"></a>
+        <a href="#"><img class="fondo1" src="../assets/img/s1.png" alt="unete"></a>
+      </div>
+      <div class="col" style="padding: 0; margin: 0" id="queEs">
+        <a href="#"><img class="fondo1" src="../assets/img/s2.png" alt="unete"></a>
+      </div>
+      <div class="col" style="padding-bottom: 20px; margin: 0" id="contactanos">
+        <a href="https://wa.me/573204547116?text=Me%20gustaría%20saber%20más%20de%20los%20planes" target="_blank"><img class="fondo1" src="../assets/img/s3.png" alt="unete"></a>
+      </div>
+      <div class="col" style="padding: 0; margin: 0" id="programas">
+        <a href="#"><img class="fondo1" src="../assets/img/s4.png" alt="unete"></a>
       </div>
       <div class="col" style="padding: 0; margin: 0">
-        <a href="#contactanos"><img class="fondo1" src="../assets/img/s2.png" alt="unete"></a>
-      </div>
-      <div class="col" style="padding-bottom: 20px; margin: 0">
-        <a href="#contactanos"><img class="fondo1" src="../assets/img/s3.png" alt="unete"></a>
-      </div>
-      <div class="col" style="padding: 0; margin: 0">
-        <a href="#contactanos"><img class="fondo1" src="../assets/img/s4.png" alt="unete"></a>
-      </div>
-      <div class="col" style="padding: 0; margin: 0">
-        <a href="#contactanos"><img class="fondo1" src="../assets/img/s5.png" alt="unete"></a>
+        <a href="#"><img class="fondo1" src="../assets/img/s5.png" alt="unete"></a>
       </div>
       <div class="col" style="padding: 0; margin: 0">
         <a href="#contactanos"><img class="fondo1" src="../assets/img/plans.png" alt="unete"></a>
@@ -44,30 +51,30 @@
         <a href="javascript:void(0)" @click="showModal('PLAN_ANUAL')"><img class="boton-plan-anual" src="../assets/img/plans.3.png"></a>
       </div>
       <div class="col" style="padding: 0; margin: 0">
-        <a href="#contactanos"><img class="fondo1" src="../assets/img/s6.png" alt="unete" /></a>
+        <a href="#"><img class="fondo1" src="../assets/img/s6.png" alt="unete" /></a>
       </div>
     </div>
     <div class="phone">
       <div class="col" style="padding: 0; margin: 0">
-        <a href="#contactanos"><img class="fondo1" src="../assets/img/s1.png" alt="unete" /></a>
+        <a href="#"><img class="fondo1" src="../assets/img/s1.png" alt="unete" /></a>
       </div>
       <div class="col" style="padding: 0; margin: 0">
-        <a href="#contactanos"><img class="fondo1" src="../assets/img/c2.png" alt="unete" /></a>
+        <a href="#"><img class="fondo1" src="../assets/img/c2.png" alt="unete" /></a>
       </div>
       <div class="col" style="padding-bottom: 20px; margin: 0">
-        <a href="#contactanos"><img class="fondo1" src="../assets/img/c3.png" alt="unete" /></a>
+        <a href="https://wa.me/573204547116?text=Me%20gustaría%20saber%20más%20de%20los%20planes" class="whatsapp" target="_blank"><i class="fa fa-whatsapp whatsapp-icon"></i><img class="fondo1" src="../assets/img/c3.png" alt="unete" /></a>
       </div>
       <div class="col" style="padding: 0; margin: 0">
-        <a href="#contactanos"><img class="fondo1" src="../assets/img/c4.png" alt="unete" /></a>
+        <a href="#"><img class="fondo1" src="../assets/img/c4.png" alt="unete" /></a>
       </div>
       <div class="col" style="padding: 0; margin: 0">
-        <a href="#contactanos"><img class="fondo1" src="../assets/img/c6.png" alt="unete" /></a>
+        <a href="#"><img class="fondo1" src="../assets/img/c6.png" alt="unete" /></a>
       </div>
       <div class="col" style="padding: 0; margin: 0">
-        <a href="#contactanos"><img class="fondo1" src="../assets/img/planc.png" alt="unete" /></a>
+        <a href="#"><img class="fondo1" src="../assets/img/planc.png" alt="unete" /></a>
       </div>
       <div class="col" style="padding: 0; margin: 0">
-        <a href="#contactanos"><img class="fondo1" src="../assets/img/s6.png" alt="unete" /></a>
+        <a href="#"><img class="fondo1" src="../assets/img/s6.png" alt="unete" /></a>
       </div>
     </div>
 
@@ -160,6 +167,9 @@
             </div>
           </div>
       </div>
+    </div>
+    <div>
+      <a href="https://wa.me/573204547116?text=Me%20gustaría%20saber%20más%20de%20los%20planes" class="whatsapp" target="_blank"> <i class="fa fa-whatsapp whatsapp-icon"></i></a>
     </div>
   </div>
 </template>
@@ -525,7 +535,26 @@ export default {
 .phone {
   display: none;
 }
+.whatsapp {
+  position:fixed;
+  width:60px;
+  height:60px;
+  bottom:40px;
+  right:40px;
+  background-color:#25d366;
+  color:#FFF;
+  border-radius:50px;
+  text-align:center;
+  font-size:30px;
+  z-index:100;
+}
+.whatsapp a{
+    color: white;
+}
 
+.whatsapp-icon {
+  margin-top:13px;
+}
 @media (max-width: 600px) {
   .logo-liv4t {
     height: 100px;
