@@ -666,6 +666,9 @@ Route::get('/loginNew', function () {
 Route::get('/registerNew', function () {
     return view('auth.register');
 })->name('registerNew');
+Route::get('/tutorRegisterNew', function () {
+    return view('tutorRegister');
+})->name('tutorRegisterNew');
 Route::post('/login2', 'UserController@loginWeb')->name('login2');
 Route::post('/login/client/web', 'UserController@loginClientWeb')->name('login_client_web');
 Route::post('/resetPassword', 'UserController@resetPassword')->name('resetPassword');

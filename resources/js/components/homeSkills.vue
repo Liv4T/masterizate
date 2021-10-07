@@ -21,7 +21,7 @@
                 <a class="color-nav" href="#contactanos">Contáctanos</a>
               </li>
               <li class="nav-pad">
-                <a class="color-nav btn btn-skills" href="#contactanos">Accede a tu clase</a>
+                <a class="color-nav btn btn-skills" href="/loginNew">Accede a tu clase</a>
               </li>
             </ul>
           </div>
@@ -58,13 +58,13 @@
       <div class="col" style="padding: 0; margin: 0">
         <a href="#"><img class="fondo1" src="../assets/img/s1.png" alt="unete" /></a>
       </div>
-      <div class="col" style="padding: 0; margin: 0">
+      <div class="col" style="padding: 0; margin: 0" id="queEs">
         <a href="#"><img class="fondo1" src="../assets/img/c2.png" alt="unete" /></a>
       </div>
-      <div class="col" style="padding-bottom: 20px; margin: 0">
-        <a href="https://wa.me/573204547116?text=Me%20gustaría%20saber%20más%20de%20los%20planes" class="whatsapp" target="_blank"><i class="fa fa-whatsapp whatsapp-icon"></i><img class="fondo1" src="../assets/img/c3.png" alt="unete" /></a>
+      <div class="col" style="padding-bottom: 20px; margin: 0" id="contactanos">
+        <a href="https://wa.me/573204547116?text=Me%20gustaría%20saber%20más%20de%20los%20planes" target="_blank"><img class="fondo1" src="../assets/img/c3.png" alt="unete" /></a>
       </div>
-      <div class="col" style="padding: 0; margin: 0">
+      <div class="col" style="padding: 0; margin: 0" id="programas">
         <a href="#"><img class="fondo1" src="../assets/img/c4.png" alt="unete" /></a>
       </div>
       <div class="col" style="padding: 0; margin: 0">
