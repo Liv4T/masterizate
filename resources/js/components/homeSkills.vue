@@ -149,6 +149,11 @@
     <div class="modal fade" id="modalCode" data-backdrop="static" data-keyboard="false">
       <div class="modal-lg modal-dialog" style="max-width: 965px;">
           <div class="modal-content fondo-modal">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
             <div class="row">
               <div class="col-lg-12"> 
                   <img class="img-logo" thumbnail fluid src="images/logo-skills.png" width="225px"></img>
