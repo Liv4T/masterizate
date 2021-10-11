@@ -94,7 +94,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.text-link{\n    color: black;\n    font-size: 18px;\n}\n", ""]);
+exports.push([module.i, "\n.text-link{\r\n    color: black;\r\n    font-size: 18px;\n}\r\n", ""]);
 
 // exports
 

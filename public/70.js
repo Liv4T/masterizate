@@ -97,7 +97,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.collapse-row.collapsed + tr {\n  display: none;\n}\n.btn.skool {\n  background-color: #c1e9eb;\n  color: white;\n}\n.text-table{\n    text-decoration: none;\n    color: #278080 !important;\n    font-size: 20px;\n    align-items: left;\n}\n", ""]);
+exports.push([module.i, "\n.collapse-row.collapsed + tr {\r\n  display: none;\n}\n.btn.skool {\r\n  background-color: #c1e9eb;\r\n  color: white;\n}\n.text-table{\r\n    text-decoration: none;\r\n    color: #278080 !important;\r\n    font-size: 20px;\r\n    align-items: left;\n}\r\n", ""]);
 
 // exports
 
