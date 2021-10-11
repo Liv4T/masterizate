@@ -168,6 +168,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(__webpack_require__(/*! vue-moment */ "./node_modules/vue-moment/dist/vue-moment.js"));
@@ -331,6 +337,12 @@ var render = function() {
                         _vm._v(" "),
                         _c("th", [
                           _vm._v(
+                            "\n                                    Mensaje Visto\n                                "
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("th", [
+                          _vm._v(
                             "\n                                    " +
                               _vm._s(_vm.$t("lang.table.action")) +
                               "\n                                "
@@ -356,6 +368,16 @@ var render = function() {
                                   )
                                 ) +
                                 "\n                                "
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("td", [
+                            _vm._v(
+                              _vm._s(
+                                option.visto === 1
+                                  ? "Visto"
+                                  : "Sin visualización"
+                              )
                             )
                           ]),
                           _vm._v(" "),

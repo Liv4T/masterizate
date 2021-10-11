@@ -34,6 +34,9 @@
                                         {{ $t('lang.table.date') }}
                                     </th>
                                     <th>
+                                        Mensaje Visto
+                                    </th>
+                                    <th>
                                         {{ $t('lang.table.action') }}
                                     </th>
                                 </tr>
@@ -48,6 +51,9 @@
                                                 | moment("dddd, MMMM Do YYYY")
                                         }}
                                     </td>
+                                    <td>{{ 
+                                        option.visto === 1 ? 'Visto'  : 'Sin visualización'
+                                    }}</td>
                                     <td class="float-right">
                                         <a
                                             class="btn btn-sm"

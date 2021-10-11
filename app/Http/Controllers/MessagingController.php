@@ -7,6 +7,7 @@ use App\Messaging;
 use App\ReceptorMessage;
 use Illuminate\Support\Facades\Mail;
 use App\User;
+use App\viewMessages;
 use Auth;
 
 class MessagingController extends Controller
@@ -55,6 +56,12 @@ class MessagingController extends Controller
                 $receptor_message->status = 0;
                 $receptor_message->id_message = $message->id;
                 $receptor_message->save();
+
+                $createView = new viewMessages();
+                $createView->id_sender = $user->id;
+                $createView->id_received = $receptor;
+
+                $createView->save();
             }
 
             $emails = [];
@@ -163,14 +170,16 @@ class MessagingController extends Controller
         $user = Auth::user();
         // return $user->id;
         $messages = [];
-        $messagesReceivers = ReceptorMessage::where('id_user', $user->id)->get();
-        foreach ($messagesReceivers as $key => $messagesReceiver) {
+        $messagesReceivers = ReceptorMessage::where('id_user', $user->id)->get();        
+        foreach ($messagesReceivers as $key => $messagesReceiver) {            
+            $messageView = viewMessages::where('id_message', $messagesReceiver->id)->where('id_received',$user->id)->first();
             $message = Messaging::find($messagesReceiver->id_message);
             $user = User::find($message->id_emisor);
             $message->emisor = $user->name . " " . $user->last_name;
             $messages[$key] = [
                 'asunto' => $message->subject,
                 'emisor' => $message->emisor,
+                'visto'  => $messageView ? $messageView->visualized : 0,
                 'fecha'  => $message->created_at,
                 'id'     => $message->id
             ];
