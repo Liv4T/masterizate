@@ -172,8 +172,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(__webpack_require__(/*! vue-moment */ "./node_modules/vue-moment/dist/vue-moment.js"));
@@ -206,6 +204,11 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(__webpack_require__(/*! vue-momen
 
       var urlr = "getMessage/" + mess;
       axios.get(urlr).then(function (response) {
+        axios.put("updateMessajeView/".concat(response.data.id), {
+          visualized: 1
+        }).then(function (response) {
+          console.log(response.data);
+        });
         _this2.emessages = response.data;
         _this2.emisor = _this2.emessages.emisor;
         _this2.asunto = _this2.emessages.subject;
@@ -337,7 +340,9 @@ var render = function() {
                         _vm._v(" "),
                         _c("th", [
                           _vm._v(
-                            "\n                                    Mensaje Visto\n                                "
+                            "                                        \n                                    " +
+                              _vm._s(_vm.$t("lang.table.message_viewed")) +
+                              "\n                                "
                           )
                         ]),
                         _vm._v(" "),
@@ -371,15 +376,7 @@ var render = function() {
                             )
                           ]),
                           _vm._v(" "),
-                          _c("td", [
-                            _vm._v(
-                              _vm._s(
-                                option.visto === 1
-                                  ? "Visto"
-                                  : "Sin visualización"
-                              )
-                            )
-                          ]),
+                          _c("td", [_vm._v(_vm._s(option.visto))]),
                           _vm._v(" "),
                           _c("td", { staticClass: "float-right" }, [
                             _c(

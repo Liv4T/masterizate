@@ -130,7 +130,8 @@
         "action":"Acción",
         "findByClassroom":"Buscar Por Salon",
         "findByName":"Buscar Por Nombre",
-        "back_to":"Volver"
+        "back_to":"Volver",
+        "message_viewed": "Mensaje Visto"
     },
     "Write_To":{
         "writeTo":"Redactar Mensaje",

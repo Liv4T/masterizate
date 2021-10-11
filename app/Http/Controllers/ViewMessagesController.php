@@ -79,7 +79,7 @@ class ViewMessagesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $updateView = viewMessages::findOrFail($id);
+        $updateView = viewMessages::where('id_message',$id)->first();        
         $updateView->visualized = $request->visualized;
         $updateView->update();
 

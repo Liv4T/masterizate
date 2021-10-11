@@ -27,6 +27,9 @@
                     {{ $t('lang.table.date') }}
                   </th>
                   <th>                    
+                    {{ $t('lang.table.message_viewed') }}
+                  </th>
+                  <th>                    
                     {{ $t('lang.table.action') }}
                   </th>
                 </tr>
@@ -52,6 +55,11 @@
                     {{
                     option.fecha.date
                     | moment("dddd, MMMM Do YYYY")
+                    }}
+                  </td>
+                  <td>
+                    {{
+                    option.visto
                     }}
                   </td>
                   <td class="float-right">
