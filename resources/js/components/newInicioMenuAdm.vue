@@ -2,13 +2,13 @@
     <div>        
         <div class="form-group">
             <div class="tabAdmin">
-                <a v-on:click="showSection('profile')" v-bind:class="[activetab === 'profile' ? 'active fondo' : '']"><h3 class="letra-poppins-bold">Mi Perfil</h3></a>
-                <a v-on:click="showSection('administrative')" v-bind:class="[activetab === 'administrative' ? 'active fondo' : '']"><h3 class="letra-poppins-bold">Administrativo</h3></a>
-                <a v-on:click="showSection('comunications')" v-bind:class="[activetab === 'comunications' ? 'active fondo' : '']"><h3 class="letra-poppins-bold">Comunicaciones</h3></a>                        
-                <a v-on:click="showSection('academic')" v-bind:class="[activetab === 'academic' ? 'active fondo' : '']"><h3 class="letra-poppins-bold">Académico</h3></a>
-                <a v-on:click="showSection('formation')" v-bind:class="[activetab === 'formation' ? 'active fondo' : '']"><h3 class="letra-poppins-bold">Formación</h3></a>
-                <a v-on:click="showSection('government')" v-bind:class="[activetab === 'government' ? 'active fondo' : '']"><h3 class="letra-poppins-bold">Gobierno Escolar</h3></a>
-                <a v-on:click="showSection('reports')" v-bind:class="[activetab === 'reports' ? 'active fondo' : '']"><h3 class="letra-poppins-bold">Mis Reportes</h3></a>
+                <a v-on:click="showSection('profile')" v-bind:class="[activetab === 'profile' ? 'active fondo' : '']"><h3>Mi Perfil</h3></a>
+                <a v-on:click="showSection('administrative')" v-bind:class="[activetab === 'administrative' ? 'active fondo' : '']"><h3>Administrativo</h3></a>
+                <a v-on:click="showSection('comunications')" v-bind:class="[activetab === 'comunications' ? 'active fondo' : '']"><h3>Comunicaciones</h3></a>                        
+                <a v-on:click="showSection('academic')" v-bind:class="[activetab === 'academic' ? 'active fondo' : '']"><h3>Académico</h3></a>
+                <a v-on:click="showSection('formation')" v-bind:class="[activetab === 'formation' ? 'active fondo' : '']"><h3>Formación</h3></a>
+                <a v-on:click="showSection('government')" v-bind:class="[activetab === 'government' ? 'active fondo' : '']"><h3>Gobierno Escolar</h3></a>
+                <a v-on:click="showSection('reports')" v-bind:class="[activetab === 'reports' ? 'active fondo' : '']"><h3>Mis Reportes</h3></a>
             </div>
         </div>
         
@@ -75,7 +75,7 @@ export default {
 .tabAdmin a {
   float: left;
   cursor: pointer;
-  padding: 10px 6px;
+  padding: 5px 4px;
   transition: background-color 0.2s;
   border: 1px solid #ccc;
   border-right: none;
