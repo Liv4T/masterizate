@@ -158,20 +158,20 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     openDocument: function openDocument(resource) {
+      console.log('Recurso de previowModal: ', resource);
+
       try {
-        this.saveInteraction(resource);
         window.open(resource.content);
-      } catch (_unused) {}
+      } catch (error) {
+        console.log(error);
+      }
     },
     openLink: function openLink(resource) {
       try {
-        this.saveInteraction(resource);
         window.open(resource.content);
-      } catch (_unused2) {}
+      } catch (_unused) {}
     },
-    playVideo: function playVideo(resource) {
-      this.saveInteraction(resource);
-    },
+    playVideo: function playVideo(resource) {},
     resolveYoutubeLink: function resolveYoutubeLink(link_youtube) {
       if (!link_youtube.includes('/')) return link_youtube;
       var split_link = link_youtube.split('/');

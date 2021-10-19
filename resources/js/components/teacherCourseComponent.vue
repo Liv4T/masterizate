@@ -311,6 +311,11 @@ export default {
         };
     },
     watch: {
+        course: function(newVal){
+            if(newVal){
+                this.course = newVal;
+            }
+        },
         activityForAllStudents: function(newVal){
             if(newVal == true){
                 this.course.activityForPIARStudents = 0;

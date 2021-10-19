@@ -320,6 +320,11 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
     };
   },
   watch: {
+    course: function course(newVal) {
+      if (newVal) {
+        this.course = newVal;
+      }
+    },
     activityForAllStudents: function activityForAllStudents(newVal) {
       if (newVal == true) {
         this.course.activityForPIARStudents = 0;
