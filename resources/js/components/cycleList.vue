@@ -162,7 +162,7 @@ export default {
             axios.get(url).then((response) => {
                 this.cycles = response.data;
                 console.log('ciclos: ',response.data);
-                if(this.planif === 'claseEst'){
+                /* if(this.planif === 'claseEst'){
                     var urlsel = "/viewGetWeek/" + this.idArea +'/'+id_trimestre;
                     axios.get(urlsel).then((response) => {
                        let data = response.data;                       
@@ -175,7 +175,7 @@ export default {
                            })
                        })
                     });
-                }
+                } */
             });
         },
 

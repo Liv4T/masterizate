@@ -176,21 +176,20 @@ __webpack_require__.r(__webpack_exports__);
       axios.get(url).then(function (response) {
         _this2.cycles = response.data;
         console.log('ciclos: ', response.data);
-
-        if (_this2.planif === 'claseEst') {
-          var urlsel = "/viewGetWeek/" + _this2.idArea + '/' + id_trimestre;
-          axios.get(urlsel).then(function (response) {
-            var data = response.data;
-            data.forEach(function (element) {
-              _this2.cycles.push({
-                driving_question: element.text,
-                "class": element["class"],
-                id: element.id,
-                observation: element.observation
-              });
+        /* if(this.planif === 'claseEst'){
+            var urlsel = "/viewGetWeek/" + this.idArea +'/'+id_trimestre;
+            axios.get(urlsel).then((response) => {
+               let data = response.data;                       
+               data.forEach((element)=>{
+                   this.cycles.push({
+                        driving_question: element.text,
+                        class: element.class,
+                        id: element.id,
+                        observation: element.observation
+                   })
+               })
             });
-          });
-        }
+        } */
       });
     },
     getCycle: function getCycle(cycle) {
