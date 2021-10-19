@@ -7,6 +7,7 @@ use App\Messaging;
 use App\ReceptorMessage;
 use Illuminate\Support\Facades\Mail;
 use App\User;
+use App\viewMessages;
 use Auth;
 
 class MessagingController extends Controller
@@ -42,7 +43,7 @@ class MessagingController extends Controller
         $data = $request->all();
         $message = new Messaging;
         $user = Auth::user();
-
+        $id_sender = $user->id;
         $message->id_emisor = $user->id;
         $message->message = $data['message'];
         $message->subject = $data['subject'];
@@ -54,7 +55,7 @@ class MessagingController extends Controller
                 $receptor_message->id_user = $receptor;
                 $receptor_message->status = 0;
                 $receptor_message->id_message = $message->id;
-                $receptor_message->save();
+                $receptor_message->save();                
             }
 
             $emails = [];
@@ -65,6 +66,14 @@ class MessagingController extends Controller
                 $emails[$key] = [
                     $user->email
                 ];
+                $mensaje_id = Messaging::latest('id')->first();
+
+                $createView = new viewMessages();
+                $createView->id_sender = $id_sender;
+                $createView->id_received = $user->id;
+                $createView->id_message = $mensaje_id->id;
+
+                $createView->save();
             }
             $data_email = [
                 'body' => $data['message'],
@@ -131,6 +140,7 @@ class MessagingController extends Controller
             $receivers = [];
             $received_messages = [];
             foreach ($messages as $key => $message) {
+                $messageView = viewMessages::where('id_message',$message->id)->first();
                 $user_messages = ReceptorMessage::where('id_message', $message->id)->get();
                 foreach ($user_messages as $index => $receiver) {
                     $user_sent = User::find($receiver->id_user);
@@ -142,7 +152,8 @@ class MessagingController extends Controller
                     'asunto' => $message->subject,
                     'destinatarios' => $receivers,
                     'fecha'  => $message->created_at,
-                    'id'     => $message->id
+                    'id'     => $message->id,
+                    'visto'  => $messageView ? $messageView->visualized === 1 ? 'Mensaje Visto' : 'Sin Visualización' : 'Sin registro',
                 ];
             }
             $message->receivers = $receivers;
@@ -163,14 +174,16 @@ class MessagingController extends Controller
         $user = Auth::user();
         // return $user->id;
         $messages = [];
-        $messagesReceivers = ReceptorMessage::where('id_user', $user->id)->get();
-        foreach ($messagesReceivers as $key => $messagesReceiver) {
+        $messagesReceivers = ReceptorMessage::where('id_user', $user->id)->get();        
+        foreach ($messagesReceivers as $key => $messagesReceiver) {                        
             $message = Messaging::find($messagesReceiver->id_message);
+            $messageView = viewMessages::where('id_message',$message->id)->first();
             $user = User::find($message->id_emisor);
             $message->emisor = $user->name . " " . $user->last_name;
             $messages[$key] = [
                 'asunto' => $message->subject,
                 'emisor' => $message->emisor,
+                'visto'  => $messageView ? $messageView->visualized === 1 ? 'Mensaje Visto' : 'Sin Visualización' : 'Sin registro',
                 'fecha'  => $message->created_at,
                 'id'     => $message->id
             ];

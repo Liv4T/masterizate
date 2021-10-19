@@ -130,7 +130,8 @@
         "action":"Action",
         "findByClassroom":"Find By Classroom",
         "findByName":"Find By Name",
-        "back_to":"Back To"
+        "back_to":"Back To",
+        "message_viewed":"Message Viewed"
     },
     "Write_To":{
         "writeTo":"Compose Message",

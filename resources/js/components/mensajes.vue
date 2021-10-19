@@ -33,6 +33,9 @@
                                     <th>
                                         {{ $t('lang.table.date') }}
                                     </th>
+                                    <th>                                        
+                                        {{ $t('lang.table.message_viewed') }}
+                                    </th>
                                     <th>
                                         {{ $t('lang.table.action') }}
                                     </th>
@@ -48,6 +51,7 @@
                                                 | moment("dddd, MMMM Do YYYY")
                                         }}
                                     </td>
+                                    <td>{{ option.visto }}</td>
                                     <td class="float-right">
                                         <a
                                             class="btn btn-sm"
@@ -182,12 +186,17 @@ export default {
         editMessage(mess) {
             var urlr = "getMessage/" + mess;
             axios.get(urlr).then(response => {
+                axios.put(`updateMessajeView/${response.data.id}`,{visualized: 1}).then((response)=>{
+                    console.log(response.data);
+                });
+
                 this.emessages = response.data;
                 this.emisor = this.emessages.emisor;
                 this.asunto = this.emessages.subject;
                 this.editorData = this.emessages.message;
                 console.log(this.emessages);
-            });
+            });            
+
             $("#createMessage").modal("show");
         },
         onReady(editor) {
