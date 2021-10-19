@@ -1,5 +1,5 @@
 <template>
-    <div style="padding-left: 109px; padding-right: 109px;">
+    <div class="padding-content">
         <div class="row justify-content-center">
             <div id="crud" class="col-sm-12">
                 <div class="card">
@@ -446,4 +446,17 @@
         }
     }
 </script>
+<style>
+.padding-content{
+    padding-left: 109px; 
+    padding-right: 109px;
+}
+
+@media (max-width: 600px) {
+    .padding-content{
+        padding-left: 10px; 
+        padding-right: 20px;
+    }
+}
+</style>
 

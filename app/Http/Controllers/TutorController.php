@@ -464,9 +464,14 @@ class TutorController extends Controller
             ->where('id_area',$id_area)
             ->where('id_trimestre', $id_trimestre)
             ->get();
+        }else if($user->type_user === 3){
+            $weekly_plans=Weekly::where('id_classroom',$id_classroom)
+            ->where('id_area',$id_area)
+            ->where('id_trimestre', $id_trimestre)
+            ->get();
         }
 
-        return response()->json($weekly_plans);
+        return response()->json($weekly_plans); 
     }
 
 }
