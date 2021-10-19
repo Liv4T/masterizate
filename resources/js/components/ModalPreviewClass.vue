@@ -149,19 +149,19 @@ export default {
     },
     methods: {
         openDocument(resource) {
-            try {
-                this.saveInteraction(resource);
+            console.log('Recurso de previowModal: ',resource);
+            try {                
                 window.open(resource.content);
-            } catch {}
+            } catch(error) {
+                console.log(error);
+            }
         },
         openLink(resource) {
-            try {
-                this.saveInteraction(resource);
+            try {                
                 window.open(resource.content);
             } catch {}
         },
-        playVideo(resource) {
-            this.saveInteraction(resource);
+        playVideo(resource) {            
         },
         resolveYoutubeLink(link_youtube)
         {
