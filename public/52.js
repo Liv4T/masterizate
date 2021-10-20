@@ -161,6 +161,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 (function () {
   "use strict";
 
@@ -199,7 +200,7 @@ $(function () {
 
 Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["id_lective_planification", "id_weekly_plan", "id_course"],
+  props: ["id_lective_planification", "id_weekly_plan", "id_course", "back"],
   data: function data() {
     return {
       errors: [],
@@ -1248,6 +1249,19 @@ var render = function() {
                               }
                             },
                             [_vm._v(" Guardar y enviar")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-primary float-left mr-2",
+                              on: {
+                                click: function($event) {
+                                  return _vm.back("inicio", null, null, null)
+                                }
+                              }
+                            },
+                            [_vm._v("Volver")]
                           )
                         ]
                       )

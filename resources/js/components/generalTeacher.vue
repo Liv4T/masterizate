@@ -12,10 +12,10 @@
       <div class="row">
         <div id="tabs" class="col-md-10 mx-auto">
           <div class="tabs">
-            <a v-on:click="activetab = 1" v-bind:class="[activetab === 1 ? 'active' : '']"><h4 class="letra-poppins-bold">PLAN DE ESTUDIO</h4></a>
-            <a v-on:click="activetab = 2" v-bind:class="[activetab === 2 ? 'active' : '']"><h4 class="letra-poppins-bold">TRIMESTRE</h4></a>
-            <a v-on:click="activetab = 3" v-bind:class="[activetab === 3 ? 'active' : '']"><h4 class="letra-poppins-bold">EVALUACIÓN</h4></a>
-            <a v-on:click="activetab = 4" v-bind:class="[activetab === 4 ? 'active' : '']"><h4 class="letra-poppins-bold">CICLOS</h4></a>
+            <a v-on:click="activetab = 1" v-bind:class="[activetab === 1 ? 'active' : '']"><h4 style="font-size: 15px">PLAN DE ESTUDIO</h4></a>
+            <a v-on:click="activetab = 2" v-bind:class="[activetab === 2 ? 'active' : '']"><h4 style="font-size: 15px">TRIMESTRE</h4></a>
+            <a v-on:click="activetab = 3" v-bind:class="[activetab === 3 ? 'active' : '']"><h4 style="font-size: 15px">EVALUACIÓN</h4></a>
+            <a v-on:click="activetab = 4" v-bind:class="[activetab === 4 ? 'active' : '']"><h4 style="font-size: 15px">CICLOS</h4></a>
           </div>
 
           <!-- <div class="content-azul"> -->
@@ -112,7 +112,7 @@ export default {
 .tabs {
   margin-top: 20px;
   overflow: hidden;
-  margin-left: 90px;
+  margin-left: 100px;
   margin-bottom: -2px;
 }
 
@@ -124,7 +124,7 @@ export default {
 .tabs a {
   float: left;
   cursor: pointer;
-  padding: 12px 24px;
+  padding: 0px 16px;
   transition: background-color 0.2s;
   border: 1px solid #ccc;
   border-right: none;

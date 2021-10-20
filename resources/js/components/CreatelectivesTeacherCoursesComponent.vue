@@ -1,5 +1,5 @@
 <template>
-  <div class="back">
+  <div class="back" v-if="showComponent === 'inicio'">
     <div class="row justify-content-center">
       <div id="crud" class="col-sm-10">
         <div class="card">
@@ -16,7 +16,7 @@
 
             <a
               class="btn btn-warning float-right"
-              :href="'/teacher/lectives/planning/'+current_course.id_lective_planification+'/weekly/'+current_course.id_weekly_plan+'/course'"
+              v-on:click="showSection('create_class',current_course.id_lective_planification,current_course.id_weekly_plan, null)"
             >Crear Clase</a>
           </div>
 
@@ -65,7 +65,11 @@
                       </iframe>
                     </div>
                     <div class="modal-footer">                        
-                      <a class="btn btn-warning"     :href="'/teacher/lectives/planning/'+current_course.id_lective_planification+'/weekly/'+current_course.id_weekly_plan+'/course/'+course.id_class+'/activities'">Crear Actividad</a>
+                      <a 
+                        class="btn btn-warning"                         
+                        v-on:click="showSection('create_activity',current_course.id_lective_planification,current_course.id_weekly_plan, course.id_class)"              
+
+                      >Crear Actividad</a>
                     </div><!--END FOOTER-->
                   </div><!--END CART BODY-->     
                 </div>
@@ -76,16 +80,32 @@
       </div>
     </div>
   </div>
+  <div v-else-if="showComponent === 'create_class'">
+    <lectives-teacher-courses-edit :id_lective_planification="id_lective_planification" :id_weekly_plan="id_weekly_plan" :back="showSection"></lectives-teacher-courses-edit>
+  </div>
+  <div v-else-if="showComponent === 'create_activity'">
+    <lectives-teacher-activity :id_lective_planification="id_lective_planification" :id_weekly_plan="id_weekly_plan" :id_course="id_class" :back="showSection"></lectives-teacher-activity>
+  </div>
 </template>
 <script>
 export default {
   props:["current_course","courses", "backPage"],
   data() {
     return {      
+      showComponent:'inicio',
+      id_lective_planification: null,
+      id_weekly_plan: null,
+      id_class: null,
     };
   },
   created() {},
   methods: {
+     showSection(data, id_lective_planification, id_weekly_plan, id_class){
+      this.showComponent = data; 
+      this.id_weekly_plan = id_weekly_plan;
+      this.id_lective_planification = id_lective_planification;
+      this.id_class = id_class;
+    }
   },
 };
 </script>

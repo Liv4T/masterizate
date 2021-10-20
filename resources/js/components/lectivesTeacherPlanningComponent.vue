@@ -1,5 +1,5 @@
 <template>
-  <div class="back">
+  <div class="back" v-if="showComponent === 'inicio'">
     <div class="row justify-content-center">
       <div id="crud" class="col-sm-10">
         <div class="card text-center">
@@ -29,7 +29,7 @@
                   data-parent="#accordionExample"
                 >
                   <a
-                    :href="'/teacher/lectives/planning/'+ plan.id_planification "
+                    v-on:click="showSection('general', plan.id_planification)"                    
                     class="btn btn-warning"
                   >General</a>
                  <!-- <a
@@ -37,13 +37,13 @@
                     class="btn btn-warning"
                   >Duplicar</a>-->
                   <a
-                    v-show="general==true"
-                    :href="'/teacher/lectives/planning/'+plan.id_planification+'/indicators'"
+                    v-on:click="showSection('porcent', plan.id_planification)"
+                    v-show="general==true"                    
                     class="btn btn-warning"
                   >Porcentaje de notas</a>
                   <a
-                    v-show="general==true"
-                    :href="'/teacher/lectives/planning/'+plan.id_planification+'/weekly'"
+                    v-on:click="showSection('cycleLectives', plan.id_planification)"
+                    v-show="general==true"                    
                     class="btn btn-warning"
                   >Gestionar Ciclo</a>
                  <!--  <a
@@ -60,6 +60,15 @@
       </div>
     </div>
   </div>
+  <div v-else-if="showComponent === 'general'">
+    <lectives-teacher-planning-edit :id_lective_planification="idToComponent" :back="showSection"></lectives-teacher-planning-edit>
+  </div>
+  <div v-else-if="showComponent === 'porcent'">
+    <lectives-teacher-indicators :id_lective_planification="idToComponent" :back="showSection"></lectives-teacher-indicators>
+  </div>
+  <div v-else-if="showComponent === 'cycleLectives'">
+    <lectives-teacher-weekly :id_lective_planification="idToComponent" :back="showSection"></lectives-teacher-weekly>
+  </div>
 </template>
 <script>
 $(".collapse").on("show.bs.collapse", function () {
@@ -75,7 +84,9 @@ export default {
       planificationDetail: [],
       planification: [],
       id_lective: "",
-      id_classroom: ""
+      id_classroom: "",
+      showComponent: "inicio",
+      idToComponent: null
     };
   },
 
@@ -85,6 +96,10 @@ export default {
     });
   },
   methods: {
+    showSection(data, id){
+      this.showComponent = data;
+      this.idToComponent = id;
+    },
     getPlanificationEvent(id_lective_planification) {
 
       axios.get(`/api/lectives/planification/${id_lective_planification}`).then((response) => {

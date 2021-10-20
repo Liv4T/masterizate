@@ -105,7 +105,7 @@
                     </div>
                     <div class="modal-body">
                         <div v-if="classes.length > 0">
-                            <table class="table table-stripped table-hover">
+                            <table class="table table-stripped table-hover table-responsive">
                                 <thead>
                                     <tr>
                                         <th scope="col">Nombre</th>
@@ -255,7 +255,7 @@ export default {
 <style>
 @media (min-width: 576px){
     .modal-dialog {
-        max-width: 1100px;
+        max-width: 1200px;
         margin: 1.75rem auto;
     }
     ul.text-left{

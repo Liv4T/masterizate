@@ -102,8 +102,8 @@
                   </div>
                 </div>
               </tab-content>
-            </form-wizard>
-            <a href="/teacher/lectives/planning" class="btn btn-primary">Volver</a>
+            </form-wizard>            
+            <button class="btn btn-primary" v-on:click="back('inicio',null)">Volver</button>
           </form>
         </div>
       </div>
@@ -157,7 +157,7 @@
                       class="btn btn-warning"
                       v-on:click.prevent="createIndicator()"
                       value="Guardar"
-                    />
+                    />                    
                   </div>
                 </form>
               </div>
@@ -242,7 +242,7 @@ import VueFormWizard from "vue-form-wizard";
 import "vue-form-wizard/dist/vue-form-wizard.min.css";
 Vue.use(VueFormWizard);
 export default {
-  props: ["id_lective_planification"],
+  props: ["id_lective_planification","back"],
   data() {
     return {
       inputs: [

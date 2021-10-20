@@ -282,7 +282,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n@media (min-width: 576px){\n.modal-dialog {\r\n        max-width: 1100px;\r\n        margin: 1.75rem auto;\n}\nul.text-left{\r\n        list-style-type:decimal;\r\n        padding-left: 0rem;\n}\nul li {\r\n        padding-left: 0rem;\n}\nul.second-file{\r\n        list-style-type: none;\r\n        padding-left: 0rem;\n}\n.color-text{\r\n        color:black;\n}\n}\n.height-auto{\r\n    height: auto;\n}\r\n", ""]);
+exports.push([module.i, "\n@media (min-width: 576px){\n.modal-dialog {\r\n        max-width: 1200px;\r\n        margin: 1.75rem auto;\n}\nul.text-left{\r\n        list-style-type:decimal;\r\n        padding-left: 0rem;\n}\nul li {\r\n        padding-left: 0rem;\n}\nul.second-file{\r\n        list-style-type: none;\r\n        padding-left: 0rem;\n}\n.color-text{\r\n        color:black;\n}\n}\n.height-auto{\r\n    height: auto;\n}\r\n", ""]);
 
 // exports
 
@@ -757,7 +757,10 @@ var render = function() {
                   ? _c("div", [
                       _c(
                         "table",
-                        { staticClass: "table table-stripped table-hover" },
+                        {
+                          staticClass:
+                            "table table-stripped table-hover table-responsive"
+                        },
                         [
                           _vm._m(3),
                           _vm._v(" "),

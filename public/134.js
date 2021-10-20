@@ -82,6 +82,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 (function () {
   "use strict";
 
@@ -122,6 +123,7 @@ $(function () {
 Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
 Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_1___default.a);
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['back'],
   data: function data() {
     return {
       myOptions: [],
@@ -163,7 +165,8 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_1___defaul
       this.optionse.push(tag);
     },
     getMenu: function getMenu() {
-      window.location = "/salon_adm";
+      // window.location = "/salon_adm";
+      this.back('inicio');
     },
     createAs: function createAs() {
       var _this2 = this;
@@ -314,10 +317,10 @@ var render = function() {
                                   }
                                 }
                               },
-                              _vm._l(_vm.myOptions, function(option) {
+                              _vm._l(_vm.myOptions, function(option, key) {
                                 return _c(
                                   "option",
-                                  { domProps: { value: option.id } },
+                                  { key: key, domProps: { value: option.id } },
                                   [
                                     _vm._v(
                                       "\n                          " +
@@ -365,6 +368,21 @@ var render = function() {
                             ])
                           ],
                           1
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "modal-footer" }, [
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-primary",
+                            on: {
+                              click: function($event) {
+                                return _vm.back("inicio")
+                              }
+                            }
+                          },
+                          [_vm._v("Volver")]
                         )
                       ])
                     ])

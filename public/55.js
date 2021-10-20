@@ -72,6 +72,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 $(".collapse").on("show.bs.collapse", function () {
   $(".collapse.in").collapse("hide");
 });
@@ -84,7 +93,9 @@ $(".collapse").on("show.bs.collapse", function () {
       planificationDetail: [],
       planification: [],
       id_lective: "",
-      id_classroom: ""
+      id_classroom: "",
+      showComponent: "inicio",
+      idToComponent: null
     };
   },
   mounted: function mounted() {
@@ -95,6 +106,10 @@ $(".collapse").on("show.bs.collapse", function () {
     });
   },
   methods: {
+    showSection: function showSection(data, id) {
+      this.showComponent = data;
+      this.idToComponent = id;
+    },
     getPlanificationEvent: function getPlanificationEvent(id_lective_planification) {
       var _this2 = this;
 
@@ -183,133 +198,184 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "back" }, [
-    _c("div", { staticClass: "row justify-content-center" }, [
-      _c("div", { staticClass: "col-sm-10", attrs: { id: "crud" } }, [
-        _c("div", { staticClass: "card text-center" }, [
-          _c("h3", { staticClass: "card-header fondo" }, [
-            _vm._v("Planificación General de Electivas")
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "card-body" }, [
-            _c(
-              "div",
-              { staticClass: "accordion", attrs: { id: "accordionExample" } },
-              _vm._l(_vm.planification, function(plan, t) {
-                return _c("div", { key: t, staticClass: "card" }, [
-                  _c("div", { staticClass: "card-header" }, [
-                    _c("h2", { staticClass: "mb-0" }, [
+  return _vm.showComponent === "inicio"
+    ? _c("div", { staticClass: "back" }, [
+        _c("div", { staticClass: "row justify-content-center" }, [
+          _c("div", { staticClass: "col-sm-10", attrs: { id: "crud" } }, [
+            _c("div", { staticClass: "card text-center" }, [
+              _c("h3", { staticClass: "card-header fondo" }, [
+                _vm._v("Planificación General de Electivas")
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "card-body" }, [
+                _c(
+                  "div",
+                  {
+                    staticClass: "accordion",
+                    attrs: { id: "accordionExample" }
+                  },
+                  _vm._l(_vm.planification, function(plan, t) {
+                    return _c("div", { key: t, staticClass: "card" }, [
+                      _c("div", { staticClass: "card-header" }, [
+                        _c("h2", { staticClass: "mb-0" }, [
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-link",
+                              attrs: {
+                                type: "button",
+                                "data-toggle": "collapse",
+                                "data-target": "#collapse" + t,
+                                "aria-expanded": "false",
+                                "aria-controls": "collapse"
+                              },
+                              on: {
+                                click: function($event) {
+                                  $event.preventDefault()
+                                  return _vm.getPlanificationEvent(
+                                    plan.id_planification
+                                  )
+                                }
+                              }
+                            },
+                            [
+                              _c("label", [
+                                _vm._v(
+                                  _vm._s(plan.lective.name) +
+                                    " Trimestre " +
+                                    _vm._s(plan.period_consecutive)
+                                )
+                              ])
+                            ]
+                          )
+                        ])
+                      ]),
+                      _vm._v(" "),
                       _c(
-                        "button",
+                        "div",
                         {
-                          staticClass: "btn btn-link",
+                          staticClass: "collapse hide accordion-content",
                           attrs: {
-                            type: "button",
-                            "data-toggle": "collapse",
-                            "data-target": "#collapse" + t,
-                            "aria-expanded": "false",
-                            "aria-controls": "collapse"
-                          },
-                          on: {
-                            click: function($event) {
-                              $event.preventDefault()
-                              return _vm.getPlanificationEvent(
-                                plan.id_planification
-                              )
-                            }
+                            id: "collapse" + t,
+                            "aria-labelledby": "heading",
+                            "data-parent": "#accordionExample"
                           }
                         },
                         [
-                          _c("label", [
-                            _vm._v(
-                              _vm._s(plan.lective.name) +
-                                " Trimestre " +
-                                _vm._s(plan.period_consecutive)
-                            )
-                          ])
+                          _c(
+                            "a",
+                            {
+                              staticClass: "btn btn-warning",
+                              on: {
+                                click: function($event) {
+                                  return _vm.showSection(
+                                    "general",
+                                    plan.id_planification
+                                  )
+                                }
+                              }
+                            },
+                            [_vm._v("General")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "a",
+                            {
+                              directives: [
+                                {
+                                  name: "show",
+                                  rawName: "v-show",
+                                  value: _vm.general == true,
+                                  expression: "general==true"
+                                }
+                              ],
+                              staticClass: "btn btn-warning",
+                              on: {
+                                click: function($event) {
+                                  return _vm.showSection(
+                                    "porcent",
+                                    plan.id_planification
+                                  )
+                                }
+                              }
+                            },
+                            [_vm._v("Porcentaje de notas")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "a",
+                            {
+                              directives: [
+                                {
+                                  name: "show",
+                                  rawName: "v-show",
+                                  value: _vm.general == true,
+                                  expression: "general==true"
+                                }
+                              ],
+                              staticClass: "btn btn-warning",
+                              on: {
+                                click: function($event) {
+                                  return _vm.showSection(
+                                    "cycleLectives",
+                                    plan.id_planification
+                                  )
+                                }
+                              }
+                            },
+                            [_vm._v("Gestionar Ciclo")]
+                          )
                         ]
                       )
                     ])
-                  ]),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    {
-                      staticClass: "collapse hide accordion-content",
-                      attrs: {
-                        id: "collapse" + t,
-                        "aria-labelledby": "heading",
-                        "data-parent": "#accordionExample"
-                      }
-                    },
-                    [
-                      _c(
-                        "a",
-                        {
-                          staticClass: "btn btn-warning",
-                          attrs: {
-                            href:
-                              "/teacher/lectives/planning/" +
-                              plan.id_planification
-                          }
-                        },
-                        [_vm._v("General")]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "a",
-                        {
-                          directives: [
-                            {
-                              name: "show",
-                              rawName: "v-show",
-                              value: _vm.general == true,
-                              expression: "general==true"
-                            }
-                          ],
-                          staticClass: "btn btn-warning",
-                          attrs: {
-                            href:
-                              "/teacher/lectives/planning/" +
-                              plan.id_planification +
-                              "/indicators"
-                          }
-                        },
-                        [_vm._v("Porcentaje de notas")]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "a",
-                        {
-                          directives: [
-                            {
-                              name: "show",
-                              rawName: "v-show",
-                              value: _vm.general == true,
-                              expression: "general==true"
-                            }
-                          ],
-                          staticClass: "btn btn-warning",
-                          attrs: {
-                            href:
-                              "/teacher/lectives/planning/" +
-                              plan.id_planification +
-                              "/weekly"
-                          }
-                        },
-                        [_vm._v("Gestionar Ciclo")]
-                      )
-                    ]
-                  )
-                ])
-              }),
-              0
-            )
+                  }),
+                  0
+                )
+              ])
+            ])
           ])
         ])
       ])
-    ])
-  ])
+    : _vm.showComponent === "general"
+    ? _c(
+        "div",
+        [
+          _c("lectives-teacher-planning-edit", {
+            attrs: {
+              id_lective_planification: _vm.idToComponent,
+              back: _vm.showSection
+            }
+          })
+        ],
+        1
+      )
+    : _vm.showComponent === "porcent"
+    ? _c(
+        "div",
+        [
+          _c("lectives-teacher-indicators", {
+            attrs: {
+              id_lective_planification: _vm.idToComponent,
+              back: _vm.showSection
+            }
+          })
+        ],
+        1
+      )
+    : _vm.showComponent === "cycleLectives"
+    ? _c(
+        "div",
+        [
+          _c("lectives-teacher-weekly", {
+            attrs: {
+              id_lective_planification: _vm.idToComponent,
+              back: _vm.showSection
+            }
+          })
+        ],
+        1
+      )
+    : _vm._e()
 }
 var staticRenderFns = []
 render._withStripped = true

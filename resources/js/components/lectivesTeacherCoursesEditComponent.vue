@@ -70,7 +70,7 @@
                         
                     </div>
                     <div class="div-weekly-plan-btn-save">
-                        <a href="/teacher/lectives/courses" class="btn btn-primary float-left mr-2">Volver</a>
+                        <button class="btn btn-primary float-left mr-2" v-on:click="back('inicio',null, null, null)">Volver</button>
                         <button class="btn btn-warning" v-on:click="saveData()">Guardar y enviar</button>
                     </div>
 
@@ -110,7 +110,7 @@ import VueFormWizard from "vue-form-wizard";
 import "vue-form-wizard/dist/vue-form-wizard.min.css";
 Vue.use(VueFormWizard);
 export default {
-    props: ["id_lective_planification", "id_weekly_plan"],
+    props: ["id_lective_planification", "id_weekly_plan", "back"],
     data() {
         return {
             myOptions: [],

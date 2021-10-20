@@ -59,6 +59,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 (function () {
@@ -82,6 +84,7 @@ __webpack_require__.r(__webpack_exports__);
 })();
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['back'],
   data: function data() {
     return {
       names: [],
@@ -205,8 +208,8 @@ var render = function() {
                         ])
                       }),
                       _vm._v(" "),
-                      _vm._l(_vm.names.profesores, function(option) {
-                        return _c("tr", [
+                      _vm._l(_vm.names.profesores, function(option, key) {
+                        return _c("tr", { key: key }, [
                           _c("td", [
                             _vm._v(
                               "\n                                    " +
@@ -224,7 +227,22 @@ var render = function() {
                     2
                   )
                 ]
-              )
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-footer" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-primary",
+                    on: {
+                      click: function($event) {
+                        return _vm.back("inicio")
+                      }
+                    }
+                  },
+                  [_vm._v("Volver")]
+                )
+              ])
             ])
           ])
         ])

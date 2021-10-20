@@ -574,11 +574,7 @@ var staticRenderFns = [
           attrs: { "data-toggle": "modal", "data-target": "#modalFoodCreate" }
         },
         [_vm._v("Crear Registro")]
-      ),
-      _vm._v(" "),
-      _c("a", { staticClass: "btn btn-primary", attrs: { href: "/nursing" } }, [
-        _vm._v("Enfermería")
-      ])
+      )
     ])
   },
   function() {

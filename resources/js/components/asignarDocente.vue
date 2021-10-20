@@ -32,6 +32,7 @@
                     </div>
                   </div>
                 </tab-content>
+                <button class="btn btn-primary" v-on:click="back('inicio')">Volver</button>
               </form-wizard>
             </form>
           </div>
@@ -88,6 +89,7 @@
   Vue.use(VueFormWizard);
   Vue.component("multiselect", Multiselect);
   export default {
+    props:['back'],
     data() {
       return {
         materia: [],
@@ -149,7 +151,8 @@
         this.materias.push(tag);
       },
       getMenu() {
-        window.location = "/salon_adm";
+        // window.location = "/salon_adm";
+        this.back('inicio');
       },
 
       createAs() {

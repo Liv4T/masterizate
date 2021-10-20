@@ -28,7 +28,7 @@
                       <label for="name">Salon</label>
                       <div>
                         <select class="form-control" v-model="seccion" required>
-                          <option :value="option.id" v-for="option in myOptions">
+                          <option :value="option.id" v-for="(option, key) in myOptions" :key="key">
                             {{
                             option.clasroom
                             }}
@@ -53,9 +53,10 @@
                     </div>
                   </div>
 
-                  <!-- <div class="modal-footer">
-                    <a href="#" class="btn btn-warning float-right">Guardar</a>
-                  </div>-->
+                  <div class="modal-footer">
+                    <!-- <a href="#" class="btn btn-warning float-right">Guardar</a> -->
+                    <button class="btn btn-primary" v-on:click="back('inicio')">Volver</button>
+                  </div>
                 </tab-content>
               </form-wizard>
             </form>
@@ -113,6 +114,7 @@ import "vue-form-wizard/dist/vue-form-wizard.min.css";
 Vue.use(VueFormWizard);
 Vue.component("multiselect", Multiselect);
 export default {
+  props:['back'],
   data() {
     return {
       myOptions: [],
@@ -154,7 +156,8 @@ export default {
       this.optionse.push(tag);
     },
     getMenu() {
-      window.location = "/salon_adm";
+      // window.location = "/salon_adm";
+      this.back('inicio');
     },
     createAs() {
       var url = "assignStudents";

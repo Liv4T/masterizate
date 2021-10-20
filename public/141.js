@@ -211,6 +211,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 (function () {
   "use strict";
 
@@ -235,6 +236,7 @@ __webpack_require__.r(__webpack_exports__);
 
 Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['back'],
   data: function data() {
     return {
       myOptions: [],
@@ -272,7 +274,8 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
   },
   methods: {
     getMenu: function getMenu() {
-      window.location = "/instituciones_adm";
+      // window.location = "/instituciones_adm";
+      this.back(false);
     },
     mensaje: function mensaje() {
       this.seleccionadoStreaming = this.$refs.seleccionadoStreaming.value;
@@ -475,10 +478,13 @@ var render = function() {
                                     }
                                   }
                                 },
-                                _vm._l(_vm.myOptions, function(option) {
+                                _vm._l(_vm.myOptions, function(option, key) {
                                   return _c(
                                     "option",
-                                    { domProps: { value: option.id_state } },
+                                    {
+                                      key: key,
+                                      domProps: { value: option.id_state }
+                                    },
                                     [_vm._v(_vm._s(option.name))]
                                   )
                                 }),
@@ -522,10 +528,10 @@ var render = function() {
                                   }
                                 }
                               },
-                              _vm._l(_vm.myOptions2, function(option) {
+                              _vm._l(_vm.myOptions2, function(option, key) {
                                 return _c(
                                   "option",
-                                  { domProps: { value: option.id } },
+                                  { key: key, domProps: { value: option.id } },
                                   [_vm._v(_vm._s(option.text))]
                                 )
                               }),
@@ -935,7 +941,22 @@ var render = function() {
                               })
                             ])
                           ])
-                        })
+                        }),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "modal-footer" }, [
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-primary",
+                              on: {
+                                click: function($event) {
+                                  return _vm.back(false)
+                                }
+                              }
+                            },
+                            [_vm._v("Volver")]
+                          )
+                        ])
                       ],
                       2
                     )

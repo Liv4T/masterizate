@@ -43,7 +43,7 @@
                         >
                           <option
                             :value="option.id_state"
-                            v-for="option in myOptions"
+                            v-for="(option, key) in myOptions" :key="key"
                           >{{ option.name }}</option>
                         </select>
                       </div>
@@ -51,7 +51,7 @@
                     <div class="col-md-6">
                       <label for="name">Municipio/Ciudad</label>
                       <select class="form-control" v-model="city" required>
-                        <option :value="option.id" v-for="option in myOptions2">{{ option.text }}</option>
+                        <option :value="option.id" v-for="(option, key) in myOptions2" :key="key">{{ option.text }}</option>
                       </select>
                       <div class="invalid-feedback">Please fill out this field</div>
                     </div>
@@ -184,9 +184,10 @@
                     </div>
                   </div>
 
-                  <!-- <div class="modal-footer">
-                    <a href="#" class="btn btn-warning float-right">Guardar</a>
-                  </div>-->
+                  <div class="modal-footer">
+                    <!-- <a href="#" class="btn btn-warning float-right">Guardar</a> -->
+                    <button class="btn btn-primary" v-on:click="back(false)">Volver</button>
+                  </div>
                 </tab-content>
               </form-wizard>
             </form>
@@ -227,6 +228,7 @@ import VueFormWizard from "vue-form-wizard";
 import "vue-form-wizard/dist/vue-form-wizard.min.css";
 Vue.use(VueFormWizard);
 export default {
+  props:['back'],
   data() {
     return {
       myOptions: [],
@@ -266,7 +268,8 @@ export default {
   },
   methods: {
     getMenu() {
-      window.location = "/instituciones_adm";
+      // window.location = "/instituciones_adm";
+      this.back(false);
     },
     mensaje() {
       this.seleccionadoStreaming = this.$refs.seleccionadoStreaming.value;

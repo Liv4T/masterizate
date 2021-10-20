@@ -88,13 +88,35 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["current_course", "courses", "backPage"],
   data: function data() {
-    return {};
+    return {
+      showComponent: 'inicio',
+      id_lective_planification: null,
+      id_weekly_plan: null,
+      id_class: null
+    };
   },
   created: function created() {},
-  methods: {}
+  methods: {
+    showSection: function showSection(data, id_lective_planification, id_weekly_plan, id_class) {
+      this.showComponent = data;
+      this.id_weekly_plan = id_weekly_plan;
+      this.id_lective_planification = id_lective_planification;
+      this.id_class = id_class;
+    }
+  }
 });
 
 /***/ }),
@@ -164,242 +186,296 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "back" }, [
-    _c("div", { staticClass: "row justify-content-center" }, [
-      _c("div", { staticClass: "col-sm-10", attrs: { id: "crud" } }, [
-        _c("div", { staticClass: "card" }, [
-          _vm._m(0),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "float-right", staticStyle: { padding: "10px" } },
-            [
-              _c(
-                "a",
-                {
-                  staticClass: "btn btn-warning float-left",
-                  on: { click: _vm.backPage }
-                },
-                [_vm._v("\n            Volver\n          ")]
-              ),
+  return _vm.showComponent === "inicio"
+    ? _c("div", { staticClass: "back" }, [
+        _c("div", { staticClass: "row justify-content-center" }, [
+          _c("div", { staticClass: "col-sm-10", attrs: { id: "crud" } }, [
+            _c("div", { staticClass: "card" }, [
+              _vm._m(0),
               _vm._v(" "),
               _c(
-                "a",
+                "div",
                 {
-                  staticClass: "btn btn-warning float-right",
-                  attrs: {
-                    href:
-                      "/teacher/lectives/planning/" +
-                      _vm.current_course.id_lective_planification +
-                      "/weekly/" +
-                      _vm.current_course.id_weekly_plan +
-                      "/course"
-                  }
+                  staticClass: "float-right",
+                  staticStyle: { padding: "10px" }
                 },
-                [_vm._v("Crear Clase")]
-              )
-            ]
-          ),
-          _vm._v(" "),
-          _c("div", { staticClass: "card-body" }, [
-            _c(
-              "div",
-              { staticClass: "accordion", attrs: { id: "accordionExample" } },
-              _vm._l(_vm.courses, function(course, t) {
-                return _c("div", { key: t, staticClass: "card" }, [
+                [
                   _c(
-                    "div",
+                    "a",
                     {
-                      staticClass: "card-header",
-                      attrs: { id: "heading" + t }
+                      staticClass: "btn btn-warning float-left",
+                      on: { click: _vm.backPage }
                     },
-                    [
-                      _c("h2", { staticClass: "mb-0" }, [
-                        _c(
-                          "button",
-                          {
-                            staticClass: "btn btn-link",
-                            attrs: {
-                              type: "button",
-                              "data-toggle": "collapse",
-                              "data-target": "#collapse" + t,
-                              "aria-expanded": "true",
-                              "aria-controls": "collapse" + t
-                            }
-                          },
-                          [_vm._v("Clase " + _vm._s(t + 1))]
-                        )
-                      ])
-                    ]
+                    [_vm._v("\n            Volver\n          ")]
                   ),
                   _vm._v(" "),
                   _c(
-                    "div",
+                    "a",
                     {
-                      staticClass: "collapse show",
-                      attrs: {
-                        id: "collapse" + t,
-                        "aria-labelledby": "heading" + t,
-                        "data-parent": "#accordionExample"
+                      staticClass: "btn btn-warning float-right",
+                      on: {
+                        click: function($event) {
+                          return _vm.showSection(
+                            "create_class",
+                            _vm.current_course.id_lective_planification,
+                            _vm.current_course.id_weekly_plan,
+                            null
+                          )
+                        }
                       }
                     },
-                    [
+                    [_vm._v("Crear Clase")]
+                  )
+                ]
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "card-body" }, [
+                _c(
+                  "div",
+                  {
+                    staticClass: "accordion",
+                    attrs: { id: "accordionExample" }
+                  },
+                  _vm._l(_vm.courses, function(course, t) {
+                    return _c("div", { key: t, staticClass: "card" }, [
                       _c(
                         "div",
-                        { staticClass: "card-body" },
+                        {
+                          staticClass: "card-header",
+                          attrs: { id: "heading" + t }
+                        },
                         [
-                          _c("div", { staticClass: "form-group text-center" }, [
-                            _c("strong", { attrs: { for: "name" } }, [
-                              _vm._v("Nombre")
-                            ]),
-                            _vm._v(" "),
+                          _c("h2", { staticClass: "mb-0" }, [
                             _c(
-                              "div",
-                              { staticStyle: { "font-weight": "bold" } },
-                              [_vm._v(_vm._s(course.name))]
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _c("div", { staticClass: "form-group text-center" }, [
-                            _c("strong", { attrs: { for: "name" } }, [
-                              _vm._v("Descripción")
-                            ]),
-                            _vm._v(" "),
-                            _c("p", [_vm._v(_vm._s(course.description))])
-                          ]),
-                          _vm._v(" "),
-                          _vm._l(course.content, function(item_content, t_c) {
-                            return _c(
-                              "div",
+                              "button",
                               {
-                                key: t_c,
-                                staticClass: "form-group text-center"
-                              },
-                              [
-                                item_content.content_type === "DOCUMENT"
-                                  ? _c("strong", [_vm._v("Documento")])
-                                  : item_content.content_type === "LINK"
-                                  ? _c("strong", [_vm._v("Enlace")])
-                                  : item_content.content_type === "VIDEO"
-                                  ? _c("strong", [_vm._v("Video")])
-                                  : _vm._e(),
-                                _vm._v(" "),
-                                _c("p", [
-                                  _vm._v(_vm._s(item_content.description))
-                                ]),
-                                _vm._v(" "),
-                                item_content.content_type === "DOCUMENT" &&
-                                item_content.content
-                                  ? _c(
-                                      "a",
-                                      {
-                                        staticClass: "form-control",
-                                        attrs: {
-                                          href: item_content.content,
-                                          target: "_blank",
-                                          type: "text"
-                                        }
-                                      },
-                                      [
-                                        _c("i", {
-                                          staticClass: "fa fa-file-download"
-                                        }),
-                                        _vm._v(" Descargar")
-                                      ]
-                                    )
-                                  : _vm._e(),
-                                _vm._v(" "),
-                                item_content.content_type === "LINK" &&
-                                item_content.content
-                                  ? _c(
-                                      "a",
-                                      {
-                                        staticClass: "form-control",
-                                        attrs: {
-                                          href: item_content.content,
-                                          target: "_blank",
-                                          type: "text"
-                                        }
-                                      },
-                                      [
-                                        _c("i", { staticClass: "fa fa-link" }),
-                                        _vm._v(" Abrir")
-                                      ]
-                                    )
-                                  : _vm._e(),
-                                _vm._v(" "),
-                                item_content.content_type === "VIDEO" &&
-                                item_content.content
-                                  ? _c(
-                                      "a",
-                                      {
-                                        staticClass: "form-control",
-                                        attrs: {
-                                          href: item_content.content,
-                                          target: "_blank",
-                                          type: "text"
-                                        }
-                                      },
-                                      [
-                                        _c("i", { staticClass: "fa fa-link" }),
-                                        _vm._v(" Abrir youtube")
-                                      ]
-                                    )
-                                  : _vm._e(),
-                                _vm._v(" "),
-                                item_content.content_type === "VIDEO" &&
-                                item_content.content
-                                  ? _c("iframe", {
-                                      attrs: {
-                                        width: "100%",
-                                        frameborder: "0",
-                                        allow:
-                                          "accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture",
-                                        allowfullscreen: "",
-                                        src:
-                                          "https://www.youtube.com/embed/" +
-                                          item_content.content
-                                      }
-                                    })
-                                  : _vm._e()
-                              ]
-                            )
-                          }),
-                          _vm._v(" "),
-                          _c("div", { staticClass: "modal-footer" }, [
-                            _c(
-                              "a",
-                              {
-                                staticClass: "btn btn-warning",
+                                staticClass: "btn btn-link",
                                 attrs: {
-                                  href:
-                                    "/teacher/lectives/planning/" +
-                                    _vm.current_course
-                                      .id_lective_planification +
-                                    "/weekly/" +
-                                    _vm.current_course.id_weekly_plan +
-                                    "/course/" +
-                                    course.id_class +
-                                    "/activities"
+                                  type: "button",
+                                  "data-toggle": "collapse",
+                                  "data-target": "#collapse" + t,
+                                  "aria-expanded": "true",
+                                  "aria-controls": "collapse" + t
                                 }
                               },
-                              [_vm._v("Crear Actividad")]
+                              [_vm._v("Clase " + _vm._s(t + 1))]
                             )
                           ])
-                        ],
-                        2
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          staticClass: "collapse show",
+                          attrs: {
+                            id: "collapse" + t,
+                            "aria-labelledby": "heading" + t,
+                            "data-parent": "#accordionExample"
+                          }
+                        },
+                        [
+                          _c(
+                            "div",
+                            { staticClass: "card-body" },
+                            [
+                              _c(
+                                "div",
+                                { staticClass: "form-group text-center" },
+                                [
+                                  _c("strong", { attrs: { for: "name" } }, [
+                                    _vm._v("Nombre")
+                                  ]),
+                                  _vm._v(" "),
+                                  _c(
+                                    "div",
+                                    { staticStyle: { "font-weight": "bold" } },
+                                    [_vm._v(_vm._s(course.name))]
+                                  )
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "div",
+                                { staticClass: "form-group text-center" },
+                                [
+                                  _c("strong", { attrs: { for: "name" } }, [
+                                    _vm._v("Descripción")
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("p", [_vm._v(_vm._s(course.description))])
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _vm._l(course.content, function(
+                                item_content,
+                                t_c
+                              ) {
+                                return _c(
+                                  "div",
+                                  {
+                                    key: t_c,
+                                    staticClass: "form-group text-center"
+                                  },
+                                  [
+                                    item_content.content_type === "DOCUMENT"
+                                      ? _c("strong", [_vm._v("Documento")])
+                                      : item_content.content_type === "LINK"
+                                      ? _c("strong", [_vm._v("Enlace")])
+                                      : item_content.content_type === "VIDEO"
+                                      ? _c("strong", [_vm._v("Video")])
+                                      : _vm._e(),
+                                    _vm._v(" "),
+                                    _c("p", [
+                                      _vm._v(_vm._s(item_content.description))
+                                    ]),
+                                    _vm._v(" "),
+                                    item_content.content_type === "DOCUMENT" &&
+                                    item_content.content
+                                      ? _c(
+                                          "a",
+                                          {
+                                            staticClass: "form-control",
+                                            attrs: {
+                                              href: item_content.content,
+                                              target: "_blank",
+                                              type: "text"
+                                            }
+                                          },
+                                          [
+                                            _c("i", {
+                                              staticClass: "fa fa-file-download"
+                                            }),
+                                            _vm._v(" Descargar")
+                                          ]
+                                        )
+                                      : _vm._e(),
+                                    _vm._v(" "),
+                                    item_content.content_type === "LINK" &&
+                                    item_content.content
+                                      ? _c(
+                                          "a",
+                                          {
+                                            staticClass: "form-control",
+                                            attrs: {
+                                              href: item_content.content,
+                                              target: "_blank",
+                                              type: "text"
+                                            }
+                                          },
+                                          [
+                                            _c("i", {
+                                              staticClass: "fa fa-link"
+                                            }),
+                                            _vm._v(" Abrir")
+                                          ]
+                                        )
+                                      : _vm._e(),
+                                    _vm._v(" "),
+                                    item_content.content_type === "VIDEO" &&
+                                    item_content.content
+                                      ? _c(
+                                          "a",
+                                          {
+                                            staticClass: "form-control",
+                                            attrs: {
+                                              href: item_content.content,
+                                              target: "_blank",
+                                              type: "text"
+                                            }
+                                          },
+                                          [
+                                            _c("i", {
+                                              staticClass: "fa fa-link"
+                                            }),
+                                            _vm._v(" Abrir youtube")
+                                          ]
+                                        )
+                                      : _vm._e(),
+                                    _vm._v(" "),
+                                    item_content.content_type === "VIDEO" &&
+                                    item_content.content
+                                      ? _c("iframe", {
+                                          attrs: {
+                                            width: "100%",
+                                            frameborder: "0",
+                                            allow:
+                                              "accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture",
+                                            allowfullscreen: "",
+                                            src:
+                                              "https://www.youtube.com/embed/" +
+                                              item_content.content
+                                          }
+                                        })
+                                      : _vm._e()
+                                  ]
+                                )
+                              }),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "modal-footer" }, [
+                                _c(
+                                  "a",
+                                  {
+                                    staticClass: "btn btn-warning",
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.showSection(
+                                          "create_activity",
+                                          _vm.current_course
+                                            .id_lective_planification,
+                                          _vm.current_course.id_weekly_plan,
+                                          course.id_class
+                                        )
+                                      }
+                                    }
+                                  },
+                                  [_vm._v("Crear Actividad")]
+                                )
+                              ])
+                            ],
+                            2
+                          )
+                        ]
                       )
-                    ]
-                  )
-                ])
-              }),
-              0
-            )
+                    ])
+                  }),
+                  0
+                )
+              ])
+            ])
           ])
         ])
       ])
-    ])
-  ])
+    : _vm.showComponent === "create_class"
+    ? _c(
+        "div",
+        [
+          _c("lectives-teacher-courses-edit", {
+            attrs: {
+              id_lective_planification: _vm.id_lective_planification,
+              id_weekly_plan: _vm.id_weekly_plan,
+              back: _vm.showSection
+            }
+          })
+        ],
+        1
+      )
+    : _vm.showComponent === "create_activity"
+    ? _c(
+        "div",
+        [
+          _c("lectives-teacher-activity", {
+            attrs: {
+              id_lective_planification: _vm.id_lective_planification,
+              id_weekly_plan: _vm.id_weekly_plan,
+              id_course: _vm.id_class,
+              back: _vm.showSection
+            }
+          })
+        ],
+        1
+      )
+    : _vm._e()
 }
 var staticRenderFns = [
   function() {

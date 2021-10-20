@@ -1,5 +1,5 @@
 <template>
-  <div class="back">
+  <div class="back" v-if="showSection === 'inicio'">
     <div class="row">
       <div id="crud" class="col-sm-12">
         <div class="card text-center">
@@ -13,10 +13,10 @@
             >-->
             <a class="btn btn-warning float-left" style="margin-right:10px;" href="#" v-on:click.prevent="editNames()">Crear usuarios</a>
 
-            <a class="btn btn-warning float-left" href="/importar_adm">Cargar usuarios</a>
-            <a class="btn btn-warning float-right" style="margin-left:10px;" href="/estudiante_asignar">Asignar estudiante</a>
-            <a class="btn btn-warning float-right" style="margin-left:10px;" href="/parent_asignar">Asignar Acudiente</a>
-            <a class="btn btn-warning float-right" href="/docente_asignar">Asignar docente</a>
+            <a class="btn btn-warning float-left" v-on:click="showComponent('uploadUsers')">Cargar usuarios</a>
+            <a class="btn btn-warning float-right" style="margin-left:10px;"  v-on:click="showComponent('assignStudents')">Asignar estudiante</a>
+            <a class="btn btn-warning float-right" style="margin-left:10px;"  v-on:click="showComponent('assignParent')">Asignar Acudiente</a>
+            <a class="btn btn-warning float-right" v-on:click="showComponent('assignTeachers')">Asignar docente</a>
 
             <br />
             <br />
@@ -29,7 +29,7 @@
                   <td></td>
 
                   <td class="float-right">
-                    <a class="btn btn-sm" style="color: grey;" href="/docente_adm">
+                    <a class="btn btn-sm" style="color: grey;" v-on:click="showComponent('show_docente')">
                       <i class="fa fa-eye"></i>
                     </a>
                   </td>
@@ -187,6 +187,25 @@
       </div>
     </div>
   </div>
+  <div v-else-if="showSection === 'uploadUsers'">
+    <importar-adm :back="showComponent"></importar-adm>
+  </div>
+
+  <div v-else-if="showSection === 'assignStudents'">
+    <aestudiante-adm :back="showComponent"></aestudiante-adm>
+  </div>
+
+  <div v-else-if="showSection === 'assignParent'">
+    <aparent-adm :back="showComponent"></aparent-adm>
+  </div>
+
+  <div v-else-if="showSection === 'assignTeachers'">
+    <adocente-adm :back="showComponent"></adocente-adm>
+  </div>
+
+  <div v-else-if="showSection === 'show_docente'">
+    <docente-adm :back="showComponent"></docente-adm>
+  </div>
 </template>
 <script>
   export default {
@@ -219,6 +238,7 @@
             name: "",
           },
         ],
+        showSection: 'inicio'
       };
     },
     created() {},
@@ -233,6 +253,9 @@
       console.log("Component mounted.");
     },
     methods: {
+      showComponent(data){
+        this.showSection = data;
+      },
       getNames() {
         window.location = "/salon_adm";
       },

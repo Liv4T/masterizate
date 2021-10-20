@@ -199,6 +199,25 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -226,7 +245,8 @@ __webpack_require__.r(__webpack_exports__);
       newId_number: "",
       inputs: [{
         name: ""
-      }]
+      }],
+      showSection: 'inicio'
     };
   },
   created: function created() {},
@@ -243,6 +263,9 @@ __webpack_require__.r(__webpack_exports__);
     console.log("Component mounted.");
   },
   methods: {
+    showComponent: function showComponent(data) {
+      this.showSection = data;
+    },
     getNames: function getNames() {
       window.location = "/salon_adm";
     },
@@ -467,758 +490,798 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "back" }, [
-    _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-sm-12", attrs: { id: "crud" } }, [
-        _c("div", { staticClass: "card text-center" }, [
-          _c("h3", { staticClass: "card-header fondo" }, [_vm._v("Salones")]),
-          _vm._v(" "),
-          _c("div", { staticClass: "card-body" }, [
-            _c(
-              "a",
-              {
-                staticClass: "btn btn-warning float-left",
-                staticStyle: { "margin-right": "10px" },
-                attrs: { href: "#" },
-                on: {
-                  click: function($event) {
-                    $event.preventDefault()
-                    return _vm.editNames()
-                  }
-                }
-              },
-              [_vm._v("Crear usuarios")]
-            ),
-            _vm._v(" "),
-            _c(
-              "a",
-              {
-                staticClass: "btn btn-warning float-left",
-                attrs: { href: "/importar_adm" }
-              },
-              [_vm._v("Cargar usuarios")]
-            ),
-            _vm._v(" "),
-            _c(
-              "a",
-              {
-                staticClass: "btn btn-warning float-right",
-                staticStyle: { "margin-left": "10px" },
-                attrs: { href: "/estudiante_asignar" }
-              },
-              [_vm._v("Asignar estudiante")]
-            ),
-            _vm._v(" "),
-            _c(
-              "a",
-              {
-                staticClass: "btn btn-warning float-right",
-                staticStyle: { "margin-left": "10px" },
-                attrs: { href: "/parent_asignar" }
-              },
-              [_vm._v("Asignar Acudiente")]
-            ),
-            _vm._v(" "),
-            _c(
-              "a",
-              {
-                staticClass: "btn btn-warning float-right",
-                attrs: { href: "/docente_asignar" }
-              },
-              [_vm._v("Asignar docente")]
-            ),
-            _vm._v(" "),
-            _c("br"),
-            _vm._v(" "),
-            _c("br"),
-            _vm._v(" "),
-            _c("br"),
-            _vm._v(" "),
-            _c(
-              "table",
-              {
-                staticClass:
-                  "table table-responsive-xl table-hover table-striped center"
-              },
-              _vm._l(_vm.clases, function(clas, t) {
-                return _c("tbody", { key: t }, [
-                  _c(
-                    "tr",
-                    {
-                      staticClass: "clickable",
-                      attrs: {
-                        "data-toggle": "collapse",
-                        "data-target": "#accordion"
-                      }
-                    },
-                    [
-                      _c("td", [_vm._v(_vm._s(clas.clasroom))]),
-                      _vm._v(" "),
-                      _c("td"),
-                      _vm._v(" "),
-                      _c("td"),
-                      _vm._v(" "),
-                      _vm._m(0, true)
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c("tr", [
-                    _c("td", [
-                      _c(
-                        "div",
-                        {
-                          staticClass: "collapse",
-                          attrs: { id: "accordion" + t }
-                        },
-                        [
-                          _c(
-                            "a",
-                            {
-                              staticClass: "btn btn-warning",
-                              attrs: { href: "/docente_asignar" }
-                            },
-                            [_vm._v("Docente")]
-                          )
-                        ]
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("td", [
-                      _c(
-                        "div",
-                        {
-                          staticClass: "collapse",
-                          attrs: { id: "accordion" + t }
-                        },
-                        [
-                          _c(
-                            "a",
-                            {
-                              staticClass: "btn btn-warning",
-                              attrs: { href: "/estudiante_asignar" }
-                            },
-                            [_vm._v("Estudiante")]
-                          )
-                        ]
-                      )
-                    ])
-                  ])
-                ])
-              }),
-              0
-            )
-          ])
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "modal fade", attrs: { id: "createZ" } }, [
-        _c("div", { staticClass: "modal-dialog" }, [
-          _c("div", { staticClass: "modal-content" }, [
-            _c("div", { staticClass: "card" }, [
-              _vm._m(1),
+  return _vm.showSection === "inicio"
+    ? _c("div", { staticClass: "back" }, [
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "col-sm-12", attrs: { id: "crud" } }, [
+            _c("div", { staticClass: "card text-center" }, [
+              _c("h3", { staticClass: "card-header fondo" }, [
+                _vm._v("Salones")
+              ]),
               _vm._v(" "),
               _c("div", { staticClass: "card-body" }, [
                 _c(
-                  "form",
+                  "a",
                   {
-                    staticClass: "needs-validation",
-                    attrs: { novalidate: "" },
+                    staticClass: "btn btn-warning float-left",
+                    staticStyle: { "margin-right": "10px" },
+                    attrs: { href: "#" },
                     on: {
-                      submit: function($event) {
+                      click: function($event) {
                         $event.preventDefault()
-                        return _vm.createUser($event)
+                        return _vm.editNames()
                       }
                     }
                   },
-                  [
-                    _c("div", { staticClass: "form-group row mx-auto" }, [
+                  [_vm._v("Crear usuarios")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "a",
+                  {
+                    staticClass: "btn btn-warning float-left",
+                    on: {
+                      click: function($event) {
+                        return _vm.showComponent("uploadUsers")
+                      }
+                    }
+                  },
+                  [_vm._v("Cargar usuarios")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "a",
+                  {
+                    staticClass: "btn btn-warning float-right",
+                    staticStyle: { "margin-left": "10px" },
+                    on: {
+                      click: function($event) {
+                        return _vm.showComponent("assignStudents")
+                      }
+                    }
+                  },
+                  [_vm._v("Asignar estudiante")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "a",
+                  {
+                    staticClass: "btn btn-warning float-right",
+                    staticStyle: { "margin-left": "10px" },
+                    on: {
+                      click: function($event) {
+                        return _vm.showComponent("assignParent")
+                      }
+                    }
+                  },
+                  [_vm._v("Asignar Acudiente")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "a",
+                  {
+                    staticClass: "btn btn-warning float-right",
+                    on: {
+                      click: function($event) {
+                        return _vm.showComponent("assignTeachers")
+                      }
+                    }
+                  },
+                  [_vm._v("Asignar docente")]
+                ),
+                _vm._v(" "),
+                _c("br"),
+                _vm._v(" "),
+                _c("br"),
+                _vm._v(" "),
+                _c("br"),
+                _vm._v(" "),
+                _c(
+                  "table",
+                  {
+                    staticClass:
+                      "table table-responsive-xl table-hover table-striped center"
+                  },
+                  _vm._l(_vm.clases, function(clas, t) {
+                    return _c("tbody", { key: t }, [
                       _c(
-                        "div",
-                        { staticClass: "col-md-8 text-center mx-auto" },
+                        "tr",
+                        {
+                          staticClass: "clickable",
+                          attrs: {
+                            "data-toggle": "collapse",
+                            "data-target": "#accordion"
+                          }
+                        },
                         [
-                          _vm._m(2),
+                          _c("td", [_vm._v(_vm._s(clas.clasroom))]),
                           _vm._v(" "),
-                          _c("div", [
-                            _vm.types == []
-                              ? _c("span", [_vm._v("Cargando...")])
-                              : _vm._e(),
-                            _vm._v(" "),
-                            _vm.types != []
-                              ? _c(
-                                  "select",
-                                  {
+                          _c("td"),
+                          _vm._v(" "),
+                          _c("td"),
+                          _vm._v(" "),
+                          _c("td", { staticClass: "float-right" }, [
+                            _c(
+                              "a",
+                              {
+                                staticClass: "btn btn-sm",
+                                staticStyle: { color: "grey" },
+                                on: {
+                                  click: function($event) {
+                                    return _vm.showComponent("show_docente")
+                                  }
+                                }
+                              },
+                              [_c("i", { staticClass: "fa fa-eye" })]
+                            )
+                          ])
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c("tr", [
+                        _c("td", [
+                          _c(
+                            "div",
+                            {
+                              staticClass: "collapse",
+                              attrs: { id: "accordion" + t }
+                            },
+                            [
+                              _c(
+                                "a",
+                                {
+                                  staticClass: "btn btn-warning",
+                                  attrs: { href: "/docente_asignar" }
+                                },
+                                [_vm._v("Docente")]
+                              )
+                            ]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _c(
+                            "div",
+                            {
+                              staticClass: "collapse",
+                              attrs: { id: "accordion" + t }
+                            },
+                            [
+                              _c(
+                                "a",
+                                {
+                                  staticClass: "btn btn-warning",
+                                  attrs: { href: "/estudiante_asignar" }
+                                },
+                                [_vm._v("Estudiante")]
+                              )
+                            ]
+                          )
+                        ])
+                      ])
+                    ])
+                  }),
+                  0
+                )
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "modal fade", attrs: { id: "createZ" } }, [
+            _c("div", { staticClass: "modal-dialog" }, [
+              _c("div", { staticClass: "modal-content" }, [
+                _c("div", { staticClass: "card" }, [
+                  _vm._m(0),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "card-body" }, [
+                    _c(
+                      "form",
+                      {
+                        staticClass: "needs-validation",
+                        attrs: { novalidate: "" },
+                        on: {
+                          submit: function($event) {
+                            $event.preventDefault()
+                            return _vm.createUser($event)
+                          }
+                        }
+                      },
+                      [
+                        _c("div", { staticClass: "form-group row mx-auto" }, [
+                          _c(
+                            "div",
+                            { staticClass: "col-md-8 text-center mx-auto" },
+                            [
+                              _vm._m(1),
+                              _vm._v(" "),
+                              _c("div", [
+                                _vm.types == []
+                                  ? _c("span", [_vm._v("Cargando...")])
+                                  : _vm._e(),
+                                _vm._v(" "),
+                                _vm.types != []
+                                  ? _c(
+                                      "select",
+                                      {
+                                        directives: [
+                                          {
+                                            name: "model",
+                                            rawName: "v-model",
+                                            value: _vm.newType_user,
+                                            expression: "newType_user"
+                                          }
+                                        ],
+                                        staticClass: "form-control",
+                                        staticStyle: {
+                                          background: "gainsboro"
+                                        },
+                                        attrs: { required: "" },
+                                        on: {
+                                          change: function($event) {
+                                            var $$selectedVal = Array.prototype.filter
+                                              .call(
+                                                $event.target.options,
+                                                function(o) {
+                                                  return o.selected
+                                                }
+                                              )
+                                              .map(function(o) {
+                                                var val =
+                                                  "_value" in o
+                                                    ? o._value
+                                                    : o.value
+                                                return val
+                                              })
+                                            _vm.newType_user = $event.target
+                                              .multiple
+                                              ? $$selectedVal
+                                              : $$selectedVal[0]
+                                          }
+                                        }
+                                      },
+                                      [
+                                        _vm._l(_vm.types, function(
+                                          type,
+                                          k_type
+                                        ) {
+                                          return [
+                                            _c(
+                                              "option",
+                                              {
+                                                key: k_type,
+                                                domProps: { value: type.id }
+                                              },
+                                              [_vm._v(_vm._s(type.name))]
+                                            )
+                                          ]
+                                        })
+                                      ],
+                                      2
+                                    )
+                                  : _vm._e()
+                              ])
+                            ]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "form-group row mx-auto" }, [
+                          _c(
+                            "div",
+                            { staticClass: "col-md-8 text-center mx-auto" },
+                            [
+                              _vm._m(2),
+                              _vm._v(" "),
+                              _c("div", [
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.newName,
+                                      expression: "newName"
+                                    }
+                                  ],
+                                  staticClass: "form-control",
+                                  staticStyle: { background: "gainsboro" },
+                                  attrs: {
+                                    type: "text",
+                                    name: "objetive1",
+                                    required: ""
+                                  },
+                                  domProps: { value: _vm.newName },
+                                  on: {
+                                    input: function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.newName = $event.target.value
+                                    }
+                                  }
+                                })
+                              ])
+                            ]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "form-group row mx-auto" }, [
+                          _c(
+                            "div",
+                            { staticClass: "col-md-8 text-center mx-auto" },
+                            [
+                              _vm._m(3),
+                              _vm._v(" "),
+                              _c("div", [
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.newLastName,
+                                      expression: "newLastName"
+                                    }
+                                  ],
+                                  staticClass: "form-control",
+                                  staticStyle: { background: "gainsboro" },
+                                  attrs: {
+                                    type: "text",
+                                    name: "objetive1",
+                                    required: ""
+                                  },
+                                  domProps: { value: _vm.newLastName },
+                                  on: {
+                                    input: function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.newLastName = $event.target.value
+                                    }
+                                  }
+                                })
+                              ])
+                            ]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "form-group row mx-auto" }, [
+                          _c(
+                            "div",
+                            { staticClass: "col-md-8 text-center mx-auto" },
+                            [
+                              _vm._m(4),
+                              _vm._v(" "),
+                              _c("div", [
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.newEmail,
+                                      expression: "newEmail"
+                                    }
+                                  ],
+                                  staticClass: "form-control",
+                                  staticStyle: { background: "gainsboro" },
+                                  attrs: {
+                                    type: "email",
+                                    name: "objetive1",
+                                    placeholder: "Ej.: usuario@servidor.com",
+                                    size: "30",
+                                    required: ""
+                                  },
+                                  domProps: { value: _vm.newEmail },
+                                  on: {
+                                    input: function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.newEmail = $event.target.value
+                                    }
+                                  }
+                                })
+                              ])
+                            ]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "form-group row mx-auto" }, [
+                          _c(
+                            "div",
+                            { staticClass: "col-md-8 text-center mx-auto" },
+                            [
+                              _vm._m(5),
+                              _vm._v(" "),
+                              _c("div", [
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.newPhone,
+                                      expression: "newPhone"
+                                    }
+                                  ],
+                                  staticClass: "form-control",
+                                  staticStyle: { background: "gainsboro" },
+                                  attrs: {
+                                    type: "text",
+                                    name: "phone",
+                                    required: ""
+                                  },
+                                  domProps: { value: _vm.newPhone },
+                                  on: {
+                                    input: function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.newPhone = $event.target.value
+                                    }
+                                  }
+                                })
+                              ])
+                            ]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          {
+                            directives: [
+                              {
+                                name: "show",
+                                rawName: "v-show",
+                                value: _vm.docente == 2,
+                                expression: "docente == 2"
+                              }
+                            ],
+                            staticClass: "form-group row mx-auto"
+                          },
+                          [
+                            _c(
+                              "div",
+                              { staticClass: "col-md-8 text-center mx-auto" },
+                              [
+                                _vm._m(6),
+                                _vm._v(" "),
+                                _c("div", [
+                                  _c(
+                                    "select",
+                                    {
+                                      ref: "seleccionado",
+                                      staticClass: "form-control",
+                                      staticStyle: { background: "gainsboro" },
+                                      attrs: { required: "" }
+                                    },
+                                    [
+                                      _c("option", { attrs: { value: "2" } }, [
+                                        _vm._v("Quiímica")
+                                      ]),
+                                      _vm._v(" "),
+                                      _c("option", { attrs: { value: "3" } }, [
+                                        _vm._v("Español")
+                                      ])
+                                    ]
+                                  )
+                                ])
+                              ]
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          {
+                            directives: [
+                              {
+                                name: "show",
+                                rawName: "v-show",
+                                value: _vm.docente == 3,
+                                expression: "docente == 3"
+                              }
+                            ],
+                            staticClass: "form-group row mx-auto"
+                          },
+                          [
+                            _c(
+                              "div",
+                              { staticClass: "col-md-8 text-center mx-auto" },
+                              [
+                                _vm._m(7),
+                                _vm._v(" "),
+                                _c("div", [
+                                  _c("input", {
                                     directives: [
                                       {
                                         name: "model",
                                         rawName: "v-model",
-                                        value: _vm.newType_user,
-                                        expression: "newType_user"
+                                        value: _vm.name,
+                                        expression: "name"
                                       }
                                     ],
                                     staticClass: "form-control",
                                     staticStyle: { background: "gainsboro" },
-                                    attrs: { required: "" },
+                                    attrs: {
+                                      type: "text",
+                                      name: "objetive1",
+                                      required: ""
+                                    },
+                                    domProps: { value: _vm.name },
                                     on: {
-                                      change: function($event) {
-                                        var $$selectedVal = Array.prototype.filter
-                                          .call($event.target.options, function(
-                                            o
-                                          ) {
-                                            return o.selected
-                                          })
-                                          .map(function(o) {
-                                            var val =
-                                              "_value" in o ? o._value : o.value
-                                            return val
-                                          })
-                                        _vm.newType_user = $event.target
-                                          .multiple
-                                          ? $$selectedVal
-                                          : $$selectedVal[0]
+                                      input: function($event) {
+                                        if ($event.target.composing) {
+                                          return
+                                        }
+                                        _vm.name = $event.target.value
                                       }
                                     }
-                                  },
-                                  [
-                                    _vm._l(_vm.types, function(type, k_type) {
-                                      return [
-                                        _c(
-                                          "option",
-                                          {
-                                            key: k_type,
-                                            domProps: { value: type.id }
-                                          },
-                                          [_vm._v(_vm._s(type.name))]
-                                        )
-                                      ]
-                                    })
-                                  ],
-                                  2
-                                )
-                              : _vm._e()
-                          ])
-                        ]
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "form-group row mx-auto" }, [
-                      _c(
-                        "div",
-                        { staticClass: "col-md-8 text-center mx-auto" },
-                        [
-                          _vm._m(3),
-                          _vm._v(" "),
-                          _c("div", [
-                            _c("input", {
-                              directives: [
-                                {
-                                  name: "model",
-                                  rawName: "v-model",
-                                  value: _vm.newName,
-                                  expression: "newName"
-                                }
-                              ],
-                              staticClass: "form-control",
-                              staticStyle: { background: "gainsboro" },
-                              attrs: {
-                                type: "text",
-                                name: "objetive1",
-                                required: ""
-                              },
-                              domProps: { value: _vm.newName },
-                              on: {
-                                input: function($event) {
-                                  if ($event.target.composing) {
-                                    return
-                                  }
-                                  _vm.newName = $event.target.value
-                                }
-                              }
-                            })
-                          ])
-                        ]
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "form-group row mx-auto" }, [
-                      _c(
-                        "div",
-                        { staticClass: "col-md-8 text-center mx-auto" },
-                        [
-                          _vm._m(4),
-                          _vm._v(" "),
-                          _c("div", [
-                            _c("input", {
-                              directives: [
-                                {
-                                  name: "model",
-                                  rawName: "v-model",
-                                  value: _vm.newLastName,
-                                  expression: "newLastName"
-                                }
-                              ],
-                              staticClass: "form-control",
-                              staticStyle: { background: "gainsboro" },
-                              attrs: {
-                                type: "text",
-                                name: "objetive1",
-                                required: ""
-                              },
-                              domProps: { value: _vm.newLastName },
-                              on: {
-                                input: function($event) {
-                                  if ($event.target.composing) {
-                                    return
-                                  }
-                                  _vm.newLastName = $event.target.value
-                                }
-                              }
-                            })
-                          ])
-                        ]
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "form-group row mx-auto" }, [
-                      _c(
-                        "div",
-                        { staticClass: "col-md-8 text-center mx-auto" },
-                        [
-                          _vm._m(5),
-                          _vm._v(" "),
-                          _c("div", [
-                            _c("input", {
-                              directives: [
-                                {
-                                  name: "model",
-                                  rawName: "v-model",
-                                  value: _vm.newEmail,
-                                  expression: "newEmail"
-                                }
-                              ],
-                              staticClass: "form-control",
-                              staticStyle: { background: "gainsboro" },
-                              attrs: {
-                                type: "email",
-                                name: "objetive1",
-                                placeholder: "Ej.: usuario@servidor.com",
-                                size: "30",
-                                required: ""
-                              },
-                              domProps: { value: _vm.newEmail },
-                              on: {
-                                input: function($event) {
-                                  if ($event.target.composing) {
-                                    return
-                                  }
-                                  _vm.newEmail = $event.target.value
-                                }
-                              }
-                            })
-                          ])
-                        ]
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "form-group row mx-auto" }, [
-                      _c(
-                        "div",
-                        { staticClass: "col-md-8 text-center mx-auto" },
-                        [
-                          _vm._m(6),
-                          _vm._v(" "),
-                          _c("div", [
-                            _c("input", {
-                              directives: [
-                                {
-                                  name: "model",
-                                  rawName: "v-model",
-                                  value: _vm.newPhone,
-                                  expression: "newPhone"
-                                }
-                              ],
-                              staticClass: "form-control",
-                              staticStyle: { background: "gainsboro" },
-                              attrs: {
-                                type: "text",
-                                name: "phone",
-                                required: ""
-                              },
-                              domProps: { value: _vm.newPhone },
-                              on: {
-                                input: function($event) {
-                                  if ($event.target.composing) {
-                                    return
-                                  }
-                                  _vm.newPhone = $event.target.value
-                                }
-                              }
-                            })
-                          ])
-                        ]
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      {
-                        directives: [
-                          {
-                            name: "show",
-                            rawName: "v-show",
-                            value: _vm.docente == 2,
-                            expression: "docente == 2"
-                          }
-                        ],
-                        staticClass: "form-group row mx-auto"
-                      },
-                      [
+                                  })
+                                ])
+                              ]
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
                         _c(
                           "div",
-                          { staticClass: "col-md-8 text-center mx-auto" },
+                          {
+                            directives: [
+                              {
+                                name: "show",
+                                rawName: "v-show",
+                                value: _vm.docente == 2,
+                                expression: "docente == 2"
+                              }
+                            ],
+                            staticClass: "form-group row mx-auto"
+                          },
                           [
-                            _vm._m(7),
-                            _vm._v(" "),
-                            _c("div", [
-                              _c(
-                                "select",
-                                {
-                                  ref: "seleccionado",
+                            _c(
+                              "div",
+                              { staticClass: "col-md-8 text-center mx-auto" },
+                              [
+                                _vm._m(8),
+                                _vm._v(" "),
+                                _c("div", [
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.name,
+                                        expression: "name"
+                                      }
+                                    ],
+                                    staticClass: "form-control",
+                                    staticStyle: { background: "gainsboro" },
+                                    attrs: {
+                                      type: "text",
+                                      name: "objetive1",
+                                      required: ""
+                                    },
+                                    domProps: { value: _vm.name },
+                                    on: {
+                                      input: function($event) {
+                                        if ($event.target.composing) {
+                                          return
+                                        }
+                                        _vm.name = $event.target.value
+                                      }
+                                    }
+                                  })
+                                ])
+                              ]
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "form-group row mx-auto" }, [
+                          _c(
+                            "div",
+                            { staticClass: "col-md-8 text-center mx-auto" },
+                            [
+                              _vm._m(9),
+                              _vm._v(" "),
+                              _c("div", [
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.newId_number,
+                                      expression: "newId_number"
+                                    }
+                                  ],
                                   staticClass: "form-control",
                                   staticStyle: { background: "gainsboro" },
-                                  attrs: { required: "" }
-                                },
-                                [
-                                  _c("option", { attrs: { value: "2" } }, [
-                                    _vm._v("Quiímica")
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("option", { attrs: { value: "3" } }, [
-                                    _vm._v("Español")
-                                  ])
-                                ]
-                              )
-                            ])
-                          ]
-                        )
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      {
-                        directives: [
-                          {
-                            name: "show",
-                            rawName: "v-show",
-                            value: _vm.docente == 3,
-                            expression: "docente == 3"
-                          }
-                        ],
-                        staticClass: "form-group row mx-auto"
-                      },
-                      [
-                        _c(
-                          "div",
-                          { staticClass: "col-md-8 text-center mx-auto" },
-                          [
-                            _vm._m(8),
-                            _vm._v(" "),
-                            _c("div", [
-                              _c("input", {
-                                directives: [
-                                  {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value: _vm.name,
-                                    expression: "name"
-                                  }
-                                ],
-                                staticClass: "form-control",
-                                staticStyle: { background: "gainsboro" },
-                                attrs: {
-                                  type: "text",
-                                  name: "objetive1",
-                                  required: ""
-                                },
-                                domProps: { value: _vm.name },
-                                on: {
-                                  input: function($event) {
-                                    if ($event.target.composing) {
-                                      return
+                                  attrs: {
+                                    type: "text",
+                                    name: "id_number",
+                                    maxlength: "15",
+                                    required: ""
+                                  },
+                                  domProps: { value: _vm.newId_number },
+                                  on: {
+                                    input: function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.newId_number = $event.target.value
                                     }
-                                    _vm.name = $event.target.value
                                   }
-                                }
-                              })
-                            ])
-                          ]
-                        )
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      {
-                        directives: [
-                          {
-                            name: "show",
-                            rawName: "v-show",
-                            value: _vm.docente == 2,
-                            expression: "docente == 2"
-                          }
-                        ],
-                        staticClass: "form-group row mx-auto"
-                      },
-                      [
-                        _c(
-                          "div",
-                          { staticClass: "col-md-8 text-center mx-auto" },
-                          [
-                            _vm._m(9),
-                            _vm._v(" "),
-                            _c("div", [
-                              _c("input", {
-                                directives: [
-                                  {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value: _vm.name,
-                                    expression: "name"
-                                  }
-                                ],
-                                staticClass: "form-control",
-                                staticStyle: { background: "gainsboro" },
-                                attrs: {
-                                  type: "text",
-                                  name: "objetive1",
-                                  required: ""
-                                },
-                                domProps: { value: _vm.name },
-                                on: {
-                                  input: function($event) {
-                                    if ($event.target.composing) {
-                                      return
+                                })
+                              ])
+                            ]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "form-group row mx-auto" }, [
+                          _c(
+                            "div",
+                            { staticClass: "col-md-8 text-center mx-auto" },
+                            [
+                              _vm._m(10),
+                              _vm._v(" "),
+                              _c("div", [
+                                _c("input", {
+                                  staticClass: "form-control",
+                                  staticStyle: { background: "gainsboro" },
+                                  attrs: {
+                                    type: "file",
+                                    name: "picture",
+                                    accept: "image/*",
+                                    required: ""
+                                  },
+                                  on: { change: _vm.onFlieChange }
+                                })
+                              ])
+                            ]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "form-group row mx-auto" }, [
+                          _c(
+                            "div",
+                            { staticClass: "col-md-8 text-center mx-auto" },
+                            [
+                              _vm._m(11),
+                              _vm._v(" "),
+                              _c("div", [
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.newUserName,
+                                      expression: "newUserName"
                                     }
-                                    _vm.name = $event.target.value
+                                  ],
+                                  staticClass: "form-control",
+                                  staticStyle: { background: "gainsboro" },
+                                  attrs: {
+                                    type: "text",
+                                    name: "objetive1",
+                                    required: ""
+                                  },
+                                  domProps: { value: _vm.newUserName },
+                                  on: {
+                                    input: function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.newUserName = $event.target.value
+                                    }
                                   }
-                                }
-                              })
-                            ])
-                          ]
-                        )
+                                })
+                              ])
+                            ]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "form-group row mx-auto" }, [
+                          _c(
+                            "div",
+                            { staticClass: "col-md-8 text-center mx-auto" },
+                            [
+                              _vm._m(12),
+                              _vm._v(" "),
+                              _c("div", [
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.newPassword,
+                                      expression: "newPassword"
+                                    }
+                                  ],
+                                  staticClass: "form-control",
+                                  staticStyle: { background: "gainsboro" },
+                                  attrs: {
+                                    type: "password",
+                                    name: "objetive1",
+                                    required: ""
+                                  },
+                                  domProps: { value: _vm.newPassword },
+                                  on: {
+                                    input: function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.newPassword = $event.target.value
+                                    }
+                                  }
+                                })
+                              ])
+                            ]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "form-group row mx-auto" }, [
+                          _c(
+                            "div",
+                            { staticClass: "col-md-8 text-center mx-auto" },
+                            [
+                              _vm._m(13),
+                              _vm._v(" "),
+                              _c("div", [
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.newAddress,
+                                      expression: "newAddress"
+                                    }
+                                  ],
+                                  staticClass: "form-control",
+                                  staticStyle: { background: "gainsboro" },
+                                  attrs: {
+                                    type: "text",
+                                    name: "address",
+                                    id: "validationDefault03",
+                                    required: ""
+                                  },
+                                  domProps: { value: _vm.newAddress },
+                                  on: {
+                                    input: function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.newAddress = $event.target.value
+                                    }
+                                  }
+                                })
+                              ])
+                            ]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _vm._m(14)
                       ]
-                    ),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "form-group row mx-auto" }, [
-                      _c(
-                        "div",
-                        { staticClass: "col-md-8 text-center mx-auto" },
-                        [
-                          _vm._m(10),
-                          _vm._v(" "),
-                          _c("div", [
-                            _c("input", {
-                              directives: [
-                                {
-                                  name: "model",
-                                  rawName: "v-model",
-                                  value: _vm.newId_number,
-                                  expression: "newId_number"
-                                }
-                              ],
-                              staticClass: "form-control",
-                              staticStyle: { background: "gainsboro" },
-                              attrs: {
-                                type: "text",
-                                name: "id_number",
-                                maxlength: "15",
-                                required: ""
-                              },
-                              domProps: { value: _vm.newId_number },
-                              on: {
-                                input: function($event) {
-                                  if ($event.target.composing) {
-                                    return
-                                  }
-                                  _vm.newId_number = $event.target.value
-                                }
-                              }
-                            })
-                          ])
-                        ]
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "form-group row mx-auto" }, [
-                      _c(
-                        "div",
-                        { staticClass: "col-md-8 text-center mx-auto" },
-                        [
-                          _vm._m(11),
-                          _vm._v(" "),
-                          _c("div", [
-                            _c("input", {
-                              staticClass: "form-control",
-                              staticStyle: { background: "gainsboro" },
-                              attrs: {
-                                type: "file",
-                                name: "picture",
-                                accept: "image/*",
-                                required: ""
-                              },
-                              on: { change: _vm.onFlieChange }
-                            })
-                          ])
-                        ]
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "form-group row mx-auto" }, [
-                      _c(
-                        "div",
-                        { staticClass: "col-md-8 text-center mx-auto" },
-                        [
-                          _vm._m(12),
-                          _vm._v(" "),
-                          _c("div", [
-                            _c("input", {
-                              directives: [
-                                {
-                                  name: "model",
-                                  rawName: "v-model",
-                                  value: _vm.newUserName,
-                                  expression: "newUserName"
-                                }
-                              ],
-                              staticClass: "form-control",
-                              staticStyle: { background: "gainsboro" },
-                              attrs: {
-                                type: "text",
-                                name: "objetive1",
-                                required: ""
-                              },
-                              domProps: { value: _vm.newUserName },
-                              on: {
-                                input: function($event) {
-                                  if ($event.target.composing) {
-                                    return
-                                  }
-                                  _vm.newUserName = $event.target.value
-                                }
-                              }
-                            })
-                          ])
-                        ]
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "form-group row mx-auto" }, [
-                      _c(
-                        "div",
-                        { staticClass: "col-md-8 text-center mx-auto" },
-                        [
-                          _vm._m(13),
-                          _vm._v(" "),
-                          _c("div", [
-                            _c("input", {
-                              directives: [
-                                {
-                                  name: "model",
-                                  rawName: "v-model",
-                                  value: _vm.newPassword,
-                                  expression: "newPassword"
-                                }
-                              ],
-                              staticClass: "form-control",
-                              staticStyle: { background: "gainsboro" },
-                              attrs: {
-                                type: "password",
-                                name: "objetive1",
-                                required: ""
-                              },
-                              domProps: { value: _vm.newPassword },
-                              on: {
-                                input: function($event) {
-                                  if ($event.target.composing) {
-                                    return
-                                  }
-                                  _vm.newPassword = $event.target.value
-                                }
-                              }
-                            })
-                          ])
-                        ]
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "form-group row mx-auto" }, [
-                      _c(
-                        "div",
-                        { staticClass: "col-md-8 text-center mx-auto" },
-                        [
-                          _vm._m(14),
-                          _vm._v(" "),
-                          _c("div", [
-                            _c("input", {
-                              directives: [
-                                {
-                                  name: "model",
-                                  rawName: "v-model",
-                                  value: _vm.newAddress,
-                                  expression: "newAddress"
-                                }
-                              ],
-                              staticClass: "form-control",
-                              staticStyle: { background: "gainsboro" },
-                              attrs: {
-                                type: "text",
-                                name: "address",
-                                id: "validationDefault03",
-                                required: ""
-                              },
-                              domProps: { value: _vm.newAddress },
-                              on: {
-                                input: function($event) {
-                                  if ($event.target.composing) {
-                                    return
-                                  }
-                                  _vm.newAddress = $event.target.value
-                                }
-                              }
-                            })
-                          ])
-                        ]
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _vm._m(15)
-                  ]
-                )
+                    )
+                  ])
+                ])
               ])
             ])
           ])
         ])
       ])
-    ])
-  ])
+    : _vm.showSection === "uploadUsers"
+    ? _c("div", [_c("importar-adm", { attrs: { back: _vm.showComponent } })], 1)
+    : _vm.showSection === "assignStudents"
+    ? _c(
+        "div",
+        [_c("aestudiante-adm", { attrs: { back: _vm.showComponent } })],
+        1
+      )
+    : _vm.showSection === "assignParent"
+    ? _c("div", [_c("aparent-adm", { attrs: { back: _vm.showComponent } })], 1)
+    : _vm.showSection === "assignTeachers"
+    ? _c("div", [_c("adocente-adm", { attrs: { back: _vm.showComponent } })], 1)
+    : _vm.showSection === "show_docente"
+    ? _c("div", [_c("docente-adm", { attrs: { back: _vm.showComponent } })], 1)
+    : _vm._e()
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", { staticClass: "float-right" }, [
-      _c(
-        "a",
-        {
-          staticClass: "btn btn-sm",
-          staticStyle: { color: "grey" },
-          attrs: { href: "/docente_adm" }
-        },
-        [_c("i", { staticClass: "fa fa-eye" })]
-      )
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
