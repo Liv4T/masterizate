@@ -12,10 +12,10 @@
       <div class="row">
         <div id="tabs" class="col-md-9 mx-auto">
           <div class="tabs text-center">
-            <a v-on:click="activetab = 1" v-if="user.type_user === 1 || user.type_user === 2" v-bind:class="[activetab === 1 ? 'active' : '']"><h4 class="letra-poppins-bold">CLASES</h4></a>
-            <a v-on:click="activetab = 2" v-if="user.type_user === 1 || user.type_user === 2" v-bind:class="[activetab === 2 ? 'active' : '']"><h4 class="letra-poppins-bold">ACTIVIDADES</h4></a>
-            <a v-on:click="activetab = 3" v-if="user.type_user === 1 || user.type_user === 2" v-bind:class="[activetab === 3 ? 'active' : '']"><h4 class="letra-poppins-bold">NOTAS</h4></a>
-            <a v-on:click="activetab = 4" v-if="user.type_user === 1 || user.type_user === 2" v-bind:class="[activetab === 4 ? 'active' : '']"><h4 class="letra-poppins-bold">ENTREGAS</h4></a>
+            <a v-on:click="activetab = 1" v-if="user.type_user === 1 || user.type_user === 2" v-bind:class="[activetab === 1 ? 'active' : '']"><h4 style="font-size: 15px">CLASES</h4></a>
+            <a v-on:click="activetab = 2" v-if="user.type_user === 1 || user.type_user === 2" v-bind:class="[activetab === 2 ? 'active' : '']"><h4 style="font-size: 15px">ACTIVIDADES</h4></a>
+            <a v-on:click="activetab = 3" v-if="user.type_user === 1 || user.type_user === 2" v-bind:class="[activetab === 3 ? 'active' : '']"><h4 style="font-size: 15px">NOTAS</h4></a>
+            <a v-on:click="activetab = 4" v-if="user.type_user === 1 || user.type_user === 2" v-bind:class="[activetab === 4 ? 'active' : '']"><h4 style="font-size: 15px">ENTREGAS</h4></a>
           </div>
 
           <!-- <div class="content-azul"> -->
@@ -124,7 +124,7 @@ export default {
 .tabs {
   margin-top: 10px;
   overflow: hidden;
-  margin-left: 30px;
+  margin-left: 100px;
   margin-bottom: -2px;
 }
 
@@ -133,10 +133,10 @@ export default {
   margin-left: 5px;
 }
 
-.tabs a {
+.tabs a {  
   float: left;
   cursor: pointer;
-  padding: 1px 20px;
+  padding: 0px 16px;
   transition: background-color 0.2s;
   border: 1px solid #ccc;
   border-right: none;
@@ -163,7 +163,7 @@ export default {
   background-color: #00cbcec1;
   color: #fff;
   border-bottom: 2px solid #fff;
-  cursor: default;
+  cursor: default;  
 }
 .tabcontent {
   border: 1px solid #ccc;

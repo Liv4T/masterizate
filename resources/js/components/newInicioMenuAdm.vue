@@ -1,14 +1,14 @@
 <template>
-    <div>        
+    <div class="text-center">        
         <div class="form-group">
             <div class="tabAdmin">
-                <a v-on:click="showSection('profile')" v-bind:class="[activetab === 'profile' ? 'active fondo' : '']"><h4>Mi Perfil</h4></a>
-                <a v-on:click="showSection('administrative')" v-bind:class="[activetab === 'administrative' ? 'active fondo' : '']"><h4>Administrativo</h4></a>
-                <a v-on:click="showSection('comunications')" v-bind:class="[activetab === 'comunications' ? 'active fondo' : '']"><h4>Comunicaciones</h4></a>                        
-                <a v-on:click="showSection('academic')" v-bind:class="[activetab === 'academic' ? 'active fondo' : '']"><h4>Académico</h4></a>
-                <a v-on:click="showSection('formation')" v-bind:class="[activetab === 'formation' ? 'active fondo' : '']"><h4>Formación</h4></a>
-                <a v-on:click="showSection('government')" v-bind:class="[activetab === 'government' ? 'active fondo' : '']"><h4>Gobierno Escolar</h4></a>
-                <a v-on:click="showSection('reports')" v-bind:class="[activetab === 'reports' ? 'active fondo' : '']"><h4>Mis Reportes</h4></a>
+                <a v-on:click="showSection('profile')" v-bind:class="[activetab === 'profile' ? 'active fondo' : '']"><h4 h4 style="font-size: 15px">Mi Perfil</h4></a>
+                <a v-on:click="showSection('administrative')" v-bind:class="[activetab === 'administrative' ? 'active fondo' : '']"><h4 h4 style="font-size: 15px">Administrativo</h4></a>
+                <a v-on:click="showSection('comunications')" v-bind:class="[activetab === 'comunications' ? 'active fondo' : '']"><h4 h4 style="font-size: 15px">Comunicaciones</h4></a>                        
+                <a v-on:click="showSection('academic')" v-bind:class="[activetab === 'academic' ? 'active fondo' : '']"><h4 h4 style="font-size: 15px">Académico</h4></a>
+                <a v-on:click="showSection('formation')" v-bind:class="[activetab === 'formation' ? 'active fondo' : '']"><h4 h4 style="font-size: 15px">Formación</h4></a>
+                <a v-on:click="showSection('government')" v-bind:class="[activetab === 'government' ? 'active fondo' : '']"><h4 h4 style="font-size: 15px">Gobierno Escolar</h4></a>
+                <a v-on:click="showSection('reports')" v-bind:class="[activetab === 'reports' ? 'active fondo' : '']"><h4 h4 style="font-size: 15px">Mis Reportes</h4></a>
             </div>
         </div>
         
@@ -63,7 +63,7 @@ export default {
 .tabAdmin {
     margin-top: 10px;
     overflow: hidden;
-    margin-left: 30px;
+    margin-left: 100px;
     margin-bottom: -2px;
 }
 
