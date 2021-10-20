@@ -10,11 +10,11 @@
                             </li>
                         </a>
 
-                        <!-- <a v-on:click="showSection('cyclesClass')" >
+                        <a v-on:click="showSection('cyclesClass')" >
                             <li class="item-menu">
                                 <span class="menu">Ciclos Y Clases</span>
                             </li>
-                        </a> -->
+                        </a>
 
                         <a v-on:click="showSection('notes')">
                             <li class="item-menu">

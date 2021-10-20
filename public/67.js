@@ -81,7 +81,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.tabAdmin {\r\n  margin-top: 10px;\r\n  overflow: hidden;\r\n  margin-left: 30px;\r\n  margin-bottom: -2px;\n}\n.tabAdmin ul {\r\n  list-style-type: none;\r\n  margin-left: 5px;\n}\n.tabAdmin a {\r\n  float: left;\r\n  cursor: pointer;\r\n  padding: 5px 4px;\r\n  transition: background-color 0.2s;\r\n  border: 1px solid #ccc;\r\n  border-right: none;\r\n  background-color: #bfbfbf;\r\n  border-radius: 10px 10px 0 0;\r\n  font-weight: bold;\r\n  color: #fff !important;\n}\n.tabAdmin a:last-child {\r\n  border-right: 1px solid #ccc;\n}\r\n/* Change background color of tabAdmin on hover */\n.tabAdmin a:hover {\r\n  background-color: #aaa;\r\n  color: #fff;\n}\r\n\r\n/* Styling for active tab */\n.tabAdmin a.active {\r\n  background-color: #00cbcec1;\r\n  color: #fff;\r\n  border-bottom: 2px solid #fff;\r\n  cursor: default;\n}\n.tabcontent {\r\n  border: 1px solid #ccc;\r\n  border-radius: 10px;\r\n  box-shadow: 3px 3px 6px #e1e1e1;\n}\r\n", ""]);
+exports.push([module.i, "\n.tabAdmin {\r\n    margin-top: 10px;\r\n    overflow: hidden;\r\n    margin-left: 30px;\r\n    margin-bottom: -2px;\n}\n.tabAdmin ul {\r\n    list-style-type: none;\r\n    margin-left: 5px;\n}\n.tabAdmin a {\r\n    float: left;\r\n    cursor: pointer;\r\n    padding: 3px 20px;\r\n    transition: background-color 0.2s;\r\n    border: 1px solid #ccc;\r\n    border-right: none;\r\n    background-color: #bfbfbf;\r\n    border-radius: 10px 10px 0 0;\r\n    font-weight: bold;\r\n    color: #fff !important;\n}\n.tabAdmin a:last-child {\r\n    border-right: 1px solid #ccc;\n}\r\n/* Change background color of tabAdmin on hover */\n.tabAdmin a:hover {\r\n    background-color: #aaa;\r\n    color: #fff;\n}\r\n\r\n/* Styling for active tab */\n.tabAdmin a.active {\r\n    background-color: #00cbcec1;\r\n    color: #fff;\r\n    border-bottom: 2px solid #fff;\r\n    cursor: default;\n}\n.tabcontent {\r\n    border: 1px solid #ccc;\r\n    border-radius: 10px;\r\n    box-shadow: 3px 3px 6px #e1e1e1;\n}\r\n", ""]);
 
 // exports
 
@@ -146,7 +146,7 @@ var render = function() {
               }
             }
           },
-          [_c("h3", [_vm._v("Mi Perfil")])]
+          [_c("h4", [_vm._v("Mi Perfil")])]
         ),
         _vm._v(" "),
         _c(
@@ -159,7 +159,7 @@ var render = function() {
               }
             }
           },
-          [_c("h3", [_vm._v("Administrativo")])]
+          [_c("h4", [_vm._v("Administrativo")])]
         ),
         _vm._v(" "),
         _c(
@@ -172,7 +172,7 @@ var render = function() {
               }
             }
           },
-          [_c("h3", [_vm._v("Comunicaciones")])]
+          [_c("h4", [_vm._v("Comunicaciones")])]
         ),
         _vm._v(" "),
         _c(
@@ -185,7 +185,7 @@ var render = function() {
               }
             }
           },
-          [_c("h3", [_vm._v("Académico")])]
+          [_c("h4", [_vm._v("Académico")])]
         ),
         _vm._v(" "),
         _c(
@@ -198,7 +198,7 @@ var render = function() {
               }
             }
           },
-          [_c("h3", [_vm._v("Formación")])]
+          [_c("h4", [_vm._v("Formación")])]
         ),
         _vm._v(" "),
         _c(
@@ -211,7 +211,7 @@ var render = function() {
               }
             }
           },
-          [_c("h3", [_vm._v("Gobierno Escolar")])]
+          [_c("h4", [_vm._v("Gobierno Escolar")])]
         ),
         _vm._v(" "),
         _c(
@@ -224,7 +224,7 @@ var render = function() {
               }
             }
           },
-          [_c("h3", [_vm._v("Mis Reportes")])]
+          [_c("h4", [_vm._v("Mis Reportes")])]
         )
       ])
     ]),

@@ -228,7 +228,7 @@ var render = function() {
               {
                 on: {
                   click: function($event) {
-                    return _vm.showSection("notes")
+                    return _vm.showSection("cyclesClass")
                   }
                 }
               },
@@ -240,7 +240,7 @@ var render = function() {
               {
                 on: {
                   click: function($event) {
-                    return _vm.showSection("utils")
+                    return _vm.showSection("notes")
                   }
                 }
               },
@@ -252,7 +252,7 @@ var render = function() {
               {
                 on: {
                   click: function($event) {
-                    return _vm.showSection("pedagogic")
+                    return _vm.showSection("utils")
                   }
                 }
               },
@@ -264,7 +264,7 @@ var render = function() {
               {
                 on: {
                   click: function($event) {
-                    return _vm.showSection("adminElectivs")
+                    return _vm.showSection("pedagogic")
                   }
                 }
               },
@@ -276,7 +276,7 @@ var render = function() {
               {
                 on: {
                   click: function($event) {
-                    return _vm.showSection("electivsClass")
+                    return _vm.showSection("adminElectivs")
                   }
                 }
               },
@@ -288,7 +288,7 @@ var render = function() {
               {
                 on: {
                   click: function($event) {
-                    return _vm.showSection("assistantsMotives")
+                    return _vm.showSection("electivsClass")
                   }
                 }
               },
@@ -300,7 +300,7 @@ var render = function() {
               {
                 on: {
                   click: function($event) {
-                    return _vm.showSection("reportPlanif")
+                    return _vm.showSection("assistantsMotives")
                   }
                 }
               },
@@ -312,11 +312,23 @@ var render = function() {
               {
                 on: {
                   click: function($event) {
-                    return _vm.showSection("cycleReport")
+                    return _vm.showSection("reportPlanif")
                   }
                 }
               },
               [_vm._m(8)]
+            ),
+            _vm._v(" "),
+            _c(
+              "a",
+              {
+                on: {
+                  click: function($event) {
+                    return _vm.showSection("cycleReport")
+                  }
+                }
+              },
+              [_vm._m(9)]
             )
           ]),
           _vm._v(" "),
@@ -385,6 +397,14 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("li", { staticClass: "item-menu" }, [
       _c("span", { staticClass: "menu" }, [_vm._v("Planificación General")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("li", { staticClass: "item-menu" }, [
+      _c("span", { staticClass: "menu" }, [_vm._v("Ciclos Y Clases")])
     ])
   },
   function() {
