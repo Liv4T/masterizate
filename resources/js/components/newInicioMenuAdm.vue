@@ -75,7 +75,7 @@ export default {
 .tabAdmin a {
     float: left;
     cursor: pointer;
-    padding: 3px 20px;
+    padding: 0px 20px;
     transition: background-color 0.2s;
     border: 1px solid #ccc;
     border-right: none;
