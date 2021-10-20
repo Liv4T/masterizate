@@ -1,28 +1,20 @@
 <template>
-  <div class="back">
+  <div class="back" v-if="create === false">
     <div class="row justify-content-center">
       <div id="crud" class="col-sm-12">
         <div class="card text-center">
           <h3 class="card-header fondo">Instituciones</h3>
           <div class="card-body">
-            <a class="btn btn-warning" href="/instituciones_crear">Crear</a>
-
+            <a class="btn btn-warning" v-on:click="showCreate(true)">Crear</a>
             <br />
             <br />
             <table class="table table-responsive-xl table-hover table-striped center">
-              <tbody v-for="insti in institutions">
+              <tbody v-for="(insti, key) in institutions" :key="key">
                 <tr data-toggle="collapse" data-target="#accordion" class="clickable">
                   <td>{{ insti.name }}</td>
 
                   <td class="float-right">
-                    <a
-                      class="btn btn-sm"
-                      href="#"
-                      style="color: grey;"
-                      v-on:click.prevent="
-                                                editInsti(insti.id)
-                                            "
-                    >
+                    <a class="btn btn-sm" href="#" style="color: grey;" v-on:click.prevent="editInsti(insti.id)">
                       <i class="fa fa-edit"></i>
                     </a>
 
@@ -93,9 +85,8 @@
                             required
                           />
                         </div>
-                        <div class="col-md-6" v-for="input in fillSection" v-if="input.name != ''">
+                        <div class="col-md-6" v-for="(input, key) in fillSection" :key="key" v-if="input.name != ''">
                           <label for="name">Sección</label>
-
                           <input
                             type="text"
                             name="objetive1"
@@ -106,7 +97,7 @@
                         </div>
                       </div>
 
-                      <div class="form-group row mx-auto" v-for="input1 in fillPeriod">
+                      <div class="form-group row mx-auto" v-for="(input1, key) in fillPeriod" :key="key">
                         <div class="col-md-6" v-if="input1.name != ''">
                           <label for="name">Periodos</label>
 
@@ -155,6 +146,9 @@
       </div>
     </div>
   </div>
+  <div v-else-if="create === true">
+    <cinstitu-adm :back="showCreate"></cinstitu-adm>
+  </div>
 </template>
 <script>
 export default {
@@ -191,6 +185,7 @@ export default {
           date_to: "",
         },
       ],
+      create: false,
     };
   },
   created() {},
@@ -202,6 +197,9 @@ export default {
     console.log("Component mounted.");
   },
   methods: {
+    showCreate(data){
+      this.create = data;
+    },
     editInsti(insti) {
       var urlr = "findInstitution/" + insti;
       axios.get(urlr).then((response) => {

@@ -50,9 +50,10 @@
                     </div>
                   </div>
 
-                  <!-- <div class="modal-footer">
-                    <a href="#" class="btn btn-warning float-right">Guardar</a>
-                  </div>-->
+                  <div class="modal-footer">
+                    <!-- <a href="#" class="btn btn-warning float-right">Guardar</a> -->
+                    <button class="btn btn-primary" v-on:click="back('inicio')">Volver</button>
+                  </div>
                 </tab-content>
               </form-wizard>
             </form>
@@ -110,6 +111,7 @@ import "vue-form-wizard/dist/vue-form-wizard.min.css";
 Vue.use(VueFormWizard);
 Vue.component("multiselect", Multiselect);
 export default {
+  props:['back'],
   data() {
     return {
       optionse: [],
@@ -161,7 +163,8 @@ export default {
       this.optionsp.push(tagp);
     },
     getMenu() {
-      window.location = "/salon_adm";
+      // window.location = "/salon_adm";
+      this.back('inicio');
     },
     createAs() {
       this.cestudiante.forEach(student => {

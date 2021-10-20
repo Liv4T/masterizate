@@ -26,7 +26,7 @@
                                     <td>{{ name.type }}</td>
                                     <td>{{ name.classroom_name }}</td>
                                 </tr>
-                                <tr v-for="option in names.profesores">
+                                <tr v-for="(option, key) in names.profesores" :key="key">
                                     <td>
                                         {{ option.student_name }}
                                     </td>
@@ -35,11 +35,13 @@
                                 </tr>
                             </tbody>
                         </table>
-                        <!-- <div class="modal-footer">
-                            <a class="btn btn-warning" href="/excel"
+                        <div class="modal-footer">
+                            <!-- <a class="btn btn-warning" href="/excel"
                                 >Exportar</a
-                            >
-                        </div> -->
+                            > -->
+
+                            <button class="btn btn-primary" v-on:click="back('inicio')">Volver</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -74,6 +76,7 @@ import "toastr/toastr.scss";
     );
 })();
 export default {
+    props:['back'],
     data() {
         return {
             names: [],

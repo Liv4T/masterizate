@@ -44,6 +44,7 @@
 
                   <div class="modal-footer">
                     <a href="/import" class="btn btn-warning float-right">Importar</a>
+                    <button class="btn btn-primary" v-on:click="back('inicio')">Volver</button>
                   </div>
                 </tab-content>
               </form-wizard>
@@ -85,6 +86,7 @@ import VueFormWizard from "vue-form-wizard";
 import "vue-form-wizard/dist/vue-form-wizard.min.css";
 Vue.use(VueFormWizard);
 export default {
+  props:['back'],
   data() {
     return {
       allowedExtensions: ["xlsx"],
@@ -95,7 +97,8 @@ export default {
   },
   methods: {
     getMenu() {
-      window.location = "/salon_adm";
+      // window.location = "/salon_adm";
+      this.back('inicio');
     },
     onFlieChange(file) {
       let files = file.target.files || file.dataTransfer.files;

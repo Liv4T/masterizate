@@ -118,7 +118,7 @@ __webpack_require__.r(__webpack_exports__);
 
 Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["id_lective_planification", "id_weekly_plan"],
+  props: ["id_lective_planification", "id_weekly_plan", "back"],
   data: function data() {
     return {
       myOptions: [],
@@ -736,10 +736,14 @@ var render = function() {
           _vm._v(" "),
           _c("div", { staticClass: "div-weekly-plan-btn-save" }, [
             _c(
-              "a",
+              "button",
               {
                 staticClass: "btn btn-primary float-left mr-2",
-                attrs: { href: "/teacher/lectives/courses" }
+                on: {
+                  click: function($event) {
+                    return _vm.back("inicio", null, null, null)
+                  }
+                }
               },
               [_vm._v("Volver")]
             ),

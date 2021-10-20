@@ -28,7 +28,8 @@
           <span class="classroom-label">{{planification.lective.name}} Trimestre {{planification.period_consecutive}}</span>
           <span v-show="!isSynchronized">(Hay cambios que no han sido guardados)</span>
           <div class=" float-right">
-            <a href="/teacher/lectives/planning" class="btn btn-primary">Volver</a>
+            <!-- <a href="/teacher/lectives/planning" class="btn btn-primary">Volver</a> -->
+            <button class="btn btn-primary" v-on:click="back('inicio',null)">Volver</button>
           </div>
           
           <form class="needs-validation" novalidate>
@@ -128,9 +129,9 @@
                     <div class="invalid-feedback">Please fill out this field</div>
                   </div>
                 </div>
-                <!-- <div class="modal-footer">
-                  <a submit="saveData" class="btn btn-warning float-right">Guardar</a>
-                </div>-->
+                <div class="modal-footer">
+                  <!-- <a submit="saveData" class="btn btn-warning float-right">Guardar</a> -->                  
+                </div>
               </tab-content>              
             </form-wizard>
           </form>
@@ -188,7 +189,7 @@ import VueFormWizard from "vue-form-wizard";
 import "vue-form-wizard/dist/vue-form-wizard.min.css";
 Vue.use(VueFormWizard);
 export default {
-  props: ["id_lective_planification"],
+  props: ["id_lective_planification", "back"],
   data() {
     return {
        serialLocalStorage:'5t284918-f0f6-4369-a368-eaf6321b6855',

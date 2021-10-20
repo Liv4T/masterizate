@@ -158,6 +158,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 (function () {
   "use strict";
 
@@ -196,7 +197,7 @@ $(function () {
 
 Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["id_lective_planification"],
+  props: ["id_lective_planification", "back"],
   data: function data() {
     var _ref;
 
@@ -418,7 +419,20 @@ var render = function() {
               [_vm._v("(Hay cambios que no han sido guardados)")]
             ),
             _vm._v(" "),
-            _vm._m(1),
+            _c("div", { staticClass: " float-right" }, [
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-primary",
+                  on: {
+                    click: function($event) {
+                      return _vm.back("inicio", null)
+                    }
+                  }
+                },
+                [_vm._v("Volver")]
+              )
+            ]),
             _vm._v(" "),
             _c(
               "form",
@@ -595,93 +609,141 @@ var render = function() {
                     _c(
                       "tab-content",
                       { attrs: { title: "Trimestral" } },
-                      _vm._l(_vm.quarterlies, function(quarterly, t) {
-                        return _c(
-                          "div",
-                          { key: t, staticClass: "form-group row mx-auto" },
-                          [
-                            _c("div", { staticClass: "col-md-6" }, [
-                              _c("label", { attrs: { for: "name" } }, [
-                                _vm._v("Indicador")
-                              ]),
-                              _vm._v(" "),
-                              _c("span", [
-                                _c(
-                                  "a",
-                                  {
-                                    directives: [
-                                      {
-                                        name: "show",
-                                        rawName: "v-show",
-                                        value:
-                                          t > 0 &&
-                                          _vm.quarterlies_saved.length <= t,
-                                        expression:
-                                          "(t>0 && quarterlies_saved.length<=t)"
-                                      }
-                                    ],
-                                    staticClass: "badge badge-danger",
-                                    attrs: { href: "#" },
-                                    on: {
-                                      click: function($event) {
-                                        $event.preventDefault()
-                                        return _vm.removeQuarterly(t)
-                                      }
-                                    }
-                                  },
-                                  [_vm._v("-")]
-                                ),
+                      [
+                        _vm._l(_vm.quarterlies, function(quarterly, t) {
+                          return _c(
+                            "div",
+                            { key: t, staticClass: "form-group row mx-auto" },
+                            [
+                              _c("div", { staticClass: "col-md-6" }, [
+                                _c("label", { attrs: { for: "name" } }, [
+                                  _vm._v("Indicador")
+                                ]),
                                 _vm._v(" "),
-                                _c(
-                                  "a",
-                                  {
+                                _c("span", [
+                                  _c(
+                                    "a",
+                                    {
+                                      directives: [
+                                        {
+                                          name: "show",
+                                          rawName: "v-show",
+                                          value:
+                                            t > 0 &&
+                                            _vm.quarterlies_saved.length <= t,
+                                          expression:
+                                            "(t>0 && quarterlies_saved.length<=t)"
+                                        }
+                                      ],
+                                      staticClass: "badge badge-danger",
+                                      attrs: { href: "#" },
+                                      on: {
+                                        click: function($event) {
+                                          $event.preventDefault()
+                                          return _vm.removeQuarterly(t)
+                                        }
+                                      }
+                                    },
+                                    [_vm._v("-")]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "a",
+                                    {
+                                      directives: [
+                                        {
+                                          name: "show",
+                                          rawName: "v-show",
+                                          value:
+                                            t == _vm.quarterlies.length - 1,
+                                          expression:
+                                            "t == quarterlies.length - 1"
+                                        }
+                                      ],
+                                      staticClass: "badge badge-primary",
+                                      attrs: { href: "#" },
+                                      on: {
+                                        click: function($event) {
+                                          $event.preventDefault()
+                                          return _vm.addQuarterly(t)
+                                        }
+                                      }
+                                    },
+                                    [_vm._v("+")]
+                                  )
+                                ]),
+                                _vm._v(" "),
+                                _c("div", [
+                                  _c("input", {
                                     directives: [
                                       {
-                                        name: "show",
-                                        rawName: "v-show",
-                                        value: t == _vm.quarterlies.length - 1,
-                                        expression:
-                                          "t == quarterlies.length - 1"
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: quarterly.name,
+                                        expression: "quarterly.name"
                                       }
                                     ],
-                                    staticClass: "badge badge-primary",
-                                    attrs: { href: "#" },
+                                    staticClass: "form-control",
+                                    attrs: {
+                                      type: "text",
+                                      name: "objetive1",
+                                      placeholder: "Nombre de la unidad",
+                                      required: ""
+                                    },
+                                    domProps: { value: quarterly.name },
                                     on: {
-                                      click: function($event) {
-                                        $event.preventDefault()
-                                        return _vm.addQuarterly(t)
+                                      change: function($event) {
+                                        return _vm.planificationContentUpdateEvent(
+                                          $event,
+                                          t,
+                                          "quarterlies",
+                                          "name"
+                                        )
+                                      },
+                                      input: function($event) {
+                                        if ($event.target.composing) {
+                                          return
+                                        }
+                                        _vm.$set(
+                                          quarterly,
+                                          "name",
+                                          $event.target.value
+                                        )
                                       }
                                     }
-                                  },
-                                  [_vm._v("+")]
-                                )
+                                  })
+                                ])
                               ]),
                               _vm._v(" "),
-                              _c("div", [
-                                _c("input", {
+                              _c("div", { staticClass: "col-md-6" }, [
+                                _c("label", { attrs: { for: "name" } }, [
+                                  _vm._v("Contenido")
+                                ]),
+                                _vm._v(" "),
+                                _c("textarea", {
                                   directives: [
                                     {
                                       name: "model",
                                       rawName: "v-model",
-                                      value: quarterly.name,
-                                      expression: "quarterly.name"
+                                      value: quarterly.content,
+                                      expression: "quarterly.content"
                                     }
                                   ],
                                   staticClass: "form-control",
                                   attrs: {
-                                    type: "text",
-                                    name: "objetive1",
-                                    placeholder: "Nombre de la unidad",
+                                    name: "competences",
+                                    placeholder:
+                                      "Es la explicacion o sintesis de la unidad.",
                                     required: ""
                                   },
-                                  domProps: { value: quarterly.name },
+                                  domProps: { value: quarterly.content },
                                   on: {
                                     change: function($event) {
                                       return _vm.planificationContentUpdateEvent(
                                         $event,
                                         t,
                                         "quarterlies",
-                                        "name"
+                                        "content"
                                       )
                                     },
                                     input: function($event) {
@@ -690,67 +752,24 @@ var render = function() {
                                       }
                                       _vm.$set(
                                         quarterly,
-                                        "name",
+                                        "content",
                                         $event.target.value
                                       )
                                     }
                                   }
-                                })
+                                }),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "invalid-feedback" }, [
+                                  _vm._v("Please fill out this field")
+                                ])
                               ])
-                            ]),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "col-md-6" }, [
-                              _c("label", { attrs: { for: "name" } }, [
-                                _vm._v("Contenido")
-                              ]),
-                              _vm._v(" "),
-                              _c("textarea", {
-                                directives: [
-                                  {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value: quarterly.content,
-                                    expression: "quarterly.content"
-                                  }
-                                ],
-                                staticClass: "form-control",
-                                attrs: {
-                                  name: "competences",
-                                  placeholder:
-                                    "Es la explicacion o sintesis de la unidad.",
-                                  required: ""
-                                },
-                                domProps: { value: quarterly.content },
-                                on: {
-                                  change: function($event) {
-                                    return _vm.planificationContentUpdateEvent(
-                                      $event,
-                                      t,
-                                      "quarterlies",
-                                      "content"
-                                    )
-                                  },
-                                  input: function($event) {
-                                    if ($event.target.composing) {
-                                      return
-                                    }
-                                    _vm.$set(
-                                      quarterly,
-                                      "content",
-                                      $event.target.value
-                                    )
-                                  }
-                                }
-                              }),
-                              _vm._v(" "),
-                              _c("div", { staticClass: "invalid-feedback" }, [
-                                _vm._v("Please fill out this field")
-                              ])
-                            ])
-                          ]
-                        )
-                      }),
-                      0
+                            ]
+                          )
+                        }),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "modal-footer" })
+                      ],
+                      2
                     )
                   ],
                   1
@@ -800,21 +819,6 @@ var staticRenderFns = [
           crossorigin: "anonymous"
         }
       })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: " float-right" }, [
-      _c(
-        "a",
-        {
-          staticClass: "btn btn-primary",
-          attrs: { href: "/teacher/lectives/planning" }
-        },
-        [_vm._v("Volver")]
-      )
     ])
   }
 ]

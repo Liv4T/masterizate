@@ -133,6 +133,7 @@
                    <div class="row">
                         <div class="form-group col-12 text-right">
                             <button class="btn btn-warning" :disabled="!activity.is_complete" @click.prevent="saveData()"> Guardar y enviar</button>
+                            <button class="btn btn-primary float-left mr-2" v-on:click="back('inicio',null, null, null)">Volver</button>
                         </div>
                     </div>
               
@@ -192,7 +193,7 @@ import VueFormWizard from "vue-form-wizard";
 import "vue-form-wizard/dist/vue-form-wizard.min.css";
 Vue.use(VueFormWizard);
 export default {
-  props: ["id_lective_planification","id_weekly_plan","id_course"],
+  props: ["id_lective_planification","id_weekly_plan","id_course", "back"],
   data() {
     return {
     

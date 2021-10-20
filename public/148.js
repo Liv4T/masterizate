@@ -69,6 +69,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 (function () {
   "use strict";
 
@@ -93,6 +94,7 @@ __webpack_require__.r(__webpack_exports__);
 
 Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['back'],
   data: function data() {
     return {
       allowedExtensions: ["xlsx"],
@@ -102,7 +104,8 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
   mounted: function mounted() {},
   methods: {
     getMenu: function getMenu() {
-      window.location = "/salon_adm";
+      // window.location = "/salon_adm";
+      this.back('inicio');
     },
     onFlieChange: function onFlieChange(file) {
       var _this = this;
@@ -328,6 +331,19 @@ var render = function() {
                             attrs: { href: "/import" }
                           },
                           [_vm._v("Importar")]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-primary",
+                            on: {
+                              click: function($event) {
+                                return _vm.back("inicio")
+                              }
+                            }
+                          },
+                          [_vm._v("Volver")]
                         )
                       ])
                     ])

@@ -8,7 +8,7 @@
             </div>
             <div class="form-group">
                 <button class="btn btn-primary" data-toggle="modal" data-target="#modalFoodCreate">Crear Registro</button>
-                <a class="btn btn-primary" href="/nursing">Enfermería</a>
+                <!-- <a class="btn btn-primary" href="/nursing">Enfermería</a> -->
             </div>
             <div id="accordion">
                 <div class="card" v-for="(food, key) in getDataFoods" :key="key">

@@ -139,7 +139,7 @@ $(function () {
 
 Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["id_lective_planification"],
+  props: ["id_lective_planification", "back"],
   data: function data() {
     return {
       planification: {
@@ -432,10 +432,14 @@ var render = function() {
                 ),
                 _vm._v(" "),
                 _c(
-                  "a",
+                  "button",
                   {
                     staticClass: "btn btn-primary",
-                    attrs: { href: "/teacher/lectives/planning" }
+                    on: {
+                      click: function($event) {
+                        return _vm.back("inicio", null)
+                      }
+                    }
                   },
                   [_vm._v("Volver")]
                 )
