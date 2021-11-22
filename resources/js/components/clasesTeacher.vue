@@ -34,7 +34,7 @@
             <div v-if="activetab === 3" class="tabcontent">
               <div v-if="idArea !='' && idClassroom != ''">
                 <teacher-students :idArea="idArea" :idClassroom="idClassroom"></teacher-students>
-              </div>              
+              </div>
             </div>
             <div v-if="activetab === 4" class="tabcontent">
               <div v-if="idArea !='' && idClassroom != ''">
@@ -133,7 +133,7 @@ export default {
   margin-left: 5px;
 }
 
-.tabs a {  
+.tabs a {
   float: left;
   cursor: pointer;
   padding: 0px 16px;
@@ -163,7 +163,7 @@ export default {
   background-color: #00cbcec1;
   color: #fff;
   border-bottom: 2px solid #fff;
-  cursor: default;  
+  cursor: default;
 }
 .tabcontent {
   border: 1px solid #ccc;

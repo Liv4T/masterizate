@@ -3,7 +3,7 @@
     <div class="row justify-content-center">
       <div id="crud" class="col-sm-12">
         <div class="card text-center">
-          <h3 class="card-header fondo">Trimestre</h3>
+          <h3 class="card-header fondo">Períodos</h3>
           <div class="card-body">
             <div class="col-md-3">
                 <button class="btn btn-warning" v-on:click.prevent="createT()">Crear</button>
@@ -21,7 +21,7 @@
           </div>
         </div>
       </div>
-      <modal-create-trimestre></modal-create-trimestre>
+      <modal-create-trimestre :getData="getData"></modal-create-trimestre>
     </div>
   </div>
 </template>
@@ -45,6 +45,6 @@ export default {
             this.trimestres = response.data;
         });
     },
-   }, 
+   },
 }
 </script>

@@ -1,17 +1,17 @@
 <template>
-    <div class="text-center">        
+    <div class="text-center">
         <div class="form-group">
             <div class="tabAdmin">
                 <a v-on:click="showSection('profile')" v-bind:class="[activetab === 'profile' ? 'active fondo' : '']"><h4 h4 style="font-size: 15px">Mi Perfil</h4></a>
                 <a v-on:click="showSection('administrative')" v-bind:class="[activetab === 'administrative' ? 'active fondo' : '']"><h4 h4 style="font-size: 15px">Administrativo</h4></a>
-                <a v-on:click="showSection('comunications')" v-bind:class="[activetab === 'comunications' ? 'active fondo' : '']"><h4 h4 style="font-size: 15px">Comunicaciones</h4></a>                        
+                <a v-on:click="showSection('comunications')" v-bind:class="[activetab === 'comunications' ? 'active fondo' : '']"><h4 h4 style="font-size: 15px">Comunicaciones</h4></a>
                 <a v-on:click="showSection('academic')" v-bind:class="[activetab === 'academic' ? 'active fondo' : '']"><h4 h4 style="font-size: 15px">Académico</h4></a>
                 <a v-on:click="showSection('formation')" v-bind:class="[activetab === 'formation' ? 'active fondo' : '']"><h4 h4 style="font-size: 15px">Formación</h4></a>
                 <a v-on:click="showSection('government')" v-bind:class="[activetab === 'government' ? 'active fondo' : '']"><h4 h4 style="font-size: 15px">Gobierno Escolar</h4></a>
                 <a v-on:click="showSection('reports')" v-bind:class="[activetab === 'reports' ? 'active fondo' : '']"><h4 h4 style="font-size: 15px">Mis Reportes</h4></a>
             </div>
         </div>
-        
+
         <div>
             <div id="tabAdmin" class="col-md-12">
                 <div>
@@ -38,21 +38,21 @@
                     </div>
                 </div>
             </div>
-        </div>        
+        </div>
     </div>
 </template>
 <script>
-export default {  
-    props:['user'],  
+export default {
+    props:['user'],
     data() {
         return {
             activetab: null,
         };
-    },  
-    mounted(){
-        
     },
-    methods: {        
+    mounted(){
+
+    },
+    methods: {
         showSection(section){
             this.activetab = section
         }
@@ -86,6 +86,9 @@ export default {
 }
 .tabAdmin a:last-child {
     border-right: 1px solid #ccc;
+}
+.tabAdmin a h4{
+    margin-top: 12px;
 }
 /* Change background color of tabAdmin on hover */
 .tabAdmin a:hover {

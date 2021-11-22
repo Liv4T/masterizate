@@ -5,7 +5,7 @@
         <div class="col-md-11 mx-auto">
           <div class="custom-card text-center">
             <h3 class="card-header fondo">Mis Electivas</h3>
-              <span class="classroom-label">{{planification.lective.name}} Trimestre {{planification.period_consecutive}}</span>
+              <span class="classroom-label">{{planification.lective.name}} Período {{planification.period_consecutive}}</span>
             <form class="needs-validation" novalidate>
               <form-wizard
                 title
@@ -145,7 +145,7 @@ export default {
         },
       ],
       newSemanal: [],
-      isSynchronized:true,  
+      isSynchronized:true,
       semanal: false,
       errors: [],
       isLoading:false
@@ -200,7 +200,7 @@ export default {
         .then((response) => {
           this.errors = [];
            toastr.success("Nueva semana creada exitosamente");
-          this.returnToMenu();       
+          this.returnToMenu();
         })
         .catch((error) => {
           this.errors = error.response.data;
@@ -214,7 +214,7 @@ export default {
         }
       }
 
- 
+
     },
   },
 };

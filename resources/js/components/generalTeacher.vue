@@ -13,7 +13,7 @@
         <div id="tabs" class="col-md-10 mx-auto">
           <div class="tabs">
             <a v-on:click="activetab = 1" v-bind:class="[activetab === 1 ? 'active' : '']"><h4 style="font-size: 15px">PLAN DE ESTUDIO</h4></a>
-            <a v-on:click="activetab = 2" v-bind:class="[activetab === 2 ? 'active' : '']"><h4 style="font-size: 15px">TRIMESTRE</h4></a>
+            <a v-on:click="activetab = 2" v-bind:class="[activetab === 2 ? 'active' : '']"><h4 style="font-size: 15px">PERÍODO</h4></a>
             <a v-on:click="activetab = 3" v-bind:class="[activetab === 3 ? 'active' : '']"><h4 style="font-size: 15px">EVALUACIÓN</h4></a>
             <a v-on:click="activetab = 4" v-bind:class="[activetab === 4 ? 'active' : '']"><h4 style="font-size: 15px">CICLOS</h4></a>
           </div>
@@ -23,11 +23,11 @@
             <div v-if="activetab === 1" class="tabcontent">
               <div v-if="idArea !=='' ">
                 <course-component :idArea="idArea"></course-component>
-              </div>              
+              </div>
             </div>
             <div v-if="activetab === 2" class="tabcontent">
               <div v-if="idArea !=='' ">
-                <trim-component :idArea="idArea"></trim-component> 
+                <trim-component :idArea="idArea"></trim-component>
               </div>
             </div>
             <div v-if="activetab === 3" class="tabcontent">

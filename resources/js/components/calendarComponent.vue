@@ -180,7 +180,7 @@ export default {
               id: e.lective.id,
               id_classroom: 0,
               id_planification: e.id_planification,
-              text: `Electiva ${e.lective.name} Trimestre ${e.period_consecutive}`,
+              text: `Electiva ${e.lective.name} Período ${e.period_consecutive}`,
             });
           });
         });

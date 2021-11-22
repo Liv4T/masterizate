@@ -1,9 +1,9 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[55],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/lectivesTeacherPlanningComponent.vue?vue&type=script&lang=js&":
-/*!*******************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/lectivesTeacherPlanningComponent.vue?vue&type=script&lang=js& ***!
-  \*******************************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/lectivesTeacherCoursesComponent.vue?vue&type=script&lang=js&":
+/*!******************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/lectivesTeacherCoursesComponent.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -71,97 +71,111 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-$(".collapse").on("show.bs.collapse", function () {
-  $(".collapse.in").collapse("hide");
-});
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      week: [],
-      semanal: false,
-      general: false,
-      planificationDetail: [],
-      planification: [],
-      id_lective: "",
-      id_classroom: "",
-      showComponent: "inicio",
-      idToComponent: null
+      planifications: [],
+      planification: {
+        lective: {}
+      },
+      courses: [],
+      clases: [],
+      areas: [],
+      descripcion: "",
+      logro: "",
+      fechaE: "",
+      fechaR: "",
+      id_act: "",
+      errors: [],
+      fillS: [],
+      Iclassroom: "",
+      Iarea: "",
+      current_course: {},
+      backPage: "inicio",
+      plan_name: "",
+      id_weekly_plan: ""
     };
   },
+  created: function created() {},
   mounted: function mounted() {
     var _this = this;
 
     axios.get("/api/lectives").then(function (response) {
-      _this.planification = response.data;
+      _this.planifications = response.data;
     });
   },
   methods: {
-    showSection: function showSection(data, id) {
-      this.showComponent = data;
-      this.idToComponent = id;
-    },
-    getPlanificationEvent: function getPlanificationEvent(id_lective_planification) {
+    showModalAddCourses: function showModalAddCourses(id_lective_planification, id_weekly_plan, weekly_plan_name) {
       var _this2 = this;
 
-      axios.get("/api/lectives/planification/".concat(id_lective_planification)).then(function (response) {
-        _this2.planificationDetail = response.data;
+      this.current_course = {
+        id_lective_planification: id_lective_planification,
+        id_weekly_plan: id_weekly_plan
+      };
+      this.id_weekly_plan = id_weekly_plan;
+      this.cycle_name = weekly_plan_name;
+      this.courses = [];
+      axios.get("/api/lectives/planification/".concat(id_lective_planification, "/weekly/").concat(id_weekly_plan, "/course")).then(function (response) {
+        _this2.courses = response.data;
 
-        if (_this2.planificationDetail.quarterlies.length > 0) {
-          _this2.general = true;
-        } else {
-          _this2.general = false;
-        }
+        _this2.courses.forEach(function (c) {
+          c.content.forEach(function (cn) {
+            if (cn.content_type == 'VIDEO') {
+              if (cn.content) {
+                var youtubeSplode = cn.content.split('/');
+                cn.content = youtubeSplode[youtubeSplode.length - 1];
+              }
+            }
+          });
+        });
 
-        if (_this2.planificationDetail.weeklies.length > 0) {
-          _this2.semanal = true;
-        } else {
-          _this2.semanal = false;
-        }
+        _this2.backPage = "return";
       });
+    },
+    getPlanificationEvent: function getPlanificationEvent(id_lective_planification) {
+      var _this3 = this;
+
+      axios.get("/api/lectives/planification/".concat(id_lective_planification)).then(function (response) {
+        _this3.planification = response.data;
+      });
+    },
+    backBage: function backBage() {
+      this.backPage = "inicio";
     }
   }
 });
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/lectivesTeacherPlanningComponent.vue?vue&type=style&index=0&lang=css&":
-/*!**************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/lectivesTeacherPlanningComponent.vue?vue&type=style&index=0&lang=css& ***!
-  \**************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/lectivesTeacherCoursesComponent.vue?vue&type=style&index=0&lang=css&":
+/*!*************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/lectivesTeacherCoursesComponent.vue?vue&type=style&index=0&lang=css& ***!
+  \*************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
+var escape = __webpack_require__(/*! ../../../node_modules/css-loader/lib/url/escape.js */ "./node_modules/css-loader/lib/url/escape.js");
 exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
 // imports
 
 
 // module
-exports.push([module.i, "\n.collapse-row.collapsed + tr {\r\n  display: none;\n}\n.btn.skool {\r\n  background-color: #c1e9eb;\r\n  color: white;\n}\r\n", ""]);
+exports.push([module.i, "\n.background2 {\n  background: url(" + escape(__webpack_require__(/*! ../assets/img/Fondo5.jpg */ "./resources/js/assets/img/Fondo5.jpg")) + ");\n  background-size: contain;\n  background-repeat: no-repeat;\n  background-position: center;\n  position: relative;\n}\niframe:not(.md-image){\n    height:300px !important;\n}\n", ""]);
 
 // exports
 
 
 /***/ }),
 
-/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/lectivesTeacherPlanningComponent.vue?vue&type=style&index=0&lang=css&":
-/*!******************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/lectivesTeacherPlanningComponent.vue?vue&type=style&index=0&lang=css& ***!
-  \******************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/lectivesTeacherCoursesComponent.vue?vue&type=style&index=0&lang=css&":
+/*!*****************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/lectivesTeacherCoursesComponent.vue?vue&type=style&index=0&lang=css& ***!
+  \*****************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var content = __webpack_require__(/*! !../../../node_modules/css-loader??ref--6-1!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--6-2!../../../node_modules/vue-loader/lib??vue-loader-options!./lectivesTeacherPlanningComponent.vue?vue&type=style&index=0&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/lectivesTeacherPlanningComponent.vue?vue&type=style&index=0&lang=css&");
+var content = __webpack_require__(/*! !../../../node_modules/css-loader??ref--6-1!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--6-2!../../../node_modules/vue-loader/lib??vue-loader-options!./lectivesTeacherCoursesComponent.vue?vue&type=style&index=0&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/lectivesTeacherCoursesComponent.vue?vue&type=style&index=0&lang=css&");
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -183,10 +197,10 @@ if(false) {}
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/lectivesTeacherPlanningComponent.vue?vue&type=template&id=3a07e38e&":
-/*!***********************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/lectivesTeacherPlanningComponent.vue?vue&type=template&id=3a07e38e& ***!
-  \***********************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/lectivesTeacherCoursesComponent.vue?vue&type=template&id=0f61baa7&":
+/*!**********************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/lectivesTeacherCoursesComponent.vue?vue&type=template&id=0f61baa7& ***!
+  \**********************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -198,13 +212,13 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm.showComponent === "inicio"
+  return _vm.backPage === "inicio"
     ? _c("div", { staticClass: "back" }, [
         _c("div", { staticClass: "row justify-content-center" }, [
           _c("div", { staticClass: "col-sm-10", attrs: { id: "crud" } }, [
             _c("div", { staticClass: "card text-center" }, [
               _c("h3", { staticClass: "card-header fondo" }, [
-                _vm._v("Planificación General de Electivas")
+                _vm._v("Mis clases")
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "card-body" }, [
@@ -214,7 +228,7 @@ var render = function() {
                     staticClass: "accordion",
                     attrs: { id: "accordionExample" }
                   },
-                  _vm._l(_vm.planification, function(plan, t) {
+                  _vm._l(_vm.planifications, function(area, t) {
                     return _c("div", { key: t, staticClass: "card" }, [
                       _c("div", { staticClass: "card-header" }, [
                         _c("h2", { staticClass: "mb-0" }, [
@@ -233,7 +247,7 @@ var render = function() {
                                 click: function($event) {
                                   $event.preventDefault()
                                   return _vm.getPlanificationEvent(
-                                    plan.id_planification
+                                    area.id_planification
                                   )
                                 }
                               }
@@ -241,9 +255,9 @@ var render = function() {
                             [
                               _c("label", [
                                 _vm._v(
-                                  _vm._s(plan.lective.name) +
-                                    " Trimestre " +
-                                    _vm._s(plan.period_consecutive)
+                                  _vm._s(area.lective.name) +
+                                    " Período " +
+                                    _vm._s(area.period_consecutive)
                                 )
                               ])
                             ]
@@ -254,7 +268,7 @@ var render = function() {
                       _c(
                         "div",
                         {
-                          staticClass: "collapse hide accordion-content",
+                          staticClass: "collapse hide",
                           attrs: {
                             id: "collapse" + t,
                             "aria-labelledby": "heading",
@@ -263,67 +277,46 @@ var render = function() {
                         },
                         [
                           _c(
-                            "a",
-                            {
-                              staticClass: "btn btn-warning",
-                              on: {
-                                click: function($event) {
-                                  return _vm.showSection(
-                                    "general",
-                                    plan.id_planification
-                                  )
-                                }
-                              }
-                            },
-                            [_vm._v("General")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "a",
-                            {
-                              directives: [
+                            "tr",
+                            _vm._l(_vm.planification.weeklies, function(
+                              weekly_plan,
+                              k
+                            ) {
+                              return _c(
+                                "td",
                                 {
-                                  name: "show",
-                                  rawName: "v-show",
-                                  value: _vm.general == true,
-                                  expression: "general==true"
-                                }
-                              ],
-                              staticClass: "btn btn-warning",
-                              on: {
-                                click: function($event) {
-                                  return _vm.showSection(
-                                    "porcent",
-                                    plan.id_planification
+                                  key: k,
+                                  staticStyle: { display: "inline-grid" }
+                                },
+                                [
+                                  _c(
+                                    "a",
+                                    {
+                                      staticClass: "btn btn-warning",
+                                      staticStyle: {
+                                        "text-overflow": "ellipsis",
+                                        "max-width": "250px",
+                                        "min-width": "150px",
+                                        "white-space": "nowrap",
+                                        overflow: "hidden"
+                                      },
+                                      on: {
+                                        click: function($event) {
+                                          $event.preventDefault()
+                                          return _vm.showModalAddCourses(
+                                            weekly_plan.id_lective_planification,
+                                            weekly_plan.id,
+                                            weekly_plan.name
+                                          )
+                                        }
+                                      }
+                                    },
+                                    [_vm._v(_vm._s(weekly_plan.name) + " ")]
                                   )
-                                }
-                              }
-                            },
-                            [_vm._v("Porcentaje de notas")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "a",
-                            {
-                              directives: [
-                                {
-                                  name: "show",
-                                  rawName: "v-show",
-                                  value: _vm.general == true,
-                                  expression: "general==true"
-                                }
-                              ],
-                              staticClass: "btn btn-warning",
-                              on: {
-                                click: function($event) {
-                                  return _vm.showSection(
-                                    "cycleLectives",
-                                    plan.id_planification
-                                  )
-                                }
-                              }
-                            },
-                            [_vm._v("Gestionar Ciclo")]
+                                ]
+                              )
+                            }),
+                            0
                           )
                         ]
                       )
@@ -336,46 +329,21 @@ var render = function() {
           ])
         ])
       ])
-    : _vm.showComponent === "general"
-    ? _c(
+    : _c(
         "div",
         [
-          _c("lectives-teacher-planning-edit", {
+          _c("lectives-teacher-module", {
             attrs: {
-              id_lective_planification: _vm.idToComponent,
-              back: _vm.showSection
+              id_weekly_plan: _vm.id_weekly_plan,
+              weekly_plan_name: _vm.cycle_name,
+              backPage: _vm.backBage,
+              id_lective_planification:
+                _vm.current_course.id_lective_planification
             }
           })
         ],
         1
       )
-    : _vm.showComponent === "porcent"
-    ? _c(
-        "div",
-        [
-          _c("lectives-teacher-indicators", {
-            attrs: {
-              id_lective_planification: _vm.idToComponent,
-              back: _vm.showSection
-            }
-          })
-        ],
-        1
-      )
-    : _vm.showComponent === "cycleLectives"
-    ? _c(
-        "div",
-        [
-          _c("lectives-teacher-weekly", {
-            attrs: {
-              id_lective_planification: _vm.idToComponent,
-              back: _vm.showSection
-            }
-          })
-        ],
-        1
-      )
-    : _vm._e()
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -384,18 +352,18 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./resources/js/components/lectivesTeacherPlanningComponent.vue":
-/*!**********************************************************************!*\
-  !*** ./resources/js/components/lectivesTeacherPlanningComponent.vue ***!
-  \**********************************************************************/
+/***/ "./resources/js/components/lectivesTeacherCoursesComponent.vue":
+/*!*********************************************************************!*\
+  !*** ./resources/js/components/lectivesTeacherCoursesComponent.vue ***!
+  \*********************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _lectivesTeacherPlanningComponent_vue_vue_type_template_id_3a07e38e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./lectivesTeacherPlanningComponent.vue?vue&type=template&id=3a07e38e& */ "./resources/js/components/lectivesTeacherPlanningComponent.vue?vue&type=template&id=3a07e38e&");
-/* harmony import */ var _lectivesTeacherPlanningComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./lectivesTeacherPlanningComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/lectivesTeacherPlanningComponent.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _lectivesTeacherPlanningComponent_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./lectivesTeacherPlanningComponent.vue?vue&type=style&index=0&lang=css& */ "./resources/js/components/lectivesTeacherPlanningComponent.vue?vue&type=style&index=0&lang=css&");
+/* harmony import */ var _lectivesTeacherCoursesComponent_vue_vue_type_template_id_0f61baa7___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./lectivesTeacherCoursesComponent.vue?vue&type=template&id=0f61baa7& */ "./resources/js/components/lectivesTeacherCoursesComponent.vue?vue&type=template&id=0f61baa7&");
+/* harmony import */ var _lectivesTeacherCoursesComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./lectivesTeacherCoursesComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/lectivesTeacherCoursesComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _lectivesTeacherCoursesComponent_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./lectivesTeacherCoursesComponent.vue?vue&type=style&index=0&lang=css& */ "./resources/js/components/lectivesTeacherCoursesComponent.vue?vue&type=style&index=0&lang=css&");
 /* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -406,9 +374,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
-  _lectivesTeacherPlanningComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _lectivesTeacherPlanningComponent_vue_vue_type_template_id_3a07e38e___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _lectivesTeacherPlanningComponent_vue_vue_type_template_id_3a07e38e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _lectivesTeacherCoursesComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _lectivesTeacherCoursesComponent_vue_vue_type_template_id_0f61baa7___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _lectivesTeacherCoursesComponent_vue_vue_type_template_id_0f61baa7___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -418,54 +386,54 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/components/lectivesTeacherPlanningComponent.vue"
+component.options.__file = "resources/js/components/lectivesTeacherCoursesComponent.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/components/lectivesTeacherPlanningComponent.vue?vue&type=script&lang=js&":
-/*!***********************************************************************************************!*\
-  !*** ./resources/js/components/lectivesTeacherPlanningComponent.vue?vue&type=script&lang=js& ***!
-  \***********************************************************************************************/
+/***/ "./resources/js/components/lectivesTeacherCoursesComponent.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************************!*\
+  !*** ./resources/js/components/lectivesTeacherCoursesComponent.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_lectivesTeacherPlanningComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./lectivesTeacherPlanningComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/lectivesTeacherPlanningComponent.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_lectivesTeacherPlanningComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_lectivesTeacherCoursesComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./lectivesTeacherCoursesComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/lectivesTeacherCoursesComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_lectivesTeacherCoursesComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/components/lectivesTeacherPlanningComponent.vue?vue&type=style&index=0&lang=css&":
-/*!*******************************************************************************************************!*\
-  !*** ./resources/js/components/lectivesTeacherPlanningComponent.vue?vue&type=style&index=0&lang=css& ***!
-  \*******************************************************************************************************/
+/***/ "./resources/js/components/lectivesTeacherCoursesComponent.vue?vue&type=style&index=0&lang=css&":
+/*!******************************************************************************************************!*\
+  !*** ./resources/js/components/lectivesTeacherCoursesComponent.vue?vue&type=style&index=0&lang=css& ***!
+  \******************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_lectivesTeacherPlanningComponent_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/style-loader!../../../node_modules/css-loader??ref--6-1!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--6-2!../../../node_modules/vue-loader/lib??vue-loader-options!./lectivesTeacherPlanningComponent.vue?vue&type=style&index=0&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/lectivesTeacherPlanningComponent.vue?vue&type=style&index=0&lang=css&");
-/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_lectivesTeacherPlanningComponent_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_lectivesTeacherPlanningComponent_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_lectivesTeacherPlanningComponent_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_lectivesTeacherPlanningComponent_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
- /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_lectivesTeacherPlanningComponent_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_lectivesTeacherCoursesComponent_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/style-loader!../../../node_modules/css-loader??ref--6-1!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--6-2!../../../node_modules/vue-loader/lib??vue-loader-options!./lectivesTeacherCoursesComponent.vue?vue&type=style&index=0&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/lectivesTeacherCoursesComponent.vue?vue&type=style&index=0&lang=css&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_lectivesTeacherCoursesComponent_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_lectivesTeacherCoursesComponent_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_lectivesTeacherCoursesComponent_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_lectivesTeacherCoursesComponent_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_lectivesTeacherCoursesComponent_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
 
 /***/ }),
 
-/***/ "./resources/js/components/lectivesTeacherPlanningComponent.vue?vue&type=template&id=3a07e38e&":
-/*!*****************************************************************************************************!*\
-  !*** ./resources/js/components/lectivesTeacherPlanningComponent.vue?vue&type=template&id=3a07e38e& ***!
-  \*****************************************************************************************************/
+/***/ "./resources/js/components/lectivesTeacherCoursesComponent.vue?vue&type=template&id=0f61baa7&":
+/*!****************************************************************************************************!*\
+  !*** ./resources/js/components/lectivesTeacherCoursesComponent.vue?vue&type=template&id=0f61baa7& ***!
+  \****************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_lectivesTeacherPlanningComponent_vue_vue_type_template_id_3a07e38e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./lectivesTeacherPlanningComponent.vue?vue&type=template&id=3a07e38e& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/lectivesTeacherPlanningComponent.vue?vue&type=template&id=3a07e38e&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_lectivesTeacherPlanningComponent_vue_vue_type_template_id_3a07e38e___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_lectivesTeacherCoursesComponent_vue_vue_type_template_id_0f61baa7___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./lectivesTeacherCoursesComponent.vue?vue&type=template&id=0f61baa7& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/lectivesTeacherCoursesComponent.vue?vue&type=template&id=0f61baa7&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_lectivesTeacherCoursesComponent_vue_vue_type_template_id_0f61baa7___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_lectivesTeacherPlanningComponent_vue_vue_type_template_id_3a07e38e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_lectivesTeacherCoursesComponent_vue_vue_type_template_id_0f61baa7___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

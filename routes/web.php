@@ -915,6 +915,12 @@ Route::put('/api/lectives/planification/{id_lective_planification}/weekly/{id_we
 Route::put('/api/planification/copy', 'CoursesController@copyInformation');
 Route::put('/api/lectives/planification/copy', 'CoursesController@copyInformationLectives');
 
+//New Routes Class Lectives
+Route::get('/api/lectives/class/{id_weekly_plan}', 'LectivesController@showDataClass');
+Route::get('getWeeks/{id_lective_planification}', 'LectivesController@getWeeks')->name('getWeeks');
+Route::put('/api/lectives/{id_weekly_plan}/class', 'LectivesController@saveClass');
+Route::get('getNameLectiveWeekly/{id_class}', 'LectivesController@getLectiveWeeklyName')->name('GetNameWeekly');
+Route::get('/getDataClass/{id_module}/{id_course}', 'LectivesController@getDataClass');
 //parents
 
 Route::resource('/parents', 'ParentsController');

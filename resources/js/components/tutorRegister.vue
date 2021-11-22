@@ -12,7 +12,7 @@
                                 <div class="text-center">
                                     <h4>Datos de Usuario</h4>
                                 </div>
-                                <div class="row shadow p-3 mb-5 bg-body rounded">
+                                <div class="row shadow p-3 mb-5 bg-body rounded"> 
                                     <div class="col">
                                         <div class="form-group">
                                             <label for="email">Email</label>

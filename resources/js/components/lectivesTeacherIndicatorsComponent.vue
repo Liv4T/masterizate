@@ -24,7 +24,7 @@
     <div class="row">
       <div class="col-md-11 mx-auto">
         <div class="custom-card text-center">
-          <h3 class="card-header fondo">Planificación general {{planification.lective.name}} Trimestre {{planification.period_consecutive}} </h3>
+          <h3 class="card-header fondo">Planificación general {{planification.lective.name}} Período {{planification.period_consecutive}} </h3>
           <form class="needs-validation" novalidate v-show="trimestre == false">
             <form-wizard
               title
@@ -102,7 +102,7 @@
                   </div>
                 </div>
               </tab-content>
-            </form-wizard>            
+            </form-wizard>
             <button class="btn btn-primary" v-on:click="back('inicio',null)">Volver</button>
           </form>
         </div>
@@ -147,7 +147,7 @@
                           v-model="rate"
                           style="background: gainsboro;"
                           required
-                        />                        
+                        />
                       </div>
                     </div>
                   </div>
@@ -157,7 +157,7 @@
                       class="btn btn-warning"
                       v-on:click.prevent="createIndicator()"
                       value="Guardar"
-                    />                    
+                    />
                   </div>
                 </form>
               </div>
@@ -176,8 +176,8 @@
                 </button>
               </h3>
               <div class="card-body">
-              
-                  <label>¿Desea eliminar el indicador?</label>                  
+
+                  <label>¿Desea eliminar el indicador?</label>
                   <div class="modal-footer">
                     <input
                       type="submit"
@@ -186,7 +186,7 @@
                       value="Confirmar"
                     />
                   </div>
-            
+
               </div>
             </div>
           </div>
@@ -314,7 +314,7 @@ export default {
     },
 
     createIndicator() {
- 
+
       axios
         .put("/api/lectives/planification/" + this.id_lective_planification + "/achievement", {
           //Cursos generales
@@ -362,7 +362,7 @@ export default {
     },
     deleteIndicator() {
 
-     
+
 
       axios.delete(`/api/lectives/planification/${this.id_lective_planification}/indicator/${this.id_indicator}`, {})
         .then((response) => {

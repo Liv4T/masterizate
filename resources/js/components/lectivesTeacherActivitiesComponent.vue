@@ -13,7 +13,7 @@
                   class="clickable"
                   @click="getActivities(plan.id_planification)"
                 >
-                  <td>{{ plan.lective.name}} Trimestre {{plan.period_consecutive}}</td>
+                  <td>{{ plan.lective.name}} Período {{plan.period_consecutive}}</td>
                   <td></td>
                   <td></td>
                   <td></td>
@@ -191,7 +191,7 @@
                     </form>
                     </div>
                   </div>
-                  
+
                 </div>
               </div>
             </div>
@@ -231,13 +231,13 @@ export default {
   methods: {
     getActivities(id_planification) {
 
-      
+
 
       if(this.open_plan==id_planification)
         return;
 
-     this.open_plan=  id_planification; 
-      
+     this.open_plan=  id_planification;
+
 
       axios.get(`/api/lectives/planification/${id_planification}/activities`).then((response) => {
         this.activities= response.data;

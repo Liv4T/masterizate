@@ -18,7 +18,7 @@
                       @click.prevent="getPlanificationEvent(area.id_planification)"
                       aria-controls="collapse"
                     >
-                      <label>{{ area.lective.name }} Trimestre {{ area.period_consecutive }}</label>
+                      <label>{{ area.lective.name }} Período {{ area.period_consecutive }}</label>
                     </button>
                   </h2>
                 </div>
@@ -37,7 +37,7 @@
                       <a
                         class="btn btn-warning"
                         v-on:click.prevent="
-                                                    showModalAddCourses(weekly_plan.id_lective_planification,weekly_plan.id)
+                                                    showModalAddCourses(weekly_plan.id_lective_planification,weekly_plan.id,weekly_plan.name)
                                                 "
                         style="text-overflow: ellipsis;
                                 max-width: 250px;
@@ -57,7 +57,7 @@
     </div>
   </div>
   <div v-else>
-    <create-lectives-courses :current_course="current_course" :courses="courses" :backPage="backBage"></create-lectives-courses>
+    <lectives-teacher-module :id_weekly_plan="id_weekly_plan" :weekly_plan_name="cycle_name" :backPage="backBage" :id_lective_planification="current_course.id_lective_planification"></lectives-teacher-module>
   </div>
 </template>
 <script>
@@ -79,7 +79,9 @@ export default {
       Iclassroom: "",
       Iarea: "",
       current_course:{},
-      backPage:"inicio"
+      backPage:"inicio",
+      plan_name:"",
+      id_weekly_plan: "",
     };
   },
   created() {},
@@ -88,17 +90,18 @@ export default {
      axios.get("/api/lectives").then((response) => {
       this.planifications= response.data;
     });
-  
+
   },
   methods: {
-    showModalAddCourses(id_lective_planification,id_weekly_plan) {
+    showModalAddCourses(id_lective_planification,id_weekly_plan,weekly_plan_name) {
 
-      this.current_course={
+        this.current_course={
         id_lective_planification:id_lective_planification,
         id_weekly_plan:id_weekly_plan
-      };
-
-      this.courses=[];
+        };
+        this.id_weekly_plan=id_weekly_plan;
+        this.cycle_name=weekly_plan_name;
+        this.courses=[];
 
       axios.get(`/api/lectives/planification/${id_lective_planification}/weekly/${id_weekly_plan}/course`).then((response) => {
         this.courses = response.data;
@@ -116,7 +119,7 @@ export default {
             }
           })
 
-        
+
 
         });
           this.backPage= "return"
@@ -126,10 +129,10 @@ export default {
 
 
 
-    
+
     },
     getPlanificationEvent(id_lective_planification) {
-    
+
       axios.get(`/api/lectives/planification/${id_lective_planification}`).then((response) => {
         this.planification = response.data;
       });

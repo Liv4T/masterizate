@@ -18,7 +18,7 @@
                       @click.prevent="getPlanificationEvent(plan.id_planification)"
                       aria-controls="collapse"
                     >
-                      <label>{{ plan.lective.name }} Trimestre {{plan.period_consecutive}}</label>
+                      <label>{{ plan.lective.name }} Período {{plan.period_consecutive}}</label>
                     </button>
                   </h2>
                 </div>
@@ -51,13 +51,13 @@
                                     <td>{{student.grade}}</td>
                                     <td><a  v-on:click.prevent="showRemoveUser(student)" ><i class="fa fa-trash" alt="Remover estudiante"></i></a></td>
                                 </tr>
-                               
-                          
+
+
                             </tbody>
                         </table>
                     </div>
-                     
-                  
+
+
                 </div>
               </div>
             </div>
@@ -120,7 +120,7 @@
         </div>
       </div>
   </div>
-     
+
 </template>
 <script>
 $(".collapse").on("show.bs.collapse", function () {
@@ -166,7 +166,7 @@ export default {
     },
     removeUsersEvent()
     {
-      
+
         axios.delete(`/api/lectives/planification/${this.id_lective_planification}/student/${this.student_selected.id_user}`).then((response) => {
                 $("#removeUserModal").modal("hide");
                 this.student_selected={};

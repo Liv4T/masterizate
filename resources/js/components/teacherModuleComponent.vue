@@ -8,12 +8,12 @@
                     <span class="classroom-label">{{ nameArea }}</span>
                     <div class="card-body">
                         <div class="text-left">
-                            
+
                             <a v-if="cleanIdModule" class="btn btn-primary" v-on:click="cleanIdModule">Regresar</a>
-                                        
+
                             <a v-else class="btn btn-primary" href="/docente/clases">Regresar</a>
-                            
-                            
+
+
                             <a class="btn btn-primary" v-on:click="createClass(id_module)">Crear
                                 Clase</a>
                             <a class="btn btn-primary text-right" :href="''"
@@ -155,7 +155,7 @@
                     this.getClasses();
                 });
             },
-            getClasses() {                
+            getClasses() {
                 var urlr = window.location.origin + "/showClass/" + this.id_module;
                 axios.get(urlr).then(response => {
                     this.fillS = response.data.clase;
@@ -167,19 +167,19 @@
                     this.id_classroom = response.data.classroom.id;
                 });
             },
-            //Funcion para obtener las clases y los ciclos para mostrar en los multiselect 
+            //Funcion para obtener las clases y los ciclos para mostrar en los multiselect
             async getCiclesAndClasses() {
                 this.ciclesData= {
                     'id': this.id_module,
                     'id_area': this.id_area,
                     'id_classroom': this.id_classroom,
                     'text': this.nameWeekly
-                }           
+                }
                 axios.get(`/editGetWeek/${this.id_area}/${this.id_classroom}/${this.id_trimestre}`).then((response) => {
-                    /* 
-                        Se asigna la data a la variable ciclesClean 
+                    /*
+                        Se asigna la data a la variable ciclesClean
                         para su mejor uso paso seguido se itera y asigna al array cicles
-                    */                   
+                    */
                     var ciclesClean = response.data;
                     for (const key in ciclesClean) {
                         this.cicles.push({
@@ -188,7 +188,7 @@
                             'id_classroom': ciclesClean[key].id_classroom,
                             'text': ciclesClean[key].text,
                         })
-                    }                
+                    }
                 }).catch(error => {
                     console.log(error);
                 });
@@ -216,9 +216,9 @@
             openModal() {
                 $("#openModal").modal("show");
             },
-            /* 
+            /*
                 Funcion para recoger la data acumulada de las clases y los ciclos para su desactivación.
-                se comenta la linea 216 la cual obtiene los ciclos seleccionados, en caso de ser necesarios 
+                se comenta la linea 216 la cual obtiene los ciclos seleccionados, en caso de ser necesarios
                 se puede descomentar la linea para settear el array de ciclos al backend
             */
             deactivateData() {
@@ -245,7 +245,7 @@
             getClass(id_class){
                 if(id_class){
                     this.idClass = id_class;
-                    this.createClas = 'showEdit'                    
+                    this.createClas = 'showEdit'
                 }
             },
 

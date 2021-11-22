@@ -130,7 +130,7 @@
                     </div>
                   </div>
 
-                  <div class="row" v-for="(input1, k) in inputs1" :key="k">
+                  <!-- <div class="row" v-for="(input1, k) in inputs1" :key="k">
                     <div class="col-md-6">
                       <label for="name">Periodos</label>
                       <span>
@@ -182,7 +182,7 @@
                         required
                       />
                     </div>
-                  </div>
+                  </div> -->
 
                   <div class="modal-footer">
                     <!-- <a href="#" class="btn btn-warning float-right">Guardar</a> -->
@@ -228,7 +228,7 @@ import VueFormWizard from "vue-form-wizard";
 import "vue-form-wizard/dist/vue-form-wizard.min.css";
 Vue.use(VueFormWizard);
 export default {
-  props:['back'],
+  props:['back','getInstitutions'],
   data() {
     return {
       myOptions: [],
@@ -260,22 +260,26 @@ export default {
     };
   },
   mounted() {
-    var urlsel = "getState";
-    axios.get(urlsel).then((response) => {
-      this.myOptions = response.data;
-      console.log(this.myOptions);
-    });
+      this.getState();
   },
   methods: {
+    getState(){
+        var urlsel = "getState";
+        axios.get(urlsel).then((response) => {
+        this.myOptions = response.data;
+        console.log(this.myOptions);
+        });
+    },
     getMenu() {
       // window.location = "/instituciones_adm";
       this.back(false);
+      this.getInstitutions();
     },
     mensaje() {
       this.seleccionadoStreaming = this.$refs.seleccionadoStreaming.value;
       if (this.seleccionadoStreaming != 1) {
         this.textoM = "Recomendamos el uso de Google Meet como streaming";
-        console.log("aqui");
+        //console.log("aqui");
       } else {
         this.textoM = "";
       }
@@ -289,11 +293,11 @@ export default {
           this.section.push(this.inputs[i]);
         }
       }
-      if (this.inputs1.length >= 1) {
+      /* if (this.inputs1.length >= 1) {
         for (let i = 0; i < this.inputs1.length; i++) {
           this.period.push(this.inputs1[i]);
         }
-      }
+      } */
 
       axios
         .post(url, {

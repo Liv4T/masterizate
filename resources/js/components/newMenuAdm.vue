@@ -1,4 +1,4 @@
-<template> 
+<template>
     <div class="mb-3 text-center">
         <a href="/perfil_d" class="btn btn-sm btn-secondary">
             Mi Perfil
@@ -9,7 +9,7 @@
             </button>
             <div class="dropdown-menu" aria-labelledby="admin">
                 <a class="dropdown-item" href="/instituciones_adm">Crear Instituciones</a>
-                <a class="dropdown-item" href="/trimestre_adm">Crear Trimestre</a>
+                <a class="dropdown-item" href="/trimestre_adm">Crear Período</a>
                 <a class="dropdown-item" href="/general_adm">Crear Salones</a>
                 <!-- Pendiente creación de Perfiles -->
                 <a class="dropdown-item" href="#">Crear Perfiles</a>
@@ -43,14 +43,14 @@
             </button>
             <div class="dropdown-menu" aria-labelledby="academic">
                 <a class="dropdown-item" href="/planificacion">Planificación General</a>
-                <a class="dropdown-item" href="/docente/clases">Ciclos Y Clases</a>                
+                <a class="dropdown-item" href="/docente/clases">Ciclos Y Clases</a>
                 <a class="dropdown-item" href="/notas_d">Notas</a>
                 <a class="dropdown-item" href="/utils">Útiles</a>
                 <a class="dropdown-item" href="/pedagogic">Salidas Pedagógicas</a>
                 <a class="dropdown-item" href="/teacher/lectives/planning">Administrar Electivas</a>
                 <a class="dropdown-item" href="/teacher/lectives/courses">Clases Electivas</a>
-                <a class="dropdown-item" href="/motiveAssistants">Creación de Motivos de Asistencia</a>            
-                <a class="dropdown-item" href="/quarters">Creación de Trimestres</a>
+                <a class="dropdown-item" href="/motiveAssistants">Creación de Motivos de Asistencia</a>
+                <a class="dropdown-item" href="/quarters">Creación de Períodos</a>
                 <a class="dropdown-item" href="#">Exalumnos</a>
                 <!-- Modulo de Informes Pendiente por aclaración -->
                 <a class="dropdown-item" href="#">Informes</a>
@@ -86,7 +86,7 @@
                 <a class="dropdown-item" href="#">Actas y Circulares</a>
             </div>
         </div>
-        
+
         <a href="/reportAdmin">
             <button class="btn btn-sm btn-secondary">
                 Mis Reportes

@@ -4,7 +4,7 @@
             <div class="row">
                 <div class="col-md-11 mx-auto">
                     <div class="custom-card text-center">
-                        <h3 class="card-header fondo">Mis clases - Electiva {{planification.lective.name}} Trimestre {{planification.period_consecutive}}</h3>
+                        <h3 class="card-header fondo">Mis clases - Electiva {{planification.lective.name}} Período {{planification.period_consecutive}}</h3>
                     </div>
                     <div class="div-weekly-plan">
                         <div>
@@ -15,7 +15,7 @@
                             <label>Observación:</label>
                             <textarea class="form-control" cols="60" readonly>{{weekly_plan.observation}}</textarea>
                         </div>
-                       
+
                     </div>
                     <div class="div-classes">
                         <div class="div-class"  v-for="(item,key_d) in weekly_plan_detail" :key="key_d">
@@ -52,7 +52,7 @@
                                         <a v-if="item_content.content_type === 'DOCUMENT' && item_content.content!=''" v-bind:href="item_content.content" target="_blank">{{item_content.description}}</a>
                                         <input  v-if="item_content.content_type !== 'DOCUMENT'" class="form-control" type="text" v-model="item_content.content" />
                                     </div>
-                                    
+
                                 </div>
                                  <div class="div-resource"   >
                                     <div class="form-item">
@@ -60,14 +60,14 @@
                                         <span v-on:click="addResource(key_d,'LINK')">+ Agregar Enlace</span>
                                         <span v-on:click="addResource(key_d,'VIDEO')">+ Agregar Video</span>
                                     </div>
-                                   
-                                    
+
+
                                 </div>
-                              
+
                             </div>
                             <hr />
                         </div>
-                        
+
                     </div>
                     <div class="div-weekly-plan-btn-save">
                         <button class="btn btn-primary float-left mr-2" v-on:click="back('inicio',null, null, null)">Volver</button>
@@ -148,7 +148,7 @@ export default {
 
         });
 
-        
+
         axios.get(`/api/lectives/planification/${this.id_lective_planification}/weekly/${this.id_weekly_plan}/course`).then((response) => {
 
 
@@ -205,17 +205,17 @@ export default {
                     e.id_class=0;
                 }
 
-                    e.content.forEach(c=>{ 
+                    e.content.forEach(c=>{
                         if(e.description && !e.id_content)
                         {
                             e.id_content=0;
                         }
                     });
-                
+
             });
 
              axios.put(`/api/lectives/planification/${this.id_lective_planification}/weekly/${this.id_weekly_plan}/course`,this.weekly_plan_detail).then((response) => {
-             
+
                // this.getPlanificationEvent(this.id_lective_planification);
                 toastr.success("Clases actualizadas correctamente");
                 this.returnPage();
@@ -234,7 +234,7 @@ export default {
                 data.append("file", files[0]);
                 data.append("name", this.weekly_plan_detail[id_weekly_content].content[item_index].description.split(' ').join('_'));
                 data.append("count", `-lective-class-${id_weekly_content}-${item_index}`);
-          
+
                 let _fileNameSplit=file.name.split(".");
                 axios.post("/fileDocument", data).then(response => {
                    this.weekly_plan_detail[id_weekly_content].content[item_index].content=`${window.location.origin}/uploads/clases/${this.weekly_plan_detail[id_weekly_content].content[item_index].description.split(' ').join('_')}-lective-class-${id_weekly_content}-${item_index}.${_fileNameSplit[_fileNameSplit.length-1]}`;

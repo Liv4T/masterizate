@@ -97,7 +97,7 @@
                         </div>
                       </div>
 
-                      <div class="form-group row mx-auto" v-for="(input1, key) in fillPeriod" :key="key">
+                      <!-- <div class="form-group row mx-auto" v-for="(input1, key) in fillPeriod" :key="key">
                         <div class="col-md-6" v-if="input1.name != ''">
                           <label for="name">Periodos</label>
 
@@ -131,7 +131,7 @@
                             required
                           />
                         </div>
-                      </div>
+                      </div> -->
 
                       <!-- <div class="modal-footer">
                     <a href="#" class="btn btn-warning float-right">Guardar</a>
@@ -147,7 +147,7 @@
     </div>
   </div>
   <div v-else-if="create === true">
-    <cinstitu-adm :back="showCreate"></cinstitu-adm>
+    <cinstitu-adm :back="showCreate" :getInstitutions="getInstitutions"></cinstitu-adm>
   </div>
 </template>
 <script>
@@ -190,13 +190,16 @@ export default {
   },
   created() {},
   mounted() {
-    var urlr = "getInstitution";
-    axios.get(urlr).then((response) => {
-      this.institutions = response.data;
-    });
-    console.log("Component mounted.");
+      this.getInstitutions();
   },
   methods: {
+    getInstitutions(){
+        var urlr = "getInstitution";
+        axios.get(urlr).then((response) => {
+        this.institutions = response.data;
+        });
+        console.log("Component mounted.");
+    },
     showCreate(data){
       this.create = data;
     },
@@ -262,7 +265,8 @@ export default {
           this.errors = [];
 
           toastr.success("Nueva institución actualizada exitosamente");
-          this.getMenu();
+          $("#createInsti").modal("hide");
+          this.getInstitutions();
         })
         .catch((error) => {
           this.errors = error.response.data;
