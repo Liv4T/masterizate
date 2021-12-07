@@ -296,7 +296,6 @@ export default {
         {
             this.events.register_loading=true;
             var url = "/users_save";
-            console.log('entramos a registrar');
             axios
         .post(url, {
           name: this.registerForm.names,
@@ -345,7 +344,7 @@ export default {
             return re.test(cellphone) && cellphone.length==10;
         },
         navigateToResumen()
-        {   
+        {
             var urlLocation= decodeURI(window.location);
             let splitUrl=urlLocation.split("/");
             let last=atob(splitUrl[splitUrl.length-1]);

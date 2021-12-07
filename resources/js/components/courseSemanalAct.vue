@@ -22,7 +22,7 @@
                       <input class="form-control" disabled :value="`${orden}.${cycle_number}`">
                     </div>
                     <div class="col-md-6">
-                      <label>Trimestre</label>
+                      <label>Período</label>
                       <select class="form-control" v-model="act.id_trimestre">
                         <option :value="options.id" v-for="(options ,key) in trimestres" :key="key">
                           {{
@@ -46,7 +46,7 @@
                     <div class="col-md-6" v-for="(input, k) in inputClass" :key="k">
                       <label for="name">Desarrollo de la clase</label>
                       <a href="#" class="badge badge-danger"  @click.prevent="remove(t)" v-show="k != 0 && k == inputClass.length - 1">-</a>
-                      <a href="#" class="badge badge-primary" @click.prevent="add(t)"    v-show="k == inputClass.length - 1">+</a>                   
+                      <a href="#" class="badge badge-primary" @click.prevent="add(t)"    v-show="k == inputClass.length - 1">+</a>
                       <textarea
                         name="competences"
                         class="form-control"
@@ -58,7 +58,7 @@
                     </div>
                     <div class="col-md-6">
                       <label for="name">Observación</label>
-                      <textarea name="competences" 
+                      <textarea name="competences"
                       class="form-control" v-model="act.observation"></textarea>
                     </div>
                     <div class="col-md-6">
@@ -155,17 +155,17 @@ export default {
       this.cycle_id = this.id_cycle
     }else{
       let params = window.location.pathname;
-      let ids = params.split('/');            
+      let ids = params.split('/');
       let cycle_id = ids[4];
       this.cycle_id = cycle_id;
-    }    
+    }
 
     this.getData();
     this.getTrimestre();
   },
   methods: {
     getData(){
-      if(this.cycle_id !== ''){          
+      if(this.cycle_id !== ''){
         var urlsel=window.location.origin + "/editOneCycle/"+this.cycle_id;
         axios.get(urlsel).then((response) => {
           this.fillS = response.data;
@@ -177,9 +177,9 @@ export default {
               return false;
             }
           }
-          if(IsJsonString()){            
+          if(IsJsonString()){
             this.inputClass=response.data[0] ? JSON.parse(response.data[0].class) : {}
-          } else{            
+          } else{
             let json=[{
               class_developmentC: response.data[0] ? response.data[0].class : ""
             }];

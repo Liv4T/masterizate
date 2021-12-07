@@ -11,7 +11,7 @@
                         }}
                         </option>
                     </select>
-                </div>  
+                </div>
             </div>
             <br>
             <div class="row" v-if="typeEvent==0">
@@ -110,7 +110,7 @@ export default {
                 this.data.append("id_user_managed", this.id_managed);
 
                 axios.post("/saveProceedingsFile/general", this.data).then(response => {
-                
+
                 }).then((response) => {
                     toastr.success("Nueva acta cargada exitosamente");
                     this.getMenu();
@@ -145,7 +145,7 @@ export default {
                 this.data.append("name", file_name);
 
             }
-
+            console.log(this.data);
         },
         getUsers(){
             var url="/api/proceedings/general/users";

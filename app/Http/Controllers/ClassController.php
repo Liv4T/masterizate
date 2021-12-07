@@ -640,9 +640,9 @@ class ClassController extends Controller
                     'transversals' => $data['transversals'],
                     'hourly_intensity'=>isset($data['hourly_intensity']) ? $data['hourly_intensity'] : 0,
                     'activity_quantity'=>count($data['activities']),
-                    'content_quantity'=>count($data['content']), 
+                    'content_quantity'=>count($data['content']),
                     'activityForPIARStudents' => $data['activityForPIARStudents'],
-                    'activityForSelectStudents' => $data['activityForSelectStudents'],  
+                    'activityForSelectStudents' => $data['activityForSelectStudents'],
                     'activityForAllStudents' => $data['activityForAllStudents'],
                     'selectedStudents' => $data['selectedStudents'],
                     'url_class' => $data['url_class'],
@@ -663,7 +663,7 @@ class ClassController extends Controller
                 'activity_quantity'=>count($data['activities']),
                 'content_quantity'=>count($data['content']),
                 'activityForPIARStudents' => $data['activityForPIARStudents'],
-                'activityForSelectStudents' => $data['activityForSelectStudents'],  
+                'activityForSelectStudents' => $data['activityForSelectStudents'],
                 'activityForAllStudents' => $data['activityForAllStudents'],
                 'selectedStudents' => $data['selectedStudents'],
                 'url_class' => $data['url_class'],
@@ -750,7 +750,7 @@ class ClassController extends Controller
         if(count($data['activities'])>0)
         {
             foreach($data['activities'] as $i_activity => $activity) {
-                
+
                 $ids=explode("/",$activity['quarterly_plan']);
                 $id_quarterly_plan=$ids[0];
                 $id_achievement=$ids[1];
@@ -963,9 +963,9 @@ class ClassController extends Controller
             'video'  => (isset($data['video']) && $data['video'] !== "") ? $data['video'] : '',
             'video1'  => (isset($data['video1']) && $data['video1'] !== "") ? $data['video1'] : '',
             'video2'  => (isset($data['video2']) && $data['video2'] !== "") ? $data['video2'] : '',
-            'activityForPIARStudents' => (isset($data['activityForPIARStudents']) && $data['activityForPIARStudents'] !== "") ? $data['activityForPIARStudents'] : false,  
-            'activityForSelectStudents' => (isset($data['activityForSelectStudents']) && $data['activityForSelectStudents'] !== "") ? $data['activityForSelectStudents'] : false,  
-            'activityForAllStudents' => (isset($data['activityForAllStudents']) && $data['activityForAllStudents'] !== "") ? $data['activityForAllStudents'] : false,  
+            'activityForPIARStudents' => (isset($data['activityForPIARStudents']) && $data['activityForPIARStudents'] !== "") ? $data['activityForPIARStudents'] : false,
+            'activityForSelectStudents' => (isset($data['activityForSelectStudents']) && $data['activityForSelectStudents'] !== "") ? $data['activityForSelectStudents'] : false,
+            'activityForAllStudents' => (isset($data['activityForAllStudents']) && $data['activityForAllStudents'] !== "") ? $data['activityForAllStudents'] : false,
             'selectedStudents' => $data['selectedStudents'],
         ]);
         return 'ok';
@@ -983,7 +983,7 @@ class ClassController extends Controller
      */
     public function show(Request $request, String $id)
     {
-        $clase = Classs::where('id_weekly_plan', $id)->get();
+        $clase = Classs::where('id_weekly_plan', $id)->where('deleted', 0)->get();
         $week = Weekly::find($id);
         $user = Auth::user();
         $achievements = [];
@@ -1069,7 +1069,7 @@ class ClassController extends Controller
         $class->video1  = $data['video1'];
         $class->video2  = $data['video2'];
         $class->activityForPIARStudents = $data['activityForPIARStudents'];
-        $class->activityForSelectStudents = $data['activityForSelectStudents'];  
+        $class->activityForSelectStudents = $data['activityForSelectStudents'];
         $class->activityForAllStudents = $data['activityForAllStudents'];
         $class->selectedStudents = $data['selectedStudents'];
         $class->save();

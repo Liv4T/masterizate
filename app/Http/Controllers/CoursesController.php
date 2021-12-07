@@ -3,6 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Courses;
+use App\Activity;
+use App\ActivityQuestion;
+use App\ActivityCompleteSentence;
+use App\ActivityCrossword;
+use App\ActivityRelationship;
 use App\Quarterly;
 use App\Weekly;
 use App\Area;
@@ -83,7 +88,7 @@ class CoursesController extends Controller
             'quaterly' =>  $quaterly,
             'courses' => $Courses,
             'achievements' => $achievements
-        ]; 
+        ];
 
         return response()->json($data);
     }
@@ -106,7 +111,7 @@ class CoursesController extends Controller
         return response()->json($data);
     }
     public function getReportPlanification(String $id_achievement, String $id_planification){
-        
+
         $quaterly = [];
         $quarterlies = Quarterly::where('id_achievement', $id_achievement)->where('deleted', 0)->get();
         foreach ($quarterlies as $key_q => $quarterly) {
@@ -207,7 +212,7 @@ class CoursesController extends Controller
                         'id_area'         => $class->id,
                         'area_name'         => $class->name,
                         /*
-                            Se comenta la linea para no obtener el curso ya que se darán tutorias para  
+                            Se comenta la linea para no obtener el curso ya que se darán tutorias para
                             De la materia como tal
                         */
                         // 'text'         => $class->name . " - " . $classroom->name,
@@ -400,7 +405,7 @@ class CoursesController extends Controller
                                 'id_classroom'    => $data['id_classroom'],
                                 'id_teacher'     =>  Auth::user()->id,
                                 'id_planification' => $courses[0]->id,
-                                'deleted' => 0, 
+                                'deleted' => 0,
                                 'id_achievement' => $Quarterly['objetive'],
                             ]);
                         }
@@ -412,7 +417,7 @@ class CoursesController extends Controller
                             'id_area'    => $data['id_area'],
                             'id_classroom'    => $data['id_classroom'],
                             'id_teacher'     =>  Auth::user()->id,
-                            'id_planification' => $courses[0]->id, 
+                            'id_planification' => $courses[0]->id,
                             'deleted' => 0,
                             'id_achievement' => $Quarterly['objetive'],
                         ]);
@@ -690,7 +695,7 @@ class CoursesController extends Controller
     {
         $data = [];
 
-        
+
         $Weeks = Weekly::where('id', $id)->get();
 
         $data = [];
@@ -779,7 +784,6 @@ class CoursesController extends Controller
                 $weekly_planning_id=$data['toData']['weekly_planning']['id'];
             }
 
-
             //copy class information
             if($data['fromData']['class_planning']=='null')
             {
@@ -787,10 +791,8 @@ class CoursesController extends Controller
             }
             else if($data['fromData']['class_planning']=='all')
             {
-
-                $class_planning=Classs::where('id_weekly_plan',$data['fromData']['weekly_planning']['id'])->get();
-
-                foreach ($class_planning as $key_c => $clase) {            
+                $class_planning=Classs::where('id_weekly_plan',$data['fromData']['weekly_planning']['id'])->where('deleted', 0)->get();
+                foreach ($class_planning as $key_c => $clase) {
                     if($class_plan[$key_c]['id'] === $clase->id){
                         $class =Classs::create([
                             'name'=>$clase->name,
@@ -832,9 +834,9 @@ class CoursesController extends Controller
                         $evento->id_classroom = $data['toData']['area']['id_classroom'];
                         $evento->id_user = Auth::user()->id;
                         $evento->url = $clase->url_class;
-                        $evento->id_padre = NULL; 
+                        $evento->id_padre = NULL;
                         $evento->save();
-                    }                                                             
+                    }
                     if(isset($class))
                     {
                         $classes_content=ClassContent::where('id_class',$clase->id)->where('deleted',0)->get();
@@ -854,7 +856,78 @@ class CoursesController extends Controller
                         }
                     }
                 }
+                $activities=Activity::where('id_class', $clase->id)->get();
+                foreach ($activities as $key_a => $activity) {
+                    $activity_new=Activity::create([
+                        'id_class'=>$class->id,
+                        'id_quarterly_plan'=>$activity->id_quarterly_plan,
+                        'id_achievement'=>$activity->id_achievement,
+                        'id_indicator'=>$activity->id_indicator,
+                        'activity_type'=>$activity->activity_type,
+                        'name'=>$activity->name,
+                        'description'=>$activity->description,
+                        'is_required'=>1,
+                        'state'=>1,
+                        'deleted'=>0,
+                        'updated_user'=>$auth->id,
+                        'delivery_max_date'=>$activity->delivery_max_date,
+                        'feedback_date'=>$activity->feedback_date
+                    ]);
+                    if($activity->activity_type==='CUESTIONARIO'){
 
+                        $activityQ=ActivityQuestion::where('id_activity', $activity->id)->where('deleted', 0)->first();
+                        if(isset($activityQ)){
+                            ActivityQuestion::create([
+                                'id_activity'=>$activity_new->id,
+                                'question'=>$activityQ->question,
+                                'type_question'=>$activityQ->type_question,
+                                'content'=>$activityQ->content,
+                                'correct_answer'=>$activityQ->correct_answer,
+                                'justify'=>$activityQ->justify,
+                                'state'=>1,
+                                'deleted'=>0,
+                                'updated_user'=>$auth->id
+                            ]);
+                        }
+                    }
+                    if($activity->activity_type==='COMPLETAR_ORACION'){
+                        $activityC=ActivityCompleteSentence::where('id_activity', $activity->id)->where('deleted', 0)->first();
+                        if(isset($activityC)){
+                            ActivityCompleteSentence::create([
+                                'id_activity'=>$activity_new->id,
+                                'content'=>$activityC->content,
+                                'state'=>1,
+                                'deleted'=>0,
+                                'updated_user'=>$auth->id
+                            ]);
+                        }
+                    }
+                    if($activity->activity_type==='RELACION'){
+                        $activityR=ActivityRelationship::where('id_activity', $activity->id)->where('deleted', 0)->first();
+                        if(isset($activityR)){
+                            ActivityRelationship::create([
+                                'id_activity'=>$activity_new->id,
+                                'content'=>$activityR->content,
+                                'state'=>1,
+                                'deleted'=>0,
+                                'updated_user'=>$auth->id
+                            ]);
+                        }
+                    }
+                    if($activity->activity_type==='CRUCIGRAMA'){
+                        $activityCR=ActivityCrossword::where('id_activity', $activity->id)->first();
+                        //return $activityCR;
+                        if(isset($activityCR)){
+                            ActivityCrossword::create([
+                                'id_activity'=>$activity_new->id,
+                                'content'=>$activityCR->content,
+                                'state'=>1,
+                                'deleted'=>0,
+                                'updated_user'=>$auth->id
+                            ]);
+                        }
+                    }
+                }
             }
             else{
 
@@ -865,7 +938,6 @@ class CoursesController extends Controller
                 else if($data['toData']['class_planning']=='new')
                 {
                     $clase=Classs::find($data['fromData']['class_planning']['id']);
-
                     $class=Classs::create([
                         'name'=>$clase->name,
                         'date_init_class'=>$data['fromData']['class_planning']['date_init_class'],
@@ -894,13 +966,10 @@ class CoursesController extends Controller
                         'objetivesClass'=> $clase->objetivesClass
                     ]);
 
-                    //$date_i= $data['fromData']['class_planning']['date_init_class'];
-                    //$explode=explode("T", $date_i);
-                    //$date_init= $explode[0] . ' ' . $explode[1];
-                    $date_init= $data['fromData']['class_planning']['date_init_class'];
+                    $date_i= $data['fromData']['class_planning']['date_init_class'];
+                    $explode=explode("T", $date_i);
+                    $date_init= $explode[0] . ' ' . $explode[1];
                     $date_fin=date( 'Y-m-d H:i' ,  strtotime ( '+2 hour' , strtotime ($date_init))) ;
-                    $date_init= $data['fromData']['class_planning']['date_init_class'];
-                    $date_fin=date_add($date_init, date_interval_create_from_date_string("2 hours"));
                     $evento = new Eventos;
                     $evento->name = $clase->name;
                     $evento->date_from = $date_init;
@@ -909,7 +978,7 @@ class CoursesController extends Controller
                     $evento->id_classroom = $data['toData']['area']['id_classroom'];
                     $evento->id_user = Auth::user()->id;
                     $evento->url = $clase->url_class;
-                    $evento->id_padre = NULL; 
+                    $evento->id_padre = NULL;
                     $evento->save();
 
                     if(isset($class))
@@ -932,11 +1001,81 @@ class CoursesController extends Controller
 
 
                     }
+                    $activities=Activity::where('id_class', $clase->id)->get();
+                    foreach ($activities as $key_a => $activity) {
+                        $activity_new=Activity::create([
+                            'id_class'=>$class->id,
+                            'id_quarterly_plan'=>$activity->id_quarterly_plan,
+                            'id_achievement'=>$activity->id_achievement,
+                            'id_indicator'=>$activity->id_indicator,
+                            'activity_type'=>$activity->activity_type,
+                            'name'=>$activity->name,
+                            'description'=>$activity->description,
+                            'is_required'=>1,
+                            'state'=>1,
+                            'deleted'=>0,
+                            'updated_user'=>$auth->id,
+                            'delivery_max_date'=>$activity->delivery_max_date,
+                            'feedback_date'=>$activity->feedback_date
+                        ]);
+                        if($activity->activity_type==='CUESTIONARIO'){
+
+                            $activityQ=ActivityQuestion::where('id_activity', $activity->id)->where('deleted', 0)->first();
+                            if(isset($activityQ)){
+                                ActivityQuestion::create([
+                                    'id_activity'=>$activity_new->id,
+                                    'question'=>$activityQ->question,
+                                    'type_question'=>$activityQ->type_question,
+                                    'content'=>$activityQ->content,
+                                    'correct_answer'=>$activityQ->correct_answer,
+                                    'justify'=>$activityQ->justify,
+                                    'state'=>1,
+                                    'deleted'=>0,
+                                    'updated_user'=>$auth->id
+                                ]);
+                            }
+                        }
+                        else if($activity->activity_type==='COMPLETAR_ORACION'){
+                            $activityC=ActivityCompleteSentence::where('id_activity', $activity->id)->where('deleted', 0)->first();
+                            if(isset($activityC)){
+                                ActivityCompleteSentence::create([
+                                    'id_activity'=>$activity_new->id,
+                                    'content'=>$activityC->content,
+                                    'state'=>1,
+                                    'deleted'=>0,
+                                    'updated_user'=>$auth->id
+                                ]);
+                            }
+                        }
+                        else if($activity->activity_type==='RELACION'){
+                            $activityR=ActivityRelationship::where('id_activity', $activity->id)->where('deleted', 0)->first();
+                            if(isset($activityR)){
+                                ActivityRelationship::create([
+                                    'id_activity'=>$activity_new->id,
+                                    'content'=>$activityR->content,
+                                    'state'=>1,
+                                    'deleted'=>0,
+                                    'updated_user'=>$auth->id
+                                ]);
+                            }
+                        }
+                        else if($activity->activity_type==='CRUCIGRAMA'){
+                            $activityCR=ActivityCrossword::where('id_activity', $activity->id)->where('deleted', 0)->first();
+                            if(isset($activityCR)){
+                                ActivityCrossword::create([
+                                    'id_activity'=>$activity_new->id,
+                                    'content'=>$activityCR->content,
+                                    'state'=>1,
+                                    'deleted'=>0,
+                                    'updated_user'=>$auth->id
+                                ]);
+                            }
+                        }
+                    }
                 }
                 else
                 {
                     $clase=Classs::find($data['fromData']['class_planning']['id']);
-
                     Classs::where('id',$data['toData']['class_planning']['id'])->update([
                         'name'=>$clase->name,
                         'date_init_class'=>$data['fromData']['class_planning']['date_init_class'],
@@ -964,13 +1103,10 @@ class CoursesController extends Controller
                         'objetivesClass'=> $clase->objetivesClass
                     ]);
 
-                    //$date_i= $data['fromData']['class_planning']['date_init_class'];
-                    //$explode=explode("T", $date_i);
-                    //$date_init= $explode[0] . ' ' . $explode[1];
-                    $date_init= $data['fromData']['class_planning']['date_init_class'];
+                    $date_i= $data['fromData']['class_planning']['date_init_class'];
+                    $explode=explode("T", $date_i);
+                    $date_init= $explode[0] . ' ' . $explode[1];
                     $date_fin=date( 'Y-m-d H:i' ,  strtotime ( '+2 hour' , strtotime ($date_init))) ;
-                    $date_init= $data['fromData']['class_planning']['date_init_class'];
-                    $date_fin=date_add($date_init, date_interval_create_from_date_string("2 hours"));
                     $evento = new Eventos;
                     $evento->name = $clase->name;
                     $evento->date_from = $date_init;
@@ -979,7 +1115,7 @@ class CoursesController extends Controller
                     $evento->id_classroom = $data['toData']['area']['id_classroom'];
                     $evento->id_user = Auth::user()->id;
                     $evento->url = $clase->url_class;
-                    $evento->id_padre = NULL; 
+                    $evento->id_padre = NULL;
                     $evento->save();
 
                 }
@@ -1044,7 +1180,7 @@ class CoursesController extends Controller
 
                 $class_planning=LectiveClass::where('id_lective_weekly_plan',$data['fromData']['weekly_planning']['id'])->get();
 
-                foreach ($class_planning as $key_c => $clase) {  
+                foreach ($class_planning as $key_c => $clase) {
                     if($class_plan[$key_c]['id_class'] === $clase->id){
                         $class =LectiveClass::create([
                             'name'=>$clase->name,
@@ -1067,9 +1203,9 @@ class CoursesController extends Controller
                         $evento->id_classroom = 0;
                         $evento->id_user = Auth::user()->id;
                         $evento->url = 'no hay url asiganada';
-                        $evento->id_padre = NULL; 
+                        $evento->id_padre = NULL;
                         $evento->save();
-                    }                                                             
+                    }
                     if(isset($class))
                     {
                         $classes_content=LectiveClassContent::where('id_lective_class',$clase->id)->where('deleted',0)->get();
@@ -1125,7 +1261,7 @@ class CoursesController extends Controller
                     $evento->id_classroom = 0;
                     $evento->id_user = Auth::user()->id;
                     $evento->url = 'no hay url asiganada';
-                    $evento->id_padre = NULL; 
+                    $evento->id_padre = NULL;
                     $evento->save();
 
                     if(isset($class))
@@ -1176,7 +1312,7 @@ class CoursesController extends Controller
                     $evento->id_classroom = 0;
                     $evento->id_user = Auth::user()->id;
                     $evento->url = 'no hay url asiganada';
-                    $evento->id_padre = NULL; 
+                    $evento->id_padre = NULL;
                     $evento->save();
 
                 }
@@ -1193,8 +1329,8 @@ class CoursesController extends Controller
     }
     public function deleteLogro(int $id){
         $update= Quarterly::where('id', $id)->update(['deleted' => 1]);
- 
+
         return 'ok';
- 
+
      }
 }

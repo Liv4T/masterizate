@@ -29,14 +29,14 @@
       </div>
     </div>
     <!-- START CONTENT -->
-    <div class="row margin-top-20"> 
+    <div class="row margin-top-20">
         <div class="col-md-10 mx-auto">
           <div class="card">
             <h5 class="card-header">Copiar desde:</h5>
             <div class="card-body">
                 <div class="row margin-top-20">
                   <div class="col-6">
-                    <label>Trimestres:</label>
+                    <label>Períodos:</label>
                     <select class="form-control" @change="onChangeAreaFrom($event)" v-model="fromData.trimestres">
                       <option value="null">-- Seleccione --</option>
                       <option  v-for="(trimestre, k_b) in trimestres" :key="k_b" v-bind:value="trimestre.id" >{{ trimestre.nombre }}</option>
@@ -67,20 +67,20 @@
                       <option value="all">- Todas las clases -</option>
                       <option  v-for="(class_plan, k_c) in class_planning" :key="k_c" v-bind:value="class_plan"  >{{ class_plan.name }}</option>
                     </select>
-                  </div>              
+                  </div>
                 </div>
             </div>
           </div>
         </div>
     </div>
-    <div class="row margin-top-20"> 
+    <div class="row margin-top-20">
         <div class="col-md-10 mx-auto">
           <div class="card">
             <h5 class="card-header">Copiar a:</h5>
              <div class="card-body">
                 <div class="row margin-top-20">
                   <div class="col-6">
-                    <label>Trimestres:</label>
+                    <label>Períodos:</label>
                     <select class="form-control" v-model="fromData.trimestres" disabled>
                       <option value="null">-- Seleccione --</option>
                       <option  v-for="(trimestre, k_b) in trimestres" :key="k_b" v-bind:value="trimestre.id" >{{ trimestre.nombre }}</option>
@@ -92,7 +92,7 @@
                       <option value="null">-- Seleccione --</option>
                       <option v-if="area!=fromData.area"  v-for="(area, k_a) in my_areas" :key="k_a"  v-bind:value="area" >{{ area.lective.name }}</option>
                     </select>
-                  </div>     
+                  </div>
                 </div>
                 <div class="row margin-top-20">
 
@@ -118,10 +118,10 @@
           </div>
         </div>
     </div>
-    <div class="row margin-top-20"> 
+    <div class="row margin-top-20">
         <div class="col-md-10 mx-auto text-right">
-          <button class="btn btn-warning" 
-          :disabled="fromData.area=='null' || toData.area=='null' || toData.weekly_planning=='null'" 
+          <button class="btn btn-warning"
+          :disabled="fromData.area=='null' || toData.area=='null' || toData.weekly_planning=='null'"
           type="button" data-toggle="modal" data-target="#exampleModal">Copiar información</button>
         </div>
     </div>
@@ -143,11 +143,11 @@
             <div v-show="fromData.class_planning!='all'">
               <label for="date">Fecha Inicio de Clase</label>
               <input type="datetime-local" class="form-control" v-model="fromData.class_planning.date_init_class"/>
-            </div>     
+            </div>
             <div v-show="fromData.class_planning=='all'" v-for="(class_plan, key) in class_planning" :key="key">
               <label>{{class_plan.name}}</label>
               <input type="datetime-local" class="form-control" v-model="class_plan.date_init_class"/>
-            </div>     
+            </div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
@@ -156,7 +156,7 @@
         </div>
       </div>
     </div>
- 
+
     <!-- END CONTENT -->
   </div>
 </div>
@@ -272,14 +272,14 @@ export default {
   },
   mounted() {
    this.getTrimestres();
-   this.getAreas();    
+   this.getAreas();
   },
   methods: {
     copyInformationEvent()
     {
       axios.put("/api/lectives/planification/copy",{fromData:this.fromData,toData:this.toData, class_planning:this.class_planning}).then((response) => {
         toastr.success("Información duplicada correctamente");
-      });      
+      });
     },
     onChangePlanTo($event){
 
@@ -315,7 +315,7 @@ export default {
       else{
         this.to_class_planning=[];
       }
-     
+
     },
     onChangeWeerklyPlanFrom($event){
 
@@ -329,7 +329,7 @@ export default {
       else{
         this.class_planning=[];
       }
-     
+
     },
     onChangeAreaFrom($event){
       if(this.fromData.area!='null' && this.fromData.trimestres!=''){
@@ -341,7 +341,7 @@ export default {
       }
     },
     onChangePlanFrom($event){
-    
+
         if(this.fromData.annual_planning=='one')
         {
           this.fromData.percent_planning='null';
@@ -370,7 +370,7 @@ export default {
           this.fromData.weekly_planning='null';
           this.fromData.class_planning='null';
 
-         
+
 
 
         }

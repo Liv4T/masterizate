@@ -18,7 +18,7 @@
                       @click.prevent="getPlanificationEvent(plan.id_planification)"
                       aria-controls="collapse"
                     >
-                      <label>{{ plan.lective.name }} Trimestre {{plan.period_consecutive}}</label>
+                      <label>{{ plan.lective.name }} Período {{plan.period_consecutive}}</label>
                     </button>
                   </h2>
                 </div>
@@ -29,7 +29,7 @@
                   data-parent="#accordionExample"
                 >
                   <a
-                    v-on:click="showSection('general', plan.id_planification)"                    
+                    v-on:click="showSection('general', plan.id_planification)"
                     class="btn btn-warning"
                   >General</a>
                  <!-- <a
@@ -38,12 +38,12 @@
                   >Duplicar</a>-->
                   <a
                     v-on:click="showSection('porcent', plan.id_planification)"
-                    v-show="general==true"                    
+                    v-show="general==true"
                     class="btn btn-warning"
                   >Porcentaje de notas</a>
                   <a
                     v-on:click="showSection('cycleLectives', plan.id_planification)"
-                    v-show="general==true"                    
+                    v-show="general==true"
                     class="btn btn-warning"
                   >Gestionar Ciclo</a>
                  <!--  <a
@@ -51,7 +51,7 @@
                     :href="'/teacher/lectives/planning/'+plan.id_planification+'/weekly/copy'"
                     class="btn btn-warning"
                   >Duplicar Ciclo</a>-->
-                  
+
                 </div>
               </div>
             </div>

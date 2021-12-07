@@ -3,34 +3,34 @@
         <div>
             <div class="row">
                 <div class="left">
-                    <ul> 
+                    <ul>
                         <a v-on:click="showSection('institutions')" class="">
                             <li class="item-menu">
                                 <span class="menu">Instituciones</span>
-                            </li>                            
+                            </li>
                         </a>
-                        <a v-on:click="showSection('quarter')" class="">                            
+                        <a v-on:click="showSection('quarter')" class="">
                             <li class="item-menu">
-                                <span class="menu">Trimestre</span>
+                                <span class="menu">Período</span>
                             </li>
                         </a>
 
-                        <a v-on:click="showSection('classroom')" class="">                            
+                        <a v-on:click="showSection('classroom')" class="">
                             <li class="item-menu">
                                 <span class="menu">Salones</span>
                             </li>
-                        </a>                    
+                        </a>
 
                         <a v-on:click="showSection('piarStudents')" class="">
                             <li class="item-menu">
                                 <span class="menu">Estudiantes PIAR</span>
-                            </li>                            
+                            </li>
                         </a>
 
                         <a v-on:click="showSection('users')" class="">
                             <li class="item-menu">
                                 <span class="menu">Usuarios</span>
-                            </li>                            
+                            </li>
                         </a>
 
                         <a v-on:click="showSection('noteParameters')" class="">
@@ -42,24 +42,24 @@
                         <a v-on:click="showSection('nursing')" class="">
                             <li class="item-menu">
                                 <span class="menu">Enfermería</span>
-                            </li>                            
+                            </li>
                         </a>
 
                         <a v-on:click="showSection('feeding')" class="">
                             <li class="item-menu">
                                 <span class="menu">Alimentación</span>
-                            </li>                            
+                            </li>
                         </a>
 
                         <a v-on:click="showSection('transport')" class="">
                             <li class="item-menu">
                                 <span class="menu">Transporte</span>
-                            </li>                            
-                        </a>                        
+                            </li>
+                        </a>
                     </ul>
                     <br />
                 </div>
-                
+
                 <div class="col-md-12">
                     <div v-if="activetab === 'institutions'">
                         <institu-adm></institu-adm>
@@ -69,7 +69,7 @@
                     </div>
                     <div v-if="activetab === 'classroom'">
                         <cursos-adm></cursos-adm>
-                    </div>                    
+                    </div>
                     <div v-if="activetab === 'piarStudents'">
                         <piar-component ></piar-component>
                     </div>
@@ -94,14 +94,14 @@
     </div>
 </template>
 <script>
-export default { 
-    props:['user'],   
+export default {
+    props:['user'],
     data() {
         return {
             activetab: null,
         };
-    },  
-    methods: {        
+    },
+    methods: {
         showSection(section){
             this.activetab = section
         }
@@ -132,6 +132,7 @@ export default {
   height: 60px;
   line-height: 50px;
   padding-left: 18px;
+  border-radius: 10px;
 }
 .left li:hover {
   background: #01aeb1c1;

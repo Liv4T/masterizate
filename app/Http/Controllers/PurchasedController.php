@@ -23,10 +23,10 @@ use Throwable;
 class PurchasedController extends Controller
 {
     public function payPaypal(string $data_string){
-        
+
         try{
             $auth = Auth::user();
-            
+
             if (!isset($data_string)) {
                 return view('purchasePlanError')->with('error', 'No se puede procesar pago, información inválida.');
             }
@@ -44,7 +44,7 @@ class PurchasedController extends Controller
             }
 
             $customer = Customer::where('user_id', $auth->id)->where('deleted', 0)->where('state', 1)->first();
-            
+
             if (!isset($customer)) {
                 $customer_inactive = Customer::where('user_id', $auth->id)->where('deleted', 0)->where('state', 0)->first();
                 if(isset($customer_inactive)){
@@ -62,7 +62,7 @@ class PurchasedController extends Controller
             // $exchange = PaypalExchange::where('institution_id', $auth->institution_id)
             // ->where('currency', 'COP')
             // ->orderBy('id', 'desc')
-            // ->first(); 
+            // ->first();
             $plan_price = TutorSchedule::where('id',$data['schedule_id'])->where('state', 1)->where('deleted', 0)->first();
             //$plan_price = $data['amount'];
             //$total_plan = (($plan_price  * $data['quantity'])/$exchange);
@@ -76,13 +76,13 @@ class PurchasedController extends Controller
                 $last_cons= CustomerInvoice::all()->last();
 
                 if(!isset($last_cons)){
-                    $consecutive=0;   
+                    $consecutive=0;
                 }else{
                     $consecutive = $last_cons->consecutive + 1;
                 }
 
                 $studentEvent=TutorScheduleEvent::where('id_schedulestudent', $data['event_student_id'])->where('deleted', 0)->where('id_user', $auth->id)->first();
-                
+
                 $invoice = CustomerInvoice::create([
                     'prefix_code' => 'LIV4T',
                     'consecutive' => $consecutive,
@@ -101,7 +101,7 @@ class PurchasedController extends Controller
                 $invoice_item = CustomerInvoiceItem::create([
                     'customer_invoice_id' => $invoice->id,
                     'customer_plan_id' => $data['event_student_id'],
-                    'customer_plan_name' => $studentEvent->name, 
+                    'customer_plan_name' => $studentEvent->name,
                     'quantity' => $data['quantity'],
                     'unit_value' => $total,
                     'discount_value' => 0,
@@ -118,9 +118,9 @@ class PurchasedController extends Controller
                     $invoice_items = CustomerInvoiceItem::where('customer_invoice_id', $invoice->id)->where('deleted', 0)->get();
 
                     $last_cons= CustomerInvoice::all()->last()->consecutive;
-                    
+
                     $consecutive = $last_cons->consecutive + 1;
-                
+
 
                     CustomerInvoice::where('id', $invoice->id)->update([
                         'prefix_code' => 'LIV4T',
@@ -139,7 +139,7 @@ class PurchasedController extends Controller
                 if ($total == 0) {
                     Db::raw('unlock tables');
                 }
-                
+
             } catch (Throwable $e) {
                 DB::rollback();
                 return view('purchasePlanError')->with('error', $e->getMessage());
@@ -158,7 +158,7 @@ class PurchasedController extends Controller
                 'buyerEmail' => $data['payer_email'],
             ];
             return view('purchasePaypalResult')->with('model', json_encode($model));
-            
+
         } catch (Throwable $e) {
             return view('purchasePlanError')->with('error', $e->getMessage());
         }
@@ -167,7 +167,7 @@ class PurchasedController extends Controller
     public function payPaypalPlan(string $data_string){
         try{
             $auth = Auth::user();
-            
+
             if (!isset($data_string)) {
                 return view('purchasePlanError')->with('error', 'No se puede procesar pago, información inválida.');
             }
@@ -175,9 +175,9 @@ class PurchasedController extends Controller
             $data = json_decode(base64_decode($data_string), true);
             $current_date = date('Y-m-d H:i:s');
             if($data['plan_name']==='PLAN_MENSUAL'){
-                $end_range_date =date ( 'Y-m-d H:i:s' ,  strtotime ('+30 day' , strtotime ($current_date ))); 
+                $end_range_date =date ( 'Y-m-d H:i:s' ,  strtotime ('+30 day' , strtotime ($current_date )));
             }else{
-                $end_range_date =date ( 'Y-m-d H:i:s' ,  strtotime ('+365 day' , strtotime ($current_date ))); 
+                $end_range_date =date ( 'Y-m-d H:i:s' ,  strtotime ('+365 day' , strtotime ($current_date )));
             }
 
             if (!isset($data) || !isset($data['quantity'])) {
@@ -190,13 +190,13 @@ class PurchasedController extends Controller
             }
 
             $customer = Customer::where('user_id', $auth->id)->where('deleted', 0)->where('state', 1)->first();
-            
+            //return $customer;
             if (!isset($customer)) {
                 $customer_inactive = Customer::where('user_id', $auth->id)->where('deleted', 0)->where('state', 0)->first();
                 if(isset($customer_inactive)){
                     return view('purchasePlanError')->with('error', 'No se puede procesar pago, cliente ináctivo.');
                 }else{
-                    Customer::create([
+                    $customer=Customer::create([
                         'user_id'=>$auth->id,
                         'type'=>1,
                         'state'=>1,
@@ -205,15 +205,15 @@ class PurchasedController extends Controller
                     ]);
                 }
             }
-
+            //return 'ok';
             $code = TutorCode::where('code', $data['code'])->first();
 
             $vinculation_code = VinculationTutorStudent::where('id_tutor', $code->id_tutor)
                                                         ->where('id_student', $auth->id)
                                                         ->where('code_vinculated', $data['code'])
                                                         ->first();
-            
-            
+
+
             $total = $data['total'];
 
             //add invoice
@@ -224,7 +224,7 @@ class PurchasedController extends Controller
                 $last_cons= CustomerInvoice::all()->last();
 
                 if(!isset($last_cons)){
-                    $consecutive=0;   
+                    $consecutive=0;
                 }else{
                     $consecutive = $last_cons->consecutive + 1;
                 }
@@ -247,7 +247,7 @@ class PurchasedController extends Controller
                 $invoice_item = CustomerInvoiceItem::create([
                     'customer_invoice_id' => $invoice->id,
                     'customer_plan_id' => 0,
-                    'customer_plan_name' => $data['plan_name'], 
+                    'customer_plan_name' => $data['plan_name'],
                     'quantity' => $data['quantity'],
                     'unit_value' => $total,
                     'discount_value' => 0,
@@ -259,7 +259,7 @@ class PurchasedController extends Controller
                     'deleted' => 0,
                     'updated_user' => $auth->id
                 ]);
-                
+
                 $enable_subjects = enableSubject::create([
                     'id_code' => $code->id,
                     'id_area' => $code->id_area,
@@ -275,15 +275,14 @@ class PurchasedController extends Controller
                         'code_vinculated' => $data['code'],
                     ]);
                 }
-                
 
                 if ($total == 0) {
                     $invoice_items = CustomerInvoiceItem::where('customer_invoice_id', $invoice->id)->where('deleted', 0)->get();
 
                     $last_cons= CustomerInvoice::all()->last()->consecutive;
-                    
+
                     $consecutive = $last_cons->consecutive + 1;
-                
+
 
                     CustomerInvoice::where('id', $invoice->id)->update([
                         'prefix_code' => 'LIV4T',
@@ -291,12 +290,13 @@ class PurchasedController extends Controller
                         'state' => 2
                     ]);
                 }
+
                 DB::commit();
 
                 if ($total == 0) {
                     Db::raw('unlock tables');
                 }
-                
+
             } catch (Throwable $e) {
                 DB::rollback();
                 return view('purchasePlanError')->with('error', $e->getMessage());
@@ -315,7 +315,7 @@ class PurchasedController extends Controller
                 'buyerEmail' => $data['payer_email'],
             ];
             return view('purchasePaypalResult')->with('model', json_encode($model));
-            
+
         } catch (Throwable $e) {
             return view('purchasePlanError')->with('error', $e->getMessage());
         }
@@ -326,7 +326,7 @@ class PurchasedController extends Controller
         $exchange = PaypalExchange::where('institution_id', $auth->institution_id)
         ->where('currency', 'COP')
         ->orderBy('id', 'desc')
-        ->first(); 
+        ->first();
 
         return $exchange;
     }

@@ -29,7 +29,7 @@ const i18n = new VueI18n({
     }
   }
 });
-  
+
 
 // the main entrance
 /* eslint-disable no-new */
@@ -68,7 +68,7 @@ Vue.component("footer-home", require("./components/footerHome.vue").default);
 Vue.component("unit-class", require("./components/unitComponent.vue").default);
 Vue.component("free-component", require("./components/freeComponent.vue").default);
 Vue.component("freeu-component", require("./components/freeUnitComponent.vue").default);
-Vue.component("course-component", () => import ("./components/courseComponent.vue")); 
+Vue.component("course-component", () => import ("./components/courseComponent.vue"));
 Vue.component("trim-component", () =>import("./components/TrimComponent.vue"));
 Vue.component("course-view", require("./components/CourseView.vue").default);
 Vue.component("semanal-component", require("./components/courseSemanalComponet.vue").default);
@@ -182,6 +182,7 @@ Vue.component("materias-coord",()=>import("./components/MateriasCoord.vue"));
 Vue.component("courses-coord", () =>import("./components/CourseCoord.vue"));
 Vue.component("utils-coord", () =>import("./components/UtilsCoord.vue"));
 Vue.component("pedagogical-course", ()=>import("./components/PedagogicalCourse.vue"));
+Vue.component("update-pedagogical-circular", ()=>import("./components/PedagogicalModalUploadCircularComponent.vue"));
 Vue.component("permission-pedagogic", ()=>import("./components/permissionPedagogic.vue"));
 
 Vue.component("salon-adm", ()=>import("./components/salonAdm.vue"));
@@ -211,6 +212,7 @@ Vue.component("process-ribbon-component", () =>   import("./components/processRi
 
 Vue.component("lectives-adm", () => import ("./components/lectivesAdmComponent.vue"));
 Vue.component("lectives-adm-assing-teacher", () => import ("./components/lectivesAdmAssingTeacherComponent.vue"));
+Vue.component("lectives-teacher-course", () => import ("./components/lectivesClass.vue"));
 Vue.component("lectives-student-activities", () => import ("./components/lectivesStudentActivitiesComponent.vue"));
 Vue.component("lectives-student-courses", () => import ("./components/lectivesStudentCoursesComponent.vue"));
 Vue.component("lectives-teacher-planning", () => import ("./components/lectivesTeacherPlanningComponent.vue"));
@@ -225,7 +227,7 @@ Vue.component("lectives-teacher-board", () => import ("./components/lectivesTeac
 Vue.component("lectives-teacher-students", () => import ("./components/lectivesTeacherStudentsComponent.vue"));
 
 Vue.component("lectives-teacher-notes", () => import ("./components/lectivesTeacherNotesComponent.vue"));
-
+Vue.component("lectives-teacher-module", () => import ("./components/lectivesTeacherModuleComponent.vue"));
 
 Vue.component("repository-component", () => import("./components/repositoryComponent.vue"));
 Vue.component("create-repository", () => import("./components/repositoryCreate.vue"));

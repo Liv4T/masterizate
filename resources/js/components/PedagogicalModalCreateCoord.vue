@@ -50,6 +50,9 @@
                         <label>Descripción</label>
                         <textarea class="form-control" v-model="description"/>
                     </div>
+                    <div class="form-group">
+                        <input class="form-control" type="file" accept=".pdf" placeholder="Seleccione un archivo" @change="onFileChange($event)" required="required"/>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
@@ -61,7 +64,7 @@
 </template>
 <script>
 export default {
-    props:['gradeOptions'],
+    props:['gradeOptions','getPedagogical'],
     data(){
         return{
             name_activity: '',
@@ -71,7 +74,8 @@ export default {
             time_arrival: '',
             description: '',
             permission: false,
-            newGradeOptions:[]
+            newGradeOptions:[],
+            data:"",
         }
     },
     watch:{
@@ -89,22 +93,46 @@ export default {
     },
     methods:{
         savePedagogic(){
-            axios.post(`pedagogic`,{
-                name_activity: this.name_activity,
-                grade: this.grade.text,
-                id_classroom: this.grade.id_classroom,
-                place: this.place,
-                departure_time: this.departure_time,
-                time_arrival: this.time_arrival,
-                description: this.description,
-            }).then((response)=>{
-                toastr.success(response.data)
-                window.location = "/pedagogic";
-            }).catch((error)=>{
-                toastr.info('Ha ocurrido algo, intenta de nuevo mas tarde');
-                console.log(error)
-            })
-        }
+            if (!this.data) {
+                toastr.info('La circular es obligatoria.');
+            }else{
+                this.data.append("name_activity", this.name_activity);
+                this.data.append("grade",this.grade.text);
+                this.data.append("id_classroom",this.grade.id_classroom);
+                this.data.append("place", this.place);
+                this.data.append("departure_time", this.departure_time);
+                this.data.append("time_arrival", this.time_arrival);
+                this.data.append("description", this.description);
+
+                axios.post(`pedagogic`,this.data).then((response)=>{
+                    toastr.success(response.data)
+                    //window.location = "/pedagogic";
+                    this.getPedagogical();
+                    $("#exampleModal").modal("hide");
+                }).catch((error)=>{
+                    toastr.info('Ha ocurrido algo, intenta de nuevo mas tarde');
+                    console.log(error)
+                })
+            }
+        },
+        onFileChange(file) {
+            let files = file.target.files || file.dataTransfer.files;
+            this.data = new FormData();
+            if (files.length > 0) {
+                let file = files[0];
+                let _fileNameSplit=file.name.split(".");
+
+                // if uploaded file is valid with validation rules
+                let file_extension=_fileNameSplit[_fileNameSplit.length-1];
+                let file_name=file.name.replace(`.${file_extension}`,'');
+
+                this.data.append("file", files[0]);
+                this.data.append("name", file_name);
+
+            }
+            console.log(this.data);
+
+        },
     }
 }
 </script>

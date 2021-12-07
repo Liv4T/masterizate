@@ -25,13 +25,13 @@
       <div class="col-md-11 mx-auto">
         <div class="custom-card text-center">
           <h3 class="card-header fondo">Planificación general</h3>
-          <span class="classroom-label">{{planification.lective.name}} Trimestre {{planification.period_consecutive}}</span>
+          <span class="classroom-label">{{planification.lective.name}} Período {{planification.period_consecutive}}</span>
           <span v-show="!isSynchronized">(Hay cambios que no han sido guardados)</span>
           <div class=" float-right">
             <!-- <a href="/teacher/lectives/planning" class="btn btn-primary">Volver</a> -->
             <button class="btn btn-primary" v-on:click="back('inicio',null)">Volver</button>
           </div>
-          
+
           <form class="needs-validation" novalidate>
             <form-wizard
               title
@@ -130,12 +130,12 @@
                   </div>
                 </div>
                 <div class="modal-footer">
-                  <!-- <a submit="saveData" class="btn btn-warning float-right">Guardar</a> -->                  
+                  <!-- <a submit="saveData" class="btn btn-warning float-right">Guardar</a> -->
                 </div>
-              </tab-content>              
+              </tab-content>
             </form-wizard>
           </form>
-        
+
         </div>
       </div>
     </div>
@@ -253,13 +253,13 @@ export default {
           this.quarterlies_saved= JSON.parse(JSON.stringify(this.quarterlies));
         }
 
-          console.log(this.achievements);   
-   
+          console.log(this.achievements);
+
         if(localStorage.getItem(this.serialLocalStorage))
         {
           let savedPlanificationModel=JSON.parse(decodeURIComponent(escape(window.atob(localStorage.getItem(this.serialLocalStorage)))));
 
-       
+
             if(JSON.stringify(savedPlanificationModel.quarterlies)!==JSON.stringify(this.quarterlies_saved))
             {
               this.quarterlies=savedPlanificationModel.quarterlies;
@@ -273,7 +273,7 @@ export default {
             }
         }
 
-        console.log(this.achievements);     
+        console.log(this.achievements);
 
       if (this.planification.quarterlies.length > 0) {
         this.quaterly = true;
@@ -301,15 +301,15 @@ export default {
      localStorage.setItem(this.serialLocalStorage, window.btoa(unescape(encodeURIComponent(JSON.stringify({achievements:this.achievements,quarterlies:this.quarterlies})))));
 
      this.isSynchronized=false;
-      
+
     },
     returnToMenu() {
       setTimeout(()=>{
            this.isLoading=false;
          window.location = "/teacher/lectives/planning";
       },2000);
-      
-    
+
+
     },
     addQuarterly(index) {
       this.quarterlies.push({ name: "", content: "",order: this.quarterlies.length,observation:''});
@@ -332,7 +332,7 @@ export default {
 
        if(this.quarterlies.length==0 ||  this.achievements.length==0)
         return;
-            
+
       axios
         .put(url, {
           id_planification: this.planification.id_planification,
@@ -342,7 +342,7 @@ export default {
         .then((response) => {
           this.errors = [];
           toastr.success("Nuevo plan general creado exitosamente");
-          this.returnToMenu();         
+          this.returnToMenu();
         })
         .catch((error) => {
           this.errors = error.response.data;
