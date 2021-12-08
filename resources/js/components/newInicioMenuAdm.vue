@@ -71,7 +71,7 @@ export default {
     list-style-type: none;
     margin-left: 5px;
 }
-
+/* Estilo para el tab  */
 .tabAdmin a {
     float: left;
     cursor: pointer;
