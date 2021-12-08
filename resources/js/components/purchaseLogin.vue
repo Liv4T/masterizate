@@ -326,7 +326,7 @@ export default {
                     toastr.error("Se presento un error al procesar su solicitud. Por favor intente más tarde.");
                 }
                 else if(error.response.data.message.includes('1062 Duplicate entry')){
-                    toastr.error("Usuario ya se encuentra registrado en el sistema, ingrese otro nombre de usuario.");
+                    toastr.error("Usuario ya se encuentra registrado en el sistema, ingrese otro nombre de usuario...");
                 }
                 else if(error.response.data.message){
                     toastr.error(error.response.data.message);
