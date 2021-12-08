@@ -77,7 +77,6 @@
         <a href="#"><img class="fondo1" src="../assets/img/c6.png" alt="unete" /></a>
       </div>
     </div>
-
     <div class="row centrado fondo-gris-form">
       <div class="col-lg-6">
         <div class="text-center margin-b">
@@ -180,7 +179,6 @@
 </template>
 <script>
 import Vue from "vue";
-
 export default {
   data() {
     return {
