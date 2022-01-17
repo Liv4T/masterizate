@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\TutorCode;
+use App\TutorClassroom;
+use App\TutorClassroomTeacher;
+use App\area;
 use App\ClassroomStudent;
 use Auth;
 use DB;
@@ -22,6 +25,7 @@ class TutorCodeController extends Controller
                     ->join('area', 'area.id', '=', 'tutor_codes.id_area')
                     // ->join('classroom_teacher','classroom_teacher.id_area', '=', 'area.id')
                     ->select('tutor_codes.id','tutor_codes.name','tutor_codes.description','tutor_codes.code','tutor_codes.date','area.id as id_area','area.name as area_name')
+                    ->where('tutor_codes.id_tutor', $user->id)
                     ->get();
         // $tutorCode = TutorCode::where('id_tutor','=',$user->id)->get();
         return response()->json($tutorCode);
@@ -44,6 +48,7 @@ class TutorCodeController extends Controller
      */
     public function store(Request $request)
     {
+
         $user = Auth::user();
         $newTutorCode = new TutorCode();
         $newTutorCode->name = $request->name;
@@ -53,6 +58,18 @@ class TutorCodeController extends Controller
         $newTutorCode->date = $request->date;
         $newTutorCode->id_area = $request->id_area;
         $newTutorCode->save();
+
+        $area = area::find($request->id_area);
+        $newClassroom = new TutorClassroom();
+        $newClassroom->name = $area->name . '-' .$newTutorCode->code;
+        $newClassroom->save();
+
+        $newClassroomTeacher = new TutorClassroomTeacher();
+        $newClassroomTeacher->id_classroom = $newClassroom->id;
+        $newClassroomTeacher->id_area = $request->id_area;
+        $newClassroomTeacher->id_user = $user->id;
+        $newClassroomTeacher->save();
+
         return response()->json('Codigo Creado');
     }
 

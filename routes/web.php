@@ -469,6 +469,7 @@ Route::middleware('auth')->get('/actividad_d/{id}', 'ClassController@activityWee
 Route::middleware('auth')->get('/actividad_d/getClass/{id}', 'ClassController@getClassId')->name('getClass');
 Route::post('courseWeekly', 'CoursesController@courseWeekly')->name('courseWeekly');
 Route::get('GetArearByUser', 'CoursesController@getAreaByUser')->name('GetArearByUser');
+Route::get('GetArearByTutor', 'CoursesController@getTutorAreas')->name('GetArearByTutor');
 //prueba push
 // Rutas capturar actividades y entregas
 

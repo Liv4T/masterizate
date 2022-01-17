@@ -138,14 +138,13 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
     getAreas: function getAreas() {
       var _this2 = this;
 
-      axios.get("/GetArearByUser").then(function (response) {
+      axios.get("/GetArearByTutor").then(function (response) {
         var areas = response.data;
         areas.forEach(function (element) {
           _this2.areas.push({
-            calification_base: element.calification_base,
             id: element.id,
             id_area: element.id_area,
-            text: element.text
+            text: element.text + '-' + element.id
           });
         });
       });

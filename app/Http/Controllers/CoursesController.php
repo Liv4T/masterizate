@@ -29,12 +29,15 @@ use App\LectiveAchievement;
 use App\LectiveClassContent;
 use App\VinculationTutorStudent;
 use App\TutorCode;
+use App\TutorClassroom;
+use App\TutorClassroomTeacher;
 use Carbon\Carbon;
 use App\Exports\PlanificationPerObjetivesExport;
 use App\Exports\CyclesAndClassExport;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use DB;
 
 class CoursesController extends Controller
 {
@@ -198,7 +201,7 @@ class CoursesController extends Controller
                     'calification_base'=>$user_asigned->percent_calification
                 ];
             }
-        } elseif ($user->isTeacher()||$user->isTutor()) {
+        } elseif ($user->isTeacher()) {
             $user_asignated = ClassroomTeacher::where('id_user', $user->id)->get();
             if (isset($user_asignated)) {
                 foreach ($user_asignated as $key => $area) {
@@ -236,8 +239,70 @@ class CoursesController extends Controller
                     }
                 }
             }
+        }elseif ($user->isTutor()) {
+            $user_asignated = TutorClassroomTeacher::where('id_user', $user->id)->get();
+            if (isset($user_asignated)) {
+                foreach ($user_asignated as $key => $area) {
+                    $classroom = TutorClassroom::find($area->id_classroom);
+                    $class = Area::find($area->id_area);
+                    $areas[$key] = [
+                        'id'           => $class->id,
+                        'user_type'    => $user->type_user,
+                        'text'         => $class->name.' '.$classroom->name,
+                        'classroom_name'    => $classroom->name,
+                        'id_area'         => $class->id,
+                        'area_name'         => $classroom->name,
+                        /*
+                            Se comenta la linea para no obtener el curso ya que se darán tutorias para
+                            De la materia como tal
+                        */
+                        // 'text'         => $class->name . " - " . $classroom->name,
+                        'id_classroom' => $classroom->id,
+                    ];
+                }
+            }
+
         }
         return response()->json($areas);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getTutorAreas()
+    {
+        $auth = Auth::user();
+
+        if(!isset($auth)) return response()->json([]);
+
+        $areasAll = [];
+        $user = User::find($auth->id);
+        $user_id=$user->id;
+        if ($user->isTutor()) {
+            $areas = DB::table('area')
+            ->select('area.id as id_area','area.name as area_name')
+            ->leftjoin('tutor_codes','tutor_codes.id_area', '=', 'area.id')
+            ->whereNotExists(function($query) use ($user_id)
+            {
+                $query->select(\DB::raw('NULL FROM tutor_codes WHERE tutor_codes.id_area = area.id AND tutor_codes.id_tutor='.$user_id));
+            })
+            ->orderby('area.id')
+            ->get();
+            if(isset($areas)){
+                foreach($areas as $key => $area){
+                    $areasAll[$key] = [
+                        'id'           => $area->id_area,
+                        'user_type'    => $user->type_user,
+                        'id_area'      => $area->id_area,
+                        'area_name'    => $area->area_name,
+                        'text'         => $area->area_name,
+                    ];
+                }
+            }
+        }
+        return response()->json($areasAll);
     }
 
     /**

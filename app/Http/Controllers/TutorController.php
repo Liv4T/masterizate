@@ -131,29 +131,29 @@ class TutorController extends Controller
 
         foreach ($schedules as $key => $row) {
             $schedules[$key]->days=json_decode($row['days']);
- 
+
             $schedules_busy=TutorScheduleStudent::where('tutorschedule_id',$row->id)->where('student_id','!=',$user->id)->where('deleted',0)->get();
- 
+
             $schedules_busy_mine=TutorScheduleStudent::where('tutorschedule_id',$row->id)->where('student_id',$user->id)->where('deleted',0)->get();
- 
+
             //calculate minutes
             $minutes = (strtotime($row['date_from'])-strtotime($row['date_to']))/60;
             $minutes = abs($minutes); $minutes = floor($minutes);
- 
+
             //range minutes
             $ever_time=floor($minutes/$row['duration_minutes']);
- 
+
             if($ever_time<1)
             {
                 $ever_time=1;
             }
- 
+
             $teacher=User::find($row->teacher_id);
- 
+
             for ($i=1; $i<=$ever_time ; $i++) {
                 $available_schedules =[];
                 $busy_schedules_mine =[];
- 
+
                 //calcule time
                 $time = new DateTime($row->date_from);
                 $time->add(new DateInterval('PT' . (($i-1)*$row['duration_minutes']) . 'M'));
@@ -161,17 +161,17 @@ class TutorController extends Controller
                 $date_finded=$time->format('Y-m-d');
                 $time->add(new DateInterval('PT' . ($row['duration_minutes']) . 'M'));
                 $date_to=$time->format('Y-m-d H:i');
- 
+
                  //evalue day
                 if($date_finded!=$date_find){
                     continue;
                 }
- 
+
                 if($current_date>$date_from){
                     continue;
                 }
- 
- 
+
+
                 //evalue hours
                 $time_from=new DateTime($row->date_from);
                 $time_to=new DateTime($row->date_to);
@@ -181,7 +181,7 @@ class TutorController extends Controller
                 }
 
                 /*
-                    Se comenta la condicional ya que es la responsable de no traer 
+                    Se comenta la condicional ya que es la responsable de no traer
                     la data debido a que la fecha que llega debe ser menor a la fecha actual
                 */
 
@@ -190,13 +190,13 @@ class TutorController extends Controller
                 //     continue;
                 // }
                 //setDate
- 
- 
- 
+
+
+
                 //get schedules other
                 if(isset($schedules_busy)&& count($schedules_busy)>0)
                 {
- 
+
                     foreach ($schedules_busy as $schedule_busy) {
                         if($schedule_busy->time_index==$i)
                         {
@@ -204,7 +204,7 @@ class TutorController extends Controller
                         }
                     }
                 }
- 
+
                 //get schedules mine
                 if(isset($schedules_busy_mine)&& count($schedules_busy_mine)>0)
                 {
@@ -215,7 +215,7 @@ class TutorController extends Controller
                         }
                     }
                 }
- 
+
                 //schedule is available
                 if(count($available_schedules)==0 && count($busy_schedules_mine)==0)
                 {
@@ -241,9 +241,9 @@ class TutorController extends Controller
                         'reserved'=>$busy_schedules_mine[0]
                     ]);
                 }
-            } 
+            }
         }
- 
+
         return response()->json($data);
     }
 
@@ -450,7 +450,7 @@ class TutorController extends Controller
 
     }
     public function cyclesByTeacher(int $id_area, int $id_classroom, int $id_trimestre){
-        
+
         $user=Auth::user();
 
         if($user->type_user === 2){
@@ -469,9 +469,14 @@ class TutorController extends Controller
             ->where('id_area',$id_area)
             ->where('id_trimestre', $id_trimestre)
             ->get();
+        }else if($user->type_user === 7){
+            $weekly_plans=Weekly::where('id_classroom',$id_classroom)
+            ->where('id_area',$id_area)
+            ->where('id_trimestre', $id_trimestre)
+            ->get();
         }
 
-        return response()->json($weekly_plans); 
+        return response()->json($weekly_plans);
     }
 
 }

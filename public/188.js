@@ -201,7 +201,7 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale('es');
       })["catch"](function (error) {
         console.log(error);
         _this3.clases = [];
-      }); // this.getPermissions();    
+      }); // this.getPermissions();
 
       $("#".concat(collapse_ID)).collapse('show');
     },
@@ -214,7 +214,7 @@ moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale('es');
     //             for(let i =0; i < permissions.length; i++){
     //                 for(let a = 0; a < this.clases.length; a++){
     //                     if(permissions[i] && permissions[i].id_cicle === this.clases[a].id){
-    //                         if(permissions[i].date_to_activate_btn <= moment(new Date()).format('YYYY-MM-DD')){                                    
+    //                         if(permissions[i].date_to_activate_btn <= moment(new Date()).format('YYYY-MM-DD')){
     //                             this.clases[a].activateButton = true
     //                         }else if(moment(new Date()).format('YYYY-MM-DD') >= permissions[i].date_to_activate_btn){
     //                             this.clases[a].activateButton = false

@@ -3,7 +3,7 @@
     <div class="row justify-content-center">
       <div id="crud" class="col-sm-10">
         <div class="card text-center">
-          <h3 class="card-header fondo">Mis clases</h3> 
+          <h3 class="card-header fondo">Mis clases</h3>
           <div class="card-body">
             <div class="input-group mb-3 mt-3">
                 <input type="text" class="form-control" placeholder="Buscar Materia" v-model="search_filter_mat">
@@ -20,8 +20,8 @@
                 <div class="spinner-border m-5" role="status">
                     <span class="sr-only">Loading...</span>
                 </div>
-            </div>            
-            <div class="accordion" id="firstAccordion">                
+            </div>
+            <div class="accordion" id="firstAccordion">
                 <div class="card" v-for="(area,t) in areas" :key="t" v-if="search_filter_mat =='' || filterClass(area.text)">
                     <div class="card mb-2" >
                         <div class="card-header" id="headingFIRST">
@@ -34,8 +34,8 @@
                     </div>
 
                     <div :id="`collapseFirst${t}`" class="collapse" aria-labelledby="headingFIRST" data-parent="#firstAccordion">
-                        <div class="card-body"> 
-                            
+                        <div class="card-body">
+
                             <div class="accordion" id="secondAccordion">
                                 <div class="card" v-for="(trimestre,k) in trimestres" :key="k">
                                     <div class="card-header" id="headingSecond">
@@ -44,11 +44,11 @@
                                                 Ciclo {{trimestre.nombre}}
                                             </button>
                                         </h2>
-                                        
+
                                     </div>
-                                   
+
                                     <div :id="`collapseTwo${area.id}${area.id_classroom}${k}`" class="collapse" aria-labelledby="headingSecond" data-parent="#secondAccordion">
-                                        <div class="card-body">                                            
+                                        <div class="card-body">
                                             <table class="table table-responsive-xl table-hover table-striped center">
                                                 <thead>
                                                     <tr>
@@ -78,7 +78,7 @@
                                             </table>
                                         </div>
                                     </div>
-                                </div>                                
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -169,7 +169,7 @@ export default {
                 this.areas = response.data;
             });
         },
-        getTrimestres(){ 
+        getTrimestres(){
             var url="/getTrimestres";
             axios.get(url).then((response) =>{
                 this.trimestres=response.data;
@@ -178,19 +178,19 @@ export default {
         botones(area, classroom, trimestre, collapse_ID) {
             console.log('IdCollapse',collapse_ID);
             this.loading = true;
-            axios.get(`/viewGetWeek/${area}/${classroom}/${trimestre}`).then((response) => {                
+            axios.get(`/viewGetWeek/${area}/${classroom}/${trimestre}`).then((response) => {
                 this.clases = response.data;
                 this.loading = false;
             }).catch((error)=>{
                 console.log(error);
                 this.clases = [];
             });
-            // this.getPermissions();    
+            // this.getPermissions();
             $(`#${collapse_ID}`).collapse('show');
         },
 
         datas(){
-            this.loading= true;            
+            this.loading= true;
         },
 
         // getPermissions(){
@@ -200,7 +200,7 @@ export default {
         //             for(let i =0; i < permissions.length; i++){
         //                 for(let a = 0; a < this.clases.length; a++){
         //                     if(permissions[i] && permissions[i].id_cicle === this.clases[a].id){
-        //                         if(permissions[i].date_to_activate_btn <= moment(new Date()).format('YYYY-MM-DD')){                                    
+        //                         if(permissions[i].date_to_activate_btn <= moment(new Date()).format('YYYY-MM-DD')){
         //                             this.clases[a].activateButton = true
         //                         }else if(moment(new Date()).format('YYYY-MM-DD') >= permissions[i].date_to_activate_btn){
         //                             this.clases[a].activateButton = false
@@ -225,14 +225,14 @@ export default {
             })
         },
         deleteClassAndCicles(){
-            this.clase_to_delete.forEach((clas)=>{ 
+            this.clase_to_delete.forEach((clas)=>{
                 axios.delete(`/deleteClasses/${clas.id}`)
             })
 
             axios.delete(`/DeleteCicle/${this.id_module}`).then((response)=> {
                 this.clase_to_delete =[];
                 this.id_module= '';
-                
+
                 if(this.clase_to_delete.length > 0){
                     toastr.success(`Clases y ${response.data}`)
                 }else{

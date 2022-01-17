@@ -33,7 +33,7 @@
                         </tr>
                     </tbody>
                 </table>
-                                    
+
 
                 <div class="modal fade" id="code" tabindex="-1" role="dialog" aria-labelledby="codeLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
@@ -117,20 +117,19 @@
         },
         methods:{
             getCodes(){
-                axios.get('codes').then((response)=>{                
+                axios.get('codes').then((response)=>{
                     this.codes = response.data
                 })
             },
 
             getAreas(){
-                axios.get(`/GetArearByUser`).then((response) => {
+                axios.get(`/GetArearByTutor`).then((response) => {
                 let areas = response.data;
                 areas.forEach((element)=>{
                     this.areas.push({
-                        calification_base: element.calification_base,
                         id: element.id,
                         id_area: element.id_area,
-                        text: element.text 
+                        text: element.text + '-' + element.id,
                         })
                     });
                 });
@@ -151,13 +150,13 @@
             edit(data){
                 this.id_to_update = data.id;
                 this.name = data.name;
-                this.description = data.description;   
-                this.code = data.code;  
+                this.description = data.description;
+                this.code = data.code;
                 this.saveAreas={
                     id: data.id_area,
                     id_area: data.id_area,
-                    text: data.area_name 
-                }           
+                    text: data.area_name
+                }
                 this.date = data.date;
                 $("#code").modal("show");
             },
@@ -187,7 +186,7 @@
                         toastr.info("Upps ha ocurrido algo, intenta de nuevo mas tarde");
                         console.log(error)
                     })
-                }else{                    
+                }else{
                     axios.post('codes',{
                         name: this.name,
                         description: this.description,
