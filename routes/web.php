@@ -338,9 +338,9 @@ Route::middleware('auth')->get('/asistencia', function () {
 Route::middleware('auth')->get('/matricula', function () {
     return view('matricula');
 });
-Route::get('/skills', function () {
+/* Route::get('/skills', function () {
     return view('homeSkills');
-});
+}); */
 Route::get('/compra/plan/{plan_type}/skills/ingresar/p/{payment_code}', function (string $plan_type,  String $payment_code) {
     return view('purchaseLogin')->with('plan_type', $plan_type)->with('payment_code', $payment_code);
 });
@@ -659,7 +659,7 @@ Route::post('/saveRepoStUpload', 'RepositoryController@storeRepositoryStudent')-
 
 /*login personalizado permite verificar suscripcion*/
 Route::get('/', function () {
-    return view('home');
+    return view('homeSkills');
 });
 Route::get('/loginNew', function () {
     return view('auth.login');
