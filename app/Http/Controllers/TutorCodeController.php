@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\TutorCode;
 use App\TutorClassroom;
 use App\TutorClassroomTeacher;
-use App\area;
+use App\Area;
 use App\ClassroomStudent;
 use Auth;
 use DB;
