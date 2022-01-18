@@ -61,7 +61,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="area">Area a asignar Codigo</label>
+                                    <label for="area">Area a asignar Código</label>
                                     <multiselect name="cicleSelect" v-model="saveAreas" :options="areas" :multiple="false"
                                         :close-on-select="false" :clear-on-select="false"
                                         :preserve-search="true" placeholder="Seleccione una"

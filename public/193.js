@@ -144,7 +144,7 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
           _this2.areas.push({
             id: element.id,
             id_area: element.id_area,
-            text: element.text + '-' + element.id
+            text: element.text
           });
         });
       });
@@ -440,7 +440,7 @@ var render = function() {
                       { staticClass: "form-group" },
                       [
                         _c("label", { attrs: { for: "area" } }, [
-                          _vm._v("Area a asignar Codigo")
+                          _vm._v("Area a asignar Código")
                         ]),
                         _vm._v(" "),
                         _c("multiselect", {
