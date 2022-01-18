@@ -129,7 +129,7 @@
                     this.areas.push({
                         id: element.id,
                         id_area: element.id_area,
-                        text: element.text + '-' + element.id,
+                        text: element.text,
                         })
                     });
                 });
