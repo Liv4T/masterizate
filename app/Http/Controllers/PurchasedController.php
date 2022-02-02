@@ -10,7 +10,7 @@ use App\TutorScheduleEvent;
 use App\TutorScheduleStudent;
 use App\PaypalExchange;
 use App\TutorCode;
-use App\enableSubject;
+use App\EnableSubject;
 use App\VinculationTutorStudent;
 use Carbon\Carbon;
 use Exception;
@@ -260,7 +260,7 @@ class PurchasedController extends Controller
                     'updated_user' => $auth->id
                 ]);
 
-                $enable_subjects = enableSubject::create([
+                $enable_subjects = EnableSubject::create([
                     'id_code' => $code->id,
                     'id_area' => $code->id_area,
                     'id_user' => $auth->id,

@@ -190,7 +190,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var urlr = window.location.origin + "/showClass/" + this.id_module;
       axios.get(urlr).then(function (response) {
         _this3.fillS = response.data.clase;
-        if (response.data.area && response.data.classroom) _this3.nameArea = response.data.user_type === 7 ? response.data.area.name : "".concat(response.data.area.name, " ").concat(response.data.classroom.name);
+        if (response.data.area && response.data.classroom) _this3.nameArea = response.data.classroom.name;
         _this3.id_area = response.data.area.id;
         _this3.id_classroom = response.data.classroom.id;
       });

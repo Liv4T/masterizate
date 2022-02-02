@@ -40,18 +40,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['user'],
   data: function data() {
@@ -210,63 +198,6 @@ var render = function() {
               [_vm._v("Académico")]
             )
           ]
-        ),
-        _vm._v(" "),
-        _c(
-          "a",
-          {
-            class: [_vm.activetab === "formation" ? "active fondo" : ""],
-            on: {
-              click: function($event) {
-                return _vm.showSection("formation")
-              }
-            }
-          },
-          [
-            _c(
-              "h4",
-              { staticStyle: { "font-size": "15px" }, attrs: { h4: "" } },
-              [_vm._v("Formación")]
-            )
-          ]
-        ),
-        _vm._v(" "),
-        _c(
-          "a",
-          {
-            class: [_vm.activetab === "government" ? "active fondo" : ""],
-            on: {
-              click: function($event) {
-                return _vm.showSection("government")
-              }
-            }
-          },
-          [
-            _c(
-              "h4",
-              { staticStyle: { "font-size": "15px" }, attrs: { h4: "" } },
-              [_vm._v("Gobierno Escolar")]
-            )
-          ]
-        ),
-        _vm._v(" "),
-        _c(
-          "a",
-          {
-            class: [_vm.activetab === "reports" ? "active fondo" : ""],
-            on: {
-              click: function($event) {
-                return _vm.showSection("reports")
-              }
-            }
-          },
-          [
-            _c(
-              "h4",
-              { staticStyle: { "font-size": "15px" }, attrs: { h4: "" } },
-              [_vm._v("Mis Reportes")]
-            )
-          ]
         )
       ])
     ]),
@@ -292,22 +223,6 @@ var render = function() {
           _vm._v(" "),
           _vm.activetab === "academic"
             ? _c("div", [_c("academic-tab", { attrs: { user: _vm.user } })], 1)
-            : _vm._e(),
-          _vm._v(" "),
-          _vm.activetab === "formation"
-            ? _c("div", [_c("formation-tab", { attrs: { user: _vm.user } })], 1)
-            : _vm._e(),
-          _vm._v(" "),
-          _vm.activetab === "government"
-            ? _c(
-                "div",
-                [_c("school-gov-tab", { attrs: { user: _vm.user } })],
-                1
-              )
-            : _vm._e(),
-          _vm._v(" "),
-          _vm.activetab === "reports"
-            ? _c("div", [_c("report-admin")], 1)
             : _vm._e()
         ])
       ])

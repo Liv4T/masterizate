@@ -157,7 +157,7 @@
                     this.fillS = response.data.clase;
 
                     if (response.data.area && response.data.classroom)
-                        this.nameArea = response.data.user_type === 7 ? response.data.area.name :`${response.data.area.name} ${response.data.classroom.name}`;
+                        this.nameArea = response.data.classroom.name;
 
                     this.id_area = response.data.area.id;
                     this.id_classroom = response.data.classroom.id;

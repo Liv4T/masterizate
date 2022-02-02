@@ -24,6 +24,7 @@ use App\ClassInteraction;
 use App\Classroom;
 use App\ConfigurationParameter;
 use App\User;
+use App\TutorClassroom;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use PhpParser\Node\Stmt\Foreach_;
@@ -1001,7 +1002,7 @@ class ClassController extends Controller
         if(isset($week))
         {
             $area=Area::find($week->id_area);
-            $classroom=Classroom::find($week->id_classroom);
+            $classroom=TutorClassroom::find($week->id_classroom);
         }
 
 

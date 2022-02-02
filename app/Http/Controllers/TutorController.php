@@ -9,6 +9,8 @@ use App\TutorScheduleEvent;
 use App\TutorScheduleStudent;
 use App\User;
 use App\Weekly;
+use App\TutorClassroom;
+use App\VinculationTutorStudent;
 use DateInterval;
 use DateTime;
 use Illuminate\Http\Request;
@@ -477,6 +479,42 @@ class TutorController extends Controller
         }
 
         return response()->json($weekly_plans);
+    }
+
+    public function getClassroomAndUsers()
+    {
+        $classrooms=TutorClassroom::all();
+        $classroomStudents = [];
+        $studentsArray = [];
+        foreach($classrooms as $key =>$classroom){
+            $tutor = User::where('id',$classroom->id_tutor)->first();
+            $explode = explode('-',$classroom->name);
+            $code = $explode[1];
+            $students = VinculationTutorStudent::where('code_vinculated',$code)
+            ->where('id_tutor',$classroom->id_tutor)
+            ->get();
+            $studentsArray = [];
+            foreach($students as $key_s =>$student){
+
+                $studentData = User::where('id',$student->id_student)->first();
+
+                $studentsArray[$key_s] = [
+                    'student_name' =>$studentData->name.' '.$studentData->last_name,
+                    'studen_id' =>$studentData->id,
+                ];
+
+            }
+            $classroomStudents[$key] = [
+                'id_classroom' =>$classroom->id,
+                'classroom_name' =>$classroom->name,
+                'tutor_name' =>$tutor->name.' '.$tutor->last_name,
+                'code' =>$code,
+                'students' =>$studentsArray,
+            ];
+
+        }
+
+        return response()->json($classroomStudents);
     }
 
 }

@@ -1,79 +1,32 @@
 <template>
-    <div>        
+    <div>
         <div class="form-group">
             <div class="row">
                 <div class="left">
                     <ul>
-                        <a v-on:click="showSection('planifGen')" >
-                            <li class="item-menu">
-                                <span class="menu">Planificación General</span>
-                            </li>
-                        </a>
-
                         <a v-on:click="showSection('cyclesClass')" >
                             <li class="item-menu">
                                 <span class="menu">Ciclos Y Clases</span>
                             </li>
                         </a>
 
-                        <a v-on:click="showSection('notes')">
+                        <a v-on:click="showSection('adminCodesLink')">
                             <li class="item-menu">
-                                <span class="menu">Notas</span>
+                                <span class="menu">Codgigos Vinculados</span>
                             </li>
                         </a>
 
-                        <a v-on:click="showSection('utils')">
+                        <a v-on:click="showSection('codes')">
                             <li class="item-menu">
-                                <span class="menu">Útiles</span>
-                            </li>                            
+                                <span class="menu">Codgigos Tutores</span>
+                            </li>
                         </a>
 
-                        <a v-on:click="showSection('pedagogic')">
-                            <li class="item-menu">
-                                <span class="menu">Salidas Pedagógicas</span>
-                            </li>                            
-                        </a>
-
-                        <a v-on:click="showSection('adminElectivs')">
-                            <li class="item-menu">
-                                <span class="menu">Administrar Electivas</span>
-                            </li>                            
-                        </a>
-
-                        <a v-on:click="showSection('electivsClass')">
-                            <li class="item-menu">
-                                <span class="menu">Clases Electivas</span>
-                            </li>                            
-                        </a>
-
-                        <a v-on:click="showSection('assistantsMotives')">
-                            <li class="item-menu">
-                                <span class="menu">Motivos de Asistencia</span>
-                            </li>                            
-                        </a>
-
-                        <!-- <a v-on:click="showSection('trimestresCreate')">
-                            <li class="item-menu">
-                                <span class="menu">Trimestres</span>
-                            </li>                            
-                        </a> -->
-
-                        <a v-on:click="showSection('reportPlanif')">
-                            <li class="item-menu">
-                                <span class="menu">Informe Planificación</span>
-                            </li>                            
-                        </a>
-
-                        <a v-on:click="showSection('cycleReport')">
-                            <li class="item-menu">
-                                <span class="menu">Informe Ciclos y Clases</span>
-                            </li>                            
-                        </a>                        
                     </ul>
                     <br />
-                </div>                
+                </div>
             </div>
-        </div> 
+        </div>
 
         <div class="row">
             <div id="tabs" class="col-md-11 mx-auto">
@@ -84,46 +37,25 @@
                 <div v-if="activetab === 'cyclesClass'">
                     <clases-teacher :user="user"></clases-teacher>
                 </div>
-                <div v-if="activetab === 'notes'">
-                    <notasd-component></notasd-component>
+                <div v-if="activetab === 'adminCodesLink'">
+                    <tutor-code-validation :user="user"></tutor-code-validation>
                 </div>
-                <div v-if="activetab === 'utils'">                        
-                    <utils-coord :user="user"></utils-coord>
-                </div>
-                <div v-if="activetab === 'pedagogic'">
-                    <pedagogical-course :user="user"></pedagogical-course>
-                </div>
-                <div v-if="activetab === 'adminElectivs'">
-                    <lectives-teacher-planning></lectives-teacher-planning>
-                </div>
-                <div v-if="activetab === 'electivsClass'">
-                    <lectives-teacher-courses></lectives-teacher-courses>
-                </div>
-                <div v-if="activetab === 'assistantsMotives'">
-                    <motive-assistants></motive-assistants>
-                </div>
-                <div v-if="activetab === 'trimestresCreate'">
-                    <trimestre-component></trimestre-component>
-                </div>
-                <div v-if="activetab === 'reportPlanif'">
-                    <admin-report-planification></admin-report-planification>
-                </div>
-                <div v-if="activetab === 'cycleReport'">
-                    <admin-report-cycle></admin-report-cycle>
+                <div v-if="activetab === 'codes'">
+                    <tutor-code :user="user"></tutor-code>
                 </div>
             </div>
-        </div>       
+        </div>
     </div>
 </template>
 <script>
-export default { 
-    props:['user'],   
+export default {
+    props:['user'],
     data() {
         return {
             activetab: null,
         };
-    },  
-    methods: {        
+    },
+    methods: {
         showSection(section){
             this.activetab = section
         }

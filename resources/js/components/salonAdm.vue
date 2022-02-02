@@ -14,37 +14,33 @@
             <a class="btn btn-warning float-left" style="margin-right:10px;" href="#" v-on:click.prevent="editNames()">Crear usuarios</a>
 
             <a class="btn btn-warning float-left" v-on:click="showComponent('uploadUsers')">Cargar usuarios</a>
-            <a class="btn btn-warning float-right" style="margin-left:10px;"  v-on:click="showComponent('assignStudents')">Asignar estudiante</a>
+            <!-- <a class="btn btn-warning float-right" style="margin-left:10px;"  v-on:click="showComponent('assignStudents')">Asignar estudiante</a>
             <a class="btn btn-warning float-right" style="margin-left:10px;"  v-on:click="showComponent('assignParent')">Asignar Acudiente</a>
-            <a class="btn btn-warning float-right" v-on:click="showComponent('assignTeachers')">Asignar docente</a>
+            <a class="btn btn-warning float-right" v-on:click="showComponent('assignTeachers')">Asignar docente</a> -->
 
             <br />
             <br />
             <br />
             <table class="table table-responsive-xl table-hover table-striped center">
-              <tbody v-for="(clas, t) in clases" :key="t">
-                <tr data-toggle="collapse" data-target="#accordion" class="clickable">
-                  <td>{{ clas.clasroom }}</td>
-                  <td></td>
-                  <td></td>
-
-                  <td class="float-right">
-                    <a class="btn btn-sm" style="color: grey;" v-on:click="showComponent('show_docente')">
-                      <i class="fa fa-eye"></i>
-                    </a>
-                  </td>
-                </tr>
+              <thead>
                 <tr>
-                  <td>
-                    <div :id="'accordion' + t" class="collapse">
-                      <a class="btn btn-warning" href="/docente_asignar">Docente</a>
-                    </div>
-                  </td>
-                  <td>
-                    <div :id="'accordion' + t" class="collapse">
-                      <a class="btn btn-warning" href="/estudiante_asignar">Estudiante</a>
-                    </div>
-                  </td>
+                    <th>#</th>
+                    <th>Salón</th>
+                    <th>Tutor</th>
+                    <th>Código</th>
+                    <th>Acción</th>
+                </tr>
+            </thead>
+
+              <tbody v-for="(clas, t) in clases" :key="t">
+                <tr>
+                    <td>{{ t+1 }}</td>
+                    <td>{{ clas.classroom_name }}</td>
+                    <td>{{ clas.tutor_name }}</td>
+                    <td>{{ clas.code }}</td>
+                    <td>
+                        <button class="btn btn-primary" v-on:click="modalStudent(clas.students)">Ver Estudiantes</button>
+                    </td>
                 </tr>
               </tbody>
             </table>
@@ -71,7 +67,7 @@
                         <span v-if="types==[]">Cargando...</span>
                         <select v-if="types!=[]" class="form-control" v-model="newType_user" style="background: gainsboro;" required>
                             <template v-for="(type,k_type) in types">
-                                 <option :value="type.id" :key="k_type">{{type.name}}</option>
+                                 <option :value="type.type_user" :key="k_type">{{type.name}}</option>
                             </template>
                         </select>
                       </div>
@@ -185,6 +181,40 @@
           </div>
         </div>
       </div>
+      <div class="modal fade" id="modalStudents" data-backdrop="static" data-keyboard="false">
+            <div class="modal-lg modal-dialog" style="max-width: 965px;">
+                <div class="modal-content fondo-modal">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Estudiantes</h5>
+                    </div>
+                    <div>
+                        <table class="table table-responsive-xl table-hover table-striped center">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Nombre del Estudiante</th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody v-for="(student,key_s) in students" :key="key_s">
+                                <tr>
+                                    <td>{{ key_s+1 }}</td>
+                                    <td>{{ student.student_name }}</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+      </div>
     </div>
   </div>
   <div v-else-if="showSection === 'uploadUsers'">
@@ -211,7 +241,11 @@
   export default {
     data() {
       return {
-        types: [],
+        types: [
+            {type_user:"1",name:"Administrador"},
+            {type_user:"7",name:"Tutor"},
+            {type_user:"10",name:"Cliente"},
+        ],
         clases: [],
         allowedExtensions: ["jpg", "jpeg", "png"],
         descripcion: "",
@@ -238,18 +272,20 @@
             name: "",
           },
         ],
-        showSection: 'inicio'
+        showSection: 'inicio',
+        students:[],
       };
     },
     created() {},
     mounted() {
-      var urlr = "getClassroom";
+      var urlr = "getClassroomAndStudent";
       axios.get(urlr).then((response) => {
         this.clases = response.data;
+        console.log(this.clases);
       });
-      axios.get("/types").then((response) => {
+      /* axios.get("/types").then((response) => {
         this.types = response.data;
-      });
+      }); */
       console.log("Component mounted.");
     },
     methods: {
@@ -261,6 +297,11 @@
       },
       editNames(clas) {
         $("#createZ").modal("show");
+      },
+      modalStudent(data){
+        this.students = data;
+        console.log(this.students);
+        $("#modalStudents").modal("show");
       },
       createUser() {
         var url = "users_save";

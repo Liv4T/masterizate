@@ -4,10 +4,10 @@
             <div id="crud" class="col-sm-10">
                 <div v-if="showStudent === false" class="card">
                     <h3 class="card-header fondo">Mis Clases</h3>
-                    <div class="card-body">                        
+                    <div class="card-body">
                         <select class="form-control" v-on:change="(e)=>setArea(e.target.value)">
-                            <option default>Seleccionar...</option>
-                            <option v-for="(area, key) in areas" :key="key" :value="JSON.stringify(area)">{{area.area_name}}</option>
+                            <option disabled selected hidden value="">Seleccionar...</option>
+                            <option v-for="(area, key) in areas" :key="key" :value="JSON.stringify(area)">{{area.area_name + ' - ' + area.code}}</option>
                         </select>
 
                         <div class="mt-2" v-show="id_area_selected !== null">
@@ -57,18 +57,18 @@
                                                         </tr>
                                                     </tbody>
                                                 </table>
-                                            </div>                                            
+                                            </div>
                                         </div>
                                     </div>
-                                </div>                                
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>                
+                </div>
                 <div v-else-if="showStudent === true">
                     <student-module :clasId="weekly_id" :cleanClasId="backPage" :moduleId="activityId"></student-module>
-                </div>              
-            </div>            
+                </div>
+            </div>
         </div>
         <div class="modal fade" id="modalpay" data-backdrop="static" data-keyboard="false">
             <div class="modal-lg modal-dialog" style="max-width: 965px;">
@@ -84,7 +84,7 @@
                     </div>
                 </div>
             </div>
-        </div>        
+        </div>
     </div>
 </template>
 <script>
@@ -106,30 +106,30 @@ export default {
             code: null,
         };
     },
-    mounted(){        
-        this.getArea();  
+    mounted(){
+        this.getArea();
     },
     watch:{
-        id_trimestre: function(newVal, oldVal){            
+        id_trimestre: function(newVal, oldVal){
             if(newVal !== oldVal){
                 this.getCycles();
             }
         },
 
-        id_area_selected: function(newVal, oldVal){            
+        id_area_selected: function(newVal, oldVal){
             if(newVal !== oldVal){
                 this.getCycles();
             }
         },
     },
     methods: {
-        getArea(){        
+        getArea(){
             axios.get("/getTrimestres").then((response) =>{
-                this.trimestres=response.data;                
+                this.trimestres=response.data;
             });
             axios.get('getAreaByClient').then((response)=>{
-                this.areas = response.data;  
-                console.log(this.areas);             
+                this.areas = response.data;
+                console.log(this.areas);
             })
         },
 
@@ -150,7 +150,7 @@ export default {
             });
             axios.get(`/checkPay/${this.id_area_selected}/${this.code}`).then((response)=>{
                 this.validate = response.data;
-            
+
                 if (this.validate === 0) {
                     $("#modalpay").modal("hide");
                 } else {
@@ -160,17 +160,17 @@ export default {
         },
 
         getClass(data){
-            axios.get(`getClass/${data.id}`).then((response)=>{                
+            axios.get(`getClass/${data.id}`).then((response)=>{
                 this.activities = response.data;
-            })           
+            })
         },
 
         backTable(){
             this.activities = [];
         },
 
-        getActivity(data){            
-            this.weekly_id = data.id_weekly_plan;          
+        getActivity(data){
+            this.weekly_id = data.id_weekly_plan;
             this.activityId = data.id;
             this.showStudent= true
         },
@@ -193,14 +193,14 @@ export default {
     font-weight: 800;
 }
 .box-suscription{
-    background: #f7f5f5; 
-    font-weight: bold; 
-    padding: 15px; 
-    border-left:8px solid #ff0080; 
-    border-top-left-radius:8px; 
+    background: #f7f5f5;
+    font-weight: bold;
+    padding: 15px;
+    border-left:8px solid #ff0080;
+    border-top-left-radius:8px;
     border-bottom-left-radius:8px;
-    border-right:8px solid #ff0080; 
-    border-top-right-radius:8px; 
+    border-right:8px solid #ff0080;
+    border-top-right-radius:8px;
     border-bottom-right-radius:8px;
 }
 

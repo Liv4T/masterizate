@@ -122,7 +122,7 @@
                                   <span>- ${{ VoucherDiscountValue() }}</span>
                                 </div>
                               </div>
-                            </td> 
+                            </td>
                           </tr>
                           <tr>
                             <td>
@@ -145,7 +145,7 @@
                   <div class="row align-items-center">
                     <div class="col-md-12 content-button">
                       <button v-if="!events.pay_loading && aut==0" @click="LoginOrRegister()" class="btn btn-Azul letra-boldfont">FINALIZAR COMPRA</button>
-                      <div id="paypal-button" v-if="!events.pay_loading && TotalValue() - VoucherDiscountValue() > 0"></div>
+                      <div id="paypal-button" v-if="!events.pay_loading"></div>
                       <button v-if="events.pay_loading" type="button" class="btn btn-primary letra-boldfont" disabled>Procesando...</button>
                       <button v-if="!events.pay_loading && TotalValue() - VoucherDiscountValue() == 0" @click="PayEvent()" class="btn btn-Azul letra-boldfont">EMPEZAR</button>
                     </div>
@@ -227,7 +227,7 @@
                                 </div>
                               </section>
                             </td>
-                          </tr>--> 
+                          </tr>-->
                           <tr>
                             <td class="letra-boldfont" style="min-width:300px;font-weight:bold" colspan="2">TOTAL DEL CARRITO</td>
                           </tr>
@@ -269,7 +269,8 @@
                               <div class="content-button">
                                 <div class="row align-items-center">
                                   <div class="col-md-12 content-button">
-                                    <button v-if="!events.pay_loading && TotalValue() - VoucherDiscountValue() > 0" @click="PayEvent()" class="btn btn-Azul letra-boldfont">FINALIZAR COMPRA</button>
+                                    <button v-if="!events.pay_loading && aut==0" @click="LoginOrRegister()" class="btn btn-Azul letra-boldfont">FINALIZAR COMPRA</button>
+                                    <div id="paypal-button" v-if="!events.pay_loading"></div>
                                     <button v-if="events.pay_loading" type="button" class="btn btn-primary letra-boldfont" disabled>Procesando...</button>
                                     <button v-if="!events.pay_loading && TotalValue() - VoucherDiscountValue() == 0" @click="PayEvent()" class="btn btn-Azul letra-boldfont">EMPEZAR</button>
                                   </div>
@@ -331,6 +332,7 @@ export default {
     },
     TotalValue() {
       var total=((this.current_plan.plan_price.total_price * this.current_plan.quantity));
+      console.log(this.formatPrice(total));
       return this.formatPrice(total);
     },
     VoucherDiscountApplied() {
@@ -350,7 +352,7 @@ export default {
         return (total_sale * this.voucher_data.discount_percent) / 100;
       } else {
         return this.voucher_data.discount_value;
-      } 
+      }
     },
     getPlanInformation() {
       return new Promise((resolve, reject) => {
@@ -376,7 +378,7 @@ export default {
       });
     },
     formatPrice(value) {
-      let val = (value / 1).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'); 
+      let val = (value / 1).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
       return val;
     },
     QuantityValidateEvent() {
@@ -425,7 +427,7 @@ export default {
         quantity: this.current_plan.quantity,
         plan_name: this.current_plan.plan_name,
         amount: order.purchase_units[0].amount.value,
-        ref: order.purchase_units[0].payments.captures[0].id,  
+        ref: order.purchase_units[0].payments.captures[0].id,
         result: order.purchase_units[0].payments.captures[0].status,
         payer_email: order.payer.email_address,
         payer_id: order.payer.payer_id,

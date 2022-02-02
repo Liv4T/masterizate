@@ -15,6 +15,7 @@ use App\User;
 use App\ClassroomStudent;
 use App\ClassroomTeacher;
 use App\TypeUser;
+use App\TutorClassroom;
 use Auth;
 
 class AdministratorController extends Controller
@@ -539,6 +540,41 @@ class AdministratorController extends Controller
             $area->id_institution = $grade->id_institution;
             $area->save();
         }
+    }
+
+    /**
+     *Create and store new grade resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getUsersClient(Request $request)
+    {
+        $users=User::where('type_user', 10)->get();
+
+        return response()->json($users);
+    }
+
+     /**
+     *Create and store new grade resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getTutors(Request $request){
+        $user = User::where('type_user', 7)->get();
+
+        return response()->json($user);
+    }
+
+    /**
+     *Create and store new grade resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getClassroomTutor(Request $request)
+    {
+        $classroom=TutorClassroom::all();
+
+        return response()->json($classroom);
     }
 
     /**

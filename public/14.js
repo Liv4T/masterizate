@@ -59,6 +59,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -82,41 +86,55 @@ __webpack_require__.r(__webpack_exports__);
       idArea: "",
       idClassroom: "",
       idAreaClass: "",
-      planif: "clase"
+      planif: "clase",
+      select: ""
     };
   },
   mounted: function mounted() {
     var _this = this;
 
+    this.getArea();
     axios.get("/api/lectives").then(function (response) {
       _this.planifications = response.data;
     });
-    var url = "/GetArearByUser";
-    axios.get(url).then(function (response) {
-      _this.areas = response.data;
-      console.log(_this.areas);
-    });
+    /* var url = "/GetArearByUser";
+    axios.get(url).then((response) => {
+      this.areas = response.data;
+      console.log(this.areas);
+    }); */
+
     console.log("Component mounted.");
   },
   methods: {
-    modaliniciar: function modaliniciar() {
+    getArea: function getArea() {
       var _this2 = this;
+
+      axios.get("/getTrimestres").then(function (response) {
+        _this2.trimestres = response.data;
+      });
+      axios.get('getAreaByClient').then(function (response) {
+        _this2.areas = response.data;
+        console.log(_this2.areas);
+      });
+    },
+    modaliniciar: function modaliniciar() {
+      var _this3 = this;
 
       var url = window.location.origin + "/SaveTerms";
       axios.post(url, {
         status: 1
       }).then(function (response) {
-        _this2.errors = [];
+        _this3.errors = [];
         $("#modalini").modal("hide");
       })["catch"](function (error) {
-        _this2.errors = error.response.data;
+        _this3.errors = error.response.data;
       });
     },
-    ShowSelected: function ShowSelected(data) {
-      var dataArea = JSON.parse(data.target.value);
-      this.idArea = dataArea.id;
+    ShowSelected: function ShowSelected() {
+      var dataArea = JSON.parse(this.select);
+      this.idArea = dataArea.id_area;
       this.idClassroom = dataArea.id_classroom;
-      this.idAreaClass = dataArea.id + '/' + dataArea.id_classroom;
+      this.idAreaClass = dataArea.id_area + '/' + dataArea.id_classroom;
     }
   }
 });
@@ -194,9 +212,36 @@ var render = function() {
           _c(
             "select",
             {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.select,
+                  expression: "select"
+                }
+              ],
               staticClass: "btn btn-warning letra-boldfont",
               attrs: { name: "type" },
-              on: { change: _vm.ShowSelected }
+              on: {
+                change: [
+                  function($event) {
+                    var $$selectedVal = Array.prototype.filter
+                      .call($event.target.options, function(o) {
+                        return o.selected
+                      })
+                      .map(function(o) {
+                        var val = "_value" in o ? o._value : o.value
+                        return val
+                      })
+                    _vm.select = $event.target.multiple
+                      ? $$selectedVal
+                      : $$selectedVal[0]
+                  },
+                  function($event) {
+                    return _vm.ShowSelected()
+                  }
+                ]
+              }
             },
             [
               _c(
@@ -204,18 +249,14 @@ var render = function() {
                 {
                   attrs: { disabled: "", selected: "", hidden: "", value: "" }
                 },
-                [_vm._v("CURSOS")]
+                [_vm._v("Seleccionar...")]
               ),
               _vm._v(" "),
               _vm._l(_vm.areas, function(area, key) {
                 return _c(
                   "option",
                   { key: key, domProps: { value: JSON.stringify(area) } },
-                  [
-                    _vm._v(
-                      _vm._s(area.user_type === 7 ? area.area_name : area.text)
-                    )
-                  ]
+                  [_vm._v(_vm._s(area.area_name + " - " + area.code))]
                 )
               })
             ],

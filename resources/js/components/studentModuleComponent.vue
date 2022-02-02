@@ -29,7 +29,7 @@
 
 
                   </td>
-                  
+
                   <td>
                     <div class="check" v-if="clas.progress==100">
                         <svg
@@ -71,7 +71,7 @@
                 </tr>-->
               </tbody>
             </table>
-            <div class="float-left">              
+            <div class="float-left">
               <a class="btn btn-warning" v-on:click="idclassClean">{{ $t('lang.general.goBack') }}</a>
             </div>
           </div>
@@ -128,7 +128,7 @@ export default {
       var urlr = window.location.origin + "/showClass/" + this.clasId;
       axios.get(urlr).then((response) => {
         this.fillS = response.data.clase;
-        this.nameArea = `${response.data.area.name} ${response.data.classroom.name}`;
+        this.nameArea = response.data.classroom.name;
         this.id_area = response.data.area.id;
         this.id_classroom = response.data.classroom.id;
       });

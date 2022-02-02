@@ -2,7 +2,7 @@
     <div class="back container-fluid">
         <div class="card">
             <div class="card-header fondo">
-                Períodos
+                <h4>Trimestres</h4>
             </div>
             <div class="card-body">
                 <button type="button" class="btn btn-primary float-left mt-3 mb-3" data-toggle="modal" data-target="#exampleModal">
@@ -32,7 +32,7 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Períodos</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Trimestres</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close" v-on:click="cleanData">
                             <span aria-hidden="true">&times;</span>
                         </button>

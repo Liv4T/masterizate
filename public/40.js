@@ -203,7 +203,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.btn-suscription{\r\n    background-color: rgb(2, 4, 79);\r\n    color: white;\r\n    font-weight: 800;\n}\n.btn-suscription:hover{\r\n    background-color: rgb(2, 4, 79);\r\n    color: #c9c9c9;\r\n    font-weight: 800;\n}\n.box-suscription{\r\n    background: #f7f5f5; \r\n    font-weight: bold; \r\n    padding: 15px; \r\n    border-left:8px solid #ff0080; \r\n    border-top-left-radius:8px; \r\n    border-bottom-left-radius:8px;\r\n    border-right:8px solid #ff0080; \r\n    border-top-right-radius:8px; \r\n    border-bottom-right-radius:8px;\n}\r\n\r\n", ""]);
+exports.push([module.i, "\n.btn-suscription{\n    background-color: rgb(2, 4, 79);\n    color: white;\n    font-weight: 800;\n}\n.btn-suscription:hover{\n    background-color: rgb(2, 4, 79);\n    color: #c9c9c9;\n    font-weight: 800;\n}\n.box-suscription{\n    background: #f7f5f5;\n    font-weight: bold;\n    padding: 15px;\n    border-left:8px solid #ff0080;\n    border-top-left-radius:8px;\n    border-bottom-left-radius:8px;\n    border-right:8px solid #ff0080;\n    border-top-right-radius:8px;\n    border-bottom-right-radius:8px;\n}\n\n", ""]);
 
 // exports
 
@@ -276,15 +276,24 @@ var render = function() {
                     }
                   },
                   [
-                    _c("option", { attrs: { default: "" } }, [
-                      _vm._v("Seleccionar...")
-                    ]),
+                    _c(
+                      "option",
+                      {
+                        attrs: {
+                          disabled: "",
+                          selected: "",
+                          hidden: "",
+                          value: ""
+                        }
+                      },
+                      [_vm._v("Seleccionar...")]
+                    ),
                     _vm._v(" "),
                     _vm._l(_vm.areas, function(area, key) {
                       return _c(
                         "option",
                         { key: key, domProps: { value: JSON.stringify(area) } },
-                        [_vm._v(_vm._s(area.area_name))]
+                        [_vm._v(_vm._s(area.area_name + " - " + area.code))]
                       )
                     })
                   ],

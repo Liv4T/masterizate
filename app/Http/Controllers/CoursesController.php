@@ -96,20 +96,42 @@ class CoursesController extends Controller
         return response()->json($data);
     }
     public function getAreaByClient(){
-        $user = Auth::user();
-        $data = [];
-        $codeVinculated = VinculationTutorStudent::where('id_student',$user->id)->get();
 
-        foreach($codeVinculated as $key => $vinculated){
-            $code = TutorCode::where('code','=',$vinculated->code_vinculated)->first();
-            $area = Area::where('id','=', $code->id_area)->first();
-            $data[$key]= [
-                'id_tutor' => $vinculated->id_tutor,
-                'id_area'=>$code->id_area,
-                'area_name' => $area->name,
-                'code' => $code->code
-            ];
+        $auth = Auth::user();
+        $user = User::find($auth->id);
+        $data = [];
+
+        if($user->isClient()){
+            $codeVinculated = VinculationTutorStudent::where('id_student',$user->id)->get();
+            foreach($codeVinculated as $key => $vinculated){
+                $code = TutorCode::where('code','=',$vinculated->code_vinculated)->first();
+                $area = Area::where('id','=', $code->id_area)->first();
+                $data[$key]= [
+                    'id_tutor' => $vinculated->id_tutor,
+                    'id_area'=>$code->id_area,
+                    'area_name' => $area->name,
+                    'code' => $code->code
+                ];
+            }
+        }else if($user->isAdmin()){
+            $codes = TutorCode::all();
+            foreach($codes as $key => $code){
+                $area = Area::where('id','=', $code->id_area)->first();
+                $tutor = User::where('id', $code->id_tutor)->first();
+                $classroom = TutorClassroom::where('name', $area->name.'-'.$code->code)
+                ->where('id_tutor', $code->id_tutor)
+                ->first();
+                $data[$key]= [
+                    'id_tutor' => $code->id_tutor,
+                    'tutor_name' => $tutor->name. ' ' .$tutor->last_name,
+                    'id_area'=>$code->id_area,
+                    'area_name' => $area->name,
+                    'code' => $code->code,
+                    'id_classroom' =>isset($classroom->id) ? $classroom->id : 'NULL',
+                ];
+            }
         }
+
 
         return response()->json($data);
     }
@@ -271,37 +293,93 @@ class CoursesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function getTutorAreas()
+    public function getTutorAreas($id)
     {
-        $auth = Auth::user();
+        if($id <= 0){
+            $auth = Auth::user();
+            $user = User::find($auth->id);
+        }else if($id > 0){
+            $user = User::where('id',$id)->first();
+        }
 
-        if(!isset($auth)) return response()->json([]);
+        if(!isset($user)) return response()->json([]);
 
         $areasAll = [];
-        $user = User::find($auth->id);
-        $user_id=$user->id;
-        if ($user->isTutor()) {
-            $areas = DB::table('area')
-            ->select('area.id as id_area','area.name as area_name')
-            ->leftjoin('tutor_codes','tutor_codes.id_area', '=', 'area.id')
-            ->whereNotExists(function($query) use ($user_id)
-            {
-                $query->select(\DB::raw('NULL FROM tutor_codes WHERE tutor_codes.id_area = area.id AND tutor_codes.id_tutor='.$user_id));
-            })
-            ->orderby('area.id')
-            ->get();
-            if(isset($areas)){
-                foreach($areas as $key => $area){
-                    $areasAll[$key] = [
-                        'id'           => $area->id_area,
-                        'user_type'    => $user->type_user,
-                        'id_area'      => $area->id_area,
-                        'area_name'    => $area->area_name,
-                        'text'         => $area->area_name,
-                    ];
+        $areas = Area::all();
+        $data = TutorCode::where('id_tutor', $user->id)->get();
+        foreach($areas as $key => $area){
+            $areasAll[$key] = [
+                'id'           => $area->id,
+                'id_area'      => $area->id,
+                'user_type'    => $user->type_user,
+                'area_name'    => $area->name,
+                'text'         => $area->name,
+            ];
+
+            foreach($data as $code){
+                if($area->id === $code->id_area){
+                    unset($areasAll[$key]);
+
                 }
             }
         }
+
+        $areasAll = array_values($areasAll);
+
+        return response()->json($areasAll);
+    }
+
+    public function getStudentNewAreas($select)
+    {
+        $auth = Auth::user();
+        $user = User::find($auth->id);
+        if(!isset($user)) return response()->json([]);
+
+        $areasAll = [];
+        $data = VinculationTutorStudent::where('id_student',$user->id)->get();
+
+        if($select === 'ALL'){
+            if ($user->isClient()) {
+                $tutorships = TutorCode::all();
+                foreach($tutorships as $key_t => $tutorship){
+                    $area = Area::where('id',$tutorship->id_area)->first();
+                    $tutor_data = User::where('id',$tutorship->id_tutor)->first();
+                    $areasAll[$key_t] = [
+                        'id_tutor_code'=> $tutorship->id,
+                        'id_area'      => $tutorship->id_area,
+                        'area_name'    => $area->name,
+                        'code'         => $tutorship->code,
+                        'id_tutor'     => $tutorship->id_tutor,
+                        'tutor_name'   => $tutor_data->name.' '.$tutor_data->last_name,
+                    ];
+                    foreach($data as $key_d => $vinculation){
+                        if($tutorship->code === $vinculation->code_vinculated){
+                            unset($areasAll[$key_t]);
+                        }
+                    }
+                }
+            }
+        }else{
+            $tutorships = TutorCode::where('id_area',$select)->get();
+            foreach($tutorships as $key_t => $tutorship){
+                $area = Area::where('id',$tutorship->id_area)->first();
+                $tutor_data = User::where('id',$tutorship->id_tutor)->first();
+                $areasAll[$key_t] = [
+                    'id_tutor_code'=> $tutorship->id,
+                    'id_area'      => $tutorship->id_area,
+                    'area_name'    => $area->name,
+                    'code'         => $tutorship->code,
+                    'id_tutor'     => $tutorship->id_tutor,
+                    'tutor_name'   => $tutor_data->name.' '.$tutor_data->last_name,
+                ];
+                foreach($data as $key_d => $vinculation){
+                    if($tutorship->code === $vinculation->code_vinculated){
+                        unset($areasAll[$key_t]);
+                    }
+                }
+            }
+        }
+        $areasAll = array_values($areasAll);
         return response()->json($areasAll);
     }
 

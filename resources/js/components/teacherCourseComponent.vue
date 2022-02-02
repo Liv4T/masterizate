@@ -27,24 +27,24 @@
                                 </div>
                             </div>
 
-                            <div class="col-12">                                                                    
+                            <div class="col-12">
                                 <label for="work">
                                     Objetivos de la Clase
                                 </label>
                                 <input type="text" class="form-control" v-model="course.objetivesClass"/>
                                 </div>
 
-                            <div class="row">                                        
-                                <label><span class="required">*</span>Fecha Inicio de Clase:</label>                
+                            <div class="row">
+                                <label><span class="required">*</span>Fecha Inicio de Clase:</label>
                                 <input type="datetime-local" class="form-control" v-model="course.date_init_class" />
                                 <input type="hidden" id="timezone" name="timezone" value="-05:00">
                             </div>
-                            <div class="row">                                        
+                            <div class="row">
                                 <label><span class="required">*</span>Link de Clase</label>
-                                <input type="text-local" class="form-control" v-model="course.url_class" />                                          
+                                <input type="text-local" class="form-control" v-model="course.url_class" />
                             </div>
 
-                            <div class="col-12">                                                                    
+                            <div class="col-12">
                                 <label for="work">
                                     Tarea
                                 </label>
@@ -64,15 +64,15 @@
                                         <input type="checkbox" id="students" name="students" v-model="activityForAllStudents">
                                         <label for="piar"> Todos los Estudiantes</label>
                                     </div>
-                                    
+
                                     <div>
                                         <input type="checkbox" id="piar" name="students" v-model="activityForPIARStudents">
                                         <label for="piar"> Estudiantes PIAR</label><br>
-                                        
+
                                         <input type="checkbox" id="specific" name="students" v-model="activityForSelectStudents">
-                                        <label for="specific"> Estudiantes en Especifico</label>                                        
+                                        <label for="specific"> Estudiantes en Especifico</label>
                                     </div>
-                                    
+
                                     <div v-if="activityForPIARStudents == true || activityForSelectStudents == true">
                                         <label>Selecciona Los estudiantes</label>
                                         <multiselect v-model="saveStudent" :options="selectedStudentsData" :multiple="true"
@@ -88,10 +88,10 @@
                                                     </span>
                                                 </template>
                                         </multiselect>
-                                    </div>                                      
+                                    </div>
                                 </div>
                             </div>
-                            
+
                             <div class="row justify-content-center">
                                   <div class="col-5 div-resource" v-for="(item_content,key_c) in course.content" v-bind:key="key_c">
 
@@ -200,7 +200,7 @@
                                                     <div class="col-6">
                                                         <label><span class="required">*</span>Fecha retroalimentación:</label>
                                                         <input type="datetime-local" class="form-control" v-model="activity.feedback_date" />
-                                                    </div>                                                    
+                                                    </div>
                                                 </div>
                                                 <activity-questionary v-if="activity.activity_type=='CUESTIONARIO'" v-bind:module="activity.module" v-bind:disabled="course.state==2"></activity-questionary>
                                                 <activity-complete-sentence v-if="activity.activity_type=='COMPLETAR_ORACION'" v-bind:module="activity.module" v-bind:disabled="course.state==2"></activity-complete-sentence>
@@ -306,7 +306,7 @@ export default {
             classroom_id: '',
             area_id: '',
             custom_editor_toolbar_justify:[["bold", "italic", "underline"], [{ list: "ordered" }, { list: "bullet" }],["image"]],
-            piarStudents:[], 
+            piarStudents:[],
             fillC:[],
         };
     },
@@ -322,7 +322,7 @@ export default {
                 this.course.activityForSelectStudents = 0;
                 this.course.activityForAllStudents = 1;
                 this.course.selectedStudents = "[]"
-                
+
                 this.activityForPIARStudents = false;
                 this.activityForSelectStudents = false;
                 this.saveStudent = []
@@ -354,7 +354,7 @@ export default {
                 this.selectedStudentsData = this.studentsOptions;
             }
         },
-        
+
         saveStudent: function(newVal){
             if(this.activityForAllStudents == false && this.activityForPIARStudents == true || this.activityForSelectStudents == true && newVal){
                 this.course.selectedStudents = JSON.stringify(this.saveStudent);
@@ -379,12 +379,12 @@ export default {
             }
         }
     },
-    mounted() {        
+    mounted() {
         this.activityForAllStudents = true;
         axios.get(`/showClass/${this.id_module}`).then((response) => {
             console.log('showClass: ',response.data);
-            this.achievements=response.data.achievements;            
-            this.nameArea = response.data.user_type === 7 ? response.data.area.name :`${response.data.area.name} ${response.data.classroom.name}`;
+            this.achievements=response.data.achievements;
+            this.nameArea = response.data.classroom.name;
             this.area_id = response.data.area.id;
             this.classroom_id = response.data.classroom.id;
             this.getDataPlanification();
@@ -401,18 +401,18 @@ export default {
                         id: e.id_student,
                         text: e.name
                     })
-                });                
+                });
             })
         });
         axios.get(`/GetNameWeekly/${this.id_module}`).then((response) => {
             this.weekly_plan={name:response.data};
         });
-        
+
         if(this.id_class !== 0)
         {
             axios.get(`/api/teacher/module/${this.id_module}/class/${this.id_class}`).then((response) => {
                     this.course=response.data;
-                    let activities = response.data.activities;                    
+                    let activities = response.data.activities;
                     this.course.activities=[];
                     activities.forEach((e, i)=>{
                         this.course.activities.push({
@@ -444,7 +444,7 @@ export default {
                     this.activityForSelectStudents = this.course.activityForSelectStudents
                     this.activityForAllStudents = this.course.activityForAllStudents
                     this.saveStudent = JSON.parse(this.course.selectedStudents);
-                
+
                 if(this.course.content.length==0)
                     {
                         this.course.content=[
@@ -483,7 +483,7 @@ export default {
                     }
             });
         }
-       
+
     },
     methods: {
         returnPage() {
@@ -498,7 +498,7 @@ export default {
             });
         },
         getDataPlanification(position){
-            var urlsel = window.location.origin + "/coursePlanification/" + this.area_id + "/" + this.classroom_id;            
+            var urlsel = window.location.origin + "/coursePlanification/" + this.area_id + "/" + this.classroom_id;
             axios.get(urlsel).then((response) => {
                 // if(this.id_class!=0){
                     this.course.activities[this.course.activities.length - 1].fillC=response.data.quaterly;
@@ -530,11 +530,11 @@ export default {
             });
         },
 
-        SaveDataEvent(){            
+        SaveDataEvent(){
             axios.put(`/api/teacher/module/${this.id_module}/class`,this.course).then((response) => {
-               toastr.success("Clases actualizadas correctamente");                
+               toastr.success("Clases actualizadas correctamente");
             },(error)=>{console.log(error);toastr.error("ERROR:Por favor valide que la información esta completa");});
-                  
+
             if(this.id_class==0){
                 var initD= new Date(this.course.date_init_class);
                 var initDateSave = moment(initD).format("YYYY-MM-DD H:mm:ss");

@@ -284,6 +284,7 @@ Vue.component("modal-create-reason-component", () => import("./components/ModalR
 Vue.component("menu-tutor", ()=>import("./components/menuTutor.vue"));
 Vue.component("tutor-schedule", ()=>import("./components/tutorScheduleComponent.vue"));
 Vue.component("student-schedule", ()=>import("./components/studentScheduleComponent.vue"));
+Vue.component("student-class-list", ()=>import("./components/studentClassListComponent.vue"));
 Vue.component("tutor-profile", ()=>import("./components/tutorProfileComponent.vue"));
 Vue.component("tutor-code", ()=>import("./components/tutorCode.vue"));
 Vue.component("tutor-code-student", ()=>import("./components/tutorCodeStudent.vue"));

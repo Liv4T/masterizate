@@ -469,7 +469,8 @@ Route::middleware('auth')->get('/actividad_d/{id}', 'ClassController@activityWee
 Route::middleware('auth')->get('/actividad_d/getClass/{id}', 'ClassController@getClassId')->name('getClass');
 Route::post('courseWeekly', 'CoursesController@courseWeekly')->name('courseWeekly');
 Route::get('GetArearByUser', 'CoursesController@getAreaByUser')->name('GetArearByUser');
-Route::get('GetArearByTutor', 'CoursesController@getTutorAreas')->name('GetArearByTutor');
+Route::get('getArearByTutor/{id}', 'CoursesController@getTutorAreas')->name('GetArearByTutor');
+Route::get('GetAreasByStudent/{select}', 'CoursesController@getStudentNewAreas')->name('GetAreasByStudent');
 //prueba push
 // Rutas capturar actividades y entregas
 
@@ -556,6 +557,8 @@ Route::middleware('auth')->get('/enviados', function () {
      */
 
 Route::get('getUsers', 'AdministratorController@indexUsers')->name('getUsers');
+Route::get('getUsersClient', 'AdministratorController@getUsersClient')->name('getUsersClient');
+Route::get('getUsersTutor', 'AdministratorController@getTutors')->name('getUsersTutor');
 Route::get('getStudents', 'AdministratorController@indexStudents')->name('getStudents');
 Route::get('getTeachers', 'AdministratorController@indexTeachers')->name('getTeachers');
 Route::get('getAnyTeachers', 'AdministratorController@indexAnyTeachers')->name('getAnyTeachers');
@@ -574,6 +577,7 @@ Route::post('createGrade', 'AdministratorController@createGrade')->name('createG
 Route::post('createClassroom', 'AdministratorController@createClassroom')->name('createClassroom');
 Route::post('createArea', 'AdministratorController@createArea')->name('createArea');
 Route::get('getGrade', 'AdministratorController@findGrade')->name('getGrade');
+Route::get('getGradeTutor', 'AdministratorController@getClassroomTutor')->name('getGradeTutor');
 Route::get('getArea', 'AdministratorController@findArea')->name('getArea');
 Route::get('getClassroom', 'AdministratorController@findClassroom')->name('getClassroom');
 
@@ -817,7 +821,7 @@ Route::middleware('auth')->get('/tutor/evento', function () {
 
 //Ruta para crear codigos de vinculación
 Route::middleware('auth')->get('/tutorCode', function () {
-    return view('tutorCode');
+    return view('tutorCode')->with('user', Auth::user()->type_user);;
 });
 
 //Ruta para observar que estudiantes estan vinculados por codigo
@@ -840,6 +844,9 @@ Route::middleware('auth')->get('/estudiante/tutorias/{scheduleStudent_id}', func
 });
 Route::middleware('auth')->get('/estudiante/tutorias', function () {
     return view('studentSchedule')->with('scheduleStudent_id', 0);
+});
+Route::middleware('auth')->get('/estudiante/nueva_clase', function () {
+    return view('studentClassList');
 });
 
 Route::post('/paypal/purchase/complete', 'PaypalController@getOrder');
@@ -892,6 +899,8 @@ Route::resource('codes', 'TutorCodeController');
 Route::get('/validateCode/{code}', 'TutorCodeController@validateCode');
 Route::resource('vinculationsTutor', 'VinculationTutorStudentController');
 Route::get('getVinculationsTutor', 'VinculationTutorStudentController@getVinculationsTutor');
+Route::get('/getCodesPerUser/{id}', 'TutorCodeController@codesPerUser');
+Route::get('/getClassroomAndStudent', 'TutorController@getClassroomAndUsers');
 
 
 Route::get('/api/lectives', 'LectivesController@getLectives');

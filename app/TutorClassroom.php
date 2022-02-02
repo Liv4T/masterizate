@@ -11,6 +11,6 @@ class TutorClassroom extends Model
 
     protected $fillable = [
         'name',
-        'id_institution',
+        'id_tutor',
     ];
 }

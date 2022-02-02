@@ -4,14 +4,9 @@
             <div class="row">
                 <div class="left">
                     <ul>
-                        <a v-on:click="showSection('institutions')" class="">
-                            <li class="item-menu">
-                                <span class="menu">Instituciones</span>
-                            </li>
-                        </a>
                         <a v-on:click="showSection('quarter')" class="">
                             <li class="item-menu">
-                                <span class="menu">Período</span>
+                                <span class="menu">Trimestres</span>
                             </li>
                         </a>
 
@@ -21,72 +16,25 @@
                             </li>
                         </a>
 
-                        <a v-on:click="showSection('piarStudents')" class="">
-                            <li class="item-menu">
-                                <span class="menu">Estudiantes PIAR</span>
-                            </li>
-                        </a>
-
                         <a v-on:click="showSection('users')" class="">
                             <li class="item-menu">
                                 <span class="menu">Usuarios</span>
                             </li>
                         </a>
 
-                        <a v-on:click="showSection('noteParameters')" class="">
-                            <li class="item-menu">
-                                <span class="menu">Parametros de Notas</span>
-                            </li>
-                        </a>
-
-                        <a v-on:click="showSection('nursing')" class="">
-                            <li class="item-menu">
-                                <span class="menu">Enfermería</span>
-                            </li>
-                        </a>
-
-                        <a v-on:click="showSection('feeding')" class="">
-                            <li class="item-menu">
-                                <span class="menu">Alimentación</span>
-                            </li>
-                        </a>
-
-                        <a v-on:click="showSection('transport')" class="">
-                            <li class="item-menu">
-                                <span class="menu">Transporte</span>
-                            </li>
-                        </a>
                     </ul>
                     <br />
                 </div>
 
                 <div class="col-md-12">
-                    <div v-if="activetab === 'institutions'">
-                        <institu-adm></institu-adm>
-                    </div>
                     <div v-if="activetab === 'quarter'">
-                        <trimestres></trimestres>
+                        <trimestre-component></trimestre-component>
                     </div>
                     <div v-if="activetab === 'classroom'">
                         <cursos-adm></cursos-adm>
                     </div>
-                    <div v-if="activetab === 'piarStudents'">
-                        <piar-component ></piar-component>
-                    </div>
                     <div v-if="activetab === 'users'">
                         <salon-adm></salon-adm>
-                    </div>
-                    <div v-if="activetab === 'noteParameters'">
-                        <admin-configuration></admin-configuration>
-                    </div>
-                    <div v-if="activetab === 'nursing'">
-                        <nursing-component></nursing-component>
-                    </div>
-                    <div v-if="activetab === 'feeding'">
-                        <food-component></food-component>
-                    </div>
-                    <div v-if="activetab === 'transport'">
-                        <pedagogical-course :user="user"></pedagogical-course>
                     </div>
                 </div>
             </div>

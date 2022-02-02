@@ -54,20 +54,20 @@ class UserController extends Controller
             return redirect('/inicio');
         } else if(Auth::attempt(['user_name' => $user_name, 'password' => $password, 'status'=> 0], false)){
             session()->put('login.attempts', 0);
-            return redirect()->back()->with(['status' => 'Usuario Bloqueado espera 5 Minutos Para acceder de nuevo']);   
+            return redirect()->back()->with(['status' => 'Usuario Bloqueado espera 5 Minutos Para acceder de nuevo']);
         } else {
             if ($attempts<10) {
                 session()->put('login.attempts', $attempts + 1); // incrementrar intentos
-                return redirect()->back()->with(['status' => 'Usuario y/o Contraseña Incorrectos']);   
+                return redirect()->back()->with(['status' => 'Usuario y/o Contraseña Incorrectos']);
             }
             if ($attempts>=10) {
                 $user = User::where('user_name',$user_name)->first();
                 $user->status = 0;
                 $user->update();
                 // $schedule->call(new updateStatusUsers)->daily();
-                return redirect()->back()->with(['status' => 'Usuario Bloqueado espera 5 Minutos']);   
-            }   
-            
+                return redirect()->back()->with(['status' => 'Usuario Bloqueado espera 5 Minutos']);
+            }
+
         }
     }
 
@@ -118,22 +118,22 @@ class UserController extends Controller
 
     public function getPsicologist(){
         $psicologist = User::where('type_user','=',5)->get();
-        return response()->json($psicologist);   
+        return response()->json($psicologist);
     }
 
     public function getSchoolGovernment(){
         $administrators = User::where('type_user','=',6)->get();
-        return response()->json($administrators);   
+        return response()->json($administrators);
     }
 
     public function getTutor(){
         $psicologist = User::where('type_user','=',7)->get();
-        return response()->json($psicologist);   
+        return response()->json($psicologist);
     }
 
     public function getCoordinador(){
         $psicologist = User::where('type_user','=',8)->get();
-        return response()->json($psicologist);   
+        return response()->json($psicologist);
     }
 
     public function getNurse(){
@@ -317,7 +317,7 @@ class UserController extends Controller
     }
     public function TypeUserLog(){
         $user=Auth::user()->type_user;
-        
+
         return response()->json($user);
     }
 }

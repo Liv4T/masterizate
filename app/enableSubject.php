@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class enableSubject extends Model
+class EnableSubject extends Model
 {
     protected $table = "enable_subjects";
     protected $guarded = ['id'];
