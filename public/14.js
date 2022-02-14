@@ -63,6 +63,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -112,9 +116,14 @@ __webpack_require__.r(__webpack_exports__);
       axios.get("/getTrimestres").then(function (response) {
         _this2.trimestres = response.data;
       });
-      axios.get('getAreaByClient').then(function (response) {
+      /* axios.get('getAreaByClient').then((response)=>{
+          this.areas = response.data;
+          console.log(this.areas);
+      }) */
+
+      var url = "/GetArearByUser";
+      axios.get(url).then(function (response) {
         _this2.areas = response.data;
-        console.log(_this2.areas);
       });
     },
     modaliniciar: function modaliniciar() {
@@ -216,31 +225,26 @@ var render = function() {
                 {
                   name: "model",
                   rawName: "v-model",
-                  value: _vm.select,
-                  expression: "select"
+                  value: _vm.idArea,
+                  expression: "idArea"
                 }
               ],
               staticClass: "btn btn-warning letra-boldfont",
               attrs: { name: "type" },
               on: {
-                change: [
-                  function($event) {
-                    var $$selectedVal = Array.prototype.filter
-                      .call($event.target.options, function(o) {
-                        return o.selected
-                      })
-                      .map(function(o) {
-                        var val = "_value" in o ? o._value : o.value
-                        return val
-                      })
-                    _vm.select = $event.target.multiple
-                      ? $$selectedVal
-                      : $$selectedVal[0]
-                  },
-                  function($event) {
-                    return _vm.ShowSelected()
-                  }
-                ]
+                change: function($event) {
+                  var $$selectedVal = Array.prototype.filter
+                    .call($event.target.options, function(o) {
+                      return o.selected
+                    })
+                    .map(function(o) {
+                      var val = "_value" in o ? o._value : o.value
+                      return val
+                    })
+                  _vm.idArea = $event.target.multiple
+                    ? $$selectedVal
+                    : $$selectedVal[0]
+                }
               }
             },
             [
@@ -249,14 +253,17 @@ var render = function() {
                 {
                   attrs: { disabled: "", selected: "", hidden: "", value: "" }
                 },
-                [_vm._v("Seleccionar...")]
+                [_vm._v("CURSOS")]
               ),
               _vm._v(" "),
               _vm._l(_vm.areas, function(area, key) {
                 return _c(
                   "option",
-                  { key: key, domProps: { value: JSON.stringify(area) } },
-                  [_vm._v(_vm._s(area.area_name + " - " + area.code))]
+                  {
+                    key: key,
+                    domProps: { value: area.id + "/" + area.id_classroom }
+                  },
+                  [_vm._v(_vm._s(area.classroom_name))]
                 )
               })
             ],
@@ -370,7 +377,7 @@ var render = function() {
                           _vm._v(" "),
                           _c("cycle-list", {
                             attrs: {
-                              idArea: _vm.idAreaClass,
+                              idArea: _vm.idArea,
                               planif: _vm.planif,
                               user: _vm.user
                             }

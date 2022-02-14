@@ -57,7 +57,7 @@ __webpack_require__.r(__webpack_exports__);
   props: ['user'],
   data: function data() {
     return {
-      codes: []
+      classrooms: []
     };
   },
   mounted: function mounted() {
@@ -68,19 +68,8 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       axios.get('getVinculationsTutor').then(function (response) {
-        var codes = response.data;
-        var data = [];
-        codes.forEach(function (element) {
-          axios.get("api/tutor/".concat(element.id_student, "/profile")).then(function (response) {
-            data.push({
-              id: element.id,
-              code_vinculated: element.code_vinculated,
-              name_student: response.data.name + ' ' + response.data.last_name
-            });
-
-            _this.groupData(data);
-          });
-        });
+        _this.classrooms = response.data;
+        console.log(_this.classrooms);
       });
     },
     groupData: function groupData(data) {
@@ -116,7 +105,7 @@ var render = function() {
         _c(
           "div",
           { attrs: { id: "accordion" } },
-          _vm._l(_vm.codes, function(codes, key) {
+          _vm._l(_vm.classrooms, function(classroom, key) {
             return _c("div", { key: key, staticClass: "card" }, [
               _c(
                 "div",
@@ -137,7 +126,7 @@ var render = function() {
                       [
                         _vm._v(
                           "\n                                " +
-                            _vm._s(key) +
+                            _vm._s(classroom.area_name) +
                             "\n                            "
                         )
                       ]
@@ -149,7 +138,7 @@ var render = function() {
               _c(
                 "div",
                 {
-                  staticClass: "collapse show",
+                  staticClass: "collapse",
                   attrs: {
                     id: "collapseOne" + key,
                     "aria-labelledby": "headingOne",
@@ -164,12 +153,12 @@ var render = function() {
                       [
                         _vm._m(1, true),
                         _vm._v(" "),
-                        _vm._l(codes, function(codes, key) {
-                          return _c("tbody", { key: key }, [
+                        _vm._l(classroom.students, function(student, key_s) {
+                          return _c("tbody", { key: key_s }, [
                             _c("tr", [
-                              _c("td", [_vm._v(_vm._s(codes.name_student))]),
+                              _c("td", [_vm._v(_vm._s(key_s + 1))]),
                               _vm._v(" "),
-                              _c("td", [_vm._v(_vm._s(codes.code_vinculated))])
+                              _c("td", [_vm._v(_vm._s(student.student_name))])
                             ])
                           ])
                         })
@@ -202,9 +191,9 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
-        _c("th", [_vm._v("Nombre Estudiante")]),
+        _c("th", [_vm._v("#")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Codigo")])
+        _c("th", [_vm._v("Nombre Estudiante")])
       ])
     ])
   }

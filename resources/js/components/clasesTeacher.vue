@@ -3,14 +3,18 @@
     <div>
       <div class="form-group col-md-4 mx-auto">
         <div class="text-center">
-            <select class="btn btn-warning letra-boldfont" v-model="select" name="type" @change="ShowSelected()">
+            <!-- <select class="btn btn-warning letra-boldfont" v-model="select" name="type" @change="ShowSelected()">
                 <option disabled selected hidden value="">Seleccionar...</option>
                 <option v-for="(area, key) in areas" :key="key" :value="JSON.stringify(area)">{{area.area_name + ' - ' + area.code}}</option>
-            </select>
+            </select> -->
           <!-- <select class="btn btn-warning letra-boldfont" name="type" @change="ShowSelected">
             <option disabled selected hidden value="">CURSOS</option>
             <option :value="JSON.stringify(area)" v-for="(area, key) in areas" :key="key">{{ area.user_type === 7 ? area.area_name : area.text  }}</option>
           </select> -->
+          <select class="btn btn-warning letra-boldfont" name="type" v-model="idArea">
+            <option disabled selected hidden value="">CURSOS</option>
+            <option :value="area.id + '/' + area.id_classroom" v-for="(area, key) in areas" :key="key">{{ area.classroom_name }}</option>
+          </select>
         </div>
       </div>
       <div class="row">
@@ -27,7 +31,7 @@
             <div v-if="activetab === 1" class="tabcontent">
               <div v-if="idArea !='' || user.type_user === 7">
                 <h3 v-show="user.type_user === 7" class="card-header fondo">Mis Cursos</h3>
-                <cycle-list :idArea="idAreaClass" :planif="planif" :user="user"></cycle-list>
+                <cycle-list :idArea="idArea" :planif="planif" :user="user"></cycle-list>
               </div>
             </div>
             <div v-if="activetab === 2" class="tabcontent">
@@ -97,10 +101,14 @@ export default {
         axios.get("/getTrimestres").then((response) =>{
             this.trimestres=response.data;
         });
-        axios.get('getAreaByClient').then((response)=>{
+        /* axios.get('getAreaByClient').then((response)=>{
             this.areas = response.data;
             console.log(this.areas);
-        })
+        }) */
+        var url = "/GetArearByUser";
+        axios.get(url).then((response) => {
+            this.areas = response.data;
+        });
     },
     modaliniciar() {
       var url = window.location.origin + "/SaveTerms";

@@ -6,46 +6,46 @@
                     <h4>Estudiantes Vinculados con Codigo</h4>
                 </div>
                 <div id="accordion">
-                    <div class="card" v-for="(codes, key) in codes" :key="key">
+                    <div class="card" v-for="(classroom, key) in classrooms" :key="key">
                         <div class="card-header" id="headingOne">
                             <h5 class="mb-0">
                                 <button class="btn btn-link" data-toggle="collapse" :data-target="`#collapseOne${key}`" aria-expanded="true" :aria-controls="`collapseOne${key}`">
-                                    {{key}}
+                                    {{ classroom.area_name }}
                                 </button>
                             </h5>
                         </div>
 
-                        <div :id="`collapseOne${key}`" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                        <div :id="`collapseOne${key}`" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
                             <div class="card-body">
                                 <table class="table table-striped table-hover">
                                     <thead>
                                         <tr>
+                                            <th>#</th>
                                             <th>Nombre Estudiante</th>
-                                            <th>Codigo</th>
                                         </tr>
                                     </thead>
-                                    <tbody v-for="(codes, key) in codes" :key="key">
+                                    <tbody v-for="(student, key_s) in classroom.students" :key="key_s">
                                         <tr>
-                                            <td>{{codes.name_student}}</td>
-                                            <td>{{codes.code_vinculated}}</td>
+                                            <td>{{ key_s+1 }}</td>
+                                            <td>{{ student.student_name }}</td>
                                         </tr>
                                     </tbody>
-                                </table>                
+                                </table>
                             </div>
                         </div>
-                    </div>                    
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </template>
 <script>
-    import _ from 'lodash'; 
+    import _ from 'lodash';
     export default {
         props:['user'],
         data(){
             return{
-                codes:[],
+                classrooms:[],
             }
         },
         mounted(){
@@ -53,20 +53,9 @@
         },
         methods:{
             getCodes(){
-                axios.get('getVinculationsTutor').then((response)=>{                    
-                    let codes = response.data;   
-                    let data = [];             
-                    codes.forEach((element)=>{
-                        axios.get(`api/tutor/${element.id_student}/profile`).then((response)=>{
-                            data.push({
-                                id: element.id,
-                                code_vinculated: element.code_vinculated,
-                                name_student: response.data.name+' '+response.data.last_name  
-                            })
-                            this.groupData(data);
-                        })
-                    })
-                    
+                axios.get('getVinculationsTutor').then((response)=>{
+                    this.classrooms = response.data;
+                    console.log(this.classrooms);
                 })
             },
             groupData(data){

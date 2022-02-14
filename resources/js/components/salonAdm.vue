@@ -5,19 +5,8 @@
         <div class="card text-center">
           <h3 class="card-header fondo">Salones</h3>
           <div class="card-body">
-            <!-- <a class="btn btn-warning" v-on:click.prevent="createS()">Crear salón</a> -->
-            <!-- <a
-                            class="btn btn-warning"
-                            v-on:click.prevent="createM()"
-                            >Crear materia</a
-            >-->
             <a class="btn btn-warning float-left" style="margin-right:10px;" href="#" v-on:click.prevent="editNames()">Crear usuarios</a>
-
             <a class="btn btn-warning float-left" v-on:click="showComponent('uploadUsers')">Cargar usuarios</a>
-            <!-- <a class="btn btn-warning float-right" style="margin-left:10px;"  v-on:click="showComponent('assignStudents')">Asignar estudiante</a>
-            <a class="btn btn-warning float-right" style="margin-left:10px;"  v-on:click="showComponent('assignParent')">Asignar Acudiente</a>
-            <a class="btn btn-warning float-right" v-on:click="showComponent('assignTeachers')">Asignar docente</a> -->
-
             <br />
             <br />
             <br />

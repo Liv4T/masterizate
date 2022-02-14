@@ -12,13 +12,13 @@
 
                         <a v-on:click="showSection('adminCodesLink')">
                             <li class="item-menu">
-                                <span class="menu">Codgigos Vinculados</span>
+                                <span class="menu">Códigos Vinculados</span>
                             </li>
                         </a>
 
                         <a v-on:click="showSection('codes')">
                             <li class="item-menu">
-                                <span class="menu">Codgigos Tutores</span>
+                                <span class="menu">Códigos Tutores</span>
                             </li>
                         </a>
 

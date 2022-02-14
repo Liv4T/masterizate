@@ -223,7 +223,7 @@ var render = function() {
                     key: key,
                     domProps: { value: area.id + "/" + area.id_classroom }
                   },
-                  [_vm._v(_vm._s(area.text))]
+                  [_vm._v(_vm._s(area.classroom_name))]
                 )
               })
             ],
