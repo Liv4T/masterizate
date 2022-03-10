@@ -255,23 +255,6 @@ var render = function() {
             _c(
               "a",
               {
-                class: [_vm.activetab === 2 ? "active" : ""],
-                on: {
-                  click: function($event) {
-                    _vm.activetab = 2
-                  }
-                }
-              },
-              [
-                _c("h4", { staticStyle: { "font-size": "15px" } }, [
-                  _vm._v("PERÍODO")
-                ])
-              ]
-            ),
-            _vm._v(" "),
-            _c(
-              "a",
-              {
                 class: [_vm.activetab === 3 ? "active" : ""],
                 on: {
                   click: function($event) {
@@ -282,23 +265,6 @@ var render = function() {
               [
                 _c("h4", { staticStyle: { "font-size": "15px" } }, [
                   _vm._v("EVALUACIÓN")
-                ])
-              ]
-            ),
-            _vm._v(" "),
-            _c(
-              "a",
-              {
-                class: [_vm.activetab === 4 ? "active" : ""],
-                on: {
-                  click: function($event) {
-                    _vm.activetab = 4
-                  }
-                }
-              },
-              [
-                _c("h4", { staticStyle: { "font-size": "15px" } }, [
-                  _vm._v("CICLOS")
                 ])
               ]
             )

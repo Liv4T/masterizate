@@ -127,7 +127,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.btn-select{\n    background-color: #39ffe5;\n    font-weight: 600;\n    border-color: #39b0ff;\n    color: black;\n}\n.btn-suscription{\n    background-color: rgb(2, 4, 79);\n    color: white;\n    font-weight: 800;\n}\n.btn-suscription:hover{\n    background-color: rgb(2, 4, 79);\n    color: #c9c9c9;\n    font-weight: 800;\n}\n", ""]);
+exports.push([module.i, "\n.btn-select{\r\n    background-color: #39ffe5;\r\n    font-weight: 600;\r\n    border-color: #39b0ff;\r\n    color: black;\n}\n.btn-suscription{\r\n    background-color: rgb(2, 4, 79);\r\n    color: white;\r\n    font-weight: 800;\n}\n.btn-suscription:hover{\r\n    background-color: rgb(2, 4, 79);\r\n    color: #c9c9c9;\r\n    font-weight: 800;\n}\r\n", ""]);
 
 // exports
 

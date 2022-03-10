@@ -627,7 +627,6 @@ class ClassController extends Controller
         ]);
 
         $data = $request->all();
-
         $id_course=0;
 
         if(isset($data['id_class']))

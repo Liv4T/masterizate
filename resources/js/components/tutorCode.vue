@@ -3,14 +3,14 @@
         <div class="row justify-content-center">
             <div id="crud" class="col-sm-10">
                 <div class="card-header text-center fondo">
-                    <h4>Codigos</h4>
+                    <h4>Mis Aulas</h4>
                 </div>
                 <div class="text-left">
                     <button v-if="user.type_user === 1" type="button" class="btn btn-primary mt-2 mb-2" data-toggle="modal" data-target="#code" v-on:click="getCleanModal()">
-                        Crear Codigo
+                        Crear Aula de clase
                     </button>
                     <button v-else type="button" class="btn btn-primary mt-2 mb-2" data-toggle="modal" data-target="#code" v-on:click="getAreas(); getCleanModal()">
-                        Crear Codigo
+                        Crear Aula de clase
                     </button>
                 </div>
                 <table class="table table-striped table-hover">
@@ -46,7 +46,7 @@
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="codeLabel">Codigo a Guardar</h5>
+                                <h5 class="modal-title" id="codeLabel">Nueva Aula</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                                 </button>

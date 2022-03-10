@@ -299,6 +299,8 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
           content: '',
           description: ''
         }],
+        url_class: "",
+        date_init_class: "",
         objetivesClass: "",
         work: "",
         transversals: "",
@@ -384,7 +386,6 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
 
     this.activityForAllStudents = true;
     axios.get("/showClass/".concat(this.id_module)).then(function (response) {
-      console.log('showClass: ', response.data);
       _this.achievements = response.data.achievements;
       _this.nameArea = response.data.classroom.name;
       _this.area_id = response.data.area.id;
@@ -473,7 +474,7 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
           });
         }
 
-        if (_this.course) {
+        if (_this.course.date_init_class !== '') {
           _this.course.date_init_class = _this.course.date_init_class.replace(" ", "T");
         }
       });
@@ -533,7 +534,7 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
         toastr.error("ERROR:Por favor valide que la información esta completa");
       });
 
-      if (this.id_class == 0) {
+      if (this.id_class == 0 && this.course.date_init_class !== '') {
         var initD = new Date(this.course.date_init_class);
         var initDateSave = moment__WEBPACK_IMPORTED_MODULE_2___default()(initD).format("YYYY-MM-DD H:mm:ss");
         var end = moment__WEBPACK_IMPORTED_MODULE_2___default()(initDateSave).add(2, 'hours').format("YYYY-MM-DD H:mm:ss");
@@ -870,7 +871,7 @@ var render = function() {
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "row" }, [
-                      _vm._m(2),
+                      _c("label", [_vm._v("Fecha Inicio de Clase:")]),
                       _vm._v(" "),
                       _c("input", {
                         directives: [
@@ -909,7 +910,7 @@ var render = function() {
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "row" }, [
-                      _vm._m(3),
+                      _c("label", [_vm._v("Link de Clase")]),
                       _vm._v(" "),
                       _c("input", {
                         directives: [
@@ -1004,7 +1005,7 @@ var render = function() {
                     _vm._v(" "),
                     _c("div", { staticClass: "row" }, [
                       _c("div", { staticClass: "col-12" }, [
-                        _vm._m(4),
+                        _vm._m(2),
                         _vm._v(" "),
                         _c("div", [
                           _c("input", {
@@ -1670,7 +1671,7 @@ var render = function() {
                                 [
                                   _c("div", { staticClass: "row" }, [
                                     _c("div", { staticClass: "col-8" }, [
-                                      _vm._m(5, true),
+                                      _vm._m(3, true),
                                       _vm._v(" "),
                                       _c("input", {
                                         directives: [
@@ -1703,7 +1704,7 @@ var render = function() {
                                     ]),
                                     _vm._v(" "),
                                     _c("div", { staticClass: "col-4" }, [
-                                      _vm._m(6, true),
+                                      _vm._m(4, true),
                                       _vm._v(" "),
                                       _c(
                                         "select",
@@ -1799,7 +1800,7 @@ var render = function() {
                                   _vm._v(" "),
                                   _c("div", { staticClass: "row" }, [
                                     _c("div", { staticClass: "col-12" }, [
-                                      _vm._m(7, true),
+                                      _vm._m(5, true),
                                       _vm._v(" "),
                                       _c("textarea", {
                                         directives: [
@@ -1835,7 +1836,7 @@ var render = function() {
                                   _vm._v(" "),
                                   _c("div", { staticClass: "row" }, [
                                     _c("div", { staticClass: "col-8" }, [
-                                      _vm._m(8, true),
+                                      _vm._m(6, true),
                                       _vm._v(" "),
                                       _c(
                                         "select",
@@ -1918,7 +1919,7 @@ var render = function() {
                                     ]),
                                     _vm._v(" "),
                                     _c("div", { staticClass: "col-4" }, [
-                                      _vm._m(9, true),
+                                      _vm._m(7, true),
                                       _vm._v(" "),
                                       _c(
                                         "select",
@@ -1996,7 +1997,7 @@ var render = function() {
                                   _vm._v(" "),
                                   _c("div", { staticClass: "row" }, [
                                     _c("div", { staticClass: "col-6" }, [
-                                      _vm._m(10, true),
+                                      _vm._m(8, true),
                                       _vm._v(
                                         "\n                                                    " +
                                           _vm._s(activity.delivery_max_date) +
@@ -2042,7 +2043,7 @@ var render = function() {
                                     ]),
                                     _vm._v(" "),
                                     _c("div", { staticClass: "col-6" }, [
-                                      _vm._m(11, true),
+                                      _vm._m(9, true),
                                       _vm._v(" "),
                                       _c("input", {
                                         directives: [
@@ -2190,24 +2191,6 @@ var staticRenderFns = [
     return _c("label", [
       _c("span", { staticClass: "required" }, [_vm._v("*")]),
       _vm._v("Descripción:")
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("label", [
-      _c("span", { staticClass: "required" }, [_vm._v("*")]),
-      _vm._v("Fecha Inicio de Clase:")
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("label", [
-      _c("span", { staticClass: "required" }, [_vm._v("*")]),
-      _vm._v("Link de Clase")
     ])
   },
   function() {

@@ -35,12 +35,12 @@
                                 </div>
 
                             <div class="row">
-                                <label><span class="required">*</span>Fecha Inicio de Clase:</label>
+                                <label>Fecha Inicio de Clase:</label>
                                 <input type="datetime-local" class="form-control" v-model="course.date_init_class" />
                                 <input type="hidden" id="timezone" name="timezone" value="-05:00">
                             </div>
                             <div class="row">
-                                <label><span class="required">*</span>Link de Clase</label>
+                                <label>Link de Clase</label>
                                 <input type="text-local" class="form-control" v-model="course.url_class" />
                             </div>
 
@@ -294,6 +294,8 @@ export default {
                         description:''
                     }
                 ],
+                url_class:"",
+                date_init_class:"",
                 objetivesClass: "",
                 work: "",
                 transversals:"",
@@ -382,7 +384,6 @@ export default {
     mounted() {
         this.activityForAllStudents = true;
         axios.get(`/showClass/${this.id_module}`).then((response) => {
-            console.log('showClass: ',response.data);
             this.achievements=response.data.achievements;
             this.nameArea = response.data.classroom.name;
             this.area_id = response.data.area.id;
@@ -477,7 +478,7 @@ export default {
                         });
                     }
 
-                    if(this.course)
+                    if(this.course.date_init_class !== '')
                     {
                         this.course.date_init_class =this.course.date_init_class.replace(" ","T");
                     }
@@ -534,8 +535,7 @@ export default {
             axios.put(`/api/teacher/module/${this.id_module}/class`,this.course).then((response) => {
                toastr.success("Clases actualizadas correctamente");
             },(error)=>{console.log(error);toastr.error("ERROR:Por favor valide que la información esta completa");});
-
-            if(this.id_class==0){
+            if(this.id_class==0 && this.course.date_init_class !== ''){
                 var initD= new Date(this.course.date_init_class);
                 var initDateSave = moment(initD).format("YYYY-MM-DD H:mm:ss");
                 var end=moment(initDateSave).add(2, 'hours').format("YYYY-MM-DD H:mm:ss");

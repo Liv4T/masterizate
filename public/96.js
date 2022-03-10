@@ -363,7 +363,11 @@ var render = function() {
                     }
                   }
                 },
-                [_vm._v("\n                    Crear Codigo\n                ")]
+                [
+                  _vm._v(
+                    "\n                    Crear Aula de clase\n                "
+                  )
+                ]
               )
             : _c(
                 "button",
@@ -381,7 +385,11 @@ var render = function() {
                     }
                   }
                 },
-                [_vm._v("\n                    Crear Codigo\n                ")]
+                [
+                  _vm._v(
+                    "\n                    Crear Aula de clase\n                "
+                  )
+                ]
               )
         ]),
         _vm._v(" "),
@@ -807,7 +815,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "card-header text-center fondo" }, [
-      _c("h4", [_vm._v("Codigos")])
+      _c("h4", [_vm._v("Mis Aulas")])
     ])
   },
   function() {
@@ -816,7 +824,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "modal-header" }, [
       _c("h5", { staticClass: "modal-title", attrs: { id: "codeLabel" } }, [
-        _vm._v("Codigo a Guardar")
+        _vm._v("Nueva Aula")
       ]),
       _vm._v(" "),
       _c(

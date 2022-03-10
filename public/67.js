@@ -118,22 +118,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   methods: {
     logout: function logout() {
@@ -161,7 +145,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.left {\n  width: 225px;\n  height: auto;\n  background: #f5f5f5;\n  white-space: nowrap;\n  transition: width 0.5s;\n  position: absolute;\n  z-index: 1;\n}\n.left ul {\n  padding: 0;\n  list-style-type: none;\n  text-align: left;\n}\n.left li {\n  width: auto;\n  height: 60px;\n  line-height: 50px;\n  padding-left: 18px;\n}\n.left li:hover {\n  background: #278080;\n  color: white;\n}\n.left .item-menu {\n  height: 50px;\n  overflow: hidden;\n  color: black;\n}\n.left a {\n  color: white;\n  text-decoration: none;\n  font-weight: bold;\n}\nspan.menu {\n  padding-left: 17px;\n}\n.t_search {\n  color: rgb(200, 200, 200);\n  height: 35px;\n  margin-left: 15px;\n  width: 190px;\n}\n.dropdown {\n  position: relative;\n  display: inline-block;\n}\n.dropdown-content {\n  display: none;\n  position: absolute;\n  background-color: #f5f5f5;\n  min-width: 160px;\n  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);\n  z-index: 1;\n}\n.dropdown-content a {\n  color: black;\n  padding: 12px 16px;\n  text-decoration: none;\n  display: block;\n}\n.dropdown-content a:hover {\n  background: #278080;\n  color: white;\n}\n.dropdown:hover .dropdown-content {\n  display: block;\n}\n.dropdown2 {\n  position: relative;\n}\n.dropdown2-content {\n  display: none;\n  position: absolute;\n  background-color: #f5f5f5;\n  min-width: 160px;\n  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);\n  z-index: 1;\n}\n.dropdown2-content a {\n  color: black;\n  padding: 12px 16px;\n  text-decoration: none;\n  display: block;\n}\n.dropdown2-content a:hover {\n  background: #278080;\n  color: white;\n}\n.dropdown2:hover .dropdown2-content {\n  display: block;\n}\n", ""]);
+exports.push([module.i, "\n.left {\n  width: 265px;\n  height: auto;\n  background: #f5f5f5;\n  white-space: nowrap;\n  transition: width 0.5s;\n  position: absolute;\n  z-index: 1;\n}\n.left ul {\n  padding: 0;\n  list-style-type: none;\n  text-align: left;\n}\n.left li {\n  width: auto;\n  height: 60px;\n  line-height: 50px;\n  padding-left: 18px;\n}\n.left li:hover {\n  background: #278080;\n  color: white;\n}\n.left .item-menu {\n  height: 50px;\n  overflow: hidden;\n  color: black;\n}\n.left a {\n  color: white;\n  text-decoration: none;\n  font-weight: bold;\n}\nspan.menu {\n  padding-left: 17px;\n}\n.t_search {\n  color: rgb(200, 200, 200);\n  height: 35px;\n  margin-left: 15px;\n  width: 190px;\n}\n.dropdown {\n  position: relative;\n  display: inline-block;\n}\n.dropdown-content {\n  display: none;\n  position: absolute;\n  background-color: #f5f5f5;\n  min-width: 160px;\n  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);\n  z-index: 1;\n}\n.dropdown-content a {\n  color: black;\n  padding: 12px 16px;\n  text-decoration: none;\n  display: block;\n}\n.dropdown-content a:hover {\n  background: #278080;\n  color: white;\n}\n.dropdown:hover .dropdown-content {\n  display: block;\n}\n.dropdown2 {\n  position: relative;\n}\n.dropdown2-content {\n  display: none;\n  position: absolute;\n  background-color: #f5f5f5;\n  min-width: 160px;\n  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);\n  z-index: 1;\n}\n.dropdown2-content a {\n  color: black;\n  padding: 12px 16px;\n  text-decoration: none;\n  display: block;\n}\n.dropdown2-content a:hover {\n  background: #278080;\n  color: white;\n}\n.dropdown2:hover .dropdown2-content {\n  display: block;\n}\n", ""]);
 
 // exports
 
@@ -405,21 +389,6 @@ var staticRenderFns = [
         ])
       ]),
       _vm._v(" "),
-      _c("a", { attrs: { href: "/observer" } }, [
-        _c("li", { staticClass: "item-menu" }, [
-          _c("img", {
-            attrs: {
-              width: "35px",
-              src:
-                "https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/MIS-CURSOS.png?alt=media&token=93ec6b97-e5a6-4eca-891e-b63bf2a352ad",
-              alt: ""
-            }
-          }),
-          _vm._v(" "),
-          _c("span", { staticClass: "menu" }, [_vm._v("Observador")])
-        ])
-      ]),
-      _vm._v(" "),
       _c("a", { attrs: { href: "/tutorCode" } }, [
         _c("li", { staticClass: "item-menu" }, [
           _c("img", {
@@ -431,7 +400,9 @@ var staticRenderFns = [
             }
           }),
           _vm._v(" "),
-          _c("span", { staticClass: "menu" }, [_vm._v("Codigos")])
+          _c("span", { staticClass: "menu" }, [
+            _vm._v("Genera tu aula de clase")
+          ])
         ])
       ]),
       _vm._v(" "),
@@ -446,22 +417,7 @@ var staticRenderFns = [
             }
           }),
           _vm._v(" "),
-          _c("span", { staticClass: "menu" }, [_vm._v("Codigos Vinculados")])
-        ])
-      ]),
-      _vm._v(" "),
-      _c("a", { attrs: { href: "/psychology_menu" } }, [
-        _c("li", { staticClass: "item-menu" }, [
-          _c("img", {
-            attrs: {
-              width: "35px",
-              src:
-                "https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/sicologia_naranja.png?alt=media&token=3c495a25-1349-4b16-920d-126eed308186",
-              alt: ""
-            }
-          }),
-          _vm._v(" "),
-          _c("span", { staticClass: "menu" }, [_vm._v("Psicología")])
+          _c("span", { staticClass: "menu" }, [_vm._v("Mis Estudiantes")])
         ])
       ]),
       _vm._v(" "),
