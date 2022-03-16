@@ -12,7 +12,7 @@
       </div>
       @endif
 
-<div class="back">
+<div style="margin-left:10px">
     <board-help></board-help>
     <div class="row">
       <div class="col-md-6">

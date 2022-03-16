@@ -509,7 +509,7 @@ export default {
 </script>
 <style>
 .back {
-  padding-left: 210px;
+  padding-left: 270px;
 }
 .card-header.fondo {
   background-color: #278080;
