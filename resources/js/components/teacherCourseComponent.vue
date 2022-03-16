@@ -7,7 +7,6 @@
                         <h5 class="card-header fondo">{{ weekly_plan.name }}</h5>
                           <span class="classroom-label">{{ nameArea }}</span>
                     </div>
-
                     <div class="div-classes">
                         <div class="div-class">
                             <div class="title row">

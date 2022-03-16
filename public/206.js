@@ -166,7 +166,7 @@ var render = function() {
                         _vm._v(" "),
                         _c("p", [
                           _vm._v(
-                            "Este modulo permite ver a todos los estudiantes vinculados a cada aula de clase."
+                            "El modulo mis estudiantes permite ver a todos los estudiantes vinculados a cada aula de clase."
                           )
                         ]),
                         _vm._v(" "),

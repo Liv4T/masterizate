@@ -12,10 +12,10 @@ module.exports = __webpack_require__(/*! regenerator-runtime */ "./node_modules/
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/purchaseTutorshipsResumeComponent.vue?vue&type=script&lang=js&":
-/*!********************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/purchaseTutorshipsResumeComponent.vue?vue&type=script&lang=js& ***!
-  \********************************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/purchasePlanResumeComponent.vue?vue&type=script&lang=js&":
+/*!**************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/purchasePlanResumeComponent.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -317,8 +317,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["tutor_schedule_student_id", "tutorschedule_id"],
+  props: ["plan_type", "aut", "code"],
   mounted: function mounted() {
     var _this = this;
 
@@ -328,9 +333,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       _this.fillWidthCalculate();
     };
 
-    this.currencyExchange();
     this.getPlanInformation();
-    this.PayPaypal();
+
+    if (this.aut > 0) {
+      this.PayPaypal();
+    }
   },
   data: function data() {
     return {
@@ -361,7 +368,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       return ret_stament;
     },
     TotalValue: function TotalValue() {
-      var total = this.current_plan.plan_price.total_price * this.current_plan.quantity / this.currencyExchangePrice;
+      var total = this.current_plan.plan_price.total_price * this.current_plan.quantity;
+      console.log(this.formatPrice(total));
       return this.formatPrice(total);
     },
     VoucherDiscountApplied: function VoucherDiscountApplied() {
@@ -387,26 +395,24 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _this2 = this;
 
       return new Promise(function (resolve, reject) {
-        var url = "/api/tutor-schedule/event/data/" + _this2.tutorschedule_id + "/" + _this2.tutor_schedule_student_id;
+        var url = "/api/plan/event/data/" + _this2.plan_type;
         axios.get(url).then(function (response) {
           _this2.plan_prices = response.data;
 
           if (response.data.length == 0) {
             toastr.error("Plan no es válido");
             setTimeout(function () {
-              location.href = "/compra/plan";
+              location.href = "/skills";
               resolve();
             }, 3000);
           } else {
             console.log(response.data);
             _this2.current_plan = {
-              plan_name: "Tutor\xEDa ".concat(response.data.area.name),
+              plan_name: response.data.name,
+              id: response.data.id,
               quantity: 1,
-              date_from: response.data.event_student.date_from,
-              date_to: response.data.event_student.date_to,
-              id_event_student: response.data.event_student.id,
               plan_price: {
-                total_price: response.data.tutorial_value
+                total_price: response.data.price
               }
             };
             resolve();
@@ -481,11 +487,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
                   case 2:
                     order = _context2.sent;
-                    console.log(order);
 
+                    //console.log(order);
                     _this3.PayEvent(order);
 
-                  case 5:
+                  case 4:
                   case "end":
                     return _context2.stop();
                 }
@@ -507,8 +513,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.events.pay_loading = true;
       var model = {
         quantity: this.current_plan.quantity,
-        schedule_id: this.tutorschedule_id,
-        event_student_id: this.current_plan.id_event_student,
+        plan_name: this.current_plan.plan_name,
         amount: order.purchase_units[0].amount.value,
         ref: order.purchase_units[0].payments.captures[0].id,
         result: order.purchase_units[0].payments.captures[0].status,
@@ -516,38 +521,40 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         payer_id: order.payer.payer_id,
         merchant_id: order.purchase_units[0].payee.merchant_id,
         princeExchange: this.currencyExchangePrice,
-        total: this.TotalValue()
-      }; //console.log(model);
-
-      location.href = "/compra/pagar/paypal/".concat(encodeURI(window.btoa(JSON.stringify(model))));
+        total: this.TotalValue(),
+        code: this.code
+      };
+      location.href = "/compra/pagar/plan/paypal/".concat(encodeURI(window.btoa(JSON.stringify(model))));
       setTimeout(function () {
         _this4.events.pay_loading = false;
       }, 4000);
     },
-    currencyExchange: function currencyExchange() {
+    LoginOrRegister: function LoginOrRegister(order) {
       var _this5 = this;
 
-      var url = "/compra/currencyExchange";
-      axios.get(url).then(function (response) {
-        _this5.plan_prices = response.data;
+      this.events.pay_loading = true;
+      var model = {
+        quantity: this.current_plan.quantity,
+        id_event: this.current_plan.id,
+        plan_name: this.current_plan.plan_name,
+        total: this.TotalValue(),
+        code: this.code
+      }; //console.log(model);
 
-        if (response.data.length == 0) {
-          toastr.error("No hay un cambio válido");
-        } else {
-          console.log(response.data);
-          _this5.currencyExchangePrice = response.data.exchange;
-        }
-      });
+      location.href = "/compra/plan/".concat(this.plan_type, "/skills/ingresar/p/").concat(encodeURI(window.btoa(JSON.stringify(model))));
+      setTimeout(function () {
+        _this5.events.pay_loading = false;
+      }, 4000);
     }
   }
 });
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/purchaseTutorshipsResumeComponent.vue?vue&type=style&index=0&lang=css&":
-/*!***************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/purchaseTutorshipsResumeComponent.vue?vue&type=style&index=0&lang=css& ***!
-  \***************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/purchasePlanResumeComponent.vue?vue&type=style&index=0&lang=css&":
+/*!*********************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/purchasePlanResumeComponent.vue?vue&type=style&index=0&lang=css& ***!
+  \*********************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -563,15 +570,15 @@ exports.push([module.i, "\nh4 {\r\n  font-size: 1.2em;\n}\n.div-plan-icon {\r\n 
 
 /***/ }),
 
-/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/purchaseTutorshipsResumeComponent.vue?vue&type=style&index=0&lang=css&":
-/*!*******************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/purchaseTutorshipsResumeComponent.vue?vue&type=style&index=0&lang=css& ***!
-  \*******************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/purchasePlanResumeComponent.vue?vue&type=style&index=0&lang=css&":
+/*!*************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/purchasePlanResumeComponent.vue?vue&type=style&index=0&lang=css& ***!
+  \*************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var content = __webpack_require__(/*! !../../../node_modules/css-loader??ref--6-1!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--6-2!../../../node_modules/vue-loader/lib??vue-loader-options!./purchaseTutorshipsResumeComponent.vue?vue&type=style&index=0&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/purchaseTutorshipsResumeComponent.vue?vue&type=style&index=0&lang=css&");
+var content = __webpack_require__(/*! !../../../node_modules/css-loader??ref--6-1!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--6-2!../../../node_modules/vue-loader/lib??vue-loader-options!./purchasePlanResumeComponent.vue?vue&type=style&index=0&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/purchasePlanResumeComponent.vue?vue&type=style&index=0&lang=css&");
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -593,10 +600,10 @@ if(false) {}
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/purchaseTutorshipsResumeComponent.vue?vue&type=template&id=958191da&":
-/*!************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/purchaseTutorshipsResumeComponent.vue?vue&type=template&id=958191da& ***!
-  \************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/purchasePlanResumeComponent.vue?vue&type=template&id=72c56c2b&":
+/*!******************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/purchasePlanResumeComponent.vue?vue&type=template&id=72c56c2b& ***!
+  \******************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -668,44 +675,9 @@ var render = function() {
                                                   _vm._s(
                                                     _vm.current_plan.plan_name
                                                   ) +
-                                                  " - " +
-                                                  _vm._s(
-                                                    _vm.current_plan.date_from
-                                                  ) +
-                                                  " - " +
-                                                  _vm._s(
-                                                    _vm.current_plan.date_to
-                                                  ) +
                                                   "\n                                "
                                               )
                                             ])
-                                          ]
-                                        ),
-                                        _vm._v(" "),
-                                        _c(
-                                          "div",
-                                          {
-                                            staticClass:
-                                              "col-6 col-md-4 text-center"
-                                          },
-                                          [
-                                            _vm.current_plan.plan_price
-                                              .presentation_url
-                                              ? _c(
-                                                  "a",
-                                                  {
-                                                    attrs: {
-                                                      target: "_blank",
-                                                      href: _vm.evalue(
-                                                        _vm.current_plan
-                                                          .plan_price
-                                                          .presentation_url
-                                                      )
-                                                    }
-                                                  },
-                                                  [_vm._v("Ver detalle")]
-                                                )
-                                              : _vm._e()
                                           ]
                                         )
                                       ]
@@ -915,8 +887,23 @@ var render = function() {
                             "div",
                             { staticClass: "col-md-12 content-button" },
                             [
-                              !_vm.events.pay_loading &&
-                              _vm.TotalValue() - _vm.VoucherDiscountValue() > 0
+                              !_vm.events.pay_loading && _vm.aut == 0
+                                ? _c(
+                                    "button",
+                                    {
+                                      staticClass:
+                                        "btn btn-Azul letra-boldfont",
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.LoginOrRegister()
+                                        }
+                                      }
+                                    },
+                                    [_vm._v("FINALIZAR COMPRA")]
+                                  )
+                                : _vm._e(),
+                              _vm._v(" "),
+                              !_vm.events.pay_loading
                                 ? _c("div", { attrs: { id: "paypal-button" } })
                                 : _vm._e(),
                               _vm._v(" "),
@@ -1245,9 +1232,7 @@ var render = function() {
                                           },
                                           [
                                             !_vm.events.pay_loading &&
-                                            _vm.TotalValue() -
-                                              _vm.VoucherDiscountValue() >
-                                              0
+                                            _vm.aut == 0
                                               ? _c(
                                                   "button",
                                                   {
@@ -1255,12 +1240,18 @@ var render = function() {
                                                       "btn btn-Azul letra-boldfont",
                                                     on: {
                                                       click: function($event) {
-                                                        return _vm.PayEvent()
+                                                        return _vm.LoginOrRegister()
                                                       }
                                                     }
                                                   },
                                                   [_vm._v("FINALIZAR COMPRA")]
                                                 )
+                                              : _vm._e(),
+                                            _vm._v(" "),
+                                            !_vm.events.pay_loading
+                                              ? _c("div", {
+                                                  attrs: { id: "paypal-button" }
+                                                })
                                               : _vm._e(),
                                             _vm._v(" "),
                                             _vm.events.pay_loading
@@ -1451,18 +1442,18 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./resources/js/components/purchaseTutorshipsResumeComponent.vue":
-/*!***********************************************************************!*\
-  !*** ./resources/js/components/purchaseTutorshipsResumeComponent.vue ***!
-  \***********************************************************************/
+/***/ "./resources/js/components/purchasePlanResumeComponent.vue":
+/*!*****************************************************************!*\
+  !*** ./resources/js/components/purchasePlanResumeComponent.vue ***!
+  \*****************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _purchaseTutorshipsResumeComponent_vue_vue_type_template_id_958191da___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./purchaseTutorshipsResumeComponent.vue?vue&type=template&id=958191da& */ "./resources/js/components/purchaseTutorshipsResumeComponent.vue?vue&type=template&id=958191da&");
-/* harmony import */ var _purchaseTutorshipsResumeComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./purchaseTutorshipsResumeComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/purchaseTutorshipsResumeComponent.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _purchaseTutorshipsResumeComponent_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./purchaseTutorshipsResumeComponent.vue?vue&type=style&index=0&lang=css& */ "./resources/js/components/purchaseTutorshipsResumeComponent.vue?vue&type=style&index=0&lang=css&");
+/* harmony import */ var _purchasePlanResumeComponent_vue_vue_type_template_id_72c56c2b___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./purchasePlanResumeComponent.vue?vue&type=template&id=72c56c2b& */ "./resources/js/components/purchasePlanResumeComponent.vue?vue&type=template&id=72c56c2b&");
+/* harmony import */ var _purchasePlanResumeComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./purchasePlanResumeComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/purchasePlanResumeComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _purchasePlanResumeComponent_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./purchasePlanResumeComponent.vue?vue&type=style&index=0&lang=css& */ "./resources/js/components/purchasePlanResumeComponent.vue?vue&type=style&index=0&lang=css&");
 /* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -1473,9 +1464,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
-  _purchaseTutorshipsResumeComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _purchaseTutorshipsResumeComponent_vue_vue_type_template_id_958191da___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _purchaseTutorshipsResumeComponent_vue_vue_type_template_id_958191da___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _purchasePlanResumeComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _purchasePlanResumeComponent_vue_vue_type_template_id_72c56c2b___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _purchasePlanResumeComponent_vue_vue_type_template_id_72c56c2b___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -1485,54 +1476,54 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/components/purchaseTutorshipsResumeComponent.vue"
+component.options.__file = "resources/js/components/purchasePlanResumeComponent.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/components/purchaseTutorshipsResumeComponent.vue?vue&type=script&lang=js&":
-/*!************************************************************************************************!*\
-  !*** ./resources/js/components/purchaseTutorshipsResumeComponent.vue?vue&type=script&lang=js& ***!
-  \************************************************************************************************/
+/***/ "./resources/js/components/purchasePlanResumeComponent.vue?vue&type=script&lang=js&":
+/*!******************************************************************************************!*\
+  !*** ./resources/js/components/purchasePlanResumeComponent.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_purchaseTutorshipsResumeComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./purchaseTutorshipsResumeComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/purchaseTutorshipsResumeComponent.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_purchaseTutorshipsResumeComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_purchasePlanResumeComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./purchasePlanResumeComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/purchasePlanResumeComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_purchasePlanResumeComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/components/purchaseTutorshipsResumeComponent.vue?vue&type=style&index=0&lang=css&":
-/*!********************************************************************************************************!*\
-  !*** ./resources/js/components/purchaseTutorshipsResumeComponent.vue?vue&type=style&index=0&lang=css& ***!
-  \********************************************************************************************************/
+/***/ "./resources/js/components/purchasePlanResumeComponent.vue?vue&type=style&index=0&lang=css&":
+/*!**************************************************************************************************!*\
+  !*** ./resources/js/components/purchasePlanResumeComponent.vue?vue&type=style&index=0&lang=css& ***!
+  \**************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_purchaseTutorshipsResumeComponent_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/style-loader!../../../node_modules/css-loader??ref--6-1!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--6-2!../../../node_modules/vue-loader/lib??vue-loader-options!./purchaseTutorshipsResumeComponent.vue?vue&type=style&index=0&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/purchaseTutorshipsResumeComponent.vue?vue&type=style&index=0&lang=css&");
-/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_purchaseTutorshipsResumeComponent_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_purchaseTutorshipsResumeComponent_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_purchaseTutorshipsResumeComponent_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_purchaseTutorshipsResumeComponent_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
- /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_purchaseTutorshipsResumeComponent_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_purchasePlanResumeComponent_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/style-loader!../../../node_modules/css-loader??ref--6-1!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--6-2!../../../node_modules/vue-loader/lib??vue-loader-options!./purchasePlanResumeComponent.vue?vue&type=style&index=0&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/purchasePlanResumeComponent.vue?vue&type=style&index=0&lang=css&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_purchasePlanResumeComponent_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_purchasePlanResumeComponent_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_purchasePlanResumeComponent_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_purchasePlanResumeComponent_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_purchasePlanResumeComponent_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
 
 /***/ }),
 
-/***/ "./resources/js/components/purchaseTutorshipsResumeComponent.vue?vue&type=template&id=958191da&":
-/*!******************************************************************************************************!*\
-  !*** ./resources/js/components/purchaseTutorshipsResumeComponent.vue?vue&type=template&id=958191da& ***!
-  \******************************************************************************************************/
+/***/ "./resources/js/components/purchasePlanResumeComponent.vue?vue&type=template&id=72c56c2b&":
+/*!************************************************************************************************!*\
+  !*** ./resources/js/components/purchasePlanResumeComponent.vue?vue&type=template&id=72c56c2b& ***!
+  \************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_purchaseTutorshipsResumeComponent_vue_vue_type_template_id_958191da___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./purchaseTutorshipsResumeComponent.vue?vue&type=template&id=958191da& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/purchaseTutorshipsResumeComponent.vue?vue&type=template&id=958191da&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_purchaseTutorshipsResumeComponent_vue_vue_type_template_id_958191da___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_purchasePlanResumeComponent_vue_vue_type_template_id_72c56c2b___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./purchasePlanResumeComponent.vue?vue&type=template&id=72c56c2b& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/purchasePlanResumeComponent.vue?vue&type=template&id=72c56c2b&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_purchasePlanResumeComponent_vue_vue_type_template_id_72c56c2b___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_purchaseTutorshipsResumeComponent_vue_vue_type_template_id_958191da___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_purchasePlanResumeComponent_vue_vue_type_template_id_72c56c2b___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

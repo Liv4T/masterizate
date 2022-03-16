@@ -17,7 +17,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <h1>Mis estudiantes</h1>
-                                <p>Este modulo permite ver a todos los estudiantes vinculados a cada aula de clase.</p>
+                                <p>El modulo mis estudiantes permite ver a todos los estudiantes vinculados a cada aula de clase.</p>
                                 <img src="../assets/img/my_students.png" alt="my_students" width="350px" height="350px" style="margin-bottom:10px">
                                 <p>Se listan todas las aulas de clase de cada tutor y haciendo click sobre una en especifico se abre un listado de estudiantes vinculados a esa aula.</p>
                                 <img src="../assets/img/student_list.png" alt="student_list" width="350px" height="350px" style="margin-bottom:10px">
