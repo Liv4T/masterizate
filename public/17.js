@@ -671,7 +671,7 @@ var render = function() {
                     _c("div", { staticClass: "modal-body" }, [
                       _c("div", { staticClass: "form-group" }, [
                         _c("label", { attrs: { for: "name" } }, [
-                          _vm._v("Nombre")
+                          _vm._v("Nombre del programa")
                         ]),
                         _vm._v(" "),
                         _c("input", {
@@ -859,7 +859,7 @@ var render = function() {
                         },
                         [
                           _c("label", { attrs: { for: "area" } }, [
-                            _vm._v("Area a asignar Código")
+                            _vm._v("Categoría a asignar Código")
                           ]),
                           _vm._v(" "),
                           _c("multiselect", {

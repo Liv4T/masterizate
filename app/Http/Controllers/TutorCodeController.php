@@ -87,7 +87,7 @@ class TutorCodeController extends Controller
 
             $area = area::find($request->id_area);
             $newClassroom = new TutorClassroom();
-            $newClassroom->name = $area->name . '-' .$newTutorCode->code;
+            $newClassroom->name = $request->name . '-' .$newTutorCode->code;
             $newClassroom->id_tutor = $request->id_user;
             $newClassroom->save();
 
@@ -107,7 +107,7 @@ class TutorCodeController extends Controller
 
             $area = area::find($request->id_area);
             $newClassroom = new TutorClassroom();
-            $newClassroom->name = $area->name . '-' .$newTutorCode->code;
+            $newClassroom->name = $request->name . '-' .$newTutorCode->code;
             $newClassroom->id_tutor = $user->id;
             $newClassroom->save();
 

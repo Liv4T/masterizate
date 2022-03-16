@@ -78,7 +78,7 @@
                             </div>
                             <div class="modal-body">
                                 <div class="form-group">
-                                    <label for="name">Nombre</label>
+                                    <label for="name">Nombre del programa</label>
                                     <input type="text" class="form-control" name="name" v-model="name">
                                 </div>
 
@@ -100,7 +100,7 @@
                                 </div>
 
                                 <div class="form-group" v-show="id_to_update === ''">
-                                    <label for="area">Area a asignar Código</label>
+                                    <label for="area">Categoría a asignar Código</label>
                                     <multiselect name="cicleSelect" v-model="saveAreas" :options="areas" :multiple="false"
                                         :close-on-select="false" :clear-on-select="false"
                                         :preserve-search="true" placeholder="Seleccione una"
