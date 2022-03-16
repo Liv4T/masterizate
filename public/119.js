@@ -198,7 +198,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component("multiselect", vue_multisel
       });
     },
     filterPendingEvents: function filterPendingEvents(events) {
-      /* Se da formato a fechas para poder comparar las 
+      /* Se da formato a fechas para poder comparar las
       *  reuniones que sucedieron en el dia y las que estan agendadas a futuro
       */
       var momento = moment__WEBPACK_IMPORTED_MODULE_1___default()();
@@ -513,7 +513,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "row justify-content-center" }, [
-      _c("h4", [_vm._v("Reuniones")])
+      _c("h4", [_vm._v("Proximas clases")])
     ])
   },
   function() {

@@ -2,17 +2,39 @@
     <div v-if="showSection === 'inicio'" class="back">
         <div class="row justify-content-center">
             <div id="crud" class="col-sm-10">
-                <div class="card text-center">
-                    <h3 class="card-header fondo">                        
-                        {{ $t('lang.messages.messages') }}
-                    </h3>
-
+                <div class="card">
+                    <div class="card-header text-center fondo mb-2 row" style="margin:0">
+                        <div class="card-center">
+                            <label class="card-text">{{ $t('lang.messages.messages') }}</label>
+                        </div>
+                        <div style="margin-left:auto">
+                            <a class="btn" @click="toggle">
+                                <i class="fa fa-question-circle" style="font-size:35px; color:orange;"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <Drawer @close="toggle" align="right" :maskClosable="true" :zIndex="1003" :closeable="true">
+                        <div v-if="open">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <h1>Mensajes</h1>
+                                    <p>Los mensajes permiten comunicarnos con otros docentes o estudiantes a traves de mensajes privados.</p>
+                                    <p>Podemos redactar mensajes para otros usuarios, visualizar mensajes recibidos o ver los mensajes enviados.</p>
+                                    <img src="../assets/img/inbox.png" alt="inbox" width="350px" height="350px" style="margin-bottom:10px">
+                                    <p>Haciendo click sobre mensajes enviados lo lleva a una bandeja de salida que muestra todos los mensajes que ha enviado, los destinatarios que han recibido los mensajes y si han leido o no los mensajes.</p>
+                                    <img src="../assets/img/send_messages.png" alt="send_messages" width="350px" height="350px" style="margin-bottom:10px">
+                                    <p>El botón Redactar lo lleva a la vista para redactar mensajes, donde deberá seleccionar si quiere redactar mensaje a un docente o un estudiante y escribir el asunto y el cuerpo del mensaje.</p>
+                                    <img src="../assets/img/write_message.png" alt="write_message" width="350px" height="350px" style="margin-bottom:10px">
+                                </div>
+                            </div>
+                        </div>
+                    </Drawer>
                     <div class="card-body">
                         <a v-on:click="setShowSection('redactar')" class="btn btn-warning float-right">
                             {{ $t('lang.messages.write') }}
                         </a>
 
-                        <a v-on:click="setShowSection('sendMessage')" class="btn btn-warning float-left">                            
+                        <a v-on:click="setShowSection('sendMessage')" class="btn btn-warning float-left">
                             {{ $t('lang.messages.messages_sent') }}
                         </a
                         >
@@ -24,7 +46,7 @@
                         >
                             <thead>
                                 <tr>
-                                    <th>                                        
+                                    <th>
                                         {{ $t('lang.table.name') }}
                                     </th>
                                     <th>
@@ -33,7 +55,7 @@
                                     <th>
                                         {{ $t('lang.table.date') }}
                                     </th>
-                                    <th>                                        
+                                    <th>
                                         {{ $t('lang.table.message_viewed') }}
                                     </th>
                                     <th>
@@ -103,7 +125,7 @@
                                     </div>
                                     <div class="form-group row">
                                         <div class="col-sm-2">
-                                            <label for="nombre" class="label-mensaje">                                                
+                                            <label for="nombre" class="label-mensaje">
                                                 {{ $t('lang.table.subject') }}:
                                             </label
                                             >
@@ -122,7 +144,7 @@
 
                                     <div class="form-group row">
                                         <div class="col-md-6">
-                                            <label for="mensaje">                                                
+                                            <label for="mensaje">
                                                 {{ $t('lang.messages.message') }}:
                                             </label
                                             >
@@ -160,6 +182,7 @@
 <script>
 import Vue from "vue";
 import DecoupledEditor from "@ckeditor/ckeditor5-build-decoupled-document";
+import Drawer from "vue-simple-drawer";
 Vue.use(require("vue-moment"));
 export default {
     props:["user"],
@@ -172,7 +195,11 @@ export default {
             emisor: "",
             asunto: "",
             showSection: "inicio",
+            open: false,
         };
+    },
+    components: {
+        Drawer
     },
     created() {},
     mounted() {
@@ -183,6 +210,9 @@ export default {
         });
     },
     methods: {
+        toggle() {
+            this.open = !this.open;
+        },
         editMessage(mess) {
             var urlr = "getMessage/" + mess;
             axios.get(urlr).then(response => {
@@ -195,7 +225,7 @@ export default {
                 this.asunto = this.emessages.subject;
                 this.editorData = this.emessages.message;
                 console.log(this.emessages);
-            });            
+            });
 
             $("#createMessage").modal("show");
         },

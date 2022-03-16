@@ -49,6 +49,34 @@ class VinculationTutorStudentController extends Controller
         return response()->json($vinculations);
     }
 
+    public function getVinculationsTutorMessage()
+    {
+        $user = Auth::user();
+        $vinculations = [];
+        $classrooms = TutorClassroom::all();
+        foreach($classrooms as $key => $classroom){
+            $tutor = User::where('id',$classroom->id_tutor)->first();
+            $exploded = explode('-',$classroom->name);
+            $code = $exploded[1];
+            $students = VinculationTutorStudent::where('id_tutor',$user->id)
+                                                ->where('code_vinculated',$code)
+                                                ->get();
+            foreach($students as $key_s =>$student){
+                $studentF = User::where('id',$student->id_student)->first();
+                $student->user_name = $studentF->name.' '.$studentF->last_name;
+                $student->user_id = $studentF->id;
+            }
+            $vinculations[$key] = [
+                'tutor_name' => $tutor->name.' '.$tutor->last_name,
+                'tutor_id' => $user->id,
+                'students' => $students,
+                'area_name' => isset($classroom->name) ? $classroom->name : 'Sin Salon asignado',
+                'classroom_id' => isset($classroom->id) ? $classroom->id : 'Sin Salon asignado',
+            ];
+        }
+        return response()->json($vinculations);
+    }
+
     /**
      * Show the form for creating a new resource.
      *

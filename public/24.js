@@ -86,10 +86,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["initialUsers", "user"],
@@ -362,7 +358,8 @@ __webpack_require__.r(__webpack_exports__);
       console.log({
         name: this.nombre,
         users: this.users
-      }); // axios
+      }); //trabajar aqui para traer el nombre de usuario, y el array users
+      // axios
       //   .post("/groups", { name: this.nombre, users: this.users })
       //   .then(response => {
       //     this.name = "";
@@ -387,7 +384,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.panel-footer {\r\n  padding: 10px 15px;\r\n  background-color: #e8e5e5;\r\n  border-top: 1px solid #e8e5e5;\r\n  border-bottom-right-radius: 3px;\r\n  border-bottom-left-radius: 3px;\n}\n.caja {\r\n  padding-left: 35px;\n}\r\n", ""]);
+exports.push([module.i, "\n.panel-footer {\n  padding: 10px 15px;\n  background-color: #e8e5e5;\n  border-top: 1px solid #e8e5e5;\n  border-bottom-right-radius: 3px;\n  border-bottom-left-radius: 3px;\n}\n.caja {\n  padding-left: 35px;\n}\n", ""]);
 
 // exports
 
@@ -447,8 +444,8 @@ var render = function() {
           {
             name: "show",
             rawName: "v-show",
-            value: _vm.user.type_user !== 3,
-            expression: "user.type_user !== 3"
+            value: _vm.user.type_user !== 10,
+            expression: "user.type_user !== 10"
           }
         ],
         staticClass: "panel panel-primary"
@@ -529,102 +526,6 @@ var render = function() {
                   }
                 },
                 [_vm._v("Estudiante")]
-              ),
-              _vm._v(" "),
-              _c(
-                "button",
-                {
-                  staticClass: "btn btn-primary mt-2",
-                  on: {
-                    click: function($event) {
-                      $event.preventDefault()
-                      return (function() {
-                        return _vm.activeParents()
-                      })($event)
-                    }
-                  }
-                },
-                [_vm._v("Padres")]
-              ),
-              _vm._v(" "),
-              _c(
-                "button",
-                {
-                  staticClass: "btn btn-primary mt-2",
-                  on: {
-                    click: function($event) {
-                      $event.preventDefault()
-                      return (function() {
-                        return _vm.activeTutors()
-                      })($event)
-                    }
-                  }
-                },
-                [_vm._v("Tutores")]
-              ),
-              _vm._v(" "),
-              _c(
-                "button",
-                {
-                  staticClass: "btn btn-primary mt-2",
-                  on: {
-                    click: function($event) {
-                      $event.preventDefault()
-                      return (function() {
-                        return _vm.activeGoverment()
-                      })($event)
-                    }
-                  }
-                },
-                [_vm._v("Gobierno Escolar")]
-              ),
-              _vm._v(" "),
-              _c(
-                "button",
-                {
-                  staticClass: "btn btn-primary mt-2",
-                  on: {
-                    click: function($event) {
-                      $event.preventDefault()
-                      return (function() {
-                        return _vm.activeNursing()
-                      })($event)
-                    }
-                  }
-                },
-                [_vm._v("Enfermería")]
-              ),
-              _vm._v(" "),
-              _c(
-                "button",
-                {
-                  staticClass: "btn btn-primary mt-2",
-                  on: {
-                    click: function($event) {
-                      $event.preventDefault()
-                      return (function() {
-                        return _vm.activeCoordinator()
-                      })($event)
-                    }
-                  }
-                },
-                [_vm._v("Coordinadores")]
-              ),
-              _vm._v(" "),
-              _c(
-                "button",
-                {
-                  staticClass: "btn btn-primary mt-2",
-                  on: {
-                    click: function($event) {
-                      $event.preventDefault()
-                      return (function() {
-                        return _vm.activePsicologiest()
-                      })($event)
-                    }
-                  }
-                },
-                [_vm._v("Psicología")]
               )
             ]),
             _vm._v(" "),

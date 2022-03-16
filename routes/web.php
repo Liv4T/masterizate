@@ -384,7 +384,7 @@ Route::get('getNurse', 'UserController@getNurse');
 Route::middleware('auth')->post('savePrintDoc', 'HomeController@savePrintDoc')->name('savePrintDoc');
 Route::get('downloadFile', 'HomeController@downloadFile')->name('downloadFile');
 
-
+Route::middleware('auth')->get('user_name/{id_user}', 'UserController@userName')->name('userName');
 Route::middleware('auth')->get('info_user', 'UserController@show')->name('info_user');
 Route::middleware('auth')->get('userType', 'UserController@typeUserLog');
 Route::middleware('auth')->get('coursePlanification/{id_area}/{id_classroom}', 'CoursesController@index');
@@ -899,6 +899,7 @@ Route::resource('codes', 'TutorCodeController');
 Route::get('/validateCode/{code}', 'TutorCodeController@validateCode');
 Route::resource('vinculationsTutor', 'VinculationTutorStudentController');
 Route::get('getVinculationsTutor', 'VinculationTutorStudentController@getVinculationsTutor');
+Route::get('getVinculationsTutorMessage', 'VinculationTutorStudentController@getVinculationsTutorMessage');
 Route::get('/getCodesPerUser/{id}', 'TutorCodeController@codesPerUser');
 Route::get('/getClassroomAndStudent', 'TutorController@getClassroomAndUsers');
 

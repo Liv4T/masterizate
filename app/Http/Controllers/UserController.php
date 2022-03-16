@@ -320,4 +320,8 @@ class UserController extends Controller
 
         return response()->json($user);
     }
+    public function userName($id_user){
+        $user_name = User::select('name')->where('id',$id_user)->first();
+        return $user_name->name;
+    }
 }

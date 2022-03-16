@@ -56,8 +56,9 @@
                                 </label>
                                 <textarea class="form-control" v-model="course.transversals" name="transversals" id="transversals"></textarea>
                             </div>
-
-                            <div class="row">
+                            <!-- Se agrega un display:none para ocultar los elementos relacionados con los estudiantes PIAR ya que se desarrollo la funcionalidad pero luego se pidio eliminar pero solo se oculto y en caso de necesitarlo de nuevo en el futuro ya tener la funcionalidad lista -->
+                            <!-- Los estudiantes PIAR se usa para crear una planificacion o una clase para estudiantes con dificultades de aprendizaje -->
+                            <div class="row" style="display:none">
                                 <div class="col-12">
                                     <label><span class="required">*</span>Actividad Para :</label>
                                     <div>

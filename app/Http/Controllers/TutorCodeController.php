@@ -82,7 +82,6 @@ class TutorCodeController extends Controller
             $newTutorCode->id_tutor = $request->id_user;
             $newTutorCode->description = $request->description;
             $newTutorCode->code = str_random(6);
-            $newTutorCode->date = $request->date;
             $newTutorCode->id_area = $request->id_area;
             $newTutorCode->save();
 
@@ -103,7 +102,6 @@ class TutorCodeController extends Controller
             $newTutorCode->id_tutor = $user->id;
             $newTutorCode->description = $request->description;
             $newTutorCode->code = str_random(6);
-            $newTutorCode->date = $request->date;
             $newTutorCode->id_area = $request->id_area;
             $newTutorCode->save();
 

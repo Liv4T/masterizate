@@ -1,10 +1,30 @@
 <template>
   <div class="back row justify-content-center">
     <div class="col-sm-10">
-      <div class="card text-center">
+      <div class="card">
         <!-- <div class="card-header fondo">
           <h4>Calendario</h4>
         </div> -->
+         <div class="row" style="margin-left:0; margin-right:0">
+            <div style="margin-left:auto">
+                <a class="btn" @click="toggle">
+                    <i class="fa fa-question-circle" style="font-size:35px; color:orange;"></i>
+                </a>
+            </div>
+        </div>
+        <Drawer @close="toggle" align="right" :maskClosable="true" :zIndex="1003" :closeable="true">
+            <div v-if="open">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h1>Calendario</h1>
+                        <p>El calendario muestra las proximas clases agendadas por los tutores, haciendo click sobre una clase lo lleva directamente al link de la clase asginado por el tutor.</p>
+                        <img src="../assets/img/calendar.png" alt="calendar" width="350px" height="350px" style="margin-bottom:10px">
+                        <p>En la parte inferior del calendario hay un listado que permite ver las siguentes clases disponibles.</p>
+                        <img src="../assets/img/next_classes.png" alt="next_classes" width="350px" height="350px" style="margin-bottom:10px">
+                    </div>
+                </div>
+            </div>
+        </Drawer>
         <div class="card-body">
           <div class="row">
             <div class="col-6 justify-content">
@@ -17,15 +37,15 @@
               <div class="justify-content">
                 <div class="form-check">
                   <input class="form-check-input" type="checkbox" v-model="display_activities" @change="displayActivitiesChange()" id="defaultCheck1" />
-                  <label class="form-check-label" for="defaultCheck1"> <span class="dot dot_blue"></span> {{ $t('lang.calendar.activities') }} </label>
+                  <label class="form-check-label" for="defaultCheck1" style="width:100%"> <span class="dot dot_blue"></span> {{ $t('lang.calendar.activities') }} </label>
                 </div>
                 <div class="form-check">
                   <input class="form-check-input" type="checkbox" v-model="display_events" @change="displayEventsChange()" id="defaultCheck2" />
-                  <label class="form-check-label" for="defaultCheck2"> <span class="dot dot_red"></span> {{ $t('lang.calendar.face-to-face classes') }} </label>
+                  <label class="form-check-label" for="defaultCheck2" style="width:100%"> <span class="dot dot_red"></span> {{ $t('lang.calendar.classes') }} </label>
                 </div>
                 <!-- <div class="form-check">
                   <input class="form-check-input" type="checkbox" v-model="display_tutorials" @change="displayTutorialsChange()" id="defaultCheck3" />
-                  <label class="form-check-label" for="defaultCheck3"> <span class="dot dot_green"></span> {{ $t('lang.calendar.tutorship') }} </label>
+                  <label class="form-check-label" for="defaultCheck3" style="width:100%"> <span class="dot dot_green"></span> {{ $t('lang.calendar.tutorship') }} </label>
                 </div> -->
               </div>
             </div>
@@ -35,20 +55,16 @@
               <FullCalendar ref="fullCalendar" :options="calendarOptions" />
             </div>
           </div>
-          <div class="row" v-show="type_u == 2 || type_u == 4 || type_u == 8">
+          <!-- <div class="row" v-show="type_u == 7">
             <a class="btn btn-warning float-right mt-2 ml-3" v-on:click.prevent="createE()">Crear evento</a>
-          </div>
-          <div v-show="type_u == 4 || type_u == 8">
-            <!-- Modal para crear evento para padres y coordinadores -->
-            <event-parents-modal :concurrent.sync="concurrent" :type_u.sync="type_u" :dias.sync="dias" :clases.sync="clases" :user.sync="user" :getMenu.sync="getMenu"></event-parents-modal>
-          </div>
-          <div v-show="type_u == 1 || type_u == 2 || type_u == 4 || type_u == 8">
+          </div> -->
+          <div v-show="type_u == 1 || type_u == 7">
             <!-- Modal para editar información del evento -->
             <modal-edit-parents-info :concurrent.sync="concurrent" :type_u.sync="type_u" :user.sync="this.user" :dias.sync="dias" :getMenu.sync="getMenu"></modal-edit-parents-info>
           </div>
-          <div class="row" v-show="type_u == 7">
+          <!-- <div class="row" v-show="type_u == 7">
             <a class="btn btn-warning float-right mt-2 ml-3" href="/tutor/cronograma">Registrar horario de tutorías</a>
-          </div>
+          </div> -->
           <br />
           <!-- Modal para listar clases, listar tutorias y eliminar eventos -->
           <calendar-class-component :type_u.sync="type_u" :clases.sync="clases" :tutorEvents.sync="tutorEvents" :concurrent.sync="concurrent" :dias.sync="dias" :myOptions.sync="myOptions" :getMenu.sync="getMenu"></calendar-class-component>
@@ -70,6 +86,7 @@ import timeGridPlugin from "@fullcalendar/timegrid";
 import momentTimezonePlugin from "@fullcalendar/moment-timezone";
 import interactionPlugin from "@fullcalendar/interaction";
 import moment from "moment";
+import Drawer from "vue-simple-drawer";
 
 moment.tz.setDefault("America/Bogota");
 moment.locale("es");
@@ -117,10 +134,12 @@ export default {
         eventDidMount: this.handleEventDidMount,
       },
       tutorEvents: [],
+      open: false,
     };
   },
   components: {
     FullCalendar,
+    Drawer,
   },
   mounted() {
     console.log("tipo de usuario: ", this.type_u);
@@ -129,6 +148,9 @@ export default {
     this.getData();
   },
   methods: {
+    toggle() {
+        this.open = !this.open;
+    },
     getData() {
       const fullCalendarApi = this.$refs.fullCalendar.getApi();
       this.getInvitations();

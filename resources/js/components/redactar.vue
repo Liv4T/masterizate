@@ -3,67 +3,37 @@
         <div class="row">
             <div class="col-md-11 mx-auto">
                 <div class="custom-card text-center">
-                    <h3 class="card-header fondo">                        
+                    <h3 class="card-header fondo">
                         {{ $t('lang.Write_To.writeTo') }}
                     </h3>
                     <div class="container-mensaje">
                         <div class="row">
-                            <h5>                                
+                            <h5>
                                 {{ $t('lang.Write_To.addressees') }}
                             </h5><br>
-                        </div>                        
+                        </div>
                         <div class="row">
-                            <h6>                                
+                            <h6>
                                 {{ $t('lang.Write_To.your_contacts') }}
                             </h6>
                             <a class="btn btn-info" v-if="teacher" href="#" v-on:click.prevent="btA()"style="margin: 10px;">
-                                
+
                                 {{ $t('lang.charges.administrative') }}
                             </a>
 
                             <a class="btn btn-info float-left" href="#" v-on:click.prevent="btD()" style="margin: 10px;">
-                                
+
                                 {{ $t('lang.charges.teachers') }}
                             </a>
 
                             <a class="btn btn-info float-left" href="#" v-on:click.prevent="btE()" style="margin: 10px;">
-                                
+
                                 {{ $t('lang.charges.students') }}
-                            </a>                                        
-
-                            <a class="btn btn-info" href="#" v-on:click.prevent="btP()" style="margin: 10px;">
-                                
-                                {{ $t('lang.charges.parents') }}
                             </a>
 
-                            <a class="btn btn-info" href="#" v-on:click.prevent="btPsi()"style="margin: 10px;">
-                                
-                                {{ $t('lang.charges.psicology') }}
-                            </a>
-
-                            <a class="btn btn-info" href="#" v-on:click.prevent="btSchoolGov()" style="margin: 10px;">
-                                
-                                {{ $t('lang.charges.schoolGovernment') }}
-                            </a>
-
-                            <a class="btn btn-info" href="#" v-on:click.prevent="btC()" style="margin: 10px;">
-                                
-                                {{ $t('lang.charges.coordinators') }}
-                            </a>
-
-                            <a class="btn btn-info" href="#" v-on:click.prevent="btT()" style="margin: 10px;">
-                                
-                                {{ $t('lang.charges.tutors') }}
-                            </a>  
-
-                            <a class="btn btn-info" href="#" v-on:click.prevent="btEn()" style="margin: 10px;">
-                                
-                                {{ $t('lang.charges.nursing') }}
-                            </a>                          
-                            
                         </div>
                         <div v-show="docente == true">
-                            <label for>                                
+                            <label for>
                                 {{ $t('lang.charges.teachers') }}
                             </label>
                             <students-course :getIdUser="getIdUser" :findStudentOrTeacher="findStudentOrTeacher"></students-course>
@@ -73,20 +43,20 @@
                         </div>
                         <br />
                         <div v-show="estudiante == true">
-                            <label for>                                
-                                {{ $t('lang.charges.students') }}    
+                            <label for>
+                                {{ $t('lang.charges.students') }}
                             </label>
                             <students-course :getIdUser="getIdUser" :findStudentOrTeacher="findStudentOrTeacher"></students-course>
                         </div>
                         <br />
                         <div v-show="results.length >0">
-                            <label for>{{  administrative == true ? 
-                                            $t('lang.charges.administrative') : padres == true ? 
-                                            $t('lang.charges.parents') : psicologia == true ? 
-                                            $t('lang.charges.psicology') : schoolGov == true ? 
+                            <label for>{{  administrative == true ?
+                                            $t('lang.charges.administrative') : padres == true ?
+                                            $t('lang.charges.parents') : psicologia == true ?
+                                            $t('lang.charges.psicology') : schoolGov == true ?
                                             $t('lang.charges.schoolGovernment') : coordinadores == true ?
                                             $t('lang.charges.coordinators') : enfermeria == true ?
-                                            $t('lang.charges.nursing') : tutores == true ? 
+                                            $t('lang.charges.nursing') : tutores == true ?
                                             $t('lang.charges.tutors') : ''
                                         }}
                             </label>
@@ -104,17 +74,17 @@
                         </div>
 
                         <div class="row">
-                            <label for="mensaje">                                
+                            <label for="mensaje">
                                 {{ $t('lang.messages.message') }}:
                             </label>
                         </div>
 
                         <ckeditor :editor="editor" v-model="editorData" @ready="onReady"></ckeditor>
                         <div class="modal-footer">
-                            <a href="#" class="btn btn-warning float-right" @click="getMenu()">                                
+                            <a href="#" class="btn btn-warning float-right" @click="getMenu()">
                                 {{ $t('lang.Write_To.cancel') }}
                             </a>
-                            <a href="#" class="btn btn-warning float-right" @click="saveM()">                                
+                            <a href="#" class="btn btn-warning float-right" @click="saveM()">
                                 {{ $t('lang.Write_To.send') }}
                             </a>
                         </div>
@@ -129,7 +99,7 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="exampleModalLabel">Horario de Respuesta</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close" @click="closeModal()">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
@@ -140,6 +110,9 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-warning" @click="closeModal()">Cerrar</button>
                     </div>
                 </div>
             </div>
@@ -269,7 +242,7 @@
                     this.enfermeria = false;
                 }
             },
-            
+
             coordinadores: function(newVal){
                 if(newVal == true){
                     this.results = this.optionsc;
@@ -285,7 +258,7 @@
                     this.enfermeria = false;
                 }
             },
-            
+
             enfermeria: function(newVal){
                 if(newVal == true){
                     this.results = this.optionsen;
@@ -336,7 +309,7 @@
                 tutores: false,
                 coordinadores: false,
                 enfermeria: false,
-                
+
                 asunto: "",
                 cdocente: [],
                 cestudiante: [],
@@ -358,9 +331,9 @@
                     // Opciones docentes
                     if (this.options[i].type_user == 2) {
                         this.optionsd.push(this.options[i]);
-                    }  
-                    //Opciones Estudiantes                  
-                    if (this.options[i].type_user == 3) {
+                    }
+                    //Opciones Estudiantes
+                    if (this.options[i].type_user == 10) {
                         this.optionse.push(this.options[i]);
                     }
                     //Opciones Acudientes
@@ -368,7 +341,7 @@
                         this.optionsp.push(this.options[i]);
                     }
                     //Opciones Psicologia
-                    if (this.options[i].type_user == 5) {            
+                    if (this.options[i].type_user == 5) {
                         this.optionspsi.push(this.options[i]);
                     }
                     //Opciones Govierno Escolar
@@ -459,7 +432,7 @@
                 } else {
                     this.estudiante = false;
                 }
-                
+
             },
             // Padres
             btP() {
@@ -509,6 +482,10 @@
                     this.enfermeria = false;
                 }
             },
+            closeModal(){
+                $("#infoModal").modal("hide");
+                this.getMenu();
+            },
             saveM() {
                 let date = new Date();
                 let hourly = date.getHours();
@@ -540,10 +517,12 @@
                     .then((response) => {
                         this.errors = [];
                         toastr.success("Mensaje enviado");
+                        console.log(hourly+':'+minutes);
                         if (hourly >= 7 && minutes <= 59 || hourly >= 17 && minutes >= 0) {
                             $("#infoModal").modal("show");
+                        }else{
+                            this.getMenu();
                         }
-                        this.getMenu();
                     })
                     .catch((error) => {});
             },

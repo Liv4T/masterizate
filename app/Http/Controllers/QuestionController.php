@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Str;
+use App\User;
 
 
 class QuestionController extends Controller
@@ -22,6 +23,15 @@ class QuestionController extends Controller
     public function index()
     {
         $allQues = Question::latest()->paginate(5);
+        foreach($allQues as $allQ){
+            $user_name = User::where('id',$allQ->user_id)->first();
+            if(isset($user_name)){
+                $allQ->user_name = $user_name['name'];
+            }else{
+                $allQ->user_name = 'Desconocido';
+            }
+
+        }
         return view('questions.index', compact('allQues'));
     }
 

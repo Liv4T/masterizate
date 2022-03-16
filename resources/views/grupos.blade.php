@@ -31,7 +31,7 @@
             <create-group :initial-users="{{ $users }}" :user="{{Auth::user()}}"></create-group>
                  <div class="caja">
                      <img
-                        src="https://firebasestorage.googleapis.com/v0/b/bd-img.appspot.com/o/CHAT.png?alt=media&token=bfa70c69-9e53-46b7-a337-e64c67058147"
+                        src="../images/logo-skills.png"resources
                         width="500px"
                         class="img-fluid"
                         alt=""

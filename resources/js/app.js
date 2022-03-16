@@ -57,6 +57,7 @@ Vue.component("checkbox", require("./components/Checkbox.vue").default);
 Vue.component("class-component", require("./components/ClassComponent.vue").default);
 Vue.component("blog-component", require("./components/BlogComponent.vue").default);
 Vue.component("draw-c", require("./components/draw.vue").default);
+Vue.component("board-help", require("./components/boardHelp.vue").default);
 
 Vue.component("home", require("./components/home.vue").default);
 Vue.component("home-skills", require("./components/homeSkills.vue").default);

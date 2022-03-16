@@ -1,6 +1,6 @@
 <template>
   <div class="caja">
-    <div v-show="user.type_user !== 3" class="panel panel-primary">
+    <div v-show="user.type_user !== 10" class="panel panel-primary">
       <h4 class="panel-heading">Grupos</h4>
       <div>
         <form>
@@ -11,21 +11,17 @@
             <button class="btn btn-primary mt-2" v-on:click.prevent="()=>activeAdmin()">Administradores</button>
             <button class="btn btn-primary mt-2" v-on:click.prevent="()=>changeConsult(1)">Docentes</button>
             <button class="btn btn-primary mt-2" v-on:click.prevent="()=>changeConsult(2)">Estudiante</button>
-            <button class="btn btn-primary mt-2" v-on:click.prevent="()=>activeParents()">Padres</button>
-            <button class="btn btn-primary mt-2" v-on:click.prevent="()=>activeTutors()">Tutores</button>
-            <button class="btn btn-primary mt-2" v-on:click.prevent="()=>activeGoverment()">Gobierno Escolar</button>
-            <button class="btn btn-primary mt-2" v-on:click.prevent="()=>activeNursing()">Enfermería</button>
-            <button class="btn btn-primary mt-2" v-on:click.prevent="()=>activeCoordinator()">Coordinadores</button>
-            <button class="btn btn-primary mt-2" v-on:click.prevent="()=>activePsicologiest()">Psicología</button>
+            <!-- <button class="btn btn-primary mt-2" v-on:click.prevent="()=>activeTutors()">Tutores</button> -->
           </div>
           <div v-show="docente == true">
             <label for>Docentes</label>
-            <students-course :getIdUser="getIdUser" :findStudentOrTeacher="findStudentOrTeacher"></students-course>    
+            <students-course :getIdUser="getIdUser" :findStudentOrTeacher="findStudentOrTeacher"></students-course>
           </div>
           <div v-show="showAdm == true || showP == true || showT == true || showG == true || showN == true || showC == true || showPs == true">
-            <label>{{showAdm == true ? 
+            <label>{{
+              showAdm == true ?
               'Administradores'
-              : 
+              :
               showP == true ?
               'Padres'
               :
@@ -303,7 +299,7 @@ export default {
         this.showC = false;
         this.showPs = false;
       }
-      
+
     },
     getIdUser(data){
       if(data){
@@ -313,7 +309,7 @@ export default {
     },
     changeConsult(val){
       if(val == 1){
-        this.docente = true; 
+        this.docente = true;
         this.findStudentOrTeacher = 2;
         this.showAdm = false;
         this.estudiante = false;
@@ -324,9 +320,9 @@ export default {
         this.showAdm= false;
         this.showC = false;
         this.showPs = false;
-        
+
       }else{
-        this.docente = false; 
+        this.docente = false;
         this.estudiante = true;
         this.showAdm = false;
         this.docente = false;
@@ -342,6 +338,7 @@ export default {
     },
     createGroup() {
       console.log({ name: this.nombre, users: this.users })
+      //trabajar aqui para traer el nombre de usuario, y el array users
       // axios
       //   .post("/groups", { name: this.nombre, users: this.users })
       //   .then(response => {

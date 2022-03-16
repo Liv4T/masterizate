@@ -2,17 +2,44 @@
     <div class="back">
         <div class="row justify-content-center">
             <div id="crud" class="col-sm-10">
-                <div class="card-header text-center fondo">
-                    <h4>Mis Aulas</h4>
+                <div class="card-header text-center fondo row">
+                    <div class="card-center">
+                        <label class="card-text">Mis programas</label>
+                    </div>
+                    <div style="margin-left:auto">
+                        <a class="btn" @click="toggle">
+                            <i class="fa fa-question-circle" style="font-size:35px; color:orange;"></i>
+                        </a>
+                    </div>
                 </div>
                 <div class="text-left">
                     <button v-if="user.type_user === 1" type="button" class="btn btn-primary mt-2 mb-2" data-toggle="modal" data-target="#code" v-on:click="getCleanModal()">
-                        Crear Aula de clase
+                        Crear tu programa
                     </button>
                     <button v-else type="button" class="btn btn-primary mt-2 mb-2" data-toggle="modal" data-target="#code" v-on:click="getAreas(); getCleanModal()">
-                        Crear Aula de clase
+                        Crear tu programa
                     </button>
                 </div>
+                <Drawer @close="toggle" align="right" :maskClosable="true" :zIndex="1003" :closeable="true">
+                    <div v-if="open">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h1>Genera tu programa</h1>
+                                <p>Genera tu programa permite crear, editar o eliminar tus aulas de clase para cada materia, es tan simple como llenar un formulario y listo!!</p>
+                                <p>Haciendo click en el boton "Crear tu programa" se abrira una ventana para crear el Aula</p>
+                                <img src="../assets/img/form_create_program.png" alt="form_create_program" width="350px" height="350px" style="margin-bottom:10px">
+                                <p>Para crear el aula se debe rellenar los campos Nombre, Descripcion y Área a asignar el aula.</p>
+                                <p>El campo nombre es el nombre que tendra el aula para el tutor(no es visible para el estudiante), el unico fin de este campo es que el profesor pueda identificar facilmente sus aulas</p>
+                                <p>En la Descripcion se sugiere agregar una pequeña descripcion del contenido del aula.</p>
+                                <p>Por ultimo el campo Area a asignar el aula es un selector que despliega las materias disponibles y se debe seleccionar una.</p>
+                                <img src="../assets/img/select_create_aula.png" alt="select_area" width="350px" height="350px" style="margin-bottom:10px">
+                                <p>Una vez creadas el aula se pueden observar en el listado, con las opciones para Editar o eliminar. Se pueden editar para cambiar el nombre o la descripcion en caso de haber comnetido un error.</p>
+                                <p>Para editar un aula solo debe hacer click sobre el boton editar y se abrira una ventana con los datos del aula a editar.</p>
+                                <img src="../assets/img/edit_aula.png" alt="edit_aula" width="350px" height="350px" style="margin-bottom:10px">
+                            </div>
+                        </div>
+                    </div>
+                </Drawer>
                 <table class="table table-striped table-hover">
                     <thead>
                         <tr>
@@ -21,7 +48,6 @@
                             <th>Codigo</th>
                             <th>Area</th>
                             <th v-show="user.type_user === 1">Tutor</th>
-                            <th>Fecha</th>
                             <th>Acción</th>
                         </tr>
                     </thead>
@@ -32,7 +58,6 @@
                             <td>{{ code.code }}</td>
                             <td>{{ code.area_name }}</td>
                             <td v-show="user.type_user === 1">{{ code.tutor_name }}</td>
-                            <td>{{ code.date }}</td>
                             <td>
                                 <button class="btn btn-primary" v-on:click="edit(code)">Editar</button>
                                 <button class="btn btn-danger" v-on:click="dropCode(code.id)">Eliminar</button>
@@ -46,7 +71,7 @@
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="codeLabel">Nueva Aula</h5>
+                                <h5 class="modal-title" id="codeLabel">{{ text_modal }}</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                                 </button>
@@ -90,10 +115,10 @@
                                     </multiselect>
                                 </div>
 
-                                <div class="form-group">
+                                <!-- <div class="form-group">
                                     <label for="dateCode">Fecha inicio Reunion</label>
                                     <input type="datetime-local" class="form-control" name="dateCode" v-model="date">
-                                </div>
+                                </div> -->
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
@@ -108,6 +133,7 @@
 </template>
 <script>
     import Multiselect from "vue-multiselect";
+    import Drawer from "vue-simple-drawer";
     Vue.component("multiselect", Multiselect);
     export default {
         props:['user'],
@@ -123,16 +149,22 @@
                 code:"",
                 date:"",
                 userSelected:0,
+                open: false,
+                text_modal:"",
             }
         },
         components: {
-            Multiselect
+            Multiselect,
+            Drawer
         },
         mounted(){
             this.getCodes();
             this.getTutors();
         },
         methods:{
+            toggle() {
+                this.open = !this.open;
+            },
             getCodes(){
                 axios.get('codes').then((response)=>{
                     this.codes = response.data
@@ -148,6 +180,7 @@
             },
 
             getCleanModal(){
+                this.text_modal="Crear tu programa";
                 this.saveAreas={};
                 this.id_to_update = '';
                 this.name = '';
@@ -174,6 +207,7 @@
             },
 
             edit(data){
+                this.text_modal="Editar tu programa";
                 this.id_to_update = data.id;
                 this.name = data.name;
                 this.description = data.description;
@@ -201,7 +235,6 @@
                     axios.patch(`codes/${this.id_to_update}`,{
                         name: this.name,
                         description: this.description,
-                        date: this.date,
                         id_area: this.saveAreas.id,
                     }).then((response)=>{
                         toastr.success(response.data);

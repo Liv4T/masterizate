@@ -13,7 +13,27 @@
 
                 <div :id="`collapse${key.replace(/ /g, '')}`"  class="collapse show" :aria-labelledby="`headingOne${key.replace(/ /g, '')}`" data-parent="#accordion">
                     <input type="text" class="form-control mb-2" :placeholder="$t('lang.table.findByName')" v-model="search_student">
-                    <div class="card-body">
+                    <div class="card-body" v-if="view === 1">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        {{ $t('lang.table.name') }}
+                                    </th>
+                                    <th>
+                                        {{ $t('lang.table.action') }}
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody v-for="(student, key) in students[0].students" :key="key">
+                                <tr v-if="search_student =='' || filterStudent(student.user_name)">
+                                    <td>{{student.user_name}}</td>
+                                    <td><button type="button" class="btn btn-primary" v-on:click="()=>getIdUser(student)">Seleccionar</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="card-body" v-if="view === 2">
                         <table class="table table-striped">
                             <thead>
                                 <tr>
@@ -29,9 +49,9 @@
                                 </tr>
                             </thead>
                             <tbody v-for="(student, key) in students" :key="key">
-                                <tr v-if="search_student =='' || filterStudent(student.user_name)">
-                                    <td>{{student.user_name}}</td>
-                                    <td>{{student.user_last_name}}</td>
+                                <tr v-if="search_student =='' || filterStudent(student.tutor_name)">
+                                    <td>{{student.tutor_name}}</td>
+                                    <td></td>
                                     <td><button type="button" class="btn btn-primary" v-on:click="()=>getIdUser(student)">Seleccionar</button></td>
                                 </tr>
                             </tbody>
@@ -39,7 +59,7 @@
                     </div>
                 </div>
             </div>
-        </div>        
+        </div>
     </div>
 </template>
 
@@ -54,15 +74,20 @@
                 optionsMap: [],
                 search_class:"",
                 search_student:"",
-                findDataEst:""
+                findDataEst:"",
+                view:"",
             };
         },
         watch:{
             findStudentOrTeacher: function(val) {
                 if(val == 1){
-                    this.optionsMap = this.optionsEst
+                    this.optionsMap = this.optionsEst;
+                    this.view = val;
+                    console.log(this.optionsMap);
                 }else if(val == 2){
-                    this.optionsMap = this.optionsDoc
+                    this.optionsMap = this.optionsDoc;
+                    this.view = val;
+                    console.log(this.optionsMap);
                 }
             }
         },
@@ -71,18 +96,30 @@
             this.getTeachers();
         },
         methods: {
+            // getTeachers(){
+            //     axios.get('getTeachersByClassroom').then((response) => {
+            //         this.groupDataDoc(response.data);
+            //     });
+            // },
+            // getStudents(){
+            //     axios.get('getStudentsByClassroom').then((response) => {
+            //         this.groupData(response.data);
+            //     });
+            // },
             getTeachers(){
-                axios.get('getTeachersByClassroom').then((response) => {
+                axios.get('getVinculationsTutorMessage').then((response) => {
                     this.groupDataDoc(response.data);
                 });
             },
             getStudents(){
-                axios.get('getStudentsByClassroom').then((response) => {
+                axios.get('getVinculationsTutorMessage').then((response)=>{
                     this.groupData(response.data);
-                });
+                    console.log(response.data);
+                })
             },
             groupData(data){
-                const result = _.chain(data).groupBy("classroom_name").value();
+                //const result = _.chain(data).groupBy("classroom_name").value();
+                const result = _.chain(data).groupBy("area_name").value();
                 this.optionsEst = result
             },
             groupDataDoc(data){
