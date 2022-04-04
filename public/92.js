@@ -241,7 +241,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 (function () {
   "use strict";
 
@@ -267,13 +266,13 @@ __webpack_require__.r(__webpack_exports__);
 
 Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["id_module", "id_class", "cleanCreateClas"],
+  props: ["id_area", "id_classroom", "id_class", "cleanCreateClas"],
   data: function data() {
     return {
       showPreview: false,
       tmp: {},
       is_loading: false,
-      weekly_plan: {},
+      nameClassroom: {},
       errors: [],
       selectedStudentsData: [],
       studentsOptions: [],
@@ -385,37 +384,14 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
     var _this = this;
 
     this.activityForAllStudents = true;
-    axios.get("/showClass/".concat(this.id_module)).then(function (response) {
-      _this.achievements = response.data.achievements;
-      _this.nameArea = response.data.classroom.name;
-      _this.area_id = response.data.area.id;
-      _this.classroom_id = response.data.classroom.id;
-
-      _this.getDataPlanification();
-
-      axios.get("/PIARStudentsByArea/".concat(response.data.area.id, "/").concat(response.data.classroom.id)).then(function (response) {
-        _this.piarStudents = Object.values(response.data);
-      })["catch"](function (error) {
-        console.log(error);
-      });
-      axios.get("/StudentsByArea/".concat(response.data.area.id, "/").concat(response.data.classroom.id)).then(function (response) {
-        var data = response.data;
-        data.forEach(function (e) {
-          _this.studentsOptions.push({
-            id: e.id_student,
-            text: e.name
-          });
-        });
-      });
-    });
-    axios.get("/GetNameWeekly/".concat(this.id_module)).then(function (response) {
-      _this.weekly_plan = {
+    axios.get("/nameClassroom/".concat(this.id_classroom)).then(function (response) {
+      _this.nameClassroom = {
         name: response.data
       };
     });
 
     if (this.id_class !== 0) {
-      axios.get("/api/teacher/module/".concat(this.id_module, "/class/").concat(this.id_class)).then(function (response) {
+      axios.get("/api/teacher/module/".concat(this.id_classroom, "/class/").concat(this.id_class)).then(function (response) {
         _this.course = response.data;
         var activities = response.data.activities;
         _this.course.activities = [];
@@ -527,7 +503,7 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
     SaveDataEvent: function SaveDataEvent() {
       var _this3 = this;
 
-      axios.put("/api/teacher/module/".concat(this.id_module, "/class"), this.course).then(function (response) {
+      axios.put("/api/teacher/module/".concat(this.id_classroom, "/class"), this.course).then(function (response) {
         toastr.success("Clases actualizadas correctamente");
       }, function (error) {
         console.log(error);
@@ -553,6 +529,8 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
 
           _this3.returnPage();
         })["catch"](function (error) {});
+      } else {
+        this.returnPage();
       }
     },
     selectActivityType: function selectActivityType(index_activity, activity) {
@@ -756,11 +734,7 @@ var render = function() {
             _c("div", { staticClass: "col-md-12 mx-auto" }, [
               _c("div", { staticClass: "custom-card text-center" }, [
                 _c("h5", { staticClass: "card-header fondo" }, [
-                  _vm._v(_vm._s(_vm.weekly_plan.name))
-                ]),
-                _vm._v(" "),
-                _c("span", { staticClass: "classroom-label" }, [
-                  _vm._v(_vm._s(_vm.nameArea))
+                  _vm._v(_vm._s(_vm.nameClassroom.name))
                 ])
               ]),
               _vm._v(" "),
@@ -964,40 +938,6 @@ var render = function() {
                               return
                             }
                             _vm.$set(_vm.course, "work", $event.target.value)
-                          }
-                        }
-                      })
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "col-12" }, [
-                      _c("label", { attrs: { for: "transversals" } }, [
-                        _vm._v(
-                          "\n                                Habilidades Transversales\n                            "
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("textarea", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.course.transversals,
-                            expression: "course.transversals"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        attrs: { name: "transversals", id: "transversals" },
-                        domProps: { value: _vm.course.transversals },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.$set(
-                              _vm.course,
-                              "transversals",
-                              $event.target.value
-                            )
                           }
                         }
                       })

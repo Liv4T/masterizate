@@ -45,6 +45,8 @@
                         <img src="../assets/img/modal_evaluation.png" alt="modal_evaluation" width="350px" height="350px" style="margin-bottom:10px">
                         <p>Al completar los campos solo debe hacer click en el botón de guardar, la evaluación se guardara y quedará visible en el listado de evaluaciones en la planificación a la cual le asignó la evaluación.</p>
                         <img src="../assets/img/evaluation_list.png" alt="evaluation_list" width="350px" height="350px" style="margin-bottom:10px">
+                        <p>La evaluación se usa para crear actividades, al momento de crear la actividad se debe seleccionar la planificación general y alguna de las evaluaciones que se han creado para esa planificación.</p>
+                        <img src="../assets/img/activities_evaluation.png" alt="activities_evaluation" width="350px" height="350px" style="margin-bottom:10px">
                     </div>
                 </div>
             </div>

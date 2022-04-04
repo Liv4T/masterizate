@@ -417,6 +417,7 @@ Route::put('deleteLogroPlanification/{id}', 'CoursesController@deleteLogro');
 Route::resource('Class', 'ClassController', ['except' => 'show', 'create', 'edit']);
 Route::get('GetClass', 'ClassController@getClass');
 Route::get('showClass/{id}', 'ClassController@show')->name('showClass');
+Route::get('showClassByClassroom/{id_area}/{id_classroom}', 'ClassController@classesByClassroom');
 Route::delete('deleteClasses/{id}', 'ClassController@destroy');
 
 Route::put('test', 'ClassController@deactivateClass')->name('test');
@@ -859,7 +860,7 @@ Route::get('/api/achievement/{id_achievement}/indicator', 'IndicatorController@g
 Route::get('/api/planification/{id_planification}/indicator/allForPlanification', 'IndicatorController@getByPlanification');
 Route::put('/api/teacher/activity/{id_activity}/student/{id_student}/score', 'ActivityController@saveTeacherScore');
 Route::get('/api/teacher/module/{id_module}/class/{id_course}', 'ClassController@getCourse');
-Route::put('/api/teacher/module/{id_module}/class', 'ClassController@saveCourse');
+Route::put('/api/teacher/module/{id_classroom}/class', 'ClassController@saveCourse');
 Route::put('/api/student/module/{id_module}/class/{id_course}/resource/{id_resource}/interaction', 'ClassController@saveCourseContentInteraction');
 Route::put('/api/student/module/{id_module}/class/{id_course}/activity/{id_activity}/interaction', 'ClassController@saveActivityInteraction');
 Route::put('/api/student/module/{id_module}/class/{id_course}/activity/{id_activity}/question/{id_question}/response', 'ClassController@saveActivityQuestionResponse');
@@ -1162,3 +1163,6 @@ Route::middleware('auth')->get('/clasesClient', function () {
 Route::middleware('auth')->get('/checkPay/{id_area}/{code}', 'EnableSubjectController@checkPay');
 Route::resource('subject','EnableSubjectController');
 Route::put('updateMessajeView/{id_sender}','ViewMessagesController@update');
+
+//TutorClassroom
+Route::middleware('auth')->get('nameClassroom/{id_classroom}', 'TutorClassroomController@nameClassroom');

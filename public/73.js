@@ -175,6 +175,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
 (function () {
   "use strict";
 
@@ -473,6 +475,22 @@ var render = function() {
                             attrs: {
                               src: __webpack_require__(/*! ../assets/img/evaluation_list.png */ "./resources/js/assets/img/evaluation_list.png"),
                               alt: "evaluation_list",
+                              width: "350px",
+                              height: "350px"
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("p", [
+                            _vm._v(
+                              "La evaluación se usa para crear actividades, al momento de crear la actividad se debe seleccionar la planificación general y alguna de las evaluaciones que se han creado para esa planificación."
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("img", {
+                            staticStyle: { "margin-bottom": "10px" },
+                            attrs: {
+                              src: __webpack_require__(/*! ../assets/img/activities_evaluation.png */ "./resources/js/assets/img/activities_evaluation.png"),
+                              alt: "activities_evaluation",
                               width: "350px",
                               height: "350px"
                             }
@@ -963,6 +981,17 @@ var staticRenderFns = [
 render._withStripped = true
 
 
+
+/***/ }),
+
+/***/ "./resources/js/assets/img/activities_evaluation.png":
+/*!***********************************************************!*\
+  !*** ./resources/js/assets/img/activities_evaluation.png ***!
+  \***********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "/images/activities_evaluation.png?f3a55336a72b9cf6cd4f4b5d4b79c278";
 
 /***/ }),
 

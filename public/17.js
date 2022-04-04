@@ -146,6 +146,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___default.a);
@@ -484,25 +485,25 @@ var render = function() {
                         _vm._v(" "),
                         _c("p", [
                           _vm._v(
-                            "Para crear el aula se debe rellenar los campos Nombre, Descripcion y Área a asignar el aula."
+                            "Para crear el aula se debe rellenar los campos Nombre, Descripcion y Categoría a asignar el código."
                           )
                         ]),
                         _vm._v(" "),
                         _c("p", [
                           _vm._v(
-                            "El campo nombre es el nombre que tendra el aula para el tutor(no es visible para el estudiante), el unico fin de este campo es que el profesor pueda identificar facilmente sus aulas"
+                            "El campo nombre es el nombre que tendra el programa para el tutor y el estudiante."
                           )
                         ]),
                         _vm._v(" "),
                         _c("p", [
                           _vm._v(
-                            "En la Descripcion se sugiere agregar una pequeña descripcion del contenido del aula."
+                            "En la Descripcion se sugiere agregar una pequeña descripcion del contenido del programa."
                           )
                         ]),
                         _vm._v(" "),
                         _c("p", [
                           _vm._v(
-                            "Por ultimo el campo Area a asignar el aula es un selector que despliega las materias disponibles y se debe seleccionar una."
+                            "Por ultimo el campo Categoría a asignar el código es un selector que despliega las materias disponibles y se debe seleccionar una."
                           )
                         ]),
                         _vm._v(" "),
@@ -518,25 +519,15 @@ var render = function() {
                         _vm._v(" "),
                         _c("p", [
                           _vm._v(
-                            "Una vez creadas el aula se pueden observar en el listado, con las opciones para Editar o eliminar. Se pueden editar para cambiar el nombre o la descripcion en caso de haber comnetido un error."
+                            "Al crear un programa se genera un código que se debe enviar a los estudiantes para que puedan vincularse al programa y comenzar con las clases."
                           )
                         ]),
                         _vm._v(" "),
                         _c("p", [
                           _vm._v(
-                            "Para editar un aula solo debe hacer click sobre el boton editar y se abrira una ventana con los datos del aula a editar."
+                            "Una vez creados los programas se pueden observar en el listado, allí se encuentra el código de cada programa que debemos compartir con los estudiantes."
                           )
-                        ]),
-                        _vm._v(" "),
-                        _c("img", {
-                          staticStyle: { "margin-bottom": "10px" },
-                          attrs: {
-                            src: __webpack_require__(/*! ../assets/img/edit_aula.png */ "./resources/js/assets/img/edit_aula.png"),
-                            alt: "edit_aula",
-                            width: "350px",
-                            height: "350px"
-                          }
-                        })
+                        ])
                       ])
                     ])
                   ])
@@ -556,7 +547,7 @@ var render = function() {
                   _vm._v(" "),
                   _c("th", [_vm._v("Codigo")]),
                   _vm._v(" "),
-                  _c("th", [_vm._v("Area")]),
+                  _c("th", [_vm._v("Categoría")]),
                   _vm._v(" "),
                   _c(
                     "th",
@@ -978,17 +969,6 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./resources/js/assets/img/edit_aula.png":
-/*!***********************************************!*\
-  !*** ./resources/js/assets/img/edit_aula.png ***!
-  \***********************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "/images/edit_aula.png?0c5e94561a932787eef3a98dceb89fe0";
-
-/***/ }),
-
 /***/ "./resources/js/assets/img/form_create_program.png":
 /*!*********************************************************!*\
   !*** ./resources/js/assets/img/form_create_program.png ***!
@@ -996,7 +976,7 @@ module.exports = "/images/edit_aula.png?0c5e94561a932787eef3a98dceb89fe0";
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "/images/form_create_program.png?05c85c771f53c5483acd083310871c46";
+module.exports = "/images/form_create_program.png?db296af26667774d27ce881776cd78fe";
 
 /***/ }),
 

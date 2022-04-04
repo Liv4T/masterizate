@@ -30,7 +30,6 @@ class QuestionController extends Controller
             }else{
                 $allQ->user_name = 'Desconocido';
             }
-
         }
         return view('questions.index', compact('allQues'));
     }

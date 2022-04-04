@@ -4,8 +4,7 @@
             <div class="row">
                 <div class="col-md-12 mx-auto">
                     <div class="custom-card text-center">
-                        <h5 class="card-header fondo">{{ weekly_plan.name }}</h5>
-                          <span class="classroom-label">{{ nameArea }}</span>
+                        <h5 class="card-header fondo">{{ nameClassroom.name }}</h5>
                     </div>
                     <div class="div-classes">
                         <div class="div-class">
@@ -49,12 +48,12 @@
                                 </label>
                                 <textarea class="form-control" v-model="course.work" name="work" id="work"></textarea>
                             </div>
-                            <div class="col-12">
+                            <!-- <div class="col-12">
                                 <label for="transversals">
                                     Habilidades Transversales
                                 </label>
                                 <textarea class="form-control" v-model="course.transversals" name="transversals" id="transversals"></textarea>
-                            </div>
+                            </div> -->
                             <!-- Se agrega un display:none para ocultar los elementos relacionados con los estudiantes PIAR ya que se desarrollo la funcionalidad pero luego se pidio eliminar pero solo se oculto y en caso de necesitarlo de nuevo en el futuro ya tener la funcionalidad lista -->
                             <!-- Los estudiantes PIAR se usa para crear una planificacion o una clase para estudiantes con dificultades de aprendizaje -->
                             <div class="row" style="display:none">
@@ -258,13 +257,13 @@ import "vue-form-wizard/dist/vue-form-wizard.min.css";
 import moment from "moment";
 Vue.use(VueFormWizard);
 export default {
-    props: ["id_module", "id_class","cleanCreateClas"],
+    props: ["id_area","id_classroom","id_class","cleanCreateClas"],
     data() {
         return {
             showPreview:false,
             tmp:{},
             is_loading:false,
-            weekly_plan:{},
+            nameClassroom:{},
             errors: [],
             selectedStudentsData:[],
             studentsOptions:[],
@@ -383,35 +382,14 @@ export default {
     },
     mounted() {
         this.activityForAllStudents = true;
-        axios.get(`/showClass/${this.id_module}`).then((response) => {
-            this.achievements=response.data.achievements;
-            this.nameArea = response.data.classroom.name;
-            this.area_id = response.data.area.id;
-            this.classroom_id = response.data.classroom.id;
-            this.getDataPlanification();
-            axios.get(`/PIARStudentsByArea/${response.data.area.id}/${response.data.classroom.id}`).then((response)=>{
-                this.piarStudents = Object.values(response.data);
-            }).catch((error)=>{
-                console.log(error)
-            });
 
-            axios.get(`/StudentsByArea/${response.data.area.id}/${response.data.classroom.id}`).then((response)=>{
-                let data = response.data;
-                data.forEach((e)=>{
-                    this.studentsOptions.push({
-                        id: e.id_student,
-                        text: e.name
-                    })
-                });
-            })
-        });
-        axios.get(`/GetNameWeekly/${this.id_module}`).then((response) => {
-            this.weekly_plan={name:response.data};
+        axios.get(`/nameClassroom/${this.id_classroom}`).then((response) => {
+            this.nameClassroom={name:response.data};
         });
 
         if(this.id_class !== 0)
         {
-            axios.get(`/api/teacher/module/${this.id_module}/class/${this.id_class}`).then((response) => {
+            axios.get(`/api/teacher/module/${this.id_classroom}/class/${this.id_class}`).then((response) => {
                     this.course=response.data;
                     let activities = response.data.activities;
                     this.course.activities=[];
@@ -532,7 +510,7 @@ export default {
         },
 
         SaveDataEvent(){
-            axios.put(`/api/teacher/module/${this.id_module}/class`,this.course).then((response) => {
+            axios.put(`/api/teacher/module/${this.id_classroom}/class`,this.course).then((response) => {
                toastr.success("Clases actualizadas correctamente");
             },(error)=>{console.log(error);toastr.error("ERROR:Por favor valide que la información esta completa");});
             if(this.id_class==0 && this.course.date_init_class !== ''){
@@ -556,6 +534,8 @@ export default {
                         this.returnPage();
                         })
                         .catch((error) => {});
+            }else{
+                this.returnPage();
             }
         },
         selectActivityType(index_activity,activity){

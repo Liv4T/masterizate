@@ -11,7 +11,7 @@
             <option disabled selected hidden value="">CURSOS</option>
             <option :value="JSON.stringify(area)" v-for="(area, key) in areas" :key="key">{{ area.user_type === 7 ? area.area_name : area.text  }}</option>
           </select> -->
-          <select class="btn btn-warning letra-boldfont" name="type" v-model="idArea">
+          <select class="btn btn-warning letra-boldfont" name="type" v-model="idArea" @change="ShowSelected()">
             <option disabled selected hidden value="">CURSOS</option>
             <option :value="area.id + '/' + area.id_classroom" v-for="(area, key) in areas" :key="key">{{ area.classroom_name }}</option>
           </select>
@@ -29,9 +29,9 @@
           <!-- <div class="content-azul"> -->
           <div>
             <div v-if="activetab === 1" class="tabcontent">
-              <div v-if="idArea !='' || user.type_user === 7">
+              <div v-if="idArea !='' && user.type_user === 7">
                 <h3 v-show="user.type_user === 7" class="card-header fondo">Mis Cursos</h3>
-                <cycle-list :idArea="idArea" :planif="planif" :user="user"></cycle-list>
+                <my-classes :idAreas="idAreas" :idClassroom="idClassroom" :user="user"></my-classes>
               </div>
             </div>
             <div v-if="activetab === 2" class="tabcontent">
@@ -81,6 +81,7 @@ export default {
       idAreaClass:"",
       planif:"clase",
       select:"",
+      idAreas:"",
     };
   },
   mounted() {
@@ -126,9 +127,10 @@ export default {
         });
     },
     ShowSelected(){
-        let dataArea = JSON.parse(this.select);
-        this.idArea = dataArea.id_area;
-        this.idClassroom = dataArea.id_classroom;
+        //let dataArea = JSON.parse(this.idArea);
+        let dataArea = this.idArea.split("/");
+        this.idAreas = dataArea[0];
+        this.idClassroom = dataArea[1];
         this.idAreaClass = dataArea.id_area+'/'+dataArea.id_classroom;
     }
   },

@@ -14,24 +14,29 @@
                 <div :id="`collapse${key.replace(/ /g, '')}`"  class="collapse show" :aria-labelledby="`headingOne${key.replace(/ /g, '')}`" data-parent="#accordion">
                     <input type="text" class="form-control mb-2" :placeholder="$t('lang.table.findByName')" v-model="search_student">
                     <div class="card-body" v-if="view === 1">
-                        <table class="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th>
-                                        {{ $t('lang.table.name') }}
-                                    </th>
-                                    <th>
-                                        {{ $t('lang.table.action') }}
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody v-for="(student, key) in students[0].students" :key="key">
-                                <tr v-if="search_student =='' || filterStudent(student.user_name)">
-                                    <td>{{student.user_name}}</td>
-                                    <td><button type="button" class="btn btn-primary" v-on:click="()=>getIdUser(student)">Seleccionar</button></td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <div v-if="students[0].students.length > 0">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            {{ $t('lang.table.name') }}
+                                        </th>
+                                        <th>
+                                            {{ $t('lang.table.action') }}
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody v-for="(student, key) in students[0].students" :key="key">
+                                    <tr v-if="search_student =='' || filterStudent(student.user_name)">
+                                        <td>{{student.user_name}}</td>
+                                        <td><button type="button" class="btn btn-primary" v-on:click="()=>getIdUser(student)">Seleccionar</button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div v-else>
+                            <h5>No hay estudiantes registrados</h5>
+                        </div>
                     </div>
                     <div class="card-body" v-if="view === 2">
                         <table class="table table-striped">

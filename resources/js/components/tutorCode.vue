@@ -28,14 +28,15 @@
                                 <p>Genera tu programa permite crear, editar o eliminar tus aulas de clase para cada materia, es tan simple como llenar un formulario y listo!!</p>
                                 <p>Haciendo click en el boton "Crear tu programa" se abrira una ventana para crear el Aula</p>
                                 <img src="../assets/img/form_create_program.png" alt="form_create_program" width="350px" height="350px" style="margin-bottom:10px">
-                                <p>Para crear el aula se debe rellenar los campos Nombre, Descripcion y Área a asignar el aula.</p>
-                                <p>El campo nombre es el nombre que tendra el aula para el tutor(no es visible para el estudiante), el unico fin de este campo es que el profesor pueda identificar facilmente sus aulas</p>
-                                <p>En la Descripcion se sugiere agregar una pequeña descripcion del contenido del aula.</p>
-                                <p>Por ultimo el campo Area a asignar el aula es un selector que despliega las materias disponibles y se debe seleccionar una.</p>
+                                <p>Para crear el aula se debe rellenar los campos Nombre, Descripcion y Categoría a asignar el código.</p>
+                                <p>El campo nombre es el nombre que tendra el programa para el tutor y el estudiante.</p>
+                                <p>En la Descripcion se sugiere agregar una pequeña descripcion del contenido del programa.</p>
+                                <p>Por ultimo el campo Categoría a asignar el código es un selector que despliega las materias disponibles y se debe seleccionar una.</p>
                                 <img src="../assets/img/select_create_aula.png" alt="select_area" width="350px" height="350px" style="margin-bottom:10px">
-                                <p>Una vez creadas el aula se pueden observar en el listado, con las opciones para Editar o eliminar. Se pueden editar para cambiar el nombre o la descripcion en caso de haber comnetido un error.</p>
-                                <p>Para editar un aula solo debe hacer click sobre el boton editar y se abrira una ventana con los datos del aula a editar.</p>
-                                <img src="../assets/img/edit_aula.png" alt="edit_aula" width="350px" height="350px" style="margin-bottom:10px">
+                                <p>Al crear un programa se genera un código que se debe enviar a los estudiantes para que puedan vincularse al programa y comenzar con las clases.</p>
+                                <p>Una vez creados los programas se pueden observar en el listado, allí se encuentra el código de cada programa que debemos compartir con los estudiantes.</p>
+                                <!-- <p>Para editar un aula solo debe hacer click sobre el boton editar y se abrira una ventana con los datos del aula a editar.</p>
+                                <img src="../assets/img/edit_aula.png" alt="edit_aula" width="350px" height="350px" style="margin-bottom:10px"> -->
                             </div>
                         </div>
                     </div>
@@ -46,7 +47,7 @@
                             <th>Nombre</th>
                             <th>Descripción</th>
                             <th>Codigo</th>
-                            <th>Area</th>
+                            <th>Categoría</th>
                             <th v-show="user.type_user === 1">Tutor</th>
                             <th>Acción</th>
                         </tr>

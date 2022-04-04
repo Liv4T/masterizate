@@ -341,6 +341,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 
 Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_1___default.a);
@@ -504,7 +507,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.padding-content{\r\n    padding-left: 109px; \r\n    padding-right: 109px;\n}\n@media (max-width: 600px) {\n.padding-content{\r\n        padding-left: 10px; \r\n        padding-right: 20px;\n}\n}\r\n", ""]);
+exports.push([module.i, "\n.padding-content{\n    padding-left: 109px;\n    padding-right: 109px;\n}\n.required{\n    color:red;\n}\n@media (max-width: 600px) {\n.padding-content{\n        padding-left: 10px;\n        padding-right: 20px;\n}\n}\n", ""]);
 
 // exports
 
@@ -567,15 +570,15 @@ var render = function() {
               _c("div", { staticClass: "container" }, [
                 _vm._m(1),
                 _vm._v(" "),
+                _vm._m(2),
+                _vm._v(" "),
                 _c(
                   "div",
                   { staticClass: "row shadow p-3 mb-5 bg-body rounded" },
                   [
                     _c("div", { staticClass: "col" }, [
                       _c("div", { staticClass: "form-group" }, [
-                        _c("label", { attrs: { for: "email" } }, [
-                          _vm._v("Email")
-                        ]),
+                        _vm._m(3),
                         _vm._v(" "),
                         _c("input", {
                           directives: [
@@ -603,9 +606,7 @@ var render = function() {
                     _vm._v(" "),
                     _c("div", { staticClass: "col" }, [
                       _c("div", { staticClass: "form-group" }, [
-                        _c("label", { attrs: { for: "email" } }, [
-                          _vm._v("Nombre de Usuario")
-                        ]),
+                        _vm._m(4),
                         _vm._v(" "),
                         _c("input", {
                           directives: [
@@ -633,9 +634,7 @@ var render = function() {
                     _vm._v(" "),
                     _c("div", { staticClass: "col" }, [
                       _c("div", { staticClass: "form-group" }, [
-                        _c("label", { attrs: { for: "password" } }, [
-                          _vm._v("Contraseña")
-                        ]),
+                        _vm._m(5),
                         _vm._v(" "),
                         _c("input", {
                           directives: [
@@ -663,7 +662,7 @@ var render = function() {
                   ]
                 ),
                 _vm._v(" "),
-                _vm._m(2),
+                _vm._m(6),
                 _vm._v(" "),
                 _c(
                   "div",
@@ -674,9 +673,7 @@ var render = function() {
                   [
                     _c("div", { staticClass: "col" }, [
                       _c("div", { staticClass: "form-group" }, [
-                        _c("label", { attrs: { for: "name" } }, [
-                          _vm._v("Nombre")
-                        ]),
+                        _vm._m(7),
                         _vm._v(" "),
                         _c("input", {
                           directives: [
@@ -704,9 +701,7 @@ var render = function() {
                     _vm._v(" "),
                     _c("div", { staticClass: "col" }, [
                       _c("div", { staticClass: "form-group" }, [
-                        _c("label", { attrs: { for: "last_name" } }, [
-                          _vm._v("Apellido")
-                        ]),
+                        _vm._m(8),
                         _vm._v(" "),
                         _c("input", {
                           directives: [
@@ -734,9 +729,7 @@ var render = function() {
                     _vm._v(" "),
                     _c("div", { staticClass: "col" }, [
                       _c("div", { staticClass: "form-group" }, [
-                        _c("label", { attrs: { for: "id_number" } }, [
-                          _vm._v("Identificación")
-                        ]),
+                        _vm._m(9),
                         _vm._v(" "),
                         _c("input", {
                           directives: [
@@ -764,9 +757,7 @@ var render = function() {
                     _vm._v(" "),
                     _c("div", { staticClass: "col" }, [
                       _c("div", { staticClass: "form-group" }, [
-                        _c("label", { attrs: { for: "country" } }, [
-                          _vm._v("Pais")
-                        ]),
+                        _vm._m(10),
                         _vm._v(" "),
                         _c("input", {
                           directives: [
@@ -794,9 +785,7 @@ var render = function() {
                     _vm._v(" "),
                     _c("div", { staticClass: "col" }, [
                       _c("div", { staticClass: "form-group" }, [
-                        _c("label", { attrs: { for: "city" } }, [
-                          _vm._v("Ciudad")
-                        ]),
+                        _vm._m(11),
                         _vm._v(" "),
                         _c("input", {
                           directives: [
@@ -824,9 +813,7 @@ var render = function() {
                     _vm._v(" "),
                     _c("div", { staticClass: "col" }, [
                       _c("div", { staticClass: "form-group" }, [
-                        _c("label", { attrs: { for: "address" } }, [
-                          _vm._v("Dirección")
-                        ]),
+                        _vm._m(12),
                         _vm._v(" "),
                         _c("input", {
                           directives: [
@@ -854,9 +841,7 @@ var render = function() {
                     _vm._v(" "),
                     _c("div", { staticClass: "col" }, [
                       _c("div", { staticClass: "form-group" }, [
-                        _c("label", { attrs: { for: "phone" } }, [
-                          _vm._v("Telefono")
-                        ]),
+                        _vm._m(13),
                         _vm._v(" "),
                         _c("input", {
                           directives: [
@@ -1069,7 +1054,7 @@ var render = function() {
                     _c("div", { staticClass: "card-background" }, [
                       _c("div", { staticClass: "row" }, [
                         _c("div", { staticClass: "col-12 col-sm-6" }, [
-                          _vm._m(3),
+                          _vm._m(14),
                           _vm._v(" "),
                           _c(
                             "div",
@@ -1189,7 +1174,7 @@ var render = function() {
                                     "div",
                                     { staticClass: "form-group text-left" },
                                     [
-                                      _vm._m(4, true),
+                                      _vm._m(15, true),
                                       _vm._v(" "),
                                       _c("input", {
                                         directives: [
@@ -1298,7 +1283,7 @@ var render = function() {
                         ]),
                         _vm._v(" "),
                         _c("div", { staticClass: "col-12 col-sm-6" }, [
-                          _vm._m(5),
+                          _vm._m(16),
                           _vm._v(" "),
                           _c(
                             "div",
@@ -1381,7 +1366,7 @@ var render = function() {
                                         "div",
                                         { staticClass: "col-6 text-left" },
                                         [
-                                          _vm._m(6, true),
+                                          _vm._m(17, true),
                                           _vm._v(" "),
                                           _c("input", {
                                             directives: [
@@ -1430,7 +1415,7 @@ var render = function() {
                                         "div",
                                         { staticClass: "col-6 text-left" },
                                         [
-                                          _vm._m(7, true),
+                                          _vm._m(18, true),
                                           _vm._v(" "),
                                           _c("input", {
                                             directives: [
@@ -1801,7 +1786,7 @@ var render = function() {
                         ]),
                         _vm._v(" "),
                         _c("div", { staticClass: "col-12 col-sm-6" }, [
-                          _vm._m(8),
+                          _vm._m(19),
                           _vm._v(" "),
                           _c(
                             "div",
@@ -1955,7 +1940,7 @@ var render = function() {
                         ]),
                         _vm._v(" "),
                         _c("div", { staticClass: "col-12 col-sm-6" }, [
-                          _vm._m(9),
+                          _vm._m(20),
                           _vm._v(" "),
                           _c("div", [
                             _c("div", { staticClass: "form-group" }, [
@@ -2120,6 +2105,18 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
+    return _c("div", [
+      _c("label", [
+        _vm._v("Los campos con "),
+        _c("span", { staticClass: "required" }, [_vm._v("*")]),
+        _vm._v(" son obligatorios")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
     return _c("div", { staticClass: "text-center" }, [
       _c("h4", [_vm._v("Datos de Usuario")])
     ])
@@ -2128,8 +2125,98 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
+    return _c("label", { attrs: { for: "email" } }, [
+      _c("span", { staticClass: "required" }, [_vm._v("*")]),
+      _vm._v("Email")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { attrs: { for: "email" } }, [
+      _c("span", { staticClass: "required" }, [_vm._v("*")]),
+      _vm._v("Nombre de Usuario")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { attrs: { for: "password" } }, [
+      _c("span", { staticClass: "required" }, [_vm._v("*")]),
+      _vm._v("Contraseña")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
     return _c("div", { staticClass: "text-center" }, [
       _c("h4", [_vm._v("Datos Personales")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { attrs: { for: "name" } }, [
+      _c("span", { staticClass: "required" }, [_vm._v("*")]),
+      _vm._v("Nombre")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { attrs: { for: "last_name" } }, [
+      _c("span", { staticClass: "required" }, [_vm._v("*")]),
+      _vm._v("Apellido")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { attrs: { for: "id_number" } }, [
+      _c("span", { staticClass: "required" }, [_vm._v("*")]),
+      _vm._v("Identificación")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { attrs: { for: "country" } }, [
+      _c("span", { staticClass: "required" }, [_vm._v("*")]),
+      _vm._v("Pais")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { attrs: { for: "city" } }, [
+      _c("span", { staticClass: "required" }, [_vm._v("*")]),
+      _vm._v("Ciudad")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { attrs: { for: "address" } }, [
+      _c("span", { staticClass: "required" }, [_vm._v("*")]),
+      _vm._v("Dirección")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { attrs: { for: "phone" } }, [
+      _c("span", { staticClass: "required" }, [_vm._v("*")]),
+      _vm._v("Telefono")
     ])
   },
   function() {

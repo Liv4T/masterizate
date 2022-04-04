@@ -18,7 +18,7 @@
                             </div>
 
                             <div class="ml-auto">
-                                <a style="color:white;" href="{{route('createQuestion')}}" class="btn btn-sm btn-outline-secondary"><i class="fa fa-question"></i> Preguntas</a>
+                                <a style="color:white;" href="{{route('createQuestion')}}" class="btn btn-sm btn-outline-secondary"><i class="fa fa-question"></i> Crear Foro</a>
                             </div>
                         </div>
                     </div>

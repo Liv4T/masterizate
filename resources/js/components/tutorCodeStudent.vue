@@ -21,6 +21,8 @@
                                 <img src="../assets/img/my_students.png" alt="my_students" width="350px" height="350px" style="margin-bottom:10px">
                                 <p>Se listan todas las aulas de clase de cada tutor y haciendo click sobre una en especifico se abre un listado de estudiantes vinculados a esa aula.</p>
                                 <img src="../assets/img/student_list.png" alt="student_list" width="350px" height="350px" style="margin-bottom:10px">
+                                <p>En caso de no haber estudiantes vinculados a un aula de clase se muestra un mensaje notificando que aun no hay estudiantes vinculados en esa aula de clase.</p>
+                                <img src="../assets/img/students_nul.png" alt="students_nul" width="350px" height="350px" style="margin-bottom:10px">
                             </div>
                         </div>
                     </div>
@@ -37,20 +39,25 @@
 
                         <div :id="`collapseOne${key}`" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
                             <div class="card-body">
-                                <table class="table table-striped table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>Nombre Estudiante</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody v-for="(student, key_s) in classroom.students" :key="key_s">
-                                        <tr>
-                                            <td>{{ key_s+1 }}</td>
-                                            <td>{{ student.student_name }}</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                                <div v-if="classroom.students.length > 0">
+                                    <table class="table table-striped table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Nombre Estudiante</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody v-for="(student, key_s) in classroom.students" :key="key_s">
+                                            <tr>
+                                                <td>{{ key_s+1 }}</td>
+                                                <td>{{ student.student_name }}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div v-else>
+                                    <h3>No hay estudiantes registrados</h3>
+                                </div>
                             </div>
                         </div>
                     </div>

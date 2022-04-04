@@ -266,6 +266,7 @@ Vue.component("teacher-student-class-content", () => import ("./components/teach
 Vue.component("notification-component", () => import ("./components/notificationComponent.vue"));
 Vue.component("language-component", () => import ("./components/changeLanguageComponent.vue"));
 Vue.component("content-loader", () => import ("./components/contentLoaderComponent.vue"));
+Vue.component("my-classes", () => import ("./components/myClasses.vue"));
 
 //Padres
 Vue.component("menu-padres", () => import("./components/menuPadres.vue"));

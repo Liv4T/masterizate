@@ -74,6 +74,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -194,6 +201,22 @@ var render = function() {
                             width: "350px",
                             height: "350px"
                           }
+                        }),
+                        _vm._v(" "),
+                        _c("p", [
+                          _vm._v(
+                            "En caso de no haber estudiantes vinculados a un aula de clase se muestra un mensaje notificando que aun no hay estudiantes vinculados en esa aula de clase."
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("img", {
+                          staticStyle: { "margin-bottom": "10px" },
+                          attrs: {
+                            src: __webpack_require__(/*! ../assets/img/students_nul.png */ "./resources/js/assets/img/students_nul.png"),
+                            alt: "students_nul",
+                            width: "350px",
+                            height: "350px"
+                          }
                         })
                       ])
                     ])
@@ -247,24 +270,37 @@ var render = function() {
                   },
                   [
                     _c("div", { staticClass: "card-body" }, [
-                      _c(
-                        "table",
-                        { staticClass: "table table-striped table-hover" },
-                        [
-                          _vm._m(1, true),
-                          _vm._v(" "),
-                          _vm._l(classroom.students, function(student, key_s) {
-                            return _c("tbody", { key: key_s }, [
-                              _c("tr", [
-                                _c("td", [_vm._v(_vm._s(key_s + 1))]),
+                      classroom.students.length > 0
+                        ? _c("div", [
+                            _c(
+                              "table",
+                              {
+                                staticClass: "table table-striped table-hover"
+                              },
+                              [
+                                _vm._m(1, true),
                                 _vm._v(" "),
-                                _c("td", [_vm._v(_vm._s(student.student_name))])
-                              ])
-                            ])
-                          })
-                        ],
-                        2
-                      )
+                                _vm._l(classroom.students, function(
+                                  student,
+                                  key_s
+                                ) {
+                                  return _c("tbody", { key: key_s }, [
+                                    _c("tr", [
+                                      _c("td", [_vm._v(_vm._s(key_s + 1))]),
+                                      _vm._v(" "),
+                                      _c("td", [
+                                        _vm._v(_vm._s(student.student_name))
+                                      ])
+                                    ])
+                                  ])
+                                })
+                              ],
+                              2
+                            )
+                          ])
+                        : _c("div", [
+                            _c("h3", [_vm._v("No hay estudiantes registrados")])
+                          ])
                     ])
                   ]
                 )
@@ -325,6 +361,17 @@ module.exports = "/images/my_students.png?4285baf703574926572023f5f4806b83";
 /***/ (function(module, exports) {
 
 module.exports = "/images/student_list.png?ca2e45679c65818e9b0801fb4c8cf223";
+
+/***/ }),
+
+/***/ "./resources/js/assets/img/students_nul.png":
+/*!**************************************************!*\
+  !*** ./resources/js/assets/img/students_nul.png ***!
+  \**************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "/images/students_nul.png?d437a3fa8040d586bde020534f724ac9";
 
 /***/ }),
 
