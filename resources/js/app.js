@@ -15,6 +15,9 @@ import Game from "./components/Game";
 import store from "./vuex/store";
 import en from '../../src/lang/en_US.json'
 import es from '../../src/lang/es_ES.json'
+import VueTour from 'vue-tour';
+require('vue-tour/dist/vue-tour.css');
+Vue.use(VueTour);
 
 const i18n = new VueI18n({
   locale: 'es',
@@ -386,6 +389,8 @@ Vue.component("comunication-tab", ()=>import("./components/tabComunication.vue")
 Vue.component("formation-tab",()=>import("./components/tabsFormation.vue"));
 Vue.component("school-gov-tab",()=>import("./components/tabsSchoolGov.vue"));
 Vue.component("clases-client",()=>import("./components/clasesCliente.vue"));
+//VueTour Configuration
+Vue.component("tour-configuration",()=>import("./components/vueTourConfiguration.vue"))
 Vue.use(CKEditor);
 
 

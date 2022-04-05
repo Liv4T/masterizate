@@ -366,22 +366,6 @@ var render = function() {
                     ? _c(
                         "div",
                         [
-                          _c(
-                            "h3",
-                            {
-                              directives: [
-                                {
-                                  name: "show",
-                                  rawName: "v-show",
-                                  value: _vm.user.type_user === 7,
-                                  expression: "user.type_user === 7"
-                                }
-                              ],
-                              staticClass: "card-header fondo"
-                            },
-                            [_vm._v("Mis Cursos")]
-                          ),
-                          _vm._v(" "),
                           _c("my-classes", {
                             attrs: {
                               idAreas: _vm.idAreas,

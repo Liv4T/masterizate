@@ -5,13 +5,14 @@
         <!-- <div class="card-header fondo">
           <h4>Calendario</h4>
         </div> -->
-         <div class="row" style="margin-left:0; margin-right:0">
+         <div class="row" style="margin-left:0; margin-right:0" data-v-step="0">
             <div style="margin-left:auto">
                 <a class="btn" @click="toggle">
                     <i class="fa fa-question-circle" style="font-size:35px; color:orange;"></i>
                 </a>
             </div>
         </div>
+        <tour-configuration :step="steps" :condition="condition"></tour-configuration>
         <Drawer @close="toggle" align="right" :maskClosable="true" :zIndex="1003" :closeable="true">
             <div v-if="open">
                 <div class="row">
@@ -28,7 +29,7 @@
         <div class="card-body">
           <div class="row">
             <div class="col-6 justify-content">
-              <div class="btn-group" role="group" aria-label="Basic example">
+              <div class="btn-group" role="group" aria-label="Basic example" data-v-step="1">
                 <button type="button" class="btn" v-bind:class="{ 'btn-primary': initialView == 'dayGridMonth' }" @click="changeCalendarView('dayGridMonth')">{{ $t('lang.calendar.monthly') }}</button>
                 <button type="button" class="btn" v-bind:class="{ 'btn-primary': initialView == 'timeGridWeek' }" @click="changeCalendarView('timeGridWeek')">{{ $t('lang.calendar.weekly') }}</button>
               </div>
@@ -135,6 +136,36 @@ export default {
       },
       tutorEvents: [],
       open: false,
+      steps: [
+            {
+                target: '[data-v-step="0"]',
+                header: {
+                    title: 'Calendario',
+                },
+                content: `El calendario muestra las proximas clases a los estudiantes, asi puede organizar sus siguientes clases y conocer los horarios de las mismas.`,
+                params: {
+                    placement: 'bottom', // Any valid Popper.js placement. See https://popper.js.org/popper-documentation.html#Popper.placements
+                    enableScrolling: false
+                }
+            },
+            {
+                target: '[data-v-step="1"]',
+                content: 'El calendario se puede ver Menusal o Semanal segun los gustos del esudiante.',
+                params: {
+                    placement: 'top', // Any valid Popper.js placement. See https://popper.js.org/popper-documentation.html#Popper.placements
+                    enableScrolling: false,
+                }
+            },
+            {
+                target: '[data-v-step="2"]',
+                content: 'Aqui ademas del calendario tambien se listan las siguientes clases a partir de la fecha y hora actual, es decir si la clase ya terminó no aparecerá en el listado.',
+                params: {
+                    placement: 'top', // Any valid Popper.js placement. See https://popper.js.org/popper-documentation.html#Popper.placements
+                    enableScrolling: true,
+                }
+            },
+        ],
+        condition:"calendar",
     };
   },
   components: {

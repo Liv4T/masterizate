@@ -277,7 +277,6 @@ export default {
         },
         RegisterValidForm()
         {
-            console.log('entramos a validar form');
             let password_confirm=this.registerForm.password == this.registerForm.password_confirm;
             let mailValid=this.validEmail(this.registerForm.email);
             let cellphoneValid=this.validCellphone(this.registerForm.cellphone);

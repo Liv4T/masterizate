@@ -177,6 +177,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 (function () {
   "use strict";
 
@@ -232,7 +233,34 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
       newTrimestre: [],
       tipo_act: "",
       porcentaje: ""
-    }, _defineProperty(_ref, "newTrimestre", []), _defineProperty(_ref, "newLogro", []), _defineProperty(_ref, "trimestre", false), _defineProperty(_ref, "logro_1", ""), _defineProperty(_ref, "logro_2", ""), _defineProperty(_ref, "logro_3", ""), _defineProperty(_ref, "logro_4", ""), _defineProperty(_ref, "fillC", []), _defineProperty(_ref, "fillI", []), _defineProperty(_ref, "anual", []), _defineProperty(_ref, "newAnual", []), _defineProperty(_ref, "errors", []), _defineProperty(_ref, "id_logro", ""), _defineProperty(_ref, "id_indicator", 0), _defineProperty(_ref, "index", 0), _defineProperty(_ref, "areaId", ""), _defineProperty(_ref, "id_quarterly_plan", ""), _defineProperty(_ref, "id_achievement", ""), _defineProperty(_ref, "open", false), _ref;
+    }, _defineProperty(_ref, "newTrimestre", []), _defineProperty(_ref, "newLogro", []), _defineProperty(_ref, "trimestre", false), _defineProperty(_ref, "logro_1", ""), _defineProperty(_ref, "logro_2", ""), _defineProperty(_ref, "logro_3", ""), _defineProperty(_ref, "logro_4", ""), _defineProperty(_ref, "fillC", []), _defineProperty(_ref, "fillI", []), _defineProperty(_ref, "anual", []), _defineProperty(_ref, "newAnual", []), _defineProperty(_ref, "errors", []), _defineProperty(_ref, "id_logro", ""), _defineProperty(_ref, "id_indicator", 0), _defineProperty(_ref, "index", 0), _defineProperty(_ref, "areaId", ""), _defineProperty(_ref, "id_quarterly_plan", ""), _defineProperty(_ref, "id_achievement", ""), _defineProperty(_ref, "open", false), _defineProperty(_ref, "steps", [{
+      target: '[data-v-step="0"]',
+      header: {
+        title: 'Evaluación'
+      },
+      content: "Desde aqui podras <strong>crear las evaluaciones que luego podras vincular a cada actividad, asi podras evaluar las actividades</strong>, solo debes hacer click sobre el nombre de la planificaci\xF3n (la evaluaci\xF3n se crea a una planificaci\xF3n general)",
+      params: {
+        placement: 'bottom',
+        // Any valid Popper.js placement. See https://popper.js.org/popper-documentation.html#Popper.placements
+        enableScrolling: false
+      }
+    }, {
+      target: '[data-v-step="1"]',
+      content: "Haciendo click en el nombre de la planificaci\xF3n general, se abrir\xE1 un listado con las evaluaciones creadas, en caso de no tener ninguna solo aparecer\xE1 el bot\xF3n para crear una nueva.",
+      params: {
+        placement: 'top',
+        // Any valid Popper.js placement. See https://popper.js.org/popper-documentation.html#Popper.placements
+        enableScrolling: false
+      }
+    }, {
+      target: '[data-v-step="2"]',
+      content: "El bot\xF3n \"Agregar\" permite crear una nueva evaluaci\xF3n.",
+      params: {
+        placement: 'top',
+        // Any valid Popper.js placement. See https://popper.js.org/popper-documentation.html#Popper.placements
+        enableScrolling: false
+      }
+    }]), _defineProperty(_ref, "condition", "evaluation"), _ref;
   },
   components: {
     Drawer: vue_simple_drawer__WEBPACK_IMPORTED_MODULE_2___default.a
@@ -395,18 +423,29 @@ var render = function() {
           "div",
           { staticClass: "col-md-11 mx-auto" },
           [
-            _c("div", { staticClass: "card-header text-center fondo row" }, [
-              _vm._m(1),
-              _vm._v(" "),
-              _c("div", { staticStyle: { "margin-left": "auto" } }, [
-                _c("a", { staticClass: "btn", on: { click: _vm.toggle } }, [
-                  _c("i", {
-                    staticClass: "fa fa-question-circle",
-                    staticStyle: { "font-size": "35px", color: "orange" }
-                  })
+            _c(
+              "div",
+              {
+                staticClass: "card-header text-center fondo row",
+                attrs: { "data-v-step": "0" }
+              },
+              [
+                _vm._m(1),
+                _vm._v(" "),
+                _c("div", { staticStyle: { "margin-left": "auto" } }, [
+                  _c("a", { staticClass: "btn", on: { click: _vm.toggle } }, [
+                    _c("i", {
+                      staticClass: "fa fa-question-circle",
+                      staticStyle: { "font-size": "35px", color: "orange" }
+                    })
+                  ])
                 ])
-              ])
-            ]),
+              ]
+            ),
+            _vm._v(" "),
+            _c("tour-configuration", {
+              attrs: { step: _vm.steps, condition: _vm.condition }
+            }),
             _vm._v(" "),
             _c(
               "Drawer",
@@ -551,41 +590,50 @@ var render = function() {
                                     "div",
                                     { staticClass: "card-header text-center" },
                                     [
-                                      _c("h2", { staticClass: "mb-0" }, [
-                                        _c(
-                                          "button",
-                                          {
-                                            staticClass: "btn btn-link",
-                                            attrs: {
-                                              type: "button",
-                                              "data-toggle": "collapse",
-                                              "data-target": "#collapse" + t,
-                                              "aria-expanded": "false",
-                                              "aria-controls": "collapse"
-                                            },
-                                            on: {
-                                              click: function($event) {
-                                                $event.preventDefault()
-                                                return _vm.indicador(option.id)
-                                              }
-                                            }
-                                          },
-                                          [
-                                            _c(
-                                              "label",
-                                              {
-                                                staticStyle: {
-                                                  "text-overflow": "ellipsis",
-                                                  width: "450px",
-                                                  "white-space": "nowrap",
-                                                  overflow: "hidden"
-                                                }
+                                      _c(
+                                        "h2",
+                                        {
+                                          staticClass: "mb-0",
+                                          attrs: { "data-v-step": "1" }
+                                        },
+                                        [
+                                          _c(
+                                            "button",
+                                            {
+                                              staticClass: "btn btn-link",
+                                              attrs: {
+                                                type: "button",
+                                                "data-toggle": "collapse",
+                                                "data-target": "#collapse" + t,
+                                                "aria-expanded": "false",
+                                                "aria-controls": "collapse"
                                               },
-                                              [_vm._v(_vm._s(option.logro))]
-                                            )
-                                          ]
-                                        )
-                                      ])
+                                              on: {
+                                                click: function($event) {
+                                                  $event.preventDefault()
+                                                  return _vm.indicador(
+                                                    option.id
+                                                  )
+                                                }
+                                              }
+                                            },
+                                            [
+                                              _c(
+                                                "label",
+                                                {
+                                                  staticStyle: {
+                                                    "text-overflow": "ellipsis",
+                                                    width: "450px",
+                                                    "white-space": "nowrap",
+                                                    overflow: "hidden"
+                                                  }
+                                                },
+                                                [_vm._v(_vm._s(option.logro))]
+                                              )
+                                            ]
+                                          )
+                                        ]
+                                      )
                                     ]
                                   ),
                                   _vm._v(" "),
@@ -698,6 +746,7 @@ var render = function() {
                                               "a",
                                               {
                                                 staticClass: "btn btn-warning",
+                                                attrs: { "data-v-step": "2" },
                                                 on: {
                                                   click: function($event) {
                                                     $event.preventDefault()

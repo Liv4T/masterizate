@@ -23,7 +23,7 @@
         <div>
             <div class="container-fluid">
                 <div class="col-md-12 mx-auto">
-                    <div class="card-header text-center fondo row">
+                    <div class="card-header text-center fondo row" data-v-step="0">
                         <div class="card-center">
                             <label class="card-text">Planificación General</label>
                         </div>
@@ -33,6 +33,7 @@
                             </a>
                         </div>
                     </div>
+                    <tour-configuration :step="steps" :condition="condition"></tour-configuration>
                     <Drawer @close="toggle" align="right" :maskClosable="true" :zIndex="1003" :closeable="true">
                         <div v-if="open">
                             <div class="row">
@@ -87,21 +88,21 @@
                                     <div class="form-group mx-auto" v-for="(input1, t) in inputs1" :key="t">
                                         <div class="classroom-planning-section">
                                             <strong>Objetivo: </strong>
-                                            <input class="form-control form-control-sm" type="number" style="width:50px;" v-model="input1.porcentaje"/>%
+                                            <input class="form-control form-control-sm" type="number" style="width:50px;" v-model="input1.porcentaje" data-v-step="1"/>%
                                             <span>
                                                 <a href="#" class="badge badge-danger" @click.prevent="remove1(t)" v-show="(t>0 && inputs1_saved.length<=t)">-</a>
-                                                <a href="#" class="badge badge-primary" @click.prevent="add1(t)" v-show="t == inputs1.length -1">+</a>
+                                                <a href="#" class="badge badge-primary" @click.prevent="add1(t)" v-show="t == inputs1.length -1" data-v-step="2">+</a>
                                                 <a href="#" class="btn btn-primary"  @click.prevent="modalDelete(input1.id_achievement, input1.logro)" v-show="(t > 0)">Eliminar</a>
                                             </span>
                                         </div>
                                         <div class="classroom-planning-section">
-                                            <textarea name="welcome" class="form-control" v-model="input1.logro" v-on:change="annualContentUpdateEvent($event,t,'inputs1','logro')" required></textarea>
-                                        </div>
-                                        <div class="classroom-planning-section" style="justify-content: right !important;">
-                                            <button type="button" class="btn btn-primary" style="float: right;margin-top: 13px;" v-on:click="createCourses">Guardar</button>
+                                            <textarea name="welcome" class="form-control" v-model="input1.logro" v-on:change="annualContentUpdateEvent($event,t,'inputs1','logro')" required data-v-step="3"></textarea>
                                         </div>
 
                                         <div class="invalid-feedback">Please fill out this field</div>
+                                    </div>
+                                    <div class="classroom-planning-section" style="justify-content: right !important;">
+                                        <button type="button" class="btn btn-primary" style="float: right;margin-top: 13px;" v-on:click="createCourses">Guardar</button>
                                     </div>
 
                                     <a v-show="(activityForPIARStudents == true && piarStudents.length > 0)" v-on:click="showPIARPlan" class="btn btn-primary">Crear Planificación General Estudiantes PIAR</a>
@@ -256,6 +257,44 @@ export default {
             areaId:"",
             classroomId:"",
             open: false,
+            steps: [
+                {
+                    target: '[data-v-step="0"]',
+                    header: {
+                        title: 'Planificación general',
+                    },
+                    content: `Desde aqui podras <strong>crear la planificación general</strong> para cada programa!`,
+                    params: {
+                        placement: 'bottom', // Any valid Popper.js placement. See https://popper.js.org/popper-documentation.html#Popper.placements
+                        enableScrolling: false
+                    }
+                },
+                {
+                    target: '[data-v-step="1"]',
+                    content: 'El objetivo representa la nota total de cada planificación, la suma total no debe superar el 100%, tambien es posible dejar el objetivo en 0%, es totalmente opcional este campo.',
+                    params: {
+                        placement: 'top', // Any valid Popper.js placement. See https://popper.js.org/popper-documentation.html#Popper.placements
+                        enableScrolling: false,
+                    }
+                },
+                {
+                    target: '[data-v-step="2"]',
+                    content: 'El boton del + añade nuevos campos de objetivo y nombre, lo que permite crear multiples planificaciones con facilidad.',
+                    params: {
+                        placement: 'top', // Any valid Popper.js placement. See https://popper.js.org/popper-documentation.html#Popper.placements
+                        enableScrolling: false
+                    }
+                },
+                {
+                    target: '[data-v-step="3"]',
+                    content: 'Este campo repesenta el nombre de la planificación.',
+                    params: {
+                        placement: 'top', // Any valid Popper.js placement. See https://popper.js.org/popper-documentation.html#Popper.placements
+                        enableScrolling: false
+                    }
+                }
+            ],
+            condition:"study_planning",
         };
     },
     components: {

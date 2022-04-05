@@ -23,7 +23,7 @@
   <div>
     <div class="row">
       <div class="col-md-11 mx-auto">
-        <div class="card-header text-center fondo row">
+        <div class="card-header text-center fondo row" data-v-step="0">
             <div class="card-center">
                 <label class="card-text">Evaluación</label>
             </div>
@@ -33,6 +33,7 @@
                 </a>
             </div>
         </div>
+        <tour-configuration :step="steps" :condition="condition"></tour-configuration>
         <Drawer @close="toggle" align="right" :maskClosable="true" :zIndex="1003" :closeable="true">
             <div v-if="open">
                 <div class="row">
@@ -58,7 +59,7 @@
                   <div class="accordion" id="accordionExample">
                     <div class="card" v-for="(option,t) in fillC.quaterly" :key="t">
                       <div class="card-header text-center">
-                        <h2 class="mb-0">
+                        <h2 class="mb-0" data-v-step="1">
                           <button class="btn btn-link" type="button" data-toggle="collapse" :data-target="'#collapse'+t" aria-expanded="false" @click.prevent="indicador(option.id)" aria-controls="collapse">
                             <label style="text-overflow: ellipsis;  width: 450px; white-space: nowrap; overflow: hidden;">{{ option.logro }}</label>
                           </button>
@@ -83,7 +84,7 @@
                             </tbody>
                           </table>
                           <div align="right">
-                            <a class="btn btn-warning" v-on:click.prevent="editNames(option.id,option.id_achievement, option.id_annual)">Agregar</a>
+                            <a class="btn btn-warning" v-on:click.prevent="editNames(option.id,option.id_achievement, option.id_annual)" data-v-step="2">Agregar</a>
                           </div>
                         </div>
                       </div>
@@ -243,6 +244,36 @@ export default {
       id_quarterly_plan: "",
       id_achievement: "",
       open: false,
+      steps: [
+            {
+                target: '[data-v-step="0"]',
+                header: {
+                    title: 'Evaluación',
+                },
+                content: `Desde aqui podras <strong>crear las evaluaciones que luego podras vincular a cada actividad, asi podras evaluar las actividades</strong>, solo debes hacer click sobre el nombre de la planificación (la evaluación se crea a una planificación general)`,
+                params: {
+                    placement: 'bottom', // Any valid Popper.js placement. See https://popper.js.org/popper-documentation.html#Popper.placements
+                    enableScrolling: false
+                }
+            },
+            {
+                target: '[data-v-step="1"]',
+                content: `Haciendo click en el nombre de la planificación general, se abrirá un listado con las evaluaciones creadas, en caso de no tener ninguna solo aparecerá el botón para crear una nueva.`,
+                params: {
+                    placement: 'top', // Any valid Popper.js placement. See https://popper.js.org/popper-documentation.html#Popper.placements
+                    enableScrolling: false
+                }
+            },
+            {
+                target: '[data-v-step="2"]',
+                content: `El botón "Agregar" permite crear una nueva evaluación.`,
+                params: {
+                    placement: 'top', // Any valid Popper.js placement. See https://popper.js.org/popper-documentation.html#Popper.placements
+                    enableScrolling: false
+                }
+            },
+        ],
+        condition:"evaluation",
     };
   },
   components: {

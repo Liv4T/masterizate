@@ -147,6 +147,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___default.a);
@@ -165,7 +166,52 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
       date: "",
       userSelected: 0,
       open: false,
-      text_modal: ""
+      text_modal: "",
+      steps: [{
+        target: '[data-v-step="0"]',
+        header: {
+          title: 'Mis programas'
+        },
+        content: "Desde aqui podras <strong>crear tus programas</strong> y compartir el c\xF3digo con tus estudiantes para que puedan comenzar a ver tus clases!",
+        params: {
+          placement: 'bottom',
+          // Any valid Popper.js placement. See https://popper.js.org/popper-documentation.html#Popper.placements
+          enableScrolling: false
+        }
+      }, {
+        target: '[data-v-step="1"]',
+        content: 'El nombre es visible para los estudiantes, cada programa tiene un nombre y así es como los estudiantes identificarán cada programa',
+        params: {
+          placement: 'top',
+          // Any valid Popper.js placement. See https://popper.js.org/popper-documentation.html#Popper.placements
+          enableScrolling: false
+        }
+      }, {
+        target: '[data-v-step="2"]',
+        content: 'Aqui podras ver tus códigos para cada programa y compartirlo con tus estudiantes, <strong>recuerda que cada código es unico para cada programa</strong>!',
+        params: {
+          placement: 'top',
+          // Any valid Popper.js placement. See https://popper.js.org/popper-documentation.html#Popper.placements
+          enableScrolling: false
+        }
+      }, {
+        target: '[data-v-step="3"]',
+        content: 'La categoría determina en que área se desarrollará el programa. Ejemplo: ingles, español, arte.',
+        params: {
+          placement: 'top',
+          // Any valid Popper.js placement. See https://popper.js.org/popper-documentation.html#Popper.placements
+          enableScrolling: false
+        }
+      }, {
+        target: '[data-v-step="4"]',
+        content: 'Aqui puedes crear tus programas haciendo click en el botón!',
+        params: {
+          placement: 'top',
+          // Any valid Popper.js placement. See https://popper.js.org/popper-documentation.html#Popper.placements
+          enableScrolling: false
+        }
+      }],
+      condition: "program_code"
     };
   },
   components: {
@@ -383,18 +429,25 @@ var render = function() {
         "div",
         { staticClass: "col-sm-10", attrs: { id: "crud" } },
         [
-          _c("div", { staticClass: "card-header text-center fondo row" }, [
-            _vm._m(0),
-            _vm._v(" "),
-            _c("div", { staticStyle: { "margin-left": "auto" } }, [
-              _c("a", { staticClass: "btn", on: { click: _vm.toggle } }, [
-                _c("i", {
-                  staticClass: "fa fa-question-circle",
-                  staticStyle: { "font-size": "35px", color: "orange" }
-                })
+          _c(
+            "div",
+            {
+              staticClass: "card-header text-center fondo row",
+              attrs: { "data-v-step": "0" }
+            },
+            [
+              _vm._m(0),
+              _vm._v(" "),
+              _c("div", { staticStyle: { "margin-left": "auto" } }, [
+                _c("a", { staticClass: "btn", on: { click: _vm.toggle } }, [
+                  _c("i", {
+                    staticClass: "fa fa-question-circle",
+                    staticStyle: { "font-size": "35px", color: "orange" }
+                  })
+                ])
               ])
-            ])
-          ]),
+            ]
+          ),
           _vm._v(" "),
           _c("div", { staticClass: "text-left" }, [
             _vm.user.type_user === 1
@@ -403,6 +456,7 @@ var render = function() {
                   {
                     staticClass: "btn btn-primary mt-2 mb-2",
                     attrs: {
+                      "data-v-step": "4",
                       type: "button",
                       "data-toggle": "modal",
                       "data-target": "#code"
@@ -424,6 +478,7 @@ var render = function() {
                   {
                     staticClass: "btn btn-primary mt-2 mb-2",
                     attrs: {
+                      "data-v-step": "4",
                       type: "button",
                       "data-toggle": "modal",
                       "data-target": "#code"
@@ -442,6 +497,10 @@ var render = function() {
                   ]
                 )
           ]),
+          _vm._v(" "),
+          _c("tour-configuration", {
+            attrs: { step: _vm.steps, condition: _vm.condition }
+          }),
           _vm._v(" "),
           _c(
             "Drawer",
@@ -541,13 +600,19 @@ var render = function() {
             [
               _c("thead", [
                 _c("tr", [
-                  _c("th", [_vm._v("Nombre")]),
+                  _c("th", { attrs: { "data-v-step": "1" } }, [
+                    _vm._v("Nombre")
+                  ]),
                   _vm._v(" "),
                   _c("th", [_vm._v("Descripción")]),
                   _vm._v(" "),
-                  _c("th", [_vm._v("Codigo")]),
+                  _c("th", { attrs: { "data-v-step": "2" } }, [
+                    _vm._v("Codigo")
+                  ]),
                   _vm._v(" "),
-                  _c("th", [_vm._v("Categoría")]),
+                  _c("th", { attrs: { "data-v-step": "3" } }, [
+                    _vm._v("Categoría")
+                  ]),
                   _vm._v(" "),
                   _c(
                     "th",

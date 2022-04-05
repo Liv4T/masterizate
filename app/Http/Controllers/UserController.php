@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\User;
+use App\EnableTour;
 use Illuminate\Support\Facades\Hash;
 use Auth;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
@@ -191,6 +192,10 @@ class UserController extends Controller
         $user->picture = isset($data['user_name']) ? $url . "/uploads/images/" . $data['user_name'] . ".png" : "";
         $user->new_coord_area = isset($data['new_coord_area']) ? $data['new_coord_area'] : "";
         $user->save();
+
+        $enable_tour = new EnableTour;
+        $enable_tour->id_user = $user->id;
+        $enable_tour->save();
 
         /* Send email register */
         if (isset($data['email'])) {

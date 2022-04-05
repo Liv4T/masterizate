@@ -1,17 +1,19 @@
 <template>
     <div v-if="createClas === 'hide'">
+        <h3 v-show="user.type_user === 7" class="card-header fondo" data-v-step="0">Mis Cursos</h3>
         <div class="row justify-content-center">
             <div id="crud" class="col-sm-12">
                 <div class="card text-center">
+                    <tour-configuration :step="steps" :condition="condition"></tour-configuration>
                     <span class="classroom-label">{{ nameArea }}</span>
                     <div class="card-body">
                         <div class="text-left">
-                            <a v-if="cleanIdModule" class="btn btn-primary" v-on:click="cleanIdModule">Regresar</a>
-                            <a v-else class="btn btn-primary" href="/docente/clases">Regresar</a>
-                            <a class="btn btn-primary" v-on:click="createClass(idClassroom)">Crear
+                            <!-- <a v-if="cleanIdModule" class="btn btn-primary" v-on:click="cleanIdModule">Regresar</a> -->
+                            <a class="btn btn-primary"  href="/inicio">Regresar</a>
+                            <a class="btn btn-primary" v-on:click="createClass(idClassroom)" data-v-step="2" style="color:#ffffff">Crear
                                 Clase</a>
                             <a class="btn btn-primary text-right" :href="''"
-                                v-on:click.prevent="openModal()">Eliminar</a>
+                                v-on:click.prevent="openModal()" data-v-step="1">Eliminar</a>
                         </div>
                         <br>
                         <table class="table table-responsive-xl table-hover table-striped center">
@@ -118,16 +120,42 @@
                 id_area: "",
                 id_classroom: "",
                 createClas: 'hide',
-                idClass:""
+                idClass:"",
+                steps: [
+                    {
+                        target: '[data-v-step="0"]',
+                        header: {
+                            title: 'Mis clases',
+                        },
+                        content: `Desde aqui podras <strong>crear tus clases</strong> para cada programa!`,
+                        params: {
+                            placement: 'bottom', // Any valid Popper.js placement. See https://popper.js.org/popper-documentation.html#Popper.placements
+                            enableScrolling: false
+                        }
+                    },
+                    {
+                        target: '[data-v-step="1"]',
+                        content: 'Las clases se pueden eliminar!',
+                        params: {
+                            placement: 'top', // Any valid Popper.js placement. See https://popper.js.org/popper-documentation.html#Popper.placements
+                            enableScrolling: false,
+                        }
+                    },
+                    {
+                        target: '[data-v-step="2"]',
+                        content: 'Aqui puedes crear tus clases haciendo click en el botón!',
+                        params: {
+                            placement: 'top', // Any valid Popper.js placement. See https://popper.js.org/popper-documentation.html#Popper.placements
+                            enableScrolling: false
+                        }
+                    }
+                ],
+                condition:"my_classes",
             };
         },
         created() {},
         mounted() {
             this.getData();
-            console.log(this.idAreas);
-            console.log(this.idClassroom);
-            console.log(this.user);
-
         },
         watch:{
             ciclesData(newData){
@@ -159,17 +187,6 @@
                         this.id_area = response.data.area;
                         this.id_classroom = response.data.classroom.id;
                 });
-            },
-
-            cleanIdModule(){
-                this.idModule="";
-                this.id_area="";
-                this.id_classroom="";
-                this.showCycle ="true";
-                this.clasId="";
-                this.idTrimestre="";
-                this.orden="";
-                this.getData();
             },
 
             getClassToDelete(id_cicle){
@@ -229,7 +246,7 @@
             cleanCreateClas(){
                 this.createClas = 'hide';
                 this.getData();
-            }
+            },
         }
     };
 

@@ -2,7 +2,7 @@
     <div>
         <div class="row">
             <div class="col-md-11">
-                <div class="row justify-content-center">
+                <div class="row justify-content-center" data-v-step="2">
                     <h4>Proximas clases</h4>
                 </div>
                 <div class="row" v-for="(parents, k) in filterPendingEvents(parents)" :key="k">

@@ -196,6 +196,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -211,7 +212,36 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(__webpack_require__(/*! vue-momen
       emisor: "",
       asunto: "",
       showSection: "inicio",
-      open: false
+      open: false,
+      steps: [{
+        target: '[data-v-step="0"]',
+        header: {
+          title: 'Mis mensajes'
+        },
+        content: "Desde aqui podras ver tu bandeja de entrada y revisar tus mensajes recibidos.",
+        params: {
+          placement: 'bottom',
+          // Any valid Popper.js placement. See https://popper.js.org/popper-documentation.html#Popper.placements
+          enableScrolling: false
+        }
+      }, {
+        target: '[data-v-step="1"]',
+        content: 'Aqui puedes ir a la bandeja de mensajes enviados y confirmar si ya fueron leidos.',
+        params: {
+          placement: 'top',
+          // Any valid Popper.js placement. See https://popper.js.org/popper-documentation.html#Popper.placements
+          enableScrolling: false
+        }
+      }, {
+        target: '[data-v-step="2"]',
+        content: 'Aqui puedes redactar mensajes para tutores o estudiantes.',
+        params: {
+          placement: 'top',
+          // Any valid Popper.js placement. See https://popper.js.org/popper-documentation.html#Popper.placements
+          enableScrolling: false
+        }
+      }],
+      condition: "message"
     };
   },
   components: {
@@ -291,7 +321,8 @@ var render = function() {
                   "div",
                   {
                     staticClass: "card-header text-center fondo mb-2 row",
-                    staticStyle: { margin: "0" }
+                    staticStyle: { margin: "0" },
+                    attrs: { "data-v-step": "0" }
                   },
                   [
                     _c("div", { staticClass: "card-center" }, [
@@ -317,6 +348,10 @@ var render = function() {
                     ])
                   ]
                 ),
+                _vm._v(" "),
+                _c("tour-configuration", {
+                  attrs: { step: _vm.steps, condition: _vm.condition }
+                }),
                 _vm._v(" "),
                 _c(
                   "Drawer",
@@ -401,6 +436,7 @@ var render = function() {
                     "a",
                     {
                       staticClass: "btn btn-warning float-right",
+                      attrs: { "data-v-step": "2" },
                       on: {
                         click: function($event) {
                           return _vm.setShowSection("redactar")
@@ -420,6 +456,7 @@ var render = function() {
                     "a",
                     {
                       staticClass: "btn btn-warning float-left",
+                      attrs: { "data-v-step": "1" },
                       on: {
                         click: function($event) {
                           return _vm.setShowSection("sendMessage")

@@ -30,7 +30,7 @@
           <div>
             <div v-if="activetab === 1" class="tabcontent">
               <div v-if="idArea !='' && user.type_user === 7">
-                <h3 v-show="user.type_user === 7" class="card-header fondo">Mis Cursos</h3>
+
                 <my-classes :idAreas="idAreas" :idClassroom="idClassroom" :user="user"></my-classes>
               </div>
             </div>

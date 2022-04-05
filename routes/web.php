@@ -1166,3 +1166,7 @@ Route::put('updateMessajeView/{id_sender}','ViewMessagesController@update');
 
 //TutorClassroom
 Route::middleware('auth')->get('nameClassroom/{id_classroom}', 'TutorClassroomController@nameClassroom');
+
+//EnableTour
+Route::middleware('auth')->get('enableTour/{condition}', 'EnableTourController@enableTour');
+Route::put('disableTour/{condition}', 'EnableTourController@disableTour');

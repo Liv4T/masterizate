@@ -3,7 +3,7 @@
         <div class="row justify-content-center">
             <div id="crud" class="col-sm-10">
                 <div class="card">
-                    <div class="card-header text-center fondo mb-2 row" style="margin:0">
+                    <div class="card-header text-center fondo mb-2 row" data-v-step="0" style="margin:0">
                         <div class="card-center">
                             <label class="card-text">{{ $t('lang.messages.messages') }}</label>
                         </div>
@@ -13,6 +13,7 @@
                             </a>
                         </div>
                     </div>
+                    <tour-configuration :step="steps" :condition="condition"></tour-configuration>
                     <Drawer @close="toggle" align="right" :maskClosable="true" :zIndex="1003" :closeable="true">
                         <div v-if="open">
                             <div class="row">
@@ -30,11 +31,11 @@
                         </div>
                     </Drawer>
                     <div class="card-body">
-                        <a v-on:click="setShowSection('redactar')" class="btn btn-warning float-right">
+                        <a v-on:click="setShowSection('redactar')" class="btn btn-warning float-right" data-v-step="2">
                             {{ $t('lang.messages.write') }}
                         </a>
 
-                        <a v-on:click="setShowSection('sendMessage')" class="btn btn-warning float-left">
+                        <a v-on:click="setShowSection('sendMessage')" class="btn btn-warning float-left" data-v-step="1">
                             {{ $t('lang.messages.messages_sent') }}
                         </a
                         >
@@ -196,6 +197,36 @@ export default {
             asunto: "",
             showSection: "inicio",
             open: false,
+            steps: [
+                {
+                    target: '[data-v-step="0"]',
+                    header: {
+                        title: 'Mis mensajes',
+                    },
+                    content: `Desde aqui podras ver tu bandeja de entrada y revisar tus mensajes recibidos.`,
+                    params: {
+                        placement: 'bottom', // Any valid Popper.js placement. See https://popper.js.org/popper-documentation.html#Popper.placements
+                        enableScrolling: false
+                    }
+                },
+                {
+                    target: '[data-v-step="1"]',
+                    content: 'Aqui puedes ir a la bandeja de mensajes enviados y confirmar si ya fueron leidos.',
+                    params: {
+                        placement: 'top', // Any valid Popper.js placement. See https://popper.js.org/popper-documentation.html#Popper.placements
+                        enableScrolling: false,
+                    }
+                },
+                {
+                    target: '[data-v-step="2"]',
+                    content: 'Aqui puedes redactar mensajes para tutores o estudiantes.',
+                    params: {
+                        placement: 'top', // Any valid Popper.js placement. See https://popper.js.org/popper-documentation.html#Popper.placements
+                        enableScrolling: false
+                    }
+                }
+            ],
+            condition:"message",
         };
     },
     components: {

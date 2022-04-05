@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\TutorProfile;
 use App\User;
+use App\EnableTour;
 use Hash;
 use Auth;
 use Illuminate\Http\Request;
@@ -49,7 +50,7 @@ class TutorProfileController extends Controller
 
         try{
             DB::beginTransaction();
-            
+
             //$tutorProfile = new TutorProfile();
             //$user = new User();
             $user = User::create([
@@ -68,7 +69,7 @@ class TutorProfileController extends Controller
             $tutorProfile = TutorProfile::create([
 
                 'name' => $request->name,
-                'last_name' => $request->last_name,            
+                'last_name' => $request->last_name,
                 'id_number' => $request->id_number,
                 'country' => $request->country,
                 'city' => $request->city,
@@ -76,12 +77,12 @@ class TutorProfileController extends Controller
                 'phone' => $request->phone,
                 'picture' => $request->picture,
                 'description' => $request->description,
-                
+
                 'twitter_profile' => $request->twitter_profile,
                 'facebook_profile' => $request->facebook_profile,
                 'instagram_profile' => $request->instagram_profile,
                 'linkedin_profile' => $request->linkedin_profile,
-                
+
                 'section_education' => $request->section_education,
                 'section_experience' => $request->section_experience,
                 'documento_certificacion' => $request->documento_certificacion,
@@ -89,6 +90,10 @@ class TutorProfileController extends Controller
                 'classes' => $request->classes,
                 'keywords' => $request->keywords,
                 'user_id' => $user->id,
+            ]);
+
+            $enable_tour = EnableTour::create([
+                'id_user' => $user->id,
             ]);
 
                 DB::commit();
@@ -150,7 +155,7 @@ class TutorProfileController extends Controller
 
         if($user){
             $tutorProfile->name = $request->name;
-            $tutorProfile->last_name = $request->last_name;            
+            $tutorProfile->last_name = $request->last_name;
             $tutorProfile->id_number = $request->id_number;
             $tutorProfile->country = $request->country;
             $tutorProfile->city = $request->city;
@@ -158,12 +163,12 @@ class TutorProfileController extends Controller
             $tutorProfile->phone = $request->phone;
             $tutorProfile->picture = $request->picture;
             $tutorProfile->description = $request->description;
-            
+
             $tutorProfile->twitter_profile = $request->twitter_profile;
             $tutorProfile->facebook_profile = $request->facebook_profile;
             $tutorProfile->instagram_profile = $request->instagram_profile;
             $tutorProfile->linkedin_profile = $request->linkedin_profile;
-            
+
             $tutorProfile->section_education = $request->section_education;
             $tutorProfile->section_experience = $request->section_experience;
             $tutorProfile->documento_certificacion = $request->documento_certificacion;

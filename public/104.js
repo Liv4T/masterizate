@@ -167,6 +167,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 (function () {
   "use strict";
 
@@ -255,7 +256,44 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
       AreaId: "",
       areaId: "",
       classroomId: "",
-      open: false
+      open: false,
+      steps: [{
+        target: '[data-v-step="0"]',
+        header: {
+          title: 'Planificación general'
+        },
+        content: "Desde aqui podras <strong>crear la planificaci\xF3n general</strong> para cada programa!",
+        params: {
+          placement: 'bottom',
+          // Any valid Popper.js placement. See https://popper.js.org/popper-documentation.html#Popper.placements
+          enableScrolling: false
+        }
+      }, {
+        target: '[data-v-step="1"]',
+        content: 'El objetivo representa la nota total de cada planificación, la suma total no debe superar el 100%, tambien es posible dejar el objetivo en 0%, es totalmente opcional este campo.',
+        params: {
+          placement: 'top',
+          // Any valid Popper.js placement. See https://popper.js.org/popper-documentation.html#Popper.placements
+          enableScrolling: false
+        }
+      }, {
+        target: '[data-v-step="2"]',
+        content: 'El boton del + añade nuevos campos de objetivo y nombre, lo que permite crear multiples planificaciones con facilidad.',
+        params: {
+          placement: 'top',
+          // Any valid Popper.js placement. See https://popper.js.org/popper-documentation.html#Popper.placements
+          enableScrolling: false
+        }
+      }, {
+        target: '[data-v-step="3"]',
+        content: 'Este campo repesenta el nombre de la planificación.',
+        params: {
+          placement: 'top',
+          // Any valid Popper.js placement. See https://popper.js.org/popper-documentation.html#Popper.placements
+          enableScrolling: false
+        }
+      }],
+      condition: "study_planning"
     };
   },
   components: {
@@ -571,18 +609,29 @@ var render = function() {
           "div",
           { staticClass: "col-md-12 mx-auto" },
           [
-            _c("div", { staticClass: "card-header text-center fondo row" }, [
-              _vm._m(1),
-              _vm._v(" "),
-              _c("div", { staticStyle: { "margin-left": "auto" } }, [
-                _c("a", { staticClass: "btn", on: { click: _vm.toggle } }, [
-                  _c("i", {
-                    staticClass: "fa fa-question-circle",
-                    staticStyle: { "font-size": "35px", color: "orange" }
-                  })
+            _c(
+              "div",
+              {
+                staticClass: "card-header text-center fondo row",
+                attrs: { "data-v-step": "0" }
+              },
+              [
+                _vm._m(1),
+                _vm._v(" "),
+                _c("div", { staticStyle: { "margin-left": "auto" } }, [
+                  _c("a", { staticClass: "btn", on: { click: _vm.toggle } }, [
+                    _c("i", {
+                      staticClass: "fa fa-question-circle",
+                      staticStyle: { "font-size": "35px", color: "orange" }
+                    })
+                  ])
                 ])
-              ])
-            ]),
+              ]
+            ),
+            _vm._v(" "),
+            _c("tour-configuration", {
+              attrs: { step: _vm.steps, condition: _vm.condition }
+            }),
             _vm._v(" "),
             _c(
               "Drawer",
@@ -912,7 +961,7 @@ var render = function() {
                           ],
                           staticClass: "form-control form-control-sm",
                           staticStyle: { width: "50px" },
-                          attrs: { type: "number" },
+                          attrs: { type: "number", "data-v-step": "1" },
                           domProps: { value: input1.porcentaje },
                           on: {
                             input: function($event) {
@@ -964,7 +1013,7 @@ var render = function() {
                                 }
                               ],
                               staticClass: "badge badge-primary",
-                              attrs: { href: "#" },
+                              attrs: { href: "#", "data-v-step": "2" },
                               on: {
                                 click: function($event) {
                                   $event.preventDefault()
@@ -1014,7 +1063,11 @@ var render = function() {
                             }
                           ],
                           staticClass: "form-control",
-                          attrs: { name: "welcome", required: "" },
+                          attrs: {
+                            name: "welcome",
+                            required: "",
+                            "data-v-step": "3"
+                          },
                           domProps: { value: input1.logro },
                           on: {
                             change: function($event) {
@@ -1035,35 +1088,32 @@ var render = function() {
                         })
                       ]),
                       _vm._v(" "),
-                      _c(
-                        "div",
-                        {
-                          staticClass: "classroom-planning-section",
-                          staticStyle: { "justify-content": "right !important" }
-                        },
-                        [
-                          _c(
-                            "button",
-                            {
-                              staticClass: "btn btn-primary",
-                              staticStyle: {
-                                float: "right",
-                                "margin-top": "13px"
-                              },
-                              attrs: { type: "button" },
-                              on: { click: _vm.createCourses }
-                            },
-                            [_vm._v("Guardar")]
-                          )
-                        ]
-                      ),
-                      _vm._v(" "),
                       _c("div", { staticClass: "invalid-feedback" }, [
                         _vm._v("Please fill out this field")
                       ])
                     ]
                   )
                 }),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass: "classroom-planning-section",
+                    staticStyle: { "justify-content": "right !important" }
+                  },
+                  [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-primary",
+                        staticStyle: { float: "right", "margin-top": "13px" },
+                        attrs: { type: "button" },
+                        on: { click: _vm.createCourses }
+                      },
+                      [_vm._v("Guardar")]
+                    )
+                  ]
+                ),
                 _vm._v(" "),
                 _c(
                   "a",

@@ -2,7 +2,7 @@
     <div class="back">
         <div class="row justify-content-center">
             <div id="crud" class="col-sm-10">
-                <div class="card-header text-center fondo row">
+                <div class="card-header text-center fondo row" data-v-step="0">
                     <div class="card-center">
                         <label class="card-text">Mis programas</label>
                     </div>
@@ -13,13 +13,14 @@
                     </div>
                 </div>
                 <div class="text-left">
-                    <button v-if="user.type_user === 1" type="button" class="btn btn-primary mt-2 mb-2" data-toggle="modal" data-target="#code" v-on:click="getCleanModal()">
+                    <button data-v-step="4" v-if="user.type_user === 1" type="button" class="btn btn-primary mt-2 mb-2" data-toggle="modal" data-target="#code" v-on:click="getCleanModal()">
                         Crear tu programa
                     </button>
-                    <button v-else type="button" class="btn btn-primary mt-2 mb-2" data-toggle="modal" data-target="#code" v-on:click="getAreas(); getCleanModal()">
+                    <button data-v-step="4" v-else type="button" class="btn btn-primary mt-2 mb-2" data-toggle="modal" data-target="#code" v-on:click="getAreas(); getCleanModal()">
                         Crear tu programa
                     </button>
                 </div>
+                <tour-configuration :step="steps" :condition="condition"></tour-configuration>
                 <Drawer @close="toggle" align="right" :maskClosable="true" :zIndex="1003" :closeable="true">
                     <div v-if="open">
                         <div class="row">
@@ -44,10 +45,10 @@
                 <table class="table table-striped table-hover">
                     <thead>
                         <tr>
-                            <th>Nombre</th>
+                            <th data-v-step="1">Nombre</th>
                             <th>Descripción</th>
-                            <th>Codigo</th>
-                            <th>Categoría</th>
+                            <th data-v-step="2">Codigo</th>
+                            <th data-v-step="3">Categoría</th>
                             <th v-show="user.type_user === 1">Tutor</th>
                             <th>Acción</th>
                         </tr>
@@ -152,6 +153,52 @@
                 userSelected:0,
                 open: false,
                 text_modal:"",
+                steps: [
+                    {
+                        target: '[data-v-step="0"]',
+                        header: {
+                            title: 'Mis programas',
+                        },
+                        content: `Desde aqui podras <strong>crear tus programas</strong> y compartir el código con tus estudiantes para que puedan comenzar a ver tus clases!`,
+                        params: {
+                            placement: 'bottom', // Any valid Popper.js placement. See https://popper.js.org/popper-documentation.html#Popper.placements
+                            enableScrolling: false
+                        }
+                    },
+                    {
+                        target: '[data-v-step="1"]',
+                        content: 'El nombre es visible para los estudiantes, cada programa tiene un nombre y así es como los estudiantes identificarán cada programa',
+                        params: {
+                            placement: 'top', // Any valid Popper.js placement. See https://popper.js.org/popper-documentation.html#Popper.placements
+                            enableScrolling: false,
+                        }
+                    },
+                    {
+                        target: '[data-v-step="2"]',
+                        content: 'Aqui podras ver tus códigos para cada programa y compartirlo con tus estudiantes, <strong>recuerda que cada código es unico para cada programa</strong>!',
+                        params: {
+                            placement: 'top', // Any valid Popper.js placement. See https://popper.js.org/popper-documentation.html#Popper.placements
+                            enableScrolling: false,
+                        }
+                    },
+                    {
+                        target: '[data-v-step="3"]',
+                        content: 'La categoría determina en que área se desarrollará el programa. Ejemplo: ingles, español, arte.',
+                        params: {
+                            placement: 'top', // Any valid Popper.js placement. See https://popper.js.org/popper-documentation.html#Popper.placements
+                            enableScrolling: false
+                        }
+                    },
+                    {
+                        target: '[data-v-step="4"]',
+                        content: 'Aqui puedes crear tus programas haciendo click en el botón!',
+                        params: {
+                            placement: 'top', // Any valid Popper.js placement. See https://popper.js.org/popper-documentation.html#Popper.placements
+                            enableScrolling: false
+                        }
+                    }
+                ],
+                condition:"program_code",
             }
         },
         components: {

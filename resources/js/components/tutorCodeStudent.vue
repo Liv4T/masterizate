@@ -2,7 +2,7 @@
     <div class="back">
         <div class="row justify-content-center">
             <div id="crud" class="col-sm-10">
-                <div class="card-header text-center fondo mb-2 row">
+                <div class="card-header text-center fondo mb-2 row" data-v-step="0">
                     <div class="card-center">
                         <label class="card-text">Mis estudiantes</label>
                     </div>
@@ -12,6 +12,7 @@
                         </a>
                     </div>
                 </div>
+                <tour-configuration :step="steps" :condition="condition"></tour-configuration>
                 <Drawer @close="toggle" align="right" :maskClosable="true" :zIndex="1003" :closeable="true">
                     <div v-if="open">
                         <div class="row">
@@ -75,6 +76,20 @@
             return{
                 classrooms:[],
                 open: false,
+                steps: [
+                    {
+                        target: '[data-v-step="0"]',
+                        header: {
+                            title: 'Mis estudiantes',
+                        },
+                        content: `Desde aqui podras <strong>ver el listado de programas con los estudiantes vinculados a cada programa</strong>, solo debes hacer click sobre el nombre del programa y se desplegará un listado con los estudiantes vinculados!`,
+                        params: {
+                            placement: 'bottom', // Any valid Popper.js placement. See https://popper.js.org/popper-documentation.html#Popper.placements
+                            enableScrolling: false
+                        }
+                    },
+                ],
+                condition:"my_students",
             }
         },
         components: {

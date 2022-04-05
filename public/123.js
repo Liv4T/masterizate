@@ -512,9 +512,14 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row justify-content-center" }, [
-      _c("h4", [_vm._v("Proximas clases")])
-    ])
+    return _c(
+      "div",
+      {
+        staticClass: "row justify-content-center",
+        attrs: { "data-v-step": "2" }
+      },
+      [_c("h4", [_vm._v("Proximas clases")])]
+    )
   },
   function() {
     var _vm = this

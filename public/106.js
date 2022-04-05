@@ -81,6 +81,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -88,7 +89,20 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       classrooms: [],
-      open: false
+      open: false,
+      steps: [{
+        target: '[data-v-step="0"]',
+        header: {
+          title: 'Mis estudiantes'
+        },
+        content: "Desde aqui podras <strong>ver el listado de programas con los estudiantes vinculados a cada programa</strong>, solo debes hacer click sobre el nombre del programa y se desplegar\xE1 un listado con los estudiantes vinculados!",
+        params: {
+          placement: 'bottom',
+          // Any valid Popper.js placement. See https://popper.js.org/popper-documentation.html#Popper.placements
+          enableScrolling: false
+        }
+      }],
+      condition: "my_students"
     };
   },
   components: {
@@ -140,18 +154,29 @@ var render = function() {
         "div",
         { staticClass: "col-sm-10", attrs: { id: "crud" } },
         [
-          _c("div", { staticClass: "card-header text-center fondo mb-2 row" }, [
-            _vm._m(0),
-            _vm._v(" "),
-            _c("div", { staticStyle: { "margin-left": "auto" } }, [
-              _c("a", { staticClass: "btn", on: { click: _vm.toggle } }, [
-                _c("i", {
-                  staticClass: "fa fa-question-circle",
-                  staticStyle: { "font-size": "35px", color: "orange" }
-                })
+          _c(
+            "div",
+            {
+              staticClass: "card-header text-center fondo mb-2 row",
+              attrs: { "data-v-step": "0" }
+            },
+            [
+              _vm._m(0),
+              _vm._v(" "),
+              _c("div", { staticStyle: { "margin-left": "auto" } }, [
+                _c("a", { staticClass: "btn", on: { click: _vm.toggle } }, [
+                  _c("i", {
+                    staticClass: "fa fa-question-circle",
+                    staticStyle: { "font-size": "35px", color: "orange" }
+                  })
+                ])
               ])
-            ])
-          ]),
+            ]
+          ),
+          _vm._v(" "),
+          _c("tour-configuration", {
+            attrs: { step: _vm.steps, condition: _vm.condition }
+          }),
           _vm._v(" "),
           _c(
             "Drawer",
