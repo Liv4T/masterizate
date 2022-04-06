@@ -622,7 +622,7 @@ var render = function() {
                   _c("a", { staticClass: "btn", on: { click: _vm.toggle } }, [
                     _c("i", {
                       staticClass: "fa fa-question-circle",
-                      staticStyle: { "font-size": "35px", color: "orange" }
+                      staticStyle: { "font-size": "35px", color: "#278080" }
                     })
                   ])
                 ])

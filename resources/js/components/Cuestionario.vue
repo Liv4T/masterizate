@@ -512,7 +512,7 @@ export default {
   padding-left: 270px;
 }
 .card-header.fondo {
-  background-color: #278080;
+  background-color: #ea9010;
   color: white;
 }
 </style>

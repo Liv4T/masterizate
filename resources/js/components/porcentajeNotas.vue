@@ -29,7 +29,7 @@
             </div>
             <div style="margin-left:auto">
                 <a class="btn" @click="toggle">
-                    <i class="fa fa-question-circle" style="font-size:35px; color:orange;"></i>
+                    <i class="fa fa-question-circle" style="font-size:35px; color:#278080;"></i>
                 </a>
             </div>
         </div>

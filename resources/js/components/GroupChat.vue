@@ -998,8 +998,8 @@ export default {
 }
 .panel-primary > .panel-heading {
   color: #fff;
-  background-color: #278080;
-  border-color: #278080;
+  background-color: #ea9010;
+  border-color: #ea9010;
 }
 .panel-footer {
   padding: 10px 15px;

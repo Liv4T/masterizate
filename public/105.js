@@ -340,7 +340,7 @@ var render = function() {
                             staticClass: "fa fa-question-circle",
                             staticStyle: {
                               "font-size": "35px",
-                              color: "orange"
+                              color: "#278080"
                             }
                           })
                         ]
