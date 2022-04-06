@@ -25,7 +25,7 @@
                 <div class="col-md-12 mx-auto">
                     <div class="card-header text-center fondo row" data-v-step="0">
                         <div class="card-center">
-                            <label class="card-text">Planificación General</label>
+                            <label class="card-text">Programa</label>
                         </div>
                         <div style="margin-left:auto">
                             <a class="btn" @click="toggle">
@@ -87,7 +87,7 @@
                                 <span class="spinner-border spinner-border" role="status" aria-hidden="true"  v-if="isLoading"></span>
                                     <div class="form-group mx-auto" v-for="(input1, t) in inputs1" :key="t">
                                         <div class="classroom-planning-section">
-                                            <strong>Objetivo: </strong>
+                                            <strong>Tema: </strong>
                                             <input class="form-control form-control-sm" type="number" style="width:50px;" v-model="input1.porcentaje" data-v-step="1"/>%
                                             <span>
                                                 <a href="#" class="badge badge-danger" @click.prevent="remove1(t)" v-show="(t>0 && inputs1_saved.length<=t)">-</a>

@@ -845,7 +845,7 @@ var render = function() {
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "row" }, [
-                      _c("label", [_vm._v("Fecha Inicio de Clase:")]),
+                      _c("label", [_vm._v("Posible fecha de Clase:")]),
                       _vm._v(" "),
                       _c("input", {
                         directives: [

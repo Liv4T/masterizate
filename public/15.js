@@ -247,7 +247,7 @@ var render = function() {
               },
               [
                 _c("h4", { staticStyle: { "font-size": "15px" } }, [
-                  _vm._v("PLAN DE ESTUDIO")
+                  _vm._v("PROGRAMA")
                 ])
               ]
             ),

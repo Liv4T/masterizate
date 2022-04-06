@@ -33,7 +33,7 @@
                                 </div>
 
                             <div class="row">
-                                <label>Fecha Inicio de Clase:</label>
+                                <label>Posible fecha de Clase:</label>
                                 <input type="datetime-local" class="form-control" v-model="course.date_init_class" />
                                 <input type="hidden" id="timezone" name="timezone" value="-05:00">
                             </div>

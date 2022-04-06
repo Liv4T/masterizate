@@ -948,7 +948,7 @@ var render = function() {
                     { key: t, staticClass: "form-group mx-auto" },
                     [
                       _c("div", { staticClass: "classroom-planning-section" }, [
-                        _c("strong", [_vm._v("Objetivo: ")]),
+                        _c("strong", [_vm._v("Tema: ")]),
                         _vm._v(" "),
                         _c("input", {
                           directives: [
@@ -1379,9 +1379,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "card-center" }, [
-      _c("label", { staticClass: "card-text" }, [
-        _vm._v("Planificación General")
-      ])
+      _c("label", { staticClass: "card-text" }, [_vm._v("Programa")])
     ])
   },
   function() {
