@@ -514,7 +514,10 @@ export default {
             axios.put(`/api/teacher/module/${this.id_classroom}/class`,this.course).then((response) => {
                toastr.success("Clases actualizadas correctamente");
                this.returnPage();
-            },(error)=>{console.log(error);toastr.error("ERROR:Por favor valide que la información esta completa");});
+            },
+                (error)=>{console.log(error);
+                toastr.error("ERROR:Por favor valide que la información esta completa");
+            });
             if(this.id_class==0 && this.course.date_init_class !== ''){
                 var initD= new Date(this.course.date_init_class);
                 var initDateSave = moment(initD).format("YYYY-MM-DD H:mm:ss");
