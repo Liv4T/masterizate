@@ -54,8 +54,8 @@ class EventsController extends Controller
         $evento->id_area = $request->id_area;
         $evento->id_classroom = $request->id_classroom;
         $evento->id_user = Auth::user()->id;
-        $evento->url = $request->url;
-        $evento->id_padre = $request->id_padre; 
+        $evento->url = isset($request->url) ? $request->url: 'Sin link';
+        $evento->id_padre = $request->id_padre;
         $evento->save();
 
         return response()->json($evento);
@@ -181,11 +181,11 @@ class EventsController extends Controller
                         $area = Lective::find($evento->id_area);
                     } else {
                         $classroom = Classroom::find($evento->id_classroom);
-                        $area = Area::find($evento->id_area); 
+                        $area = Area::find($evento->id_area);
                         // $area = Area::where('id', $evento->id_area)->get();
-                        
+
                         // var_dump($evento->id_area.' - ');
-                        // die;                       
+                        // die;
                     }
 
                     //$area = Area::find($evento->id_area);
@@ -225,11 +225,11 @@ class EventsController extends Controller
                         $area = Lective::find($evento->id_area);
                     } else {
                         $classroom = Classroom::find($evento->id_classroom);
-                        $area = Area::find($evento->id_area); 
+                        $area = Area::find($evento->id_area);
                         // $area = Area::where('id', $evento->id_area)->get();
-                        
+
                         // var_dump($evento->id_area.' - ');
-                        // die;                       
+                        // die;
                     }
 
                     //$area = Area::find($evento->id_area);
@@ -630,7 +630,7 @@ class EventsController extends Controller
             $eventos->id_user = Auth::user()->id;
             $eventos->url = $data['url'];
             $eventos->save();
-        
+
             return 'ok';
         }else{
             $eventos = Eventos::select('id')->where('id_padre', $data['id_padre'])->get();
@@ -647,7 +647,7 @@ class EventsController extends Controller
                     $evento->id_user = Auth::user()->id;
                     $evento->url = $data['url'];
                     $evento->save();
-            
+
                 }
             }else{
                 return 'no';
@@ -665,7 +665,7 @@ class EventsController extends Controller
             $eventos->id_user = Auth::user()->id;
             $eventos->deleted_at = Carbon::now();
             $eventos->save();
-        
+
             return 'ok';
         }else{
             $eventos = Eventos::select('id')->where('id_padre', $data['id_padre'])->get();
@@ -675,7 +675,7 @@ class EventsController extends Controller
                     $evento->id_user = Auth::user()->id;
                     $evento->deleted_at = Carbon::now();
                     $evento->save();
-            
+
                 }
             }else{
                 return 'no';
@@ -721,7 +721,7 @@ class EventsController extends Controller
     //     $eventos = Eventos::findOrFail($data['id']);
     //     $eventos->deleted_at = Carbon::now();
     //     $eventos->save();
-        
+
     //         return 'ok';
     // }
 }

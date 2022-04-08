@@ -298,7 +298,7 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
           content: '',
           description: ''
         }],
-        url_class: "",
+        url_class: '',
         date_init_class: "",
         objetivesClass: "",
         work: "",
@@ -506,6 +506,8 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
 
       axios.put("/api/teacher/module/".concat(this.id_classroom, "/class"), this.course).then(function (response) {
         toastr.success("Clases actualizadas correctamente");
+
+        _this3.returnPage();
       }, function (error) {
         console.log(error);
         toastr.error("ERROR:Por favor valide que la información esta completa");
@@ -521,17 +523,13 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
           name: this.course.name,
           startDateTime: initDateSave,
           endDateTime: end,
-          id_area: this.area_id,
-          id_classroom: this.classroom_id,
+          id_area: this.id_area,
+          id_classroom: this.id_classroom,
           url: this.course.url_class,
           id_padre: null
         }).then(function (response) {
           toastr.success("Nuevo evento creado exitosamente");
-
-          _this3.returnPage();
         })["catch"](function (error) {});
-      } else {
-        this.returnPage();
       }
     },
     selectActivityType: function selectActivityType(index_activity, activity) {

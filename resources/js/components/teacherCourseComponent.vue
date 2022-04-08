@@ -293,7 +293,7 @@ export default {
                         description:''
                     }
                 ],
-                url_class:"",
+                url_class:'',
                 date_init_class:"",
                 objetivesClass: "",
                 work: "",
@@ -513,6 +513,7 @@ export default {
         SaveDataEvent(){
             axios.put(`/api/teacher/module/${this.id_classroom}/class`,this.course).then((response) => {
                toastr.success("Clases actualizadas correctamente");
+               this.returnPage();
             },(error)=>{console.log(error);toastr.error("ERROR:Por favor valide que la información esta completa");});
             if(this.id_class==0 && this.course.date_init_class !== ''){
                 var initD= new Date(this.course.date_init_class);
@@ -525,18 +526,15 @@ export default {
                         name: this.course.name,
                         startDateTime: initDateSave,
                         endDateTime: end,
-                        id_area: this.area_id,
-                        id_classroom: this.classroom_id,
+                        id_area: this.id_area,
+                        id_classroom: this.id_classroom,
                         url: this.course.url_class,
                         id_padre: null,
                         })
                         .then((response) => {
                         toastr.success("Nuevo evento creado exitosamente");
-                        this.returnPage();
                         })
                         .catch((error) => {});
-            }else{
-                this.returnPage();
             }
         },
         selectActivityType(index_activity,activity){

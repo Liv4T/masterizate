@@ -230,7 +230,7 @@
             },
 
             createClass(id_classroom){
-                console.log('id_classroom',id_classroom)
+                console.log('id_classroom',id_classroom);
                 if(id_classroom){
                     this.createClas = 'show';
                 }
