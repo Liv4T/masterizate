@@ -18,6 +18,7 @@
                     <thead>
                         <tr>
                             <th>Materia</th>
+                            <th>Nombre programa</th>
                             <th>Tutor</th>
                             <th>Codigo</th>
                             <th>Acción</th>
@@ -26,6 +27,7 @@
                     <tbody v-for="(area, key) in data_areas" :key="key">
                         <tr>
                             <td>{{ area.area_name }}</td>
+                            <td>{{ area.classroom_name}}</td>
                             <td>{{ area.tutor_name }}</td>
                             <td>{{ area.code }}</td>
                             <td>
@@ -82,6 +84,7 @@ export default {
         getAreasBySelect(){
             axios.get(`/GetAreasByStudent/${this.area_id}`).then((response) => {
                 this.data_areas = response.data;
+                console.log(this.data_areas);
             });
         },
         getAreas(){

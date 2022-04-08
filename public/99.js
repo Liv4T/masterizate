@@ -260,7 +260,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.btn-suscription{\r\n    background-color: rgb(2, 4, 79);\r\n    color: white;\r\n    font-weight: 800;\n}\n.btn-suscription:hover{\r\n    background-color: rgb(2, 4, 79);\r\n    color: #c9c9c9;\r\n    font-weight: 800;\n}\n.btn-select{\r\n    background-color: #39ffe5;\r\n    font-weight: 600;\r\n    border-color: #39b0ff;\r\n    color: black;\n}\r\n\r\n", ""]);
+exports.push([module.i, "\n.btn-suscription{\n    background-color: rgb(2, 4, 79);\n    color: white;\n    font-weight: 800;\n}\n.btn-suscription:hover{\n    background-color: rgb(2, 4, 79);\n    color: #c9c9c9;\n    font-weight: 800;\n}\n.btn-select{\n    background-color: #39ffe5;\n    font-weight: 600;\n    border-color: #39b0ff;\n    color: black;\n}\n\n", ""]);
 
 // exports
 
@@ -446,8 +446,8 @@ var render = function() {
                       {
                         name: "show",
                         rawName: "v-show",
-                        value: _vm.user.type_user != 1,
-                        expression: "user.type_user != 1"
+                        value: _vm.user.type_user != 1 && _vm.user.type != 7,
+                        expression: "user.type_user != 1 && user.type != 7"
                       }
                     ]
                   },
@@ -459,7 +459,7 @@ var render = function() {
             _vm._l(_vm.codes, function(code, key) {
               return _c("tbody", { key: key }, [
                 _c("tr", [
-                  _c("td", [_vm._v(_vm._s(code.area_name))]),
+                  _c("td", [_vm._v(_vm._s(code.classroom_name))]),
                   _vm._v(" "),
                   _c("td", [_vm._v(_vm._s(code.tutor_name))]),
                   _vm._v(" "),
@@ -493,8 +493,10 @@ var render = function() {
                             {
                               name: "show",
                               rawName: "v-show",
-                              value: _vm.user.type_user != 1,
-                              expression: "user.type_user != 1"
+                              value:
+                                _vm.user.type_user != 1 && _vm.user.type != 7,
+                              expression:
+                                "user.type_user != 1 && user.type != 7"
                             }
                           ]
                         },

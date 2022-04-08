@@ -209,16 +209,17 @@ class TutorCodeController extends Controller
         $data = VinculationTutorStudent::where('id_student',$user->id)->get();
         foreach($data as $key => $vinculation){
             $tutor_data = User::where('id',$vinculation->id_tutor)->first();
+            $classroom = TutorClassroom::where('name','like','%'.$vinculation->code_vinculated.'%')->first();
             $area_name = DB::table('tutor_codes')
-            ->join('area', 'area.id', '=', 'tutor_codes.id_area')
-            ->where('tutor_codes.code','=',$vinculation->code_vinculated)
-            ->first();
+                            ->join('area', 'area.id', '=', 'tutor_codes.id_area')
+                            ->where('tutor_codes.code','=',$vinculation->code_vinculated)
+                            ->first();
             $code_id = TutorCode::where('code',$vinculation->code_vinculated)->first();
             $enable_area = EnableSubject::where('id_user',$user->id)
-            ->where('id_code',$code_id->id)
-            ->where('id_area',$area_name->id_area)
-            ->orderBy('id','desc')
-            ->first();
+                                        ->where('id_code',$code_id->id)
+                                        ->where('id_area',$area_name->id_area)
+                                        ->orderBy('id','desc')
+                                        ->first();
             $vinculations[$key]=[
                 'id_student' => $user->id,
                 'id_tutor' => $vinculation->id_tutor,
@@ -226,6 +227,7 @@ class TutorCodeController extends Controller
                 'code_vinculated' => $vinculation->code_vinculated,
                 'area_name' => $area_name->name,
                 'enable_area' => $enable_area->date_enable_area,
+                'classroom_name' => isset($classroom->name) ? $classroom->name: $area_name->name,
             ];
         }
 

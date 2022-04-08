@@ -31,7 +31,7 @@
                     Segerencias
                 </div>
                 <div class="col footer-col2">
-                    Contactanos
+                    Contáctanos
                 </div>
             </div>
         </footer>

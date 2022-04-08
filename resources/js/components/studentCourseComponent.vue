@@ -79,7 +79,7 @@
                                         v-model="course.description"
                                         readonly
                                     ></textarea>
-                                </div>                               
+                                </div>
                             </div>
                             <div class="row">
                                 <div class="col-12">
@@ -265,11 +265,11 @@
                         </div>
                     </div>
                     <div class="div-weekly-plan-btn-save">
-                        <a
+                        <!-- <a
                             class="btn btn-warning"
                             v-on:click="idclassClean"
                             >{{ $t('lang.general.goBack') }}</a
-                        >
+                        > -->
                         <!-- <a
                             class="btn btn-primary float-right"
                             v-show="
@@ -330,7 +330,7 @@ import "vue-form-wizard/dist/vue-form-wizard.min.css";
 import moment from 'moment';
 Vue.use(VueFormWizard);
 export default {
-    props: ["id_module", "id_class","idclassClean"],
+    props: ["id_class","id_classroom_selected"],
     data() {
         return {
             is_loading: false,
@@ -365,7 +365,8 @@ export default {
                 description: "",
                 hourly_intensity: 0,
                 name: "",
-                progress: 0
+                progress: 0,
+                id_module:0,
             },
             achievements: [],
             activity: {},
@@ -373,29 +374,15 @@ export default {
             hour_event:"",
             link_event:"",
             id_area:"",
-            id_classroom:""
+            id_classroom:"",
+            id_module:0,
         };
     },
     mounted() {
         this.getCourseData();
-
-        axios.get(`/showClass/${this.id_module}`).then(response => {
-            this.achievements = response.data.achievements;
-
-            this.nameArea = `${response.data.area.name} ${response.data.classroom.name}`;
-            this.id_area= `${response.data.area.id}/${response.data.classroom.id} `;
-
-
-           axios.get(`/getEvenNearStudent/${this.id_area}`).then(response => {
-                this.name_event= response.data.name;
-                this.hour_event= moment(this.course.date_init_class).format('DD MMMM YYYY h:mm a');
-                this.link_event= this.course.url_class;
-        });
-
-        });
-        axios.get(`/GetNameWeekly/${this.id_module}`).then(response => {
+        axios.get(`/nameClassroom/${this.id_classroom_selected}`).then(response => {
             this.weekly_plan = { name: response.data };
-        });        
+        });
 
     },
     methods: {
@@ -455,10 +442,12 @@ export default {
             if (this.id_class != 0) {
                 axios
                     .get(
-                        `/api/teacher/module/${this.id_module}/class/${this.id_class}`
+                        `/api/teacher/module/${this.id_classroom_selected}/class/${this.id_class}`
                     )
                     .then(response => {
                         this.course = response.data;
+                        this.link_event = response.data.url_class;
+                        console.log(this.course);
 
                         if (this.course.content.length == 0) {
                             this.course.content = [

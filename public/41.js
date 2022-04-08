@@ -63,47 +63,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['user'],
   data: function data() {
     return {
       areas: [],
       id_area_selected: null,
+      id_classroom_selected: null,
       id_tutor: null,
       id_trimestre: null,
       trimestres: [],
@@ -113,7 +79,11 @@ __webpack_require__.r(__webpack_exports__);
       activityId: null,
       weekly_id: null,
       validate: null,
-      code: null
+      code: null,
+      id_area: "",
+      id_classroom: "",
+      nameArea: "",
+      fillS: []
     };
   },
   mounted: function mounted() {
@@ -122,12 +92,12 @@ __webpack_require__.r(__webpack_exports__);
   watch: {
     id_trimestre: function id_trimestre(newVal, oldVal) {
       if (newVal !== oldVal) {
-        this.getCycles();
+        this.getData();
       }
     },
     id_area_selected: function id_area_selected(newVal, oldVal) {
       if (newVal !== oldVal) {
-        this.getCycles();
+        this.getData();
       }
     }
   },
@@ -135,28 +105,25 @@ __webpack_require__.r(__webpack_exports__);
     getArea: function getArea() {
       var _this = this;
 
-      axios.get("/getTrimestres").then(function (response) {
-        _this.trimestres = response.data;
-      });
-      axios.get('getAreaByClient').then(function (response) {
+      axios.get('/GetArearByUser').then(function (response) {
         _this.areas = response.data;
         console.log(_this.areas);
       });
     },
-    setArea: function setArea(value) {
-      var data = JSON.parse(value);
-      this.id_area_selected = data.id_area;
-      this.code = data.code;
-      this.id_tutor = data.id_tutor;
+    getData: function getData() {
+      this.fillS = [];
+      this.getClasses();
     },
-    setTrim: function setTrim(id_trimestre) {
-      this.id_trimestre = id_trimestre;
-    },
-    getCycles: function getCycles() {
+    getClasses: function getClasses() {
       var _this2 = this;
 
-      axios.get("getTutorCycle/".concat(this.id_tutor, "/").concat(this.id_trimestre, "/").concat(this.id_area_selected)).then(function (response) {
-        _this2.clases = response.data;
+      var urlr = window.location.origin + "/showClassByClassroom/" + this.id_area_selected + "/" + this.id_classroom_selected;
+      axios.get(urlr).then(function (response) {
+        _this2.fillS = response.data.clase;
+        console.log(_this2.fillS);
+        if (response.data.area && response.data.classroom) _this2.nameArea = response.data.classroom.name;
+        _this2.id_area = response.data.area;
+        _this2.id_classroom = response.data.classroom.id;
       });
       axios.get("/checkPay/".concat(this.id_area_selected, "/").concat(this.code)).then(function (response) {
         _this2.validate = response.data;
@@ -168,12 +135,19 @@ __webpack_require__.r(__webpack_exports__);
         }
       });
     },
-    getClass: function getClass(data) {
-      var _this3 = this;
-
-      axios.get("getClass/".concat(data.id)).then(function (response) {
-        _this3.activities = response.data;
-      });
+    setArea: function setArea(value) {
+      var data = JSON.parse(value);
+      this.id_area_selected = data.id_area;
+      this.id_classroom_selected = data.id_classroom;
+      this.code = data.code;
+      this.id_tutor = data.id_tutor;
+    },
+    getClass: function getClass(id_class) {
+      if (id_class) {
+        this.idClass = id_class;
+        console.log("clase_id", this.idClass);
+        this.showStudent = true;
+      }
     },
     backTable: function backTable() {
       this.activities = [];
@@ -203,7 +177,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.btn-suscription{\r\n    background-color: rgb(2, 4, 79);\r\n    color: white;\r\n    font-weight: 800;\n}\n.btn-suscription:hover{\r\n    background-color: rgb(2, 4, 79);\r\n    color: #c9c9c9;\r\n    font-weight: 800;\n}\n.box-suscription{\r\n    background: #f7f5f5;\r\n    font-weight: bold;\r\n    padding: 15px;\r\n    border-left:8px solid #ff0080;\r\n    border-top-left-radius:8px;\r\n    border-bottom-left-radius:8px;\r\n    border-right:8px solid #ff0080;\r\n    border-top-right-radius:8px;\r\n    border-bottom-right-radius:8px;\n}\r\n\r\n", ""]);
+exports.push([module.i, "\n.btn-suscription{\n    background-color: rgb(2, 4, 79);\n    color: white;\n    font-weight: 800;\n}\n.btn-suscription:hover{\n    background-color: rgb(2, 4, 79);\n    color: #c9c9c9;\n    font-weight: 800;\n}\n.box-suscription{\n    background: #f7f5f5;\n    font-weight: bold;\n    padding: 15px;\n    border-left:8px solid #ff0080;\n    border-top-left-radius:8px;\n    border-bottom-left-radius:8px;\n    border-right:8px solid #ff0080;\n    border-top-right-radius:8px;\n    border-bottom-right-radius:8px;\n}\n\n", ""]);
 
 // exports
 
@@ -293,7 +267,7 @@ var render = function() {
                       return _c(
                         "option",
                         { key: key, domProps: { value: JSON.stringify(area) } },
-                        [_vm._v(_vm._s(area.area_name + " - " + area.code))]
+                        [_vm._v(_vm._s(area.classroom_name))]
                       )
                     })
                   ],
@@ -307,170 +281,51 @@ var render = function() {
                       {
                         name: "show",
                         rawName: "v-show",
-                        value: _vm.id_area_selected !== null,
-                        expression: "id_area_selected !== null"
+                        value: _vm.id_area_selected != null,
+                        expression: "id_area_selected!=null"
                       }
                     ],
                     staticClass: "mt-2"
                   },
                   [
                     _c(
-                      "div",
-                      { attrs: { id: "accordion" } },
-                      _vm._l(_vm.trimestres, function(trimestre, key) {
-                        return _c("div", { key: key, staticClass: "card" }, [
-                          _c(
-                            "div",
-                            {
-                              staticClass: "card-header",
-                              attrs: { id: "heading" + key }
-                            },
-                            [
-                              _c("h5", { staticClass: "mb-0" }, [
-                                _c(
-                                  "button",
-                                  {
-                                    staticClass: "btn btn-link",
-                                    attrs: {
-                                      "data-toggle": "collapse",
-                                      "data-target": "#collapse" + key,
-                                      "aria-expanded": "true",
-                                      "aria-controls": "collapse" + key
-                                    },
-                                    on: {
-                                      click: function($event) {
-                                        return _vm.setTrim(trimestre.id)
-                                      }
-                                    }
-                                  },
-                                  [
-                                    _vm._v(
-                                      "\n                                            " +
-                                        _vm._s(trimestre.nombre) +
-                                        "\n                                        "
-                                    )
-                                  ]
-                                )
-                              ])
-                            ]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "div",
-                            {
-                              staticClass: "collapse hide",
-                              attrs: {
-                                id: "collapse" + key,
-                                "aria-labelledby": "heading" + key,
-                                "data-parent": "#accordion"
-                              }
-                            },
-                            [
-                              _c("div", { staticClass: "card-body" }, [
-                                _vm.activities.length === 0
-                                  ? _c(
-                                      "table",
+                      "table",
+                      {
+                        staticClass:
+                          "table table-responsive-xl table-hover table-striped center"
+                      },
+                      [
+                        _vm._m(0),
+                        _vm._v(" "),
+                        _c(
+                          "tbody",
+                          _vm._l(_vm.fillS, function(clas, t) {
+                            return _c("tr", { key: t }, [
+                              clas.status != 0
+                                ? _c("td", [_vm._v(_vm._s(clas.name))])
+                                : _vm._e(),
+                              _vm._v(" "),
+                              clas.status != 0
+                                ? _c("td", [
+                                    _c(
+                                      "a",
                                       {
-                                        staticClass:
-                                          "table table-striped table-hover"
+                                        staticClass: "btn btn-primary",
+                                        on: {
+                                          click: function($event) {
+                                            return _vm.getClass(clas.id)
+                                          }
+                                        }
                                       },
-                                      [
-                                        _vm._m(0, true),
-                                        _vm._v(" "),
-                                        _vm._l(_vm.clases, function(
-                                          clase,
-                                          key
-                                        ) {
-                                          return _c("tbody", { key: key }, [
-                                            _c("tr", [
-                                              _c("td", [
-                                                _vm._v(
-                                                  _vm._s(clase.driving_question)
-                                                )
-                                              ]),
-                                              _vm._v(" "),
-                                              _c("td", [
-                                                _c(
-                                                  "button",
-                                                  {
-                                                    on: {
-                                                      click: function($event) {
-                                                        return _vm.getClass(
-                                                          clase
-                                                        )
-                                                      }
-                                                    }
-                                                  },
-                                                  [_vm._v("Ir a Clase")]
-                                                )
-                                              ])
-                                            ])
-                                          ])
-                                        })
-                                      ],
-                                      2
+                                      [_vm._v("Ir a clase")]
                                     )
-                                  : _c("div", [
-                                      _c(
-                                        "button",
-                                        {
-                                          staticClass: "btn btn-success mb-2",
-                                          on: { click: _vm.backTable }
-                                        },
-                                        [_vm._v("Volver")]
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "table",
-                                        {
-                                          staticClass:
-                                            "table table-striped table-hover"
-                                        },
-                                        [
-                                          _vm._m(1, true),
-                                          _vm._v(" "),
-                                          _vm._l(_vm.activities, function(
-                                            activity,
-                                            key
-                                          ) {
-                                            return _c("tbody", { key: key }, [
-                                              _c("tr", [
-                                                _c("td", [
-                                                  _vm._v(_vm._s(activity.name))
-                                                ]),
-                                                _vm._v(" "),
-                                                _c("td", [
-                                                  _c(
-                                                    "button",
-                                                    {
-                                                      staticClass:
-                                                        "btn btn-primary",
-                                                      on: {
-                                                        click: function(
-                                                          $event
-                                                        ) {
-                                                          return _vm.getActivity(
-                                                            activity
-                                                          )
-                                                        }
-                                                      }
-                                                    },
-                                                    [_vm._v("Acceder")]
-                                                  )
-                                                ])
-                                              ])
-                                            ])
-                                          })
-                                        ],
-                                        2
-                                      )
-                                    ])
-                              ])
-                            ]
-                          )
-                        ])
-                      }),
-                      0
+                                  ])
+                                : _vm._e()
+                            ])
+                          }),
+                          0
+                        )
+                      ]
                     )
                   ]
                 )
@@ -480,11 +335,10 @@ var render = function() {
           ? _c(
               "div",
               [
-                _c("student-module", {
+                _c("student-course", {
                   attrs: {
-                    clasId: _vm.weekly_id,
-                    cleanClasId: _vm.backPage,
-                    moduleId: _vm.activityId
+                    id_classroom_selected: _vm.id_classroom_selected,
+                    id_class: _vm.idClass
                   }
                 })
               ],
@@ -513,7 +367,7 @@ var render = function() {
           },
           [
             _c("div", { staticClass: "modal-content fondo-modal" }, [
-              _vm._m(2),
+              _vm._m(1),
               _vm._v(" "),
               _c("div", { staticClass: "modal-footer" }, [
                 _c(
@@ -541,19 +395,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
-        _c("th", [_vm._v("Ciclo")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Acción")])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("thead", [
-      _c("tr", [
-        _c("th", [_vm._v("Clase")]),
+        _c("th", [_vm._v("Clases")]),
         _vm._v(" "),
         _c("th", [_vm._v("Acción")])
       ])
@@ -566,7 +408,11 @@ var staticRenderFns = [
     return _c("div", { staticClass: "row" }, [
       _c("div", { staticClass: "col-lg-12" }, [
         _c("img", {
-          attrs: { thumbnail: "", fluid: "", src: "images/popup-skills.png" }
+          attrs: {
+            thumbnail: "",
+            fluid: "",
+            src: __webpack_require__(/*! ../assets/img/popup-skills.png */ "./resources/js/assets/img/popup-skills.png")
+          }
         }),
         _vm._v(" "),
         _c("p", { staticClass: "box-suscription" }, [
@@ -579,6 +425,17 @@ var staticRenderFns = [
 render._withStripped = true
 
 
+
+/***/ }),
+
+/***/ "./resources/js/assets/img/popup-skills.png":
+/*!**************************************************!*\
+  !*** ./resources/js/assets/img/popup-skills.png ***!
+  \**************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "/images/popup-skills.png?30da040bed5e6484d73b920d6332905f";
 
 /***/ }),
 

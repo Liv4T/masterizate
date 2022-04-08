@@ -24,7 +24,7 @@
             <div class="row footer-row">
                 <div class="col footer-col">
                     <p>
-                        Direccion:
+                        Dirección:
                         <br />AC 100#8A-55 Bogotá, Colombia.
                     </p>
                 </div>

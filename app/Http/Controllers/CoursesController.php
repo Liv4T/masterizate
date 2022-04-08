@@ -284,6 +284,26 @@ class CoursesController extends Controller
                 }
             }
 
+        }elseif ($user->isClient()){
+            $codeVinculated = VinculationTutorStudent::where('id_student',$user->id)->get();
+            if (isset($codeVinculated)) {
+                foreach ($codeVinculated as $key => $code) {
+                    $classroom = TutorClassroom::where('name','like','%'.$code->code_vinculated.'%')->first();
+                    $linked_code = TutorCode::where('code','=',$code->code_vinculated)->first();
+                    $class = Area::find($linked_code->id_area);
+                    //return $classroom;
+                    $areas[$key] = [
+                        'id'           => $class->id,
+                        'user_type'    => $user->type_user,
+                        'text'         => $class->name.' '.$classroom->name,
+                        'classroom_name'    => $classroom->name,
+                        'id_area'         => $class->id,
+                        'area_name'         => $classroom->name,
+                        'id_classroom' => $classroom->id,
+                        'code' => $linked_code->code,
+                    ];
+                }
+            }
         }
         return response()->json($areas);
     }
@@ -342,6 +362,7 @@ class CoursesController extends Controller
             if ($user->isClient()) {
                 $tutorships = TutorCode::all();
                 foreach($tutorships as $key_t => $tutorship){
+                    $classroom = TutorClassroom::where('name','like','%'.$tutorship->code.'%')->first();
                     $area = Area::where('id',$tutorship->id_area)->first();
                     $tutor_data = User::where('id',$tutorship->id_tutor)->first();
                     $areasAll[$key_t] = [
@@ -351,6 +372,7 @@ class CoursesController extends Controller
                         'code'         => $tutorship->code,
                         'id_tutor'     => $tutorship->id_tutor,
                         'tutor_name'   => $tutor_data->name.' '.$tutor_data->last_name,
+                        'classroom_name' => isset($classroom->name) ? $classroom->name: $area->name,
                     ];
                     foreach($data as $key_d => $vinculation){
                         if($tutorship->code === $vinculation->code_vinculated){
@@ -362,6 +384,7 @@ class CoursesController extends Controller
         }else{
             $tutorships = TutorCode::where('id_area',$select)->get();
             foreach($tutorships as $key_t => $tutorship){
+                $classroom = TutorClassroom::where('name','like','%'.$tutorship->code.'%')->first();
                 $area = Area::where('id',$tutorship->id_area)->first();
                 $tutor_data = User::where('id',$tutorship->id_tutor)->first();
                 $areasAll[$key_t] = [
@@ -371,6 +394,7 @@ class CoursesController extends Controller
                     'code'         => $tutorship->code,
                     'id_tutor'     => $tutorship->id_tutor,
                     'tutor_name'   => $tutor_data->name.' '.$tutor_data->last_name,
+                    'classroom_name' => isset($classroom->name) ? $classroom->name: $area->name,
                 ];
                 foreach($data as $key_d => $vinculation){
                     if($tutorship->code === $vinculation->code_vinculated){

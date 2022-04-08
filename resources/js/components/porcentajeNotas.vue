@@ -57,11 +57,11 @@
               <tab-content title="Porcentaje de notas">
                 <div class="card-body">
                   <div class="accordion" id="accordionExample">
-                    <div class="card" v-for="(option,t) in fillC.quaterly" :key="t">
+                    <div class="card" v-for="(option,t) in fillC.achievements" :key="t">
                       <div class="card-header text-center">
                         <h2 class="mb-0" data-v-step="1">
                           <button class="btn btn-link" type="button" data-toggle="collapse" :data-target="'#collapse'+t" aria-expanded="false" @click.prevent="indicador(option.id)" aria-controls="collapse">
-                            <label style="text-overflow: ellipsis;  width: 450px; white-space: nowrap; overflow: hidden;">{{ option.logro }}</label>
+                            <label style="text-overflow: ellipsis;  width: 450px; white-space: nowrap; overflow: hidden;">{{ option.achievement }}</label>
                           </button>
                         </h2>
                       </div>
@@ -84,7 +84,7 @@
                             </tbody>
                           </table>
                           <div align="right">
-                            <a class="btn btn-warning" v-on:click.prevent="editNames(option.id,option.id_achievement, option.id_annual)" data-v-step="2">Agregar</a>
+                            <a class="btn btn-warning" v-on:click.prevent="editNames(option.id, option.id_planification)" data-v-step="2">Agregar</a>
                           </div>
                         </div>
                       </div>
@@ -311,7 +311,7 @@ export default {
       var urlsel = window.location.origin + "/coursePlanification/" + this.areaId;
       axios.get(urlsel).then((response) => {
         this.fillC = response.data;
-        console.log(this.fillC);
+        console.log('fills',this.fillC);
       });
     },
     getMenu() {
@@ -355,7 +355,7 @@ export default {
           this.errors = [];
 
           toastr.success("Nueva actividad creada exitosamente");
-          this.indicador(this.id_quarterly_plan);
+          this.indicador(this.id_achievement);
 
           $('#createZ').modal('hide');
         })
@@ -366,11 +366,11 @@ export default {
     updateCourses() {
       window.location = "/actividad_g";
     },
-    editNames(id, id_achievement, annual) {
+    editNames(id, annual) {
 
       this.id_indicator = 0;
-      this.id_quarterly_plan = id;
-      this.id_achievement = id_achievement;
+      this.id_quarterly_plan = 0;
+      this.id_achievement = id;
       this.id_annual = annual;
       this.tipo_act = "";
       this.porcentaje = "";

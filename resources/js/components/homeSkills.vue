@@ -84,11 +84,11 @@
           <p class="line-yellow-form2"></p>
         </div>
         <div class="text-center margin-b">
-          <label class="text-correo">inscripciones@liv4t.com</label>
+          <label class="text-correo">info@masterizate.com</label>
         </div>
         <div class="text-center margin-b">
-          <a href="https://www.facebook.com/liv4tskool" target="_blank"><i class="fab fa-facebook" style="font-size: 50px; color: black"></i></a>
-          <a href="https://www.instagram.com/liv4tskool/?hl=es-la" target="_blank"><i class="fab fa-instagram" style="font-size: 50px; color: black"></i></a>
+            <a href="https://www.facebook.com/Master%C3%ADzate-105719331965281" target="_blank"><i class="fab fa-facebook" style="font-size: 50px; color: black;"></i></a>
+            <a href="https://instagram.com/masterizate_?utm_medium=copy_link" target="_blank"><i class="fab fa-instagram" style="font-size: 50px; color: black;"></i></a>
         </div>
       </div>
       <div class="col-lg-6">
@@ -142,7 +142,7 @@
           <p>Únete a nuestra comunidad</p>
         </div>
         <div class="col footer-col2">Segerencias</div>
-        <div class="col footer-col2">Contactanos</div>
+        <div class="col footer-col2">Contáctanos</div>
       </div>
     </footer>
     <div class="modal fade" id="modalCode" data-backdrop="static" data-keyboard="false">
@@ -295,7 +295,7 @@ export default {
     position: absolute;
     height: 400px !important;
     z-index: 2;
-    left: 545px;
+    left: 150px;
     top: -100px;
 }
 .boton-plan-mensual{
@@ -465,6 +465,7 @@ export default {
   left: 35%;
   font-size: 40px;
   width: 60%;
+  height: auto;
   padding: 0;
   margin: 0;
   border: 0;
@@ -479,7 +480,7 @@ export default {
   font-family: Nunito;
 }
 .btn-form2 {
-  font-size: 25px;
+  font-size: 22px;
   padding: 0px 8px 0px 8px !important;
   letter-spacing: 0.11em;
   border-radius: 10px;

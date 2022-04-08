@@ -23,19 +23,19 @@
                             <th>Nombre Tutor</th>
                             <th>Codigo</th>
                             <th>Pago valido hasta</th>
-                            <th v-show="user.type_user != 1">Renovar pago</th>
+                            <th v-show="user.type_user != 1 && user.type != 7">Renovar pago</th>
                         </tr>
                     </thead>
                     <tbody v-for="(code, key) in codes" :key="key">
                         <tr>
-                            <td>{{ code.area_name }}</td>
+                            <td>{{ code.classroom_name }}</td>
                             <td>{{ code.tutor_name }}</td>
                             <td>{{ code.code_vinculated }}</td>
                             <td>{{ code.enable_area }}</td>
                             <td v-if="checkPayDay(code.enable_area) <= 1">
                                 <a class="btn btn-suscription" href="javascript:void(0)" @click="modalPay(code.code_vinculated)">Renovar Suscripción</a>
                             </td>
-                            <td v-show="user.type_user != 1" v-if="checkPayDay(code.enable_area) > 1">
+                            <td v-show="user.type_user != 1 && user.type != 7" v-if="checkPayDay(code.enable_area) > 1">
                                 <span><b>Aun no disponible para pago</b></span>
                             </td>
                         </tr>

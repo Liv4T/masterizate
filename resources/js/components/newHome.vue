@@ -476,6 +476,7 @@ export default {
     left: 35%;
     font-size: 40px;
     width: 60%;
+    height: auto;
     padding: 0;
     margin: 0;
     border: 0;
@@ -490,7 +491,7 @@ export default {
     font-family: Nunito;
 }
 .btn-form2{
-    font-size: 25px;
+    font-size: 22px;
     padding: 0px 8px 0px 8px !important;
     letter-spacing: 0.11em;
     border-radius: 10px;

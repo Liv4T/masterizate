@@ -470,10 +470,11 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
     getDataPlanification: function getDataPlanification(position) {
       var _this2 = this;
 
-      var urlsel = window.location.origin + "/coursePlanification/" + this.area_id + "/" + this.classroom_id;
+      var urlsel = window.location.origin + "/coursePlanification/" + this.id_area + "/" + this.id_classroom;
       axios.get(urlsel).then(function (response) {
         // if(this.id_class!=0){
-        _this2.course.activities[_this2.course.activities.length - 1].fillC = response.data.quaterly; //     this.course.activities[position].fillC=response.data.quaterly;
+        _this2.course.activities[_this2.course.activities.length - 1].fillC = response.data.achievements;
+        console.log(response.data); //     this.course.activities[position].fillC=response.data.quaterly;
         // }else{
         //     this.course.activities[this.course.activities.length - 1].fillC=response.data.quaterly;
         // }
@@ -641,8 +642,9 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
       var _this8 = this;
 
       if (id != '') {
+        console.log(id);
         var ids = id.split("/");
-        var idInd = ids[0];
+        var idInd = ids[1];
         var urli = window.location.origin + "/getIndicator/" + idInd;
         axios.get(urli).then(function (response) {
           _this8.course.activities[position].fillI = response.data;
@@ -1854,13 +1856,14 @@ var render = function() {
                                               {
                                                 key: k_quarterly,
                                                 domProps: {
-                                                  value:
-                                                    quarterly.id +
-                                                    "/" +
-                                                    quarterly.id_achievement
+                                                  value: 0 + "/" + quarterly.id
                                                 }
                                               },
-                                              [_vm._v(_vm._s(quarterly.logro))]
+                                              [
+                                                _vm._v(
+                                                  _vm._s(quarterly.achievement)
+                                                )
+                                              ]
                                             )
                                           })
                                         ],
@@ -2185,7 +2188,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("label", [
       _c("span", { staticClass: "required" }, [_vm._v("*")]),
-      _vm._v("Logro:")
+      _vm._v("Programa:")
     ])
   },
   function() {

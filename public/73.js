@@ -298,7 +298,7 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
       var urlsel = window.location.origin + "/coursePlanification/" + this.areaId;
       axios.get(urlsel).then(function (response) {
         _this.fillC = response.data;
-        console.log(_this.fillC);
+        console.log('fills', _this.fillC);
       });
     },
     getMenu: function getMenu() {
@@ -347,7 +347,7 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
         _this3.errors = [];
         toastr.success("Nueva actividad creada exitosamente");
 
-        _this3.indicador(_this3.id_quarterly_plan);
+        _this3.indicador(_this3.id_achievement);
 
         $('#createZ').modal('hide');
       })["catch"](function (error) {
@@ -357,10 +357,10 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
     updateCourses: function updateCourses() {
       window.location = "/actividad_g";
     },
-    editNames: function editNames(id, id_achievement, annual) {
+    editNames: function editNames(id, annual) {
       this.id_indicator = 0;
-      this.id_quarterly_plan = id;
-      this.id_achievement = id_achievement;
+      this.id_quarterly_plan = 0;
+      this.id_achievement = id;
       this.id_annual = annual;
       this.tipo_act = "";
       this.porcentaje = "";
@@ -581,7 +581,7 @@ var render = function() {
                               staticClass: "accordion",
                               attrs: { id: "accordionExample" }
                             },
-                            _vm._l(_vm.fillC.quaterly, function(option, t) {
+                            _vm._l(_vm.fillC.achievements, function(option, t) {
                               return _c(
                                 "div",
                                 { key: t, staticClass: "card" },
@@ -628,7 +628,11 @@ var render = function() {
                                                     overflow: "hidden"
                                                   }
                                                 },
-                                                [_vm._v(_vm._s(option.logro))]
+                                                [
+                                                  _vm._v(
+                                                    _vm._s(option.achievement)
+                                                  )
+                                                ]
                                               )
                                             ]
                                           )
@@ -752,8 +756,7 @@ var render = function() {
                                                     $event.preventDefault()
                                                     return _vm.editNames(
                                                       option.id,
-                                                      option.id_achievement,
-                                                      option.id_annual
+                                                      option.id_planification
                                                     )
                                                   }
                                                 }

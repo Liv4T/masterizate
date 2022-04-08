@@ -73,7 +73,7 @@ class ScoreController extends Controller
 
         if(isset($data['id_indicator']) && $data['id_indicator']!=0)
         {
-            Indicator::where('id', $data['id_indicator'])->update(array('type_activity'=>$data['type_activity'], 'activity_rate'=>$data['activity_rate']));     
+            Indicator::where('id', $data['id_indicator'])->update(array('type_activity'=>$data['type_activity'], 'activity_rate'=>$data['activity_rate']));
         }
         else{
             $indicator = new Indicator;
@@ -84,7 +84,7 @@ class ScoreController extends Controller
             $indicator->id_achievement = $data['id_achievement'];
             $indicator->activity_rate = $data['activity_rate'];
             $indicator->save();
-        }     
+        }
     }
 
     /**
@@ -96,7 +96,7 @@ class ScoreController extends Controller
     public function getIndicator(String $id)
     {
 
-        $indicators = Indicator::where('id_quarterly_plan', $id)->get();
+        $indicators = Indicator::where('id_achievement', $id)->get();
         return $indicators;
     }
 
@@ -184,7 +184,7 @@ class ScoreController extends Controller
     public function update(Request $request, $id)
     {
         $data = $request->all();
-        Indicator::where('id', $id)->update(array('type_activity'=>$data['type_activity'], 'activity_rate'=>$data['activity_rate']));     
+        Indicator::where('id', $id)->update(array('type_activity'=>$data['type_activity'], 'activity_rate'=>$data['activity_rate']));
 
         return 'ok';
     }

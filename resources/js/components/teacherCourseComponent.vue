@@ -175,10 +175,10 @@
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-8">
-                                                        <label><span class="required">*</span>Logro:</label>
+                                                        <label><span class="required">*</span>Programa:</label>
                                                          <select class="form-control" v-model="activity.quarterly_plan" v-bind:readonly="course.state==2" @change="indicador(activity.quarterly_plan, key_a)">
                                                             <option value="">-- Seleccione --</option>
-                                                            <option v-for="(quarterly,k_quarterly) in activity.fillC" v-bind:key="k_quarterly" :value="quarterly.id + '/' + quarterly.id_achievement">{{quarterly.logro}}</option>
+                                                            <option v-for="(quarterly,k_quarterly) in activity.fillC" v-bind:key="k_quarterly" :value="0 + '/' + quarterly.id">{{quarterly.achievement}}</option>
                                                         </select>
                                                     </div>
                                                     <div class="col-4">
@@ -477,10 +477,11 @@ export default {
             });
         },
         getDataPlanification(position){
-            var urlsel = window.location.origin + "/coursePlanification/" + this.area_id + "/" + this.classroom_id;
+            var urlsel = window.location.origin + "/coursePlanification/" + this.id_area+ "/" + this.id_classroom;
             axios.get(urlsel).then((response) => {
                 // if(this.id_class!=0){
-                    this.course.activities[this.course.activities.length - 1].fillC=response.data.quaterly;
+                    this.course.activities[this.course.activities.length - 1].fillC=response.data.achievements;
+                    console.log(response.data);
                 //     this.course.activities[position].fillC=response.data.quaterly;
                 // }else{
                 //     this.course.activities[this.course.activities.length - 1].fillC=response.data.quaterly;
@@ -645,8 +646,9 @@ export default {
         },
         indicador(id, position) {
             if (id!=''){
+                console.log(id);
                 var ids=id.split("/");
-                var idInd= ids[0];
+                var idInd= ids[1];
                 var urli = window.location.origin + "/getIndicator/" + idInd;
 
                 axios.get(urli).then((response) => {
