@@ -203,7 +203,7 @@ export default {
                     header: {
                         title: 'Mis mensajes',
                     },
-                    content: `Desde aqui podras ver tu bandeja de entrada y revisar tus mensajes recibidos.`,
+                    content: `Desde aquí podrás ver tu bandeja de entrada y revisar tus mensajes recibidos.`,
                     params: {
                         placement: 'bottom', // Any valid Popper.js placement. See https://popper.js.org/popper-documentation.html#Popper.placements
                         enableScrolling: false
@@ -211,7 +211,7 @@ export default {
                 },
                 {
                     target: '[data-v-step="1"]',
-                    content: 'Aqui puedes ir a la bandeja de mensajes enviados y confirmar si ya fueron leidos.',
+                    content: 'Aquí puedes ir a la bandeja de mensajes enviados y confirmar si ya fueron leídos.',
                     params: {
                         placement: 'top', // Any valid Popper.js placement. See https://popper.js.org/popper-documentation.html#Popper.placements
                         enableScrolling: false,
@@ -219,7 +219,7 @@ export default {
                 },
                 {
                     target: '[data-v-step="2"]',
-                    content: 'Aqui puedes redactar mensajes para tutores o estudiantes.',
+                    content: 'Aquí puedes redactar mensajes para tutores o estudiantes.',
                     params: {
                         placement: 'top', // Any valid Popper.js placement. See https://popper.js.org/popper-documentation.html#Popper.placements
                         enableScrolling: false

@@ -95,7 +95,7 @@ __webpack_require__.r(__webpack_exports__);
         header: {
           title: 'Mis estudiantes'
         },
-        content: "Desde aqui podras <strong>ver el listado de programas con los estudiantes vinculados a cada programa</strong>, solo debes hacer click sobre el nombre del programa y se desplegar\xE1 un listado con los estudiantes vinculados!",
+        content: "Desde aqu\xED podr\xE1s <strong>ver el listado de programas con los estudiantes vinculados a cada programa</strong>, solo debes hacer click sobre el nombre del programa y se desplegar\xE1 un listado con los estudiantes vinculados!",
         params: {
           placement: 'bottom',
           // Any valid Popper.js placement. See https://popper.js.org/popper-documentation.html#Popper.placements
@@ -198,7 +198,7 @@ var render = function() {
                         _vm._v(" "),
                         _c("p", [
                           _vm._v(
-                            "El modulo mis estudiantes permite ver a todos los estudiantes vinculados a cada aula de clase."
+                            "El módulo mis estudiantes permite únicamente ver a todos los estudiantes vinculados a cada aula de clase."
                           )
                         ]),
                         _vm._v(" "),

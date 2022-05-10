@@ -28,7 +28,7 @@
 
           <!-- <div class="content-azul"> -->
           <div>
-            <div v-if="activetab === 1" class="tabcontent">
+            <div v-if="activetab === 1" >
               <div v-if="idArea !='' && user.type_user === 7">
 
                 <my-classes :idAreas="idAreas" :idClassroom="idClassroom" :user="user"></my-classes>

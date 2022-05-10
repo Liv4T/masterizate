@@ -26,18 +26,17 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <h1>Genera tu programa</h1>
-                                <p>Genera tu programa permite crear, editar o eliminar tus aulas de clase para cada materia, es tan simple como llenar un formulario y listo!!</p>
-                                <p>Haciendo click en el boton "Crear tu programa" se abrira una ventana para crear el Aula</p>
+                                <p>Genera tu programa permite crear, editar o eliminar tu programa para cada materia, es tan simple como llenar un formulario y listo!!</p>
+                                <p>Haciendo click en el boton "Crear tu programa" se abrirá una ventana para crear el programa</p>
                                 <img src="../assets/img/form_create_program.png" alt="form_create_program" width="350px" height="350px" style="margin-bottom:10px">
-                                <p>Para crear el aula se debe rellenar los campos Nombre, Descripcion y Categoría a asignar el código.</p>
+                                <p>Para crear el aula se debe rellenar los campos Nombre, Descripción y Categoría a asignar el código.</p>
                                 <p>El campo nombre es el nombre que tendra el programa para el tutor y el estudiante.</p>
-                                <p>En la Descripcion se sugiere agregar una pequeña descripcion del contenido del programa.</p>
+                                <p>En la Descripcion se sugiere agregar una pequeña descripcion del contenido.</p>
                                 <p>Por ultimo el campo Categoría a asignar el código es un selector que despliega las materias disponibles y se debe seleccionar una.</p>
                                 <img src="../assets/img/select_create_aula.png" alt="select_area" width="350px" height="350px" style="margin-bottom:10px">
-                                <p>Al crear un programa se genera un código que se debe enviar a los estudiantes para que puedan vincularse al programa y comenzar con las clases.</p>
+                                <p>Al crear un programa se genera un código que se debe enviar a los estudiantes para que puedan vincularse y comenzar con las clases.</p>
                                 <p>Una vez creados los programas se pueden observar en el listado, allí se encuentra el código de cada programa que debemos compartir con los estudiantes.</p>
-                                <!-- <p>Para editar un aula solo debe hacer click sobre el boton editar y se abrira una ventana con los datos del aula a editar.</p>
-                                <img src="../assets/img/edit_aula.png" alt="edit_aula" width="350px" height="350px" style="margin-bottom:10px"> -->
+                                <img src="../assets/img/program_list.png" alt="program_list" width="350px" height="350px" style="margin-bottom:10px">
                             </div>
                         </div>
                     </div>
@@ -62,7 +61,7 @@
                             <td v-show="user.type_user === 1">{{ code.tutor_name }}</td>
                             <td>
                                 <button class="btn btn-primary" v-on:click="edit(code)">Editar</button>
-                                <button class="btn btn-danger" v-on:click="dropCode(code.id)">Eliminar</button>
+                                <!-- <button class="btn btn-danger" v-on:click="dropCode(code.id)">Eliminar</button> -->
                             </td>
                         </tr>
                     </tbody>
@@ -159,7 +158,7 @@
                         header: {
                             title: 'Mis programas',
                         },
-                        content: `Desde aqui podras <strong>crear tus programas</strong> y compartir el código con tus estudiantes para que puedan comenzar a ver tus clases!`,
+                        content: `Desde aquí podrás <strong>crear tus programas</strong> y compartir el código con tus estudiantes para que puedan comenzar a ver tus clases!`,
                         params: {
                             placement: 'bottom', // Any valid Popper.js placement. See https://popper.js.org/popper-documentation.html#Popper.placements
                             enableScrolling: false
@@ -175,7 +174,7 @@
                     },
                     {
                         target: '[data-v-step="2"]',
-                        content: 'Aqui podras ver tus códigos para cada programa y compartirlo con tus estudiantes, <strong>recuerda que cada código es unico para cada programa</strong>!',
+                        content: 'Aquí podras ver tus códigos para cada programa y compartirlo con tus estudiantes, <strong>recuerda que cada código es unico para cada programa</strong>!',
                         params: {
                             placement: 'top', // Any valid Popper.js placement. See https://popper.js.org/popper-documentation.html#Popper.placements
                             enableScrolling: false,
@@ -183,7 +182,7 @@
                     },
                     {
                         target: '[data-v-step="3"]',
-                        content: 'La categoría determina en que área se desarrollará el programa. Ejemplo: ingles, español, arte.',
+                        content: 'La categoría determina en qué área se desarrollará el programa. Ejemplo: inglés, español, arte.',
                         params: {
                             placement: 'top', // Any valid Popper.js placement. See https://popper.js.org/popper-documentation.html#Popper.placements
                             enableScrolling: false
@@ -191,7 +190,7 @@
                     },
                     {
                         target: '[data-v-step="4"]',
-                        content: 'Aqui puedes crear tus programas haciendo click en el botón!',
+                        content: 'Aquí puedes crear tus programas haciendo click en el botón!',
                         params: {
                             placement: 'top', // Any valid Popper.js placement. See https://popper.js.org/popper-documentation.html#Popper.placements
                             enableScrolling: false

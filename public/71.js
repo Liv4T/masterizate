@@ -10,6 +10,30 @@
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _syncfusion_ej2_vue_charts__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @syncfusion/ej2-vue-charts */ "./node_modules/@syncfusion/ej2-vue-charts/index.js");
+/* harmony import */ var vue_simple_drawer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-simple-drawer */ "./node_modules/vue-simple-drawer/dist/vue-simple-drawer.umd.min.js");
+/* harmony import */ var vue_simple_drawer__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue_simple_drawer__WEBPACK_IMPORTED_MODULE_1__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -107,6 +131,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["idAreas", "idClassroom", "user"],
   data: function data() {
@@ -130,12 +155,13 @@ __webpack_require__.r(__webpack_exports__);
       id_classroom: "",
       createClas: 'hide',
       idClass: "",
+      open: false,
       steps: [{
         target: '[data-v-step="0"]',
         header: {
           title: 'Mis clases'
         },
-        content: "Desde aqui podras <strong>crear tus clases</strong> para cada programa!",
+        content: "Desde aqu\xED podr\xE1s <strong>crear tus clases</strong> para cada programa!",
         params: {
           placement: 'bottom',
           // Any valid Popper.js placement. See https://popper.js.org/popper-documentation.html#Popper.placements
@@ -151,7 +177,7 @@ __webpack_require__.r(__webpack_exports__);
         }
       }, {
         target: '[data-v-step="2"]',
-        content: 'Aqui puedes crear tus clases haciendo click en el botón!',
+        content: 'Aquí puedes crear tus clases haciendo click en el botón!',
         params: {
           placement: 'top',
           // Any valid Popper.js placement. See https://popper.js.org/popper-documentation.html#Popper.placements
@@ -160,6 +186,9 @@ __webpack_require__.r(__webpack_exports__);
       }],
       condition: "my_classes"
     };
+  },
+  components: {
+    Drawer: vue_simple_drawer__WEBPACK_IMPORTED_MODULE_1___default.a
   },
   created: function created() {},
   mounted: function mounted() {
@@ -177,6 +206,9 @@ __webpack_require__.r(__webpack_exports__);
       this.fillS = [];
       this.areas = [];
       this.getClasses();
+    },
+    toggle: function toggle() {
+      this.open = !this.open;
     },
     enabledClass: function enabledClass(clas) {
       var _this = this;
@@ -329,287 +361,355 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _vm.createClas === "hide"
-    ? _c("div", [
-        _c(
-          "h3",
-          {
-            directives: [
-              {
-                name: "show",
-                rawName: "v-show",
-                value: _vm.user.type_user === 7,
-                expression: "user.type_user === 7"
-              }
-            ],
-            staticClass: "card-header fondo",
-            attrs: { "data-v-step": "0" }
-          },
-          [_vm._v("Mis Cursos")]
-        ),
-        _vm._v(" "),
-        _c("div", { staticClass: "row justify-content-center" }, [
-          _c("div", { staticClass: "col-sm-12", attrs: { id: "crud" } }, [
+    ? _c(
+        "div",
+        [
+          _c(
+            "div",
+            {
+              staticClass: "card-header text-center fondo row",
+              attrs: { "data-v-step": "0" }
+            },
+            [
+              _vm._m(0),
+              _vm._v(" "),
+              _c("div", { staticStyle: { "margin-left": "auto" } }, [
+                _c("a", { staticClass: "btn", on: { click: _vm.toggle } }, [
+                  _c("i", {
+                    staticClass: "fa fa-question-circle",
+                    staticStyle: { "font-size": "35px", color: "#278080" }
+                  })
+                ])
+              ])
+            ]
+          ),
+          _vm._v(" "),
+          _c("tour-configuration", {
+            attrs: { step: _vm.steps, condition: _vm.condition }
+          }),
+          _vm._v(" "),
+          _c(
+            "Drawer",
+            {
+              attrs: {
+                align: "right",
+                maskClosable: true,
+                zIndex: 1003,
+                closeable: true
+              },
+              on: { close: _vm.toggle }
+            },
+            [
+              _vm.open
+                ? _c("div", [
+                    _c("div", { staticClass: "row" }, [
+                      _c("div", { staticClass: "col-md-12" }, [
+                        _c("h1", [_vm._v("Mis clases")]),
+                        _vm._v(" "),
+                        _c("p", [
+                          _vm._v(
+                            'Desde aquí podrás crear tus clases, haciendo click en el botón de "Crear clase" te lleva al formulario para crear la clase.'
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("img", {
+                          staticStyle: { "margin-bottom": "10px" },
+                          attrs: {
+                            src: __webpack_require__(/*! ../assets/img/my_classes.png */ "./resources/js/assets/img/my_classes.png"),
+                            alt: "my_classes",
+                            width: "350px",
+                            height: "350px"
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("p", [
+                          _vm._v(
+                            "En la parte inferior hay una tabla donde se listan las clases creadas."
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("img", {
+                          staticStyle: { "margin-bottom": "10px" },
+                          attrs: {
+                            src: __webpack_require__(/*! ../assets/img/table_my_classes.png */ "./resources/js/assets/img/table_my_classes.png"),
+                            alt: "table_my_classes",
+                            width: "350px",
+                            height: "350px"
+                          }
+                        })
+                      ])
+                    ])
+                  ])
+                : _vm._e()
+            ]
+          ),
+          _vm._v(" "),
+          _c("div", { staticClass: "row justify-content-center" }, [
             _c(
               "div",
-              { staticClass: "card text-center" },
+              {
+                staticClass: "col-sm-12",
+                staticStyle: { padding: "0" },
+                attrs: { id: "crud" }
+              },
               [
-                _c("tour-configuration", {
-                  attrs: { step: _vm.steps, condition: _vm.condition }
-                }),
-                _vm._v(" "),
-                _c("span", { staticClass: "classroom-label" }, [
-                  _vm._v(_vm._s(_vm.nameArea))
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "card-body" }, [
-                  _c("div", { staticClass: "text-left" }, [
-                    _c(
-                      "a",
-                      {
-                        staticClass: "btn btn-primary",
-                        attrs: { href: "/inicio" }
-                      },
-                      [_vm._v("Regresar")]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "a",
-                      {
-                        staticClass: "btn btn-primary",
-                        staticStyle: { color: "#ffffff" },
-                        attrs: { "data-v-step": "2" },
-                        on: {
-                          click: function($event) {
-                            return _vm.createClass(_vm.idClassroom)
-                          }
-                        }
-                      },
-                      [_vm._v("Crear\n                            Clase")]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "a",
-                      {
-                        staticClass: "btn btn-primary text-right",
-                        attrs: { href: "", "data-v-step": "1" },
-                        on: {
-                          click: function($event) {
-                            $event.preventDefault()
-                            return _vm.openModal()
-                          }
-                        }
-                      },
-                      [_vm._v("Eliminar")]
-                    )
+                _c("div", { staticClass: "card text-center" }, [
+                  _c("span", { staticClass: "classroom-label" }, [
+                    _vm._v(_vm._s(_vm.nameArea))
                   ]),
                   _vm._v(" "),
-                  _c("br"),
-                  _vm._v(" "),
-                  _c(
-                    "table",
-                    {
-                      staticClass:
-                        "table table-responsive-xl table-hover table-striped center"
-                    },
-                    [
-                      _vm._m(0),
+                  _c("div", { staticClass: "card-body" }, [
+                    _c("div", { staticClass: "text-left" }, [
+                      _c(
+                        "a",
+                        {
+                          staticClass: "btn btn-primary",
+                          attrs: { href: "/inicio" }
+                        },
+                        [_vm._v("Regresar")]
+                      ),
                       _vm._v(" "),
                       _c(
-                        "tbody",
-                        _vm._l(_vm.fillS, function(clas, t) {
-                          return _c("tr", { key: t }, [
-                            clas.status != 0
-                              ? _c("td", [_vm._v(_vm._s(clas.name))])
-                              : _vm._e(),
-                            _vm._v(" "),
-                            clas.status != 0
-                              ? _c("td", [
-                                  _c(
-                                    "a",
-                                    {
-                                      staticClass: "btn btn-primary",
-                                      on: {
-                                        click: function($event) {
-                                          return _vm.getClass(clas.id)
-                                        }
-                                      }
-                                    },
-                                    [_vm._v("Ir a clase")]
-                                  )
-                                ])
-                              : _vm._e()
-                          ])
-                        }),
-                        0
+                        "a",
+                        {
+                          staticClass: "btn btn-primary",
+                          staticStyle: { color: "#ffffff" },
+                          attrs: { "data-v-step": "2" },
+                          on: {
+                            click: function($event) {
+                              return _vm.createClass(_vm.idClassroom)
+                            }
+                          }
+                        },
+                        [_vm._v("Crear\n                            Clase")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "a",
+                        {
+                          staticClass: "btn btn-primary text-right",
+                          attrs: { href: "", "data-v-step": "1" },
+                          on: {
+                            click: function($event) {
+                              $event.preventDefault()
+                              return _vm.openModal()
+                            }
+                          }
+                        },
+                        [_vm._v("Eliminar")]
                       )
-                    ]
-                  )
-                ])
-              ],
-              1
-            )
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "modal fade", attrs: { id: "openModal" } }, [
-          _c("div", { staticClass: "modal-lg modal-dialog" }, [
-            _c("div", { staticClass: "modal-content" }, [
-              _c(
-                "form",
-                {
-                  staticClass: "needs-validation",
-                  attrs: { novalidate: "" },
-                  on: {
-                    submit: function($event) {
-                      $event.preventDefault()
-                      return _vm.deactivateData()
-                    }
-                  }
-                },
-                [
-                  _vm._m(1),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "modal-body" }, [
+                    ]),
+                    _vm._v(" "),
+                    _c("br"),
+                    _vm._v(" "),
                     _c(
-                      "div",
-                      { staticClass: "form-group row justify-content-center" },
+                      "table",
+                      {
+                        staticClass:
+                          "table table-responsive-xl table-hover table-striped center"
+                      },
                       [
-                        _c(
-                          "div",
-                          { staticClass: "col-md-6" },
-                          [
-                            _c("label", { attrs: { for: "name" } }, [
-                              _vm._v("Ciclos")
-                            ]),
-                            _vm._v(" "),
-                            _c("multiselect", {
-                              attrs: {
-                                options: _vm.cicles,
-                                multiple: false,
-                                "close-on-select": false,
-                                "clear-on-select": false,
-                                "preserve-search": true,
-                                placeholder: "Seleccione una o varias",
-                                label: "text",
-                                "track-by": "id",
-                                "preselect-first": true
-                              },
-                              scopedSlots: _vm._u(
-                                [
-                                  {
-                                    key: "selection",
-                                    fn: function(ref) {
-                                      var values = ref.values
-                                      var isOpen = ref.isOpen
-                                      return [
-                                        values.length && !isOpen
-                                          ? _c(
-                                              "span",
-                                              {
-                                                staticClass:
-                                                  "multiselect__single"
-                                              },
-                                              [
-                                                _vm._v(
-                                                  _vm._s(values.length) +
-                                                    " opciones\n                                            selecionadas"
-                                                )
-                                              ]
-                                            )
-                                          : _vm._e()
-                                      ]
-                                    }
-                                  }
-                                ],
-                                null,
-                                false,
-                                2392852366
-                              ),
-                              model: {
-                                value: _vm.ciclesData,
-                                callback: function($$v) {
-                                  _vm.ciclesData = $$v
-                                },
-                                expression: "ciclesData"
-                              }
-                            })
-                          ],
-                          1
-                        ),
+                        _vm._m(1),
                         _vm._v(" "),
                         _c(
-                          "div",
-                          { staticClass: "col-md-6" },
-                          [
-                            _c("label", { attrs: { for: "name" } }, [
-                              _vm._v("Clases")
-                            ]),
-                            _vm._v(" "),
-                            _c("multiselect", {
-                              attrs: {
-                                options: _vm.clasesByCicles,
-                                multiple: true,
-                                "close-on-select": false,
-                                "clear-on-select": false,
-                                "preserve-search": true,
-                                placeholder: "Seleccione una o varias",
-                                label: "text",
-                                "track-by": "id",
-                                "preselect-first": true
-                              },
-                              scopedSlots: _vm._u(
-                                [
-                                  {
-                                    key: "selection",
-                                    fn: function(ref) {
-                                      var values = ref.values
-                                      var isOpen = ref.isOpen
-                                      return [
-                                        values.length && !isOpen
-                                          ? _c(
-                                              "span",
-                                              {
-                                                staticClass:
-                                                  "multiselect__single"
-                                              },
-                                              [
-                                                _vm._v(
-                                                  _vm._s(values.length) +
-                                                    " opciones\n                                            selecionadas"
-                                                )
-                                              ]
-                                            )
-                                          : _vm._e()
-                                      ]
-                                    }
-                                  }
-                                ],
-                                null,
-                                false,
-                                2392852366
-                              ),
-                              model: {
-                                value: _vm.clasesByCiclesData,
-                                callback: function($$v) {
-                                  _vm.clasesByCiclesData = $$v
-                                },
-                                expression: "clasesByCiclesData"
-                              }
-                            })
-                          ],
-                          1
+                          "tbody",
+                          _vm._l(_vm.fillS, function(clas, t) {
+                            return _c("tr", { key: t }, [
+                              clas.status != 0
+                                ? _c("td", [_vm._v(_vm._s(clas.name))])
+                                : _vm._e(),
+                              _vm._v(" "),
+                              clas.status != 0
+                                ? _c("td", [
+                                    _c(
+                                      "a",
+                                      {
+                                        staticClass: "btn btn-primary",
+                                        on: {
+                                          click: function($event) {
+                                            return _vm.getClass(clas.id)
+                                          }
+                                        }
+                                      },
+                                      [_vm._v("Ir a clase")]
+                                    )
+                                  ])
+                                : _vm._e()
+                            ])
+                          }),
+                          0
                         )
                       ]
-                    ),
-                    _vm._v(" "),
-                    _vm._m(2)
+                    )
                   ])
-                ]
-              )
+                ])
+              ]
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "modal fade", attrs: { id: "openModal" } }, [
+            _c("div", { staticClass: "modal-lg modal-dialog" }, [
+              _c("div", { staticClass: "modal-content" }, [
+                _c(
+                  "form",
+                  {
+                    staticClass: "needs-validation",
+                    attrs: { novalidate: "" },
+                    on: {
+                      submit: function($event) {
+                        $event.preventDefault()
+                        return _vm.deactivateData()
+                      }
+                    }
+                  },
+                  [
+                    _vm._m(2),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "modal-body" }, [
+                      _c(
+                        "div",
+                        {
+                          staticClass: "form-group row justify-content-center"
+                        },
+                        [
+                          _c(
+                            "div",
+                            { staticClass: "col-md-6" },
+                            [
+                              _c("label", { attrs: { for: "name" } }, [
+                                _vm._v("Ciclos")
+                              ]),
+                              _vm._v(" "),
+                              _c("multiselect", {
+                                attrs: {
+                                  options: _vm.cicles,
+                                  multiple: false,
+                                  "close-on-select": false,
+                                  "clear-on-select": false,
+                                  "preserve-search": true,
+                                  placeholder: "Seleccione una o varias",
+                                  label: "text",
+                                  "track-by": "id",
+                                  "preselect-first": true
+                                },
+                                scopedSlots: _vm._u(
+                                  [
+                                    {
+                                      key: "selection",
+                                      fn: function(ref) {
+                                        var values = ref.values
+                                        var isOpen = ref.isOpen
+                                        return [
+                                          values.length && !isOpen
+                                            ? _c(
+                                                "span",
+                                                {
+                                                  staticClass:
+                                                    "multiselect__single"
+                                                },
+                                                [
+                                                  _vm._v(
+                                                    _vm._s(values.length) +
+                                                      " opciones\n                                            selecionadas"
+                                                  )
+                                                ]
+                                              )
+                                            : _vm._e()
+                                        ]
+                                      }
+                                    }
+                                  ],
+                                  null,
+                                  false,
+                                  2392852366
+                                ),
+                                model: {
+                                  value: _vm.ciclesData,
+                                  callback: function($$v) {
+                                    _vm.ciclesData = $$v
+                                  },
+                                  expression: "ciclesData"
+                                }
+                              })
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            { staticClass: "col-md-6" },
+                            [
+                              _c("label", { attrs: { for: "name" } }, [
+                                _vm._v("Clases")
+                              ]),
+                              _vm._v(" "),
+                              _c("multiselect", {
+                                attrs: {
+                                  options: _vm.clasesByCicles,
+                                  multiple: true,
+                                  "close-on-select": false,
+                                  "clear-on-select": false,
+                                  "preserve-search": true,
+                                  placeholder: "Seleccione una o varias",
+                                  label: "text",
+                                  "track-by": "id",
+                                  "preselect-first": true
+                                },
+                                scopedSlots: _vm._u(
+                                  [
+                                    {
+                                      key: "selection",
+                                      fn: function(ref) {
+                                        var values = ref.values
+                                        var isOpen = ref.isOpen
+                                        return [
+                                          values.length && !isOpen
+                                            ? _c(
+                                                "span",
+                                                {
+                                                  staticClass:
+                                                    "multiselect__single"
+                                                },
+                                                [
+                                                  _vm._v(
+                                                    _vm._s(values.length) +
+                                                      " opciones\n                                            selecionadas"
+                                                  )
+                                                ]
+                                              )
+                                            : _vm._e()
+                                        ]
+                                      }
+                                    }
+                                  ],
+                                  null,
+                                  false,
+                                  2392852366
+                                ),
+                                model: {
+                                  value: _vm.clasesByCiclesData,
+                                  callback: function($$v) {
+                                    _vm.clasesByCiclesData = $$v
+                                  },
+                                  expression: "clasesByCiclesData"
+                                }
+                              })
+                            ],
+                            1
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _vm._m(3)
+                    ])
+                  ]
+                )
+              ])
             ])
           ])
-        ])
-      ])
+        ],
+        1
+      )
     : _vm.createClas === "show"
     ? _c(
         "div",
@@ -643,6 +743,14 @@ var render = function() {
     : _vm._e()
 }
 var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card-center" }, [
+      _c("label", { staticClass: "card-text" }, [_vm._v("Mis estudiantes")])
+    ])
+  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -687,6 +795,28 @@ var staticRenderFns = [
 render._withStripped = true
 
 
+
+/***/ }),
+
+/***/ "./resources/js/assets/img/my_classes.png":
+/*!************************************************!*\
+  !*** ./resources/js/assets/img/my_classes.png ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "/images/my_classes.png?167bb99c2b2d48d387a6e3cdd4a890f9";
+
+/***/ }),
+
+/***/ "./resources/js/assets/img/table_my_classes.png":
+/*!******************************************************!*\
+  !*** ./resources/js/assets/img/table_my_classes.png ***!
+  \******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "/images/table_my_classes.png?0e9c5d1a0be59410854a0e6ba45a0eab";
 
 /***/ }),
 

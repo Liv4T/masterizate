@@ -361,7 +361,7 @@ var render = function() {
           _vm._v(" "),
           _c("div", [
             _vm.activetab === 1
-              ? _c("div", { staticClass: "tabcontent" }, [
+              ? _c("div", [
                   _vm.idArea != "" && _vm.user.type_user === 7
                     ? _c(
                         "div",

@@ -141,7 +141,7 @@
         <div class="col footer-col">
           <p>Únete a nuestra comunidad</p>
         </div>
-        <div class="col footer-col2">Segerencias</div>
+        <div class="col footer-col2">Sugerencias</div>
         <div class="col footer-col2">Contáctanos</div>
       </div>
     </footer>

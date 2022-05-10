@@ -1,10 +1,32 @@
 <template>
     <div v-if="createClas === 'hide'">
-        <h3 v-show="user.type_user === 7" class="card-header fondo" data-v-step="0">Mis Cursos</h3>
+        <div class="card-header text-center fondo row" data-v-step="0">
+            <div class="card-center">
+                <label class="card-text">Mis estudiantes</label>
+            </div>
+            <div style="margin-left:auto">
+                <a class="btn" @click="toggle">
+                    <i class="fa fa-question-circle" style="font-size:35px; color:#278080;"></i>
+                </a>
+            </div>
+        </div>
+        <tour-configuration :step="steps" :condition="condition"></tour-configuration>
+        <Drawer @close="toggle" align="right" :maskClosable="true" :zIndex="1003" :closeable="true">
+            <div v-if="open">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h1>Mis clases</h1>
+                        <p>Desde aquí podrás crear tus clases, haciendo click en el botón de "Crear clase" te lleva al formulario para crear la clase.</p>
+                        <img src="../assets/img/my_classes.png" alt="my_classes" width="350px" height="350px" style="margin-bottom:10px">
+                        <p>En la parte inferior hay una tabla donde se listan las clases creadas.</p>
+                        <img src="../assets/img/table_my_classes.png" alt="table_my_classes" width="350px" height="350px" style="margin-bottom:10px">
+                    </div>
+                </div>
+            </div>
+        </Drawer>
         <div class="row justify-content-center">
-            <div id="crud" class="col-sm-12">
+            <div id="crud" class="col-sm-12" style="padding: 0;">
                 <div class="card text-center">
-                    <tour-configuration :step="steps" :condition="condition"></tour-configuration>
                     <span class="classroom-label">{{ nameArea }}</span>
                     <div class="card-body">
                         <div class="text-left">
@@ -98,6 +120,7 @@
     import {
         RsiIndicator
     } from "@syncfusion/ej2-vue-charts";
+    import Drawer from "vue-simple-drawer";
     export default {
         props: ["idAreas","idClassroom","user"],
         data() {
@@ -121,13 +144,14 @@
                 id_classroom: "",
                 createClas: 'hide',
                 idClass:"",
+                open: false,
                 steps: [
                     {
                         target: '[data-v-step="0"]',
                         header: {
                             title: 'Mis clases',
                         },
-                        content: `Desde aqui podras <strong>crear tus clases</strong> para cada programa!`,
+                        content: `Desde aquí podrás <strong>crear tus clases</strong> para cada programa!`,
                         params: {
                             placement: 'bottom', // Any valid Popper.js placement. See https://popper.js.org/popper-documentation.html#Popper.placements
                             enableScrolling: false
@@ -143,7 +167,7 @@
                     },
                     {
                         target: '[data-v-step="2"]',
-                        content: 'Aqui puedes crear tus clases haciendo click en el botón!',
+                        content: 'Aquí puedes crear tus clases haciendo click en el botón!',
                         params: {
                             placement: 'top', // Any valid Popper.js placement. See https://popper.js.org/popper-documentation.html#Popper.placements
                             enableScrolling: false
@@ -152,6 +176,9 @@
                 ],
                 condition:"my_classes",
             };
+        },
+        components: {
+            Drawer,
         },
         created() {},
         mounted() {
@@ -170,6 +197,9 @@
                 this.areas = [];
                 this.getClasses();
 
+            },
+            toggle() {
+                this.open = !this.open;
             },
             enabledClass: function (clas) {
                 axios.put(`/api/admin/module/${this.id_module}/class/${clas.id}/close`).then(response => {

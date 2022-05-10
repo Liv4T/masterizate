@@ -262,7 +262,7 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
         header: {
           title: 'Planificación general'
         },
-        content: "Desde aqui podras <strong>crear la planificaci\xF3n general</strong> para cada programa!",
+        content: "Desde aqu\xED podr\xE1s <strong>crear la planificaci\xF3n general</strong> para cada programa!",
         params: {
           placement: 'bottom',
           // Any valid Popper.js placement. See https://popper.js.org/popper-documentation.html#Popper.placements
@@ -286,7 +286,7 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
         }
       }, {
         target: '[data-v-step="3"]',
-        content: 'Este campo repesenta el nombre de la planificación.',
+        content: 'Este campo representa el nombre de la planificación.',
         params: {
           placement: 'top',
           // Any valid Popper.js placement. See https://popper.js.org/popper-documentation.html#Popper.placements

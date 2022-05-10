@@ -129,7 +129,7 @@
         "subject":"Asunto",
         "date":"Fecha",
         "action":"Acción",
-        "findByClassroom":"Buscar Por Salon",
+        "findByClassroom":"Buscar Por Programa",
         "findByName":"Buscar Por Nombre",
         "back_to":"Volver",
         "message_viewed": "Mensaje Visto"

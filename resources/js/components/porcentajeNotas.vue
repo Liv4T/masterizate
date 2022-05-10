@@ -250,7 +250,7 @@ export default {
                 header: {
                     title: 'Evaluación',
                 },
-                content: `Desde aqui podras <strong>crear las evaluaciones que luego podras vincular a cada actividad, asi podras evaluar las actividades</strong>, solo debes hacer click sobre el nombre de la planificación (la evaluación se crea a una planificación general)`,
+                content: `Para crear evaluaciones debe haber creado un programa anual en la pestaña de Programa. Desde aquí podrás <strong>crear las evaluaciones que luego podrás vincular a cada actividad, asi podrás evaluar las actividades</strong>, solo debes hacer click sobre el nombre de la planificación (las evaluaciones estan atadas a la planificación general)`,
                 params: {
                     placement: 'bottom', // Any valid Popper.js placement. See https://popper.js.org/popper-documentation.html#Popper.placements
                     enableScrolling: false

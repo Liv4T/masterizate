@@ -238,7 +238,7 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
       header: {
         title: 'Evaluación'
       },
-      content: "Desde aqui podras <strong>crear las evaluaciones que luego podras vincular a cada actividad, asi podras evaluar las actividades</strong>, solo debes hacer click sobre el nombre de la planificaci\xF3n (la evaluaci\xF3n se crea a una planificaci\xF3n general)",
+      content: "Para crear evaluaciones debe haber creado un programa anual en la pesta\xF1a de Programa. Desde aqu\xED podr\xE1s <strong>crear las evaluaciones que luego podr\xE1s vincular a cada actividad, asi podr\xE1s evaluar las actividades</strong>, solo debes hacer click sobre el nombre de la planificaci\xF3n (las evaluaciones estan atadas a la planificaci\xF3n general)",
       params: {
         placement: 'bottom',
         // Any valid Popper.js placement. See https://popper.js.org/popper-documentation.html#Popper.placements

@@ -28,7 +28,7 @@
                     </p>
                 </div>
                 <div class="col footer-col2">
-                    Segerencias
+                    Sugerencias
                 </div>
                 <div class="col footer-col2">
                     Contáctanos

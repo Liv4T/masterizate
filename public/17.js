@@ -147,7 +147,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 
 Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___default.a);
@@ -172,7 +171,7 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
         header: {
           title: 'Mis programas'
         },
-        content: "Desde aqui podras <strong>crear tus programas</strong> y compartir el c\xF3digo con tus estudiantes para que puedan comenzar a ver tus clases!",
+        content: "Desde aqu\xED podr\xE1s <strong>crear tus programas</strong> y compartir el c\xF3digo con tus estudiantes para que puedan comenzar a ver tus clases!",
         params: {
           placement: 'bottom',
           // Any valid Popper.js placement. See https://popper.js.org/popper-documentation.html#Popper.placements
@@ -188,7 +187,7 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
         }
       }, {
         target: '[data-v-step="2"]',
-        content: 'Aqui podras ver tus códigos para cada programa y compartirlo con tus estudiantes, <strong>recuerda que cada código es unico para cada programa</strong>!',
+        content: 'Aquí podras ver tus códigos para cada programa y compartirlo con tus estudiantes, <strong>recuerda que cada código es unico para cada programa</strong>!',
         params: {
           placement: 'top',
           // Any valid Popper.js placement. See https://popper.js.org/popper-documentation.html#Popper.placements
@@ -196,7 +195,7 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
         }
       }, {
         target: '[data-v-step="3"]',
-        content: 'La categoría determina en que área se desarrollará el programa. Ejemplo: ingles, español, arte.',
+        content: 'La categoría determina en qué área se desarrollará el programa. Ejemplo: inglés, español, arte.',
         params: {
           placement: 'top',
           // Any valid Popper.js placement. See https://popper.js.org/popper-documentation.html#Popper.placements
@@ -204,7 +203,7 @@ Vue.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_0___defaul
         }
       }, {
         target: '[data-v-step="4"]',
-        content: 'Aqui puedes crear tus programas haciendo click en el botón!',
+        content: 'Aquí puedes crear tus programas haciendo click en el botón!',
         params: {
           placement: 'top',
           // Any valid Popper.js placement. See https://popper.js.org/popper-documentation.html#Popper.placements
@@ -522,13 +521,13 @@ var render = function() {
                         _vm._v(" "),
                         _c("p", [
                           _vm._v(
-                            "Genera tu programa permite crear, editar o eliminar tus aulas de clase para cada materia, es tan simple como llenar un formulario y listo!!"
+                            "Genera tu programa permite crear, editar o eliminar tu programa para cada materia, es tan simple como llenar un formulario y listo!!"
                           )
                         ]),
                         _vm._v(" "),
                         _c("p", [
                           _vm._v(
-                            'Haciendo click en el boton "Crear tu programa" se abrira una ventana para crear el Aula'
+                            'Haciendo click en el boton "Crear tu programa" se abrirá una ventana para crear el programa'
                           )
                         ]),
                         _vm._v(" "),
@@ -544,7 +543,7 @@ var render = function() {
                         _vm._v(" "),
                         _c("p", [
                           _vm._v(
-                            "Para crear el aula se debe rellenar los campos Nombre, Descripcion y Categoría a asignar el código."
+                            "Para crear el aula se debe rellenar los campos Nombre, Descripción y Categoría a asignar el código."
                           )
                         ]),
                         _vm._v(" "),
@@ -556,7 +555,7 @@ var render = function() {
                         _vm._v(" "),
                         _c("p", [
                           _vm._v(
-                            "En la Descripcion se sugiere agregar una pequeña descripcion del contenido del programa."
+                            "En la Descripcion se sugiere agregar una pequeña descripcion del contenido."
                           )
                         ]),
                         _vm._v(" "),
@@ -578,7 +577,7 @@ var render = function() {
                         _vm._v(" "),
                         _c("p", [
                           _vm._v(
-                            "Al crear un programa se genera un código que se debe enviar a los estudiantes para que puedan vincularse al programa y comenzar con las clases."
+                            "Al crear un programa se genera un código que se debe enviar a los estudiantes para que puedan vincularse y comenzar con las clases."
                           )
                         ]),
                         _vm._v(" "),
@@ -586,7 +585,17 @@ var render = function() {
                           _vm._v(
                             "Una vez creados los programas se pueden observar en el listado, allí se encuentra el código de cada programa que debemos compartir con los estudiantes."
                           )
-                        ])
+                        ]),
+                        _vm._v(" "),
+                        _c("img", {
+                          staticStyle: { "margin-bottom": "10px" },
+                          attrs: {
+                            src: __webpack_require__(/*! ../assets/img/program_list.png */ "./resources/js/assets/img/program_list.png"),
+                            alt: "program_list",
+                            width: "350px",
+                            height: "350px"
+                          }
+                        })
                       ])
                     ])
                   ])
@@ -671,19 +680,6 @@ var render = function() {
                           }
                         },
                         [_vm._v("Editar")]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-danger",
-                          on: {
-                            click: function($event) {
-                              return _vm.dropCode(code.id)
-                            }
-                          }
-                        },
-                        [_vm._v("Eliminar")]
                       )
                     ])
                   ])
@@ -1042,6 +1038,17 @@ render._withStripped = true
 /***/ (function(module, exports) {
 
 module.exports = "/images/form_create_program.png?db296af26667774d27ce881776cd78fe";
+
+/***/ }),
+
+/***/ "./resources/js/assets/img/program_list.png":
+/*!**************************************************!*\
+  !*** ./resources/js/assets/img/program_list.png ***!
+  \**************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "/images/program_list.png?64065855ace2a07b6f5ac968b60b3f37";
 
 /***/ }),
 

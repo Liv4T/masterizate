@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <ckeditor :editor="editor" v-model="editorData" @ready="onReady"></ckeditor>
+    <button v-on:click="emptyEditor()">Limpiar texto</button>
     <input type="submit" @click="createBoard" class="btn btn-warning" value="Guardar" />
     <a class="etiqueta" v-show="download!=''" :href="download" download>Descargar</a>
   </div>
@@ -14,7 +15,7 @@ export default {
   data() {
     return {
       editor: DecoupledEditor,
-      editorData: "<p>Escribir...</p>",
+      editorData: "<p>Escribe aquí</p>",
       dataBoard: {},
       download: ""
       // ...
@@ -29,6 +30,9 @@ export default {
           editor.ui.view.toolbar.element,
           editor.ui.getEditableElement()
         );
+    },
+    emptyEditor() {
+        this.editorData = '';
     },
     createBoard() {
       console.log("data: ", this.editorData);

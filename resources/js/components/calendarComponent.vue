@@ -140,9 +140,9 @@ export default {
             {
                 target: '[data-v-step="0"]',
                 header: {
-                    title: 'Calendario',
+                    title: 'Calendario Docente',
                 },
-                content: `El calendario muestra las proximas clases a los estudiantes, asi puede organizar sus siguientes clases y conocer los horarios de las mismas.`,
+                content: `El calendario muestra las próximas clases a los estudiantes, así puede organizar sus siguientes clases y conocer los horarios de las mismas.`,
                 params: {
                     placement: 'bottom', // Any valid Popper.js placement. See https://popper.js.org/popper-documentation.html#Popper.placements
                     enableScrolling: false
@@ -150,7 +150,7 @@ export default {
             },
             {
                 target: '[data-v-step="1"]',
-                content: 'El calendario se puede ver Menusal o Semanal segun los gustos del esudiante.',
+                content: 'El calendario se puede ver Mensual o Semanal según los gustos del estudiante.',
                 params: {
                     placement: 'top', // Any valid Popper.js placement. See https://popper.js.org/popper-documentation.html#Popper.placements
                     enableScrolling: false,
@@ -158,7 +158,7 @@ export default {
             },
             {
                 target: '[data-v-step="2"]',
-                content: 'Aqui ademas del calendario tambien se listan las siguientes clases a partir de la fecha y hora actual, es decir si la clase ya terminó no aparecerá en el listado.',
+                content: 'Aquí además del calendario, también se listan las siguientes clases a partir de la fecha y hora actual, es decir si la clase ya terminó no aparecerá en el listado.',
                 params: {
                     placement: 'top', // Any valid Popper.js placement. See https://popper.js.org/popper-documentation.html#Popper.placements
                     enableScrolling: true,

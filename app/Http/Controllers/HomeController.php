@@ -79,12 +79,12 @@ class HomeController extends Controller
         header("Content-disposition: attachment; filename=" . date("Y-m-d") . ".docx");
 
         $objectWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'Word2007');
-        $name_doc = "liv4tskool-" . Auth::user()->id . ".docx";
+        $name_doc = "masterizate-" . Auth::user()->id . ".docx";
         $objectWriter->save($name_doc);
     }
     public function downloadFile()
     {
-        $name_doc = "liv4tskool-" . Auth::user()->id . ".docx";
+        $name_doc = "masterizate-" . Auth::user()->id . ".docx";
         $pathtoFile = public_path() . '/' . $name_doc;
         // var_dump($pathtoFile);
         // die;

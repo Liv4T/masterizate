@@ -18,7 +18,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <h1>Mensajes enviados</h1>
-                            <p>Aqui se puede observar los mensajes enviados y el estado en el que se encuentra el mensaje.</p>
+                            <p>Aquí se puede observar los mensajes enviados y el estado en el que se encuentra el mensaje.</p>
                             <img src="../assets/img/send_messages.png" alt="send_messages" width="350px" height="350px" style="margin-bottom:10px">
                             <p>Es posible actualizar los mensajes enviados al destinatario, en la accion existe un botón que abre una ventana para actuaizar el mensaje.</p>
                             <img src="../assets/img/modal_update_message.png" alt="modal_update_message" width="350px" height="350px" style="margin-bottom:10px">

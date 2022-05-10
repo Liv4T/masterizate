@@ -18,7 +18,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <h1>Mis estudiantes</h1>
-                                <p>El modulo mis estudiantes permite ver a todos los estudiantes vinculados a cada aula de clase.</p>
+                                <p>El módulo mis estudiantes permite únicamente ver a todos los estudiantes vinculados a cada aula de clase.</p>
                                 <img src="../assets/img/my_students.png" alt="my_students" width="350px" height="350px" style="margin-bottom:10px">
                                 <p>Se listan todas las aulas de clase de cada tutor y haciendo click sobre una en especifico se abre un listado de estudiantes vinculados a esa aula.</p>
                                 <img src="../assets/img/student_list.png" alt="student_list" width="350px" height="350px" style="margin-bottom:10px">
@@ -82,7 +82,7 @@
                         header: {
                             title: 'Mis estudiantes',
                         },
-                        content: `Desde aqui podras <strong>ver el listado de programas con los estudiantes vinculados a cada programa</strong>, solo debes hacer click sobre el nombre del programa y se desplegará un listado con los estudiantes vinculados!`,
+                        content: `Desde aquí podrás <strong>ver el listado de programas con los estudiantes vinculados a cada programa</strong>, solo debes hacer click sobre el nombre del programa y se desplegará un listado con los estudiantes vinculados!`,
                         params: {
                             placement: 'bottom', // Any valid Popper.js placement. See https://popper.js.org/popper-documentation.html#Popper.placements
                             enableScrolling: false

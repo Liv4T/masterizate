@@ -263,7 +263,7 @@ export default {
                     header: {
                         title: 'Planificación general',
                     },
-                    content: `Desde aqui podras <strong>crear la planificación general</strong> para cada programa!`,
+                    content: `Desde aquí podrás <strong>crear la planificación general</strong> para cada programa!`,
                     params: {
                         placement: 'bottom', // Any valid Popper.js placement. See https://popper.js.org/popper-documentation.html#Popper.placements
                         enableScrolling: false
@@ -287,7 +287,7 @@ export default {
                 },
                 {
                     target: '[data-v-step="3"]',
-                    content: 'Este campo repesenta el nombre de la planificación.',
+                    content: 'Este campo representa el nombre de la planificación.',
                     params: {
                         placement: 'top', // Any valid Popper.js placement. See https://popper.js.org/popper-documentation.html#Popper.placements
                         enableScrolling: false
