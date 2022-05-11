@@ -1,867 +1,1150 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[26],{
 
-/***/ "./node_modules/@syncfusion/ej2-vue-buttons/index.js":
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/porcentajeNotas.vue?vue&type=script&lang=js&":
+/*!**************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/porcentajeNotas.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vue_form_wizard__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-form-wizard */ "./node_modules/vue-form-wizard/dist/vue-form-wizard.js");
+/* harmony import */ var vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vue_form_wizard_dist_vue_form_wizard_min_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-form-wizard/dist/vue-form-wizard.min.css */ "./node_modules/vue-form-wizard/dist/vue-form-wizard.min.css");
+/* harmony import */ var vue_form_wizard_dist_vue_form_wizard_min_css__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue_form_wizard_dist_vue_form_wizard_min_css__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var vue_simple_drawer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue-simple-drawer */ "./node_modules/vue-simple-drawer/dist/vue-simple-drawer.umd.min.js");
+/* harmony import */ var vue_simple_drawer__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(vue_simple_drawer__WEBPACK_IMPORTED_MODULE_2__);
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+(function () {
+  "use strict";
+
+  window.addEventListener("load", function () {
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    var forms = document.getElementsByClassName("needs-validation"); // Loop over them and prevent submission
+
+    var validation = Array.prototype.filter.call(forms, function (form) {
+      form.addEventListener("submit", function (event) {
+        if (form.checkValidity() === false) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+
+        form.classList.add("was-validated");
+      }, false);
+    });
+  }, false);
+})();
+
+$(function () {
+  // Get the form fields and hidden div
+  var checkbox = $("#gridCheck1");
+  var hidden = $("#hidden_fields1");
+  hidden.hide();
+  checkbox.change(function () {
+    if (checkbox.is(":checked")) {
+      // Show the hidden fields.
+      hidden.show();
+    } else {
+      hidden.hide();
+    }
+  });
+});
+
+
+
+Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ["idArea"],
+  data: function data() {
+    var _ref;
+
+    return _ref = {
+      inputs: [{
+        name: "",
+        contenido: ""
+      }],
+      inputs1: [{
+        name: "",
+        porcentaje: ""
+      }],
+      newTrimestre: [],
+      tipo_act: "",
+      porcentaje: ""
+    }, _defineProperty(_ref, "newTrimestre", []), _defineProperty(_ref, "newLogro", []), _defineProperty(_ref, "trimestre", false), _defineProperty(_ref, "logro_1", ""), _defineProperty(_ref, "logro_2", ""), _defineProperty(_ref, "logro_3", ""), _defineProperty(_ref, "logro_4", ""), _defineProperty(_ref, "fillC", []), _defineProperty(_ref, "fillI", []), _defineProperty(_ref, "anual", []), _defineProperty(_ref, "newAnual", []), _defineProperty(_ref, "errors", []), _defineProperty(_ref, "id_logro", ""), _defineProperty(_ref, "id_indicator", 0), _defineProperty(_ref, "index", 0), _defineProperty(_ref, "areaId", ""), _defineProperty(_ref, "id_quarterly_plan", ""), _defineProperty(_ref, "id_achievement", ""), _defineProperty(_ref, "open", false), _defineProperty(_ref, "steps", [{
+      target: '[data-v-step="0"]',
+      header: {
+        title: 'Evaluación'
+      },
+      content: "Para crear evaluaciones debe haber creado un programa anual en la pesta\xF1a de Programa. Desde aqu\xED podr\xE1s <strong>crear las evaluaciones que luego podr\xE1s vincular a cada actividad, asi podr\xE1s evaluar las actividades</strong>, solo debes hacer click sobre el nombre de la planificaci\xF3n (las evaluaciones estan atadas a la planificaci\xF3n general)",
+      params: {
+        placement: 'bottom',
+        // Any valid Popper.js placement. See https://popper.js.org/popper-documentation.html#Popper.placements
+        enableScrolling: false
+      }
+    }, {
+      target: '[data-v-step="1"]',
+      content: "Haciendo click en el nombre de la planificaci\xF3n general, se abrir\xE1 un listado con las evaluaciones creadas, en caso de no tener ninguna solo aparecer\xE1 el bot\xF3n para crear una nueva.",
+      params: {
+        placement: 'top',
+        // Any valid Popper.js placement. See https://popper.js.org/popper-documentation.html#Popper.placements
+        enableScrolling: false
+      }
+    }, {
+      target: '[data-v-step="2"]',
+      content: "El bot\xF3n \"Agregar\" permite crear una nueva evaluaci\xF3n.",
+      params: {
+        placement: 'top',
+        // Any valid Popper.js placement. See https://popper.js.org/popper-documentation.html#Popper.placements
+        enableScrolling: false
+      }
+    }]), _defineProperty(_ref, "condition", "evaluation"), _ref;
+  },
+  components: {
+    Drawer: vue_simple_drawer__WEBPACK_IMPORTED_MODULE_2___default.a
+  },
+  watch: {
+    idArea: function idArea(newVal, oldVal) {
+      if (newVal !== oldVal) {
+        this.getIdUrl();
+        this.getData();
+      }
+    }
+  },
+  mounted: function mounted() {
+    this.getIdUrl();
+    this.getData();
+  },
+  methods: {
+    toggle: function toggle() {
+      this.open = !this.open;
+    },
+    getIdUrl: function getIdUrl() {
+      if (this.idArea === undefined) {
+        var params = window.location.pathname;
+        var ids = params.split('/');
+        var idArea = ids[2] + "/" + ids[3];
+        this.areaId = idArea;
+        console.log('Url actual', idArea);
+      } else {
+        this.areaId = this.idArea;
+      }
+    },
+    getData: function getData() {
+      var _this = this;
+
+      var urlsel = window.location.origin + "/coursePlanification/" + this.areaId;
+      axios.get(urlsel).then(function (response) {
+        _this.fillC = response.data;
+        console.log('fills', _this.fillC);
+      });
+    },
+    getMenu: function getMenu() {
+      window.location = "/actividad_g";
+    },
+    indicador: function indicador(id) {
+      var _this2 = this;
+
+      var urli = window.location.origin + "/getIndicator/" + id;
+      axios.get(urli).then(function (response) {
+        _this2.fillI = response.data;
+        console.log(_this2.fillI);
+      });
+    },
+    add: function add(index) {
+      this.inputs.push({
+        name: "",
+        contenido: ""
+      });
+    },
+    remove: function remove(index) {
+      this.inputs.splice(index, 1);
+    },
+    add1: function add1(index) {
+      this.inputs1.push({
+        name: "",
+        porcentaje: ""
+      });
+    },
+    remove1: function remove1(index) {
+      this.inputs1.splice(index, 1);
+    },
+    createIndicator: function createIndicator() {
+      var _this3 = this;
+
+      var url = window.location.origin + "/saveIndicator";
+      axios.post(url, {
+        //Cursos generales
+        id_indicator: this.id_indicator,
+        type_activity: this.tipo_act,
+        id_annual: this.id_annual,
+        id_quarterly_plan: this.id_quarterly_plan,
+        id_achievement: this.id_achievement,
+        activity_rate: this.porcentaje
+      }).then(function (response) {
+        _this3.errors = [];
+        toastr.success("Nueva actividad creada exitosamente");
+
+        _this3.indicador(_this3.id_achievement);
+
+        $('#createZ').modal('hide');
+      })["catch"](function (error) {
+        _this3.errors = error.response.data;
+      });
+    },
+    updateCourses: function updateCourses() {
+      window.location = "/actividad_g";
+    },
+    editNames: function editNames(id, annual) {
+      this.id_indicator = 0;
+      this.id_quarterly_plan = 0;
+      this.id_achievement = id;
+      this.id_annual = annual;
+      this.tipo_act = "";
+      this.porcentaje = "";
+      $("#createZ").modal("show");
+    },
+    showEdit: function showEdit(id_porcentaje, tipo_act, porcentaje) {
+      this.id_indicator = id_porcentaje;
+      this.tipo_act = tipo_act;
+      this.porcentaje = porcentaje;
+      $("#createZ").modal("show");
+    },
+    removePercentage: function removePercentage(index, id_indicator) {
+      this.id_indicator = id_indicator;
+      this.index = index;
+      $("#deleteZ").modal("show");
+    },
+    deleteIndicator: function deleteIndicator() {
+      var _this4 = this;
+
+      var url = window.location.origin + "/deleteIndicator";
+      $("#deleteZ").modal("hide");
+      axios.post(url, {
+        //Eliminar indicador
+        id_indicator: this.id_indicator
+      }).then(function (response) {
+        _this4.errors = [];
+        toastr.success("Actividad eliminada exitosamente");
+
+        _this4.fillI.splice(_this4.index, 1);
+      })["catch"](function (error) {
+        _this4.errors = error.response.data;
+      });
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/porcentajeNotas.vue?vue&type=template&id=23a35049&":
+/*!******************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/porcentajeNotas.vue?vue&type=template&id=23a35049& ***!
+  \******************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _vm._m(0),
+    _vm._v(" "),
+    _c("div", [
+      _c("div", { staticClass: "row" }, [
+        _c(
+          "div",
+          { staticClass: "col-md-11 mx-auto" },
+          [
+            _c(
+              "div",
+              {
+                staticClass: "card-header text-center fondo row",
+                attrs: { "data-v-step": "0" }
+              },
+              [
+                _vm._m(1),
+                _vm._v(" "),
+                _c("div", { staticStyle: { "margin-left": "auto" } }, [
+                  _c("a", { staticClass: "btn", on: { click: _vm.toggle } }, [
+                    _c("i", {
+                      staticClass: "fa fa-question-circle",
+                      staticStyle: { "font-size": "35px", color: "#278080" }
+                    })
+                  ])
+                ])
+              ]
+            ),
+            _vm._v(" "),
+            _c("tour-configuration", {
+              attrs: { step: _vm.steps, condition: _vm.condition }
+            }),
+            _vm._v(" "),
+            _c(
+              "Drawer",
+              {
+                attrs: {
+                  align: "right",
+                  maskClosable: true,
+                  zIndex: 1003,
+                  closeable: true
+                },
+                on: { close: _vm.toggle }
+              },
+              [
+                _vm.open
+                  ? _c("div", [
+                      _c("div", { staticClass: "row" }, [
+                        _c("div", { staticClass: "col-md-12" }, [
+                          _c("h1", [_vm._v("Evaluación")]),
+                          _vm._v(" "),
+                          _c("p", [
+                            _vm._v(
+                              "Las evaluaciones se crean para agregarlas a las actividades cuando creamos las clases, es necesario para evaluar las actividades."
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("p", [
+                            _vm._v(
+                              "Para agregar actividades debe hacer click sobre el nombre de la planificación general a la cual quiere crear evaluaciones y posteriormente hacer click en el botón agregar."
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("img", {
+                            staticStyle: { "margin-bottom": "10px" },
+                            attrs: {
+                              src: __webpack_require__(/*! ../assets/img/evaluation.png */ "./resources/js/assets/img/evaluation.png"),
+                              alt: "evaluation",
+                              width: "350px",
+                              height: "350px"
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("p", [
+                            _vm._v(
+                              "Luego de hacer click en el botón agregar se despliega una ventana que solicita el tipo de actividad y el porcentaje total de la nota."
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("img", {
+                            staticStyle: { "margin-bottom": "10px" },
+                            attrs: {
+                              src: __webpack_require__(/*! ../assets/img/modal_evaluation.png */ "./resources/js/assets/img/modal_evaluation.png"),
+                              alt: "modal_evaluation",
+                              width: "350px",
+                              height: "350px"
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("p", [
+                            _vm._v(
+                              "Al completar los campos solo debe hacer click en el botón de guardar, la evaluación se guardara y quedará visible en el listado de evaluaciones en la planificación a la cual le asignó la evaluación."
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("img", {
+                            staticStyle: { "margin-bottom": "10px" },
+                            attrs: {
+                              src: __webpack_require__(/*! ../assets/img/evaluation_list.png */ "./resources/js/assets/img/evaluation_list.png"),
+                              alt: "evaluation_list",
+                              width: "350px",
+                              height: "350px"
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("p", [
+                            _vm._v(
+                              "La evaluación se usa para crear actividades, al momento de crear la actividad se debe seleccionar la planificación general y alguna de las evaluaciones que se han creado para esa planificación."
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("img", {
+                            staticStyle: { "margin-bottom": "10px" },
+                            attrs: {
+                              src: __webpack_require__(/*! ../assets/img/activities_evaluation.png */ "./resources/js/assets/img/activities_evaluation.png"),
+                              alt: "activities_evaluation",
+                              width: "350px",
+                              height: "350px"
+                            }
+                          })
+                        ])
+                      ])
+                    ])
+                  : _vm._e()
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "form",
+              {
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value: _vm.trimestre == false,
+                    expression: "trimestre == false"
+                  }
+                ],
+                staticClass: "needs-validation",
+                attrs: { novalidate: "" }
+              },
+              [
+                _c(
+                  "form-wizard",
+                  {
+                    attrs: {
+                      title: "",
+                      subtitle: "",
+                      color: "#ffc107",
+                      "next-button-text": "Siguiente",
+                      "back-button-text": "Atrás",
+                      "finish-button-text": "Guardar"
+                    },
+                    on: { "on-complete": _vm.updateCourses }
+                  },
+                  [
+                    _c(
+                      "tab-content",
+                      { attrs: { title: "Porcentaje de notas" } },
+                      [
+                        _c("div", { staticClass: "card-body" }, [
+                          _c(
+                            "div",
+                            {
+                              staticClass: "accordion",
+                              attrs: { id: "accordionExample" }
+                            },
+                            _vm._l(_vm.fillC.achievements, function(option, t) {
+                              return _c(
+                                "div",
+                                { key: t, staticClass: "card" },
+                                [
+                                  _c(
+                                    "div",
+                                    { staticClass: "card-header text-center" },
+                                    [
+                                      _c(
+                                        "h2",
+                                        {
+                                          staticClass: "mb-0",
+                                          attrs: { "data-v-step": "1" }
+                                        },
+                                        [
+                                          _c(
+                                            "button",
+                                            {
+                                              staticClass: "btn btn-link",
+                                              attrs: {
+                                                type: "button",
+                                                "data-toggle": "collapse",
+                                                "data-target": "#collapse" + t,
+                                                "aria-expanded": "false",
+                                                "aria-controls": "collapse"
+                                              },
+                                              on: {
+                                                click: function($event) {
+                                                  $event.preventDefault()
+                                                  return _vm.indicador(
+                                                    option.id
+                                                  )
+                                                }
+                                              }
+                                            },
+                                            [
+                                              _c(
+                                                "label",
+                                                {
+                                                  staticStyle: {
+                                                    "text-overflow": "ellipsis",
+                                                    width: "450px",
+                                                    "white-space": "nowrap",
+                                                    overflow: "hidden"
+                                                  }
+                                                },
+                                                [
+                                                  _vm._v(
+                                                    _vm._s(option.achievement)
+                                                  )
+                                                ]
+                                              )
+                                            ]
+                                          )
+                                        ]
+                                      )
+                                    ]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "div",
+                                    {
+                                      staticClass: "collapse hide",
+                                      attrs: {
+                                        id: "collapse" + t,
+                                        "aria-labelledby": "heading",
+                                        "data-parent": "#accordionExample"
+                                      }
+                                    },
+                                    [
+                                      _c("div", { staticClass: "card-body" }, [
+                                        _c(
+                                          "table",
+                                          {
+                                            staticClass:
+                                              "table table-responsive-xl table-hover table-striped center"
+                                          },
+                                          [
+                                            _c(
+                                              "tbody",
+                                              [
+                                                _c("tr", [
+                                                  _c("td", [
+                                                    _vm._v("Actividad")
+                                                  ]),
+                                                  _vm._v(" "),
+                                                  _c("td", [
+                                                    _vm._v("Porcentaje")
+                                                  ]),
+                                                  _vm._v(" "),
+                                                  _c("td", [_vm._v("Editar")]),
+                                                  _vm._v(" "),
+                                                  _c("td", [_vm._v("Eliminar")])
+                                                ]),
+                                                _vm._v(" "),
+                                                _vm._l(_vm.fillI, function(
+                                                  opt,
+                                                  i
+                                                ) {
+                                                  return _c("tr", { key: i }, [
+                                                    _c("td", [
+                                                      _vm._v(
+                                                        _vm._s(
+                                                          opt.type_activity
+                                                        )
+                                                      )
+                                                    ]),
+                                                    _vm._v(" "),
+                                                    _c("td", [
+                                                      _vm._v(
+                                                        _vm._s(
+                                                          opt.activity_rate
+                                                        )
+                                                      )
+                                                    ]),
+                                                    _vm._v(" "),
+                                                    _c("td", [
+                                                      _c("a", {
+                                                        staticClass:
+                                                          "fas fa-edit",
+                                                        on: {
+                                                          click: function(
+                                                            $event
+                                                          ) {
+                                                            $event.preventDefault()
+                                                            return _vm.showEdit(
+                                                              opt.id,
+                                                              opt.type_activity,
+                                                              opt.activity_rate
+                                                            )
+                                                          }
+                                                        }
+                                                      })
+                                                    ]),
+                                                    _vm._v(" "),
+                                                    _c("td", [
+                                                      _c("a", {
+                                                        staticClass:
+                                                          "fas fa-trash-alt",
+                                                        on: {
+                                                          click: function(
+                                                            $event
+                                                          ) {
+                                                            $event.preventDefault()
+                                                            return _vm.removePercentage(
+                                                              i,
+                                                              opt.id
+                                                            )
+                                                          }
+                                                        }
+                                                      })
+                                                    ])
+                                                  ])
+                                                })
+                                              ],
+                                              2
+                                            )
+                                          ]
+                                        ),
+                                        _vm._v(" "),
+                                        _c(
+                                          "div",
+                                          { attrs: { align: "right" } },
+                                          [
+                                            _c(
+                                              "a",
+                                              {
+                                                staticClass: "btn btn-warning",
+                                                attrs: { "data-v-step": "2" },
+                                                on: {
+                                                  click: function($event) {
+                                                    $event.preventDefault()
+                                                    return _vm.editNames(
+                                                      option.id,
+                                                      option.id_planification
+                                                    )
+                                                  }
+                                                }
+                                              },
+                                              [_vm._v("Agregar")]
+                                            )
+                                          ]
+                                        )
+                                      ])
+                                    ]
+                                  )
+                                ]
+                              )
+                            }),
+                            0
+                          )
+                        ])
+                      ]
+                    )
+                  ],
+                  1
+                )
+              ],
+              1
+            )
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "modal fade", attrs: { id: "createZ" } }, [
+          _c("div", { staticClass: "modal-dialog" }, [
+            _c("div", { staticClass: "modal-content" }, [
+              _c("div", { staticClass: "card" }, [
+                _vm._m(2),
+                _vm._v(" "),
+                _c("div", { staticClass: "card-body" }, [
+                  _c(
+                    "form",
+                    {
+                      staticClass: "needs-validation",
+                      attrs: { novalidate: "" },
+                      on: {
+                        submit: function($event) {
+                          $event.preventDefault()
+                        }
+                      }
+                    },
+                    [
+                      _c("div", { staticClass: "form-group row mx-auto" }, [
+                        _c(
+                          "div",
+                          { staticClass: "col-md-8 text-center mx-auto" },
+                          [
+                            _c("label", { attrs: { for: "name" } }, [
+                              _vm._v("Tipo de actividad")
+                            ]),
+                            _vm._v(" "),
+                            _c("div", [
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.tipo_act,
+                                    expression: "tipo_act"
+                                  }
+                                ],
+                                staticClass: "form-control",
+                                staticStyle: { background: "gainsboro" },
+                                attrs: {
+                                  type: "text",
+                                  name: "objetive1",
+                                  required: ""
+                                },
+                                domProps: { value: _vm.tipo_act },
+                                on: {
+                                  input: function($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.tipo_act = $event.target.value
+                                  }
+                                }
+                              })
+                            ])
+                          ]
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "form-group row mx-auto" }, [
+                        _c(
+                          "div",
+                          { staticClass: "col-md-8 text-center mx-auto" },
+                          [
+                            _c("label", { attrs: { for: "name" } }, [
+                              _vm._v("Porcentaje total")
+                            ]),
+                            _vm._v(" "),
+                            _c("div", [
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.porcentaje,
+                                    expression: "porcentaje"
+                                  }
+                                ],
+                                staticClass: "form-control",
+                                staticStyle: { background: "gainsboro" },
+                                attrs: {
+                                  type: "number",
+                                  name: "objetive1",
+                                  required: ""
+                                },
+                                domProps: { value: _vm.porcentaje },
+                                on: {
+                                  input: function($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.porcentaje = $event.target.value
+                                  }
+                                }
+                              })
+                            ])
+                          ]
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "modal-footer" }, [
+                        _c("input", {
+                          staticClass: "btn btn-warning",
+                          attrs: { type: "submit", value: "Guardar" },
+                          on: {
+                            click: function($event) {
+                              $event.preventDefault()
+                              return _vm.createIndicator()
+                            }
+                          }
+                        })
+                      ])
+                    ]
+                  )
+                ])
+              ])
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "modal fade", attrs: { id: "deleteZ" } }, [
+          _c("div", { staticClass: "modal-dialog" }, [
+            _c("div", { staticClass: "modal-content" }, [
+              _c("div", { staticClass: "card" }, [
+                _vm._m(3),
+                _vm._v(" "),
+                _c("div", { staticClass: "card-body" }, [
+                  _c(
+                    "form",
+                    {
+                      staticClass: "needs-validation",
+                      attrs: { novalidate: "" },
+                      on: {
+                        submit: function($event) {
+                          $event.preventDefault()
+                        }
+                      }
+                    },
+                    [
+                      _c("label", [_vm._v("¿Desea eliminar el indicador?")]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "modal-footer" }, [
+                        _c("input", {
+                          staticClass: "btn btn-warning",
+                          attrs: { type: "submit", value: "Confirmar" },
+                          on: {
+                            click: function($event) {
+                              $event.preventDefault()
+                              return _vm.deleteIndicator()
+                            }
+                          }
+                        })
+                      ])
+                    ]
+                  )
+                ])
+              ])
+            ])
+          ])
+        ])
+      ])
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("head", [
+      _c("link", {
+        attrs: {
+          rel: "stylesheet",
+          href: "https://use.fontawesome.com/releases/v5.8.2/css/solid.css",
+          integrity:
+            "sha384-ioUrHig76ITq4aEJ67dHzTvqjsAP/7IzgwE7lgJcg2r7BRNGYSK0LwSmROzYtgzs",
+          crossorigin: "anonymous"
+        }
+      }),
+      _vm._v(" "),
+      _c("link", {
+        attrs: {
+          rel: "stylesheet",
+          href: "https://use.fontawesome.com/releases/v5.8.2/css/brands.css",
+          integrity:
+            "sha384-i2PyM6FMpVnxjRPi0KW/xIS7hkeSznkllv+Hx/MtYDaHA5VcF0yL3KVlvzp8bWjQ",
+          crossorigin: "anonymous"
+        }
+      }),
+      _vm._v(" "),
+      _c("link", {
+        attrs: {
+          rel: "stylesheet",
+          href:
+            "https://use.fontawesome.com/releases/v5.8.2/css/fontawesome.css",
+          integrity:
+            "sha384-sri+NftO+0hcisDKgr287Y/1LVnInHJ1l+XC7+FOabmTTIK0HnE2ID+xxvJ21c5J",
+          crossorigin: "anonymous"
+        }
+      })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card-center" }, [
+      _c("label", { staticClass: "card-text" }, [_vm._v("Evaluación")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("h3", { staticClass: "card-header fondo text-center" }, [
+      _vm._v("\n                Porcentaje\n                "),
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: { type: "button", "data-dismiss": "modal" }
+        },
+        [_c("span", [_vm._v("×")])]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("h3", { staticClass: "card-header fondo text-center" }, [
+      _vm._v("\n                Eliminar Indicador\n                "),
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: { type: "button", "data-dismiss": "modal" }
+        },
+        [_c("span", [_vm._v("×")])]
+      )
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./resources/js/assets/img/activities_evaluation.png":
 /*!***********************************************************!*\
-  !*** ./node_modules/@syncfusion/ej2-vue-buttons/index.js ***!
+  !*** ./resources/js/assets/img/activities_evaluation.png ***!
   \***********************************************************/
-/*! exports provided: wrapperInitialize, getTextNode, destroy, preRender, createCheckBox, rippleMouseHandler, setHiddenInput, buttonObserver, Button, CheckBox, RadioButton, Switch, classNames, ChipList, Chip, ButtonComponent, ButtonPlugin, CheckBoxComponent, CheckBoxPlugin, RadioButtonComponent, RadioButtonPlugin, SwitchComponent, SwitchPlugin, ChipsDirective, ChipDirective, ChipsPlugin, ChipPlugin, ChipListComponent, ChipListPlugin */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/*! no static exports found */
+/***/ (function(module, exports) {
 
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _src_index__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./src/index */ "./node_modules/@syncfusion/ej2-vue-buttons/src/index.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "wrapperInitialize", function() { return _src_index__WEBPACK_IMPORTED_MODULE_0__["wrapperInitialize"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getTextNode", function() { return _src_index__WEBPACK_IMPORTED_MODULE_0__["getTextNode"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "destroy", function() { return _src_index__WEBPACK_IMPORTED_MODULE_0__["destroy"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "preRender", function() { return _src_index__WEBPACK_IMPORTED_MODULE_0__["preRender"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "createCheckBox", function() { return _src_index__WEBPACK_IMPORTED_MODULE_0__["createCheckBox"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "rippleMouseHandler", function() { return _src_index__WEBPACK_IMPORTED_MODULE_0__["rippleMouseHandler"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "setHiddenInput", function() { return _src_index__WEBPACK_IMPORTED_MODULE_0__["setHiddenInput"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "buttonObserver", function() { return _src_index__WEBPACK_IMPORTED_MODULE_0__["buttonObserver"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Button", function() { return _src_index__WEBPACK_IMPORTED_MODULE_0__["Button"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "CheckBox", function() { return _src_index__WEBPACK_IMPORTED_MODULE_0__["CheckBox"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "RadioButton", function() { return _src_index__WEBPACK_IMPORTED_MODULE_0__["RadioButton"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Switch", function() { return _src_index__WEBPACK_IMPORTED_MODULE_0__["Switch"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "classNames", function() { return _src_index__WEBPACK_IMPORTED_MODULE_0__["classNames"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ChipList", function() { return _src_index__WEBPACK_IMPORTED_MODULE_0__["ChipList"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Chip", function() { return _src_index__WEBPACK_IMPORTED_MODULE_0__["Chip"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ButtonComponent", function() { return _src_index__WEBPACK_IMPORTED_MODULE_0__["ButtonComponent"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ButtonPlugin", function() { return _src_index__WEBPACK_IMPORTED_MODULE_0__["ButtonPlugin"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "CheckBoxComponent", function() { return _src_index__WEBPACK_IMPORTED_MODULE_0__["CheckBoxComponent"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "CheckBoxPlugin", function() { return _src_index__WEBPACK_IMPORTED_MODULE_0__["CheckBoxPlugin"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "RadioButtonComponent", function() { return _src_index__WEBPACK_IMPORTED_MODULE_0__["RadioButtonComponent"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "RadioButtonPlugin", function() { return _src_index__WEBPACK_IMPORTED_MODULE_0__["RadioButtonPlugin"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SwitchComponent", function() { return _src_index__WEBPACK_IMPORTED_MODULE_0__["SwitchComponent"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SwitchPlugin", function() { return _src_index__WEBPACK_IMPORTED_MODULE_0__["SwitchPlugin"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ChipsDirective", function() { return _src_index__WEBPACK_IMPORTED_MODULE_0__["ChipsDirective"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ChipDirective", function() { return _src_index__WEBPACK_IMPORTED_MODULE_0__["ChipDirective"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ChipsPlugin", function() { return _src_index__WEBPACK_IMPORTED_MODULE_0__["ChipsPlugin"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ChipPlugin", function() { return _src_index__WEBPACK_IMPORTED_MODULE_0__["ChipPlugin"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ChipListComponent", function() { return _src_index__WEBPACK_IMPORTED_MODULE_0__["ChipListComponent"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ChipListPlugin", function() { return _src_index__WEBPACK_IMPORTED_MODULE_0__["ChipListPlugin"]; });
-
-/**
- * index
- */
-
-
+module.exports = "/images/activities_evaluation.png?f3a55336a72b9cf6cd4f4b5d4b79c278";
 
 /***/ }),
 
-/***/ "./node_modules/@syncfusion/ej2-vue-buttons/src/button/button.component.js":
-/*!*********************************************************************************!*\
-  !*** ./node_modules/@syncfusion/ej2-vue-buttons/src/button/button.component.js ***!
-  \*********************************************************************************/
-/*! exports provided: properties, modelProps, ButtonComponent, ButtonPlugin */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ "./resources/js/assets/img/evaluation.png":
+/*!************************************************!*\
+  !*** ./resources/js/assets/img/evaluation.png ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
 
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "properties", function() { return properties; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "modelProps", function() { return modelProps; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ButtonComponent", function() { return ButtonComponent; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ButtonPlugin", function() { return ButtonPlugin; });
-/* harmony import */ var _syncfusion_ej2_vue_base__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @syncfusion/ej2-vue-base */ "./node_modules/@syncfusion/ej2-vue-base/index.js");
-/* harmony import */ var _syncfusion_ej2_buttons__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @syncfusion/ej2-buttons */ "./node_modules/@syncfusion/ej2-buttons/index.js");
-var __extends = (undefined && undefined.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    }
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-
-
-var properties = ['content', 'cssClass', 'disabled', 'enableHtmlSanitizer', 'enablePersistence', 'enableRtl', 'iconCss', 'iconPosition', 'isPrimary', 'isToggle', 'locale', 'created'];
-var modelProps = [];
-/**
- * Represents the Essential JS 2 VueJS Button Component
- * ```html
- * <ejs-button>Button</ejs-button>
- * ```
- */
-var ButtonComponent = /** @class */ (function (_super) {
-    __extends(ButtonComponent, _super);
-    function ButtonComponent() {
-        var _this = _super.call(this) || this;
-        _this.propKeys = properties;
-        _this.models = modelProps;
-        _this.hasChildDirective = false;
-        _this.hasInjectedModules = false;
-        _this.tagMapper = {};
-        _this.tagNameMapper = {};
-        _this.ej2Instances = new _syncfusion_ej2_buttons__WEBPACK_IMPORTED_MODULE_1__["Button"]({});
-        _this.bindProperties();
-        _this.ej2Instances._setProperties = _this.ej2Instances.setProperties;
-        _this.ej2Instances.setProperties = _this.setProperties;
-        return _this;
-    }
-    ButtonComponent.prototype.setProperties = function (prop, muteOnChange) {
-        var _this = this;
-        if (this.ej2Instances && this.ej2Instances._setProperties) {
-            this.ej2Instances._setProperties(prop, muteOnChange);
-        }
-        if (prop && this.models && this.models.length) {
-            Object.keys(prop).map(function (key) {
-                _this.models.map(function (model) {
-                    if ((key === model) && !(/datasource/i.test(key))) {
-                        _this.$emit('update:' + key, prop[key]);
-                    }
-                });
-            });
-        }
-    };
-    ButtonComponent.prototype.render = function (createElement) {
-        return createElement('button', this.$slots.default);
-    };
-    ButtonComponent.prototype.click = function () {
-        return this.ej2Instances.click();
-    };
-    ButtonComponent.prototype.focusIn = function () {
-        return this.ej2Instances.focusIn();
-    };
-    ButtonComponent = __decorate([
-        Object(_syncfusion_ej2_vue_base__WEBPACK_IMPORTED_MODULE_0__["EJComponentDecorator"])({
-            props: properties
-        })
-    ], ButtonComponent);
-    return ButtonComponent;
-}(_syncfusion_ej2_vue_base__WEBPACK_IMPORTED_MODULE_0__["ComponentBase"]));
-
-var ButtonPlugin = {
-    name: 'ejs-button',
-    install: function (Vue) {
-        Vue.component(ButtonPlugin.name, ButtonComponent);
-    }
-};
-
+module.exports = "/images/evaluation.png?4b38fdcdde4cddc035c3bcd5551c1176";
 
 /***/ }),
 
-/***/ "./node_modules/@syncfusion/ej2-vue-buttons/src/check-box/checkbox.component.js":
-/*!**************************************************************************************!*\
-  !*** ./node_modules/@syncfusion/ej2-vue-buttons/src/check-box/checkbox.component.js ***!
-  \**************************************************************************************/
-/*! exports provided: properties, modelProps, CheckBoxComponent, CheckBoxPlugin */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ "./resources/js/assets/img/evaluation_list.png":
+/*!*****************************************************!*\
+  !*** ./resources/js/assets/img/evaluation_list.png ***!
+  \*****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
 
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "properties", function() { return properties; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "modelProps", function() { return modelProps; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CheckBoxComponent", function() { return CheckBoxComponent; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CheckBoxPlugin", function() { return CheckBoxPlugin; });
-/* harmony import */ var _syncfusion_ej2_base__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @syncfusion/ej2-base */ "./node_modules/@syncfusion/ej2-base/index.js");
-/* harmony import */ var _syncfusion_ej2_vue_base__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @syncfusion/ej2-vue-base */ "./node_modules/@syncfusion/ej2-vue-base/index.js");
-/* harmony import */ var _syncfusion_ej2_buttons__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @syncfusion/ej2-buttons */ "./node_modules/@syncfusion/ej2-buttons/index.js");
-var __extends = (undefined && undefined.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    }
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-
-
-
-var properties = ['checked', 'cssClass', 'disabled', 'enableHtmlSanitizer', 'enablePersistence', 'enableRtl', 'htmlAttributes', 'indeterminate', 'label', 'labelPosition', 'locale', 'name', 'value', 'change', 'created'];
-var modelProps = ['checked', 'indeterminate'];
-/**
- * Represents the Essential JS 2 VueJS CheckBox Component
- * ```html
- * <ejs-checkbox label='Default'></ejs-checkbox>
- * ```
- */
-var CheckBoxComponent = /** @class */ (function (_super) {
-    __extends(CheckBoxComponent, _super);
-    function CheckBoxComponent() {
-        var _this = _super.call(this) || this;
-        _this.propKeys = properties;
-        _this.models = modelProps;
-        _this.hasChildDirective = false;
-        _this.hasInjectedModules = false;
-        _this.tagMapper = {};
-        _this.tagNameMapper = {};
-        _this.ej2Instances = new _syncfusion_ej2_buttons__WEBPACK_IMPORTED_MODULE_2__["CheckBox"]({});
-        _this.ej2Instances._trigger = _this.ej2Instances.trigger;
-        _this.ej2Instances.trigger = _this.trigger;
-        _this.bindProperties();
-        _this.ej2Instances._setProperties = _this.ej2Instances.setProperties;
-        _this.ej2Instances.setProperties = _this.setProperties;
-        return _this;
-    }
-    CheckBoxComponent.prototype.setProperties = function (prop, muteOnChange) {
-        var _this = this;
-        if (this.ej2Instances && this.ej2Instances._setProperties) {
-            this.ej2Instances._setProperties(prop, muteOnChange);
-        }
-        if (prop && this.models && this.models.length) {
-            Object.keys(prop).map(function (key) {
-                _this.models.map(function (model) {
-                    if ((key === model) && !(/datasource/i.test(key))) {
-                        _this.$emit('update:' + key, prop[key]);
-                    }
-                });
-            });
-        }
-    };
-    CheckBoxComponent.prototype.trigger = function (eventName, eventProp, successHandler) {
-        if ((eventName === 'change' || eventName === 'input') && this.models && (this.models.length !== 0)) {
-            var key = this.models.toString().match(/checked|value/) || [];
-            var propKey = key[0];
-            if (eventProp && key && !Object(_syncfusion_ej2_base__WEBPACK_IMPORTED_MODULE_0__["isUndefined"])(eventProp[propKey])) {
-                this.$emit('update:' + propKey, eventProp[propKey]);
-                this.$emit('modelchanged', eventProp[propKey]);
-            }
-        }
-        else if ((eventName === 'actionBegin' && eventProp.requestType === 'dateNavigate') && this.models && (this.models.length !== 0)) {
-            var key = this.models.toString().match(/currentView|selectedDate/) || [];
-            var propKey = key[0];
-            if (eventProp && key && !Object(_syncfusion_ej2_base__WEBPACK_IMPORTED_MODULE_0__["isUndefined"])(eventProp[propKey])) {
-                this.$emit('update:' + propKey, eventProp[propKey]);
-                this.$emit('modelchanged', eventProp[propKey]);
-            }
-        }
-        if (this.ej2Instances && this.ej2Instances._trigger) {
-            this.ej2Instances._trigger(eventName, eventProp, successHandler);
-        }
-    };
-    CheckBoxComponent.prototype.render = function (createElement) {
-        return createElement('input', this.$slots.default);
-    };
-    CheckBoxComponent.prototype.click = function () {
-        return this.ej2Instances.click();
-    };
-    CheckBoxComponent.prototype.focusIn = function () {
-        return this.ej2Instances.focusIn();
-    };
-    CheckBoxComponent = __decorate([
-        Object(_syncfusion_ej2_vue_base__WEBPACK_IMPORTED_MODULE_1__["EJComponentDecorator"])({
-            props: properties,
-            model: {
-                event: 'modelchanged'
-            }
-        })
-    ], CheckBoxComponent);
-    return CheckBoxComponent;
-}(_syncfusion_ej2_vue_base__WEBPACK_IMPORTED_MODULE_1__["ComponentBase"]));
-
-var CheckBoxPlugin = {
-    name: 'ejs-checkbox',
-    install: function (Vue) {
-        Vue.component(CheckBoxPlugin.name, CheckBoxComponent);
-    }
-};
-
+module.exports = "/images/evaluation_list.png?36b95a926ca20113a76cbd805d40081c";
 
 /***/ }),
 
-/***/ "./node_modules/@syncfusion/ej2-vue-buttons/src/chips/chiplist.component.js":
-/*!**********************************************************************************!*\
-  !*** ./node_modules/@syncfusion/ej2-vue-buttons/src/chips/chiplist.component.js ***!
-  \**********************************************************************************/
-/*! exports provided: properties, modelProps, ChipListComponent, ChipListPlugin */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ "./resources/js/assets/img/modal_evaluation.png":
+/*!******************************************************!*\
+  !*** ./resources/js/assets/img/modal_evaluation.png ***!
+  \******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
 
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "properties", function() { return properties; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "modelProps", function() { return modelProps; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ChipListComponent", function() { return ChipListComponent; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ChipListPlugin", function() { return ChipListPlugin; });
-/* harmony import */ var _syncfusion_ej2_vue_base__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @syncfusion/ej2-vue-base */ "./node_modules/@syncfusion/ej2-vue-base/index.js");
-/* harmony import */ var _syncfusion_ej2_buttons__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @syncfusion/ej2-buttons */ "./node_modules/@syncfusion/ej2-buttons/index.js");
-/* harmony import */ var _chips_directive__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./chips.directive */ "./node_modules/@syncfusion/ej2-vue-buttons/src/chips/chips.directive.js");
-var __extends = (undefined && undefined.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    }
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-
-
-
-var properties = ['avatarIconCss', 'avatarText', 'chips', 'cssClass', 'enableDelete', 'enablePersistence', 'enableRtl', 'enabled', 'leadingIconCss', 'leadingIconUrl', 'locale', 'selectedChips', 'selection', 'text', 'trailingIconCss', 'trailingIconUrl', 'beforeClick', 'click', 'created', 'delete'];
-var modelProps = [];
-/**
- * Represents the Essential JS 2 VueJS ChipList Component.
- * ```html
- * <ejs-chiplist></ejs-chiplist>
- * ```
- */
-var ChipListComponent = /** @class */ (function (_super) {
-    __extends(ChipListComponent, _super);
-    function ChipListComponent() {
-        var _this = _super.call(this) || this;
-        _this.propKeys = properties;
-        _this.models = modelProps;
-        _this.hasChildDirective = true;
-        _this.hasInjectedModules = false;
-        _this.tagMapper = { "e-chips": "e-chip" };
-        _this.tagNameMapper = {};
-        _this.ej2Instances = new _syncfusion_ej2_buttons__WEBPACK_IMPORTED_MODULE_1__["ChipList"]({});
-        _this.bindProperties();
-        _this.ej2Instances._setProperties = _this.ej2Instances.setProperties;
-        _this.ej2Instances.setProperties = _this.setProperties;
-        return _this;
-    }
-    ChipListComponent.prototype.setProperties = function (prop, muteOnChange) {
-        var _this = this;
-        if (this.ej2Instances && this.ej2Instances._setProperties) {
-            this.ej2Instances._setProperties(prop, muteOnChange);
-        }
-        if (prop && this.models && this.models.length) {
-            Object.keys(prop).map(function (key) {
-                _this.models.map(function (model) {
-                    if ((key === model) && !(/datasource/i.test(key))) {
-                        _this.$emit('update:' + key, prop[key]);
-                    }
-                });
-            });
-        }
-    };
-    ChipListComponent.prototype.render = function (createElement) {
-        return createElement('div', this.$slots.default);
-    };
-    ChipListComponent.prototype.add = function (chipsData) {
-        return this.ej2Instances.add(chipsData);
-    };
-    ChipListComponent.prototype.find = function (fields) {
-        return this.ej2Instances.find(fields);
-    };
-    ChipListComponent.prototype.getSelectedChips = function () {
-        return this.ej2Instances.getSelectedChips();
-    };
-    ChipListComponent.prototype.remove = function (fields) {
-        return this.ej2Instances.remove(fields);
-    };
-    ChipListComponent.prototype.select = function (fields) {
-        return this.ej2Instances.select(fields);
-    };
-    ChipListComponent = __decorate([
-        Object(_syncfusion_ej2_vue_base__WEBPACK_IMPORTED_MODULE_0__["EJComponentDecorator"])({
-            props: properties
-        })
-    ], ChipListComponent);
-    return ChipListComponent;
-}(_syncfusion_ej2_vue_base__WEBPACK_IMPORTED_MODULE_0__["ComponentBase"]));
-
-var ChipListPlugin = {
-    name: 'ejs-chiplist',
-    install: function (Vue) {
-        Vue.component(ChipListPlugin.name, ChipListComponent);
-        Vue.component(_chips_directive__WEBPACK_IMPORTED_MODULE_2__["ChipPlugin"].name, _chips_directive__WEBPACK_IMPORTED_MODULE_2__["ChipDirective"]);
-        Vue.component(_chips_directive__WEBPACK_IMPORTED_MODULE_2__["ChipsPlugin"].name, _chips_directive__WEBPACK_IMPORTED_MODULE_2__["ChipsDirective"]);
-    }
-};
-
+module.exports = "/images/modal_evaluation.png?cbae0a88af49024354a4a59b9e0dc944";
 
 /***/ }),
 
-/***/ "./node_modules/@syncfusion/ej2-vue-buttons/src/chips/chips.directive.js":
-/*!*******************************************************************************!*\
-  !*** ./node_modules/@syncfusion/ej2-vue-buttons/src/chips/chips.directive.js ***!
-  \*******************************************************************************/
-/*! exports provided: ChipsDirective, ChipsPlugin, ChipDirective, ChipPlugin */
+/***/ "./resources/js/components/porcentajeNotas.vue":
+/*!*****************************************************!*\
+  !*** ./resources/js/components/porcentajeNotas.vue ***!
+  \*****************************************************/
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ChipsDirective", function() { return ChipsDirective; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ChipsPlugin", function() { return ChipsPlugin; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ChipDirective", function() { return ChipDirective; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ChipPlugin", function() { return ChipPlugin; });
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _syncfusion_ej2_vue_base__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @syncfusion/ej2-vue-base */ "./node_modules/@syncfusion/ej2-vue-base/index.js");
-var __extends = (undefined && undefined.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    }
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
+/* harmony import */ var _porcentajeNotas_vue_vue_type_template_id_23a35049___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./porcentajeNotas.vue?vue&type=template&id=23a35049& */ "./resources/js/components/porcentajeNotas.vue?vue&type=template&id=23a35049&");
+/* harmony import */ var _porcentajeNotas_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./porcentajeNotas.vue?vue&type=script&lang=js& */ "./resources/js/components/porcentajeNotas.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
-var ChipsDirective = /** @class */ (function (_super) {
-    __extends(ChipsDirective, _super);
-    function ChipsDirective() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    ChipsDirective.prototype.render = function () {
-        return;
-    };
-    ChipsDirective = __decorate([
-        Object(_syncfusion_ej2_vue_base__WEBPACK_IMPORTED_MODULE_1__["EJComponentDecorator"])({})
-    ], ChipsDirective);
-    return ChipsDirective;
-}(vue__WEBPACK_IMPORTED_MODULE_0___default.a));
 
-var ChipsPlugin = {
-    name: 'e-chips',
-    install: function (Vue) {
-        Vue.component(ChipsPlugin.name, ChipsDirective);
-    }
-};
-/**
- * `e-chip` directive represent a chip of the Vue ChipList.
- * ```html
- * <ejs-chiplist >
- *   <e-chips>
- *    <e-chip text='chip1'></e-chip>
- *    <e-chip text='chip2'></e-chip>
- *   </e-chips>
- * </ejs-chiplist>
- * ```
- */
-var ChipDirective = /** @class */ (function (_super) {
-    __extends(ChipDirective, _super);
-    function ChipDirective() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    ChipDirective.prototype.render = function () {
-        return;
-    };
-    ChipDirective = __decorate([
-        Object(_syncfusion_ej2_vue_base__WEBPACK_IMPORTED_MODULE_1__["EJComponentDecorator"])({})
-    ], ChipDirective);
-    return ChipDirective;
-}(vue__WEBPACK_IMPORTED_MODULE_0___default.a));
 
-var ChipPlugin = {
-    name: 'e-chip',
-    install: function (Vue) {
-        Vue.component(ChipPlugin.name, ChipDirective);
-    }
-};
 
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _porcentajeNotas_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _porcentajeNotas_vue_vue_type_template_id_23a35049___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _porcentajeNotas_vue_vue_type_template_id_23a35049___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/porcentajeNotas.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./node_modules/@syncfusion/ej2-vue-buttons/src/index.js":
-/*!***************************************************************!*\
-  !*** ./node_modules/@syncfusion/ej2-vue-buttons/src/index.js ***!
-  \***************************************************************/
-/*! exports provided: wrapperInitialize, getTextNode, destroy, preRender, createCheckBox, rippleMouseHandler, setHiddenInput, buttonObserver, Button, CheckBox, RadioButton, Switch, classNames, ChipList, Chip, ButtonComponent, ButtonPlugin, CheckBoxComponent, CheckBoxPlugin, RadioButtonComponent, RadioButtonPlugin, SwitchComponent, SwitchPlugin, ChipsDirective, ChipDirective, ChipsPlugin, ChipPlugin, ChipListComponent, ChipListPlugin */
+/***/ "./resources/js/components/porcentajeNotas.vue?vue&type=script&lang=js&":
+/*!******************************************************************************!*\
+  !*** ./resources/js/components/porcentajeNotas.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************/
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _syncfusion_ej2_buttons__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @syncfusion/ej2-buttons */ "./node_modules/@syncfusion/ej2-buttons/index.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "wrapperInitialize", function() { return _syncfusion_ej2_buttons__WEBPACK_IMPORTED_MODULE_0__["wrapperInitialize"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getTextNode", function() { return _syncfusion_ej2_buttons__WEBPACK_IMPORTED_MODULE_0__["getTextNode"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "destroy", function() { return _syncfusion_ej2_buttons__WEBPACK_IMPORTED_MODULE_0__["destroy"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "preRender", function() { return _syncfusion_ej2_buttons__WEBPACK_IMPORTED_MODULE_0__["preRender"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "createCheckBox", function() { return _syncfusion_ej2_buttons__WEBPACK_IMPORTED_MODULE_0__["createCheckBox"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "rippleMouseHandler", function() { return _syncfusion_ej2_buttons__WEBPACK_IMPORTED_MODULE_0__["rippleMouseHandler"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "setHiddenInput", function() { return _syncfusion_ej2_buttons__WEBPACK_IMPORTED_MODULE_0__["setHiddenInput"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "buttonObserver", function() { return _syncfusion_ej2_buttons__WEBPACK_IMPORTED_MODULE_0__["buttonObserver"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Button", function() { return _syncfusion_ej2_buttons__WEBPACK_IMPORTED_MODULE_0__["Button"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "CheckBox", function() { return _syncfusion_ej2_buttons__WEBPACK_IMPORTED_MODULE_0__["CheckBox"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "RadioButton", function() { return _syncfusion_ej2_buttons__WEBPACK_IMPORTED_MODULE_0__["RadioButton"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Switch", function() { return _syncfusion_ej2_buttons__WEBPACK_IMPORTED_MODULE_0__["Switch"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "classNames", function() { return _syncfusion_ej2_buttons__WEBPACK_IMPORTED_MODULE_0__["classNames"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ChipList", function() { return _syncfusion_ej2_buttons__WEBPACK_IMPORTED_MODULE_0__["ChipList"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Chip", function() { return _syncfusion_ej2_buttons__WEBPACK_IMPORTED_MODULE_0__["Chip"]; });
-
-/* harmony import */ var _button_button_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./button/button.component */ "./node_modules/@syncfusion/ej2-vue-buttons/src/button/button.component.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ButtonComponent", function() { return _button_button_component__WEBPACK_IMPORTED_MODULE_1__["ButtonComponent"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ButtonPlugin", function() { return _button_button_component__WEBPACK_IMPORTED_MODULE_1__["ButtonPlugin"]; });
-
-/* harmony import */ var _check_box_checkbox_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./check-box/checkbox.component */ "./node_modules/@syncfusion/ej2-vue-buttons/src/check-box/checkbox.component.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "CheckBoxComponent", function() { return _check_box_checkbox_component__WEBPACK_IMPORTED_MODULE_2__["CheckBoxComponent"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "CheckBoxPlugin", function() { return _check_box_checkbox_component__WEBPACK_IMPORTED_MODULE_2__["CheckBoxPlugin"]; });
-
-/* harmony import */ var _radio_button_radiobutton_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./radio-button/radiobutton.component */ "./node_modules/@syncfusion/ej2-vue-buttons/src/radio-button/radiobutton.component.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "RadioButtonComponent", function() { return _radio_button_radiobutton_component__WEBPACK_IMPORTED_MODULE_3__["RadioButtonComponent"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "RadioButtonPlugin", function() { return _radio_button_radiobutton_component__WEBPACK_IMPORTED_MODULE_3__["RadioButtonPlugin"]; });
-
-/* harmony import */ var _switch_switch_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./switch/switch.component */ "./node_modules/@syncfusion/ej2-vue-buttons/src/switch/switch.component.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SwitchComponent", function() { return _switch_switch_component__WEBPACK_IMPORTED_MODULE_4__["SwitchComponent"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SwitchPlugin", function() { return _switch_switch_component__WEBPACK_IMPORTED_MODULE_4__["SwitchPlugin"]; });
-
-/* harmony import */ var _chips_chips_directive__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./chips/chips.directive */ "./node_modules/@syncfusion/ej2-vue-buttons/src/chips/chips.directive.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ChipsDirective", function() { return _chips_chips_directive__WEBPACK_IMPORTED_MODULE_5__["ChipsDirective"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ChipDirective", function() { return _chips_chips_directive__WEBPACK_IMPORTED_MODULE_5__["ChipDirective"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ChipsPlugin", function() { return _chips_chips_directive__WEBPACK_IMPORTED_MODULE_5__["ChipsPlugin"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ChipPlugin", function() { return _chips_chips_directive__WEBPACK_IMPORTED_MODULE_5__["ChipPlugin"]; });
-
-/* harmony import */ var _chips_chiplist_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./chips/chiplist.component */ "./node_modules/@syncfusion/ej2-vue-buttons/src/chips/chiplist.component.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ChipListComponent", function() { return _chips_chiplist_component__WEBPACK_IMPORTED_MODULE_6__["ChipListComponent"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ChipListPlugin", function() { return _chips_chiplist_component__WEBPACK_IMPORTED_MODULE_6__["ChipListPlugin"]; });
-
-
-
-
-
-
-
-
-
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_porcentajeNotas_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./porcentajeNotas.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/porcentajeNotas.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_porcentajeNotas_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./node_modules/@syncfusion/ej2-vue-buttons/src/radio-button/radiobutton.component.js":
-/*!********************************************************************************************!*\
-  !*** ./node_modules/@syncfusion/ej2-vue-buttons/src/radio-button/radiobutton.component.js ***!
-  \********************************************************************************************/
-/*! exports provided: properties, modelProps, RadioButtonComponent, RadioButtonPlugin */
+/***/ "./resources/js/components/porcentajeNotas.vue?vue&type=template&id=23a35049&":
+/*!************************************************************************************!*\
+  !*** ./resources/js/components/porcentajeNotas.vue?vue&type=template&id=23a35049& ***!
+  \************************************************************************************/
+/*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "properties", function() { return properties; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "modelProps", function() { return modelProps; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RadioButtonComponent", function() { return RadioButtonComponent; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RadioButtonPlugin", function() { return RadioButtonPlugin; });
-/* harmony import */ var _syncfusion_ej2_base__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @syncfusion/ej2-base */ "./node_modules/@syncfusion/ej2-base/index.js");
-/* harmony import */ var _syncfusion_ej2_vue_base__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @syncfusion/ej2-vue-base */ "./node_modules/@syncfusion/ej2-vue-base/index.js");
-/* harmony import */ var _syncfusion_ej2_buttons__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @syncfusion/ej2-buttons */ "./node_modules/@syncfusion/ej2-buttons/index.js");
-var __extends = (undefined && undefined.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    }
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_porcentajeNotas_vue_vue_type_template_id_23a35049___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./porcentajeNotas.vue?vue&type=template&id=23a35049& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/porcentajeNotas.vue?vue&type=template&id=23a35049&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_porcentajeNotas_vue_vue_type_template_id_23a35049___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_porcentajeNotas_vue_vue_type_template_id_23a35049___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
-
-var properties = ['checked', 'cssClass', 'disabled', 'enableHtmlSanitizer', 'enablePersistence', 'enableRtl', 'label', 'labelPosition', 'locale', 'name', 'value', 'change', 'created'];
-var modelProps = ['checked'];
-/**
- * Represents the Essential JS 2 VueJS RadioButton Component
- * ```html
- * <ejs-radiobutton label='Default'></ejs-radiobutton>
- * ```
- */
-var RadioButtonComponent = /** @class */ (function (_super) {
-    __extends(RadioButtonComponent, _super);
-    function RadioButtonComponent() {
-        var _this = _super.call(this) || this;
-        _this.propKeys = properties;
-        _this.models = modelProps;
-        _this.hasChildDirective = false;
-        _this.hasInjectedModules = false;
-        _this.tagMapper = {};
-        _this.tagNameMapper = {};
-        _this.ej2Instances = new _syncfusion_ej2_buttons__WEBPACK_IMPORTED_MODULE_2__["RadioButton"]({});
-        _this.ej2Instances._trigger = _this.ej2Instances.trigger;
-        _this.ej2Instances.trigger = _this.trigger;
-        _this.bindProperties();
-        _this.ej2Instances._setProperties = _this.ej2Instances.setProperties;
-        _this.ej2Instances.setProperties = _this.setProperties;
-        return _this;
-    }
-    RadioButtonComponent.prototype.setProperties = function (prop, muteOnChange) {
-        var _this = this;
-        if (this.ej2Instances && this.ej2Instances._setProperties) {
-            this.ej2Instances._setProperties(prop, muteOnChange);
-        }
-        if (prop && this.models && this.models.length) {
-            Object.keys(prop).map(function (key) {
-                _this.models.map(function (model) {
-                    if ((key === model) && !(/datasource/i.test(key))) {
-                        _this.$emit('update:' + key, prop[key]);
-                    }
-                });
-            });
-        }
-    };
-    RadioButtonComponent.prototype.trigger = function (eventName, eventProp, successHandler) {
-        if ((eventName === 'change' || eventName === 'input') && this.models && (this.models.length !== 0)) {
-            var key = this.models.toString().match(/checked|value/) || [];
-            var propKey = key[0];
-            if (eventProp && key && !Object(_syncfusion_ej2_base__WEBPACK_IMPORTED_MODULE_0__["isUndefined"])(eventProp[propKey])) {
-                this.$emit('update:' + propKey, eventProp[propKey]);
-                this.$emit('modelchanged', eventProp[propKey]);
-            }
-        }
-        else if ((eventName === 'actionBegin' && eventProp.requestType === 'dateNavigate') && this.models && (this.models.length !== 0)) {
-            var key = this.models.toString().match(/currentView|selectedDate/) || [];
-            var propKey = key[0];
-            if (eventProp && key && !Object(_syncfusion_ej2_base__WEBPACK_IMPORTED_MODULE_0__["isUndefined"])(eventProp[propKey])) {
-                this.$emit('update:' + propKey, eventProp[propKey]);
-                this.$emit('modelchanged', eventProp[propKey]);
-            }
-        }
-        if (this.ej2Instances && this.ej2Instances._trigger) {
-            this.ej2Instances._trigger(eventName, eventProp, successHandler);
-        }
-    };
-    RadioButtonComponent.prototype.render = function (createElement) {
-        return createElement('input', this.$slots.default);
-    };
-    RadioButtonComponent.prototype.click = function () {
-        return this.ej2Instances.click();
-    };
-    RadioButtonComponent.prototype.focusIn = function () {
-        return this.ej2Instances.focusIn();
-    };
-    RadioButtonComponent.prototype.getSelectedValue = function () {
-        return this.ej2Instances.getSelectedValue();
-    };
-    RadioButtonComponent = __decorate([
-        Object(_syncfusion_ej2_vue_base__WEBPACK_IMPORTED_MODULE_1__["EJComponentDecorator"])({
-            props: properties,
-            model: {
-                event: 'modelchanged'
-            }
-        })
-    ], RadioButtonComponent);
-    return RadioButtonComponent;
-}(_syncfusion_ej2_vue_base__WEBPACK_IMPORTED_MODULE_1__["ComponentBase"]));
-
-var RadioButtonPlugin = {
-    name: 'ejs-radiobutton',
-    install: function (Vue) {
-        Vue.component(RadioButtonPlugin.name, RadioButtonComponent);
-    }
-};
-
-
-/***/ }),
-
-/***/ "./node_modules/@syncfusion/ej2-vue-buttons/src/switch/switch.component.js":
-/*!*********************************************************************************!*\
-  !*** ./node_modules/@syncfusion/ej2-vue-buttons/src/switch/switch.component.js ***!
-  \*********************************************************************************/
-/*! exports provided: properties, modelProps, SwitchComponent, SwitchPlugin */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "properties", function() { return properties; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "modelProps", function() { return modelProps; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SwitchComponent", function() { return SwitchComponent; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SwitchPlugin", function() { return SwitchPlugin; });
-/* harmony import */ var _syncfusion_ej2_base__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @syncfusion/ej2-base */ "./node_modules/@syncfusion/ej2-base/index.js");
-/* harmony import */ var _syncfusion_ej2_vue_base__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @syncfusion/ej2-vue-base */ "./node_modules/@syncfusion/ej2-vue-base/index.js");
-/* harmony import */ var _syncfusion_ej2_buttons__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @syncfusion/ej2-buttons */ "./node_modules/@syncfusion/ej2-buttons/index.js");
-var __extends = (undefined && undefined.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    }
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-
-
-
-var properties = ['checked', 'cssClass', 'disabled', 'enablePersistence', 'enableRtl', 'locale', 'name', 'offLabel', 'onLabel', 'value', 'change', 'created'];
-var modelProps = ['checked'];
-/**
- * Represents the Essential JS 2 VueJS Switch Component.
- * ```html
- * <ejs-switch></ejs-switch>
- * ```
- */
-var SwitchComponent = /** @class */ (function (_super) {
-    __extends(SwitchComponent, _super);
-    function SwitchComponent() {
-        var _this = _super.call(this) || this;
-        _this.propKeys = properties;
-        _this.models = modelProps;
-        _this.hasChildDirective = false;
-        _this.hasInjectedModules = false;
-        _this.tagMapper = {};
-        _this.tagNameMapper = {};
-        _this.ej2Instances = new _syncfusion_ej2_buttons__WEBPACK_IMPORTED_MODULE_2__["Switch"]({});
-        _this.ej2Instances._trigger = _this.ej2Instances.trigger;
-        _this.ej2Instances.trigger = _this.trigger;
-        _this.bindProperties();
-        _this.ej2Instances._setProperties = _this.ej2Instances.setProperties;
-        _this.ej2Instances.setProperties = _this.setProperties;
-        return _this;
-    }
-    SwitchComponent.prototype.setProperties = function (prop, muteOnChange) {
-        var _this = this;
-        if (this.ej2Instances && this.ej2Instances._setProperties) {
-            this.ej2Instances._setProperties(prop, muteOnChange);
-        }
-        if (prop && this.models && this.models.length) {
-            Object.keys(prop).map(function (key) {
-                _this.models.map(function (model) {
-                    if ((key === model) && !(/datasource/i.test(key))) {
-                        _this.$emit('update:' + key, prop[key]);
-                    }
-                });
-            });
-        }
-    };
-    SwitchComponent.prototype.trigger = function (eventName, eventProp, successHandler) {
-        if ((eventName === 'change' || eventName === 'input') && this.models && (this.models.length !== 0)) {
-            var key = this.models.toString().match(/checked|value/) || [];
-            var propKey = key[0];
-            if (eventProp && key && !Object(_syncfusion_ej2_base__WEBPACK_IMPORTED_MODULE_0__["isUndefined"])(eventProp[propKey])) {
-                this.$emit('update:' + propKey, eventProp[propKey]);
-                this.$emit('modelchanged', eventProp[propKey]);
-            }
-        }
-        else if ((eventName === 'actionBegin' && eventProp.requestType === 'dateNavigate') && this.models && (this.models.length !== 0)) {
-            var key = this.models.toString().match(/currentView|selectedDate/) || [];
-            var propKey = key[0];
-            if (eventProp && key && !Object(_syncfusion_ej2_base__WEBPACK_IMPORTED_MODULE_0__["isUndefined"])(eventProp[propKey])) {
-                this.$emit('update:' + propKey, eventProp[propKey]);
-                this.$emit('modelchanged', eventProp[propKey]);
-            }
-        }
-        if (this.ej2Instances && this.ej2Instances._trigger) {
-            this.ej2Instances._trigger(eventName, eventProp, successHandler);
-        }
-    };
-    SwitchComponent.prototype.render = function (createElement) {
-        return createElement('input', this.$slots.default);
-    };
-    SwitchComponent.prototype.click = function () {
-        return this.ej2Instances.click();
-    };
-    SwitchComponent.prototype.focusIn = function () {
-        return this.ej2Instances.focusIn();
-    };
-    SwitchComponent.prototype.toggle = function () {
-        return this.ej2Instances.toggle();
-    };
-    SwitchComponent = __decorate([
-        Object(_syncfusion_ej2_vue_base__WEBPACK_IMPORTED_MODULE_1__["EJComponentDecorator"])({
-            props: properties,
-            model: {
-                event: 'modelchanged'
-            }
-        })
-    ], SwitchComponent);
-    return SwitchComponent;
-}(_syncfusion_ej2_vue_base__WEBPACK_IMPORTED_MODULE_1__["ComponentBase"]));
-
-var SwitchPlugin = {
-    name: 'ejs-switch',
-    install: function (Vue) {
-        Vue.component(SwitchPlugin.name, SwitchComponent);
-    }
-};
 
 
 /***/ })
