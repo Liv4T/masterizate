@@ -145,7 +145,8 @@
                   <div class="row align-items-center">
                     <div class="col-md-12 content-button">
                       <button v-if="!events.pay_loading && aut==0" @click="LoginOrRegister()" class="btn btn-Azul letra-boldfont">FINALIZAR COMPRA</button>
-                      <div id="paypal-button" v-if="!events.pay_loading"></div>
+                      <!-- <div id="paypal-button" v-if="!events.pay_loading"></div> -->
+                      <button v-if="!events.pay_loading && aut>0" @click="PayMercadopago()" class="btn btn-Azul letra-boldfont">MercadoPago</button>
                       <button v-if="events.pay_loading" type="button" class="btn btn-primary letra-boldfont" disabled>Procesando...</button>
                       <button v-if="!events.pay_loading && TotalValue() - VoucherDiscountValue() == 0" @click="PayEvent()" class="btn btn-Azul letra-boldfont">EMPEZAR</button>
                     </div>
@@ -415,14 +416,14 @@ export default {
             },
 
             onApprove: async (data, actions) => {
-            const order = await actions.order.capture();
-            //console.log(order);
-            this.PayEvent(order);
+                const order = await actions.order.capture();
+                //console.log(order);
+                this.PayEvent(order);
             }
           }, '#paypal-button');
     },
     PayEvent(order) {
-      this.events.pay_loading = true;
+        this.events.pay_loading = true;
       let model = {
         quantity: this.current_plan.quantity,
         plan_name: this.current_plan.plan_name,
@@ -436,10 +437,23 @@ export default {
         total: this.TotalValue(),
         code: this.code,
       };
-      location.href=`/compra/pagar/plan/paypal/${encodeURI(window.btoa(JSON.stringify(model)))}`;
-      setTimeout(() => {
-        this.events.pay_loading = false;
-      }, 4000);
+        location.href=`/compra/pagar/plan/paypal/${encodeURI(window.btoa(JSON.stringify(model)))}`;
+        setTimeout(() => {
+            this.events.pay_loading = false;
+        }, 4000);
+    },
+    PayMercadopago() {
+        this.events.pay_loading = true;
+        let model = {
+            total: this.TotalValue(),
+            plan_name: this.current_plan.plan_name,
+            quantity: this.current_plan.quantity,
+            code: this.code,
+        }
+        location.href=`/compra/pagar/mercadopago/${encodeURI(window.btoa(JSON.stringify(model)))}`;
+        setTimeout(() => {
+            this.events.pay_loading = false;
+        }, 4000);
     },
     LoginOrRegister(order) {
       this.events.pay_loading = true;

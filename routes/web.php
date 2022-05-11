@@ -1119,6 +1119,10 @@ Route::middleware('auth')->get('/compra/pagar/paypal/{data_string}', 'PurchasedC
 Route::middleware('auth')->get('/compra/pagar/plan/paypal/{data_string}', 'PurchasedController@payPaypalPlan');
 Route::middleware('auth')->get('/compra/currencyExchange', 'PurchasedController@currencyExchange');
 
+//Mercadopago
+Route::middleware('auth')->get('/compra/pagar/mercadopago/{data_string}', 'PurchasedController@payMercadoPago');
+Route::middleware('auth')->get('/compra/pagar/resultado/mercadopago/{data_string}', 'PurchasedController@resultMercadopago');
+
 //Actas Padres
 Route::middleware('auth')->post('/saveProceedings', 'ProceedingsParentsController@save');
 Route::middleware('auth')->post('/saveProceedingsFile', 'ProceedingsParentsController@uploadFile');

@@ -322,6 +322,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["plan_type", "aut", "code"],
   mounted: function mounted() {
@@ -529,8 +530,23 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         _this4.events.pay_loading = false;
       }, 4000);
     },
-    LoginOrRegister: function LoginOrRegister(order) {
+    PayMercadopago: function PayMercadopago() {
       var _this5 = this;
+
+      this.events.pay_loading = true;
+      var model = {
+        total: this.TotalValue(),
+        plan_name: this.current_plan.plan_name,
+        quantity: this.current_plan.quantity,
+        code: this.code
+      };
+      location.href = "/compra/pagar/mercadopago/".concat(encodeURI(window.btoa(JSON.stringify(model))));
+      setTimeout(function () {
+        _this5.events.pay_loading = false;
+      }, 4000);
+    },
+    LoginOrRegister: function LoginOrRegister(order) {
+      var _this6 = this;
 
       this.events.pay_loading = true;
       var model = {
@@ -543,7 +559,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
       location.href = "/compra/plan/".concat(this.plan_type, "/skills/ingresar/p/").concat(encodeURI(window.btoa(JSON.stringify(model))));
       setTimeout(function () {
-        _this5.events.pay_loading = false;
+        _this6.events.pay_loading = false;
       }, 4000);
     }
   }
@@ -563,7 +579,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\nh4 {\r\n  font-size: 1.2em;\n}\n.div-plan-icon {\r\n  display: flex;\r\n  flex-direction: row;\r\n  justify-content: center;\r\n  align-items: center;\n}\n.div-plan-title {\r\n  display: flex;\r\n  flex-direction: row;\r\n  justify-content: flex-start;\r\n  align-items: flex-end;\n}\n.div-plan-item {\r\n  display: flex;\r\n  flex-direction: column;\n}\n.div-plan-item > div {\r\n  display: flex;\r\n  flex-direction: row;\r\n  justify-content: space-between;\n}\n.div-plan-item-total {\r\n  display: flex;\r\n  flex-direction: row;\r\n  justify-content: space-between;\n}\n.span-plan-name {\r\n  font-weight: bold;\r\n  font-size: 1.3em;\r\n  color: #51647c;\n}\n.span-plan-subtotal {\r\n  font-weight: bold;\r\n  font-size: 1.5em;\n}\n.span-plan-total {\r\n  font-weight: bold;\r\n  font-size: 1.8em;\n}\n.span-price {\r\n  font-weight: bold;\r\n  font-size: 1.5em;\n}\n.margin-top-100 {\r\n  margin-top: 100px;\n}\n.border-bottom-1 {\r\n  border-bottom: 1px solid #818181;\n}\n.div-plan-icon > img {\r\n  width: 100px;\n}\n.span-total {\r\n  font-weight: bold;\r\n  font-size: 2em;\n}\n.color-danger {\r\n  color: tomato;\n}\ncard {\r\n  display: flex;\r\n  justify-content: center;\n}\np {\r\n  font-family: \"Century Gothic\";\r\n  font-size: 1.2em;\n}\nspan {\r\n  font-family: \"Century Gothic\";\r\n  font-size: 1.2em;\n}\nul > li {\r\n  font-family: \"Century Gothic\";\r\n  text-align: left;\n}\na {\r\n  color: #0050e3;\n}\n.title-page-section {\r\n  display: flex;\r\n  flex-direction: row;\r\n  justify-content: center;\r\n  align-items: center;\r\n  margin-bottom: 50px;\n}\n.title-page {\r\n  background: #ffc039;\r\n  color: white;\r\n  font-size: 2em;\r\n  padding: 20px;\r\n  border-radius: 5px;\r\n  box-shadow: -1px 4px 9px 0px rgba(148, 148, 148, 1);\n}\n.resume-container {\r\n  background: rgb(0 173 255 / 38%);\r\n  padding: 20px;\r\n  border-radius: 8px;\n}\n.resume-container .table {\r\n  margin-bottom: 20px;\n}\n.section-cupon {\r\n  display: flex;\r\n  flex-direction: row;\r\n  justify-content: space-between;\r\n  align-items: center;\n}\n.resume-table {\r\n  background: #fff;\r\n  padding: 5px;\r\n  border-radius: 8px;\r\n  box-shadow: -1px 4px 9px 0px #7a7a7a;\r\n  width: 100%;\r\n  margin-bottom: 20px;\n}\n.resume-table .table thead th {\r\n  border-bottom: 2px solid #233d68;\n}\n.resume-table .table thead td {\r\n  display: flex;\r\n  flex-direction: row;\r\n  align-items: center;\n}\n.thead-resume th {\r\n  color: black;\n}\n.table-resume th {\r\n  color: black;\n}\n@media (max-width: 768px) {\n[class*=\"col-\"] {\r\n    margin-bottom: 15px;\n}\n.title-page {\r\n    font-size: 1.5em;\r\n    line-height: 40px;\n}\n}\r\n", ""]);
+exports.push([module.i, "\nh4 {\n  font-size: 1.2em;\n}\n.div-plan-icon {\n  display: flex;\n  flex-direction: row;\n  justify-content: center;\n  align-items: center;\n}\n.div-plan-title {\n  display: flex;\n  flex-direction: row;\n  justify-content: flex-start;\n  align-items: flex-end;\n}\n.div-plan-item {\n  display: flex;\n  flex-direction: column;\n}\n.div-plan-item > div {\n  display: flex;\n  flex-direction: row;\n  justify-content: space-between;\n}\n.div-plan-item-total {\n  display: flex;\n  flex-direction: row;\n  justify-content: space-between;\n}\n.span-plan-name {\n  font-weight: bold;\n  font-size: 1.3em;\n  color: #51647c;\n}\n.span-plan-subtotal {\n  font-weight: bold;\n  font-size: 1.5em;\n}\n.span-plan-total {\n  font-weight: bold;\n  font-size: 1.8em;\n}\n.span-price {\n  font-weight: bold;\n  font-size: 1.5em;\n}\n.margin-top-100 {\n  margin-top: 100px;\n}\n.border-bottom-1 {\n  border-bottom: 1px solid #818181;\n}\n.div-plan-icon > img {\n  width: 100px;\n}\n.span-total {\n  font-weight: bold;\n  font-size: 2em;\n}\n.color-danger {\n  color: tomato;\n}\ncard {\n  display: flex;\n  justify-content: center;\n}\np {\n  font-family: \"Century Gothic\";\n  font-size: 1.2em;\n}\nspan {\n  font-family: \"Century Gothic\";\n  font-size: 1.2em;\n}\nul > li {\n  font-family: \"Century Gothic\";\n  text-align: left;\n}\na {\n  color: #0050e3;\n}\n.title-page-section {\n  display: flex;\n  flex-direction: row;\n  justify-content: center;\n  align-items: center;\n  margin-bottom: 50px;\n}\n.title-page {\n  background: #ffc039;\n  color: white;\n  font-size: 2em;\n  padding: 20px;\n  border-radius: 5px;\n  box-shadow: -1px 4px 9px 0px rgba(148, 148, 148, 1);\n}\n.resume-container {\n  background: rgb(0 173 255 / 38%);\n  padding: 20px;\n  border-radius: 8px;\n}\n.resume-container .table {\n  margin-bottom: 20px;\n}\n.section-cupon {\n  display: flex;\n  flex-direction: row;\n  justify-content: space-between;\n  align-items: center;\n}\n.resume-table {\n  background: #fff;\n  padding: 5px;\n  border-radius: 8px;\n  box-shadow: -1px 4px 9px 0px #7a7a7a;\n  width: 100%;\n  margin-bottom: 20px;\n}\n.resume-table .table thead th {\n  border-bottom: 2px solid #233d68;\n}\n.resume-table .table thead td {\n  display: flex;\n  flex-direction: row;\n  align-items: center;\n}\n.thead-resume th {\n  color: black;\n}\n.table-resume th {\n  color: black;\n}\n@media (max-width: 768px) {\n[class*=\"col-\"] {\n    margin-bottom: 15px;\n}\n.title-page {\n    font-size: 1.5em;\n    line-height: 40px;\n}\n}\n", ""]);
 
 // exports
 
@@ -903,8 +919,20 @@ var render = function() {
                                   )
                                 : _vm._e(),
                               _vm._v(" "),
-                              !_vm.events.pay_loading
-                                ? _c("div", { attrs: { id: "paypal-button" } })
+                              !_vm.events.pay_loading && _vm.aut > 0
+                                ? _c(
+                                    "button",
+                                    {
+                                      staticClass:
+                                        "btn btn-Azul letra-boldfont",
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.PayMercadopago()
+                                        }
+                                      }
+                                    },
+                                    [_vm._v("MercadoPago")]
+                                  )
                                 : _vm._e(),
                               _vm._v(" "),
                               _vm.events.pay_loading
