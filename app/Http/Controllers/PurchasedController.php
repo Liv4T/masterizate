@@ -344,12 +344,13 @@ class PurchasedController extends Controller
     public function resultMercadopago(Request $request, string $data_string){
         try{
             $auth = Auth::user();
-            return $request;
+
             if (!isset($data_string)) {
                 return view('purchasePlanError')->with('error', 'No se puede procesar pago, información inválida.');
             }
 
             $data = json_decode(base64_decode($data_string), true);
+            //return $data;
             $current_date = date('Y-m-d H:i:s');
             if($data['plan_name']==='PLAN_MENSUAL'){
                 $end_range_date =date ( 'Y-m-d H:i:s' ,  strtotime ('+30 day' , strtotime ($current_date )));
@@ -500,7 +501,7 @@ class PurchasedController extends Controller
         $auth = Auth::user();
         $data = json_decode(base64_decode($data_string), true);
         //procede al pago online
-        $access_token = env("MERCADOPAGO_ACCESS_TOKEN", 'APP_USR-7725434617845493-051014-aa23f1b2650e278131951ca091b92c4c-1109385139');
+        $access_token = env("MERCADOPAGO_ACCESS_TOKEN", 'APP_USR-7788510342542620-051103-aead55433f75db8a641f724d4833848a-1121745613');
         MercadoPago\SDK::setAccessToken($access_token);
 
         $reference = "Masterizate-" . $auth->id . "-"  . date('Ymd-Hi');
@@ -530,7 +531,7 @@ class PurchasedController extends Controller
 
         $preference->auto_return = "approved";
         $preference->save();
-        return dd($preference);
+        //return dd($preference);
         //return $preference->init_point;
         return Redirect::to($preference->sandbox_init_point);
     }

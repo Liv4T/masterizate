@@ -435,10 +435,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _this3 = this;
 
       paypal.Button.render({
-        env: 'sandbox',
+        env: 'production',
         client: {
           sandbox: 'ARQ-WKAkFn3g4C111Ud3lLaUAfzagvJ_pmkLKBVMASvv6nyjX3fv3j0gtBdJEDhRPznYP9sLtf9oiJfH',
-          production: 'EFNo9sAyqiOmnlRHsAdXiGBf6ULysEIfKUVsn58Pq6ilfGHVFn03iVvbWtfiht-irdJD_df1MECvmBC2'
+          production: 'AYiz9eVIJ81qtz38orGT5miWBNQJ4hxOY5fRTAID0QHbNYmJ4V21JWpMHlicahxjO5ZeFC1S_kPiMXmN'
         },
         locale: 'es_US',
         style: {
@@ -920,20 +920,8 @@ var render = function() {
                                   )
                                 : _vm._e(),
                               _vm._v(" "),
-                              !_vm.events.pay_loading && _vm.aut > 0
-                                ? _c(
-                                    "button",
-                                    {
-                                      staticClass:
-                                        "btn btn-Azul letra-boldfont",
-                                      on: {
-                                        click: function($event) {
-                                          return _vm.PayMercadopago()
-                                        }
-                                      }
-                                    },
-                                    [_vm._v("MercadoPago")]
-                                  )
+                              !_vm.events.pay_loading
+                                ? _c("div", { attrs: { id: "paypal-button" } })
                                 : _vm._e(),
                               _vm._v(" "),
                               _vm.events.pay_loading

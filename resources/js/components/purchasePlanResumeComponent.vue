@@ -145,8 +145,8 @@
                   <div class="row align-items-center">
                     <div class="col-md-12 content-button">
                       <button v-if="!events.pay_loading && aut==0" @click="LoginOrRegister()" class="btn btn-Azul letra-boldfont">FINALIZAR COMPRA</button>
-                      <!-- <div id="paypal-button" v-if="!events.pay_loading"></div> -->
-                      <button v-if="!events.pay_loading && aut>0" @click="PayMercadopago()" class="btn btn-Azul letra-boldfont">MercadoPago</button>
+                      <div id="paypal-button" v-if="!events.pay_loading"></div>
+                      <!-- <button v-if="!events.pay_loading && aut>0" @click="PayMercadopago()" class="btn btn-Azul letra-boldfont">MercadoPago</button> -->
                       <button v-if="events.pay_loading" type="button" class="btn btn-primary letra-boldfont" disabled>Procesando...</button>
                       <button v-if="!events.pay_loading && TotalValue() - VoucherDiscountValue() == 0" @click="PayEvent()" class="btn btn-Azul letra-boldfont">EMPEZAR</button>
                     </div>
@@ -389,10 +389,10 @@ export default {
     },
     PayPaypal(){
         paypal.Button.render({
-            env: 'sandbox',
+            env: 'production',
             client: {
                 sandbox: 'ARQ-WKAkFn3g4C111Ud3lLaUAfzagvJ_pmkLKBVMASvv6nyjX3fv3j0gtBdJEDhRPznYP9sLtf9oiJfH',
-                production: 'EFNo9sAyqiOmnlRHsAdXiGBf6ULysEIfKUVsn58Pq6ilfGHVFn03iVvbWtfiht-irdJD_df1MECvmBC2'
+                production: 'AYiz9eVIJ81qtz38orGT5miWBNQJ4hxOY5fRTAID0QHbNYmJ4V21JWpMHlicahxjO5ZeFC1S_kPiMXmN'
             },
 
             locale: 'es_US',
