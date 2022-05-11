@@ -512,7 +512,7 @@ class PurchasedController extends Controller
         $item->currency = 'COP';
         $item->quantity = 1;
         //$item->unit_price = $data['total'];
-        $item->unit_price = 20;
+        $item->unit_price = 20000;
         $preference->items = array($item);
 
         $payer = new MercadoPago\Payer();
@@ -530,8 +530,8 @@ class PurchasedController extends Controller
 
         $preference->auto_return = "approved";
         $preference->save();
-        //return dd($preference);
+        return dd($preference);
         //return $preference->init_point;
-        return Redirect::to($preference->init_point);
+        return Redirect::to($preference->sandbox_init_point);
     }
 }
