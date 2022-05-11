@@ -500,7 +500,7 @@ class PurchasedController extends Controller
         $auth = Auth::user();
         $data = json_decode(base64_decode($data_string), true);
         //procede al pago online
-        $access_token = env("MERCADOPAGO_ACCESS_TOKEN", 'APP_USR-7788510342542620-051103-aead55433f75db8a641f724d4833848a-1121745613');
+        $access_token = env("MERCADOPAGO_ACCESS_TOKEN", 'APP_USR-7725434617845493-051014-aa23f1b2650e278131951ca091b92c4c-1109385139');
         MercadoPago\SDK::setAccessToken($access_token);
 
         $reference = "Masterizate-" . $auth->id . "-"  . date('Ymd-Hi');
