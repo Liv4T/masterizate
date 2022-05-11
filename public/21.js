@@ -538,7 +538,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         total: this.TotalValue(),
         plan_name: this.current_plan.plan_name,
         quantity: this.current_plan.quantity,
-        code: this.code
+        code: this.code,
+        status: 1
       };
       location.href = "/compra/pagar/mercadopago/".concat(encodeURI(window.btoa(JSON.stringify(model))));
       setTimeout(function () {

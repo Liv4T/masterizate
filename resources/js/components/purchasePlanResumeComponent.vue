@@ -449,6 +449,7 @@ export default {
             plan_name: this.current_plan.plan_name,
             quantity: this.current_plan.quantity,
             code: this.code,
+            status: 1,
         }
         location.href=`/compra/pagar/mercadopago/${encodeURI(window.btoa(JSON.stringify(model)))}`;
         setTimeout(() => {
