@@ -42,7 +42,7 @@
                             <td>
                               <div class="row align-items-center">
                                 <div class="col-12 col-md-12 text-right">
-                                  <span>${{ TotalValue() }}</span>
+                                  <span>{{ simbol }} {{ formatPrice(TotalValue()) }}</span>
                                 </div>
                               </div>
                             </td>
@@ -54,7 +54,7 @@
                             <td>
                               <div class="row align-items-center">
                                 <div class="col-12 col-md-12 text-right">
-                                  <span>${{ TotalValue() }}</span>
+                                  <span>{{ simbol }} {{ formatPrice(TotalValue()) }}</span>
                                 </div>
                               </div>
                             </td>
@@ -106,7 +106,7 @@
                                   <span>SUBTOTAL</span>
                                 </div>
                                 <div class="col-6 col-md-6 text-right div-plan-title">
-                                  <span>${{ TotalValue() }}</span>
+                                  <span>{{ simbol }} {{ formatPrice(TotalValue()) }}</span>
                                 </div>
                               </div>
                             </td>
@@ -131,7 +131,7 @@
                                   <span>TOTAL</span>
                                 </div>
                                 <div class="col-6 col-md-6 div-plan-title text-right">
-                                  <span class="span-total">${{ TotalValue() }}</span>
+                                  <span class="span-total">{{ simbol }} {{ formatPrice(TotalValue()) }}</span>
                                 </div>
                               </div>
                             </td>
@@ -144,11 +144,11 @@
                 <div class="content-button">
                   <div class="row align-items-center">
                     <div class="col-md-12 content-button">
-                      <button v-if="!events.pay_loading && aut==0" @click="LoginOrRegister()" class="btn btn-Azul letra-boldfont">FINALIZAR COMPRA</button>
-                      <div id="paypal-button" v-if="!events.pay_loading"></div>
-                      <!-- <button v-if="!events.pay_loading && aut>0" @click="PayMercadopago()" class="btn btn-Azul letra-boldfont">MercadoPago</button> -->
-                      <button v-if="events.pay_loading" type="button" class="btn btn-primary letra-boldfont" disabled>Procesando...</button>
-                      <button v-if="!events.pay_loading && TotalValue() - VoucherDiscountValue() == 0" @click="PayEvent()" class="btn btn-Azul letra-boldfont">EMPEZAR</button>
+                      <button v-show="!events.pay_loading && aut==0" @click="LoginOrRegister()" class="btn btn-Azul letra-boldfont">FINALIZAR COMPRA</button>
+                      <div id="paypal-button" v-show="!events.pay_loading && aut>0 && payment_currency == 'USD'"></div>
+                      <button v-show="!events.pay_loading && aut>0 && payment_currency == 'COP'" @click="PayMercadopago()" class="btn btn-Azul letra-boldfont">MercadoPago</button>
+                      <button v-show="events.pay_loading" type="button" class="btn btn-primary letra-boldfont" disabled>Procesando...</button>
+                      <button v-show="!events.pay_loading && TotalValue() - VoucherDiscountValue() == 0" @click="PayEvent()" class="btn btn-Azul letra-boldfont">EMPEZAR</button>
                     </div>
                   </div>
                 </div>
@@ -190,7 +190,7 @@
                             <td>
                               <div class="row align-items-center">
                                 <div class="col-12 col-md-12 text-right">
-                                  <span>${{ TotalValue() }}</span>
+                                  <span>{{ simbol }} {{ formatPrice(TotalValue()) }}</span>
                                 </div>
                               </div>
                             </td>
@@ -208,7 +208,7 @@
                             <td>
                               <div class="row align-items-center">
                                 <div class="col-12 col-md-12 text-right">
-                                  <span>${{ TotalValue() }}</span>
+                                  <span>{{ simbol }} {{ formatPrice(TotalValue()) }}</span>
                                 </div>
                               </div>
                             </td>
@@ -237,7 +237,7 @@
                             <td>
                               <div class="row align-items-center">
                                 <div class="col-12 col-md-12 text-right div-plan-title">
-                                  <span>${{ TotalValue() }}</span>
+                                  <span>{{ simbol }} {{ formatPrice(TotalValue()) }}</span>
                                 </div>
                               </div>
                             </td>
@@ -260,7 +260,7 @@
                             <td>
                               <div class="row align-items-center">
                                 <div class="col-12 col-md-12 div-plan-title text-right">
-                                  <span class="span-total">${{ TotalValue() }}</span>
+                                  <span class="span-total">{{ simbol }} {{ formatPrice(TotalValue()) }}</span>
                                 </div>
                               </div>
                             </td>
@@ -270,10 +270,11 @@
                               <div class="content-button">
                                 <div class="row align-items-center">
                                   <div class="col-md-12 content-button">
-                                    <button v-if="!events.pay_loading && aut==0" @click="LoginOrRegister()" class="btn btn-Azul letra-boldfont">FINALIZAR COMPRA</button>
-                                    <div id="paypal-button" v-if="!events.pay_loading"></div>
-                                    <button v-if="events.pay_loading" type="button" class="btn btn-primary letra-boldfont" disabled>Procesando...</button>
-                                    <button v-if="!events.pay_loading && TotalValue() - VoucherDiscountValue() == 0" @click="PayEvent()" class="btn btn-Azul letra-boldfont">EMPEZAR</button>
+                                    <button v-show="!events.pay_loading && aut==0" @click="LoginOrRegister()" class="btn btn-Azul letra-boldfont">FINALIZAR COMPRA</button>
+                                    <div id="paypal-button" v-show="!events.pay_loading && aut>0 && payment_currency == 'USD'"></div>
+                                    <button v-show="!events.pay_loading && aut>0 && payment_currency == 'COP'" @click="PayMercadopago()" class="btn btn-Azul letra-boldfont">MercadoPago</button>
+                                    <button v-show="events.pay_loading" type="button" class="btn btn-primary letra-boldfont" disabled>Procesando...</button>
+                                    <button v-show="!events.pay_loading && TotalValue() - VoucherDiscountValue() == 0" @click="PayEvent()" class="btn btn-Azul letra-boldfont">EMPEZAR</button>
                                   </div>
                                 </div>
                               </div>
@@ -290,19 +291,49 @@
         </div>
       </div>
     </div>
+    <div class="modal fade" id="modalCurrency" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Selección del metodo de Pago</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <img class="img-logo" thumbnail fluid src="../assets/img/logo-skills.png" width="225px">
+                    </div>
+                </div>
+                <div class="modal-body" style="margin:40px">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <a v-on:click="paymentMethod('USD')"><img thumbnail fluid src="../assets/img/paypal-logo.png" width="225px"></a>
+                        </div>
+                        <div class="col-md-5">
+                            <a v-on:click="paymentMethod('COP')"><img thumbnail fluid src="../assets/img/mercadopago-logo.png" width="225px"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
   </div>
 </template>
 <script>
 export default {
-  props: ["plan_type", "aut", "code"],
+  props: ["plan_type", "payment_currency", "aut", "code"],
   mounted() {
     this.fillWidthCalculate();
     window.onresize = () => {
       this.fillWidthCalculate();
     };
     this.getPlanInformation();
+    if(this.payment_currency == 'null'){
+        $("#modalCurrency").modal("show");
+    }
     if(this.aut>0){
-      this.PayPaypal();
+        this.PayPaypal();
     }
   },
   data() {
@@ -318,9 +349,14 @@ export default {
       },
       voucher_code: "",
       voucher_data: null,
+      simbol: "",
     };
   },
   methods: {
+    paymentMethod(value){
+        this.payment_currency=value;
+        $("#modalCurrency").modal("hide");
+    },
     fillWidthCalculate() {
       this.fullWidth = window.innerWidth > 1024;
     },
@@ -332,9 +368,20 @@ export default {
       return ret_stament;
     },
     TotalValue() {
-      var total=((this.current_plan.plan_price.total_price * this.current_plan.quantity));
-      console.log(this.formatPrice(total));
-      return this.formatPrice(total);
+        if(this.payment_currency == 'USD'){
+            var total=((this.current_plan.plan_price.total_price * this.current_plan.quantity));
+            this.simbol = "$";
+        }else if (this.payment_currency == 'COP'){
+            if(this.current_plan.plan_name == 'PLAN_MENSUAL'){
+                var total=((11900 * this.current_plan.quantity));
+                this.simbol = "COP";
+            }else if(this.current_plan.plan_name == 'PLAN_ANUAL'){
+                var total=((99900 * this.current_plan.quantity));
+                this.simbol = "COP";
+            }
+        }
+
+      return total;
     },
     VoucherDiscountApplied() {
       if (!this.voucher_data) return "";
@@ -379,7 +426,13 @@ export default {
       });
     },
     formatPrice(value) {
-      let val = (value / 1).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+        let val = 0;
+        if(this.payment_currency == 'USD'){
+            val = (value / 1).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+        }else if(this.payment_currency == 'COP'){
+            val = (value / 1).toFixed().replace(/\B(?=(\d{3})+\b)/g, ".");
+        }
+
       return val;
     },
     QuantityValidateEvent() {
@@ -464,6 +517,7 @@ export default {
         plan_name: this.current_plan.plan_name,
         total: this.TotalValue(),
         code: this.code,
+        payment_currency: this.payment_currency,
       };
       //console.log(model);
       location.href=`/compra/plan/${this.plan_type}/skills/ingresar/p/${encodeURI(window.btoa(JSON.stringify(model)))}`;

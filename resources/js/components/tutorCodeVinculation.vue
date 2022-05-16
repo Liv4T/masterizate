@@ -36,7 +36,7 @@
                                 <a class="btn btn-suscription" href="javascript:void(0)" @click="modalPay(code.code_vinculated)">Renovar Suscripción</a>
                             </td>
                             <td v-show="user.type_user != 1 && user.type != 7" v-if="checkPayDay(code.enable_area) > 1">
-                                <span><b>Aun no disponible para pago</b></span>
+                                <span><b>Aún no disponible para pago</b></span>
                             </td>
                         </tr>
                     </tbody>
@@ -91,7 +91,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <a :href='"/compra/plan/"+this.typePlan+"/"+this.code_vinculated+"/resumen"' class="btn btn-suscription">Renovar Suscripción</a>
+                        <a :href='"/compra/plan/"+this.typePlan+"/null/"+this.code_vinculated+"/resumen"' class="btn btn-suscription">Renovar Suscripción</a>
                     </div>
                 </div>
             </div>

@@ -54,7 +54,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <a :href='"/compra/plan/"+this.typePlan+"/"+this.code_vinculated+"/resumen"' class="btn btn-suscription">Pagar</a>
+                        <a :href='"/compra/plan/"+this.typePlan+"/null/"+this.code_vinculated+"/resumen"' class="btn btn-suscription">Pagar</a>
                     </div>
                 </div>
             </div>

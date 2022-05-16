@@ -354,8 +354,8 @@ Route::middleware('auth')->get('/planificacion/trimestral/{id}/{id_classroom}', 
 Route::get('/compra/plan/tutoria/{tutor_schedule_student_id}/{tutorschedule_id}/resumen', function (int $tutor_schedule_student_id, int $tutorschedule_id) {
     return view('purchaseTutoriaResume')->with('tutor_schedule_student_id', $tutor_schedule_student_id)->with('tutorschedule_id', $tutorschedule_id);
 });
-Route::get('/compra/plan/{plan_type}/{code}/resumen', function (String $plan_type, String $code) {
-    return view('purchasePlanResume')->with('plan_type', $plan_type)->with('code', $code);
+Route::get('/compra/plan/{plan_type}/{payment_type}/{code}/resumen', function (String $plan_type, String $payment_type, String $code) {
+    return view('purchasePlanResume')->with('plan_type', $plan_type)->with('payment_type', $payment_type)->with('code', $code);
 });
 Route::middleware('auth')->get('/chat', 'HomeController@CreateGroup')->name('chat');
 Route::middleware('auth')->get('/chat2', 'HomeController@CreateGroup2');
@@ -1122,6 +1122,19 @@ Route::middleware('auth')->get('/compra/currencyExchange', 'PurchasedController@
 //Mercadopago
 Route::middleware('auth')->get('/compra/pagar/mercadopago/{data_string}', 'PurchasedController@payMercadoPago');
 Route::middleware('auth')->get('/compra/pagar/resultado/mercadopago/{data_string}', 'PurchasedController@resultMercadopago');
+
+//Contract
+Route::get('/contractData', function () {
+    return view('contractData');
+});
+Route::get('/contractView', function () {
+    return view('contractView');
+});
+Route::get('getContract', 'ContractController@show')->name('show');
+
+Route::post('/contract', 'ContractController@downloadPDF');
+
+Route::put('/updateContract', 'ContractController@updateContract');
 
 //Actas Padres
 Route::middleware('auth')->post('/saveProceedings', 'ProceedingsParentsController@save');

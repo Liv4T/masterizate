@@ -389,8 +389,12 @@ Vue.component("comunication-tab", ()=>import("./components/tabComunication.vue")
 Vue.component("formation-tab",()=>import("./components/tabsFormation.vue"));
 Vue.component("school-gov-tab",()=>import("./components/tabsSchoolGov.vue"));
 Vue.component("clases-client",()=>import("./components/clasesCliente.vue"));
+//contract
+Vue.component("contract-data", () => import("./components/ContractDataComponent.vue"));
+Vue.component("contract-view", () => import ("./components/ContractViewComponent.vue"));
 //VueTour Configuration
-Vue.component("tour-configuration",()=>import("./components/vueTourConfiguration.vue"))
+Vue.component("tour-configuration",()=>import("./components/vueTourConfiguration.vue"));
+
 Vue.use(CKEditor);
 
 

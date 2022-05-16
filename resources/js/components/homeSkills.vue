@@ -155,7 +155,7 @@
             </div>
             <div class="row">
               <div class="col-lg-12">
-                  <img class="img-logo" thumbnail fluid src="images/logo-skills.png" width="225px"></img>
+                  <img class="img-logo" thumbnail fluid src="images/logo-skills.png" width="225px">
               </div>
             </div>
             <div class="row fondo-gris-form centrado">
@@ -213,7 +213,7 @@ export default {
             this.validate = response.data;
 
             if(this.validate === 0){
-              location.href=`/compra/plan/${this.plan_type}/${this.code}/resumen`;
+              location.href=`/compra/plan/${this.plan_type}/null/${this.code}/resumen`;
             }else{
               toastr.error("Código invalido, por favor ingrese un código valido");
             }

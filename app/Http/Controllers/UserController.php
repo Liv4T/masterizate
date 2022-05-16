@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\User;
 use App\EnableTour;
+use App\Contract;
 use Illuminate\Support\Facades\Hash;
 use Auth;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
@@ -52,7 +53,12 @@ class UserController extends Controller
         $attempts = session()->get('login.attempts', 0); // obtener intentos, default: 0
         if (Auth::attempt(['user_name' => $user_name, 'password' => $password, 'status'=> 1], false)) {
             $user = Auth::user();
-            return redirect('/inicio');
+            $data = Contract::where('id_user', $user->id)->first();
+            if ($user->isTutor() && $data == "") {
+                return redirect('/contractData');
+            }elseif ($user->isTutor() && $data = !"") {
+                return redirect('/inicio');
+            }
         } else if(Auth::attempt(['user_name' => $user_name, 'password' => $password, 'status'=> 0], false)){
             session()->put('login.attempts', 0);
             return redirect()->back()->with(['status' => 'Usuario Bloqueado espera 5 Minutos Para acceder de nuevo']);

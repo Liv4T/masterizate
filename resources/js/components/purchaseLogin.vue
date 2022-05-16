@@ -348,8 +348,7 @@ export default {
             let splitUrl=urlLocation.split("/");
             let last=atob(splitUrl[splitUrl.length-1]);
             let model=JSON.parse(last);
-            console.log(model.plan_name);
-            location.href=`/compra/plan/${model.plan_name}/${model.code}/resumen`;
+            location.href=`/compra/plan/${model.plan_name}/${model.payment_currency}/${model.code}/resumen`;
         }
 
 

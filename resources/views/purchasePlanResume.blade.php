@@ -2,7 +2,7 @@
 
 @section('content')
 
-<purchase-plan-resume :plan_type="'{{ $plan_type }}'" :aut="'{{ Auth::user()?Auth::user()->type_user:0 }}'" code="{{ $code }}"></purchase-plan-resume>
+<purchase-plan-resume :plan_type="'{{ $plan_type }}'" :payment_currency="'{{ $payment_type }}'" :aut="'{{ Auth::user()?Auth::user()->type_user:0 }}'" code="{{ $code }}"></purchase-plan-resume>
 <footers></footers>
 <div class="container">
     <div class="row justify-content-center">
