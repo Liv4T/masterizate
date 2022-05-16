@@ -118,9 +118,6 @@ class TutorCodeController extends Controller
             $newClassroomTeacher->save();
         }
 
-
-
-
         return response()->json('Codigo Creado');
     }
 

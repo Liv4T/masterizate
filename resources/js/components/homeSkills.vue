@@ -141,8 +141,10 @@
         <div class="col footer-col">
           <p>Únete a nuestra comunidad</p>
         </div>
-        <div class="col footer-col2">Sugerencias</div>
-        <div class="col footer-col2">Contáctanos</div>
+        <div class="col footer-col2">Enviar sugerencias a soporte@masterizate.com</div>
+        <div class="col footer-col2">
+            <a href="https://wa.me/573204547116?text=Me%20gustaría%20saber%20más%20de%20los%20planes" target="_blank">Contáctanos</a>
+        </div>
       </div>
     </footer>
     <div class="modal fade" id="modalCode" data-backdrop="static" data-keyboard="false">
