@@ -59,6 +59,9 @@ class UserController extends Controller
             }elseif ($user->isTutor() && $data = !"") {
                 return redirect('/inicio');
             }
+            if($user->isClient()){
+                return redirect('/calendar');
+            }
         } else if(Auth::attempt(['user_name' => $user_name, 'password' => $password, 'status'=> 0], false)){
             session()->put('login.attempts', 0);
             return redirect()->back()->with(['status' => 'Usuario Bloqueado espera 5 Minutos Para acceder de nuevo']);
