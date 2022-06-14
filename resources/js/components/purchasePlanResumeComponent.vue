@@ -328,6 +328,7 @@ export default {
     window.onresize = () => {
       this.fillWidthCalculate();
     };
+    this.validateCode();
     this.getPlanInformation();
     if(this.payment_currency == 'null'){
         $("#modalCurrency").modal("show");
@@ -524,6 +525,26 @@ export default {
       setTimeout(() => {
         this.events.pay_loading = false;
       }, 4000);
+    },
+    validateCode(){
+        //obtener el codigo de la url
+        var urlLocation= decodeURI(window.location);
+        let splitUrl=urlLocation.split("/");
+        let code=splitUrl[7];
+        console.log("code",code);
+        //return;
+        var url = "/validateCode/"+code;
+        axios.get(url).then(
+            (response) => {
+                this.validate = response.data;
+
+                if(this.validate === 0){
+
+                }else{
+                toastr.error("Código invalido, por favor ingrese un código valido");
+                location.href='/inicio';
+                }
+            });
     },
   },
 };

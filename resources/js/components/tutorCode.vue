@@ -60,8 +60,10 @@
                             <td>{{ code.area_name }}</td>
                             <td v-show="user.type_user === 1">{{ code.tutor_name }}</td>
                             <td>
-                                <button class="btn btn-primary" v-on:click="edit(code)">Editar</button>
-                                <!-- <button class="btn btn-danger" v-on:click="dropCode(code.id)">Eliminar</button> -->
+                                <a v-on:click="edit(code)"><i class="fas fa-edit fa-lg"></i></a>
+                                <a v-clipboard:copy="code.code" v-clipboard:success="onCopy" v-clipboard:error="onError"><i class="fas fa-copy fa-lg"></i></a>
+                                <a v-on:click="share(code)"><i class="fas fa-share-alt fa-lg"></i></a>
+                                <!-- <a v-on:click="dropCode(code.id)"><i class="fas fa-trash fa-lg"></i></a> -->
                             </td>
                         </tr>
                     </tbody>
@@ -128,6 +130,28 @@
                         </div>
                     </div>
                 </div>
+                <div class="modal fade" id="emailShare" tabindex="-1" role="dialog" aria-labelledby="emailShareLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="codeLabel">{{ text_modal }}</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label for="name">Correo Electrónico</label>
+                                    <input type="text" class="form-control" name="name" v-model="email">
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                <button type="button" class="btn btn-primary" v-on:click="shareCode">Enviar código</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -135,6 +159,8 @@
 <script>
     import Multiselect from "vue-multiselect";
     import Drawer from "vue-simple-drawer";
+    import VueClipboard from 'vue-clipboard2';
+    Vue.use(VueClipboard);
     Vue.component("multiselect", Multiselect);
     export default {
         props:['user'],
@@ -147,8 +173,10 @@
                 id_to_update:"",
                 name:"",
                 description:"",
+                id_code: "",
                 code:"",
                 date:"",
+                email: "",
                 userSelected:0,
                 open: false,
                 text_modal:"",
@@ -268,6 +296,23 @@
                 $("#code").modal("show");
             },
 
+            share(data){
+                this.id_code = data.id;
+                this.code = data.code;
+                $("#emailShare").modal("show");
+            },
+
+            shareCode(){
+                axios.post('/sendMailCode',{
+                    id_code: this.id_code,
+                    code: this.code,
+                    email_to: this.email,
+                }).then((response) =>{
+                    toastr.success("Correo enviado con éxito");
+                    $("#emailShare").modal("hide");
+                });
+            },
+
             cleanForm(){
                 this.id_to_update = "";
                 this.name = "";
@@ -326,7 +371,16 @@
                         })
                     }
                 }
-            }
+            },
+
+            onCopy: function (e) {
+                toastr.info('Texto copiado con éxito');
+            },
+
+            onError: function (e) {
+                toastr.error('No se pudo copiar el texto al portapapeles');
+            },
+
         }
     }
 </script>

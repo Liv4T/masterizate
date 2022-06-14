@@ -362,6 +362,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       _this.fillWidthCalculate();
     };
 
+    this.validateCode();
     this.getPlanInformation();
 
     if (this.payment_currency == 'null') {
@@ -618,6 +619,25 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       setTimeout(function () {
         _this6.events.pay_loading = false;
       }, 4000);
+    },
+    validateCode: function validateCode() {
+      var _this7 = this;
+
+      //obtener el codigo de la url
+      var urlLocation = decodeURI(window.location);
+      var splitUrl = urlLocation.split("/");
+      var code = splitUrl[7];
+      console.log("code", code); //return;
+
+      var url = "/validateCode/" + code;
+      axios.get(url).then(function (response) {
+        _this7.validate = response.data;
+
+        if (_this7.validate === 0) {} else {
+          toastr.error("Código invalido, por favor ingrese un código valido");
+          location.href = '/inicio';
+        }
+      });
     }
   }
 });

@@ -896,14 +896,16 @@ Route::put('/api/tutor-schedule/event/{schedulestudent_id}/link', 'TutorControll
 Route::get('/api/tutor-schedule/event/data/{schedule_id}/{schedulestudent_id}', 'TutorController@tutorScheduleData');
 Route::get('/api/plan/event/data/{plan_type}', 'PlansController@getData');
 Route::get('/getScheduleCode/{id_code}', 'TutorController@getScheduleCodes');
-Route::resource('codes', 'TutorCodeController');
-Route::get('/validateCode/{code}', 'TutorCodeController@validateCode');
 Route::resource('vinculationsTutor', 'VinculationTutorStudentController');
 Route::get('getVinculationsTutor', 'VinculationTutorStudentController@getVinculationsTutor');
 Route::get('getVinculationsTutorMessage', 'VinculationTutorStudentController@getVinculationsTutorMessage');
-Route::get('/getCodesPerUser/{id}', 'TutorCodeController@codesPerUser');
 Route::get('/getClassroomAndStudent', 'TutorController@getClassroomAndUsers');
 
+//TutorCode
+Route::resource('codes', 'TutorCodeController');
+Route::get('/validateCode/{code}', 'TutorCodeController@validateCode');
+Route::get('/getCodesPerUser/{id}', 'TutorCodeController@codesPerUser');
+Route::post('/sendMailCode', 'TutorCodeController@shareCodeEmail');
 
 Route::get('/api/lectives', 'LectivesController@getLectives');
 Route::get('/api/lectives/planification/{id_lective_planification}', 'LectivesController@getPlanificationDetail');

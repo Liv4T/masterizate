@@ -13,6 +13,7 @@ use App\User;
 use App\EnableSubject;
 use Auth;
 use DB;
+use Illuminate\Support\Facades\Mail;
 
 class TutorCodeController extends Controller
 {
@@ -230,5 +231,16 @@ class TutorCodeController extends Controller
 
         return response()->json($vinculations);
 
+    }
+    public function shareCodeEmail(Request $request){
+        $user = Auth::user();
+        $code = TutorCode::find($request->id_code);
+        $email_to = $request->email_to;
+        Mail::send('emails.shareCode', ["nameTeacher" => $user->name . ' ' .$user->last_name , "className" => $code->name, "code" => $code->code], function ($message) use ($email_to) {
+            $message->to($email_to, 'Masterizate Invitación a una clase');
+            $message->subject('Masterizate Invitación a una clase');
+        });
+
+        return response()->json('ok');
     }
 }
