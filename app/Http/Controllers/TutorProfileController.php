@@ -61,7 +61,7 @@ class TutorProfileController extends Controller
                 'email' => $request->email,
                 'type_user' => 7,
                 'address' => $request->address,
-                'picture' => $request->picture,
+                'picture' => isset($request->picture) ? $request->picture : 'https://masterizate.com/uploads/images/predeterminado.png',
                 'phone' => $request->phone,
                 'id_number' => $request->id_number,
             ]);

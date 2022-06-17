@@ -623,6 +623,8 @@ $router->get('import', 'ImportController@importTeacherClassroom');
 $router->get('importStudent', 'ImportController@importStudentClassroom');
 // Carga masiva usuario
 $router->get('importUsers', 'ImportController@importUsers');
+$router->get('importVinculations', 'ImportController@importVinculations');
+$router->get('importEnableSubjects', 'ImportController@importEnableSubjects');
 Route::middleware('auth')->get('/importar_adm', function () {
     return view('imports.importB');
 });
