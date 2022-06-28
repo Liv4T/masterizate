@@ -13,6 +13,7 @@ class Eventos extends Model
         'name',
         'id_classroom',
         'id_area',
+        'id_class',
         'date_to',
         'date_from',
         'id_user',

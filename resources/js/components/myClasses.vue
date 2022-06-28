@@ -2,7 +2,7 @@
     <div v-if="createClas === 'hide'">
         <div class="card-header text-center fondo row" data-v-step="0">
             <div class="card-center">
-                <label class="card-text">Mis estudiantes</label>
+                <label class="card-text">Mis clases</label>
             </div>
             <div style="margin-left:auto">
                 <a class="btn" @click="toggle">

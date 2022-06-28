@@ -54,8 +54,8 @@
                                 </tr>
                             </thead>
                             <tbody v-for="(student, key) in students" :key="key">
-                                <tr v-if="search_student =='' || filterStudent(student.tutor_name)">
-                                    <td>{{student.tutor_name}}</td>
+                                <tr v-if="search_student =='' || filterStudent(student.user_name)">
+                                    <td>{{student.user_name}}</td>
                                     <td></td>
                                     <td><button type="button" class="btn btn-primary" v-on:click="()=>getIdUser(student)">Seleccionar</button></td>
                                 </tr>
@@ -88,11 +88,11 @@
                 if(val == 1){
                     this.optionsMap = this.optionsEst;
                     this.view = val;
-                    console.log(this.optionsMap);
+                    console.log('map',this.optionsMap);
                 }else if(val == 2){
                     this.optionsMap = this.optionsDoc;
                     this.view = val;
-                    console.log(this.optionsMap);
+                    console.log('map',this.optionsMap);
                 }
             }
         },
@@ -125,11 +125,11 @@
             groupData(data){
                 //const result = _.chain(data).groupBy("classroom_name").value();
                 const result = _.chain(data).groupBy("area_name").value();
-                this.optionsEst = result
+                this.optionsEst = result;
             },
             groupDataDoc(data){
                 const result = _.chain(data).groupBy("area_name").value();
-                this.optionsDoc = result
+                this.optionsDoc = result;
             },
             filterClass(clas){
                 return clas.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(this.search_class.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, ""));

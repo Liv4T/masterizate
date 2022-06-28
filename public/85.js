@@ -315,6 +315,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 (function () {
   "use strict";
 
@@ -443,7 +453,9 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
       if (this.id_class != 0) {
         axios.get("/api/teacher/module/".concat(this.id_classroom_selected, "/class/").concat(this.id_class)).then(function (response) {
           _this3.course = response.data;
+          console.log(_this3.course);
           _this3.link_event = response.data.url_class;
+          _this3.hour_event = response.data.date_init_class;
           console.log(_this3.course);
 
           if (_this3.course.content.length == 0) {
@@ -732,622 +744,626 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c("div", [
-      _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-md-12 mx-auto" }, [
-          _c("div", { staticClass: "custom-card text-center" }, [
-            _c("h5", { staticClass: "card-header fondo" }, [
-              _vm._v(
-                "\n                        " +
-                  _vm._s(_vm.weekly_plan.name) +
-                  "\n                    "
-              )
-            ]),
-            _vm._v(" "),
-            _c(
-              "span",
-              {
-                staticClass: "classroom-label",
-                staticStyle: { "font-size": "1.5em" }
-              },
-              [_vm._v(_vm._s(_vm.nameArea))]
+  return _c("div", { staticClass: "back" }, [
+    _c("div", { staticClass: "row justify-content-center" }, [
+      _c("div", { staticClass: "col-md-10 mx-auto" }, [
+        _c("div", { staticClass: "custom-card text-center" }, [
+          _c("h5", { staticClass: "card-header fondo" }, [
+            _vm._v(
+              "\n                    " +
+                _vm._s(_vm.weekly_plan.name) +
+                "\n                "
             )
           ]),
           _vm._v(" "),
-          _vm.link_event
-            ? _c("div", { staticClass: "row" }, [
+          _c(
+            "span",
+            {
+              staticClass: "classroom-label",
+              staticStyle: { "font-size": "1.5em" }
+            },
+            [_vm._v(_vm._s(_vm.nameArea))]
+          )
+        ]),
+        _vm._v(" "),
+        _vm.link_event
+          ? _c("div", { staticClass: "row" }, [
+              _c("div", { staticClass: "col-12" }, [
+                _c("b", [
+                  _vm._v(_vm._s(_vm.$t("lang.class.classAttendance")) + ":")
+                ])
+              ])
+            ])
+          : _vm._e(),
+        _vm._v(" "),
+        _vm.hour_event
+          ? _c("div", { staticClass: "row" }, [
+              _c("div", { staticClass: "col-md-6" }, [
+                _vm._v(
+                  "\n                    " +
+                    _vm._s(
+                      _vm.$t("lang.class.dateAndTime") + " " + _vm.hour_event
+                    ) +
+                    "\n                "
+                )
+              ]),
+              _vm._v(" "),
+              _vm.link_event
+                ? _c("div", { staticClass: "col-md-6" }, [
+                    _c(
+                      "a",
+                      {
+                        staticClass: "btn btn-warning float-right",
+                        attrs: {
+                          href: _vm.link_event,
+                          target: "_blank",
+                          rel: "noopener noreferrer"
+                        }
+                      },
+                      [_vm._v(_vm._s(_vm.$t("lang.general.goToClass")))]
+                    )
+                  ])
+                : _vm._e()
+            ])
+          : _vm._e(),
+        _vm._v(" "),
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "col-12" }),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-12" }, [
+            _c("div", { staticClass: "progress" }, [
+              _c("div", {
+                staticClass: "progress-bar",
+                staticStyle: { "background-color": "#f79d52" },
+                style: {
+                  width: _vm.course.progress + "%"
+                }
+              })
+            ]),
+            _vm._v(
+              "\n                    " +
+                _vm._s(_vm.course.progress) +
+                "%\n                "
+            )
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "div-classes" }, [
+          _c(
+            "div",
+            { staticClass: "div-class" },
+            [
+              _c("div", { staticClass: "title row" }, [
+                _c("div", { staticClass: "col-12" }, [
+                  _c("b", [_vm._v(_vm._s(_vm.$t("lang.menu.class")) + ":")]),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.course.name,
+                        expression: "course.name"
+                      }
+                    ],
+                    staticClass: "form-control-plaintext",
+                    attrs: { type: "text", readonly: "" },
+                    domProps: { value: _vm.course.name },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.course, "name", $event.target.value)
+                      }
+                    }
+                  })
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "row" }, [
                 _c("div", { staticClass: "col-12" }, [
                   _c("b", [
-                    _vm._v(_vm._s(_vm.$t("lang.class.classAttendance")) + ":")
-                  ])
-                ])
-              ])
-            : _vm._e(),
-          _vm._v(" "),
-          _vm.link_event
-            ? _c("div", { staticClass: "row" }, [
-                _c("div", { staticClass: "col-md-6" }, [
-                  _vm._v(
-                    "\n                        " +
-                      _vm._s(
-                        _vm.course.name +
-                          " " +
-                          _vm.$t("lang.class.dateAndTime") +
-                          " " +
-                          _vm.hour_event
-                      ) +
-                      "\n                    "
-                  )
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "col-md-6" }, [
-                  _c(
-                    "a",
-                    {
-                      staticClass: "btn btn-warning float-right",
-                      attrs: {
-                        href: _vm.link_event,
-                        target: "_blank",
-                        rel: "noopener noreferrer"
+                    _vm._v(_vm._s(_vm.$t("lang.general.description")) + ":")
+                  ]),
+                  _vm._v(" "),
+                  _c("textarea", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.course.description,
+                        expression: "course.description"
                       }
-                    },
-                    [_vm._v(_vm._s(_vm.$t("lang.general.goToClass")))]
-                  )
+                    ],
+                    staticClass: "form-control-plaintext",
+                    attrs: { cols: "40", rows: "4", readonly: "" },
+                    domProps: { value: _vm.course.description },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.course, "description", $event.target.value)
+                      }
+                    }
+                  })
                 ])
-              ])
-            : _vm._e(),
-          _vm._v(" "),
-          _c("div", { staticClass: "row" }, [
-            _c("div", { staticClass: "col-12" }),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-12" }, [
-              _c("div", { staticClass: "progress" }, [
-                _c("div", {
-                  staticClass: "progress-bar",
-                  staticStyle: { "background-color": "#f79d52" },
-                  style: {
-                    width: _vm.course.progress + "%"
-                  }
-                })
               ]),
-              _vm._v(
-                "\n                        " +
-                  _vm._s(_vm.course.progress) +
-                  "%\n                    "
-              )
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "div-classes" }, [
-            _c(
-              "div",
-              { staticClass: "div-class" },
-              [
-                _c("div", { staticClass: "title row" }, [
-                  _c("div", { staticClass: "col-12" }, [
-                    _c("b", [_vm._v(_vm._s(_vm.$t("lang.menu.class")) + ":")]),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.course.name,
-                          expression: "course.name"
-                        }
-                      ],
-                      staticClass: "form-control-plaintext",
-                      attrs: { type: "text", readonly: "" },
-                      domProps: { value: _vm.course.name },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(_vm.course, "name", $event.target.value)
-                        }
+              _vm._v(" "),
+              _c("div", { staticClass: "row" }, [
+                _c("div", { staticClass: "col-12" }, [
+                  _c("b", [_vm._v(_vm._s(_vm.$t("lang.homework.task")) + ":")]),
+                  _vm._v(" "),
+                  _c("textarea", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.course.work,
+                        expression: "course.work"
                       }
-                    })
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "row" }, [
-                  _c("div", { staticClass: "col-12" }, [
-                    _c("b", [
-                      _vm._v(_vm._s(_vm.$t("lang.general.description")) + ":")
-                    ]),
-                    _vm._v(" "),
-                    _c("textarea", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.course.description,
-                          expression: "course.description"
+                    ],
+                    staticClass: "form-control-plaintext",
+                    attrs: { cols: "40", rows: "4", readonly: "" },
+                    domProps: { value: _vm.course.work },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
                         }
-                      ],
-                      staticClass: "form-control-plaintext",
-                      attrs: { cols: "40", rows: "4", readonly: "" },
-                      domProps: { value: _vm.course.description },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(
-                            _vm.course,
-                            "description",
-                            $event.target.value
-                          )
-                        }
+                        _vm.$set(_vm.course, "work", $event.target.value)
                       }
-                    })
+                    }
+                  })
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "row" }, [
+                _c("div", { staticClass: "col-12" }, [
+                  _c("b", [
+                    _vm._v(_vm._s(_vm.$t("lang.general.resources")) + ":")
                   ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "row" }, [
-                  _c("div", { staticClass: "col-12" }, [
-                    _c("b", [
-                      _vm._v(_vm._s(_vm.$t("lang.general.resources")) + ":")
-                    ])
-                  ])
-                ]),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "row justify-content-center" },
-                  [
-                    _vm._l(_vm.course.content, function(item_content, key_c) {
-                      return [
-                        item_content.content != "" &&
-                        item_content.content != null
-                          ? _c(
-                              "div",
-                              {
-                                key: key_c,
-                                staticClass: "col-10 div-resource",
-                                staticStyle: { "border-radius": "8px" }
-                              },
-                              [
-                                item_content.content_type === "DOCUMENT"
-                                  ? _c(
-                                      "h4",
-                                      { staticStyle: { color: "#f79d52" } },
-                                      [
-                                        _vm._v(
-                                          "\n                                    " +
-                                            _vm._s(
-                                              _vm.$t("lang.general.document")
-                                            ) +
-                                            "\n                                "
-                                        )
-                                      ]
-                                    )
-                                  : item_content.content_type === "LINK"
-                                  ? _c(
-                                      "h4",
-                                      { staticStyle: { color: "#f79d52" } },
-                                      [
-                                        _vm._v(
-                                          "\n                                    " +
-                                            _vm._s(
-                                              _vm.$t("lang.general.link")
-                                            ) +
-                                            "\n                                "
-                                        )
-                                      ]
-                                    )
-                                  : item_content.content_type === "VIDEO"
-                                  ? _c(
-                                      "h4",
-                                      { staticStyle: { color: "#f79d52" } },
-                                      [
-                                        _vm._v(
-                                          "\n                                    " +
-                                            _vm._s(
-                                              _vm.$t("lang.general.video")
-                                            ) +
-                                            "\n                                "
-                                        )
-                                      ]
-                                    )
-                                  : item_content.content_type === "YOUTUBE"
-                                  ? _c(
-                                      "h4",
-                                      { staticStyle: { color: "#f79d52" } },
-                                      [
-                                        _vm._v(
-                                          "\n                                    " +
-                                            _vm._s(
-                                              _vm.$t("lang.general.video")
-                                            ) +
-                                            "\n                                "
-                                        )
-                                      ]
-                                    )
-                                  : _vm._e(),
-                                _vm._v(" "),
-                                _c("div", { staticClass: "form-item" }, [
-                                  _c("input", {
-                                    directives: [
-                                      {
-                                        name: "model",
-                                        rawName: "v-model",
-                                        value: item_content.description,
-                                        expression: "item_content.description"
-                                      }
-                                    ],
-                                    staticClass: "form-control-plaintext",
-                                    attrs: { type: "text", readonly: "" },
-                                    domProps: {
-                                      value: item_content.description
-                                    },
-                                    on: {
-                                      input: function($event) {
-                                        if ($event.target.composing) {
-                                          return
-                                        }
-                                        _vm.$set(
-                                          item_content,
-                                          "description",
-                                          $event.target.value
-                                        )
-                                      }
+                ])
+              ]),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "row justify-content-center" },
+                [
+                  _vm._l(_vm.course.content, function(item_content, key_c) {
+                    return [
+                      item_content.content != "" && item_content.content != null
+                        ? _c(
+                            "div",
+                            {
+                              key: key_c,
+                              staticClass: "col-10 div-resource",
+                              staticStyle: { "border-radius": "8px" }
+                            },
+                            [
+                              item_content.content_type === "DOCUMENT"
+                                ? _c(
+                                    "h4",
+                                    { staticStyle: { color: "#f79d52" } },
+                                    [
+                                      _vm._v(
+                                        "\n                                " +
+                                          _vm._s(
+                                            _vm.$t("lang.general.document")
+                                          ) +
+                                          "\n                            "
+                                      )
+                                    ]
+                                  )
+                                : item_content.content_type === "LINK"
+                                ? _c(
+                                    "h4",
+                                    { staticStyle: { color: "#f79d52" } },
+                                    [
+                                      _vm._v(
+                                        "\n                                " +
+                                          _vm._s(_vm.$t("lang.general.link")) +
+                                          "\n                            "
+                                      )
+                                    ]
+                                  )
+                                : item_content.content_type === "VIDEO"
+                                ? _c(
+                                    "h4",
+                                    { staticStyle: { color: "#f79d52" } },
+                                    [
+                                      _vm._v(
+                                        "\n                                " +
+                                          _vm._s(_vm.$t("lang.general.video")) +
+                                          "\n                            "
+                                      )
+                                    ]
+                                  )
+                                : item_content.content_type === "YOUTUBE"
+                                ? _c(
+                                    "h4",
+                                    { staticStyle: { color: "#f79d52" } },
+                                    [
+                                      _vm._v(
+                                        "\n                                " +
+                                          _vm._s(_vm.$t("lang.general.video")) +
+                                          "\n                            "
+                                      )
+                                    ]
+                                  )
+                                : _vm._e(),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "form-item" }, [
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: item_content.description,
+                                      expression: "item_content.description"
                                     }
-                                  })
-                                ]),
-                                _vm._v(" "),
-                                _c("div", { staticClass: "form-item" }, [
-                                  _c("div", { staticClass: "form-button" }, [
-                                    item_content.content_type === "DOCUMENT"
-                                      ? _c(
-                                          "a",
-                                          {
-                                            staticClass: "btn btn-primary",
-                                            on: {
-                                              click: function($event) {
-                                                return _vm.openDocument(
-                                                  item_content
-                                                )
-                                              }
-                                            }
-                                          },
-                                          [
-                                            _vm._v(
-                                              _vm._s(
-                                                _vm.$t(
-                                                  "lang.general.readDocument"
-                                                )
+                                  ],
+                                  staticClass: "form-control-plaintext",
+                                  attrs: { type: "text", readonly: "" },
+                                  domProps: { value: item_content.description },
+                                  on: {
+                                    input: function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.$set(
+                                        item_content,
+                                        "description",
+                                        $event.target.value
+                                      )
+                                    }
+                                  }
+                                })
+                              ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "form-item" }, [
+                                _c("div", { staticClass: "form-button" }, [
+                                  item_content.content_type === "DOCUMENT"
+                                    ? _c(
+                                        "a",
+                                        {
+                                          staticClass: "btn btn-primary",
+                                          on: {
+                                            click: function($event) {
+                                              return _vm.openDocument(
+                                                item_content
                                               )
-                                            )
-                                          ]
-                                        )
-                                      : _vm._e(),
-                                    _vm._v(" "),
-                                    item_content.content_type === "LINK"
-                                      ? _c(
-                                          "a",
-                                          {
-                                            staticClass: "btn btn-primary",
-                                            attrs: { target: "_blank" },
-                                            on: {
-                                              click: function($event) {
-                                                return _vm.openLink(
-                                                  item_content
-                                                )
-                                              }
                                             }
-                                          },
-                                          [
-                                            _vm._v(
-                                              _vm._s(
-                                                _vm.$t(
-                                                  "lang.general.letsGoToWork"
-                                                )
-                                              )
-                                            )
-                                          ]
-                                        )
-                                      : _vm._e(),
-                                    _vm._v(" "),
-                                    item_content.content_type === "VIDEO"
-                                      ? _c(
-                                          "video",
-                                          {
-                                            attrs: { id: "vid", controls: "" },
-                                            on: {
-                                              playing: function($event) {
-                                                return _vm.playVideo(
-                                                  item_content
-                                                )
-                                              }
-                                            }
-                                          },
-                                          [
-                                            _c("source", {
-                                              attrs: {
-                                                src: item_content.content,
-                                                type: "video/mp4"
-                                              }
-                                            })
-                                          ]
-                                        )
-                                      : _vm._e(),
-                                    _vm._v(" "),
-                                    item_content.content_type === "YOUTUBE"
-                                      ? _c("iframe", {
-                                          staticClass: "container_youtube",
-                                          attrs: {
-                                            src: _vm.resolveYoutubeLink(
-                                              item_content.content
-                                            ),
-                                            frameborder: "0",
-                                            allow:
-                                              "accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture",
-                                            allowfullscreen: ""
                                           }
-                                        })
-                                      : _vm._e()
-                                  ])
+                                        },
+                                        [
+                                          _vm._v(
+                                            _vm._s(
+                                              _vm.$t(
+                                                "lang.general.readDocument"
+                                              )
+                                            )
+                                          )
+                                        ]
+                                      )
+                                    : _vm._e(),
+                                  _vm._v(" "),
+                                  item_content.content_type === "LINK"
+                                    ? _c(
+                                        "a",
+                                        {
+                                          staticClass: "btn btn-primary",
+                                          attrs: { target: "_blank" },
+                                          on: {
+                                            click: function($event) {
+                                              return _vm.openLink(item_content)
+                                            }
+                                          }
+                                        },
+                                        [
+                                          _vm._v(
+                                            _vm._s(
+                                              _vm.$t(
+                                                "lang.general.letsGoToWork"
+                                              )
+                                            )
+                                          )
+                                        ]
+                                      )
+                                    : _vm._e(),
+                                  _vm._v(" "),
+                                  item_content.content_type === "VIDEO"
+                                    ? _c(
+                                        "video",
+                                        {
+                                          attrs: { id: "vid", controls: "" },
+                                          on: {
+                                            playing: function($event) {
+                                              return _vm.playVideo(item_content)
+                                            }
+                                          }
+                                        },
+                                        [
+                                          _c("source", {
+                                            attrs: {
+                                              src: item_content.content,
+                                              type: "video/mp4"
+                                            }
+                                          })
+                                        ]
+                                      )
+                                    : _vm._e(),
+                                  _vm._v(" "),
+                                  item_content.content_type === "YOUTUBE"
+                                    ? _c("iframe", {
+                                        staticClass: "container_youtube",
+                                        attrs: {
+                                          src: _vm.resolveYoutubeLink(
+                                            item_content.content
+                                          ),
+                                          frameborder: "0",
+                                          allow:
+                                            "accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture",
+                                          allowfullscreen: ""
+                                        }
+                                      })
+                                    : _vm._e()
                                 ])
-                              ]
+                              ])
+                            ]
+                          )
+                        : _vm._e()
+                    ]
+                  })
+                ],
+                2
+              ),
+              _vm._v(" "),
+              _vm._l(_vm.course.activities, function(act, key_a) {
+                return _c(
+                  "div",
+                  {
+                    key: key_a,
+                    staticClass: "row justify-content-center margin-top-50"
+                  },
+                  [
+                    _c("div", { staticClass: "col-10" }, [
+                      _c("div", { staticClass: "card" }, [
+                        _c("div", { staticClass: "card-header card-title" }, [
+                          _c("h5", { staticStyle: { color: "#f79d52" } }, [
+                            _vm._v(
+                              "\n                                        " +
+                                _vm._s(_vm.$t("lang.general.activity")) +
+                                " N°" +
+                                _vm._s(key_a + 1) +
+                                " :\n                                        " +
+                                _vm._s(act.name) +
+                                "\n                                    "
                             )
-                          : _vm._e()
-                      ]
-                    })
-                  ],
-                  2
-                ),
-                _vm._v(" "),
-                _vm._l(_vm.course.activities, function(act, key_a) {
-                  return _c(
-                    "div",
-                    {
-                      key: key_a,
-                      staticClass: "row justify-content-center margin-top-50"
-                    },
-                    [
-                      _c("div", { staticClass: "col-10" }, [
-                        _c("div", { staticClass: "card" }, [
-                          _c("div", { staticClass: "card-header card-title" }, [
-                            _c("h5", { staticStyle: { color: "#f79d52" } }, [
-                              _vm._v(
-                                "\n                                            " +
-                                  _vm._s(_vm.$t("lang.general.activity")) +
-                                  " N°" +
-                                  _vm._s(key_a + 1) +
-                                  " :\n                                            " +
-                                  _vm._s(act.name) +
-                                  "\n                                        "
-                              )
-                            ]),
-                            _vm._v(" "),
-                            act.interaction.state < 3 &&
-                            _vm.activity.id != act.id
-                              ? _c(
-                                  "button",
-                                  {
-                                    staticClass: "btn btn-primary",
-                                    on: {
-                                      click: function($event) {
-                                        $event.preventDefault()
-                                        return _vm.openActivity(key_a)
-                                      }
-                                    }
-                                  },
-                                  [
-                                    _vm._v(
-                                      "\n                                            " +
-                                        _vm._s(
-                                          act.interaction.state == 2
-                                            ? "Esperando calificación"
-                                            : "Presentar"
-                                        ) +
-                                        "\n                                        "
-                                    )
-                                  ]
-                                )
-                              : _vm._e(),
-                            _vm._v(" "),
-                            _vm.activity.id == act.id
-                              ? _c(
-                                  "button",
-                                  {
-                                    staticClass: "btn btn-warning",
-                                    on: {
-                                      click: function($event) {
-                                        $event.preventDefault()
-                                        return _vm.closeQuestion()
-                                      }
-                                    }
-                                  },
-                                  [
-                                    _vm._v(
-                                      "\n                                            " +
-                                        _vm._s(_vm.$t("lang.general.cancel")) +
-                                        "\n                                        "
-                                    )
-                                  ]
-                                )
-                              : _vm._e(),
-                            _vm._v(" "),
-                            act.interaction.state == 3 &&
-                            _vm.activity.id != act.id
-                              ? _c(
-                                  "button",
-                                  {
-                                    staticClass: "btn btn-primary",
-                                    on: {
-                                      click: function($event) {
-                                        $event.preventDefault()
-                                        return _vm.openFeedback(key_a)
-                                      }
-                                    }
-                                  },
-                                  [
-                                    _vm._v(
-                                      "\n                                            " +
-                                        _vm._s(
-                                          _vm.$t("lang.general.feedback")
-                                        ) +
-                                        "\n                                        "
-                                    )
-                                  ]
-                                )
-                              : _vm._e()
                           ]),
+                          _vm._v(" "),
+                          act.interaction.state < 3 && _vm.activity.id != act.id
+                            ? _c(
+                                "button",
+                                {
+                                  staticClass: "btn btn-primary",
+                                  on: {
+                                    click: function($event) {
+                                      $event.preventDefault()
+                                      return _vm.openActivity(key_a)
+                                    }
+                                  }
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                                        " +
+                                      _vm._s(
+                                        act.interaction.state == 2
+                                          ? "Esperando calificación"
+                                          : "Presentar"
+                                      ) +
+                                      "\n                                    "
+                                  )
+                                ]
+                              )
+                            : _vm._e(),
                           _vm._v(" "),
                           _vm.activity.id == act.id
                             ? _c(
-                                "div",
-                                { staticClass: "card-body" },
+                                "button",
+                                {
+                                  staticClass: "btn btn-warning",
+                                  on: {
+                                    click: function($event) {
+                                      $event.preventDefault()
+                                      return _vm.closeQuestion()
+                                    }
+                                  }
+                                },
                                 [
-                                  _c("div", { staticClass: "row" }, [
-                                    _c("div", { staticClass: "col-12" }, [
-                                      _c("b", [
-                                        _vm._v(
-                                          _vm._s(
-                                            _vm.$t("lang.general.description")
-                                          ) + ":"
-                                        )
-                                      ]),
-                                      _vm._v(" "),
-                                      _c("textarea", {
-                                        directives: [
-                                          {
-                                            name: "model",
-                                            rawName: "v-model",
-                                            value: _vm.activity.description,
-                                            expression:
-                                              "\n                                                        activity.description\n                                                    "
-                                          }
-                                        ],
-                                        staticClass: "form-control-plaintext",
-                                        attrs: { readonly: "" },
-                                        domProps: {
-                                          value: _vm.activity.description
-                                        },
-                                        on: {
-                                          input: function($event) {
-                                            if ($event.target.composing) {
-                                              return
-                                            }
-                                            _vm.$set(
-                                              _vm.activity,
-                                              "description",
-                                              $event.target.value
-                                            )
-                                          }
-                                        }
-                                      })
-                                    ])
-                                  ]),
-                                  _vm._v(" "),
-                                  _vm.activity.activity_type == "CUESTIONARIO"
-                                    ? _c("activity-questionary", {
-                                        attrs: {
-                                          playing: true,
-                                          module: _vm.activity.module,
-                                          disabled:
-                                            _vm.activity.interaction.state > 1
-                                        }
-                                      })
-                                    : _vm._e(),
-                                  _vm._v(" "),
-                                  _vm.activity.activity_type ==
-                                  "COMPLETAR_ORACION"
-                                    ? _c("activity-complete-sentence", {
-                                        attrs: {
-                                          playing: true,
-                                          module: _vm.activity.module,
-                                          disabled:
-                                            _vm.activity.interaction.state > 1
-                                        }
-                                      })
-                                    : _vm._e(),
-                                  _vm._v(" "),
-                                  _vm.activity.activity_type == "RELACION"
-                                    ? _c("activity-relationship", {
-                                        attrs: {
-                                          playing: true,
-                                          module: _vm.activity.module,
-                                          disabled:
-                                            _vm.activity.interaction.state > 1
-                                        }
-                                      })
-                                    : _vm._e(),
-                                  _vm._v(" "),
-                                  _vm.activity.activity_type == "CRUCIGRAMA"
-                                    ? _c("activity-crossword", {
-                                        attrs: {
-                                          playing: true,
-                                          module: _vm.activity.module,
-                                          disabled:
-                                            _vm.activity.interaction.state > 1
-                                        }
-                                      })
-                                    : _vm._e(),
-                                  _vm._v(" "),
-                                  _c(
-                                    "div",
-                                    { staticClass: "activity_response-button" },
-                                    [
-                                      _vm.activity.interaction.state == 1
-                                        ? _c(
-                                            "button",
-                                            {
-                                              staticClass: "btn btn-primary",
-                                              on: {
-                                                click: function($event) {
-                                                  return _vm.SaveResponseEvent(
-                                                    _vm.activity
-                                                  )
-                                                }
-                                              }
-                                            },
-                                            [_vm._v("Enviar respuestas")]
-                                          )
-                                        : _vm._e()
-                                    ]
-                                  ),
-                                  _vm._v(" "),
-                                  _vm.activity.interaction.state == 3
-                                    ? _c("div", [
-                                        _vm._v(
-                                          _vm._s(_vm.$t("lang.class.score")) +
-                                            ": "
-                                        ),
-                                        _c(
-                                          "span",
-                                          { staticClass: "activity_score" },
-                                          [
-                                            _vm._v(
-                                              _vm._s(
-                                                _vm.activity.interaction.score
-                                              )
-                                            ),
-                                            _c("small", [_vm._v("/5")])
-                                          ]
-                                        )
-                                      ])
-                                    : _vm._e()
-                                ],
-                                1
+                                  _vm._v(
+                                    "\n                                        " +
+                                      _vm._s(_vm.$t("lang.general.cancel")) +
+                                      "\n                                    "
+                                  )
+                                ]
+                              )
+                            : _vm._e(),
+                          _vm._v(" "),
+                          act.interaction.state == 3 &&
+                          _vm.activity.id != act.id
+                            ? _c(
+                                "button",
+                                {
+                                  staticClass: "btn btn-primary",
+                                  on: {
+                                    click: function($event) {
+                                      $event.preventDefault()
+                                      return _vm.openFeedback(key_a)
+                                    }
+                                  }
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                                        " +
+                                      _vm._s(_vm.$t("lang.general.feedback")) +
+                                      "\n                                    "
+                                  )
+                                ]
                               )
                             : _vm._e()
-                        ])
+                        ]),
+                        _vm._v(" "),
+                        _vm.activity.id == act.id
+                          ? _c(
+                              "div",
+                              { staticClass: "card-body" },
+                              [
+                                _c("div", { staticClass: "row" }, [
+                                  _c("div", { staticClass: "col-12" }, [
+                                    _c("b", [
+                                      _vm._v(
+                                        _vm._s(
+                                          _vm.$t("lang.general.description")
+                                        ) + ":"
+                                      )
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("textarea", {
+                                      directives: [
+                                        {
+                                          name: "model",
+                                          rawName: "v-model",
+                                          value: _vm.activity.description,
+                                          expression:
+                                            "\n                                                    activity.description\n                                                "
+                                        }
+                                      ],
+                                      staticClass: "form-control-plaintext",
+                                      attrs: { readonly: "" },
+                                      domProps: {
+                                        value: _vm.activity.description
+                                      },
+                                      on: {
+                                        input: function($event) {
+                                          if ($event.target.composing) {
+                                            return
+                                          }
+                                          _vm.$set(
+                                            _vm.activity,
+                                            "description",
+                                            $event.target.value
+                                          )
+                                        }
+                                      }
+                                    })
+                                  ])
+                                ]),
+                                _vm._v(" "),
+                                _vm.activity.activity_type == "CUESTIONARIO"
+                                  ? _c("activity-questionary", {
+                                      attrs: {
+                                        playing: true,
+                                        module: _vm.activity.module,
+                                        disabled:
+                                          _vm.activity.interaction.state > 1
+                                      }
+                                    })
+                                  : _vm._e(),
+                                _vm._v(" "),
+                                _vm.activity.activity_type ==
+                                "COMPLETAR_ORACION"
+                                  ? _c("activity-complete-sentence", {
+                                      attrs: {
+                                        playing: true,
+                                        module: _vm.activity.module,
+                                        disabled:
+                                          _vm.activity.interaction.state > 1
+                                      }
+                                    })
+                                  : _vm._e(),
+                                _vm._v(" "),
+                                _vm.activity.activity_type == "RELACION"
+                                  ? _c("activity-relationship", {
+                                      attrs: {
+                                        playing: true,
+                                        module: _vm.activity.module,
+                                        disabled:
+                                          _vm.activity.interaction.state > 1
+                                      }
+                                    })
+                                  : _vm._e(),
+                                _vm._v(" "),
+                                _vm.activity.activity_type == "CRUCIGRAMA"
+                                  ? _c("activity-crossword", {
+                                      attrs: {
+                                        playing: true,
+                                        module: _vm.activity.module,
+                                        disabled:
+                                          _vm.activity.interaction.state > 1
+                                      }
+                                    })
+                                  : _vm._e(),
+                                _vm._v(" "),
+                                _c(
+                                  "div",
+                                  { staticClass: "activity_response-button" },
+                                  [
+                                    _vm.activity.interaction.state == 1
+                                      ? _c(
+                                          "button",
+                                          {
+                                            staticClass: "btn btn-primary",
+                                            on: {
+                                              click: function($event) {
+                                                return _vm.SaveResponseEvent(
+                                                  _vm.activity
+                                                )
+                                              }
+                                            }
+                                          },
+                                          [_vm._v("Enviar respuestas")]
+                                        )
+                                      : _vm._e()
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _vm.activity.interaction.state == 3
+                                  ? _c("div", [
+                                      _vm._v(
+                                        _vm._s(_vm.$t("lang.class.score")) +
+                                          ": "
+                                      ),
+                                      _c(
+                                        "span",
+                                        { staticClass: "activity_score" },
+                                        [
+                                          _vm._v(
+                                            _vm._s(
+                                              _vm.activity.interaction.score
+                                            )
+                                          ),
+                                          _c("small", [_vm._v("/5")])
+                                        ]
+                                      )
+                                    ])
+                                  : _vm._e()
+                              ],
+                              1
+                            )
+                          : _vm._e()
                       ])
-                    ]
-                  )
-                })
-              ],
-              2
-            )
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "div-weekly-plan-btn-save" })
-        ])
+                    ])
+                  ]
+                )
+              })
+            ],
+            2
+          )
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "div-weekly-plan-btn-save" })
       ])
     ])
   ])

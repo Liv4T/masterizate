@@ -55,22 +55,22 @@ class MessagingController extends Controller
                 $receptor_message->id_user = $receptor;
                 $receptor_message->status = 0;
                 $receptor_message->id_message = $message->id;
-                $receptor_message->save();                
+                $receptor_message->save();
             }
 
             $emails = [];
             $count = 0;
             foreach ($data['receptor'] as $key => $value) {
                 // dd($receptor);
-                $user = User::findOrFail($value);
+                $user_received = User::findOrFail($value);
                 $emails[$key] = [
-                    $user->email
+                    $user_received->email
                 ];
                 $mensaje_id = Messaging::latest('id')->first();
 
                 $createView = new viewMessages();
                 $createView->id_sender = $id_sender;
-                $createView->id_received = $user->id;
+                $createView->id_received = $user_received->id;
                 $createView->id_message = $mensaje_id->id;
 
                 $createView->save();
@@ -82,10 +82,10 @@ class MessagingController extends Controller
             ];
             // return $data_email;
             foreach ($emails as $email) {
-
-                Mail::send('emails.sendMessages', $data_email, function ($msj) use ($data_email, $email) {
-                    $msj->subject($data_email['subject'])
-                        ->bcc($email);
+                $email_to = $email;
+                Mail::send('emails.newContactMessage', ["user_from" => $user->name . ' ' .$user->last_name], function ($message) use ($email_to) {
+                    $message->to($email_to, 'Masterizate');
+                    $message->subject('Nuevo mensaje');
                 });
             }
         }
@@ -145,7 +145,7 @@ class MessagingController extends Controller
                 foreach ($user_messages as $index => $receiver) {
                     $user_sent = User::find($receiver->id_user);
                     $receivers[$index]  = [
-                        'email' => $user_sent->email,
+                        'email' => isset($user_sent->email) ? $user_sent->email : 'Sin correo',
                     ];
                 }
                 $received_messages[$key] = [
@@ -153,11 +153,10 @@ class MessagingController extends Controller
                     'destinatarios' => $receivers,
                     'fecha'  => $message->created_at,
                     'id'     => $message->id,
-                    'visto'  => $messageView ? $messageView->visualized === 1 ? 'Mensaje Visto' : 'Sin Visualización' : 'Sin registro',
+                    'visto'  => $messageView ? ($messageView->visualized === 1 ? 'Mensaje Visto' : 'Sin Visualización') : 'Sin registro',
                 ];
             }
-            $message->receivers = $receivers;
-
+            //$message->receivers = $receivers;
 
             return $received_messages;
         }
@@ -174,16 +173,17 @@ class MessagingController extends Controller
         $user = Auth::user();
         // return $user->id;
         $messages = [];
-        $messagesReceivers = ReceptorMessage::where('id_user', $user->id)->get();        
-        foreach ($messagesReceivers as $key => $messagesReceiver) {                        
+        $messagesReceivers = ReceptorMessage::where('id_user', $user->id)->get();
+        //return $messagesReceivers;
+        foreach ($messagesReceivers as $key => $messagesReceiver) {
             $message = Messaging::find($messagesReceiver->id_message);
             $messageView = viewMessages::where('id_message',$message->id)->first();
-            $user = User::find($message->id_emisor);
-            $message->emisor = $user->name . " " . $user->last_name;
+            $user_emisor = User::find($message->id_emisor);
+            $message->emisor = $user_emisor->name . " " . $user_emisor->last_name;
             $messages[$key] = [
                 'asunto' => $message->subject,
                 'emisor' => $message->emisor,
-                'visto'  => $messageView ? $messageView->visualized === 1 ? 'Mensaje Visto' : 'Sin Visualización' : 'Sin registro',
+                'visto'  => $messageView ? ($messageView->visualized === 1 ? 'Mensaje Visto' : 'Sin Visualización') : 'Sin registro',
                 'fecha'  => $message->created_at,
                 'id'     => $message->id
             ];

@@ -893,7 +893,7 @@ class ClassController extends Controller
             }//foreach activities
         }
 
-        return;
+        return $id_course;
 
 
     }

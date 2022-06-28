@@ -16,7 +16,7 @@
                             <h6>
                                 {{ $t('lang.Write_To.your_contacts') }}
                             </h6>
-                            <a class="btn btn-info" v-if="teacher" href="#" v-on:click.prevent="btA()"style="margin: 10px;">
+                            <a class="btn btn-info" v-if="teacher" href="#" v-on:click.prevent="btA()" style="margin: 10px;">
 
                                 {{ $t('lang.charges.administrative') }}
                             </a>
@@ -403,7 +403,8 @@
             },
             getIdUser(data){
                 if(data){
-                    this.correos.push(data.user_id)
+                    this.correos.push(data.user_id);
+                    console.log(this.correos);
                     toastr.success(`Estudiante ${data.user_name} Seleccionado`);
                 }
             },
@@ -493,21 +494,21 @@
 
                 // console.log("data: ", this.editorData);
                 var url = "sendMessages";
-                if (this.cresult.length >= 1) {
-                    for (let i = 0; i < this.cresult.length; i++) {
-                        this.correos.push(this.cresult[i].id);
-                    }
-                }
-                if (this.cestudiante.length >= 1) {
-                    for (let i = 0; i < this.cestudiante.length; i++) {
-                        this.correos.push(this.cestudiante[i].id);
-                    }
-                }
-                if (this.cdocente.length >= 1) {
-                    for (let i = 0; i < this.cdocente.length; i++) {
-                        this.correos.push(this.cdocente[i].id);
-                    }
-                }
+                // if (this.cresult.length >= 1) {
+                //     for (let i = 0; i < this.cresult.length; i++) {
+                //         this.correos.push(this.cresult[i].id);
+                //     }
+                // }
+                // if (this.cestudiante.length >= 1) {
+                //     for (let i = 0; i < this.cestudiante.length; i++) {
+                //         this.correos.push(this.cestudiante[i].id);
+                //     }
+                // }
+                // if (this.cdocente.length >= 1) {
+                //     for (let i = 0; i < this.cdocente.length; i++) {
+                //         this.correos.push(this.cdocente[i].id);
+                //     }
+                // }
                 axios
                     .post(url, {
                         receptor: this.correos,

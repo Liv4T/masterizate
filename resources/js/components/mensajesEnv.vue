@@ -154,6 +154,7 @@ export default {
     var urlUsers = "getSentMessage";
     axios.get(urlUsers).then((response) => {
       this.messages = response.data;
+      console.log(this.messages);
     });
   },
   methods: {

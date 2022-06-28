@@ -900,6 +900,7 @@ Route::get('/api/plan/event/data/{plan_type}', 'PlansController@getData');
 Route::get('/getScheduleCode/{id_code}', 'TutorController@getScheduleCodes');
 Route::resource('vinculationsTutor', 'VinculationTutorStudentController');
 Route::get('getVinculationsTutor', 'VinculationTutorStudentController@getVinculationsTutor');
+Route::get('getStudentsPerTutor', 'VinculationTutorStudentController@getStudentsPerTutor');
 Route::get('getVinculationsTutorMessage', 'VinculationTutorStudentController@getVinculationsTutorMessage');
 Route::get('/getClassroomAndStudent', 'TutorController@getClassroomAndUsers');
 

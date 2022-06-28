@@ -265,7 +265,8 @@ var render = function() {
                         _c("td", [_vm._v(_vm._s(proceeding.type))]),
                         _vm._v(" "),
                         _c("td", [
-                          proceeding.state == 0
+                          proceeding.state == 0 &&
+                          proceeding.type === "Recibida"
                             ? _c(
                                 "button",
                                 {

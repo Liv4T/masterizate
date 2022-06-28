@@ -67,8 +67,8 @@ class VinculationTutorStudentController extends Controller
                 $student->user_id = $studentF->id;
             }
             $vinculations[$key] = [
-                'tutor_name' => $tutor->name.' '.$tutor->last_name,
-                'tutor_id' => $user->id,
+                'user_name' => $tutor->name.' '.$tutor->last_name,
+                'user_id' => $tutor->id,
                 'students' => $students,
                 'area_name' => isset($classroom->name) ? $classroom->name : 'Sin Salon asignado',
                 'classroom_id' => isset($classroom->id) ? $classroom->id : 'Sin Salon asignado',
@@ -152,6 +152,13 @@ class VinculationTutorStudentController extends Controller
     {
         $destroyVinculation = VinculationTutorStudent::findOrFail($id);
         $destroyVinculation->delete();
+
         return response()->json('Vinculación Eliminada');
+    }
+    public function getStudentsPerTutor(){
+        $user = Auth::user();
+        $students = VinculationTutorStudent::select('id_student')->where('id_tutor',$user->id)->distinct()->get();
+
+        return response()->json($students);
     }
 }

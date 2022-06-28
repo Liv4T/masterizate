@@ -275,6 +275,7 @@ export default {
             work: "",
             transversals:"",
             objetivesClass:"",
+            eventIdClass: "",
             course:{
                 content:[
                     {
@@ -512,16 +513,22 @@ export default {
 
         SaveDataEvent(){
             axios.put(`/api/teacher/module/${this.id_classroom}/class`,this.course).then((response) => {
+               this.eventIdClass = response.data;
+               console.log('id_class1', this.eventIdClass);
                toastr.success("Clases actualizadas correctamente");
+               this.createEvent();
                this.returnPage();
             },
                 (error)=>{console.log(error);
                 toastr.error("ERROR:Por favor valide que la información esta completa");
             });
+        },
+        createEvent(){
             if(this.id_class==0 && this.course.date_init_class !== ''){
+                console.log('id_class2', this.eventIdClass);
                 var initD= new Date(this.course.date_init_class);
-                var initDateSave = moment(initD).format("YYYY-MM-DD H:mm:ss");
-                var end=moment(initDateSave).add(2, 'hours').format("YYYY-MM-DD H:mm:ss");
+                var initDateSave = moment(initD).format("YYYY-MM-DD HH:mm:ss");
+                var end=moment(initDateSave).add(2, 'hours').format("YYYY-MM-DD HH:mm:ss");
                 var url = "/createEvent";
                     axios
                         .post(url, {
@@ -531,11 +538,12 @@ export default {
                         endDateTime: end,
                         id_area: this.id_area,
                         id_classroom: this.id_classroom,
+                        id_class: this.eventIdClass,
                         url: this.course.url_class,
                         id_padre: null,
                         })
                         .then((response) => {
-                        toastr.success("Nuevo evento creado exitosamente");
+                            toastr.success("Nuevo evento creado exitosamente");
                         })
                         .catch((error) => {});
             }

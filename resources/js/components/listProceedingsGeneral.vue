@@ -8,7 +8,7 @@
             </div>
             <div class="custom-card text-center">
                 <h3 class="card-header fondo">Actas Generales</h3>
-                <div class="card" >                    
+                <div class="card" >
                     <div class="card-body">
                         <table>
                             <thead>
@@ -34,7 +34,7 @@
                                     <td v-if="proceeding.viewed==0"><i class="far fa-times-circle"></i></td>
                                     <td>{{proceeding.type}}</td>
                                     <td>
-                                        <button v-if="proceeding.state==0" class="btn btn-primary" data-toggle="modal" data-target="#Modal" v-on:click="sign(proceeding.id)">Firmar</button>
+                                        <button v-if="proceeding.state==0 && proceeding.type==='Recibida'" class="btn btn-primary" data-toggle="modal" data-target="#Modal" v-on:click="sign(proceeding.id)">Firmar</button>
                                         <button v-if="proceeding.state==0 && proceeding.url" class="btn btn-primary" data-toggle="modal" data-target="#UpdateModal" v-on:click="update(proceeding.id)">Actualizar</button>
                                         <button v-if="proceeding.url" class="btn btn-primary" v-on:click="viewPdf(proceeding.id)">Ver</button>
                                         <a v-if="!proceeding.url" class="btn btn-primary" :href="`/api/proceedings/general/pdf/${proceeding.id}`" target="_blank" @click="viewed(proceeding.id)">Generar PDF</a>
@@ -95,7 +95,7 @@ export default {
                         state: e.state,
                         viewed: e.viewed,
                         created_at: e.created_at,
-                        type: "Recibida", 
+                        type: "Recibida",
                         user_name: e.user_name
                     });
                 });

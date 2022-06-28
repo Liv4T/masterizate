@@ -354,9 +354,8 @@ var render = function() {
                         _c("div", { staticClass: "class-event" }, [
                           _c("div", { staticClass: "class-event-info" }, [
                             _vm._v(
-                              _vm._s(!clas.classroom ? "Lectiva " : "") +
-                                " " +
-                                _vm._s(clas.area) +
+                              " " +
+                                _vm._s(clas.classroom) +
                                 ": " +
                                 _vm._s(clas.name)
                             )

@@ -12,7 +12,7 @@
                 <div class="col-12">
                   <div class="card">
                     <div class="class-event">
-                      <div class="class-event-info">{{ !clas.classroom ? "Lectiva " : "" }} {{ clas.area }}: {{ clas.name }}</div>
+                      <div class="class-event-info"> {{ clas.classroom }}: {{ clas.name }}</div>
                       <div class="class-event-date">
                         <div>
                           <small>{{ $t('lang.calendar.dateFrom')}}:</small>

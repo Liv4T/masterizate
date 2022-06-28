@@ -1,8 +1,7 @@
 <template>
-    <div>
-        <div>
-            <div class="row">
-                <div class="col-md-12 mx-auto">
+        <div class="back">
+            <div class="row justify-content-center">
+                <div class="col-md-10 mx-auto">
                     <div class="custom-card text-center">
                         <h5 class="card-header fondo">
                             {{ weekly_plan.name }}
@@ -18,11 +17,11 @@
                             <b>{{ $t('lang.class.classAttendance') }}:</b>
                         </div>
                     </div>
-                    <div class="row" v-if="link_event">
+                    <div class="row" v-if="hour_event">
                         <div class="col-md-6">
-                            {{ course.name + ' ' + $t('lang.class.dateAndTime') +' '+ hour_event}}
+                            {{ $t('lang.class.dateAndTime') +' '+ hour_event}}
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-6" v-if="link_event">
                               <a
                                 class="btn btn-warning float-right"
                                 :href="link_event"
@@ -77,6 +76,18 @@
                                         cols="40"
                                         rows="4"
                                         v-model="course.description"
+                                        readonly
+                                    ></textarea>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <b>{{ $t('lang.homework.task') }}:</b>
+                                    <textarea
+                                        class="form-control-plaintext"
+                                        cols="40"
+                                        rows="4"
+                                        v-model="course.work"
                                         readonly
                                     ></textarea>
                                 </div>
@@ -296,7 +307,6 @@
                 </div>
             </div>
         </div>
-    </div>
 </template>
 <script>
 (function() {
@@ -446,7 +456,9 @@ export default {
                     )
                     .then(response => {
                         this.course = response.data;
+                        console.log(this.course);
                         this.link_event = response.data.url_class;
+                        this.hour_event = response.data.date_init_class;
                         console.log(this.course);
 
                         if (this.course.content.length == 0) {

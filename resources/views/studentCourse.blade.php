@@ -5,7 +5,7 @@
     @if (Auth::user()->isTeacher()||Auth::user()->isPsychology()||Auth::user()->isTutor())
 
     @endif
-<student-course :id_module="{{ $id_module }}" :id_class="{{ $id_class }}"></student-course>
+<student-course :id_classroom_selected="{{ $id_module }}" :id_class="{{ $id_class }}"></student-course>
 <footers></footers>
 <div class="container">
     <div class="row justify-content-center">

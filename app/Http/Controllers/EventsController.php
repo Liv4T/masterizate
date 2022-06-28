@@ -10,6 +10,7 @@ use App\ClassroomStudent;
 use App\Lective;
 use App\LectivePlanification;
 use App\LectiveStudent;
+use App\TutorClassroom;
 use Illuminate\Http\Request;
 use Spatie\GoogleCalendar\Event;
 use Illuminate\Support\Facades\Auth;
@@ -26,33 +27,13 @@ class EventsController extends Controller
      */
     public function createEvent(Request $request)
     {
-        // return $request;
-        // return $request->startDateTime;
-        // $event = new Event;
-
-        // $dateFrom = Carbon::parse($request->startDateTime);
-        // $dateFrom2 = $dateFrom;
-        // $dateFrom->addHour(5);
-        // $dateTo = Carbon::parse($request->endDateTime);
-        // $dateTo2 = $dateTo;
-        // $dateTo->addHour(5);
-
-        // $event->name = $request->name;
-        // $event->startDateTime = $dateFrom;
-        // $event->endDateTime = $dateTo;
-        // // $event->addAttendee(['email' => 'mildredfigueroaq@gmail.com']);
-
-        // $event->save();
-
-        $area_classroom = $request->id_area;
-        //$arrayAreaClassroom = explode("/", $area_classroom);
-
         $evento = new Eventos;
         $evento->name = $request->name;
         $evento->date_from = $request->startDateTime;
         $evento->date_to = $request->endDateTime;
         $evento->id_area = $request->id_area;
         $evento->id_classroom = $request->id_classroom;
+        $evento->id_class = $request->id_class;
         $evento->id_user = Auth::user()->id;
         $evento->url = isset($request->url) ? $request->url: 'Sin link';
         $evento->id_padre = $request->id_padre;
@@ -79,13 +60,12 @@ class EventsController extends Controller
             $eventos_teacher = Eventos::where('id_user', $user->id)->whereDate('date_from','>=',$initial_range_date)->whereDate('date_to','<=',$end_range_date)->where('deleted_at','=', null)->orderBy('date_from', 'ASC')->get();
             foreach ($eventos_teacher as $index => $evento) {
 
-
                     if ($evento->id_classroom == 0) // is lective
                     {
                         $classroom = null;
                         $area = Lective::find($evento->id_area);
                     } else {
-                        $classroom = Classroom::find($evento->id_classroom);
+                        $classroom = TutorClassroom::find($evento->id_classroom);
                         $area = Area::find($evento->id_area);
                     }
 
@@ -96,6 +76,7 @@ class EventsController extends Controller
                         "dateFrom" => $evento->date_from,
                         "dateTo" => $evento->date_to,
                         "hangout" => $evento->url,
+                        "id_class" => $evento->id_class,
                         "area" => isset($area->name) ? $area->name : 'Empty',
                         "id_area" => isset($area->id) ? $area->id : '',
                         "classroom" => $classroom ? $classroom->name : '',
@@ -103,7 +84,7 @@ class EventsController extends Controller
                     ]);
 
             }
-        } elseif (isset($user) && $user->type_user == 3) {
+        } elseif (isset($user) && $user->type_user == 10) {
             $classroom_student = ClassroomStudent::where('id_user', $user->id)->first();
             $eventos_student = Eventos::where('id_classroom', $classroom_student->id_classroom)->whereDate('date_from','>=',$initial_range_date)->whereDate('date_to','<=',$end_range_date)->where('deleted_at','=', null)->orderBy('date_from', 'ASC')->get();
 
@@ -114,7 +95,7 @@ class EventsController extends Controller
                             $classroom = null;
                             $area = Lective::find($evento->id_area);
                         } else {
-                            $classroom = Classroom::find($evento->id_classroom);
+                            $classroom = TutorClassroom::find($evento->id_classroom);
                             $area = Area::find($evento->id_area);
                         }
                         //$area = Area::find($evento->id_area);
@@ -147,7 +128,7 @@ class EventsController extends Controller
                                 $classroom = null;
                                 $area = Lective::find($evento->id_area);
                             } else {
-                                $classroom = Classroom::find($evento->id_classroom);
+                                $classroom = TutorClassroom::find($evento->id_classroom);
                                 $area = Area::find($evento->id_area);
                             }
 

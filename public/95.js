@@ -284,6 +284,7 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
       work: "",
       transversals: "",
       objetivesClass: "",
+      eventIdClass: "",
       course: {
         content: [{
           content_type: 'YOUTUBE',
@@ -505,18 +506,24 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
       var _this3 = this;
 
       axios.put("/api/teacher/module/".concat(this.id_classroom, "/class"), this.course).then(function (response) {
+        _this3.eventIdClass = response.data;
+        console.log('id_class1', _this3.eventIdClass);
         toastr.success("Clases actualizadas correctamente");
+
+        _this3.createEvent();
 
         _this3.returnPage();
       }, function (error) {
         console.log(error);
         toastr.error("ERROR:Por favor valide que la información esta completa");
       });
-
+    },
+    createEvent: function createEvent() {
       if (this.id_class == 0 && this.course.date_init_class !== '') {
+        console.log('id_class2', this.eventIdClass);
         var initD = new Date(this.course.date_init_class);
-        var initDateSave = moment__WEBPACK_IMPORTED_MODULE_2___default()(initD).format("YYYY-MM-DD H:mm:ss");
-        var end = moment__WEBPACK_IMPORTED_MODULE_2___default()(initDateSave).add(2, 'hours').format("YYYY-MM-DD H:mm:ss");
+        var initDateSave = moment__WEBPACK_IMPORTED_MODULE_2___default()(initD).format("YYYY-MM-DD HH:mm:ss");
+        var end = moment__WEBPACK_IMPORTED_MODULE_2___default()(initDateSave).add(2, 'hours').format("YYYY-MM-DD HH:mm:ss");
         var url = "/createEvent";
         axios.post(url, {
           //Cursos generales
@@ -525,6 +532,7 @@ Vue.use(vue_form_wizard__WEBPACK_IMPORTED_MODULE_0___default.a);
           endDateTime: end,
           id_area: this.id_area,
           id_classroom: this.id_classroom,
+          id_class: this.eventIdClass,
           url: this.course.url_class,
           id_padre: null
         }).then(function (response) {

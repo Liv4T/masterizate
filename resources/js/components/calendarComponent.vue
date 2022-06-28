@@ -72,6 +72,9 @@
         </div>
       </div>
     </div>
+    <div v-if="showStudent === true">
+        <student-course :id_classroom_selected="id_classroom_selected" :id_class="idClass"></student-course><!-- cambiar lo que se pasa con relacion a la funcion del studentCourseComponent -->
+    </div>
     <!-- Modal para crear eventos -->
     <calendar-modal-event :concurrent.sync="concurrent" :dias.sync="dias" :myOptions.sync="myOptions" :getMenu.sync="getMenu"></calendar-modal-event>
   </div>
@@ -100,6 +103,9 @@ export default {
       display_events: true,
       display_activities: true,
       display_tutorials: true,
+      showStudent: false,
+      idClass: "",
+      id_classroom_selected:"",
       clases: [],
       myOptions: [],
       concurrent: [
@@ -207,14 +213,15 @@ export default {
       var urlM = window.location.origin + "/getAllEvents";
       axios.get(urlM).then((response) => {
         this.clases = response.data;
+        console.log('eventos',this.clases);
         if (this.clases && this.clases.length > 0) {
           this.clases.forEach((meeting) => {
             fullCalendarApi.addEvent({
-              title: `${meeting.area} ${meeting.classroom} | Clase ${meeting.name}`,
+              title: `${meeting.classroom} | Clase ${meeting.name}`,
               start: meeting.dateFrom,
               end: meeting.dateTo,
               description: meeting.name,
-              url: meeting.hangout,
+              url: `/estudiante/modulo/${meeting.id_classroom}/clase/${meeting.id_class}`,
               backgroundColor: "red",
             });
           });
@@ -363,6 +370,14 @@ export default {
       } else {
         $("#createE").modal("show");
       }
+    },
+    getClass(id_class,id_classroom){
+        if(id_class){
+            this.idClass = id_class;
+            this.id_classroom_selected = id_classroom;
+            console.log("clase_id",this.idClass);
+            this.showStudent = true;
+        }
     },
   },
 };
