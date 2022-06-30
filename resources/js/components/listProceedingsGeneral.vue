@@ -8,16 +8,14 @@
             </div>
             <div class="custom-card text-center">
                 <h3 class="card-header fondo">Actas Generales</h3>
-                <div class="card" >
+                <div class="card" style="align-items: center;">
                     <div class="card-body">
                         <table>
                             <thead>
                                 <tr>
                                     <th>Nombre del Acta</th>
-                                    <th>Usuario</th>
+                                    <!-- <th>Usuario</th> -->
                                     <th>Fecha</th>
-                                    <th>Firmada</th>
-                                    <th>Visto</th>
                                     <th>Tipo</th>
                                     <th>Acciones</th>
                                 </tr>
@@ -26,16 +24,10 @@
                                 <tr>
                                     <td v-if="proceeding.url"><a :href="`/api/proceedings/general/download/${proceeding.id}`" @click="viewed(proceeding.id)" style="color: black;">{{nameArchive(proceeding.url)}}</a></td>
                                     <td v-if="!proceeding.url">Sin archivo generado</td>
-                                    <td>{{proceeding.user_name}}</td>
+                                    <!-- <td>{{proceeding.user_name}}</td> -->
                                     <td>{{proceeding.created_at}}</td>
-                                    <td v-if="proceeding.state==1"><i class="far fa-check-circle"></i></td>
-                                    <td v-if="proceeding.state==0"><i class="far fa-times-circle"></i></td>
-                                    <td v-if="proceeding.viewed==1"><i class="far fa-check-circle"></i></td>
-                                    <td v-if="proceeding.viewed==0"><i class="far fa-times-circle"></i></td>
                                     <td>{{proceeding.type}}</td>
                                     <td>
-                                        <button v-if="proceeding.state==0 && proceeding.type==='Recibida'" class="btn btn-primary" data-toggle="modal" data-target="#Modal" v-on:click="sign(proceeding.id)">Firmar</button>
-                                        <button v-if="proceeding.state==0 && proceeding.url" class="btn btn-primary" data-toggle="modal" data-target="#UpdateModal" v-on:click="update(proceeding.id)">Actualizar</button>
                                         <button v-if="proceeding.url" class="btn btn-primary" v-on:click="viewPdf(proceeding.id)">Ver</button>
                                         <a v-if="!proceeding.url" class="btn btn-primary" :href="`/api/proceedings/general/pdf/${proceeding.id}`" target="_blank" @click="viewed(proceeding.id)">Generar PDF</a>
                                     </td>
@@ -99,7 +91,6 @@ export default {
                         user_name: e.user_name
                     });
                 });
-                console.log(this.proceedings);
             }).catch((error) => {
                 toastr.error("No hay actas cargadas");
             });

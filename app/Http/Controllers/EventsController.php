@@ -11,6 +11,7 @@ use App\Lective;
 use App\LectivePlanification;
 use App\LectiveStudent;
 use App\TutorClassroom;
+use App\VinculationTutorStudent;
 use Illuminate\Http\Request;
 use Spatie\GoogleCalendar\Event;
 use Illuminate\Support\Facades\Auth;
@@ -85,8 +86,14 @@ class EventsController extends Controller
 
             }
         } elseif (isset($user) && $user->type_user == 10) {
-            $classroom_student = ClassroomStudent::where('id_user', $user->id)->first();
-            $eventos_student = Eventos::where('id_classroom', $classroom_student->id_classroom)->whereDate('date_from','>=',$initial_range_date)->whereDate('date_to','<=',$end_range_date)->where('deleted_at','=', null)->orderBy('date_from', 'ASC')->get();
+            $vinculations = VinculationTutorStudent::where('id_student', $user->id)->get();
+            $classroom_ids = [];
+            foreach($vinculations as $viculation){
+                $code = TutorClassroom::where('name','like','%'.$viculation->code_vinculated.'%')->first();
+                array_push($classroom_ids,$code->id);
+            }
+
+            $eventos_student = Eventos::whereIn('id_classroom', $classroom_ids)->whereDate('date_from','>=',$initial_range_date)->whereDate('date_to','<=',$end_range_date)->where('deleted_at','=', null)->orderBy('date_from', 'ASC')->get();
 
             foreach ($eventos_student as $index => $evento) {
 
@@ -107,6 +114,8 @@ class EventsController extends Controller
                             "hangout" => $evento->url,
                             "area" => $area->name,
                             "classroom" =>  $classroom ? $classroom->name : '',
+                            "id_classroom" => $classroom ? $classroom->id : '',
+                            "id_class" => $evento->id_class,
                         ];
 
 

@@ -7,6 +7,7 @@ use App\ProceedingsGeneral;
 use App\User;
 use Illuminate\Support\Facades\DB;
 use App\ConfigurationParameter;
+use App\VinculationTutorStudent;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 
@@ -144,18 +145,21 @@ class ProceedingsGeneralController extends Controller
     {
         $user = Auth::user();
         $user_id = $user->id;
-        $proceedings=[];
-        $proceedingsC=[];
-        $proceedingsR=[];
+        $proceedings = [];
+        $proceedingsC = [];
+        $proceedingsR = [];
+        $tutors_id = [];
         if($user->type_user==1){
             $proceedingsC=ProceedingsGeneral::all();
             $proceedingsC->type="Administrador";
         }else if($user->type_user==7){
             $proceedingsC=ProceedingsGeneral::where('id_user', $user_id)->get();
-        }
-
-        if($user->type_user==10){
-            $proceedingsR=ProceedingsGeneral::where('id_user_managed', $user_id)->get();
+        }else if($user->type_user==10){
+            $tutors = VinculationTutorStudent::select('id_tutor')->where('id_student',$user->id)->distinct()->get();
+            foreach($tutors as $tutor){
+                array_push($tutors_id,$tutor->id_tutor);
+            }
+            $proceedingsR=ProceedingsGeneral::whereIn('id_user', $tutors_id)->get();
         }
 
         foreach ($proceedingsC as $key => $proceedingC) {
@@ -169,18 +173,17 @@ class ProceedingsGeneralController extends Controller
             // $proceedingC->user_name=$name_parent[0]->name;
 
         }
+        // foreach ($proceedingsR as $key => $proceedingR) {
 
-        foreach ($proceedingsR as $key => $proceedingR) {
+        //     if(isset($proceedingR->id_user_managed)){
+        //         $name_parent=User::where('id', $proceedingR->id_user_managed)->get();
+        //     }else{
+        //         $name_parent="No hay usuario registrado";
+        //     }
 
-            if(isset($proceedingR->id_user_managed)){
-                $name_parent=User::where('id', $proceedingR->id_user_managed)->get();
-            }else{
-                $name_parent="No hay usuario registrado";
-            }
+        //     $proceedingR->user_name=$name_parent[0]->name;
 
-            $proceedingR->user_name=$name_parent[0]->name;
-
-        }
+        // }
 
         array_push($proceedings, $proceedingsC, $proceedingsR);
 

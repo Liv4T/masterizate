@@ -72,6 +72,7 @@
         </div>
       </div>
     </div>
+    <!-- Lleva a la vista para ver la clase -->
     <div v-if="showStudent === true">
         <student-course :id_classroom_selected="id_classroom_selected" :id_class="idClass"></student-course><!-- cambiar lo que se pasa con relacion a la funcion del studentCourseComponent -->
     </div>

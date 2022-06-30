@@ -52,14 +52,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['type_user'],
   data: function data() {
@@ -111,7 +103,6 @@ __webpack_require__.r(__webpack_exports__);
             user_name: e.user_name
           });
         });
-        console.log(_this.proceedings);
       })["catch"](function (error) {
         toastr.error("No hay actas cargadas");
       });
@@ -194,160 +185,99 @@ var render = function() {
             _vm._v("Actas Generales")
           ]),
           _vm._v(" "),
-          _c("div", { staticClass: "card" }, [
-            _c("div", { staticClass: "card-body" }, [
-              _c(
-                "table",
-                [
-                  _vm._m(0),
-                  _vm._v(" "),
-                  _vm._l(_vm.proceedings, function(proceeding, id) {
-                    return _c("tbody", { key: id }, [
-                      _c("tr", [
-                        proceeding.url
-                          ? _c("td", [
-                              _c(
-                                "a",
-                                {
-                                  staticStyle: { color: "black" },
-                                  attrs: {
-                                    href:
-                                      "/api/proceedings/general/download/" +
-                                      proceeding.id
-                                  },
-                                  on: {
-                                    click: function($event) {
-                                      return _vm.viewed(proceeding.id)
-                                    }
-                                  }
-                                },
-                                [
-                                  _vm._v(
-                                    _vm._s(_vm.nameArchive(proceeding.url))
-                                  )
-                                ]
-                              )
-                            ])
-                          : _vm._e(),
-                        _vm._v(" "),
-                        !proceeding.url
-                          ? _c("td", [_vm._v("Sin archivo generado")])
-                          : _vm._e(),
-                        _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(proceeding.user_name))]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(proceeding.created_at))]),
-                        _vm._v(" "),
-                        proceeding.state == 1
-                          ? _c("td", [
-                              _c("i", { staticClass: "far fa-check-circle" })
-                            ])
-                          : _vm._e(),
-                        _vm._v(" "),
-                        proceeding.state == 0
-                          ? _c("td", [
-                              _c("i", { staticClass: "far fa-times-circle" })
-                            ])
-                          : _vm._e(),
-                        _vm._v(" "),
-                        proceeding.viewed == 1
-                          ? _c("td", [
-                              _c("i", { staticClass: "far fa-check-circle" })
-                            ])
-                          : _vm._e(),
-                        _vm._v(" "),
-                        proceeding.viewed == 0
-                          ? _c("td", [
-                              _c("i", { staticClass: "far fa-times-circle" })
-                            ])
-                          : _vm._e(),
-                        _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(proceeding.type))]),
-                        _vm._v(" "),
-                        _c("td", [
-                          proceeding.state == 0 &&
-                          proceeding.type === "Recibida"
-                            ? _c(
-                                "button",
-                                {
-                                  staticClass: "btn btn-primary",
-                                  attrs: {
-                                    "data-toggle": "modal",
-                                    "data-target": "#Modal"
-                                  },
-                                  on: {
-                                    click: function($event) {
-                                      return _vm.sign(proceeding.id)
-                                    }
-                                  }
-                                },
-                                [_vm._v("Firmar")]
-                              )
-                            : _vm._e(),
-                          _vm._v(" "),
-                          proceeding.state == 0 && proceeding.url
-                            ? _c(
-                                "button",
-                                {
-                                  staticClass: "btn btn-primary",
-                                  attrs: {
-                                    "data-toggle": "modal",
-                                    "data-target": "#UpdateModal"
-                                  },
-                                  on: {
-                                    click: function($event) {
-                                      return _vm.update(proceeding.id)
-                                    }
-                                  }
-                                },
-                                [_vm._v("Actualizar")]
-                              )
-                            : _vm._e(),
-                          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "card", staticStyle: { "align-items": "center" } },
+            [
+              _c("div", { staticClass: "card-body" }, [
+                _c(
+                  "table",
+                  [
+                    _vm._m(0),
+                    _vm._v(" "),
+                    _vm._l(_vm.proceedings, function(proceeding, id) {
+                      return _c("tbody", { key: id }, [
+                        _c("tr", [
                           proceeding.url
-                            ? _c(
-                                "button",
-                                {
-                                  staticClass: "btn btn-primary",
-                                  on: {
-                                    click: function($event) {
-                                      return _vm.viewPdf(proceeding.id)
+                            ? _c("td", [
+                                _c(
+                                  "a",
+                                  {
+                                    staticStyle: { color: "black" },
+                                    attrs: {
+                                      href:
+                                        "/api/proceedings/general/download/" +
+                                        proceeding.id
+                                    },
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.viewed(proceeding.id)
+                                      }
                                     }
-                                  }
-                                },
-                                [_vm._v("Ver")]
-                              )
+                                  },
+                                  [
+                                    _vm._v(
+                                      _vm._s(_vm.nameArchive(proceeding.url))
+                                    )
+                                  ]
+                                )
+                              ])
                             : _vm._e(),
                           _vm._v(" "),
                           !proceeding.url
-                            ? _c(
-                                "a",
-                                {
-                                  staticClass: "btn btn-primary",
-                                  attrs: {
-                                    href:
-                                      "/api/proceedings/general/pdf/" +
-                                      proceeding.id,
-                                    target: "_blank"
-                                  },
-                                  on: {
-                                    click: function($event) {
-                                      return _vm.viewed(proceeding.id)
+                            ? _c("td", [_vm._v("Sin archivo generado")])
+                            : _vm._e(),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(proceeding.created_at))]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(proceeding.type))]),
+                          _vm._v(" "),
+                          _c("td", [
+                            proceeding.url
+                              ? _c(
+                                  "button",
+                                  {
+                                    staticClass: "btn btn-primary",
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.viewPdf(proceeding.id)
+                                      }
                                     }
-                                  }
-                                },
-                                [_vm._v("Generar PDF")]
-                              )
-                            : _vm._e()
+                                  },
+                                  [_vm._v("Ver")]
+                                )
+                              : _vm._e(),
+                            _vm._v(" "),
+                            !proceeding.url
+                              ? _c(
+                                  "a",
+                                  {
+                                    staticClass: "btn btn-primary",
+                                    attrs: {
+                                      href:
+                                        "/api/proceedings/general/pdf/" +
+                                        proceeding.id,
+                                      target: "_blank"
+                                    },
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.viewed(proceeding.id)
+                                      }
+                                    }
+                                  },
+                                  [_vm._v("Generar PDF")]
+                                )
+                              : _vm._e()
+                          ])
                         ])
                       ])
-                    ])
-                  })
-                ],
-                2
-              )
-            ])
-          ])
+                    })
+                  ],
+                  2
+                )
+              ])
+            ]
+          )
         ])
       ]),
       _vm._v(" "),
@@ -372,13 +302,7 @@ var staticRenderFns = [
       _c("tr", [
         _c("th", [_vm._v("Nombre del Acta")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Usuario")]),
-        _vm._v(" "),
         _c("th", [_vm._v("Fecha")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Firmada")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Visto")]),
         _vm._v(" "),
         _c("th", [_vm._v("Tipo")]),
         _vm._v(" "),

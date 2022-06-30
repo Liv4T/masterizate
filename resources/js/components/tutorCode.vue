@@ -19,6 +19,9 @@
                     <button data-v-step="4" v-else type="button" class="btn btn-primary mt-2 mb-2" data-toggle="modal" data-target="#code" v-on:click="getAreas(); getCleanModal()">
                         Crear tu programa
                     </button>
+                    <button v-if="user.type_user === 7" type="button" class="btn btn-primary mt-2 mb-2" data-toggle="modal" data-target="#modalDesign" v-on:click="modalDesign()">
+                        Personalizar
+                    </button>
                 </div>
                 <tour-configuration :step="steps" :condition="condition"></tour-configuration>
                 <Drawer @close="toggle" align="right" :maskClosable="true" :zIndex="1003" :closeable="true">
@@ -148,6 +151,18 @@
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                                 <button type="button" class="btn btn-primary" v-on:click="shareCode">Enviar código</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal fade" id="modalDesign" data-backdrop="static" data-keyboard="false">
+                    <div class="modal-lg modal-dialog" style="max-width: 965px;">
+                        <div class="modal-content fondo-modal">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Personaliza la plataforma de tus estudiantes</h5>
+                            </div>
+                            <div class="modal-footer">
+                                <a href="javascript:void(0)" class="btn btn-primary" @click="saveDesign()">Guardar</a>
                             </div>
                         </div>
                     </div>
@@ -380,7 +395,19 @@
             onError: function (e) {
                 toastr.error('No se pudo copiar el texto al portapapeles');
             },
-
+            saveDesign(){
+                axios.post(`/saveDesign`,{
+                    color: this.color,
+                    banner: this.banner,
+                    logo: this.logo,
+                }).then((response) =>{
+                    toastr.success('Diseño guardado con exito');
+                    $("#modalDesign").modal("hide");
+                });
+            },
+            modalDesign(){
+                $("#modalDesign").modal("show");
+            }
         }
     }
 </script>

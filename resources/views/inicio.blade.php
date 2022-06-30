@@ -7,7 +7,7 @@
     @endif
       @if (Auth::user()->isPsychology()
           ||Auth::user()->isTutor()
-          ||Auth::user()->isAdmin() 
+          ||Auth::user()->isAdmin()
           ||Auth::user()->isSchoolGovernment()
           ||Auth::user()->isParent()
           ||Auth::user()->isCoordinator()
@@ -17,8 +17,8 @@
     @include('menu')
 
     @endif
-       @if (Auth::user()->isStudent())
-       
+       @if (Auth::user()->isClient() || Auth::user()->isTutor())
+
         <inicio-component :user="{{Auth::user()}}"></inicio-component>
     @endif
 
