@@ -666,7 +666,7 @@ Route::post('/saveRepoStUpload', 'RepositoryController@storeRepositoryStudent')-
 
 /*login personalizado permite verificar suscripcion*/
 Route::get('/', function () {
-    return view('homeSkills');
+    return view('homeCoworking');
 });
 Route::get('/loginNew', function () {
     return view('auth.login');

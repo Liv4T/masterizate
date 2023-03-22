@@ -140,7 +140,7 @@ src="https://www.facebook.com/tr?id=982962035622248&ev=PageView
                 </div>
         </nav>
 
-        <main class="py-3" id="content">
+        <main id="content">
             @yield('content')
 
         </main>

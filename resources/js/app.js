@@ -64,6 +64,7 @@ Vue.component("board-help", require("./components/boardHelp.vue").default);
 
 Vue.component("home", require("./components/home.vue").default);
 Vue.component("home-skills", require("./components/homeSkills.vue").default);
+Vue.component("home-coworking", require("./components/homeCoworking.vue").default);
 Vue.component("new-home", require("./components/newHome.vue").default);
 Vue.component("board", require("./components/board.vue").default);
 Vue.component("equations", require("./components/equations.vue").default);
