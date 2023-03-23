@@ -449,7 +449,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.btn-select{\n    background-color: #39ffe5;\n    font-weight: 600;\n    border-color: #39b0ff;\n    color: black;\n}\n", ""]);
+exports.push([module.i, "\n.btn-select{\r\n    background-color: #39ffe5;\r\n    font-weight: 600;\r\n    border-color: #39b0ff;\r\n    color: black;\n}\r\n", ""]);
 
 // exports
 

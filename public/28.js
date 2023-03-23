@@ -127,7 +127,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n* {\n  font-family: \"Montserrat\";\n}\nh4 {\n  margin-top: 20px;\n}\n.border-bottom-1 {\n  border-bottom: 1px solid #818181;\n}\nform {\n  margin-top: 20px;\n  padding: 10px;\n}\n.form-check-label {\n  width: 90%;\n}\n.mgr {\n  margin-right: 25px;\n}\n.radiobt {\n  align-items: baseline;\n}\niframe:not(.md-image){\n    height:500px !important;\n}\n", ""]);
+exports.push([module.i, "\n* {\r\n  font-family: \"Montserrat\";\n}\nh4 {\r\n  margin-top: 20px;\n}\n.border-bottom-1 {\r\n  border-bottom: 1px solid #818181;\n}\nform {\r\n  margin-top: 20px;\r\n  padding: 10px;\n}\n.form-check-label {\r\n  width: 90%;\n}\n.mgr {\r\n  margin-right: 25px;\n}\n.radiobt {\r\n  align-items: baseline;\n}\niframe:not(.md-image){\r\n    height:500px !important;\n}\r\n", ""]);
 
 // exports
 

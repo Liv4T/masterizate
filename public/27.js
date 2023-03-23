@@ -105,7 +105,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n* {\n  font-family: \"Montserrat\";\n}\n.fondo-tuvet {\n  background-image: url(\"/uploads/home/fondo-huellitas.png\");\n  background-repeat: no-repeat;\n  background-position: bottom;\n  background-size: cover;\n}\nh4 {\n  margin-top: 20px;\n}\n.border-bottom-1 {\n  border-bottom: 1px solid #818181;\n}\nform {\n  margin-top: 20px;\n  padding: 10px;\n}\n.form-check-label {\n  width: 90%;\n}\n", ""]);
+exports.push([module.i, "\n* {\r\n  font-family: \"Montserrat\";\n}\n.fondo-tuvet {\r\n  background-image: url(\"/uploads/home/fondo-huellitas.png\");\r\n  background-repeat: no-repeat;\r\n  background-position: bottom;\r\n  background-size: cover;\n}\nh4 {\r\n  margin-top: 20px;\n}\n.border-bottom-1 {\r\n  border-bottom: 1px solid #818181;\n}\nform {\r\n  margin-top: 20px;\r\n  padding: 10px;\n}\n.form-check-label {\r\n  width: 90%;\n}\r\n", ""]);
 
 // exports
 

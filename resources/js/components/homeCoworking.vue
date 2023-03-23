@@ -25,18 +25,18 @@
                         <label>Ideal para:</label>
                     </div>
                     <div class="row" style="justify-content: right;padding-right: 80px;">
-                        <div class="row col-lg-7">
+                        <div class="row col-lg-8">
                             <div class="col-lg-6">
                                 <nav class="navbar-light">
                                     <ul class="mr-sm-6 justify-content-start flex-nav">
                                         <li class="nav-pad">
-                                            <span>CoWorking</span>
+                                            <span class="color-nav">CoWorking</span>
                                         </li>
                                         <li class="nav-pad">
-                                            <span>Talleres</span>
+                                            <span class="color-nav">Talleres</span>
                                         </li>
                                         <li class="nav-pad">
-                                            <span>Conferencias</span>
+                                            <span class="color-nav">Conferencias</span>
                                         </li>
                                     </ul>
                                 </nav>
@@ -45,13 +45,13 @@
                                 <nav class="navbar-light">
                                     <ul class="mr-sm-6 justify-content-start flex-nav">
                                         <li class="nav-pad">
-                                            <span>Capacitaciones</span>
+                                            <span class="color-nav">Capacitaciones</span>
                                         </li>
                                         <li class="nav-pad">
-                                            <span>Clases</span>
+                                            <span class="color-nav">Clases</span>
                                         </li>
                                         <li class="nav-pad">
-                                            <span>Reuniones</span>
+                                            <span class="color-nav">Reuniones</span>
                                         </li>
                                     </ul>
                                 </nav>
@@ -73,37 +73,37 @@
                         <nav class="navbar-light" style="font-size:16px">
                             <ul class="navbar-nav mr-sm-6 justify-content-start flex-nav">
                                 <li>
-                                    <span>WiFi</span>
+                                    <span class="color-nav">WiFi</span>
                                 </li>
                                 <li>
-                                    <span>Tienda</span>
+                                    <span class="color-nav">Tienda</span>
                                 </li>
                                 <li>
-                                    <span>Zona BBQ</span>
+                                    <span class="color-nav">Zona BBQ</span>
                                 </li>
                                 <li>
-                                    <span>Seguridad</span>
+                                    <span class="color-nav">Seguridad</span>
                                 </li>
                                 <li>
-                                    <span>Zonas Comunes</span>
+                                    <span class="color-nav">Zonas Comunes</span>
                                 </li>
                                 <li>
-                                    <span>Servicio de impresión</span>
+                                    <span class="color-nav">Servicio de impresión</span>
                                 </li>
                                 <li>
-                                    <span>Cancha de Voleibol/Futbol</span>
+                                    <span class="color-nav">Cancha de Voleibol/Futbol</span>
                                 </li>
                                 <li>
-                                    <span>Zona de Esparcimiento</span>
+                                    <span class="color-nav">Zona de Esparcimiento</span>
                                 </li>
                                 <li>
-                                    <span>Parqueadero</span>
+                                    <span class="color-nav">Parqueadero</span>
                                 </li>
                                 <li>
-                                    <span>Zona de bicicletas</span>
+                                    <span class="color-nav">Zona de bicicletas</span>
                                 </li>
                                 <li>
-                                    <span>La mejor alimentación</span>
+                                    <span class="color-nav">La mejor alimentación</span>
                                 </li>
                             </ul>
                         </nav>
@@ -167,22 +167,22 @@
                                 <nav class="navbar-light">
                                     <ul class="mr-sm-6 justify-content-start flex-nav">
                                         <li class="nav-pad">
-                                            <span>CoWorking</span>
+                                            <span class="color-nav">CoWorking</span>
                                         </li>
                                         <li class="nav-pad">
-                                            <span>Talleres</span>
+                                            <span class="color-nav">Talleres</span>
                                         </li>
                                         <li class="nav-pad">
-                                            <span>Conferencias</span>
+                                            <span class="color-nav">Conferencias</span>
                                         </li>
                                         <li class="nav-pad">
-                                            <span>Capacitaciones</span>
+                                            <span class="color-nav">Capacitaciones</span>
                                         </li>
                                         <li class="nav-pad">
-                                            <span>Clases</span>
+                                            <span class="color-nav">Clases</span>
                                         </li>
                                         <li class="nav-pad">
-                                            <span>Reuniones</span>
+                                            <span class="color-nav">Reuniones</span>
                                         </li>
                                     </ul>
                                 </nav>
@@ -204,37 +204,37 @@
                         <nav class="navbar-light" style="font-size:16px">
                             <ul class="mr-sm-6 justify-content-start flex-nav">
                                 <li>
-                                    <span>WiFi</span>
+                                    <span class="color-nav">WiFi</span>
                                 </li>
                                 <li>
-                                    <span>Tienda</span>
+                                    <span class="color-nav">Tienda</span>
                                 </li>
                                 <li>
-                                    <span>Zona BBQ</span>
+                                    <span class="color-nav">Zona BBQ</span>
                                 </li>
                                 <li>
-                                    <span>Seguridad</span>
+                                    <span class="color-nav">Seguridad</span>
                                 </li>
                                 <li>
-                                    <span>Zonas Comunes</span>
+                                    <span class="color-nav">Zonas Comunes</span>
                                 </li>
                                 <li>
-                                    <span>Servicio de impresión</span>
+                                    <span class="color-nav">Servicio de impresión</span>
                                 </li>
                                 <li>
-                                    <span>Cancha de Voleibol/Futbol</span>
+                                    <span class="color-nav">Cancha de Voleibol/Futbol</span>
                                 </li>
                                 <li>
-                                    <span>Zona de Esparcimiento</span>
+                                    <span class="color-nav">Zona de Esparcimiento</span>
                                 </li>
                                 <li>
-                                    <span>Parqueadero</span>
+                                    <span class="color-nav">Parqueadero</span>
                                 </li>
                                 <li>
-                                    <span>Zona de bicicletas</span>
+                                    <span class="color-nav">Zona de bicicletas</span>
                                 </li>
                                 <li>
-                                    <span>La mejor alimentación</span>
+                                    <span class="color-nav">La mejor alimentación</span>
                                 </li>
                             </ul>
                         </nav>
@@ -298,9 +298,6 @@
   };
   </script>
   <style>
-  body{
-    background-color: rgba(2, 106, 106, 0.86);
-  }
   .footer-coworking {
     bottom: 0;
     width: 100%;
@@ -381,9 +378,9 @@
     width: 1em; /* Also needed for space (tweak if needed) */
     margin-left: -1em; /* Also needed for space (tweak if needed) */
   }
-  li span {
-    color: white;
-    font-weight: bold;
+  .color-nav {
+    color: white !important;
+
   }
   .background-ofrecemos{
     background-color: #36454F;

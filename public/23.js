@@ -507,7 +507,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.padding-content{\n    padding-left: 109px;\n    padding-right: 109px;\n}\n.required{\n    color:red;\n}\n@media (max-width: 600px) {\n.padding-content{\n        padding-left: 10px;\n        padding-right: 20px;\n}\n}\n", ""]);
+exports.push([module.i, "\n.padding-content{\r\n    padding-left: 109px;\r\n    padding-right: 109px;\n}\n.required{\r\n    color:red;\n}\n@media (max-width: 600px) {\n.padding-content{\r\n        padding-left: 10px;\r\n        padding-right: 20px;\n}\n}\r\n", ""]);
 
 // exports
 

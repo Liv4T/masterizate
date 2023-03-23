@@ -384,7 +384,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.panel-footer {\n  padding: 10px 15px;\n  background-color: #e8e5e5;\n  border-top: 1px solid #e8e5e5;\n  border-bottom-right-radius: 3px;\n  border-bottom-left-radius: 3px;\n}\n.caja {\n  padding-left: 35px;\n}\n", ""]);
+exports.push([module.i, "\n.panel-footer {\r\n  padding: 10px 15px;\r\n  background-color: #e8e5e5;\r\n  border-top: 1px solid #e8e5e5;\r\n  border-bottom-right-radius: 3px;\r\n  border-bottom-left-radius: 3px;\n}\n.caja {\r\n  padding-left: 35px;\n}\r\n", ""]);
 
 // exports
 
