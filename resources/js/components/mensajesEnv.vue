@@ -2,13 +2,32 @@
   <div class="back">
     <div class="row justify-content-center">
       <div id="crud" class="col-sm-10">
-        <div class="card text-center">
-          <h3 class="card-header fondo">
-            {{ $t('lang.messages.messages') }}
-          </h3>
-
-          <div class="card-body">
-            <a v-on:click="cleanShowSection" class="btn btn-warning float-left">              
+        <div class="card">
+          <div class="card-header text-center fondo mb-2 row" style="margin:0">
+                <div class="card-center">
+                    <label class="card-text">{{ $t('lang.messages.messages') }}</label>
+                </div>
+                <div style="margin-left:auto">
+                    <a class="btn" @click="toggle">
+                        <i class="fa fa-question-circle" style="font-size:35px; color:#278080;"></i>
+                    </a>
+                </div>
+            </div>
+            <Drawer @close="toggle" align="right" :maskClosable="true" :zIndex="1003" :closeable="true">
+                <div v-if="open">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h1>Mensajes enviados</h1>
+                            <p>Aquí se puede observar los mensajes enviados y el estado en el que se encuentra el mensaje.</p>
+                            <img src="../assets/img/send_messages.png" alt="send_messages" width="350px" height="350px" style="margin-bottom:10px">
+                            <p>Es posible actualizar los mensajes enviados al destinatario, en la accion existe un botón que abre una ventana para actuaizar el mensaje.</p>
+                            <img src="../assets/img/modal_update_message.png" alt="modal_update_message" width="350px" height="350px" style="margin-bottom:10px">
+                        </div>
+                    </div>
+                </div>
+            </Drawer>
+           <div class="card-body">
+            <a v-on:click="cleanShowSection" class="btn btn-warning float-left">
               {{ $t('lang.table.back_to') }}
             </a>
             <br />
@@ -17,19 +36,19 @@
             <table class="table table-responsive-xl table-hover table-striped center">
               <thead>
                 <tr>
-                  <th>                    
+                  <th>
                     {{ $t('lang.table.name') }}
                   </th>
-                  <th>                    
+                  <th>
                     {{ $t('lang.table.subject') }}
                   </th>
-                  <th>                    
+                  <th>
                     {{ $t('lang.table.date') }}
                   </th>
-                  <th>                    
+                  <th>
                     {{ $t('lang.table.message_viewed') }}
                   </th>
-                  <th>                    
+                  <th>
                     {{ $t('lang.table.action') }}
                   </th>
                 </tr>
@@ -37,39 +56,19 @@
               <tbody v-for="(option, k) in messages" :key="k">
                 <tr>
                   <td width="200px">
-                    <ul
-                      v-for="(destinatario,
-                                            k) in option.destinatarios"
-                      :key="k"
-                      style="display: inline;
-                                                         overflow: hidden;
-                                                         font-size:10px;"
-                    >
-                      {{
-                      destinatario.email
-                      }}
+                    <ul v-for="(destinatario,k) in option.destinatarios" :key="k" style="display: inline; overflow: hidden; font-size:10px;"                    >
+                      {{ destinatario.email }}
                     </ul>
                   </td>
                   <td>{{ option.asunto }}</td>
                   <td>
-                    {{
-                    option.fecha.date
-                    | moment("dddd, MMMM Do YYYY")
-                    }}
+                    {{ option.fecha.date | moment("dddd, MMMM Do YYYY") }}
                   </td>
                   <td>
-                    {{
-                    option.visto
-                    }}
+                    {{ option.visto }}
                   </td>
                   <td class="float-right">
-                    <a
-                      class="btn btn-sm"
-                      style="color: grey;"
-                      v-on:click.prevent="
-                                                editMessage(option.id)
-                                            "
-                    >
+                    <a class="btn btn-sm" style="color: grey;" v-on:click.prevent="editMessage(option.id)">
                       <i class="fa fa-edit"></i>
                     </a>
                   </td>
@@ -96,17 +95,8 @@
                   </div>
                   <div class="col-md-9" style="background: whitesmoke;">
                     <span class>
-                      <ul
-                        v-for="(destinatario,
-                                                k) in emessages.receptors"
-                        :key="k"
-                        style="display: inline-block;
-
-                                                         font-size:10px;"
-                      >
-                        {{
-                        destinatario.email
-                        }}
+                      <ul v-for="(destinatario, k) in emessages.receptors" :key="k" style="display: inline-block; font-size:10px;">
+                        {{ destinatario.email }}
                       </ul>
                     </span>
                   </div>
@@ -116,22 +106,14 @@
                     <label for="nombre" class="label-mensaje">Asunto:</label>
                   </div>
                   <div class="col-md-10">
-                    <input
-                      class="input-mensaje"
-                      id="nombre"
-                      name="nombre"
-                      placeholder="Asunto"
-                      v-model="asunto"
-                    />
+                    <input class="input-mensaje" id="nombre" name="nombre" placeholder="Asunto" v-model="asunto"/>
                   </div>
                 </div>
-
                 <div class="form-group row">
                   <div class="col-md-6">
                     <label for="mensaje">Mensaje:</label>
                   </div>
                 </div>
-
                 <ckeditor :editor="editor" v-model="editorData" @ready="onReady"></ckeditor>
                 <div class="modal-footer">
                   <a href="#" class="btn btn-warning float-right" @click="CancelM()">Cancelar</a>
@@ -148,8 +130,8 @@
 <script>
 import Vue from "vue";
 import DecoupledEditor from "@ckeditor/ckeditor5-build-decoupled-document";
+import Drawer from "vue-simple-drawer";
 Vue.use(require("vue-moment"));
-
 Vue.use(require("vue-moment"));
 export default {
   props:["user","cleanShowSection"],
@@ -161,16 +143,24 @@ export default {
       emessages: [],
       id: "",
       asunto: "",
+      open: false,
     };
+  },
+  components: {
+    Drawer
   },
   created() {},
   mounted() {
     var urlUsers = "getSentMessage";
     axios.get(urlUsers).then((response) => {
       this.messages = response.data;
+      console.log(this.messages);
     });
   },
   methods: {
+    toggle() {
+        this.open = !this.open;
+    },
     getMenu() {
       window.location = "/enviados";
       this.cleanShowSection();

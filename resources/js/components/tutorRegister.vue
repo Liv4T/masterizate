@@ -9,27 +9,30 @@
                     <div class="card-body">
                         <form>
                             <div class="container">
+                                <div>
+                                    <label>Los campos con <span class="required">*</span> son obligatorios</label>
+                                </div>
                                 <div class="text-center">
                                     <h4>Datos de Usuario</h4>
                                 </div>
                                 <div class="row shadow p-3 mb-5 bg-body rounded"> 
                                     <div class="col">
                                         <div class="form-group">
-                                            <label for="email">Email</label>
+                                            <label for="email"><span class="required">*</span>Email</label>
                                             <input type="email" class="form-control" id="email" v-model="email">
                                         </div>
                                     </div>
 
                                     <div class="col">
                                         <div class="form-group">
-                                            <label for="email">Nombre de Usuario</label>
+                                            <label for="email"><span class="required">*</span>Nombre de Usuario</label>
                                             <input type="email" class="form-control" id="email" v-model="user_name">
                                         </div>
                                     </div>
 
                                     <div class="col">
                                         <div class="form-group">
-                                            <label for="password">Contraseña</label>
+                                            <label for="password"><span class="required">*</span>Contraseña</label>
                                             <input type="password" class="form-control" id="password" v-model="password">
                                         </div>
                                     </div>
@@ -40,60 +43,60 @@
                                 <div class="row row-cols-3 shadow p-3 mb-5 bg-body rounded">
                                     <div class="col">
                                         <div class="form-group">
-                                            <label for="name">Nombre</label>
+                                            <label for="name"><span class="required">*</span>Nombre</label>
                                             <input type="name" class="form-control" id="name" v-model="name">
                                         </div>
                                     </div>
-                                    
+
                                     <div class="col">
                                         <div class="form-group">
-                                            <label for="last_name">Apellido</label>
+                                            <label for="last_name"><span class="required">*</span>Apellido</label>
                                             <input type="last_name" class="form-control" id="last_name" v-model="last_name">
                                         </div>
                                     </div>
-                                    
+
                                     <div class="col">
                                         <div class="form-group">
-                                            <label for="id_number">Identificación</label>
+                                            <label for="id_number"><span class="required">*</span>Identificación</label>
                                             <input type="id_number" class="form-control" id="id_number" v-model="id_number">
                                         </div>
                                     </div>
 
                                     <div class="col">
                                         <div class="form-group">
-                                            <label for="country">Pais</label>
+                                            <label for="country"><span class="required">*</span>Pais</label>
                                             <input type="text" class="form-control" id="country" v-model="country">
                                         </div>
                                     </div>
 
                                     <div class="col">
                                         <div class="form-group">
-                                            <label for="city">Ciudad</label>
+                                            <label for="city"><span class="required">*</span>Ciudad</label>
                                             <input type="text" class="form-control" id="city" v-model="city">
                                         </div>
                                     </div>
 
                                     <div class="col">
                                         <div class="form-group">
-                                            <label for="address">Dirección</label>
+                                            <label for="address"><span class="required">*</span>Dirección</label>
                                             <input type="text" class="form-control" id="address" v-model="address">
                                         </div>
                                     </div>
 
                                     <div class="col">
                                         <div class="form-group">
-                                            <label for="phone">Telefono</label>
+                                            <label for="phone"><span class="required">*</span>Telefono</label>
                                             <input type="number" class="form-control" id="phone" v-model="phone">
                                         </div>
                                     </div>
-                                    
+
                                     <div class="col">
                                         <div class="form-group">
                                             <a v-if="picture" :href="picture" target="_blank" class="btn btn-primary btn-block letra-poppins">Foto cargada</a>
                                             <label for="picture">Foto</label>
                                             <input type="file" name="picture" class="form-control-file" id="picture" @change="previewFiles">
                                         </div>
-                                    </div>                            
+                                    </div>
 
                                     <div class="col">
                                         <div class="form-group">
@@ -129,7 +132,7 @@
                                             <input type="text" class="form-control" id="linkedin_profile" v-model="linkedin_profile">
                                         </div>
                                     </div>
-                                </div> 
+                                </div>
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="card-background">
@@ -291,10 +294,10 @@
                                     </div>
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-primary" v-on:click.prevent="()=>addData()">Registrarme</button>                        
+                            <button type="submit" class="btn btn-primary" v-on:click.prevent="()=>addData()">Registrarme</button>
                         </form>
                     </div>
-                </div>                
+                </div>
             </div>
         </div>
     </div>
@@ -349,13 +352,13 @@
                     }
                 })
             },
-            
+
             addData(){
                 axios.post('tutorRegister',{
                     email: this.email,
                     user_name: this.user_name,
                     password: this.password,
-                    
+
                     name: this.name,
                     last_name: this.last_name,
                     id_number: this.id_number,
@@ -365,12 +368,12 @@
                     phone: this.phone,
                     picture: this.picture,
                     description: this.description,
-                    
+
                     twitter_profile: this.twitter_profile,
                     facebook_profile: this.facebook_profile,
                     instagram_profile: this.instagram_profile,
                     linkedin_profile: this.linkedin_profile,
-                    
+
                     section_education: JSON.stringify(this.section_education),
                     section_experience: JSON.stringify(this.section_experience),
                     documento_certificacion: this.documento_certificacion,
@@ -388,8 +391,8 @@
             previewFiles(event){
                 const files = event.target.files[0]
                 const storageRef=firebase.storage().ref(`images/tutorProfile/${this.id_number}`).put(files);
-                
-                
+
+
                 storageRef.on(`images/tutorProfile/${this.id_number}`,()=>
                     {
                         storageRef.snapshot.ref.getDownloadURL().then((url)=>{
@@ -406,7 +409,7 @@
                     descripcion: "",
                 });
             },
-            
+
             RemoveEducation(k) {
                 this.section_education.splice(k, 1);
             },
@@ -448,13 +451,16 @@
 </script>
 <style>
 .padding-content{
-    padding-left: 109px; 
+    padding-left: 109px;
     padding-right: 109px;
+}
+.required{
+    color:red;
 }
 
 @media (max-width: 600px) {
     .padding-content{
-        padding-left: 10px; 
+        padding-left: 10px;
         padding-right: 20px;
     }
 }

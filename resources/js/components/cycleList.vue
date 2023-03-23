@@ -28,7 +28,7 @@
                     <div v-if="user.type_user !== 3" class="float-left" style="padding:20px;">
                         <a v-on:click="getOrderCycle(trimestre.id,t+1)" class="btn btn-warning float-left">Crear</a>
                     </div>
-                    <div class="float-right" style="padding:20px;">                    
+                    <div class="float-right" style="padding:20px;">
                         <input class="form-control" type="text" placeholder="Buscar Ciclo" v-model="filter" />
                     </div>
                     <div class="card-body">
@@ -41,7 +41,7 @@
                                     <td>{{ $t('lang.class.action') }}</td>
 
                                 </tr>
-                                <tr v-for="(cycle,k) in filteredRows" :key="k">                                
+                                <tr v-for="(cycle,k) in filteredRows" :key="k">
                                     <td>{{ cycle.driving_question }}</td>
 
                                     <td v-show="!user.type_user === 3">{{ cycle.observation }}</td>
@@ -53,8 +53,8 @@
                                     </td>
                                     <td v-else-if="planification === 'general'">
                                         <p>
-                                            <button class="btn btn-warning" v-on:click="()=>getEditCycle(cycle, k+1, trimestre.id,t+1)">Editar</button>                  
-                                            <button class="btn btn-primary" v-on:click="()=>ClassAndCicle(cycle.id, cycle.driving_question)" >Eliminar</button>                                        
+                                            <button class="btn btn-warning" v-on:click="()=>getEditCycle(cycle, k+1, trimestre.id,t+1)">Editar</button>
+                                            <button class="btn btn-primary" v-on:click="()=>ClassAndCicle(cycle.id, cycle.driving_question)" >Eliminar</button>
                                         </p>
                                     </td>
                                     <td v-else-if="planification === 'claseEst'">
@@ -145,7 +145,7 @@ export default {
             cicle_name:"",
         };
     },
-    mounted(){        
+    mounted(){
         this.planification= this.planif;
         this.getData();
     },
@@ -157,14 +157,14 @@ export default {
             });
         },
         getCycles(id_trimestre) {
-            this.idTrimestre = id_trimestre;            
+            this.idTrimestre = id_trimestre;
             var url="/cycle/teacher/"+this.idArea+"/"+id_trimestre;
             axios.get(url).then((response) => {
                 this.cycles = response.data;
                 /* if(this.planif === 'claseEst'){
                     var urlsel = "/viewGetWeek/" + this.idArea +'/'+id_trimestre;
                     axios.get(urlsel).then((response) => {
-                       let data = response.data;                       
+                       let data = response.data;
                        data.forEach((element)=>{
                            this.cycles.push({
                                 driving_question: element.text,
@@ -182,7 +182,7 @@ export default {
             this.idModule = cycle.id
             this.showCycle ="teacherModule"
         },
-        
+
         cleanIdModule(){
             this.idModule="";
             this.id_area="";
@@ -193,7 +193,7 @@ export default {
             this.orden="";
             this.getData();
         },
-        
+
         getEditCycle(cycle, cycle_number, orden){
             let data = this.idArea.split("/");
             this.id_area=data[0];
@@ -204,7 +204,7 @@ export default {
             this.id_cicle = cycle.id;
         },
 
-        RequestPermissions(data, curso){            
+        RequestPermissions(data, curso){
             axios.post('/requestPermission',{
                 cicle: data.text,
                 id_area: data.id_area,
@@ -230,25 +230,25 @@ export default {
 
         deleteClassAndCicles(){
             if(window.confirm(`Seguro que desea Eliminar el ciclo ${this.cicle_name} Junto con sus clases ?`)){
-                this.clase_to_delete.forEach((clas)=>{ 
+                this.clase_to_delete.forEach((clas)=>{
                     axios.delete(`/deleteClasses/${clas.id}`)
                 })
 
                 axios.delete(`/DeleteCicle/${this.id_module}`).then((response)=> {
                     this.clase_to_delete =[];
                     this.id_module= '';
-                    
+
                     if(this.clase_to_delete.length > 0){
-                        toastr.success(`Clases y ${response.data}`);                        
+                        toastr.success(`Clases y ${response.data}`);
                         this.getCycles(this.idTrimestre);
                         $('#infoClass').modal('hide');
                     }else{
-                        toastr.success('Ciclo Eliminado');                        
+                        toastr.success('Ciclo Eliminado');
                         this.getCycles(this.idTrimestre);
                         $('#infoClass').modal('hide');
                     }
                 });
-            }            
+            }
         },
         showModuleStudent(cycle){
             this.showCycle = "student";
@@ -256,6 +256,7 @@ export default {
             console.log(cycle)
         },
         getOrderCycle(id_trimestre, orden){
+
             let data = this.idArea.split("/");
             this.id_area=data[0];
             this.id_classroom = data[1];

@@ -41,6 +41,7 @@
                         <td>
                           <button class="btn btn-primary" v-on:click="updatePedagogical(pedagogical)">Editar</button>
                           <button class="btn btn-danger" v-on:click="deletePedagogical(pedagogical.id)">Eliminar</button>
+                          <button class="btn btn-success" v-on:click="updateCircular(pedagogical.id)" style="margin-top:5px">Actualizar Circular</button>
                         </td>
                       </tr>
                     </tbody>
@@ -52,8 +53,9 @@
         </div>
       </div>
     </div>
-    <pedagogical-modal-create-coord :gradeOptions="gradeOptions"></pedagogical-modal-create-coord>
-    <pedagogical-modal-edit-coord :pedagogicalToEdit="pedagogicalToEdit" :gradeOptions="gradeOptions"></pedagogical-modal-edit-coord>
+    <pedagogical-modal-create-coord :gradeOptions="gradeOptions" :getPedagogical="getPedagogical"></pedagogical-modal-create-coord>
+    <pedagogical-modal-edit-coord :pedagogicalToEdit="pedagogicalToEdit" :gradeOptions="gradeOptions" :getPedagogical="getPedagogical"></pedagogical-modal-edit-coord>
+    <update-pedagogical-circular :pedagogical_id="pedagogical_id" :getPedagogical="getPedagogical"></update-pedagogical-circular>
   </div>
 </template>
 <script>
@@ -71,6 +73,7 @@ export default {
       gradeOptions: [],
       pedagogical: [],
       pedagogicalToEdit: {},
+      pedagogical_id: '',
     };
   },
   mounted() {
@@ -98,6 +101,11 @@ export default {
     updatePedagogical(data) {
       this.pedagogicalToEdit = data;
       $("#updatePedagogical").modal("show");
+    },
+
+    updateCircular(data){
+        this.pedagogical_id=data;
+        $("#updatePedagogicalCircular").modal("show");
     },
 
     deletePedagogical(id) {

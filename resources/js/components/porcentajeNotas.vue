@@ -23,71 +23,68 @@
   <div>
     <div class="row">
       <div class="col-md-11 mx-auto">
-        <div class="custom-card text-center">
-          <h3 class="card-header fondo">Planificación general</h3>
+        <div class="card-header text-center fondo row" data-v-step="0">
+            <div class="card-center">
+                <label class="card-text">Evaluación</label>
+            </div>
+            <div style="margin-left:auto">
+                <a class="btn" @click="toggle">
+                    <i class="fa fa-question-circle" style="font-size:35px; color:#278080;"></i>
+                </a>
+            </div>
+        </div>
+        <tour-configuration :step="steps" :condition="condition"></tour-configuration>
+        <Drawer @close="toggle" align="right" :maskClosable="true" :zIndex="1003" :closeable="true">
+            <div v-if="open">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h1>Evaluación</h1>
+                        <p>Las evaluaciones se crean para agregarlas a las actividades cuando creamos las clases, es necesario para evaluar las actividades.</p>
+                        <p>Para agregar actividades debe hacer click sobre el nombre de la planificación general a la cual quiere crear evaluaciones y posteriormente hacer click en el botón agregar.</p>
+                        <img src="../assets/img/evaluation.png" alt="evaluation" width="350px" height="350px" style="margin-bottom:10px">
+                        <p>Luego de hacer click en el botón agregar se despliega una ventana que solicita el tipo de actividad y el porcentaje total de la nota.</p>
+                        <img src="../assets/img/modal_evaluation.png" alt="modal_evaluation" width="350px" height="350px" style="margin-bottom:10px">
+                        <p>Al completar los campos solo debe hacer click en el botón de guardar, la evaluación se guardara y quedará visible en el listado de evaluaciones en la planificación a la cual le asignó la evaluación.</p>
+                        <img src="../assets/img/evaluation_list.png" alt="evaluation_list" width="350px" height="350px" style="margin-bottom:10px">
+                        <p>La evaluación se usa para crear actividades, al momento de crear la actividad se debe seleccionar la planificación general y alguna de las evaluaciones que se han creado para esa planificación.</p>
+                        <img src="../assets/img/activities_evaluation.png" alt="activities_evaluation" width="350px" height="350px" style="margin-bottom:10px">
+                    </div>
+                </div>
+            </div>
+        </Drawer>
           <form class="needs-validation" novalidate v-show="trimestre == false">
-            <form-wizard
-              title
-              subtitle
-              color="#ffc107"
-              next-button-text="Siguiente"
-              back-button-text="Atrás"
-              finish-button-text="Guardar"
-              @on-complete="updateCourses"
-            >
+            <form-wizard title subtitle color="#ffc107" next-button-text="Siguiente" back-button-text="Atrás" finish-button-text="Guardar" @on-complete="updateCourses">
               <tab-content title="Porcentaje de notas">
                 <div class="card-body">
                   <div class="accordion" id="accordionExample">
-                    <div class="card" v-for="(option,t) in fillC.quaterly" :key="t">
-                      <div class="card-header">
-                        <h2 class="mb-0">
-                          <button
-                            class="btn btn-link"
-                            type="button"
-                            data-toggle="collapse"
-                            :data-target="'#collapse'+t"
-                            aria-expanded="false"
-                            @click.prevent="indicador(option.id)"
-                            aria-controls="collapse"
-                          >
-                            <label
-                              style="text-overflow: ellipsis;
-                                width: 450px;
-                                white-space: nowrap;
-                                overflow: hidden;"
-                            >{{ option.logro }}</label>                            
+                    <div class="card" v-for="(option,t) in fillC.achievements" :key="t">
+                      <div class="card-header text-center">
+                        <h2 class="mb-0" data-v-step="1">
+                          <button class="btn btn-link" type="button" data-toggle="collapse" :data-target="'#collapse'+t" aria-expanded="false" @click.prevent="indicador(option.id)" aria-controls="collapse">
+                            <label style="text-overflow: ellipsis;  width: 450px; white-space: nowrap; overflow: hidden;">{{ option.achievement }}</label>
                           </button>
                         </h2>
                       </div>
-                      <div :id="'collapse'+t"
-                        class="collapse hide"
-                        aria-labelledby="heading"
-                        data-parent="#accordionExample">
+                      <div :id="'collapse'+t" class="collapse hide" aria-labelledby="heading" data-parent="#accordionExample">
                         <div class="card-body">
                           <table class="table table-responsive-xl table-hover table-striped center">
                             <tbody>
                               <tr>
                                 <td>Actividad</td>
-
                                 <td>Porcentaje</td>
-
                                 <td>Editar</td>
-
                                 <td>Eliminar</td>
                               </tr>
                               <tr v-for="(opt,i) in fillI" :key="i">
                                 <td>{{ opt.type_activity }}</td>
-
                                 <td>{{ opt.activity_rate }}</td>
-
                                 <td><a class="fas fa-edit" v-on:click.prevent="showEdit(opt.id,opt.type_activity,opt.activity_rate)"></a></td>
-
                                 <td><a class="fas fa-trash-alt" v-on:click.prevent="removePercentage(i,opt.id)"></a></td>
                               </tr>
                             </tbody>
                           </table>
                           <div align="right">
-                            <a class="btn btn-warning" v-on:click.prevent="editNames(option.id,option.id_achievement, option.id_annual)">Agregar</a>
+                            <a class="btn btn-warning" v-on:click.prevent="editNames(option.id, option.id_planification)" data-v-step="2">Agregar</a>
                           </div>
                         </div>
                       </div>
@@ -97,7 +94,6 @@
               </tab-content>
             </form-wizard>
           </form>
-        </div>
       </div>
       <div class="modal fade" id="createZ">
         <div class="modal-dialog">
@@ -115,14 +111,7 @@
                     <div class="col-md-8 text-center mx-auto">
                       <label for="name">Tipo de actividad</label>
                       <div>
-                        <input
-                          type="text"
-                          name="objetive1"
-                          class="form-control"
-                          v-model="tipo_act"
-                          style="background: gainsboro;"
-                          required
-                        />
+                        <input type="text" name="objetive1" class="form-control" v-model="tipo_act" style="background: gainsboro;" required/>
                       </div>
                     </div>
                   </div>
@@ -131,24 +120,12 @@
                     <div class="col-md-8 text-center mx-auto">
                       <label for="name">Porcentaje total</label>
                       <div>
-                        <input
-                          type="number"
-                          name="objetive1"
-                          class="form-control"
-                          v-model="porcentaje"
-                          style="background: gainsboro;"
-                          required
-                        />                        
+                        <input type="number" name="objetive1" class="form-control" v-model="porcentaje" style="background: gainsboro;" required/>
                       </div>
                     </div>
                   </div>
                   <div class="modal-footer">
-                    <input
-                      type="submit"
-                      class="btn btn-warning"
-                      v-on:click.prevent="createIndicator()"
-                      value="Guardar"
-                    />
+                    <input type="submit" class="btn btn-warning" v-on:click.prevent="createIndicator()" value="Guardar"/>
                   </div>
                 </form>
               </div>
@@ -168,14 +145,9 @@
               </h3>
               <div class="card-body">
                 <form class="needs-validation" v-on:submit.prevent novalidate>
-                  <label>¿Desea eliminar el indicador?</label>                  
+                  <label>¿Desea eliminar el indicador?</label>
                   <div class="modal-footer">
-                    <input
-                      type="submit"
-                      class="btn btn-warning"
-                      v-on:click.prevent="deleteIndicator()"
-                      value="Confirmar"
-                    />
+                    <input type="submit" class="btn btn-warning" v-on:click.prevent="deleteIndicator()" value="Confirmar"/>
                   </div>
                 </form>
               </div>
@@ -231,6 +203,7 @@ $(function () {
 });
 import VueFormWizard from "vue-form-wizard";
 import "vue-form-wizard/dist/vue-form-wizard.min.css";
+import Drawer from "vue-simple-drawer";
 Vue.use(VueFormWizard);
 export default {
   props: ["idArea"],
@@ -270,7 +243,41 @@ export default {
       areaId: "",
       id_quarterly_plan: "",
       id_achievement: "",
+      open: false,
+      steps: [
+            {
+                target: '[data-v-step="0"]',
+                header: {
+                    title: 'Evaluación',
+                },
+                content: `Para crear evaluaciones debe haber creado un programa anual en la pestaña de Programa. Desde aquí podrás <strong>crear las evaluaciones que luego podrás vincular a cada actividad, asi podrás evaluar las actividades</strong>, solo debes hacer click sobre el nombre de la planificación (las evaluaciones estan atadas a la planificación general)`,
+                params: {
+                    placement: 'bottom', // Any valid Popper.js placement. See https://popper.js.org/popper-documentation.html#Popper.placements
+                    enableScrolling: false
+                }
+            },
+            {
+                target: '[data-v-step="1"]',
+                content: `Haciendo click en el nombre de la planificación general, se abrirá un listado con las evaluaciones creadas, en caso de no tener ninguna solo aparecerá el botón para crear una nueva.`,
+                params: {
+                    placement: 'top', // Any valid Popper.js placement. See https://popper.js.org/popper-documentation.html#Popper.placements
+                    enableScrolling: false
+                }
+            },
+            {
+                target: '[data-v-step="2"]',
+                content: `El botón "Agregar" permite crear una nueva evaluación.`,
+                params: {
+                    placement: 'top', // Any valid Popper.js placement. See https://popper.js.org/popper-documentation.html#Popper.placements
+                    enableScrolling: false
+                }
+            },
+        ],
+        condition:"evaluation",
     };
+  },
+  components: {
+    Drawer
   },
   watch:{
     idArea(newVal, oldVal){
@@ -285,10 +292,13 @@ export default {
     this.getData();
   },
   methods: {
+    toggle() {
+        this.open = !this.open;
+    },
     getIdUrl(){
       if(this.idArea === undefined){
         let params = window.location.pathname;
-        let ids = params.split('/');            
+        let ids = params.split('/');
         let idArea = ids[2]+"/"+ids[3];
         this.areaId = idArea;
 
@@ -301,7 +311,7 @@ export default {
       var urlsel = window.location.origin + "/coursePlanification/" + this.areaId;
       axios.get(urlsel).then((response) => {
         this.fillC = response.data;
-        console.log(this.fillC);
+        console.log('fills',this.fillC);
       });
     },
     getMenu() {
@@ -345,7 +355,7 @@ export default {
           this.errors = [];
 
           toastr.success("Nueva actividad creada exitosamente");
-          this.indicador(this.id_quarterly_plan);
+          this.indicador(this.id_achievement);
 
           $('#createZ').modal('hide');
         })
@@ -356,11 +366,11 @@ export default {
     updateCourses() {
       window.location = "/actividad_g";
     },
-    editNames(id, id_achievement, annual) {
-      
+    editNames(id, annual) {
+
       this.id_indicator = 0;
-      this.id_quarterly_plan = id;
-      this.id_achievement = id_achievement;
+      this.id_quarterly_plan = 0;
+      this.id_achievement = id;
       this.id_annual = annual;
       this.tipo_act = "";
       this.porcentaje = "";

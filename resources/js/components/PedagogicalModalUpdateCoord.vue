@@ -61,7 +61,7 @@
 </template>
 <script>
 export default {
-    props:['pedagogicalToEdit', 'gradeOptions'],
+    props:['pedagogicalToEdit', 'gradeOptions','getPedagogical'],
     data(){
         return{
             name_activity: '',
@@ -114,7 +114,9 @@ export default {
                 description: this.description
             }).then((response)=>{
                 toastr.success(response.data)
-                window.location = "/pedagogic";
+                //window.location = "/pedagogic";
+                $("#updatePedagogical").modal("hide");
+                this.getPedagogical();
             }).catch((error)=>{
                 toastr.info('Ha ocurrido algo, intenta de nuevo mas tarde');
                 console.log(error)

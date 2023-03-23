@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
     <menu-tutor></menu-tutor>
-    <tutor-code></tutor-code>
+    <tutor-code :user="{{ $user }}"></tutor-code>
     <footers></footers>
     <div class="container">
       <!--<app-vue></app-vue>-->

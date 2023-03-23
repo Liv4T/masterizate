@@ -28,10 +28,10 @@
                     </p>
                 </div>
                 <div class="col footer-col2">
-                    Segerencias
+                    Enviar sugerencias a soporte@masterizate.com
                 </div>
                 <div class="col footer-col2">
-                    Contactanos
+                    <a href="https://wa.me/573204547116?text=Me%20gustaría%20saber%20más%20de%20los%20planes" target="_blank">Contáctanos</a>
                 </div>
             </div>
         </footer>

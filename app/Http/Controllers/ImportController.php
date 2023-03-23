@@ -7,6 +7,9 @@ use App\Imports\teachersClassroomImport;
 use App\Imports\studensClassroomImport;
 use App\Imports\usersImport;
 use App\Http\Controllers\Controller;
+use App\Imports\EnableSubjectImport;
+use App\Imports\VinculationTutorStudentImport;
+use App\VinculationTutorStudent;
 use Maatwebsite\Excel\Facades\Excel;
 
 class ImportController extends Controller
@@ -48,6 +51,18 @@ class ImportController extends Controller
         Excel::import(new usersImport, 'users.xlsx');
 
         // return redirect('/')->with('success', 'File imported successfully!');
+        return redirect('/importar_adm')->with('success', 'All good!');
+    }
+    public function importVinculations()
+    {
+        Excel::import(new VinculationTutorStudentImport, 'vinculations.xlsx');
+
+        return redirect('/importar_adm')->with('success', 'All good!');
+    }
+    public function importEnableSubjects()
+    {
+        Excel::import(new EnableSubjectImport, 'enableSubjects.xlsx');
+
         return redirect('/importar_adm')->with('success', 'All good!');
     }
 }

@@ -11040,6 +11040,11 @@ a.text-dark:focus {
   src: url(/fonts/PoppinsSemiBold.ttf?4cdacb8f89d588d69e8570edcbe49507) format("truetype");
 }
 
+@font-face {
+  font-family: "Fasthand";
+  src: url(/fonts/Fasthand-Regular.ttf?3a1d9b02dd654301b68fcd74153e8d70) format("truetype");
+}
+
 .letra-poppins {
   font-family: "Poppins";
 }

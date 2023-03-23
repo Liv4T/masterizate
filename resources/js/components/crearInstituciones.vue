@@ -271,7 +271,6 @@ export default {
         });
     },
     getMenu() {
-      // window.location = "/instituciones_adm";
       this.back(false);
       this.getInstitutions();
     },

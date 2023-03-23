@@ -87,7 +87,7 @@
                 <a class="navbar-brand" href="{{ url('/') }}">
                     <div>
                         {{ config('Life4teach') }}
-                        <img thumbnail fluid src="{{URL::asset('images/home6New.png')}}"  alt="4"></img>
+                        <img thumbnail fluid src="{{URL::asset('images/logo-skills.png')}}"  alt="4"></img>
                     </div>
 
                 </a>
@@ -189,6 +189,56 @@
 }
 .py-3{
     margin-top:5px;
+}
+.card-text{
+    font-weight: 900;
+    font-size: 25px;
+    padding: 10px;
+    margin: 0px;
+}
+.card-center{
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    margin-left: auto;
+}
+.vue-simple-drawer {
+    padding: 20px;
+    color: #333;
+    background: #fff;
+    position: absolute;
+    overflow: auto;
+    height: fit-content;
+    max-height: 450px;
+    max-width: 500px;
+}
+.vue-simple-drawer::-webkit-scrollbar {
+    width: 8px;     /* Tamaño del scroll en vertical */
+    height: 8px;    /* Tamaño del scroll en horizontal */
+}
+/* Ponemos un color de fondo y redondeamos las esquinas del thumb */
+.vue-simple-drawer::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 4px;
+}
+/* Cambiamos el fondo y agregamos una sombra cuando esté en hover */
+.vue-simple-drawer::-webkit-scrollbar-thumb:hover {
+    background: #b3b3b3;
+    box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
+}
+/* Cambiamos el fondo cuando esté en active */
+.vue-simple-drawer::-webkit-scrollbar-thumb:active {
+    background-color: #999999;
+}
+/* Ponemos un color de fondo y redondeamos las esquinas del track */
+.vue-simple-drawer::-webkit-scrollbar-track {
+    background: #e1e1e1;
+    border-radius: 4px;
+}
+/* Cambiamos el fondo cuando esté en active o hover */
+.vue-simple-drawer::-webkit-scrollbar-track:hover,
+.vue-simple-drawer::-webkit-scrollbar-track:active {
+  background: #d4d4d4;
 }
 @media only screen and (max-width: 400px) {
     .navbar-brand img{

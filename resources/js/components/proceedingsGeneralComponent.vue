@@ -3,61 +3,9 @@
         <div class="back">
             <div class="row">
                 <div class="col-md-11 mx-auto">
-                    <select class="form-control" v-model="typeEvent" style="width: 30%;">
-                        <option value="2">Seleccione una opción</option>
-                        <option :value="options.id" v-for="options in types">
-                        {{
-                        options.name
-                        }}
-                        </option>
-                    </select>
-                </div>  
-            </div>
-            <br>
-            <div class="row" v-if="typeEvent==0">
-                <div class="col-md-11 mx-auto">
-                    <div class="custom-card text-center">
-                        <h3 class="card-header fondo" style="margin-bottom: 1rem">Cargar acta</h3>
-                        <form class="needs-validation" v-on:submit.prevent="saveProceedings($event)" novalidate>
-                            <div class="row" >
-                                <div class="col-lg-6">
-                                    <select class="form-control" v-model="id_managed" style="width: 100%;">
-                                        <option value="" selected="true">Seleccione una opción</option>
-                                        <option :value="option.id" v-for="option in parents">
-                                        {{
-                                        option.text
-                                        }}
-                                        </option>
-                                    </select>
-                                </div>
-                                <div class="col-lg-6">
-                                    <input class="form-control" type="file" accept=".pdf" placeholder="Seleccione un archivo" @change="onFileChange($event)"/>
-                                </div>
-                            </div>
-                            <div class="text-right" style="margin-top: 10px;">
-                                <button class="btn btn-primary" type="submit">Guardar</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            <div class="row" v-if="typeEvent==1">
-                <div class="col-md-11 mx-auto">
                     <div class="custom-card text-center">
                         <h3 class="card-header fondo" style="margin-bottom: 1rem">Crear acta</h3>
                         <form class="needs-validation" v-on:submit.prevent="saveProceedings" novalidate>
-                            <div class="row">
-                                <div class="col-lg-4">
-                                    <select class="form-control" v-model="id_managed" style="width: 100%;">
-                                        <option value="" selected="true">Seleccione un usuario</option>
-                                        <option :value="option.id" v-for="option in parents">
-                                        {{
-                                        option.text
-                                        }}
-                                        </option>
-                                    </select>
-                                </div>
-                            </div>
                             <div class="row" >
                                 <div class="col-12">
                                     <h3 class="">Titulo</h3>
@@ -73,7 +21,8 @@
                                 </div>
                             </div>
                             <div class="text-right" style="margin-top: 10px;">
-                                <button class="btn btn-primary" type="submit">Guardar</button>
+                                <button class="btn btn-primary" type="submit" v-if="!loading">Guardar</button>
+                                <button class="btn btn-primary letra-boldfont" v-if="loading" disabled>Guardando...</button>
                             </div>
                         </form>
                     </div>
@@ -90,13 +39,13 @@ export default {
     },
     data() {
         return {
-            types: [{"id": 0, "name": "Adjuntar PDF"}, {"id": 1, "name":"Redactar el Acta"}],
-            typeEvent: 2,
+            typeEvent: 1,
+            loading: false,
             title: "",
             body: "",
             data: "",
             id_managed: "",
-            parents: [],
+            students: [],
             custom_toolbar: [["bold", "italic", "underline"], [{ list: "ordered" }, { list: "bullet" }]]
         }
     },
@@ -105,29 +54,18 @@ export default {
     },
     methods: {
         saveProceedings(){
+            this.loading = true;
             var url="/saveProceedings/general";
-            if(this.typeEvent==0){
-                this.data.append("id_user_managed", this.id_managed);
-
-                axios.post("/saveProceedingsFile/general", this.data).then(response => {
-                
+            axios.post(url, {
+                type: this.typeEvent,
+                title: this.title,
+                body: this.body,
+                id_user_managed: JSON.stringify(this.students),
                 }).then((response) => {
                     toastr.success("Nueva acta cargada exitosamente");
                     this.getMenu();
-                    }).catch(err=>{});
-            }else{
-                axios
-                    .post(url, {
-                    type: this.typeEvent,
-                    title: this.title,
-                    body: this.body,
-                    id_user_managed: this.id_managed,
-                    }).then((response) => {
-                    toastr.success("Nueva acta cargada exitosamente");
-                    this.getMenu();
-                    })
-                    .catch((error) => {});
-            }
+                })
+                .catch((error) => {});
         },
         onFileChange(file) {
             let files = file.target.files || file.dataTransfer.files;
@@ -145,41 +83,16 @@ export default {
                 this.data.append("name", file_name);
 
             }
-
+            console.log(this.data);
         },
         getUsers(){
-            var url="/api/proceedings/general/users";
+            var url="/getStudentsPerTutor";
             axios.get(url).then((response) => {
                 let arrayData=response.data;
-                arrayData[0].forEach(e => {
-                    this.parents.push({
-                        id: e.id,
-                        email: e.email,
-                        text: e.name + e.last_name + ' -- ' + ' Administrador '
-                    });
+                arrayData.forEach(e => {
+                    this.students.push(e.id_student);
                 });
-                arrayData[1].forEach(e => {
-                    this.parents.push({
-                        id: e.id,
-                        email: e.email,
-                        text: e.name + e.last_name + ' -- ' + ' Docente '
-                    });
-                });
-                arrayData[2].forEach(e => {
-                    this.parents.push({
-                        id: e.id,
-                        email: e.email,
-                        text: e.name + e.last_name + ' -- ' + ' Estudiante '
-                    });
-                });
-                arrayData[3].forEach(e => {
-                    this.parents.push({
-                        id: e.id,
-                        email: e.email,
-                        text: e.name + e.last_name + ' -- ' + ' Psicologia '
-                    });
-                });
-                console.log(this.parents);
+                console.log(this.students);
             }).catch((error) => {
                 toastr.error("No hay padres cargados");
             });

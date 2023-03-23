@@ -6,9 +6,6 @@
                 <a v-on:click="showSection('administrative')" v-bind:class="[activetab === 'administrative' ? 'active fondo' : '']"><h4 h4 style="font-size: 15px">Administrativo</h4></a>
                 <a v-on:click="showSection('comunications')" v-bind:class="[activetab === 'comunications' ? 'active fondo' : '']"><h4 h4 style="font-size: 15px">Comunicaciones</h4></a>
                 <a v-on:click="showSection('academic')" v-bind:class="[activetab === 'academic' ? 'active fondo' : '']"><h4 h4 style="font-size: 15px">Académico</h4></a>
-                <a v-on:click="showSection('formation')" v-bind:class="[activetab === 'formation' ? 'active fondo' : '']"><h4 h4 style="font-size: 15px">Formación</h4></a>
-                <a v-on:click="showSection('government')" v-bind:class="[activetab === 'government' ? 'active fondo' : '']"><h4 h4 style="font-size: 15px">Gobierno Escolar</h4></a>
-                <a v-on:click="showSection('reports')" v-bind:class="[activetab === 'reports' ? 'active fondo' : '']"><h4 h4 style="font-size: 15px">Mis Reportes</h4></a>
             </div>
         </div>
 
@@ -26,15 +23,6 @@
                     </div>
                     <div v-if="activetab === 'academic'">
                         <academic-tab :user="user"></academic-tab>
-                    </div>
-                    <div v-if="activetab === 'formation'">
-                        <formation-tab :user="user"></formation-tab>
-                    </div>
-                    <div v-if="activetab === 'government'">
-                         <school-gov-tab :user="user"></school-gov-tab>
-                    </div>
-                    <div v-if="activetab === 'reports'">
-                        <report-admin></report-admin>
                     </div>
                 </div>
             </div>
@@ -71,7 +59,7 @@ export default {
     list-style-type: none;
     margin-left: 5px;
 }
-
+/* Estilo para el tab  */
 .tabAdmin a {
     float: left;
     cursor: pointer;
@@ -102,6 +90,9 @@ export default {
     color: #fff;
     border-bottom: 2px solid #fff;
     cursor: default;
+}
+.tabAdmin a h4{
+    margin-top: 12px;
 }
 .tabcontent {
     border: 1px solid #ccc;

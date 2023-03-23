@@ -23,24 +23,47 @@
         <div>
             <div class="container-fluid">
                 <div class="col-md-12 mx-auto">
-                    <div class="custom-card text-center">
-                        <h3 class="card-header fondo">Planificación general</h3>                        
-                        <span class="classroom-label">{{fillC.classroom_name}}</span>
+                    <div class="card-header text-center fondo row" data-v-step="0">
+                        <div class="card-center">
+                            <label class="card-text">Programa</label>
+                        </div>
+                        <div style="margin-left:auto">
+                            <a class="btn" @click="toggle">
+                                <i class="fa fa-question-circle" style="font-size:35px; color:#278080;"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <tour-configuration :step="steps" :condition="condition"></tour-configuration>
+                    <Drawer @close="toggle" align="right" :maskClosable="true" :zIndex="1003" :closeable="true">
+                        <div v-if="open">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <h1>Planificación general</h1>
+                                    <p>La planificación general determina los temas principales de la materia y el porcentaje de la nota que tiene cada planificación.</p>
+                                    <img src="../assets/img/study_plan.png" alt="study_plan" width="350px" height="350px" style="margin-bottom:10px">
+                                    <p>Se pueden crear varias planificaciones al mismo tiempo haciendo click en el botón amarillo con el +, al hacer click se crea un nuevo campo de objetivo y nombre de la planificación.</p>
+                                    <img src="../assets/img/more_study_plans.png" alt="more_study_plans" width="350px" height="350px" style="margin-bottom:10px">
+                                </div>
+                            </div>
+                        </div>
+                    </Drawer>
                         <span v-show="!isSynchronized">(Hay cambios que no han sido guardados)</span>
-                        <div class="row">
+                        <!-- Se agrega un display:none para ocultar los elementos relacionados con los estudiantes PIAR ya que se desarrollo la funcionalidad pero luego se pidio eliminar pero solo se oculto y en caso de necesitarlo de nuevo en el futuro ya tener la funcionalidad lista -->
+                        <!-- Los estudiantes PIAR se usa para crear una planificacion o una clase para estudiantes con dificultades de aprendizaje -->
+                        <div class="row" style="display:none;">
                             <div class="col-12 mt-2">
                                 <label><span class="required">*</span>Planificación Para :</label><br>
-                                
+
                                     <input type="checkbox" id="students" name="students" v-model="activityForAllStudents">
                                     <label for="piar" class="mr-3"> Todos los Estudiantes</label>
 
                                     <input v-show="piarStudents.length > 0" type="checkbox" id="piar" name="students" v-model="activityForPIARStudents">
                                     <label v-if="piarStudents.length == 0" for="piar" class="mr-3"> No se encuentran Estudiantes PIAR</label>
                                     <label v-else for="piar" class="mr-3"> Estudiantes PIAR</label>
-                                    
+
                                     <input type="checkbox" id="specific" name="students" v-model="activityForSelectStudents">
                                     <label for="specific"> Estudiantes en Especifico</label>
-                                
+
                                 <div v-if="(activityForPIARStudents == true && piarStudents.length > 0) || activityForSelectStudents == true">
                                     <label>Selecciona Los estudiantes</label>
                                     <multiselect v-model="saveStudent" :options="selectedStudentsData" :multiple="true"
@@ -60,107 +83,49 @@
                             </div>
                         </div>
                         <form class="needs-validation" novalidate>
-                            <!-- <form-wizard
-                                title
-                                subtitle
-                                color="#ffc107"                                
-                                finish-button-text="Guardar y enviar"
-                                @on-complete="createCourses"
-                            > -->
-                                <span
-                                    class="spinner-border spinner-border"
-                                    role="status"
-                                    aria-hidden="true"
-                                    v-if="isLoading"
-                                ></span>
-                                
-                                
+                            <!-- <form-wizard title subtitle color="#ffc107" finish-button-text="Guardar y enviar" @on-complete="createCourses"> -->
+                                <span class="spinner-border spinner-border" role="status" aria-hidden="true"  v-if="isLoading"></span>
                                     <div class="form-group mx-auto" v-for="(input1, t) in inputs1" :key="t">
                                         <div class="classroom-planning-section">
-                                            <strong>Objetivo: </strong>
-                                            <input
-                                                class="form-control form-control-sm"
-                                                type="number"
-                                                style="width:50px;"
-                                                v-model="input1.porcentaje"
-                                            />%
+                                            <strong>Tema: </strong>
+                                            <input class="form-control form-control-sm" type="number" style="width:50px;" v-model="input1.porcentaje" data-v-step="1"/>%
                                             <span>
-                                                <a
-                                                    href="#"
-                                                    class="badge badge-danger"
-                                                    @click.prevent="remove1(t)"
-                                                    v-show="(t>0 && inputs1_saved.length<=t)"
-                                                >-</a>
-                                                <a
-                                                    href="#"
-                                                    class="badge badge-primary"
-                                                    @click.prevent="add1(t)"
-                                                    v-show="t == inputs1.length -1"
-                                                >+</a>
-                                                <a
-                                                    href="#"
-                                                    class="btn btn-primary"
-                                                    
-                                                    @click.prevent="modalDelete(input1.id_achievement, input1.logro)"
-                                                    v-show="(t > 0)"
-                                                >Eliminar</a>
+                                                <a href="#" class="badge badge-danger" @click.prevent="remove1(t)" v-show="(t>0 && inputs1_saved.length<=t)">-</a>
+                                                <a href="#" class="badge badge-primary" @click.prevent="add1(t)" v-show="t == inputs1.length -1" data-v-step="2">+</a>
+                                                <a href="#" class="btn btn-primary"  @click.prevent="modalDelete(input1.id_achievement, input1.logro)" v-show="(t > 0)">Eliminar</a>
                                             </span>
                                         </div>
+                                        <div class="classroom-planning-section">
+                                            <textarea name="welcome" class="form-control" v-model="input1.logro" v-on:change="annualContentUpdateEvent($event,t,'inputs1','logro')" required data-v-step="3"></textarea>
+                                        </div>
 
-                                        <textarea
-                                            name="welcome"
-                                            class="form-control"
-                                            v-model="input1.logro"
-                                            v-on:change="annualContentUpdateEvent($event,t,'inputs1','logro')"
-                                            required
-                                        ></textarea>
                                         <div class="invalid-feedback">Please fill out this field</div>
                                     </div>
-                                    
+                                    <div class="classroom-planning-section" style="justify-content: right !important;">
+                                        <button type="button" class="btn btn-primary" style="float: right;margin-top: 13px;" v-on:click="createCourses">Guardar</button>
+                                    </div>
+
                                     <a v-show="(activityForPIARStudents == true && piarStudents.length > 0)" v-on:click="showPIARPlan" class="btn btn-primary">Crear Planificación General Estudiantes PIAR</a>
-                                    
+
                                     <div v-show="(activityForPIARStudents == true && piarStudents.length > 0)">
                                         <div v-for="(inputsP, key) in inputsPIAR" :key="'-'+key">
                                             <div class="classroom-planning-section">
                                                 <strong>Objetivo:</strong>
-                                                <input
-                                                    v-on:change="annualContentUpdateEvent($event,key,'inputsPIAR')"
-                                                    class="form-control form-control-sm"
-                                                    type="number"
-                                                    style="width:50px;"
-                                                    v-model="inputsP.porcentajePIAR"
-                                                />%
-
+                                                <input v-on:change="annualContentUpdateEvent($event,key,'inputsPIAR')" class="form-control form-control-sm" type="number" style="width:50px;" v-model="inputsP.porcentajePIAR"/>%
                                                 <span>
-                                                    <a
-                                                        href="#"
-                                                        class="badge badge-danger"
-                                                        @click.prevent="removePIAR(key)"
-                                                        v-show="(key >0 && inputsPIAR_saved.length<=key)"
-                                                    >-</a>
-                                                    <a
-                                                        href="#"
-                                                        class="badge badge-primary"
-                                                        @click.prevent="addPIAR(key)"
-                                                        v-show="key == inputsPIAR.length -1"
-                                                    >+</a>
+                                                    <a href="#" class="badge badge-danger" @click.prevent="removePIAR(key)" v-show="(key >0 && inputsPIAR_saved.length<=key)">-</a>
+                                                    <a href="#" class="badge badge-primary" @click.prevent="addPIAR(key)" v-show="key == inputsPIAR.length -1">+</a>
                                                 </span>
                                             </div>
-                                            
-                                            <textarea
-                                                name="welcome"
-                                                class="form-control"
-                                                v-model="inputsP.logroPIAR"
-                                                v-on:change="annualContentUpdateEvent($event,key,'inputsPIAR','logroPIAR')"
-                                                required
-                                            ></textarea>
+                                            <textarea name="welcome" class="form-control" v-model="inputsP.logroPIAR" v-on:change="annualContentUpdateEvent($event,key,'inputsPIAR','logroPIAR')" required></textarea>
+
                                         </div>
-                                    </div>                              
-                                    <button type="button" class="btn btn-primary" style="float: right;margin-top: 13px;" v-on:click="createCourses">Guardar</button>
+                                    </div>
+
                             <!-- </form-wizard>             -->
                         </form>
                     </div>
-                </div>
+
             </div>
         </div>
         <!-- Modal para eliminar objetivo -->
@@ -231,6 +196,7 @@ $(function () {
 
 import VueFormWizard from "vue-form-wizard";
 import "vue-form-wizard/dist/vue-form-wizard.min.css";
+import Drawer from "vue-simple-drawer";
 Vue.use(VueFormWizard);
 export default {
     props: ["idArea"],
@@ -290,7 +256,49 @@ export default {
             AreaId:"",
             areaId:"",
             classroomId:"",
+            open: false,
+            steps: [
+                {
+                    target: '[data-v-step="0"]',
+                    header: {
+                        title: 'Planificación general',
+                    },
+                    content: `Desde aquí podrás <strong>crear la planificación general</strong> para cada programa!`,
+                    params: {
+                        placement: 'bottom', // Any valid Popper.js placement. See https://popper.js.org/popper-documentation.html#Popper.placements
+                        enableScrolling: false
+                    }
+                },
+                {
+                    target: '[data-v-step="1"]',
+                    content: 'El objetivo representa la nota total de cada planificación, la suma total no debe superar el 100%, tambien es posible dejar el objetivo en 0%, es totalmente opcional este campo.',
+                    params: {
+                        placement: 'top', // Any valid Popper.js placement. See https://popper.js.org/popper-documentation.html#Popper.placements
+                        enableScrolling: false,
+                    }
+                },
+                {
+                    target: '[data-v-step="2"]',
+                    content: 'El boton del + añade nuevos campos de objetivo y nombre, lo que permite crear multiples planificaciones con facilidad.',
+                    params: {
+                        placement: 'top', // Any valid Popper.js placement. See https://popper.js.org/popper-documentation.html#Popper.placements
+                        enableScrolling: false
+                    }
+                },
+                {
+                    target: '[data-v-step="3"]',
+                    content: 'Este campo representa el nombre de la planificación.',
+                    params: {
+                        placement: 'top', // Any valid Popper.js placement. See https://popper.js.org/popper-documentation.html#Popper.placements
+                        enableScrolling: false
+                    }
+                }
+            ],
+            condition:"study_planning",
         };
+    },
+    components: {
+        Drawer
     },
     watch: {
         activityForAllStudents: function(newVal){
@@ -318,21 +326,21 @@ export default {
                 this.selectedStudentsData = this.studentsOptions;
             }
         },
-        
+
         idArea(newVal, oldVal){
-            if(newVal !== oldVal){                
+            if(newVal !== oldVal){
                 this.getData();
             }
         },
     },
-    mounted() {            
+    mounted() {
         if(this.idArea){
-            this.AreaId = this.idArea            
+            this.AreaId = this.idArea
         }else{
-            
+
             let params = window.location.pathname;
             let ids = params.split('/');
-                
+
             let idArea = ids[2]+"/"+ids[3];
             this.AreaId = idArea;
             this.areaId = ids[2];
@@ -341,6 +349,9 @@ export default {
         this.getData();
     },
     methods: {
+        toggle() {
+            this.open = !this.open;
+        },
         getData(){
             axios.get(`/PIARStudentsByArea/${this.AreaId}`).then((response)=>{
                 this.piarStudents = Object.values(response.data);
@@ -367,14 +378,14 @@ export default {
                         let logros = JSON.parse(el.logros)
                         let trimestres = JSON.parse(el.trimestres)
                         this.saveStudent = JSON.parse(el.students)
-    
+
                         logros.forEach((lg)=>{
                             this.inputsPIAR1.push({
                                 contenidoPIAR: lg.contenidoPIAR,
                                 namePIAR: lg.namePIAR
                             })
                         })
-    
+
                         trimestres.forEach((lg)=>{
                             this.inputsPIAR.push({
                                 logroPIAR: lg.logroPIAR,
@@ -386,10 +397,10 @@ export default {
                         this.showPiarPlan = true,
                         this.showPIARPlanTrimestral = true,
                         this.activityForAllStudents = true;
-                    }                    
+                    }
                 }
             })
-            
+
             //load from localstorage
             this.serialLocalStorage=this.serialLocalStorage+"-"+this.AreaId;
 
@@ -405,7 +416,7 @@ export default {
                     this.inputs1_saved= JSON.parse(JSON.stringify(this.inputs1));
                 }
                 else{
-        
+
                     if(localStorage.getItem(this.serialLocalStorage)){
                         let savedInputModel=JSON.parse(decodeURIComponent(escape(window.atob(localStorage.getItem(this.serialLocalStorage)))));
 
@@ -438,7 +449,7 @@ export default {
                 this.isLoading=false;
                 this.getData();
                 $("#deleteOb").modal("hide");
-                    
+
             }).catch((error) => {
                 this.errors = error.response.data;
                 this.isLoading=false;
@@ -476,7 +487,7 @@ export default {
         addPIAR(index) {
             this.inputsPIAR.push({ logroPIAR: "", porcentajePIAR: "0" });
         },
-        
+
         removePIAR(index) {
             this.inputsPIAR.splice(index, 1);
         },
@@ -492,15 +503,15 @@ export default {
             return this.isLoading;
         },
         createCourses() {
-            
+
                 this.isLoading=true;
-                var url = window.location.origin + "/Courses";                
+                var url = window.location.origin + "/Courses";
 
                 if(this.inputs1.length<1)
                     return;
 
                 this.newLogro = [];
-            
+
                 if (this.inputs1.length >= 1) {
                     for (let i = 0; i < this.inputs1.length; i++) {
                     this.newLogro.push(this.inputs1[i]);
@@ -508,8 +519,8 @@ export default {
                     console.log(this.newLogro);
                 }
                 let ids = this.AreaId.split('/');
-                
-                axios.post(url, {                    
+
+                axios.post(url, {
                     id_area: ids[0],
                     id_classroom: ids[1],
                     logros: this.newLogro,
@@ -517,7 +528,7 @@ export default {
                     this.errors = [];
                     toastr.success("Nuevo plan general creado exitosamente");
                     this.isLoading=false;
-                        
+
                 }).catch((error) => {
                     this.errors = error.response.data;
                     this.isLoading=false;
@@ -531,7 +542,7 @@ export default {
 
                     this.newLogro = [];
 
-                
+
                     if (this.inputsPIAR1.length > 0) {
                         for (let i = 0; i < this.inputsPIAR1.length; i++) {
                         this.newLogro.push(this.inputsPIAR1[i]);
@@ -548,13 +559,13 @@ export default {
                         this.errors = [];
                         toastr.success(response.data);
                         this.isLoading=false;
-                            
+
                     }).catch((error) => {
                         this.errors = error.response.data;
                         this.isLoading=false;
                     });
                 }
-            }                  
+            }
         },
         updateCourses() {
             window.location = "/actividad_g";

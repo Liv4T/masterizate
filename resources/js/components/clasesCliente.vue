@@ -4,78 +4,43 @@
             <div id="crud" class="col-sm-10">
                 <div v-if="showStudent === false" class="card">
                     <h3 class="card-header fondo">Mis Clases</h3>
-                    <div class="card-body">                        
+                    <div class="card-body">
                         <select class="form-control" v-on:change="(e)=>setArea(e.target.value)">
-                            <option default>Seleccionar...</option>
-                            <option v-for="(area, key) in areas" :key="key" :value="JSON.stringify(area)">{{area.area_name}}</option>
+                            <option disabled selected hidden value="">Seleccionar...</option>
+                            <option v-for="(area, key) in areas" :key="key" :value="JSON.stringify(area)">{{area.classroom_name}}</option>
                         </select>
 
-                        <div class="mt-2" v-show="id_area_selected !== null">
-                            <div id="accordion">
-                                <div class="card" v-for="(trimestre, key) in trimestres" :key="key">
-                                    <div class="card-header" :id="`heading${key}`">
-                                        <h5 class="mb-0">
-                                            <button class="btn btn-link" v-on:click="setTrim(trimestre.id)" data-toggle="collapse" :data-target="`#collapse${key}`" aria-expanded="true" :aria-controls="`collapse${key}`">
-                                                {{trimestre.nombre}}
-                                            </button>
-                                        </h5>
-                                    </div>
-
-                                    <div :id="`collapse${key}`" class="collapse hide" :aria-labelledby="`heading${key}`" data-parent="#accordion">
-                                        <div class="card-body">
-                                            <table v-if="activities.length === 0" class="table table-striped table-hover">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Ciclo</th>
-                                                        <th>Acción</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody v-for="(clase, key) in clases" :key="key">
-                                                    <tr>
-                                                        <td>{{clase.driving_question}}</td>
-                                                        <td>
-                                                            <button v-on:click="getClass(clase)">Ir a Clase</button>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                            <div v-else>
-                                                <button class="btn btn-success mb-2" v-on:click="backTable">Volver</button>
-                                                <table class="table table-striped table-hover">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>Clase</th>
-                                                            <th>Acción</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody v-for="(activity, key) in activities" :key="key">
-                                                        <tr>
-                                                            <td>{{activity.name}}</td>
-                                                            <td>
-                                                                <button class="btn btn-primary" v-on:click="getActivity(activity)">Acceder</button>
-                                                            </td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>                                            
-                                        </div>
-                                    </div>
-                                </div>                                
-                            </div>
+                        <div class="mt-2" v-show="id_area_selected!=null">
+                            <table class="table table-responsive-xl table-hover table-striped center">
+                                <thead>
+                                    <tr>
+                                        <th>Clases</th>
+                                        <th>Acción</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr v-for="(clas, t) in fillS" :key="t">
+                                        <td v-if="clas.status!=0">{{ clas.name }}</td>
+                                        <td v-if="clas.status!=0">
+                                            <a class="btn btn-primary" v-on:click="getClass(clas.id)">Ir a clase</a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
-                </div>                
+                </div>
                 <div v-else-if="showStudent === true">
-                    <student-module :clasId="weekly_id" :cleanClasId="backPage" :moduleId="activityId"></student-module>
-                </div>              
-            </div>            
+                    <student-course :id_classroom_selected="id_classroom_selected" :id_class="idClass"></student-course><!-- cambiar lo que se pasa con relacion a la funcion del studentCourseComponent -->
+                </div>
+            </div>
         </div>
         <div class="modal fade" id="modalpay" data-backdrop="static" data-keyboard="false">
             <div class="modal-lg modal-dialog" style="max-width: 965px;">
                 <div class="modal-content fondo-modal">
                     <div class="row">
                         <div class="col-lg-12">
-                            <img thumbnail fluid src="images/popup-skills.png" ></img>
+                            <img thumbnail fluid src="../assets/img/popup-skills.png">
                             <p class="box-suscription">Tu subscripción está vencida</p>
                         </div>
                     </div>
@@ -84,7 +49,7 @@
                     </div>
                 </div>
             </div>
-        </div>        
+        </div>
     </div>
 </template>
 <script>
@@ -94,6 +59,7 @@ export default {
         return {
             areas:[],
             id_area_selected:null,
+            id_classroom_selected:null,
             id_tutor:null,
             id_trimestre:null,
             trimestres:[],
@@ -104,53 +70,57 @@ export default {
             weekly_id: null,
             validate: null,
             code: null,
+            id_area: "",
+            id_classroom: "",
+            nameArea: "",
+            fillS: [],
         };
     },
-    mounted(){        
-        this.getArea();  
+    mounted(){
+        this.getArea();
     },
     watch:{
-        id_trimestre: function(newVal, oldVal){            
+        id_trimestre: function(newVal, oldVal){
             if(newVal !== oldVal){
-                this.getCycles();
+                this.getData();
             }
         },
 
-        id_area_selected: function(newVal, oldVal){            
+        id_area_selected: function(newVal, oldVal){
             if(newVal !== oldVal){
-                this.getCycles();
+                this.getData();
             }
         },
     },
     methods: {
-        getArea(){        
-            axios.get("/getTrimestres").then((response) =>{
-                this.trimestres=response.data;                
-            });
-            axios.get('getAreaByClient').then((response)=>{
-                this.areas = response.data;  
-                console.log(this.areas);             
+        getArea(){
+            axios.get('/GetArearByUser').then((response)=>{
+                this.areas = response.data;
+                console.log(this.areas);
             })
         },
 
-        setArea(value){
-            let data = JSON.parse(value);
-            this.id_area_selected = data.id_area;
-            this.code = data.code;
-            this.id_tutor = data.id_tutor;
+        getData(){
+            this.fillS = [];
+            this.getClasses();
+
         },
 
-        setTrim(id_trimestre){
-            this.id_trimestre = id_trimestre;
-        },
+        getClasses() {
+            var urlr = window.location.origin + "/showClassByClassroom/" + this.id_area_selected + "/" + this.id_classroom_selected;
+            axios.get(urlr).then(response => {
+                this.fillS = response.data.clase;
+                console.log(this.fillS);
 
-        getCycles(){
-            axios.get(`getTutorCycle/${this.id_tutor}/${this.id_trimestre}/${this.id_area_selected}`).then((response)=>{
-                this.clases = response.data;
+                if (response.data.area && response.data.classroom)
+                    this.nameArea = response.data.classroom.name;
+
+                    this.id_area = response.data.area;
+                    this.id_classroom = response.data.classroom.id;
             });
             axios.get(`/checkPay/${this.id_area_selected}/${this.code}`).then((response)=>{
                 this.validate = response.data;
-            
+
                 if (this.validate === 0) {
                     $("#modalpay").modal("hide");
                 } else {
@@ -159,18 +129,28 @@ export default {
             });
         },
 
-        getClass(data){
-            axios.get(`getClass/${data.id}`).then((response)=>{                
-                this.activities = response.data;
-            })           
+        setArea(value){
+            let data = JSON.parse(value);
+            this.id_area_selected = data.id_area;
+            this.id_classroom_selected = data.id_classroom;
+            this.code = data.code;
+            this.id_tutor = data.id_tutor;
+        },
+
+        getClass(id_class){
+            if(id_class){
+                this.idClass = id_class;
+                console.log("clase_id",this.idClass);
+                this.showStudent = true;
+            }
         },
 
         backTable(){
             this.activities = [];
         },
 
-        getActivity(data){            
-            this.weekly_id = data.id_weekly_plan;          
+        getActivity(data){
+            this.weekly_id = data.id_weekly_plan;
             this.activityId = data.id;
             this.showStudent= true
         },
@@ -193,14 +173,14 @@ export default {
     font-weight: 800;
 }
 .box-suscription{
-    background: #f7f5f5; 
-    font-weight: bold; 
-    padding: 15px; 
-    border-left:8px solid #ff0080; 
-    border-top-left-radius:8px; 
+    background: #f7f5f5;
+    font-weight: bold;
+    padding: 15px;
+    border-left:8px solid #ff0080;
+    border-top-left-radius:8px;
     border-bottom-left-radius:8px;
-    border-right:8px solid #ff0080; 
-    border-top-right-radius:8px; 
+    border-right:8px solid #ff0080;
+    border-top-right-radius:8px;
     border-bottom-right-radius:8px;
 }
 

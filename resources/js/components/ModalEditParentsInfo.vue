@@ -2,15 +2,15 @@
     <div>
         <div class="row">
             <div class="col-md-11">
-                <div class="row justify-content-center">
-                    <h4>Reuniones</h4>
+                <div class="row justify-content-center" data-v-step="2">
+                    <h4>Proximas clases</h4>
                 </div>
                 <div class="row" v-for="(parents, k) in filterPendingEvents(parents)" :key="k">
                     <div class="col-12">
                         <div class="card">
                             <div class="class-event">
                                 <div class="class-event-info">{{parents.name_event}} </div>
-                                <div class="class-event-date">                                
+                                <div class="class-event-date">
                                     <div>
                                         <small>Desde:</small>
                                         <span>{{parents.date_start}}</span>
@@ -35,7 +35,7 @@
                                         <button class="btn btn-success"
                                             v-on:click.prevent="editE(parents.id)">Agregar fecha de Reunion</button>
                                     </div>
-                                    
+
                                     <button v-show="type_u === 4 || type_u === 8" class="btn btn-danger"
                                         v-on:click.prevent="deleteE(parents.id)">Eliminar</button>
                                 </div>
@@ -177,7 +177,7 @@
                 })
             },
             filterPendingEvents(events){
-                /* Se da formato a fechas para poder comparar las 
+                /* Se da formato a fechas para poder comparar las
                 *  reuniones que sucedieron en el dia y las que estan agendadas a futuro
                 */
                 var momento = moment();

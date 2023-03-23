@@ -71,6 +71,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 
@@ -84,7 +86,8 @@ __webpack_require__.r(__webpack_exports__);
     return {
       gradeOptions: [],
       pedagogical: [],
-      pedagogicalToEdit: {}
+      pedagogicalToEdit: {},
+      pedagogical_id: ''
     };
   },
   mounted: function mounted() {
@@ -114,6 +117,10 @@ __webpack_require__.r(__webpack_exports__);
     updatePedagogical: function updatePedagogical(data) {
       this.pedagogicalToEdit = data;
       $("#updatePedagogical").modal("show");
+    },
+    updateCircular: function updateCircular(data) {
+      this.pedagogical_id = data;
+      $("#updatePedagogicalCircular").modal("show");
     },
     deletePedagogical: function deletePedagogical(id) {
       var _this3 = this;
@@ -201,8 +208,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['gradeOptions'],
+  props: ['gradeOptions', 'getPedagogical'],
   data: function data() {
     return {
       name_activity: '',
@@ -212,7 +222,8 @@ __webpack_require__.r(__webpack_exports__);
       time_arrival: '',
       description: '',
       permission: false,
-      newGradeOptions: []
+      newGradeOptions: [],
+      data: ""
     };
   },
   watch: {
@@ -232,21 +243,49 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     savePedagogic: function savePedagogic() {
-      axios.post("pedagogic", {
-        name_activity: this.name_activity,
-        grade: this.grade.text,
-        id_classroom: this.grade.id_classroom,
-        place: this.place,
-        departure_time: this.departure_time,
-        time_arrival: this.time_arrival,
-        description: this.description
-      }).then(function (response) {
-        toastr.success(response.data);
-        window.location = "/pedagogic";
-      })["catch"](function (error) {
-        toastr.info('Ha ocurrido algo, intenta de nuevo mas tarde');
-        console.log(error);
-      });
+      var _this2 = this;
+
+      if (!this.data) {
+        toastr.info('La circular es obligatoria.');
+      } else {
+        this.data.append("name_activity", this.name_activity);
+        this.data.append("grade", this.grade.text);
+        this.data.append("id_classroom", this.grade.id_classroom);
+        this.data.append("place", this.place);
+        this.data.append("departure_time", this.departure_time);
+        this.data.append("time_arrival", this.time_arrival);
+        this.data.append("description", this.description);
+        axios.post("pedagogic", this.data).then(function (response) {
+          toastr.success(response.data); //window.location = "/pedagogic";
+
+          _this2.getPedagogical();
+
+          $("#exampleModal").modal("hide");
+        })["catch"](function (error) {
+          toastr.info('Ha ocurrido algo, intenta de nuevo mas tarde');
+          console.log(error);
+        });
+      }
+    },
+    onFileChange: function onFileChange(file) {
+      var files = file.target.files || file.dataTransfer.files;
+      this.data = new FormData();
+
+      if (files.length > 0) {
+        var _file = files[0];
+
+        var _fileNameSplit = _file.name.split("."); // if uploaded file is valid with validation rules
+
+
+        var file_extension = _fileNameSplit[_fileNameSplit.length - 1];
+
+        var file_name = _file.name.replace(".".concat(file_extension), '');
+
+        this.data.append("file", files[0]);
+        this.data.append("name", file_name);
+      }
+
+      console.log(this.data);
     }
   }
 });
@@ -324,7 +363,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['pedagogicalToEdit', 'gradeOptions'],
+  props: ['pedagogicalToEdit', 'gradeOptions', 'getPedagogical'],
   data: function data() {
     return {
       name_activity: '',
@@ -363,6 +402,8 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     savePedagogic: function savePedagogic() {
+      var _this2 = this;
+
       axios.put("pedagogic/".concat(this.id), {
         name_activity: this.name_activity,
         grade: this.grade.text,
@@ -372,8 +413,11 @@ __webpack_require__.r(__webpack_exports__);
         time_arrival: this.time_arrival,
         description: this.description
       }).then(function (response) {
-        toastr.success(response.data);
-        window.location = "/pedagogic";
+        toastr.success(response.data); //window.location = "/pedagogic";
+
+        $("#updatePedagogical").modal("hide");
+
+        _this2.getPedagogical();
       })["catch"](function (error) {
         toastr.info('Ha ocurrido algo, intenta de nuevo mas tarde');
         console.log(error);
@@ -518,6 +562,22 @@ var render = function() {
                                         }
                                       },
                                       [_vm._v("Eliminar")]
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "button",
+                                      {
+                                        staticClass: "btn btn-success",
+                                        staticStyle: { "margin-top": "5px" },
+                                        on: {
+                                          click: function($event) {
+                                            return _vm.updateCircular(
+                                              pedagogical.id
+                                            )
+                                          }
+                                        }
+                                      },
+                                      [_vm._v("Actualizar Circular")]
                                     )
                                   ])
                                 ])
@@ -538,13 +598,24 @@ var render = function() {
       ]),
       _vm._v(" "),
       _c("pedagogical-modal-create-coord", {
-        attrs: { gradeOptions: _vm.gradeOptions }
+        attrs: {
+          gradeOptions: _vm.gradeOptions,
+          getPedagogical: _vm.getPedagogical
+        }
       }),
       _vm._v(" "),
       _c("pedagogical-modal-edit-coord", {
         attrs: {
           pedagogicalToEdit: _vm.pedagogicalToEdit,
-          gradeOptions: _vm.gradeOptions
+          gradeOptions: _vm.gradeOptions,
+          getPedagogical: _vm.getPedagogical
+        }
+      }),
+      _vm._v(" "),
+      _c("update-pedagogical-circular", {
+        attrs: {
+          pedagogical_id: _vm.pedagogical_id,
+          getPedagogical: _vm.getPedagogical
         }
       })
     ],
@@ -801,6 +872,23 @@ var render = function() {
                       return
                     }
                     _vm.description = $event.target.value
+                  }
+                }
+              })
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group" }, [
+              _c("input", {
+                staticClass: "form-control",
+                attrs: {
+                  type: "file",
+                  accept: ".pdf",
+                  placeholder: "Seleccione un archivo",
+                  required: "required"
+                },
+                on: {
+                  change: function($event) {
+                    return _vm.onFileChange($event)
                   }
                 }
               })

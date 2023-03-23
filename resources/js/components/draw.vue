@@ -1,4 +1,4 @@
-<template>   
+<template>
   <div class="canvas-wrapper" ref="canvasWrapper">
     <div class="draw-area">
       <canvas id="canvas" ref="canvas" :width="width" :height="height"></canvas>
@@ -67,7 +67,7 @@ export default {
   },
   methods: {
     setCanvas() {
-      
+
       this.$refs.canvasWrapper.style.gridTemplateColumns = `${this.width}px 30px`;
       this.$refs.canvasWrapper.style.width = `${this.width + 30}px`;
       this.$refs.canvasWrapper.style.height = `${this.height}px`;

@@ -5,7 +5,7 @@
         <div class="text-center">
           <select class="btn btn-warning letra-boldfont" name="type" v-model="idArea">
             <option disabled selected hidden value="">CURSOS</option>
-            <option :value="area.id + '/' + area.id_classroom" v-for="(area, key) in areas" :key="key">{{ area.text }}</option>
+            <option :value="area.id + '/' + area.id_classroom" v-for="(area, key) in areas" :key="key">{{ area.classroom_name }}</option>
           </select>
         </div>
       </div>
@@ -15,7 +15,7 @@
             <a v-on:click="activetab = 1" v-bind:class="[activetab === 1 ? 'active' : '']"><h4 style="font-size: 15px">PLAN DE ESTUDIO</h4></a>
             <a v-on:click="activetab = 2" v-bind:class="[activetab === 2 ? 'active' : '']"><h4 style="font-size: 15px">PERÍODO</h4></a>
             <a v-on:click="activetab = 3" v-bind:class="[activetab === 3 ? 'active' : '']"><h4 style="font-size: 15px">EVALUACIÓN</h4></a>
-            <a v-on:click="activetab = 4" v-bind:class="[activetab === 4 ? 'active' : '']"><h4 style="font-size: 15px">CICLOS</h4></a>
+            <!-- <a v-on:click="activetab = 4" v-bind:class="[activetab === 4 ? 'active' : '']"><h4 style="font-size: 15px">CICLOS</h4></a> -->
           </div>
 
           <!-- <div class="content-azul"> -->

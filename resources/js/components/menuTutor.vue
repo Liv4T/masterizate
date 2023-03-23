@@ -25,18 +25,18 @@
                       <img width="35px" src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/FOROS_naranja.png?alt=media&token=93ec6b97-e5a6-4eca-891e-b63bf2a352ad" alt />
                       Foro
                     </a>
-                    <a href="/chat">
+                    <a href="/proceedings/general">
+                        <img width="35px" src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/MENSAJES_naranja.png?alt=media&token=93ec6b97-e5a6-4eca-891e-b63bf2a352ad" alt />
+                        Crear Actas
+                    </a>
+                    <a href="/list/proceedings/general">
+                        <img width="35px" src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/MENSAJES_naranja.png?alt=media&token=93ec6b97-e5a6-4eca-891e-b63bf2a352ad" alt />
+                        Ver Actas
+                    </a>
+                    <!-- <a href="/chat">
                       <img width="35px" src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/FOROS_naranja.png?alt=media&token=93ec6b97-e5a6-4eca-891e-b63bf2a352ad" alt />
                       Chat
-                    </a>
-                    <a href="/chat">
-                      <img width="35px" src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/FOROS_naranja.png?alt=media&token=93ec6b97-e5a6-4eca-891e-b63bf2a352ad" alt />
-                      Chat Estamentos
-                    </a>
-                    <a href="/mensajes">
-                      <img width="35px" src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/sicologia_naranja.png?alt=media&token=93ec6b97-e5a6-4eca-891e-b63bf2a352ad" alt />
-                      Psicología
-                    </a>
+                    </a> -->
                   </div>
                 </li>
               </a>
@@ -73,32 +73,16 @@
                 </li>
               </a>
             </div>
-            <a href="/observer">
-              <li class="item-menu">
-                <img width="35px" src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/MIS-CURSOS.png?alt=media&token=93ec6b97-e5a6-4eca-891e-b63bf2a352ad" alt />
-                <span class="menu">Observador</span>
-              </li>
-            </a>
             <a href="/tutorCode">
               <li class="item-menu">
                 <img width="35px" src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/MIS-CURSOS.png?alt=media&token=93ec6b97-e5a6-4eca-891e-b63bf2a352ad" alt />
-                <span class="menu">Codigos</span>
+                <span class="menu">Genera tu programa</span>
               </li>
             </a>
             <a href="/tutorCodeStudent">
               <li class="item-menu">
                 <img width="35px" src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/MIS-CURSOS.png?alt=media&token=93ec6b97-e5a6-4eca-891e-b63bf2a352ad" alt />
-                <span class="menu">Codigos Vinculados</span>
-              </li>
-            </a>
-            <a href="/psychology_menu">
-              <li class="item-menu">
-                <img
-                  width="35px"
-                  src="https://firebasestorage.googleapis.com/v0/b/chat-firebase-7b7ff.appspot.com/o/sicologia_naranja.png?alt=media&token=3c495a25-1349-4b16-920d-126eed308186"
-                  alt
-                />
-                <span class="menu">Psicología</span>
+                <span class="menu">Mis Estudiantes</span>
               </li>
             </a>
             <a href="/manual">
@@ -144,7 +128,7 @@
 
 <style>
   .left {
-    width: 225px;
+    width: 265px;
     height: auto;
     background: #f5f5f5;
     white-space: nowrap;

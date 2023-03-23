@@ -15,6 +15,9 @@ import Game from "./components/Game";
 import store from "./vuex/store";
 import en from '../../src/lang/en_US.json'
 import es from '../../src/lang/es_ES.json'
+import VueTour from 'vue-tour';
+require('vue-tour/dist/vue-tour.css');
+Vue.use(VueTour);
 
 const i18n = new VueI18n({
   locale: 'es',
@@ -57,9 +60,11 @@ Vue.component("checkbox", require("./components/Checkbox.vue").default);
 Vue.component("class-component", require("./components/ClassComponent.vue").default);
 Vue.component("blog-component", require("./components/BlogComponent.vue").default);
 Vue.component("draw-c", require("./components/draw.vue").default);
+Vue.component("board-help", require("./components/boardHelp.vue").default);
 
 Vue.component("home", require("./components/home.vue").default);
 Vue.component("home-skills", require("./components/homeSkills.vue").default);
+Vue.component("home-coworking", require("./components/homeCoworking.vue").default);
 Vue.component("new-home", require("./components/newHome.vue").default);
 Vue.component("board", require("./components/board.vue").default);
 Vue.component("equations", require("./components/equations.vue").default);
@@ -182,6 +187,7 @@ Vue.component("materias-coord",()=>import("./components/MateriasCoord.vue"));
 Vue.component("courses-coord", () =>import("./components/CourseCoord.vue"));
 Vue.component("utils-coord", () =>import("./components/UtilsCoord.vue"));
 Vue.component("pedagogical-course", ()=>import("./components/PedagogicalCourse.vue"));
+Vue.component("update-pedagogical-circular", ()=>import("./components/PedagogicalModalUploadCircularComponent.vue"));
 Vue.component("permission-pedagogic", ()=>import("./components/permissionPedagogic.vue"));
 
 Vue.component("salon-adm", ()=>import("./components/salonAdm.vue"));
@@ -227,7 +233,6 @@ Vue.component("lectives-teacher-students", () => import ("./components/lectivesT
 Vue.component("lectives-teacher-notes", () => import ("./components/lectivesTeacherNotesComponent.vue"));
 Vue.component("lectives-teacher-module", () => import ("./components/lectivesTeacherModuleComponent.vue"));
 
-
 Vue.component("repository-component", () => import("./components/repositoryComponent.vue"));
 Vue.component("create-repository", () => import("./components/repositoryCreate.vue"));
 Vue.component("repository-students", () => import("./components/repositoryStudents.vue"));
@@ -264,6 +269,7 @@ Vue.component("teacher-student-class-content", () => import ("./components/teach
 Vue.component("notification-component", () => import ("./components/notificationComponent.vue"));
 Vue.component("language-component", () => import ("./components/changeLanguageComponent.vue"));
 Vue.component("content-loader", () => import ("./components/contentLoaderComponent.vue"));
+Vue.component("my-classes", () => import ("./components/myClasses.vue"));
 
 //Padres
 Vue.component("menu-padres", () => import("./components/menuPadres.vue"));
@@ -283,6 +289,7 @@ Vue.component("modal-create-reason-component", () => import("./components/ModalR
 Vue.component("menu-tutor", ()=>import("./components/menuTutor.vue"));
 Vue.component("tutor-schedule", ()=>import("./components/tutorScheduleComponent.vue"));
 Vue.component("student-schedule", ()=>import("./components/studentScheduleComponent.vue"));
+Vue.component("student-class-list", ()=>import("./components/studentClassListComponent.vue"));
 Vue.component("tutor-profile", ()=>import("./components/tutorProfileComponent.vue"));
 Vue.component("tutor-code", ()=>import("./components/tutorCode.vue"));
 Vue.component("tutor-code-student", ()=>import("./components/tutorCodeStudent.vue"));
@@ -382,6 +389,12 @@ Vue.component("comunication-tab", ()=>import("./components/tabComunication.vue")
 Vue.component("formation-tab",()=>import("./components/tabsFormation.vue"));
 Vue.component("school-gov-tab",()=>import("./components/tabsSchoolGov.vue"));
 Vue.component("clases-client",()=>import("./components/clasesCliente.vue"));
+//contract
+Vue.component("contract-data", () => import("./components/ContractDataComponent.vue"));
+Vue.component("contract-view", () => import ("./components/ContractViewComponent.vue"));
+//VueTour Configuration
+Vue.component("tour-configuration",()=>import("./components/vueTourConfiguration.vue"));
+
 Vue.use(CKEditor);
 
 

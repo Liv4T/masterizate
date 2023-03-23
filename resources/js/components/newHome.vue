@@ -36,7 +36,7 @@
                         <a><img class="img-dim" src="../assets/img/home19.png" alt="" style=""><label class="text-img-dim">Liv4T</label></a>
                     </div>
                     <div class="col-lg-6">
-                        <img class="esquina" src="../assets/img/home3.png" alt=""> 
+                        <img class="esquina" src="../assets/img/home3.png" alt="">
                     </div>
                     <div class="col-lg-6 img-pos">
                         <label class="text-img-pos"><b>Liv4T Skool</b> es una plataforma educativa de comunicación y gestión de contenidos que apoya los procesos administrativos y pedagógicos, y que permite conexión remota y seguimiento. Diseñada por profesores y administradores escolares.</label>
@@ -101,16 +101,16 @@
                     <img class="position-a" src="../assets/img/home39.png">
                 </div>
                 <div class="margin-role">
-                   <a class="text-roles"><img class="img-docente" src="../assets/img/home34.png" alt=""><label><b>Gestiona diferentes sedes bajo un mismo usuario</b></label></a> 
+                   <a class="text-roles"><img class="img-docente" src="../assets/img/home34.png" alt=""><label><b>Gestiona diferentes sedes bajo un mismo usuario</b></label></a>
                 </div>
                 <div>
-                   <a class="text-roles"><img class="img-docente" style="margin-top: -60px;" src="../assets/img/home35.png" alt=""><label><b>Gestión y acceso a reportes personalizados:</b> permitiendo<br>cruce de información para tomar decisiones. Los reportes<br>se generan de acuerdo a las necesidades de la institución.</label></a> 
+                   <a class="text-roles"><img class="img-docente" style="margin-top: -60px;" src="../assets/img/home35.png" alt=""><label><b>Gestión y acceso a reportes personalizados:</b> permitiendo<br>cruce de información para tomar decisiones. Los reportes<br>se generan de acuerdo a las necesidades de la institución.</label></a>
                 </div>
                 <div>
-                   <a class="text-roles"><img class="img-docente" style="margin-top: -40px;" src="../assets/img/home36.png" alt=""><label>Es una plataforma, pensada para el contexto<br> escolar/universitario, con elementos que permiten<br> cumplir los requerimientos de ley, todo en un solo lugar.</label></a> 
+                   <a class="text-roles"><img class="img-docente" style="margin-top: -40px;" src="../assets/img/home36.png" alt=""><label>Es una plataforma, pensada para el contexto<br> escolar/universitario, con elementos que permiten<br> cumplir los requerimientos de ley, todo en un solo lugar.</label></a>
                 </div>
                 <div>
-                   <a class="text-roles"><img class="img-docente" style="margin-top: -25px;" src="../assets/img/home37.png" alt=""><label>Posibilita asignar roles para las diferentes tareas a realizar.</label></a> 
+                   <a class="text-roles"><img class="img-docente" style="margin-top: -25px;" src="../assets/img/home37.png" alt=""><label>Posibilita asignar roles para las diferentes tareas a realizar.</label></a>
                 </div>
             </div>
             <div class="col-lg-6 fondo6">
@@ -118,45 +118,45 @@
                     <img class="position-a" src="../assets/img/home31.png">
                 </div>
                 <div class="margin-role">
-                   <a class="text-roles"><img class="img-docente" style="margin-top: -30px;" src="../assets/img/home34.png" alt=""><label>Planeación de contenidos curriculares anuales,<br>bimestrales y por clase de acuerdo con los estándares <br>requeridos.</label></a> 
+                   <a class="text-roles"><img class="img-docente" style="margin-top: -30px;" src="../assets/img/home34.png" alt=""><label>Planeación de contenidos curriculares anuales,<br>bimestrales y por clase de acuerdo con los estándares <br>requeridos.</label></a>
                 </div>
                 <div>
-                   <a class="text-roles"><img class="img-docente" style="margin-top: -60px;" src="../assets/img/home35.png" alt=""><label>Comunicación sincrónica y asincrónica vía chat, foro y<br>mensajería con toda la comunidad: Estudiantes,<br>docentes, padres y directivos.</label></a> 
+                   <a class="text-roles"><img class="img-docente" style="margin-top: -60px;" src="../assets/img/home35.png" alt=""><label>Comunicación sincrónica y asincrónica vía chat, foro y<br>mensajería con toda la comunidad: Estudiantes,<br>docentes, padres y directivos.</label></a>
                 </div>
                 <div>
-                   <a class="text-roles"><img class="img-docente" style="margin-top: -40px;" src="../assets/img/home36.png" alt=""><label>Módulo de evaluaciones con banco de preguntas y<br> estadísticas de intentos, actualización automática<br> de notas en el sistema.*</label></a> 
+                   <a class="text-roles"><img class="img-docente" style="margin-top: -40px;" src="../assets/img/home36.png" alt=""><label>Módulo de evaluaciones con banco de preguntas y<br> estadísticas de intentos, actualización automática<br> de notas en el sistema.*</label></a>
                 </div>
                 <div>
-                   <a class="text-roles"><img class="img-docente" style="margin-top: -25px;" src="../assets/img/home37.png" alt=""><label>Repositorio de información con clases grabadas,<br>actividades y recursos.</label></a> 
+                   <a class="text-roles"><img class="img-docente" style="margin-top: -25px;" src="../assets/img/home37.png" alt=""><label>Repositorio de información con clases grabadas,<br>actividades y recursos.</label></a>
                 </div>
                 <div class="div-junio"><label class="position-junio">*A partir de junio 2021</label></div>
             </div>
         </div>
         <div class="row fondo7">
             <div class="col-lg-3">
-            
+
             </div>
             <div class="col-lg-6 fondo6" style="margin-top: -40px;">
                 <div>
                     <img class="position-a" src="../assets/img/home32.png">
                 </div>
                 <div class="margin-role">
-                <a class="text-roles"><img class="img-docente" style="margin-top: -30px;" src="../assets/img/home34.png" alt=""><label>Autogestión del aprendizaje mediante el acceso<br>permanente a actividades, con o sin internet<br>y de forma remota</label></a> 
+                <a class="text-roles"><img class="img-docente" style="margin-top: -30px;" src="../assets/img/home34.png" alt=""><label>Autogestión del aprendizaje mediante el acceso<br>permanente a actividades, con o sin internet<br>y de forma remota</label></a>
                 </div>
                 <div>
-                <a class="text-roles"><img class="img-docente" style="margin-top: -20px;" src="../assets/img/home35.png" alt=""><label>Promueve el desarrollo de la creatividad y los<br> talentos personales.</label></a> 
+                <a class="text-roles"><img class="img-docente" style="margin-top: -20px;" src="../assets/img/home35.png" alt=""><label>Promueve el desarrollo de la creatividad y los<br> talentos personales.</label></a>
                 </div>
                 <div>
-                <a class="text-roles"><img class="img-docente" style="margin-top: -40px;" src="../assets/img/home36.png" alt=""><label>Interacción con otros miembros de la comunidad escolar: <br>Compañeros, docentes, personal administrativo y <br>acompañamiento psicológico.</label></a> 
+                <a class="text-roles"><img class="img-docente" style="margin-top: -40px;" src="../assets/img/home36.png" alt=""><label>Interacción con otros miembros de la comunidad escolar: <br>Compañeros, docentes, personal administrativo y <br>acompañamiento psicológico.</label></a>
                 </div>
                 <div>
-                <a class="text-roles"><img class="img-docente" style="margin-top: -25px;" src="../assets/img/home37.png" alt=""><label>Acceso a educación de alta calidad de manera virtual y<br>didáctica.</label></a> 
+                <a class="text-roles"><img class="img-docente" style="margin-top: -25px;" src="../assets/img/home37.png" alt=""><label>Acceso a educación de alta calidad de manera virtual y<br>didáctica.</label></a>
                 </div>
             </div>
             <div class="col-lg-3">
-                
+
             </div>
-        </div>   
+        </div>
         <div class="row">
             <div class="col-lg-6">
                 <div>
@@ -186,11 +186,11 @@
                     <p class="line-yellow-form2"></p>
                 </div>
                 <div class="text-center margin-b">
-                    <label class="text-correo">inscripciones@liv4t.com</label>
+                    <label class="text-correo">info@masterizate.com</label>
                 </div>
                 <div class="text-center margin-b">
-                    <a href="https://www.facebook.com/liv4tskool" target="_blank"><i class="fab fa-facebook" style="font-size: 50px; color: black;"></i></a>
-                    <a href="https://www.instagram.com/liv4tskool/?hl=es-la" target="_blank"><i class="fab fa-instagram" style="font-size: 50px; color: black;"></i></a>
+                    <a href="https://www.facebook.com/Master%C3%ADzate-105719331965281" target="_blank"><i class="fab fa-facebook" style="font-size: 50px; color: black;"></i></a>
+                    <a href="https://instagram.com/masterizate_?utm_medium=copy_link" target="_blank"><i class="fab fa-instagram" style="font-size: 50px; color: black;"></i></a>
                 </div>
             </div>
              <div class="col-lg-6">
@@ -243,7 +243,7 @@
             </div>
         </div>
     </div>
-    
+
 </template>
 <script>
 import Vue from "vue";
@@ -456,7 +456,7 @@ export default {
     margin: 2px auto 0 auto !important;
 }
 .fondo-gris-form{
-    background-color: #dddddd; 
+    background-color: #dddddd;
     border-radius: 30px;
     margin-bottom: 4rem;
     border: 2px solid black;
@@ -476,6 +476,7 @@ export default {
     left: 35%;
     font-size: 40px;
     width: 60%;
+    height: auto;
     padding: 0;
     margin: 0;
     border: 0;
@@ -484,13 +485,13 @@ export default {
     font-family: Nunito;
 }
 .text-terms{
-    color: #7e7e7e !important; 
+    color: #7e7e7e !important;
     margin-bottom:1rem;
     font-size: 16px;
     font-family: Nunito;
 }
 .btn-form2{
-    font-size: 25px;
+    font-size: 22px;
     padding: 0px 8px 0px 8px !important;
     letter-spacing: 0.11em;
     border-radius: 10px;
@@ -526,7 +527,7 @@ export default {
     font-family: Nunito;
 }
 .text-correo{
-    font-size: 36px; 
+    font-size: 36px;
     font-family: Nunito;
 }
 .text-recibe{
@@ -734,7 +735,7 @@ export default {
         font-family: Nunito;
     }
     .text-correo{
-        font-size: 22px; 
+        font-size: 22px;
         font-family: Nunito;
     }
     .centrado {
@@ -783,14 +784,14 @@ export default {
         margin-left: 220px;
         top: -38px;
         position: absolute;
-        display: block; 
+        display: block;
     }
     .escuadra{
         height: 90px !important;
         margin-left: 220px;
         top: 20px;
         position: absolute;
-        display: block; 
+        display: block;
     }
 }
 

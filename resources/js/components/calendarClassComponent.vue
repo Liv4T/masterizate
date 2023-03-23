@@ -6,13 +6,13 @@
               <div v-if="type_u != 7" class="row justify-content-center">
                 <h4>{{ $t('lang.calendar.face-to-face classes') }}</h4>
               </div>
-        
+
               <div class="row" v-for="(clas, k) in filterPendingEvents(clases)" v-bind:key="k">
                 <!-- <div class="row" v-for="(clas, k) in clases" v-bind:key="k"> -->
                 <div class="col-12">
                   <div class="card">
                     <div class="class-event">
-                      <div class="class-event-info">{{ !clas.classroom ? "Lectiva " : "" }} {{ clas.area }} {{ clas.classroom ? clas.classroom : "" }}: {{ clas.name }}</div>
+                      <div class="class-event-info"> {{ clas.classroom }}: {{ clas.name }}</div>
                       <div class="class-event-date">
                         <div>
                           <small>{{ $t('lang.calendar.dateFrom')}}:</small>
@@ -38,8 +38,7 @@
                   </div>
                 </div>
             </div>
-            <div v-if="type_u == 7">
-                <!-- IS TUTOR -->
+            <!-- <div v-if="type_u == 7">
                 <div class="row justify-content-center">
                   <h4>Tutorías programadas</h4>
                 </div>
@@ -81,21 +80,21 @@
                     </div>
                   </div>
                 </div>
-              </div>
+              </div> -->
             </div>
         </div>
-        <calendar-modal-edit-event 
-            :concurrent.sync="concurrent" 
-            :dias.sync="dias" 
-            :myOptions.sync="myOptions" 
+        <calendar-modal-edit-event
+            :concurrent.sync="concurrent"
+            :dias.sync="dias"
+            :myOptions.sync="myOptions"
             :getMenu.sync="getMenu"
-            :evenUp.sync="evenUp" 
-            :nameUp.sync="nameUp" 
-            :areaUp.sync="areaUp" 
-            :fromUp.sync="fromUp" 
-            :toUp.sync="toUp" 
-            :meetUp.sync="meetUp" 
-            :id_padreUp.sync="id_padreUp" 
+            :evenUp.sync="evenUp"
+            :nameUp.sync="nameUp"
+            :areaUp.sync="areaUp"
+            :fromUp.sync="fromUp"
+            :toUp.sync="toUp"
+            :meetUp.sync="meetUp"
+            :id_padreUp.sync="id_padreUp"
             :idUp.sync="idUp"
         ></calendar-modal-edit-event>
         <!-- Modal para eliminar evento -->
@@ -160,7 +159,7 @@
     },
     methods: {
         filterPendingEvents(events){
-          /* Se da formato a fechas para poder comparar las 
+          /* Se da formato a fechas para poder comparar las
           *  reuniones que sucedieron en el dia y las que estan agendadas a futuro
           */
           var momento = moment();

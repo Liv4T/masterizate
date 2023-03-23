@@ -35,6 +35,7 @@ use App\Exports\CyclesAndClassExport;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use DB;
 
 class CoursesController extends Controller
 {
@@ -93,20 +94,42 @@ class CoursesController extends Controller
         return response()->json($data);
     }
     public function getAreaByClient(){
-        $user = Auth::user();
-        $data = [];
-        $codeVinculated = VinculationTutorStudent::where('id_student',$user->id)->get();
 
-        foreach($codeVinculated as $key => $vinculated){
-            $code = TutorCode::where('code','=',$vinculated->code_vinculated)->first();
-            $area = Area::where('id','=', $code->id_area)->first();
-            $data[$key]= [
-                'id_tutor' => $vinculated->id_tutor,
-                'id_area'=>$code->id_area,
-                'area_name' => $area->name,
-                'code' => $code->code
-            ];
+        $auth = Auth::user();
+        $user = User::find($auth->id);
+        $data = [];
+
+        if($user->isClient()){
+            $codeVinculated = VinculationTutorStudent::where('id_student',$user->id)->get();
+            foreach($codeVinculated as $key => $vinculated){
+                $code = TutorCode::where('code','=',$vinculated->code_vinculated)->first();
+                $area = Area::where('id','=', $code->id_area)->first();
+                $data[$key]= [
+                    'id_tutor' => $vinculated->id_tutor,
+                    'id_area'=>$code->id_area,
+                    'area_name' => $area->name,
+                    'code' => $code->code
+                ];
+            }
+        }else if($user->isAdmin()){
+            $codes = TutorCode::all();
+            foreach($codes as $key => $code){
+                $area = Area::where('id','=', $code->id_area)->first();
+                $tutor = User::where('id', $code->id_tutor)->first();
+                $classroom = TutorClassroom::where('name', $area->name.'-'.$code->code)
+                ->where('id_tutor', $code->id_tutor)
+                ->first();
+                $data[$key]= [
+                    'id_tutor' => $code->id_tutor,
+                    'tutor_name' => $tutor->name. ' ' .$tutor->last_name,
+                    'id_area'=>$code->id_area,
+                    'area_name' => $area->name,
+                    'code' => $code->code,
+                    'id_classroom' =>isset($classroom->id) ? $classroom->id : 'NULL',
+                ];
+            }
         }
+
 
         return response()->json($data);
     }
@@ -198,7 +221,7 @@ class CoursesController extends Controller
                     'calification_base'=>$user_asigned->percent_calification
                 ];
             }
-        } elseif ($user->isTeacher()||$user->isTutor()) {
+        } elseif ($user->isTeacher()) {
             $user_asignated = ClassroomTeacher::where('id_user', $user->id)->get();
             if (isset($user_asignated)) {
                 foreach ($user_asignated as $key => $area) {
@@ -236,8 +259,150 @@ class CoursesController extends Controller
                     }
                 }
             }
+        }elseif ($user->isTutor()) {
+            $user_asignated = TutorClassroomTeacher::where('id_user', $user->id)->get();
+            if (isset($user_asignated)) {
+                foreach ($user_asignated as $key => $area) {
+                    $classroom = TutorClassroom::find($area->id_classroom);
+                    $class = Area::find($area->id_area);
+                    $areas[$key] = [
+                        'id'           => $class->id,
+                        'user_type'    => $user->type_user,
+                        'text'         => $class->name.' '.$classroom->name,
+                        'classroom_name'    => $classroom->name,
+                        'id_area'         => $class->id,
+                        'area_name'         => $classroom->name,
+                        /*
+                            Se comenta la linea para no obtener el curso ya que se darán tutorias para
+                            De la materia como tal
+                        */
+                        // 'text'         => $class->name . " - " . $classroom->name,
+                        'id_classroom' => $classroom->id,
+                    ];
+                }
+            }
+
+        }elseif ($user->isClient()){
+            $codeVinculated = VinculationTutorStudent::where('id_student',$user->id)->get();
+            if (isset($codeVinculated)) {
+                foreach ($codeVinculated as $key => $code) {
+                    $classroom = TutorClassroom::where('name','like','%'.$code->code_vinculated.'%')->first();
+                    $linked_code = TutorCode::where('code','=',$code->code_vinculated)->first();
+                    $class = Area::find($linked_code->id_area);
+                    //return $classroom;
+                    $areas[$key] = [
+                        'id'           => $class->id,
+                        'user_type'    => $user->type_user,
+                        'text'         => $class->name.' '.$classroom->name,
+                        'classroom_name'    => $classroom->name,
+                        'id_area'         => $class->id,
+                        'area_name'         => $classroom->name,
+                        'id_classroom' => $classroom->id,
+                        'code' => $linked_code->code,
+                    ];
+                }
+            }
         }
         return response()->json($areas);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getTutorAreas($id)
+    {
+        if($id <= 0){
+            $auth = Auth::user();
+            $user = User::find($auth->id);
+        }else if($id > 0){
+            $user = User::where('id',$id)->first();
+        }
+
+        if(!isset($user)) return response()->json([]);
+
+        $areasAll = [];
+        $areas = Area::all();
+        $data = TutorCode::where('id_tutor', $user->id)->get();
+        foreach($areas as $key => $area){
+            $areasAll[$key] = [
+                'id'           => $area->id,
+                'id_area'      => $area->id,
+                'user_type'    => $user->type_user,
+                'area_name'    => $area->name,
+                'text'         => $area->name,
+            ];
+
+            foreach($data as $code){
+                if($area->id === $code->id_area){
+                    unset($areasAll[$key]);
+
+                }
+            }
+        }
+
+        $areasAll = array_values($areasAll);
+
+        return response()->json($areasAll);
+    }
+
+    public function getStudentNewAreas($select)
+    {
+        $auth = Auth::user();
+        $user = User::find($auth->id);
+        if(!isset($user)) return response()->json([]);
+
+        $areasAll = [];
+        $data = VinculationTutorStudent::where('id_student',$user->id)->get();
+
+        if($select === 'ALL'){
+            if ($user->isClient()) {
+                $tutorships = TutorCode::all();
+                foreach($tutorships as $key_t => $tutorship){
+                    $classroom = TutorClassroom::where('name','like','%'.$tutorship->code.'%')->first();
+                    $area = Area::where('id',$tutorship->id_area)->first();
+                    $tutor_data = User::where('id',$tutorship->id_tutor)->first();
+                    $areasAll[$key_t] = [
+                        'id_tutor_code'=> $tutorship->id,
+                        'id_area'      => $tutorship->id_area,
+                        'area_name'    => $area->name,
+                        'code'         => $tutorship->code,
+                        'id_tutor'     => $tutorship->id_tutor,
+                        'tutor_name'   => $tutor_data->name.' '.$tutor_data->last_name,
+                        'classroom_name' => isset($classroom->name) ? $classroom->name: $area->name,
+                    ];
+                    foreach($data as $key_d => $vinculation){
+                        if($tutorship->code === $vinculation->code_vinculated){
+                            unset($areasAll[$key_t]);
+                        }
+                    }
+                }
+            }
+        }else{
+            $tutorships = TutorCode::where('id_area',$select)->get();
+            foreach($tutorships as $key_t => $tutorship){
+                $classroom = TutorClassroom::where('name','like','%'.$tutorship->code.'%')->first();
+                $area = Area::where('id',$tutorship->id_area)->first();
+                $tutor_data = User::where('id',$tutorship->id_tutor)->first();
+                $areasAll[$key_t] = [
+                    'id_tutor_code'=> $tutorship->id,
+                    'id_area'      => $tutorship->id_area,
+                    'area_name'    => $area->name,
+                    'code'         => $tutorship->code,
+                    'id_tutor'     => $tutorship->id_tutor,
+                    'tutor_name'   => $tutor_data->name.' '.$tutor_data->last_name,
+                    'classroom_name' => isset($classroom->name) ? $classroom->name: $area->name,
+                ];
+                foreach($data as $key_d => $vinculation){
+                    if($tutorship->code === $vinculation->code_vinculated){
+                        unset($areasAll[$key_t]);
+                    }
+                }
+            }
+        }
+        $areasAll = array_values($areasAll);
+        return response()->json($areasAll);
     }
 
     /**
@@ -784,7 +949,6 @@ class CoursesController extends Controller
                 $weekly_planning_id=$data['toData']['weekly_planning']['id'];
             }
 
-
             //copy class information
             if($data['fromData']['class_planning']=='null')
             {
@@ -792,7 +956,6 @@ class CoursesController extends Controller
             }
             else if($data['fromData']['class_planning']=='all')
             {
-
                 $class_planning=Classs::where('id_weekly_plan',$data['fromData']['weekly_planning']['id'])->where('deleted', 0)->get();
                 foreach ($class_planning as $key_c => $clase) {
                     if($class_plan[$key_c]['id'] === $clase->id){
@@ -1074,6 +1237,77 @@ class CoursesController extends Controller
                             }
                         }
                     }
+                    $activities=Activity::where('id_class', $clase->id)->get();
+                    foreach ($activities as $key_a => $activity) {
+                        $activity_new=Activity::create([
+                            'id_class'=>$class->id,
+                            'id_quarterly_plan'=>$activity->id_quarterly_plan,
+                            'id_achievement'=>$activity->id_achievement,
+                            'id_indicator'=>$activity->id_indicator,
+                            'activity_type'=>$activity->activity_type,
+                            'name'=>$activity->name,
+                            'description'=>$activity->description,
+                            'is_required'=>1,
+                            'state'=>1,
+                            'deleted'=>0,
+                            'updated_user'=>$auth->id,
+                            'delivery_max_date'=>$activity->delivery_max_date,
+                            'feedback_date'=>$activity->feedback_date
+                        ]);
+                        if($activity->activity_type==='CUESTIONARIO'){
+
+                            $activityQ=ActivityQuestion::where('id_activity', $activity->id)->where('deleted', 0)->first();
+                            if(isset($activityQ)){
+                                ActivityQuestion::create([
+                                    'id_activity'=>$activity_new->id,
+                                    'question'=>$activityQ->question,
+                                    'type_question'=>$activityQ->type_question,
+                                    'content'=>$activityQ->content,
+                                    'correct_answer'=>$activityQ->correct_answer,
+                                    'justify'=>$activityQ->justify,
+                                    'state'=>1,
+                                    'deleted'=>0,
+                                    'updated_user'=>$auth->id
+                                ]);
+                            }
+                        }
+                        else if($activity->activity_type==='COMPLETAR_ORACION'){
+                            $activityC=ActivityCompleteSentence::where('id_activity', $activity->id)->where('deleted', 0)->first();
+                            if(isset($activityC)){
+                                ActivityCompleteSentence::create([
+                                    'id_activity'=>$activity_new->id,
+                                    'content'=>$activityC->content,
+                                    'state'=>1,
+                                    'deleted'=>0,
+                                    'updated_user'=>$auth->id
+                                ]);
+                            }
+                        }
+                        else if($activity->activity_type==='RELACION'){
+                            $activityR=ActivityRelationship::where('id_activity', $activity->id)->where('deleted', 0)->first();
+                            if(isset($activityR)){
+                                ActivityRelationship::create([
+                                    'id_activity'=>$activity_new->id,
+                                    'content'=>$activityR->content,
+                                    'state'=>1,
+                                    'deleted'=>0,
+                                    'updated_user'=>$auth->id
+                                ]);
+                            }
+                        }
+                        else if($activity->activity_type==='CRUCIGRAMA'){
+                            $activityCR=ActivityCrossword::where('id_activity', $activity->id)->where('deleted', 0)->first();
+                            if(isset($activityCR)){
+                                ActivityCrossword::create([
+                                    'id_activity'=>$activity_new->id,
+                                    'content'=>$activityCR->content,
+                                    'state'=>1,
+                                    'deleted'=>0,
+                                    'updated_user'=>$auth->id
+                                ]);
+                            }
+                        }
+                    }
                 }
                 else
                 {
@@ -1105,13 +1339,10 @@ class CoursesController extends Controller
                         'objetivesClass'=> $clase->objetivesClass
                     ]);
 
-                    //$date_i= $data['fromData']['class_planning']['date_init_class'];
-                    //$explode=explode("T", $date_i);
-                    //$date_init= $explode[0] . ' ' . $explode[1];
-                    $date_init= $data['fromData']['class_planning']['date_init_class'];
+                    $date_i= $data['fromData']['class_planning']['date_init_class'];
+                    $explode=explode("T", $date_i);
+                    $date_init= $explode[0] . ' ' . $explode[1];
                     $date_fin=date( 'Y-m-d H:i' ,  strtotime ( '+2 hour' , strtotime ($date_init))) ;
-                    $date_init= $data['fromData']['class_planning']['date_init_class'];
-                    $date_fin=date_add($date_init, date_interval_create_from_date_string("2 hours"));
                     $evento = new Eventos;
                     $evento->name = $clase->name;
                     $evento->date_from = $date_init;

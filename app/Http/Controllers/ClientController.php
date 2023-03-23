@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 use App\Weekly;
 use App\Classs;
-use App\enableSubject;
+use App\EnableSubject;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 

@@ -1,14 +1,48 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[164],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/modalUpdateProceedings.vue?vue&type=script&lang=js&":
-/*!*********************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/modalUpdateProceedings.vue?vue&type=script&lang=js& ***!
-  \*********************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/legislation.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/legislation.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -57,84 +91,75 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['id_proceedings', 'getProceedings', 'typeView', 'typeAction'],
+  props: ['user'],
   data: function data() {
     return {
-      data: ""
+      legislation: "",
+      legislationData: [],
+      legislationToEdit: "",
+      idLegislation: ""
     };
   },
-  mounted: function mounted() {},
+  mounted: function mounted() {
+    this.getLegislation();
+  },
   methods: {
-    onFileChange: function onFileChange(file) {
-      var files = file.target.files || file.dataTransfer.files;
-      this.data = new FormData();
-
-      if (files.length > 0) {
-        //console.log('evento');
-        var _file = files[0];
-
-        var _fileNameSplit = _file.name.split("."); // if uploaded file is valid with validation rules
-
-
-        var file_extension = _fileNameSplit[_fileNameSplit.length - 1];
-
-        var file_name = _file.name.replace(".".concat(file_extension), '');
-
-        this.data.append("file", files[0]);
-        this.data.append("name", file_name);
-      }
-    },
-    update: function update() {
+    getLegislation: function getLegislation() {
       var _this = this;
 
-      if (this.typeAction == 0) {
-        var url = "/update/acta/parents/" + this.id_proceedings;
-        axios.post(url, this.data).then(function (response) {
-          toastr.success("Archivo actualizado correctamente");
-
-          _this.getProceedings();
-
-          $("#updateModal").modal("hide");
-        })["catch"](function (error) {
-          toastr.success(error);
-        });
-      } else {
-        var url = "/update/acta/general/" + this.id_proceedings;
-        axios.post(url, this.data).then(function (response) {
-          toastr.success("Archivo actualizado correctamente");
-
-          _this.getProceedings();
-
-          $("#updateModal").modal("hide");
-        })["catch"](function (error) {
-          toastr.success(error);
-        });
-      }
+      axios.get('/getLegislation').then(function (response) {
+        _this.legislationData = response.data;
+      })["catch"](function (error) {
+        console.log(error);
+      });
     },
-    updateSign: function updateSign() {
+    createLegislation: function createLegislation() {
       var _this2 = this;
 
-      if (this.typeAction == 0) {
-        var url = "/update/acta/parents/firmar/" + this.id_proceedings;
-        axios.post(url, this.data).then(function (response) {
-          toastr.success("Archivo actualizado correctamente");
+      axios.post('/schoolGobernment', {
+        legislation: this.legislation,
+        user_id: this.user.id
+      }).then(function () {
+        toastr.success("Legislación creada");
+        $("#modalCreate").modal("hide");
 
-          _this2.getProceedings();
+        _this2.getLegislation();
+      })["catch"](function () {
+        toast.danger("Intentalo de nuevo mas tarde");
+      });
+    },
+    edit: function edit(data) {
+      this.idLegislation = data.id;
+      this.legislationToEdit = data.legislation;
+    },
+    editLegislation: function editLegislation() {
+      var _this3 = this;
 
-          $("#updateModal").modal("hide");
+      axios.put("/schoolGobernment/".concat(this.idLegislation), {
+        legislation: this.legislationToEdit
+      }).then(function () {
+        toastr.success("Legislación Actualizada");
+        $("#modalEdit").modal("hide");
+
+        _this3.getLegislation();
+      })["catch"](function (error) {
+        console.log(error);
+        toast.danger("Intentalo de nuevo mas tarde");
+      });
+    },
+    deleteLegislation: function deleteLegislation(id) {
+      var _this4 = this;
+
+      var confirmToDelete = confirm("Desea eliminar el dato?");
+
+      if (confirmToDelete == true) {
+        axios["delete"]("schoolGobernment/".concat(id)).then(function (response) {
+          toastr.success(response.data);
+
+          _this4.getLegislation();
         })["catch"](function (error) {
-          toastr.success(error);
-        });
-      } else {
-        var url = "/update/acta/general/firmar/" + this.id_proceedings;
-        axios.post(url, this.data).then(function (response) {
-          toastr.success("Archivo actualizado correctamente");
-
-          _this2.getProceedings();
-
-          $("#updateModal").modal("hide");
-        })["catch"](function (error) {
-          toastr.success(error);
+          console.log(error);
+          toastr.error("Intentalo de nuevo mas tarde");
         });
       }
     }
@@ -143,10 +168,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/modalUpdateProceedings.vue?vue&type=template&id=3929d358&":
-/*!*************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/modalUpdateProceedings.vue?vue&type=template&id=3929d358& ***!
-  \*************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/legislation.vue?vue&type=template&id=1d2a5b74&":
+/*!**************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/legislation.vue?vue&type=template&id=1d2a5b74& ***!
+  \**************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -158,143 +183,256 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    {
-      staticClass: "modal fade",
-      attrs: {
-        id: "updateModal",
-        tabindex: "-1",
-        role: "dialog",
-        "aria-labelledby": "exampleModalLabel",
-        "aria-hidden": "true"
-      }
-    },
-    [
-      _c(
-        "div",
-        { staticClass: "modal-dialog modal-lg", attrs: { role: "document" } },
-        [
-          _c("div", { staticClass: "modal-content" }, [
-            _vm._m(0),
+  return _c("div", { staticClass: "back" }, [
+    _c("div", { staticClass: "row justify-content-center" }, [
+      _c("div", { staticClass: "col-sm-10", attrs: { id: "crud" } }, [
+        _c("div", { staticClass: "card" }, [
+          _c("div", { staticClass: "text-center card-header fondo" }, [
+            _vm._v("\n                    Legislación\n                ")
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "card-body" }, [
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-primary btn-xs",
+                attrs: { "data-toggle": "modal", "data-target": "#modalCreate" }
+              },
+              [_vm._v("Crear")]
+            ),
             _vm._v(" "),
-            _c("div", { staticClass: "modal-body" }, [
-              _c("h3", [_vm._v("Cargar nuevo archivo")]),
+            _c(
+              "table",
+              [
+                _vm._m(0),
+                _vm._v(" "),
+                _vm._l(_vm.legislationData, function(data, id) {
+                  return _c("tbody", { key: id }, [
+                    _c("tr", [
+                      _c("td", [_vm._v(_vm._s(data.legislation))]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-success btn-xs",
+                            attrs: {
+                              "data-toggle": "modal",
+                              "data-target": "#modalEdit"
+                            },
+                            on: {
+                              click: function($event) {
+                                return _vm.edit(data)
+                              }
+                            }
+                          },
+                          [_vm._v("Editar")]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-danger btn-xs",
+                            on: {
+                              click: function($event) {
+                                return _vm.deleteLegislation(data.id)
+                              }
+                            }
+                          },
+                          [_vm._v("Eliminar")]
+                        )
+                      ])
+                    ])
+                  ])
+                })
+              ],
+              2
+            )
+          ])
+        ])
+      ])
+    ]),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "modal fade",
+        attrs: {
+          id: "modalCreate",
+          tabindex: "-1",
+          role: "dialog",
+          "aria-labelledby": "modalCreateLabel",
+          "aria-hidden": "true"
+        }
+      },
+      [
+        _c(
+          "div",
+          { staticClass: "modal-dialog", attrs: { role: "document" } },
+          [
+            _c("div", { staticClass: "modal-content" }, [
+              _vm._m(1),
               _vm._v(" "),
-              _c("div", { staticClass: "col-md-11 mx-auto" }, [
-                _c("div", { staticClass: "custom-card text-center" }, [
-                  _vm.typeView == 1
-                    ? _c(
-                        "h3",
-                        {
-                          staticClass: "card-header fondo",
-                          staticStyle: { "margin-bottom": "1rem" }
-                        },
-                        [_vm._v("Actualizar acta")]
-                      )
-                    : _vm._e(),
+              _c("div", { staticClass: "modal-body" }, [
+                _c("div", { staticClass: "form-group" }, [
+                  _c("label", [_vm._v("Legislación")]),
                   _vm._v(" "),
-                  _vm.typeView == 2
-                    ? _c(
-                        "h3",
-                        {
-                          staticClass: "card-header fondo",
-                          staticStyle: { "margin-bottom": "1rem" }
-                        },
-                        [_vm._v("Firmar acta")]
-                      )
-                    : _vm._e(),
-                  _vm._v(" "),
-                  _vm.typeView == 1
-                    ? _c(
-                        "form",
-                        {
-                          staticClass: "needs-validation",
-                          attrs: { novalidate: "" },
-                          on: {
-                            submit: function($event) {
-                              $event.preventDefault()
-                              return _vm.update()
-                            }
-                          }
-                        },
-                        [
-                          _c("div", { staticClass: "row" }, [
-                            _c("div", { staticClass: "col-lg-6" }, [
-                              _c("input", {
-                                staticClass: "form-control",
-                                attrs: {
-                                  type: "file",
-                                  accept: ".pdf",
-                                  placeholder: "Seleccione un archivo"
-                                },
-                                on: {
-                                  change: function($event) {
-                                    return _vm.onFileChange($event)
-                                  }
-                                }
-                              })
-                            ])
-                          ]),
-                          _vm._v(" "),
-                          _vm._m(1)
-                        ]
-                      )
-                    : _vm._e(),
-                  _vm._v(" "),
-                  _vm.typeView == 2
-                    ? _c(
-                        "form",
-                        {
-                          staticClass: "needs-validation",
-                          attrs: { novalidate: "" },
-                          on: {
-                            submit: function($event) {
-                              $event.preventDefault()
-                              return _vm.updateSign()
-                            }
-                          }
-                        },
-                        [
-                          _c("div", { staticClass: "row" }, [
-                            _c("div", { staticClass: "col-lg-6" }, [
-                              _c("input", {
-                                staticClass: "form-control",
-                                attrs: {
-                                  type: "file",
-                                  accept: ".pdf",
-                                  placeholder: "Seleccione un archivo"
-                                },
-                                on: {
-                                  change: function($event) {
-                                    return _vm.onFileChange($event)
-                                  }
-                                }
-                              })
-                            ])
-                          ]),
-                          _vm._v(" "),
-                          _vm._m(2)
-                        ]
-                      )
-                    : _vm._e()
+                  _c("textarea", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.legislation,
+                        expression: "legislation"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    domProps: { value: _vm.legislation },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.legislation = $event.target.value
+                      }
+                    }
+                  })
                 ])
               ]),
               _vm._v(" "),
-              _vm._m(3)
+              _c("div", { staticClass: "modal-footer" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-secondary",
+                    attrs: { type: "button", "data-dismiss": "modal" }
+                  },
+                  [_vm._v("Cerrar")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-primary",
+                    attrs: { type: "button" },
+                    on: {
+                      click: function($event) {
+                        return _vm.createLegislation()
+                      }
+                    }
+                  },
+                  [_vm._v("Guardar")]
+                )
+              ])
             ])
-          ])
-        ]
-      )
-    ]
-  )
+          ]
+        )
+      ]
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "modal fade",
+        attrs: {
+          id: "modalEdit",
+          tabindex: "-1",
+          role: "dialog",
+          "aria-labelledby": "modalEditLabel",
+          "aria-hidden": "true"
+        }
+      },
+      [
+        _c(
+          "div",
+          { staticClass: "modal-dialog", attrs: { role: "document" } },
+          [
+            _c("div", { staticClass: "modal-content" }, [
+              _vm._m(2),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-body" }, [
+                _c("div", { staticClass: "form-group" }, [
+                  _c("label", [_vm._v("Legislación")]),
+                  _vm._v(" "),
+                  _c("textarea", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.legislationToEdit,
+                        expression: "legislationToEdit"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: { "aria-label": "With textarea" },
+                    domProps: { value: _vm.legislationToEdit },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.legislationToEdit = $event.target.value
+                      }
+                    }
+                  })
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-footer" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-secondary",
+                    attrs: { type: "button", "data-dismiss": "modal" }
+                  },
+                  [_vm._v("Cerrar")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-primary",
+                    attrs: { type: "button" },
+                    on: {
+                      click: function($event) {
+                        return _vm.editLegislation()
+                      }
+                    }
+                  },
+                  [_vm._v("Guardar Cambios")]
+                )
+              ])
+            ])
+          ]
+        )
+      ]
+    )
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("Legislación")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Acción")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
     return _c("div", { staticClass: "modal-header" }, [
+      _c(
+        "h5",
+        { staticClass: "modal-title", attrs: { id: "modalCreateLabel" } },
+        [_vm._v("Creación de Legislación")]
+      ),
+      _vm._v(" "),
       _c(
         "button",
         {
@@ -313,46 +451,24 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      { staticClass: "text-right", staticStyle: { "margin-top": "10px" } },
-      [
-        _c(
-          "button",
-          { staticClass: "btn btn-primary", attrs: { type: "submit" } },
-          [_vm._v("Guardar")]
-        )
-      ]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      { staticClass: "text-right", staticStyle: { "margin-top": "10px" } },
-      [
-        _c(
-          "button",
-          { staticClass: "btn btn-primary", attrs: { type: "submit" } },
-          [_vm._v("Guardar")]
-        )
-      ]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "modal-footer" }, [
+    return _c("div", { staticClass: "modal-header" }, [
+      _c(
+        "h5",
+        { staticClass: "modal-title", attrs: { id: "modalEditLabel" } },
+        [_vm._v("Editar Legislación")]
+      ),
+      _vm._v(" "),
       _c(
         "button",
         {
-          staticClass: "btn btn-Primary",
-          attrs: { type: "button", "data-dismiss": "modal" }
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
         },
-        [_vm._v("Cerrar")]
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
       )
     ])
   }
@@ -363,17 +479,17 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./resources/js/components/modalUpdateProceedings.vue":
-/*!************************************************************!*\
-  !*** ./resources/js/components/modalUpdateProceedings.vue ***!
-  \************************************************************/
+/***/ "./resources/js/components/legislation.vue":
+/*!*************************************************!*\
+  !*** ./resources/js/components/legislation.vue ***!
+  \*************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _modalUpdateProceedings_vue_vue_type_template_id_3929d358___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modalUpdateProceedings.vue?vue&type=template&id=3929d358& */ "./resources/js/components/modalUpdateProceedings.vue?vue&type=template&id=3929d358&");
-/* harmony import */ var _modalUpdateProceedings_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modalUpdateProceedings.vue?vue&type=script&lang=js& */ "./resources/js/components/modalUpdateProceedings.vue?vue&type=script&lang=js&");
+/* harmony import */ var _legislation_vue_vue_type_template_id_1d2a5b74___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./legislation.vue?vue&type=template&id=1d2a5b74& */ "./resources/js/components/legislation.vue?vue&type=template&id=1d2a5b74&");
+/* harmony import */ var _legislation_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./legislation.vue?vue&type=script&lang=js& */ "./resources/js/components/legislation.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -383,9 +499,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _modalUpdateProceedings_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _modalUpdateProceedings_vue_vue_type_template_id_3929d358___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _modalUpdateProceedings_vue_vue_type_template_id_3929d358___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _legislation_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _legislation_vue_vue_type_template_id_1d2a5b74___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _legislation_vue_vue_type_template_id_1d2a5b74___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -395,38 +511,38 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/components/modalUpdateProceedings.vue"
+component.options.__file = "resources/js/components/legislation.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/components/modalUpdateProceedings.vue?vue&type=script&lang=js&":
-/*!*************************************************************************************!*\
-  !*** ./resources/js/components/modalUpdateProceedings.vue?vue&type=script&lang=js& ***!
-  \*************************************************************************************/
+/***/ "./resources/js/components/legislation.vue?vue&type=script&lang=js&":
+/*!**************************************************************************!*\
+  !*** ./resources/js/components/legislation.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_modalUpdateProceedings_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./modalUpdateProceedings.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/modalUpdateProceedings.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_modalUpdateProceedings_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_legislation_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./legislation.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/legislation.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_legislation_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/components/modalUpdateProceedings.vue?vue&type=template&id=3929d358&":
-/*!*******************************************************************************************!*\
-  !*** ./resources/js/components/modalUpdateProceedings.vue?vue&type=template&id=3929d358& ***!
-  \*******************************************************************************************/
+/***/ "./resources/js/components/legislation.vue?vue&type=template&id=1d2a5b74&":
+/*!********************************************************************************!*\
+  !*** ./resources/js/components/legislation.vue?vue&type=template&id=1d2a5b74& ***!
+  \********************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_modalUpdateProceedings_vue_vue_type_template_id_3929d358___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./modalUpdateProceedings.vue?vue&type=template&id=3929d358& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/modalUpdateProceedings.vue?vue&type=template&id=3929d358&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_modalUpdateProceedings_vue_vue_type_template_id_3929d358___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_legislation_vue_vue_type_template_id_1d2a5b74___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./legislation.vue?vue&type=template&id=1d2a5b74& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/legislation.vue?vue&type=template&id=1d2a5b74&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_legislation_vue_vue_type_template_id_1d2a5b74___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_modalUpdateProceedings_vue_vue_type_template_id_3929d358___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_legislation_vue_vue_type_template_id_1d2a5b74___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

@@ -22,7 +22,8 @@
         "maximumHomewoorkDate": "Fecha máxima entrega",
         "submit":"Entregar",
         "dateFrom": "Desde",
-        "dateTo": "Hasta"
+        "dateTo": "Hasta",
+        "classes": "Clases"
     },
     "class": {
         "myClasses": "Mis clases",
@@ -113,7 +114,7 @@
         "induccion_hs":"Inducción HS",
         "induccion_ms":"Inducción MS",
         "filosofia": "Filosofia",
-        "lectura critica y filosofia":"Lectura Critica y Filosofia"        
+        "lectura critica y filosofia":"Lectura Critica y Filosofia"
     },
     "messages":{
         "messages":"Mensajes",
@@ -128,7 +129,7 @@
         "subject":"Asunto",
         "date":"Fecha",
         "action":"Acción",
-        "findByClassroom":"Buscar Por Salon",
+        "findByClassroom":"Buscar Por Programa",
         "findByName":"Buscar Por Nombre",
         "back_to":"Volver",
         "message_viewed": "Mensaje Visto"
@@ -150,5 +151,5 @@
         "coordinators":"Coordinadores",
         "tutors":"Tutores",
         "nursing":"Enfermería"
-    }   
+    }
 }

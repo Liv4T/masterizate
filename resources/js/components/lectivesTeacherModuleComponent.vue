@@ -174,7 +174,6 @@
                 }).catch(error => {
                     console.log(error);
                 });
-
             },
             //Falta modificar las funciones que siguen pero primero hacer que guarde las clases
             getClassToDelete(id_cicle){
@@ -216,28 +215,24 @@
                     console.log(error);
                 })
             },
-
             createClass(id_weekly_plan){
                 console.log('id_weekly_plan',id_weekly_plan)
                 if(id_weekly_plan){
                     this.createClas = 'show';
                 }
             },
-
             getClass(id_class){
                 if(id_class){
                     this.idClass = id_class;
                     this.createClas = 'showEdit'
                 }
             },
-
             cleanCreateClas(){
                 this.createClas = 'hide';
                 this.getData();
             }
         }
     };
-
 </script>
 <style>
     .class-inactive {
@@ -245,5 +240,4 @@
         font-weight: bold;
         color: #F79D52;
     }
-
 </style>

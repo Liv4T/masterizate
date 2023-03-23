@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\enableSubject;
+use App\EnableSubject;
 use App\Area;
 use Carbon\Carbon;
 use App\TutorCode;
@@ -29,7 +29,7 @@ class EnableSubjectController extends Controller
      */
     public function store(Request $request)
     {
-        $enabled = new enableSubject();
+        $enabled = new EnableSubject();
         $enabled->id_area = $request->id_area;
         $enabled->id_code = $request->id_code;
         $enabled->id_user = Auth::user();
@@ -44,14 +44,14 @@ class EnableSubjectController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\enableSubject  $enableSubject
+     * @param  \App\EnableSubject  $EnableSubject
      * @return \Illuminate\Http\Response
      */
     public function show(String $id_subject)
     {
-        $subject = enableSubject::where('id',$id_subject)->first();
-        $tutorCode = TutorCode::where('id',$subject->id_code)->first(); 
-        $dateNow = Carbon::now();       
+        $subject = EnableSubject::where('id',$id_subject)->first();
+        $tutorCode = TutorCode::where('id',$subject->id_code)->first();
+        $dateNow = Carbon::now();
 
         if(Carbon::parse($subject->date_enable_area) >= $dateNow){
             $area = Area::where('id',$subject->id_area)->first();
@@ -73,12 +73,12 @@ class EnableSubjectController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\enableSubject  $enableSubject
+     * @param  \App\EnableSubject  $EnableSubject
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
-        $enabled = enableSubject::findOrFail($id);
+        $enabled = EnableSubject::findOrFail($id);
         $enabled->id_area = $request->id_area;
         $enabled->id_code = $request->id_code;
         $enabled->date_payment = $request->date_payment;
@@ -92,25 +92,25 @@ class EnableSubjectController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\enableSubject  $enableSubject
+     * @param  \App\EnableSubject  $enableSubject
      * @return \Illuminate\Http\Response
      */
-    public function destroy(enableSubject $enableSubject)
+    public function destroy(EnableSubject $enableSubject, $id)
     {
-        $enabled = enableSubject::findOrFail($id);
+        $enabled = EnableSubject::findOrFail($id);
         $enabled->delete();
         return response()->json("Registro Eliminado");
     }
 
     public function checkPay(String $id_area, String $code){
         $dateNow = Carbon::now();
-        $tutorCode = TutorCode::where('code',$code)->first(); 
-        $data = enableSubject::where('id_area', $id_area)
+        $tutorCode = TutorCode::where('code',$code)->first();
+        $data = EnableSubject::where('id_area', $id_area)
                                 ->where('id_code', $tutorCode->id)
                                 ->where('id_user', Auth::user()->id)
                                 ->whereDate('date_enable_area', '>=', $dateNow)
                                 ->first();
-        
+
         if(isset($data)){
             return 0;
         }else{

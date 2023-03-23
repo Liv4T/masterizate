@@ -3,9 +3,17 @@
     <div>
       <div class="form-group col-md-4 mx-auto">
         <div class="text-center">
-          <select class="btn btn-warning letra-boldfont" name="type" @change="ShowSelected">
+            <!-- <select class="btn btn-warning letra-boldfont" v-model="select" name="type" @change="ShowSelected()">
+                <option disabled selected hidden value="">Seleccionar...</option>
+                <option v-for="(area, key) in areas" :key="key" :value="JSON.stringify(area)">{{area.area_name + ' - ' + area.code}}</option>
+            </select> -->
+          <!-- <select class="btn btn-warning letra-boldfont" name="type" @change="ShowSelected">
             <option disabled selected hidden value="">CURSOS</option>
             <option :value="JSON.stringify(area)" v-for="(area, key) in areas" :key="key">{{ area.user_type === 7 ? area.area_name : area.text  }}</option>
+          </select> -->
+          <select class="btn btn-warning letra-boldfont" name="type" v-model="idArea" @change="ShowSelected()">
+            <option disabled selected hidden value="">CURSOS</option>
+            <option :value="area.id + '/' + area.id_classroom" v-for="(area, key) in areas" :key="key">{{ area.classroom_name }}</option>
           </select>
         </div>
       </div>
@@ -20,10 +28,10 @@
 
           <!-- <div class="content-azul"> -->
           <div>
-            <div v-if="activetab === 1" class="tabcontent">
-              <div v-if="idArea !='' || user.type_user === 7">
-                <h3 v-show="user.type_user === 7" class="card-header fondo">Mis Cursos</h3>
-                <cycle-list :idArea="idAreaClass" :planif="planif" :user="user"></cycle-list>
+            <div v-if="activetab === 1" >
+              <div v-if="idArea !='' && user.type_user === 7">
+
+                <my-classes :idAreas="idAreas" :idClassroom="idClassroom" :user="user"></my-classes>
               </div>
             </div>
             <div v-if="activetab === 2" class="tabcontent">
@@ -71,21 +79,38 @@ export default {
       idArea: "",
       idClassroom: "",
       idAreaClass:"",
-      planif:"clase"
+      planif:"clase",
+      select:"",
+      idAreas:"",
     };
   },
   mounted() {
+    this.getArea();
     axios.get("/api/lectives").then((response) => {
       this.planifications = response.data;
     });
-    var url = "/GetArearByUser";
+    /* var url = "/GetArearByUser";
     axios.get(url).then((response) => {
       this.areas = response.data;
-    });
+      console.log(this.areas);
+    }); */
 
     console.log("Component mounted.");
   },
   methods: {
+    getArea(){
+        axios.get("/getTrimestres").then((response) =>{
+            this.trimestres=response.data;
+        });
+        /* axios.get('getAreaByClient').then((response)=>{
+            this.areas = response.data;
+            console.log(this.areas);
+        }) */
+        var url = "/GetArearByUser";
+        axios.get(url).then((response) => {
+            this.areas = response.data;
+        });
+    },
     modaliniciar() {
       var url = window.location.origin + "/SaveTerms";
 
@@ -101,11 +126,12 @@ export default {
           this.errors = error.response.data;
         });
     },
-    ShowSelected(data){
-      let dataArea = JSON.parse(data.target.value);
-      this.idArea = dataArea.id;
-      this.idClassroom = dataArea.id_classroom;
-      this.idAreaClass = dataArea.id+'/'+dataArea.id_classroom;
+    ShowSelected(){
+        //let dataArea = JSON.parse(this.idArea);
+        let dataArea = this.idArea.split("/");
+        this.idAreas = dataArea[0];
+        this.idClassroom = dataArea[1];
+        this.idAreaClass = dataArea.id_area+'/'+dataArea.id_classroom;
     }
   },
 };

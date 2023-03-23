@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\VinculationTutorStudent;
+use App\User;
+use App\TutorClassroom;
 use Illuminate\Http\Request;
 use Auth;
 
@@ -23,8 +25,56 @@ class VinculationTutorStudentController extends Controller
     public function getVinculationsTutor()
     {
         $user = Auth::user();
-        $getVinculationsToTutors = VinculationTutorStudent::where('id_tutor','=', $user->id)->get();
-        return response()->json($getVinculationsToTutors);
+        $vinculations = [];
+        $classrooms = TutorClassroom::where('id_tutor', $user->id)->get();
+        $tutor = User::where('id',$user->id)->first();
+        foreach($classrooms as $key => $classroom){
+            $exploded = explode('-',$classroom->name);
+            $code = $exploded[1];
+            $students = VinculationTutorStudent::where('id_tutor',$user->id)
+                                                ->where('code_vinculated',$code)
+                                                ->get();
+            foreach($students as $key_s =>$student){
+                $studentF = User::where('id',$student->id_student)->first();
+                $student->student_name = $studentF->name.' '.$studentF->last_name;
+            }
+            $vinculations[$key] = [
+                'tutor_name' => $tutor->name.' '.$tutor->last_name,
+                'tutor_id' => $user->id,
+                'students' => $students,
+                'area_name' => isset($classroom->name) ? $classroom->name : 'Sin Salon asignado',
+                'classroom_id' => isset($classroom->id) ? $classroom->id : 'Sin Salon asignado',
+            ];
+        }
+        return response()->json($vinculations);
+    }
+
+    public function getVinculationsTutorMessage()
+    {
+        $user = Auth::user();
+        $vinculations = [];
+        $classrooms = TutorClassroom::all();
+        foreach($classrooms as $key => $classroom){
+            $tutor = User::where('id',$classroom->id_tutor)->first();
+            $exploded = explode('-',$classroom->name);
+            $code = $exploded[1];
+            $students = VinculationTutorStudent::where('id_tutor',$user->id)
+                                                ->where('code_vinculated',$code)
+                                                ->get();
+            foreach($students as $key_s =>$student){
+                $studentF = User::where('id',$student->id_student)->first();
+                $student->user_name = $studentF->name.' '.$studentF->last_name;
+                $student->user_id = $studentF->id;
+            }
+            $vinculations[$key] = [
+                'user_name' => $tutor->name.' '.$tutor->last_name,
+                'user_id' => $tutor->id,
+                'students' => $students,
+                'area_name' => isset($classroom->name) ? $classroom->name : 'Sin Salon asignado',
+                'classroom_id' => isset($classroom->id) ? $classroom->id : 'Sin Salon asignado',
+            ];
+        }
+        return response()->json($vinculations);
     }
 
     /**
@@ -102,6 +152,13 @@ class VinculationTutorStudentController extends Controller
     {
         $destroyVinculation = VinculationTutorStudent::findOrFail($id);
         $destroyVinculation->delete();
+
         return response()->json('Vinculación Eliminada');
+    }
+    public function getStudentsPerTutor(){
+        $user = Auth::user();
+        $students = VinculationTutorStudent::select('id_student')->where('id_tutor',$user->id)->distinct()->get();
+
+        return response()->json($students);
     }
 }

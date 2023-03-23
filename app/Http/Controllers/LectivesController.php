@@ -1379,5 +1379,226 @@ class LectivesController extends Controller
         return response()->json($ret);
     }
 
+        $class_content_required_quantity=0;
+        foreach($content as $i_content => $resource) {
+
+            $class_content_interaction=null;
+            if($user->type_user==3)//student
+            {
+                $class_content_interaction= LectiveClassContentInteraction::where('id_lective_class_content',$resource->id)->where('deleted',0)->where('id_student',$user->id)->first();
+            }
+
+            array_push( $class_resources,[
+                'id'=>$resource->id,
+                'id_lective_class'=>$resource->id_class,
+                'order'=>$resource->order,
+                'content_type'=>$resource->content_type,
+                'description'=>$resource->description,
+                'content'=>$resource->content,
+                'observation'=>$resource->observation,
+                'is_required'=>$resource->is_required,
+                'interaction'=> $class_content_interaction
+
+            ]);
+
+            if($resource->is_required)
+                $class_content_required_quantity++;
+        }
+
+        //get progress
+        $class_interaction=null;
+        $progress=0;
+        if($user->type_user==3)//student
+        {   //revisar este metodo en la db
+            $progress=DB::select('call obtener_progreso_clase(?,?)',[$course->id, $user->id])[0]->porcentaje;
+        }
+
+        $ret=[
+            'state'=>$course->state,
+            'id_lective_class'=>$course->id,
+            'name'=>$course->name,
+            'description'=>$course->description,
+            'id_lective_weekly_plan'=>$course->id_weekly_plan,
+            'hourly_intensity'=>$course->hourly_intensity,
+            'content'=>$class_resources,
+            'activities'=>[],
+            'activity_quantity'=>$course->activity_quantity,
+            'work' => $course->work,
+            'transversals' => $course->transversals,
+            'objetivesClass' => $course->objetivesClass,
+            'content_quantity'=>$course->content_quantity,
+            'class_interaction'=>$class_interaction,
+            'progress'=> $progress,
+            'next_class'=>$next_class,
+            'activityForPIARStudents' => $course->activityForPIARStudents == 0 ? false : true,
+            'activityForSelectStudents' => $course->activityForSelectStudents == 0 ? false : true,
+            'activityForAllStudents' => $course->activityForAllStudents == 0 ? false : true,
+            'selectedStudents' => $course->selectedStudents,
+            'url_class' => $course->url_class,
+            'date_init_class' => $course->date_init_class,
+        ];
+
+        $activities=LectiveActivities::where('id_lective_class', $course->id)->where('deleted',0)->get();
+
+        foreach($activities as $i_activity => $activity) {
+
+            $module=[];
+
+            if($activity->activity_type=='CUESTIONARIO')
+            {
+                $module=[
+                    'questions'=>[]
+                ];
+
+                $activity_questions=LectiveActivityQuestion::where('id_lective_activity',$activity->id)->where('deleted',0)->get();
+
+                foreach($activity_questions as $i_question => $question) {
+                    $student_response=[];
+                    $response='';
+                    if($user->type_user==3)//student
+                    {
+                        $student_response=LectiveActivityQuestionInteraction::where('id_lective_activity_question',$question->id)->where('id_student',$user->id)->where('deleted',0)->first();
+
+                        if(!isset($student_response))
+                        {
+                            $student_response=['response'=>-1];
+                        }
+                        else{
+                            $response=$student_response->response;
+                        }
+                    }
+
+                    array_push($module['questions'],[
+                        'id'=>$question->id,
+                        'question'=>$question->question,
+                        'type_question'=>$question->type_question,
+                        'options'=>json_decode($question->content),
+                        'valid_answer_index'=>json_decode($question->correct_answer),
+                        'justify'=>$question->justify,
+                        'state'=>$question->state,
+                        'student_response'=>$student_response,
+                        'response'=>$response
+                    ]);
+                }
+            }
+
+            if($activity->activity_type=='COMPLETAR_ORACION')
+            {
+                $module=[
+                    'sentences'=>[]
+                ];
+
+                $activity_sentences=LectiveActivityCompleteSentence::where('id_lective_activity',$activity->id)->where('deleted',0)->get();
+
+                foreach($activity_sentences as $sentence) {
+                    $student_response=[];
+                    if($user->type_user==3)//student
+                    {
+                        $model_student_response=LectiveActivityCompleteSentenceInteraction::where('id_lective_activity_complete_sentence',$sentence->id)->where('id_student',$user->id)->where('deleted',0)->first();
+
+                        if(!isset($model_student_response))
+                        {
+                            $student_response=[];
+                        }
+                        else{
+                            $student_response=json_decode($model_student_response->response);
+                        }
+                    }
+
+                    $sentence_content=json_decode($sentence->content,true);
+
+                    $sentence_content['id']=$sentence->id;
+                    $sentence_content['state']=$sentence->state;
+                    $sentence_content['student_response']=$student_response;
+
+                    array_push($module['sentences'],$sentence_content);
+                }
+            }
+
+            if($activity->activity_type=='RELACION')
+            {
+                $module=[];
+
+                $activity_relationship=LectiveActivityRelationship::where('id_lective_activity',$activity->id)->where('deleted',0)->first();
+
+                if(isset($activity_relationship))
+                {
+                    $student_response=null;
+                    if($user->type_user==3)//student
+                    {
+                        $student_response=LectiveActivityRelationshipInteraction::where('id_lective_activity_relationship',$activity_relationship->id)->where('id_student',$user->id)->where('deleted',0)->first();
+
+                        if(!isset($student_response))
+                        {
+                            $student_response=null;
+                        }
+                    }
+                    $module=json_decode($activity_relationship->content,true);
+                    $module['id']=$activity_relationship->id;
+                    $module['state']=$activity_relationship->state;
+                    if(isset($student_response))
+                    {
+                        $module['student_response']=json_decode($student_response->response);
+                    }
+                }
+            }
+
+            if($activity->activity_type=='CRUCIGRAMA')
+            {
+
+                $module=[];
+                $activity_crossword=LectiveActivityCrossword::where('id_lective_activity',$activity->id)->where('deleted',0)->first();
+                if(isset($activity_crossword))
+                {
+                    $student_response=null;
+                    if($user->type_user==3)//student
+                    {
+                        $student_response=LectiveActivityCrosswordInteraction::where('id_lective_activity_crossword',$activity_crossword->id)->where('id_student',$user->id)->where('deleted',0)->first();
+
+                        if(!isset($student_response))
+                        {
+                            $student_response=null;
+                        }
+                    }
+                    $module=json_decode($activity_crossword->content,true);
+                    $module['id']=$activity_crossword->id;
+                    $module['state']=$activity_crossword->state;
+
+                    if(isset($student_response))
+                    {
+                        $module['words']=json_decode($student_response->response);
+                    }
+                }
+            }
+
+            if($user->type_user==3)//student
+            {
+                $interaction=LectiveActivityInteraction::where('id_lective_activity',$activity->id)->where('id_student',$user->id)->where('deleted',0)->first();
+            }
+
+            if(!isset($interaction))
+            {
+                $interaction=['state'=>1,'score'=>0];
+            }
+            array_push($ret['activities'],[
+                'id'=>$activity->id,
+                'id_lective_achievement'=>$activity->id_achievement,
+                'activitys'=>$activity->id_indicator,
+                'quarterly_plan'=>$activity->id_quarterly_plan,
+                'activity_type'=>$activity->activity_type,
+                'name'=>$activity->name,
+                'description'=>$activity->description,
+                'delivery_max_date'=>$activity->delivery_max_date,
+                'feedback_date'=>$activity->feedback_date,
+                'rules'=>json_decode($activity->rules),
+                'is_required'=>$activity->is_required,
+                'state'=>$activity->state,
+                'updated_user'=>$activity->updated_user,
+                'module'=>$module,
+                'interaction'=> $interaction
+            ]);
+        }
+        return response()->json($ret);
+    }
 
 }

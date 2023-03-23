@@ -4,10 +4,8 @@
             <div class="row">
                 <div class="col-md-12 mx-auto">
                     <div class="custom-card text-center">
-                        <h5 class="card-header fondo">{{ weekly_plan.name }}</h5>
-                          <span class="classroom-label">{{ nameArea }}</span>
+                        <h5 class="card-header fondo">{{ nameClassroom.name }}</h5>
                     </div>
-
                     <div class="div-classes">
                         <div class="div-class">
                             <div class="title row">
@@ -27,52 +25,53 @@
                                 </div>
                             </div>
 
-                            <div class="col-12">                                                                    
+                            <div class="col-12">
                                 <label for="work">
                                     Objetivos de la Clase
                                 </label>
                                 <input type="text" class="form-control" v-model="course.objetivesClass"/>
                                 </div>
 
-                            <div class="row">                                        
-                                <label><span class="required">*</span>Fecha Inicio de Clase:</label>                
+                            <div class="row">
+                                <label>Posible fecha de Clase:</label>
                                 <input type="datetime-local" class="form-control" v-model="course.date_init_class" />
                                 <input type="hidden" id="timezone" name="timezone" value="-05:00">
                             </div>
-                            <div class="row">                                        
-                                <label><span class="required">*</span>Link de Clase</label>
-                                <input type="text-local" class="form-control" v-model="course.url_class" />                                          
+                            <div class="row">
+                                <label>Link de Clase</label>
+                                <input type="text-local" class="form-control" v-model="course.url_class" />
                             </div>
 
-                            <div class="col-12">                                                                    
+                            <div class="col-12">
                                 <label for="work">
                                     Tarea
                                 </label>
                                 <textarea class="form-control" v-model="course.work" name="work" id="work"></textarea>
                             </div>
-                            <div class="col-12">
+                            <!-- <div class="col-12">
                                 <label for="transversals">
                                     Habilidades Transversales
                                 </label>
                                 <textarea class="form-control" v-model="course.transversals" name="transversals" id="transversals"></textarea>
-                            </div>
-
-                            <div class="row">
+                            </div> -->
+                            <!-- Se agrega un display:none para ocultar los elementos relacionados con los estudiantes PIAR ya que se desarrollo la funcionalidad pero luego se pidio eliminar pero solo se oculto y en caso de necesitarlo de nuevo en el futuro ya tener la funcionalidad lista -->
+                            <!-- Los estudiantes PIAR se usa para crear una planificacion o una clase para estudiantes con dificultades de aprendizaje -->
+                            <div class="row" style="display:none">
                                 <div class="col-12">
                                     <label><span class="required">*</span>Actividad Para :</label>
                                     <div>
                                         <input type="checkbox" id="students" name="students" v-model="activityForAllStudents">
                                         <label for="piar"> Todos los Estudiantes</label>
                                     </div>
-                                    
+
                                     <div>
                                         <input type="checkbox" id="piar" name="students" v-model="activityForPIARStudents">
                                         <label for="piar"> Estudiantes PIAR</label><br>
-                                        
+
                                         <input type="checkbox" id="specific" name="students" v-model="activityForSelectStudents">
-                                        <label for="specific"> Estudiantes en Especifico</label>                                        
+                                        <label for="specific"> Estudiantes en Especifico</label>
                                     </div>
-                                    
+
                                     <div v-if="activityForPIARStudents == true || activityForSelectStudents == true">
                                         <label>Selecciona Los estudiantes</label>
                                         <multiselect v-model="saveStudent" :options="selectedStudentsData" :multiple="true"
@@ -88,10 +87,10 @@
                                                     </span>
                                                 </template>
                                         </multiselect>
-                                    </div>                                      
+                                    </div>
                                 </div>
                             </div>
-                            
+
                             <div class="row justify-content-center">
                                   <div class="col-5 div-resource" v-for="(item_content,key_c) in course.content" v-bind:key="key_c">
 
@@ -176,10 +175,10 @@
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-8">
-                                                        <label><span class="required">*</span>Logro:</label>
+                                                        <label><span class="required">*</span>Programa:</label>
                                                          <select class="form-control" v-model="activity.quarterly_plan" v-bind:readonly="course.state==2" @change="indicador(activity.quarterly_plan, key_a)">
                                                             <option value="">-- Seleccione --</option>
-                                                            <option v-for="(quarterly,k_quarterly) in activity.fillC" v-bind:key="k_quarterly" :value="quarterly.id + '/' + quarterly.id_achievement">{{quarterly.logro}}</option>
+                                                            <option v-for="(quarterly,k_quarterly) in activity.fillC" v-bind:key="k_quarterly" :value="0 + '/' + quarterly.id">{{quarterly.achievement}}</option>
                                                         </select>
                                                     </div>
                                                     <div class="col-4">
@@ -200,7 +199,7 @@
                                                     <div class="col-6">
                                                         <label><span class="required">*</span>Fecha retroalimentación:</label>
                                                         <input type="datetime-local" class="form-control" v-model="activity.feedback_date" />
-                                                    </div>                                                    
+                                                    </div>
                                                 </div>
                                                 <activity-questionary v-if="activity.activity_type=='CUESTIONARIO'" v-bind:module="activity.module" v-bind:disabled="course.state==2"></activity-questionary>
                                                 <activity-complete-sentence v-if="activity.activity_type=='COMPLETAR_ORACION'" v-bind:module="activity.module" v-bind:disabled="course.state==2"></activity-complete-sentence>
@@ -258,13 +257,13 @@ import "vue-form-wizard/dist/vue-form-wizard.min.css";
 import moment from "moment";
 Vue.use(VueFormWizard);
 export default {
-    props: ["id_module", "id_class","cleanCreateClas"],
+    props: ["id_area","id_classroom","id_class","cleanCreateClas"],
     data() {
         return {
             showPreview:false,
             tmp:{},
             is_loading:false,
-            weekly_plan:{},
+            nameClassroom:{},
             errors: [],
             selectedStudentsData:[],
             studentsOptions:[],
@@ -276,6 +275,7 @@ export default {
             work: "",
             transversals:"",
             objetivesClass:"",
+            eventIdClass: "",
             course:{
                 content:[
                     {
@@ -294,6 +294,8 @@ export default {
                         description:''
                     }
                 ],
+                url_class:'',
+                date_init_class:"",
                 objetivesClass: "",
                 work: "",
                 transversals:"",
@@ -306,7 +308,7 @@ export default {
             classroom_id: '',
             area_id: '',
             custom_editor_toolbar_justify:[["bold", "italic", "underline"], [{ list: "ordered" }, { list: "bullet" }],["image"]],
-            piarStudents:[], 
+            piarStudents:[],
             fillC:[],
         };
     },
@@ -322,7 +324,7 @@ export default {
                 this.course.activityForSelectStudents = 0;
                 this.course.activityForAllStudents = 1;
                 this.course.selectedStudents = "[]"
-                
+
                 this.activityForPIARStudents = false;
                 this.activityForSelectStudents = false;
                 this.saveStudent = []
@@ -354,7 +356,7 @@ export default {
                 this.selectedStudentsData = this.studentsOptions;
             }
         },
-        
+
         saveStudent: function(newVal){
             if(this.activityForAllStudents == false && this.activityForPIARStudents == true || this.activityForSelectStudents == true && newVal){
                 this.course.selectedStudents = JSON.stringify(this.saveStudent);
@@ -379,40 +381,18 @@ export default {
             }
         }
     },
-    mounted() {        
+    mounted() {
         this.activityForAllStudents = true;
-        axios.get(`/showClass/${this.id_module}`).then((response) => {
-            console.log('showClass: ',response.data);
-            this.achievements=response.data.achievements;            
-            this.nameArea = response.data.user_type === 7 ? response.data.area.name :`${response.data.area.name} ${response.data.classroom.name}`;
-            this.area_id = response.data.area.id;
-            this.classroom_id = response.data.classroom.id;
-            this.getDataPlanification();
-            axios.get(`/PIARStudentsByArea/${response.data.area.id}/${response.data.classroom.id}`).then((response)=>{
-                this.piarStudents = Object.values(response.data);
-            }).catch((error)=>{
-                console.log(error)
-            });
 
-            axios.get(`/StudentsByArea/${response.data.area.id}/${response.data.classroom.id}`).then((response)=>{
-                let data = response.data;
-                data.forEach((e)=>{
-                    this.studentsOptions.push({
-                        id: e.id_student,
-                        text: e.name
-                    })
-                });                
-            })
+        axios.get(`/nameClassroom/${this.id_classroom}`).then((response) => {
+            this.nameClassroom={name:response.data};
         });
-        axios.get(`/GetNameWeekly/${this.id_module}`).then((response) => {
-            this.weekly_plan={name:response.data};
-        });
-        
+
         if(this.id_class !== 0)
         {
-            axios.get(`/api/teacher/module/${this.id_module}/class/${this.id_class}`).then((response) => {
+            axios.get(`/api/teacher/module/${this.id_classroom}/class/${this.id_class}`).then((response) => {
                     this.course=response.data;
-                    let activities = response.data.activities;                    
+                    let activities = response.data.activities;
                     this.course.activities=[];
                     activities.forEach((e, i)=>{
                         this.course.activities.push({
@@ -444,7 +424,7 @@ export default {
                     this.activityForSelectStudents = this.course.activityForSelectStudents
                     this.activityForAllStudents = this.course.activityForAllStudents
                     this.saveStudent = JSON.parse(this.course.selectedStudents);
-                
+
                 if(this.course.content.length==0)
                     {
                         this.course.content=[
@@ -477,13 +457,13 @@ export default {
                         });
                     }
 
-                    if(this.course)
+                    if(this.course.date_init_class !== '')
                     {
                         this.course.date_init_class =this.course.date_init_class.replace(" ","T");
                     }
             });
         }
-       
+
     },
     methods: {
         returnPage() {
@@ -498,10 +478,11 @@ export default {
             });
         },
         getDataPlanification(position){
-            var urlsel = window.location.origin + "/coursePlanification/" + this.area_id + "/" + this.classroom_id;            
+            var urlsel = window.location.origin + "/coursePlanification/" + this.id_area+ "/" + this.id_classroom;
             axios.get(urlsel).then((response) => {
                 // if(this.id_class!=0){
-                    this.course.activities[this.course.activities.length - 1].fillC=response.data.quaterly;
+                    this.course.activities[this.course.activities.length - 1].fillC=response.data.achievements;
+                    console.log(response.data);
                 //     this.course.activities[position].fillC=response.data.quaterly;
                 // }else{
                 //     this.course.activities[this.course.activities.length - 1].fillC=response.data.quaterly;
@@ -530,15 +511,24 @@ export default {
             });
         },
 
-        SaveDataEvent(){            
-            axios.put(`/api/teacher/module/${this.id_module}/class`,this.course).then((response) => {
-               toastr.success("Clases actualizadas correctamente");                
-            },(error)=>{console.log(error);toastr.error("ERROR:Por favor valide que la información esta completa");});
-                  
-            if(this.id_class==0){
+        SaveDataEvent(){
+            axios.put(`/api/teacher/module/${this.id_classroom}/class`,this.course).then((response) => {
+               this.eventIdClass = response.data;
+               console.log('id_class1', this.eventIdClass);
+               toastr.success("Clases actualizadas correctamente");
+               this.createEvent();
+               this.returnPage();
+            },
+                (error)=>{console.log(error);
+                toastr.error("ERROR:Por favor valide que la información esta completa");
+            });
+        },
+        createEvent(){
+            if(this.id_class==0 && this.course.date_init_class !== ''){
+                console.log('id_class2', this.eventIdClass);
                 var initD= new Date(this.course.date_init_class);
-                var initDateSave = moment(initD).format("YYYY-MM-DD H:mm:ss");
-                var end=moment(initDateSave).add(2, 'hours').format("YYYY-MM-DD H:mm:ss");
+                var initDateSave = moment(initD).format("YYYY-MM-DD HH:mm:ss");
+                var end=moment(initDateSave).add(2, 'hours').format("YYYY-MM-DD HH:mm:ss");
                 var url = "/createEvent";
                     axios
                         .post(url, {
@@ -546,14 +536,14 @@ export default {
                         name: this.course.name,
                         startDateTime: initDateSave,
                         endDateTime: end,
-                        id_area: this.area_id,
-                        id_classroom: this.classroom_id,
+                        id_area: this.id_area,
+                        id_classroom: this.id_classroom,
+                        id_class: this.eventIdClass,
                         url: this.course.url_class,
                         id_padre: null,
                         })
                         .then((response) => {
-                        toastr.success("Nuevo evento creado exitosamente");
-                        this.returnPage();
+                            toastr.success("Nuevo evento creado exitosamente");
                         })
                         .catch((error) => {});
             }
@@ -665,8 +655,9 @@ export default {
         },
         indicador(id, position) {
             if (id!=''){
+                console.log(id);
                 var ids=id.split("/");
-                var idInd= ids[0];
+                var idInd= ids[1];
                 var urli = window.location.origin + "/getIndicator/" + idInd;
 
                 axios.get(urli).then((response) => {

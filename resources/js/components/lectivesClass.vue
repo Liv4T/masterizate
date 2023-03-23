@@ -323,57 +323,48 @@ export default {
                 this.course.activityForSelectStudents = 0;
                 this.course.activityForAllStudents = 1;
                 this.course.selectedStudents = "[]"
-
                 this.activityForPIARStudents = false;
                 this.activityForSelectStudents = false;
                 this.saveStudent = []
             }
         },
-
         activityForPIARStudents: function(newVal){
             if(newVal == true){
                 this.course.activityForPIARStudents = 1;
                 this.course.activityForSelectStudents = 0;
                 this.course.activityForAllStudents = 0;
                 this.course.selectedStudents = JSON.stringify(this.saveStudent);
-
                 this.activityForAllStudents = false;
                 this.activityForSelectStudents = false;
                 this.selectedStudentsData = this.piarStudents;
             }
         },
-
         activityForSelectStudents: function(newVal){
             if(newVal == true){
                 this.course.activityForPIARStudents = 0;
                 this.course.activityForSelectStudents = 1;
                 this.course.activityForAllStudents = 0;
                 this.course.selectedStudents = JSON.stringify(this.saveStudent);
-
                 this.activityForPIARStudents = false;
                 this.activityForAllStudents = false;
                 this.selectedStudentsData = this.studentsOptions;
             }
         },
-
         saveStudent: function(newVal){
             if(this.activityForAllStudents == false && this.activityForPIARStudents == true || this.activityForSelectStudents == true && newVal){
                 this.course.selectedStudents = JSON.stringify(this.saveStudent);
             }
         },
-
         work: function(newVal){
             if(newVal){
                 this.course.work = this.work;
             }
         },
-
         transversals: function(newVal){
             if(newVal){
                 this.course.transversals = this.transversals;
             }
         },
-
         objetivesClass:function(newVal){
             if(newVal){
                 this.course.objetivesClass = this.objetivesClass;
@@ -391,13 +382,11 @@ export default {
                 //this.getDataPlanification();
                 if (response.data.area)
                     this.nameArea = response.data.user_type === 7 ? response.data.area.name :`${response.data.area.name}`;
-
                /*  axios.get(`/PIARStudentsByArea/${response.data.area.id}/${response.data.classroom.id}`).then((response)=>{
                 this.piarStudents = Object.values(response.data);
                 }).catch((error)=>{
                     console.log(error)
                 });
-
                 axios.get(`/StudentsByArea/${response.data.area.id}/${response.data.classroom.id}`).then((response)=>{
                     let data = response.data;
                     data.forEach((e)=>{
@@ -408,7 +397,6 @@ export default {
                     });
                 }) */
             });
-
             axios.get(`/getNameLectiveWeekly/${this.id_weekly_plan}`).then((response) => {
                 this.weekly_plan={name:response.data};
             });
@@ -442,12 +430,10 @@ export default {
                     this.work = response.data.work;
                     this.transversals = response.data.transversals;
                     this.objetivesClass = response.data.objetivesClass;
-
                     this.activityForPIARStudents = this.course.activityForPIARStudents
                     this.activityForSelectStudents = this.course.activityForSelectStudents
                     this.activityForAllStudents = this.course.activityForAllStudents
                     this.saveStudent = JSON.parse(this.course.selectedStudents);
-
                 if(this.course.content.length==0)
                     {
                         this.course.content=[
@@ -468,7 +454,6 @@ export default {
                                 }
                             ];
                     }
-
                     if(this.course.activities.length>0)
                     {
                         this.course.activities.forEach(act=>{
@@ -477,14 +462,12 @@ export default {
                             //this.GetIndicatorsEvent(act);
                         });
                     }
-
                     if(this.course)
                     {
                         this.course.date_init_class =this.course.date_init_class.replace(" ","T");
                     }
             });
         }
-
     },
     methods: {
         returnPage() {
@@ -529,13 +512,11 @@ export default {
                 fillI:[], */
             });
         },
-
         SaveDataEvent(){
             axios.put(`/api/lectives/${this.id_weekly_plan}/class`,this.course).then((response) => {
                toastr.success("Clases actualizadas correctamente");
                this.cleanCreateClas();
             },(error)=>{console.log(error);toastr.error("ERROR:Por favor valide que la información esta completa");});
-
             /* if(this.id_class==0){
                 var initD= new Date(this.course.date_init_class);
                 var initDateSave = moment(initD).format("YYYY-MM-DD H:mm:ss");
@@ -560,7 +541,6 @@ export default {
             } */
         },
         selectActivityType(index_activity,activity){
-
             switch(activity.activity_type)
             {
                 case 'CUESTIONARIO':
@@ -596,7 +576,6 @@ export default {
         onFileChange(file,item_index) {
             console.log(item_index);
             this.is_loading=true;
-
             let files = file.target.files || file.dataTransfer.files;
             let data = new FormData();
             if (files.length > 0) {
@@ -622,7 +601,6 @@ export default {
             }else{
                 this.stopLooading(item_index);
             }
-
         },
         initLoading(item_index,percent)
         {
@@ -644,7 +622,6 @@ export default {
                     this.course.content[item_index].progress_bar_percent=0;
                       this.is_loading=false;
             },500);
-
         },
         /* GetIndicatorsEvent(activity)
         {
@@ -661,7 +638,6 @@ export default {
                         this.indicators.push(i);
                     }
                 })
-
             }).catch(err=>{console.log(err);});
         }, */
         /* indicador(id, position) {
@@ -669,7 +645,6 @@ export default {
                 var ids=id.split("/");
                 var idInd= ids[0];
                 var urli = window.location.origin + "/getIndicator/" + idInd;
-
                 axios.get(urli).then((response) => {
                     this.course.activities[position].fillI=response.data;
                 });
@@ -697,7 +672,6 @@ export default {
     justify-content:space-around;
     padding:10px;
 }
-
 .div-weekly-plan label{
     font-size:1.2em;
     font-weight:700;
@@ -719,7 +693,6 @@ export default {
     flex-direction: row;
     justify-content:space-around;
 }
-
 .div-class>.content{
     display: flex;
     flex-direction: row;
@@ -776,7 +749,6 @@ export default {
     padding:50px;
     justify-content:space-between;
     flex-direction:row;
-
 }
 .closed-icon{
     width:100%;
@@ -792,7 +764,6 @@ export default {
 .row{
     margin:10px 0px;
 }
-
 .icon-add:hover{ color:#233d68;background-color:white;border-color:#233d68;}
 .card-title{display:flex;flex-direction:row;justify-content:space-between;}
 .card-title>h5{width:50%;}

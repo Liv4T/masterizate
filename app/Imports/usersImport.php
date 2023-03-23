@@ -22,12 +22,11 @@ class usersImport implements ToModel, WithHeadingRow
             'password' => Hash::make($row['password']),
             'user_name' => $row['user_name'],
             'email' => $row['email'],
-            'type_user' => $row['type_user'],
+            'type_user' => 10,
             'address' => $row['address'],
-            'picture' => $row['picture'],
+            'picture' => 'http://localhost:8000/uploads/images/predeterminado.png',
             'phone' => $row['phone'],
             'id_number' => $row['id_number'],
-
         ]);
     }
 }

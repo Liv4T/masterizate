@@ -8,12 +8,8 @@
                     <span class="classroom-label">{{ nameArea }}</span>
                     <div class="card-body">
                         <div class="text-left">
-
                             <a v-if="cleanIdModule" class="btn btn-primary" v-on:click="cleanIdModule">Regresar</a>
-
                             <a v-else class="btn btn-primary" href="/docente/clases">Regresar</a>
-
-
                             <a class="btn btn-primary" v-on:click="createClass(id_module)">Crear
                                 Clase</a>
                             <a class="btn btn-primary text-right" :href="''"
@@ -161,7 +157,7 @@
                     this.fillS = response.data.clase;
 
                     if (response.data.area && response.data.classroom)
-                        this.nameArea = response.data.user_type === 7 ? response.data.area.name :`${response.data.area.name} ${response.data.classroom.name}`;
+                        this.nameArea = response.data.classroom.name;
 
                     this.id_area = response.data.area.id;
                     this.id_classroom = response.data.classroom.id;

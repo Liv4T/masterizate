@@ -24,6 +24,7 @@ use App\ClassInteraction;
 use App\Classroom;
 use App\ConfigurationParameter;
 use App\User;
+use App\TutorClassroom;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use PhpParser\Node\Stmt\Foreach_;
@@ -76,7 +77,7 @@ class ClassController extends Controller
         // return ;
         $car_class = 0;
         // Saber el id de la siguiente clase
-        $classes = Classs::where('id_weekly_plan', $course->id_weekly_plan)->get();
+        $classes = Classs::where('id_classroom', $course->id_classroom)->get();
         foreach($classes as $index_class => $clas){
             if($clas->id == $id_course){
                 $car_class = $index_class;
@@ -132,6 +133,7 @@ class ClassController extends Controller
             'name'=>$course->name,
             'description'=>$course->description,
             'id_weekly_plan'=>$course->id_weekly_plan,
+            'id_classroom' => $course->id_classroom,
             'hourly_intensity'=>$course->hourly_intensity,
             'content'=>$class_resources,
             'activities'=>[],
@@ -614,7 +616,7 @@ class ClassController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function saveCourse(Request $request,int $id_module)
+    public function saveCourse(Request $request,int $id_classroom)
     {
         $auth = Auth::user();
 
@@ -626,7 +628,6 @@ class ClassController extends Controller
         ]);
 
         $data = $request->all();
-
         $id_course=0;
 
         if(isset($data['id_class']))
@@ -656,7 +657,7 @@ class ClassController extends Controller
                 'name'=>$data['name'],
                 'description'=>$data['description'],
                 'hourly_intensity'=>isset($data['hourly_intensity']) ? $data['hourly_intensity'] : 0,
-                'id_weekly_plan'=>$id_module,
+                'id_classroom'=>$id_classroom,
                 'objetivesClass'=>$data['objetivesClass'],
                 'work' => $data['work'],
                 'transversals' => $data['transversals'],
@@ -892,7 +893,7 @@ class ClassController extends Controller
             }//foreach activities
         }
 
-        return;
+        return $id_course;
 
 
     }
@@ -1001,7 +1002,7 @@ class ClassController extends Controller
         if(isset($week))
         {
             $area=Area::find($week->id_area);
-            $classroom=Classroom::find($week->id_classroom);
+            $classroom=TutorClassroom::find($week->id_classroom);
         }
 
 
@@ -1266,5 +1267,32 @@ class ClassController extends Controller
             $class->save();
             return $class;
         }
+    }
+
+    public function classesByClassroom(String $id_area, String $id_classroom)
+    {
+        $clase = Classs::where('id_classroom', $id_classroom)->where('deleted', 0)->get();
+        $user = Auth::user();
+        $achievements = [];
+        $area = [];
+        $classroom = [];
+        if ($user->isStudent()) {
+            $courses = Courses::where('id_area', $id_area)->where('id_classroom', $id_classroom)->first();
+        } elseif ($user->isTeacher()||$user->isTutor()) {
+            $courses = Courses::where('id_teacher', $user->id)->where('id_area', $id_area)->where('id_classroom', $id_classroom)->first();
+        }
+        if (isset($courses)) {
+            $achievements = CoursesAchievement::where('id_planification', $courses->id)->get();
+        }
+
+
+        $data = [
+            'clase' => $clase,
+            'achievements' => $achievements,
+            'area'=>$id_area,
+            'classroom'=>$id_classroom,
+            'user_type'=>$user->type_user,
+        ];
+        return $data;
     }
 }

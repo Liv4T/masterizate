@@ -120,7 +120,6 @@
         </div>
       </div>
   </div>
-
 </template>
 <script>
 $(".collapse").on("show.bs.collapse", function () {
@@ -139,7 +138,6 @@ export default {
       student_selected:{}
     };
   },
-
   mounted() {
     axios.get("/api/lectives").then((response) => {
       this.planification = response.data;
@@ -157,7 +155,6 @@ export default {
     addUsersEvent()
     {
         let selected_students=this.students_finded.filter(p=>p.selected==1);
-
         axios.put(`/api/lectives/planification/${this.id_lective_planification}/student`,selected_students).then((response) => {
                 $("#addUserModal").modal("hide");
                 this.getPlanificationEvent(this.id_lective_planification);
@@ -166,7 +163,6 @@ export default {
     },
     removeUsersEvent()
     {
-
         axios.delete(`/api/lectives/planification/${this.id_lective_planification}/student/${this.student_selected.id_user}`).then((response) => {
                 $("#removeUserModal").modal("hide");
                 this.student_selected={};

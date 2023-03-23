@@ -277,7 +277,6 @@ export default {
         },
         RegisterValidForm()
         {
-            console.log('entramos a validar form');
             let password_confirm=this.registerForm.password == this.registerForm.password_confirm;
             let mailValid=this.validEmail(this.registerForm.email);
             let cellphoneValid=this.validCellphone(this.registerForm.cellphone);
@@ -296,7 +295,6 @@ export default {
         {
             this.events.register_loading=true;
             var url = "/users_save";
-            console.log('entramos a registrar');
             axios
         .post(url, {
           name: this.registerForm.names,
@@ -327,7 +325,7 @@ export default {
                     toastr.error("Se presento un error al procesar su solicitud. Por favor intente más tarde.");
                 }
                 else if(error.response.data.message.includes('1062 Duplicate entry')){
-                    toastr.error("Usuario ya se encuentra registrado en el sistema, por valide su información.");
+                    toastr.error("Usuario ya se encuentra registrado en el sistema, ingrese otro nombre de usuario...");
                 }
                 else if(error.response.data.message){
                     toastr.error(error.response.data.message);
@@ -345,13 +343,12 @@ export default {
             return re.test(cellphone) && cellphone.length==10;
         },
         navigateToResumen()
-        {   
+        {
             var urlLocation= decodeURI(window.location);
             let splitUrl=urlLocation.split("/");
             let last=atob(splitUrl[splitUrl.length-1]);
             let model=JSON.parse(last);
-            console.log(model.plan_name);
-            location.href=`/compra/plan/${model.plan_name}/${model.code}/resumen`;
+            location.href=`/compra/plan/${model.plan_name}/${model.payment_currency}/${model.code}/resumen`;
         }
 
 

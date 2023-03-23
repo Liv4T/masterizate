@@ -3,7 +3,7 @@
     <div>
       <nav class="navbar navbar-expand-md navbar-light">
         <ul class="navbar-nav mr-sm-6 justify-content-start flex-nav">
-          <li class="margin-logo">
+          <li class="margin-logo-m">
             <img class="" thumbnail fluid src="../assets/img/logo-skills.png" alt="4" />
           </li>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContentMenu" aria-controls="navbarContentMenu" aria-expanded="false" aria-label="Toggle navigation">
@@ -56,7 +56,7 @@
     </div>
     <div class="phone">
       <div class="col" style="padding: 0; margin: 0">
-        <a href="#"><img class="fondo1" src="../assets/img/s1.png" alt="unete" /></a>
+        <a href="#"><img class="fondo1" src="../assets/img/c1.png" alt="unete" /></a>
       </div>
       <div class="col" style="padding: 0; margin: 0" id="queEs">
         <a href="#"><img class="fondo1" src="../assets/img/c2.png" alt="unete" /></a>
@@ -68,16 +68,15 @@
         <a href="#"><img class="fondo1" src="../assets/img/c4.png" alt="unete" /></a>
       </div>
       <div class="col" style="padding: 0; margin: 0">
+        <a href="#contactanos"><img class="fondo1" src="../assets/img/c5.png" alt="unete" style="height:540px"></a>
+        <a href="/tutorRegister"><img class="boton-plan-docente" src="../assets/img/plans.1.png"></a>
+        <a href="javascript:void(0)" @click="showModal('PLAN_MENSUAL')"><img class="boton-plan-mensual" src="../assets/img/plans.2.png"></a>
+        <a href="javascript:void(0)" @click="showModal('PLAN_ANUAL')"><img class="boton-plan-anual" src="../assets/img/plans.3.png"></a>
+      </div>
+      <div class="col" style="padding: 0; margin: 0">
         <a href="#"><img class="fondo1" src="../assets/img/c6.png" alt="unete" /></a>
       </div>
-      <div class="col" style="padding: 0; margin: 0">
-        <a href="#"><img class="fondo1" src="../assets/img/planc.png" alt="unete" /></a>
-      </div>
-      <div class="col" style="padding: 0; margin: 0">
-        <a href="#"><img class="fondo1" src="../assets/img/s6.png" alt="unete" /></a>
-      </div>
     </div>
-
     <div class="row centrado fondo-gris-form">
       <div class="col-lg-6">
         <div class="text-center margin-b">
@@ -85,11 +84,11 @@
           <p class="line-yellow-form2"></p>
         </div>
         <div class="text-center margin-b">
-          <label class="text-correo">inscripciones@liv4t.com</label>
+          <label class="text-correo">info@masterizate.com</label>
         </div>
         <div class="text-center margin-b">
-          <a href="https://www.facebook.com/liv4tskool" target="_blank"><i class="fab fa-facebook" style="font-size: 50px; color: black"></i></a>
-          <a href="https://www.instagram.com/liv4tskool/?hl=es-la" target="_blank"><i class="fab fa-instagram" style="font-size: 50px; color: black"></i></a>
+            <a href="https://www.facebook.com/Master%C3%ADzate-105719331965281" target="_blank"><i class="fab fa-facebook" style="font-size: 50px; color: black;"></i></a>
+            <a href="https://instagram.com/masterizate_?utm_medium=copy_link" target="_blank"><i class="fab fa-instagram" style="font-size: 50px; color: black;"></i></a>
         </div>
       </div>
       <div class="col-lg-6">
@@ -142,8 +141,10 @@
         <div class="col footer-col">
           <p>Únete a nuestra comunidad</p>
         </div>
-        <div class="col footer-col2">Segerencias</div>
-        <div class="col footer-col2">Contactanos</div>
+        <div class="col footer-col2">Enviar sugerencias a soporte@masterizate.com</div>
+        <div class="col footer-col2">
+            <a href="https://wa.me/573204547116?text=Me%20gustaría%20saber%20más%20de%20los%20planes" target="_blank">Contáctanos</a>
+        </div>
       </div>
     </footer>
     <div class="modal fade" id="modalCode" data-backdrop="static" data-keyboard="false">
@@ -155,8 +156,8 @@
                 </button>
             </div>
             <div class="row">
-              <div class="col-lg-12"> 
-                  <img class="img-logo" thumbnail fluid src="images/logo-skills.png" width="225px"></img>
+              <div class="col-lg-12">
+                  <img class="img-logo" thumbnail fluid src="images/logo-skills.png" width="225px">
               </div>
             </div>
             <div class="row fondo-gris-form centrado">
@@ -180,7 +181,6 @@
 </template>
 <script>
 import Vue from "vue";
-
 export default {
   data() {
     return {
@@ -215,7 +215,7 @@ export default {
             this.validate = response.data;
 
             if(this.validate === 0){
-              location.href=`/compra/plan/${this.plan_type}/${this.code}/resumen`;
+              location.href=`/compra/plan/${this.plan_type}/null/${this.code}/resumen`;
             }else{
               toastr.error("Código invalido, por favor ingrese un código valido");
             }
@@ -270,8 +270,8 @@ export default {
   height: 200px !important;
   margin-left: 180px;
 }
-.margin-logo {
-  margin-right: 150px !important;
+.margin-logo-m {
+  margin-right: 40px !important;
 }
 .color-nav {
   color: black;
@@ -297,7 +297,7 @@ export default {
     position: absolute;
     height: 400px !important;
     z-index: 2;
-    left: 545px;
+    left: 150px;
     top: -100px;
 }
 .boton-plan-mensual{
@@ -467,6 +467,7 @@ export default {
   left: 35%;
   font-size: 40px;
   width: 60%;
+  height: auto;
   padding: 0;
   margin: 0;
   border: 0;
@@ -481,7 +482,7 @@ export default {
   font-family: Nunito;
 }
 .btn-form2 {
-  font-size: 25px;
+  font-size: 22px;
   padding: 0px 8px 0px 8px !important;
   letter-spacing: 0.11em;
   border-radius: 10px;
@@ -581,7 +582,7 @@ export default {
   .flex-nav {
     flex-direction: row !important;
   }
-  .margin-logo {
+  .margin-logo-m {
     margin-right: 0 !important;
   }
   .fondo1 {
@@ -592,6 +593,7 @@ export default {
     position: relative;
     margin-top: 20px;
     margin-bottom: 1rem;
+    z-index: 1;
   }
   .fondo2 {
     background-image: url("../assets/img/home2.png");
@@ -814,5 +816,29 @@ export default {
 
     color: white !important;
   }
+  .boton-plan-mensual{
+    background-repeat: no-repeat;
+    position: absolute;
+    height: 200px !important;
+    z-index: 2;
+    left: 100px;
+    top: 375px;
+ }
+ .boton-plan-anual{
+    background-repeat: no-repeat;
+    position: absolute;
+    height: 200px !important;
+    z-index: 2;
+    left: 250px;
+    top: 375px;
+ }
+ .boton-plan-docente{
+    background-repeat: no-repeat;
+    position: absolute;
+    height: 200px !important;
+    z-index: 2;
+    left: 172px;
+    top: 130px;
+ }
 }
 </style>
