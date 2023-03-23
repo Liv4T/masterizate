@@ -79,7 +79,7 @@ src="https://www.facebook.com/tr?id=982962035622248&ev=PageView
 <meta name="facebook-domain-verification" content="td191lrmnf24bufy5aogmpe5svo0pl" />
 
   </head>
-  <body>
+  <body class="color-body">
 
     <div id="app">
         <!-- Google Tag Manager (noscript) -->
@@ -149,6 +149,9 @@ src="https://www.facebook.com/tr?id=982962035622248&ev=PageView
   </body>
 </html>
 <style>
+.color-body{
+    background-color: rgba(2, 106, 106, 0.86);
+}
 .navbar{
     position: -webkit-sticky;
     position: sticky;
