@@ -11,8 +11,8 @@
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var vue_simple_drawer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue-simple-drawer */ "./node_modules/vue-simple-drawer/dist/vue-simple-drawer.umd.min.js");
-/* harmony import */ var vue_simple_drawer__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(vue_simple_drawer__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var vue_simple_drawer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-simple-drawer */ "./node_modules/vue-simple-drawer/dist/vue-simple-drawer.umd.min.js");
+/* harmony import */ var vue_simple_drawer__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue_simple_drawer__WEBPACK_IMPORTED_MODULE_1__);
 //
 //
 //
@@ -106,7 +106,7 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   components: {
-    Drawer: vue_simple_drawer__WEBPACK_IMPORTED_MODULE_2___default.a
+    Drawer: vue_simple_drawer__WEBPACK_IMPORTED_MODULE_1___default.a
   },
   mounted: function mounted() {
     this.getCodes();

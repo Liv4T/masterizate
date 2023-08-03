@@ -338,9 +338,18 @@ Route::middleware('auth')->get('/asistencia', function () {
 Route::middleware('auth')->get('/matricula', function () {
     return view('matricula');
 });
+Route::get('/canada', function () {
+    return view('landingCanada');
+});
+Route::get('/canadaHigh', function () {
+    return view('landingCanadaHigh');
+});
 /* Route::get('/skills', function () {
     return view('homeSkills');
 }); */
+
+############################# Rutas del backend ######################################################
+
 Route::get('/compra/plan/{plan_type}/skills/ingresar/p/{payment_code}', function (string $plan_type,  String $payment_code) {
     return view('purchaseLogin')->with('plan_type', $plan_type)->with('payment_code', $payment_code);
 });

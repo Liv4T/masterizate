@@ -394,6 +394,10 @@ Vue.component("contract-data", () => import("./components/ContractDataComponent.
 Vue.component("contract-view", () => import ("./components/ContractViewComponent.vue"));
 //VueTour Configuration
 Vue.component("tour-configuration",()=>import("./components/vueTourConfiguration.vue"));
+//Landing canada
+Vue.component("landing-canada", () => import("./components/landingCanadaComponent.vue"));
+Vue.component("landing-canada-high", () => import("./components/landingCanadaHighComponent.vue"));
+Vue.component("modal-canada", () => import("./components/modalPopupCanada.vue"));
 
 Vue.use(CKEditor);
 

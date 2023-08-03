@@ -276,9 +276,9 @@ var render = function() {
                           { key: key, domProps: { value: insti.id } },
                           [
                             _vm._v(
-                              "\n                                    " +
+                              "\r\n                                    " +
                                 _vm._s(insti.name) +
-                                "\n                                "
+                                "\r\n                                "
                             )
                           ]
                         )

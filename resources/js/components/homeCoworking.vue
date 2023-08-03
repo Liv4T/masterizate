@@ -285,6 +285,21 @@
       <div>
         <a href="https://wa.me/573165268709?text=Me%20gustaría%20saber%20más%20de%20los%20planes" class="whatsapp" target="_blank"> <i class="fa fa-whatsapp whatsapp-icon"></i></a>
       </div>
+      <div class="modal fade bd-example-modal-lg" id="modalpopup"  tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="max-width: 800px;">
+            <div class="modal-content fondo-modal">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <img thumbnail fluid src="../assets/img/popup-canada.png">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <a class="btn btn-danger" data-dismiss="modal" aria-label="Close" style="color:white">Cerrar</a>
+                    <a :href='"/canadaHigh"' class="btn btn-suscription">Conoce más</a>
+                </div>
+            </div>
+            </div>
+        </div>
     </div>
   </template>
   <script>
@@ -293,8 +308,15 @@
     data() {
       return {};
     },
+    mounted() {
+        this.callModal();
+    },
     computed: {},
-    methods: {},
+    methods: {
+        callModal(){
+            $("#modalpopup").modal("show");
+        }
+    },
   };
   </script>
   <style>
@@ -415,6 +437,16 @@
     width: 250px;
     height: 500px;
     border-radius: 10%;
+  }
+  .btn-suscription{
+    background-color: rgb(2, 4, 79);
+    color: white;
+    font-weight: 800;
+  }
+  .btn-suscription:hover{
+    background-color: rgb(2, 4, 79);
+    color: #c9c9c9;
+    font-weight: 800;
   }
   @media (max-width: 600px) {
     .desktop {
