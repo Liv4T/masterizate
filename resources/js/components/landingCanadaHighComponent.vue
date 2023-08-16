@@ -10,14 +10,11 @@
         </div>
         <div class="phone">
             <div class="img-canada">
-                <a href=""><img src="../assets/img/landing-canada-high-phone.jpeg" alt="Estuia_canada"></a>
+                <a href=""><img src="../assets/img/landing-canada-high-phone.png" alt="Estuia_canada"></a>
             </div>
-            <!-- <div class="boton-conoce-mas" style="padding: 0; margin: 0">
-                <a href="https://wa.me/57317575606?text=Me%20gustaría%20saber%20más%20sobre%20Canada" class="btn btn-conoce-mas" target="_blank">Conoce más</a>
-            </div> -->
         </div>
         <div>
-            <a href="https://wa.me/57317575606?text=Me%20gustaría%20saber%20más%20sobre%20Canada" class="whatsapp" target="_blank"> <i class="fa fa-whatsapp whatsapp-icon"></i></a>
+            <a href="https://wa.me/573160256058?text=Me%20gustaría%20saber%20más%20sobre%20Canadá" class="whatsapp" target="_blank"> <i class="fa fa-whatsapp whatsapp-icon"></i></a>
       </div>
     </div>
 </template>

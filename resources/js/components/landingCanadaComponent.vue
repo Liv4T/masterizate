@@ -4,20 +4,14 @@
             <div class="row img-canada">
                 <a href=""><img src="../assets/img/landing-canada-idiomas.png" alt="Estuia_canada"></a>
             </div>
-            <div class="boton-conoce-mas" style="padding: 0; margin: 0">
-                <a href="https://wa.me/57317575606?text=Me%20gustaría%aprender%20Ingles%20o%20Frances%20en%20Canada" class="btn btn-conoce-mas" target="_blank">Conoce más</a>
-            </div>
         </div>
         <div class="phone">
             <div class="img-canada">
-                <a href=""><img src="../assets/img/landing-canada-idiomas-phone.jpeg" alt="Estuia_canada"></a>
+                <a href=""><img src="../assets/img/landing-canada-idiomas-phone.png" alt="Estuia_canada"></a>
             </div>
-            <!-- <div class="boton-conoce-mas" style="padding: 0; margin: 0">
-                <a href="https://wa.me/57317575606?text=Me%20gustaría%aprender%20Ingles%20o%20Frances%20en%20Canada" class="btn btn-conoce-mas" target="_blank">Conoce más</a>
-            </div> -->
         </div>
         <div>
-            <a href="https://wa.me/57317575606?text=Me%20gustaría%aprender%20Ingles%20o%20Frances%20en%20Canada" class="whatsapp" target="_blank"> <i class="fa fa-whatsapp whatsapp-icon"></i></a>
+            <a href="https://wa.me/573160256058?text=Me%20gustaría%aprender%20Ingles%20o%20Frances%20en%20Canadá" class="whatsapp" target="_blank"> <i class="fa fa-whatsapp whatsapp-icon"></i></a>
       </div>
     </div>
 </template>
