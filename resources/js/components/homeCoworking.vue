@@ -294,8 +294,9 @@
                     </div>
                 </div>
                 <div class="modal-footer">
+                    <a :href='"/canada"' class="btn btn-suscription">Aprende idiomas en Canadá</a>
+                    <a :href='"/canadaHigh"' class="btn btn-suscription">High School</a>
                     <a class="btn btn-danger" data-dismiss="modal" aria-label="Close" style="color:white">Cerrar</a>
-                    <a :href='"/canadaHigh"' class="btn btn-suscription">Conoce más</a>
                 </div>
             </div>
             </div>

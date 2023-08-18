@@ -4,9 +4,6 @@
             <div class="row img-canada">
                 <a href=""><img src="../assets/img/landing-canada-high.png" alt="Estuia_canada"></a>
             </div>
-            <div class="boton-conoce-mas" style="padding: 0; margin: 0">
-                <a href="https://wa.me/57317575606?text=Me%20gustaría%20saber%20más%20sobre%20Canada" class="btn btn-conoce-mas" target="_blank">Conoce más</a>
-            </div>
         </div>
         <div class="phone">
             <div class="img-canada">
