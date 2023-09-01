@@ -15,6 +15,8 @@ use App\CoursesAchievement;
 use App\Classroom;
 use App\ClassroomStudent;
 use App\ClassroomTeacher;
+use App\TutorClassroom;
+use App\TutorClassroomTeacher;
 use App\Classs;
 use App\Indicator;
 use App\LectiveWeeklyPlan;

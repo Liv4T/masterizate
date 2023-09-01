@@ -1,6 +1,25 @@
 <template>
     <div>
         <div class="desktop">
+            <div class="row">
+                <div class="col-lg-12" style="padding: 30px 45px 20px 45px">
+                    <vue-flux
+                        :images="images"
+                        :options="options"
+                        :transitions="transitions">
+                        <template v-slot:preloader>
+                            <flux-preloader />
+                        </template>
+                        <!-- <template v-slot:controls>
+                            <flux-controls />
+                        </template> -->
+                        <template v-slot:pagination>
+                            <flux-pagination />
+                        </template>
+                    </vue-flux>
+                    <!-- <a href="#" style="padding: 6px;"><img src="../assets/img/danza_masterizate.png" alt="unete"></a> -->
+                </div>
+            </div>
             <div class="row fondo-1" style="padding: 0; margin: 0">
                 <div class="col-lg-12 text-right" style="background-color:white;">
                     <h4 class="font-fasthand">Trabaja o estudia en un mejor lugar</h4>
@@ -304,10 +323,48 @@
     </div>
   </template>
   <script>
-  import Vue from "vue";
-  export default {
+    import Vue from "vue";
+    import {
+        VueFlux,
+        FluxImages,
+        FluxCaption,
+        FluxControls,
+        FluxIndex,
+        FluxPagination,
+        FluxPreloader,
+    } from 'vue-flux';
+    export default {
+        components: {
+            VueFlux,
+            FluxImages,
+            FluxCaption,
+            FluxControls,
+            FluxIndex,
+            FluxPagination,
+            FluxPreloader,
+        },
     data() {
-      return {};
+        return {
+            options: {
+                allowFullscreen: false,
+                allowToSkipTransition: false,
+                autohideTime: 2500,
+                autoplay: true,
+                bindKeys: false,
+                delay: 8000,
+                enableGestures: false,
+                infinite: true,
+                lazyLoad: true,
+                lazyLoadAfter: 3,
+                //aspectRatio: '4:5',
+            },
+            images: [
+                '/images/teatro_masterizate_grande.png',
+                '/images/danza_masterizate_grande.png' ],
+            transitions: [
+                'cube',
+            ],
+        };
     },
     mounted() {
         this.callModal();
@@ -448,6 +505,16 @@
     background-color: rgb(2, 4, 79);
     color: #c9c9c9;
     font-weight: 800;
+  }
+  .vue-flux{
+    width: 1280px;
+    height: 960px;
+  }
+  .flux-image{
+    width: 100% !important;
+    height: 960px !important;
+    background-size: 100% 960px !important;
+    background-position: bottom;
   }
   @media (max-width: 600px) {
     .desktop {
