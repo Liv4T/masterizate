@@ -344,6 +344,9 @@ Route::get('/canada', function () {
 Route::get('/canadaHigh', function () {
     return view('landingCanadaHigh');
 });
+Route::get('/theaterLanding', function () {
+    return view('theaterLading');
+});
 /* Route::get('/skills', function () {
     return view('homeSkills');
 }); */

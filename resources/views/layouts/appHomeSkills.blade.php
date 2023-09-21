@@ -96,9 +96,16 @@ src="https://www.facebook.com/tr?id=982962035622248&ev=PageView
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
-
-
-
+                        <li class="nav-item dropdown">
+                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre style="color: white; font-weight:700;">
+                                Alianzas<span class="caret"></span>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="/canada">Canadá Idiomas</a>
+                                <a class="dropdown-item" href="/canadaHigh">Canadá High</a>
+                                <a class="dropdown-item" href="/theaterLanding">Requisitos Teatro</a>
+                            </div>
+                        </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->

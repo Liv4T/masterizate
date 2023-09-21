@@ -398,7 +398,8 @@ Vue.component("tour-configuration",()=>import("./components/vueTourConfiguration
 Vue.component("landing-canada", () => import("./components/landingCanadaComponent.vue"));
 Vue.component("landing-canada-high", () => import("./components/landingCanadaHighComponent.vue"));
 Vue.component("modal-canada", () => import("./components/modalPopupCanada.vue"));
-
+//Landing Theater
+Vue.component("landing-theater", () => import("./components/theaterLandingComponent.vue"));
 Vue.use(CKEditor);
 
 
