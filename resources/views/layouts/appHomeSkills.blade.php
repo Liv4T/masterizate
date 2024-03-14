@@ -102,7 +102,7 @@ src="https://www.facebook.com/tr?id=982962035622248&ev=PageView
                             </a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="/canada">Canadá Idiomas</a>
-                                <a class="dropdown-item" href="/canadaHigh">Canadá High</a>
+                                <a class="dropdown-item" href="/canadaHigh">Canadá High School</a>
                                 <a class="dropdown-item" href="/theaterLanding">Requisitos Teatro</a>
                             </div>
                         </li>
@@ -146,7 +146,7 @@ src="https://www.facebook.com/tr?id=982962035622248&ev=PageView
                     </ul>
                 </div>
         </nav>
-
+        <a href="https://wa.me/573165268709?text=Me%20gustaría%20saber%20más%20de%20masterizate" class="whatsapp" target="_blank"> <i class="fa fa-whatsapp whatsapp-icon"></i></a>
         <main id="content">
             @yield('content')
 
@@ -211,7 +211,25 @@ src="https://www.facebook.com/tr?id=982962035622248&ev=PageView
 .icon-large{
     font-size: 17px;
 }
-
+.whatsapp {
+  position:fixed;
+  width:60px;
+  height:60px;
+  bottom:40px;
+  right:40px;
+  background-color:#25d366;
+  color:#FFF;
+  border-radius:50px;
+  text-align:center;
+  font-size:30px;
+  z-index:100;
+}
+.whatsapp a{
+    color: white;
+}
+.whatsapp-icon {
+  margin-top:13px;
+}
 @media only screen and (max-width: 400px) {
     .navbar-brand img{
         width:150px;
